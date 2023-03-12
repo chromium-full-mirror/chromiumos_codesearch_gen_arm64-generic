@@ -22,7 +22,7 @@ namespace chromeos {
 namespace machine_learning {
 namespace mojom {
 
-static NOINLINE const char* OptionalBoolToStringHelper(OptionalBool value) {
+NOINLINE static const char* OptionalBoolToStringHelper(OptionalBool value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case OptionalBool::kUnknown:
@@ -48,7 +48,7 @@ std::ostream& operator<<(std::ostream& os, OptionalBool value) {
   return os << OptionalBoolToString(value);
 }
 
-static NOINLINE const char* SodaRecognitionModeToStringHelper(SodaRecognitionMode value) {
+NOINLINE static const char* SodaRecognitionModeToStringHelper(SodaRecognitionMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case SodaRecognitionMode::kCaption:
@@ -72,7 +72,7 @@ std::ostream& operator<<(std::ostream& os, SodaRecognitionMode value) {
   return os << SodaRecognitionModeToString(value);
 }
 
-static NOINLINE const char* EndpointerTypeToStringHelper(EndpointerType value) {
+NOINLINE static const char* EndpointerTypeToStringHelper(EndpointerType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case EndpointerType::START_OF_SPEECH:
@@ -100,7 +100,7 @@ std::ostream& operator<<(std::ostream& os, EndpointerType value) {
   return os << EndpointerTypeToString(value);
 }
 
-static NOINLINE const char* EndpointReasonToStringHelper(EndpointReason value) {
+NOINLINE static const char* EndpointReasonToStringHelper(EndpointReason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case EndpointReason::ENDPOINT_UNKNOWN:

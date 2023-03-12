@@ -191,7 +191,6 @@ class SmbFsBootstrap_MountShare_ParamsDataView {
 };
 
 
-
 class SmbFsBootstrap_MountShare_ResponseParamsDataView {
  public:
   SmbFsBootstrap_MountShare_ResponseParamsDataView() = default;
@@ -227,7 +226,6 @@ class SmbFsBootstrap_MountShare_ResponseParamsDataView {
 };
 
 
-
 class SmbFs_RemoveSavedCredentials_ParamsDataView {
  public:
   SmbFs_RemoveSavedCredentials_ParamsDataView() = default;
@@ -241,7 +239,6 @@ class SmbFs_RemoveSavedCredentials_ParamsDataView {
  private:
   internal::SmbFs_RemoveSavedCredentials_Params_Data* data_ = nullptr;
 };
-
 
 
 class SmbFs_RemoveSavedCredentials_ResponseParamsDataView {
@@ -260,7 +257,6 @@ class SmbFs_RemoveSavedCredentials_ResponseParamsDataView {
  private:
   internal::SmbFs_RemoveSavedCredentials_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class SmbFs_DeleteRecursively_ParamsDataView {
@@ -289,7 +285,6 @@ class SmbFs_DeleteRecursively_ParamsDataView {
 };
 
 
-
 class SmbFs_DeleteRecursively_ResponseParamsDataView {
  public:
   SmbFs_DeleteRecursively_ResponseParamsDataView() = default;
@@ -315,7 +310,6 @@ class SmbFs_DeleteRecursively_ResponseParamsDataView {
 };
 
 
-
 class SmbFsDelegate_RequestCredentials_ParamsDataView {
  public:
   SmbFsDelegate_RequestCredentials_ParamsDataView() = default;
@@ -329,7 +323,6 @@ class SmbFsDelegate_RequestCredentials_ParamsDataView {
  private:
   internal::SmbFsDelegate_RequestCredentials_Params_Data* data_ = nullptr;
 };
-
 
 
 class SmbFsDelegate_RequestCredentials_ResponseParamsDataView {
@@ -366,7 +359,6 @@ static_assert(
   internal::SmbFsDelegate_RequestCredentials_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void SmbFsBootstrap_MountShare_ParamsDataView::GetOptionsDataView(
     MountOptionsDataView* output) {

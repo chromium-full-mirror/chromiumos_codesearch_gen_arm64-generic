@@ -83,50 +83,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& extension_ids_value = args[0];
-    {
-      if (!extension_ids_value.is_list()) {
-        return nullptr;
-      }
-      else {
-        if (!json_schema_compiler::util::PopulateArrayFromList(extension_ids_value.GetList(), &params->extension_ids)) {
-          return nullptr;
-        }
-      }
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& data_value = args[1];
-    {
-      auto* temp = data_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->data = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create() {
   base::Value::List create_results;
 
@@ -161,32 +117,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& owner_id_value = args[0];
-    {
-      auto* temp = owner_id_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->owner_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -244,47 +174,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& extension_id_value = args[0];
-    {
-      auto* temp = extension_id_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->extension_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& credentials_value = args[1];
-    {
-      auto* temp = credentials_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->credentials = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;

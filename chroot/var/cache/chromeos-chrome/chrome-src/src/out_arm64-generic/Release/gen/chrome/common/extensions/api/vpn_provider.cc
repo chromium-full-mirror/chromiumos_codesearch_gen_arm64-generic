@@ -324,32 +324,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& name_value = args[0];
-    {
-      auto* temp = name_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->name = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(const std::string& id) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -386,32 +360,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& id_value = args[0];
-    {
-      auto* temp = id_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->id = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -459,33 +407,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& parameters_value = args[0];
-    {
-      if (!parameters_value.is_dict()) {
-        return nullptr;
-      }
-      if (!Parameters::Populate(parameters_value, &params->parameters)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create() {
   base::Value::List create_results;
 
@@ -521,33 +442,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& data_value = args[0];
-    {
-      if (!data_value.is_blob()) {
-        return nullptr;
-      }
-      else {
-        params->data = data_value.GetBlob();
-      }
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -591,35 +485,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& state_value = args[0];
-    {
-      const std::string* vpn_connection_state_as_string = state_value.GetIfString();
-      if (!vpn_connection_state_as_string) {
-        return nullptr;
-      }
-      params->state = ParseVpnConnectionState(*vpn_connection_state_as_string);
-      if (params->state == VPN_CONNECTION_STATE_NONE) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;

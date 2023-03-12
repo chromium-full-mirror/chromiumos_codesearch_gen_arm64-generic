@@ -129,7 +129,6 @@ class RunOrClosePipeMessageParamsDataView {
 };
 
 
-
 class DisconnectReasonDataView {
  public:
   DisconnectReasonDataView() = default;
@@ -157,7 +156,6 @@ class DisconnectReasonDataView {
   internal::DisconnectReason_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class PeerAssociatedEndpointClosedEventDataView {
@@ -199,7 +197,6 @@ static_assert(
 };
 
 
-
 class PauseUntilFlushCompletesDataView {
  public:
   PauseUntilFlushCompletesDataView() = default;
@@ -224,7 +221,6 @@ class PauseUntilFlushCompletesDataView {
 };
 
 
-
 class FlushAsyncDataView {
  public:
   FlushAsyncDataView() = default;
@@ -247,7 +243,6 @@ class FlushAsyncDataView {
   internal::FlushAsync_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class RunOrClosePipeInputDataView {

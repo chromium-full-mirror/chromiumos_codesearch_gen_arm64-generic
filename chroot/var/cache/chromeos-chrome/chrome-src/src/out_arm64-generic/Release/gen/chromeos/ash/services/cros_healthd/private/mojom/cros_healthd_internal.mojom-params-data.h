@@ -172,7 +172,6 @@ class ChromiumDataCollector_GetTouchscreenDevices_ParamsDataView {
 };
 
 
-
 class ChromiumDataCollector_GetTouchscreenDevices_ResponseParamsDataView {
  public:
   ChromiumDataCollector_GetTouchscreenDevices_ResponseParamsDataView() = default;
@@ -199,7 +198,6 @@ class ChromiumDataCollector_GetTouchscreenDevices_ResponseParamsDataView {
 };
 
 
-
 class ChromiumDataCollector_GetTouchpadLibraryName_ParamsDataView {
  public:
   ChromiumDataCollector_GetTouchpadLibraryName_ParamsDataView() = default;
@@ -213,7 +211,6 @@ class ChromiumDataCollector_GetTouchpadLibraryName_ParamsDataView {
  private:
   internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data* data_ = nullptr;
 };
-
 
 
 class ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView {
@@ -242,7 +239,6 @@ class ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView {
 };
 
 
-
 class ChromiumDataCollector_SetPrivacyScreenState_ParamsDataView {
  public:
   ChromiumDataCollector_SetPrivacyScreenState_ParamsDataView() = default;
@@ -259,7 +255,6 @@ class ChromiumDataCollector_SetPrivacyScreenState_ParamsDataView {
  private:
   internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data* data_ = nullptr;
 };
-
 
 
 class ChromiumDataCollector_SetPrivacyScreenState_ResponseParamsDataView {
@@ -280,7 +275,6 @@ class ChromiumDataCollector_SetPrivacyScreenState_ResponseParamsDataView {
 };
 
 
-
 class ChromiumDataCollector_SetAudioOutputMute_ParamsDataView {
  public:
   ChromiumDataCollector_SetAudioOutputMute_ParamsDataView() = default;
@@ -299,7 +293,6 @@ class ChromiumDataCollector_SetAudioOutputMute_ParamsDataView {
 };
 
 
-
 class ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView {
  public:
   ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView() = default;
@@ -316,7 +309,6 @@ class ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView {
  private:
   internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 

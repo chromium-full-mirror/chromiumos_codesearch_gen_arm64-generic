@@ -84,7 +84,6 @@ class IPAddressDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace network
 

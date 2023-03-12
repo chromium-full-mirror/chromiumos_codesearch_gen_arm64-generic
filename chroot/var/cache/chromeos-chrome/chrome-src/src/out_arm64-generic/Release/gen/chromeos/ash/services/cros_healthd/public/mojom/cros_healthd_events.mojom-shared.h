@@ -711,7 +711,6 @@ class UsbEventInfoDataView {
 };
 
 
-
 class ThunderboltEventInfoDataView {
  public:
   ThunderboltEventInfoDataView() = default;
@@ -735,7 +734,6 @@ class ThunderboltEventInfoDataView {
  private:
   internal::ThunderboltEventInfo_Data* data_ = nullptr;
 };
-
 
 
 class LidEventInfoDataView {
@@ -763,7 +761,6 @@ class LidEventInfoDataView {
 };
 
 
-
 class BluetoothEventInfoDataView {
  public:
   BluetoothEventInfoDataView() = default;
@@ -787,7 +784,6 @@ class BluetoothEventInfoDataView {
  private:
   internal::BluetoothEventInfo_Data* data_ = nullptr;
 };
-
 
 
 class PowerEventInfoDataView {
@@ -815,7 +811,6 @@ class PowerEventInfoDataView {
 };
 
 
-
 class AudioEventInfoDataView {
  public:
   AudioEventInfoDataView() = default;
@@ -839,7 +834,6 @@ class AudioEventInfoDataView {
  private:
   internal::AudioEventInfo_Data* data_ = nullptr;
 };
-
 
 
 class AudioJackEventInfoDataView {
@@ -867,7 +861,6 @@ class AudioJackEventInfoDataView {
 };
 
 
-
 class SdCardEventInfoDataView {
  public:
   SdCardEventInfoDataView() = default;
@@ -891,7 +884,6 @@ class SdCardEventInfoDataView {
  private:
   internal::SdCardEventInfo_Data* data_ = nullptr;
 };
-
 
 
 class TouchpadButtonEventDataView {
@@ -920,7 +912,6 @@ class TouchpadButtonEventDataView {
  private:
   internal::TouchpadButtonEvent_Data* data_ = nullptr;
 };
-
 
 
 class TouchPointInfoDataView {
@@ -1008,7 +999,6 @@ static_assert(
 };
 
 
-
 class TouchpadTouchEventDataView {
  public:
   TouchpadTouchEventDataView() = default;
@@ -1033,7 +1023,6 @@ class TouchpadTouchEventDataView {
   internal::TouchpadTouchEvent_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TouchpadConnectedEventDataView {
@@ -1071,7 +1060,6 @@ class TouchpadConnectedEventDataView {
 };
 
 
-
 class HdmiEventInfoDataView {
  public:
   HdmiEventInfoDataView() = default;
@@ -1095,7 +1083,6 @@ class HdmiEventInfoDataView {
  private:
   internal::HdmiEventInfo_Data* data_ = nullptr;
 };
-
 
 
 class TouchscreenTouchEventDataView {
@@ -1124,7 +1111,6 @@ class TouchscreenTouchEventDataView {
 };
 
 
-
 class TouchscreenConnectedEventDataView {
  public:
   TouchscreenConnectedEventDataView() = default;
@@ -1147,7 +1133,6 @@ class TouchscreenConnectedEventDataView {
  private:
   internal::TouchscreenConnectedEvent_Data* data_ = nullptr;
 };
-
 
 
 class StylusGarageEventInfoDataView {
@@ -1173,7 +1158,6 @@ class StylusGarageEventInfoDataView {
  private:
   internal::StylusGarageEventInfo_Data* data_ = nullptr;
 };
-
 
 
 class TouchpadEventInfoDataView {

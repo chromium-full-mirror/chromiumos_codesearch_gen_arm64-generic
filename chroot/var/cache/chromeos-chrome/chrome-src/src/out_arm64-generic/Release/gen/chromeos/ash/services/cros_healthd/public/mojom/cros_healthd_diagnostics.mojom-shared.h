@@ -483,7 +483,6 @@ class RunRoutineResponseDataView {
 };
 
 
-
 class InteractiveRoutineUpdateDataView {
  public:
   InteractiveRoutineUpdateDataView() = default;
@@ -507,7 +506,6 @@ class InteractiveRoutineUpdateDataView {
  private:
   internal::InteractiveRoutineUpdate_Data* data_ = nullptr;
 };
-
 
 
 class NonInteractiveRoutineUpdateDataView {
@@ -546,7 +544,6 @@ class NonInteractiveRoutineUpdateDataView {
 };
 
 
-
 class RoutineUpdateDataView {
  public:
   RoutineUpdateDataView() = default;
@@ -582,7 +579,6 @@ class RoutineUpdateDataView {
   internal::RoutineUpdate_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class RoutineUpdateUnionDataView {

@@ -28,11 +28,12 @@ class InternedGraphicsContext;
 class InternedString;
 class LogMessageBody;
 class Mapping;
+class NetworkPacketContext;
 class ProfiledFrameSymbols;
 class SourceLocation;
 class UnsymbolizedSourceLocation;
 
-class InternedData_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/29, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class InternedData_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/30, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   InternedData_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit InternedData_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -79,6 +80,8 @@ class InternedData_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> kernel_symbols() const { return GetRepeated<::protozero::ConstBytes>(26); }
   bool has_debug_annotation_string_values() const { return at<29>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> debug_annotation_string_values() const { return GetRepeated<::protozero::ConstBytes>(29); }
+  bool has_packet_context() const { return at<30>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> packet_context() const { return GetRepeated<::protozero::ConstBytes>(30); }
 };
 
 class InternedData : public ::protozero::Message {
@@ -106,6 +109,7 @@ class InternedData : public ::protozero::Message {
     kGpuSpecificationsFieldNumber = 24,
     kKernelSymbolsFieldNumber = 26,
     kDebugAnnotationStringValuesFieldNumber = 29,
+    kPacketContextFieldNumber = 30,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.InternedData"; }
 
@@ -548,6 +552,27 @@ class InternedData : public ::protozero::Message {
   static constexpr FieldMetadata_DebugAnnotationStringValues kDebugAnnotationStringValues() { return {}; }
   template <typename T = InternedString> T* add_debug_annotation_string_values() {
     return BeginNestedMessage<T>(29);
+  }
+
+
+  using FieldMetadata_PacketContext =
+    ::protozero::proto_utils::FieldMetadata<
+      30,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      NetworkPacketContext,
+      InternedData>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_PacketContext kPacketContext() { return {}; }
+  template <typename T = NetworkPacketContext> T* add_packet_context() {
+    return BeginNestedMessage<T>(30);
   }
 
 };

@@ -237,18 +237,18 @@ POLICY_PROTO_EXPORT extern DeviceScheduledRebootProtoDefaultTypeInternal _Device
 class DeviceScheduledUpdateCheckProto;
 struct DeviceScheduledUpdateCheckProtoDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern DeviceScheduledUpdateCheckProtoDefaultTypeInternal _DeviceScheduledUpdateCheckProto_default_instance_;
-class DeviceScreensaverEnabledProto;
-struct DeviceScreensaverEnabledProtoDefaultTypeInternal;
-POLICY_PROTO_EXPORT extern DeviceScreensaverEnabledProtoDefaultTypeInternal _DeviceScreensaverEnabledProto_default_instance_;
-class DeviceScreensaverIdleTimeoutSecondsProto;
-struct DeviceScreensaverIdleTimeoutSecondsProtoDefaultTypeInternal;
-POLICY_PROTO_EXPORT extern DeviceScreensaverIdleTimeoutSecondsProtoDefaultTypeInternal _DeviceScreensaverIdleTimeoutSecondsProto_default_instance_;
-class DeviceScreensaverImageDisplayIntervalSecondsProto;
-struct DeviceScreensaverImageDisplayIntervalSecondsProtoDefaultTypeInternal;
-POLICY_PROTO_EXPORT extern DeviceScreensaverImageDisplayIntervalSecondsProtoDefaultTypeInternal _DeviceScreensaverImageDisplayIntervalSecondsProto_default_instance_;
-class DeviceScreensaverImagesProto;
-struct DeviceScreensaverImagesProtoDefaultTypeInternal;
-POLICY_PROTO_EXPORT extern DeviceScreensaverImagesProtoDefaultTypeInternal _DeviceScreensaverImagesProto_default_instance_;
+class DeviceScreensaverLoginScreenEnabledProto;
+struct DeviceScreensaverLoginScreenEnabledProtoDefaultTypeInternal;
+POLICY_PROTO_EXPORT extern DeviceScreensaverLoginScreenEnabledProtoDefaultTypeInternal _DeviceScreensaverLoginScreenEnabledProto_default_instance_;
+class DeviceScreensaverLoginScreenIdleTimeoutSecondsProto;
+struct DeviceScreensaverLoginScreenIdleTimeoutSecondsProtoDefaultTypeInternal;
+POLICY_PROTO_EXPORT extern DeviceScreensaverLoginScreenIdleTimeoutSecondsProtoDefaultTypeInternal _DeviceScreensaverLoginScreenIdleTimeoutSecondsProto_default_instance_;
+class DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto;
+struct DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProtoDefaultTypeInternal;
+POLICY_PROTO_EXPORT extern DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProtoDefaultTypeInternal _DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto_default_instance_;
+class DeviceScreensaverLoginScreenImagesProto;
+struct DeviceScreensaverLoginScreenImagesProtoDefaultTypeInternal;
+POLICY_PROTO_EXPORT extern DeviceScreensaverLoginScreenImagesProtoDefaultTypeInternal _DeviceScreensaverLoginScreenImagesProto_default_instance_;
 class DeviceSecondFactorAuthenticationProto;
 struct DeviceSecondFactorAuthenticationProtoDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern DeviceSecondFactorAuthenticationProtoDefaultTypeInternal _DeviceSecondFactorAuthenticationProto_default_instance_;
@@ -528,10 +528,10 @@ template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceReportingProto* Ar
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceRestrictedManagedGuestSessionEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceRestrictedManagedGuestSessionEnabledProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScheduledRebootProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScheduledRebootProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScheduledUpdateCheckProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScheduledUpdateCheckProto>(Arena*);
-template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScreensaverEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScreensaverEnabledProto>(Arena*);
-template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto>(Arena*);
-template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto>(Arena*);
-template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScreensaverImagesProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScreensaverImagesProto>(Arena*);
+template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScreensaverLoginScreenEnabledProto>(Arena*);
+template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto>(Arena*);
+template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto>(Arena*);
+template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScreensaverLoginScreenImagesProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScreensaverLoginScreenImagesProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceSecondFactorAuthenticationProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceSecondFactorAuthenticationProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceShowLowDiskSpaceNotificationProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceShowLowDiskSpaceNotificationProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceSystemAecEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceSystemAecEnabledProto>(Arena*);
@@ -13311,24 +13311,24 @@ friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
 
-class POLICY_PROTO_EXPORT DeviceScreensaverIdleTimeoutSecondsProto final :
-public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceScreensaverIdleTimeoutSecondsProto) */ {
+class POLICY_PROTO_EXPORT DeviceScreensaverLoginScreenIdleTimeoutSecondsProto final :
+public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceScreensaverLoginScreenIdleTimeoutSecondsProto) */ {
 public:
-inline DeviceScreensaverIdleTimeoutSecondsProto() : DeviceScreensaverIdleTimeoutSecondsProto(nullptr) {}
-~DeviceScreensaverIdleTimeoutSecondsProto() override;
-explicit PROTOBUF_CONSTEXPR DeviceScreensaverIdleTimeoutSecondsProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+inline DeviceScreensaverLoginScreenIdleTimeoutSecondsProto() : DeviceScreensaverLoginScreenIdleTimeoutSecondsProto(nullptr) {}
+~DeviceScreensaverLoginScreenIdleTimeoutSecondsProto() override;
+explicit PROTOBUF_CONSTEXPR DeviceScreensaverLoginScreenIdleTimeoutSecondsProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-DeviceScreensaverIdleTimeoutSecondsProto(const DeviceScreensaverIdleTimeoutSecondsProto& from);
-DeviceScreensaverIdleTimeoutSecondsProto(DeviceScreensaverIdleTimeoutSecondsProto&& from) noexcept
-: DeviceScreensaverIdleTimeoutSecondsProto() {
+DeviceScreensaverLoginScreenIdleTimeoutSecondsProto(const DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& from);
+DeviceScreensaverLoginScreenIdleTimeoutSecondsProto(DeviceScreensaverLoginScreenIdleTimeoutSecondsProto&& from) noexcept
+: DeviceScreensaverLoginScreenIdleTimeoutSecondsProto() {
 *this = ::std::move(from);
 }
 
-inline DeviceScreensaverIdleTimeoutSecondsProto& operator=(const DeviceScreensaverIdleTimeoutSecondsProto& from) {
+inline DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& operator=(const DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& from) {
 CopyFrom(from);
 return *this;
 }
-inline DeviceScreensaverIdleTimeoutSecondsProto& operator=(DeviceScreensaverIdleTimeoutSecondsProto&& from) noexcept {
+inline DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& operator=(DeviceScreensaverLoginScreenIdleTimeoutSecondsProto&& from) noexcept {
 if (this == &from) return *this;
 if (GetOwningArena() == from.GetOwningArena()
 #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -13349,20 +13349,20 @@ inline std::string* mutable_unknown_fields() {
 return _internal_metadata_.mutable_unknown_fields<std::string>();
 }
 
-static const DeviceScreensaverIdleTimeoutSecondsProto& default_instance() {
+static const DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& default_instance() {
 return *internal_default_instance();
 }
-static inline const DeviceScreensaverIdleTimeoutSecondsProto* internal_default_instance() {
-return reinterpret_cast<const DeviceScreensaverIdleTimeoutSecondsProto*>(
-&_DeviceScreensaverIdleTimeoutSecondsProto_default_instance_);
+static inline const DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* internal_default_instance() {
+return reinterpret_cast<const DeviceScreensaverLoginScreenIdleTimeoutSecondsProto*>(
+&_DeviceScreensaverLoginScreenIdleTimeoutSecondsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
 70;
 
-friend void swap(DeviceScreensaverIdleTimeoutSecondsProto& a, DeviceScreensaverIdleTimeoutSecondsProto& b) {
+friend void swap(DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& a, DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& b) {
 a.Swap(&b);
 }
-PROTOBUF_NOINLINE void Swap(DeviceScreensaverIdleTimeoutSecondsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -13375,7 +13375,7 @@ InternalSwap(other);
 ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
 }
 }
-void UnsafeArenaSwap(DeviceScreensaverIdleTimeoutSecondsProto* other) {
+void UnsafeArenaSwap(DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* other) {
 if (other == this) return;
 GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
 InternalSwap(other);
@@ -13383,12 +13383,12 @@ InternalSwap(other);
 
 // implements Message ----------------------------------------------
 
-DeviceScreensaverIdleTimeoutSecondsProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-return CreateMaybeMessage<DeviceScreensaverIdleTimeoutSecondsProto>(arena);
+DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+return CreateMaybeMessage<DeviceScreensaverLoginScreenIdleTimeoutSecondsProto>(arena);
 }
 void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-void CopyFrom(const DeviceScreensaverIdleTimeoutSecondsProto& from);
-void MergeFrom(const DeviceScreensaverIdleTimeoutSecondsProto& from);
+void CopyFrom(const DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& from);
+void MergeFrom(const DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& from);
 PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
 bool IsInitialized() const final;
 
@@ -13402,15 +13402,15 @@ private:
 void SharedCtor();
 void SharedDtor();
 void SetCachedSize(int size) const;
-void InternalSwap(DeviceScreensaverIdleTimeoutSecondsProto* other);
+void InternalSwap(DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* other);
 
 private:
 friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
 static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-return "enterprise_management.DeviceScreensaverIdleTimeoutSecondsProto";
+return "enterprise_management.DeviceScreensaverLoginScreenIdleTimeoutSecondsProto";
 }
 protected:
-explicit DeviceScreensaverIdleTimeoutSecondsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+explicit DeviceScreensaverLoginScreenIdleTimeoutSecondsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 bool is_message_owned = false);
 public:
 
@@ -13421,22 +13421,22 @@ std::string GetTypeName() const final;
 // accessors -------------------------------------------------------
 
 enum : int {
-kDeviceScreensaverIdleTimeoutSecondsFieldNumber = 1,
+kDeviceScreensaverLoginScreenIdleTimeoutSecondsFieldNumber = 1,
 };
-// optional int64 device_screensaver_idle_timeout_seconds = 1;
-bool has_device_screensaver_idle_timeout_seconds() const;
+// optional int64 device_screensaver_login_screen_idle_timeout_seconds = 1;
+bool has_device_screensaver_login_screen_idle_timeout_seconds() const;
 private:
-bool _internal_has_device_screensaver_idle_timeout_seconds() const;
+bool _internal_has_device_screensaver_login_screen_idle_timeout_seconds() const;
 public:
-void clear_device_screensaver_idle_timeout_seconds();
-int64_t device_screensaver_idle_timeout_seconds() const;
-void set_device_screensaver_idle_timeout_seconds(int64_t value);
+void clear_device_screensaver_login_screen_idle_timeout_seconds();
+int64_t device_screensaver_login_screen_idle_timeout_seconds() const;
+void set_device_screensaver_login_screen_idle_timeout_seconds(int64_t value);
 private:
-int64_t _internal_device_screensaver_idle_timeout_seconds() const;
-void _internal_set_device_screensaver_idle_timeout_seconds(int64_t value);
+int64_t _internal_device_screensaver_login_screen_idle_timeout_seconds() const;
+void _internal_set_device_screensaver_login_screen_idle_timeout_seconds(int64_t value);
 public:
 
-// @@protoc_insertion_point(class_scope:enterprise_management.DeviceScreensaverIdleTimeoutSecondsProto)
+// @@protoc_insertion_point(class_scope:enterprise_management.DeviceScreensaverLoginScreenIdleTimeoutSecondsProto)
 private:
 class _Internal;
 
@@ -13445,29 +13445,29 @@ typedef void InternalArenaConstructable_;
 typedef void DestructorSkippable_;
 ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
 mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-int64_t device_screensaver_idle_timeout_seconds_;
+int64_t device_screensaver_login_screen_idle_timeout_seconds_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
 
-class POLICY_PROTO_EXPORT DeviceScreensaverImageDisplayIntervalSecondsProto final :
-public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceScreensaverImageDisplayIntervalSecondsProto) */ {
+class POLICY_PROTO_EXPORT DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto final :
+public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto) */ {
 public:
-inline DeviceScreensaverImageDisplayIntervalSecondsProto() : DeviceScreensaverImageDisplayIntervalSecondsProto(nullptr) {}
-~DeviceScreensaverImageDisplayIntervalSecondsProto() override;
-explicit PROTOBUF_CONSTEXPR DeviceScreensaverImageDisplayIntervalSecondsProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+inline DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto() : DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto(nullptr) {}
+~DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto() override;
+explicit PROTOBUF_CONSTEXPR DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-DeviceScreensaverImageDisplayIntervalSecondsProto(const DeviceScreensaverImageDisplayIntervalSecondsProto& from);
-DeviceScreensaverImageDisplayIntervalSecondsProto(DeviceScreensaverImageDisplayIntervalSecondsProto&& from) noexcept
-: DeviceScreensaverImageDisplayIntervalSecondsProto() {
+DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto(const DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& from);
+DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto(DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto&& from) noexcept
+: DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto() {
 *this = ::std::move(from);
 }
 
-inline DeviceScreensaverImageDisplayIntervalSecondsProto& operator=(const DeviceScreensaverImageDisplayIntervalSecondsProto& from) {
+inline DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& operator=(const DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& from) {
 CopyFrom(from);
 return *this;
 }
-inline DeviceScreensaverImageDisplayIntervalSecondsProto& operator=(DeviceScreensaverImageDisplayIntervalSecondsProto&& from) noexcept {
+inline DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& operator=(DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto&& from) noexcept {
 if (this == &from) return *this;
 if (GetOwningArena() == from.GetOwningArena()
 #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -13488,20 +13488,20 @@ inline std::string* mutable_unknown_fields() {
 return _internal_metadata_.mutable_unknown_fields<std::string>();
 }
 
-static const DeviceScreensaverImageDisplayIntervalSecondsProto& default_instance() {
+static const DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& default_instance() {
 return *internal_default_instance();
 }
-static inline const DeviceScreensaverImageDisplayIntervalSecondsProto* internal_default_instance() {
-return reinterpret_cast<const DeviceScreensaverImageDisplayIntervalSecondsProto*>(
-&_DeviceScreensaverImageDisplayIntervalSecondsProto_default_instance_);
+static inline const DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* internal_default_instance() {
+return reinterpret_cast<const DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto*>(
+&_DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
 71;
 
-friend void swap(DeviceScreensaverImageDisplayIntervalSecondsProto& a, DeviceScreensaverImageDisplayIntervalSecondsProto& b) {
+friend void swap(DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& a, DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& b) {
 a.Swap(&b);
 }
-PROTOBUF_NOINLINE void Swap(DeviceScreensaverImageDisplayIntervalSecondsProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -13514,7 +13514,7 @@ InternalSwap(other);
 ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
 }
 }
-void UnsafeArenaSwap(DeviceScreensaverImageDisplayIntervalSecondsProto* other) {
+void UnsafeArenaSwap(DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* other) {
 if (other == this) return;
 GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
 InternalSwap(other);
@@ -13522,12 +13522,12 @@ InternalSwap(other);
 
 // implements Message ----------------------------------------------
 
-DeviceScreensaverImageDisplayIntervalSecondsProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-return CreateMaybeMessage<DeviceScreensaverImageDisplayIntervalSecondsProto>(arena);
+DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+return CreateMaybeMessage<DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto>(arena);
 }
 void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-void CopyFrom(const DeviceScreensaverImageDisplayIntervalSecondsProto& from);
-void MergeFrom(const DeviceScreensaverImageDisplayIntervalSecondsProto& from);
+void CopyFrom(const DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& from);
+void MergeFrom(const DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& from);
 PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
 bool IsInitialized() const final;
 
@@ -13541,15 +13541,15 @@ private:
 void SharedCtor();
 void SharedDtor();
 void SetCachedSize(int size) const;
-void InternalSwap(DeviceScreensaverImageDisplayIntervalSecondsProto* other);
+void InternalSwap(DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* other);
 
 private:
 friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
 static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-return "enterprise_management.DeviceScreensaverImageDisplayIntervalSecondsProto";
+return "enterprise_management.DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto";
 }
 protected:
-explicit DeviceScreensaverImageDisplayIntervalSecondsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+explicit DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 bool is_message_owned = false);
 public:
 
@@ -13560,22 +13560,22 @@ std::string GetTypeName() const final;
 // accessors -------------------------------------------------------
 
 enum : int {
-kDeviceScreensaverImageDisplayIntervalSecondsFieldNumber = 1,
+kDeviceScreensaverLoginScreenImageDisplayIntervalSecondsFieldNumber = 1,
 };
-// optional int64 device_screensaver_image_display_interval_seconds = 1;
-bool has_device_screensaver_image_display_interval_seconds() const;
+// optional int64 device_screensaver_login_screen_image_display_interval_seconds = 1;
+bool has_device_screensaver_login_screen_image_display_interval_seconds() const;
 private:
-bool _internal_has_device_screensaver_image_display_interval_seconds() const;
+bool _internal_has_device_screensaver_login_screen_image_display_interval_seconds() const;
 public:
-void clear_device_screensaver_image_display_interval_seconds();
-int64_t device_screensaver_image_display_interval_seconds() const;
-void set_device_screensaver_image_display_interval_seconds(int64_t value);
+void clear_device_screensaver_login_screen_image_display_interval_seconds();
+int64_t device_screensaver_login_screen_image_display_interval_seconds() const;
+void set_device_screensaver_login_screen_image_display_interval_seconds(int64_t value);
 private:
-int64_t _internal_device_screensaver_image_display_interval_seconds() const;
-void _internal_set_device_screensaver_image_display_interval_seconds(int64_t value);
+int64_t _internal_device_screensaver_login_screen_image_display_interval_seconds() const;
+void _internal_set_device_screensaver_login_screen_image_display_interval_seconds(int64_t value);
 public:
 
-// @@protoc_insertion_point(class_scope:enterprise_management.DeviceScreensaverImageDisplayIntervalSecondsProto)
+// @@protoc_insertion_point(class_scope:enterprise_management.DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto)
 private:
 class _Internal;
 
@@ -13584,29 +13584,29 @@ typedef void InternalArenaConstructable_;
 typedef void DestructorSkippable_;
 ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
 mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-int64_t device_screensaver_image_display_interval_seconds_;
+int64_t device_screensaver_login_screen_image_display_interval_seconds_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
 
-class POLICY_PROTO_EXPORT DeviceScreensaverImagesProto final :
-public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceScreensaverImagesProto) */ {
+class POLICY_PROTO_EXPORT DeviceScreensaverLoginScreenImagesProto final :
+public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceScreensaverLoginScreenImagesProto) */ {
 public:
-inline DeviceScreensaverImagesProto() : DeviceScreensaverImagesProto(nullptr) {}
-~DeviceScreensaverImagesProto() override;
-explicit PROTOBUF_CONSTEXPR DeviceScreensaverImagesProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+inline DeviceScreensaverLoginScreenImagesProto() : DeviceScreensaverLoginScreenImagesProto(nullptr) {}
+~DeviceScreensaverLoginScreenImagesProto() override;
+explicit PROTOBUF_CONSTEXPR DeviceScreensaverLoginScreenImagesProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-DeviceScreensaverImagesProto(const DeviceScreensaverImagesProto& from);
-DeviceScreensaverImagesProto(DeviceScreensaverImagesProto&& from) noexcept
-: DeviceScreensaverImagesProto() {
+DeviceScreensaverLoginScreenImagesProto(const DeviceScreensaverLoginScreenImagesProto& from);
+DeviceScreensaverLoginScreenImagesProto(DeviceScreensaverLoginScreenImagesProto&& from) noexcept
+: DeviceScreensaverLoginScreenImagesProto() {
 *this = ::std::move(from);
 }
 
-inline DeviceScreensaverImagesProto& operator=(const DeviceScreensaverImagesProto& from) {
+inline DeviceScreensaverLoginScreenImagesProto& operator=(const DeviceScreensaverLoginScreenImagesProto& from) {
 CopyFrom(from);
 return *this;
 }
-inline DeviceScreensaverImagesProto& operator=(DeviceScreensaverImagesProto&& from) noexcept {
+inline DeviceScreensaverLoginScreenImagesProto& operator=(DeviceScreensaverLoginScreenImagesProto&& from) noexcept {
 if (this == &from) return *this;
 if (GetOwningArena() == from.GetOwningArena()
 #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -13627,20 +13627,20 @@ inline std::string* mutable_unknown_fields() {
 return _internal_metadata_.mutable_unknown_fields<std::string>();
 }
 
-static const DeviceScreensaverImagesProto& default_instance() {
+static const DeviceScreensaverLoginScreenImagesProto& default_instance() {
 return *internal_default_instance();
 }
-static inline const DeviceScreensaverImagesProto* internal_default_instance() {
-return reinterpret_cast<const DeviceScreensaverImagesProto*>(
-&_DeviceScreensaverImagesProto_default_instance_);
+static inline const DeviceScreensaverLoginScreenImagesProto* internal_default_instance() {
+return reinterpret_cast<const DeviceScreensaverLoginScreenImagesProto*>(
+&_DeviceScreensaverLoginScreenImagesProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
 72;
 
-friend void swap(DeviceScreensaverImagesProto& a, DeviceScreensaverImagesProto& b) {
+friend void swap(DeviceScreensaverLoginScreenImagesProto& a, DeviceScreensaverLoginScreenImagesProto& b) {
 a.Swap(&b);
 }
-PROTOBUF_NOINLINE void Swap(DeviceScreensaverImagesProto* other) {
+PROTOBUF_NOINLINE void Swap(DeviceScreensaverLoginScreenImagesProto* other) {
 if (other == this) return;
 #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
 if (GetOwningArena() != nullptr &&
@@ -13653,7 +13653,7 @@ InternalSwap(other);
 ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
 }
 }
-void UnsafeArenaSwap(DeviceScreensaverImagesProto* other) {
+void UnsafeArenaSwap(DeviceScreensaverLoginScreenImagesProto* other) {
 if (other == this) return;
 GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
 InternalSwap(other);
@@ -13661,12 +13661,12 @@ InternalSwap(other);
 
 // implements Message ----------------------------------------------
 
-DeviceScreensaverImagesProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-return CreateMaybeMessage<DeviceScreensaverImagesProto>(arena);
+DeviceScreensaverLoginScreenImagesProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+return CreateMaybeMessage<DeviceScreensaverLoginScreenImagesProto>(arena);
 }
 void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-void CopyFrom(const DeviceScreensaverImagesProto& from);
-void MergeFrom(const DeviceScreensaverImagesProto& from);
+void CopyFrom(const DeviceScreensaverLoginScreenImagesProto& from);
+void MergeFrom(const DeviceScreensaverLoginScreenImagesProto& from);
 PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
 bool IsInitialized() const final;
 
@@ -13680,15 +13680,15 @@ private:
 void SharedCtor();
 void SharedDtor();
 void SetCachedSize(int size) const;
-void InternalSwap(DeviceScreensaverImagesProto* other);
+void InternalSwap(DeviceScreensaverLoginScreenImagesProto* other);
 
 private:
 friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
 static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-return "enterprise_management.DeviceScreensaverImagesProto";
+return "enterprise_management.DeviceScreensaverLoginScreenImagesProto";
 }
 protected:
-explicit DeviceScreensaverImagesProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+explicit DeviceScreensaverLoginScreenImagesProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 bool is_message_owned = false);
 public:
 
@@ -13699,41 +13699,180 @@ std::string GetTypeName() const final;
 // accessors -------------------------------------------------------
 
 enum : int {
-kDeviceScreensaverImagesFieldNumber = 1,
+kDeviceScreensaverLoginScreenImagesFieldNumber = 1,
 };
-// repeated string device_screensaver_images = 1;
-int device_screensaver_images_size() const;
+// repeated string device_screensaver_login_screen_images = 1;
+int device_screensaver_login_screen_images_size() const;
 private:
-int _internal_device_screensaver_images_size() const;
+int _internal_device_screensaver_login_screen_images_size() const;
 public:
-void clear_device_screensaver_images();
-const std::string& device_screensaver_images(int index) const;
-std::string* mutable_device_screensaver_images(int index);
-void set_device_screensaver_images(int index, const std::string& value);
-void set_device_screensaver_images(int index, std::string&& value);
-void set_device_screensaver_images(int index, const char* value);
-void set_device_screensaver_images(int index, const char* value, size_t size);
-std::string* add_device_screensaver_images();
-void add_device_screensaver_images(const std::string& value);
-void add_device_screensaver_images(std::string&& value);
-void add_device_screensaver_images(const char* value);
-void add_device_screensaver_images(const char* value, size_t size);
-const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& device_screensaver_images() const;
-::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_device_screensaver_images();
+void clear_device_screensaver_login_screen_images();
+const std::string& device_screensaver_login_screen_images(int index) const;
+std::string* mutable_device_screensaver_login_screen_images(int index);
+void set_device_screensaver_login_screen_images(int index, const std::string& value);
+void set_device_screensaver_login_screen_images(int index, std::string&& value);
+void set_device_screensaver_login_screen_images(int index, const char* value);
+void set_device_screensaver_login_screen_images(int index, const char* value, size_t size);
+std::string* add_device_screensaver_login_screen_images();
+void add_device_screensaver_login_screen_images(const std::string& value);
+void add_device_screensaver_login_screen_images(std::string&& value);
+void add_device_screensaver_login_screen_images(const char* value);
+void add_device_screensaver_login_screen_images(const char* value, size_t size);
+const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& device_screensaver_login_screen_images() const;
+::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_device_screensaver_login_screen_images();
 private:
-const std::string& _internal_device_screensaver_images(int index) const;
-std::string* _internal_add_device_screensaver_images();
+const std::string& _internal_device_screensaver_login_screen_images(int index) const;
+std::string* _internal_add_device_screensaver_login_screen_images();
 public:
 
-// @@protoc_insertion_point(class_scope:enterprise_management.DeviceScreensaverImagesProto)
+// @@protoc_insertion_point(class_scope:enterprise_management.DeviceScreensaverLoginScreenImagesProto)
 private:
 class _Internal;
 
 template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
 typedef void InternalArenaConstructable_;
 typedef void DestructorSkippable_;
-::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> device_screensaver_images_;
+::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> device_screensaver_login_screen_images_;
 mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
+};
+// -------------------------------------------------------------------
+
+class POLICY_PROTO_EXPORT DeviceScreensaverLoginScreenEnabledProto final :
+public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceScreensaverLoginScreenEnabledProto) */ {
+public:
+inline DeviceScreensaverLoginScreenEnabledProto() : DeviceScreensaverLoginScreenEnabledProto(nullptr) {}
+~DeviceScreensaverLoginScreenEnabledProto() override;
+explicit PROTOBUF_CONSTEXPR DeviceScreensaverLoginScreenEnabledProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+DeviceScreensaverLoginScreenEnabledProto(const DeviceScreensaverLoginScreenEnabledProto& from);
+DeviceScreensaverLoginScreenEnabledProto(DeviceScreensaverLoginScreenEnabledProto&& from) noexcept
+: DeviceScreensaverLoginScreenEnabledProto() {
+*this = ::std::move(from);
+}
+
+inline DeviceScreensaverLoginScreenEnabledProto& operator=(const DeviceScreensaverLoginScreenEnabledProto& from) {
+CopyFrom(from);
+return *this;
+}
+inline DeviceScreensaverLoginScreenEnabledProto& operator=(DeviceScreensaverLoginScreenEnabledProto&& from) noexcept {
+if (this == &from) return *this;
+if (GetOwningArena() == from.GetOwningArena()
+#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+&& GetOwningArena() != nullptr
+#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+) {
+InternalSwap(&from);
+} else {
+CopyFrom(from);
+}
+return *this;
+}
+
+inline const std::string& unknown_fields() const {
+return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+}
+inline std::string* mutable_unknown_fields() {
+return _internal_metadata_.mutable_unknown_fields<std::string>();
+}
+
+static const DeviceScreensaverLoginScreenEnabledProto& default_instance() {
+return *internal_default_instance();
+}
+static inline const DeviceScreensaverLoginScreenEnabledProto* internal_default_instance() {
+return reinterpret_cast<const DeviceScreensaverLoginScreenEnabledProto*>(
+&_DeviceScreensaverLoginScreenEnabledProto_default_instance_);
+}
+static constexpr int kIndexInFileMessages =
+73;
+
+friend void swap(DeviceScreensaverLoginScreenEnabledProto& a, DeviceScreensaverLoginScreenEnabledProto& b) {
+a.Swap(&b);
+}
+PROTOBUF_NOINLINE void Swap(DeviceScreensaverLoginScreenEnabledProto* other) {
+if (other == this) return;
+#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+if (GetOwningArena() != nullptr &&
+GetOwningArena() == other->GetOwningArena()) {
+#else  // PROTOBUF_FORCE_COPY_IN_SWAP
+if (GetOwningArena() == other->GetOwningArena()) {
+#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+InternalSwap(other);
+} else {
+::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+}
+}
+void UnsafeArenaSwap(DeviceScreensaverLoginScreenEnabledProto* other) {
+if (other == this) return;
+GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+InternalSwap(other);
+}
+
+// implements Message ----------------------------------------------
+
+DeviceScreensaverLoginScreenEnabledProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+return CreateMaybeMessage<DeviceScreensaverLoginScreenEnabledProto>(arena);
+}
+void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+void CopyFrom(const DeviceScreensaverLoginScreenEnabledProto& from);
+void MergeFrom(const DeviceScreensaverLoginScreenEnabledProto& from);
+PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+bool IsInitialized() const final;
+
+size_t ByteSizeLong() const final;
+const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+uint8_t* _InternalSerialize(
+uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+int GetCachedSize() const final { return _cached_size_.Get(); }
+
+private:
+void SharedCtor();
+void SharedDtor();
+void SetCachedSize(int size) const;
+void InternalSwap(DeviceScreensaverLoginScreenEnabledProto* other);
+
+private:
+friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+return "enterprise_management.DeviceScreensaverLoginScreenEnabledProto";
+}
+protected:
+explicit DeviceScreensaverLoginScreenEnabledProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+bool is_message_owned = false);
+public:
+
+std::string GetTypeName() const final;
+
+// nested types ----------------------------------------------------
+
+// accessors -------------------------------------------------------
+
+enum : int {
+kDeviceScreensaverLoginScreenModeFieldNumber = 1,
+};
+// optional bool device_screensaver_login_screen_mode = 1;
+bool has_device_screensaver_login_screen_mode() const;
+private:
+bool _internal_has_device_screensaver_login_screen_mode() const;
+public:
+void clear_device_screensaver_login_screen_mode();
+bool device_screensaver_login_screen_mode() const;
+void set_device_screensaver_login_screen_mode(bool value);
+private:
+bool _internal_device_screensaver_login_screen_mode() const;
+void _internal_set_device_screensaver_login_screen_mode(bool value);
+public:
+
+// @@protoc_insertion_point(class_scope:enterprise_management.DeviceScreensaverLoginScreenEnabledProto)
+private:
+class _Internal;
+
+template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+typedef void InternalArenaConstructable_;
+typedef void DestructorSkippable_;
+::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+bool device_screensaver_login_screen_mode_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -13784,7 +13923,7 @@ return reinterpret_cast<const DeviceSystemAecEnabledProto*>(
 &_DeviceSystemAecEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-73;
+74;
 
 friend void swap(DeviceSystemAecEnabledProto& a, DeviceSystemAecEnabledProto& b) {
 a.Swap(&b);
@@ -13873,145 +14012,6 @@ typedef void DestructorSkippable_;
 ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
 mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 bool device_system_aec_enabled_;
-friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
-};
-// -------------------------------------------------------------------
-
-class POLICY_PROTO_EXPORT DeviceScreensaverEnabledProto final :
-public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceScreensaverEnabledProto) */ {
-public:
-inline DeviceScreensaverEnabledProto() : DeviceScreensaverEnabledProto(nullptr) {}
-~DeviceScreensaverEnabledProto() override;
-explicit PROTOBUF_CONSTEXPR DeviceScreensaverEnabledProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-DeviceScreensaverEnabledProto(const DeviceScreensaverEnabledProto& from);
-DeviceScreensaverEnabledProto(DeviceScreensaverEnabledProto&& from) noexcept
-: DeviceScreensaverEnabledProto() {
-*this = ::std::move(from);
-}
-
-inline DeviceScreensaverEnabledProto& operator=(const DeviceScreensaverEnabledProto& from) {
-CopyFrom(from);
-return *this;
-}
-inline DeviceScreensaverEnabledProto& operator=(DeviceScreensaverEnabledProto&& from) noexcept {
-if (this == &from) return *this;
-if (GetOwningArena() == from.GetOwningArena()
-#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-&& GetOwningArena() != nullptr
-#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-) {
-InternalSwap(&from);
-} else {
-CopyFrom(from);
-}
-return *this;
-}
-
-inline const std::string& unknown_fields() const {
-return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
-}
-inline std::string* mutable_unknown_fields() {
-return _internal_metadata_.mutable_unknown_fields<std::string>();
-}
-
-static const DeviceScreensaverEnabledProto& default_instance() {
-return *internal_default_instance();
-}
-static inline const DeviceScreensaverEnabledProto* internal_default_instance() {
-return reinterpret_cast<const DeviceScreensaverEnabledProto*>(
-&_DeviceScreensaverEnabledProto_default_instance_);
-}
-static constexpr int kIndexInFileMessages =
-74;
-
-friend void swap(DeviceScreensaverEnabledProto& a, DeviceScreensaverEnabledProto& b) {
-a.Swap(&b);
-}
-PROTOBUF_NOINLINE void Swap(DeviceScreensaverEnabledProto* other) {
-if (other == this) return;
-#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-if (GetOwningArena() != nullptr &&
-GetOwningArena() == other->GetOwningArena()) {
-#else  // PROTOBUF_FORCE_COPY_IN_SWAP
-if (GetOwningArena() == other->GetOwningArena()) {
-#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-InternalSwap(other);
-} else {
-::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-}
-}
-void UnsafeArenaSwap(DeviceScreensaverEnabledProto* other) {
-if (other == this) return;
-GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-InternalSwap(other);
-}
-
-// implements Message ----------------------------------------------
-
-DeviceScreensaverEnabledProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-return CreateMaybeMessage<DeviceScreensaverEnabledProto>(arena);
-}
-void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-void CopyFrom(const DeviceScreensaverEnabledProto& from);
-void MergeFrom(const DeviceScreensaverEnabledProto& from);
-PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-bool IsInitialized() const final;
-
-size_t ByteSizeLong() const final;
-const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-uint8_t* _InternalSerialize(
-uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-int GetCachedSize() const final { return _cached_size_.Get(); }
-
-private:
-void SharedCtor();
-void SharedDtor();
-void SetCachedSize(int size) const;
-void InternalSwap(DeviceScreensaverEnabledProto* other);
-
-private:
-friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-return "enterprise_management.DeviceScreensaverEnabledProto";
-}
-protected:
-explicit DeviceScreensaverEnabledProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-bool is_message_owned = false);
-public:
-
-std::string GetTypeName() const final;
-
-// nested types ----------------------------------------------------
-
-// accessors -------------------------------------------------------
-
-enum : int {
-kDeviceScreensaverEnabledFieldNumber = 1,
-};
-// optional bool device_screensaver_enabled = 1;
-bool has_device_screensaver_enabled() const;
-private:
-bool _internal_has_device_screensaver_enabled() const;
-public:
-void clear_device_screensaver_enabled();
-bool device_screensaver_enabled() const;
-void set_device_screensaver_enabled(bool value);
-private:
-bool _internal_device_screensaver_enabled() const;
-void _internal_set_device_screensaver_enabled(bool value);
-public:
-
-// @@protoc_insertion_point(class_scope:enterprise_management.DeviceScreensaverEnabledProto)
-private:
-class _Internal;
-
-template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-typedef void InternalArenaConstructable_;
-typedef void DestructorSkippable_;
-::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-bool device_screensaver_enabled_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -23769,10 +23769,10 @@ kDeviceReportXdrEventsFieldNumber = 138,
 kKeyboardBacklightColorFieldNumber = 139,
 kDeviceHindiInscriptLayoutEnabledFieldNumber = 140,
 kLoginScreenExtensionManifestV2AvailabilityFieldNumber = 141,
-kDeviceScreensaverEnabledFieldNumber = 142,
-kDeviceScreensaverIdleTimeoutSecondsFieldNumber = 143,
-kDeviceScreensaverImageDisplayIntervalSecondsFieldNumber = 144,
-kDeviceScreensaverImagesFieldNumber = 145,
+kDeviceScreensaverLoginScreenEnabledFieldNumber = 142,
+kDeviceScreensaverLoginScreenIdleTimeoutSecondsFieldNumber = 143,
+kDeviceScreensaverLoginScreenImageDisplayIntervalSecondsFieldNumber = 144,
+kDeviceScreensaverLoginScreenImagesFieldNumber = 145,
 kDeviceSystemAecEnabledFieldNumber = 146,
 };
 // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
@@ -26259,77 +26259,77 @@ void unsafe_arena_set_allocated_login_screen_extension_manifest_v2_availability(
 ::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto* login_screen_extension_manifest_v2_availability);
 ::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto* unsafe_arena_release_login_screen_extension_manifest_v2_availability();
 
-// optional .enterprise_management.DeviceScreensaverEnabledProto device_screensaver_enabled = 142;
-bool has_device_screensaver_enabled() const;
+// optional .enterprise_management.DeviceScreensaverLoginScreenEnabledProto device_screensaver_login_screen_enabled = 142;
+bool has_device_screensaver_login_screen_enabled() const;
 private:
-bool _internal_has_device_screensaver_enabled() const;
+bool _internal_has_device_screensaver_login_screen_enabled() const;
 public:
-void clear_device_screensaver_enabled();
-const ::enterprise_management::DeviceScreensaverEnabledProto& device_screensaver_enabled() const;
-PROTOBUF_NODISCARD ::enterprise_management::DeviceScreensaverEnabledProto* release_device_screensaver_enabled();
-::enterprise_management::DeviceScreensaverEnabledProto* mutable_device_screensaver_enabled();
-void set_allocated_device_screensaver_enabled(::enterprise_management::DeviceScreensaverEnabledProto* device_screensaver_enabled);
+void clear_device_screensaver_login_screen_enabled();
+const ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto& device_screensaver_login_screen_enabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* release_device_screensaver_login_screen_enabled();
+::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* mutable_device_screensaver_login_screen_enabled();
+void set_allocated_device_screensaver_login_screen_enabled(::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* device_screensaver_login_screen_enabled);
 private:
-const ::enterprise_management::DeviceScreensaverEnabledProto& _internal_device_screensaver_enabled() const;
-::enterprise_management::DeviceScreensaverEnabledProto* _internal_mutable_device_screensaver_enabled();
+const ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto& _internal_device_screensaver_login_screen_enabled() const;
+::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* _internal_mutable_device_screensaver_login_screen_enabled();
 public:
-void unsafe_arena_set_allocated_device_screensaver_enabled(
-::enterprise_management::DeviceScreensaverEnabledProto* device_screensaver_enabled);
-::enterprise_management::DeviceScreensaverEnabledProto* unsafe_arena_release_device_screensaver_enabled();
+void unsafe_arena_set_allocated_device_screensaver_login_screen_enabled(
+::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* device_screensaver_login_screen_enabled);
+::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* unsafe_arena_release_device_screensaver_login_screen_enabled();
 
-// optional .enterprise_management.DeviceScreensaverIdleTimeoutSecondsProto device_screensaver_idle_timeout_seconds = 143;
-bool has_device_screensaver_idle_timeout_seconds() const;
+// optional .enterprise_management.DeviceScreensaverLoginScreenIdleTimeoutSecondsProto device_screensaver_login_screen_idle_timeout_seconds = 143;
+bool has_device_screensaver_login_screen_idle_timeout_seconds() const;
 private:
-bool _internal_has_device_screensaver_idle_timeout_seconds() const;
+bool _internal_has_device_screensaver_login_screen_idle_timeout_seconds() const;
 public:
-void clear_device_screensaver_idle_timeout_seconds();
-const ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto& device_screensaver_idle_timeout_seconds() const;
-PROTOBUF_NODISCARD ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* release_device_screensaver_idle_timeout_seconds();
-::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* mutable_device_screensaver_idle_timeout_seconds();
-void set_allocated_device_screensaver_idle_timeout_seconds(::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* device_screensaver_idle_timeout_seconds);
+void clear_device_screensaver_login_screen_idle_timeout_seconds();
+const ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& device_screensaver_login_screen_idle_timeout_seconds() const;
+PROTOBUF_NODISCARD ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* release_device_screensaver_login_screen_idle_timeout_seconds();
+::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* mutable_device_screensaver_login_screen_idle_timeout_seconds();
+void set_allocated_device_screensaver_login_screen_idle_timeout_seconds(::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* device_screensaver_login_screen_idle_timeout_seconds);
 private:
-const ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto& _internal_device_screensaver_idle_timeout_seconds() const;
-::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* _internal_mutable_device_screensaver_idle_timeout_seconds();
+const ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& _internal_device_screensaver_login_screen_idle_timeout_seconds() const;
+::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* _internal_mutable_device_screensaver_login_screen_idle_timeout_seconds();
 public:
-void unsafe_arena_set_allocated_device_screensaver_idle_timeout_seconds(
-::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* device_screensaver_idle_timeout_seconds);
-::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* unsafe_arena_release_device_screensaver_idle_timeout_seconds();
+void unsafe_arena_set_allocated_device_screensaver_login_screen_idle_timeout_seconds(
+::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* device_screensaver_login_screen_idle_timeout_seconds);
+::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* unsafe_arena_release_device_screensaver_login_screen_idle_timeout_seconds();
 
-// optional .enterprise_management.DeviceScreensaverImageDisplayIntervalSecondsProto device_screensaver_image_display_interval_seconds = 144;
-bool has_device_screensaver_image_display_interval_seconds() const;
+// optional .enterprise_management.DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto device_screensaver_login_screen_image_display_interval_seconds = 144;
+bool has_device_screensaver_login_screen_image_display_interval_seconds() const;
 private:
-bool _internal_has_device_screensaver_image_display_interval_seconds() const;
+bool _internal_has_device_screensaver_login_screen_image_display_interval_seconds() const;
 public:
-void clear_device_screensaver_image_display_interval_seconds();
-const ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto& device_screensaver_image_display_interval_seconds() const;
-PROTOBUF_NODISCARD ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* release_device_screensaver_image_display_interval_seconds();
-::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* mutable_device_screensaver_image_display_interval_seconds();
-void set_allocated_device_screensaver_image_display_interval_seconds(::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* device_screensaver_image_display_interval_seconds);
+void clear_device_screensaver_login_screen_image_display_interval_seconds();
+const ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& device_screensaver_login_screen_image_display_interval_seconds() const;
+PROTOBUF_NODISCARD ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* release_device_screensaver_login_screen_image_display_interval_seconds();
+::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* mutable_device_screensaver_login_screen_image_display_interval_seconds();
+void set_allocated_device_screensaver_login_screen_image_display_interval_seconds(::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* device_screensaver_login_screen_image_display_interval_seconds);
 private:
-const ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto& _internal_device_screensaver_image_display_interval_seconds() const;
-::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* _internal_mutable_device_screensaver_image_display_interval_seconds();
+const ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& _internal_device_screensaver_login_screen_image_display_interval_seconds() const;
+::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* _internal_mutable_device_screensaver_login_screen_image_display_interval_seconds();
 public:
-void unsafe_arena_set_allocated_device_screensaver_image_display_interval_seconds(
-::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* device_screensaver_image_display_interval_seconds);
-::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* unsafe_arena_release_device_screensaver_image_display_interval_seconds();
+void unsafe_arena_set_allocated_device_screensaver_login_screen_image_display_interval_seconds(
+::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* device_screensaver_login_screen_image_display_interval_seconds);
+::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* unsafe_arena_release_device_screensaver_login_screen_image_display_interval_seconds();
 
-// optional .enterprise_management.DeviceScreensaverImagesProto device_screensaver_images = 145;
-bool has_device_screensaver_images() const;
+// optional .enterprise_management.DeviceScreensaverLoginScreenImagesProto device_screensaver_login_screen_images = 145;
+bool has_device_screensaver_login_screen_images() const;
 private:
-bool _internal_has_device_screensaver_images() const;
+bool _internal_has_device_screensaver_login_screen_images() const;
 public:
-void clear_device_screensaver_images();
-const ::enterprise_management::DeviceScreensaverImagesProto& device_screensaver_images() const;
-PROTOBUF_NODISCARD ::enterprise_management::DeviceScreensaverImagesProto* release_device_screensaver_images();
-::enterprise_management::DeviceScreensaverImagesProto* mutable_device_screensaver_images();
-void set_allocated_device_screensaver_images(::enterprise_management::DeviceScreensaverImagesProto* device_screensaver_images);
+void clear_device_screensaver_login_screen_images();
+const ::enterprise_management::DeviceScreensaverLoginScreenImagesProto& device_screensaver_login_screen_images() const;
+PROTOBUF_NODISCARD ::enterprise_management::DeviceScreensaverLoginScreenImagesProto* release_device_screensaver_login_screen_images();
+::enterprise_management::DeviceScreensaverLoginScreenImagesProto* mutable_device_screensaver_login_screen_images();
+void set_allocated_device_screensaver_login_screen_images(::enterprise_management::DeviceScreensaverLoginScreenImagesProto* device_screensaver_login_screen_images);
 private:
-const ::enterprise_management::DeviceScreensaverImagesProto& _internal_device_screensaver_images() const;
-::enterprise_management::DeviceScreensaverImagesProto* _internal_mutable_device_screensaver_images();
+const ::enterprise_management::DeviceScreensaverLoginScreenImagesProto& _internal_device_screensaver_login_screen_images() const;
+::enterprise_management::DeviceScreensaverLoginScreenImagesProto* _internal_mutable_device_screensaver_login_screen_images();
 public:
-void unsafe_arena_set_allocated_device_screensaver_images(
-::enterprise_management::DeviceScreensaverImagesProto* device_screensaver_images);
-::enterprise_management::DeviceScreensaverImagesProto* unsafe_arena_release_device_screensaver_images();
+void unsafe_arena_set_allocated_device_screensaver_login_screen_images(
+::enterprise_management::DeviceScreensaverLoginScreenImagesProto* device_screensaver_login_screen_images);
+::enterprise_management::DeviceScreensaverLoginScreenImagesProto* unsafe_arena_release_device_screensaver_login_screen_images();
 
 // optional .enterprise_management.DeviceSystemAecEnabledProto device_system_aec_enabled = 146;
 bool has_device_system_aec_enabled() const;
@@ -26496,10 +26496,10 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::KeyboardBacklightColorProto* keyboard_backlight_color_;
 ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* device_hindi_inscript_layout_enabled_;
 ::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto* login_screen_extension_manifest_v2_availability_;
-::enterprise_management::DeviceScreensaverEnabledProto* device_screensaver_enabled_;
-::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* device_screensaver_idle_timeout_seconds_;
-::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* device_screensaver_image_display_interval_seconds_;
-::enterprise_management::DeviceScreensaverImagesProto* device_screensaver_images_;
+::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* device_screensaver_login_screen_enabled_;
+::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* device_screensaver_login_screen_idle_timeout_seconds_;
+::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* device_screensaver_login_screen_image_display_interval_seconds_;
+::enterprise_management::DeviceScreensaverLoginScreenImagesProto* device_screensaver_login_screen_images_;
 ::enterprise_management::DeviceSystemAecEnabledProto* device_system_aec_enabled_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
@@ -35361,145 +35361,177 @@ device_wallpaper_image_.Set("", GetArenaForAllocation());
 
 // -------------------------------------------------------------------
 
-// DeviceScreensaverIdleTimeoutSecondsProto
+// DeviceScreensaverLoginScreenIdleTimeoutSecondsProto
 
-// optional int64 device_screensaver_idle_timeout_seconds = 1;
-inline bool DeviceScreensaverIdleTimeoutSecondsProto::_internal_has_device_screensaver_idle_timeout_seconds() const {
+// optional int64 device_screensaver_login_screen_idle_timeout_seconds = 1;
+inline bool DeviceScreensaverLoginScreenIdleTimeoutSecondsProto::_internal_has_device_screensaver_login_screen_idle_timeout_seconds() const {
 bool value = (_has_bits_[0] & 0x00000001u) != 0;
 return value;
 }
-inline bool DeviceScreensaverIdleTimeoutSecondsProto::has_device_screensaver_idle_timeout_seconds() const {
-return _internal_has_device_screensaver_idle_timeout_seconds();
+inline bool DeviceScreensaverLoginScreenIdleTimeoutSecondsProto::has_device_screensaver_login_screen_idle_timeout_seconds() const {
+return _internal_has_device_screensaver_login_screen_idle_timeout_seconds();
 }
-inline void DeviceScreensaverIdleTimeoutSecondsProto::clear_device_screensaver_idle_timeout_seconds() {
-device_screensaver_idle_timeout_seconds_ = int64_t{0};
+inline void DeviceScreensaverLoginScreenIdleTimeoutSecondsProto::clear_device_screensaver_login_screen_idle_timeout_seconds() {
+device_screensaver_login_screen_idle_timeout_seconds_ = int64_t{0};
 _has_bits_[0] &= ~0x00000001u;
 }
-inline int64_t DeviceScreensaverIdleTimeoutSecondsProto::_internal_device_screensaver_idle_timeout_seconds() const {
-return device_screensaver_idle_timeout_seconds_;
+inline int64_t DeviceScreensaverLoginScreenIdleTimeoutSecondsProto::_internal_device_screensaver_login_screen_idle_timeout_seconds() const {
+return device_screensaver_login_screen_idle_timeout_seconds_;
 }
-inline int64_t DeviceScreensaverIdleTimeoutSecondsProto::device_screensaver_idle_timeout_seconds() const {
-// @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverIdleTimeoutSecondsProto.device_screensaver_idle_timeout_seconds)
-return _internal_device_screensaver_idle_timeout_seconds();
+inline int64_t DeviceScreensaverLoginScreenIdleTimeoutSecondsProto::device_screensaver_login_screen_idle_timeout_seconds() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverLoginScreenIdleTimeoutSecondsProto.device_screensaver_login_screen_idle_timeout_seconds)
+return _internal_device_screensaver_login_screen_idle_timeout_seconds();
 }
-inline void DeviceScreensaverIdleTimeoutSecondsProto::_internal_set_device_screensaver_idle_timeout_seconds(int64_t value) {
+inline void DeviceScreensaverLoginScreenIdleTimeoutSecondsProto::_internal_set_device_screensaver_login_screen_idle_timeout_seconds(int64_t value) {
 _has_bits_[0] |= 0x00000001u;
-device_screensaver_idle_timeout_seconds_ = value;
+device_screensaver_login_screen_idle_timeout_seconds_ = value;
 }
-inline void DeviceScreensaverIdleTimeoutSecondsProto::set_device_screensaver_idle_timeout_seconds(int64_t value) {
-_internal_set_device_screensaver_idle_timeout_seconds(value);
-// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverIdleTimeoutSecondsProto.device_screensaver_idle_timeout_seconds)
+inline void DeviceScreensaverLoginScreenIdleTimeoutSecondsProto::set_device_screensaver_login_screen_idle_timeout_seconds(int64_t value) {
+_internal_set_device_screensaver_login_screen_idle_timeout_seconds(value);
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverLoginScreenIdleTimeoutSecondsProto.device_screensaver_login_screen_idle_timeout_seconds)
 }
 
 // -------------------------------------------------------------------
 
-// DeviceScreensaverImageDisplayIntervalSecondsProto
+// DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto
 
-// optional int64 device_screensaver_image_display_interval_seconds = 1;
-inline bool DeviceScreensaverImageDisplayIntervalSecondsProto::_internal_has_device_screensaver_image_display_interval_seconds() const {
+// optional int64 device_screensaver_login_screen_image_display_interval_seconds = 1;
+inline bool DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto::_internal_has_device_screensaver_login_screen_image_display_interval_seconds() const {
 bool value = (_has_bits_[0] & 0x00000001u) != 0;
 return value;
 }
-inline bool DeviceScreensaverImageDisplayIntervalSecondsProto::has_device_screensaver_image_display_interval_seconds() const {
-return _internal_has_device_screensaver_image_display_interval_seconds();
+inline bool DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto::has_device_screensaver_login_screen_image_display_interval_seconds() const {
+return _internal_has_device_screensaver_login_screen_image_display_interval_seconds();
 }
-inline void DeviceScreensaverImageDisplayIntervalSecondsProto::clear_device_screensaver_image_display_interval_seconds() {
-device_screensaver_image_display_interval_seconds_ = int64_t{0};
+inline void DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto::clear_device_screensaver_login_screen_image_display_interval_seconds() {
+device_screensaver_login_screen_image_display_interval_seconds_ = int64_t{0};
 _has_bits_[0] &= ~0x00000001u;
 }
-inline int64_t DeviceScreensaverImageDisplayIntervalSecondsProto::_internal_device_screensaver_image_display_interval_seconds() const {
-return device_screensaver_image_display_interval_seconds_;
+inline int64_t DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto::_internal_device_screensaver_login_screen_image_display_interval_seconds() const {
+return device_screensaver_login_screen_image_display_interval_seconds_;
 }
-inline int64_t DeviceScreensaverImageDisplayIntervalSecondsProto::device_screensaver_image_display_interval_seconds() const {
-// @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverImageDisplayIntervalSecondsProto.device_screensaver_image_display_interval_seconds)
-return _internal_device_screensaver_image_display_interval_seconds();
+inline int64_t DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto::device_screensaver_login_screen_image_display_interval_seconds() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto.device_screensaver_login_screen_image_display_interval_seconds)
+return _internal_device_screensaver_login_screen_image_display_interval_seconds();
 }
-inline void DeviceScreensaverImageDisplayIntervalSecondsProto::_internal_set_device_screensaver_image_display_interval_seconds(int64_t value) {
+inline void DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto::_internal_set_device_screensaver_login_screen_image_display_interval_seconds(int64_t value) {
 _has_bits_[0] |= 0x00000001u;
-device_screensaver_image_display_interval_seconds_ = value;
+device_screensaver_login_screen_image_display_interval_seconds_ = value;
 }
-inline void DeviceScreensaverImageDisplayIntervalSecondsProto::set_device_screensaver_image_display_interval_seconds(int64_t value) {
-_internal_set_device_screensaver_image_display_interval_seconds(value);
-// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverImageDisplayIntervalSecondsProto.device_screensaver_image_display_interval_seconds)
+inline void DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto::set_device_screensaver_login_screen_image_display_interval_seconds(int64_t value) {
+_internal_set_device_screensaver_login_screen_image_display_interval_seconds(value);
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto.device_screensaver_login_screen_image_display_interval_seconds)
 }
 
 // -------------------------------------------------------------------
 
-// DeviceScreensaverImagesProto
+// DeviceScreensaverLoginScreenImagesProto
 
-// repeated string device_screensaver_images = 1;
-inline int DeviceScreensaverImagesProto::_internal_device_screensaver_images_size() const {
-return device_screensaver_images_.size();
+// repeated string device_screensaver_login_screen_images = 1;
+inline int DeviceScreensaverLoginScreenImagesProto::_internal_device_screensaver_login_screen_images_size() const {
+return device_screensaver_login_screen_images_.size();
 }
-inline int DeviceScreensaverImagesProto::device_screensaver_images_size() const {
-return _internal_device_screensaver_images_size();
+inline int DeviceScreensaverLoginScreenImagesProto::device_screensaver_login_screen_images_size() const {
+return _internal_device_screensaver_login_screen_images_size();
 }
-inline void DeviceScreensaverImagesProto::clear_device_screensaver_images() {
-device_screensaver_images_.Clear();
+inline void DeviceScreensaverLoginScreenImagesProto::clear_device_screensaver_login_screen_images() {
+device_screensaver_login_screen_images_.Clear();
 }
-inline std::string* DeviceScreensaverImagesProto::add_device_screensaver_images() {
-std::string* _s = _internal_add_device_screensaver_images();
-// @@protoc_insertion_point(field_add_mutable:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+inline std::string* DeviceScreensaverLoginScreenImagesProto::add_device_screensaver_login_screen_images() {
+std::string* _s = _internal_add_device_screensaver_login_screen_images();
+// @@protoc_insertion_point(field_add_mutable:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
 return _s;
 }
-inline const std::string& DeviceScreensaverImagesProto::_internal_device_screensaver_images(int index) const {
-return device_screensaver_images_.Get(index);
+inline const std::string& DeviceScreensaverLoginScreenImagesProto::_internal_device_screensaver_login_screen_images(int index) const {
+return device_screensaver_login_screen_images_.Get(index);
 }
-inline const std::string& DeviceScreensaverImagesProto::device_screensaver_images(int index) const {
-// @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
-return _internal_device_screensaver_images(index);
+inline const std::string& DeviceScreensaverLoginScreenImagesProto::device_screensaver_login_screen_images(int index) const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
+return _internal_device_screensaver_login_screen_images(index);
 }
-inline std::string* DeviceScreensaverImagesProto::mutable_device_screensaver_images(int index) {
-// @@protoc_insertion_point(field_mutable:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
-return device_screensaver_images_.Mutable(index);
+inline std::string* DeviceScreensaverLoginScreenImagesProto::mutable_device_screensaver_login_screen_images(int index) {
+// @@protoc_insertion_point(field_mutable:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
+return device_screensaver_login_screen_images_.Mutable(index);
 }
-inline void DeviceScreensaverImagesProto::set_device_screensaver_images(int index, const std::string& value) {
-device_screensaver_images_.Mutable(index)->assign(value);
-// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+inline void DeviceScreensaverLoginScreenImagesProto::set_device_screensaver_login_screen_images(int index, const std::string& value) {
+device_screensaver_login_screen_images_.Mutable(index)->assign(value);
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
 }
-inline void DeviceScreensaverImagesProto::set_device_screensaver_images(int index, std::string&& value) {
-device_screensaver_images_.Mutable(index)->assign(std::move(value));
-// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+inline void DeviceScreensaverLoginScreenImagesProto::set_device_screensaver_login_screen_images(int index, std::string&& value) {
+device_screensaver_login_screen_images_.Mutable(index)->assign(std::move(value));
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
 }
-inline void DeviceScreensaverImagesProto::set_device_screensaver_images(int index, const char* value) {
+inline void DeviceScreensaverLoginScreenImagesProto::set_device_screensaver_login_screen_images(int index, const char* value) {
 GOOGLE_DCHECK(value != nullptr);
-device_screensaver_images_.Mutable(index)->assign(value);
-// @@protoc_insertion_point(field_set_char:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+device_screensaver_login_screen_images_.Mutable(index)->assign(value);
+// @@protoc_insertion_point(field_set_char:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
 }
-inline void DeviceScreensaverImagesProto::set_device_screensaver_images(int index, const char* value, size_t size) {
-device_screensaver_images_.Mutable(index)->assign(
+inline void DeviceScreensaverLoginScreenImagesProto::set_device_screensaver_login_screen_images(int index, const char* value, size_t size) {
+device_screensaver_login_screen_images_.Mutable(index)->assign(
 reinterpret_cast<const char*>(value), size);
-// @@protoc_insertion_point(field_set_pointer:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+// @@protoc_insertion_point(field_set_pointer:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
 }
-inline std::string* DeviceScreensaverImagesProto::_internal_add_device_screensaver_images() {
-return device_screensaver_images_.Add();
+inline std::string* DeviceScreensaverLoginScreenImagesProto::_internal_add_device_screensaver_login_screen_images() {
+return device_screensaver_login_screen_images_.Add();
 }
-inline void DeviceScreensaverImagesProto::add_device_screensaver_images(const std::string& value) {
-device_screensaver_images_.Add()->assign(value);
-// @@protoc_insertion_point(field_add:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+inline void DeviceScreensaverLoginScreenImagesProto::add_device_screensaver_login_screen_images(const std::string& value) {
+device_screensaver_login_screen_images_.Add()->assign(value);
+// @@protoc_insertion_point(field_add:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
 }
-inline void DeviceScreensaverImagesProto::add_device_screensaver_images(std::string&& value) {
-device_screensaver_images_.Add(std::move(value));
-// @@protoc_insertion_point(field_add:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+inline void DeviceScreensaverLoginScreenImagesProto::add_device_screensaver_login_screen_images(std::string&& value) {
+device_screensaver_login_screen_images_.Add(std::move(value));
+// @@protoc_insertion_point(field_add:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
 }
-inline void DeviceScreensaverImagesProto::add_device_screensaver_images(const char* value) {
+inline void DeviceScreensaverLoginScreenImagesProto::add_device_screensaver_login_screen_images(const char* value) {
 GOOGLE_DCHECK(value != nullptr);
-device_screensaver_images_.Add()->assign(value);
-// @@protoc_insertion_point(field_add_char:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+device_screensaver_login_screen_images_.Add()->assign(value);
+// @@protoc_insertion_point(field_add_char:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
 }
-inline void DeviceScreensaverImagesProto::add_device_screensaver_images(const char* value, size_t size) {
-device_screensaver_images_.Add()->assign(reinterpret_cast<const char*>(value), size);
-// @@protoc_insertion_point(field_add_pointer:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+inline void DeviceScreensaverLoginScreenImagesProto::add_device_screensaver_login_screen_images(const char* value, size_t size) {
+device_screensaver_login_screen_images_.Add()->assign(reinterpret_cast<const char*>(value), size);
+// @@protoc_insertion_point(field_add_pointer:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-DeviceScreensaverImagesProto::device_screensaver_images() const {
-// @@protoc_insertion_point(field_list:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
-return device_screensaver_images_;
+DeviceScreensaverLoginScreenImagesProto::device_screensaver_login_screen_images() const {
+// @@protoc_insertion_point(field_list:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
+return device_screensaver_login_screen_images_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-DeviceScreensaverImagesProto::mutable_device_screensaver_images() {
-// @@protoc_insertion_point(field_mutable_list:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
-return &device_screensaver_images_;
+DeviceScreensaverLoginScreenImagesProto::mutable_device_screensaver_login_screen_images() {
+// @@protoc_insertion_point(field_mutable_list:enterprise_management.DeviceScreensaverLoginScreenImagesProto.device_screensaver_login_screen_images)
+return &device_screensaver_login_screen_images_;
+}
+
+// -------------------------------------------------------------------
+
+// DeviceScreensaverLoginScreenEnabledProto
+
+// optional bool device_screensaver_login_screen_mode = 1;
+inline bool DeviceScreensaverLoginScreenEnabledProto::_internal_has_device_screensaver_login_screen_mode() const {
+bool value = (_has_bits_[0] & 0x00000001u) != 0;
+return value;
+}
+inline bool DeviceScreensaverLoginScreenEnabledProto::has_device_screensaver_login_screen_mode() const {
+return _internal_has_device_screensaver_login_screen_mode();
+}
+inline void DeviceScreensaverLoginScreenEnabledProto::clear_device_screensaver_login_screen_mode() {
+device_screensaver_login_screen_mode_ = false;
+_has_bits_[0] &= ~0x00000001u;
+}
+inline bool DeviceScreensaverLoginScreenEnabledProto::_internal_device_screensaver_login_screen_mode() const {
+return device_screensaver_login_screen_mode_;
+}
+inline bool DeviceScreensaverLoginScreenEnabledProto::device_screensaver_login_screen_mode() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverLoginScreenEnabledProto.device_screensaver_login_screen_mode)
+return _internal_device_screensaver_login_screen_mode();
+}
+inline void DeviceScreensaverLoginScreenEnabledProto::_internal_set_device_screensaver_login_screen_mode(bool value) {
+_has_bits_[0] |= 0x00000001u;
+device_screensaver_login_screen_mode_ = value;
+}
+inline void DeviceScreensaverLoginScreenEnabledProto::set_device_screensaver_login_screen_mode(bool value) {
+_internal_set_device_screensaver_login_screen_mode(value);
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverLoginScreenEnabledProto.device_screensaver_login_screen_mode)
 }
 
 // -------------------------------------------------------------------
@@ -35532,38 +35564,6 @@ device_system_aec_enabled_ = value;
 inline void DeviceSystemAecEnabledProto::set_device_system_aec_enabled(bool value) {
 _internal_set_device_system_aec_enabled(value);
 // @@protoc_insertion_point(field_set:enterprise_management.DeviceSystemAecEnabledProto.device_system_aec_enabled)
-}
-
-// -------------------------------------------------------------------
-
-// DeviceScreensaverEnabledProto
-
-// optional bool device_screensaver_enabled = 1;
-inline bool DeviceScreensaverEnabledProto::_internal_has_device_screensaver_enabled() const {
-bool value = (_has_bits_[0] & 0x00000001u) != 0;
-return value;
-}
-inline bool DeviceScreensaverEnabledProto::has_device_screensaver_enabled() const {
-return _internal_has_device_screensaver_enabled();
-}
-inline void DeviceScreensaverEnabledProto::clear_device_screensaver_enabled() {
-device_screensaver_enabled_ = false;
-_has_bits_[0] &= ~0x00000001u;
-}
-inline bool DeviceScreensaverEnabledProto::_internal_device_screensaver_enabled() const {
-return device_screensaver_enabled_;
-}
-inline bool DeviceScreensaverEnabledProto::device_screensaver_enabled() const {
-// @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverEnabledProto.device_screensaver_enabled)
-return _internal_device_screensaver_enabled();
-}
-inline void DeviceScreensaverEnabledProto::_internal_set_device_screensaver_enabled(bool value) {
-_has_bits_[0] |= 0x00000001u;
-device_screensaver_enabled_ = value;
-}
-inline void DeviceScreensaverEnabledProto::set_device_screensaver_enabled(bool value) {
-_internal_set_device_screensaver_enabled(value);
-// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverEnabledProto.device_screensaver_enabled)
 }
 
 // -------------------------------------------------------------------
@@ -51449,45 +51449,45 @@ login_screen_extension_manifest_v2_availability_ = login_screen_extension_manife
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.login_screen_extension_manifest_v2_availability)
 }
 
-// optional .enterprise_management.DeviceScreensaverEnabledProto device_screensaver_enabled = 142;
-inline bool ChromeDeviceSettingsProto::_internal_has_device_screensaver_enabled() const {
+// optional .enterprise_management.DeviceScreensaverLoginScreenEnabledProto device_screensaver_login_screen_enabled = 142;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_screensaver_login_screen_enabled() const {
 bool value = (_has_bits_[4] & 0x00000400u) != 0;
-PROTOBUF_ASSUME(!value || device_screensaver_enabled_ != nullptr);
+PROTOBUF_ASSUME(!value || device_screensaver_login_screen_enabled_ != nullptr);
 return value;
 }
-inline bool ChromeDeviceSettingsProto::has_device_screensaver_enabled() const {
-return _internal_has_device_screensaver_enabled();
+inline bool ChromeDeviceSettingsProto::has_device_screensaver_login_screen_enabled() const {
+return _internal_has_device_screensaver_login_screen_enabled();
 }
-inline void ChromeDeviceSettingsProto::clear_device_screensaver_enabled() {
-if (device_screensaver_enabled_ != nullptr) device_screensaver_enabled_->Clear();
+inline void ChromeDeviceSettingsProto::clear_device_screensaver_login_screen_enabled() {
+if (device_screensaver_login_screen_enabled_ != nullptr) device_screensaver_login_screen_enabled_->Clear();
 _has_bits_[4] &= ~0x00000400u;
 }
-inline const ::enterprise_management::DeviceScreensaverEnabledProto& ChromeDeviceSettingsProto::_internal_device_screensaver_enabled() const {
-const ::enterprise_management::DeviceScreensaverEnabledProto* p = device_screensaver_enabled_;
-return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceScreensaverEnabledProto&>(
-::enterprise_management::_DeviceScreensaverEnabledProto_default_instance_);
+inline const ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto& ChromeDeviceSettingsProto::_internal_device_screensaver_login_screen_enabled() const {
+const ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* p = device_screensaver_login_screen_enabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto&>(
+::enterprise_management::_DeviceScreensaverLoginScreenEnabledProto_default_instance_);
 }
-inline const ::enterprise_management::DeviceScreensaverEnabledProto& ChromeDeviceSettingsProto::device_screensaver_enabled() const {
-// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_enabled)
-return _internal_device_screensaver_enabled();
+inline const ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto& ChromeDeviceSettingsProto::device_screensaver_login_screen_enabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_enabled)
+return _internal_device_screensaver_login_screen_enabled();
 }
-inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_screensaver_enabled(
-::enterprise_management::DeviceScreensaverEnabledProto* device_screensaver_enabled) {
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_screensaver_login_screen_enabled(
+::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* device_screensaver_login_screen_enabled) {
 if (GetArenaForAllocation() == nullptr) {
-delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_screensaver_enabled_);
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_screensaver_login_screen_enabled_);
 }
-device_screensaver_enabled_ = device_screensaver_enabled;
-if (device_screensaver_enabled) {
+device_screensaver_login_screen_enabled_ = device_screensaver_login_screen_enabled;
+if (device_screensaver_login_screen_enabled) {
 _has_bits_[4] |= 0x00000400u;
 } else {
 _has_bits_[4] &= ~0x00000400u;
 }
-// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_enabled)
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_enabled)
 }
-inline ::enterprise_management::DeviceScreensaverEnabledProto* ChromeDeviceSettingsProto::release_device_screensaver_enabled() {
+inline ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* ChromeDeviceSettingsProto::release_device_screensaver_login_screen_enabled() {
 _has_bits_[4] &= ~0x00000400u;
-::enterprise_management::DeviceScreensaverEnabledProto* temp = device_screensaver_enabled_;
-device_screensaver_enabled_ = nullptr;
+::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* temp = device_screensaver_login_screen_enabled_;
+device_screensaver_login_screen_enabled_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
 auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
 temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -51499,85 +51499,85 @@ temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
 return temp;
 }
-inline ::enterprise_management::DeviceScreensaverEnabledProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_screensaver_enabled() {
-// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_enabled)
+inline ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_screensaver_login_screen_enabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_enabled)
 _has_bits_[4] &= ~0x00000400u;
-::enterprise_management::DeviceScreensaverEnabledProto* temp = device_screensaver_enabled_;
-device_screensaver_enabled_ = nullptr;
+::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* temp = device_screensaver_login_screen_enabled_;
+device_screensaver_login_screen_enabled_ = nullptr;
 return temp;
 }
-inline ::enterprise_management::DeviceScreensaverEnabledProto* ChromeDeviceSettingsProto::_internal_mutable_device_screensaver_enabled() {
+inline ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* ChromeDeviceSettingsProto::_internal_mutable_device_screensaver_login_screen_enabled() {
 _has_bits_[4] |= 0x00000400u;
-if (device_screensaver_enabled_ == nullptr) {
-auto* p = CreateMaybeMessage<::enterprise_management::DeviceScreensaverEnabledProto>(GetArenaForAllocation());
-device_screensaver_enabled_ = p;
+if (device_screensaver_login_screen_enabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::DeviceScreensaverLoginScreenEnabledProto>(GetArenaForAllocation());
+device_screensaver_login_screen_enabled_ = p;
 }
-return device_screensaver_enabled_;
+return device_screensaver_login_screen_enabled_;
 }
-inline ::enterprise_management::DeviceScreensaverEnabledProto* ChromeDeviceSettingsProto::mutable_device_screensaver_enabled() {
-::enterprise_management::DeviceScreensaverEnabledProto* _msg = _internal_mutable_device_screensaver_enabled();
-// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_enabled)
+inline ::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* ChromeDeviceSettingsProto::mutable_device_screensaver_login_screen_enabled() {
+::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* _msg = _internal_mutable_device_screensaver_login_screen_enabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_enabled)
 return _msg;
 }
-inline void ChromeDeviceSettingsProto::set_allocated_device_screensaver_enabled(::enterprise_management::DeviceScreensaverEnabledProto* device_screensaver_enabled) {
+inline void ChromeDeviceSettingsProto::set_allocated_device_screensaver_login_screen_enabled(::enterprise_management::DeviceScreensaverLoginScreenEnabledProto* device_screensaver_login_screen_enabled) {
 ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
 if (message_arena == nullptr) {
-delete device_screensaver_enabled_;
+delete device_screensaver_login_screen_enabled_;
 }
-if (device_screensaver_enabled) {
+if (device_screensaver_login_screen_enabled) {
 ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_screensaver_enabled);
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_screensaver_login_screen_enabled);
 if (message_arena != submessage_arena) {
-device_screensaver_enabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-message_arena, device_screensaver_enabled, submessage_arena);
+device_screensaver_login_screen_enabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, device_screensaver_login_screen_enabled, submessage_arena);
 }
 _has_bits_[4] |= 0x00000400u;
 } else {
 _has_bits_[4] &= ~0x00000400u;
 }
-device_screensaver_enabled_ = device_screensaver_enabled;
-// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_enabled)
+device_screensaver_login_screen_enabled_ = device_screensaver_login_screen_enabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_enabled)
 }
 
-// optional .enterprise_management.DeviceScreensaverIdleTimeoutSecondsProto device_screensaver_idle_timeout_seconds = 143;
-inline bool ChromeDeviceSettingsProto::_internal_has_device_screensaver_idle_timeout_seconds() const {
+// optional .enterprise_management.DeviceScreensaverLoginScreenIdleTimeoutSecondsProto device_screensaver_login_screen_idle_timeout_seconds = 143;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_screensaver_login_screen_idle_timeout_seconds() const {
 bool value = (_has_bits_[4] & 0x00000800u) != 0;
-PROTOBUF_ASSUME(!value || device_screensaver_idle_timeout_seconds_ != nullptr);
+PROTOBUF_ASSUME(!value || device_screensaver_login_screen_idle_timeout_seconds_ != nullptr);
 return value;
 }
-inline bool ChromeDeviceSettingsProto::has_device_screensaver_idle_timeout_seconds() const {
-return _internal_has_device_screensaver_idle_timeout_seconds();
+inline bool ChromeDeviceSettingsProto::has_device_screensaver_login_screen_idle_timeout_seconds() const {
+return _internal_has_device_screensaver_login_screen_idle_timeout_seconds();
 }
-inline void ChromeDeviceSettingsProto::clear_device_screensaver_idle_timeout_seconds() {
-if (device_screensaver_idle_timeout_seconds_ != nullptr) device_screensaver_idle_timeout_seconds_->Clear();
+inline void ChromeDeviceSettingsProto::clear_device_screensaver_login_screen_idle_timeout_seconds() {
+if (device_screensaver_login_screen_idle_timeout_seconds_ != nullptr) device_screensaver_login_screen_idle_timeout_seconds_->Clear();
 _has_bits_[4] &= ~0x00000800u;
 }
-inline const ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto& ChromeDeviceSettingsProto::_internal_device_screensaver_idle_timeout_seconds() const {
-const ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* p = device_screensaver_idle_timeout_seconds_;
-return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto&>(
-::enterprise_management::_DeviceScreensaverIdleTimeoutSecondsProto_default_instance_);
+inline const ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& ChromeDeviceSettingsProto::_internal_device_screensaver_login_screen_idle_timeout_seconds() const {
+const ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* p = device_screensaver_login_screen_idle_timeout_seconds_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto&>(
+::enterprise_management::_DeviceScreensaverLoginScreenIdleTimeoutSecondsProto_default_instance_);
 }
-inline const ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto& ChromeDeviceSettingsProto::device_screensaver_idle_timeout_seconds() const {
-// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_idle_timeout_seconds)
-return _internal_device_screensaver_idle_timeout_seconds();
+inline const ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto& ChromeDeviceSettingsProto::device_screensaver_login_screen_idle_timeout_seconds() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_idle_timeout_seconds)
+return _internal_device_screensaver_login_screen_idle_timeout_seconds();
 }
-inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_screensaver_idle_timeout_seconds(
-::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* device_screensaver_idle_timeout_seconds) {
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_screensaver_login_screen_idle_timeout_seconds(
+::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* device_screensaver_login_screen_idle_timeout_seconds) {
 if (GetArenaForAllocation() == nullptr) {
-delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_screensaver_idle_timeout_seconds_);
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_screensaver_login_screen_idle_timeout_seconds_);
 }
-device_screensaver_idle_timeout_seconds_ = device_screensaver_idle_timeout_seconds;
-if (device_screensaver_idle_timeout_seconds) {
+device_screensaver_login_screen_idle_timeout_seconds_ = device_screensaver_login_screen_idle_timeout_seconds;
+if (device_screensaver_login_screen_idle_timeout_seconds) {
 _has_bits_[4] |= 0x00000800u;
 } else {
 _has_bits_[4] &= ~0x00000800u;
 }
-// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_idle_timeout_seconds)
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_idle_timeout_seconds)
 }
-inline ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* ChromeDeviceSettingsProto::release_device_screensaver_idle_timeout_seconds() {
+inline ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* ChromeDeviceSettingsProto::release_device_screensaver_login_screen_idle_timeout_seconds() {
 _has_bits_[4] &= ~0x00000800u;
-::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* temp = device_screensaver_idle_timeout_seconds_;
-device_screensaver_idle_timeout_seconds_ = nullptr;
+::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* temp = device_screensaver_login_screen_idle_timeout_seconds_;
+device_screensaver_login_screen_idle_timeout_seconds_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
 auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
 temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -51589,85 +51589,85 @@ temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
 return temp;
 }
-inline ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_screensaver_idle_timeout_seconds() {
-// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_idle_timeout_seconds)
+inline ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_screensaver_login_screen_idle_timeout_seconds() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_idle_timeout_seconds)
 _has_bits_[4] &= ~0x00000800u;
-::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* temp = device_screensaver_idle_timeout_seconds_;
-device_screensaver_idle_timeout_seconds_ = nullptr;
+::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* temp = device_screensaver_login_screen_idle_timeout_seconds_;
+device_screensaver_login_screen_idle_timeout_seconds_ = nullptr;
 return temp;
 }
-inline ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* ChromeDeviceSettingsProto::_internal_mutable_device_screensaver_idle_timeout_seconds() {
+inline ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* ChromeDeviceSettingsProto::_internal_mutable_device_screensaver_login_screen_idle_timeout_seconds() {
 _has_bits_[4] |= 0x00000800u;
-if (device_screensaver_idle_timeout_seconds_ == nullptr) {
-auto* p = CreateMaybeMessage<::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto>(GetArenaForAllocation());
-device_screensaver_idle_timeout_seconds_ = p;
+if (device_screensaver_login_screen_idle_timeout_seconds_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto>(GetArenaForAllocation());
+device_screensaver_login_screen_idle_timeout_seconds_ = p;
 }
-return device_screensaver_idle_timeout_seconds_;
+return device_screensaver_login_screen_idle_timeout_seconds_;
 }
-inline ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* ChromeDeviceSettingsProto::mutable_device_screensaver_idle_timeout_seconds() {
-::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* _msg = _internal_mutable_device_screensaver_idle_timeout_seconds();
-// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_idle_timeout_seconds)
+inline ::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* ChromeDeviceSettingsProto::mutable_device_screensaver_login_screen_idle_timeout_seconds() {
+::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* _msg = _internal_mutable_device_screensaver_login_screen_idle_timeout_seconds();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_idle_timeout_seconds)
 return _msg;
 }
-inline void ChromeDeviceSettingsProto::set_allocated_device_screensaver_idle_timeout_seconds(::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* device_screensaver_idle_timeout_seconds) {
+inline void ChromeDeviceSettingsProto::set_allocated_device_screensaver_login_screen_idle_timeout_seconds(::enterprise_management::DeviceScreensaverLoginScreenIdleTimeoutSecondsProto* device_screensaver_login_screen_idle_timeout_seconds) {
 ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
 if (message_arena == nullptr) {
-delete device_screensaver_idle_timeout_seconds_;
+delete device_screensaver_login_screen_idle_timeout_seconds_;
 }
-if (device_screensaver_idle_timeout_seconds) {
+if (device_screensaver_login_screen_idle_timeout_seconds) {
 ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_screensaver_idle_timeout_seconds);
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_screensaver_login_screen_idle_timeout_seconds);
 if (message_arena != submessage_arena) {
-device_screensaver_idle_timeout_seconds = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-message_arena, device_screensaver_idle_timeout_seconds, submessage_arena);
+device_screensaver_login_screen_idle_timeout_seconds = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, device_screensaver_login_screen_idle_timeout_seconds, submessage_arena);
 }
 _has_bits_[4] |= 0x00000800u;
 } else {
 _has_bits_[4] &= ~0x00000800u;
 }
-device_screensaver_idle_timeout_seconds_ = device_screensaver_idle_timeout_seconds;
-// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_idle_timeout_seconds)
+device_screensaver_login_screen_idle_timeout_seconds_ = device_screensaver_login_screen_idle_timeout_seconds;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_idle_timeout_seconds)
 }
 
-// optional .enterprise_management.DeviceScreensaverImageDisplayIntervalSecondsProto device_screensaver_image_display_interval_seconds = 144;
-inline bool ChromeDeviceSettingsProto::_internal_has_device_screensaver_image_display_interval_seconds() const {
+// optional .enterprise_management.DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto device_screensaver_login_screen_image_display_interval_seconds = 144;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_screensaver_login_screen_image_display_interval_seconds() const {
 bool value = (_has_bits_[4] & 0x00001000u) != 0;
-PROTOBUF_ASSUME(!value || device_screensaver_image_display_interval_seconds_ != nullptr);
+PROTOBUF_ASSUME(!value || device_screensaver_login_screen_image_display_interval_seconds_ != nullptr);
 return value;
 }
-inline bool ChromeDeviceSettingsProto::has_device_screensaver_image_display_interval_seconds() const {
-return _internal_has_device_screensaver_image_display_interval_seconds();
+inline bool ChromeDeviceSettingsProto::has_device_screensaver_login_screen_image_display_interval_seconds() const {
+return _internal_has_device_screensaver_login_screen_image_display_interval_seconds();
 }
-inline void ChromeDeviceSettingsProto::clear_device_screensaver_image_display_interval_seconds() {
-if (device_screensaver_image_display_interval_seconds_ != nullptr) device_screensaver_image_display_interval_seconds_->Clear();
+inline void ChromeDeviceSettingsProto::clear_device_screensaver_login_screen_image_display_interval_seconds() {
+if (device_screensaver_login_screen_image_display_interval_seconds_ != nullptr) device_screensaver_login_screen_image_display_interval_seconds_->Clear();
 _has_bits_[4] &= ~0x00001000u;
 }
-inline const ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto& ChromeDeviceSettingsProto::_internal_device_screensaver_image_display_interval_seconds() const {
-const ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* p = device_screensaver_image_display_interval_seconds_;
-return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto&>(
-::enterprise_management::_DeviceScreensaverImageDisplayIntervalSecondsProto_default_instance_);
+inline const ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& ChromeDeviceSettingsProto::_internal_device_screensaver_login_screen_image_display_interval_seconds() const {
+const ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* p = device_screensaver_login_screen_image_display_interval_seconds_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto&>(
+::enterprise_management::_DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto_default_instance_);
 }
-inline const ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto& ChromeDeviceSettingsProto::device_screensaver_image_display_interval_seconds() const {
-// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_image_display_interval_seconds)
-return _internal_device_screensaver_image_display_interval_seconds();
+inline const ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto& ChromeDeviceSettingsProto::device_screensaver_login_screen_image_display_interval_seconds() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_image_display_interval_seconds)
+return _internal_device_screensaver_login_screen_image_display_interval_seconds();
 }
-inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_screensaver_image_display_interval_seconds(
-::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* device_screensaver_image_display_interval_seconds) {
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_screensaver_login_screen_image_display_interval_seconds(
+::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* device_screensaver_login_screen_image_display_interval_seconds) {
 if (GetArenaForAllocation() == nullptr) {
-delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_screensaver_image_display_interval_seconds_);
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_screensaver_login_screen_image_display_interval_seconds_);
 }
-device_screensaver_image_display_interval_seconds_ = device_screensaver_image_display_interval_seconds;
-if (device_screensaver_image_display_interval_seconds) {
+device_screensaver_login_screen_image_display_interval_seconds_ = device_screensaver_login_screen_image_display_interval_seconds;
+if (device_screensaver_login_screen_image_display_interval_seconds) {
 _has_bits_[4] |= 0x00001000u;
 } else {
 _has_bits_[4] &= ~0x00001000u;
 }
-// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_image_display_interval_seconds)
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_image_display_interval_seconds)
 }
-inline ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* ChromeDeviceSettingsProto::release_device_screensaver_image_display_interval_seconds() {
+inline ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* ChromeDeviceSettingsProto::release_device_screensaver_login_screen_image_display_interval_seconds() {
 _has_bits_[4] &= ~0x00001000u;
-::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* temp = device_screensaver_image_display_interval_seconds_;
-device_screensaver_image_display_interval_seconds_ = nullptr;
+::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* temp = device_screensaver_login_screen_image_display_interval_seconds_;
+device_screensaver_login_screen_image_display_interval_seconds_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
 auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
 temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -51679,85 +51679,85 @@ temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
 return temp;
 }
-inline ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_screensaver_image_display_interval_seconds() {
-// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_image_display_interval_seconds)
+inline ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_screensaver_login_screen_image_display_interval_seconds() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_image_display_interval_seconds)
 _has_bits_[4] &= ~0x00001000u;
-::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* temp = device_screensaver_image_display_interval_seconds_;
-device_screensaver_image_display_interval_seconds_ = nullptr;
+::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* temp = device_screensaver_login_screen_image_display_interval_seconds_;
+device_screensaver_login_screen_image_display_interval_seconds_ = nullptr;
 return temp;
 }
-inline ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* ChromeDeviceSettingsProto::_internal_mutable_device_screensaver_image_display_interval_seconds() {
+inline ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* ChromeDeviceSettingsProto::_internal_mutable_device_screensaver_login_screen_image_display_interval_seconds() {
 _has_bits_[4] |= 0x00001000u;
-if (device_screensaver_image_display_interval_seconds_ == nullptr) {
-auto* p = CreateMaybeMessage<::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto>(GetArenaForAllocation());
-device_screensaver_image_display_interval_seconds_ = p;
+if (device_screensaver_login_screen_image_display_interval_seconds_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto>(GetArenaForAllocation());
+device_screensaver_login_screen_image_display_interval_seconds_ = p;
 }
-return device_screensaver_image_display_interval_seconds_;
+return device_screensaver_login_screen_image_display_interval_seconds_;
 }
-inline ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* ChromeDeviceSettingsProto::mutable_device_screensaver_image_display_interval_seconds() {
-::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* _msg = _internal_mutable_device_screensaver_image_display_interval_seconds();
-// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_image_display_interval_seconds)
+inline ::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* ChromeDeviceSettingsProto::mutable_device_screensaver_login_screen_image_display_interval_seconds() {
+::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* _msg = _internal_mutable_device_screensaver_login_screen_image_display_interval_seconds();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_image_display_interval_seconds)
 return _msg;
 }
-inline void ChromeDeviceSettingsProto::set_allocated_device_screensaver_image_display_interval_seconds(::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* device_screensaver_image_display_interval_seconds) {
+inline void ChromeDeviceSettingsProto::set_allocated_device_screensaver_login_screen_image_display_interval_seconds(::enterprise_management::DeviceScreensaverLoginScreenImageDisplayIntervalSecondsProto* device_screensaver_login_screen_image_display_interval_seconds) {
 ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
 if (message_arena == nullptr) {
-delete device_screensaver_image_display_interval_seconds_;
+delete device_screensaver_login_screen_image_display_interval_seconds_;
 }
-if (device_screensaver_image_display_interval_seconds) {
+if (device_screensaver_login_screen_image_display_interval_seconds) {
 ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_screensaver_image_display_interval_seconds);
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_screensaver_login_screen_image_display_interval_seconds);
 if (message_arena != submessage_arena) {
-device_screensaver_image_display_interval_seconds = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-message_arena, device_screensaver_image_display_interval_seconds, submessage_arena);
+device_screensaver_login_screen_image_display_interval_seconds = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, device_screensaver_login_screen_image_display_interval_seconds, submessage_arena);
 }
 _has_bits_[4] |= 0x00001000u;
 } else {
 _has_bits_[4] &= ~0x00001000u;
 }
-device_screensaver_image_display_interval_seconds_ = device_screensaver_image_display_interval_seconds;
-// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_image_display_interval_seconds)
+device_screensaver_login_screen_image_display_interval_seconds_ = device_screensaver_login_screen_image_display_interval_seconds;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_image_display_interval_seconds)
 }
 
-// optional .enterprise_management.DeviceScreensaverImagesProto device_screensaver_images = 145;
-inline bool ChromeDeviceSettingsProto::_internal_has_device_screensaver_images() const {
+// optional .enterprise_management.DeviceScreensaverLoginScreenImagesProto device_screensaver_login_screen_images = 145;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_screensaver_login_screen_images() const {
 bool value = (_has_bits_[4] & 0x00002000u) != 0;
-PROTOBUF_ASSUME(!value || device_screensaver_images_ != nullptr);
+PROTOBUF_ASSUME(!value || device_screensaver_login_screen_images_ != nullptr);
 return value;
 }
-inline bool ChromeDeviceSettingsProto::has_device_screensaver_images() const {
-return _internal_has_device_screensaver_images();
+inline bool ChromeDeviceSettingsProto::has_device_screensaver_login_screen_images() const {
+return _internal_has_device_screensaver_login_screen_images();
 }
-inline void ChromeDeviceSettingsProto::clear_device_screensaver_images() {
-if (device_screensaver_images_ != nullptr) device_screensaver_images_->Clear();
+inline void ChromeDeviceSettingsProto::clear_device_screensaver_login_screen_images() {
+if (device_screensaver_login_screen_images_ != nullptr) device_screensaver_login_screen_images_->Clear();
 _has_bits_[4] &= ~0x00002000u;
 }
-inline const ::enterprise_management::DeviceScreensaverImagesProto& ChromeDeviceSettingsProto::_internal_device_screensaver_images() const {
-const ::enterprise_management::DeviceScreensaverImagesProto* p = device_screensaver_images_;
-return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceScreensaverImagesProto&>(
-::enterprise_management::_DeviceScreensaverImagesProto_default_instance_);
+inline const ::enterprise_management::DeviceScreensaverLoginScreenImagesProto& ChromeDeviceSettingsProto::_internal_device_screensaver_login_screen_images() const {
+const ::enterprise_management::DeviceScreensaverLoginScreenImagesProto* p = device_screensaver_login_screen_images_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceScreensaverLoginScreenImagesProto&>(
+::enterprise_management::_DeviceScreensaverLoginScreenImagesProto_default_instance_);
 }
-inline const ::enterprise_management::DeviceScreensaverImagesProto& ChromeDeviceSettingsProto::device_screensaver_images() const {
-// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_images)
-return _internal_device_screensaver_images();
+inline const ::enterprise_management::DeviceScreensaverLoginScreenImagesProto& ChromeDeviceSettingsProto::device_screensaver_login_screen_images() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_images)
+return _internal_device_screensaver_login_screen_images();
 }
-inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_screensaver_images(
-::enterprise_management::DeviceScreensaverImagesProto* device_screensaver_images) {
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_screensaver_login_screen_images(
+::enterprise_management::DeviceScreensaverLoginScreenImagesProto* device_screensaver_login_screen_images) {
 if (GetArenaForAllocation() == nullptr) {
-delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_screensaver_images_);
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_screensaver_login_screen_images_);
 }
-device_screensaver_images_ = device_screensaver_images;
-if (device_screensaver_images) {
+device_screensaver_login_screen_images_ = device_screensaver_login_screen_images;
+if (device_screensaver_login_screen_images) {
 _has_bits_[4] |= 0x00002000u;
 } else {
 _has_bits_[4] &= ~0x00002000u;
 }
-// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_images)
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_images)
 }
-inline ::enterprise_management::DeviceScreensaverImagesProto* ChromeDeviceSettingsProto::release_device_screensaver_images() {
+inline ::enterprise_management::DeviceScreensaverLoginScreenImagesProto* ChromeDeviceSettingsProto::release_device_screensaver_login_screen_images() {
 _has_bits_[4] &= ~0x00002000u;
-::enterprise_management::DeviceScreensaverImagesProto* temp = device_screensaver_images_;
-device_screensaver_images_ = nullptr;
+::enterprise_management::DeviceScreensaverLoginScreenImagesProto* temp = device_screensaver_login_screen_images_;
+device_screensaver_login_screen_images_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
 auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
 temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -51769,44 +51769,44 @@ temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
 return temp;
 }
-inline ::enterprise_management::DeviceScreensaverImagesProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_screensaver_images() {
-// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_images)
+inline ::enterprise_management::DeviceScreensaverLoginScreenImagesProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_screensaver_login_screen_images() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_images)
 _has_bits_[4] &= ~0x00002000u;
-::enterprise_management::DeviceScreensaverImagesProto* temp = device_screensaver_images_;
-device_screensaver_images_ = nullptr;
+::enterprise_management::DeviceScreensaverLoginScreenImagesProto* temp = device_screensaver_login_screen_images_;
+device_screensaver_login_screen_images_ = nullptr;
 return temp;
 }
-inline ::enterprise_management::DeviceScreensaverImagesProto* ChromeDeviceSettingsProto::_internal_mutable_device_screensaver_images() {
+inline ::enterprise_management::DeviceScreensaverLoginScreenImagesProto* ChromeDeviceSettingsProto::_internal_mutable_device_screensaver_login_screen_images() {
 _has_bits_[4] |= 0x00002000u;
-if (device_screensaver_images_ == nullptr) {
-auto* p = CreateMaybeMessage<::enterprise_management::DeviceScreensaverImagesProto>(GetArenaForAllocation());
-device_screensaver_images_ = p;
+if (device_screensaver_login_screen_images_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::DeviceScreensaverLoginScreenImagesProto>(GetArenaForAllocation());
+device_screensaver_login_screen_images_ = p;
 }
-return device_screensaver_images_;
+return device_screensaver_login_screen_images_;
 }
-inline ::enterprise_management::DeviceScreensaverImagesProto* ChromeDeviceSettingsProto::mutable_device_screensaver_images() {
-::enterprise_management::DeviceScreensaverImagesProto* _msg = _internal_mutable_device_screensaver_images();
-// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_images)
+inline ::enterprise_management::DeviceScreensaverLoginScreenImagesProto* ChromeDeviceSettingsProto::mutable_device_screensaver_login_screen_images() {
+::enterprise_management::DeviceScreensaverLoginScreenImagesProto* _msg = _internal_mutable_device_screensaver_login_screen_images();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_images)
 return _msg;
 }
-inline void ChromeDeviceSettingsProto::set_allocated_device_screensaver_images(::enterprise_management::DeviceScreensaverImagesProto* device_screensaver_images) {
+inline void ChromeDeviceSettingsProto::set_allocated_device_screensaver_login_screen_images(::enterprise_management::DeviceScreensaverLoginScreenImagesProto* device_screensaver_login_screen_images) {
 ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
 if (message_arena == nullptr) {
-delete device_screensaver_images_;
+delete device_screensaver_login_screen_images_;
 }
-if (device_screensaver_images) {
+if (device_screensaver_login_screen_images) {
 ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_screensaver_images);
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_screensaver_login_screen_images);
 if (message_arena != submessage_arena) {
-device_screensaver_images = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-message_arena, device_screensaver_images, submessage_arena);
+device_screensaver_login_screen_images = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, device_screensaver_login_screen_images, submessage_arena);
 }
 _has_bits_[4] |= 0x00002000u;
 } else {
 _has_bits_[4] &= ~0x00002000u;
 }
-device_screensaver_images_ = device_screensaver_images;
-// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_images)
+device_screensaver_login_screen_images_ = device_screensaver_login_screen_images;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_login_screen_images)
 }
 
 // optional .enterprise_management.DeviceSystemAecEnabledProto device_system_aec_enabled = 146;

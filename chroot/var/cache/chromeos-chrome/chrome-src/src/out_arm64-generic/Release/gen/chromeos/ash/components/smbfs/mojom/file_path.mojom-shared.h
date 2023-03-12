@@ -85,7 +85,6 @@ class FilePathDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace smbfs
 

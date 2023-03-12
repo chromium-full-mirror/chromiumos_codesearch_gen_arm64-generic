@@ -187,7 +187,6 @@ class PointDataView {
 };
 
 
-
 class PointFDataView {
  public:
   PointFDataView() = default;
@@ -207,7 +206,6 @@ class PointFDataView {
  private:
   internal::PointF_Data* data_ = nullptr;
 };
-
 
 
 class Point3FDataView {
@@ -234,7 +232,6 @@ class Point3FDataView {
 };
 
 
-
 class SizeDataView {
  public:
   SizeDataView() = default;
@@ -256,7 +253,6 @@ class SizeDataView {
 };
 
 
-
 class SizeFDataView {
  public:
   SizeFDataView() = default;
@@ -276,7 +272,6 @@ class SizeFDataView {
  private:
   internal::SizeF_Data* data_ = nullptr;
 };
-
 
 
 class RectDataView {
@@ -306,7 +301,6 @@ class RectDataView {
 };
 
 
-
 class RectFDataView {
  public:
   RectFDataView() = default;
@@ -332,7 +326,6 @@ class RectFDataView {
  private:
   internal::RectF_Data* data_ = nullptr;
 };
-
 
 
 class InsetsDataView {
@@ -362,7 +355,6 @@ class InsetsDataView {
 };
 
 
-
 class InsetsFDataView {
  public:
   InsetsFDataView() = default;
@@ -390,7 +382,6 @@ class InsetsFDataView {
 };
 
 
-
 class Vector2dDataView {
  public:
   Vector2dDataView() = default;
@@ -412,7 +403,6 @@ class Vector2dDataView {
 };
 
 
-
 class Vector2dFDataView {
  public:
   Vector2dFDataView() = default;
@@ -432,7 +422,6 @@ class Vector2dFDataView {
  private:
   internal::Vector2dF_Data* data_ = nullptr;
 };
-
 
 
 class Vector3dFDataView {
@@ -457,7 +446,6 @@ class Vector3dFDataView {
  private:
   internal::Vector3dF_Data* data_ = nullptr;
 };
-
 
 
 class QuaternionDataView {
@@ -485,7 +473,6 @@ class QuaternionDataView {
  private:
   internal::Quaternion_Data* data_ = nullptr;
 };
-
 
 
 }  // namespace mojom

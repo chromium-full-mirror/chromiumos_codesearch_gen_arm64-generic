@@ -221,7 +221,6 @@ class VideoDecoder_Initialize_ParamsDataView {
 };
 
 
-
 class VideoDecoder_Initialize_ResponseParamsDataView {
  public:
   VideoDecoder_Initialize_ResponseParamsDataView() = default;
@@ -245,7 +244,6 @@ class VideoDecoder_Initialize_ResponseParamsDataView {
  private:
   internal::VideoDecoder_Initialize_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecoder_Decode_ParamsDataView {
@@ -274,7 +272,6 @@ class VideoDecoder_Decode_ParamsDataView {
 };
 
 
-
 class VideoDecoder_Decode_ResponseParamsDataView {
  public:
   VideoDecoder_Decode_ResponseParamsDataView() = default;
@@ -300,7 +297,6 @@ class VideoDecoder_Decode_ResponseParamsDataView {
 };
 
 
-
 class VideoDecoder_Reset_ParamsDataView {
  public:
   VideoDecoder_Reset_ParamsDataView() = default;
@@ -316,7 +312,6 @@ class VideoDecoder_Reset_ParamsDataView {
 };
 
 
-
 class VideoDecoder_Reset_ResponseParamsDataView {
  public:
   VideoDecoder_Reset_ResponseParamsDataView() = default;
@@ -330,7 +325,6 @@ class VideoDecoder_Reset_ResponseParamsDataView {
  private:
   internal::VideoDecoder_Reset_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecoder_ReleaseVideoFrame_ParamsDataView {
@@ -349,7 +343,6 @@ class VideoDecoder_ReleaseVideoFrame_ParamsDataView {
  private:
   internal::VideoDecoder_ReleaseVideoFrame_Params_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecoderClient_OnVideoFrameDecoded_ParamsDataView {
@@ -384,7 +377,6 @@ class VideoDecoderClient_OnVideoFrameDecoded_ParamsDataView {
 };
 
 
-
 class VideoDecoderClient_OnError_ParamsDataView {
  public:
   VideoDecoderClient_OnError_ParamsDataView() = default;
@@ -408,7 +400,6 @@ class VideoDecoderClient_OnError_ParamsDataView {
  private:
   internal::VideoDecoderClient_OnError_Params_Data* data_ = nullptr;
 };
-
 
 inline void VideoDecoder_Initialize_ParamsDataView::GetConfigDataView(
     VideoDecoderConfigDataView* output) {

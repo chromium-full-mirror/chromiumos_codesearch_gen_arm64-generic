@@ -140,7 +140,6 @@ struct TargetInfo {
 namespace Attach {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -172,7 +171,6 @@ base::Value::List Create();
 namespace Detach {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -198,7 +196,6 @@ base::Value::List Create();
 namespace SendCommand {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;

@@ -1942,7 +1942,6 @@ class CrosHealthdServiceFactory_GetDiagnosticsService_ParamsDataView {
 };
 
 
-
 class CrosHealthdServiceFactory_GetEventService_ParamsDataView {
  public:
   CrosHealthdServiceFactory_GetEventService_ParamsDataView() = default;
@@ -1966,7 +1965,6 @@ class CrosHealthdServiceFactory_GetEventService_ParamsDataView {
   internal::CrosHealthdServiceFactory_GetEventService_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdServiceFactory_GetProbeService_ParamsDataView {
@@ -1994,7 +1992,6 @@ class CrosHealthdServiceFactory_GetProbeService_ParamsDataView {
 };
 
 
-
 class CrosHealthdServiceFactory_SendNetworkHealthService_ParamsDataView {
  public:
   CrosHealthdServiceFactory_SendNetworkHealthService_ParamsDataView() = default;
@@ -2018,7 +2015,6 @@ class CrosHealthdServiceFactory_SendNetworkHealthService_ParamsDataView {
   internal::CrosHealthdServiceFactory_SendNetworkHealthService_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_ParamsDataView {
@@ -2046,7 +2042,6 @@ class CrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_ParamsDataView {
 };
 
 
-
 class CrosHealthdServiceFactory_GetSystemService_ParamsDataView {
  public:
   CrosHealthdServiceFactory_GetSystemService_ParamsDataView() = default;
@@ -2070,7 +2065,6 @@ class CrosHealthdServiceFactory_GetSystemService_ParamsDataView {
   internal::CrosHealthdServiceFactory_GetSystemService_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdServiceFactory_SendChromiumDataCollector_ParamsDataView {
@@ -2098,7 +2092,6 @@ class CrosHealthdServiceFactory_SendChromiumDataCollector_ParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_GetAvailableRoutines_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_GetAvailableRoutines_ParamsDataView() = default;
@@ -2112,7 +2105,6 @@ class CrosHealthdDiagnosticsService_GetAvailableRoutines_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParamsDataView {
@@ -2139,7 +2131,6 @@ class CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParamsDataView 
   internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_GetRoutineUpdate_ParamsDataView {
@@ -2173,7 +2164,6 @@ class CrosHealthdDiagnosticsService_GetRoutineUpdate_ParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParamsDataView() = default;
@@ -2198,7 +2188,6 @@ class CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParamsDataView {
   internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunUrandomRoutine_ParamsDataView {
@@ -2237,7 +2226,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParamsDataView() = default;
@@ -2264,7 +2252,6 @@ class CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ParamsDataView() = default;
@@ -2278,7 +2265,6 @@ class CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParamsDataView {
@@ -2307,7 +2293,6 @@ class CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParamsData
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ParamsDataView() = default;
@@ -2321,7 +2306,6 @@ class CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParamsDataView {
@@ -2348,7 +2332,6 @@ class CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParamsDataVi
   internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView {
@@ -2388,7 +2371,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataView() = default;
@@ -2413,7 +2395,6 @@ class CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataVi
   internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunAcPowerRoutine_ParamsDataView {
@@ -2462,7 +2443,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParamsDataView() = default;
@@ -2487,7 +2467,6 @@ class CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParamsDataView {
   internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ParamsDataView {
@@ -2526,7 +2505,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParamsDataView() = default;
@@ -2551,7 +2529,6 @@ class CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParamsDataView {
   internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunCpuStressRoutine_ParamsDataView {
@@ -2590,7 +2567,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParamsDataView() = default;
@@ -2615,7 +2591,6 @@ class CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParamsDataView {
   internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ParamsDataView {
@@ -2654,7 +2629,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParamsDataView() = default;
@@ -2681,7 +2655,6 @@ class CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponsePara
 };
 
 
-
 class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView() = default;
@@ -2698,7 +2671,6 @@ class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDat
  private:
   internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView {
@@ -2725,7 +2697,6 @@ class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseP
   internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView {
@@ -2764,7 +2735,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView() = default;
@@ -2789,7 +2759,6 @@ class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataVi
   internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ParamsDataView {
@@ -2817,7 +2786,6 @@ class CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParamsDataView() = default;
@@ -2842,7 +2810,6 @@ class CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParamsDataVie
   internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunDiskReadRoutine_ParamsDataView {
@@ -2876,7 +2843,6 @@ class CrosHealthdDiagnosticsService_RunDiskReadRoutine_ParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParamsDataView() = default;
@@ -2901,7 +2867,6 @@ class CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParamsDataView {
   internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ParamsDataView {
@@ -2940,7 +2905,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParamsDataView() = default;
@@ -2967,7 +2931,6 @@ class CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParamsDataView
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ParamsDataView() = default;
@@ -2987,7 +2950,6 @@ class CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParamsDataView {
@@ -3016,7 +2978,6 @@ class CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParamsDat
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ParamsDataView() = default;
@@ -3036,7 +2997,6 @@ class CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParamsDataView {
@@ -3065,7 +3025,6 @@ class CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParamsDataVi
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunMemoryRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunMemoryRoutine_ParamsDataView() = default;
@@ -3079,7 +3038,6 @@ class CrosHealthdDiagnosticsService_RunMemoryRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParamsDataView {
@@ -3108,7 +3066,6 @@ class CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ParamsDataView() = default;
@@ -3122,7 +3079,6 @@ class CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParamsDataView {
@@ -3151,7 +3107,6 @@ class CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParamsData
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ParamsDataView() = default;
@@ -3165,7 +3120,6 @@ class CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParamsDataView {
@@ -3194,7 +3148,6 @@ class CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParamsDataV
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ParamsDataView() = default;
@@ -3208,7 +3161,6 @@ class CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ParamsDataView 
  private:
   internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParamsDataView {
@@ -3237,7 +3189,6 @@ class CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParamsD
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ParamsDataView() = default;
@@ -3251,7 +3202,6 @@ class CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ParamsData
  private:
   internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParamsDataView {
@@ -3280,7 +3230,6 @@ class CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponsePa
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ParamsDataView() = default;
@@ -3294,7 +3243,6 @@ class CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ParamsDataView 
  private:
   internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParamsDataView {
@@ -3323,7 +3271,6 @@ class CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParamsD
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ParamsDataView() = default;
@@ -3337,7 +3284,6 @@ class CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParamsDataView {
@@ -3366,7 +3312,6 @@ class CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParamsDataView 
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ParamsDataView() = default;
@@ -3380,7 +3325,6 @@ class CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParamsDataView {
@@ -3409,7 +3353,6 @@ class CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParamsDataVi
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ParamsDataView() = default;
@@ -3423,7 +3366,6 @@ class CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParamsDataView {
@@ -3452,7 +3394,6 @@ class CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParamsDataVi
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ParamsDataView() = default;
@@ -3466,7 +3407,6 @@ class CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParamsDataView {
@@ -3495,7 +3435,6 @@ class CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParamsDataVie
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ParamsDataView() = default;
@@ -3509,7 +3448,6 @@ class CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParamsDataView {
@@ -3538,7 +3476,6 @@ class CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParamsDataVi
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ParamsDataView() = default;
@@ -3552,7 +3489,6 @@ class CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParamsDataView {
@@ -3579,7 +3515,6 @@ class CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParamsDataVie
   internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ParamsDataView {
@@ -3618,7 +3553,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParamsDataView() = default;
@@ -3645,7 +3579,6 @@ class CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParamsDa
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunArcHttpRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunArcHttpRoutine_ParamsDataView() = default;
@@ -3659,7 +3592,6 @@ class CrosHealthdDiagnosticsService_RunArcHttpRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParamsDataView {
@@ -3688,7 +3620,6 @@ class CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunArcPingRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunArcPingRoutine_ParamsDataView() = default;
@@ -3702,7 +3633,6 @@ class CrosHealthdDiagnosticsService_RunArcPingRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParamsDataView {
@@ -3731,7 +3661,6 @@ class CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ParamsDataView() = default;
@@ -3745,7 +3674,6 @@ class CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParamsDataView {
@@ -3774,7 +3702,6 @@ class CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParamsDat
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ParamsDataView() = default;
@@ -3788,7 +3715,6 @@ class CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsDataView {
@@ -3817,7 +3743,6 @@ class CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsData
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunFingerprintRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunFingerprintRoutine_ParamsDataView() = default;
@@ -3831,7 +3756,6 @@ class CrosHealthdDiagnosticsService_RunFingerprintRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParamsDataView {
@@ -3860,7 +3784,6 @@ class CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParamsDataView
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ParamsDataView() = default;
@@ -3874,7 +3797,6 @@ class CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDataView {
@@ -3903,7 +3825,6 @@ class CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDat
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ParamsDataView() = default;
@@ -3920,7 +3841,6 @@ class CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParamsDataView {
@@ -3947,7 +3867,6 @@ class CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParamsDataVi
   internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ParamsDataView {
@@ -3995,7 +3914,6 @@ class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView() = default;
@@ -4022,7 +3940,6 @@ class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ParamsDataView() = default;
@@ -4036,7 +3953,6 @@ class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataView {
@@ -4065,7 +3981,6 @@ class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataVie
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ParamsDataView() = default;
@@ -4088,7 +4003,6 @@ class CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParamsDataView {
@@ -4117,7 +4031,6 @@ class CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParamsDataV
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ParamsDataView() = default;
@@ -4140,7 +4053,6 @@ class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsDataView {
@@ -4169,7 +4081,6 @@ class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsDataVie
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ParamsDataView() = default;
@@ -4183,7 +4094,6 @@ class CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ParamsDataView {
  private:
   internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParamsDataView {
@@ -4212,7 +4122,6 @@ class CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParamsDataV
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ParamsDataView() = default;
@@ -4226,7 +4135,6 @@ class CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ParamsDataView 
  private:
   internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParamsDataView {
@@ -4253,7 +4161,6 @@ class CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParamsD
   internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ParamsDataView {
@@ -4292,7 +4199,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDataView() = default;
@@ -4317,7 +4223,6 @@ class CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDa
   internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ParamsDataView {
@@ -4346,7 +4251,6 @@ class CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ParamsDataView {
 };
 
 
-
 class CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView {
  public:
   CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView() = default;
@@ -4371,7 +4275,6 @@ class CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDat
   internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_ParamsDataView {
@@ -4399,7 +4302,6 @@ class CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_ParamsDataView {
 };
 
 
-
 class CrosHealthdEventService_DEPRECATED_AddLidObserver_ParamsDataView {
  public:
   CrosHealthdEventService_DEPRECATED_AddLidObserver_ParamsDataView() = default;
@@ -4423,7 +4325,6 @@ class CrosHealthdEventService_DEPRECATED_AddLidObserver_ParamsDataView {
   internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdEventService_DEPRECATED_AddPowerObserver_ParamsDataView {
@@ -4451,7 +4352,6 @@ class CrosHealthdEventService_DEPRECATED_AddPowerObserver_ParamsDataView {
 };
 
 
-
 class CrosHealthdEventService_AddNetworkObserver_ParamsDataView {
  public:
   CrosHealthdEventService_AddNetworkObserver_ParamsDataView() = default;
@@ -4475,7 +4375,6 @@ class CrosHealthdEventService_AddNetworkObserver_ParamsDataView {
   internal::CrosHealthdEventService_AddNetworkObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdEventService_DEPRECATED_AddAudioObserver_ParamsDataView {
@@ -4503,7 +4402,6 @@ class CrosHealthdEventService_DEPRECATED_AddAudioObserver_ParamsDataView {
 };
 
 
-
 class CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_ParamsDataView {
  public:
   CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_ParamsDataView() = default;
@@ -4529,7 +4427,6 @@ class CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_ParamsDataView {
 };
 
 
-
 class CrosHealthdEventService_DEPRECATED_AddUsbObserver_ParamsDataView {
  public:
   CrosHealthdEventService_DEPRECATED_AddUsbObserver_ParamsDataView() = default;
@@ -4553,7 +4450,6 @@ class CrosHealthdEventService_DEPRECATED_AddUsbObserver_ParamsDataView {
   internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdEventService_AddEventObserver_ParamsDataView {
@@ -4591,7 +4487,6 @@ class CrosHealthdEventService_AddEventObserver_ParamsDataView {
 };
 
 
-
 class CrosHealthdProbeService_ProbeProcessInfo_ParamsDataView {
  public:
   CrosHealthdProbeService_ProbeProcessInfo_ParamsDataView() = default;
@@ -4608,7 +4503,6 @@ class CrosHealthdProbeService_ProbeProcessInfo_ParamsDataView {
  private:
   internal::CrosHealthdProbeService_ProbeProcessInfo_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdProbeService_ProbeProcessInfo_ResponseParamsDataView {
@@ -4637,7 +4531,6 @@ class CrosHealthdProbeService_ProbeProcessInfo_ResponseParamsDataView {
 };
 
 
-
 class CrosHealthdProbeService_ProbeTelemetryInfo_ParamsDataView {
  public:
   CrosHealthdProbeService_ProbeTelemetryInfo_ParamsDataView() = default;
@@ -4664,7 +4557,6 @@ class CrosHealthdProbeService_ProbeTelemetryInfo_ParamsDataView {
 };
 
 
-
 class CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParamsDataView {
  public:
   CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParamsDataView() = default;
@@ -4689,7 +4581,6 @@ class CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParamsDataView {
   internal::CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CrosHealthdProbeService_ProbeMultipleProcessInfo_ParamsDataView {
@@ -4731,7 +4622,6 @@ static_assert(
 };
 
 
-
 class CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView {
  public:
   CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView() = default;
@@ -4758,7 +4648,6 @@ class CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView {
 };
 
 
-
 class CrosHealthdSystemService_GetServiceStatus_ParamsDataView {
  public:
   CrosHealthdSystemService_GetServiceStatus_ParamsDataView() = default;
@@ -4772,7 +4661,6 @@ class CrosHealthdSystemService_GetServiceStatus_ParamsDataView {
  private:
   internal::CrosHealthdSystemService_GetServiceStatus_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdSystemService_GetServiceStatus_ResponseParamsDataView {
@@ -4801,7 +4689,6 @@ class CrosHealthdSystemService_GetServiceStatus_ResponseParamsDataView {
 };
 
 
-
 class WilcoEcServiceController_AddEcObserver_ParamsDataView {
  public:
   WilcoEcServiceController_AddEcObserver_ParamsDataView() = default;
@@ -4825,7 +4712,6 @@ class WilcoEcServiceController_AddEcObserver_ParamsDataView {
   internal::WilcoEcServiceController_AddEcObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class WilcoEcServiceController_GetEcTelemetry_ParamsDataView {
@@ -4854,7 +4740,6 @@ class WilcoEcServiceController_GetEcTelemetry_ParamsDataView {
 };
 
 
-
 class WilcoEcServiceController_GetEcTelemetry_ResponseParamsDataView {
  public:
   WilcoEcServiceController_GetEcTelemetry_ResponseParamsDataView() = default;
@@ -4881,7 +4766,6 @@ class WilcoEcServiceController_GetEcTelemetry_ResponseParamsDataView {
 };
 
 
-
 class WilcoEcServiceController_StartEcService_ParamsDataView {
  public:
   WilcoEcServiceController_StartEcService_ParamsDataView() = default;
@@ -4897,7 +4781,6 @@ class WilcoEcServiceController_StartEcService_ParamsDataView {
 };
 
 
-
 class WilcoEcServiceController_ShutdownEcService_ParamsDataView {
  public:
   WilcoEcServiceController_ShutdownEcService_ParamsDataView() = default;
@@ -4911,7 +4794,6 @@ class WilcoEcServiceController_ShutdownEcService_ParamsDataView {
  private:
   internal::WilcoEcServiceController_ShutdownEcService_Params_Data* data_ = nullptr;
 };
-
 
 
 

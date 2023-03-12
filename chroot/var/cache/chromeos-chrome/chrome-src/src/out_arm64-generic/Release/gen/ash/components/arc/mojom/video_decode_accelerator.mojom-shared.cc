@@ -21,7 +21,7 @@
 namespace arc {
 namespace mojom {
 
-static NOINLINE const char* VideoDecodeAccelerator_ResultToStringHelper(VideoDecodeAccelerator_Result value) {
+NOINLINE static const char* VideoDecodeAccelerator_ResultToStringHelper(VideoDecodeAccelerator_Result value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoDecodeAccelerator_Result::SUCCESS:

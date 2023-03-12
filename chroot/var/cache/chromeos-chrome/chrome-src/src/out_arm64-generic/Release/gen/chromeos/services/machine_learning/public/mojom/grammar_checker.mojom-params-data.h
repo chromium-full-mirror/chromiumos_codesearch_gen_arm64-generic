@@ -84,7 +84,6 @@ class GrammarChecker_Check_ParamsDataView {
 };
 
 
-
 class GrammarChecker_Check_ResponseParamsDataView {
  public:
   GrammarChecker_Check_ResponseParamsDataView() = default;
@@ -109,7 +108,6 @@ class GrammarChecker_Check_ResponseParamsDataView {
   internal::GrammarChecker_Check_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void GrammarChecker_Check_ParamsDataView::GetQueryDataView(
     GrammarCheckerQueryDataView* output) {

@@ -222,7 +222,6 @@ class NetworkEventsObserver_OnConnectionStateChanged_ParamsDataView {
 };
 
 
-
 class NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView {
  public:
   NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView() = default;
@@ -259,7 +258,6 @@ class NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView {
 };
 
 
-
 class NetworkEventsObserver_OnNetworkListChanged_ParamsDataView {
  public:
   NetworkEventsObserver_OnNetworkListChanged_ParamsDataView() = default;
@@ -284,7 +282,6 @@ class NetworkEventsObserver_OnNetworkListChanged_ParamsDataView {
   internal::NetworkEventsObserver_OnNetworkListChanged_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class NetworkHealthService_AddObserver_ParamsDataView {
@@ -312,7 +309,6 @@ class NetworkHealthService_AddObserver_ParamsDataView {
 };
 
 
-
 class NetworkHealthService_GetNetworkList_ParamsDataView {
  public:
   NetworkHealthService_GetNetworkList_ParamsDataView() = default;
@@ -326,7 +322,6 @@ class NetworkHealthService_GetNetworkList_ParamsDataView {
  private:
   internal::NetworkHealthService_GetNetworkList_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkHealthService_GetNetworkList_ResponseParamsDataView {
@@ -355,7 +350,6 @@ class NetworkHealthService_GetNetworkList_ResponseParamsDataView {
 };
 
 
-
 class NetworkHealthService_GetHealthSnapshot_ParamsDataView {
  public:
   NetworkHealthService_GetHealthSnapshot_ParamsDataView() = default;
@@ -369,7 +363,6 @@ class NetworkHealthService_GetHealthSnapshot_ParamsDataView {
  private:
   internal::NetworkHealthService_GetHealthSnapshot_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView {
@@ -398,7 +391,6 @@ class NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView {
 };
 
 
-
 class NetworkHealthService_GetRecentlyActiveNetworks_ParamsDataView {
  public:
   NetworkHealthService_GetRecentlyActiveNetworks_ParamsDataView() = default;
@@ -412,7 +404,6 @@ class NetworkHealthService_GetRecentlyActiveNetworks_ParamsDataView {
  private:
   internal::NetworkHealthService_GetRecentlyActiveNetworks_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkHealthService_GetRecentlyActiveNetworks_ResponseParamsDataView {
@@ -439,7 +430,6 @@ class NetworkHealthService_GetRecentlyActiveNetworks_ResponseParamsDataView {
   internal::NetworkHealthService_GetRecentlyActiveNetworks_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void NetworkEventsObserver_OnConnectionStateChanged_ParamsDataView::GetGuidDataView(
     mojo::StringDataView* output) {

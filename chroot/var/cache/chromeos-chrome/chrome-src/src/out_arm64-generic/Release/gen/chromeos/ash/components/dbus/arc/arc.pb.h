@@ -324,6 +324,7 @@ class StartArcMiniInstanceRequest final :
     kEnableConsumerAutoUpdateToggleFieldNumber = 15,
     kHostUreadaheadGenerationFieldNumber = 16,
     kEnablePrivacyHubForChromeFieldNumber = 17,
+    kArcSwitchToKeymintFieldNumber = 18,
     kLcdDensityFieldNumber = 2,
   };
   // optional bool native_bridge_experiment = 1 [default = false];
@@ -534,6 +535,19 @@ class StartArcMiniInstanceRequest final :
   void _internal_set_enable_privacy_hub_for_chrome(bool value);
   public:
 
+  // optional bool arc_switch_to_keymint = 18 [default = false];
+  bool has_arc_switch_to_keymint() const;
+  private:
+  bool _internal_has_arc_switch_to_keymint() const;
+  public:
+  void clear_arc_switch_to_keymint();
+  bool arc_switch_to_keymint() const;
+  void set_arc_switch_to_keymint(bool value);
+  private:
+  bool _internal_arc_switch_to_keymint() const;
+  void _internal_set_arc_switch_to_keymint(bool value);
+  public:
+
   // optional int32 lcd_density = 2 [default = -1];
   bool has_lcd_density() const;
   private:
@@ -572,6 +586,7 @@ class StartArcMiniInstanceRequest final :
   bool enable_consumer_auto_update_toggle_;
   bool host_ureadahead_generation_;
   bool enable_privacy_hub_for_chrome_;
+  bool arc_switch_to_keymint_;
   int32_t lcd_density_;
   friend struct ::TableStruct_arc_2eproto;
 };
@@ -1049,7 +1064,7 @@ inline void StartArcMiniInstanceRequest::set_native_bridge_experiment(bool value
 
 // optional int32 lcd_density = 2 [default = -1];
 inline bool StartArcMiniInstanceRequest::_internal_has_lcd_density() const {
-  bool value = (_has_bits_[0] & 0x00010000u) != 0;
+  bool value = (_has_bits_[0] & 0x00020000u) != 0;
   return value;
 }
 inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
@@ -1057,7 +1072,7 @@ inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
 }
 inline void StartArcMiniInstanceRequest::clear_lcd_density() {
   lcd_density_ = -1;
-  _has_bits_[0] &= ~0x00010000u;
+  _has_bits_[0] &= ~0x00020000u;
 }
 inline int32_t StartArcMiniInstanceRequest::_internal_lcd_density() const {
   return lcd_density_;
@@ -1067,7 +1082,7 @@ inline int32_t StartArcMiniInstanceRequest::lcd_density() const {
   return _internal_lcd_density();
 }
 inline void StartArcMiniInstanceRequest::_internal_set_lcd_density(int32_t value) {
-  _has_bits_[0] |= 0x00010000u;
+  _has_bits_[0] |= 0x00020000u;
   lcd_density_ = value;
 }
 inline void StartArcMiniInstanceRequest::set_lcd_density(int32_t value) {
@@ -1495,6 +1510,34 @@ inline void StartArcMiniInstanceRequest::_internal_set_enable_privacy_hub_for_ch
 inline void StartArcMiniInstanceRequest::set_enable_privacy_hub_for_chrome(bool value) {
   _internal_set_enable_privacy_hub_for_chrome(value);
   // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.enable_privacy_hub_for_chrome)
+}
+
+// optional bool arc_switch_to_keymint = 18 [default = false];
+inline bool StartArcMiniInstanceRequest::_internal_has_arc_switch_to_keymint() const {
+  bool value = (_has_bits_[0] & 0x00010000u) != 0;
+  return value;
+}
+inline bool StartArcMiniInstanceRequest::has_arc_switch_to_keymint() const {
+  return _internal_has_arc_switch_to_keymint();
+}
+inline void StartArcMiniInstanceRequest::clear_arc_switch_to_keymint() {
+  arc_switch_to_keymint_ = false;
+  _has_bits_[0] &= ~0x00010000u;
+}
+inline bool StartArcMiniInstanceRequest::_internal_arc_switch_to_keymint() const {
+  return arc_switch_to_keymint_;
+}
+inline bool StartArcMiniInstanceRequest::arc_switch_to_keymint() const {
+  // @@protoc_insertion_point(field_get:arc.StartArcMiniInstanceRequest.arc_switch_to_keymint)
+  return _internal_arc_switch_to_keymint();
+}
+inline void StartArcMiniInstanceRequest::_internal_set_arc_switch_to_keymint(bool value) {
+  _has_bits_[0] |= 0x00010000u;
+  arc_switch_to_keymint_ = value;
+}
+inline void StartArcMiniInstanceRequest::set_arc_switch_to_keymint(bool value) {
+  _internal_set_arc_switch_to_keymint(value);
+  // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.arc_switch_to_keymint)
 }
 
 // -------------------------------------------------------------------

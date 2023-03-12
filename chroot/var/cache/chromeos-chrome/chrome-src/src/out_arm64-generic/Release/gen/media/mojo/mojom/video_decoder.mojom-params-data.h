@@ -313,7 +313,6 @@ static_assert(
 };
 
 
-
 class VideoDecoder_GetSupportedConfigs_ParamsDataView {
  public:
   VideoDecoder_GetSupportedConfigs_ParamsDataView() = default;
@@ -327,7 +326,6 @@ class VideoDecoder_GetSupportedConfigs_ParamsDataView {
  private:
   internal::VideoDecoder_GetSupportedConfigs_Params_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecoder_GetSupportedConfigs_ResponseParamsDataView {
@@ -364,7 +362,6 @@ class VideoDecoder_GetSupportedConfigs_ResponseParamsDataView {
   internal::VideoDecoder_GetSupportedConfigs_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class VideoDecoder_Construct_ParamsDataView {
@@ -448,7 +445,6 @@ static_assert(
 };
 
 
-
 class VideoDecoder_Initialize_ParamsDataView {
  public:
   VideoDecoder_Initialize_ParamsDataView() = default;
@@ -498,7 +494,6 @@ static_assert(
 };
 
 
-
 class VideoDecoder_Initialize_ResponseParamsDataView {
  public:
   VideoDecoder_Initialize_ResponseParamsDataView() = default;
@@ -541,7 +536,6 @@ class VideoDecoder_Initialize_ResponseParamsDataView {
 };
 
 
-
 class VideoDecoder_Decode_ParamsDataView {
  public:
   VideoDecoder_Decode_ParamsDataView() = default;
@@ -566,7 +560,6 @@ class VideoDecoder_Decode_ParamsDataView {
   internal::VideoDecoder_Decode_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class VideoDecoder_Decode_ResponseParamsDataView {
@@ -595,7 +588,6 @@ class VideoDecoder_Decode_ResponseParamsDataView {
 };
 
 
-
 class VideoDecoder_Reset_ParamsDataView {
  public:
   VideoDecoder_Reset_ParamsDataView() = default;
@@ -611,7 +603,6 @@ class VideoDecoder_Reset_ParamsDataView {
 };
 
 
-
 class VideoDecoder_Reset_ResponseParamsDataView {
  public:
   VideoDecoder_Reset_ResponseParamsDataView() = default;
@@ -625,7 +616,6 @@ class VideoDecoder_Reset_ResponseParamsDataView {
  private:
   internal::VideoDecoder_Reset_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecoder_OnOverlayInfoChanged_ParamsDataView {
@@ -652,7 +642,6 @@ class VideoDecoder_OnOverlayInfoChanged_ParamsDataView {
   internal::VideoDecoder_OnOverlayInfoChanged_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class VideoDecoderClient_OnVideoFrameDecoded_ParamsDataView {
@@ -704,7 +693,6 @@ static_assert(
 };
 
 
-
 class VideoDecoderClient_OnWaiting_ParamsDataView {
  public:
   VideoDecoderClient_OnWaiting_ParamsDataView() = default;
@@ -730,7 +718,6 @@ class VideoDecoderClient_OnWaiting_ParamsDataView {
 };
 
 
-
 class VideoDecoderClient_RequestOverlayInfo_ParamsDataView {
  public:
   VideoDecoderClient_RequestOverlayInfo_ParamsDataView() = default;
@@ -747,7 +734,6 @@ class VideoDecoderClient_RequestOverlayInfo_ParamsDataView {
  private:
   internal::VideoDecoderClient_RequestOverlayInfo_Params_Data* data_ = nullptr;
 };
-
 
 inline void VideoFrameHandleReleaser_ReleaseVideoFrame_ParamsDataView::GetReleaseTokenDataView(
     ::mojo_base::mojom::UnguessableTokenDataView* output) {

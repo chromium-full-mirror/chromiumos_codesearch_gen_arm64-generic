@@ -532,32 +532,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& tab_id_value = args[0];
-    {
-      auto temp = tab_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->tab_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(int process_id) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -594,32 +568,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& process_id_value = args[0];
-    {
-      auto temp = process_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->process_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -711,44 +659,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& process_ids_value = args[0];
-    {
-      if (!ProcessIds::Populate(process_ids_value, &params->process_ids))
-        return nullptr;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& include_memory_value = args[1];
-    {
-      auto temp = include_memory_value.GetIfBool();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->include_memory = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;

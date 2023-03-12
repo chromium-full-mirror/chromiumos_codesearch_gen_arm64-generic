@@ -22,7 +22,7 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
-static NOINLINE const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutineEnum value) {
+NOINLINE static const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutineEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DiagnosticRoutineEnum::kBatteryCapacity:
@@ -130,7 +130,7 @@ std::ostream& operator<<(std::ostream& os, DiagnosticRoutineEnum value) {
   return os << DiagnosticRoutineEnumToString(value);
 }
 
-static NOINLINE const char* DiskReadRoutineTypeEnumToStringHelper(DiskReadRoutineTypeEnum value) {
+NOINLINE static const char* DiskReadRoutineTypeEnumToStringHelper(DiskReadRoutineTypeEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DiskReadRoutineTypeEnum::kLinearRead:
@@ -156,7 +156,7 @@ std::ostream& operator<<(std::ostream& os, DiskReadRoutineTypeEnum value) {
   return os << DiskReadRoutineTypeEnumToString(value);
 }
 
-static NOINLINE const char* DiagnosticRoutineStatusEnumToStringHelper(DiagnosticRoutineStatusEnum value) {
+NOINLINE static const char* DiagnosticRoutineStatusEnumToStringHelper(DiagnosticRoutineStatusEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DiagnosticRoutineStatusEnum::kReady:
@@ -202,7 +202,7 @@ std::ostream& operator<<(std::ostream& os, DiagnosticRoutineStatusEnum value) {
   return os << DiagnosticRoutineStatusEnumToString(value);
 }
 
-static NOINLINE const char* DiagnosticRoutineUserMessageEnumToStringHelper(DiagnosticRoutineUserMessageEnum value) {
+NOINLINE static const char* DiagnosticRoutineUserMessageEnumToStringHelper(DiagnosticRoutineUserMessageEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DiagnosticRoutineUserMessageEnum::kUnplugACPower:
@@ -230,7 +230,7 @@ std::ostream& operator<<(std::ostream& os, DiagnosticRoutineUserMessageEnum valu
   return os << DiagnosticRoutineUserMessageEnumToString(value);
 }
 
-static NOINLINE const char* DiagnosticRoutineCommandEnumToStringHelper(DiagnosticRoutineCommandEnum value) {
+NOINLINE static const char* DiagnosticRoutineCommandEnumToStringHelper(DiagnosticRoutineCommandEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DiagnosticRoutineCommandEnum::kContinue:
@@ -260,7 +260,7 @@ std::ostream& operator<<(std::ostream& os, DiagnosticRoutineCommandEnum value) {
   return os << DiagnosticRoutineCommandEnumToString(value);
 }
 
-static NOINLINE const char* AcPowerStatusEnumToStringHelper(AcPowerStatusEnum value) {
+NOINLINE static const char* AcPowerStatusEnumToStringHelper(AcPowerStatusEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AcPowerStatusEnum::kConnected:
@@ -286,7 +286,7 @@ std::ostream& operator<<(std::ostream& os, AcPowerStatusEnum value) {
   return os << AcPowerStatusEnumToString(value);
 }
 
-static NOINLINE const char* NvmeSelfTestTypeEnumToStringHelper(NvmeSelfTestTypeEnum value) {
+NOINLINE static const char* NvmeSelfTestTypeEnumToStringHelper(NvmeSelfTestTypeEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case NvmeSelfTestTypeEnum::kShortSelfTest:
@@ -312,7 +312,7 @@ std::ostream& operator<<(std::ostream& os, NvmeSelfTestTypeEnum value) {
   return os << NvmeSelfTestTypeEnumToString(value);
 }
 
-static NOINLINE const char* LedNameToStringHelper(LedName value) {
+NOINLINE static const char* LedNameToStringHelper(LedName value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case LedName::kUnmappedEnumField:
@@ -344,7 +344,7 @@ std::ostream& operator<<(std::ostream& os, LedName value) {
   return os << LedNameToString(value);
 }
 
-static NOINLINE const char* LedColorToStringHelper(LedColor value) {
+NOINLINE static const char* LedColorToStringHelper(LedColor value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case LedColor::kUnmappedEnumField:

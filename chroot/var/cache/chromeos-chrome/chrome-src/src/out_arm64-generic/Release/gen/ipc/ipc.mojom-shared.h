@@ -129,7 +129,6 @@ static_assert(
 };
 
 
-
 }  // namespace mojom
 }  // namespace IPC
 

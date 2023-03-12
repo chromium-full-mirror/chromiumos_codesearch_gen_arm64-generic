@@ -167,7 +167,6 @@ class ServiceManagerListener_OnInit_ParamsDataView {
 };
 
 
-
 class ServiceManagerListener_OnServiceCreated_ParamsDataView {
  public:
   ServiceManagerListener_OnServiceCreated_ParamsDataView() = default;
@@ -192,7 +191,6 @@ class ServiceManagerListener_OnServiceCreated_ParamsDataView {
   internal::ServiceManagerListener_OnServiceCreated_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class ServiceManagerListener_OnServiceStarted_ParamsDataView {
@@ -224,7 +222,6 @@ class ServiceManagerListener_OnServiceStarted_ParamsDataView {
 };
 
 
-
 class ServiceManagerListener_OnServicePIDReceived_ParamsDataView {
  public:
   ServiceManagerListener_OnServicePIDReceived_ParamsDataView() = default;
@@ -254,7 +251,6 @@ class ServiceManagerListener_OnServicePIDReceived_ParamsDataView {
 };
 
 
-
 class ServiceManagerListener_OnServiceFailedToStart_ParamsDataView {
  public:
   ServiceManagerListener_OnServiceFailedToStart_ParamsDataView() = default;
@@ -279,7 +275,6 @@ class ServiceManagerListener_OnServiceFailedToStart_ParamsDataView {
   internal::ServiceManagerListener_OnServiceFailedToStart_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class ServiceManagerListener_OnServiceStopped_ParamsDataView {
@@ -308,7 +303,6 @@ class ServiceManagerListener_OnServiceStopped_ParamsDataView {
 };
 
 
-
 class ServiceManager_AddListener_ParamsDataView {
  public:
   ServiceManager_AddListener_ParamsDataView() = default;
@@ -332,7 +326,6 @@ class ServiceManager_AddListener_ParamsDataView {
   internal::ServiceManager_AddListener_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void ServiceManagerListener_OnInit_ParamsDataView::GetRunningServicesDataView(
     mojo::ArrayDataView<RunningServiceInfoDataView>* output) {

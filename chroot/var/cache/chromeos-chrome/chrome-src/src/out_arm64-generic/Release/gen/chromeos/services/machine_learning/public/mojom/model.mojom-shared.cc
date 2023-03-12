@@ -22,7 +22,7 @@ namespace chromeos {
 namespace machine_learning {
 namespace mojom {
 
-static NOINLINE const char* BuiltinModelIdToStringHelper(BuiltinModelId value) {
+NOINLINE static const char* BuiltinModelIdToStringHelper(BuiltinModelId value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case BuiltinModelId::UNSUPPORTED_UNKNOWN:
@@ -58,7 +58,7 @@ std::ostream& operator<<(std::ostream& os, BuiltinModelId value) {
   return os << BuiltinModelIdToString(value);
 }
 
-static NOINLINE const char* GpuDelegateApiToStringHelper(GpuDelegateApi value) {
+NOINLINE static const char* GpuDelegateApiToStringHelper(GpuDelegateApi value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case GpuDelegateApi::UNKNOWN:
@@ -84,7 +84,7 @@ std::ostream& operator<<(std::ostream& os, GpuDelegateApi value) {
   return os << GpuDelegateApiToString(value);
 }
 
-static NOINLINE const char* CreateGraphExecutorResultToStringHelper(CreateGraphExecutorResult value) {
+NOINLINE static const char* CreateGraphExecutorResultToStringHelper(CreateGraphExecutorResult value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CreateGraphExecutorResult::OK:

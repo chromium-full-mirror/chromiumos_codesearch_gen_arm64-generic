@@ -151,7 +151,6 @@ class DocumentScanner_DetectCornersFromNV12Image_ParamsDataView {
 };
 
 
-
 class DocumentScanner_DetectCornersFromNV12Image_ResponseParamsDataView {
  public:
   DocumentScanner_DetectCornersFromNV12Image_ResponseParamsDataView() = default;
@@ -176,7 +175,6 @@ class DocumentScanner_DetectCornersFromNV12Image_ResponseParamsDataView {
   internal::DocumentScanner_DetectCornersFromNV12Image_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class DocumentScanner_DetectCornersFromJPEGImage_ParamsDataView {
@@ -205,7 +203,6 @@ class DocumentScanner_DetectCornersFromJPEGImage_ParamsDataView {
 };
 
 
-
 class DocumentScanner_DetectCornersFromJPEGImage_ResponseParamsDataView {
  public:
   DocumentScanner_DetectCornersFromJPEGImage_ResponseParamsDataView() = default;
@@ -230,7 +227,6 @@ class DocumentScanner_DetectCornersFromJPEGImage_ResponseParamsDataView {
   internal::DocumentScanner_DetectCornersFromJPEGImage_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class DocumentScanner_DoPostProcessing_ParamsDataView {
@@ -282,7 +278,6 @@ class DocumentScanner_DoPostProcessing_ParamsDataView {
 };
 
 
-
 class DocumentScanner_DoPostProcessing_ResponseParamsDataView {
  public:
   DocumentScanner_DoPostProcessing_ResponseParamsDataView() = default;
@@ -307,7 +302,6 @@ class DocumentScanner_DoPostProcessing_ResponseParamsDataView {
   internal::DocumentScanner_DoPostProcessing_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void DocumentScanner_DetectCornersFromNV12Image_ParamsDataView::GetNv12ImageDataView(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output) {

@@ -218,7 +218,6 @@ class VideoEncodeProfileDataView {
 };
 
 
-
 class ConstantBitrateDataView {
  public:
   ConstantBitrateDataView() = default;
@@ -235,7 +234,6 @@ class ConstantBitrateDataView {
  private:
   internal::ConstantBitrate_Data* data_ = nullptr;
 };
-
 
 
 class VariableBitrateDataView {
@@ -257,7 +255,6 @@ class VariableBitrateDataView {
  private:
   internal::VariableBitrate_Data* data_ = nullptr;
 };
-
 
 
 class VideoEncodeAcceleratorConfigDataView {
@@ -353,7 +350,6 @@ static_assert(
   internal::VideoEncodeAcceleratorConfig_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class BitrateDataView {

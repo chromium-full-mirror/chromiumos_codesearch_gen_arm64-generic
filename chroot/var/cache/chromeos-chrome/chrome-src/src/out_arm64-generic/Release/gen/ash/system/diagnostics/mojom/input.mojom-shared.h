@@ -392,7 +392,6 @@ static_assert(
 };
 
 
-
 class KeyboardDiagnosticEventInfoDataView {
  public:
   KeyboardDiagnosticEventInfoDataView() = default;
@@ -437,7 +436,6 @@ class KeyboardDiagnosticEventInfoDataView {
   internal::KeyboardDiagnosticEventInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

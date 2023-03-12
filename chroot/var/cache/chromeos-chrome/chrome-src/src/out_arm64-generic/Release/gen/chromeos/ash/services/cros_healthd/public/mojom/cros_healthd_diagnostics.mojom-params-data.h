@@ -73,7 +73,6 @@ class LedLitUpRoutineReplier_GetColorMatched_ParamsDataView {
 };
 
 
-
 class LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView {
  public:
   LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView() = default;
@@ -90,7 +89,6 @@ class LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView {
  private:
   internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 

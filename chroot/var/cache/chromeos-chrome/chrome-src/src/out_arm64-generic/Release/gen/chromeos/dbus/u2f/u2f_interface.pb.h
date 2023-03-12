@@ -2711,14 +2711,24 @@ class IsUvpaaResponse final :
 
   enum : int {
     kAvailableFieldNumber = 1,
+    kNotReadyFieldNumber = 2,
   };
-  // bool available = 1;
-  void clear_available();
-  bool available() const;
-  void set_available(bool value);
+  // bool available = 1 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_available();
+  PROTOBUF_DEPRECATED bool available() const;
+  PROTOBUF_DEPRECATED void set_available(bool value);
   private:
   bool _internal_available() const;
   void _internal_set_available(bool value);
+  public:
+
+  // bool not_ready = 2;
+  void clear_not_ready();
+  bool not_ready() const;
+  void set_not_ready(bool value);
+  private:
+  bool _internal_not_ready() const;
+  void _internal_set_not_ready(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:u2f.IsUvpaaResponse)
@@ -2729,6 +2739,7 @@ class IsUvpaaResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   bool available_;
+  bool not_ready_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_u2f_5finterface_2eproto;
 };
@@ -5793,7 +5804,7 @@ inline void IsPlatformAuthenticatorInitializedResponse::set_initialized(bool val
 
 // IsUvpaaResponse
 
-// bool available = 1;
+// bool available = 1 [deprecated = true];
 inline void IsUvpaaResponse::clear_available() {
   available_ = false;
 }
@@ -5811,6 +5822,26 @@ inline void IsUvpaaResponse::_internal_set_available(bool value) {
 inline void IsUvpaaResponse::set_available(bool value) {
   _internal_set_available(value);
   // @@protoc_insertion_point(field_set:u2f.IsUvpaaResponse.available)
+}
+
+// bool not_ready = 2;
+inline void IsUvpaaResponse::clear_not_ready() {
+  not_ready_ = false;
+}
+inline bool IsUvpaaResponse::_internal_not_ready() const {
+  return not_ready_;
+}
+inline bool IsUvpaaResponse::not_ready() const {
+  // @@protoc_insertion_point(field_get:u2f.IsUvpaaResponse.not_ready)
+  return _internal_not_ready();
+}
+inline void IsUvpaaResponse::_internal_set_not_ready(bool value) {
+  
+  not_ready_ = value;
+}
+inline void IsUvpaaResponse::set_not_ready(bool value) {
+  _internal_set_not_ready(value);
+  // @@protoc_insertion_point(field_set:u2f.IsUvpaaResponse.not_ready)
 }
 
 // -------------------------------------------------------------------

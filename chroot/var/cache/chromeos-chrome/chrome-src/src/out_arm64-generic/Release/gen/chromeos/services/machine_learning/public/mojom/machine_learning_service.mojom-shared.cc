@@ -22,7 +22,7 @@ namespace chromeos {
 namespace machine_learning {
 namespace mojom {
 
-static NOINLINE const char* LoadModelResultToStringHelper(LoadModelResult value) {
+NOINLINE static const char* LoadModelResultToStringHelper(LoadModelResult value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case LoadModelResult::OK:

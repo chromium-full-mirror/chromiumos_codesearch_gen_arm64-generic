@@ -85,7 +85,6 @@ class IPAddressDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace smbfs
 

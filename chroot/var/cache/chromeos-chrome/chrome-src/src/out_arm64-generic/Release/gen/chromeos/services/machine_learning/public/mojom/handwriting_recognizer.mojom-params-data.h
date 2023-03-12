@@ -84,7 +84,6 @@ class HandwritingRecognizer_Recognize_ParamsDataView {
 };
 
 
-
 class HandwritingRecognizer_Recognize_ResponseParamsDataView {
  public:
   HandwritingRecognizer_Recognize_ResponseParamsDataView() = default;
@@ -109,7 +108,6 @@ class HandwritingRecognizer_Recognize_ResponseParamsDataView {
   internal::HandwritingRecognizer_Recognize_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void HandwritingRecognizer_Recognize_ParamsDataView::GetQueryDataView(
     HandwritingRecognitionQueryDataView* output) {

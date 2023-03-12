@@ -774,51 +774,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() < 1 || args.size() > 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& type_value = args[0];
-    {
-      const std::string* socket_type_as_string = type_value.GetIfString();
-      if (!socket_type_as_string) {
-        return nullptr;
-      }
-      params->type = ParseSocketType(*socket_type_as_string);
-      if (params->type == SOCKET_TYPE_NONE) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& options_value = args[1];
-    {
-      if (!options_value.is_dict()) {
-        return nullptr;
-      }
-      else {
-        CreateOptions temp;
-        if (!CreateOptions::Populate(options_value, &temp))
-          return nullptr;
-        params->options = std::move(temp);
-      }
-    }
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(const CreateInfo& create_info) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -855,32 +810,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -946,62 +875,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 3) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& hostname_value = args[1];
-    {
-      auto* temp = hostname_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->hostname = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (2 < args.size() &&
-      !args[2].is_none()) {
-    const base::Value& port_value = args[2];
-    {
-      auto temp = port_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->port = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -1080,62 +953,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 3) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& address_value = args[1];
-    {
-      auto* temp = address_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->address = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (2 < args.size() &&
-      !args[2].is_none()) {
-    const base::Value& port_value = args[2];
-    {
-      auto temp = port_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->port = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -1172,32 +989,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -1243,45 +1034,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         params->buffer_size = absl::nullopt;
         return absl::nullopt;
-      }
-      params->buffer_size = *temp;
-    }
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() < 1 || args.size() > 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& buffer_size_value = args[1];
-    {
-      auto temp = buffer_size_value.GetIfInt();
-      if (!temp.has_value()) {
-        params->buffer_size = absl::nullopt;
-        return nullptr;
       }
       params->buffer_size = *temp;
     }
@@ -1349,48 +1101,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& data_value = args[1];
-    {
-      if (!data_value.is_blob()) {
-        return nullptr;
-      }
-      else {
-        params->data = data_value.GetBlob();
-      }
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(const WriteInfo& write_info) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -1437,45 +1147,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         params->buffer_size = absl::nullopt;
         return absl::nullopt;
-      }
-      params->buffer_size = *temp;
-    }
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() < 1 || args.size() > 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& buffer_size_value = args[1];
-    {
-      auto temp = buffer_size_value.GetIfInt();
-      if (!temp.has_value()) {
-        params->buffer_size = absl::nullopt;
-        return nullptr;
       }
       params->buffer_size = *temp;
     }
@@ -1573,78 +1244,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 4) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& data_value = args[1];
-    {
-      if (!data_value.is_blob()) {
-        return nullptr;
-      }
-      else {
-        params->data = data_value.GetBlob();
-      }
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (2 < args.size() &&
-      !args[2].is_none()) {
-    const base::Value& address_value = args[2];
-    {
-      auto* temp = address_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->address = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (3 < args.size() &&
-      !args[3].is_none()) {
-    const base::Value& port_value = args[3];
-    {
-      auto temp = port_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->port = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(const WriteInfo& write_info) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -1730,75 +1329,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() < 3 || args.size() > 4) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& address_value = args[1];
-    {
-      auto* temp = address_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->address = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (2 < args.size() &&
-      !args[2].is_none()) {
-    const base::Value& port_value = args[2];
-    {
-      auto temp = port_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->port = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (3 < args.size() &&
-      !args[3].is_none()) {
-    const base::Value& backlog_value = args[3];
-    {
-      auto temp = backlog_value.GetIfInt();
-      if (!temp.has_value()) {
-        params->backlog = absl::nullopt;
-        return nullptr;
-      }
-      params->backlog = *temp;
-    }
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -1835,32 +1365,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -1937,60 +1441,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() < 2 || args.size() > 3) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& enable_value = args[1];
-    {
-      auto temp = enable_value.GetIfBool();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->enable = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (2 < args.size() &&
-      !args[2].is_none()) {
-    const base::Value& delay_value = args[2];
-    {
-      auto temp = delay_value.GetIfInt();
-      if (!temp.has_value()) {
-        params->delay = absl::nullopt;
-        return nullptr;
-      }
-      params->delay = *temp;
-    }
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(bool result) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -2048,47 +1498,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& no_delay_value = args[1];
-    {
-      auto temp = no_delay_value.GetIfBool();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->no_delay = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(bool result) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -2125,32 +1534,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -2225,47 +1608,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& address_value = args[1];
-    {
-      auto* temp = address_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->address = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -2317,47 +1659,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& address_value = args[1];
-    {
-      auto* temp = address_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->address = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -2421,47 +1722,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& ttl_value = args[1];
-    {
-      auto temp = ttl_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->ttl = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -2519,47 +1779,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& enabled_value = args[1];
-    {
-      auto temp = enabled_value.GetIfBool();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->enabled = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -2596,32 +1815,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -2677,48 +1870,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
         SecureOptions temp;
         if (!SecureOptions::Populate(options_value, &temp))
           return absl::nullopt;
-        params->options = std::move(temp);
-      }
-    }
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() < 1 || args.size() > 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& socket_id_value = args[0];
-    {
-      auto temp = socket_id_value.GetIfInt();
-      if (!temp.has_value()) {
-        return nullptr;
-      }
-      params->socket_id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& options_value = args[1];
-    {
-      if (!options_value.is_dict()) {
-        return nullptr;
-      }
-      else {
-        SecureOptions temp;
-        if (!SecureOptions::Populate(options_value, &temp))
-          return nullptr;
         params->options = std::move(temp);
       }
     }

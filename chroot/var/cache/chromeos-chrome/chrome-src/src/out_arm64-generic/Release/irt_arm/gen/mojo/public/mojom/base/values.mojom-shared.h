@@ -102,7 +102,6 @@ class DictionaryValueDataView {
 };
 
 
-
 class ListValueDataView {
  public:
   ListValueDataView() = default;
@@ -127,7 +126,6 @@ class ListValueDataView {
   internal::ListValue_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class ValueDataView {

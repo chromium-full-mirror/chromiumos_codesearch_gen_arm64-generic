@@ -148,7 +148,6 @@ class SodaClient_OnStart_ParamsDataView {
 };
 
 
-
 class SodaClient_OnStop_ParamsDataView {
  public:
   SodaClient_OnStop_ParamsDataView() = default;
@@ -162,7 +161,6 @@ class SodaClient_OnStop_ParamsDataView {
  private:
   internal::SodaClient_OnStop_Params_Data* data_ = nullptr;
 };
-
 
 
 class SodaClient_OnSpeechRecognizerEvent_ParamsDataView {
@@ -191,7 +189,6 @@ class SodaClient_OnSpeechRecognizerEvent_ParamsDataView {
 };
 
 
-
 class SodaRecognizer_AddAudio_ParamsDataView {
  public:
   SodaRecognizer_AddAudio_ParamsDataView() = default;
@@ -218,7 +215,6 @@ class SodaRecognizer_AddAudio_ParamsDataView {
 };
 
 
-
 class SodaRecognizer_Stop_ParamsDataView {
  public:
   SodaRecognizer_Stop_ParamsDataView() = default;
@@ -232,7 +228,6 @@ class SodaRecognizer_Stop_ParamsDataView {
  private:
   internal::SodaRecognizer_Stop_Params_Data* data_ = nullptr;
 };
-
 
 
 class SodaRecognizer_Start_ParamsDataView {
@@ -250,7 +245,6 @@ class SodaRecognizer_Start_ParamsDataView {
 };
 
 
-
 class SodaRecognizer_MarkDone_ParamsDataView {
  public:
   SodaRecognizer_MarkDone_ParamsDataView() = default;
@@ -264,7 +258,6 @@ class SodaRecognizer_MarkDone_ParamsDataView {
  private:
   internal::SodaRecognizer_MarkDone_Params_Data* data_ = nullptr;
 };
-
 
 
 

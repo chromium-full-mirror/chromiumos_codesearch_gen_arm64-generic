@@ -21,7 +21,7 @@
 namespace chromeos_camera {
 namespace mojom {
 
-static NOINLINE const char* DecodeErrorToStringHelper(DecodeError value) {
+NOINLINE static const char* DecodeErrorToStringHelper(DecodeError value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DecodeError::NO_ERRORS:

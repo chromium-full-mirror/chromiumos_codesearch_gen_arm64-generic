@@ -21,7 +21,7 @@
 namespace cros {
 namespace mojom {
 
-static NOINLINE const char* CameraClientTypeToStringHelper(CameraClientType value) {
+NOINLINE static const char* CameraClientTypeToStringHelper(CameraClientType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CameraClientType::UNKNOWN:
@@ -55,7 +55,7 @@ std::ostream& operator<<(std::ostream& os, CameraClientType value) {
   return os << CameraClientTypeToString(value);
 }
 
-static NOINLINE const char* CameraPrivacySwitchStateToStringHelper(CameraPrivacySwitchState value) {
+NOINLINE static const char* CameraPrivacySwitchStateToStringHelper(CameraPrivacySwitchState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CameraPrivacySwitchState::UNKNOWN:
@@ -81,7 +81,7 @@ std::ostream& operator<<(std::ostream& os, CameraPrivacySwitchState value) {
   return os << CameraPrivacySwitchStateToString(value);
 }
 
-static NOINLINE const char* CameraAutoFramingStateToStringHelper(CameraAutoFramingState value) {
+NOINLINE static const char* CameraAutoFramingStateToStringHelper(CameraAutoFramingState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CameraAutoFramingState::OFF:

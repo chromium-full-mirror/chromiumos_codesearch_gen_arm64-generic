@@ -22,7 +22,7 @@ namespace chromeos {
 namespace machine_learning {
 namespace mojom {
 
-static NOINLINE const char* AnnotationUsecaseToStringHelper(AnnotationUsecase value) {
+NOINLINE static const char* AnnotationUsecaseToStringHelper(AnnotationUsecase value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AnnotationUsecase::ANNOTATION_USECASE_SMART:

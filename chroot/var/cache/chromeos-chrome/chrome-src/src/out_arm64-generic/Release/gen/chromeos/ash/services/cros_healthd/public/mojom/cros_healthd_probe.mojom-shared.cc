@@ -22,7 +22,7 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
-static NOINLINE const char* CpuArchitectureEnumToStringHelper(CpuArchitectureEnum value) {
+NOINLINE static const char* CpuArchitectureEnumToStringHelper(CpuArchitectureEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CpuArchitectureEnum::kUnknown:
@@ -50,7 +50,7 @@ std::ostream& operator<<(std::ostream& os, CpuArchitectureEnum value) {
   return os << CpuArchitectureEnumToString(value);
 }
 
-static NOINLINE const char* ProbeCategoryEnumToStringHelper(ProbeCategoryEnum value) {
+NOINLINE static const char* ProbeCategoryEnumToStringHelper(ProbeCategoryEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ProbeCategoryEnum::kBattery:
@@ -114,7 +114,7 @@ std::ostream& operator<<(std::ostream& os, ProbeCategoryEnum value) {
   return os << ProbeCategoryEnumToString(value);
 }
 
-static NOINLINE const char* ErrorTypeToStringHelper(ErrorType value) {
+NOINLINE static const char* ErrorTypeToStringHelper(ErrorType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ErrorType::kFileReadError:
@@ -144,7 +144,7 @@ std::ostream& operator<<(std::ostream& os, ErrorType value) {
   return os << ErrorTypeToString(value);
 }
 
-static NOINLINE const char* ProcessStateToStringHelper(ProcessState value) {
+NOINLINE static const char* ProcessStateToStringHelper(ProcessState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ProcessState::kRunning:
@@ -182,7 +182,7 @@ std::ostream& operator<<(std::ostream& os, ProcessState value) {
   return os << ProcessStateToString(value);
 }
 
-static NOINLINE const char* StorageDevicePurposeToStringHelper(StorageDevicePurpose value) {
+NOINLINE static const char* StorageDevicePurposeToStringHelper(StorageDevicePurpose value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case StorageDevicePurpose::kUnknown:
@@ -208,7 +208,7 @@ std::ostream& operator<<(std::ostream& os, StorageDevicePurpose value) {
   return os << StorageDevicePurposeToString(value);
 }
 
-static NOINLINE const char* EncryptionStateToStringHelper(EncryptionState value) {
+NOINLINE static const char* EncryptionStateToStringHelper(EncryptionState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case EncryptionState::kUnknown:
@@ -236,7 +236,7 @@ std::ostream& operator<<(std::ostream& os, EncryptionState value) {
   return os << EncryptionStateToString(value);
 }
 
-static NOINLINE const char* CryptoAlgorithmToStringHelper(CryptoAlgorithm value) {
+NOINLINE static const char* CryptoAlgorithmToStringHelper(CryptoAlgorithm value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CryptoAlgorithm::kUnknown:
@@ -262,7 +262,7 @@ std::ostream& operator<<(std::ostream& os, CryptoAlgorithm value) {
   return os << CryptoAlgorithmToString(value);
 }
 
-static NOINLINE const char* BluetoothDeviceTypeToStringHelper(BluetoothDeviceType value) {
+NOINLINE static const char* BluetoothDeviceTypeToStringHelper(BluetoothDeviceType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case BluetoothDeviceType::kUnmappedEnumField:
@@ -292,7 +292,7 @@ std::ostream& operator<<(std::ostream& os, BluetoothDeviceType value) {
   return os << BluetoothDeviceTypeToString(value);
 }
 
-static NOINLINE const char* BootModeToStringHelper(BootMode value) {
+NOINLINE static const char* BootModeToStringHelper(BootMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case BootMode::kUnknown:
@@ -322,7 +322,7 @@ std::ostream& operator<<(std::ostream& os, BootMode value) {
   return os << BootModeToString(value);
 }
 
-static NOINLINE const char* BusDeviceClassToStringHelper(BusDeviceClass value) {
+NOINLINE static const char* BusDeviceClassToStringHelper(BusDeviceClass value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case BusDeviceClass::kOthers:
@@ -356,7 +356,7 @@ std::ostream& operator<<(std::ostream& os, BusDeviceClass value) {
   return os << BusDeviceClassToString(value);
 }
 
-static NOINLINE const char* FwupdVersionFormatToStringHelper(FwupdVersionFormat value) {
+NOINLINE static const char* FwupdVersionFormatToStringHelper(FwupdVersionFormat value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case FwupdVersionFormat::kUnmappedEnumField:
@@ -404,7 +404,7 @@ std::ostream& operator<<(std::ostream& os, FwupdVersionFormat value) {
   return os << FwupdVersionFormatToString(value);
 }
 
-static NOINLINE const char* UsbVersionToStringHelper(UsbVersion value) {
+NOINLINE static const char* UsbVersionToStringHelper(UsbVersion value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case UsbVersion::kUnmappedEnumField:
@@ -434,7 +434,7 @@ std::ostream& operator<<(std::ostream& os, UsbVersion value) {
   return os << UsbVersionToString(value);
 }
 
-static NOINLINE const char* UsbSpecSpeedToStringHelper(UsbSpecSpeed value) {
+NOINLINE static const char* UsbSpecSpeedToStringHelper(UsbSpecSpeed value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case UsbSpecSpeed::kUnmappedEnumField:
@@ -472,7 +472,7 @@ std::ostream& operator<<(std::ostream& os, UsbSpecSpeed value) {
   return os << UsbSpecSpeedToString(value);
 }
 
-static NOINLINE const char* TpmGSCVersionToStringHelper(TpmGSCVersion value) {
+NOINLINE static const char* TpmGSCVersionToStringHelper(TpmGSCVersion value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case TpmGSCVersion::kNotGSC:
@@ -498,7 +498,7 @@ std::ostream& operator<<(std::ostream& os, TpmGSCVersion value) {
   return os << TpmGSCVersionToString(value);
 }
 
-static NOINLINE const char* DisplayInputTypeToStringHelper(DisplayInputType value) {
+NOINLINE static const char* DisplayInputTypeToStringHelper(DisplayInputType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DisplayInputType::kUnmappedEnumField:
@@ -524,7 +524,7 @@ std::ostream& operator<<(std::ostream& os, DisplayInputType value) {
   return os << DisplayInputTypeToString(value);
 }
 
-static NOINLINE const char* ThunderboltSecurityLevelToStringHelper(ThunderboltSecurityLevel value) {
+NOINLINE static const char* ThunderboltSecurityLevelToStringHelper(ThunderboltSecurityLevel value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ThunderboltSecurityLevel::kNone:
@@ -556,7 +556,7 @@ std::ostream& operator<<(std::ostream& os, ThunderboltSecurityLevel value) {
   return os << ThunderboltSecurityLevelToString(value);
 }
 
-static NOINLINE const char* VirtualizationInfo_SMTControlToStringHelper(VirtualizationInfo_SMTControl value) {
+NOINLINE static const char* VirtualizationInfo_SMTControlToStringHelper(VirtualizationInfo_SMTControl value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VirtualizationInfo_SMTControl::kUnmappedEnumField:
@@ -588,7 +588,7 @@ std::ostream& operator<<(std::ostream& os, VirtualizationInfo_SMTControl value) 
   return os << VirtualizationInfo_SMTControlToString(value);
 }
 
-static NOINLINE const char* VulnerabilityInfo_StatusToStringHelper(VulnerabilityInfo_Status value) {
+NOINLINE static const char* VulnerabilityInfo_StatusToStringHelper(VulnerabilityInfo_Status value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VulnerabilityInfo_Status::kUnmappedEnumField:
@@ -620,7 +620,7 @@ std::ostream& operator<<(std::ostream& os, VulnerabilityInfo_Status value) {
   return os << VulnerabilityInfo_StatusToString(value);
 }
 
-static NOINLINE const char* CpuVirtualizationInfo_TypeToStringHelper(CpuVirtualizationInfo_Type value) {
+NOINLINE static const char* CpuVirtualizationInfo_TypeToStringHelper(CpuVirtualizationInfo_Type value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CpuVirtualizationInfo_Type::kUnmappedEnumField:
@@ -646,7 +646,7 @@ std::ostream& operator<<(std::ostream& os, CpuVirtualizationInfo_Type value) {
   return os << CpuVirtualizationInfo_TypeToString(value);
 }
 
-static NOINLINE const char* OsInfo_EfiPlatformSizeToStringHelper(OsInfo_EfiPlatformSize value) {
+NOINLINE static const char* OsInfo_EfiPlatformSizeToStringHelper(OsInfo_EfiPlatformSize value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case OsInfo_EfiPlatformSize::kUnmappedEnumField:
@@ -674,7 +674,7 @@ std::ostream& operator<<(std::ostream& os, OsInfo_EfiPlatformSize value) {
   return os << OsInfo_EfiPlatformSizeToString(value);
 }
 
-static NOINLINE const char* InputDevice_ConnectionTypeToStringHelper(InputDevice_ConnectionType value) {
+NOINLINE static const char* InputDevice_ConnectionTypeToStringHelper(InputDevice_ConnectionType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case InputDevice_ConnectionType::kUnmappedEnumField:
@@ -704,7 +704,7 @@ std::ostream& operator<<(std::ostream& os, InputDevice_ConnectionType value) {
   return os << InputDevice_ConnectionTypeToString(value);
 }
 
-static NOINLINE const char* Sensor_TypeToStringHelper(Sensor_Type value) {
+NOINLINE static const char* Sensor_TypeToStringHelper(Sensor_Type value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Sensor_Type::kUnmappedEnumField:
@@ -738,7 +738,7 @@ std::ostream& operator<<(std::ostream& os, Sensor_Type value) {
   return os << Sensor_TypeToString(value);
 }
 
-static NOINLINE const char* Sensor_LocationToStringHelper(Sensor_Location value) {
+NOINLINE static const char* Sensor_LocationToStringHelper(Sensor_Location value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Sensor_Location::kUnmappedEnumField:

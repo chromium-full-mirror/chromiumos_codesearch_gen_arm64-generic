@@ -421,7 +421,6 @@ class VideoEncodeAcceleratorSupportedProfileDataView {
 };
 
 
-
 class VariableBitratePeakDataView {
  public:
   VariableBitratePeakDataView() = default;
@@ -438,7 +437,6 @@ class VariableBitratePeakDataView {
  private:
   internal::VariableBitratePeak_Data* data_ = nullptr;
 };
-
 
 
 class VideoBitrateAllocationDataView {
@@ -487,7 +485,6 @@ static_assert(
 };
 
 
-
 class SpatialLayerDataView {
  public:
   SpatialLayerDataView() = default;
@@ -521,7 +518,6 @@ class SpatialLayerDataView {
 };
 
 
-
 class ConstantBitrateDataView {
  public:
   ConstantBitrateDataView() = default;
@@ -538,7 +534,6 @@ class ConstantBitrateDataView {
  private:
   internal::ConstantBitrate_Data* data_ = nullptr;
 };
-
 
 
 class VariableBitrateDataView {
@@ -562,7 +557,6 @@ class VariableBitrateDataView {
 };
 
 
-
 class ExternalBitrateDataView {
  public:
   ExternalBitrateDataView() = default;
@@ -576,7 +570,6 @@ class ExternalBitrateDataView {
  private:
   internal::ExternalBitrate_Data* data_ = nullptr;
 };
-
 
 
 class VideoEncodeAcceleratorConfigDataView {
@@ -712,7 +705,6 @@ class VideoEncodeAcceleratorConfigDataView {
 };
 
 
-
 class H264MetadataDataView {
  public:
   H264MetadataDataView() = default;
@@ -732,7 +724,6 @@ class H264MetadataDataView {
  private:
   internal::H264Metadata_Data* data_ = nullptr;
 };
-
 
 
 class H265MetadataDataView {
@@ -759,7 +750,6 @@ class H265MetadataDataView {
 };
 
 
-
 class Vp8MetadataDataView {
  public:
   Vp8MetadataDataView() = default;
@@ -782,7 +772,6 @@ class Vp8MetadataDataView {
  private:
   internal::Vp8Metadata_Data* data_ = nullptr;
 };
-
 
 
 class Vp9MetadataDataView {
@@ -842,7 +831,6 @@ class Vp9MetadataDataView {
 };
 
 
-
 class Av1MetadataDataView {
  public:
   Av1MetadataDataView() = default;
@@ -892,7 +880,6 @@ class Av1MetadataDataView {
   internal::Av1Metadata_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class BitstreamBufferMetadataDataView {
@@ -968,7 +955,6 @@ static_assert(
   internal::BitstreamBufferMetadata_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class BitrateDataView {

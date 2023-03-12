@@ -95,7 +95,6 @@ class TimeDataView {
 };
 
 
-
 class TimeDeltaDataView {
  public:
   TimeDeltaDataView() = default;
@@ -114,7 +113,6 @@ class TimeDeltaDataView {
 };
 
 
-
 class TimeTicksDataView {
  public:
   TimeTicksDataView() = default;
@@ -131,7 +129,6 @@ class TimeTicksDataView {
  private:
   internal::TimeTicks_Data* data_ = nullptr;
 };
-
 
 
 }  // namespace mojom

@@ -21,7 +21,7 @@
 namespace cros {
 namespace mojom {
 
-static NOINLINE const char* EntryTypeToStringHelper(EntryType value) {
+NOINLINE static const char* EntryTypeToStringHelper(EntryType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case EntryType::TYPE_BYTE:

@@ -84,7 +84,6 @@ class SensorHalServer_CreateChannel_ParamsDataView {
 };
 
 
-
 class SensorHalClient_SetUpChannel_ParamsDataView {
  public:
   SensorHalClient_SetUpChannel_ParamsDataView() = default;
@@ -108,7 +107,6 @@ class SensorHalClient_SetUpChannel_ParamsDataView {
   internal::SensorHalClient_SetUpChannel_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

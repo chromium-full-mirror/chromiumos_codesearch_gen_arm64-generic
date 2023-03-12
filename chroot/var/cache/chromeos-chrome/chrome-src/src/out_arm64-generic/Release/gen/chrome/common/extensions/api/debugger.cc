@@ -374,48 +374,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 2) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& target_value = args[0];
-    {
-      if (!target_value.is_dict()) {
-        return nullptr;
-      }
-      if (!Debuggee::Populate(target_value, &params->target)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& required_version_value = args[1];
-    {
-      auto* temp = required_version_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->required_version = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create() {
   base::Value::List create_results;
 
@@ -451,33 +409,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& target_value = args[0];
-    {
-      if (!target_value.is_dict()) {
-        return nullptr;
-      }
-      if (!Debuggee::Populate(target_value, &params->target)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -565,64 +496,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
         CommandParams temp;
         if (!CommandParams::Populate(command_params_value, &temp))
           return absl::nullopt;
-        params->command_params = std::move(temp);
-      }
-    }
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() < 2 || args.size() > 3) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& target_value = args[0];
-    {
-      if (!target_value.is_dict()) {
-        return nullptr;
-      }
-      if (!Debuggee::Populate(target_value, &params->target)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (1 < args.size() &&
-      !args[1].is_none()) {
-    const base::Value& method_value = args[1];
-    {
-      auto* temp = method_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->method = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  if (2 < args.size() &&
-      !args[2].is_none()) {
-    const base::Value& command_params_value = args[2];
-    {
-      if (!command_params_value.is_dict()) {
-        return nullptr;
-      }
-      else {
-        CommandParams temp;
-        if (!CommandParams::Populate(command_params_value, &temp))
-          return nullptr;
         params->command_params = std::move(temp);
       }
     }

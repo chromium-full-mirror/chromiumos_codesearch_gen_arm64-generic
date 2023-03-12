@@ -127,6 +127,20 @@ struct FileMetadataDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileMetadataDefaultTypeInternal _FileMetadata_default_instance_;
+PROTOBUF_CONSTEXPR FileRestriction::FileRestriction(
+    ::_pbi::ConstantInitialized)
+  : file_metadata_(nullptr)
+  , restriction_level_(0)
+{}
+struct FileRestrictionDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FileRestrictionDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FileRestrictionDefaultTypeInternal() {}
+  union {
+    FileRestriction _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileRestrictionDefaultTypeInternal _FileRestriction_default_instance_;
 PROTOBUF_CONSTEXPR IsDlpPolicyMatchedRequest::IsDlpPolicyMatchedRequest(
     ::_pbi::ConstantInitialized)
   : source_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -229,6 +243,7 @@ PROTOBUF_CONSTEXPR IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedR
     ::_pbi::ConstantInitialized)
   : files_sources_()
   , restricted_files_()
+  , files_restrictions_()
   , error_message_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct IsFilesTransferRestrictedResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR IsFilesTransferRestrictedResponseDefaultTypeInternal()
@@ -319,7 +334,7 @@ static const char DlpComponent_names[] =
   "GOOGLE_DRIVE"
   "PLUGIN_VM"
   "SYSTEM"
-  "UNKOWN_COMPONENT"
+  "UNKNOWN_COMPONENT"
   "USB";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DlpComponent_entries[] = {
@@ -328,12 +343,12 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DlpComponent_entries[]
   { {DlpComponent_names + 11, 12}, 6 },
   { {DlpComponent_names + 23, 9}, 4 },
   { {DlpComponent_names + 32, 6}, 1 },
-  { {DlpComponent_names + 38, 16}, 0 },
-  { {DlpComponent_names + 54, 3}, 5 },
+  { {DlpComponent_names + 38, 17}, 0 },
+  { {DlpComponent_names + 55, 3}, 5 },
 };
 
 static const int DlpComponent_entries_by_number[] = {
-  5, // 0 -> UNKOWN_COMPONENT
+  5, // 0 -> UNKNOWN_COMPONENT
   4, // 1 -> SYSTEM
   0, // 2 -> ARC
   1, // 3 -> CROSTINI
@@ -431,6 +446,73 @@ bool FileAction_Parse(
       FileAction_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<FileAction>(int_value);
+  }
+  return success;
+}
+bool RestrictionLevel_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RestrictionLevel_strings[6] = {};
+
+static const char RestrictionLevel_names[] =
+  "LEVEL_ALLOW"
+  "LEVEL_BLOCK"
+  "LEVEL_REPORT"
+  "LEVEL_UNSPECIFIED"
+  "LEVEL_WARN_CANCEL"
+  "LEVEL_WARN_PROCEED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RestrictionLevel_entries[] = {
+  { {RestrictionLevel_names + 0, 11}, 1 },
+  { {RestrictionLevel_names + 11, 11}, 5 },
+  { {RestrictionLevel_names + 22, 12}, 2 },
+  { {RestrictionLevel_names + 34, 17}, 0 },
+  { {RestrictionLevel_names + 51, 17}, 4 },
+  { {RestrictionLevel_names + 68, 18}, 3 },
+};
+
+static const int RestrictionLevel_entries_by_number[] = {
+  3, // 0 -> LEVEL_UNSPECIFIED
+  0, // 1 -> LEVEL_ALLOW
+  2, // 2 -> LEVEL_REPORT
+  5, // 3 -> LEVEL_WARN_PROCEED
+  4, // 4 -> LEVEL_WARN_CANCEL
+  1, // 5 -> LEVEL_BLOCK
+};
+
+const std::string& RestrictionLevel_Name(
+    RestrictionLevel value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          RestrictionLevel_entries,
+          RestrictionLevel_entries_by_number,
+          6, RestrictionLevel_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      RestrictionLevel_entries,
+      RestrictionLevel_entries_by_number,
+      6, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     RestrictionLevel_strings[idx].get();
+}
+bool RestrictionLevel_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RestrictionLevel* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      RestrictionLevel_entries, 6, name, &int_value);
+  if (success) {
+    *value = static_cast<RestrictionLevel>(int_value);
   }
   return success;
 }
@@ -2446,6 +2528,250 @@ std::string FileMetadata::GetTypeName() const {
 
 // ===================================================================
 
+class FileRestriction::_Internal {
+ public:
+  using HasBits = decltype(std::declval<FileRestriction>()._has_bits_);
+  static const ::dlp::FileMetadata& file_metadata(const FileRestriction* msg);
+  static void set_has_file_metadata(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_restriction_level(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+const ::dlp::FileMetadata&
+FileRestriction::_Internal::file_metadata(const FileRestriction* msg) {
+  return *msg->file_metadata_;
+}
+FileRestriction::FileRestriction(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:dlp.FileRestriction)
+}
+FileRestriction::FileRestriction(const FileRestriction& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_file_metadata()) {
+    file_metadata_ = new ::dlp::FileMetadata(*from.file_metadata_);
+  } else {
+    file_metadata_ = nullptr;
+  }
+  restriction_level_ = from.restriction_level_;
+  // @@protoc_insertion_point(copy_constructor:dlp.FileRestriction)
+}
+
+inline void FileRestriction::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&file_metadata_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&restriction_level_) -
+    reinterpret_cast<char*>(&file_metadata_)) + sizeof(restriction_level_));
+}
+
+FileRestriction::~FileRestriction() {
+  // @@protoc_insertion_point(destructor:dlp.FileRestriction)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void FileRestriction::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete file_metadata_;
+}
+
+void FileRestriction::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void FileRestriction::Clear() {
+// @@protoc_insertion_point(message_clear_start:dlp.FileRestriction)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(file_metadata_ != nullptr);
+    file_metadata_->Clear();
+  }
+  restriction_level_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* FileRestriction::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .dlp.FileMetadata file_metadata = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_file_metadata(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .dlp.RestrictionLevel restriction_level = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::dlp::RestrictionLevel_IsValid(val))) {
+            _internal_set_restriction_level(static_cast<::dlp::RestrictionLevel>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* FileRestriction::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dlp.FileRestriction)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .dlp.FileMetadata file_metadata = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::file_metadata(this),
+        _Internal::file_metadata(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .dlp.RestrictionLevel restriction_level = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_restriction_level(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:dlp.FileRestriction)
+  return target;
+}
+
+size_t FileRestriction::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:dlp.FileRestriction)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional .dlp.FileMetadata file_metadata = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *file_metadata_);
+    }
+
+    // optional .dlp.RestrictionLevel restriction_level = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_restriction_level());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void FileRestriction::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FileRestriction*>(
+      &from));
+}
+
+void FileRestriction::MergeFrom(const FileRestriction& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dlp.FileRestriction)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_mutable_file_metadata()->::dlp::FileMetadata::MergeFrom(from._internal_file_metadata());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      restriction_level_ = from.restriction_level_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void FileRestriction::CopyFrom(const FileRestriction& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dlp.FileRestriction)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FileRestriction::IsInitialized() const {
+  return true;
+}
+
+void FileRestriction::InternalSwap(FileRestriction* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FileRestriction, restriction_level_)
+      + sizeof(FileRestriction::restriction_level_)
+      - PROTOBUF_FIELD_OFFSET(FileRestriction, file_metadata_)>(
+          reinterpret_cast<char*>(&file_metadata_),
+          reinterpret_cast<char*>(&other->file_metadata_));
+}
+
+std::string FileRestriction::GetTypeName() const {
+  return "dlp.FileRestriction";
+}
+
+
+// ===================================================================
+
 class IsDlpPolicyMatchedRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<IsDlpPolicyMatchedRequest>()._has_bits_);
@@ -4214,7 +4540,8 @@ IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(::PROTOBUF_
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   files_sources_(arena),
-  restricted_files_(arena) {
+  restricted_files_(arena),
+  files_restrictions_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:dlp.IsFilesTransferRestrictedResponse)
 }
@@ -4222,7 +4549,8 @@ IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(const IsFil
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
       files_sources_(from.files_sources_),
-      restricted_files_(from.restricted_files_) {
+      restricted_files_(from.restricted_files_),
+      files_restrictions_(from.files_restrictions_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -4268,6 +4596,7 @@ void IsFilesTransferRestrictedResponse::Clear() {
 
   files_sources_.Clear();
   restricted_files_.Clear();
+  files_restrictions_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     error_message_.ClearNonDefaultToEmpty();
@@ -4316,6 +4645,19 @@ const char* IsFilesTransferRestrictedResponse::_InternalParse(const char* ptr, :
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .dlp.FileRestriction files_restrictions = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_files_restrictions(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -4370,6 +4712,14 @@ uint8_t* IsFilesTransferRestrictedResponse::_InternalSerialize(
         InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .dlp.FileRestriction files_restrictions = 4;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_files_restrictions_size()); i < n; i++) {
+    const auto& repfield = this->_internal_files_restrictions(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -4397,6 +4747,13 @@ size_t IsFilesTransferRestrictedResponse::ByteSizeLong() const {
   // repeated .dlp.FileMetadata restricted_files = 3;
   total_size += 1UL * this->_internal_restricted_files_size();
   for (const auto& msg : this->restricted_files_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .dlp.FileRestriction files_restrictions = 4;
+  total_size += 1UL * this->_internal_files_restrictions_size();
+  for (const auto& msg : this->files_restrictions_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -4431,6 +4788,7 @@ void IsFilesTransferRestrictedResponse::MergeFrom(const IsFilesTransferRestricte
 
   files_sources_.MergeFrom(from.files_sources_);
   restricted_files_.MergeFrom(from.restricted_files_);
+  files_restrictions_.MergeFrom(from.files_restrictions_);
   if (from._internal_has_error_message()) {
     _internal_set_error_message(from._internal_error_message());
   }
@@ -4456,6 +4814,7 @@ void IsFilesTransferRestrictedResponse::InternalSwap(IsFilesTransferRestrictedRe
   swap(_has_bits_[0], other->_has_bits_[0]);
   files_sources_.InternalSwap(&other->files_sources_);
   restricted_files_.InternalSwap(&other->restricted_files_);
+  files_restrictions_.InternalSwap(&other->files_restrictions_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &error_message_, lhs_arena,
       &other->error_message_, rhs_arena
@@ -4501,6 +4860,10 @@ Arena::CreateMaybeMessage< ::dlp::RequestFileAccessResponse >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::dlp::FileMetadata*
 Arena::CreateMaybeMessage< ::dlp::FileMetadata >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::FileMetadata >(arena);
+}
+template<> PROTOBUF_NOINLINE ::dlp::FileRestriction*
+Arena::CreateMaybeMessage< ::dlp::FileRestriction >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::dlp::FileRestriction >(arena);
 }
 template<> PROTOBUF_NOINLINE ::dlp::IsDlpPolicyMatchedRequest*
 Arena::CreateMaybeMessage< ::dlp::IsDlpPolicyMatchedRequest >(Arena* arena) {

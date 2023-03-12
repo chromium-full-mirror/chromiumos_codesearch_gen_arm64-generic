@@ -149,7 +149,6 @@ class TouchscreenDeviceDataView {
 };
 
 
-
 class InputDeviceDataView {
  public:
   InputDeviceDataView() = default;
@@ -207,7 +206,6 @@ class InputDeviceDataView {
   internal::InputDevice_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

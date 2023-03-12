@@ -173,7 +173,6 @@ class BitstreamBufferDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace chromeos_camera
 

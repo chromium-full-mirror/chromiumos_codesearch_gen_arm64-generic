@@ -313,7 +313,6 @@ class SodaConfigDataView {
 };
 
 
-
 class TimingInfoDataView {
  public:
   TimingInfoDataView() = default;
@@ -393,7 +392,6 @@ class TimingInfoDataView {
 };
 
 
-
 class EndpointerEventDataView {
  public:
   EndpointerEventDataView() = default;
@@ -438,7 +436,6 @@ static_assert(
   internal::EndpointerEvent_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class PartialResultDataView {
@@ -487,7 +484,6 @@ static_assert(
 };
 
 
-
 class HypothesisPartInResultDataView {
  public:
   HypothesisPartInResultDataView() = default;
@@ -522,7 +518,6 @@ class HypothesisPartInResultDataView {
   internal::HypothesisPartInResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class FinalResultDataView {
@@ -602,7 +597,6 @@ static_assert(
 };
 
 
-
 class AudioLevelEventDataView {
  public:
   AudioLevelEventDataView() = default;
@@ -622,7 +616,6 @@ class AudioLevelEventDataView {
  private:
   internal::AudioLevelEvent_Data* data_ = nullptr;
 };
-
 
 
 class SpeechRecognizerEventDataView {

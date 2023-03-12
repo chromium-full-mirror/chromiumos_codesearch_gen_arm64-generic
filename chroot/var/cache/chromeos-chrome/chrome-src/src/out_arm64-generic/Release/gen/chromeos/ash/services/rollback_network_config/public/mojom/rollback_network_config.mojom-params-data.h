@@ -116,7 +116,6 @@ class RollbackNetworkConfig_RollbackConfigImport_ParamsDataView {
 };
 
 
-
 class RollbackNetworkConfig_RollbackConfigImport_ResponseParamsDataView {
  public:
   RollbackNetworkConfig_RollbackConfigImport_ResponseParamsDataView() = default;
@@ -135,7 +134,6 @@ class RollbackNetworkConfig_RollbackConfigImport_ResponseParamsDataView {
 };
 
 
-
 class RollbackNetworkConfig_RollbackConfigExport_ParamsDataView {
  public:
   RollbackNetworkConfig_RollbackConfigExport_ParamsDataView() = default;
@@ -149,7 +147,6 @@ class RollbackNetworkConfig_RollbackConfigExport_ParamsDataView {
  private:
   internal::RollbackNetworkConfig_RollbackConfigExport_Params_Data* data_ = nullptr;
 };
-
 
 
 class RollbackNetworkConfig_RollbackConfigExport_ResponseParamsDataView {
@@ -176,7 +173,6 @@ class RollbackNetworkConfig_RollbackConfigExport_ResponseParamsDataView {
   internal::RollbackNetworkConfig_RollbackConfigExport_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void RollbackNetworkConfig_RollbackConfigImport_ParamsDataView::GetConfigDataView(
     mojo::StringDataView* output) {

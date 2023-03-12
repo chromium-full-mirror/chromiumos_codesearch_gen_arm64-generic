@@ -266,7 +266,6 @@ class VideoFramePlaneDataView {
 };
 
 
-
 class ColorPlaneLayoutDataView {
  public:
   ColorPlaneLayoutDataView() = default;
@@ -289,7 +288,6 @@ class ColorPlaneLayoutDataView {
  private:
   internal::ColorPlaneLayout_Data* data_ = nullptr;
 };
-
 
 
 class VideoFrameLayoutDataView {
@@ -345,7 +343,6 @@ class VideoFrameLayoutDataView {
   internal::VideoFrameLayout_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

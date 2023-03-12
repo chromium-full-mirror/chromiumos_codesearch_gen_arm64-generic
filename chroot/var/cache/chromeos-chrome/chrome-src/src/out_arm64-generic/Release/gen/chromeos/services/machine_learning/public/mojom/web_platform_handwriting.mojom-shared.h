@@ -179,7 +179,6 @@ static_assert(
 };
 
 
-
 class HandwritingStrokeDataView {
  public:
   HandwritingStrokeDataView() = default;
@@ -206,7 +205,6 @@ class HandwritingStrokeDataView {
 };
 
 
-
 class HandwritingDrawingSegmentDataView {
  public:
   HandwritingDrawingSegmentDataView() = default;
@@ -229,7 +227,6 @@ class HandwritingDrawingSegmentDataView {
  private:
   internal::HandwritingDrawingSegment_Data* data_ = nullptr;
 };
-
 
 
 class HandwritingSegmentDataView {
@@ -274,7 +271,6 @@ class HandwritingSegmentDataView {
 };
 
 
-
 class HandwritingPredictionDataView {
  public:
   HandwritingPredictionDataView() = default;
@@ -309,7 +305,6 @@ class HandwritingPredictionDataView {
   internal::HandwritingPrediction_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class HandwritingHintsDataView {
@@ -382,7 +377,6 @@ static_assert(
 };
 
 
-
 class HandwritingModelConstraintDataView {
  public:
   HandwritingModelConstraintDataView() = default;
@@ -407,7 +401,6 @@ class HandwritingModelConstraintDataView {
   internal::HandwritingModelConstraint_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

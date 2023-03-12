@@ -124,7 +124,6 @@ class NullableUint8DataView {
 };
 
 
-
 class NullableInt16DataView {
  public:
   NullableInt16DataView() = default;
@@ -141,7 +140,6 @@ class NullableInt16DataView {
  private:
   internal::NullableInt16_Data* data_ = nullptr;
 };
-
 
 
 class NullableUint16DataView {
@@ -162,7 +160,6 @@ class NullableUint16DataView {
 };
 
 
-
 class NullableUint32DataView {
  public:
   NullableUint32DataView() = default;
@@ -179,7 +176,6 @@ class NullableUint32DataView {
  private:
   internal::NullableUint32_Data* data_ = nullptr;
 };
-
 
 
 class NullableUint64DataView {
@@ -200,7 +196,6 @@ class NullableUint64DataView {
 };
 
 
-
 class NullableDoubleDataView {
  public:
   NullableDoubleDataView() = default;
@@ -217,7 +212,6 @@ class NullableDoubleDataView {
  private:
   internal::NullableDouble_Data* data_ = nullptr;
 };
-
 
 
 }  // namespace mojom

@@ -150,7 +150,6 @@ class SensorConfigurationDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace device
 

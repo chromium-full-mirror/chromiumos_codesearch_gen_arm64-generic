@@ -92,7 +92,6 @@ class Channel_SetPeerPid_ParamsDataView {
 };
 
 
-
 class Channel_Receive_ParamsDataView {
  public:
   Channel_Receive_ParamsDataView() = default;
@@ -119,7 +118,6 @@ class Channel_Receive_ParamsDataView {
 };
 
 
-
 class Channel_GetAssociatedInterface_ParamsDataView {
  public:
   Channel_GetAssociatedInterface_ParamsDataView() = default;
@@ -144,7 +142,6 @@ class Channel_GetAssociatedInterface_ParamsDataView {
   internal::Channel_GetAssociatedInterface_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

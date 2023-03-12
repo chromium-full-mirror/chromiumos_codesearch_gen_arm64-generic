@@ -143,7 +143,6 @@ class UInt32ValueDataView {
 };
 
 
-
 class SignalStrengthStatsDataView {
  public:
   SignalStrengthStatsDataView() = default;
@@ -174,7 +173,6 @@ class SignalStrengthStatsDataView {
   internal::SignalStrengthStats_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class NetworkDataView {
@@ -375,7 +373,6 @@ static_assert(
 };
 
 
-
 class NetworkHealthStateDataView {
  public:
   NetworkHealthStateDataView() = default;
@@ -400,7 +397,6 @@ class NetworkHealthStateDataView {
   internal::NetworkHealthState_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

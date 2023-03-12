@@ -19,6 +19,7 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
+#include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/default_construct_traits.h"
@@ -2087,6 +2088,10 @@ class Camera3DeviceOps_Initialize_ProxyToResponder : public ::mojo::internal::Pr
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2201,6 +2206,10 @@ class Camera3DeviceOps_ConfigureStreams_ProxyToResponder : public ::mojo::intern
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2329,6 +2338,10 @@ class Camera3DeviceOps_ConstructDefaultRequestSettings_ProxyToResponder : public
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2449,6 +2462,10 @@ class Camera3DeviceOps_ProcessCaptureRequest_ProxyToResponder : public ::mojo::i
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2563,6 +2580,10 @@ class Camera3DeviceOps_Flush_ProxyToResponder : public ::mojo::internal::ProxyTo
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2677,6 +2698,10 @@ class Camera3DeviceOps_RegisterBuffer_ProxyToResponder : public ::mojo::internal
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2791,6 +2816,10 @@ class Camera3DeviceOps_Close_ProxyToResponder : public ::mojo::internal::ProxyTo
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2905,6 +2934,10 @@ class Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ProxyToResponder :
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif

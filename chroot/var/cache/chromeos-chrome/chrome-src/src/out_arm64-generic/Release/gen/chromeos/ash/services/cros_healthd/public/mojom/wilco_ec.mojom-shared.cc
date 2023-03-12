@@ -22,7 +22,7 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
-static NOINLINE const char* EcEvent_ReasonToStringHelper(EcEvent_Reason value) {
+NOINLINE static const char* EcEvent_ReasonToStringHelper(EcEvent_Reason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case EcEvent_Reason::kNonWilcoCharger:
@@ -62,7 +62,7 @@ std::ostream& operator<<(std::ostream& os, EcEvent_Reason value) {
   return os << EcEvent_ReasonToString(value);
 }
 
-static NOINLINE const char* EcEvent_TypeToStringHelper(EcEvent_Type value) {
+NOINLINE static const char* EcEvent_TypeToStringHelper(EcEvent_Type value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case EcEvent_Type::kUnmappedEnumField:
@@ -86,7 +86,7 @@ std::ostream& operator<<(std::ostream& os, EcEvent_Type value) {
   return os << EcEvent_TypeToString(value);
 }
 
-static NOINLINE const char* GetEcTelemetryResponse_StatusToStringHelper(GetEcTelemetryResponse_Status value) {
+NOINLINE static const char* GetEcTelemetryResponse_StatusToStringHelper(GetEcTelemetryResponse_Status value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case GetEcTelemetryResponse_Status::kStatusOk:

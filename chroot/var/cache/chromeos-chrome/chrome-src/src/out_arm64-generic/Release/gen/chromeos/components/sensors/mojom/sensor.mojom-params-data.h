@@ -441,7 +441,6 @@ class SensorService_GetDeviceIds_ParamsDataView {
 };
 
 
-
 class SensorService_GetDeviceIds_ResponseParamsDataView {
  public:
   SensorService_GetDeviceIds_ResponseParamsDataView() = default;
@@ -468,7 +467,6 @@ class SensorService_GetDeviceIds_ResponseParamsDataView {
 };
 
 
-
 class SensorService_GetAllDeviceIds_ParamsDataView {
  public:
   SensorService_GetAllDeviceIds_ParamsDataView() = default;
@@ -482,7 +480,6 @@ class SensorService_GetAllDeviceIds_ParamsDataView {
  private:
   internal::SensorService_GetAllDeviceIds_Params_Data* data_ = nullptr;
 };
-
 
 
 class SensorService_GetAllDeviceIds_ResponseParamsDataView {
@@ -509,7 +506,6 @@ class SensorService_GetAllDeviceIds_ResponseParamsDataView {
   internal::SensorService_GetAllDeviceIds_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class SensorService_GetDevice_ParamsDataView {
@@ -540,7 +536,6 @@ class SensorService_GetDevice_ParamsDataView {
 };
 
 
-
 class SensorService_RegisterNewDevicesObserver_ParamsDataView {
  public:
   SensorService_RegisterNewDevicesObserver_ParamsDataView() = default;
@@ -566,7 +561,6 @@ class SensorService_RegisterNewDevicesObserver_ParamsDataView {
 };
 
 
-
 class SensorDevice_SetTimeout_ParamsDataView {
  public:
   SensorDevice_SetTimeout_ParamsDataView() = default;
@@ -583,7 +577,6 @@ class SensorDevice_SetTimeout_ParamsDataView {
  private:
   internal::SensorDevice_SetTimeout_Params_Data* data_ = nullptr;
 };
-
 
 
 class SensorDevice_GetAttributes_ParamsDataView {
@@ -612,7 +605,6 @@ class SensorDevice_GetAttributes_ParamsDataView {
 };
 
 
-
 class SensorDevice_GetAttributes_ResponseParamsDataView {
  public:
   SensorDevice_GetAttributes_ResponseParamsDataView() = default;
@@ -639,7 +631,6 @@ class SensorDevice_GetAttributes_ResponseParamsDataView {
 };
 
 
-
 class SensorDevice_SetFrequency_ParamsDataView {
  public:
   SensorDevice_SetFrequency_ParamsDataView() = default;
@@ -658,7 +649,6 @@ class SensorDevice_SetFrequency_ParamsDataView {
 };
 
 
-
 class SensorDevice_SetFrequency_ResponseParamsDataView {
  public:
   SensorDevice_SetFrequency_ResponseParamsDataView() = default;
@@ -675,7 +665,6 @@ class SensorDevice_SetFrequency_ResponseParamsDataView {
  private:
   internal::SensorDevice_SetFrequency_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class SensorDevice_StartReadingSamples_ParamsDataView {
@@ -703,7 +692,6 @@ class SensorDevice_StartReadingSamples_ParamsDataView {
 };
 
 
-
 class SensorDevice_StopReadingSamples_ParamsDataView {
  public:
   SensorDevice_StopReadingSamples_ParamsDataView() = default;
@@ -719,7 +707,6 @@ class SensorDevice_StopReadingSamples_ParamsDataView {
 };
 
 
-
 class SensorDevice_GetAllChannelIds_ParamsDataView {
  public:
   SensorDevice_GetAllChannelIds_ParamsDataView() = default;
@@ -733,7 +720,6 @@ class SensorDevice_GetAllChannelIds_ParamsDataView {
  private:
   internal::SensorDevice_GetAllChannelIds_Params_Data* data_ = nullptr;
 };
-
 
 
 class SensorDevice_GetAllChannelIds_ResponseParamsDataView {
@@ -760,7 +746,6 @@ class SensorDevice_GetAllChannelIds_ResponseParamsDataView {
   internal::SensorDevice_GetAllChannelIds_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class SensorDevice_SetChannelsEnabled_ParamsDataView {
@@ -792,7 +777,6 @@ class SensorDevice_SetChannelsEnabled_ParamsDataView {
 };
 
 
-
 class SensorDevice_SetChannelsEnabled_ResponseParamsDataView {
  public:
   SensorDevice_SetChannelsEnabled_ResponseParamsDataView() = default;
@@ -817,7 +801,6 @@ class SensorDevice_SetChannelsEnabled_ResponseParamsDataView {
   internal::SensorDevice_SetChannelsEnabled_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class SensorDevice_GetChannelsEnabled_ParamsDataView {
@@ -846,7 +829,6 @@ class SensorDevice_GetChannelsEnabled_ParamsDataView {
 };
 
 
-
 class SensorDevice_GetChannelsEnabled_ResponseParamsDataView {
  public:
   SensorDevice_GetChannelsEnabled_ResponseParamsDataView() = default;
@@ -871,7 +853,6 @@ class SensorDevice_GetChannelsEnabled_ResponseParamsDataView {
   internal::SensorDevice_GetChannelsEnabled_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class SensorDevice_GetChannelsAttributes_ParamsDataView {
@@ -910,7 +891,6 @@ class SensorDevice_GetChannelsAttributes_ParamsDataView {
 };
 
 
-
 class SensorDevice_GetChannelsAttributes_ResponseParamsDataView {
  public:
   SensorDevice_GetChannelsAttributes_ResponseParamsDataView() = default;
@@ -935,7 +915,6 @@ class SensorDevice_GetChannelsAttributes_ResponseParamsDataView {
   internal::SensorDevice_GetChannelsAttributes_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class SensorDeviceSamplesObserver_OnSampleUpdated_ParamsDataView {
@@ -964,7 +943,6 @@ class SensorDeviceSamplesObserver_OnSampleUpdated_ParamsDataView {
 };
 
 
-
 class SensorDeviceSamplesObserver_OnErrorOccurred_ParamsDataView {
  public:
   SensorDeviceSamplesObserver_OnErrorOccurred_ParamsDataView() = default;
@@ -988,7 +966,6 @@ class SensorDeviceSamplesObserver_OnErrorOccurred_ParamsDataView {
  private:
   internal::SensorDeviceSamplesObserver_OnErrorOccurred_Params_Data* data_ = nullptr;
 };
-
 
 
 class SensorServiceNewDevicesObserver_OnNewDeviceAdded_ParamsDataView {
@@ -1018,7 +995,6 @@ class SensorServiceNewDevicesObserver_OnNewDeviceAdded_ParamsDataView {
   internal::SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

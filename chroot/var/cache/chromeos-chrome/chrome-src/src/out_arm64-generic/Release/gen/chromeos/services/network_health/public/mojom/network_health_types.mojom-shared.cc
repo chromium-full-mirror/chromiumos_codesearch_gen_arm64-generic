@@ -22,7 +22,7 @@ namespace chromeos {
 namespace network_health {
 namespace mojom {
 
-static NOINLINE const char* NetworkStateToStringHelper(NetworkState value) {
+NOINLINE static const char* NetworkStateToStringHelper(NetworkState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case NetworkState::kUninitialized:

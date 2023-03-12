@@ -7233,7 +7233,7 @@ class ChildProcessLauncherPriority : public ::protozero::Message {
   }
 };
 
-class RenderProcessHostCleanup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class RenderProcessHostCleanup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   RenderProcessHostCleanup_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit RenderProcessHostCleanup_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -7246,6 +7246,8 @@ class RenderProcessHostCleanup_Decoder : public ::protozero::TypedProtoDecoder</
   uint32_t shutdown_delay_ref_count() const { return at<3>().as_uint32(); }
   bool has_worker_ref_count() const { return at<4>().valid(); }
   uint32_t worker_ref_count() const { return at<4>().as_uint32(); }
+  bool has_pending_reuse_ref_count() const { return at<5>().valid(); }
+  uint32_t pending_reuse_ref_count() const { return at<5>().as_uint32(); }
 };
 
 class RenderProcessHostCleanup : public ::protozero::Message {
@@ -7256,6 +7258,7 @@ class RenderProcessHostCleanup : public ::protozero::Message {
     kKeepAliveRefCountFieldNumber = 2,
     kShutdownDelayRefCountFieldNumber = 3,
     kWorkerRefCountFieldNumber = 4,
+    kPendingReuseRefCountFieldNumber = 5,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.RenderProcessHostCleanup"; }
 
@@ -7353,6 +7356,31 @@ class RenderProcessHostCleanup : public ::protozero::Message {
   static constexpr FieldMetadata_WorkerRefCount kWorkerRefCount() { return {}; }
   void set_worker_ref_count(uint32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_WorkerRefCount::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PendingReuseRefCount =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      RenderProcessHostCleanup>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_PendingReuseRefCount kPendingReuseRefCount() { return {}; }
+  void set_pending_reuse_ref_count(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PendingReuseRefCount::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<

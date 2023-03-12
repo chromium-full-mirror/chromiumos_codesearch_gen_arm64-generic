@@ -202,7 +202,6 @@ struct GetDevicesOptions {
 namespace GetDevices {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -228,7 +227,6 @@ base::Value::List Create(const std::vector<HidDeviceInfo>& devices);
 namespace Connect {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -254,7 +252,6 @@ base::Value::List Create(const HidConnectInfo& connection);
 namespace Disconnect {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -280,7 +277,6 @@ base::Value::List Create();
 namespace Receive {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -308,7 +304,6 @@ base::Value::List Create(int report_id, const std::vector<uint8_t>& data);
 namespace Send {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -340,7 +335,6 @@ base::Value::List Create();
 namespace ReceiveFeatureReport {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -370,7 +364,6 @@ base::Value::List Create(const std::vector<uint8_t>& data);
 namespace SendFeatureReport {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;

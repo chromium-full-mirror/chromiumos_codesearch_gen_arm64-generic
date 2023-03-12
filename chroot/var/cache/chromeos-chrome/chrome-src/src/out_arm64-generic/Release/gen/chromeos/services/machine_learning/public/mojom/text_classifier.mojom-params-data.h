@@ -148,7 +148,6 @@ class TextClassifier_Annotate_ParamsDataView {
 };
 
 
-
 class TextClassifier_Annotate_ResponseParamsDataView {
  public:
   TextClassifier_Annotate_ResponseParamsDataView() = default;
@@ -173,7 +172,6 @@ class TextClassifier_Annotate_ResponseParamsDataView {
   internal::TextClassifier_Annotate_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TextClassifier_FindLanguages_ParamsDataView {
@@ -202,7 +200,6 @@ class TextClassifier_FindLanguages_ParamsDataView {
 };
 
 
-
 class TextClassifier_FindLanguages_ResponseParamsDataView {
  public:
   TextClassifier_FindLanguages_ResponseParamsDataView() = default;
@@ -227,7 +224,6 @@ class TextClassifier_FindLanguages_ResponseParamsDataView {
   internal::TextClassifier_FindLanguages_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TextClassifier_REMOVED_1_ParamsDataView {
@@ -256,7 +252,6 @@ class TextClassifier_REMOVED_1_ParamsDataView {
 };
 
 
-
 class TextClassifier_REMOVED_1_ResponseParamsDataView {
  public:
   TextClassifier_REMOVED_1_ResponseParamsDataView() = default;
@@ -281,7 +276,6 @@ class TextClassifier_REMOVED_1_ResponseParamsDataView {
   internal::TextClassifier_REMOVED_1_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void TextClassifier_Annotate_ParamsDataView::GetRequestDataView(
     TextAnnotationRequestDataView* output) {

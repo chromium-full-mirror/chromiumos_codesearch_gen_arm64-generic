@@ -21,7 +21,7 @@
 namespace device {
 namespace mojom {
 
-static NOINLINE const char* SensorTypeToStringHelper(SensorType value) {
+NOINLINE static const char* SensorTypeToStringHelper(SensorType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case SensorType::AMBIENT_LIGHT:
@@ -65,7 +65,7 @@ std::ostream& operator<<(std::ostream& os, SensorType value) {
   return os << SensorTypeToString(value);
 }
 
-static NOINLINE const char* ReportingModeToStringHelper(ReportingMode value) {
+NOINLINE static const char* ReportingModeToStringHelper(ReportingMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ReportingMode::ON_CHANGE:

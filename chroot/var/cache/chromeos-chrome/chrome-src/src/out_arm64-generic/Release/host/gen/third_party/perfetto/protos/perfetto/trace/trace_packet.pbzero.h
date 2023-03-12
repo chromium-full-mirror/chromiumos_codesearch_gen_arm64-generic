@@ -45,6 +45,7 @@ class InodeFileMap;
 class InternedData;
 class MemoryTrackerSnapshot;
 class ModuleSymbols;
+class NetworkPacketBundle;
 class NetworkPacketEvent;
 class PackagesList;
 class PerfSample;
@@ -234,6 +235,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes extension_descriptor() const { return at<72>().as_bytes(); }
   bool has_network_packet() const { return at<88>().valid(); }
   ::protozero::ConstBytes network_packet() const { return at<88>().as_bytes(); }
+  bool has_network_packet_bundle() const { return at<92>().valid(); }
+  ::protozero::ConstBytes network_packet_bundle() const { return at<92>().as_bytes(); }
   bool has_track_event_range_of_interest() const { return at<90>().valid(); }
   ::protozero::ConstBytes track_event_range_of_interest() const { return at<90>().as_bytes(); }
   bool has_for_testing() const { return at<900>().valid(); }
@@ -323,6 +326,7 @@ class TracePacket : public ::protozero::Message {
     kCompressedPacketsFieldNumber = 50,
     kExtensionDescriptorFieldNumber = 72,
     kNetworkPacketFieldNumber = 88,
+    kNetworkPacketBundleFieldNumber = 92,
     kTrackEventRangeOfInterestFieldNumber = 90,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
@@ -1652,6 +1656,27 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_NetworkPacket kNetworkPacket() { return {}; }
   template <typename T = NetworkPacketEvent> T* set_network_packet() {
     return BeginNestedMessage<T>(88);
+  }
+
+
+  using FieldMetadata_NetworkPacketBundle =
+    ::protozero::proto_utils::FieldMetadata<
+      92,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      NetworkPacketBundle,
+      TracePacket>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_NetworkPacketBundle kNetworkPacketBundle() { return {}; }
+  template <typename T = NetworkPacketBundle> T* set_network_packet_bundle() {
+    return BeginNestedMessage<T>(92);
   }
 
 

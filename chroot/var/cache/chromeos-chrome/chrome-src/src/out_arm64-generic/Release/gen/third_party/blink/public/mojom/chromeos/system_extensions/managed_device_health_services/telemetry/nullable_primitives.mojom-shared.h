@@ -86,7 +86,6 @@ class UInt32ValueDataView {
 };
 
 
-
 class UInt64ValueDataView {
  public:
   UInt64ValueDataView() = default;
@@ -103,7 +102,6 @@ class UInt64ValueDataView {
  private:
   internal::UInt64Value_Data* data_ = nullptr;
 };
-
 
 
 }  // namespace mojom

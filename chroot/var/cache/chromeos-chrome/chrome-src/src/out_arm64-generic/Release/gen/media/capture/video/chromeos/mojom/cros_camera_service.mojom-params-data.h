@@ -440,7 +440,6 @@ class CameraHalDispatcher_RegisterServer_ParamsDataView {
 };
 
 
-
 class CameraHalDispatcher_RegisterClient_ParamsDataView {
  public:
   CameraHalDispatcher_RegisterClient_ParamsDataView() = default;
@@ -464,7 +463,6 @@ class CameraHalDispatcher_RegisterClient_ParamsDataView {
   internal::CameraHalDispatcher_RegisterClient_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CameraHalDispatcher_GetMjpegDecodeAccelerator_ParamsDataView {
@@ -492,7 +490,6 @@ class CameraHalDispatcher_GetMjpegDecodeAccelerator_ParamsDataView {
 };
 
 
-
 class CameraHalDispatcher_GetJpegEncodeAccelerator_ParamsDataView {
  public:
   CameraHalDispatcher_GetJpegEncodeAccelerator_ParamsDataView() = default;
@@ -516,7 +513,6 @@ class CameraHalDispatcher_GetJpegEncodeAccelerator_ParamsDataView {
   internal::CameraHalDispatcher_GetJpegEncodeAccelerator_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CameraHalDispatcher_RegisterServerWithToken_ParamsDataView {
@@ -554,7 +550,6 @@ class CameraHalDispatcher_RegisterServerWithToken_ParamsDataView {
 };
 
 
-
 class CameraHalDispatcher_RegisterServerWithToken_ResponseParamsDataView {
  public:
   CameraHalDispatcher_RegisterServerWithToken_ResponseParamsDataView() = default;
@@ -581,7 +576,6 @@ class CameraHalDispatcher_RegisterServerWithToken_ResponseParamsDataView {
   internal::CameraHalDispatcher_RegisterServerWithToken_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CameraHalDispatcher_RegisterClientWithToken_ParamsDataView {
@@ -629,7 +623,6 @@ class CameraHalDispatcher_RegisterClientWithToken_ParamsDataView {
 };
 
 
-
 class CameraHalDispatcher_RegisterClientWithToken_ResponseParamsDataView {
  public:
   CameraHalDispatcher_RegisterClientWithToken_ResponseParamsDataView() = default;
@@ -646,7 +639,6 @@ class CameraHalDispatcher_RegisterClientWithToken_ResponseParamsDataView {
  private:
   internal::CameraHalDispatcher_RegisterClientWithToken_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class CameraHalDispatcher_RegisterSensorClientWithToken_ParamsDataView {
@@ -684,7 +676,6 @@ class CameraHalDispatcher_RegisterSensorClientWithToken_ParamsDataView {
 };
 
 
-
 class CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsDataView {
  public:
   CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsDataView() = default;
@@ -701,7 +692,6 @@ class CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsDataView {
  private:
   internal::CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class CameraHalServer_CreateChannel_ParamsDataView {
@@ -742,7 +732,6 @@ class CameraHalServer_CreateChannel_ParamsDataView {
 };
 
 
-
 class CameraHalServer_SetTracingEnabled_ParamsDataView {
  public:
   CameraHalServer_SetTracingEnabled_ParamsDataView() = default;
@@ -759,7 +748,6 @@ class CameraHalServer_SetTracingEnabled_ParamsDataView {
  private:
   internal::CameraHalServer_SetTracingEnabled_Params_Data* data_ = nullptr;
 };
-
 
 
 class CameraHalServer_SetAutoFramingState_ParamsDataView {
@@ -787,7 +775,6 @@ class CameraHalServer_SetAutoFramingState_ParamsDataView {
 };
 
 
-
 class CameraHalServer_GetCameraSWPrivacySwitchState_ParamsDataView {
  public:
   CameraHalServer_GetCameraSWPrivacySwitchState_ParamsDataView() = default;
@@ -801,7 +788,6 @@ class CameraHalServer_GetCameraSWPrivacySwitchState_ParamsDataView {
  private:
   internal::CameraHalServer_GetCameraSWPrivacySwitchState_Params_Data* data_ = nullptr;
 };
-
 
 
 class CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParamsDataView {
@@ -829,7 +815,6 @@ class CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParamsDataView {
 };
 
 
-
 class CameraHalServer_SetCameraSWPrivacySwitchState_ParamsDataView {
  public:
   CameraHalServer_SetCameraSWPrivacySwitchState_ParamsDataView() = default;
@@ -855,7 +840,6 @@ class CameraHalServer_SetCameraSWPrivacySwitchState_ParamsDataView {
 };
 
 
-
 class CameraHalServer_GetAutoFramingSupported_ParamsDataView {
  public:
   CameraHalServer_GetAutoFramingSupported_ParamsDataView() = default;
@@ -869,7 +853,6 @@ class CameraHalServer_GetAutoFramingSupported_ParamsDataView {
  private:
   internal::CameraHalServer_GetAutoFramingSupported_Params_Data* data_ = nullptr;
 };
-
 
 
 class CameraHalServer_GetAutoFramingSupported_ResponseParamsDataView {
@@ -888,7 +871,6 @@ class CameraHalServer_GetAutoFramingSupported_ResponseParamsDataView {
  private:
   internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class CameraHalServer_SetCameraEffect_ParamsDataView {
@@ -917,7 +899,6 @@ class CameraHalServer_SetCameraEffect_ParamsDataView {
 };
 
 
-
 class CameraHalServer_SetCameraEffect_ResponseParamsDataView {
  public:
   CameraHalServer_SetCameraEffect_ResponseParamsDataView() = default;
@@ -941,7 +922,6 @@ class CameraHalServer_SetCameraEffect_ResponseParamsDataView {
  private:
   internal::CameraHalServer_SetCameraEffect_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsDataView {
@@ -975,7 +955,6 @@ class CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsDataView {
 };
 
 
-
 class CameraHalServerCallbacks_CameraPrivacySwitchStateChange_ParamsDataView {
  public:
   CameraHalServerCallbacks_CameraPrivacySwitchStateChange_ParamsDataView() = default;
@@ -1006,7 +985,6 @@ class CameraHalServerCallbacks_CameraPrivacySwitchStateChange_ParamsDataView {
 };
 
 
-
 class CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_ParamsDataView {
  public:
   CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_ParamsDataView() = default;
@@ -1030,7 +1008,6 @@ class CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_ParamsDataView {
  private:
   internal::CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Params_Data* data_ = nullptr;
 };
-
 
 
 

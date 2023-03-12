@@ -22,7 +22,7 @@ namespace chromeos {
 namespace machine_learning {
 namespace mojom {
 
-static NOINLINE const char* GrammarCheckerResult_StatusToStringHelper(GrammarCheckerResult_Status value) {
+NOINLINE static const char* GrammarCheckerResult_StatusToStringHelper(GrammarCheckerResult_Status value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case GrammarCheckerResult_Status::OK:

@@ -333,7 +333,6 @@ struct SecureOptions {
 namespace Create {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -362,7 +361,6 @@ base::Value::List Create(const CreateInfo& create_info);
 namespace Destroy {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -383,7 +381,6 @@ struct Params {
 namespace Connect {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -415,7 +412,6 @@ base::Value::List Create(int result);
 namespace Bind {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -447,7 +443,6 @@ base::Value::List Create(int result);
 namespace Disconnect {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -468,7 +463,6 @@ struct Params {
 namespace Read {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -497,7 +491,6 @@ base::Value::List Create(const ReadInfo& read_info);
 namespace Write {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -526,7 +519,6 @@ base::Value::List Create(const WriteInfo& write_info);
 namespace RecvFrom {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -555,7 +547,6 @@ base::Value::List Create(const RecvFromInfo& recv_from_info);
 namespace SendTo {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -590,7 +581,6 @@ base::Value::List Create(const WriteInfo& write_info);
 namespace Listen {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -625,7 +615,6 @@ base::Value::List Create(int result);
 namespace Accept {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -651,7 +640,6 @@ base::Value::List Create(const AcceptInfo& accept_info);
 namespace SetKeepAlive {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -684,7 +672,6 @@ base::Value::List Create(bool result);
 namespace SetNoDelay {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -713,7 +700,6 @@ base::Value::List Create(bool result);
 namespace GetInfo {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -748,7 +734,6 @@ base::Value::List Create(const std::vector<NetworkInterface>& result);
 namespace JoinGroup {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -777,7 +762,6 @@ base::Value::List Create(int result);
 namespace LeaveGroup {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -806,7 +790,6 @@ base::Value::List Create(int result);
 namespace SetMulticastTimeToLive {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -835,7 +818,6 @@ base::Value::List Create(int result);
 namespace SetMulticastLoopbackMode {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -864,7 +846,6 @@ base::Value::List Create(int result);
 namespace GetJoinedGroups {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -890,7 +871,6 @@ base::Value::List Create(const std::vector<std::string>& groups);
 namespace Secure {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;

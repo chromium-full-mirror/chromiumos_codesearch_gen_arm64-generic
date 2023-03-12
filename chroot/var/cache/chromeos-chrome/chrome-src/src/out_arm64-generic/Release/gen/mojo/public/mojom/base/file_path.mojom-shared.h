@@ -94,7 +94,6 @@ class FilePathDataView {
 };
 
 
-
 class RelativeFilePathDataView {
  public:
   RelativeFilePathDataView() = default;
@@ -119,7 +118,6 @@ class RelativeFilePathDataView {
   internal::RelativeFilePath_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

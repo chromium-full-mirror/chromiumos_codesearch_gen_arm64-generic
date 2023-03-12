@@ -21,7 +21,7 @@
 namespace arc {
 namespace mojom {
 
-static NOINLINE const char* VideoFrameStorageTypeToStringHelper(VideoFrameStorageType value) {
+NOINLINE static const char* VideoFrameStorageTypeToStringHelper(VideoFrameStorageType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoFrameStorageType::SHMEM:
@@ -45,7 +45,7 @@ std::ostream& operator<<(std::ostream& os, VideoFrameStorageType value) {
   return os << VideoFrameStorageTypeToString(value);
 }
 
-static NOINLINE const char* VideoEncodeAccelerator_ErrorToStringHelper(VideoEncodeAccelerator_Error value) {
+NOINLINE static const char* VideoEncodeAccelerator_ErrorToStringHelper(VideoEncodeAccelerator_Error value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoEncodeAccelerator_Error::kIllegalStateError:
@@ -71,7 +71,7 @@ std::ostream& operator<<(std::ostream& os, VideoEncodeAccelerator_Error value) {
   return os << VideoEncodeAccelerator_ErrorToString(value);
 }
 
-static NOINLINE const char* VideoEncodeAccelerator_ResultToStringHelper(VideoEncodeAccelerator_Result value) {
+NOINLINE static const char* VideoEncodeAccelerator_ResultToStringHelper(VideoEncodeAccelerator_Result value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoEncodeAccelerator_Result::kSuccess:

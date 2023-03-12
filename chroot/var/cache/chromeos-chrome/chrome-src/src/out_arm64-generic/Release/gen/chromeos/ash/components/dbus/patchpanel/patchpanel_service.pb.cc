@@ -78,7 +78,8 @@ struct ArcVmStartupRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ArcVmStartupRequestDefaultTypeInternal _ArcVmStartupRequest_default_instance_;
 PROTOBUF_CONSTEXPR IPv4Subnet::IPv4Subnet(
     ::_pbi::ConstantInitialized)
-  : base_addr_(0u)
+  : addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , base_addr_(0u)
   , prefix_len_(0u){}
 struct IPv4SubnetDefaultTypeInternal {
   PROTOBUF_CONSTEXPR IPv4SubnetDefaultTypeInternal()
@@ -495,6 +496,146 @@ struct NetworkConfigurationChangedSignalDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkConfigurationChangedSignalDefaultTypeInternal _NetworkConfigurationChangedSignal_default_instance_;
+PROTOBUF_CONSTEXPR IPv4Configuration_DhcpOption::IPv4Configuration_DhcpOption(
+    ::_pbi::ConstantInitialized)
+  : content_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , code_(0u){}
+struct IPv4Configuration_DhcpOptionDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR IPv4Configuration_DhcpOptionDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~IPv4Configuration_DhcpOptionDefaultTypeInternal() {}
+  union {
+    IPv4Configuration_DhcpOption _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IPv4Configuration_DhcpOptionDefaultTypeInternal _IPv4Configuration_DhcpOption_default_instance_;
+PROTOBUF_CONSTEXPR IPv4Configuration::IPv4Configuration(
+    ::_pbi::ConstantInitialized)
+  : options_()
+  , gateway_addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , ipv4_subnet_(nullptr)
+  , use_dhcp_(false){}
+struct IPv4ConfigurationDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR IPv4ConfigurationDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~IPv4ConfigurationDefaultTypeInternal() {}
+  union {
+    IPv4Configuration _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IPv4ConfigurationDefaultTypeInternal _IPv4Configuration_default_instance_;
+PROTOBUF_CONSTEXPR DownstreamNetwork::DownstreamNetwork(
+    ::_pbi::ConstantInitialized)
+  : downstream_ifname_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , ipv4_gateway_addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , ipv4_subnet_(nullptr){}
+struct DownstreamNetworkDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DownstreamNetworkDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DownstreamNetworkDefaultTypeInternal() {}
+  union {
+    DownstreamNetwork _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DownstreamNetworkDefaultTypeInternal _DownstreamNetwork_default_instance_;
+PROTOBUF_CONSTEXPR TetheredNetworkRequest::TetheredNetworkRequest(
+    ::_pbi::ConstantInitialized)
+  : ifname_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , upstream_ifname_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , ipv4_config_(nullptr)
+  , upstream_technology_(0)
+
+  , disable_ipv6_(false){}
+struct TetheredNetworkRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TetheredNetworkRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TetheredNetworkRequestDefaultTypeInternal() {}
+  union {
+    TetheredNetworkRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TetheredNetworkRequestDefaultTypeInternal _TetheredNetworkRequest_default_instance_;
+PROTOBUF_CONSTEXPR TetheredNetworkResponse::TetheredNetworkResponse(
+    ::_pbi::ConstantInitialized)
+  : response_code_(0)
+{}
+struct TetheredNetworkResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TetheredNetworkResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TetheredNetworkResponseDefaultTypeInternal() {}
+  union {
+    TetheredNetworkResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TetheredNetworkResponseDefaultTypeInternal _TetheredNetworkResponse_default_instance_;
+PROTOBUF_CONSTEXPR LocalOnlyNetworkRequest::LocalOnlyNetworkRequest(
+    ::_pbi::ConstantInitialized)
+  : ifname_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , ipv4_config_(nullptr){}
+struct LocalOnlyNetworkRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LocalOnlyNetworkRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LocalOnlyNetworkRequestDefaultTypeInternal() {}
+  union {
+    LocalOnlyNetworkRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LocalOnlyNetworkRequestDefaultTypeInternal _LocalOnlyNetworkRequest_default_instance_;
+PROTOBUF_CONSTEXPR LocalOnlyNetworkResponse::LocalOnlyNetworkResponse(
+    ::_pbi::ConstantInitialized)
+  : response_code_(0)
+{}
+struct LocalOnlyNetworkResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LocalOnlyNetworkResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LocalOnlyNetworkResponseDefaultTypeInternal() {}
+  union {
+    LocalOnlyNetworkResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LocalOnlyNetworkResponseDefaultTypeInternal _LocalOnlyNetworkResponse_default_instance_;
+PROTOBUF_CONSTEXPR DownstreamNetworkInfoRequest::DownstreamNetworkInfoRequest(
+    ::_pbi::ConstantInitialized)
+  : downstream_ifname_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct DownstreamNetworkInfoRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DownstreamNetworkInfoRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DownstreamNetworkInfoRequestDefaultTypeInternal() {}
+  union {
+    DownstreamNetworkInfoRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DownstreamNetworkInfoRequestDefaultTypeInternal _DownstreamNetworkInfoRequest_default_instance_;
+PROTOBUF_CONSTEXPR NetworkClientInfo::NetworkClientInfo(
+    ::_pbi::ConstantInitialized)
+  : ipv6_addresses_()
+  , mac_addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , ipv4_addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , hostname_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , vendor_class_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct NetworkClientInfoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NetworkClientInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NetworkClientInfoDefaultTypeInternal() {}
+  union {
+    NetworkClientInfo _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkClientInfoDefaultTypeInternal _NetworkClientInfo_default_instance_;
+PROTOBUF_CONSTEXPR DownstreamNetworkInfoResponse::DownstreamNetworkInfoResponse(
+    ::_pbi::ConstantInitialized)
+  : clients_info_()
+  , downstream_network_(nullptr)
+  , success_(false){}
+struct DownstreamNetworkInfoResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DownstreamNetworkInfoResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DownstreamNetworkInfoResponseDefaultTypeInternal() {}
+  union {
+    DownstreamNetworkInfoResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DownstreamNetworkInfoResponseDefaultTypeInternal _DownstreamNetworkInfoResponse_default_instance_;
 }  // namespace patchpanel
 namespace patchpanel {
 bool NetworkDevice_GuestType_IsValid(int value) {
@@ -1250,6 +1391,133 @@ constexpr SetDnsRedirectionRuleRequest_RuleType SetDnsRedirectionRuleRequest::Ru
 constexpr SetDnsRedirectionRuleRequest_RuleType SetDnsRedirectionRuleRequest::RuleType_MAX;
 constexpr int SetDnsRedirectionRuleRequest::RuleType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool TetheredNetworkRequest_UpstreamTechnology_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> TetheredNetworkRequest_UpstreamTechnology_strings[4] = {};
+
+static const char TetheredNetworkRequest_UpstreamTechnology_names[] =
+  "CELLULAR"
+  "ETHERNET"
+  "UNKNOWN"
+  "WIFI";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry TetheredNetworkRequest_UpstreamTechnology_entries[] = {
+  { {TetheredNetworkRequest_UpstreamTechnology_names + 0, 8}, 1 },
+  { {TetheredNetworkRequest_UpstreamTechnology_names + 8, 8}, 3 },
+  { {TetheredNetworkRequest_UpstreamTechnology_names + 16, 7}, 0 },
+  { {TetheredNetworkRequest_UpstreamTechnology_names + 23, 4}, 2 },
+};
+
+static const int TetheredNetworkRequest_UpstreamTechnology_entries_by_number[] = {
+  2, // 0 -> UNKNOWN
+  0, // 1 -> CELLULAR
+  3, // 2 -> WIFI
+  1, // 3 -> ETHERNET
+};
+
+const std::string& TetheredNetworkRequest_UpstreamTechnology_Name(
+    TetheredNetworkRequest_UpstreamTechnology value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          TetheredNetworkRequest_UpstreamTechnology_entries,
+          TetheredNetworkRequest_UpstreamTechnology_entries_by_number,
+          4, TetheredNetworkRequest_UpstreamTechnology_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      TetheredNetworkRequest_UpstreamTechnology_entries,
+      TetheredNetworkRequest_UpstreamTechnology_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     TetheredNetworkRequest_UpstreamTechnology_strings[idx].get();
+}
+bool TetheredNetworkRequest_UpstreamTechnology_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TetheredNetworkRequest_UpstreamTechnology* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      TetheredNetworkRequest_UpstreamTechnology_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<TetheredNetworkRequest_UpstreamTechnology>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr TetheredNetworkRequest_UpstreamTechnology TetheredNetworkRequest::UNKNOWN;
+constexpr TetheredNetworkRequest_UpstreamTechnology TetheredNetworkRequest::CELLULAR;
+constexpr TetheredNetworkRequest_UpstreamTechnology TetheredNetworkRequest::WIFI;
+constexpr TetheredNetworkRequest_UpstreamTechnology TetheredNetworkRequest::ETHERNET;
+constexpr TetheredNetworkRequest_UpstreamTechnology TetheredNetworkRequest::UpstreamTechnology_MIN;
+constexpr TetheredNetworkRequest_UpstreamTechnology TetheredNetworkRequest::UpstreamTechnology_MAX;
+constexpr int TetheredNetworkRequest::UpstreamTechnology_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool DownstreamNetworkResult_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DownstreamNetworkResult_strings[4] = {};
+
+static const char DownstreamNetworkResult_names[] =
+  "ERROR"
+  "INTERFACE_USED"
+  "INVALID_ARGUMENT"
+  "SUCCESS";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DownstreamNetworkResult_entries[] = {
+  { {DownstreamNetworkResult_names + 0, 5}, 3 },
+  { {DownstreamNetworkResult_names + 5, 14}, 2 },
+  { {DownstreamNetworkResult_names + 19, 16}, 1 },
+  { {DownstreamNetworkResult_names + 35, 7}, 0 },
+};
+
+static const int DownstreamNetworkResult_entries_by_number[] = {
+  3, // 0 -> SUCCESS
+  2, // 1 -> INVALID_ARGUMENT
+  1, // 2 -> INTERFACE_USED
+  0, // 3 -> ERROR
+};
+
+const std::string& DownstreamNetworkResult_Name(
+    DownstreamNetworkResult value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DownstreamNetworkResult_entries,
+          DownstreamNetworkResult_entries_by_number,
+          4, DownstreamNetworkResult_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DownstreamNetworkResult_entries,
+      DownstreamNetworkResult_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DownstreamNetworkResult_strings[idx].get();
+}
+bool DownstreamNetworkResult_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DownstreamNetworkResult* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DownstreamNetworkResult_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<DownstreamNetworkResult>(int_value);
+  }
+  return success;
+}
 
 // ===================================================================
 
@@ -2044,6 +2312,14 @@ IPv4Subnet::IPv4Subnet(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 IPv4Subnet::IPv4Subnet(const IPv4Subnet& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  addr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    addr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_addr().empty()) {
+    addr_.Set(from._internal_addr(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&base_addr_, &from.base_addr_,
     static_cast<size_t>(reinterpret_cast<char*>(&prefix_len_) -
     reinterpret_cast<char*>(&base_addr_)) + sizeof(prefix_len_));
@@ -2051,6 +2327,10 @@ IPv4Subnet::IPv4Subnet(const IPv4Subnet& from)
 }
 
 inline void IPv4Subnet::SharedCtor() {
+addr_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  addr_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&base_addr_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&prefix_len_) -
@@ -2068,6 +2348,7 @@ IPv4Subnet::~IPv4Subnet() {
 
 inline void IPv4Subnet::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  addr_.Destroy();
 }
 
 void IPv4Subnet::SetCachedSize(int size) const {
@@ -2080,6 +2361,7 @@ void IPv4Subnet::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  addr_.ClearToEmpty();
   ::memset(&base_addr_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&prefix_len_) -
       reinterpret_cast<char*>(&base_addr_)) + sizeof(prefix_len_));
@@ -2092,7 +2374,7 @@ const char* IPv4Subnet::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint32 base_addr = 1;
+      // uint32 base_addr = 1 [deprecated = true];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           base_addr_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
@@ -2104,6 +2386,15 @@ const char* IPv4Subnet::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           prefix_len_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes addr = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_addr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2137,7 +2428,7 @@ uint8_t* IPv4Subnet::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 base_addr = 1;
+  // uint32 base_addr = 1 [deprecated = true];
   if (this->_internal_base_addr() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_base_addr(), target);
@@ -2147,6 +2438,12 @@ uint8_t* IPv4Subnet::_InternalSerialize(
   if (this->_internal_prefix_len() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_prefix_len(), target);
+  }
+
+  // bytes addr = 3;
+  if (!this->_internal_addr().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_addr(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2165,7 +2462,14 @@ size_t IPv4Subnet::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // uint32 base_addr = 1;
+  // bytes addr = 3;
+  if (!this->_internal_addr().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_addr());
+  }
+
+  // uint32 base_addr = 1 [deprecated = true];
   if (this->_internal_base_addr() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_base_addr());
   }
@@ -2195,6 +2499,9 @@ void IPv4Subnet::MergeFrom(const IPv4Subnet& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_addr().empty()) {
+    _internal_set_addr(from._internal_addr());
+  }
   if (from._internal_base_addr() != 0) {
     _internal_set_base_addr(from._internal_base_addr());
   }
@@ -2217,7 +2524,13 @@ bool IPv4Subnet::IsInitialized() const {
 
 void IPv4Subnet::InternalSwap(IPv4Subnet* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &addr_, lhs_arena,
+      &other->addr_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(IPv4Subnet, prefix_len_)
       + sizeof(IPv4Subnet::prefix_len_)
@@ -8700,6 +9013,2509 @@ std::string NetworkConfigurationChangedSignal::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class IPv4Configuration_DhcpOption::_Internal {
+ public:
+};
+
+IPv4Configuration_DhcpOption::IPv4Configuration_DhcpOption(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.IPv4Configuration.DhcpOption)
+}
+IPv4Configuration_DhcpOption::IPv4Configuration_DhcpOption(const IPv4Configuration_DhcpOption& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  content_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    content_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_content().empty()) {
+    content_.Set(from._internal_content(), 
+      GetArenaForAllocation());
+  }
+  code_ = from.code_;
+  // @@protoc_insertion_point(copy_constructor:patchpanel.IPv4Configuration.DhcpOption)
+}
+
+inline void IPv4Configuration_DhcpOption::SharedCtor() {
+content_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  content_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+code_ = 0u;
+}
+
+IPv4Configuration_DhcpOption::~IPv4Configuration_DhcpOption() {
+  // @@protoc_insertion_point(destructor:patchpanel.IPv4Configuration.DhcpOption)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void IPv4Configuration_DhcpOption::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  content_.Destroy();
+}
+
+void IPv4Configuration_DhcpOption::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void IPv4Configuration_DhcpOption::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.IPv4Configuration.DhcpOption)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  content_.ClearToEmpty();
+  code_ = 0u;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* IPv4Configuration_DhcpOption::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 code = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes content = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_content();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* IPv4Configuration_DhcpOption::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.IPv4Configuration.DhcpOption)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 code = 1;
+  if (this->_internal_code() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_code(), target);
+  }
+
+  // bytes content = 2;
+  if (!this->_internal_content().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_content(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.IPv4Configuration.DhcpOption)
+  return target;
+}
+
+size_t IPv4Configuration_DhcpOption::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.IPv4Configuration.DhcpOption)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bytes content = 2;
+  if (!this->_internal_content().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_content());
+  }
+
+  // uint32 code = 1;
+  if (this->_internal_code() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_code());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void IPv4Configuration_DhcpOption::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const IPv4Configuration_DhcpOption*>(
+      &from));
+}
+
+void IPv4Configuration_DhcpOption::MergeFrom(const IPv4Configuration_DhcpOption& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.IPv4Configuration.DhcpOption)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_content().empty()) {
+    _internal_set_content(from._internal_content());
+  }
+  if (from._internal_code() != 0) {
+    _internal_set_code(from._internal_code());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void IPv4Configuration_DhcpOption::CopyFrom(const IPv4Configuration_DhcpOption& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.IPv4Configuration.DhcpOption)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IPv4Configuration_DhcpOption::IsInitialized() const {
+  return true;
+}
+
+void IPv4Configuration_DhcpOption::InternalSwap(IPv4Configuration_DhcpOption* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &content_, lhs_arena,
+      &other->content_, rhs_arena
+  );
+  swap(code_, other->code_);
+}
+
+std::string IPv4Configuration_DhcpOption::GetTypeName() const {
+  return "patchpanel.IPv4Configuration.DhcpOption";
+}
+
+
+// ===================================================================
+
+class IPv4Configuration::_Internal {
+ public:
+  static const ::patchpanel::IPv4Subnet& ipv4_subnet(const IPv4Configuration* msg);
+};
+
+const ::patchpanel::IPv4Subnet&
+IPv4Configuration::_Internal::ipv4_subnet(const IPv4Configuration* msg) {
+  return *msg->ipv4_subnet_;
+}
+IPv4Configuration::IPv4Configuration(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  options_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.IPv4Configuration)
+}
+IPv4Configuration::IPv4Configuration(const IPv4Configuration& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      options_(from.options_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  gateway_addr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    gateway_addr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_gateway_addr().empty()) {
+    gateway_addr_.Set(from._internal_gateway_addr(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_ipv4_subnet()) {
+    ipv4_subnet_ = new ::patchpanel::IPv4Subnet(*from.ipv4_subnet_);
+  } else {
+    ipv4_subnet_ = nullptr;
+  }
+  use_dhcp_ = from.use_dhcp_;
+  // @@protoc_insertion_point(copy_constructor:patchpanel.IPv4Configuration)
+}
+
+inline void IPv4Configuration::SharedCtor() {
+gateway_addr_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  gateway_addr_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&ipv4_subnet_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&use_dhcp_) -
+    reinterpret_cast<char*>(&ipv4_subnet_)) + sizeof(use_dhcp_));
+}
+
+IPv4Configuration::~IPv4Configuration() {
+  // @@protoc_insertion_point(destructor:patchpanel.IPv4Configuration)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void IPv4Configuration::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  gateway_addr_.Destroy();
+  if (this != internal_default_instance()) delete ipv4_subnet_;
+}
+
+void IPv4Configuration::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void IPv4Configuration::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.IPv4Configuration)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  options_.Clear();
+  gateway_addr_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && ipv4_subnet_ != nullptr) {
+    delete ipv4_subnet_;
+  }
+  ipv4_subnet_ = nullptr;
+  use_dhcp_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* IPv4Configuration::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .patchpanel.IPv4Subnet ipv4_subnet = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_ipv4_subnet(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes gateway_addr = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_gateway_addr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool use_dhcp = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          use_dhcp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .patchpanel.IPv4Configuration.DhcpOption options = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_options(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* IPv4Configuration::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.IPv4Configuration)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .patchpanel.IPv4Subnet ipv4_subnet = 1;
+  if (this->_internal_has_ipv4_subnet()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::ipv4_subnet(this),
+        _Internal::ipv4_subnet(this).GetCachedSize(), target, stream);
+  }
+
+  // bytes gateway_addr = 2;
+  if (!this->_internal_gateway_addr().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_gateway_addr(), target);
+  }
+
+  // bool use_dhcp = 3;
+  if (this->_internal_use_dhcp() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_use_dhcp(), target);
+  }
+
+  // repeated .patchpanel.IPv4Configuration.DhcpOption options = 4;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_options_size()); i < n; i++) {
+    const auto& repfield = this->_internal_options(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.IPv4Configuration)
+  return target;
+}
+
+size_t IPv4Configuration::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.IPv4Configuration)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .patchpanel.IPv4Configuration.DhcpOption options = 4;
+  total_size += 1UL * this->_internal_options_size();
+  for (const auto& msg : this->options_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // bytes gateway_addr = 2;
+  if (!this->_internal_gateway_addr().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_gateway_addr());
+  }
+
+  // .patchpanel.IPv4Subnet ipv4_subnet = 1;
+  if (this->_internal_has_ipv4_subnet()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *ipv4_subnet_);
+  }
+
+  // bool use_dhcp = 3;
+  if (this->_internal_use_dhcp() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void IPv4Configuration::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const IPv4Configuration*>(
+      &from));
+}
+
+void IPv4Configuration::MergeFrom(const IPv4Configuration& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.IPv4Configuration)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  options_.MergeFrom(from.options_);
+  if (!from._internal_gateway_addr().empty()) {
+    _internal_set_gateway_addr(from._internal_gateway_addr());
+  }
+  if (from._internal_has_ipv4_subnet()) {
+    _internal_mutable_ipv4_subnet()->::patchpanel::IPv4Subnet::MergeFrom(from._internal_ipv4_subnet());
+  }
+  if (from._internal_use_dhcp() != 0) {
+    _internal_set_use_dhcp(from._internal_use_dhcp());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void IPv4Configuration::CopyFrom(const IPv4Configuration& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.IPv4Configuration)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IPv4Configuration::IsInitialized() const {
+  return true;
+}
+
+void IPv4Configuration::InternalSwap(IPv4Configuration* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  options_.InternalSwap(&other->options_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &gateway_addr_, lhs_arena,
+      &other->gateway_addr_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(IPv4Configuration, use_dhcp_)
+      + sizeof(IPv4Configuration::use_dhcp_)
+      - PROTOBUF_FIELD_OFFSET(IPv4Configuration, ipv4_subnet_)>(
+          reinterpret_cast<char*>(&ipv4_subnet_),
+          reinterpret_cast<char*>(&other->ipv4_subnet_));
+}
+
+std::string IPv4Configuration::GetTypeName() const {
+  return "patchpanel.IPv4Configuration";
+}
+
+
+// ===================================================================
+
+class DownstreamNetwork::_Internal {
+ public:
+  static const ::patchpanel::IPv4Subnet& ipv4_subnet(const DownstreamNetwork* msg);
+};
+
+const ::patchpanel::IPv4Subnet&
+DownstreamNetwork::_Internal::ipv4_subnet(const DownstreamNetwork* msg) {
+  return *msg->ipv4_subnet_;
+}
+DownstreamNetwork::DownstreamNetwork(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.DownstreamNetwork)
+}
+DownstreamNetwork::DownstreamNetwork(const DownstreamNetwork& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  downstream_ifname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    downstream_ifname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_downstream_ifname().empty()) {
+    downstream_ifname_.Set(from._internal_downstream_ifname(), 
+      GetArenaForAllocation());
+  }
+  ipv4_gateway_addr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    ipv4_gateway_addr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_ipv4_gateway_addr().empty()) {
+    ipv4_gateway_addr_.Set(from._internal_ipv4_gateway_addr(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_ipv4_subnet()) {
+    ipv4_subnet_ = new ::patchpanel::IPv4Subnet(*from.ipv4_subnet_);
+  } else {
+    ipv4_subnet_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:patchpanel.DownstreamNetwork)
+}
+
+inline void DownstreamNetwork::SharedCtor() {
+downstream_ifname_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  downstream_ifname_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+ipv4_gateway_addr_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  ipv4_gateway_addr_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+ipv4_subnet_ = nullptr;
+}
+
+DownstreamNetwork::~DownstreamNetwork() {
+  // @@protoc_insertion_point(destructor:patchpanel.DownstreamNetwork)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DownstreamNetwork::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  downstream_ifname_.Destroy();
+  ipv4_gateway_addr_.Destroy();
+  if (this != internal_default_instance()) delete ipv4_subnet_;
+}
+
+void DownstreamNetwork::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DownstreamNetwork::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.DownstreamNetwork)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  downstream_ifname_.ClearToEmpty();
+  ipv4_gateway_addr_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && ipv4_subnet_ != nullptr) {
+    delete ipv4_subnet_;
+  }
+  ipv4_subnet_ = nullptr;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DownstreamNetwork::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string downstream_ifname = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_downstream_ifname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .patchpanel.IPv4Subnet ipv4_subnet = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_ipv4_subnet(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes ipv4_gateway_addr = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_ipv4_gateway_addr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DownstreamNetwork::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.DownstreamNetwork)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string downstream_ifname = 1;
+  if (!this->_internal_downstream_ifname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_downstream_ifname().data(), static_cast<int>(this->_internal_downstream_ifname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "patchpanel.DownstreamNetwork.downstream_ifname");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_downstream_ifname(), target);
+  }
+
+  // .patchpanel.IPv4Subnet ipv4_subnet = 2;
+  if (this->_internal_has_ipv4_subnet()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::ipv4_subnet(this),
+        _Internal::ipv4_subnet(this).GetCachedSize(), target, stream);
+  }
+
+  // bytes ipv4_gateway_addr = 3;
+  if (!this->_internal_ipv4_gateway_addr().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_ipv4_gateway_addr(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.DownstreamNetwork)
+  return target;
+}
+
+size_t DownstreamNetwork::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.DownstreamNetwork)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string downstream_ifname = 1;
+  if (!this->_internal_downstream_ifname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_downstream_ifname());
+  }
+
+  // bytes ipv4_gateway_addr = 3;
+  if (!this->_internal_ipv4_gateway_addr().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_ipv4_gateway_addr());
+  }
+
+  // .patchpanel.IPv4Subnet ipv4_subnet = 2;
+  if (this->_internal_has_ipv4_subnet()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *ipv4_subnet_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DownstreamNetwork::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DownstreamNetwork*>(
+      &from));
+}
+
+void DownstreamNetwork::MergeFrom(const DownstreamNetwork& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.DownstreamNetwork)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_downstream_ifname().empty()) {
+    _internal_set_downstream_ifname(from._internal_downstream_ifname());
+  }
+  if (!from._internal_ipv4_gateway_addr().empty()) {
+    _internal_set_ipv4_gateway_addr(from._internal_ipv4_gateway_addr());
+  }
+  if (from._internal_has_ipv4_subnet()) {
+    _internal_mutable_ipv4_subnet()->::patchpanel::IPv4Subnet::MergeFrom(from._internal_ipv4_subnet());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DownstreamNetwork::CopyFrom(const DownstreamNetwork& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.DownstreamNetwork)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DownstreamNetwork::IsInitialized() const {
+  return true;
+}
+
+void DownstreamNetwork::InternalSwap(DownstreamNetwork* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &downstream_ifname_, lhs_arena,
+      &other->downstream_ifname_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &ipv4_gateway_addr_, lhs_arena,
+      &other->ipv4_gateway_addr_, rhs_arena
+  );
+  swap(ipv4_subnet_, other->ipv4_subnet_);
+}
+
+std::string DownstreamNetwork::GetTypeName() const {
+  return "patchpanel.DownstreamNetwork";
+}
+
+
+// ===================================================================
+
+class TetheredNetworkRequest::_Internal {
+ public:
+  static const ::patchpanel::IPv4Configuration& ipv4_config(const TetheredNetworkRequest* msg);
+};
+
+const ::patchpanel::IPv4Configuration&
+TetheredNetworkRequest::_Internal::ipv4_config(const TetheredNetworkRequest* msg) {
+  return *msg->ipv4_config_;
+}
+TetheredNetworkRequest::TetheredNetworkRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.TetheredNetworkRequest)
+}
+TetheredNetworkRequest::TetheredNetworkRequest(const TetheredNetworkRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ifname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    ifname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_ifname().empty()) {
+    ifname_.Set(from._internal_ifname(), 
+      GetArenaForAllocation());
+  }
+  upstream_ifname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    upstream_ifname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_upstream_ifname().empty()) {
+    upstream_ifname_.Set(from._internal_upstream_ifname(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_ipv4_config()) {
+    ipv4_config_ = new ::patchpanel::IPv4Configuration(*from.ipv4_config_);
+  } else {
+    ipv4_config_ = nullptr;
+  }
+  ::memcpy(&upstream_technology_, &from.upstream_technology_,
+    static_cast<size_t>(reinterpret_cast<char*>(&disable_ipv6_) -
+    reinterpret_cast<char*>(&upstream_technology_)) + sizeof(disable_ipv6_));
+  // @@protoc_insertion_point(copy_constructor:patchpanel.TetheredNetworkRequest)
+}
+
+inline void TetheredNetworkRequest::SharedCtor() {
+ifname_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  ifname_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+upstream_ifname_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  upstream_ifname_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&ipv4_config_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&disable_ipv6_) -
+    reinterpret_cast<char*>(&ipv4_config_)) + sizeof(disable_ipv6_));
+}
+
+TetheredNetworkRequest::~TetheredNetworkRequest() {
+  // @@protoc_insertion_point(destructor:patchpanel.TetheredNetworkRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void TetheredNetworkRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ifname_.Destroy();
+  upstream_ifname_.Destroy();
+  if (this != internal_default_instance()) delete ipv4_config_;
+}
+
+void TetheredNetworkRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void TetheredNetworkRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.TetheredNetworkRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ifname_.ClearToEmpty();
+  upstream_ifname_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && ipv4_config_ != nullptr) {
+    delete ipv4_config_;
+  }
+  ipv4_config_ = nullptr;
+  ::memset(&upstream_technology_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&disable_ipv6_) -
+      reinterpret_cast<char*>(&upstream_technology_)) + sizeof(disable_ipv6_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* TetheredNetworkRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string ifname = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_ifname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string upstream_ifname = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_upstream_ifname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .patchpanel.TetheredNetworkRequest.UpstreamTechnology upstream_technology = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_upstream_technology(static_cast<::patchpanel::TetheredNetworkRequest_UpstreamTechnology>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .patchpanel.IPv4Configuration ipv4_config = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_ipv4_config(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool disable_ipv6 = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          disable_ipv6_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* TetheredNetworkRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.TetheredNetworkRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string ifname = 1;
+  if (!this->_internal_ifname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_ifname().data(), static_cast<int>(this->_internal_ifname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "patchpanel.TetheredNetworkRequest.ifname");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_ifname(), target);
+  }
+
+  // string upstream_ifname = 2;
+  if (!this->_internal_upstream_ifname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_upstream_ifname().data(), static_cast<int>(this->_internal_upstream_ifname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "patchpanel.TetheredNetworkRequest.upstream_ifname");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_upstream_ifname(), target);
+  }
+
+  // .patchpanel.TetheredNetworkRequest.UpstreamTechnology upstream_technology = 3;
+  if (this->_internal_upstream_technology() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_upstream_technology(), target);
+  }
+
+  // .patchpanel.IPv4Configuration ipv4_config = 4;
+  if (this->_internal_has_ipv4_config()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::ipv4_config(this),
+        _Internal::ipv4_config(this).GetCachedSize(), target, stream);
+  }
+
+  // bool disable_ipv6 = 5;
+  if (this->_internal_disable_ipv6() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_disable_ipv6(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.TetheredNetworkRequest)
+  return target;
+}
+
+size_t TetheredNetworkRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.TetheredNetworkRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string ifname = 1;
+  if (!this->_internal_ifname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_ifname());
+  }
+
+  // string upstream_ifname = 2;
+  if (!this->_internal_upstream_ifname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_upstream_ifname());
+  }
+
+  // .patchpanel.IPv4Configuration ipv4_config = 4;
+  if (this->_internal_has_ipv4_config()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *ipv4_config_);
+  }
+
+  // .patchpanel.TetheredNetworkRequest.UpstreamTechnology upstream_technology = 3;
+  if (this->_internal_upstream_technology() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_upstream_technology());
+  }
+
+  // bool disable_ipv6 = 5;
+  if (this->_internal_disable_ipv6() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void TetheredNetworkRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const TetheredNetworkRequest*>(
+      &from));
+}
+
+void TetheredNetworkRequest::MergeFrom(const TetheredNetworkRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.TetheredNetworkRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_ifname().empty()) {
+    _internal_set_ifname(from._internal_ifname());
+  }
+  if (!from._internal_upstream_ifname().empty()) {
+    _internal_set_upstream_ifname(from._internal_upstream_ifname());
+  }
+  if (from._internal_has_ipv4_config()) {
+    _internal_mutable_ipv4_config()->::patchpanel::IPv4Configuration::MergeFrom(from._internal_ipv4_config());
+  }
+  if (from._internal_upstream_technology() != 0) {
+    _internal_set_upstream_technology(from._internal_upstream_technology());
+  }
+  if (from._internal_disable_ipv6() != 0) {
+    _internal_set_disable_ipv6(from._internal_disable_ipv6());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void TetheredNetworkRequest::CopyFrom(const TetheredNetworkRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.TetheredNetworkRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool TetheredNetworkRequest::IsInitialized() const {
+  return true;
+}
+
+void TetheredNetworkRequest::InternalSwap(TetheredNetworkRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &ifname_, lhs_arena,
+      &other->ifname_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &upstream_ifname_, lhs_arena,
+      &other->upstream_ifname_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(TetheredNetworkRequest, disable_ipv6_)
+      + sizeof(TetheredNetworkRequest::disable_ipv6_)
+      - PROTOBUF_FIELD_OFFSET(TetheredNetworkRequest, ipv4_config_)>(
+          reinterpret_cast<char*>(&ipv4_config_),
+          reinterpret_cast<char*>(&other->ipv4_config_));
+}
+
+std::string TetheredNetworkRequest::GetTypeName() const {
+  return "patchpanel.TetheredNetworkRequest";
+}
+
+
+// ===================================================================
+
+class TetheredNetworkResponse::_Internal {
+ public:
+};
+
+TetheredNetworkResponse::TetheredNetworkResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.TetheredNetworkResponse)
+}
+TetheredNetworkResponse::TetheredNetworkResponse(const TetheredNetworkResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  response_code_ = from.response_code_;
+  // @@protoc_insertion_point(copy_constructor:patchpanel.TetheredNetworkResponse)
+}
+
+inline void TetheredNetworkResponse::SharedCtor() {
+response_code_ = 0;
+}
+
+TetheredNetworkResponse::~TetheredNetworkResponse() {
+  // @@protoc_insertion_point(destructor:patchpanel.TetheredNetworkResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void TetheredNetworkResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void TetheredNetworkResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void TetheredNetworkResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.TetheredNetworkResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  response_code_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* TetheredNetworkResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .patchpanel.DownstreamNetworkResult response_code = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_response_code(static_cast<::patchpanel::DownstreamNetworkResult>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* TetheredNetworkResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.TetheredNetworkResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .patchpanel.DownstreamNetworkResult response_code = 1;
+  if (this->_internal_response_code() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_response_code(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.TetheredNetworkResponse)
+  return target;
+}
+
+size_t TetheredNetworkResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.TetheredNetworkResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .patchpanel.DownstreamNetworkResult response_code = 1;
+  if (this->_internal_response_code() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_response_code());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void TetheredNetworkResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const TetheredNetworkResponse*>(
+      &from));
+}
+
+void TetheredNetworkResponse::MergeFrom(const TetheredNetworkResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.TetheredNetworkResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_response_code() != 0) {
+    _internal_set_response_code(from._internal_response_code());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void TetheredNetworkResponse::CopyFrom(const TetheredNetworkResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.TetheredNetworkResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool TetheredNetworkResponse::IsInitialized() const {
+  return true;
+}
+
+void TetheredNetworkResponse::InternalSwap(TetheredNetworkResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(response_code_, other->response_code_);
+}
+
+std::string TetheredNetworkResponse::GetTypeName() const {
+  return "patchpanel.TetheredNetworkResponse";
+}
+
+
+// ===================================================================
+
+class LocalOnlyNetworkRequest::_Internal {
+ public:
+  static const ::patchpanel::IPv4Configuration& ipv4_config(const LocalOnlyNetworkRequest* msg);
+};
+
+const ::patchpanel::IPv4Configuration&
+LocalOnlyNetworkRequest::_Internal::ipv4_config(const LocalOnlyNetworkRequest* msg) {
+  return *msg->ipv4_config_;
+}
+LocalOnlyNetworkRequest::LocalOnlyNetworkRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.LocalOnlyNetworkRequest)
+}
+LocalOnlyNetworkRequest::LocalOnlyNetworkRequest(const LocalOnlyNetworkRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ifname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    ifname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_ifname().empty()) {
+    ifname_.Set(from._internal_ifname(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_ipv4_config()) {
+    ipv4_config_ = new ::patchpanel::IPv4Configuration(*from.ipv4_config_);
+  } else {
+    ipv4_config_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:patchpanel.LocalOnlyNetworkRequest)
+}
+
+inline void LocalOnlyNetworkRequest::SharedCtor() {
+ifname_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  ifname_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+ipv4_config_ = nullptr;
+}
+
+LocalOnlyNetworkRequest::~LocalOnlyNetworkRequest() {
+  // @@protoc_insertion_point(destructor:patchpanel.LocalOnlyNetworkRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void LocalOnlyNetworkRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ifname_.Destroy();
+  if (this != internal_default_instance()) delete ipv4_config_;
+}
+
+void LocalOnlyNetworkRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void LocalOnlyNetworkRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.LocalOnlyNetworkRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ifname_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && ipv4_config_ != nullptr) {
+    delete ipv4_config_;
+  }
+  ipv4_config_ = nullptr;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* LocalOnlyNetworkRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string ifname = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_ifname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .patchpanel.IPv4Configuration ipv4_config = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_ipv4_config(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* LocalOnlyNetworkRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.LocalOnlyNetworkRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string ifname = 1;
+  if (!this->_internal_ifname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_ifname().data(), static_cast<int>(this->_internal_ifname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "patchpanel.LocalOnlyNetworkRequest.ifname");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_ifname(), target);
+  }
+
+  // .patchpanel.IPv4Configuration ipv4_config = 2;
+  if (this->_internal_has_ipv4_config()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::ipv4_config(this),
+        _Internal::ipv4_config(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.LocalOnlyNetworkRequest)
+  return target;
+}
+
+size_t LocalOnlyNetworkRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.LocalOnlyNetworkRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string ifname = 1;
+  if (!this->_internal_ifname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_ifname());
+  }
+
+  // .patchpanel.IPv4Configuration ipv4_config = 2;
+  if (this->_internal_has_ipv4_config()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *ipv4_config_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void LocalOnlyNetworkRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const LocalOnlyNetworkRequest*>(
+      &from));
+}
+
+void LocalOnlyNetworkRequest::MergeFrom(const LocalOnlyNetworkRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.LocalOnlyNetworkRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_ifname().empty()) {
+    _internal_set_ifname(from._internal_ifname());
+  }
+  if (from._internal_has_ipv4_config()) {
+    _internal_mutable_ipv4_config()->::patchpanel::IPv4Configuration::MergeFrom(from._internal_ipv4_config());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void LocalOnlyNetworkRequest::CopyFrom(const LocalOnlyNetworkRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.LocalOnlyNetworkRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LocalOnlyNetworkRequest::IsInitialized() const {
+  return true;
+}
+
+void LocalOnlyNetworkRequest::InternalSwap(LocalOnlyNetworkRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &ifname_, lhs_arena,
+      &other->ifname_, rhs_arena
+  );
+  swap(ipv4_config_, other->ipv4_config_);
+}
+
+std::string LocalOnlyNetworkRequest::GetTypeName() const {
+  return "patchpanel.LocalOnlyNetworkRequest";
+}
+
+
+// ===================================================================
+
+class LocalOnlyNetworkResponse::_Internal {
+ public:
+};
+
+LocalOnlyNetworkResponse::LocalOnlyNetworkResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.LocalOnlyNetworkResponse)
+}
+LocalOnlyNetworkResponse::LocalOnlyNetworkResponse(const LocalOnlyNetworkResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  response_code_ = from.response_code_;
+  // @@protoc_insertion_point(copy_constructor:patchpanel.LocalOnlyNetworkResponse)
+}
+
+inline void LocalOnlyNetworkResponse::SharedCtor() {
+response_code_ = 0;
+}
+
+LocalOnlyNetworkResponse::~LocalOnlyNetworkResponse() {
+  // @@protoc_insertion_point(destructor:patchpanel.LocalOnlyNetworkResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void LocalOnlyNetworkResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void LocalOnlyNetworkResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void LocalOnlyNetworkResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.LocalOnlyNetworkResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  response_code_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* LocalOnlyNetworkResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .patchpanel.DownstreamNetworkResult response_code = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_response_code(static_cast<::patchpanel::DownstreamNetworkResult>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* LocalOnlyNetworkResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.LocalOnlyNetworkResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .patchpanel.DownstreamNetworkResult response_code = 1;
+  if (this->_internal_response_code() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_response_code(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.LocalOnlyNetworkResponse)
+  return target;
+}
+
+size_t LocalOnlyNetworkResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.LocalOnlyNetworkResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .patchpanel.DownstreamNetworkResult response_code = 1;
+  if (this->_internal_response_code() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_response_code());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void LocalOnlyNetworkResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const LocalOnlyNetworkResponse*>(
+      &from));
+}
+
+void LocalOnlyNetworkResponse::MergeFrom(const LocalOnlyNetworkResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.LocalOnlyNetworkResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_response_code() != 0) {
+    _internal_set_response_code(from._internal_response_code());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void LocalOnlyNetworkResponse::CopyFrom(const LocalOnlyNetworkResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.LocalOnlyNetworkResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LocalOnlyNetworkResponse::IsInitialized() const {
+  return true;
+}
+
+void LocalOnlyNetworkResponse::InternalSwap(LocalOnlyNetworkResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(response_code_, other->response_code_);
+}
+
+std::string LocalOnlyNetworkResponse::GetTypeName() const {
+  return "patchpanel.LocalOnlyNetworkResponse";
+}
+
+
+// ===================================================================
+
+class DownstreamNetworkInfoRequest::_Internal {
+ public:
+};
+
+DownstreamNetworkInfoRequest::DownstreamNetworkInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.DownstreamNetworkInfoRequest)
+}
+DownstreamNetworkInfoRequest::DownstreamNetworkInfoRequest(const DownstreamNetworkInfoRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  downstream_ifname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    downstream_ifname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_downstream_ifname().empty()) {
+    downstream_ifname_.Set(from._internal_downstream_ifname(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:patchpanel.DownstreamNetworkInfoRequest)
+}
+
+inline void DownstreamNetworkInfoRequest::SharedCtor() {
+downstream_ifname_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  downstream_ifname_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+DownstreamNetworkInfoRequest::~DownstreamNetworkInfoRequest() {
+  // @@protoc_insertion_point(destructor:patchpanel.DownstreamNetworkInfoRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DownstreamNetworkInfoRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  downstream_ifname_.Destroy();
+}
+
+void DownstreamNetworkInfoRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DownstreamNetworkInfoRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.DownstreamNetworkInfoRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  downstream_ifname_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DownstreamNetworkInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string downstream_ifname = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_downstream_ifname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DownstreamNetworkInfoRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.DownstreamNetworkInfoRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string downstream_ifname = 1;
+  if (!this->_internal_downstream_ifname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_downstream_ifname().data(), static_cast<int>(this->_internal_downstream_ifname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "patchpanel.DownstreamNetworkInfoRequest.downstream_ifname");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_downstream_ifname(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.DownstreamNetworkInfoRequest)
+  return target;
+}
+
+size_t DownstreamNetworkInfoRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.DownstreamNetworkInfoRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string downstream_ifname = 1;
+  if (!this->_internal_downstream_ifname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_downstream_ifname());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DownstreamNetworkInfoRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DownstreamNetworkInfoRequest*>(
+      &from));
+}
+
+void DownstreamNetworkInfoRequest::MergeFrom(const DownstreamNetworkInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.DownstreamNetworkInfoRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_downstream_ifname().empty()) {
+    _internal_set_downstream_ifname(from._internal_downstream_ifname());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DownstreamNetworkInfoRequest::CopyFrom(const DownstreamNetworkInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.DownstreamNetworkInfoRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DownstreamNetworkInfoRequest::IsInitialized() const {
+  return true;
+}
+
+void DownstreamNetworkInfoRequest::InternalSwap(DownstreamNetworkInfoRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &downstream_ifname_, lhs_arena,
+      &other->downstream_ifname_, rhs_arena
+  );
+}
+
+std::string DownstreamNetworkInfoRequest::GetTypeName() const {
+  return "patchpanel.DownstreamNetworkInfoRequest";
+}
+
+
+// ===================================================================
+
+class NetworkClientInfo::_Internal {
+ public:
+};
+
+NetworkClientInfo::NetworkClientInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  ipv6_addresses_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.NetworkClientInfo)
+}
+NetworkClientInfo::NetworkClientInfo(const NetworkClientInfo& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      ipv6_addresses_(from.ipv6_addresses_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  mac_addr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mac_addr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mac_addr().empty()) {
+    mac_addr_.Set(from._internal_mac_addr(), 
+      GetArenaForAllocation());
+  }
+  ipv4_addr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    ipv4_addr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_ipv4_addr().empty()) {
+    ipv4_addr_.Set(from._internal_ipv4_addr(), 
+      GetArenaForAllocation());
+  }
+  hostname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    hostname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_hostname().empty()) {
+    hostname_.Set(from._internal_hostname(), 
+      GetArenaForAllocation());
+  }
+  vendor_class_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    vendor_class_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vendor_class().empty()) {
+    vendor_class_.Set(from._internal_vendor_class(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:patchpanel.NetworkClientInfo)
+}
+
+inline void NetworkClientInfo::SharedCtor() {
+mac_addr_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mac_addr_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+ipv4_addr_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  ipv4_addr_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+hostname_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  hostname_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+vendor_class_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  vendor_class_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+NetworkClientInfo::~NetworkClientInfo() {
+  // @@protoc_insertion_point(destructor:patchpanel.NetworkClientInfo)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void NetworkClientInfo::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  mac_addr_.Destroy();
+  ipv4_addr_.Destroy();
+  hostname_.Destroy();
+  vendor_class_.Destroy();
+}
+
+void NetworkClientInfo::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void NetworkClientInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.NetworkClientInfo)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ipv6_addresses_.Clear();
+  mac_addr_.ClearToEmpty();
+  ipv4_addr_.ClearToEmpty();
+  hostname_.ClearToEmpty();
+  vendor_class_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* NetworkClientInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bytes mac_addr = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_mac_addr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes ipv4_addr = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_ipv4_addr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated bytes ipv6_addresses = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_ipv6_addresses();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string hostname = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_hostname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string vendor_class = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_vendor_class();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* NetworkClientInfo::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NetworkClientInfo)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bytes mac_addr = 1;
+  if (!this->_internal_mac_addr().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_mac_addr(), target);
+  }
+
+  // bytes ipv4_addr = 2;
+  if (!this->_internal_ipv4_addr().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_ipv4_addr(), target);
+  }
+
+  // repeated bytes ipv6_addresses = 3;
+  for (int i = 0, n = this->_internal_ipv6_addresses_size(); i < n; i++) {
+    const auto& s = this->_internal_ipv6_addresses(i);
+    target = stream->WriteBytes(3, s, target);
+  }
+
+  // string hostname = 4;
+  if (!this->_internal_hostname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_hostname().data(), static_cast<int>(this->_internal_hostname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "patchpanel.NetworkClientInfo.hostname");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_hostname(), target);
+  }
+
+  // string vendor_class = 5;
+  if (!this->_internal_vendor_class().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vendor_class().data(), static_cast<int>(this->_internal_vendor_class().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "patchpanel.NetworkClientInfo.vendor_class");
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_vendor_class(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.NetworkClientInfo)
+  return target;
+}
+
+size_t NetworkClientInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.NetworkClientInfo)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated bytes ipv6_addresses = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(ipv6_addresses_.size());
+  for (int i = 0, n = ipv6_addresses_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+      ipv6_addresses_.Get(i));
+  }
+
+  // bytes mac_addr = 1;
+  if (!this->_internal_mac_addr().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_mac_addr());
+  }
+
+  // bytes ipv4_addr = 2;
+  if (!this->_internal_ipv4_addr().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_ipv4_addr());
+  }
+
+  // string hostname = 4;
+  if (!this->_internal_hostname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_hostname());
+  }
+
+  // string vendor_class = 5;
+  if (!this->_internal_vendor_class().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vendor_class());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void NetworkClientInfo::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const NetworkClientInfo*>(
+      &from));
+}
+
+void NetworkClientInfo::MergeFrom(const NetworkClientInfo& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NetworkClientInfo)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  ipv6_addresses_.MergeFrom(from.ipv6_addresses_);
+  if (!from._internal_mac_addr().empty()) {
+    _internal_set_mac_addr(from._internal_mac_addr());
+  }
+  if (!from._internal_ipv4_addr().empty()) {
+    _internal_set_ipv4_addr(from._internal_ipv4_addr());
+  }
+  if (!from._internal_hostname().empty()) {
+    _internal_set_hostname(from._internal_hostname());
+  }
+  if (!from._internal_vendor_class().empty()) {
+    _internal_set_vendor_class(from._internal_vendor_class());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void NetworkClientInfo::CopyFrom(const NetworkClientInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.NetworkClientInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NetworkClientInfo::IsInitialized() const {
+  return true;
+}
+
+void NetworkClientInfo::InternalSwap(NetworkClientInfo* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ipv6_addresses_.InternalSwap(&other->ipv6_addresses_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mac_addr_, lhs_arena,
+      &other->mac_addr_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &ipv4_addr_, lhs_arena,
+      &other->ipv4_addr_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &hostname_, lhs_arena,
+      &other->hostname_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &vendor_class_, lhs_arena,
+      &other->vendor_class_, rhs_arena
+  );
+}
+
+std::string NetworkClientInfo::GetTypeName() const {
+  return "patchpanel.NetworkClientInfo";
+}
+
+
+// ===================================================================
+
+class DownstreamNetworkInfoResponse::_Internal {
+ public:
+  static const ::patchpanel::DownstreamNetwork& downstream_network(const DownstreamNetworkInfoResponse* msg);
+};
+
+const ::patchpanel::DownstreamNetwork&
+DownstreamNetworkInfoResponse::_Internal::downstream_network(const DownstreamNetworkInfoResponse* msg) {
+  return *msg->downstream_network_;
+}
+DownstreamNetworkInfoResponse::DownstreamNetworkInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  clients_info_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:patchpanel.DownstreamNetworkInfoResponse)
+}
+DownstreamNetworkInfoResponse::DownstreamNetworkInfoResponse(const DownstreamNetworkInfoResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      clients_info_(from.clients_info_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_downstream_network()) {
+    downstream_network_ = new ::patchpanel::DownstreamNetwork(*from.downstream_network_);
+  } else {
+    downstream_network_ = nullptr;
+  }
+  success_ = from.success_;
+  // @@protoc_insertion_point(copy_constructor:patchpanel.DownstreamNetworkInfoResponse)
+}
+
+inline void DownstreamNetworkInfoResponse::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&downstream_network_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&success_) -
+    reinterpret_cast<char*>(&downstream_network_)) + sizeof(success_));
+}
+
+DownstreamNetworkInfoResponse::~DownstreamNetworkInfoResponse() {
+  // @@protoc_insertion_point(destructor:patchpanel.DownstreamNetworkInfoResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DownstreamNetworkInfoResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete downstream_network_;
+}
+
+void DownstreamNetworkInfoResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DownstreamNetworkInfoResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.DownstreamNetworkInfoResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  clients_info_.Clear();
+  if (GetArenaForAllocation() == nullptr && downstream_network_ != nullptr) {
+    delete downstream_network_;
+  }
+  downstream_network_ = nullptr;
+  success_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DownstreamNetworkInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .patchpanel.DownstreamNetwork downstream_network = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_downstream_network(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .patchpanel.NetworkClientInfo clients_info = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_clients_info(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DownstreamNetworkInfoResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.DownstreamNetworkInfoResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  // .patchpanel.DownstreamNetwork downstream_network = 2;
+  if (this->_internal_has_downstream_network()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::downstream_network(this),
+        _Internal::downstream_network(this).GetCachedSize(), target, stream);
+  }
+
+  // repeated .patchpanel.NetworkClientInfo clients_info = 3;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_clients_info_size()); i < n; i++) {
+    const auto& repfield = this->_internal_clients_info(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.DownstreamNetworkInfoResponse)
+  return target;
+}
+
+size_t DownstreamNetworkInfoResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.DownstreamNetworkInfoResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .patchpanel.NetworkClientInfo clients_info = 3;
+  total_size += 1UL * this->_internal_clients_info_size();
+  for (const auto& msg : this->clients_info_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // .patchpanel.DownstreamNetwork downstream_network = 2;
+  if (this->_internal_has_downstream_network()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *downstream_network_);
+  }
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DownstreamNetworkInfoResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DownstreamNetworkInfoResponse*>(
+      &from));
+}
+
+void DownstreamNetworkInfoResponse::MergeFrom(const DownstreamNetworkInfoResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.DownstreamNetworkInfoResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  clients_info_.MergeFrom(from.clients_info_);
+  if (from._internal_has_downstream_network()) {
+    _internal_mutable_downstream_network()->::patchpanel::DownstreamNetwork::MergeFrom(from._internal_downstream_network());
+  }
+  if (from._internal_success() != 0) {
+    _internal_set_success(from._internal_success());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DownstreamNetworkInfoResponse::CopyFrom(const DownstreamNetworkInfoResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.DownstreamNetworkInfoResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DownstreamNetworkInfoResponse::IsInitialized() const {
+  return true;
+}
+
+void DownstreamNetworkInfoResponse::InternalSwap(DownstreamNetworkInfoResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  clients_info_.InternalSwap(&other->clients_info_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(DownstreamNetworkInfoResponse, success_)
+      + sizeof(DownstreamNetworkInfoResponse::success_)
+      - PROTOBUF_FIELD_OFFSET(DownstreamNetworkInfoResponse, downstream_network_)>(
+          reinterpret_cast<char*>(&downstream_network_),
+          reinterpret_cast<char*>(&other->downstream_network_));
+}
+
+std::string DownstreamNetworkInfoResponse::GetTypeName() const {
+  return "patchpanel.DownstreamNetworkInfoResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace patchpanel
 PROTOBUF_NAMESPACE_OPEN
@@ -8846,6 +11662,46 @@ Arena::CreateMaybeMessage< ::patchpanel::SetDnsRedirectionRuleResponse >(Arena* 
 template<> PROTOBUF_NOINLINE ::patchpanel::NetworkConfigurationChangedSignal*
 Arena::CreateMaybeMessage< ::patchpanel::NetworkConfigurationChangedSignal >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::NetworkConfigurationChangedSignal >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::IPv4Configuration_DhcpOption*
+Arena::CreateMaybeMessage< ::patchpanel::IPv4Configuration_DhcpOption >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::IPv4Configuration_DhcpOption >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::IPv4Configuration*
+Arena::CreateMaybeMessage< ::patchpanel::IPv4Configuration >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::IPv4Configuration >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::DownstreamNetwork*
+Arena::CreateMaybeMessage< ::patchpanel::DownstreamNetwork >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::DownstreamNetwork >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::TetheredNetworkRequest*
+Arena::CreateMaybeMessage< ::patchpanel::TetheredNetworkRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::TetheredNetworkRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::TetheredNetworkResponse*
+Arena::CreateMaybeMessage< ::patchpanel::TetheredNetworkResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::TetheredNetworkResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::LocalOnlyNetworkRequest*
+Arena::CreateMaybeMessage< ::patchpanel::LocalOnlyNetworkRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::LocalOnlyNetworkRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::LocalOnlyNetworkResponse*
+Arena::CreateMaybeMessage< ::patchpanel::LocalOnlyNetworkResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::LocalOnlyNetworkResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::DownstreamNetworkInfoRequest*
+Arena::CreateMaybeMessage< ::patchpanel::DownstreamNetworkInfoRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::DownstreamNetworkInfoRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::NetworkClientInfo*
+Arena::CreateMaybeMessage< ::patchpanel::NetworkClientInfo >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::NetworkClientInfo >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::DownstreamNetworkInfoResponse*
+Arena::CreateMaybeMessage< ::patchpanel::DownstreamNetworkInfoResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::DownstreamNetworkInfoResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

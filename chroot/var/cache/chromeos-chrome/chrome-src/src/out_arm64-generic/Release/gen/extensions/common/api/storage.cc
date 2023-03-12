@@ -231,28 +231,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() > 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& keys_value = args[0];
-    {
-      Keys temp;
-      if (!Keys::Populate(keys_value, &temp))
-        return nullptr;
-      params->keys = std::move(temp);
-    }
-  }
-
-  return params;
-}
-
-
 Results::Items::Items()
  {}
 
@@ -343,28 +321,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() > 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& keys_value = args[0];
-    {
-      Keys temp;
-      if (!Keys::Populate(keys_value, &temp))
-        return nullptr;
-      params->keys = std::move(temp);
-    }
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(int bytes_in_use) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -420,33 +376,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& items_value = args[0];
-    {
-      if (!items_value.is_dict()) {
-        return nullptr;
-      }
-      if (!Items::Populate(items_value, &params->items)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -521,29 +450,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& keys_value = args[0];
-    {
-      if (!Keys::Populate(keys_value, &params->keys))
-        return nullptr;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -626,33 +532,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& access_options_value = args[0];
-    {
-      if (!access_options_value.is_dict()) {
-        return nullptr;
-      }
-      if (!AccessOptions::Populate(access_options_value, &params->access_options)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;

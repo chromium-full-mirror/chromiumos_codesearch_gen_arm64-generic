@@ -21,7 +21,7 @@
 namespace media {
 namespace mojom {
 
-static NOINLINE const char* VideoEncodeAcceleratorSupportedRateControlModeToStringHelper(VideoEncodeAcceleratorSupportedRateControlMode value) {
+NOINLINE static const char* VideoEncodeAcceleratorSupportedRateControlModeToStringHelper(VideoEncodeAcceleratorSupportedRateControlMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoEncodeAcceleratorSupportedRateControlMode::kNoMode:
@@ -47,7 +47,7 @@ std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorSupportedRateCo
   return os << VideoEncodeAcceleratorSupportedRateControlModeToString(value);
 }
 
-static NOINLINE const char* VideoEncodeAcceleratorConfig_ContentTypeToStringHelper(VideoEncodeAcceleratorConfig_ContentType value) {
+NOINLINE static const char* VideoEncodeAcceleratorConfig_ContentTypeToStringHelper(VideoEncodeAcceleratorConfig_ContentType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoEncodeAcceleratorConfig_ContentType::kCamera:
@@ -71,7 +71,7 @@ std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_ContentT
   return os << VideoEncodeAcceleratorConfig_ContentTypeToString(value);
 }
 
-static NOINLINE const char* VideoEncodeAcceleratorConfig_InterLayerPredModeToStringHelper(VideoEncodeAcceleratorConfig_InterLayerPredMode value) {
+NOINLINE static const char* VideoEncodeAcceleratorConfig_InterLayerPredModeToStringHelper(VideoEncodeAcceleratorConfig_InterLayerPredMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoEncodeAcceleratorConfig_InterLayerPredMode::kOff:
@@ -97,7 +97,7 @@ std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_InterLay
   return os << VideoEncodeAcceleratorConfig_InterLayerPredModeToString(value);
 }
 
-static NOINLINE const char* VideoEncodeAcceleratorConfig_StorageTypeToStringHelper(VideoEncodeAcceleratorConfig_StorageType value) {
+NOINLINE static const char* VideoEncodeAcceleratorConfig_StorageTypeToStringHelper(VideoEncodeAcceleratorConfig_StorageType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoEncodeAcceleratorConfig_StorageType::kShmem:
@@ -121,7 +121,7 @@ std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_StorageT
   return os << VideoEncodeAcceleratorConfig_StorageTypeToString(value);
 }
 
-static NOINLINE const char* VideoEncodeAcceleratorConfig_EncoderTypeToStringHelper(VideoEncodeAcceleratorConfig_EncoderType value) {
+NOINLINE static const char* VideoEncodeAcceleratorConfig_EncoderTypeToStringHelper(VideoEncodeAcceleratorConfig_EncoderType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoEncodeAcceleratorConfig_EncoderType::kHardware:
@@ -147,7 +147,7 @@ std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_EncoderT
   return os << VideoEncodeAcceleratorConfig_EncoderTypeToString(value);
 }
 
-static NOINLINE const char* VideoEncodeAccelerator_ErrorToStringHelper(VideoEncodeAccelerator_Error value) {
+NOINLINE static const char* VideoEncodeAccelerator_ErrorToStringHelper(VideoEncodeAccelerator_Error value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoEncodeAccelerator_Error::ILLEGAL_STATE:

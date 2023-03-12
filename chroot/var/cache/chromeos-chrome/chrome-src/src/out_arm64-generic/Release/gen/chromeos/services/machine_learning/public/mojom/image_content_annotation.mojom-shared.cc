@@ -22,7 +22,7 @@ namespace chromeos {
 namespace machine_learning {
 namespace mojom {
 
-static NOINLINE const char* ImageAnnotationResult_StatusToStringHelper(ImageAnnotationResult_Status value) {
+NOINLINE static const char* ImageAnnotationResult_StatusToStringHelper(ImageAnnotationResult_Status value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ImageAnnotationResult_Status::OK:

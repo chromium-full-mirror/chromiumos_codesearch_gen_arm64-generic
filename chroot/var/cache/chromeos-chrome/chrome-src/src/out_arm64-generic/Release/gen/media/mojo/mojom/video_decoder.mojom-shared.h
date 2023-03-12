@@ -171,7 +171,6 @@ class SupportedVideoDecoderConfigDataView {
 };
 
 
-
 class CommandBufferIdDataView {
  public:
   CommandBufferIdDataView() = default;
@@ -199,7 +198,6 @@ class CommandBufferIdDataView {
   internal::CommandBufferId_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

@@ -61,6 +61,9 @@ extern DlpFilesRuleDefaultTypeInternal _DlpFilesRule_default_instance_;
 class FileMetadata;
 struct FileMetadataDefaultTypeInternal;
 extern FileMetadataDefaultTypeInternal _FileMetadata_default_instance_;
+class FileRestriction;
+struct FileRestrictionDefaultTypeInternal;
+extern FileRestrictionDefaultTypeInternal _FileRestriction_default_instance_;
 class GetFilesSourcesRequest;
 struct GetFilesSourcesRequestDefaultTypeInternal;
 extern GetFilesSourcesRequestDefaultTypeInternal _GetFilesSourcesRequest_default_instance_;
@@ -99,6 +102,7 @@ template<> ::dlp::CheckFilesTransferRequest* Arena::CreateMaybeMessage<::dlp::Ch
 template<> ::dlp::CheckFilesTransferResponse* Arena::CreateMaybeMessage<::dlp::CheckFilesTransferResponse>(Arena*);
 template<> ::dlp::DlpFilesRule* Arena::CreateMaybeMessage<::dlp::DlpFilesRule>(Arena*);
 template<> ::dlp::FileMetadata* Arena::CreateMaybeMessage<::dlp::FileMetadata>(Arena*);
+template<> ::dlp::FileRestriction* Arena::CreateMaybeMessage<::dlp::FileRestriction>(Arena*);
 template<> ::dlp::GetFilesSourcesRequest* Arena::CreateMaybeMessage<::dlp::GetFilesSourcesRequest>(Arena*);
 template<> ::dlp::GetFilesSourcesResponse* Arena::CreateMaybeMessage<::dlp::GetFilesSourcesResponse>(Arena*);
 template<> ::dlp::IsDlpPolicyMatchedRequest* Arena::CreateMaybeMessage<::dlp::IsDlpPolicyMatchedRequest>(Arena*);
@@ -133,7 +137,7 @@ inline const std::string& DlpRuleLevel_Name(T enum_t_value) {
 bool DlpRuleLevel_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DlpRuleLevel* value);
 enum DlpComponent : int {
-  UNKOWN_COMPONENT = 0,
+  UNKNOWN_COMPONENT = 0,
   SYSTEM = 1,
   ARC = 2,
   CROSTINI = 3,
@@ -142,7 +146,7 @@ enum DlpComponent : int {
   GOOGLE_DRIVE = 6
 };
 bool DlpComponent_IsValid(int value);
-constexpr DlpComponent DlpComponent_MIN = UNKOWN_COMPONENT;
+constexpr DlpComponent DlpComponent_MIN = UNKNOWN_COMPONENT;
 constexpr DlpComponent DlpComponent_MAX = GOOGLE_DRIVE;
 constexpr int DlpComponent_ARRAYSIZE = DlpComponent_MAX + 1;
 
@@ -179,6 +183,29 @@ inline const std::string& FileAction_Name(T enum_t_value) {
 }
 bool FileAction_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FileAction* value);
+enum RestrictionLevel : int {
+  LEVEL_UNSPECIFIED = 0,
+  LEVEL_ALLOW = 1,
+  LEVEL_REPORT = 2,
+  LEVEL_WARN_PROCEED = 3,
+  LEVEL_WARN_CANCEL = 4,
+  LEVEL_BLOCK = 5
+};
+bool RestrictionLevel_IsValid(int value);
+constexpr RestrictionLevel RestrictionLevel_MIN = LEVEL_UNSPECIFIED;
+constexpr RestrictionLevel RestrictionLevel_MAX = LEVEL_BLOCK;
+constexpr int RestrictionLevel_ARRAYSIZE = RestrictionLevel_MAX + 1;
+
+const std::string& RestrictionLevel_Name(RestrictionLevel value);
+template<typename T>
+inline const std::string& RestrictionLevel_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, RestrictionLevel>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function RestrictionLevel_Name.");
+  return RestrictionLevel_Name(static_cast<RestrictionLevel>(enum_t_value));
+}
+bool RestrictionLevel_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RestrictionLevel* value);
 // ===================================================================
 
 class DlpFilesRule final :
@@ -1549,6 +1576,165 @@ class FileMetadata final :
 };
 // -------------------------------------------------------------------
 
+class FileRestriction final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlp.FileRestriction) */ {
+ public:
+  inline FileRestriction() : FileRestriction(nullptr) {}
+  ~FileRestriction() override;
+  explicit PROTOBUF_CONSTEXPR FileRestriction(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  FileRestriction(const FileRestriction& from);
+  FileRestriction(FileRestriction&& from) noexcept
+    : FileRestriction() {
+    *this = ::std::move(from);
+  }
+
+  inline FileRestriction& operator=(const FileRestriction& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FileRestriction& operator=(FileRestriction&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const FileRestriction& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const FileRestriction* internal_default_instance() {
+    return reinterpret_cast<const FileRestriction*>(
+               &_FileRestriction_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(FileRestriction& a, FileRestriction& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(FileRestriction* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FileRestriction* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  FileRestriction* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<FileRestriction>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const FileRestriction& from);
+  void MergeFrom(const FileRestriction& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(FileRestriction* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "dlp.FileRestriction";
+  }
+  protected:
+  explicit FileRestriction(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFileMetadataFieldNumber = 1,
+    kRestrictionLevelFieldNumber = 2,
+  };
+  // optional .dlp.FileMetadata file_metadata = 1;
+  bool has_file_metadata() const;
+  private:
+  bool _internal_has_file_metadata() const;
+  public:
+  void clear_file_metadata();
+  const ::dlp::FileMetadata& file_metadata() const;
+  PROTOBUF_NODISCARD ::dlp::FileMetadata* release_file_metadata();
+  ::dlp::FileMetadata* mutable_file_metadata();
+  void set_allocated_file_metadata(::dlp::FileMetadata* file_metadata);
+  private:
+  const ::dlp::FileMetadata& _internal_file_metadata() const;
+  ::dlp::FileMetadata* _internal_mutable_file_metadata();
+  public:
+  void unsafe_arena_set_allocated_file_metadata(
+      ::dlp::FileMetadata* file_metadata);
+  ::dlp::FileMetadata* unsafe_arena_release_file_metadata();
+
+  // optional .dlp.RestrictionLevel restriction_level = 2;
+  bool has_restriction_level() const;
+  private:
+  bool _internal_has_restriction_level() const;
+  public:
+  void clear_restriction_level();
+  ::dlp::RestrictionLevel restriction_level() const;
+  void set_restriction_level(::dlp::RestrictionLevel value);
+  private:
+  ::dlp::RestrictionLevel _internal_restriction_level() const;
+  void _internal_set_restriction_level(::dlp::RestrictionLevel value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:dlp.FileRestriction)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::dlp::FileMetadata* file_metadata_;
+  int restriction_level_;
+  friend struct ::TableStruct_dlp_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class IsDlpPolicyMatchedRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlp.IsDlpPolicyMatchedRequest) */ {
  public:
@@ -1595,7 +1781,7 @@ class IsDlpPolicyMatchedRequest final :
                &_IsDlpPolicyMatchedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(IsDlpPolicyMatchedRequest& a, IsDlpPolicyMatchedRequest& b) {
     a.Swap(&b);
@@ -1759,7 +1945,7 @@ class IsDlpPolicyMatchedResponse final :
                &_IsDlpPolicyMatchedResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(IsDlpPolicyMatchedResponse& a, IsDlpPolicyMatchedResponse& b) {
     a.Swap(&b);
@@ -1898,7 +2084,7 @@ class GetFilesSourcesRequest final :
                &_GetFilesSourcesRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(GetFilesSourcesRequest& a, GetFilesSourcesRequest& b) {
     a.Swap(&b);
@@ -2045,7 +2231,7 @@ class GetFilesSourcesResponse final :
                &_GetFilesSourcesResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(GetFilesSourcesResponse& a, GetFilesSourcesResponse& b) {
     a.Swap(&b);
@@ -2209,7 +2395,7 @@ class CheckFilesTransferRequest final :
                &_CheckFilesTransferRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(CheckFilesTransferRequest& a, CheckFilesTransferRequest& b) {
     a.Swap(&b);
@@ -2409,7 +2595,7 @@ class CheckFilesTransferResponse final :
                &_CheckFilesTransferResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(CheckFilesTransferResponse& a, CheckFilesTransferResponse& b) {
     a.Swap(&b);
@@ -2579,7 +2765,7 @@ class IsFilesTransferRestrictedRequest final :
                &_IsFilesTransferRestrictedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(IsFilesTransferRestrictedRequest& a, IsFilesTransferRestrictedRequest& b) {
     a.Swap(&b);
@@ -2799,7 +2985,7 @@ class IsFilesTransferRestrictedResponse final :
                &_IsFilesTransferRestrictedResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(IsFilesTransferRestrictedResponse& a, IsFilesTransferRestrictedResponse& b) {
     a.Swap(&b);
@@ -2865,6 +3051,7 @@ class IsFilesTransferRestrictedResponse final :
   enum : int {
     kFilesSourcesFieldNumber = 2,
     kRestrictedFilesFieldNumber = 3,
+    kFilesRestrictionsFieldNumber = 4,
     kErrorMessageFieldNumber = 1,
   };
   // repeated string files_sources = 2;
@@ -2909,6 +3096,24 @@ class IsFilesTransferRestrictedResponse final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >&
       restricted_files() const;
 
+  // repeated .dlp.FileRestriction files_restrictions = 4;
+  int files_restrictions_size() const;
+  private:
+  int _internal_files_restrictions_size() const;
+  public:
+  void clear_files_restrictions();
+  ::dlp::FileRestriction* mutable_files_restrictions(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileRestriction >*
+      mutable_files_restrictions();
+  private:
+  const ::dlp::FileRestriction& _internal_files_restrictions(int index) const;
+  ::dlp::FileRestriction* _internal_add_files_restrictions();
+  public:
+  const ::dlp::FileRestriction& files_restrictions(int index) const;
+  ::dlp::FileRestriction* add_files_restrictions();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileRestriction >&
+      files_restrictions() const;
+
   // optional string error_message = 1;
   bool has_error_message() const;
   private:
@@ -2938,6 +3143,7 @@ class IsFilesTransferRestrictedResponse final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> files_sources_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata > restricted_files_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileRestriction > files_restrictions_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr error_message_;
   friend struct ::TableStruct_dlp_5fservice_2eproto;
 };
@@ -4044,6 +4250,129 @@ inline void FileMetadata::set_allocated_path(std::string* path) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:dlp.FileMetadata.path)
+}
+
+// -------------------------------------------------------------------
+
+// FileRestriction
+
+// optional .dlp.FileMetadata file_metadata = 1;
+inline bool FileRestriction::_internal_has_file_metadata() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || file_metadata_ != nullptr);
+  return value;
+}
+inline bool FileRestriction::has_file_metadata() const {
+  return _internal_has_file_metadata();
+}
+inline void FileRestriction::clear_file_metadata() {
+  if (file_metadata_ != nullptr) file_metadata_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::dlp::FileMetadata& FileRestriction::_internal_file_metadata() const {
+  const ::dlp::FileMetadata* p = file_metadata_;
+  return p != nullptr ? *p : reinterpret_cast<const ::dlp::FileMetadata&>(
+      ::dlp::_FileMetadata_default_instance_);
+}
+inline const ::dlp::FileMetadata& FileRestriction::file_metadata() const {
+  // @@protoc_insertion_point(field_get:dlp.FileRestriction.file_metadata)
+  return _internal_file_metadata();
+}
+inline void FileRestriction::unsafe_arena_set_allocated_file_metadata(
+    ::dlp::FileMetadata* file_metadata) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(file_metadata_);
+  }
+  file_metadata_ = file_metadata;
+  if (file_metadata) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:dlp.FileRestriction.file_metadata)
+}
+inline ::dlp::FileMetadata* FileRestriction::release_file_metadata() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::dlp::FileMetadata* temp = file_metadata_;
+  file_metadata_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::dlp::FileMetadata* FileRestriction::unsafe_arena_release_file_metadata() {
+  // @@protoc_insertion_point(field_release:dlp.FileRestriction.file_metadata)
+  _has_bits_[0] &= ~0x00000001u;
+  ::dlp::FileMetadata* temp = file_metadata_;
+  file_metadata_ = nullptr;
+  return temp;
+}
+inline ::dlp::FileMetadata* FileRestriction::_internal_mutable_file_metadata() {
+  _has_bits_[0] |= 0x00000001u;
+  if (file_metadata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::dlp::FileMetadata>(GetArenaForAllocation());
+    file_metadata_ = p;
+  }
+  return file_metadata_;
+}
+inline ::dlp::FileMetadata* FileRestriction::mutable_file_metadata() {
+  ::dlp::FileMetadata* _msg = _internal_mutable_file_metadata();
+  // @@protoc_insertion_point(field_mutable:dlp.FileRestriction.file_metadata)
+  return _msg;
+}
+inline void FileRestriction::set_allocated_file_metadata(::dlp::FileMetadata* file_metadata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete file_metadata_;
+  }
+  if (file_metadata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(file_metadata);
+    if (message_arena != submessage_arena) {
+      file_metadata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, file_metadata, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  file_metadata_ = file_metadata;
+  // @@protoc_insertion_point(field_set_allocated:dlp.FileRestriction.file_metadata)
+}
+
+// optional .dlp.RestrictionLevel restriction_level = 2;
+inline bool FileRestriction::_internal_has_restriction_level() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool FileRestriction::has_restriction_level() const {
+  return _internal_has_restriction_level();
+}
+inline void FileRestriction::clear_restriction_level() {
+  restriction_level_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::dlp::RestrictionLevel FileRestriction::_internal_restriction_level() const {
+  return static_cast< ::dlp::RestrictionLevel >(restriction_level_);
+}
+inline ::dlp::RestrictionLevel FileRestriction::restriction_level() const {
+  // @@protoc_insertion_point(field_get:dlp.FileRestriction.restriction_level)
+  return _internal_restriction_level();
+}
+inline void FileRestriction::_internal_set_restriction_level(::dlp::RestrictionLevel value) {
+  assert(::dlp::RestrictionLevel_IsValid(value));
+  _has_bits_[0] |= 0x00000002u;
+  restriction_level_ = value;
+}
+inline void FileRestriction::set_restriction_level(::dlp::RestrictionLevel value) {
+  _internal_set_restriction_level(value);
+  // @@protoc_insertion_point(field_set:dlp.FileRestriction.restriction_level)
 }
 
 // -------------------------------------------------------------------
@@ -5187,9 +5516,51 @@ IsFilesTransferRestrictedResponse::restricted_files() const {
   return restricted_files_;
 }
 
+// repeated .dlp.FileRestriction files_restrictions = 4;
+inline int IsFilesTransferRestrictedResponse::_internal_files_restrictions_size() const {
+  return files_restrictions_.size();
+}
+inline int IsFilesTransferRestrictedResponse::files_restrictions_size() const {
+  return _internal_files_restrictions_size();
+}
+inline void IsFilesTransferRestrictedResponse::clear_files_restrictions() {
+  files_restrictions_.Clear();
+}
+inline ::dlp::FileRestriction* IsFilesTransferRestrictedResponse::mutable_files_restrictions(int index) {
+  // @@protoc_insertion_point(field_mutable:dlp.IsFilesTransferRestrictedResponse.files_restrictions)
+  return files_restrictions_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileRestriction >*
+IsFilesTransferRestrictedResponse::mutable_files_restrictions() {
+  // @@protoc_insertion_point(field_mutable_list:dlp.IsFilesTransferRestrictedResponse.files_restrictions)
+  return &files_restrictions_;
+}
+inline const ::dlp::FileRestriction& IsFilesTransferRestrictedResponse::_internal_files_restrictions(int index) const {
+  return files_restrictions_.Get(index);
+}
+inline const ::dlp::FileRestriction& IsFilesTransferRestrictedResponse::files_restrictions(int index) const {
+  // @@protoc_insertion_point(field_get:dlp.IsFilesTransferRestrictedResponse.files_restrictions)
+  return _internal_files_restrictions(index);
+}
+inline ::dlp::FileRestriction* IsFilesTransferRestrictedResponse::_internal_add_files_restrictions() {
+  return files_restrictions_.Add();
+}
+inline ::dlp::FileRestriction* IsFilesTransferRestrictedResponse::add_files_restrictions() {
+  ::dlp::FileRestriction* _add = _internal_add_files_restrictions();
+  // @@protoc_insertion_point(field_add:dlp.IsFilesTransferRestrictedResponse.files_restrictions)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileRestriction >&
+IsFilesTransferRestrictedResponse::files_restrictions() const {
+  // @@protoc_insertion_point(field_list:dlp.IsFilesTransferRestrictedResponse.files_restrictions)
+  return files_restrictions_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -5230,6 +5601,7 @@ PROTOBUF_NAMESPACE_OPEN
 template <> struct is_proto_enum< ::dlp::DlpRuleLevel> : ::std::true_type {};
 template <> struct is_proto_enum< ::dlp::DlpComponent> : ::std::true_type {};
 template <> struct is_proto_enum< ::dlp::FileAction> : ::std::true_type {};
+template <> struct is_proto_enum< ::dlp::RestrictionLevel> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

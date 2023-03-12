@@ -77,7 +77,6 @@ class MemoryAllocatorDumpCrossProcessUidDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace mojo_base
 

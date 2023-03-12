@@ -197,7 +197,6 @@ struct Process {
 namespace GetProcessIdForTab {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -224,7 +223,6 @@ base::Value::List Create(int process_id);
 namespace Terminate {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -251,7 +249,6 @@ base::Value::List Create(bool did_terminate);
 namespace GetProcessInfo {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;

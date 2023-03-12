@@ -139,7 +139,6 @@ class RunningServiceInfoDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace service_manager
 

@@ -21,7 +21,7 @@
 namespace arc {
 namespace mojom {
 
-static NOINLINE const char* VideoCodecProfileToStringHelper(VideoCodecProfile value) {
+NOINLINE static const char* VideoCodecProfileToStringHelper(VideoCodecProfile value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoCodecProfile::VIDEO_CODEC_PROFILE_UNKNOWN:
@@ -117,7 +117,7 @@ std::ostream& operator<<(std::ostream& os, VideoCodecProfile value) {
   return os << VideoCodecProfileToString(value);
 }
 
-static NOINLINE const char* HalPixelFormatToStringHelper(HalPixelFormat value) {
+NOINLINE static const char* HalPixelFormatToStringHelper(HalPixelFormat value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case HalPixelFormat::HAL_PIXEL_FORMAT_BGRA_8888:
@@ -145,7 +145,7 @@ std::ostream& operator<<(std::ostream& os, HalPixelFormat value) {
   return os << HalPixelFormatToString(value);
 }
 
-static NOINLINE const char* VideoPixelFormatToStringHelper(VideoPixelFormat value) {
+NOINLINE static const char* VideoPixelFormatToStringHelper(VideoPixelFormat value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoPixelFormat::PIXEL_FORMAT_UNKNOWN:

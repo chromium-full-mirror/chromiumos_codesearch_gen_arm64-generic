@@ -148,7 +148,6 @@ UIEvent ParseUIEvent(const std::string& as_string);
 namespace CreateConfig {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -176,7 +175,6 @@ base::Value::List Create(const std::string& id);
 namespace DestroyConfig {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -202,7 +200,6 @@ base::Value::List Create();
 namespace SetParameters {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -228,7 +225,6 @@ base::Value::List Create();
 namespace SendPacket {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -254,7 +250,6 @@ base::Value::List Create();
 namespace NotifyConnectionStateChanged {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;

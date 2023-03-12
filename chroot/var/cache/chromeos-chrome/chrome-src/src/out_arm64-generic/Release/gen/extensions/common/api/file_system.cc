@@ -498,33 +498,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& entry_value = args[0];
-    {
-      if (!entry_value.is_dict()) {
-        return nullptr;
-      }
-      if (!Entry::Populate(entry_value, &params->entry)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(const std::string& display_path) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -580,33 +553,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& entry_value = args[0];
-    {
-      if (!entry_value.is_dict()) {
-        return nullptr;
-      }
-      if (!Entry::Populate(entry_value, &params->entry)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -689,33 +635,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& entry_value = args[0];
-    {
-      if (!entry_value.is_dict()) {
-        return nullptr;
-      }
-      if (!Entry::Populate(entry_value, &params->entry)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 base::Value::List Results::Create(bool is_writable) {
   base::Value::List create_results;
   create_results.reserve(1);
@@ -750,33 +669,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
         ChooseEntryOptions temp;
         if (!ChooseEntryOptions::Populate(options_value, &temp))
           return absl::nullopt;
-        params->options = std::move(temp);
-      }
-    }
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() > 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& options_value = args[0];
-    {
-      if (!options_value.is_dict()) {
-        return nullptr;
-      }
-      else {
-        ChooseEntryOptions temp;
-        if (!ChooseEntryOptions::Populate(options_value, &temp))
-          return nullptr;
         params->options = std::move(temp);
       }
     }
@@ -861,32 +753,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& id_value = args[0];
-    {
-      auto* temp = id_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->id = *temp;
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 Results::Entry::Entry()
  {}
 
@@ -938,32 +804,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& id_value = args[0];
-    {
-      auto* temp = id_value.GetIfString();
-      if (!temp) {
-        return nullptr;
-      }
-      params->id = *temp;
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;
@@ -1031,33 +871,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
 }
 
 
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& entry_value = args[0];
-    {
-      if (!entry_value.is_dict()) {
-        return nullptr;
-      }
-      if (!Entry::Populate(entry_value, &params->entry)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
-  }
-
-  return params;
-}
-
-
 }  // namespace RetainEntry
 
 namespace RequestFileSystem {
@@ -1088,33 +901,6 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   }
   else {
     return absl::nullopt;
-  }
-
-  return params;
-}
-
-
-// static
-std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
-  if (args.size() != 1) {
-    return nullptr;
-  }
-  std::unique_ptr<Params> params(new Params());
-
-  if (0 < args.size() &&
-      !args[0].is_none()) {
-    const base::Value& options_value = args[0];
-    {
-      if (!options_value.is_dict()) {
-        return nullptr;
-      }
-      if (!RequestFileSystemOptions::Populate(options_value, &params->options)) {
-        return nullptr;
-      }
-    }
-  }
-  else {
-    return nullptr;
   }
 
   return params;

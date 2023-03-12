@@ -21,7 +21,7 @@
 namespace service_manager {
 namespace mojom {
 
-static NOINLINE const char* InstanceStateToStringHelper(InstanceState value) {
+NOINLINE static const char* InstanceStateToStringHelper(InstanceState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case InstanceState::kCreated:

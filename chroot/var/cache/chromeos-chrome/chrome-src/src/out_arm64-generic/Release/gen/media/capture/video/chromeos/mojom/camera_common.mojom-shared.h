@@ -179,7 +179,6 @@ class CameraResourceCostDataView {
 };
 
 
-
 class CameraInfoDataView {
  public:
   CameraInfoDataView() = default;
@@ -262,7 +261,6 @@ static_assert(
   internal::CameraInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

@@ -67,7 +67,6 @@ class WilcoEcObserver_OnEcEvent_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
-
 inline void WilcoEcObserver_OnEcEvent_ParamsDataView::GetEcEventDataView(
     EcEventDataView* output) {
   auto pointer = data_->ec_event.Get();

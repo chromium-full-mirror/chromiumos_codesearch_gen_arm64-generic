@@ -156,7 +156,6 @@ class BufferDataView {
 };
 
 
-
 class VideoDecoderConfigDataView {
  public:
   VideoDecoderConfigDataView() = default;
@@ -191,7 +190,6 @@ class VideoDecoderConfigDataView {
   internal::VideoDecoderConfig_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class DecoderBufferDataView {

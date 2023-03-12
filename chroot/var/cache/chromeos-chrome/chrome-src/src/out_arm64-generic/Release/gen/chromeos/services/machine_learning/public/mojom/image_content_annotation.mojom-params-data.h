@@ -129,7 +129,6 @@ class ImageContentAnnotator_AnnotateRawImage_ParamsDataView {
 };
 
 
-
 class ImageContentAnnotator_AnnotateRawImage_ResponseParamsDataView {
  public:
   ImageContentAnnotator_AnnotateRawImage_ResponseParamsDataView() = default;
@@ -154,7 +153,6 @@ class ImageContentAnnotator_AnnotateRawImage_ResponseParamsDataView {
   internal::ImageContentAnnotator_AnnotateRawImage_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class ImageContentAnnotator_AnnotateEncodedImage_ParamsDataView {
@@ -183,7 +181,6 @@ class ImageContentAnnotator_AnnotateEncodedImage_ParamsDataView {
 };
 
 
-
 class ImageContentAnnotator_AnnotateEncodedImage_ResponseParamsDataView {
  public:
   ImageContentAnnotator_AnnotateEncodedImage_ResponseParamsDataView() = default;
@@ -208,7 +205,6 @@ class ImageContentAnnotator_AnnotateEncodedImage_ResponseParamsDataView {
   internal::ImageContentAnnotator_AnnotateEncodedImage_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void ImageContentAnnotator_AnnotateRawImage_ParamsDataView::GetRgbBytesDataView(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView* output) {

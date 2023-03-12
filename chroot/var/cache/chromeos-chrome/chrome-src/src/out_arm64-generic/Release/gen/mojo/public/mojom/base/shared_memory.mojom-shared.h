@@ -102,7 +102,6 @@ class ReadOnlySharedMemoryRegionDataView {
 };
 
 
-
 class WritableSharedMemoryRegionDataView {
  public:
   WritableSharedMemoryRegionDataView() = default;
@@ -127,7 +126,6 @@ class WritableSharedMemoryRegionDataView {
 };
 
 
-
 class UnsafeSharedMemoryRegionDataView {
  public:
   UnsafeSharedMemoryRegionDataView() = default;
@@ -150,7 +148,6 @@ class UnsafeSharedMemoryRegionDataView {
   internal::UnsafeSharedMemoryRegion_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

@@ -284,7 +284,6 @@ base::Value::List Create(const std::vector<AccountInfo>& accounts);
 namespace GetAuthToken {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -310,7 +309,6 @@ base::Value::List Create(const GetAuthTokenResult& result);
 namespace GetProfileUserInfo {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -336,7 +334,6 @@ base::Value::List Create(const ProfileUserInfo& user_info);
 namespace RemoveCachedAuthToken {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
@@ -371,7 +368,6 @@ base::Value::List Create();
 namespace LaunchWebAuthFlow {
 
 struct Params {
-  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
   static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;

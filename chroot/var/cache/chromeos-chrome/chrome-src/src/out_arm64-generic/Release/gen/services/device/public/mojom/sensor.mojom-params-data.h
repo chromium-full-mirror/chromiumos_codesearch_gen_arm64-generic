@@ -197,7 +197,6 @@ class Sensor_GetDefaultConfiguration_ParamsDataView {
 };
 
 
-
 class Sensor_GetDefaultConfiguration_ResponseParamsDataView {
  public:
   Sensor_GetDefaultConfiguration_ResponseParamsDataView() = default;
@@ -222,7 +221,6 @@ class Sensor_GetDefaultConfiguration_ResponseParamsDataView {
   internal::Sensor_GetDefaultConfiguration_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Sensor_AddConfiguration_ParamsDataView {
@@ -251,7 +249,6 @@ class Sensor_AddConfiguration_ParamsDataView {
 };
 
 
-
 class Sensor_AddConfiguration_ResponseParamsDataView {
  public:
   Sensor_AddConfiguration_ResponseParamsDataView() = default;
@@ -268,7 +265,6 @@ class Sensor_AddConfiguration_ResponseParamsDataView {
  private:
   internal::Sensor_AddConfiguration_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class Sensor_RemoveConfiguration_ParamsDataView {
@@ -297,7 +293,6 @@ class Sensor_RemoveConfiguration_ParamsDataView {
 };
 
 
-
 class Sensor_Suspend_ParamsDataView {
  public:
   Sensor_Suspend_ParamsDataView() = default;
@@ -313,7 +308,6 @@ class Sensor_Suspend_ParamsDataView {
 };
 
 
-
 class Sensor_Resume_ParamsDataView {
  public:
   Sensor_Resume_ParamsDataView() = default;
@@ -327,7 +321,6 @@ class Sensor_Resume_ParamsDataView {
  private:
   internal::Sensor_Resume_Params_Data* data_ = nullptr;
 };
-
 
 
 class Sensor_ConfigureReadingChangeNotifications_ParamsDataView {
@@ -348,7 +341,6 @@ class Sensor_ConfigureReadingChangeNotifications_ParamsDataView {
 };
 
 
-
 class SensorClient_RaiseError_ParamsDataView {
  public:
   SensorClient_RaiseError_ParamsDataView() = default;
@@ -364,7 +356,6 @@ class SensorClient_RaiseError_ParamsDataView {
 };
 
 
-
 class SensorClient_SensorReadingChanged_ParamsDataView {
  public:
   SensorClient_SensorReadingChanged_ParamsDataView() = default;
@@ -378,7 +369,6 @@ class SensorClient_SensorReadingChanged_ParamsDataView {
  private:
   internal::SensorClient_SensorReadingChanged_Params_Data* data_ = nullptr;
 };
-
 
 
 

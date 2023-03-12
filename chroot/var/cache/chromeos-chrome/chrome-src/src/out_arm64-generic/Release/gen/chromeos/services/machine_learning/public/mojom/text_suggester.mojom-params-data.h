@@ -84,7 +84,6 @@ class TextSuggester_Suggest_ParamsDataView {
 };
 
 
-
 class TextSuggester_Suggest_ResponseParamsDataView {
  public:
   TextSuggester_Suggest_ResponseParamsDataView() = default;
@@ -109,7 +108,6 @@ class TextSuggester_Suggest_ResponseParamsDataView {
   internal::TextSuggester_Suggest_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void TextSuggester_Suggest_ParamsDataView::GetQueryDataView(
     TextSuggesterQueryDataView* output) {

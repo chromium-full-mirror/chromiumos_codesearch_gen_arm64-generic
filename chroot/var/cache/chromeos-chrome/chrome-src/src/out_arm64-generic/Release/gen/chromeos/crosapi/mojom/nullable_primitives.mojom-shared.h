@@ -130,7 +130,6 @@ class DoubleValueDataView {
 };
 
 
-
 class Int64ValueDataView {
  public:
   Int64ValueDataView() = default;
@@ -147,7 +146,6 @@ class Int64ValueDataView {
  private:
   internal::Int64Value_Data* data_ = nullptr;
 };
-
 
 
 class UInt8ValueDataView {
@@ -168,7 +166,6 @@ class UInt8ValueDataView {
 };
 
 
-
 class UInt16ValueDataView {
  public:
   UInt16ValueDataView() = default;
@@ -185,7 +182,6 @@ class UInt16ValueDataView {
  private:
   internal::UInt16Value_Data* data_ = nullptr;
 };
-
 
 
 class UInt32ValueDataView {
@@ -206,7 +202,6 @@ class UInt32ValueDataView {
 };
 
 
-
 class UInt64ValueDataView {
  public:
   UInt64ValueDataView() = default;
@@ -225,7 +220,6 @@ class UInt64ValueDataView {
 };
 
 
-
 class BoolValueDataView {
  public:
   BoolValueDataView() = default;
@@ -242,7 +236,6 @@ class BoolValueDataView {
  private:
   internal::BoolValue_Data* data_ = nullptr;
 };
-
 
 
 }  // namespace mojom

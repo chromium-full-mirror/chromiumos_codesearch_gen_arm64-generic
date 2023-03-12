@@ -101,7 +101,6 @@ class NetworkDiagnostics_RunNetworkDiagnostics_ParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_ParamsDataView {
  public:
   NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_ParamsDataView() = default;
@@ -120,7 +119,6 @@ class NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_ParamsDataView
 };
 
 
-
 class NetworkDiagnosticsClient_DNSProbeStatus_ParamsDataView {
  public:
   NetworkDiagnosticsClient_DNSProbeStatus_ParamsDataView() = default;
@@ -137,7 +135,6 @@ class NetworkDiagnosticsClient_DNSProbeStatus_ParamsDataView {
  private:
   internal::NetworkDiagnosticsClient_DNSProbeStatus_Params_Data* data_ = nullptr;
 };
-
 
 inline void NetworkDiagnostics_RunNetworkDiagnostics_ParamsDataView::GetFailedUrlDataView(
     ::url::mojom::UrlDataView* output) {

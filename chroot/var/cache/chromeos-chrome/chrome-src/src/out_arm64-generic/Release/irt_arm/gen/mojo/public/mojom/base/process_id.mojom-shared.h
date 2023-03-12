@@ -77,7 +77,6 @@ class ProcessIdDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace mojo_base
 

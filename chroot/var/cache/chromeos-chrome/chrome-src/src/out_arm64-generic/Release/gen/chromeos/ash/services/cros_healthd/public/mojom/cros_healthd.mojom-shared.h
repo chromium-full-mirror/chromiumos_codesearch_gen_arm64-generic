@@ -152,7 +152,6 @@ class ServiceStatusDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash

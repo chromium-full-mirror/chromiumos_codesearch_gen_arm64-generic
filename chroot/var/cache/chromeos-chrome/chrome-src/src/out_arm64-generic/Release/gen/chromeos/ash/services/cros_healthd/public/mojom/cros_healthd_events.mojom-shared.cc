@@ -22,7 +22,7 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
-static NOINLINE const char* InputTouchButtonToStringHelper(InputTouchButton value) {
+NOINLINE static const char* InputTouchButtonToStringHelper(InputTouchButton value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case InputTouchButton::kUnmappedEnumField:
@@ -50,7 +50,7 @@ std::ostream& operator<<(std::ostream& os, InputTouchButton value) {
   return os << InputTouchButtonToString(value);
 }
 
-static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum value) {
+NOINLINE static const char* EventCategoryEnumToStringHelper(EventCategoryEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case EventCategoryEnum::kUnmappedEnumField:
@@ -100,7 +100,7 @@ std::ostream& operator<<(std::ostream& os, EventCategoryEnum value) {
   return os << EventCategoryEnumToString(value);
 }
 
-static NOINLINE const char* UsbEventInfo_StateToStringHelper(UsbEventInfo_State value) {
+NOINLINE static const char* UsbEventInfo_StateToStringHelper(UsbEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case UsbEventInfo_State::kUnmappedEnumField:
@@ -126,7 +126,7 @@ std::ostream& operator<<(std::ostream& os, UsbEventInfo_State value) {
   return os << UsbEventInfo_StateToString(value);
 }
 
-static NOINLINE const char* ThunderboltEventInfo_StateToStringHelper(ThunderboltEventInfo_State value) {
+NOINLINE static const char* ThunderboltEventInfo_StateToStringHelper(ThunderboltEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ThunderboltEventInfo_State::kUnmappedEnumField:
@@ -156,7 +156,7 @@ std::ostream& operator<<(std::ostream& os, ThunderboltEventInfo_State value) {
   return os << ThunderboltEventInfo_StateToString(value);
 }
 
-static NOINLINE const char* LidEventInfo_StateToStringHelper(LidEventInfo_State value) {
+NOINLINE static const char* LidEventInfo_StateToStringHelper(LidEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case LidEventInfo_State::kUnmappedEnumField:
@@ -182,7 +182,7 @@ std::ostream& operator<<(std::ostream& os, LidEventInfo_State value) {
   return os << LidEventInfo_StateToString(value);
 }
 
-static NOINLINE const char* BluetoothEventInfo_StateToStringHelper(BluetoothEventInfo_State value) {
+NOINLINE static const char* BluetoothEventInfo_StateToStringHelper(BluetoothEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case BluetoothEventInfo_State::kUnmappedEnumField:
@@ -216,7 +216,7 @@ std::ostream& operator<<(std::ostream& os, BluetoothEventInfo_State value) {
   return os << BluetoothEventInfo_StateToString(value);
 }
 
-static NOINLINE const char* PowerEventInfo_StateToStringHelper(PowerEventInfo_State value) {
+NOINLINE static const char* PowerEventInfo_StateToStringHelper(PowerEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case PowerEventInfo_State::kUnmappedEnumField:
@@ -246,7 +246,7 @@ std::ostream& operator<<(std::ostream& os, PowerEventInfo_State value) {
   return os << PowerEventInfo_StateToString(value);
 }
 
-static NOINLINE const char* AudioEventInfo_StateToStringHelper(AudioEventInfo_State value) {
+NOINLINE static const char* AudioEventInfo_StateToStringHelper(AudioEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AudioEventInfo_State::kUnmappedEnumField:
@@ -272,7 +272,7 @@ std::ostream& operator<<(std::ostream& os, AudioEventInfo_State value) {
   return os << AudioEventInfo_StateToString(value);
 }
 
-static NOINLINE const char* AudioJackEventInfo_StateToStringHelper(AudioJackEventInfo_State value) {
+NOINLINE static const char* AudioJackEventInfo_StateToStringHelper(AudioJackEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AudioJackEventInfo_State::kUnmappedEnumField:
@@ -298,7 +298,7 @@ std::ostream& operator<<(std::ostream& os, AudioJackEventInfo_State value) {
   return os << AudioJackEventInfo_StateToString(value);
 }
 
-static NOINLINE const char* SdCardEventInfo_StateToStringHelper(SdCardEventInfo_State value) {
+NOINLINE static const char* SdCardEventInfo_StateToStringHelper(SdCardEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case SdCardEventInfo_State::kUnmappedEnumField:
@@ -324,7 +324,7 @@ std::ostream& operator<<(std::ostream& os, SdCardEventInfo_State value) {
   return os << SdCardEventInfo_StateToString(value);
 }
 
-static NOINLINE const char* HdmiEventInfo_StateToStringHelper(HdmiEventInfo_State value) {
+NOINLINE static const char* HdmiEventInfo_StateToStringHelper(HdmiEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case HdmiEventInfo_State::kUnmappedEnumField:
@@ -350,7 +350,7 @@ std::ostream& operator<<(std::ostream& os, HdmiEventInfo_State value) {
   return os << HdmiEventInfo_StateToString(value);
 }
 
-static NOINLINE const char* StylusGarageEventInfo_StateToStringHelper(StylusGarageEventInfo_State value) {
+NOINLINE static const char* StylusGarageEventInfo_StateToStringHelper(StylusGarageEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case StylusGarageEventInfo_State::kUnmappedEnumField:

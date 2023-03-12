@@ -487,7 +487,6 @@ class MachineLearningService_Clone_ParamsDataView {
 };
 
 
-
 class MachineLearningService_LoadBuiltinModel_ParamsDataView {
  public:
   MachineLearningService_LoadBuiltinModel_ParamsDataView() = default;
@@ -523,7 +522,6 @@ class MachineLearningService_LoadBuiltinModel_ParamsDataView {
 };
 
 
-
 class MachineLearningService_LoadBuiltinModel_ResponseParamsDataView {
  public:
   MachineLearningService_LoadBuiltinModel_ResponseParamsDataView() = default;
@@ -547,7 +545,6 @@ class MachineLearningService_LoadBuiltinModel_ResponseParamsDataView {
  private:
   internal::MachineLearningService_LoadBuiltinModel_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_LoadFlatBufferModel_ParamsDataView {
@@ -585,7 +582,6 @@ class MachineLearningService_LoadFlatBufferModel_ParamsDataView {
 };
 
 
-
 class MachineLearningService_LoadFlatBufferModel_ResponseParamsDataView {
  public:
   MachineLearningService_LoadFlatBufferModel_ResponseParamsDataView() = default;
@@ -609,7 +605,6 @@ class MachineLearningService_LoadFlatBufferModel_ResponseParamsDataView {
  private:
   internal::MachineLearningService_LoadFlatBufferModel_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_LoadTextClassifier_ParamsDataView {
@@ -637,7 +632,6 @@ class MachineLearningService_LoadTextClassifier_ParamsDataView {
 };
 
 
-
 class MachineLearningService_LoadTextClassifier_ResponseParamsDataView {
  public:
   MachineLearningService_LoadTextClassifier_ResponseParamsDataView() = default;
@@ -661,7 +655,6 @@ class MachineLearningService_LoadTextClassifier_ResponseParamsDataView {
  private:
   internal::MachineLearningService_LoadTextClassifier_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_LoadHandwritingModel_ParamsDataView {
@@ -699,7 +692,6 @@ class MachineLearningService_LoadHandwritingModel_ParamsDataView {
 };
 
 
-
 class MachineLearningService_LoadHandwritingModel_ResponseParamsDataView {
  public:
   MachineLearningService_LoadHandwritingModel_ResponseParamsDataView() = default;
@@ -723,7 +715,6 @@ class MachineLearningService_LoadHandwritingModel_ResponseParamsDataView {
  private:
   internal::MachineLearningService_LoadHandwritingModel_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_LoadSpeechRecognizer_ParamsDataView {
@@ -770,7 +761,6 @@ class MachineLearningService_LoadSpeechRecognizer_ParamsDataView {
 };
 
 
-
 class MachineLearningService_LoadSpeechRecognizer_ResponseParamsDataView {
  public:
   MachineLearningService_LoadSpeechRecognizer_ResponseParamsDataView() = default;
@@ -794,7 +784,6 @@ class MachineLearningService_LoadSpeechRecognizer_ResponseParamsDataView {
  private:
   internal::MachineLearningService_LoadSpeechRecognizer_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_LoadGrammarChecker_ParamsDataView {
@@ -822,7 +811,6 @@ class MachineLearningService_LoadGrammarChecker_ParamsDataView {
 };
 
 
-
 class MachineLearningService_LoadGrammarChecker_ResponseParamsDataView {
  public:
   MachineLearningService_LoadGrammarChecker_ResponseParamsDataView() = default;
@@ -846,7 +834,6 @@ class MachineLearningService_LoadGrammarChecker_ResponseParamsDataView {
  private:
   internal::MachineLearningService_LoadGrammarChecker_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_LoadTextSuggester_ParamsDataView {
@@ -895,7 +882,6 @@ static_assert(
 };
 
 
-
 class MachineLearningService_LoadTextSuggester_ResponseParamsDataView {
  public:
   MachineLearningService_LoadTextSuggester_ResponseParamsDataView() = default;
@@ -919,7 +905,6 @@ class MachineLearningService_LoadTextSuggester_ResponseParamsDataView {
  private:
   internal::MachineLearningService_LoadTextSuggester_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_LoadWebPlatformHandwritingModel_ParamsDataView {
@@ -957,7 +942,6 @@ class MachineLearningService_LoadWebPlatformHandwritingModel_ParamsDataView {
 };
 
 
-
 class MachineLearningService_LoadWebPlatformHandwritingModel_ResponseParamsDataView {
  public:
   MachineLearningService_LoadWebPlatformHandwritingModel_ResponseParamsDataView() = default;
@@ -981,7 +965,6 @@ class MachineLearningService_LoadWebPlatformHandwritingModel_ResponseParamsDataV
  private:
   internal::MachineLearningService_LoadWebPlatformHandwritingModel_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_LoadDocumentScanner_ParamsDataView {
@@ -1030,7 +1013,6 @@ static_assert(
 };
 
 
-
 class MachineLearningService_LoadDocumentScanner_ResponseParamsDataView {
  public:
   MachineLearningService_LoadDocumentScanner_ResponseParamsDataView() = default;
@@ -1054,7 +1036,6 @@ class MachineLearningService_LoadDocumentScanner_ResponseParamsDataView {
  private:
   internal::MachineLearningService_LoadDocumentScanner_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_CreateWebPlatformModelLoader_ParamsDataView {
@@ -1092,7 +1073,6 @@ class MachineLearningService_CreateWebPlatformModelLoader_ParamsDataView {
 };
 
 
-
 class MachineLearningService_CreateWebPlatformModelLoader_ResponseParamsDataView {
  public:
   MachineLearningService_CreateWebPlatformModelLoader_ResponseParamsDataView() = default;
@@ -1116,7 +1096,6 @@ class MachineLearningService_CreateWebPlatformModelLoader_ResponseParamsDataView
  private:
   internal::MachineLearningService_CreateWebPlatformModelLoader_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_LoadImageAnnotator_ParamsDataView {
@@ -1154,7 +1133,6 @@ class MachineLearningService_LoadImageAnnotator_ParamsDataView {
 };
 
 
-
 class MachineLearningService_LoadImageAnnotator_ResponseParamsDataView {
  public:
   MachineLearningService_LoadImageAnnotator_ResponseParamsDataView() = default;
@@ -1178,7 +1156,6 @@ class MachineLearningService_LoadImageAnnotator_ResponseParamsDataView {
  private:
   internal::MachineLearningService_LoadImageAnnotator_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MachineLearningService_REMOVED_4_ParamsDataView {
@@ -1216,7 +1193,6 @@ class MachineLearningService_REMOVED_4_ParamsDataView {
 };
 
 
-
 class MachineLearningService_REMOVED_4_ResponseParamsDataView {
  public:
   MachineLearningService_REMOVED_4_ResponseParamsDataView() = default;
@@ -1240,7 +1216,6 @@ class MachineLearningService_REMOVED_4_ResponseParamsDataView {
  private:
   internal::MachineLearningService_REMOVED_4_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 

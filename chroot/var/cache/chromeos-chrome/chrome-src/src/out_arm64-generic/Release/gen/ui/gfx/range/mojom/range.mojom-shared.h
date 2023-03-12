@@ -88,7 +88,6 @@ class RangeDataView {
 };
 
 
-
 class RangeFDataView {
  public:
   RangeFDataView() = default;
@@ -108,7 +107,6 @@ class RangeFDataView {
  private:
   internal::RangeF_Data* data_ = nullptr;
 };
-
 
 
 }  // namespace mojom

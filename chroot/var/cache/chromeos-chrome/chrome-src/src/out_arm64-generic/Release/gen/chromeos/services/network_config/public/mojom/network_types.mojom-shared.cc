@@ -22,7 +22,7 @@ namespace chromeos {
 namespace network_config {
 namespace mojom {
 
-static NOINLINE const char* ConnectionStateTypeToStringHelper(ConnectionStateType value) {
+NOINLINE static const char* ConnectionStateTypeToStringHelper(ConnectionStateType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ConnectionStateType::kOnline:
@@ -52,7 +52,7 @@ std::ostream& operator<<(std::ostream& os, ConnectionStateType value) {
   return os << ConnectionStateTypeToString(value);
 }
 
-static NOINLINE const char* DeviceStateTypeToStringHelper(DeviceStateType value) {
+NOINLINE static const char* DeviceStateTypeToStringHelper(DeviceStateType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DeviceStateType::kUninitialized:
@@ -86,7 +86,7 @@ std::ostream& operator<<(std::ostream& os, DeviceStateType value) {
   return os << DeviceStateTypeToString(value);
 }
 
-static NOINLINE const char* IPConfigTypeToStringHelper(IPConfigType value) {
+NOINLINE static const char* IPConfigTypeToStringHelper(IPConfigType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case IPConfigType::kIPv4:
@@ -110,7 +110,7 @@ std::ostream& operator<<(std::ostream& os, IPConfigType value) {
   return os << IPConfigTypeToString(value);
 }
 
-static NOINLINE const char* NetworkTypeToStringHelper(NetworkType value) {
+NOINLINE static const char* NetworkTypeToStringHelper(NetworkType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case NetworkType::kAll:
@@ -146,7 +146,7 @@ std::ostream& operator<<(std::ostream& os, NetworkType value) {
   return os << NetworkTypeToString(value);
 }
 
-static NOINLINE const char* OncSourceToStringHelper(OncSource value) {
+NOINLINE static const char* OncSourceToStringHelper(OncSource value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case OncSource::kNone:
@@ -176,7 +176,7 @@ std::ostream& operator<<(std::ostream& os, OncSource value) {
   return os << OncSourceToString(value);
 }
 
-static NOINLINE const char* PolicySourceToStringHelper(PolicySource value) {
+NOINLINE static const char* PolicySourceToStringHelper(PolicySource value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case PolicySource::kNone:
@@ -208,7 +208,7 @@ std::ostream& operator<<(std::ostream& os, PolicySource value) {
   return os << PolicySourceToString(value);
 }
 
-static NOINLINE const char* PortalStateToStringHelper(PortalState value) {
+NOINLINE static const char* PortalStateToStringHelper(PortalState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case PortalState::kUnknown:

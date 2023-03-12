@@ -139,7 +139,6 @@ class VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ParamsDataView
 };
 
 
-
 class VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ResponseParamsDataView {
  public:
   VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ResponseParamsDataView() = default;
@@ -156,7 +155,6 @@ class VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ResponseParams
  private:
   internal::VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ParamsDataView {
@@ -203,7 +201,6 @@ class VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ParamsDataView
 };
 
 
-
 class VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ResponseParamsDataView {
  public:
   VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ResponseParamsDataView() = default;
@@ -220,7 +217,6 @@ class VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ResponseParams
  private:
   internal::VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoProtectedBufferAllocator_ReleaseProtectedBuffer_ParamsDataView {
@@ -245,7 +241,6 @@ class VideoProtectedBufferAllocator_ReleaseProtectedBuffer_ParamsDataView {
   internal::VideoProtectedBufferAllocator_ReleaseProtectedBuffer_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

@@ -121,7 +121,6 @@ class ModelLoader_Load_ParamsDataView {
 };
 
 
-
 class ModelLoader_Load_ResponseParamsDataView {
  public:
   ModelLoader_Load_ResponseParamsDataView() = default;
@@ -177,7 +176,6 @@ static_assert(
 };
 
 
-
 class Model_Compute_ParamsDataView {
  public:
   Model_Compute_ParamsDataView() = default;
@@ -202,7 +200,6 @@ class Model_Compute_ParamsDataView {
   internal::Model_Compute_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Model_Compute_ResponseParamsDataView {
@@ -249,7 +246,6 @@ static_assert(
   internal::Model_Compute_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void ModelLoader_Load_ParamsDataView::GetModelContentDataView(
     ::mojo_base::mojom::BigBufferDataView* output) {

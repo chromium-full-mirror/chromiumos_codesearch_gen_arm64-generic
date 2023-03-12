@@ -153,7 +153,6 @@ class GrammarCheckerQueryDataView {
 };
 
 
-
 class GrammarCorrectionFragmentDataView {
  public:
   GrammarCorrectionFragmentDataView() = default;
@@ -184,7 +183,6 @@ class GrammarCorrectionFragmentDataView {
   internal::GrammarCorrectionFragment_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class GrammarCheckerCandidateDataView {
@@ -226,7 +224,6 @@ class GrammarCheckerCandidateDataView {
 };
 
 
-
 class GrammarCheckerResultDataView {
  public:
   GrammarCheckerResultDataView() = default;
@@ -261,7 +258,6 @@ class GrammarCheckerResultDataView {
   internal::GrammarCheckerResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom
