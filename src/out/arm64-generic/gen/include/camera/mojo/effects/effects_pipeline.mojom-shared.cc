@@ -109,6 +109,32 @@ std::ostream& operator<<(std::ostream& os, BlurLevel value) {
   return os << BlurLevelToString(value);
 }
 
+static NOINLINE const char* SegmentationModelToStringHelper(SegmentationModel value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case SegmentationModel::kAuto:
+      return "kAuto";
+    case SegmentationModel::kHighResolution:
+      return "kHighResolution";
+    case SegmentationModel::kLowerResolution:
+      return "kLowerResolution";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SegmentationModelToString(SegmentationModel value) {
+  const char *str = SegmentationModelToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown SegmentationModel value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, SegmentationModel value) {
+  return os << SegmentationModelToString(value);
+}
+
 namespace internal {
 
 
@@ -121,6 +147,7 @@ bool EffectsConfig_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 24 },
     { 1, 24 },
+    { 2, 32 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -146,12 +173,19 @@ bool EffectsConfig_Data::Validate(
   if (!::cros::mojom::internal::GpuApi_Data
         ::Validate(object->segmentation_gpu_api, validation_context))
     return false;
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::cros::mojom::internal::SegmentationModel_Data
+        ::Validate(object->segmentation_model, validation_context))
+    return false;
 
   return true;
 }
 
 EffectsConfig_Data::EffectsConfig_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 2}) {}
 
 }  // namespace internal
 }  // namespace mojom
@@ -183,6 +217,16 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::cros::mojom::BlurLevel>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::cros::mojom::BlurLevel value) {
   return std::move(context).WriteString(::cros::mojom::BlurLevelToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::cros::mojom::SegmentationModel>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::cros::mojom::SegmentationModel value) {
+  return std::move(context).WriteString(::cros::mojom::SegmentationModelToString(value));
 }
 
 } // namespace perfetto

@@ -49,9 +49,10 @@ EffectsConfig::EffectsConfig()
       blur_level(BlurLevel::kMedium),
       segmentation_gpu_api(GpuApi::kOpenGL),
       graph_max_frames_in_flight(2U),
-      blur_enabled(false),
-      replace_enabled(false),
-      relight_enabled(false) {}
+      blur_enabled(),
+      replace_enabled(),
+      relight_enabled(),
+      segmentation_model() {}
 
 EffectsConfig::EffectsConfig(
     CameraEffect effect_in,
@@ -62,9 +63,10 @@ EffectsConfig::EffectsConfig(
       blur_level(std::move(blur_level_in)),
       segmentation_gpu_api(std::move(segmentation_gpu_api_in)),
       graph_max_frames_in_flight(std::move(graph_max_frames_in_flight_in)),
-      blur_enabled(false),
-      replace_enabled(false),
-      relight_enabled(false) {}
+      blur_enabled(),
+      replace_enabled(),
+      relight_enabled(),
+      segmentation_model() {}
 
 EffectsConfig::EffectsConfig(
     CameraEffect effect_in,
@@ -80,7 +82,26 @@ EffectsConfig::EffectsConfig(
       graph_max_frames_in_flight(std::move(graph_max_frames_in_flight_in)),
       blur_enabled(std::move(blur_enabled_in)),
       replace_enabled(std::move(replace_enabled_in)),
-      relight_enabled(std::move(relight_enabled_in)) {}
+      relight_enabled(std::move(relight_enabled_in)),
+      segmentation_model() {}
+
+EffectsConfig::EffectsConfig(
+    CameraEffect effect_in,
+    BlurLevel blur_level_in,
+    GpuApi segmentation_gpu_api_in,
+    uint16_t graph_max_frames_in_flight_in,
+    bool blur_enabled_in,
+    bool replace_enabled_in,
+    bool relight_enabled_in,
+    SegmentationModel segmentation_model_in)
+    : effect(std::move(effect_in)),
+      blur_level(std::move(blur_level_in)),
+      segmentation_gpu_api(std::move(segmentation_gpu_api_in)),
+      graph_max_frames_in_flight(std::move(graph_max_frames_in_flight_in)),
+      blur_enabled(std::move(blur_enabled_in)),
+      replace_enabled(std::move(replace_enabled_in)),
+      relight_enabled(std::move(relight_enabled_in)),
+      segmentation_model(std::move(segmentation_model_in)) {}
 
 EffectsConfig::~EffectsConfig() = default;
 size_t EffectsConfig::Hash(size_t seed) const {
@@ -91,6 +112,7 @@ size_t EffectsConfig::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->blur_enabled);
   seed = mojo::internal::Hash(seed, this->replace_enabled);
   seed = mojo::internal::Hash(seed, this->relight_enabled);
+  seed = mojo::internal::Hash(seed, this->segmentation_model);
   return seed;
 }
 
@@ -160,6 +182,15 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "segmentation_model"), this->segmentation_model,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SegmentationModel>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool EffectsConfig::Validate(
@@ -197,6 +228,8 @@ bool StructTraits<::cros::mojom::EffectsConfig::DataView, ::cros::mojom::Effects
         result->replace_enabled = input.replace_enabled();
       if (success)
         result->relight_enabled = input.relight_enabled();
+      if (success && !input.ReadSegmentationModel(&result->segmentation_model))
+        success = false;
   *output = std::move(result);
   return success;
 }

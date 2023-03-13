@@ -31,6 +31,8 @@ enum class CameraEffect : int32_t;
 enum class GpuApi : int32_t;
 
 enum class BlurLevel : int32_t;
+
+enum class SegmentationModel : int32_t;
 class EffectsConfig;
 using EffectsConfigPtr = mojo::StructPtr<EffectsConfig>;
 
