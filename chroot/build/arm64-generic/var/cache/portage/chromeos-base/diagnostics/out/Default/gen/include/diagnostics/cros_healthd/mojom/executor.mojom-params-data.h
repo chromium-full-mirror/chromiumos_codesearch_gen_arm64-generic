@@ -273,6 +273,38 @@ class  StylusGarageObserver_OnRemove_Params_Data {
 };
 static_assert(sizeof(StylusGarageObserver_OnRemove_Params_Data) == 8,
               "Bad sizeof(StylusGarageObserver_OnRemove_Params_Data)");
+class  StylusObserver_OnTouch_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::StylusTouchEvent_Data> touch_event;
+
+ private:
+  friend class mojo::internal::MessageFragment<StylusObserver_OnTouch_Params_Data>;
+
+  StylusObserver_OnTouch_Params_Data();
+  ~StylusObserver_OnTouch_Params_Data() = delete;
+};
+static_assert(sizeof(StylusObserver_OnTouch_Params_Data) == 16,
+              "Bad sizeof(StylusObserver_OnTouch_Params_Data)");
+class  StylusObserver_OnConnected_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::StylusConnectedEvent_Data> connected_event;
+
+ private:
+  friend class mojo::internal::MessageFragment<StylusObserver_OnConnected_Params_Data>;
+
+  StylusObserver_OnConnected_Params_Data();
+  ~StylusObserver_OnConnected_Params_Data() = delete;
+};
+static_assert(sizeof(StylusObserver_OnConnected_Params_Data) == 16,
+              "Bad sizeof(StylusObserver_OnConnected_Params_Data)");
 class  Executor_ReadFile_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -798,6 +830,24 @@ class  Executor_MonitorStylusGarage_Params_Data {
 };
 static_assert(sizeof(Executor_MonitorStylusGarage_Params_Data) == 24,
               "Bad sizeof(Executor_MonitorStylusGarage_Params_Data)");
+class  Executor_MonitorStylus_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+  mojo::internal::Handle_Data process_control;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_MonitorStylus_Params_Data>;
+
+  Executor_MonitorStylus_Params_Data();
+  ~Executor_MonitorStylus_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_MonitorStylus_Params_Data) == 24,
+              "Bad sizeof(Executor_MonitorStylus_Params_Data)");
 
 }  // namespace internal
 
@@ -1115,6 +1165,58 @@ class StylusGarageObserver_OnRemove_ParamsDataView {
   bool is_null() const { return !data_; }
  private:
   internal::StylusGarageObserver_OnRemove_Params_Data* data_ = nullptr;
+};
+
+
+class StylusObserver_OnTouch_ParamsDataView {
+ public:
+  StylusObserver_OnTouch_ParamsDataView() = default;
+
+  StylusObserver_OnTouch_ParamsDataView(
+      internal::StylusObserver_OnTouch_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTouchEventDataView(
+      ::ash::cros_healthd::mojom::StylusTouchEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchEvent(UserType* output) {
+    
+    auto* pointer = data_->touch_event.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusTouchEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StylusObserver_OnTouch_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StylusObserver_OnConnected_ParamsDataView {
+ public:
+  StylusObserver_OnConnected_ParamsDataView() = default;
+
+  StylusObserver_OnConnected_ParamsDataView(
+      internal::StylusObserver_OnConnected_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConnectedEventDataView(
+      ::ash::cros_healthd::mojom::StylusConnectedEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConnectedEvent(UserType* output) {
+    
+    auto* pointer = data_->connected_event.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusConnectedEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StylusObserver_OnConnected_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -2001,6 +2103,40 @@ class Executor_MonitorStylusGarage_ParamsDataView {
 };
 
 
+class Executor_MonitorStylus_ParamsDataView {
+ public:
+  Executor_MonitorStylus_ParamsDataView() = default;
+
+  Executor_MonitorStylus_ParamsDataView(
+      internal::Executor_MonitorStylus_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::StylusObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeProcessControl() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->process_control, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_MonitorStylus_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -2055,6 +2191,20 @@ inline void TouchscreenObserver_OnConnected_ParamsDataView::GetConnectedEventDat
 
 
 
+
+
+inline void StylusObserver_OnTouch_ParamsDataView::GetTouchEventDataView(
+    ::ash::cros_healthd::mojom::StylusTouchEventDataView* output) {
+  auto pointer = data_->touch_event.Get();
+  *output = ::ash::cros_healthd::mojom::StylusTouchEventDataView(pointer, message_);
+}
+
+
+inline void StylusObserver_OnConnected_ParamsDataView::GetConnectedEventDataView(
+    ::ash::cros_healthd::mojom::StylusConnectedEventDataView* output) {
+  auto pointer = data_->connected_event.Get();
+  *output = ::ash::cros_healthd::mojom::StylusConnectedEventDataView(pointer, message_);
+}
 
 
 
@@ -2200,6 +2350,8 @@ inline void Executor_FetchBootPerformance_ResponseParamsDataView::GetResultDataV
   auto pointer = &data_->result;
   *output = ::ash::cros_healthd::mojom::BootPerformanceResultDataView(pointer, message_);
 }
+
+
 
 
 

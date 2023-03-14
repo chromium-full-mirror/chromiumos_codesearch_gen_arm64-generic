@@ -315,24 +315,6 @@ class LIBIPP_EXPORT Collection {
   iterator GetAttr(std::string_view name);
   const_iterator GetAttr(std::string_view name) const;
 
-  // DEPRECATED. Use iterators instead, e.g:
-  //    for (Attribute& attr: collection) { ... }
-  //    for (const Attribute& attr: collection) { ... }
-  //
-  // Returns all attributes in the collection.
-  // Returned vector = GetKnownAttributes() + unknown attributes.
-  // Unknown attributes are in the order they were added to the collection.
-  // There are no nullptrs in the returned vector.
-  std::vector<Attribute*> GetAllAttributes();
-  std::vector<const Attribute*> GetAllAttributes() const;
-
-  // DEPRECATED. Use methods GetAttr() instead.
-  //
-  // Methods return attribute by name. Methods return nullptr <=> the collection
-  // has no attribute with this name.
-  Attribute* GetAttribute(const std::string& name);
-  const Attribute* GetAttribute(const std::string& name) const;
-
   // Add a new attribute without values. `tag` must be Out-Of-Band (see ValueTag
   // definition). Possible errors:
   //  * kInvalidName
@@ -403,18 +385,6 @@ class LIBIPP_EXPORT Collection {
   Code AddAttr(const std::string& name,
                const std::vector<RangeOfInteger>& values);
 
-  // Add a new attribute with one or more collections. Pointers to created
-  // collections are returned in the last parameter. The size of the vector
-  // `values` determines the number of collections in the attribute.
-  // DEPRECATED, use the next two methods instead (with CollsView).
-  // Possible errors:
-  //  * kInvalidName
-  //  * kNameConflict
-  //  * kValueOutOfRange   (the vector is empty)
-  //  * kTooManyAttributes.
-  Code AddAttr(const std::string& name, Collection*& value);
-  Code AddAttr(const std::string& name, std::vector<Collection*>& values);
-
   // Add a new attribute with one or more collections. The first method creates
   // an attribute with a single collection and returns an iterator to it in the
   // last parameter. The second method creates an attribute with `size`
@@ -444,11 +414,6 @@ class LIBIPP_EXPORT Collection {
   Code AddAttributeToCollection(const std::string& name,
                                 ValueTag tag,
                                 const std::vector<ApiType>& values);
-
-  // Methods return attribute by name. Methods return nullptr <=> the collection
-  // has no attribute with this name.
-  Attribute* GetAttribute(AttrName);
-  const Attribute* GetAttribute(AttrName) const;
 
   // Stores attributes in the order they are saved in the frame.
   std::vector<std::unique_ptr<Attribute>> attributes_;
@@ -481,33 +446,17 @@ class LIBIPP_EXPORT Attribute {
   // When (IsOutOfBand(Tag()) or `new_size` equals 0 this method does nothing.
   void Resize(size_t new_size);
 
-  // DEPRECATED. Use GetValues() instead.
-  // Retrieves a value from an attribute, returns true for success and
-  // false if the index is out of range or the value cannot be converted
-  // to given variable (in this case, the given variable is not modified).
-  // For attributes with collections use GetCollection().
-  // (val == nullptr) => does nothing and returns false.
-  // (Tag() == collection) => does nothing and returns false.
-  bool GetValue(std::string* val, size_t index = 0) const;
-  bool GetValue(StringWithLanguage* val, size_t index = 0) const;
-  bool GetValue(int* val, size_t index = 0) const;
-  bool GetValue(Resolution* val, size_t index = 0) const;
-  bool GetValue(RangeOfInteger* val, size_t index = 0) const;
-  bool GetValue(DateTime* val, size_t index = 0) const;
-
-  // DEPRECATED. Use SetValues() instead.
-  // Stores a value in given attribute's element. If given index is out of
-  // range, the underlying container is resized.
-  // Returns true for success and false if given value cannot be converted
-  // to internal variable or one of the following conditions are met:
-  // * Tag() == collection
-  // * IsOutOfBand(Tag())
-  bool SetValue(const std::string& val, size_t index = 0);
-  bool SetValue(const StringWithLanguage& val, size_t index = 0);
-  bool SetValue(const int& val, size_t index = 0);
-  bool SetValue(const Resolution& val, size_t index = 0);
-  bool SetValue(const RangeOfInteger& val, size_t index = 0);
-  bool SetValue(const DateTime& val, size_t index = 0);
+  // Retrieves a single value from the attribute and saves it in `value`.
+  // Possible errors:
+  //  * kIncompatibleType
+  //  * kIndexOutOfRange
+  Code GetValue(size_t index, bool& value) const;
+  Code GetValue(size_t index, int32_t& value) const;
+  Code GetValue(size_t index, std::string& value) const;
+  Code GetValue(size_t index, StringWithLanguage& value) const;
+  Code GetValue(size_t index, DateTime& value) const;
+  Code GetValue(size_t index, Resolution& value) const;
+  Code GetValue(size_t index, RangeOfInteger& value) const;
 
   // Retrieves values from the attribute. They are copied to the given vector.
   // Possible errors:
@@ -552,12 +501,6 @@ class LIBIPP_EXPORT Attribute {
   // (Tag() != collection) <=> attr.Colls().empty()
   CollsView Colls();
   ConstCollsView Colls() const;
-
-  // DEPRECATED. Use Colls()[index] instead.
-  // Returns a pointer to Collection.
-  // (Tag() != collection || index >= Size()) <=> returns nullptr.
-  Collection* GetCollection(size_t index = 0);
-  const Collection* GetCollection(size_t index = 0) const;
 
  private:
   friend class Collection;

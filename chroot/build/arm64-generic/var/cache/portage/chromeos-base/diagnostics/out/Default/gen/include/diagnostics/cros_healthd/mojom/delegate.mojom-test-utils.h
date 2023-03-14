@@ -26,6 +26,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void FetchBootPerformance(FetchBootPerformanceCallback callback) override;
   void MonitorTouchscreen(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> observer) override;
   void MonitorStylusGarage(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver> observer) override;
+  void MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) override;
 };
 class  DelegateAsyncWaiter {
  public:

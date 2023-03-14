@@ -189,6 +189,16 @@ using StylusGarageObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<StylusGarageObserverInterfaceBase>;
 using StylusGarageObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<StylusGarageObserverInterfaceBase>;
+class StylusObserverInterfaceBase {};
+
+using StylusObserverPtrDataView =
+    mojo::InterfacePtrDataView<StylusObserverInterfaceBase>;
+using StylusObserverRequestDataView =
+    mojo::InterfaceRequestDataView<StylusObserverInterfaceBase>;
+using StylusObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<StylusObserverInterfaceBase>;
+using StylusObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<StylusObserverInterfaceBase>;
 class ExecutorInterfaceBase {};
 
 using ExecutorPtrDataView =

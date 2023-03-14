@@ -332,6 +332,58 @@ class StylusGarageObserver
   virtual void OnRemove() = 0;
 };
 
+class StylusObserverProxy;
+
+template <typename ImplRefTraits>
+class StylusObserverStub;
+
+class StylusObserverRequestValidator;
+
+
+class StylusObserver
+    : public StylusObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = StylusObserverInterfaceBase;
+  using Proxy_ = StylusObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = StylusObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = StylusObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnTouchMinVersion = 0,
+    kOnConnectedMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnTouch_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnConnected_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~StylusObserver() = default;
+
+  
+  virtual void OnTouch(::ash::cros_healthd::mojom::StylusTouchEventPtr touch_event) = 0;
+
+  
+  virtual void OnConnected(::ash::cros_healthd::mojom::StylusConnectedEventPtr connected_event) = 0;
+};
+
 class ExecutorProxy;
 
 template <typename ImplRefTraits>
@@ -381,6 +433,7 @@ class Executor
     kFetchBootPerformanceMinVersion = 0,
     kMonitorTouchscreenMinVersion = 0,
     kMonitorStylusGarageMinVersion = 0,
+    kMonitorStylusMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -441,6 +494,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MonitorStylusGarage_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct MonitorStylus_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -532,6 +588,9 @@ class Executor
 
   
   virtual void MonitorStylusGarage(::mojo::PendingRemote<StylusGarageObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
+
+  
+  virtual void MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
 };
 
 
@@ -627,6 +686,23 @@ class  StylusGarageObserverProxy
 
 
 
+class  StylusObserverProxy
+    : public StylusObserver {
+ public:
+  using InterfaceType = StylusObserver;
+
+  explicit StylusObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnTouch(::ash::cros_healthd::mojom::StylusTouchEventPtr touch_event) final;
+  
+  void OnConnected(::ash::cros_healthd::mojom::StylusConnectedEventPtr connected_event) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  ExecutorProxy
     : public Executor {
  public:
@@ -671,6 +747,8 @@ class  ExecutorProxy
   void MonitorTouchscreen(::mojo::PendingRemote<TouchscreenObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
   
   void MonitorStylusGarage(::mojo::PendingRemote<StylusGarageObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
+  
+  void MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -880,6 +958,47 @@ class StylusGarageObserverStub
  private:
   ImplPointerType sink_;
 };
+class  StylusObserverStubDispatch {
+ public:
+  static bool Accept(StylusObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      StylusObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<StylusObserver>>
+class StylusObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  StylusObserverStub() = default;
+  ~StylusObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return StylusObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return StylusObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  ExecutorStubDispatch {
  public:
   static bool Accept(Executor* impl, mojo::Message* message);
@@ -938,6 +1057,10 @@ class  TouchscreenObserverRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  StylusGarageObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  StylusObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

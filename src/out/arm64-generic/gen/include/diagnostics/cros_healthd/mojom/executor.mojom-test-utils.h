@@ -122,6 +122,25 @@ class  StylusGarageObserverAsyncWaiter {
 };
 
 
+class  StylusObserverInterceptorForTesting : public StylusObserver {
+  virtual StylusObserver* GetForwardingInterface() = 0;
+  void OnTouch(::ash::cros_healthd::mojom::StylusTouchEventPtr touch_event) override;
+  void OnConnected(::ash::cros_healthd::mojom::StylusConnectedEventPtr connected_event) override;
+};
+class  StylusObserverAsyncWaiter {
+ public:
+  explicit StylusObserverAsyncWaiter(StylusObserver* proxy);
+
+  StylusObserverAsyncWaiter(const StylusObserverAsyncWaiter&) = delete;
+  StylusObserverAsyncWaiter& operator=(const StylusObserverAsyncWaiter&) = delete;
+
+  ~StylusObserverAsyncWaiter();
+
+ private:
+  StylusObserver* const proxy_;
+};
+
+
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) override;
@@ -143,6 +162,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void FetchBootPerformance(FetchBootPerformanceCallback callback) override;
   void MonitorTouchscreen(::mojo::PendingRemote<TouchscreenObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void MonitorStylusGarage(::mojo::PendingRemote<StylusGarageObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
+  void MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
 };
 class  ExecutorAsyncWaiter {
  public:

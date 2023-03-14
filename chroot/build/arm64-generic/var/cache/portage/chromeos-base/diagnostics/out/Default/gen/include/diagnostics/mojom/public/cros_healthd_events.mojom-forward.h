@@ -56,8 +56,15 @@ class TouchscreenConnectedEventDataView;
 
 class StylusGarageEventInfoDataView;
 
+class StylusTouchPointInfoDataView;
+
+class StylusTouchEventDataView;
+
+class StylusConnectedEventDataView;
+
 class TouchpadEventInfoDataView;
 class TouchscreenEventInfoDataView;
+class StylusEventInfoDataView;
 class EventInfoDataView;
 
 enum class InputTouchButton : int32_t;
@@ -131,6 +138,15 @@ using TouchscreenConnectedEventPtr = mojo::InlinedStructPtr<TouchscreenConnected
 class StylusGarageEventInfo;
 using StylusGarageEventInfoPtr = mojo::InlinedStructPtr<StylusGarageEventInfo>;
 
+class StylusTouchPointInfo;
+using StylusTouchPointInfoPtr = mojo::StructPtr<StylusTouchPointInfo>;
+
+class StylusTouchEvent;
+using StylusTouchEventPtr = mojo::StructPtr<StylusTouchEvent>;
+
+class StylusConnectedEvent;
+using StylusConnectedEventPtr = mojo::InlinedStructPtr<StylusConnectedEvent>;
+
 class TouchpadEventInfo;
 
 using TouchpadEventInfoPtr = mojo::StructPtr<TouchpadEventInfo>;
@@ -138,6 +154,10 @@ using TouchpadEventInfoPtr = mojo::StructPtr<TouchpadEventInfo>;
 class TouchscreenEventInfo;
 
 using TouchscreenEventInfoPtr = mojo::StructPtr<TouchscreenEventInfo>;
+
+class StylusEventInfo;
+
+using StylusEventInfoPtr = mojo::StructPtr<StylusEventInfo>;
 
 class EventInfo;
 

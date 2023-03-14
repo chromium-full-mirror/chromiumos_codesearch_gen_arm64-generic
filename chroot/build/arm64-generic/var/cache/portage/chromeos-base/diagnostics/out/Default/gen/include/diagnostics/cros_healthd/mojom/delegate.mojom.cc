@@ -77,6 +77,9 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_MonitorStylusGarage_Name: {
       return &Delegate::MonitorStylusGarage_Sym::IPCStableHash;
     }
+    case internal::kDelegate_MonitorStylus_Name: {
+      return &Delegate::MonitorStylus_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -106,6 +109,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorTouchscreen";
       case internal::kDelegate_MonitorStylusGarage_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorStylusGarage";
+      case internal::kDelegate_MonitorStylus_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::MonitorStylus";
     }
   } else {
     switch (message.name()) {
@@ -127,6 +132,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorTouchscreen";
       case internal::kDelegate_MonitorStylusGarage_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorStylusGarage";
+      case internal::kDelegate_MonitorStylus_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorStylus";
     }
   }
   return "Receive unknown mojo message";
@@ -254,6 +261,19 @@ uint32_t Delegate::MonitorStylusGarage_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Delegate::MonitorStylusGarage");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::MonitorStylus_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::MonitorStylus");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -697,6 +717,49 @@ void DelegateProxy::MonitorStylusGarage(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Delegate::Name_);
   message.set_method_name("MonitorStylusGarage");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DelegateProxy::MonitorStylus(
+    ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> in_observer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::MonitorStylus", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_MonitorStylus_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_MonitorStylus_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::StylusObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in Delegate.MonitorStylus request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("MonitorStylus");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1473,6 +1536,34 @@ std::move(p_observer));
 std::move(p_observer));
       return true;
     }
+    case internal::kDelegate_MonitorStylus_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Delegate_MonitorStylus_Params_Data* params =
+          reinterpret_cast<internal::Delegate_MonitorStylus_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver>>();
+      Delegate_MonitorStylus_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 9, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->MonitorStylus(
+std::move(p_observer));
+      return true;
+    }
   }
   return false;
 }
@@ -1639,6 +1730,9 @@ std::move(p_name), std::move(callback));
     case internal::kDelegate_MonitorStylusGarage_Name: {
       break;
     }
+    case internal::kDelegate_MonitorStylus_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1662,6 +1756,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
     {&internal::Delegate_MonitorTouchscreen_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::Delegate_MonitorStylusGarage_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::Delegate_MonitorStylus_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1721,6 +1817,9 @@ void DelegateInterceptorForTesting::MonitorTouchscreen(::mojo::PendingRemote<::a
 }
 void DelegateInterceptorForTesting::MonitorStylusGarage(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver> observer) {
   GetForwardingInterface()->MonitorStylusGarage(std::move(observer));
+}
+void DelegateInterceptorForTesting::MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) {
+  GetForwardingInterface()->MonitorStylus(std::move(observer));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}

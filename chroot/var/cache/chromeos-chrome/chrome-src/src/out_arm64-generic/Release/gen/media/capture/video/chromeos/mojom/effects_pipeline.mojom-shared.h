@@ -160,6 +160,31 @@ inline BlurLevel ToKnownEnumValue(BlurLevel value) {
 }
 
 
+enum class SegmentationModel : int32_t {
+  
+  kAuto = 0,
+  
+  kHighResolution = 1,
+  
+  kLowerResolution = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 1
+};
+
+ std::ostream& operator<<(std::ostream& os, SegmentationModel value);
+inline bool IsKnownEnumValue(SegmentationModel value) {
+  return internal::SegmentationModel_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline SegmentationModel ToKnownEnumValue(SegmentationModel value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return SegmentationModel::kDefaultValue;
+}
+
+
 class EffectsConfigDataView {
  public:
   EffectsConfigDataView() = default;
@@ -218,6 +243,19 @@ class EffectsConfigDataView {
       return bool{};
     return data_->relight_enabled;
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSegmentationModel(UserType* output) const {
+    auto data_value = data_->header_.version >= 2
+                      ? data_->segmentation_model : 0;
+    return mojo::internal::Deserialize<::cros::mojom::SegmentationModel>(
+        data_value, output);
+  }
+  SegmentationModel segmentation_model() const {
+    if (data_->header_.version < 2)
+      return SegmentationModel{};
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::SegmentationModel>(data_->segmentation_model));
+  }
  private:
   internal::EffectsConfig_Data* data_ = nullptr;
 };
@@ -243,6 +281,10 @@ struct hash<::cros::mojom::SetEffectResult>
 template <>
 struct hash<::cros::mojom::BlurLevel>
     : public mojo::internal::EnumHashImpl<::cros::mojom::BlurLevel> {};
+
+template <>
+struct hash<::cros::mojom::SegmentationModel>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::SegmentationModel> {};
 
 }  // namespace std
 
@@ -332,6 +374,26 @@ struct Serializer<::cros::mojom::BlurLevel, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::SegmentationModel, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::SegmentationModel, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::SegmentationModel>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::cros::mojom::EffectsConfigDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::cros::mojom::EffectsConfigDataView, UserType>;
@@ -352,6 +414,8 @@ struct Serializer<::cros::mojom::EffectsConfigDataView, MaybeConstUserType> {
     fragment->blur_enabled = Traits::blur_enabled(input);
     fragment->replace_enabled = Traits::replace_enabled(input);
     fragment->relight_enabled = Traits::relight_enabled(input);
+    mojo::internal::Serialize<::cros::mojom::SegmentationModel>(
+        Traits::segmentation_model(input), &fragment->segmentation_model);
   }
 
   static bool Deserialize(::cros::mojom::internal::EffectsConfig_Data* input,
@@ -414,6 +478,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::cros::mojom::BlurLevel> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::BlurLevel value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::SegmentationModel> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::SegmentationModel value);
 };
 
 } // namespace perfetto

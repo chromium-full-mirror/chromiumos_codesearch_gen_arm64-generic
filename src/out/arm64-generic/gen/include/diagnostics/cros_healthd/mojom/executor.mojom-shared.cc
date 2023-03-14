@@ -629,6 +629,66 @@ StylusGarageObserver_OnRemove_Params_Data::StylusGarageObserver_OnRemove_Params_
 
 
 // static
+bool StylusObserver_OnTouch_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StylusObserver_OnTouch_Params_Data* object =
+      static_cast<const StylusObserver_OnTouch_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->touch_event, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->touch_event, validation_context))
+    return false;
+
+  return true;
+}
+
+StylusObserver_OnTouch_Params_Data::StylusObserver_OnTouch_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StylusObserver_OnConnected_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StylusObserver_OnConnected_Params_Data* object =
+      static_cast<const StylusObserver_OnConnected_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->connected_event, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->connected_event, validation_context))
+    return false;
+
+  return true;
+}
+
+StylusObserver_OnConnected_Params_Data::StylusObserver_OnConnected_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Executor_ReadFile_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1599,6 +1659,47 @@ bool Executor_MonitorStylusGarage_Params_Data::Validate(
 }
 
 Executor_MonitorStylusGarage_Params_Data::Executor_MonitorStylusGarage_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_MonitorStylus_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_MonitorStylus_Params_Data* object =
+      static_cast<const Executor_MonitorStylus_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->process_control, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->process_control,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_MonitorStylus_Params_Data::Executor_MonitorStylus_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

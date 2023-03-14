@@ -2711,7 +2711,7 @@ class IsUvpaaResponse final :
 
   enum : int {
     kAvailableFieldNumber = 1,
-    kNotReadyFieldNumber = 2,
+    kNotAvailableFieldNumber = 2,
   };
   // bool available = 1 [deprecated = true];
   PROTOBUF_DEPRECATED void clear_available();
@@ -2722,13 +2722,13 @@ class IsUvpaaResponse final :
   void _internal_set_available(bool value);
   public:
 
-  // bool not_ready = 2;
-  void clear_not_ready();
-  bool not_ready() const;
-  void set_not_ready(bool value);
+  // bool not_available = 2;
+  void clear_not_available();
+  bool not_available() const;
+  void set_not_available(bool value);
   private:
-  bool _internal_not_ready() const;
-  void _internal_set_not_ready(bool value);
+  bool _internal_not_available() const;
+  void _internal_set_not_available(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:u2f.IsUvpaaResponse)
@@ -2739,7 +2739,7 @@ class IsUvpaaResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   bool available_;
-  bool not_ready_;
+  bool not_available_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_u2f_5finterface_2eproto;
 };
@@ -5824,24 +5824,24 @@ inline void IsUvpaaResponse::set_available(bool value) {
   // @@protoc_insertion_point(field_set:u2f.IsUvpaaResponse.available)
 }
 
-// bool not_ready = 2;
-inline void IsUvpaaResponse::clear_not_ready() {
-  not_ready_ = false;
+// bool not_available = 2;
+inline void IsUvpaaResponse::clear_not_available() {
+  not_available_ = false;
 }
-inline bool IsUvpaaResponse::_internal_not_ready() const {
-  return not_ready_;
+inline bool IsUvpaaResponse::_internal_not_available() const {
+  return not_available_;
 }
-inline bool IsUvpaaResponse::not_ready() const {
-  // @@protoc_insertion_point(field_get:u2f.IsUvpaaResponse.not_ready)
-  return _internal_not_ready();
+inline bool IsUvpaaResponse::not_available() const {
+  // @@protoc_insertion_point(field_get:u2f.IsUvpaaResponse.not_available)
+  return _internal_not_available();
 }
-inline void IsUvpaaResponse::_internal_set_not_ready(bool value) {
+inline void IsUvpaaResponse::_internal_set_not_available(bool value) {
   
-  not_ready_ = value;
+  not_available_ = value;
 }
-inline void IsUvpaaResponse::set_not_ready(bool value) {
-  _internal_set_not_ready(value);
-  // @@protoc_insertion_point(field_set:u2f.IsUvpaaResponse.not_ready)
+inline void IsUvpaaResponse::set_not_available(bool value) {
+  _internal_set_not_available(value);
+  // @@protoc_insertion_point(field_set:u2f.IsUvpaaResponse.not_available)
 }
 
 // -------------------------------------------------------------------

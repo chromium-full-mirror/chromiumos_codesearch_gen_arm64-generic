@@ -126,6 +126,31 @@ struct BlurLevel_Data {
   }
 };
 
+struct SegmentationModel_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 class  EffectsConfig_Data {
  public:
@@ -140,7 +165,9 @@ class  EffectsConfig_Data {
   uint8_t blur_enabled : 1;
   uint8_t replace_enabled : 1;
   uint8_t relight_enabled : 1;
-  uint8_t padfinal_[1];
+  uint8_t pad6_[1];
+  int32_t segmentation_model;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<EffectsConfig_Data>;
@@ -148,7 +175,7 @@ class  EffectsConfig_Data {
   EffectsConfig_Data();
   ~EffectsConfig_Data() = delete;
 };
-static_assert(sizeof(EffectsConfig_Data) == 24,
+static_assert(sizeof(EffectsConfig_Data) == 32,
               "Bad sizeof(EffectsConfig_Data)");
 // Used by EffectsConfig::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -476,7 +476,9 @@ PROTOBUF_CONSTEXPR CreateDiskImageRequest::CreateDiskImageRequest(
   , source_size_(uint64_t{0u})
   , filesystem_type_(0)
 
-  , storage_ballooning_(false){}
+  , storage_ballooning_(false)
+  , allocation_type_(0)
+{}
 struct CreateDiskImageRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CreateDiskImageRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2135,6 +2137,61 @@ bool DiskImageStatus_Parse(
       DiskImageStatus_entries, 9, name, &int_value);
   if (success) {
     *value = static_cast<DiskImageStatus>(int_value);
+  }
+  return success;
+}
+bool DiskImageAllocationType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DiskImageAllocationType_strings[3] = {};
+
+static const char DiskImageAllocationType_names[] =
+  "DISK_ALLOCATION_TYPE_AUTO"
+  "DISK_ALLOCATION_TYPE_PREALLOCATE"
+  "DISK_ALLOCATION_TYPE_SPARSE";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DiskImageAllocationType_entries[] = {
+  { {DiskImageAllocationType_names + 0, 25}, 0 },
+  { {DiskImageAllocationType_names + 25, 32}, 2 },
+  { {DiskImageAllocationType_names + 57, 27}, 1 },
+};
+
+static const int DiskImageAllocationType_entries_by_number[] = {
+  0, // 0 -> DISK_ALLOCATION_TYPE_AUTO
+  2, // 1 -> DISK_ALLOCATION_TYPE_SPARSE
+  1, // 2 -> DISK_ALLOCATION_TYPE_PREALLOCATE
+};
+
+const std::string& DiskImageAllocationType_Name(
+    DiskImageAllocationType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DiskImageAllocationType_entries,
+          DiskImageAllocationType_entries_by_number,
+          3, DiskImageAllocationType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DiskImageAllocationType_entries,
+      DiskImageAllocationType_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DiskImageAllocationType_strings[idx].get();
+}
+bool DiskImageAllocationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DiskImageAllocationType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DiskImageAllocationType_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<DiskImageAllocationType>(int_value);
   }
   return success;
 }
@@ -10924,8 +10981,8 @@ CreateDiskImageRequest::CreateDiskImageRequest(const CreateDiskImageRequest& fro
       GetArenaForAllocation());
   }
   ::memcpy(&disk_size_, &from.disk_size_,
-    static_cast<size_t>(reinterpret_cast<char*>(&storage_ballooning_) -
-    reinterpret_cast<char*>(&disk_size_)) + sizeof(storage_ballooning_));
+    static_cast<size_t>(reinterpret_cast<char*>(&allocation_type_) -
+    reinterpret_cast<char*>(&disk_size_)) + sizeof(allocation_type_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.CreateDiskImageRequest)
 }
 
@@ -10940,8 +10997,8 @@ vm_name_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&disk_size_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&storage_ballooning_) -
-    reinterpret_cast<char*>(&disk_size_)) + sizeof(storage_ballooning_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&allocation_type_) -
+    reinterpret_cast<char*>(&disk_size_)) + sizeof(allocation_type_));
 }
 
 CreateDiskImageRequest::~CreateDiskImageRequest() {
@@ -10975,8 +11032,8 @@ void CreateDiskImageRequest::Clear() {
   cryptohome_id_.ClearToEmpty();
   vm_name_.ClearToEmpty();
   ::memset(&disk_size_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&storage_ballooning_) -
-      reinterpret_cast<char*>(&disk_size_)) + sizeof(storage_ballooning_));
+      reinterpret_cast<char*>(&allocation_type_) -
+      reinterpret_cast<char*>(&disk_size_)) + sizeof(allocation_type_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -11102,6 +11159,15 @@ const char* CreateDiskImageRequest::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
+      // .vm_tools.concierge.DiskImageAllocationType allocation_type = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_allocation_type(static_cast<::vm_tools::concierge::DiskImageAllocationType>(val));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -11220,6 +11286,13 @@ uint8_t* CreateDiskImageRequest::_InternalSerialize(
     target = stream->WriteString(11, s, target);
   }
 
+  // .vm_tools.concierge.DiskImageAllocationType allocation_type = 12;
+  if (this->_internal_allocation_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      12, this->_internal_allocation_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -11307,6 +11380,12 @@ size_t CreateDiskImageRequest::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // .vm_tools.concierge.DiskImageAllocationType allocation_type = 12;
+  if (this->_internal_allocation_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_allocation_type());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -11354,6 +11433,9 @@ void CreateDiskImageRequest::MergeFrom(const CreateDiskImageRequest& from) {
   if (from._internal_storage_ballooning() != 0) {
     _internal_set_storage_ballooning(from._internal_storage_ballooning());
   }
+  if (from._internal_allocation_type() != 0) {
+    _internal_set_allocation_type(from._internal_allocation_type());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -11385,8 +11467,8 @@ void CreateDiskImageRequest::InternalSwap(CreateDiskImageRequest* other) {
       &other->vm_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CreateDiskImageRequest, storage_ballooning_)
-      + sizeof(CreateDiskImageRequest::storage_ballooning_)
+      PROTOBUF_FIELD_OFFSET(CreateDiskImageRequest, allocation_type_)
+      + sizeof(CreateDiskImageRequest::allocation_type_)
       - PROTOBUF_FIELD_OFFSET(CreateDiskImageRequest, disk_size_)>(
           reinterpret_cast<char*>(&disk_size_),
           reinterpret_cast<char*>(&other->disk_size_));

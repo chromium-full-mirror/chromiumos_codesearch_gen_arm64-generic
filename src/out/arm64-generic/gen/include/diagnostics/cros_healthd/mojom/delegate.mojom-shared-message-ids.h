@@ -24,6 +24,7 @@ constexpr uint32_t kDelegate_MonitorTouchpad_Name = 5;
 constexpr uint32_t kDelegate_FetchBootPerformance_Name = 6;
 constexpr uint32_t kDelegate_MonitorTouchscreen_Name = 7;
 constexpr uint32_t kDelegate_MonitorStylusGarage_Name = 8;
+constexpr uint32_t kDelegate_MonitorStylus_Name = 9;
 
 }  // namespace internal
 }  // namespace mojom

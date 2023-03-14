@@ -86,6 +86,16 @@ class  EffectsConfig {
       bool replace_enabled,
       bool relight_enabled);
 
+  EffectsConfig(
+      CameraEffect effect,
+      BlurLevel blur_level,
+      GpuApi segmentation_gpu_api,
+      uint16_t graph_max_frames_in_flight,
+      bool blur_enabled,
+      bool replace_enabled,
+      bool relight_enabled,
+      SegmentationModel segmentation_model);
+
 
   ~EffectsConfig();
 
@@ -173,6 +183,8 @@ class  EffectsConfig {
   bool replace_enabled;
   
   bool relight_enabled;
+  
+  SegmentationModel segmentation_model;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -212,7 +224,8 @@ EffectsConfigPtr EffectsConfig::Clone() const {
       mojo::Clone(graph_max_frames_in_flight),
       mojo::Clone(blur_enabled),
       mojo::Clone(replace_enabled),
-      mojo::Clone(relight_enabled)
+      mojo::Clone(relight_enabled),
+      mojo::Clone(segmentation_model)
   );
 }
 
@@ -231,6 +244,8 @@ bool EffectsConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->replace_enabled, other_struct.replace_enabled))
     return false;
   if (!mojo::Equals(this->relight_enabled, other_struct.relight_enabled))
+    return false;
+  if (!mojo::Equals(this->segmentation_model, other_struct.segmentation_model))
     return false;
   return true;
 }
@@ -264,6 +279,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.relight_enabled < rhs.relight_enabled)
     return true;
   if (rhs.relight_enabled < lhs.relight_enabled)
+    return false;
+  if (lhs.segmentation_model < rhs.segmentation_model)
+    return true;
+  if (rhs.segmentation_model < lhs.segmentation_model)
     return false;
   return false;
 }
@@ -314,6 +333,11 @@ struct  StructTraits<::cros::mojom::EffectsConfig::DataView,
   static decltype(::cros::mojom::EffectsConfig::relight_enabled) relight_enabled(
       const ::cros::mojom::EffectsConfigPtr& input) {
     return input->relight_enabled;
+  }
+
+  static decltype(::cros::mojom::EffectsConfig::segmentation_model) segmentation_model(
+      const ::cros::mojom::EffectsConfigPtr& input) {
+    return input->segmentation_model;
   }
 
   static bool Read(::cros::mojom::EffectsConfig::DataView input, ::cros::mojom::EffectsConfigPtr* output);

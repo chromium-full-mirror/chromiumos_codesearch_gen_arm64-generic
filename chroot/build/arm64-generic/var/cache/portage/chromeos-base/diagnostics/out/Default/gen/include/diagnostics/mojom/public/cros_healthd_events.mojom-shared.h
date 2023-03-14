@@ -70,8 +70,15 @@ class TouchscreenConnectedEventDataView;
 
 class StylusGarageEventInfoDataView;
 
+class StylusTouchPointInfoDataView;
+
+class StylusTouchEventDataView;
+
+class StylusConnectedEventDataView;
+
 class TouchpadEventInfoDataView;
 class TouchscreenEventInfoDataView;
+class StylusEventInfoDataView;
 class EventInfoDataView;
 
 
@@ -195,6 +202,27 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::StylusGarageEventInfoDataView
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::StylusTouchPointInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::StylusTouchPointInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::StylusTouchEventDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::StylusTouchEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::StylusConnectedEventDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::StylusConnectedEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::TouchpadEventInfo_Data;
   using DataAsArrayElement = Data;
@@ -204,6 +232,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView> {
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchscreenEventInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::TouchscreenEventInfo_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::StylusEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::StylusEventInfo_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -282,8 +317,10 @@ enum class EventCategoryEnum : int32_t {
   kTouchscreen = 13,
   
   kStylusGarage = 14,
+  
+  kStylus = 15,
   kMinValue = 0,
-  kMaxValue = 14,
+  kMaxValue = 15,
   kDefaultValue = 0
 };
 
@@ -1183,6 +1220,108 @@ class StylusGarageEventInfoDataView {
 };
 
 
+class StylusTouchPointInfoDataView {
+ public:
+  StylusTouchPointInfoDataView() = default;
+
+  StylusTouchPointInfoDataView(
+      internal::StylusTouchPointInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t x() const {
+    return data_->x;
+  }
+  uint32_t y() const {
+    return data_->y;
+  }
+  inline void GetPressureDataView(
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPressure(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+    "Attempting to read the optional `pressure` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPressure` instead "
+    "of `ReadPressure if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->pressure.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StylusTouchPointInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StylusTouchEventDataView {
+ public:
+  StylusTouchEventDataView() = default;
+
+  StylusTouchEventDataView(
+      internal::StylusTouchEvent_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTouchPointDataView(
+      StylusTouchPointInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchPoint(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::StylusTouchPointInfoDataView, UserType>(),
+    "Attempting to read the optional `touch_point` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTouchPoint` instead "
+    "of `ReadTouchPoint if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->touch_point.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusTouchPointInfoDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::StylusTouchEvent_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class StylusConnectedEventDataView {
+ public:
+  StylusConnectedEventDataView() = default;
+
+  StylusConnectedEventDataView(
+      internal::StylusConnectedEvent_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t max_x() const {
+    return data_->max_x;
+  }
+  uint32_t max_y() const {
+    return data_->max_y;
+  }
+  uint32_t max_pressure() const {
+    return data_->max_pressure;
+  }
+ private:
+  internal::StylusConnectedEvent_Data* data_ = nullptr;
+};
+
+
 class TouchpadEventInfoDataView {
  public:
   using Tag = internal::TouchpadEventInfo_Data::TouchpadEventInfo_Tag;
@@ -1295,6 +1434,59 @@ class TouchscreenEventInfoDataView {
 
  private:
   internal::TouchscreenEventInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class StylusEventInfoDataView {
+ public:
+  using Tag = internal::StylusEventInfo_Data::StylusEventInfo_Tag;
+
+  StylusEventInfoDataView() = default;
+
+  StylusEventInfoDataView(
+      internal::StylusEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_default_type() const { return data_->tag == Tag::kDefaultType; }
+  uint8_t default_type() const {
+    CHECK(is_default_type());
+    return data_->data.f_default_type;
+  }
+  bool is_touch_event() const { return data_->tag == Tag::kTouchEvent; }
+  inline void GetTouchEventDataView(
+      StylusTouchEventDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchEvent(UserType* output) const {
+    
+    CHECK(is_touch_event());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusTouchEventDataView>(
+        data_->data.f_touch_event.Get(), output, message_);
+  }
+  bool is_connected_event() const { return data_->tag == Tag::kConnectedEvent; }
+  inline void GetConnectedEventDataView(
+      StylusConnectedEventDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConnectedEvent(UserType* output) const {
+    
+    CHECK(is_connected_event());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusConnectedEventDataView>(
+        data_->data.f_connected_event.Get(), output, message_);
+  }
+
+ private:
+  internal::StylusEventInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1465,6 +1657,17 @@ class EventInfoDataView {
     CHECK(is_stylus_garage_event_info());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusGarageEventInfoDataView>(
         data_->data.f_stylus_garage_event_info.Get(), output, message_);
+  }
+  bool is_stylus_event_info() const { return data_->tag == Tag::kStylusEventInfo; }
+  inline void GetStylusEventInfoDataView(
+      StylusEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStylusEventInfo(UserType* output) const {
+    
+    CHECK(is_stylus_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusEventInfoDataView>(
+        data_->data.f_stylus_event_info.Get(), output, message_);
   }
 
  private:
@@ -2386,6 +2589,114 @@ struct Serializer<::ash::cros_healthd::mojom::StylusGarageEventInfoDataView, May
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::StylusTouchPointInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::StylusTouchPointInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::StylusTouchPointInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->x = Traits::x(input);
+    fragment->y = Traits::y(input);
+    decltype(Traits::pressure(input)) in_pressure = Traits::pressure(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->pressure)::BaseType> pressure_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        in_pressure, pressure_fragment);
+    fragment->pressure.Set(
+        pressure_fragment.is_null() ? nullptr : pressure_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::StylusTouchPointInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::StylusTouchPointInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::StylusTouchEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::StylusTouchEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::StylusTouchEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::touch_point(input)) in_touch_point = Traits::touch_point(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->touch_point)::BaseType> touch_point_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::StylusTouchPointInfoDataView>(
+        in_touch_point, touch_point_fragment);
+    fragment->touch_point.Set(
+        touch_point_fragment.is_null() ? nullptr : touch_point_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::StylusTouchEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::StylusTouchEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::StylusConnectedEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::StylusConnectedEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::StylusConnectedEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->max_x = Traits::max_x(input);
+    fragment->max_y = Traits::max_y(input);
+    fragment->max_pressure = Traits::max_pressure(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::StylusConnectedEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::StylusConnectedEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, UserType>;
@@ -2550,6 +2861,85 @@ struct Serializer<::ash::cros_healthd::mojom::TouchscreenEventInfoDataView, Mayb
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::TouchscreenEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::StylusEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::StylusEventInfoDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::StylusEventInfo_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::StylusEventInfoDataView::Tag::kDefaultType: {
+        decltype(Traits::default_type(input))
+            in_default_type = Traits::default_type(input);
+        fragment->data.f_default_type = in_default_type;
+        break;
+      }
+      case ::ash::cros_healthd::mojom::StylusEventInfoDataView::Tag::kTouchEvent: {
+        decltype(Traits::touch_event(input))
+            in_touch_event = Traits::touch_event(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_touch_event)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::StylusTouchEventDataView>(
+            in_touch_event, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null touch_event in StylusEventInfo union");
+        fragment->data.f_touch_event.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::StylusEventInfoDataView::Tag::kConnectedEvent: {
+        decltype(Traits::connected_event(input))
+            in_connected_event = Traits::connected_event(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_connected_event)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::StylusConnectedEventDataView>(
+            in_connected_event, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null connected_event in StylusEventInfo union");
+        fragment->data.f_connected_event.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::StylusEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::StylusEventInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -2795,6 +3185,22 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kStylusEventInfo: {
+        decltype(Traits::stylus_event_info(input))
+            in_stylus_event_info = Traits::stylus_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_stylus_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::StylusEventInfoDataView>(
+            in_stylus_event_info, value_fragment, false);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null stylus_event_info in EventInfo union");
+        fragment->data.f_stylus_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -2901,6 +3307,22 @@ inline void TouchscreenTouchEventDataView::GetTouchPointsDataView(
 
 
 
+inline void StylusTouchPointInfoDataView::GetPressureDataView(
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
+  auto pointer = data_->pressure.Get();
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+}
+
+
+inline void StylusTouchEventDataView::GetTouchPointDataView(
+    StylusTouchPointInfoDataView* output) {
+  auto pointer = data_->touch_point.Get();
+  *output = StylusTouchPointInfoDataView(pointer, message_);
+}
+
+
+
+
 inline void TouchpadEventInfoDataView::GetButtonEventDataView(
     TouchpadButtonEventDataView* output) const {
   CHECK(is_button_event());
@@ -2926,6 +3348,17 @@ inline void TouchscreenEventInfoDataView::GetConnectedEventDataView(
     TouchscreenConnectedEventDataView* output) const {
   CHECK(is_connected_event());
   *output = TouchscreenConnectedEventDataView(data_->data.f_connected_event.Get(), message_);
+}
+
+inline void StylusEventInfoDataView::GetTouchEventDataView(
+    StylusTouchEventDataView* output) const {
+  CHECK(is_touch_event());
+  *output = StylusTouchEventDataView(data_->data.f_touch_event.Get(), message_);
+}
+inline void StylusEventInfoDataView::GetConnectedEventDataView(
+    StylusConnectedEventDataView* output) const {
+  CHECK(is_connected_event());
+  *output = StylusConnectedEventDataView(data_->data.f_connected_event.Get(), message_);
 }
 
 inline void EventInfoDataView::GetUsbEventInfoDataView(
@@ -2992,6 +3425,11 @@ inline void EventInfoDataView::GetStylusGarageEventInfoDataView(
     StylusGarageEventInfoDataView* output) const {
   CHECK(is_stylus_garage_event_info());
   *output = StylusGarageEventInfoDataView(data_->data.f_stylus_garage_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetStylusEventInfoDataView(
+    StylusEventInfoDataView* output) const {
+  CHECK(is_stylus_event_info());
+  *output = StylusEventInfoDataView(data_->data.f_stylus_event_info.Get(), message_);
 }
 
 

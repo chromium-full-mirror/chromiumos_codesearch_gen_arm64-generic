@@ -208,7 +208,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR IsUvpaaResponse::IsUvpaaResponse(
     ::_pbi::ConstantInitialized)
   : available_(false)
-  , not_ready_(false){}
+  , not_available_(false){}
 struct IsUvpaaResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR IsUvpaaResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -4275,16 +4275,16 @@ IsUvpaaResponse::IsUvpaaResponse(const IsUvpaaResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&available_, &from.available_,
-    static_cast<size_t>(reinterpret_cast<char*>(&not_ready_) -
-    reinterpret_cast<char*>(&available_)) + sizeof(not_ready_));
+    static_cast<size_t>(reinterpret_cast<char*>(&not_available_) -
+    reinterpret_cast<char*>(&available_)) + sizeof(not_available_));
   // @@protoc_insertion_point(copy_constructor:u2f.IsUvpaaResponse)
 }
 
 inline void IsUvpaaResponse::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&available_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&not_ready_) -
-    reinterpret_cast<char*>(&available_)) + sizeof(not_ready_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&not_available_) -
+    reinterpret_cast<char*>(&available_)) + sizeof(not_available_));
 }
 
 IsUvpaaResponse::~IsUvpaaResponse() {
@@ -4311,8 +4311,8 @@ void IsUvpaaResponse::Clear() {
   (void) cached_has_bits;
 
   ::memset(&available_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&not_ready_) -
-      reinterpret_cast<char*>(&available_)) + sizeof(not_ready_));
+      reinterpret_cast<char*>(&not_available_) -
+      reinterpret_cast<char*>(&available_)) + sizeof(not_available_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4330,10 +4330,10 @@ const char* IsUvpaaResponse::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // bool not_ready = 2;
+      // bool not_available = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          not_ready_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          not_available_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4373,10 +4373,10 @@ uint8_t* IsUvpaaResponse::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_available(), target);
   }
 
-  // bool not_ready = 2;
-  if (this->_internal_not_ready() != 0) {
+  // bool not_available = 2;
+  if (this->_internal_not_available() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_not_ready(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_not_available(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4400,8 +4400,8 @@ size_t IsUvpaaResponse::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // bool not_ready = 2;
-  if (this->_internal_not_ready() != 0) {
+  // bool not_available = 2;
+  if (this->_internal_not_available() != 0) {
     total_size += 1 + 1;
   }
 
@@ -4428,8 +4428,8 @@ void IsUvpaaResponse::MergeFrom(const IsUvpaaResponse& from) {
   if (from._internal_available() != 0) {
     _internal_set_available(from._internal_available());
   }
-  if (from._internal_not_ready() != 0) {
-    _internal_set_not_ready(from._internal_not_ready());
+  if (from._internal_not_available() != 0) {
+    _internal_set_not_available(from._internal_not_available());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -4449,8 +4449,8 @@ void IsUvpaaResponse::InternalSwap(IsUvpaaResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(IsUvpaaResponse, not_ready_)
-      + sizeof(IsUvpaaResponse::not_ready_)
+      PROTOBUF_FIELD_OFFSET(IsUvpaaResponse, not_available_)
+      + sizeof(IsUvpaaResponse::not_available_)
       - PROTOBUF_FIELD_OFFSET(IsUvpaaResponse, available_)>(
           reinterpret_cast<char*>(&available_),
           reinterpret_cast<char*>(&other->available_));

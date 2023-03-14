@@ -700,6 +700,28 @@ inline const std::string& DiskImageStatus_Name(T enum_t_value) {
 }
 bool DiskImageStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DiskImageStatus* value);
+enum DiskImageAllocationType : int {
+  DISK_ALLOCATION_TYPE_AUTO = 0,
+  DISK_ALLOCATION_TYPE_SPARSE = 1,
+  DISK_ALLOCATION_TYPE_PREALLOCATE = 2,
+  DiskImageAllocationType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  DiskImageAllocationType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool DiskImageAllocationType_IsValid(int value);
+constexpr DiskImageAllocationType DiskImageAllocationType_MIN = DISK_ALLOCATION_TYPE_AUTO;
+constexpr DiskImageAllocationType DiskImageAllocationType_MAX = DISK_ALLOCATION_TYPE_PREALLOCATE;
+constexpr int DiskImageAllocationType_ARRAYSIZE = DiskImageAllocationType_MAX + 1;
+
+const std::string& DiskImageAllocationType_Name(DiskImageAllocationType value);
+template<typename T>
+inline const std::string& DiskImageAllocationType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, DiskImageAllocationType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function DiskImageAllocationType_Name.");
+  return DiskImageAllocationType_Name(static_cast<DiskImageAllocationType>(enum_t_value));
+}
+bool DiskImageAllocationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DiskImageAllocationType* value);
 enum CpuCgroup : int {
   CPU_CGROUP_TERMINA = 0,
   CPU_CGROUP_PLUGINVM = 1,
@@ -6119,6 +6141,7 @@ class CreateDiskImageRequest final :
     kSourceSizeFieldNumber = 6,
     kFilesystemTypeFieldNumber = 8,
     kStorageBallooningFieldNumber = 9,
+    kAllocationTypeFieldNumber = 12,
   };
   // repeated string params = 7;
   int params_size() const;
@@ -6274,6 +6297,15 @@ class CreateDiskImageRequest final :
   void _internal_set_storage_ballooning(bool value);
   public:
 
+  // .vm_tools.concierge.DiskImageAllocationType allocation_type = 12;
+  void clear_allocation_type();
+  ::vm_tools::concierge::DiskImageAllocationType allocation_type() const;
+  void set_allocation_type(::vm_tools::concierge::DiskImageAllocationType value);
+  private:
+  ::vm_tools::concierge::DiskImageAllocationType _internal_allocation_type() const;
+  void _internal_set_allocation_type(::vm_tools::concierge::DiskImageAllocationType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.CreateDiskImageRequest)
  private:
   class _Internal;
@@ -6292,6 +6324,7 @@ class CreateDiskImageRequest final :
   uint64_t source_size_;
   int filesystem_type_;
   bool storage_ballooning_;
+  int allocation_type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -19269,6 +19302,26 @@ CreateDiskImageRequest::mutable_tune2fs_opts() {
   return &tune2fs_opts_;
 }
 
+// .vm_tools.concierge.DiskImageAllocationType allocation_type = 12;
+inline void CreateDiskImageRequest::clear_allocation_type() {
+  allocation_type_ = 0;
+}
+inline ::vm_tools::concierge::DiskImageAllocationType CreateDiskImageRequest::_internal_allocation_type() const {
+  return static_cast< ::vm_tools::concierge::DiskImageAllocationType >(allocation_type_);
+}
+inline ::vm_tools::concierge::DiskImageAllocationType CreateDiskImageRequest::allocation_type() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.CreateDiskImageRequest.allocation_type)
+  return _internal_allocation_type();
+}
+inline void CreateDiskImageRequest::_internal_set_allocation_type(::vm_tools::concierge::DiskImageAllocationType value) {
+  
+  allocation_type_ = value;
+}
+inline void CreateDiskImageRequest::set_allocation_type(::vm_tools::concierge::DiskImageAllocationType value) {
+  _internal_set_allocation_type(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.CreateDiskImageRequest.allocation_type)
+}
+
 // -------------------------------------------------------------------
 
 // CreateDiskImageResponse
@@ -24714,6 +24767,7 @@ template <> struct is_proto_enum< ::vm_tools::concierge::VmStopReason> : ::std::
 template <> struct is_proto_enum< ::vm_tools::concierge::ArcVmCompleteBootResult> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::StorageLocation> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::DiskImageStatus> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::concierge::DiskImageAllocationType> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::CpuCgroup> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::CpuRestrictionState> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::SwapOperation> : ::std::true_type {};
