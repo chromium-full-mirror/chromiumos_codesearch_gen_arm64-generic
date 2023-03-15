@@ -61,20 +61,13 @@ class MockAuthBlockUtility : public AuthBlockUtility {
                PreparedAuthFactorToken::Consumer),
               (override));
   MOCK_METHOD(void,
-              CreateKeyBlobsWithAuthBlockAsync,
+              CreateKeyBlobsWithAuthBlock,
               (AuthBlockType auth_block_type,
                const AuthInput& auth_input,
                AuthBlock::CreateCallback create_callback),
               (override));
-  MOCK_METHOD(CryptoStatus,
-              DeriveKeyBlobsWithAuthBlock,
-              (AuthBlockType auth_block_type,
-               const Credentials& credentials,
-               const AuthBlockState& state,
-               KeyBlobs& out_key_blobs),
-              (const, override));
   MOCK_METHOD(void,
-              DeriveKeyBlobsWithAuthBlockAsync,
+              DeriveKeyBlobsWithAuthBlock,
               (AuthBlockType auth_block_type,
                const AuthInput& auth_input,
                const AuthBlockState& auth_state,
