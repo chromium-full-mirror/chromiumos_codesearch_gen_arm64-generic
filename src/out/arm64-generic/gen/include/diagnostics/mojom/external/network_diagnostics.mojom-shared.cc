@@ -23,7 +23,7 @@ namespace chromeos {
 namespace network_diagnostics {
 namespace mojom {
 
-static NOINLINE const char* RoutineTypeToStringHelper(RoutineType value) {
+NOINLINE static const char* RoutineTypeToStringHelper(RoutineType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case RoutineType::kLanConnectivity:
@@ -73,7 +73,7 @@ std::ostream& operator<<(std::ostream& os, RoutineType value) {
   return os << RoutineTypeToString(value);
 }
 
-static NOINLINE const char* RoutineVerdictToStringHelper(RoutineVerdict value) {
+NOINLINE static const char* RoutineVerdictToStringHelper(RoutineVerdict value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case RoutineVerdict::kNoProblem:
@@ -99,7 +99,7 @@ std::ostream& operator<<(std::ostream& os, RoutineVerdict value) {
   return os << RoutineVerdictToString(value);
 }
 
-static NOINLINE const char* LanConnectivityProblemToStringHelper(LanConnectivityProblem value) {
+NOINLINE static const char* LanConnectivityProblemToStringHelper(LanConnectivityProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case LanConnectivityProblem::kNoLanConnectivity:
@@ -121,7 +121,7 @@ std::ostream& operator<<(std::ostream& os, LanConnectivityProblem value) {
   return os << LanConnectivityProblemToString(value);
 }
 
-static NOINLINE const char* SignalStrengthProblemToStringHelper(SignalStrengthProblem value) {
+NOINLINE static const char* SignalStrengthProblemToStringHelper(SignalStrengthProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case SignalStrengthProblem::kWeakSignal:
@@ -143,7 +143,7 @@ std::ostream& operator<<(std::ostream& os, SignalStrengthProblem value) {
   return os << SignalStrengthProblemToString(value);
 }
 
-static NOINLINE const char* GatewayCanBePingedProblemToStringHelper(GatewayCanBePingedProblem value) {
+NOINLINE static const char* GatewayCanBePingedProblemToStringHelper(GatewayCanBePingedProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case GatewayCanBePingedProblem::kUnreachableGateway:
@@ -173,7 +173,7 @@ std::ostream& operator<<(std::ostream& os, GatewayCanBePingedProblem value) {
   return os << GatewayCanBePingedProblemToString(value);
 }
 
-static NOINLINE const char* HasSecureWiFiConnectionProblemToStringHelper(HasSecureWiFiConnectionProblem value) {
+NOINLINE static const char* HasSecureWiFiConnectionProblemToStringHelper(HasSecureWiFiConnectionProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case HasSecureWiFiConnectionProblem::kSecurityTypeNone:
@@ -201,7 +201,7 @@ std::ostream& operator<<(std::ostream& os, HasSecureWiFiConnectionProblem value)
   return os << HasSecureWiFiConnectionProblemToString(value);
 }
 
-static NOINLINE const char* DnsResolverPresentProblemToStringHelper(DnsResolverPresentProblem value) {
+NOINLINE static const char* DnsResolverPresentProblemToStringHelper(DnsResolverPresentProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DnsResolverPresentProblem::kNoNameServersFound:
@@ -227,7 +227,7 @@ std::ostream& operator<<(std::ostream& os, DnsResolverPresentProblem value) {
   return os << DnsResolverPresentProblemToString(value);
 }
 
-static NOINLINE const char* DnsLatencyProblemToStringHelper(DnsLatencyProblem value) {
+NOINLINE static const char* DnsLatencyProblemToStringHelper(DnsLatencyProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DnsLatencyProblem::kHostResolutionFailure:
@@ -253,7 +253,7 @@ std::ostream& operator<<(std::ostream& os, DnsLatencyProblem value) {
   return os << DnsLatencyProblemToString(value);
 }
 
-static NOINLINE const char* DnsResolutionProblemToStringHelper(DnsResolutionProblem value) {
+NOINLINE static const char* DnsResolutionProblemToStringHelper(DnsResolutionProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DnsResolutionProblem::kFailedToResolveHost:
@@ -275,7 +275,7 @@ std::ostream& operator<<(std::ostream& os, DnsResolutionProblem value) {
   return os << DnsResolutionProblemToString(value);
 }
 
-static NOINLINE const char* CaptivePortalProblemToStringHelper(CaptivePortalProblem value) {
+NOINLINE static const char* CaptivePortalProblemToStringHelper(CaptivePortalProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CaptivePortalProblem::kNoActiveNetworks:
@@ -307,7 +307,7 @@ std::ostream& operator<<(std::ostream& os, CaptivePortalProblem value) {
   return os << CaptivePortalProblemToString(value);
 }
 
-static NOINLINE const char* HttpFirewallProblemToStringHelper(HttpFirewallProblem value) {
+NOINLINE static const char* HttpFirewallProblemToStringHelper(HttpFirewallProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case HttpFirewallProblem::kDnsResolutionFailuresAboveThreshold:
@@ -333,7 +333,7 @@ std::ostream& operator<<(std::ostream& os, HttpFirewallProblem value) {
   return os << HttpFirewallProblemToString(value);
 }
 
-static NOINLINE const char* HttpsFirewallProblemToStringHelper(HttpsFirewallProblem value) {
+NOINLINE static const char* HttpsFirewallProblemToStringHelper(HttpsFirewallProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case HttpsFirewallProblem::kHighDnsResolutionFailureRate:
@@ -359,7 +359,7 @@ std::ostream& operator<<(std::ostream& os, HttpsFirewallProblem value) {
   return os << HttpsFirewallProblemToString(value);
 }
 
-static NOINLINE const char* HttpsLatencyProblemToStringHelper(HttpsLatencyProblem value) {
+NOINLINE static const char* HttpsLatencyProblemToStringHelper(HttpsLatencyProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case HttpsLatencyProblem::kFailedDnsResolutions:
@@ -387,7 +387,7 @@ std::ostream& operator<<(std::ostream& os, HttpsLatencyProblem value) {
   return os << HttpsLatencyProblemToString(value);
 }
 
-static NOINLINE const char* VideoConferencingProblemToStringHelper(VideoConferencingProblem value) {
+NOINLINE static const char* VideoConferencingProblemToStringHelper(VideoConferencingProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoConferencingProblem::kUdpFailure:
@@ -413,7 +413,7 @@ std::ostream& operator<<(std::ostream& os, VideoConferencingProblem value) {
   return os << VideoConferencingProblemToString(value);
 }
 
-static NOINLINE const char* ArcHttpProblemToStringHelper(ArcHttpProblem value) {
+NOINLINE static const char* ArcHttpProblemToStringHelper(ArcHttpProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ArcHttpProblem::kFailedToGetArcServiceManager:
@@ -443,7 +443,7 @@ std::ostream& operator<<(std::ostream& os, ArcHttpProblem value) {
   return os << ArcHttpProblemToString(value);
 }
 
-static NOINLINE const char* ArcDnsResolutionProblemToStringHelper(ArcDnsResolutionProblem value) {
+NOINLINE static const char* ArcDnsResolutionProblemToStringHelper(ArcDnsResolutionProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ArcDnsResolutionProblem::kFailedToGetArcServiceManager:
@@ -473,7 +473,7 @@ std::ostream& operator<<(std::ostream& os, ArcDnsResolutionProblem value) {
   return os << ArcDnsResolutionProblemToString(value);
 }
 
-static NOINLINE const char* ArcPingProblemToStringHelper(ArcPingProblem value) {
+NOINLINE static const char* ArcPingProblemToStringHelper(ArcPingProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ArcPingProblem::kFailedToGetArcServiceManager:

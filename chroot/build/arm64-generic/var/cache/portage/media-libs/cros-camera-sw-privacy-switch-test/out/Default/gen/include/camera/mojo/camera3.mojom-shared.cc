@@ -21,7 +21,7 @@
 namespace cros {
 namespace mojom {
 
-static NOINLINE const char* HalPixelFormatToStringHelper(HalPixelFormat value) {
+NOINLINE static const char* HalPixelFormatToStringHelper(HalPixelFormat value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case HalPixelFormat::HAL_PIXEL_FORMAT_RGBA_8888:
@@ -59,7 +59,7 @@ std::ostream& operator<<(std::ostream& os, HalPixelFormat value) {
   return os << HalPixelFormatToString(value);
 }
 
-static NOINLINE const char* Camera3StreamTypeToStringHelper(Camera3StreamType value) {
+NOINLINE static const char* Camera3StreamTypeToStringHelper(Camera3StreamType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Camera3StreamType::CAMERA3_STREAM_OUTPUT:
@@ -87,7 +87,7 @@ std::ostream& operator<<(std::ostream& os, Camera3StreamType value) {
   return os << Camera3StreamTypeToString(value);
 }
 
-static NOINLINE const char* Camera3StreamRotationToStringHelper(Camera3StreamRotation value) {
+NOINLINE static const char* Camera3StreamRotationToStringHelper(Camera3StreamRotation value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Camera3StreamRotation::CAMERA3_STREAM_ROTATION_0:
@@ -115,7 +115,7 @@ std::ostream& operator<<(std::ostream& os, Camera3StreamRotation value) {
   return os << Camera3StreamRotationToString(value);
 }
 
-static NOINLINE const char* Camera3StreamConfigurationModeToStringHelper(Camera3StreamConfigurationMode value) {
+NOINLINE static const char* Camera3StreamConfigurationModeToStringHelper(Camera3StreamConfigurationMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Camera3StreamConfigurationMode::CAMERA3_STREAM_CONFIGURATION_NORMAL_MODE:
@@ -139,7 +139,7 @@ std::ostream& operator<<(std::ostream& os, Camera3StreamConfigurationMode value)
   return os << Camera3StreamConfigurationModeToString(value);
 }
 
-static NOINLINE const char* Camera3BufferStatusToStringHelper(Camera3BufferStatus value) {
+NOINLINE static const char* Camera3BufferStatusToStringHelper(Camera3BufferStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Camera3BufferStatus::CAMERA3_BUFFER_STATUS_OK:
@@ -163,7 +163,7 @@ std::ostream& operator<<(std::ostream& os, Camera3BufferStatus value) {
   return os << Camera3BufferStatusToString(value);
 }
 
-static NOINLINE const char* Camera3MsgTypeToStringHelper(Camera3MsgType value) {
+NOINLINE static const char* Camera3MsgTypeToStringHelper(Camera3MsgType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Camera3MsgType::CAMERA3_MSG_ERROR:
@@ -189,7 +189,7 @@ std::ostream& operator<<(std::ostream& os, Camera3MsgType value) {
   return os << Camera3MsgTypeToString(value);
 }
 
-static NOINLINE const char* Camera3ErrorMsgCodeToStringHelper(Camera3ErrorMsgCode value) {
+NOINLINE static const char* Camera3ErrorMsgCodeToStringHelper(Camera3ErrorMsgCode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Camera3ErrorMsgCode::CAMERA3_MSG_ERROR_DEVICE:
@@ -219,7 +219,7 @@ std::ostream& operator<<(std::ostream& os, Camera3ErrorMsgCode value) {
   return os << Camera3ErrorMsgCodeToString(value);
 }
 
-static NOINLINE const char* Camera3BufferRequestStatusToStringHelper(Camera3BufferRequestStatus value) {
+NOINLINE static const char* Camera3BufferRequestStatusToStringHelper(Camera3BufferRequestStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Camera3BufferRequestStatus::CAMERA3_BUF_REQ_OK:
@@ -251,7 +251,7 @@ std::ostream& operator<<(std::ostream& os, Camera3BufferRequestStatus value) {
   return os << Camera3BufferRequestStatusToString(value);
 }
 
-static NOINLINE const char* Camera3StreamBufferReqStatusToStringHelper(Camera3StreamBufferReqStatus value) {
+NOINLINE static const char* Camera3StreamBufferReqStatusToStringHelper(Camera3StreamBufferReqStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Camera3StreamBufferReqStatus::CAMERA3_PS_BUF_REQ_OK:
@@ -283,7 +283,7 @@ std::ostream& operator<<(std::ostream& os, Camera3StreamBufferReqStatus value) {
   return os << Camera3StreamBufferReqStatusToString(value);
 }
 
-static NOINLINE const char* Camera3RequestTemplateToStringHelper(Camera3RequestTemplate value) {
+NOINLINE static const char* Camera3RequestTemplateToStringHelper(Camera3RequestTemplate value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Camera3RequestTemplate::CAMERA3_TEMPLATE_PREVIEW:
@@ -317,7 +317,7 @@ std::ostream& operator<<(std::ostream& os, Camera3RequestTemplate value) {
   return os << Camera3RequestTemplateToString(value);
 }
 
-static NOINLINE const char* Camera3DeviceOps_BufferTypeToStringHelper(Camera3DeviceOps_BufferType value) {
+NOINLINE static const char* Camera3DeviceOps_BufferTypeToStringHelper(Camera3DeviceOps_BufferType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Camera3DeviceOps_BufferType::DMABUF:

@@ -21,7 +21,7 @@
 namespace cros {
 namespace mojom {
 
-static NOINLINE const char* DeviceTypeToStringHelper(DeviceType value) {
+NOINLINE static const char* DeviceTypeToStringHelper(DeviceType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DeviceType::NONE:
@@ -67,7 +67,7 @@ std::ostream& operator<<(std::ostream& os, DeviceType value) {
   return os << DeviceTypeToString(value);
 }
 
-static NOINLINE const char* ObserverErrorTypeToStringHelper(ObserverErrorType value) {
+NOINLINE static const char* ObserverErrorTypeToStringHelper(ObserverErrorType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ObserverErrorType::ALREADY_STARTED:
@@ -101,7 +101,7 @@ std::ostream& operator<<(std::ostream& os, ObserverErrorType value) {
   return os << ObserverErrorTypeToString(value);
 }
 
-static NOINLINE const char* SensorServiceDisconnectReasonToStringHelper(SensorServiceDisconnectReason value) {
+NOINLINE static const char* SensorServiceDisconnectReasonToStringHelper(SensorServiceDisconnectReason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case SensorServiceDisconnectReason::IIOSERVICE_CRASHED:
@@ -127,7 +127,7 @@ std::ostream& operator<<(std::ostream& os, SensorServiceDisconnectReason value) 
   return os << SensorServiceDisconnectReasonToString(value);
 }
 
-static NOINLINE const char* SensorDeviceDisconnectReasonToStringHelper(SensorDeviceDisconnectReason value) {
+NOINLINE static const char* SensorDeviceDisconnectReasonToStringHelper(SensorDeviceDisconnectReason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case SensorDeviceDisconnectReason::IIOSERVICE_CRASHED:
@@ -151,7 +151,7 @@ std::ostream& operator<<(std::ostream& os, SensorDeviceDisconnectReason value) {
   return os << SensorDeviceDisconnectReasonToString(value);
 }
 
-static NOINLINE const char* IioChanTypeToStringHelper(IioChanType value) {
+NOINLINE static const char* IioChanTypeToStringHelper(IioChanType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case IioChanType::IIO_PROXIMITY:
@@ -173,7 +173,7 @@ std::ostream& operator<<(std::ostream& os, IioChanType value) {
   return os << IioChanTypeToString(value);
 }
 
-static NOINLINE const char* IioEventTypeToStringHelper(IioEventType value) {
+NOINLINE static const char* IioEventTypeToStringHelper(IioEventType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case IioEventType::IIO_EV_TYPE_THRESH:
@@ -205,7 +205,7 @@ std::ostream& operator<<(std::ostream& os, IioEventType value) {
   return os << IioEventTypeToString(value);
 }
 
-static NOINLINE const char* IioEventDirectionToStringHelper(IioEventDirection value) {
+NOINLINE static const char* IioEventDirectionToStringHelper(IioEventDirection value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case IioEventDirection::IIO_EV_DIR_EITHER:

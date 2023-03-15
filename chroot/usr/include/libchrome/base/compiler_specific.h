@@ -46,7 +46,9 @@
 // Annotate a function indicating it should not be inlined.
 // Use like:
 //   NOINLINE void DoStuff() { ... }
-#if defined(COMPILER_GCC) || defined(__clang__)
+#if defined(__clang__) && HAS_ATTRIBUTE(noinline)
+#define NOINLINE [[clang::noinline]]
+#elif defined(COMPILER_GCC) && HAS_ATTRIBUTE(noinline)
 #define NOINLINE __attribute__((noinline))
 #elif defined(COMPILER_MSVC)
 #define NOINLINE __declspec(noinline)
@@ -54,7 +56,9 @@
 #define NOINLINE
 #endif
 
-#if defined(COMPILER_GCC) && defined(NDEBUG)
+#if defined(__clang__) && defined(NDEBUG) && HAS_ATTRIBUTE(always_inline)
+#define ALWAYS_INLINE [[clang::always_inline]] inline
+#elif defined(COMPILER_GCC) && defined(NDEBUG) && HAS_ATTRIBUTE(always_inline)
 #define ALWAYS_INLINE inline __attribute__((__always_inline__))
 #elif defined(COMPILER_MSVC) && defined(NDEBUG)
 #define ALWAYS_INLINE __forceinline
@@ -71,7 +75,7 @@
 // Use like:
 //   NOT_TAIL_CALLED void FooBar();
 #if defined(__clang__) && HAS_ATTRIBUTE(not_tail_called)
-#define NOT_TAIL_CALLED __attribute__((not_tail_called))
+#define NOT_TAIL_CALLED [[clang::not_tail_called]]
 #else
 #define NOT_TAIL_CALLED
 #endif
@@ -117,13 +121,13 @@
 #define NO_UNIQUE_ADDRESS
 #endif
 
-// Tell the compiler a function is using a printf-style format string.
+// Tells the compiler a function is using a printf-style format string.
 // |format_param| is the one-based index of the format string parameter;
 // |dots_param| is the one-based index of the "..." parameter.
 // For v*printf functions (which take a va_list), pass 0 for dots_param.
 // (This is undocumented but matches what the system C headers do.)
 // For member functions, the implicit this parameter counts as index 1.
-#if defined(COMPILER_GCC) || defined(__clang__)
+#if (defined(COMPILER_GCC) || defined(__clang__)) && HAS_ATTRIBUTE(format)
 #define PRINTF_FORMAT(format_param, dots_param) \
   __attribute__((format(printf, format_param, dots_param)))
 #else
@@ -168,7 +172,7 @@
 // DISABLE_CFI_PERF -- Disable Control Flow Integrity for perf reasons.
 #if !defined(DISABLE_CFI_PERF)
 #if defined(__clang__) && defined(OFFICIAL_BUILD)
-#define DISABLE_CFI_PERF __attribute__((no_sanitize("cfi")))
+#define DISABLE_CFI_PERF NO_SANITIZE("cfi")
 #else
 #define DISABLE_CFI_PERF
 #endif
@@ -295,7 +299,7 @@
 // please document the problem for someone who is going to cleanup it later.
 // E.g. platform, bot, benchmark or test name in patch description or next to
 // the attribute.
-#define STACK_UNINITIALIZED __attribute__((uninitialized))
+#define STACK_UNINITIALIZED [[clang::uninitialized]]
 #else
 #define STACK_UNINITIALIZED
 #endif

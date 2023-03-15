@@ -22,7 +22,7 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
-static NOINLINE const char* Exception_TypeToStringHelper(Exception_Type value) {
+NOINLINE static const char* Exception_TypeToStringHelper(Exception_Type value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Exception_Type::kMojoDisconnectWithoutReason:
@@ -50,7 +50,7 @@ std::ostream& operator<<(std::ostream& os, Exception_Type value) {
   return os << Exception_TypeToString(value);
 }
 
-static NOINLINE const char* Exception_ReasonToStringHelper(Exception_Reason value) {
+NOINLINE static const char* Exception_ReasonToStringHelper(Exception_Reason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Exception_Reason::kUnmappedEnumField:

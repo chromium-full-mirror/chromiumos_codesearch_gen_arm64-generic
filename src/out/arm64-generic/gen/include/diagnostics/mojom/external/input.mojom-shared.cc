@@ -22,7 +22,7 @@ namespace ash {
 namespace diagnostics {
 namespace mojom {
 
-static NOINLINE const char* ConnectionTypeToStringHelper(ConnectionType value) {
+NOINLINE static const char* ConnectionTypeToStringHelper(ConnectionType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ConnectionType::kUnmappedEnumField:
@@ -52,7 +52,7 @@ std::ostream& operator<<(std::ostream& os, ConnectionType value) {
   return os << ConnectionTypeToString(value);
 }
 
-static NOINLINE const char* PhysicalLayoutToStringHelper(PhysicalLayout value) {
+NOINLINE static const char* PhysicalLayoutToStringHelper(PhysicalLayout value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case PhysicalLayout::kUnmappedEnumField:
@@ -82,7 +82,7 @@ std::ostream& operator<<(std::ostream& os, PhysicalLayout value) {
   return os << PhysicalLayoutToString(value);
 }
 
-static NOINLINE const char* MechanicalLayoutToStringHelper(MechanicalLayout value) {
+NOINLINE static const char* MechanicalLayoutToStringHelper(MechanicalLayout value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case MechanicalLayout::kUnmappedEnumField:
@@ -112,7 +112,7 @@ std::ostream& operator<<(std::ostream& os, MechanicalLayout value) {
   return os << MechanicalLayoutToString(value);
 }
 
-static NOINLINE const char* NumberPadPresenceToStringHelper(NumberPadPresence value) {
+NOINLINE static const char* NumberPadPresenceToStringHelper(NumberPadPresence value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case NumberPadPresence::kUnmappedEnumField:
@@ -140,7 +140,7 @@ std::ostream& operator<<(std::ostream& os, NumberPadPresence value) {
   return os << NumberPadPresenceToString(value);
 }
 
-static NOINLINE const char* TopRowKeyToStringHelper(TopRowKey value) {
+NOINLINE static const char* TopRowKeyToStringHelper(TopRowKey value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case TopRowKey::kUnmappedEnumField:
@@ -208,7 +208,7 @@ std::ostream& operator<<(std::ostream& os, TopRowKey value) {
   return os << TopRowKeyToString(value);
 }
 
-static NOINLINE const char* TopRightKeyToStringHelper(TopRightKey value) {
+NOINLINE static const char* TopRightKeyToStringHelper(TopRightKey value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case TopRightKey::kUnmappedEnumField:

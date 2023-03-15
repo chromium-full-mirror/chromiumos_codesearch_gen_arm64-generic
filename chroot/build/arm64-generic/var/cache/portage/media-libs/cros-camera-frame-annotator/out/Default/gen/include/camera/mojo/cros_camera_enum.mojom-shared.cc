@@ -21,7 +21,7 @@
 namespace cros {
 namespace mojom {
 
-static NOINLINE const char* CameraSensorSyncTimestampToStringHelper(CameraSensorSyncTimestamp value) {
+NOINLINE static const char* CameraSensorSyncTimestampToStringHelper(CameraSensorSyncTimestamp value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CameraSensorSyncTimestamp::BACKWARD:

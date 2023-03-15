@@ -21,7 +21,7 @@
 namespace mojo_base {
 namespace mojom {
 
-static NOINLINE const char* ThreadTypeToStringHelper(ThreadType value) {
+NOINLINE static const char* ThreadTypeToStringHelper(ThreadType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ThreadType::kBackground:

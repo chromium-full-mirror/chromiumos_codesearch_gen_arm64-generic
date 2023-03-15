@@ -22,7 +22,7 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
-static NOINLINE const char* MemtesterTestItemEnumToStringHelper(MemtesterTestItemEnum value) {
+NOINLINE static const char* MemtesterTestItemEnumToStringHelper(MemtesterTestItemEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case MemtesterTestItemEnum::kUnmappedEnumField:
@@ -82,7 +82,7 @@ std::ostream& operator<<(std::ostream& os, MemtesterTestItemEnum value) {
   return os << MemtesterTestItemEnumToString(value);
 }
 
-static NOINLINE const char* RoutineControlExceptionEnumToStringHelper(RoutineControlExceptionEnum value) {
+NOINLINE static const char* RoutineControlExceptionEnumToStringHelper(RoutineControlExceptionEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case RoutineControlExceptionEnum::kMojoDisconnectWithoutReason:
@@ -110,7 +110,7 @@ std::ostream& operator<<(std::ostream& os, RoutineControlExceptionEnum value) {
   return os << RoutineControlExceptionEnumToString(value);
 }
 
-static NOINLINE const char* RoutineStateWaiting_ReasonToStringHelper(RoutineStateWaiting_Reason value) {
+NOINLINE static const char* RoutineStateWaiting_ReasonToStringHelper(RoutineStateWaiting_Reason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case RoutineStateWaiting_Reason::kUnmappedEnumField:

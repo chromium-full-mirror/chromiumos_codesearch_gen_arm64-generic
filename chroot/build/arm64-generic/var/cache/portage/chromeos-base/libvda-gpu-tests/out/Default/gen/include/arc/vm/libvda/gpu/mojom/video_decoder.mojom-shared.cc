@@ -21,7 +21,7 @@
 namespace arc {
 namespace mojom {
 
-static NOINLINE const char* DecoderStatusToStringHelper(DecoderStatus value) {
+NOINLINE static const char* DecoderStatusToStringHelper(DecoderStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DecoderStatus::OK:

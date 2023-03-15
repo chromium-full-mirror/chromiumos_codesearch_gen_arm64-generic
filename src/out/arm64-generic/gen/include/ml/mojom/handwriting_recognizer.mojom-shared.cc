@@ -23,7 +23,7 @@ namespace chromeos {
 namespace machine_learning {
 namespace mojom {
 
-static NOINLINE const char* LoadHandwritingModelResultToStringHelper(LoadHandwritingModelResult value) {
+NOINLINE static const char* LoadHandwritingModelResultToStringHelper(LoadHandwritingModelResult value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case LoadHandwritingModelResult::OK:
@@ -67,7 +67,7 @@ std::ostream& operator<<(std::ostream& os, LoadHandwritingModelResult value) {
   return os << LoadHandwritingModelResultToString(value);
 }
 
-static NOINLINE const char* HandwritingRecognizerResult_StatusToStringHelper(HandwritingRecognizerResult_Status value) {
+NOINLINE static const char* HandwritingRecognizerResult_StatusToStringHelper(HandwritingRecognizerResult_Status value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case HandwritingRecognizerResult_Status::OK:

@@ -19,6 +19,7 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
+#include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/default_construct_traits.h"
@@ -1648,6 +1649,10 @@ class NetworkDiagnosticsRoutines_GetResult_ProxyToResponder : public ::mojo::int
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -1768,6 +1773,10 @@ class NetworkDiagnosticsRoutines_GetAllResults_ProxyToResponder : public ::mojo:
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -1894,6 +1903,10 @@ class NetworkDiagnosticsRoutines_RunLanConnectivity_ProxyToResponder : public ::
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2018,6 +2031,10 @@ class NetworkDiagnosticsRoutines_RunSignalStrength_ProxyToResponder : public ::m
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2142,6 +2159,10 @@ class NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ProxyToResponder : public
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2266,6 +2287,10 @@ class NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ProxyToResponder : p
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2390,6 +2415,10 @@ class NetworkDiagnosticsRoutines_RunDnsResolverPresent_ProxyToResponder : public
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2514,6 +2543,10 @@ class NetworkDiagnosticsRoutines_RunDnsLatency_ProxyToResponder : public ::mojo:
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2638,6 +2671,10 @@ class NetworkDiagnosticsRoutines_RunDnsResolution_ProxyToResponder : public ::mo
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2762,6 +2799,10 @@ class NetworkDiagnosticsRoutines_RunCaptivePortal_ProxyToResponder : public ::mo
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -2886,6 +2927,10 @@ class NetworkDiagnosticsRoutines_RunHttpFirewall_ProxyToResponder : public ::moj
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -3010,6 +3055,10 @@ class NetworkDiagnosticsRoutines_RunHttpsFirewall_ProxyToResponder : public ::mo
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -3134,6 +3183,10 @@ class NetworkDiagnosticsRoutines_RunHttpsLatency_ProxyToResponder : public ::moj
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -3258,6 +3311,10 @@ class NetworkDiagnosticsRoutines_RunVideoConferencing_ProxyToResponder : public 
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -3382,6 +3439,10 @@ class NetworkDiagnosticsRoutines_RunArcHttp_ProxyToResponder : public ::mojo::in
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -3506,6 +3567,10 @@ class NetworkDiagnosticsRoutines_RunArcPing_ProxyToResponder : public ::mojo::in
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif
@@ -3630,6 +3695,10 @@ class NetworkDiagnosticsRoutines_RunArcDnsResolution_ProxyToResponder : public :
       // binding endpoint has been closed. This checks for that asynchronously.
       // We pass a bound generated callback to handle the response so that any
       // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
       responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
     }
 #endif

@@ -21,7 +21,7 @@
 namespace cros {
 namespace mojom {
 
-static NOINLINE const char* VideoPixelFormatToStringHelper(VideoPixelFormat value) {
+NOINLINE static const char* VideoPixelFormatToStringHelper(VideoPixelFormat value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case VideoPixelFormat::PIXEL_FORMAT_UNKNOWN:

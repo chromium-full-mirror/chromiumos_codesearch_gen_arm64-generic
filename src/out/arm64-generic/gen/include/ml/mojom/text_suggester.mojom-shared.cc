@@ -22,7 +22,7 @@ namespace chromeos {
 namespace machine_learning {
 namespace mojom {
 
-static NOINLINE const char* TextSuggestionModeToStringHelper(TextSuggestionMode value) {
+NOINLINE static const char* TextSuggestionModeToStringHelper(TextSuggestionMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case TextSuggestionMode::kPrediction:
@@ -46,7 +46,7 @@ std::ostream& operator<<(std::ostream& os, TextSuggestionMode value) {
   return os << TextSuggestionModeToString(value);
 }
 
-static NOINLINE const char* MultiWordExperimentGroupToStringHelper(MultiWordExperimentGroup value) {
+NOINLINE static const char* MultiWordExperimentGroupToStringHelper(MultiWordExperimentGroup value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case MultiWordExperimentGroup::kDefault:
@@ -82,7 +82,7 @@ std::ostream& operator<<(std::ostream& os, MultiWordExperimentGroup value) {
   return os << MultiWordExperimentGroupToString(value);
 }
 
-static NOINLINE const char* TextSuggesterResult_StatusToStringHelper(TextSuggesterResult_Status value) {
+NOINLINE static const char* TextSuggesterResult_StatusToStringHelper(TextSuggesterResult_Status value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case TextSuggesterResult_Status::OK:

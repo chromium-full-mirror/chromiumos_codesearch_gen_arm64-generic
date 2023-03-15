@@ -9,9 +9,9 @@
 
 /* Package name      : perl5
  * Source directory  : .
- * Configuration time: Tue Mar 14 17:18:02 PDT 2023
+ * Configuration time: Tue Mar 14 04:46:28 PDT 2023
  * Configured by     : Gentoo
- * Target system     : linux chromeos-ci-codesearch-us-central1-b-x32-1-pfdk 5.4.0-144-generic #161~18.04.1-ubuntu smp fri feb 10 15:55:22 utc 2023 x86_64 intel(r) xeon(r) cpu @ 2.20ghz genuineintel gnulinux 
+ * Target system     : linux chromeos-ci-legacy-us-central1-c-x32-7-9wpy 5.4.0-144-generic #161~18.04.1-ubuntu smp fri feb 10 15:55:22 utc 2023 x86_64 intel(r) xeon(r) cpu @ 2.20ghz genuineintel gnulinux 
  */
 
 #ifndef _config_h_
@@ -1276,7 +1276,7 @@
 /* GENTOO_LIBDIRS:
  * Like PERL_OTHERLIBDIRS, but doesn't stuff ARCH dirs in when not wanted
  */
-#define GENTOO_LIBDIRS "/usr/lib64/perl5/5.24.4:/usr/lib64/perl5/vendor_perl/5.24.4:"		/**/
+/*#define GENTOO_LIBDIRS " "		/ **/
 
 /* PRIVLIB:
  *	This symbol contains the name of the private library for this package.

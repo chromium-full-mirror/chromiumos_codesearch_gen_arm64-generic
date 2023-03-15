@@ -23,7 +23,7 @@ namespace cros_healthd {
 namespace internal {
 namespace mojom {
 
-static NOINLINE const char* InputDevice_ConnectionTypeToStringHelper(InputDevice_ConnectionType value) {
+NOINLINE static const char* InputDevice_ConnectionTypeToStringHelper(InputDevice_ConnectionType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case InputDevice_ConnectionType::kUnmappedEnumField:

@@ -99,6 +99,9 @@ class MigrationStartAndEndStatusReporter {
         error == base::File::FILE_ERROR_IO) {
       end_status_ = resumed_ ? kResumedMigrationFailedFileErrorOpenEIO
                              : kNewMigrationFailedFileErrorOpenEIO;
+    } else if (error == base::File::FILE_ERROR_NO_SPACE) {
+      end_status_ =
+          resumed_ ? kResumedMigrationFailedENOSPC : kNewMigrationFailedENOSPC;
     } else {
       end_status_ = resumed_ ? kResumedMigrationFailedFileError
                              : kNewMigrationFailedFileError;
@@ -283,6 +286,7 @@ MigrationHelper::MigrationHelper(Platform* platform,
       migrated_byte_count_(0),
       failed_operation_type_(kMigrationFailedAtOtherOperation),
       failed_error_type_(base::File::FILE_OK),
+      no_space_failure_free_space_bytes_(0),
       num_job_threads_(0),
       max_job_list_size_(kDefaultMaxJobListSize),
       worker_pool_(new WorkerPool(this)) {}
@@ -363,7 +367,8 @@ bool MigrationHelper::Migrate(const ProgressCallback& progress_callback) {
   base::stat_wrapper_t from_stat;
   if (!platform_->Stat(from_base_path_, &from_stat)) {
     PLOG(ERROR) << "Failed to stat from directory";
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtStat, base::FilePath());
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtStat, base::FilePath(),
+                                    FailureLocationType::kSource);
     status_reporter.SetFileErrorFailure(failed_operation_type_,
                                         failed_error_type_);
     return false;
@@ -384,6 +389,11 @@ bool MigrationHelper::Migrate(const ProgressCallback& progress_callback) {
     LOG(ERROR) << "Migration Failed, aborting.";
     status_reporter.SetFileErrorFailure(failed_operation_type_,
                                         failed_error_type_);
+    if (failed_error_type_ == base::File::FILE_ERROR_NO_SPACE) {
+      delegate_->ReportFailedNoSpace(
+          initial_free_space_bytes_ / (1024 * 1024),
+          no_space_failure_free_space_bytes_ / (1024 * 1024));
+    }
     return false;
   }
   if (!resumed)
@@ -469,13 +479,16 @@ bool MigrationHelper::MigrateDir(const base::FilePath& child,
   const base::FilePath from_dir = from_base_path_.Append(child);
   const base::FilePath to_dir = to_base_path_.Append(child);
 
-  if (!platform_->CreateDirectory(to_dir)) {
+  base::File::Error error;
+  if (!platform_->CreateDirectoryAndGetError(to_dir, &error)) {
     LOG(ERROR) << "Failed to create directory " << to_dir.value();
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtMkdir, child);
+    RecordFileError(kMigrationFailedAtMkdir, child, error,
+                    FailureLocationType::kDest);
     return false;
   }
   if (!platform_->SyncDirectory(to_dir.DirName())) {
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSync, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSync, child,
+                                    FailureLocationType::kDest);
     return false;
   }
   if (!CopyAttributes(child, info))
@@ -497,7 +510,8 @@ bool MigrationHelper::MigrateDir(const base::FilePath& child,
       // Delete paths which should be skipped
       if (!platform_->DeletePathRecursively(entry)) {
         PLOG(ERROR) << "Failed to delete " << entry.value();
-        RecordFileErrorWithCurrentErrno(kMigrationFailedAtDelete, entry);
+        RecordFileErrorWithCurrentErrno(kMigrationFailedAtDelete, new_child,
+                                        FailureLocationType::kSource);
         return false;
       }
       continue;
@@ -530,7 +544,8 @@ bool MigrationHelper::MigrateLink(const base::FilePath& child,
   const base::FilePath new_path = to_base_path_.Append(child);
   base::FilePath target;
   if (!platform_->ReadLink(source, &target)) {
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtReadLink, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtReadLink, child,
+                                    FailureLocationType::kSource);
     return false;
   }
 
@@ -543,11 +558,13 @@ bool MigrationHelper::MigrateLink(const base::FilePath& child,
   // it should be removed to prevent errors recreating it below.
   if (!platform_->DeleteFile(new_path)) {
     PLOG(ERROR) << "Failed to delete existing symlink " << new_path.value();
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtDelete, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtDelete, child,
+                                    FailureLocationType::kDest);
     return false;
   }
   if (!platform_->CreateSymbolicLink(new_path, target)) {
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtCreateLink, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtCreateLink, child,
+                                    FailureLocationType::kDest);
     return false;
   }
 
@@ -558,7 +575,8 @@ bool MigrationHelper::MigrateLink(const base::FilePath& child,
   if (!platform_->SetFileTimes(new_path, info.stat().st_atim,
                                info.stat().st_mtim, false /* follow_links */)) {
     PLOG(ERROR) << "Failed to set mtime for " << new_path.value();
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child,
+                                    FailureLocationType::kDest);
     return false;
   }
   // We can't explicitly f(data)sync symlinks, so we have to do a full FS sync.
@@ -580,13 +598,13 @@ bool MigrationHelper::MigrateFile(const base::FilePath& child,
       LOG(WARNING) << "Found file that cannot be opened with EIO, skipping "
                    << from_child.value();
       RecordFileError(kMigrationFailedAtOpenSourceFileNonFatal, child,
-                      from_file.error_details());
+                      from_file.error_details(), FailureLocationType::kSource);
       delegate_->RecordSkippedFile(child);
       return true;
     }
     PLOG(ERROR) << "Failed to open file " << from_child.value();
     RecordFileError(kMigrationFailedAtOpenSourceFile, child,
-                    from_file.error_details());
+                    from_file.error_details(), FailureLocationType::kSource);
     return false;
   }
 
@@ -597,11 +615,12 @@ bool MigrationHelper::MigrateFile(const base::FilePath& child,
   if (!to_file.IsValid()) {
     PLOG(ERROR) << "Failed to open file " << to_child.value();
     RecordFileError(kMigrationFailedAtOpenDestinationFile, child,
-                    to_file.error_details());
+                    to_file.error_details(), FailureLocationType::kDest);
     return false;
   }
   if (!platform_->SyncDirectory(to_child.DirName())) {
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSync, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSync, child,
+                                    FailureLocationType::kDest);
     return false;
   }
 
@@ -609,12 +628,14 @@ bool MigrationHelper::MigrateFile(const base::FilePath& child,
   int64_t to_length = to_file.GetLength();
   if (from_length < 0) {
     LOG(ERROR) << "Failed to get length of " << from_child.value();
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtStat, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtStat, child,
+                                    FailureLocationType::kSource);
     return false;
   }
   if (to_length < 0) {
     LOG(ERROR) << "Failed to get length of " << to_child.value();
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtStat, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtStat, child,
+                                    FailureLocationType::kDest);
     return false;
   }
   if (to_length < from_length) {
@@ -625,7 +646,8 @@ bool MigrationHelper::MigrateFile(const base::FilePath& child,
     // which is not yet allocated.
     if (!to_file.SetLength(from_length)) {
       PLOG(ERROR) << "Failed to set file length of " << to_child.value();
-      RecordFileErrorWithCurrentErrno(kMigrationFailedAtTruncate, child);
+      RecordFileErrorWithCurrentErrno(kMigrationFailedAtTruncate, child,
+                                      FailureLocationType::kDest);
       return false;
     }
   }
@@ -644,7 +666,8 @@ bool MigrationHelper::MigrateFile(const base::FilePath& child,
     off_t offset = from_length - to_read;
     if (to_file.Seek(base::File::FROM_BEGIN, offset) != offset) {
       LOG(ERROR) << "Failed to seek in " << to_child.value();
-      RecordFileErrorWithCurrentErrno(kMigrationFailedAtSeek, child);
+      RecordFileErrorWithCurrentErrno(kMigrationFailedAtSeek, child,
+                                      FailureLocationType::kDest);
       return false;
     }
     // Sendfile is used here instead of a read to memory then write since it is
@@ -653,7 +676,8 @@ bool MigrationHelper::MigrateFile(const base::FilePath& child,
     // in the kernel, never making a trip back out to user space.
     if (!platform_->SendFile(to_file.GetPlatformFile(),
                              from_file.GetPlatformFile(), offset, to_read)) {
-      RecordFileErrorWithCurrentErrno(kMigrationFailedAtSendfile, child);
+      RecordFileErrorWithCurrentErrno(kMigrationFailedAtSendfile, child,
+                                      FailureLocationType::kSourceOrDest);
       return false;
     }
     // For the last chunk, SyncFile will be called later so no need to flush
@@ -661,12 +685,14 @@ bool MigrationHelper::MigrateFile(const base::FilePath& child,
     if (offset > 0) {
       if (!to_file.Flush()) {
         PLOG(ERROR) << "Failed to flush " << to_child.value();
-        RecordFileErrorWithCurrentErrno(kMigrationFailedAtSync, child);
+        RecordFileErrorWithCurrentErrno(kMigrationFailedAtSync, child,
+                                        FailureLocationType::kDest);
         return false;
       }
       if (!from_file.SetLength(offset)) {
         PLOG(ERROR) << "Failed to truncate file " << from_child.value();
-        RecordFileErrorWithCurrentErrno(kMigrationFailedAtTruncate, child);
+        RecordFileErrorWithCurrentErrno(kMigrationFailedAtTruncate, child,
+                                        FailureLocationType::kSource);
         return false;
       }
     }
@@ -679,7 +705,8 @@ bool MigrationHelper::MigrateFile(const base::FilePath& child,
   if (!FixTimes(child))
     return false;
   if (!platform_->SyncFile(to_child)) {
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSync, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSync, child,
+                                    FailureLocationType::kDest);
     return false;
   }
   if (!RemoveTimeXattrsIfPresent(child))
@@ -697,7 +724,8 @@ bool MigrationHelper::CopyAttributes(const base::FilePath& child,
   gid_t group_id = info.stat().st_gid;
   if (!platform_->SetOwnership(to, user_id, group_id,
                                false /* follow_links */)) {
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child,
+                                    FailureLocationType::kDest);
     return false;
   }
 
@@ -711,7 +739,8 @@ bool MigrationHelper::CopyAttributes(const base::FilePath& child,
   if (S_ISLNK(mode))
     return true;
   if (!platform_->SetPermissions(to, mode)) {
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child,
+                                    FailureLocationType::kDest);
     return false;
   }
 
@@ -733,11 +762,13 @@ bool MigrationHelper::CopyAttributes(const base::FilePath& child,
 
   int flags;
   if (!platform_->GetExtFileAttributes(from, &flags)) {
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child,
+                                    FailureLocationType::kSource);
     return false;
   }
   if (!platform_->SetExtFileAttributes(to, flags)) {
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child,
+                                    FailureLocationType::kDest);
     return false;
   }
 
@@ -765,7 +796,8 @@ bool MigrationHelper::FixTimes(const base::FilePath& child) {
       // ENOSPC error. In this case we proceed without copying mtime and atime.
       return true;
     }
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child,
+                                    FailureLocationType::kDest);
     return false;
   }
   struct timespec atime;
@@ -776,13 +808,15 @@ bool MigrationHelper::FixTimes(const base::FilePath& child) {
       // Same as mtime, proceed without copying mtime and atime.
       return true;
     }
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child,
+                                    FailureLocationType::kDest);
     return false;
   }
 
   if (!platform_->SetFileTimes(file, atime, mtime, true /* follow_links */)) {
     PLOG(ERROR) << "Failed to set mtime on " << file.value();
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child,
+                                    FailureLocationType::kDest);
     return false;
   }
   return true;
@@ -796,7 +830,8 @@ bool MigrationHelper::RemoveTimeXattrsIfPresent(const base::FilePath& child) {
     if (errno != ENODATA) {
       PLOG(ERROR) << "Failed to remove mtime extended attribute from "
                   << file.value();
-      RecordFileErrorWithCurrentErrno(kMigrationFailedAtRemoveAttribute, child);
+      RecordFileErrorWithCurrentErrno(kMigrationFailedAtRemoveAttribute, child,
+                                      FailureLocationType::kDest);
       return false;
     }
   }
@@ -806,7 +841,8 @@ bool MigrationHelper::RemoveTimeXattrsIfPresent(const base::FilePath& child) {
     if (errno != ENODATA) {
       PLOG(ERROR) << "Failed to remove atime extended attribute from "
                   << file.value();
-      RecordFileErrorWithCurrentErrno(kMigrationFailedAtRemoveAttribute, child);
+      RecordFileErrorWithCurrentErrno(kMigrationFailedAtRemoveAttribute, child,
+                                      FailureLocationType::kDest);
       return false;
     }
   }
@@ -819,7 +855,8 @@ bool MigrationHelper::CopyExtendedAttributes(const base::FilePath& child) {
 
   std::vector<std::string> xattr_names;
   if (!platform_->ListExtendedFileAttributes(from, &xattr_names)) {
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child,
+                                    FailureLocationType::kSource);
     return false;
   }
 
@@ -832,14 +869,16 @@ bool MigrationHelper::CopyExtendedAttributes(const base::FilePath& child) {
     }
     std::string value;
     if (!platform_->GetExtendedFileAttributeAsString(from, name_from, &value)) {
-      RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child);
+      RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child,
+                                      FailureLocationType::kSource);
       return false;
     }
     const std::string name_to = delegate_->ConvertXattrName(name_from);
     if (!platform_->SetExtendedFileAttribute(to, name_to, value.data(),
                                              value.length())) {
       bool nospace_error = errno == ENOSPC;
-      RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child);
+      RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child,
+                                      FailureLocationType::kDest);
       if (nospace_error) {
         ReportTotalXattrSize(to, name_to.length() + 1 + value.length());
       }
@@ -864,13 +903,15 @@ bool MigrationHelper::SetExtendedAttributeIfNotPresent(
   if (errno != ENODATA) {
     PLOG(ERROR) << "Failed to get extended attribute " << xattr << " for "
                 << file.value();
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child,
+                                    FailureLocationType::kDest);
     return false;
   }
   if (!platform_->SetExtendedFileAttribute(file, xattr, value, size)) {
     // If it's the ENOSPC error, proceed without copying mtime/atime.
     if (errno != ENOSPC) {
-      RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child);
+      RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child,
+                                      FailureLocationType::kDest);
       return false;
     }
     ReportTotalXattrSize(file, xattr.length() + 1 + size);
@@ -880,26 +921,29 @@ bool MigrationHelper::SetExtendedAttributeIfNotPresent(
 
 void MigrationHelper::RecordFileError(MigrationFailedOperationType operation,
                                       const base::FilePath& child,
-                                      base::File::Error error) {
+                                      base::File::Error error,
+                                      FailureLocationType location_type) {
   // Report UMA stats here for each single error.
-  delegate_->ReportFailure(error, operation, child);
-
-  if (error == base::File::FILE_ERROR_NO_SPACE) {
-    delegate_->ReportFailedNoSpace(
-        initial_free_space_bytes_ / (1024 * 1024),
-        platform_->AmountOfFreeDiskSpace(to_base_path_) / (1024 * 1024));
-  }
+  delegate_->ReportFailure(error, operation, child, location_type);
 
   {  // Record the data for the final end-status report.
     base::AutoLock lock(failure_info_lock_);
     failed_operation_type_ = operation;
     failed_error_type_ = error;
+
+    if (error == base::File::FILE_ERROR_NO_SPACE) {
+      no_space_failure_free_space_bytes_ =
+          platform_->AmountOfFreeDiskSpace(to_base_path_);
+    }
   }
 }
 
 void MigrationHelper::RecordFileErrorWithCurrentErrno(
-    MigrationFailedOperationType operation, const base::FilePath& child) {
-  RecordFileError(operation, child, base::File::OSErrorToFileError(errno));
+    MigrationFailedOperationType operation,
+    const base::FilePath& child,
+    FailureLocationType location_type) {
+  RecordFileError(operation, child, base::File::OSErrorToFileError(errno),
+                  location_type);
 }
 
 bool MigrationHelper::ProcessJob(const Job& job) {
@@ -917,7 +961,8 @@ bool MigrationHelper::ProcessJob(const Job& job) {
   }
   if (!platform_->DeleteFile(from_base_path_.Append(job.child))) {
     LOG(ERROR) << "Failed to delete file " << job.child.value();
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtDelete, job.child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtDelete, job.child,
+                                    FailureLocationType::kSource);
     return false;
   }
   // The file/symlink was removed.
@@ -949,7 +994,8 @@ bool MigrationHelper::DecrementChildCountAndDeleteIfNecessary(
   }
   if (!platform_->SyncDirectory(to_dir)) {
     LOG(ERROR) << "Failed to sync " << child.value();
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSync, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtSync, child,
+                                    FailureLocationType::kDest);
     return false;
   }
   if (!RemoveTimeXattrsIfPresent(child))
@@ -961,7 +1007,8 @@ bool MigrationHelper::DecrementChildCountAndDeleteIfNecessary(
 
   if (!platform_->DeleteFile(from_dir)) {
     PLOG(ERROR) << "Failed to delete " << child.value();
-    RecordFileErrorWithCurrentErrno(kMigrationFailedAtDelete, child);
+    RecordFileErrorWithCurrentErrno(kMigrationFailedAtDelete, child,
+                                    FailureLocationType::kSource);
     return false;
   }
   // Decrement the parent directory's child count.

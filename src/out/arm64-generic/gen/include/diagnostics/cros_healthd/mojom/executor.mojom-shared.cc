@@ -22,7 +22,7 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
-static NOINLINE const char* FingerprintCaptureTypeToStringHelper(FingerprintCaptureType value) {
+NOINLINE static const char* FingerprintCaptureTypeToStringHelper(FingerprintCaptureType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case FingerprintCaptureType::kCheckerboardTest:
@@ -48,7 +48,7 @@ std::ostream& operator<<(std::ostream& os, FingerprintCaptureType value) {
   return os << FingerprintCaptureTypeToString(value);
 }
 
-static NOINLINE const char* Executor_FileToStringHelper(Executor_File value) {
+NOINLINE static const char* Executor_FileToStringHelper(Executor_File value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Executor_File::kUEFISecureBootVariable:
@@ -74,7 +74,7 @@ std::ostream& operator<<(std::ostream& os, Executor_File value) {
   return os << Executor_FileToString(value);
 }
 
-static NOINLINE const char* Executor_IwCommandToStringHelper(Executor_IwCommand value) {
+NOINLINE static const char* Executor_IwCommandToStringHelper(Executor_IwCommand value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case Executor_IwCommand::kDev:

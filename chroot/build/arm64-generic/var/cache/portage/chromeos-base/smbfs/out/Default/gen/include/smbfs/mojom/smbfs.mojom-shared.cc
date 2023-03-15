@@ -23,7 +23,7 @@
 namespace smbfs {
 namespace mojom {
 
-static NOINLINE const char* MountErrorToStringHelper(MountError value) {
+NOINLINE static const char* MountErrorToStringHelper(MountError value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case MountError::kOk:
@@ -59,7 +59,7 @@ std::ostream& operator<<(std::ostream& os, MountError value) {
   return os << MountErrorToString(value);
 }
 
-static NOINLINE const char* DeleteRecursivelyErrorToStringHelper(DeleteRecursivelyError value) {
+NOINLINE static const char* DeleteRecursivelyErrorToStringHelper(DeleteRecursivelyError value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DeleteRecursivelyError::kOk:
@@ -91,7 +91,7 @@ std::ostream& operator<<(std::ostream& os, DeleteRecursivelyError value) {
   return os << DeleteRecursivelyErrorToString(value);
 }
 
-static NOINLINE const char* KerberosConfig_SourceToStringHelper(KerberosConfig_Source value) {
+NOINLINE static const char* KerberosConfig_SourceToStringHelper(KerberosConfig_Source value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case KerberosConfig_Source::kActiveDirectory:

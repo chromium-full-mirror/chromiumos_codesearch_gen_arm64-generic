@@ -21,7 +21,7 @@
 namespace cros {
 namespace mojom {
 
-static NOINLINE const char* CameraEffectToStringHelper(CameraEffect value) {
+NOINLINE static const char* CameraEffectToStringHelper(CameraEffect value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CameraEffect::kNone:
@@ -53,7 +53,7 @@ std::ostream& operator<<(std::ostream& os, CameraEffect value) {
   return os << CameraEffectToString(value);
 }
 
-static NOINLINE const char* GpuApiToStringHelper(GpuApi value) {
+NOINLINE static const char* GpuApiToStringHelper(GpuApi value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case GpuApi::kOpenCL:
@@ -79,7 +79,7 @@ std::ostream& operator<<(std::ostream& os, GpuApi value) {
   return os << GpuApiToString(value);
 }
 
-static NOINLINE const char* BlurLevelToStringHelper(BlurLevel value) {
+NOINLINE static const char* BlurLevelToStringHelper(BlurLevel value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case BlurLevel::kLowest:
@@ -109,7 +109,7 @@ std::ostream& operator<<(std::ostream& os, BlurLevel value) {
   return os << BlurLevelToString(value);
 }
 
-static NOINLINE const char* SegmentationModelToStringHelper(SegmentationModel value) {
+NOINLINE static const char* SegmentationModelToStringHelper(SegmentationModel value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case SegmentationModel::kAuto:

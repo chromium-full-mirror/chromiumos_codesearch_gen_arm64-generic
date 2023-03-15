@@ -23,7 +23,7 @@ namespace chromeos {
 namespace mojo_service_manager {
 namespace mojom {
 
-static NOINLINE const char* ErrorCodeToStringHelper(ErrorCode value) {
+NOINLINE static const char* ErrorCodeToStringHelper(ErrorCode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ErrorCode::kUnknown:
@@ -55,7 +55,7 @@ std::ostream& operator<<(std::ostream& os, ErrorCode value) {
   return os << ErrorCodeToString(value);
 }
 
-static NOINLINE const char* ServiceEvent_TypeToStringHelper(ServiceEvent_Type value) {
+NOINLINE static const char* ServiceEvent_TypeToStringHelper(ServiceEvent_Type value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ServiceEvent_Type::kUnknown:

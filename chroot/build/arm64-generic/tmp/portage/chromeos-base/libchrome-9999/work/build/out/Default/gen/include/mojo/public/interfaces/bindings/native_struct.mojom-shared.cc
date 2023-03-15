@@ -21,7 +21,7 @@
 namespace mojo {
 namespace native {
 
-static NOINLINE const char* SerializedHandleTypeToStringHelper(SerializedHandleType value) {
+NOINLINE static const char* SerializedHandleTypeToStringHelper(SerializedHandleType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case SerializedHandleType::MOJO_HANDLE:

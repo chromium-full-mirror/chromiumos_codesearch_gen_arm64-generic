@@ -21,7 +21,7 @@
 namespace cros {
 namespace mojom {
 
-static NOINLINE const char* CameraMetadataSectionToStringHelper(CameraMetadataSection value) {
+NOINLINE static const char* CameraMetadataSectionToStringHelper(CameraMetadataSection value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CameraMetadataSection::ANDROID_COLOR_CORRECTION:
@@ -109,7 +109,7 @@ std::ostream& operator<<(std::ostream& os, CameraMetadataSection value) {
   return os << CameraMetadataSectionToString(value);
 }
 
-static NOINLINE const char* CameraMetadataSectionStartToStringHelper(CameraMetadataSectionStart value) {
+NOINLINE static const char* CameraMetadataSectionStartToStringHelper(CameraMetadataSectionStart value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CameraMetadataSectionStart::ANDROID_COLOR_CORRECTION_START:
@@ -193,7 +193,7 @@ std::ostream& operator<<(std::ostream& os, CameraMetadataSectionStart value) {
   return os << CameraMetadataSectionStartToString(value);
 }
 
-static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag value) {
+NOINLINE static const char* CameraMetadataTagToStringHelper(CameraMetadataTag value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CameraMetadataTag::ANDROID_COLOR_CORRECTION_MODE:
@@ -865,7 +865,7 @@ std::ostream& operator<<(std::ostream& os, CameraMetadataTag value) {
   return os << CameraMetadataTagToString(value);
 }
 
-static NOINLINE const char* AndroidColorCorrectionModeToStringHelper(AndroidColorCorrectionMode value) {
+NOINLINE static const char* AndroidColorCorrectionModeToStringHelper(AndroidColorCorrectionMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidColorCorrectionMode::ANDROID_COLOR_CORRECTION_MODE_TRANSFORM_MATRIX:
@@ -891,7 +891,7 @@ std::ostream& operator<<(std::ostream& os, AndroidColorCorrectionMode value) {
   return os << AndroidColorCorrectionModeToString(value);
 }
 
-static NOINLINE const char* AndroidColorCorrectionAberrationModeToStringHelper(AndroidColorCorrectionAberrationMode value) {
+NOINLINE static const char* AndroidColorCorrectionAberrationModeToStringHelper(AndroidColorCorrectionAberrationMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidColorCorrectionAberrationMode::ANDROID_COLOR_CORRECTION_ABERRATION_MODE_OFF:
@@ -917,7 +917,7 @@ std::ostream& operator<<(std::ostream& os, AndroidColorCorrectionAberrationMode 
   return os << AndroidColorCorrectionAberrationModeToString(value);
 }
 
-static NOINLINE const char* AndroidControlAeAntibandingModeToStringHelper(AndroidControlAeAntibandingMode value) {
+NOINLINE static const char* AndroidControlAeAntibandingModeToStringHelper(AndroidControlAeAntibandingMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAeAntibandingMode::ANDROID_CONTROL_AE_ANTIBANDING_MODE_OFF:
@@ -945,7 +945,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAeAntibandingMode value
   return os << AndroidControlAeAntibandingModeToString(value);
 }
 
-static NOINLINE const char* AndroidControlAeLockToStringHelper(AndroidControlAeLock value) {
+NOINLINE static const char* AndroidControlAeLockToStringHelper(AndroidControlAeLock value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAeLock::ANDROID_CONTROL_AE_LOCK_OFF:
@@ -969,7 +969,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAeLock value) {
   return os << AndroidControlAeLockToString(value);
 }
 
-static NOINLINE const char* AndroidControlAeModeToStringHelper(AndroidControlAeMode value) {
+NOINLINE static const char* AndroidControlAeModeToStringHelper(AndroidControlAeMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAeMode::ANDROID_CONTROL_AE_MODE_OFF:
@@ -1001,7 +1001,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAeMode value) {
   return os << AndroidControlAeModeToString(value);
 }
 
-static NOINLINE const char* AndroidControlAePrecaptureTriggerToStringHelper(AndroidControlAePrecaptureTrigger value) {
+NOINLINE static const char* AndroidControlAePrecaptureTriggerToStringHelper(AndroidControlAePrecaptureTrigger value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAePrecaptureTrigger::ANDROID_CONTROL_AE_PRECAPTURE_TRIGGER_IDLE:
@@ -1027,7 +1027,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAePrecaptureTrigger val
   return os << AndroidControlAePrecaptureTriggerToString(value);
 }
 
-static NOINLINE const char* AndroidControlAfModeToStringHelper(AndroidControlAfMode value) {
+NOINLINE static const char* AndroidControlAfModeToStringHelper(AndroidControlAfMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAfMode::ANDROID_CONTROL_AF_MODE_OFF:
@@ -1059,7 +1059,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAfMode value) {
   return os << AndroidControlAfModeToString(value);
 }
 
-static NOINLINE const char* AndroidControlAfTriggerToStringHelper(AndroidControlAfTrigger value) {
+NOINLINE static const char* AndroidControlAfTriggerToStringHelper(AndroidControlAfTrigger value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAfTrigger::ANDROID_CONTROL_AF_TRIGGER_IDLE:
@@ -1085,7 +1085,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAfTrigger value) {
   return os << AndroidControlAfTriggerToString(value);
 }
 
-static NOINLINE const char* AndroidControlAwbLockToStringHelper(AndroidControlAwbLock value) {
+NOINLINE static const char* AndroidControlAwbLockToStringHelper(AndroidControlAwbLock value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAwbLock::ANDROID_CONTROL_AWB_LOCK_OFF:
@@ -1109,7 +1109,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAwbLock value) {
   return os << AndroidControlAwbLockToString(value);
 }
 
-static NOINLINE const char* AndroidControlAwbModeToStringHelper(AndroidControlAwbMode value) {
+NOINLINE static const char* AndroidControlAwbModeToStringHelper(AndroidControlAwbMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAwbMode::ANDROID_CONTROL_AWB_MODE_OFF:
@@ -1147,7 +1147,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAwbMode value) {
   return os << AndroidControlAwbModeToString(value);
 }
 
-static NOINLINE const char* AndroidControlCaptureIntentToStringHelper(AndroidControlCaptureIntent value) {
+NOINLINE static const char* AndroidControlCaptureIntentToStringHelper(AndroidControlCaptureIntent value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlCaptureIntent::ANDROID_CONTROL_CAPTURE_INTENT_CUSTOM:
@@ -1183,7 +1183,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlCaptureIntent value) {
   return os << AndroidControlCaptureIntentToString(value);
 }
 
-static NOINLINE const char* AndroidControlEffectModeToStringHelper(AndroidControlEffectMode value) {
+NOINLINE static const char* AndroidControlEffectModeToStringHelper(AndroidControlEffectMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlEffectMode::ANDROID_CONTROL_EFFECT_MODE_OFF:
@@ -1221,7 +1221,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlEffectMode value) {
   return os << AndroidControlEffectModeToString(value);
 }
 
-static NOINLINE const char* AndroidControlModeToStringHelper(AndroidControlMode value) {
+NOINLINE static const char* AndroidControlModeToStringHelper(AndroidControlMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlMode::ANDROID_CONTROL_MODE_OFF:
@@ -1251,7 +1251,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlMode value) {
   return os << AndroidControlModeToString(value);
 }
 
-static NOINLINE const char* AndroidControlSceneModeToStringHelper(AndroidControlSceneMode value) {
+NOINLINE static const char* AndroidControlSceneModeToStringHelper(AndroidControlSceneMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlSceneMode::ANDROID_CONTROL_SCENE_MODE_DISABLED:
@@ -1315,7 +1315,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlSceneMode value) {
   return os << AndroidControlSceneModeToString(value);
 }
 
-static NOINLINE const char* AndroidControlVideoStabilizationModeToStringHelper(AndroidControlVideoStabilizationMode value) {
+NOINLINE static const char* AndroidControlVideoStabilizationModeToStringHelper(AndroidControlVideoStabilizationMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlVideoStabilizationMode::ANDROID_CONTROL_VIDEO_STABILIZATION_MODE_OFF:
@@ -1341,7 +1341,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlVideoStabilizationMode 
   return os << AndroidControlVideoStabilizationModeToString(value);
 }
 
-static NOINLINE const char* AndroidControlAeStateToStringHelper(AndroidControlAeState value) {
+NOINLINE static const char* AndroidControlAeStateToStringHelper(AndroidControlAeState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAeState::ANDROID_CONTROL_AE_STATE_INACTIVE:
@@ -1373,7 +1373,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAeState value) {
   return os << AndroidControlAeStateToString(value);
 }
 
-static NOINLINE const char* AndroidControlAfStateToStringHelper(AndroidControlAfState value) {
+NOINLINE static const char* AndroidControlAfStateToStringHelper(AndroidControlAfState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAfState::ANDROID_CONTROL_AF_STATE_INACTIVE:
@@ -1407,7 +1407,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAfState value) {
   return os << AndroidControlAfStateToString(value);
 }
 
-static NOINLINE const char* AndroidControlAwbStateToStringHelper(AndroidControlAwbState value) {
+NOINLINE static const char* AndroidControlAwbStateToStringHelper(AndroidControlAwbState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAwbState::ANDROID_CONTROL_AWB_STATE_INACTIVE:
@@ -1435,7 +1435,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAwbState value) {
   return os << AndroidControlAwbStateToString(value);
 }
 
-static NOINLINE const char* AndroidControlAeLockAvailableToStringHelper(AndroidControlAeLockAvailable value) {
+NOINLINE static const char* AndroidControlAeLockAvailableToStringHelper(AndroidControlAeLockAvailable value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAeLockAvailable::ANDROID_CONTROL_AE_LOCK_AVAILABLE_FALSE:
@@ -1459,7 +1459,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAeLockAvailable value) 
   return os << AndroidControlAeLockAvailableToString(value);
 }
 
-static NOINLINE const char* AndroidControlAwbLockAvailableToStringHelper(AndroidControlAwbLockAvailable value) {
+NOINLINE static const char* AndroidControlAwbLockAvailableToStringHelper(AndroidControlAwbLockAvailable value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAwbLockAvailable::ANDROID_CONTROL_AWB_LOCK_AVAILABLE_FALSE:
@@ -1483,7 +1483,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAwbLockAvailable value)
   return os << AndroidControlAwbLockAvailableToString(value);
 }
 
-static NOINLINE const char* AndroidControlEnableZslToStringHelper(AndroidControlEnableZsl value) {
+NOINLINE static const char* AndroidControlEnableZslToStringHelper(AndroidControlEnableZsl value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlEnableZsl::ANDROID_CONTROL_ENABLE_ZSL_FALSE:
@@ -1507,7 +1507,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlEnableZsl value) {
   return os << AndroidControlEnableZslToString(value);
 }
 
-static NOINLINE const char* AndroidControlAfSceneChangeToStringHelper(AndroidControlAfSceneChange value) {
+NOINLINE static const char* AndroidControlAfSceneChangeToStringHelper(AndroidControlAfSceneChange value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAfSceneChange::ANDROID_CONTROL_AF_SCENE_CHANGE_NOT_DETECTED:
@@ -1531,7 +1531,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAfSceneChange value) {
   return os << AndroidControlAfSceneChangeToString(value);
 }
 
-static NOINLINE const char* AndroidControlExtendedSceneModeToStringHelper(AndroidControlExtendedSceneMode value) {
+NOINLINE static const char* AndroidControlExtendedSceneModeToStringHelper(AndroidControlExtendedSceneMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlExtendedSceneMode::ANDROID_CONTROL_EXTENDED_SCENE_MODE_DISABLED:
@@ -1559,7 +1559,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlExtendedSceneMode value
   return os << AndroidControlExtendedSceneModeToString(value);
 }
 
-static NOINLINE const char* AndroidControlAfRegionsSetToStringHelper(AndroidControlAfRegionsSet value) {
+NOINLINE static const char* AndroidControlAfRegionsSetToStringHelper(AndroidControlAfRegionsSet value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAfRegionsSet::ANDROID_CONTROL_AF_REGIONS_SET_FALSE:
@@ -1583,7 +1583,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAfRegionsSet value) {
   return os << AndroidControlAfRegionsSetToString(value);
 }
 
-static NOINLINE const char* AndroidControlAeRegionsSetToStringHelper(AndroidControlAeRegionsSet value) {
+NOINLINE static const char* AndroidControlAeRegionsSetToStringHelper(AndroidControlAeRegionsSet value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAeRegionsSet::ANDROID_CONTROL_AE_REGIONS_SET_FALSE:
@@ -1607,7 +1607,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAeRegionsSet value) {
   return os << AndroidControlAeRegionsSetToString(value);
 }
 
-static NOINLINE const char* AndroidControlAwbRegionsSetToStringHelper(AndroidControlAwbRegionsSet value) {
+NOINLINE static const char* AndroidControlAwbRegionsSetToStringHelper(AndroidControlAwbRegionsSet value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidControlAwbRegionsSet::ANDROID_CONTROL_AWB_REGIONS_SET_FALSE:
@@ -1631,7 +1631,7 @@ std::ostream& operator<<(std::ostream& os, AndroidControlAwbRegionsSet value) {
   return os << AndroidControlAwbRegionsSetToString(value);
 }
 
-static NOINLINE const char* AndroidDemosaicModeToStringHelper(AndroidDemosaicMode value) {
+NOINLINE static const char* AndroidDemosaicModeToStringHelper(AndroidDemosaicMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidDemosaicMode::ANDROID_DEMOSAIC_MODE_FAST:
@@ -1655,7 +1655,7 @@ std::ostream& operator<<(std::ostream& os, AndroidDemosaicMode value) {
   return os << AndroidDemosaicModeToString(value);
 }
 
-static NOINLINE const char* AndroidEdgeModeToStringHelper(AndroidEdgeMode value) {
+NOINLINE static const char* AndroidEdgeModeToStringHelper(AndroidEdgeMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidEdgeMode::ANDROID_EDGE_MODE_OFF:
@@ -1683,7 +1683,7 @@ std::ostream& operator<<(std::ostream& os, AndroidEdgeMode value) {
   return os << AndroidEdgeModeToString(value);
 }
 
-static NOINLINE const char* AndroidFlashModeToStringHelper(AndroidFlashMode value) {
+NOINLINE static const char* AndroidFlashModeToStringHelper(AndroidFlashMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidFlashMode::ANDROID_FLASH_MODE_OFF:
@@ -1709,7 +1709,7 @@ std::ostream& operator<<(std::ostream& os, AndroidFlashMode value) {
   return os << AndroidFlashModeToString(value);
 }
 
-static NOINLINE const char* AndroidFlashStateToStringHelper(AndroidFlashState value) {
+NOINLINE static const char* AndroidFlashStateToStringHelper(AndroidFlashState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidFlashState::ANDROID_FLASH_STATE_UNAVAILABLE:
@@ -1739,7 +1739,7 @@ std::ostream& operator<<(std::ostream& os, AndroidFlashState value) {
   return os << AndroidFlashStateToString(value);
 }
 
-static NOINLINE const char* AndroidFlashInfoAvailableToStringHelper(AndroidFlashInfoAvailable value) {
+NOINLINE static const char* AndroidFlashInfoAvailableToStringHelper(AndroidFlashInfoAvailable value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidFlashInfoAvailable::ANDROID_FLASH_INFO_AVAILABLE_FALSE:
@@ -1763,7 +1763,7 @@ std::ostream& operator<<(std::ostream& os, AndroidFlashInfoAvailable value) {
   return os << AndroidFlashInfoAvailableToString(value);
 }
 
-static NOINLINE const char* AndroidHotPixelModeToStringHelper(AndroidHotPixelMode value) {
+NOINLINE static const char* AndroidHotPixelModeToStringHelper(AndroidHotPixelMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidHotPixelMode::ANDROID_HOT_PIXEL_MODE_OFF:
@@ -1789,7 +1789,7 @@ std::ostream& operator<<(std::ostream& os, AndroidHotPixelMode value) {
   return os << AndroidHotPixelModeToString(value);
 }
 
-static NOINLINE const char* AndroidLensOpticalStabilizationModeToStringHelper(AndroidLensOpticalStabilizationMode value) {
+NOINLINE static const char* AndroidLensOpticalStabilizationModeToStringHelper(AndroidLensOpticalStabilizationMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidLensOpticalStabilizationMode::ANDROID_LENS_OPTICAL_STABILIZATION_MODE_OFF:
@@ -1813,7 +1813,7 @@ std::ostream& operator<<(std::ostream& os, AndroidLensOpticalStabilizationMode v
   return os << AndroidLensOpticalStabilizationModeToString(value);
 }
 
-static NOINLINE const char* AndroidLensFacingToStringHelper(AndroidLensFacing value) {
+NOINLINE static const char* AndroidLensFacingToStringHelper(AndroidLensFacing value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidLensFacing::ANDROID_LENS_FACING_FRONT:
@@ -1839,7 +1839,7 @@ std::ostream& operator<<(std::ostream& os, AndroidLensFacing value) {
   return os << AndroidLensFacingToString(value);
 }
 
-static NOINLINE const char* AndroidLensStateToStringHelper(AndroidLensState value) {
+NOINLINE static const char* AndroidLensStateToStringHelper(AndroidLensState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidLensState::ANDROID_LENS_STATE_STATIONARY:
@@ -1863,7 +1863,7 @@ std::ostream& operator<<(std::ostream& os, AndroidLensState value) {
   return os << AndroidLensStateToString(value);
 }
 
-static NOINLINE const char* AndroidLensPoseReferenceToStringHelper(AndroidLensPoseReference value) {
+NOINLINE static const char* AndroidLensPoseReferenceToStringHelper(AndroidLensPoseReference value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidLensPoseReference::ANDROID_LENS_POSE_REFERENCE_PRIMARY_CAMERA:
@@ -1891,7 +1891,7 @@ std::ostream& operator<<(std::ostream& os, AndroidLensPoseReference value) {
   return os << AndroidLensPoseReferenceToString(value);
 }
 
-static NOINLINE const char* AndroidLensInfoFocusDistanceCalibrationToStringHelper(AndroidLensInfoFocusDistanceCalibration value) {
+NOINLINE static const char* AndroidLensInfoFocusDistanceCalibrationToStringHelper(AndroidLensInfoFocusDistanceCalibration value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidLensInfoFocusDistanceCalibration::ANDROID_LENS_INFO_FOCUS_DISTANCE_CALIBRATION_UNCALIBRATED:
@@ -1917,7 +1917,7 @@ std::ostream& operator<<(std::ostream& os, AndroidLensInfoFocusDistanceCalibrati
   return os << AndroidLensInfoFocusDistanceCalibrationToString(value);
 }
 
-static NOINLINE const char* AndroidNoiseReductionModeToStringHelper(AndroidNoiseReductionMode value) {
+NOINLINE static const char* AndroidNoiseReductionModeToStringHelper(AndroidNoiseReductionMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidNoiseReductionMode::ANDROID_NOISE_REDUCTION_MODE_OFF:
@@ -1947,7 +1947,7 @@ std::ostream& operator<<(std::ostream& os, AndroidNoiseReductionMode value) {
   return os << AndroidNoiseReductionModeToString(value);
 }
 
-static NOINLINE const char* AndroidQuirksPartialResultToStringHelper(AndroidQuirksPartialResult value) {
+NOINLINE static const char* AndroidQuirksPartialResultToStringHelper(AndroidQuirksPartialResult value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidQuirksPartialResult::ANDROID_QUIRKS_PARTIAL_RESULT_FINAL:
@@ -1971,7 +1971,7 @@ std::ostream& operator<<(std::ostream& os, AndroidQuirksPartialResult value) {
   return os << AndroidQuirksPartialResultToString(value);
 }
 
-static NOINLINE const char* AndroidRequestMetadataModeToStringHelper(AndroidRequestMetadataMode value) {
+NOINLINE static const char* AndroidRequestMetadataModeToStringHelper(AndroidRequestMetadataMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidRequestMetadataMode::ANDROID_REQUEST_METADATA_MODE_NONE:
@@ -1995,7 +1995,7 @@ std::ostream& operator<<(std::ostream& os, AndroidRequestMetadataMode value) {
   return os << AndroidRequestMetadataModeToString(value);
 }
 
-static NOINLINE const char* AndroidRequestTypeToStringHelper(AndroidRequestType value) {
+NOINLINE static const char* AndroidRequestTypeToStringHelper(AndroidRequestType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidRequestType::ANDROID_REQUEST_TYPE_CAPTURE:
@@ -2019,7 +2019,7 @@ std::ostream& operator<<(std::ostream& os, AndroidRequestType value) {
   return os << AndroidRequestTypeToString(value);
 }
 
-static NOINLINE const char* AndroidRequestAvailableCapabilitiesToStringHelper(AndroidRequestAvailableCapabilities value) {
+NOINLINE static const char* AndroidRequestAvailableCapabilitiesToStringHelper(AndroidRequestAvailableCapabilities value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidRequestAvailableCapabilities::ANDROID_REQUEST_AVAILABLE_CAPABILITIES_BACKWARD_COMPATIBLE:
@@ -2079,7 +2079,7 @@ std::ostream& operator<<(std::ostream& os, AndroidRequestAvailableCapabilities v
   return os << AndroidRequestAvailableCapabilitiesToString(value);
 }
 
-static NOINLINE const char* AndroidRequestAvailableDynamicRangeProfilesMapToStringHelper(AndroidRequestAvailableDynamicRangeProfilesMap value) {
+NOINLINE static const char* AndroidRequestAvailableDynamicRangeProfilesMapToStringHelper(AndroidRequestAvailableDynamicRangeProfilesMap value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_STANDARD:
@@ -2125,7 +2125,7 @@ std::ostream& operator<<(std::ostream& os, AndroidRequestAvailableDynamicRangePr
   return os << AndroidRequestAvailableDynamicRangeProfilesMapToString(value);
 }
 
-static NOINLINE const char* AndroidScalerAvailableFormatsToStringHelper(AndroidScalerAvailableFormats value) {
+NOINLINE static const char* AndroidScalerAvailableFormatsToStringHelper(AndroidScalerAvailableFormats value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidScalerAvailableFormats::ANDROID_SCALER_AVAILABLE_FORMATS_YCrCb_420_SP:
@@ -2165,7 +2165,7 @@ std::ostream& operator<<(std::ostream& os, AndroidScalerAvailableFormats value) 
   return os << AndroidScalerAvailableFormatsToString(value);
 }
 
-static NOINLINE const char* AndroidScalerAvailableStreamConfigurationsToStringHelper(AndroidScalerAvailableStreamConfigurations value) {
+NOINLINE static const char* AndroidScalerAvailableStreamConfigurationsToStringHelper(AndroidScalerAvailableStreamConfigurations value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidScalerAvailableStreamConfigurations::ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_OUTPUT:
@@ -2189,7 +2189,7 @@ std::ostream& operator<<(std::ostream& os, AndroidScalerAvailableStreamConfigura
   return os << AndroidScalerAvailableStreamConfigurationsToString(value);
 }
 
-static NOINLINE const char* AndroidScalerCroppingTypeToStringHelper(AndroidScalerCroppingType value) {
+NOINLINE static const char* AndroidScalerCroppingTypeToStringHelper(AndroidScalerCroppingType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidScalerCroppingType::ANDROID_SCALER_CROPPING_TYPE_CENTER_ONLY:
@@ -2213,7 +2213,7 @@ std::ostream& operator<<(std::ostream& os, AndroidScalerCroppingType value) {
   return os << AndroidScalerCroppingTypeToString(value);
 }
 
-static NOINLINE const char* AndroidScalerAvailableRecommendedStreamConfigurationsToStringHelper(AndroidScalerAvailableRecommendedStreamConfigurations value) {
+NOINLINE static const char* AndroidScalerAvailableRecommendedStreamConfigurationsToStringHelper(AndroidScalerAvailableRecommendedStreamConfigurations value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidScalerAvailableRecommendedStreamConfigurations::ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PREVIEW:
@@ -2255,7 +2255,7 @@ std::ostream& operator<<(std::ostream& os, AndroidScalerAvailableRecommendedStre
   return os << AndroidScalerAvailableRecommendedStreamConfigurationsToString(value);
 }
 
-static NOINLINE const char* AndroidScalerRotateAndCropToStringHelper(AndroidScalerRotateAndCrop value) {
+NOINLINE static const char* AndroidScalerRotateAndCropToStringHelper(AndroidScalerRotateAndCrop value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidScalerRotateAndCrop::ANDROID_SCALER_ROTATE_AND_CROP_NONE:
@@ -2285,7 +2285,7 @@ std::ostream& operator<<(std::ostream& os, AndroidScalerRotateAndCrop value) {
   return os << AndroidScalerRotateAndCropToString(value);
 }
 
-static NOINLINE const char* AndroidScalerPhysicalCameraMultiResolutionStreamConfigurationsToStringHelper(AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value) {
+NOINLINE static const char* AndroidScalerPhysicalCameraMultiResolutionStreamConfigurationsToStringHelper(AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations::ANDROID_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_OUTPUT:
@@ -2309,7 +2309,7 @@ std::ostream& operator<<(std::ostream& os, AndroidScalerPhysicalCameraMultiResol
   return os << AndroidScalerPhysicalCameraMultiResolutionStreamConfigurationsToString(value);
 }
 
-static NOINLINE const char* AndroidScalerAvailableStreamConfigurationsMaximumResolutionToStringHelper(AndroidScalerAvailableStreamConfigurationsMaximumResolution value) {
+NOINLINE static const char* AndroidScalerAvailableStreamConfigurationsMaximumResolutionToStringHelper(AndroidScalerAvailableStreamConfigurationsMaximumResolution value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidScalerAvailableStreamConfigurationsMaximumResolution::ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
@@ -2333,7 +2333,7 @@ std::ostream& operator<<(std::ostream& os, AndroidScalerAvailableStreamConfigura
   return os << AndroidScalerAvailableStreamConfigurationsMaximumResolutionToString(value);
 }
 
-static NOINLINE const char* AndroidScalerMultiResolutionStreamSupportedToStringHelper(AndroidScalerMultiResolutionStreamSupported value) {
+NOINLINE static const char* AndroidScalerMultiResolutionStreamSupportedToStringHelper(AndroidScalerMultiResolutionStreamSupported value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidScalerMultiResolutionStreamSupported::ANDROID_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_FALSE:
@@ -2357,7 +2357,7 @@ std::ostream& operator<<(std::ostream& os, AndroidScalerMultiResolutionStreamSup
   return os << AndroidScalerMultiResolutionStreamSupportedToString(value);
 }
 
-static NOINLINE const char* AndroidScalerCropRegionSetToStringHelper(AndroidScalerCropRegionSet value) {
+NOINLINE static const char* AndroidScalerCropRegionSetToStringHelper(AndroidScalerCropRegionSet value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidScalerCropRegionSet::ANDROID_SCALER_CROP_REGION_SET_FALSE:
@@ -2381,7 +2381,7 @@ std::ostream& operator<<(std::ostream& os, AndroidScalerCropRegionSet value) {
   return os << AndroidScalerCropRegionSetToString(value);
 }
 
-static NOINLINE const char* AndroidScalerAvailableStreamUseCasesToStringHelper(AndroidScalerAvailableStreamUseCases value) {
+NOINLINE static const char* AndroidScalerAvailableStreamUseCasesToStringHelper(AndroidScalerAvailableStreamUseCases value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidScalerAvailableStreamUseCases::ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_DEFAULT:
@@ -2415,7 +2415,7 @@ std::ostream& operator<<(std::ostream& os, AndroidScalerAvailableStreamUseCases 
   return os << AndroidScalerAvailableStreamUseCasesToString(value);
 }
 
-static NOINLINE const char* AndroidSensorReferenceIlluminant1ToStringHelper(AndroidSensorReferenceIlluminant1 value) {
+NOINLINE static const char* AndroidSensorReferenceIlluminant1ToStringHelper(AndroidSensorReferenceIlluminant1 value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidSensorReferenceIlluminant1::ANDROID_SENSOR_REFERENCE_ILLUMINANT1_DAYLIGHT:
@@ -2473,7 +2473,7 @@ std::ostream& operator<<(std::ostream& os, AndroidSensorReferenceIlluminant1 val
   return os << AndroidSensorReferenceIlluminant1ToString(value);
 }
 
-static NOINLINE const char* AndroidSensorTestPatternModeToStringHelper(AndroidSensorTestPatternMode value) {
+NOINLINE static const char* AndroidSensorTestPatternModeToStringHelper(AndroidSensorTestPatternMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidSensorTestPatternMode::ANDROID_SENSOR_TEST_PATTERN_MODE_OFF:
@@ -2507,7 +2507,7 @@ std::ostream& operator<<(std::ostream& os, AndroidSensorTestPatternMode value) {
   return os << AndroidSensorTestPatternModeToString(value);
 }
 
-static NOINLINE const char* AndroidSensorPixelModeToStringHelper(AndroidSensorPixelMode value) {
+NOINLINE static const char* AndroidSensorPixelModeToStringHelper(AndroidSensorPixelMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidSensorPixelMode::ANDROID_SENSOR_PIXEL_MODE_DEFAULT:
@@ -2531,7 +2531,7 @@ std::ostream& operator<<(std::ostream& os, AndroidSensorPixelMode value) {
   return os << AndroidSensorPixelModeToString(value);
 }
 
-static NOINLINE const char* AndroidSensorRawBinningFactorUsedToStringHelper(AndroidSensorRawBinningFactorUsed value) {
+NOINLINE static const char* AndroidSensorRawBinningFactorUsedToStringHelper(AndroidSensorRawBinningFactorUsed value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidSensorRawBinningFactorUsed::ANDROID_SENSOR_RAW_BINNING_FACTOR_USED_TRUE:
@@ -2555,7 +2555,7 @@ std::ostream& operator<<(std::ostream& os, AndroidSensorRawBinningFactorUsed val
   return os << AndroidSensorRawBinningFactorUsedToString(value);
 }
 
-static NOINLINE const char* AndroidSensorInfoColorFilterArrangementToStringHelper(AndroidSensorInfoColorFilterArrangement value) {
+NOINLINE static const char* AndroidSensorInfoColorFilterArrangementToStringHelper(AndroidSensorInfoColorFilterArrangement value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidSensorInfoColorFilterArrangement::ANDROID_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_RGGB:
@@ -2589,7 +2589,7 @@ std::ostream& operator<<(std::ostream& os, AndroidSensorInfoColorFilterArrangeme
   return os << AndroidSensorInfoColorFilterArrangementToString(value);
 }
 
-static NOINLINE const char* AndroidSensorInfoTimestampSourceToStringHelper(AndroidSensorInfoTimestampSource value) {
+NOINLINE static const char* AndroidSensorInfoTimestampSourceToStringHelper(AndroidSensorInfoTimestampSource value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidSensorInfoTimestampSource::ANDROID_SENSOR_INFO_TIMESTAMP_SOURCE_UNKNOWN:
@@ -2613,7 +2613,7 @@ std::ostream& operator<<(std::ostream& os, AndroidSensorInfoTimestampSource valu
   return os << AndroidSensorInfoTimestampSourceToString(value);
 }
 
-static NOINLINE const char* AndroidSensorInfoLensShadingAppliedToStringHelper(AndroidSensorInfoLensShadingApplied value) {
+NOINLINE static const char* AndroidSensorInfoLensShadingAppliedToStringHelper(AndroidSensorInfoLensShadingApplied value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidSensorInfoLensShadingApplied::ANDROID_SENSOR_INFO_LENS_SHADING_APPLIED_FALSE:
@@ -2637,7 +2637,7 @@ std::ostream& operator<<(std::ostream& os, AndroidSensorInfoLensShadingApplied v
   return os << AndroidSensorInfoLensShadingAppliedToString(value);
 }
 
-static NOINLINE const char* AndroidShadingModeToStringHelper(AndroidShadingMode value) {
+NOINLINE static const char* AndroidShadingModeToStringHelper(AndroidShadingMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidShadingMode::ANDROID_SHADING_MODE_OFF:
@@ -2663,7 +2663,7 @@ std::ostream& operator<<(std::ostream& os, AndroidShadingMode value) {
   return os << AndroidShadingModeToString(value);
 }
 
-static NOINLINE const char* AndroidStatisticsFaceDetectModeToStringHelper(AndroidStatisticsFaceDetectMode value) {
+NOINLINE static const char* AndroidStatisticsFaceDetectModeToStringHelper(AndroidStatisticsFaceDetectMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidStatisticsFaceDetectMode::ANDROID_STATISTICS_FACE_DETECT_MODE_OFF:
@@ -2689,7 +2689,7 @@ std::ostream& operator<<(std::ostream& os, AndroidStatisticsFaceDetectMode value
   return os << AndroidStatisticsFaceDetectModeToString(value);
 }
 
-static NOINLINE const char* AndroidStatisticsHistogramModeToStringHelper(AndroidStatisticsHistogramMode value) {
+NOINLINE static const char* AndroidStatisticsHistogramModeToStringHelper(AndroidStatisticsHistogramMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidStatisticsHistogramMode::ANDROID_STATISTICS_HISTOGRAM_MODE_OFF:
@@ -2713,7 +2713,7 @@ std::ostream& operator<<(std::ostream& os, AndroidStatisticsHistogramMode value)
   return os << AndroidStatisticsHistogramModeToString(value);
 }
 
-static NOINLINE const char* AndroidStatisticsSharpnessMapModeToStringHelper(AndroidStatisticsSharpnessMapMode value) {
+NOINLINE static const char* AndroidStatisticsSharpnessMapModeToStringHelper(AndroidStatisticsSharpnessMapMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidStatisticsSharpnessMapMode::ANDROID_STATISTICS_SHARPNESS_MAP_MODE_OFF:
@@ -2737,7 +2737,7 @@ std::ostream& operator<<(std::ostream& os, AndroidStatisticsSharpnessMapMode val
   return os << AndroidStatisticsSharpnessMapModeToString(value);
 }
 
-static NOINLINE const char* AndroidStatisticsHotPixelMapModeToStringHelper(AndroidStatisticsHotPixelMapMode value) {
+NOINLINE static const char* AndroidStatisticsHotPixelMapModeToStringHelper(AndroidStatisticsHotPixelMapMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidStatisticsHotPixelMapMode::ANDROID_STATISTICS_HOT_PIXEL_MAP_MODE_OFF:
@@ -2761,7 +2761,7 @@ std::ostream& operator<<(std::ostream& os, AndroidStatisticsHotPixelMapMode valu
   return os << AndroidStatisticsHotPixelMapModeToString(value);
 }
 
-static NOINLINE const char* AndroidStatisticsSceneFlickerToStringHelper(AndroidStatisticsSceneFlicker value) {
+NOINLINE static const char* AndroidStatisticsSceneFlickerToStringHelper(AndroidStatisticsSceneFlicker value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidStatisticsSceneFlicker::ANDROID_STATISTICS_SCENE_FLICKER_NONE:
@@ -2787,7 +2787,7 @@ std::ostream& operator<<(std::ostream& os, AndroidStatisticsSceneFlicker value) 
   return os << AndroidStatisticsSceneFlickerToString(value);
 }
 
-static NOINLINE const char* AndroidStatisticsLensShadingMapModeToStringHelper(AndroidStatisticsLensShadingMapMode value) {
+NOINLINE static const char* AndroidStatisticsLensShadingMapModeToStringHelper(AndroidStatisticsLensShadingMapMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidStatisticsLensShadingMapMode::ANDROID_STATISTICS_LENS_SHADING_MAP_MODE_OFF:
@@ -2811,7 +2811,7 @@ std::ostream& operator<<(std::ostream& os, AndroidStatisticsLensShadingMapMode v
   return os << AndroidStatisticsLensShadingMapModeToString(value);
 }
 
-static NOINLINE const char* AndroidStatisticsOisDataModeToStringHelper(AndroidStatisticsOisDataMode value) {
+NOINLINE static const char* AndroidStatisticsOisDataModeToStringHelper(AndroidStatisticsOisDataMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidStatisticsOisDataMode::ANDROID_STATISTICS_OIS_DATA_MODE_OFF:
@@ -2835,7 +2835,7 @@ std::ostream& operator<<(std::ostream& os, AndroidStatisticsOisDataMode value) {
   return os << AndroidStatisticsOisDataModeToString(value);
 }
 
-static NOINLINE const char* AndroidTonemapModeToStringHelper(AndroidTonemapMode value) {
+NOINLINE static const char* AndroidTonemapModeToStringHelper(AndroidTonemapMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidTonemapMode::ANDROID_TONEMAP_MODE_CONTRAST_CURVE:
@@ -2865,7 +2865,7 @@ std::ostream& operator<<(std::ostream& os, AndroidTonemapMode value) {
   return os << AndroidTonemapModeToString(value);
 }
 
-static NOINLINE const char* AndroidTonemapPresetCurveToStringHelper(AndroidTonemapPresetCurve value) {
+NOINLINE static const char* AndroidTonemapPresetCurveToStringHelper(AndroidTonemapPresetCurve value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidTonemapPresetCurve::ANDROID_TONEMAP_PRESET_CURVE_SRGB:
@@ -2889,7 +2889,7 @@ std::ostream& operator<<(std::ostream& os, AndroidTonemapPresetCurve value) {
   return os << AndroidTonemapPresetCurveToString(value);
 }
 
-static NOINLINE const char* AndroidLedTransmitToStringHelper(AndroidLedTransmit value) {
+NOINLINE static const char* AndroidLedTransmitToStringHelper(AndroidLedTransmit value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidLedTransmit::ANDROID_LED_TRANSMIT_OFF:
@@ -2913,7 +2913,7 @@ std::ostream& operator<<(std::ostream& os, AndroidLedTransmit value) {
   return os << AndroidLedTransmitToString(value);
 }
 
-static NOINLINE const char* AndroidLedAvailableLedsToStringHelper(AndroidLedAvailableLeds value) {
+NOINLINE static const char* AndroidLedAvailableLedsToStringHelper(AndroidLedAvailableLeds value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidLedAvailableLeds::ANDROID_LED_AVAILABLE_LEDS_TRANSMIT:
@@ -2935,7 +2935,7 @@ std::ostream& operator<<(std::ostream& os, AndroidLedAvailableLeds value) {
   return os << AndroidLedAvailableLedsToString(value);
 }
 
-static NOINLINE const char* AndroidInfoSupportedHardwareLevelToStringHelper(AndroidInfoSupportedHardwareLevel value) {
+NOINLINE static const char* AndroidInfoSupportedHardwareLevelToStringHelper(AndroidInfoSupportedHardwareLevel value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidInfoSupportedHardwareLevel::ANDROID_INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED:
@@ -2965,7 +2965,7 @@ std::ostream& operator<<(std::ostream& os, AndroidInfoSupportedHardwareLevel val
   return os << AndroidInfoSupportedHardwareLevelToString(value);
 }
 
-static NOINLINE const char* AndroidInfoSupportedBufferManagementVersionToStringHelper(AndroidInfoSupportedBufferManagementVersion value) {
+NOINLINE static const char* AndroidInfoSupportedBufferManagementVersionToStringHelper(AndroidInfoSupportedBufferManagementVersion value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidInfoSupportedBufferManagementVersion::ANDROID_INFO_SUPPORTED_BUFFER_MANAGEMENT_VERSION_HIDL_DEVICE_3_5:
@@ -2987,7 +2987,7 @@ std::ostream& operator<<(std::ostream& os, AndroidInfoSupportedBufferManagementV
   return os << AndroidInfoSupportedBufferManagementVersionToString(value);
 }
 
-static NOINLINE const char* AndroidBlackLevelLockToStringHelper(AndroidBlackLevelLock value) {
+NOINLINE static const char* AndroidBlackLevelLockToStringHelper(AndroidBlackLevelLock value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidBlackLevelLock::ANDROID_BLACK_LEVEL_LOCK_OFF:
@@ -3011,7 +3011,7 @@ std::ostream& operator<<(std::ostream& os, AndroidBlackLevelLock value) {
   return os << AndroidBlackLevelLockToString(value);
 }
 
-static NOINLINE const char* AndroidSyncFrameNumberToStringHelper(AndroidSyncFrameNumber value) {
+NOINLINE static const char* AndroidSyncFrameNumberToStringHelper(AndroidSyncFrameNumber value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidSyncFrameNumber::ANDROID_SYNC_FRAME_NUMBER_UNKNOWN:
@@ -3035,7 +3035,7 @@ std::ostream& operator<<(std::ostream& os, AndroidSyncFrameNumber value) {
   return os << AndroidSyncFrameNumberToString(value);
 }
 
-static NOINLINE const char* AndroidSyncMaxLatencyToStringHelper(AndroidSyncMaxLatency value) {
+NOINLINE static const char* AndroidSyncMaxLatencyToStringHelper(AndroidSyncMaxLatency value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidSyncMaxLatency::ANDROID_SYNC_MAX_LATENCY_UNKNOWN:
@@ -3059,7 +3059,7 @@ std::ostream& operator<<(std::ostream& os, AndroidSyncMaxLatency value) {
   return os << AndroidSyncMaxLatencyToString(value);
 }
 
-static NOINLINE const char* AndroidDepthAvailableDepthStreamConfigurationsToStringHelper(AndroidDepthAvailableDepthStreamConfigurations value) {
+NOINLINE static const char* AndroidDepthAvailableDepthStreamConfigurationsToStringHelper(AndroidDepthAvailableDepthStreamConfigurations value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidDepthAvailableDepthStreamConfigurations::ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_OUTPUT:
@@ -3083,7 +3083,7 @@ std::ostream& operator<<(std::ostream& os, AndroidDepthAvailableDepthStreamConfi
   return os << AndroidDepthAvailableDepthStreamConfigurationsToString(value);
 }
 
-static NOINLINE const char* AndroidDepthDepthIsExclusiveToStringHelper(AndroidDepthDepthIsExclusive value) {
+NOINLINE static const char* AndroidDepthDepthIsExclusiveToStringHelper(AndroidDepthDepthIsExclusive value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidDepthDepthIsExclusive::ANDROID_DEPTH_DEPTH_IS_EXCLUSIVE_FALSE:
@@ -3107,7 +3107,7 @@ std::ostream& operator<<(std::ostream& os, AndroidDepthDepthIsExclusive value) {
   return os << AndroidDepthDepthIsExclusiveToString(value);
 }
 
-static NOINLINE const char* AndroidDepthAvailableDynamicDepthStreamConfigurationsToStringHelper(AndroidDepthAvailableDynamicDepthStreamConfigurations value) {
+NOINLINE static const char* AndroidDepthAvailableDynamicDepthStreamConfigurationsToStringHelper(AndroidDepthAvailableDynamicDepthStreamConfigurations value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidDepthAvailableDynamicDepthStreamConfigurations::ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_OUTPUT:
@@ -3131,7 +3131,7 @@ std::ostream& operator<<(std::ostream& os, AndroidDepthAvailableDynamicDepthStre
   return os << AndroidDepthAvailableDynamicDepthStreamConfigurationsToString(value);
 }
 
-static NOINLINE const char* AndroidDepthAvailableDepthStreamConfigurationsMaximumResolutionToStringHelper(AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value) {
+NOINLINE static const char* AndroidDepthAvailableDepthStreamConfigurationsMaximumResolutionToStringHelper(AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution::ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
@@ -3155,7 +3155,7 @@ std::ostream& operator<<(std::ostream& os, AndroidDepthAvailableDepthStreamConfi
   return os << AndroidDepthAvailableDepthStreamConfigurationsMaximumResolutionToString(value);
 }
 
-static NOINLINE const char* AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolutionToStringHelper(AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value) {
+NOINLINE static const char* AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolutionToStringHelper(AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution::ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
@@ -3179,7 +3179,7 @@ std::ostream& operator<<(std::ostream& os, AndroidDepthAvailableDynamicDepthStre
   return os << AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolutionToString(value);
 }
 
-static NOINLINE const char* AndroidLogicalMultiCameraSensorSyncTypeToStringHelper(AndroidLogicalMultiCameraSensorSyncType value) {
+NOINLINE static const char* AndroidLogicalMultiCameraSensorSyncTypeToStringHelper(AndroidLogicalMultiCameraSensorSyncType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidLogicalMultiCameraSensorSyncType::ANDROID_LOGICAL_MULTI_CAMERA_SENSOR_SYNC_TYPE_APPROXIMATE:
@@ -3203,7 +3203,7 @@ std::ostream& operator<<(std::ostream& os, AndroidLogicalMultiCameraSensorSyncTy
   return os << AndroidLogicalMultiCameraSensorSyncTypeToString(value);
 }
 
-static NOINLINE const char* AndroidDistortionCorrectionModeToStringHelper(AndroidDistortionCorrectionMode value) {
+NOINLINE static const char* AndroidDistortionCorrectionModeToStringHelper(AndroidDistortionCorrectionMode value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidDistortionCorrectionMode::ANDROID_DISTORTION_CORRECTION_MODE_OFF:
@@ -3229,7 +3229,7 @@ std::ostream& operator<<(std::ostream& os, AndroidDistortionCorrectionMode value
   return os << AndroidDistortionCorrectionModeToString(value);
 }
 
-static NOINLINE const char* AndroidHeicAvailableHeicStreamConfigurationsToStringHelper(AndroidHeicAvailableHeicStreamConfigurations value) {
+NOINLINE static const char* AndroidHeicAvailableHeicStreamConfigurationsToStringHelper(AndroidHeicAvailableHeicStreamConfigurations value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidHeicAvailableHeicStreamConfigurations::ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_OUTPUT:
@@ -3253,7 +3253,7 @@ std::ostream& operator<<(std::ostream& os, AndroidHeicAvailableHeicStreamConfigu
   return os << AndroidHeicAvailableHeicStreamConfigurationsToString(value);
 }
 
-static NOINLINE const char* AndroidHeicAvailableHeicStreamConfigurationsMaximumResolutionToStringHelper(AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value) {
+NOINLINE static const char* AndroidHeicAvailableHeicStreamConfigurationsMaximumResolutionToStringHelper(AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution::ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
@@ -3277,7 +3277,7 @@ std::ostream& operator<<(std::ostream& os, AndroidHeicAvailableHeicStreamConfigu
   return os << AndroidHeicAvailableHeicStreamConfigurationsMaximumResolutionToString(value);
 }
 
-static NOINLINE const char* AndroidHeicInfoSupportedToStringHelper(AndroidHeicInfoSupported value) {
+NOINLINE static const char* AndroidHeicInfoSupportedToStringHelper(AndroidHeicInfoSupported value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidHeicInfoSupported::ANDROID_HEIC_INFO_SUPPORTED_FALSE:
@@ -3301,7 +3301,7 @@ std::ostream& operator<<(std::ostream& os, AndroidHeicInfoSupported value) {
   return os << AndroidHeicInfoSupportedToString(value);
 }
 
-static NOINLINE const char* AndroidAutomotiveLocationToStringHelper(AndroidAutomotiveLocation value) {
+NOINLINE static const char* AndroidAutomotiveLocationToStringHelper(AndroidAutomotiveLocation value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_INTERIOR:
@@ -3343,7 +3343,7 @@ std::ostream& operator<<(std::ostream& os, AndroidAutomotiveLocation value) {
   return os << AndroidAutomotiveLocationToString(value);
 }
 
-static NOINLINE const char* AndroidAutomotiveLensFacingToStringHelper(AndroidAutomotiveLensFacing value) {
+NOINLINE static const char* AndroidAutomotiveLensFacingToStringHelper(AndroidAutomotiveLensFacing value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_OTHER:

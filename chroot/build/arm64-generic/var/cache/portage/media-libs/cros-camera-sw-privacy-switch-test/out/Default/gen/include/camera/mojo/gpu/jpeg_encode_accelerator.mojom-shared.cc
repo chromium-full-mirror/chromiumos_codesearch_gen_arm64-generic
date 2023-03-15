@@ -21,7 +21,7 @@
 namespace cros {
 namespace mojom {
 
-static NOINLINE const char* EncodeStatusToStringHelper(EncodeStatus value) {
+NOINLINE static const char* EncodeStatusToStringHelper(EncodeStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case EncodeStatus::ENCODE_OK:

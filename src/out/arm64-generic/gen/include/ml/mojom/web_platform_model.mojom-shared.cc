@@ -22,7 +22,7 @@ namespace ml {
 namespace model_loader {
 namespace mojom {
 
-static NOINLINE const char* ModelFormatToStringHelper(ModelFormat value) {
+NOINLINE static const char* ModelFormatToStringHelper(ModelFormat value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ModelFormat::kAuto:
@@ -46,7 +46,7 @@ std::ostream& operator<<(std::ostream& os, ModelFormat value) {
   return os << ModelFormatToString(value);
 }
 
-static NOINLINE const char* DevicePreferenceToStringHelper(DevicePreference value) {
+NOINLINE static const char* DevicePreferenceToStringHelper(DevicePreference value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DevicePreference::kAuto:
@@ -72,7 +72,7 @@ std::ostream& operator<<(std::ostream& os, DevicePreference value) {
   return os << DevicePreferenceToString(value);
 }
 
-static NOINLINE const char* DataTypeToStringHelper(DataType value) {
+NOINLINE static const char* DataTypeToStringHelper(DataType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case DataType::kUnknown:
@@ -118,7 +118,7 @@ std::ostream& operator<<(std::ostream& os, DataType value) {
   return os << DataTypeToString(value);
 }
 
-static NOINLINE const char* LoadModelResultToStringHelper(LoadModelResult value) {
+NOINLINE static const char* LoadModelResultToStringHelper(LoadModelResult value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case LoadModelResult::kOk:
@@ -146,7 +146,7 @@ std::ostream& operator<<(std::ostream& os, LoadModelResult value) {
   return os << LoadModelResultToString(value);
 }
 
-static NOINLINE const char* CreateModelLoaderResultToStringHelper(CreateModelLoaderResult value) {
+NOINLINE static const char* CreateModelLoaderResultToStringHelper(CreateModelLoaderResult value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CreateModelLoaderResult::kOk:
@@ -172,7 +172,7 @@ std::ostream& operator<<(std::ostream& os, CreateModelLoaderResult value) {
   return os << CreateModelLoaderResultToString(value);
 }
 
-static NOINLINE const char* ComputeResultToStringHelper(ComputeResult value) {
+NOINLINE static const char* ComputeResultToStringHelper(ComputeResult value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case ComputeResult::kOk:

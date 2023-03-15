@@ -21,7 +21,7 @@
 namespace cros {
 namespace mojom {
 
-static NOINLINE const char* CameraFacingToStringHelper(CameraFacing value) {
+NOINLINE static const char* CameraFacingToStringHelper(CameraFacing value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CameraFacing::CAMERA_FACING_BACK:
@@ -53,7 +53,7 @@ std::ostream& operator<<(std::ostream& os, CameraFacing value) {
   return os << CameraFacingToString(value);
 }
 
-static NOINLINE const char* CameraDeviceStatusToStringHelper(CameraDeviceStatus value) {
+NOINLINE static const char* CameraDeviceStatusToStringHelper(CameraDeviceStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case CameraDeviceStatus::CAMERA_DEVICE_STATUS_NOT_PRESENT:
@@ -79,7 +79,7 @@ std::ostream& operator<<(std::ostream& os, CameraDeviceStatus value) {
   return os << CameraDeviceStatusToString(value);
 }
 
-static NOINLINE const char* TorchModeStatusToStringHelper(TorchModeStatus value) {
+NOINLINE static const char* TorchModeStatusToStringHelper(TorchModeStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case TorchModeStatus::TORCH_MODE_STATUS_NOT_AVAILABLE:

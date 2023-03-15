@@ -21,7 +21,7 @@
 namespace mojo_base {
 namespace mojom {
 
-static NOINLINE const char* TextDirectionToStringHelper(TextDirection value) {
+NOINLINE static const char* TextDirectionToStringHelper(TextDirection value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case TextDirection::UNKNOWN_DIRECTION:

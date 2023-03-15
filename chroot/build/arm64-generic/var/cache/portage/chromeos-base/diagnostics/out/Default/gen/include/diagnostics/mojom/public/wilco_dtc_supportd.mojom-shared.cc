@@ -22,7 +22,7 @@ namespace chromeos {
 namespace wilco_dtc_supportd {
 namespace mojom {
 
-static NOINLINE const char* WilcoDtcSupportdWebRequestHttpMethodToStringHelper(WilcoDtcSupportdWebRequestHttpMethod value) {
+NOINLINE static const char* WilcoDtcSupportdWebRequestHttpMethodToStringHelper(WilcoDtcSupportdWebRequestHttpMethod value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case WilcoDtcSupportdWebRequestHttpMethod::kGet:
@@ -54,7 +54,7 @@ std::ostream& operator<<(std::ostream& os, WilcoDtcSupportdWebRequestHttpMethod 
   return os << WilcoDtcSupportdWebRequestHttpMethodToString(value);
 }
 
-static NOINLINE const char* WilcoDtcSupportdWebRequestStatusToStringHelper(WilcoDtcSupportdWebRequestStatus value) {
+NOINLINE static const char* WilcoDtcSupportdWebRequestStatusToStringHelper(WilcoDtcSupportdWebRequestStatus value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case WilcoDtcSupportdWebRequestStatus::kOk:
@@ -82,7 +82,7 @@ std::ostream& operator<<(std::ostream& os, WilcoDtcSupportdWebRequestStatus valu
   return os << WilcoDtcSupportdWebRequestStatusToString(value);
 }
 
-static NOINLINE const char* WilcoDtcSupportdEventToStringHelper(WilcoDtcSupportdEvent value) {
+NOINLINE static const char* WilcoDtcSupportdEventToStringHelper(WilcoDtcSupportdEvent value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
     case WilcoDtcSupportdEvent::kBatteryAuth:
