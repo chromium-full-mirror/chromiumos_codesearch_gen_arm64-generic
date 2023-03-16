@@ -54363,6 +54363,9 @@ class G2dTracingMarkWriteFtraceEvent;
 class GenericFtraceEvent;
 class GpuFrequencyFtraceEvent;
 class GpuMemTotalFtraceEvent;
+class HostHcallFtraceEvent;
+class HostMemAbortFtraceEvent;
+class HostSmcFtraceEvent;
 class HypEnterFtraceEvent;
 class HypExitFtraceEvent;
 class I2cReadFtraceEvent;
@@ -54599,7 +54602,7 @@ class WorkqueueExecuteStartFtraceEvent;
 class WorkqueueQueueWorkFtraceEvent;
 class ZeroFtraceEvent;
 
-class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/477, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/480, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   FtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -55520,6 +55523,12 @@ class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes hyp_enter() const { return at<476>().as_bytes(); }
   bool has_hyp_exit() const { return at<477>().valid(); }
   ::protozero::ConstBytes hyp_exit() const { return at<477>().as_bytes(); }
+  bool has_host_hcall() const { return at<478>().valid(); }
+  ::protozero::ConstBytes host_hcall() const { return at<478>().as_bytes(); }
+  bool has_host_smc() const { return at<479>().valid(); }
+  ::protozero::ConstBytes host_smc() const { return at<479>().as_bytes(); }
+  bool has_host_mem_abort() const { return at<480>().valid(); }
+  ::protozero::ConstBytes host_mem_abort() const { return at<480>().as_bytes(); }
 };
 
 class FtraceEvent : public ::protozero::Message {
@@ -55984,6 +55993,9 @@ class FtraceEvent : public ::protozero::Message {
     kMaliMaliKCPUFENCEWAITENDFieldNumber = 475,
     kHypEnterFieldNumber = 476,
     kHypExitFieldNumber = 477,
+    kHostHcallFieldNumber = 478,
+    kHostSmcFieldNumber = 479,
+    kHostMemAbortFieldNumber = 480,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceEvent"; }
 
@@ -65611,6 +65623,69 @@ class FtraceEvent : public ::protozero::Message {
   static constexpr FieldMetadata_HypExit kHypExit() { return {}; }
   template <typename T = HypExitFtraceEvent> T* set_hyp_exit() {
     return BeginNestedMessage<T>(477);
+  }
+
+
+  using FieldMetadata_HostHcall =
+    ::protozero::proto_utils::FieldMetadata<
+      478,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      HostHcallFtraceEvent,
+      FtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_HostHcall kHostHcall() { return {}; }
+  template <typename T = HostHcallFtraceEvent> T* set_host_hcall() {
+    return BeginNestedMessage<T>(478);
+  }
+
+
+  using FieldMetadata_HostSmc =
+    ::protozero::proto_utils::FieldMetadata<
+      479,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      HostSmcFtraceEvent,
+      FtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_HostSmc kHostSmc() { return {}; }
+  template <typename T = HostSmcFtraceEvent> T* set_host_smc() {
+    return BeginNestedMessage<T>(479);
+  }
+
+
+  using FieldMetadata_HostMemAbort =
+    ::protozero::proto_utils::FieldMetadata<
+      480,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      HostMemAbortFtraceEvent,
+      FtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_HostMemAbort kHostMemAbort() { return {}; }
+  template <typename T = HostMemAbortFtraceEvent> T* set_host_mem_abort() {
+    return BeginNestedMessage<T>(480);
   }
 
 };
@@ -102470,6 +102545,222 @@ namespace perfetto {
 namespace protos {
 namespace pbzero {
 
+
+class HostMemAbortFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  HostMemAbortFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit HostMemAbortFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit HostMemAbortFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_esr() const { return at<1>().valid(); }
+  uint64_t esr() const { return at<1>().as_uint64(); }
+  bool has_addr() const { return at<2>().valid(); }
+  uint64_t addr() const { return at<2>().as_uint64(); }
+};
+
+class HostMemAbortFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = HostMemAbortFtraceEvent_Decoder;
+  enum : int32_t {
+    kEsrFieldNumber = 1,
+    kAddrFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.HostMemAbortFtraceEvent"; }
+
+
+  using FieldMetadata_Esr =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      HostMemAbortFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Esr kEsr() { return {}; }
+  void set_esr(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Esr::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Addr =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      HostMemAbortFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Addr kAddr() { return {}; }
+  void set_addr(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Addr::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class HostSmcFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  HostSmcFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit HostSmcFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit HostSmcFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_id() const { return at<1>().valid(); }
+  uint64_t id() const { return at<1>().as_uint64(); }
+  bool has_forwarded() const { return at<2>().valid(); }
+  uint32_t forwarded() const { return at<2>().as_uint32(); }
+};
+
+class HostSmcFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = HostSmcFtraceEvent_Decoder;
+  enum : int32_t {
+    kIdFieldNumber = 1,
+    kForwardedFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.HostSmcFtraceEvent"; }
+
+
+  using FieldMetadata_Id =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      HostSmcFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Id kId() { return {}; }
+  void set_id(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Id::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Forwarded =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      HostSmcFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Forwarded kForwarded() { return {}; }
+  void set_forwarded(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Forwarded::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class HostHcallFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  HostHcallFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit HostHcallFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit HostHcallFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_id() const { return at<1>().valid(); }
+  uint32_t id() const { return at<1>().as_uint32(); }
+  bool has_invalid() const { return at<2>().valid(); }
+  uint32_t invalid() const { return at<2>().as_uint32(); }
+};
+
+class HostHcallFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = HostHcallFtraceEvent_Decoder;
+  enum : int32_t {
+    kIdFieldNumber = 1,
+    kInvalidFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.HostHcallFtraceEvent"; }
+
+
+  using FieldMetadata_Id =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      HostHcallFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Id kId() { return {}; }
+  void set_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Id::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Invalid =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      HostHcallFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Invalid kInvalid() { return {}; }
+  void set_invalid(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Invalid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+};
 
 class HypExitFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/0, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
