@@ -31,7 +31,6 @@
 #include <google/protobuf/generated_enum_util.h>
 #include "auth_factor.pb.h"
 #include "fido.pb.h"
-#include "key.pb.h"
 #include "rpc.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>

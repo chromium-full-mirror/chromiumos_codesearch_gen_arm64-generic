@@ -25,7 +25,6 @@
 
 #include "cryptohome/common/print_auth_factor_proto.h"
 #include "cryptohome/common/print_fido_proto.h"
-#include "cryptohome/common/print_key_proto.h"
 #include "cryptohome/common/print_rpc_proto.h"
 
 namespace user_data_auth {
