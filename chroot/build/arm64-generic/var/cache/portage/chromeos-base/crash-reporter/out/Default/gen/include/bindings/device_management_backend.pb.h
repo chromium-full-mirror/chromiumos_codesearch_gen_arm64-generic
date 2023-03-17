@@ -25545,6 +25545,8 @@ class DeviceStateRetrievalRequest final :
 
   enum : int {
     kServerBackedStateKeyFieldNumber = 1,
+    kSerialNumberFieldNumber = 2,
+    kBrandCodeFieldNumber = 3,
   };
   // optional bytes server_backed_state_key = 1;
   bool has_server_backed_state_key() const;
@@ -25564,6 +25566,42 @@ class DeviceStateRetrievalRequest final :
   std::string* _internal_mutable_server_backed_state_key();
   public:
 
+  // optional string serial_number = 2;
+  bool has_serial_number() const;
+  private:
+  bool _internal_has_serial_number() const;
+  public:
+  void clear_serial_number();
+  const std::string& serial_number() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_serial_number(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_serial_number();
+  PROTOBUF_NODISCARD std::string* release_serial_number();
+  void set_allocated_serial_number(std::string* serial_number);
+  private:
+  const std::string& _internal_serial_number() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_serial_number(const std::string& value);
+  std::string* _internal_mutable_serial_number();
+  public:
+
+  // optional string brand_code = 3;
+  bool has_brand_code() const;
+  private:
+  bool _internal_has_brand_code() const;
+  public:
+  void clear_brand_code();
+  const std::string& brand_code() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_brand_code(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_brand_code();
+  PROTOBUF_NODISCARD std::string* release_brand_code();
+  void set_allocated_brand_code(std::string* brand_code);
+  private:
+  const std::string& _internal_brand_code() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_brand_code(const std::string& value);
+  std::string* _internal_mutable_brand_code();
+  public:
+
   // @@protoc_insertion_point(class_scope:enterprise_management.DeviceStateRetrievalRequest)
  private:
   class _Internal;
@@ -25575,6 +25613,8 @@ class DeviceStateRetrievalRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr server_backed_state_key_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr serial_number_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr brand_code_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
@@ -68257,6 +68297,142 @@ inline void DeviceStateRetrievalRequest::set_allocated_server_backed_state_key(s
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceStateRetrievalRequest.server_backed_state_key)
+}
+
+// optional string serial_number = 2;
+inline bool DeviceStateRetrievalRequest::_internal_has_serial_number() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool DeviceStateRetrievalRequest::has_serial_number() const {
+  return _internal_has_serial_number();
+}
+inline void DeviceStateRetrievalRequest::clear_serial_number() {
+  _impl_.serial_number_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& DeviceStateRetrievalRequest::serial_number() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceStateRetrievalRequest.serial_number)
+  return _internal_serial_number();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DeviceStateRetrievalRequest::set_serial_number(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000002u;
+ _impl_.serial_number_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceStateRetrievalRequest.serial_number)
+}
+inline std::string* DeviceStateRetrievalRequest::mutable_serial_number() {
+  std::string* _s = _internal_mutable_serial_number();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.DeviceStateRetrievalRequest.serial_number)
+  return _s;
+}
+inline const std::string& DeviceStateRetrievalRequest::_internal_serial_number() const {
+  return _impl_.serial_number_.Get();
+}
+inline void DeviceStateRetrievalRequest::_internal_set_serial_number(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.serial_number_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DeviceStateRetrievalRequest::_internal_mutable_serial_number() {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  return _impl_.serial_number_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DeviceStateRetrievalRequest::release_serial_number() {
+  // @@protoc_insertion_point(field_release:enterprise_management.DeviceStateRetrievalRequest.serial_number)
+  if (!_internal_has_serial_number()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  auto* p = _impl_.serial_number_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.serial_number_.IsDefault()) {
+    _impl_.serial_number_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void DeviceStateRetrievalRequest::set_allocated_serial_number(std::string* serial_number) {
+  if (serial_number != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  _impl_.serial_number_.SetAllocated(serial_number, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.serial_number_.IsDefault()) {
+    _impl_.serial_number_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceStateRetrievalRequest.serial_number)
+}
+
+// optional string brand_code = 3;
+inline bool DeviceStateRetrievalRequest::_internal_has_brand_code() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool DeviceStateRetrievalRequest::has_brand_code() const {
+  return _internal_has_brand_code();
+}
+inline void DeviceStateRetrievalRequest::clear_brand_code() {
+  _impl_.brand_code_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& DeviceStateRetrievalRequest::brand_code() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceStateRetrievalRequest.brand_code)
+  return _internal_brand_code();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DeviceStateRetrievalRequest::set_brand_code(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000004u;
+ _impl_.brand_code_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceStateRetrievalRequest.brand_code)
+}
+inline std::string* DeviceStateRetrievalRequest::mutable_brand_code() {
+  std::string* _s = _internal_mutable_brand_code();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.DeviceStateRetrievalRequest.brand_code)
+  return _s;
+}
+inline const std::string& DeviceStateRetrievalRequest::_internal_brand_code() const {
+  return _impl_.brand_code_.Get();
+}
+inline void DeviceStateRetrievalRequest::_internal_set_brand_code(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.brand_code_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DeviceStateRetrievalRequest::_internal_mutable_brand_code() {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  return _impl_.brand_code_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DeviceStateRetrievalRequest::release_brand_code() {
+  // @@protoc_insertion_point(field_release:enterprise_management.DeviceStateRetrievalRequest.brand_code)
+  if (!_internal_has_brand_code()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  auto* p = _impl_.brand_code_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.brand_code_.IsDefault()) {
+    _impl_.brand_code_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void DeviceStateRetrievalRequest::set_allocated_brand_code(std::string* brand_code) {
+  if (brand_code != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+  _impl_.brand_code_.SetAllocated(brand_code, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.brand_code_.IsDefault()) {
+    _impl_.brand_code_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceStateRetrievalRequest.brand_code)
 }
 
 // -------------------------------------------------------------------

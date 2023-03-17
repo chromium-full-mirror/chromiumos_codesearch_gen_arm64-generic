@@ -1787,7 +1787,9 @@ PROTOBUF_CONSTEXPR DeviceStateRetrievalRequest::DeviceStateRetrievalRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.server_backed_state_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.server_backed_state_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.serial_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.brand_code_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct DeviceStateRetrievalRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceStateRetrievalRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -46426,6 +46428,12 @@ class DeviceStateRetrievalRequest::_Internal {
   static void set_has_server_backed_state_key(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_serial_number(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_brand_code(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 DeviceStateRetrievalRequest::DeviceStateRetrievalRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -46440,7 +46448,9 @@ DeviceStateRetrievalRequest::DeviceStateRetrievalRequest(const DeviceStateRetrie
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.server_backed_state_key_){}};
+    , decltype(_impl_.server_backed_state_key_){}
+    , decltype(_impl_.serial_number_){}
+    , decltype(_impl_.brand_code_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.server_backed_state_key_.InitDefault();
@@ -46449,6 +46459,22 @@ DeviceStateRetrievalRequest::DeviceStateRetrievalRequest(const DeviceStateRetrie
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_server_backed_state_key()) {
     _this->_impl_.server_backed_state_key_.Set(from._internal_server_backed_state_key(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.serial_number_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.serial_number_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_serial_number()) {
+    _this->_impl_.serial_number_.Set(from._internal_serial_number(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.brand_code_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.brand_code_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_brand_code()) {
+    _this->_impl_.brand_code_.Set(from._internal_brand_code(), 
       _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceStateRetrievalRequest)
@@ -46462,10 +46488,20 @@ inline void DeviceStateRetrievalRequest::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.server_backed_state_key_){}
+    , decltype(_impl_.serial_number_){}
+    , decltype(_impl_.brand_code_){}
   };
   _impl_.server_backed_state_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.server_backed_state_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.serial_number_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.serial_number_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.brand_code_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.brand_code_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -46481,6 +46517,8 @@ DeviceStateRetrievalRequest::~DeviceStateRetrievalRequest() {
 inline void DeviceStateRetrievalRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.server_backed_state_key_.Destroy();
+  _impl_.serial_number_.Destroy();
+  _impl_.brand_code_.Destroy();
 }
 
 void DeviceStateRetrievalRequest::SetCachedSize(int size) const {
@@ -46494,8 +46532,16 @@ void DeviceStateRetrievalRequest::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    _impl_.server_backed_state_key_.ClearNonDefaultToEmpty();
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _impl_.server_backed_state_key_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _impl_.serial_number_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _impl_.brand_code_.ClearNonDefaultToEmpty();
+    }
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -46512,6 +46558,24 @@ const char* DeviceStateRetrievalRequest::_InternalParse(const char* ptr, ::_pbi:
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_server_backed_state_key();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string serial_number = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_serial_number();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string brand_code = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_brand_code();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
@@ -46554,6 +46618,18 @@ uint8_t* DeviceStateRetrievalRequest::_InternalSerialize(
         1, this->_internal_server_backed_state_key(), target);
   }
 
+  // optional string serial_number = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_serial_number(), target);
+  }
+
+  // optional string brand_code = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_brand_code(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -46570,14 +46646,30 @@ size_t DeviceStateRetrievalRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional bytes server_backed_state_key = 1;
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_server_backed_state_key());
-  }
+  if (cached_has_bits & 0x00000007u) {
+    // optional bytes server_backed_state_key = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_server_backed_state_key());
+    }
 
+    // optional string serial_number = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_serial_number());
+    }
+
+    // optional string brand_code = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_brand_code());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -46599,8 +46691,17 @@ void DeviceStateRetrievalRequest::MergeFrom(const DeviceStateRetrievalRequest& f
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_server_backed_state_key()) {
-    _this->_internal_set_server_backed_state_key(from._internal_server_backed_state_key());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_set_server_backed_state_key(from._internal_server_backed_state_key());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_set_serial_number(from._internal_serial_number());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _this->_internal_set_brand_code(from._internal_brand_code());
+    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -46625,6 +46726,14 @@ void DeviceStateRetrievalRequest::InternalSwap(DeviceStateRetrievalRequest* othe
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.server_backed_state_key_, lhs_arena,
       &other->_impl_.server_backed_state_key_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.serial_number_, lhs_arena,
+      &other->_impl_.serial_number_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.brand_code_, lhs_arena,
+      &other->_impl_.brand_code_, rhs_arena
   );
 }
 
