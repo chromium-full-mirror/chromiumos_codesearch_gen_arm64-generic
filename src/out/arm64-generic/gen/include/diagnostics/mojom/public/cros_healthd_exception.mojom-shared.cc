@@ -22,41 +22,17 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
-NOINLINE static const char* Exception_TypeToStringHelper(Exception_Type value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case Exception_Type::kMojoDisconnectWithoutReason:
-      return "kMojoDisconnectWithoutReason";
-    case Exception_Type::kUnmappedEnumField:
-      return "kUnmappedEnumField";
-    case Exception_Type::kNotSupported:
-      return "kNotSupported";
-    case Exception_Type::kUnexpected:
-      return "kUnexpected";
-    default:
-      return nullptr;
-  }
-}
-
-std::string Exception_TypeToString(Exception_Type value) {
-  const char *str = Exception_TypeToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown Exception_Type value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, Exception_Type value) {
-  return os << Exception_TypeToString(value);
-}
-
 NOINLINE static const char* Exception_ReasonToStringHelper(Exception_Reason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
+    case Exception_Reason::kMojoDisconnectWithoutReason:
+      return "kMojoDisconnectWithoutReason";
     case Exception_Reason::kUnmappedEnumField:
       return "kUnmappedEnumField";
-    case Exception_Reason::kGeneric:
-      return "kGeneric";
+    case Exception_Reason::kUnexpected:
+      return "kUnexpected";
+    case Exception_Reason::kUnsupported:
+      return "kUnsupported";
     default:
       return nullptr;
   }
@@ -75,6 +51,110 @@ std::ostream& operator<<(std::ostream& os, Exception_Reason value) {
 }
 
 namespace internal {
+// static
+bool SupportStatus_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const SupportStatus_Data* object = static_cast<const SupportStatus_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case SupportStatus_Tag::kUnmappedUnionField: {
+
+      return true;
+    }
+    case SupportStatus_Tag::kException: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_exception, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_exception, validation_context))
+        return false;
+      return true;
+    }
+    case SupportStatus_Tag::kSupported: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_supported, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_supported, validation_context))
+        return false;
+      return true;
+    }
+    case SupportStatus_Tag::kUnsupported: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_unsupported, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_unsupported, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
+// static
+bool UnsupportedReason_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const UnsupportedReason_Data* object = static_cast<const UnsupportedReason_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case UnsupportedReason_Tag::kUnmappedUnionField: {
+
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
 
 
 // static
@@ -94,17 +174,12 @@ bool Exception_Data::Validate(
       static_cast<const Exception_Data*>(data);
 
 
-  if (!::ash::cros_healthd::mojom::internal::Exception_Type_Data
-        ::Validate(object->type, validation_context))
-    return false;
-
-
   if (!::ash::cros_healthd::mojom::internal::Exception_Reason_Data
         ::Validate(object->reason, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->debug_message, 3, validation_context)) {
+          object->debug_message, 2, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& debug_message_validate_params =
@@ -120,20 +195,70 @@ bool Exception_Data::Validate(
 Exception_Data::Exception_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Supported_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Supported_Data* object =
+      static_cast<const Supported_Data*>(data);
+
+  return true;
+}
+
+Supported_Data::Supported_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Unsupported_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Unsupported_Data* object =
+      static_cast<const Unsupported_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->debug_message, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& debug_message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->debug_message, validation_context,
+                                         &debug_message_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateInlinedUnion(object->reason, validation_context))
+    return false;
+
+  return true;
+}
+
+Unsupported_Data::Unsupported_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
-
-namespace perfetto_libchrome {
-
-// static
-void TraceFormatTraits<::ash::cros_healthd::mojom::Exception_Type>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Exception_Type value) {
-  return std::move(context).WriteString(::ash::cros_healthd::mojom::Exception_TypeToString(value));
-}
-
-} // namespace perfetto
 
 namespace perfetto_libchrome {
 

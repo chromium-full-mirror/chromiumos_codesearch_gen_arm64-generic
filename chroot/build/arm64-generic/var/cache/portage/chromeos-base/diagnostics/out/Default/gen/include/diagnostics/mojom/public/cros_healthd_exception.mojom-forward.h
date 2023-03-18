@@ -26,12 +26,30 @@ namespace cros_healthd {
 namespace mojom {
 class ExceptionDataView;
 
+class SupportedDataView;
 
-enum class Exception_Type : int32_t;
+class UnsupportedDataView;
+
+class SupportStatusDataView;
+class UnsupportedReasonDataView;
 
 enum class Exception_Reason : int32_t;
 class Exception;
 using ExceptionPtr = mojo::InlinedStructPtr<Exception>;
+
+class Supported;
+using SupportedPtr = mojo::InlinedStructPtr<Supported>;
+
+class Unsupported;
+using UnsupportedPtr = mojo::StructPtr<Unsupported>;
+
+class SupportStatus;
+
+using SupportStatusPtr = mojo::StructPtr<SupportStatus>;
+
+class UnsupportedReason;
+
+using UnsupportedReasonPtr = mojo::InlinedStructPtr<UnsupportedReason>;
 
 
 

@@ -3051,7 +3051,7 @@ bool CrosHealthdEventService_IsEventSupported_ResponseParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -3060,7 +3060,11 @@ bool CrosHealthdEventService_IsEventSupported_ResponseParams_Data::Validate(
   [[maybe_unused]] const CrosHealthdEventService_IsEventSupported_ResponseParams_Data* object =
       static_cast<const CrosHealthdEventService_IsEventSupported_ResponseParams_Data*>(data);
 
-  if (!mojo::internal::ValidateStruct(object->exception, validation_context))
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->status, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->status, validation_context))
     return false;
 
   return true;

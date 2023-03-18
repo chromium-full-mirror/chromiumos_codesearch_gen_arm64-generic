@@ -36,6 +36,12 @@ namespace cros_healthd {
 namespace mojom {
 class ExceptionDataView;
 
+class SupportedDataView;
+
+class UnsupportedDataView;
+
+class SupportStatusDataView;
+class UnsupportedReasonDataView;
 
 
 }  // namespace mojom
@@ -52,6 +58,34 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::ExceptionDataView> {
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SupportedDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::Supported_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UnsupportedDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::Unsupported_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SupportStatusDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SupportStatus_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UnsupportedReasonDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::UnsupportedReason_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
 }  // namespace internal
 }  // namespace mojo
 
@@ -61,41 +95,18 @@ namespace cros_healthd {
 namespace mojom {
 
 
-enum class Exception_Type : int32_t {
+enum class Exception_Reason : int32_t {
   
   kUnmappedEnumField = 1,
   
   kMojoDisconnectWithoutReason = 0,
   
-  kNotSupported = 2,
+  kUnexpected = 2,
   
-  kUnexpected = 3,
+  kUnsupported = 3,
   kMinValue = 0,
   kMaxValue = 3,
   kDefaultValue = 1
-};
-
- std::ostream& operator<<(std::ostream& os, Exception_Type value);
-inline bool IsKnownEnumValue(Exception_Type value) {
-  return internal::Exception_Type_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-inline Exception_Type ToKnownEnumValue(Exception_Type value) {
-  if (IsKnownEnumValue(value)) {
-    return value;
-  }
-  return Exception_Type::kDefaultValue;
-}
-
-
-enum class Exception_Reason : int32_t {
-  
-  kUnmappedEnumField = 0,
-  
-  kGeneric = 1,
-  kMinValue = 0,
-  kMaxValue = 1,
-  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, Exception_Reason value);
@@ -122,16 +133,6 @@ class ExceptionDataView {
 
   bool is_null() const { return !data_; }
   template <typename UserType>
-  [[nodiscard]] bool ReadType(UserType* output) const {
-    auto data_value = data_->type;
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::Exception_Type>(
-        data_value, output);
-  }
-  Exception_Type type() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::ash::cros_healthd::mojom::Exception_Type>(data_->type));
-  }
-  template <typename UserType>
   [[nodiscard]] bool ReadReason(UserType* output) const {
     auto data_value = data_->reason;
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::Exception_Reason>(
@@ -157,15 +158,166 @@ class ExceptionDataView {
 };
 
 
+class SupportedDataView {
+ public:
+  SupportedDataView() = default;
+
+  SupportedDataView(
+      internal::Supported_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Supported_Data* data_ = nullptr;
+};
+
+
+class UnsupportedDataView {
+ public:
+  UnsupportedDataView() = default;
+
+  UnsupportedDataView(
+      internal::Unsupported_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetDebugMessageDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDebugMessage(UserType* output) {
+    
+    auto* pointer = data_->debug_message.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetReasonDataView(
+      UnsupportedReasonDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadReason(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::UnsupportedReasonDataView, UserType>(),
+    "Attempting to read the optional `reason` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadReason` instead "
+    "of `ReadReason if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = !data_->reason.is_null() ? &data_->reason : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UnsupportedReasonDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Unsupported_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class SupportStatusDataView {
+ public:
+  using Tag = internal::SupportStatus_Data::SupportStatus_Tag;
+
+  SupportStatusDataView() = default;
+
+  SupportStatusDataView(
+      internal::SupportStatus_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_unmapped_union_field() const { return data_->tag == Tag::kUnmappedUnionField; }
+  int8_t unmapped_union_field() const {
+    CHECK(is_unmapped_union_field());
+    return data_->data.f_unmapped_union_field;
+  }
+  bool is_exception() const { return data_->tag == Tag::kException; }
+  inline void GetExceptionDataView(
+      ExceptionDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadException(UserType* output) const {
+    
+    CHECK(is_exception());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExceptionDataView>(
+        data_->data.f_exception.Get(), output, message_);
+  }
+  bool is_supported() const { return data_->tag == Tag::kSupported; }
+  inline void GetSupportedDataView(
+      SupportedDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSupported(UserType* output) const {
+    
+    CHECK(is_supported());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SupportedDataView>(
+        data_->data.f_supported.Get(), output, message_);
+  }
+  bool is_unsupported() const { return data_->tag == Tag::kUnsupported; }
+  inline void GetUnsupportedDataView(
+      UnsupportedDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUnsupported(UserType* output) const {
+    
+    CHECK(is_unsupported());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UnsupportedDataView>(
+        data_->data.f_unsupported.Get(), output, message_);
+  }
+
+ private:
+  internal::SupportStatus_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class UnsupportedReasonDataView {
+ public:
+  using Tag = internal::UnsupportedReason_Data::UnsupportedReason_Tag;
+
+  UnsupportedReasonDataView() = default;
+
+  UnsupportedReasonDataView(
+      internal::UnsupportedReason_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_unmapped_union_field() const { return data_->tag == Tag::kUnmappedUnionField; }
+  int8_t unmapped_union_field() const {
+    CHECK(is_unmapped_union_field());
+    return data_->data.f_unmapped_union_field;
+  }
+
+ private:
+  internal::UnsupportedReason_Data* data_ = nullptr;
+};
+
+
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
 
 namespace std {
-
-template <>
-struct hash<::ash::cros_healthd::mojom::Exception_Type>
-    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Exception_Type> {};
 
 template <>
 struct hash<::ash::cros_healthd::mojom::Exception_Reason>
@@ -174,26 +326,6 @@ struct hash<::ash::cros_healthd::mojom::Exception_Reason>
 }  // namespace std
 
 namespace mojo {
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::Exception_Type, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::ash::cros_healthd::mojom::Exception_Type, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::ash::cros_healthd::mojom::Exception_Type>(input)), output);
-  }
-};
-
-}  // namespace internal
 
 
 namespace internal {
@@ -229,8 +361,6 @@ struct Serializer<::ash::cros_healthd::mojom::ExceptionDataView, MaybeConstUserT
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::ash::cros_healthd::mojom::Exception_Type>(
-        Traits::type(input), &fragment->type);
     mojo::internal::Serialize<::ash::cros_healthd::mojom::Exception_Reason>(
         Traits::reason(input), &fragment->reason);
     decltype(Traits::debug_message(input)) in_debug_message = Traits::debug_message(input);
@@ -260,6 +390,224 @@ struct Serializer<::ash::cros_healthd::mojom::ExceptionDataView, MaybeConstUserT
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SupportedDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SupportedDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::Supported_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::Supported_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::SupportedDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UnsupportedDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::UnsupportedDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::Unsupported_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::debug_message(input)) in_debug_message = Traits::debug_message(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->debug_message)::BaseType> debug_message_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_debug_message, debug_message_fragment);
+    fragment->debug_message.Set(
+        debug_message_fragment.is_null() ? nullptr : debug_message_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->debug_message.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null debug_message in Unsupported struct");
+    decltype(Traits::reason(input)) in_reason = Traits::reason(input);
+    mojo::internal::MessageFragment<decltype(fragment->reason)>
+        reason_fragment(fragment.message());
+    reason_fragment.Claim(&fragment->reason);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::UnsupportedReasonDataView>(
+        in_reason, reason_fragment, true);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::Unsupported_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::UnsupportedDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SupportStatusDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::SupportStatusDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::SupportStatus_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::SupportStatusDataView::Tag::kUnmappedUnionField: {
+        decltype(Traits::unmapped_union_field(input))
+            in_unmapped_union_field = Traits::unmapped_union_field(input);
+        fragment->data.f_unmapped_union_field = in_unmapped_union_field;
+        break;
+      }
+      case ::ash::cros_healthd::mojom::SupportStatusDataView::Tag::kException: {
+        decltype(Traits::exception(input))
+            in_exception = Traits::exception(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_exception)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ExceptionDataView>(
+            in_exception, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null exception in SupportStatus union");
+        fragment->data.f_exception.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::SupportStatusDataView::Tag::kSupported: {
+        decltype(Traits::supported(input))
+            in_supported = Traits::supported(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_supported)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::SupportedDataView>(
+            in_supported, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null supported in SupportStatus union");
+        fragment->data.f_supported.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::SupportStatusDataView::Tag::kUnsupported: {
+        decltype(Traits::unsupported(input))
+            in_unsupported = Traits::unsupported(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_unsupported)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::UnsupportedDataView>(
+            in_unsupported, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null unsupported in SupportStatus union");
+        fragment->data.f_unsupported.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SupportStatus_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::SupportStatusDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UnsupportedReasonDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::UnsupportedReasonDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::UnsupportedReason_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::UnsupportedReasonDataView::Tag::kUnmappedUnionField: {
+        decltype(Traits::unmapped_union_field(input))
+            in_unmapped_union_field = Traits::unmapped_union_field(input);
+        fragment->data.f_unmapped_union_field = in_unmapped_union_field;
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::UnsupportedReason_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::UnsupportedReasonDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -275,21 +623,43 @@ inline void ExceptionDataView::GetDebugMessageDataView(
 
 
 
+
+inline void UnsupportedDataView::GetDebugMessageDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->debug_message.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void UnsupportedDataView::GetReasonDataView(
+    UnsupportedReasonDataView* output) {
+  auto pointer = &data_->reason;
+  *output = UnsupportedReasonDataView(pointer, message_);
+}
+
+
+inline void SupportStatusDataView::GetExceptionDataView(
+    ExceptionDataView* output) const {
+  CHECK(is_exception());
+  *output = ExceptionDataView(data_->data.f_exception.Get(), message_);
+}
+inline void SupportStatusDataView::GetSupportedDataView(
+    SupportedDataView* output) const {
+  CHECK(is_supported());
+  *output = SupportedDataView(data_->data.f_supported.Get(), message_);
+}
+inline void SupportStatusDataView::GetUnsupportedDataView(
+    UnsupportedDataView* output) const {
+  CHECK(is_unsupported());
+  *output = UnsupportedDataView(data_->data.f_unsupported.Get(), message_);
+}
+
+
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
-
-namespace perfetto_libchrome {
-
-template <>
-struct  TraceFormatTraits<::ash::cros_healthd::mojom::Exception_Type> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Exception_Type value);
-};
-
-} // namespace perfetto
 
 namespace perfetto_libchrome {
 

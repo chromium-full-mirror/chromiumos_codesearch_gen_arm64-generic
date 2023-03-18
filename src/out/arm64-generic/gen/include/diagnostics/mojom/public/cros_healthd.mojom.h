@@ -679,7 +679,7 @@ class CrosHealthdEventService
   virtual void AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) = 0;
 
 
-  using IsEventSupportedCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::ExceptionPtr)>;
+  using IsEventSupportedCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::SupportStatusPtr)>;
   
   virtual void IsEventSupported(::ash::cros_healthd::mojom::EventCategoryEnum category, IsEventSupportedCallback callback) = 0;
 };

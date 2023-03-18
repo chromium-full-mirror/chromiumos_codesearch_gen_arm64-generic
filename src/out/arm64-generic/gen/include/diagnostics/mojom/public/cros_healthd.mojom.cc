@@ -12142,7 +12142,7 @@ class CrosHealthdEventService_IsEventSupported_ProxyToResponder : public ::mojo:
 #endif
 
   void Run(
-      ::ash::cros_healthd::mojom::ExceptionPtr in_exception);
+      ::ash::cros_healthd::mojom::SupportStatusPtr in_status);
 };
 
 bool CrosHealthdEventService_IsEventSupported_ForwardToCallback::Accept(
@@ -12155,10 +12155,10 @@ bool CrosHealthdEventService_IsEventSupported_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::ExceptionPtr p_exception = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::ExceptionPtr>();
+  ::ash::cros_healthd::mojom::SupportStatusPtr p_status = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::SupportStatusPtr>();
   CrosHealthdEventService_IsEventSupported_ResponseParamsDataView input_data_view(params, message);
   
-  if (success && !input_data_view.ReadException(&p_exception))
+  if (success && !input_data_view.ReadStatus(&p_status))
     success = false;
   if (!success) {
     ReportValidationErrorForMessage(
@@ -12169,20 +12169,20 @@ bool CrosHealthdEventService_IsEventSupported_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_exception));
+std::move(p_status));
   return true;
 }
 
 void CrosHealthdEventService_IsEventSupported_ProxyToResponder::Run(
-    ::ash::cros_healthd::mojom::ExceptionPtr in_exception) {
+    ::ash::cros_healthd::mojom::SupportStatusPtr in_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdEventService::IsEventSupported", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("exception"), in_exception,
-                        "<value of type ::ash::cros_healthd::mojom::ExceptionPtr>");
+           dict.AddItem("status"), in_status,
+                        "<value of type ::ash::cros_healthd::mojom::SupportStatusPtr>");
    });
 #endif
   
@@ -12196,13 +12196,15 @@ void CrosHealthdEventService_IsEventSupported_ProxyToResponder::Run(
       ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_IsEventSupported_ResponseParams_Data> params(
           message);
   params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->exception)::BaseType> exception_fragment(
-          params.message());
-  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExceptionDataView>(
-      in_exception, exception_fragment);
-  params->exception.Set(
-      exception_fragment.is_null() ? nullptr : exception_fragment.data());
+  mojo::internal::MessageFragment<decltype(params->status)>
+      status_fragment(params.message());
+  status_fragment.Claim(&params->status);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::SupportStatusDataView>(
+      in_status, status_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->status.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null status in ");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdEventService::Name_);
@@ -15516,24 +15518,24 @@ CrosHealthdEventServiceAsyncWaiter::CrosHealthdEventServiceAsyncWaiter(
 CrosHealthdEventServiceAsyncWaiter::~CrosHealthdEventServiceAsyncWaiter() = default;
 
 void CrosHealthdEventServiceAsyncWaiter::IsEventSupported(
-    ::ash::cros_healthd::mojom::EventCategoryEnum category, ::ash::cros_healthd::mojom::ExceptionPtr* out_exception) {
+    ::ash::cros_healthd::mojom::EventCategoryEnum category, ::ash::cros_healthd::mojom::SupportStatusPtr* out_status) {
   base::RunLoop loop;
   proxy_->IsEventSupported(std::move(category),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::ash::cros_healthd::mojom::ExceptionPtr* out_exception
+             ::ash::cros_healthd::mojom::SupportStatusPtr* out_status
 ,
-             ::ash::cros_healthd::mojom::ExceptionPtr exception) {*out_exception = std::move(exception);
+             ::ash::cros_healthd::mojom::SupportStatusPtr status) {*out_status = std::move(status);
             loop->Quit();
           },
           &loop,
-          out_exception));
+          out_status));
   loop.Run();
 }
 
-::ash::cros_healthd::mojom::ExceptionPtr CrosHealthdEventServiceAsyncWaiter::IsEventSupported(
+::ash::cros_healthd::mojom::SupportStatusPtr CrosHealthdEventServiceAsyncWaiter::IsEventSupported(
     ::ash::cros_healthd::mojom::EventCategoryEnum category) {
-  ::ash::cros_healthd::mojom::ExceptionPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::ExceptionPtr>();
+  ::ash::cros_healthd::mojom::SupportStatusPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::SupportStatusPtr>();
   IsEventSupported(std::move(category),&async_wait_result);
   return async_wait_result;
 }

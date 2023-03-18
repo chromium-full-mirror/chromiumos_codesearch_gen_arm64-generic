@@ -235,8 +235,6 @@ void FingerprintAuthBlock::Create(const AuthInput& auth_input,
         nullptr, nullptr);
     return;
   }
-  // TODO(b/247704971): Use Blob instead of SecureBlob for the StartBioAuth
-  // fields.
   BiometricsAuthBlockService::OperationInput input{
       .nonce =
           brillo::Blob(reply->server_nonce.begin(), reply->server_nonce.end()),
@@ -254,7 +252,136 @@ void FingerprintAuthBlock::Create(const AuthInput& auth_input,
 void FingerprintAuthBlock::Derive(const AuthInput& auth_input,
                                   const AuthBlockState& state,
                                   DeriveCallback callback) {
-  NOTREACHED();
+  if (!auth_input.fingerprint_auth_input.has_value() ||
+      !auth_input.fingerprint_auth_input->auth_secret.has_value()) {
+    LOG(ERROR) << "Missing auth_secret.";
+    std::move(callback).Run(
+        MakeStatus<CryptohomeCryptoError>(
+            CRYPTOHOME_ERR_LOC(kLocFingerprintAuthBlockNoAuthSecretInDerive),
+            ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+            CryptoError::CE_OTHER_CRYPTO),
+        nullptr);
+    return;
+  }
+  if (!auth_input.user_input.has_value()) {
+    LOG(ERROR) << "Missing auth_pin.";
+    std::move(callback).Run(
+        MakeStatus<CryptohomeCryptoError>(
+            CRYPTOHOME_ERR_LOC(kLocFingerprintAuthBlockNoAuthPinInDerive),
+            ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+            CryptoError::CE_OTHER_CRYPTO),
+        nullptr);
+    return;
+  }
+
+  const FingerprintAuthBlockState* auth_state;
+  if (!(auth_state = std::get_if<FingerprintAuthBlockState>(&state.state))) {
+    LOG(ERROR) << "No FingerprintAuthBlockState in AuthBlockState.";
+    std::move(callback).Run(
+        MakeStatus<CryptohomeCryptoError>(
+            CRYPTOHOME_ERR_LOC(
+                kLocFingerprintAuthBlockWrongAuthBlockStateInDerive),
+            ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+            CryptoError::CE_OTHER_CRYPTO),
+        nullptr);
+    return;
+  }
+  if (!auth_state->gsc_secret_label.has_value()) {
+    LOG(ERROR)
+        << "Invalid FingerprintAuthBlockState: missing gsc_secret_label.";
+    std::move(callback).Run(
+        MakeStatus<CryptohomeCryptoError>(
+            CRYPTOHOME_ERR_LOC(
+                kLocFingerprintAuthBlockNoGscSecretLabelInDerive),
+            ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+            CryptoError::CE_OTHER_CRYPTO),
+        nullptr);
+    return;
+  }
+
+  brillo::SecureBlob gsc_secret, unused_reset_secret;
+  LECredStatus status = le_manager_->CheckCredential(
+      *auth_state->gsc_secret_label, *auth_input.user_input, &gsc_secret,
+      &unused_reset_secret);
+  if (!status.ok()) {
+    LOG(ERROR) << "Failed to check biometrics secret with PinWeaver.";
+    // Include kDevCheckUnexpectedState as according to the protocol this
+    // authentication should never fail.
+    std::move(callback).Run(
+        MakeStatus<CryptohomeCryptoError>(
+            CRYPTOHOME_ERR_LOC(
+                kLocFingerprintAuthBlockCheckCredentialFailedInCreate),
+            ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}))
+            .Wrap(std::move(status).err_status()),
+        nullptr);
+    return;
+  }
+
+  auto key_blobs = std::make_unique<KeyBlobs>();
+  auto hmac_key = brillo::SecureBlob::Combine(
+      gsc_secret, *auth_input.fingerprint_auth_input->auth_secret);
+  key_blobs->vkk_key =
+      HmacSha256(hmac_key, brillo::BlobFromString(kFekKeyHmacData));
+  std::move(callback).Run(OkStatus<CryptohomeError>(), std::move(key_blobs));
+}
+
+// SelectFactor for FingerprintAuthBlock is actually doing the heavy-lifting
+// job for Derive, if you compare it with Create. This is because we only know
+// the actual AuthFactor the user used (the correct finger) after biometrics
+// auth stack returns a positive match verdict.
+void FingerprintAuthBlock::SelectFactor(const AuthInput& auth_input,
+                                        std::vector<AuthFactor> auth_factors,
+                                        SelectFactorCallback callback) {
+  if (!auth_input.rate_limiter_label.has_value()) {
+    LOG(ERROR) << "Missing rate_limiter_label.";
+    std::move(callback).Run(
+        MakeStatus<CryptohomeCryptoError>(
+            CRYPTOHOME_ERR_LOC(kLocFingerprintAuthBlockNoUsernameInSelect),
+            ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+            CryptoError::CE_OTHER_CRYPTO),
+        std::nullopt, std::nullopt);
+    return;
+  }
+
+  std::optional<brillo::Blob> nonce = service_->TakeNonce();
+  if (!nonce.has_value()) {
+    LOG(ERROR) << "Missing nonce, probably meaning there isn't a completed "
+                  "authenticate session.";
+    std::move(callback).Run(
+        MakeStatus<CryptohomeCryptoError>(
+            CRYPTOHOME_ERR_LOC(kLocFingerprintAuthBlockNoNonceInSelect),
+            ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+            CryptoError::CE_OTHER_CRYPTO),
+        std::nullopt, std::nullopt);
+    return;
+  }
+  // TODO(b/247704971): Use Blob instead of SecureBlob for the StartBioAuth
+  // fields.
+  LECredStatusOr<LECredentialManager::StartBiometricsAuthReply> reply =
+      le_manager_->StartBiometricsAuth(kFingerprintAuthChannel,
+                                       *auth_input.rate_limiter_label,
+                                       brillo::SecureBlob(*nonce));
+  if (!reply.ok()) {
+    LOG(ERROR) << "Failed to start biometrics auth with PinWeaver.";
+    std::move(callback).Run(
+        MakeStatus<CryptohomeCryptoError>(
+            CRYPTOHOME_ERR_LOC(
+                kLocFingerprintAuthBlockStartBioAuthFailedInSelect))
+            .Wrap(std::move(reply).err_status()),
+        std::nullopt, std::nullopt);
+    return;
+  }
+  BiometricsAuthBlockService::OperationInput input{
+      .nonce =
+          brillo::Blob(reply->server_nonce.begin(), reply->server_nonce.end()),
+      .encrypted_label_seed = brillo::Blob(reply->encrypted_he_secret.begin(),
+                                           reply->encrypted_he_secret.end()),
+      .iv = brillo::Blob(reply->iv.begin(), reply->iv.end()),
+  };
+  service_->MatchCredential(
+      input, base::BindOnce(&FingerprintAuthBlock::ContinueSelect,
+                            weak_factory_.GetWeakPtr(), std::move(callback),
+                            std::move(auth_factors)));
 }
 
 CryptohomeStatus FingerprintAuthBlock::PrepareForRemoval(
@@ -350,6 +477,58 @@ void FingerprintAuthBlock::ContinueCreate(
 
   std::move(callback).Run(OkStatus<CryptohomeCryptoError>(),
                           std::move(key_blobs), std::move(auth_state));
+}
+
+void FingerprintAuthBlock::ContinueSelect(
+    SelectFactorCallback callback,
+    std::vector<AuthFactor> auth_factors,
+    CryptohomeStatusOr<BiometricsAuthBlockService::OperationOutput> output) {
+  if (!output.ok()) {
+    // TODO(b/272685339): Report LE_LOCKED_OUT if this attempt triggered the
+    // rate limit.
+    LOG(ERROR) << "Failed to authenticate biometrics credential.";
+    std::move(callback).Run(
+        MakeStatus<CryptohomeError>(
+            CRYPTOHOME_ERR_LOC(
+                kLocFingerprintAuthBlockAuthenticateCredentialFailedInSelect))
+            .Wrap(std::move(output).err_status()),
+        std::nullopt, std::nullopt);
+    return;
+  }
+
+  // For consistency with PIN AuthFactor, we put the AuthPin in the user_input
+  // field.
+  AuthInput auth_input{
+      .user_input = std::move(output->auth_pin),
+      .fingerprint_auth_input =
+          FingerprintAuthInput{.auth_secret = std::move(output->auth_secret)},
+  };
+
+  // The MatchCredential reply contains the matched credential's record ID. We
+  // can use that to match against the AuthBlockState of the candidate
+  // auth factors.
+  for (AuthFactor& auth_factor : auth_factors) {
+    const FingerprintAuthBlockState* auth_state;
+    if (!(auth_state = std::get_if<FingerprintAuthBlockState>(
+              &auth_factor.auth_block_state().state))) {
+      LOG(WARNING) << "Invalid AuthBlockState in candidates.";
+      // We don't really need to return an error here, as the goal is to search
+      // for the correct auth factor in the list.
+      continue;
+    }
+    if (auth_state->template_id == output->record_id) {
+      std::move(callback).Run(OkStatus<CryptohomeError>(),
+                              std::move(auth_input), std::move(auth_factor));
+      return;
+    }
+  }
+  LOG(ERROR) << "Matching AuthFactor not found in candidates.";
+  std::move(callback).Run(
+      MakeStatus<CryptohomeError>(
+          CRYPTOHOME_ERR_LOC(kLocFingerprintAuthBlockFactorNotFoundInSelect),
+          ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+          user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_KEY_NOT_FOUND),
+      std::nullopt, std::nullopt);
 }
 
 }  // namespace cryptohome

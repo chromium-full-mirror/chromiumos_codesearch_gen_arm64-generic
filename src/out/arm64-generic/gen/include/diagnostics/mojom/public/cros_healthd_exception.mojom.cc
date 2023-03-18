@@ -47,21 +47,17 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 Exception::Exception()
-    : type(),
-      reason(),
+    : reason(),
       debug_message() {}
 
 Exception::Exception(
-    Exception::Type type_in,
     Exception::Reason reason_in,
     const std::string& debug_message_in)
-    : type(std::move(type_in)),
-      reason(std::move(reason_in)),
+    : reason(std::move(reason_in)),
       debug_message(std::move(debug_message_in)) {}
 
 Exception::~Exception() = default;
 size_t Exception::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->type);
   seed = mojo::internal::Hash(seed, this->reason);
   seed = mojo::internal::Hash(seed, this->debug_message);
   return seed;
@@ -70,15 +66,6 @@ size_t Exception::Hash(size_t seed) const {
 void Exception::WriteIntoTrace(
     perfetto_libchrome::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "type"), this->type,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type Exception::Type>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
   perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "reason"), this->reason,
@@ -104,6 +91,183 @@ bool Exception::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+Supported::Supported() {}
+
+Supported::~Supported() = default;
+size_t Supported::Hash(size_t seed) const {
+  return seed;
+}
+
+void Supported::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool Supported::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Unsupported::Unsupported()
+    : debug_message(),
+      reason() {}
+
+Unsupported::Unsupported(
+    const std::string& debug_message_in,
+    UnsupportedReasonPtr reason_in)
+    : debug_message(std::move(debug_message_in)),
+      reason(std::move(reason_in)) {}
+
+Unsupported::~Unsupported() = default;
+
+void Unsupported::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "debug_message"), this->debug_message,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "reason"), this->reason,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type UnsupportedReasonPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Unsupported::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+SupportStatus::SupportStatus() : tag_(Tag::kUnmappedUnionField) {
+  data_.unmapped_union_field = int8_t();
+}
+
+SupportStatus::~SupportStatus() {
+  DestroyActive();
+}
+
+
+void SupportStatus::set_unmapped_union_field(
+    int8_t unmapped_union_field) {
+  if (tag_ != Tag::kUnmappedUnionField) {
+    DestroyActive();
+    tag_ = Tag::kUnmappedUnionField;
+  }
+  data_.unmapped_union_field = unmapped_union_field;
+}
+void SupportStatus::set_exception(
+    ExceptionPtr exception) {
+  if (tag_ == Tag::kException) {
+    *(data_.exception) = std::move(exception);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kException;
+    data_.exception = new ExceptionPtr(
+        std::move(exception));
+  }
+}
+void SupportStatus::set_supported(
+    SupportedPtr supported) {
+  if (tag_ == Tag::kSupported) {
+    *(data_.supported) = std::move(supported);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSupported;
+    data_.supported = new SupportedPtr(
+        std::move(supported));
+  }
+}
+void SupportStatus::set_unsupported(
+    UnsupportedPtr unsupported) {
+  if (tag_ == Tag::kUnsupported) {
+    *(data_.unsupported) = std::move(unsupported);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kUnsupported;
+    data_.unsupported = new UnsupportedPtr(
+        std::move(unsupported));
+  }
+}
+
+void SupportStatus::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnmappedUnionField:
+
+      break;
+    case Tag::kException:
+
+      delete data_.exception;
+      break;
+    case Tag::kSupported:
+
+      delete data_.supported;
+      break;
+    case Tag::kUnsupported:
+
+      delete data_.unsupported;
+      break;
+  }
+}
+
+bool SupportStatus::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+UnsupportedReason::UnsupportedReason() : tag_(Tag::kUnmappedUnionField) {
+  data_.unmapped_union_field = int8_t();
+}
+
+UnsupportedReason::~UnsupportedReason() {
+  DestroyActive();
+}
+
+
+void UnsupportedReason::set_unmapped_union_field(
+    int8_t unmapped_union_field) {
+  if (tag_ != Tag::kUnmappedUnionField) {
+    DestroyActive();
+    tag_ = Tag::kUnmappedUnionField;
+  }
+  data_.unmapped_union_field = unmapped_union_field;
+}
+
+void UnsupportedReason::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnmappedUnionField:
+
+      break;
+  }
+}
+size_t UnsupportedReason::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kUnmappedUnionField:
+      return mojo::internal::Hash(seed, data_.unmapped_union_field);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool UnsupportedReason::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 
 
 }  // namespace mojom
@@ -121,14 +285,107 @@ bool StructTraits<::ash::cros_healthd::mojom::Exception::DataView, ::ash::cros_h
   bool success = true;
   ::ash::cros_healthd::mojom::ExceptionPtr result(::ash::cros_healthd::mojom::Exception::New());
   
-      if (success && !input.ReadType(&result->type))
-        success = false;
       if (success && !input.ReadReason(&result->reason))
         success = false;
       if (success && !input.ReadDebugMessage(&result->debug_message))
         success = false;
   *output = std::move(result);
   return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::Supported::DataView, ::ash::cros_healthd::mojom::SupportedPtr>::Read(
+    ::ash::cros_healthd::mojom::Supported::DataView input,
+    ::ash::cros_healthd::mojom::SupportedPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::SupportedPtr result(::ash::cros_healthd::mojom::Supported::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::Unsupported::DataView, ::ash::cros_healthd::mojom::UnsupportedPtr>::Read(
+    ::ash::cros_healthd::mojom::Unsupported::DataView input,
+    ::ash::cros_healthd::mojom::UnsupportedPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::UnsupportedPtr result(::ash::cros_healthd::mojom::Unsupported::New());
+  
+      if (success && !input.ReadDebugMessage(&result->debug_message))
+        success = false;
+      if (success && !input.ReadReason(&result->reason))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::SupportStatus::DataView, ::ash::cros_healthd::mojom::SupportStatusPtr>::Read(
+    ::ash::cros_healthd::mojom::SupportStatus::DataView input,
+    ::ash::cros_healthd::mojom::SupportStatusPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::SupportStatus;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnmappedUnionField: {
+      *output = UnionType::NewUnmappedUnionField(input.unmapped_union_field());
+      break;
+    }
+    case Tag::kException: {
+      ::ash::cros_healthd::mojom::ExceptionPtr result_exception;
+      if (!input.ReadException(&result_exception))
+        return false;
+
+      *output = UnionType::NewException(
+          std::move(result_exception));
+      break;
+    }
+    case Tag::kSupported: {
+      ::ash::cros_healthd::mojom::SupportedPtr result_supported;
+      if (!input.ReadSupported(&result_supported))
+        return false;
+
+      *output = UnionType::NewSupported(
+          std::move(result_supported));
+      break;
+    }
+    case Tag::kUnsupported: {
+      ::ash::cros_healthd::mojom::UnsupportedPtr result_unsupported;
+      if (!input.ReadUnsupported(&result_unsupported))
+        return false;
+
+      *output = UnionType::NewUnsupported(
+          std::move(result_unsupported));
+      break;
+    }
+    default:
+
+      *output = UnionType::NewUnmappedUnionField({});
+      return true;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::UnsupportedReason::DataView, ::ash::cros_healthd::mojom::UnsupportedReasonPtr>::Read(
+    ::ash::cros_healthd::mojom::UnsupportedReason::DataView input,
+    ::ash::cros_healthd::mojom::UnsupportedReasonPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::UnsupportedReason;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnmappedUnionField: {
+      *output = UnionType::NewUnmappedUnionField(input.unmapped_union_field());
+      break;
+    }
+    default:
+
+      *output = UnionType::NewUnmappedUnionField({});
+      return true;
+  }
+  return true;
 }
 
 }  // namespace mojo

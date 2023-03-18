@@ -257,8 +257,8 @@ class  CrosHealthdEventServiceAsyncWaiter {
 
   ~CrosHealthdEventServiceAsyncWaiter();
   void IsEventSupported(
-      ::ash::cros_healthd::mojom::EventCategoryEnum category, ::ash::cros_healthd::mojom::ExceptionPtr* out_exception);
-  ::ash::cros_healthd::mojom::ExceptionPtr IsEventSupported(::ash::cros_healthd::mojom::EventCategoryEnum category);
+      ::ash::cros_healthd::mojom::EventCategoryEnum category, ::ash::cros_healthd::mojom::SupportStatusPtr* out_status);
+  ::ash::cros_healthd::mojom::SupportStatusPtr IsEventSupported(::ash::cros_healthd::mojom::EventCategoryEnum category);
 
  private:
   CrosHealthdEventService* const proxy_;
