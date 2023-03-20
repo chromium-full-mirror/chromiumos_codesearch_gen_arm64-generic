@@ -299,6 +299,12 @@ class MemoryRoutineArgumentDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  absl::optional<uint32_t> max_testing_mem_kib() const {
+
+    return data_->max_testing_mem_kib_$flag
+        ? absl::make_optional(data_->max_testing_mem_kib_$value)
+        : absl::nullopt;
+  }
  private:
   internal::MemoryRoutineArgument_Data* data_ = nullptr;
 };
@@ -748,6 +754,10 @@ struct Serializer<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView, May
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
+    fragment->max_testing_mem_kib_$flag = Traits::max_testing_mem_kib(input).has_value();
+    if (Traits::max_testing_mem_kib(input).has_value()) {
+      fragment->max_testing_mem_kib_$value = Traits::max_testing_mem_kib(input).value();
+    }
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::MemoryRoutineArgument_Data* input,

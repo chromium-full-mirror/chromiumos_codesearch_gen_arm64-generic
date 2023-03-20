@@ -294,6 +294,9 @@ class  MemoryRoutineArgument_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t max_testing_mem_kib_$flag : 1;
+  uint8_t pad0_[3];
+  uint32_t max_testing_mem_kib_$value;
 
  private:
   friend class mojo::internal::MessageFragment<MemoryRoutineArgument_Data>;
@@ -301,7 +304,7 @@ class  MemoryRoutineArgument_Data {
   MemoryRoutineArgument_Data();
   ~MemoryRoutineArgument_Data() = delete;
 };
-static_assert(sizeof(MemoryRoutineArgument_Data) == 8,
+static_assert(sizeof(MemoryRoutineArgument_Data) == 16,
               "Bad sizeof(MemoryRoutineArgument_Data)");
 // Used by MemoryRoutineArgument::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

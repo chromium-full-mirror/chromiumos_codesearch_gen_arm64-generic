@@ -419,6 +419,13 @@ extern "C" void __asan_unpoison_memory_region(void const volatile*, size_t);
 #define PERFETTO_NO_THREAD_SAFETY_ANALYSIS
 #endif
 
+// Disables undefined behavior analysis for a function.
+#if defined(__clang__)
+#define PERFETTO_NO_SANITIZE_UNDEFINED __attribute__((no_sanitize("undefined")))
+#else
+#define PERFETTO_NO_SANITIZE_UNDEFINED
+#endif
+
 // Avoid calling the exit-time destructor on an object with static lifetime.
 #if PERFETTO_HAS_ATTRIBUTE(no_destroy)
 #define PERFETTO_HAS_NO_DESTROY() 1
@@ -1946,7 +1953,12 @@ class PERFETTO_EXPORT_COMPONENT ScatteredStreamWriter {
     write_ptr_ = end;
   }
 
-  inline void WriteBytes(const uint8_t* src, size_t size) {
+  inline void WriteBytes(const uint8_t* src,
+                         size_t size) PERFETTO_NO_SANITIZE_UNDEFINED {
+    // If the stream writer hasn't been initialized, constructing the end
+    // pointer below invokes undefined behavior because `write_ptr_` is null.
+    // Since this function is on the hot path, we suppress the warning instead
+    // of adding a conditional branch.
     uint8_t* const end = write_ptr_ + size;
     if (PERFETTO_LIKELY(end <= cur_range_.end))
       return WriteBytesUnsafe(src, size);
@@ -7839,6 +7851,92 @@ inline PlatformProcessId GetProcessId() {
 }  // namespace perfetto
 
 #endif  // INCLUDE_PERFETTO_BASE_PROC_UTILS_H_
+// gen_amalgamated begin header: include/perfetto/base/thread_utils.h
+/*
+ * Copyright (C) 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef INCLUDE_PERFETTO_BASE_THREAD_UTILS_H_
+#define INCLUDE_PERFETTO_BASE_THREAD_UTILS_H_
+
+#include <stdint.h>
+
+// gen_amalgamated expanded: #include "perfetto/base/build_config.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+#if PERFETTO_BUILDFLAG(PERFETTO_OS_WIN)
+extern "C" {
+// Prototype extracted from the Windows SDK to avoid including windows.h.
+__declspec(dllimport) unsigned long __stdcall GetCurrentThreadId();
+}
+#elif PERFETTO_BUILDFLAG(PERFETTO_OS_FUCHSIA)
+#include <zircon/types.h>
+#elif PERFETTO_BUILDFLAG(PERFETTO_OS_LINUX) || \
+    PERFETTO_BUILDFLAG(PERFETTO_OS_ANDROID)
+#include <sys/syscall.h>
+#include <sys/types.h>
+#include <unistd.h>
+#else
+#include <pthread.h>
+#endif
+
+namespace perfetto {
+namespace base {
+
+#if PERFETTO_BUILDFLAG(PERFETTO_OS_ANDROID)
+using PlatformThreadId = pid_t;
+inline PlatformThreadId GetThreadId() {
+  return gettid();
+}
+#elif PERFETTO_BUILDFLAG(PERFETTO_OS_LINUX)
+using PlatformThreadId = pid_t;
+inline PlatformThreadId GetThreadId() {
+  return static_cast<pid_t>(syscall(__NR_gettid));
+}
+#elif PERFETTO_BUILDFLAG(PERFETTO_OS_FUCHSIA)
+using PlatformThreadId = zx_koid_t;
+// Not inlined because the result is cached internally.
+PERFETTO_EXPORT_COMPONENT PlatformThreadId GetThreadId();
+#elif PERFETTO_BUILDFLAG(PERFETTO_OS_APPLE)
+using PlatformThreadId = uint64_t;
+inline PlatformThreadId GetThreadId() {
+  uint64_t tid;
+  pthread_threadid_np(nullptr, &tid);
+  return tid;
+}
+#elif PERFETTO_BUILDFLAG(PERFETTO_OS_WIN)
+using PlatformThreadId = uint64_t;
+inline PlatformThreadId GetThreadId() {
+  return static_cast<uint64_t>(GetCurrentThreadId());
+}
+#elif PERFETTO_BUILDFLAG(PERFETTO_OS_NACL)
+using PlatformThreadId = pid_t;
+inline PlatformThreadId GetThreadId() {
+  return reinterpret_cast<int32_t>(pthread_self());
+}
+#else  // Default to pthreads in case no OS is set.
+using PlatformThreadId = pthread_t;
+inline PlatformThreadId GetThreadId() {
+  return pthread_self();
+}
+#endif
+
+}  // namespace base
+}  // namespace perfetto
+
+#endif  // INCLUDE_PERFETTO_BASE_THREAD_UTILS_H_
 // gen_amalgamated begin header: include/perfetto/tracing/tracing.h
 // gen_amalgamated begin header: include/perfetto/tracing/backend_type.h
 /*
@@ -8714,6 +8812,7 @@ class PERFETTO_EXPORT_COMPONENT StartupTracingSession {
 // gen_amalgamated expanded: #include "perfetto/base/export.h"
 // gen_amalgamated expanded: #include "perfetto/base/logging.h"
 // gen_amalgamated expanded: #include "perfetto/base/proc_utils.h"
+// gen_amalgamated expanded: #include "perfetto/base/thread_utils.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/tracing.h"
 
 namespace perfetto {
@@ -8794,6 +8893,11 @@ class PERFETTO_EXPORT_COMPONENT Platform {
   // Tear down any persistent platform state (e.g., TLS variables). The platform
   // interface must not be used after calling this function.
   virtual void Shutdown();
+
+  // Returns the thread ID provided by the OS by default. Chromium uses
+  // different thread IDs on some platforms, so it needs the ability to
+  // override this method.
+  virtual base::PlatformThreadId GetCurrentThreadId();
 
  private:
   static base::PlatformProcessId process_id_;
@@ -9018,6 +9122,10 @@ class PERFETTO_EXPORT_COMPONENT TracingMuxer {
   // immediately anyway).
   virtual void ActivateTriggers(const std::vector<std::string>&,
                                 uint32_t ttl_ms) = 0;
+
+  base::PlatformThreadId GetCurrentThreadId() {
+    return platform_->GetCurrentThreadId();
+  }
 
  protected:
   explicit TracingMuxer(Platform* platform) : platform_(platform) {}
@@ -14317,92 +14425,6 @@ struct TraceFormatTraits<std::nullptr_t> {
 
 #endif  // INCLUDE_PERFETTO_TRACING_TRACED_VALUE_H_
 // gen_amalgamated begin header: include/perfetto/tracing/track.h
-// gen_amalgamated begin header: include/perfetto/base/thread_utils.h
-/*
- * Copyright (C) 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-#ifndef INCLUDE_PERFETTO_BASE_THREAD_UTILS_H_
-#define INCLUDE_PERFETTO_BASE_THREAD_UTILS_H_
-
-#include <stdint.h>
-
-// gen_amalgamated expanded: #include "perfetto/base/build_config.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-#if PERFETTO_BUILDFLAG(PERFETTO_OS_WIN)
-extern "C" {
-// Prototype extracted from the Windows SDK to avoid including windows.h.
-__declspec(dllimport) unsigned long __stdcall GetCurrentThreadId();
-}
-#elif PERFETTO_BUILDFLAG(PERFETTO_OS_FUCHSIA)
-#include <zircon/types.h>
-#elif PERFETTO_BUILDFLAG(PERFETTO_OS_LINUX) || \
-    PERFETTO_BUILDFLAG(PERFETTO_OS_ANDROID)
-#include <sys/syscall.h>
-#include <sys/types.h>
-#include <unistd.h>
-#else
-#include <pthread.h>
-#endif
-
-namespace perfetto {
-namespace base {
-
-#if PERFETTO_BUILDFLAG(PERFETTO_OS_ANDROID)
-using PlatformThreadId = pid_t;
-inline PlatformThreadId GetThreadId() {
-  return gettid();
-}
-#elif PERFETTO_BUILDFLAG(PERFETTO_OS_LINUX)
-using PlatformThreadId = pid_t;
-inline PlatformThreadId GetThreadId() {
-  return static_cast<pid_t>(syscall(__NR_gettid));
-}
-#elif PERFETTO_BUILDFLAG(PERFETTO_OS_FUCHSIA)
-using PlatformThreadId = zx_koid_t;
-// Not inlined because the result is cached internally.
-PERFETTO_EXPORT_COMPONENT PlatformThreadId GetThreadId();
-#elif PERFETTO_BUILDFLAG(PERFETTO_OS_APPLE)
-using PlatformThreadId = uint64_t;
-inline PlatformThreadId GetThreadId() {
-  uint64_t tid;
-  pthread_threadid_np(nullptr, &tid);
-  return tid;
-}
-#elif PERFETTO_BUILDFLAG(PERFETTO_OS_WIN)
-using PlatformThreadId = uint64_t;
-inline PlatformThreadId GetThreadId() {
-  return static_cast<uint64_t>(GetCurrentThreadId());
-}
-#elif PERFETTO_BUILDFLAG(PERFETTO_OS_NACL)
-using PlatformThreadId = pid_t;
-inline PlatformThreadId GetThreadId() {
-  return reinterpret_cast<int32_t>(pthread_self());
-}
-#else  // Default to pthreads in case no OS is set.
-using PlatformThreadId = pthread_t;
-inline PlatformThreadId GetThreadId() {
-  return pthread_self();
-}
-#endif
-
-}  // namespace base
-}  // namespace perfetto
-
-#endif  // INCLUDE_PERFETTO_BASE_THREAD_UTILS_H_
 // gen_amalgamated begin header: include/perfetto/tracing/internal/compile_time_hash.h
 /*
  * Copyright (C) 2021 The Android Open Source Project
@@ -15306,6 +15328,7 @@ class TrackDescriptor : public ::protozero::Message {
 // gen_amalgamated expanded: #include "perfetto/protozero/message_handle.h"
 // gen_amalgamated expanded: #include "perfetto/protozero/scattered_heap_buffer.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/internal/compile_time_hash.h"
+// gen_amalgamated expanded: #include "perfetto/tracing/internal/tracing_muxer.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/platform.h"
 // gen_amalgamated expanded: #include "protos/perfetto/trace/trace_packet.pbzero.h"
 // gen_amalgamated expanded: #include "protos/perfetto/trace/track_event/counter_descriptor.gen.h"
@@ -15456,7 +15479,9 @@ struct PERFETTO_EXPORT_COMPONENT ThreadTrack : public Track {
   const base::PlatformProcessId pid;
   const base::PlatformThreadId tid;
 
-  static ThreadTrack Current() { return ThreadTrack(base::GetThreadId()); }
+  static ThreadTrack Current() {
+    return ThreadTrack(internal::TracingMuxer::Get()->GetCurrentThreadId());
+  }
 
   // Represents a thread in the current process.
   static ThreadTrack ForThread(base::PlatformThreadId tid_) {
@@ -179112,7 +179137,12 @@ class PERFETTO_EXPORT_COMPONENT ScatteredStreamWriter {
     write_ptr_ = end;
   }
 
-  inline void WriteBytes(const uint8_t* src, size_t size) {
+  inline void WriteBytes(const uint8_t* src,
+                         size_t size) PERFETTO_NO_SANITIZE_UNDEFINED {
+    // If the stream writer hasn't been initialized, constructing the end
+    // pointer below invokes undefined behavior because `write_ptr_` is null.
+    // Since this function is on the hot path, we suppress the warning instead
+    // of adding a conditional branch.
     uint8_t* const end = write_ptr_ + size;
     if (PERFETTO_LIKELY(end <= cur_range_.end))
       return WriteBytesUnsafe(src, size);

@@ -79,6 +79,33 @@ struct UnmountRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnmountRequestDefaultTypeInternal _UnmountRequest_default_instance_;
+PROTOBUF_CONSTEXPR PrepareShaderCacheRequest::PrepareShaderCacheRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.vm_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.vm_owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct PrepareShaderCacheRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PrepareShaderCacheRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PrepareShaderCacheRequestDefaultTypeInternal() {}
+  union {
+    PrepareShaderCacheRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrepareShaderCacheRequestDefaultTypeInternal _PrepareShaderCacheRequest_default_instance_;
+PROTOBUF_CONSTEXPR PrepareShaderCacheResponse::PrepareShaderCacheResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.precompiled_cache_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct PrepareShaderCacheResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PrepareShaderCacheResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PrepareShaderCacheResponseDefaultTypeInternal() {}
+  union {
+    PrepareShaderCacheResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrepareShaderCacheResponseDefaultTypeInternal _PrepareShaderCacheResponse_default_instance_;
 }  // namespace shadercached
 namespace shadercached {
 
@@ -1224,6 +1251,466 @@ std::string UnmountRequest::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class PrepareShaderCacheRequest::_Internal {
+ public:
+};
+
+PrepareShaderCacheRequest::PrepareShaderCacheRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:shadercached.PrepareShaderCacheRequest)
+}
+PrepareShaderCacheRequest::PrepareShaderCacheRequest(const PrepareShaderCacheRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrepareShaderCacheRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.vm_owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_name().empty()) {
+    _this->_impl_.vm_name_.Set(from._internal_vm_name(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.vm_owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_owner_id().empty()) {
+    _this->_impl_.vm_owner_id_.Set(from._internal_vm_owner_id(), 
+      _this->GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:shadercached.PrepareShaderCacheRequest)
+}
+
+inline void PrepareShaderCacheRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.vm_owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.vm_owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+PrepareShaderCacheRequest::~PrepareShaderCacheRequest() {
+  // @@protoc_insertion_point(destructor:shadercached.PrepareShaderCacheRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void PrepareShaderCacheRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.vm_name_.Destroy();
+  _impl_.vm_owner_id_.Destroy();
+}
+
+void PrepareShaderCacheRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void PrepareShaderCacheRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:shadercached.PrepareShaderCacheRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.vm_name_.ClearToEmpty();
+  _impl_.vm_owner_id_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* PrepareShaderCacheRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string vm_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_vm_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string vm_owner_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_vm_owner_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* PrepareShaderCacheRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:shadercached.PrepareShaderCacheRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string vm_name = 1;
+  if (!this->_internal_vm_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_name().data(), static_cast<int>(this->_internal_vm_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "shadercached.PrepareShaderCacheRequest.vm_name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_vm_name(), target);
+  }
+
+  // string vm_owner_id = 2;
+  if (!this->_internal_vm_owner_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_owner_id().data(), static_cast<int>(this->_internal_vm_owner_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "shadercached.PrepareShaderCacheRequest.vm_owner_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_vm_owner_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:shadercached.PrepareShaderCacheRequest)
+  return target;
+}
+
+size_t PrepareShaderCacheRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:shadercached.PrepareShaderCacheRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string vm_name = 1;
+  if (!this->_internal_vm_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_name());
+  }
+
+  // string vm_owner_id = 2;
+  if (!this->_internal_vm_owner_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_owner_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PrepareShaderCacheRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const PrepareShaderCacheRequest*>(
+      &from));
+}
+
+void PrepareShaderCacheRequest::MergeFrom(const PrepareShaderCacheRequest& from) {
+  PrepareShaderCacheRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:shadercached.PrepareShaderCacheRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_vm_name().empty()) {
+    _this->_internal_set_vm_name(from._internal_vm_name());
+  }
+  if (!from._internal_vm_owner_id().empty()) {
+    _this->_internal_set_vm_owner_id(from._internal_vm_owner_id());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void PrepareShaderCacheRequest::CopyFrom(const PrepareShaderCacheRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:shadercached.PrepareShaderCacheRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PrepareShaderCacheRequest::IsInitialized() const {
+  return true;
+}
+
+void PrepareShaderCacheRequest::InternalSwap(PrepareShaderCacheRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.vm_name_, lhs_arena,
+      &other->_impl_.vm_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.vm_owner_id_, lhs_arena,
+      &other->_impl_.vm_owner_id_, rhs_arena
+  );
+}
+
+std::string PrepareShaderCacheRequest::GetTypeName() const {
+  return "shadercached.PrepareShaderCacheRequest";
+}
+
+
+// ===================================================================
+
+class PrepareShaderCacheResponse::_Internal {
+ public:
+};
+
+PrepareShaderCacheResponse::PrepareShaderCacheResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:shadercached.PrepareShaderCacheResponse)
+}
+PrepareShaderCacheResponse::PrepareShaderCacheResponse(const PrepareShaderCacheResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrepareShaderCacheResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.precompiled_cache_path_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.precompiled_cache_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.precompiled_cache_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_precompiled_cache_path().empty()) {
+    _this->_impl_.precompiled_cache_path_.Set(from._internal_precompiled_cache_path(), 
+      _this->GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:shadercached.PrepareShaderCacheResponse)
+}
+
+inline void PrepareShaderCacheResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.precompiled_cache_path_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.precompiled_cache_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.precompiled_cache_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+PrepareShaderCacheResponse::~PrepareShaderCacheResponse() {
+  // @@protoc_insertion_point(destructor:shadercached.PrepareShaderCacheResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void PrepareShaderCacheResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.precompiled_cache_path_.Destroy();
+}
+
+void PrepareShaderCacheResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void PrepareShaderCacheResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:shadercached.PrepareShaderCacheResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.precompiled_cache_path_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* PrepareShaderCacheResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string precompiled_cache_path = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_precompiled_cache_path();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* PrepareShaderCacheResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:shadercached.PrepareShaderCacheResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string precompiled_cache_path = 3;
+  if (!this->_internal_precompiled_cache_path().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_precompiled_cache_path().data(), static_cast<int>(this->_internal_precompiled_cache_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "shadercached.PrepareShaderCacheResponse.precompiled_cache_path");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_precompiled_cache_path(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:shadercached.PrepareShaderCacheResponse)
+  return target;
+}
+
+size_t PrepareShaderCacheResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:shadercached.PrepareShaderCacheResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string precompiled_cache_path = 3;
+  if (!this->_internal_precompiled_cache_path().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_precompiled_cache_path());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PrepareShaderCacheResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const PrepareShaderCacheResponse*>(
+      &from));
+}
+
+void PrepareShaderCacheResponse::MergeFrom(const PrepareShaderCacheResponse& from) {
+  PrepareShaderCacheResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:shadercached.PrepareShaderCacheResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_precompiled_cache_path().empty()) {
+    _this->_internal_set_precompiled_cache_path(from._internal_precompiled_cache_path());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void PrepareShaderCacheResponse::CopyFrom(const PrepareShaderCacheResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:shadercached.PrepareShaderCacheResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PrepareShaderCacheResponse::IsInitialized() const {
+  return true;
+}
+
+void PrepareShaderCacheResponse::InternalSwap(PrepareShaderCacheResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.precompiled_cache_path_, lhs_arena,
+      &other->_impl_.precompiled_cache_path_, rhs_arena
+  );
+}
+
+std::string PrepareShaderCacheResponse::GetTypeName() const {
+  return "shadercached.PrepareShaderCacheResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace shadercached
 PROTOBUF_NAMESPACE_OPEN
@@ -1242,6 +1729,14 @@ Arena::CreateMaybeMessage< ::shadercached::ShaderCacheMountStatus >(Arena* arena
 template<> PROTOBUF_NOINLINE ::shadercached::UnmountRequest*
 Arena::CreateMaybeMessage< ::shadercached::UnmountRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::shadercached::UnmountRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::shadercached::PrepareShaderCacheRequest*
+Arena::CreateMaybeMessage< ::shadercached::PrepareShaderCacheRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::shadercached::PrepareShaderCacheRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::shadercached::PrepareShaderCacheResponse*
+Arena::CreateMaybeMessage< ::shadercached::PrepareShaderCacheResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::shadercached::PrepareShaderCacheResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

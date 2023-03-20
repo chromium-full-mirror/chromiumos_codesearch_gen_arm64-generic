@@ -46,16 +46,27 @@
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
-MemoryRoutineArgument::MemoryRoutineArgument() {}
+MemoryRoutineArgument::MemoryRoutineArgument()
+    : max_testing_mem_kib() {}
+
+MemoryRoutineArgument::MemoryRoutineArgument(
+    absl::optional<uint32_t> max_testing_mem_kib_in)
+    : max_testing_mem_kib(std::move(max_testing_mem_kib_in)) {}
 
 MemoryRoutineArgument::~MemoryRoutineArgument() = default;
-size_t MemoryRoutineArgument::Hash(size_t seed) const {
-  return seed;
-}
 
 void MemoryRoutineArgument::WriteIntoTrace(
     perfetto_libchrome::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_testing_mem_kib"), this->max_testing_mem_kib,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<uint32_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool MemoryRoutineArgument::Validate(
@@ -341,19 +352,6 @@ void RoutineArgument::DestroyActive() {
 
       delete data_.memory;
       break;
-  }
-}
-size_t RoutineArgument::Hash(size_t seed) const {
-  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
-  switch (tag_) {
-
-    case Tag::kUnrecognizedArgument:
-      return mojo::internal::Hash(seed, data_.unrecognizedArgument);
-    case Tag::kMemory:
-      return mojo::internal::Hash(seed, data_.memory);
-    default:
-      NOTREACHED();
-      return seed;
   }
 }
 
@@ -1319,6 +1317,9 @@ bool StructTraits<::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView, :
   bool success = true;
   ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr result(::ash::cros_healthd::mojom::MemoryRoutineArgument::New());
   
+      if (success) {
+        result->max_testing_mem_kib = input.max_testing_mem_kib();
+      }
   *output = std::move(result);
   return success;
 }

@@ -410,6 +410,9 @@ class  MemoryRoutineArgument {
 
   MemoryRoutineArgument();
 
+  explicit MemoryRoutineArgument(
+      absl::optional<uint32_t> max_testing_mem_kib);
+
 
   ~MemoryRoutineArgument();
 
@@ -427,7 +430,6 @@ class  MemoryRoutineArgument {
 
   template <typename T, MemoryRoutineArgument::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -483,6 +485,8 @@ class  MemoryRoutineArgument {
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
+  
+  absl::optional<uint32_t> max_testing_mem_kib;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -997,7 +1001,6 @@ class  RoutineArgument {
             typename std::enable_if<std::is_same<
                 T, RoutineArgument>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
 
   Tag which() const {
     return tag_;
@@ -2004,16 +2007,23 @@ bool RoutineDetail::Equals(const T& other) const {
 template <typename StructPtrType>
 MemoryRoutineArgumentPtr MemoryRoutineArgument::Clone() const {
   return New(
+      mojo::Clone(max_testing_mem_kib)
   );
 }
 
 template <typename T, MemoryRoutineArgument::EnableIfSame<T>*>
 bool MemoryRoutineArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->max_testing_mem_kib, other_struct.max_testing_mem_kib))
+    return false;
   return true;
 }
 
 template <typename T, MemoryRoutineArgument::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.max_testing_mem_kib < rhs.max_testing_mem_kib)
+    return true;
+  if (rhs.max_testing_mem_kib < lhs.max_testing_mem_kib)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -2205,6 +2215,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView
                                          ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr& input) { return !input; }
   static void SetToNull(::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::MemoryRoutineArgument::max_testing_mem_kib) max_testing_mem_kib(
+      const ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr& input) {
+    return input->max_testing_mem_kib;
+  }
 
   static bool Read(::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView input, ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr* output);
 };
