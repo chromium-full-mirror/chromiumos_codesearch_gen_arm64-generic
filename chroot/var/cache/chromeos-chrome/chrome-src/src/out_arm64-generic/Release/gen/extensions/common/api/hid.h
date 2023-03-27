@@ -35,12 +35,20 @@ struct HidCollectionInfo {
   HidCollectionInfo(HidCollectionInfo&& rhs);
   HidCollectionInfo& operator=(HidCollectionInfo&& rhs);
 
-  // Populates a HidCollectionInfo object from a base::Value. Returns whether
+  // Populates a HidCollectionInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, HidCollectionInfo& out);
+
+  // Populates a HidCollectionInfo object from a Dict& instance. Returns whether
   // |out| was successfully populated.
-  static bool Populate(const base::Value& value, HidCollectionInfo* out);
+  static bool Populate(const base::Value::Dict& value, HidCollectionInfo& out);
 
   // Creates a HidCollectionInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HidCollectionInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<HidCollectionInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a HidCollectionInfo object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<HidCollectionInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHidCollectionInfo object.
@@ -65,12 +73,19 @@ struct HidDeviceInfo {
   HidDeviceInfo(HidDeviceInfo&& rhs);
   HidDeviceInfo& operator=(HidDeviceInfo&& rhs);
 
-  // Populates a HidDeviceInfo object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, HidDeviceInfo* out);
+  // Populates a HidDeviceInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, HidDeviceInfo& out);
+
+  // Populates a HidDeviceInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, HidDeviceInfo& out);
 
   // Creates a HidDeviceInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HidDeviceInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<HidDeviceInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a HidDeviceInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<HidDeviceInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHidDeviceInfo object.
@@ -116,12 +131,19 @@ struct HidConnectInfo {
   HidConnectInfo(HidConnectInfo&& rhs);
   HidConnectInfo& operator=(HidConnectInfo&& rhs);
 
-  // Populates a HidConnectInfo object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, HidConnectInfo* out);
+  // Populates a HidConnectInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, HidConnectInfo& out);
+
+  // Populates a HidConnectInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, HidConnectInfo& out);
 
   // Creates a HidConnectInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HidConnectInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<HidConnectInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a HidConnectInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<HidConnectInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHidConnectInfo object.
@@ -140,12 +162,19 @@ struct DeviceFilter {
   DeviceFilter(DeviceFilter&& rhs);
   DeviceFilter& operator=(DeviceFilter&& rhs);
 
-  // Populates a DeviceFilter object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, DeviceFilter* out);
+  // Populates a DeviceFilter object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, DeviceFilter& out);
+
+  // Populates a DeviceFilter object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, DeviceFilter& out);
 
   // Creates a DeviceFilter object from a base::Value, or NULL on failure.
-  static std::unique_ptr<DeviceFilter> FromValue(const base::Value& value);
+  static std::unique_ptr<DeviceFilter> FromValueDeprecated(const base::Value& value);
+
+  // Creates a DeviceFilter object from a base::Value, or nullopt on failure.
+  static absl::optional<DeviceFilter> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceFilter object.
@@ -173,12 +202,20 @@ struct GetDevicesOptions {
   GetDevicesOptions(GetDevicesOptions&& rhs);
   GetDevicesOptions& operator=(GetDevicesOptions&& rhs);
 
-  // Populates a GetDevicesOptions object from a base::Value. Returns whether
+  // Populates a GetDevicesOptions object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, GetDevicesOptions& out);
+
+  // Populates a GetDevicesOptions object from a Dict& instance. Returns whether
   // |out| was successfully populated.
-  static bool Populate(const base::Value& value, GetDevicesOptions* out);
+  static bool Populate(const base::Value::Dict& value, GetDevicesOptions& out);
 
   // Creates a GetDevicesOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetDevicesOptions> FromValue(const base::Value& value);
+  static std::unique_ptr<GetDevicesOptions> FromValueDeprecated(const base::Value& value);
+
+  // Creates a GetDevicesOptions object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<GetDevicesOptions> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetDevicesOptions object.

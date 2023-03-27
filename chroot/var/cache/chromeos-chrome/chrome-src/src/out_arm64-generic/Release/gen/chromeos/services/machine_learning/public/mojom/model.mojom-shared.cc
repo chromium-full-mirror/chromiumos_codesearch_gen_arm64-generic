@@ -41,6 +41,8 @@ NOINLINE static const char* BuiltinModelIdToStringHelper(BuiltinModelId value) {
       return "UNSUPPORTED_SEARCH_RANKER_20190923";
     case BuiltinModelId::ADAPTIVE_CHARGING_20211105:
       return "ADAPTIVE_CHARGING_20211105";
+    case BuiltinModelId::PONCHO_PALM_REJECTION_20230213:
+      return "PONCHO_PALM_REJECTION_20230213";
     default:
       return nullptr;
   }

@@ -191,8 +191,8 @@ class  ExecutorAsyncWaiter {
       uint32_t msr_reg, uint32_t cpu_index, ::ash::cros_healthd::mojom::NullableUint64Ptr* out_value);
   ::ash::cros_healthd::mojom::NullableUint64Ptr ReadMsr(uint32_t msr_reg, uint32_t cpu_index);
   void GetLidAngle(
-      ExecutedProcessResultPtr* out_result);
-  ExecutedProcessResultPtr GetLidAngle();
+      absl::optional<uint16_t>* out_lid_angle);
+  absl::optional<uint16_t> GetLidAngle();
   void GetFingerprintFrame(
       FingerprintCaptureType type, FingerprintFrameResultPtr* out_result, absl::optional<std::string>* out_err);
   

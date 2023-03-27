@@ -746,6 +746,144 @@ bool StylusGarageEventInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+StylusTouchPointInfo::StylusTouchPointInfo()
+    : x(),
+      y(),
+      pressure() {}
+
+StylusTouchPointInfo::StylusTouchPointInfo(
+    uint32_t x_in,
+    uint32_t y_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr pressure_in)
+    : x(std::move(x_in)),
+      y(std::move(y_in)),
+      pressure(std::move(pressure_in)) {}
+
+StylusTouchPointInfo::~StylusTouchPointInfo() = default;
+
+void StylusTouchPointInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "x"), this->x,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "y"), this->y,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pressure"), this->pressure,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool StylusTouchPointInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+StylusTouchEvent::StylusTouchEvent()
+    : touch_point() {}
+
+StylusTouchEvent::StylusTouchEvent(
+    StylusTouchPointInfoPtr touch_point_in)
+    : touch_point(std::move(touch_point_in)) {}
+
+StylusTouchEvent::~StylusTouchEvent() = default;
+
+void StylusTouchEvent::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "touch_point"), this->touch_point,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type StylusTouchPointInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool StylusTouchEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+StylusConnectedEvent::StylusConnectedEvent()
+    : max_x(),
+      max_y(),
+      max_pressure() {}
+
+StylusConnectedEvent::StylusConnectedEvent(
+    uint32_t max_x_in,
+    uint32_t max_y_in,
+    uint32_t max_pressure_in)
+    : max_x(std::move(max_x_in)),
+      max_y(std::move(max_y_in)),
+      max_pressure(std::move(max_pressure_in)) {}
+
+StylusConnectedEvent::~StylusConnectedEvent() = default;
+size_t StylusConnectedEvent::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->max_x);
+  seed = mojo::internal::Hash(seed, this->max_y);
+  seed = mojo::internal::Hash(seed, this->max_pressure);
+  return seed;
+}
+
+void StylusConnectedEvent::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_x"), this->max_x,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_y"), this->max_y,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_pressure"), this->max_pressure,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool StylusConnectedEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 TouchpadEventInfo::TouchpadEventInfo() : tag_(Tag::kDefaultType) {
   data_.default_type = uint8_t();
 }
@@ -881,6 +1019,68 @@ void TouchscreenEventInfo::DestroyActive() {
 }
 
 bool TouchscreenEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+StylusEventInfo::StylusEventInfo() : tag_(Tag::kDefaultType) {
+  data_.default_type = uint8_t();
+}
+
+StylusEventInfo::~StylusEventInfo() {
+  DestroyActive();
+}
+
+
+void StylusEventInfo::set_default_type(
+    uint8_t default_type) {
+  if (tag_ != Tag::kDefaultType) {
+    DestroyActive();
+    tag_ = Tag::kDefaultType;
+  }
+  data_.default_type = default_type;
+}
+void StylusEventInfo::set_touch_event(
+    StylusTouchEventPtr touch_event) {
+  if (tag_ == Tag::kTouchEvent) {
+    *(data_.touch_event) = std::move(touch_event);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kTouchEvent;
+    data_.touch_event = new StylusTouchEventPtr(
+        std::move(touch_event));
+  }
+}
+void StylusEventInfo::set_connected_event(
+    StylusConnectedEventPtr connected_event) {
+  if (tag_ == Tag::kConnectedEvent) {
+    *(data_.connected_event) = std::move(connected_event);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kConnectedEvent;
+    data_.connected_event = new StylusConnectedEventPtr(
+        std::move(connected_event));
+  }
+}
+
+void StylusEventInfo::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kDefaultType:
+
+      break;
+    case Tag::kTouchEvent:
+
+      delete data_.touch_event;
+      break;
+    case Tag::kConnectedEvent:
+
+      delete data_.connected_event;
+      break;
+  }
+}
+
+bool StylusEventInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
@@ -1045,6 +1245,17 @@ void EventInfo::set_stylus_garage_event_info(
         std::move(stylus_garage_event_info));
   }
 }
+void EventInfo::set_stylus_event_info(
+    StylusEventInfoPtr stylus_event_info) {
+  if (tag_ == Tag::kStylusEventInfo) {
+    *(data_.stylus_event_info) = std::move(stylus_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kStylusEventInfo;
+    data_.stylus_event_info = new StylusEventInfoPtr(
+        std::move(stylus_event_info));
+  }
+}
 
 void EventInfo::DestroyActive() {
   switch (tag_) {
@@ -1103,6 +1314,10 @@ void EventInfo::DestroyActive() {
     case Tag::kStylusGarageEventInfo:
 
       delete data_.stylus_garage_event_info;
+      break;
+    case Tag::kStylusEventInfo:
+
+      delete data_.stylus_event_info;
       break;
   }
 }
@@ -3772,6 +3987,56 @@ bool StructTraits<::ash::cros_healthd::mojom::StylusGarageEventInfo::DataView, :
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::StylusTouchPointInfo::DataView, ::ash::cros_healthd::mojom::StylusTouchPointInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::StylusTouchPointInfo::DataView input,
+    ::ash::cros_healthd::mojom::StylusTouchPointInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::StylusTouchPointInfoPtr result(::ash::cros_healthd::mojom::StylusTouchPointInfo::New());
+  
+      if (success)
+        result->x = input.x();
+      if (success)
+        result->y = input.y();
+      if (success && !input.ReadPressure(&result->pressure))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::StylusTouchEvent::DataView, ::ash::cros_healthd::mojom::StylusTouchEventPtr>::Read(
+    ::ash::cros_healthd::mojom::StylusTouchEvent::DataView input,
+    ::ash::cros_healthd::mojom::StylusTouchEventPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::StylusTouchEventPtr result(::ash::cros_healthd::mojom::StylusTouchEvent::New());
+  
+      if (success && !input.ReadTouchPoint(&result->touch_point))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::StylusConnectedEvent::DataView, ::ash::cros_healthd::mojom::StylusConnectedEventPtr>::Read(
+    ::ash::cros_healthd::mojom::StylusConnectedEvent::DataView input,
+    ::ash::cros_healthd::mojom::StylusConnectedEventPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::StylusConnectedEventPtr result(::ash::cros_healthd::mojom::StylusConnectedEvent::New());
+  
+      if (success)
+        result->max_x = input.max_x();
+      if (success)
+        result->max_y = input.max_y();
+      if (success)
+        result->max_pressure = input.max_pressure();
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView, ::ash::cros_healthd::mojom::TouchpadEventInfoPtr>::Read(
     ::ash::cros_healthd::mojom::TouchpadEventInfo::DataView input,
@@ -3842,6 +4107,44 @@ bool UnionTraits<::ash::cros_healthd::mojom::TouchscreenEventInfo::DataView, ::a
     }
     case Tag::kConnectedEvent: {
       ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr result_connected_event;
+      if (!input.ReadConnectedEvent(&result_connected_event))
+        return false;
+
+      *output = UnionType::NewConnectedEvent(
+          std::move(result_connected_event));
+      break;
+    }
+    default:
+
+      *output = UnionType::NewDefaultType({});
+      return true;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::StylusEventInfo::DataView, ::ash::cros_healthd::mojom::StylusEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::StylusEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::StylusEventInfoPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::StylusEventInfo;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kDefaultType: {
+      *output = UnionType::NewDefaultType(input.default_type());
+      break;
+    }
+    case Tag::kTouchEvent: {
+      ::ash::cros_healthd::mojom::StylusTouchEventPtr result_touch_event;
+      if (!input.ReadTouchEvent(&result_touch_event))
+        return false;
+
+      *output = UnionType::NewTouchEvent(
+          std::move(result_touch_event));
+      break;
+    }
+    case Tag::kConnectedEvent: {
+      ::ash::cros_healthd::mojom::StylusConnectedEventPtr result_connected_event;
       if (!input.ReadConnectedEvent(&result_connected_event))
         return false;
 
@@ -3984,6 +4287,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
 
       *output = UnionType::NewStylusGarageEventInfo(
           std::move(result_stylus_garage_event_info));
+      break;
+    }
+    case Tag::kStylusEventInfo: {
+      ::ash::cros_healthd::mojom::StylusEventInfoPtr result_stylus_event_info;
+      if (!input.ReadStylusEventInfo(&result_stylus_event_info))
+        return false;
+
+      *output = UnionType::NewStylusEventInfo(
+          std::move(result_stylus_event_info));
       break;
     }
     default:

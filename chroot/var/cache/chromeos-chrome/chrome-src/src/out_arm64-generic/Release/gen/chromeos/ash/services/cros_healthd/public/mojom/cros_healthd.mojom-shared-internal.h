@@ -13,6 +13,7 @@
 #include "chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom-shared-internal.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_diagnostics.mojom-shared-internal.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_events.mojom-shared-internal.h"
+#include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared-internal.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom-shared-internal.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-shared-internal.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-shared-internal.h"

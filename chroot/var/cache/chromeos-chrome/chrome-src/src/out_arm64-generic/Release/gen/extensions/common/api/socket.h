@@ -18,6 +18,8 @@
 #include <vector>
 
 #include "base/values.h"
+#include "base/strings/string_piece.h"
+
 
 namespace extensions {
 namespace api {
@@ -27,7 +29,7 @@ namespace socket {
 // Types
 //
 
-enum SocketType {
+enum  SocketType {
   SOCKET_TYPE_NONE,
   SOCKET_TYPE_TCP,
   SOCKET_TYPE_UDP,
@@ -36,7 +38,7 @@ enum SocketType {
 
 
 const char* ToString(SocketType as_enum);
-SocketType ParseSocketType(const std::string& as_string);
+SocketType ParseSocketType(base::StringPiece as_string);
 
 struct CreateOptions {
   CreateOptions();
@@ -46,12 +48,19 @@ struct CreateOptions {
   CreateOptions(CreateOptions&& rhs);
   CreateOptions& operator=(CreateOptions&& rhs);
 
-  // Populates a CreateOptions object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, CreateOptions* out);
+  // Populates a CreateOptions object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, CreateOptions& out);
+
+  // Populates a CreateOptions object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, CreateOptions& out);
 
   // Creates a CreateOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CreateOptions> FromValue(const base::Value& value);
+  static std::unique_ptr<CreateOptions> FromValueDeprecated(const base::Value& value);
+
+  // Creates a CreateOptions object from a base::Value, or nullopt on failure.
+  static absl::optional<CreateOptions> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreateOptions object.
@@ -67,12 +76,19 @@ struct CreateInfo {
   CreateInfo(CreateInfo&& rhs);
   CreateInfo& operator=(CreateInfo&& rhs);
 
-  // Populates a CreateInfo object from a base::Value. Returns whether |out| was
-  // successfully populated.
-  static bool Populate(const base::Value& value, CreateInfo* out);
+  // Populates a CreateInfo object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, CreateInfo& out);
+
+  // Populates a CreateInfo object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, CreateInfo& out);
 
   // Creates a CreateInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<CreateInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<CreateInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a CreateInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<CreateInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCreateInfo object.
@@ -91,12 +107,19 @@ struct AcceptInfo {
   AcceptInfo(AcceptInfo&& rhs);
   AcceptInfo& operator=(AcceptInfo&& rhs);
 
-  // Populates a AcceptInfo object from a base::Value. Returns whether |out| was
-  // successfully populated.
-  static bool Populate(const base::Value& value, AcceptInfo* out);
+  // Populates a AcceptInfo object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, AcceptInfo& out);
+
+  // Populates a AcceptInfo object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, AcceptInfo& out);
 
   // Creates a AcceptInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AcceptInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<AcceptInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a AcceptInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<AcceptInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAcceptInfo object.
@@ -117,12 +140,19 @@ struct ReadInfo {
   ReadInfo(ReadInfo&& rhs);
   ReadInfo& operator=(ReadInfo&& rhs);
 
-  // Populates a ReadInfo object from a base::Value. Returns whether |out| was
-  // successfully populated.
-  static bool Populate(const base::Value& value, ReadInfo* out);
+  // Populates a ReadInfo object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, ReadInfo& out);
+
+  // Populates a ReadInfo object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, ReadInfo& out);
 
   // Creates a ReadInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ReadInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<ReadInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a ReadInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<ReadInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisReadInfo object.
@@ -143,12 +173,19 @@ struct WriteInfo {
   WriteInfo(WriteInfo&& rhs);
   WriteInfo& operator=(WriteInfo&& rhs);
 
-  // Populates a WriteInfo object from a base::Value. Returns whether |out| was
-  // successfully populated.
-  static bool Populate(const base::Value& value, WriteInfo* out);
+  // Populates a WriteInfo object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, WriteInfo& out);
+
+  // Populates a WriteInfo object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, WriteInfo& out);
 
   // Creates a WriteInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<WriteInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<WriteInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a WriteInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<WriteInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWriteInfo object.
@@ -167,12 +204,19 @@ struct RecvFromInfo {
   RecvFromInfo(RecvFromInfo&& rhs);
   RecvFromInfo& operator=(RecvFromInfo&& rhs);
 
-  // Populates a RecvFromInfo object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, RecvFromInfo* out);
+  // Populates a RecvFromInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, RecvFromInfo& out);
+
+  // Populates a RecvFromInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, RecvFromInfo& out);
 
   // Creates a RecvFromInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<RecvFromInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<RecvFromInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a RecvFromInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<RecvFromInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRecvFromInfo object.
@@ -198,12 +242,19 @@ struct SocketInfo {
   SocketInfo(SocketInfo&& rhs);
   SocketInfo& operator=(SocketInfo&& rhs);
 
-  // Populates a SocketInfo object from a base::Value. Returns whether |out| was
-  // successfully populated.
-  static bool Populate(const base::Value& value, SocketInfo* out);
+  // Populates a SocketInfo object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, SocketInfo& out);
+
+  // Populates a SocketInfo object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, SocketInfo& out);
 
   // Creates a SocketInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SocketInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<SocketInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a SocketInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<SocketInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSocketInfo object.
@@ -247,12 +298,20 @@ struct NetworkInterface {
   NetworkInterface(NetworkInterface&& rhs);
   NetworkInterface& operator=(NetworkInterface&& rhs);
 
-  // Populates a NetworkInterface object from a base::Value. Returns whether
+  // Populates a NetworkInterface object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, NetworkInterface& out);
+
+  // Populates a NetworkInterface object from a Dict& instance. Returns whether
   // |out| was successfully populated.
-  static bool Populate(const base::Value& value, NetworkInterface* out);
+  static bool Populate(const base::Value::Dict& value, NetworkInterface& out);
 
   // Creates a NetworkInterface object from a base::Value, or NULL on failure.
-  static std::unique_ptr<NetworkInterface> FromValue(const base::Value& value);
+  static std::unique_ptr<NetworkInterface> FromValueDeprecated(const base::Value& value);
+
+  // Creates a NetworkInterface object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<NetworkInterface> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisNetworkInterface object.
@@ -278,13 +337,21 @@ struct TLSVersionConstraints {
   TLSVersionConstraints(TLSVersionConstraints&& rhs);
   TLSVersionConstraints& operator=(TLSVersionConstraints&& rhs);
 
-  // Populates a TLSVersionConstraints object from a base::Value. Returns
+  // Populates a TLSVersionConstraints object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, TLSVersionConstraints& out);
+
+  // Populates a TLSVersionConstraints object from a Dict& instance. Returns
   // whether |out| was successfully populated.
-  static bool Populate(const base::Value& value, TLSVersionConstraints* out);
+  static bool Populate(const base::Value::Dict& value, TLSVersionConstraints& out);
 
   // Creates a TLSVersionConstraints object from a base::Value, or NULL on
   // failure.
-  static std::unique_ptr<TLSVersionConstraints> FromValue(const base::Value& value);
+  static std::unique_ptr<TLSVersionConstraints> FromValueDeprecated(const base::Value& value);
+
+  // Creates a TLSVersionConstraints object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<TLSVersionConstraints> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTLSVersionConstraints object.
@@ -310,12 +377,19 @@ struct SecureOptions {
   SecureOptions(SecureOptions&& rhs);
   SecureOptions& operator=(SecureOptions&& rhs);
 
-  // Populates a SecureOptions object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, SecureOptions* out);
+  // Populates a SecureOptions object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, SecureOptions& out);
+
+  // Populates a SecureOptions object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, SecureOptions& out);
 
   // Creates a SecureOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<SecureOptions> FromValue(const base::Value& value);
+  static std::unique_ptr<SecureOptions> FromValueDeprecated(const base::Value& value);
+
+  // Creates a SecureOptions object from a base::Value, or nullopt on failure.
+  static absl::optional<SecureOptions> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisSecureOptions object.

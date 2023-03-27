@@ -286,14 +286,7 @@ class ChromeProcessDescriptor : public ::protozero::Message {
       ::perfetto::protos::pbzero::ChromeProcessDescriptor_ProcessType,
       ChromeProcessDescriptor>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_ProcessType kProcessType() { return {}; }
+  static constexpr FieldMetadata_ProcessType kProcessType{};
   void set_process_type(::perfetto::protos::pbzero::ChromeProcessDescriptor_ProcessType value) {
     static constexpr uint32_t field_id = FieldMetadata_ProcessType::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -311,14 +304,7 @@ class ChromeProcessDescriptor : public ::protozero::Message {
       int32_t,
       ChromeProcessDescriptor>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_ProcessPriority kProcessPriority() { return {}; }
+  static constexpr FieldMetadata_ProcessPriority kProcessPriority{};
   void set_process_priority(int32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_ProcessPriority::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -336,14 +322,7 @@ class ChromeProcessDescriptor : public ::protozero::Message {
       int32_t,
       ChromeProcessDescriptor>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_LegacySortIndex kLegacySortIndex() { return {}; }
+  static constexpr FieldMetadata_LegacySortIndex kLegacySortIndex{};
   void set_legacy_sort_index(int32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_LegacySortIndex::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -361,14 +340,7 @@ class ChromeProcessDescriptor : public ::protozero::Message {
       std::string,
       ChromeProcessDescriptor>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_HostAppPackageName kHostAppPackageName() { return {}; }
+  static constexpr FieldMetadata_HostAppPackageName kHostAppPackageName{};
   void set_host_app_package_name(const char* data, size_t size) {
     AppendBytes(FieldMetadata_HostAppPackageName::kFieldId, data, size);
   }
@@ -392,14 +364,7 @@ class ChromeProcessDescriptor : public ::protozero::Message {
       uint64_t,
       ChromeProcessDescriptor>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_CrashTraceId kCrashTraceId() { return {}; }
+  static constexpr FieldMetadata_CrashTraceId kCrashTraceId{};
   void set_crash_trace_id(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_CrashTraceId::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)

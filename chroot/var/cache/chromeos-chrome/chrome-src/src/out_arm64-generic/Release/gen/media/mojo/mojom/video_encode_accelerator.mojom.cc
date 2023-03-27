@@ -1019,7 +1019,8 @@ BitstreamBufferMetadata::BitstreamBufferMetadata()
       timestamp(mojo::DefaultConstructTraits::CreateInstance<::base::TimeDelta>()),
       qp(),
       codec_metadata(),
-      encoded_size(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::gfx::Size>>()) {}
+      encoded_size(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::gfx::Size>>()),
+      encoded_color_space(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::gfx::ColorSpace>>()) {}
 
 BitstreamBufferMetadata::BitstreamBufferMetadata(
     uint32_t payload_size_bytes_in,
@@ -1027,13 +1028,15 @@ BitstreamBufferMetadata::BitstreamBufferMetadata(
     ::base::TimeDelta timestamp_in,
     int32_t qp_in,
     CodecMetadataPtr codec_metadata_in,
-    const absl::optional<::gfx::Size>& encoded_size_in)
+    const absl::optional<::gfx::Size>& encoded_size_in,
+    const absl::optional<::gfx::ColorSpace>& encoded_color_space_in)
     : payload_size_bytes(std::move(payload_size_bytes_in)),
       key_frame(std::move(key_frame_in)),
       timestamp(std::move(timestamp_in)),
       qp(std::move(qp_in)),
       codec_metadata(std::move(codec_metadata_in)),
-      encoded_size(std::move(encoded_size_in)) {}
+      encoded_size(std::move(encoded_size_in)),
+      encoded_color_space(std::move(encoded_color_space_in)) {}
 
 BitstreamBufferMetadata::~BitstreamBufferMetadata() = default;
 
@@ -1090,6 +1093,15 @@ void BitstreamBufferMetadata::WriteIntoTrace(
       "encoded_size"), this->encoded_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const absl::optional<::gfx::Size>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "encoded_color_space"), this->encoded_color_space,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const absl::optional<::gfx::ColorSpace>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4155,6 +4167,8 @@ bool StructTraits<::media::mojom::BitstreamBufferMetadata::DataView, ::media::mo
       if (success && !input.ReadCodecMetadata(&result->codec_metadata))
         success = false;
       if (success && !input.ReadEncodedSize(&result->encoded_size))
+        success = false;
+      if (success && !input.ReadEncodedColorSpace(&result->encoded_color_space))
         success = false;
   *output = std::move(result);
   return success;

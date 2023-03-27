@@ -61,14 +61,7 @@ class ChromeMojoEventInfo : public ::protozero::Message {
       std::string,
       ChromeMojoEventInfo>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_WatcherNotifyInterfaceTag kWatcherNotifyInterfaceTag() { return {}; }
+  static constexpr FieldMetadata_WatcherNotifyInterfaceTag kWatcherNotifyInterfaceTag{};
   void set_watcher_notify_interface_tag(const char* data, size_t size) {
     AppendBytes(FieldMetadata_WatcherNotifyInterfaceTag::kFieldId, data, size);
   }
@@ -92,14 +85,7 @@ class ChromeMojoEventInfo : public ::protozero::Message {
       uint32_t,
       ChromeMojoEventInfo>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_IpcHash kIpcHash() { return {}; }
+  static constexpr FieldMetadata_IpcHash kIpcHash{};
   void set_ipc_hash(uint32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_IpcHash::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -117,14 +103,7 @@ class ChromeMojoEventInfo : public ::protozero::Message {
       std::string,
       ChromeMojoEventInfo>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_MojoInterfaceTag kMojoInterfaceTag() { return {}; }
+  static constexpr FieldMetadata_MojoInterfaceTag kMojoInterfaceTag{};
   void set_mojo_interface_tag(const char* data, size_t size) {
     AppendBytes(FieldMetadata_MojoInterfaceTag::kFieldId, data, size);
   }
@@ -148,14 +127,7 @@ class ChromeMojoEventInfo : public ::protozero::Message {
       uint64_t,
       ChromeMojoEventInfo>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_MojoInterfaceMethodIid kMojoInterfaceMethodIid() { return {}; }
+  static constexpr FieldMetadata_MojoInterfaceMethodIid kMojoInterfaceMethodIid{};
   void set_mojo_interface_method_iid(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_MojoInterfaceMethodIid::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -173,14 +145,7 @@ class ChromeMojoEventInfo : public ::protozero::Message {
       bool,
       ChromeMojoEventInfo>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_IsReply kIsReply() { return {}; }
+  static constexpr FieldMetadata_IsReply kIsReply{};
   void set_is_reply(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_IsReply::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -198,14 +163,7 @@ class ChromeMojoEventInfo : public ::protozero::Message {
       uint64_t,
       ChromeMojoEventInfo>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_PayloadSize kPayloadSize() { return {}; }
+  static constexpr FieldMetadata_PayloadSize kPayloadSize{};
   void set_payload_size(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_PayloadSize::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -223,14 +181,7 @@ class ChromeMojoEventInfo : public ::protozero::Message {
       uint64_t,
       ChromeMojoEventInfo>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_DataNumBytes kDataNumBytes() { return {}; }
+  static constexpr FieldMetadata_DataNumBytes kDataNumBytes{};
   void set_data_num_bytes(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_DataNumBytes::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)

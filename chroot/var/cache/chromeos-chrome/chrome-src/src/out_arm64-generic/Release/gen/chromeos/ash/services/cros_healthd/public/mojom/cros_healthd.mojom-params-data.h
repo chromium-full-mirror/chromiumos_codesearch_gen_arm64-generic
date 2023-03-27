@@ -1705,6 +1705,39 @@ class  CrosHealthdEventService_AddEventObserver_Params_Data {
 };
 static_assert(sizeof(CrosHealthdEventService_AddEventObserver_Params_Data) == 24,
               "Bad sizeof(CrosHealthdEventService_AddEventObserver_Params_Data)");
+class  CrosHealthdEventService_IsEventSupported_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t category;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdEventService_IsEventSupported_Params_Data>;
+
+  CrosHealthdEventService_IsEventSupported_Params_Data();
+  ~CrosHealthdEventService_IsEventSupported_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdEventService_IsEventSupported_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdEventService_IsEventSupported_Params_Data)");
+class  CrosHealthdEventService_IsEventSupported_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  ::ash::cros_healthd::mojom::internal::SupportStatus_Data status;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdEventService_IsEventSupported_ResponseParams_Data>;
+
+  CrosHealthdEventService_IsEventSupported_ResponseParams_Data();
+  ~CrosHealthdEventService_IsEventSupported_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdEventService_IsEventSupported_ResponseParams_Data) == 24,
+              "Bad sizeof(CrosHealthdEventService_IsEventSupported_ResponseParams_Data)");
 class  CrosHealthdProbeService_ProbeProcessInfo_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -4487,6 +4520,57 @@ class CrosHealthdEventService_AddEventObserver_ParamsDataView {
 };
 
 
+class CrosHealthdEventService_IsEventSupported_ParamsDataView {
+ public:
+  CrosHealthdEventService_IsEventSupported_ParamsDataView() = default;
+
+  CrosHealthdEventService_IsEventSupported_ParamsDataView(
+      internal::CrosHealthdEventService_IsEventSupported_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadCategory(UserType* output) const {
+    auto data_value = data_->category;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EventCategoryEnum>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::EventCategoryEnum category() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::EventCategoryEnum>(data_->category));
+  }
+ private:
+  internal::CrosHealthdEventService_IsEventSupported_Params_Data* data_ = nullptr;
+};
+
+
+class CrosHealthdEventService_IsEventSupported_ResponseParamsDataView {
+ public:
+  CrosHealthdEventService_IsEventSupported_ResponseParamsDataView() = default;
+
+  CrosHealthdEventService_IsEventSupported_ResponseParamsDataView(
+      internal::CrosHealthdEventService_IsEventSupported_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetStatusDataView(
+      ::ash::cros_healthd::mojom::SupportStatusDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) {
+    
+    auto* pointer = !data_->status.is_null() ? &data_->status : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SupportStatusDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdEventService_IsEventSupported_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class CrosHealthdProbeService_ProbeProcessInfo_ParamsDataView {
  public:
   CrosHealthdProbeService_ProbeProcessInfo_ParamsDataView() = default;
@@ -5284,6 +5368,15 @@ inline void CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponsePar
 
 
 
+
+
+
+
+inline void CrosHealthdEventService_IsEventSupported_ResponseParamsDataView::GetStatusDataView(
+    ::ash::cros_healthd::mojom::SupportStatusDataView* output) {
+  auto pointer = &data_->status;
+  *output = ::ash::cros_healthd::mojom::SupportStatusDataView(pointer, message_);
+}
 
 
 

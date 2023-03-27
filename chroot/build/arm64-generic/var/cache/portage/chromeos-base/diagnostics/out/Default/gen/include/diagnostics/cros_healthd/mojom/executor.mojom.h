@@ -543,7 +543,7 @@ class Executor
   virtual void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) = 0;
 
 
-  using GetLidAngleCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
+  using GetLidAngleCallback = base::OnceCallback<void(absl::optional<uint16_t>)>;
   
   virtual void GetLidAngle(GetLidAngleCallback callback) = 0;
 

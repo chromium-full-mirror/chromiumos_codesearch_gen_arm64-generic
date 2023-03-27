@@ -127,6 +127,12 @@ extern StorageDefaultTypeInternal _Storage_default_instance_;
 class Storage_Fields;
 struct Storage_FieldsDefaultTypeInternal;
 extern Storage_FieldsDefaultTypeInternal _Storage_Fields_default_instance_;
+class Tcpc;
+struct TcpcDefaultTypeInternal;
+extern TcpcDefaultTypeInternal _Tcpc_default_instance_;
+class Tcpc_Fields;
+struct Tcpc_FieldsDefaultTypeInternal;
+extern Tcpc_FieldsDefaultTypeInternal _Tcpc_Fields_default_instance_;
 class VpdCached;
 struct VpdCachedDefaultTypeInternal;
 extern VpdCachedDefaultTypeInternal _VpdCached_default_instance_;
@@ -163,6 +169,8 @@ template<> ::runtime_probe::ProbeSsfcComponentsRequest* Arena::CreateMaybeMessag
 template<> ::runtime_probe::ProbeSsfcComponentsResponse* Arena::CreateMaybeMessage<::runtime_probe::ProbeSsfcComponentsResponse>(Arena*);
 template<> ::runtime_probe::Storage* Arena::CreateMaybeMessage<::runtime_probe::Storage>(Arena*);
 template<> ::runtime_probe::Storage_Fields* Arena::CreateMaybeMessage<::runtime_probe::Storage_Fields>(Arena*);
+template<> ::runtime_probe::Tcpc* Arena::CreateMaybeMessage<::runtime_probe::Tcpc>(Arena*);
+template<> ::runtime_probe::Tcpc_Fields* Arena::CreateMaybeMessage<::runtime_probe::Tcpc_Fields>(Arena*);
 template<> ::runtime_probe::VpdCached* Arena::CreateMaybeMessage<::runtime_probe::VpdCached>(Arena*);
 template<> ::runtime_probe::VpdCached_Fields* Arena::CreateMaybeMessage<::runtime_probe::VpdCached_Fields>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -5244,6 +5252,320 @@ class EcI2c final :
 };
 // -------------------------------------------------------------------
 
+class Tcpc_Fields final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:runtime_probe.Tcpc.Fields) */ {
+ public:
+  inline Tcpc_Fields() : Tcpc_Fields(nullptr) {}
+  ~Tcpc_Fields() override;
+  explicit PROTOBUF_CONSTEXPR Tcpc_Fields(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Tcpc_Fields(const Tcpc_Fields& from);
+  Tcpc_Fields(Tcpc_Fields&& from) noexcept
+    : Tcpc_Fields() {
+    *this = ::std::move(from);
+  }
+
+  inline Tcpc_Fields& operator=(const Tcpc_Fields& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Tcpc_Fields& operator=(Tcpc_Fields&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const Tcpc_Fields& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Tcpc_Fields* internal_default_instance() {
+    return reinterpret_cast<const Tcpc_Fields*>(
+               &_Tcpc_Fields_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    24;
+
+  friend void swap(Tcpc_Fields& a, Tcpc_Fields& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(Tcpc_Fields* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Tcpc_Fields* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Tcpc_Fields* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Tcpc_Fields>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Tcpc_Fields& from);
+  void MergeFrom(const Tcpc_Fields& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Tcpc_Fields* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "runtime_probe.Tcpc.Fields";
+  }
+  protected:
+  explicit Tcpc_Fields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPortFieldNumber = 1,
+    kVendorIdFieldNumber = 2,
+    kProductIdFieldNumber = 3,
+    kDeviceIdFieldNumber = 4,
+  };
+  // uint32 port = 1;
+  void clear_port();
+  uint32_t port() const;
+  void set_port(uint32_t value);
+  private:
+  uint32_t _internal_port() const;
+  void _internal_set_port(uint32_t value);
+  public:
+
+  // uint32 vendor_id = 2;
+  void clear_vendor_id();
+  uint32_t vendor_id() const;
+  void set_vendor_id(uint32_t value);
+  private:
+  uint32_t _internal_vendor_id() const;
+  void _internal_set_vendor_id(uint32_t value);
+  public:
+
+  // uint32 product_id = 3;
+  void clear_product_id();
+  uint32_t product_id() const;
+  void set_product_id(uint32_t value);
+  private:
+  uint32_t _internal_product_id() const;
+  void _internal_set_product_id(uint32_t value);
+  public:
+
+  // uint32 device_id = 4;
+  void clear_device_id();
+  uint32_t device_id() const;
+  void set_device_id(uint32_t value);
+  private:
+  uint32_t _internal_device_id() const;
+  void _internal_set_device_id(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:runtime_probe.Tcpc.Fields)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  uint32_t port_;
+  uint32_t vendor_id_;
+  uint32_t product_id_;
+  uint32_t device_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_runtime_5fprobe_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Tcpc final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:runtime_probe.Tcpc) */ {
+ public:
+  inline Tcpc() : Tcpc(nullptr) {}
+  ~Tcpc() override;
+  explicit PROTOBUF_CONSTEXPR Tcpc(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Tcpc(const Tcpc& from);
+  Tcpc(Tcpc&& from) noexcept
+    : Tcpc() {
+    *this = ::std::move(from);
+  }
+
+  inline Tcpc& operator=(const Tcpc& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Tcpc& operator=(Tcpc&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const Tcpc& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Tcpc* internal_default_instance() {
+    return reinterpret_cast<const Tcpc*>(
+               &_Tcpc_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    25;
+
+  friend void swap(Tcpc& a, Tcpc& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(Tcpc* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Tcpc* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Tcpc* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Tcpc>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Tcpc& from);
+  void MergeFrom(const Tcpc& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Tcpc* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "runtime_probe.Tcpc";
+  }
+  protected:
+  explicit Tcpc(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef Tcpc_Fields Fields;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kValuesFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // .runtime_probe.Tcpc.Fields values = 2;
+  bool has_values() const;
+  private:
+  bool _internal_has_values() const;
+  public:
+  void clear_values();
+  const ::runtime_probe::Tcpc_Fields& values() const;
+  PROTOBUF_NODISCARD ::runtime_probe::Tcpc_Fields* release_values();
+  ::runtime_probe::Tcpc_Fields* mutable_values();
+  void set_allocated_values(::runtime_probe::Tcpc_Fields* values);
+  private:
+  const ::runtime_probe::Tcpc_Fields& _internal_values() const;
+  ::runtime_probe::Tcpc_Fields* _internal_mutable_values();
+  public:
+  void unsafe_arena_set_allocated_values(
+      ::runtime_probe::Tcpc_Fields* values);
+  ::runtime_probe::Tcpc_Fields* unsafe_arena_release_values();
+
+  // @@protoc_insertion_point(class_scope:runtime_probe.Tcpc)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::runtime_probe::Tcpc_Fields* values_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_runtime_5fprobe_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ProbeResult final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:runtime_probe.ProbeResult) */ {
  public:
@@ -5283,7 +5605,7 @@ class ProbeResult final :
                &_ProbeResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    26;
 
   friend void swap(ProbeResult& a, ProbeResult& b) {
     a.Swap(&b);
@@ -5723,7 +6045,7 @@ class ComponentFields final :
                &_ComponentFields_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    27;
 
   friend void swap(ComponentFields& a, ComponentFields& b) {
     a.Swap(&b);
@@ -6123,7 +6445,7 @@ class GetKnownComponentsRequest final :
                &_GetKnownComponentsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    28;
 
   friend void swap(GetKnownComponentsRequest& a, GetKnownComponentsRequest& b) {
     a.Swap(&b);
@@ -6250,7 +6572,7 @@ class GetKnownComponentsResult final :
                &_GetKnownComponentsResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    29;
 
   friend void swap(GetKnownComponentsResult& a, GetKnownComponentsResult& b) {
     a.Swap(&b);
@@ -6403,7 +6725,7 @@ class ProbeSsfcComponentsRequest final :
                &_ProbeSsfcComponentsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    30;
 
   friend void swap(ProbeSsfcComponentsRequest& a, ProbeSsfcComponentsRequest& b) {
     a.Swap(&b);
@@ -6517,7 +6839,7 @@ class ProbeSsfcComponentsResponse final :
                &_ProbeSsfcComponentsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    31;
 
   friend void swap(ProbeSsfcComponentsResponse& a, ProbeSsfcComponentsResponse& b) {
     a.Swap(&b);
@@ -6583,6 +6905,7 @@ class ProbeSsfcComponentsResponse final :
   enum : int {
     kApI2CFieldNumber = 11,
     kEcI2CFieldNumber = 12,
+    kTcpcFieldNumber = 13,
     kProbeConfigChecksumFieldNumber = 2,
     kErrorFieldNumber = 1,
   };
@@ -6622,6 +6945,24 @@ class ProbeSsfcComponentsResponse final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::EcI2c >&
       ec_i2c() const;
 
+  // repeated .runtime_probe.Tcpc tcpc = 13;
+  int tcpc_size() const;
+  private:
+  int _internal_tcpc_size() const;
+  public:
+  void clear_tcpc();
+  ::runtime_probe::Tcpc* mutable_tcpc(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tcpc >*
+      mutable_tcpc();
+  private:
+  const ::runtime_probe::Tcpc& _internal_tcpc(int index) const;
+  ::runtime_probe::Tcpc* _internal_add_tcpc();
+  public:
+  const ::runtime_probe::Tcpc& tcpc(int index) const;
+  ::runtime_probe::Tcpc* add_tcpc();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tcpc >&
+      tcpc() const;
+
   // string probe_config_checksum = 2;
   void clear_probe_config_checksum();
   const std::string& probe_config_checksum() const;
@@ -6654,6 +6995,7 @@ class ProbeSsfcComponentsResponse final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::ApI2c > ap_i2c_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::EcI2c > ec_i2c_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tcpc > tcpc_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr probe_config_checksum_;
   int error_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -11697,6 +12039,234 @@ inline void EcI2c::set_allocated_values(::runtime_probe::EcI2c_Fields* values) {
 
 // -------------------------------------------------------------------
 
+// Tcpc_Fields
+
+// uint32 port = 1;
+inline void Tcpc_Fields::clear_port() {
+  port_ = 0u;
+}
+inline uint32_t Tcpc_Fields::_internal_port() const {
+  return port_;
+}
+inline uint32_t Tcpc_Fields::port() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tcpc.Fields.port)
+  return _internal_port();
+}
+inline void Tcpc_Fields::_internal_set_port(uint32_t value) {
+  
+  port_ = value;
+}
+inline void Tcpc_Fields::set_port(uint32_t value) {
+  _internal_set_port(value);
+  // @@protoc_insertion_point(field_set:runtime_probe.Tcpc.Fields.port)
+}
+
+// uint32 vendor_id = 2;
+inline void Tcpc_Fields::clear_vendor_id() {
+  vendor_id_ = 0u;
+}
+inline uint32_t Tcpc_Fields::_internal_vendor_id() const {
+  return vendor_id_;
+}
+inline uint32_t Tcpc_Fields::vendor_id() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tcpc.Fields.vendor_id)
+  return _internal_vendor_id();
+}
+inline void Tcpc_Fields::_internal_set_vendor_id(uint32_t value) {
+  
+  vendor_id_ = value;
+}
+inline void Tcpc_Fields::set_vendor_id(uint32_t value) {
+  _internal_set_vendor_id(value);
+  // @@protoc_insertion_point(field_set:runtime_probe.Tcpc.Fields.vendor_id)
+}
+
+// uint32 product_id = 3;
+inline void Tcpc_Fields::clear_product_id() {
+  product_id_ = 0u;
+}
+inline uint32_t Tcpc_Fields::_internal_product_id() const {
+  return product_id_;
+}
+inline uint32_t Tcpc_Fields::product_id() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tcpc.Fields.product_id)
+  return _internal_product_id();
+}
+inline void Tcpc_Fields::_internal_set_product_id(uint32_t value) {
+  
+  product_id_ = value;
+}
+inline void Tcpc_Fields::set_product_id(uint32_t value) {
+  _internal_set_product_id(value);
+  // @@protoc_insertion_point(field_set:runtime_probe.Tcpc.Fields.product_id)
+}
+
+// uint32 device_id = 4;
+inline void Tcpc_Fields::clear_device_id() {
+  device_id_ = 0u;
+}
+inline uint32_t Tcpc_Fields::_internal_device_id() const {
+  return device_id_;
+}
+inline uint32_t Tcpc_Fields::device_id() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tcpc.Fields.device_id)
+  return _internal_device_id();
+}
+inline void Tcpc_Fields::_internal_set_device_id(uint32_t value) {
+  
+  device_id_ = value;
+}
+inline void Tcpc_Fields::set_device_id(uint32_t value) {
+  _internal_set_device_id(value);
+  // @@protoc_insertion_point(field_set:runtime_probe.Tcpc.Fields.device_id)
+}
+
+// -------------------------------------------------------------------
+
+// Tcpc
+
+// string name = 1;
+inline void Tcpc::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& Tcpc::name() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tcpc.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Tcpc::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Tcpc.name)
+}
+inline std::string* Tcpc::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Tcpc.name)
+  return _s;
+}
+inline const std::string& Tcpc::_internal_name() const {
+  return name_.Get();
+}
+inline void Tcpc::_internal_set_name(const std::string& value) {
+  
+  name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Tcpc::_internal_mutable_name() {
+  
+  return name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Tcpc::release_name() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Tcpc.name)
+  return name_.Release();
+}
+inline void Tcpc::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault()) {
+    name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Tcpc.name)
+}
+
+// .runtime_probe.Tcpc.Fields values = 2;
+inline bool Tcpc::_internal_has_values() const {
+  return this != internal_default_instance() && values_ != nullptr;
+}
+inline bool Tcpc::has_values() const {
+  return _internal_has_values();
+}
+inline void Tcpc::clear_values() {
+  if (GetArenaForAllocation() == nullptr && values_ != nullptr) {
+    delete values_;
+  }
+  values_ = nullptr;
+}
+inline const ::runtime_probe::Tcpc_Fields& Tcpc::_internal_values() const {
+  const ::runtime_probe::Tcpc_Fields* p = values_;
+  return p != nullptr ? *p : reinterpret_cast<const ::runtime_probe::Tcpc_Fields&>(
+      ::runtime_probe::_Tcpc_Fields_default_instance_);
+}
+inline const ::runtime_probe::Tcpc_Fields& Tcpc::values() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Tcpc.values)
+  return _internal_values();
+}
+inline void Tcpc::unsafe_arena_set_allocated_values(
+    ::runtime_probe::Tcpc_Fields* values) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(values_);
+  }
+  values_ = values;
+  if (values) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:runtime_probe.Tcpc.values)
+}
+inline ::runtime_probe::Tcpc_Fields* Tcpc::release_values() {
+  
+  ::runtime_probe::Tcpc_Fields* temp = values_;
+  values_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::runtime_probe::Tcpc_Fields* Tcpc::unsafe_arena_release_values() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Tcpc.values)
+  
+  ::runtime_probe::Tcpc_Fields* temp = values_;
+  values_ = nullptr;
+  return temp;
+}
+inline ::runtime_probe::Tcpc_Fields* Tcpc::_internal_mutable_values() {
+  
+  if (values_ == nullptr) {
+    auto* p = CreateMaybeMessage<::runtime_probe::Tcpc_Fields>(GetArenaForAllocation());
+    values_ = p;
+  }
+  return values_;
+}
+inline ::runtime_probe::Tcpc_Fields* Tcpc::mutable_values() {
+  ::runtime_probe::Tcpc_Fields* _msg = _internal_mutable_values();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Tcpc.values)
+  return _msg;
+}
+inline void Tcpc::set_allocated_values(::runtime_probe::Tcpc_Fields* values) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete values_;
+  }
+  if (values) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(values);
+    if (message_arena != submessage_arena) {
+      values = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, values, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  values_ = values;
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Tcpc.values)
+}
+
+// -------------------------------------------------------------------
+
 // ProbeResult
 
 // .runtime_probe.ErrorCode error = 1;
@@ -13585,9 +14155,53 @@ ProbeSsfcComponentsResponse::ec_i2c() const {
   return ec_i2c_;
 }
 
+// repeated .runtime_probe.Tcpc tcpc = 13;
+inline int ProbeSsfcComponentsResponse::_internal_tcpc_size() const {
+  return tcpc_.size();
+}
+inline int ProbeSsfcComponentsResponse::tcpc_size() const {
+  return _internal_tcpc_size();
+}
+inline void ProbeSsfcComponentsResponse::clear_tcpc() {
+  tcpc_.Clear();
+}
+inline ::runtime_probe::Tcpc* ProbeSsfcComponentsResponse::mutable_tcpc(int index) {
+  // @@protoc_insertion_point(field_mutable:runtime_probe.ProbeSsfcComponentsResponse.tcpc)
+  return tcpc_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tcpc >*
+ProbeSsfcComponentsResponse::mutable_tcpc() {
+  // @@protoc_insertion_point(field_mutable_list:runtime_probe.ProbeSsfcComponentsResponse.tcpc)
+  return &tcpc_;
+}
+inline const ::runtime_probe::Tcpc& ProbeSsfcComponentsResponse::_internal_tcpc(int index) const {
+  return tcpc_.Get(index);
+}
+inline const ::runtime_probe::Tcpc& ProbeSsfcComponentsResponse::tcpc(int index) const {
+  // @@protoc_insertion_point(field_get:runtime_probe.ProbeSsfcComponentsResponse.tcpc)
+  return _internal_tcpc(index);
+}
+inline ::runtime_probe::Tcpc* ProbeSsfcComponentsResponse::_internal_add_tcpc() {
+  return tcpc_.Add();
+}
+inline ::runtime_probe::Tcpc* ProbeSsfcComponentsResponse::add_tcpc() {
+  ::runtime_probe::Tcpc* _add = _internal_add_tcpc();
+  // @@protoc_insertion_point(field_add:runtime_probe.ProbeSsfcComponentsResponse.tcpc)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::runtime_probe::Tcpc >&
+ProbeSsfcComponentsResponse::tcpc() const {
+  // @@protoc_insertion_point(field_list:runtime_probe.ProbeSsfcComponentsResponse.tcpc)
+  return tcpc_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

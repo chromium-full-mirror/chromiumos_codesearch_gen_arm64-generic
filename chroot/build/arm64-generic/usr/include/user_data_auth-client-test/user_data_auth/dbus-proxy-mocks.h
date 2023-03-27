@@ -668,16 +668,6 @@ class CryptohomeMiscInterfaceProxyMock : public CryptohomeMiscInterfaceProxyInte
                     base::OnceCallback<void(const user_data_auth::GetRsuDeviceIdReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(CheckHealth,
-               bool(const user_data_auth::CheckHealthRequest& /*in_request*/,
-                    user_data_auth::CheckHealthReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(CheckHealthAsync,
-               void(const user_data_auth::CheckHealthRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::CheckHealthReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
 };

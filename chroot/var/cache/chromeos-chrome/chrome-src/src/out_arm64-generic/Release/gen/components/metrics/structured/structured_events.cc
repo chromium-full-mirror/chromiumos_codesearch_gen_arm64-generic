@@ -13,6 +13,42 @@ namespace v2 {
 
 namespace fast_pair {
 
+DiscoveryNotificationShown::DiscoveryNotificationShown() :
+  ::metrics::structured::Event("FastPair",
+                               "DiscoveryNotificationShown",
+                               false) {}
+DiscoveryNotificationShown::~DiscoveryNotificationShown() = default;
+
+DiscoveryNotificationShown& DiscoveryNotificationShown::SetProtocol(const int64_t value) {
+  AddMetric("Protocol", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+DiscoveryNotificationShown& DiscoveryNotificationShown::SetFastPairVersion(const int64_t value) {
+  AddMetric("FastPairVersion", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+DiscoveryNotificationShown& DiscoveryNotificationShown::SetModelId(const int64_t value) {
+  AddMetric("ModelId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+DiscoveryNotificationShown& DiscoveryNotificationShown::SetRSSI(const int64_t value) {
+  AddMetric("RSSI", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+DiscoveryNotificationShown& DiscoveryNotificationShown::SetTxPower(const int64_t value) {
+  AddMetric("TxPower", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
 PairingStart::PairingStart() :
   ::metrics::structured::Event("FastPair",
                                "PairingStart",
@@ -37,6 +73,18 @@ PairingStart& PairingStart::SetModelId(const int64_t value) {
   return *this;
 }
 
+PairingStart& PairingStart::SetRSSI(const int64_t value) {
+  AddMetric("RSSI", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairingStart& PairingStart::SetTxPower(const int64_t value) {
+  AddMetric("TxPower", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
 PairingComplete::PairingComplete() :
   ::metrics::structured::Event("FastPair",
                                "PairingComplete",
@@ -57,6 +105,18 @@ PairingComplete& PairingComplete::SetFastPairVersion(const int64_t value) {
 
 PairingComplete& PairingComplete::SetModelId(const int64_t value) {
   AddMetric("ModelId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairingComplete& PairingComplete::SetRSSI(const int64_t value) {
+  AddMetric("RSSI", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairingComplete& PairingComplete::SetTxPower(const int64_t value) {
+  AddMetric("TxPower", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
   return *this;
 }
@@ -621,6 +681,12 @@ AppDiscovery_AppLauncherResultOpened& AppDiscovery_AppLauncherResultOpened::SetA
   return *this;
 }
 
+AppDiscovery_AppLauncherResultOpened& AppDiscovery_AppLauncherResultOpened::SetResultCategory(const int64_t value) {
+  AddMetric("ResultCategory", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
 UserLogin::UserLogin() :
   ::metrics::structured::Event("CrOSEvents",
                                "UserLogin",
@@ -632,6 +698,18 @@ UserLogout::UserLogout() :
                                "UserLogout",
                                true) {}
 UserLogout::~UserLogout() = default;
+
+SystemSuspended::SystemSuspended() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "SystemSuspended",
+                               true) {}
+SystemSuspended::~SystemSuspended() = default;
+
+SystemSuspended& SystemSuspended::SetReason(const int64_t value) {
+  AddMetric("Reason", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
 
 Test1::Test1() :
   ::metrics::structured::Event("CrOSEvents",

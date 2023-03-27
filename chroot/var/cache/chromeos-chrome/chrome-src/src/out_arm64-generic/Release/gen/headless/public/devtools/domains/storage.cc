@@ -54,6 +54,14 @@ void Domain::RegisterEventHandlersIfNeeded() {
       "Storage.sharedStorageAccessed",
       base::BindRepeating(&Domain::DispatchSharedStorageAccessedEvent,
                           base::Unretained(this)));
+  dispatcher_->RegisterEventHandler(
+      "Storage.storageBucketCreatedOrUpdated",
+      base::BindRepeating(&Domain::DispatchStorageBucketCreatedOrUpdatedEvent,
+                          base::Unretained(this)));
+  dispatcher_->RegisterEventHandler(
+      "Storage.storageBucketDeleted",
+      base::BindRepeating(&Domain::DispatchStorageBucketDeletedEvent,
+                          base::Unretained(this)));
 }
 
 void ExperimentalDomain::GetStorageKeyForFrame(std::unique_ptr<GetStorageKeyForFrameParams> params, base::OnceCallback<void(std::unique_ptr<GetStorageKeyForFrameResult>)> callback) {
@@ -136,6 +144,12 @@ void ExperimentalDomain::ResetSharedStorageBudget(std::unique_ptr<ResetSharedSto
 }
 void ExperimentalDomain::SetSharedStorageTracking(std::unique_ptr<SetSharedStorageTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback) {
   dispatcher_->SendMessage("Storage.setSharedStorageTracking", params->Serialize(), base::BindOnce(&Domain::HandleSetSharedStorageTrackingResponse, std::move(callback)));
+}
+void ExperimentalDomain::SetStorageBucketTracking(std::unique_ptr<SetStorageBucketTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetStorageBucketTrackingResult>)> callback) {
+  dispatcher_->SendMessage("Storage.setStorageBucketTracking", params->Serialize(), base::BindOnce(&Domain::HandleSetStorageBucketTrackingResponse, std::move(callback)));
+}
+void ExperimentalDomain::DeleteStorageBucket(std::unique_ptr<DeleteStorageBucketParams> params, base::OnceCallback<void(std::unique_ptr<DeleteStorageBucketResult>)> callback) {
+  dispatcher_->SendMessage("Storage.deleteStorageBucket", params->Serialize(), base::BindOnce(&Domain::HandleDeleteStorageBucketResponse, std::move(callback)));
 }
 
 
@@ -544,6 +558,36 @@ void Domain::HandleSetSharedStorageTrackingResponse(base::OnceCallback<void(std:
   std::move(callback).Run(std::move(result));
 }
 
+// static
+void Domain::HandleSetStorageBucketTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetStorageBucketTrackingResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<SetStorageBucketTrackingResult> result = SetStorageBucketTrackingResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleDeleteStorageBucketResponse(base::OnceCallback<void(std::unique_ptr<DeleteStorageBucketResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<DeleteStorageBucketResult> result = DeleteStorageBucketResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
 void Domain::DispatchCacheStorageContentUpdatedEvent(const base::Value& params) {
   ErrorReporter errors;
   std::unique_ptr<CacheStorageContentUpdatedParams> parsed_params(CacheStorageContentUpdatedParams::Parse(params, &errors));
@@ -595,6 +639,24 @@ void Domain::DispatchSharedStorageAccessedEvent(const base::Value& params) {
   DCHECK(!errors.HasErrors()) << errors.ToString();
   for (ExperimentalObserver& observer : observers_) {
     observer.OnSharedStorageAccessed(*parsed_params);
+  }
+}
+
+void Domain::DispatchStorageBucketCreatedOrUpdatedEvent(const base::Value& params) {
+  ErrorReporter errors;
+  std::unique_ptr<StorageBucketCreatedOrUpdatedParams> parsed_params(StorageBucketCreatedOrUpdatedParams::Parse(params, &errors));
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  for (ExperimentalObserver& observer : observers_) {
+    observer.OnStorageBucketCreatedOrUpdated(*parsed_params);
+  }
+}
+
+void Domain::DispatchStorageBucketDeletedEvent(const base::Value& params) {
+  ErrorReporter errors;
+  std::unique_ptr<StorageBucketDeletedParams> parsed_params(StorageBucketDeletedParams::Parse(params, &errors));
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  for (ExperimentalObserver& observer : observers_) {
+    observer.OnStorageBucketDeleted(*parsed_params);
   }
 }
 

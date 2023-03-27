@@ -128,14 +128,7 @@ class MemoryTrackerSnapshot : public ::protozero::Message {
       uint64_t,
       MemoryTrackerSnapshot>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_GlobalDumpId kGlobalDumpId() { return {}; }
+  static constexpr FieldMetadata_GlobalDumpId kGlobalDumpId{};
   void set_global_dump_id(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_GlobalDumpId::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -153,14 +146,7 @@ class MemoryTrackerSnapshot : public ::protozero::Message {
       ::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail,
       MemoryTrackerSnapshot>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_LevelOfDetail kLevelOfDetail() { return {}; }
+  static constexpr FieldMetadata_LevelOfDetail kLevelOfDetail{};
   void set_level_of_detail(::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail value) {
     static constexpr uint32_t field_id = FieldMetadata_LevelOfDetail::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -178,14 +164,7 @@ class MemoryTrackerSnapshot : public ::protozero::Message {
       MemoryTrackerSnapshot_ProcessSnapshot,
       MemoryTrackerSnapshot>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_ProcessMemoryDumps kProcessMemoryDumps() { return {}; }
+  static constexpr FieldMetadata_ProcessMemoryDumps kProcessMemoryDumps{};
   template <typename T = MemoryTrackerSnapshot_ProcessSnapshot> T* add_process_memory_dumps() {
     return BeginNestedMessage<T>(3);
   }
@@ -226,14 +205,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot : public ::protozero::Message {
       int32_t,
       MemoryTrackerSnapshot_ProcessSnapshot>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_Pid kPid() { return {}; }
+  static constexpr FieldMetadata_Pid kPid{};
   void set_pid(int32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_Pid::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -251,14 +223,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot : public ::protozero::Message {
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode,
       MemoryTrackerSnapshot_ProcessSnapshot>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_AllocatorDumps kAllocatorDumps() { return {}; }
+  static constexpr FieldMetadata_AllocatorDumps kAllocatorDumps{};
   template <typename T = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode> T* add_allocator_dumps() {
     return BeginNestedMessage<T>(2);
   }
@@ -272,14 +237,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot : public ::protozero::Message {
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge,
       MemoryTrackerSnapshot_ProcessSnapshot>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_MemoryEdges kMemoryEdges() { return {}; }
+  static constexpr FieldMetadata_MemoryEdges kMemoryEdges{};
   template <typename T = MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge> T* add_memory_edges() {
     return BeginNestedMessage<T>(3);
   }
@@ -321,14 +279,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge : public ::protozero::Mes
       uint64_t,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_SourceId kSourceId() { return {}; }
+  static constexpr FieldMetadata_SourceId kSourceId{};
   void set_source_id(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_SourceId::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -346,14 +297,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge : public ::protozero::Mes
       uint64_t,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_TargetId kTargetId() { return {}; }
+  static constexpr FieldMetadata_TargetId kTargetId{};
   void set_target_id(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_TargetId::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -371,14 +315,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge : public ::protozero::Mes
       uint32_t,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_Importance kImportance() { return {}; }
+  static constexpr FieldMetadata_Importance kImportance{};
   void set_importance(uint32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_Importance::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -396,14 +333,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge : public ::protozero::Mes
       bool,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_Overridable kOverridable() { return {}; }
+  static constexpr FieldMetadata_Overridable kOverridable{};
   void set_overridable(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_Overridable::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -453,14 +383,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
       uint64_t,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_Id kId() { return {}; }
+  static constexpr FieldMetadata_Id kId{};
   void set_id(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_Id::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -478,14 +401,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
       std::string,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_AbsoluteName kAbsoluteName() { return {}; }
+  static constexpr FieldMetadata_AbsoluteName kAbsoluteName{};
   void set_absolute_name(const char* data, size_t size) {
     AppendBytes(FieldMetadata_AbsoluteName::kFieldId, data, size);
   }
@@ -509,14 +425,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
       bool,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_Weak kWeak() { return {}; }
+  static constexpr FieldMetadata_Weak kWeak{};
   void set_weak(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_Weak::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -534,14 +443,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
       uint64_t,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_SizeBytes kSizeBytes() { return {}; }
+  static constexpr FieldMetadata_SizeBytes kSizeBytes{};
   void set_size_bytes(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_SizeBytes::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -559,14 +461,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_Entries kEntries() { return {}; }
+  static constexpr FieldMetadata_Entries kEntries{};
   template <typename T = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry> T* add_entries() {
     return BeginNestedMessage<T>(5);
   }
@@ -616,14 +511,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
       std::string,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_Name kName() { return {}; }
+  static constexpr FieldMetadata_Name kName{};
   void set_name(const char* data, size_t size) {
     AppendBytes(FieldMetadata_Name::kFieldId, data, size);
   }
@@ -647,14 +535,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
       ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_Units kUnits() { return {}; }
+  static constexpr FieldMetadata_Units kUnits{};
   void set_units(::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units value) {
     static constexpr uint32_t field_id = FieldMetadata_Units::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -672,14 +553,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
       uint64_t,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_ValueUint64 kValueUint64() { return {}; }
+  static constexpr FieldMetadata_ValueUint64 kValueUint64{};
   void set_value_uint64(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_ValueUint64::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
@@ -697,14 +571,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
       std::string,
       MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry>;
 
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_ValueString kValueString() { return {}; }
+  static constexpr FieldMetadata_ValueString kValueString{};
   void set_value_string(const char* data, size_t size) {
     AppendBytes(FieldMetadata_ValueString::kFieldId, data, size);
   }

@@ -20,6 +20,7 @@
 #include <featured/feature_library.h>
 
 #include "power_manager/common/power_constants.h"
+#include "power_manager/common/tracing.h"
 #include "power_manager/common/util.h"
 #include "power_manager/powerd/policy/adaptive_charging_controller.h"
 
@@ -38,9 +39,10 @@ const char kChargeEventsSubDir[] = "charge_events/";
 const char kHoldTimeOnACSubDir[] = "hold_time_on_ac/";
 const char kTimeFullOnACSubDir[] = "time_full_on_ac/";
 const char kTimeOnACSubDir[] = "time_on_ac/";
-// `kRententionDays`, `kChargeHistoryTimeBucketSize`, and `kMaxChargeEvents`
-// require a privacy review to be changed.
-const base::TimeDelta kRetentionDays = base::Days(30);
+// `kMaxRetentionDays`, `kRententionDays`, `kChargeHistoryTimeBucketSize`, and
+// `kMaxChargeEvents` require a privacy review to be changed.
+const int kMaxRetentionDays = 30;
+const base::TimeDelta kRetentionDays = base::Days(kMaxRetentionDays);
 const base::TimeDelta kChargeHistoryTimeInterval = base::Minutes(15);
 const int kMaxChargeEvents = 50;
 
@@ -334,14 +336,16 @@ bool ChargeHistory::CopyToProtocolBuffer(ChargeHistoryState* proto) {
   CheckAndFixSystemTimeChange();
   for (auto& event : charge_events_) {
     ChargeHistoryState::ChargeEvent* charge_event = proto->add_charge_event();
-    charge_event->set_start_time(event.first.ToInternalValue());
-    charge_event->set_duration(event.second.ToInternalValue());
+    charge_event->set_start_time(
+        event.first.ToDeltaSinceWindowsEpoch().InMicroseconds());
+    charge_event->set_duration(event.second.InMicroseconds());
   }
 
   // Do not set the duration for incomplete ChargeEvents.
   if (ac_connect_time_ != base::Time()) {
     ChargeHistoryState::ChargeEvent* charge_event = proto->add_charge_event();
-    charge_event->set_start_time(ac_connect_time_.ToInternalValue());
+    charge_event->set_start_time(
+        ac_connect_time_.ToDeltaSinceWindowsEpoch().InMicroseconds());
   }
 
   // Add any missing days. This can happen if this function is called after a
@@ -356,13 +360,14 @@ bool ChargeHistory::CopyToProtocolBuffer(ChargeHistoryState* proto) {
   while (time_on_ac_it != time_on_ac_days_.end()) {
     ChargeHistoryState::DailyHistory* history = proto->add_daily_history();
     base::Time day_start = time_on_ac_it->first;
-    history->set_utc_midnight(day_start.ToInternalValue());
+    history->set_utc_midnight(
+        day_start.ToDeltaSinceWindowsEpoch().InMicroseconds());
 
     // Add in time for the current time on AC if an AC charger is connected.
     base::TimeDelta duration = time_on_ac_it->second;
     duration += DurationForDay(ac_connect_time_, day_start);
     duration = duration.FloorToMultiple(kChargeHistoryTimeInterval);
-    history->set_time_on_ac(duration.ToInternalValue());
+    history->set_time_on_ac(duration.InMicroseconds());
     time_on_ac_it++;
 
     // If this happens, we missed calling `AddZeroDurationChargeDays` somewhere.
@@ -373,7 +378,7 @@ bool ChargeHistory::CopyToProtocolBuffer(ChargeHistoryState* proto) {
       duration = time_full_on_ac_it->second;
       duration += DurationForDay(full_charge_time_, day_start);
       duration = duration.FloorToMultiple(kChargeHistoryTimeInterval);
-      history->set_time_full_on_ac(duration.ToInternalValue());
+      history->set_time_full_on_ac(duration.InMicroseconds());
       time_full_on_ac_it++;
     }
 
@@ -384,7 +389,7 @@ bool ChargeHistory::CopyToProtocolBuffer(ChargeHistoryState* proto) {
       duration = hold_time_on_ac_it->second;
       duration += DurationForDay(hold_charge_time_, day_start);
       duration = duration.FloorToMultiple(kChargeHistoryTimeInterval);
-      history->set_hold_time_on_ac(duration.ToInternalValue());
+      history->set_hold_time_on_ac(duration.InMicroseconds());
       hold_time_on_ac_it++;
     }
   }
@@ -624,6 +629,7 @@ void ChargeHistory::RemoveOldChargeEvents() {
 }
 
 void ChargeHistory::OnRetentionTimerFired() {
+  TRACE_EVENT("power", "ChargeHistory::OnRetentionTimerFired");
   RemoveOldChargeEvents();
   RemoveOldChargeDays(hold_time_on_ac_dir_, &hold_time_on_ac_days_,
                       &hold_duration_on_ac_);
@@ -642,6 +648,7 @@ void ChargeHistory::ScheduleRewrites() {
 }
 
 void ChargeHistory::OnRewriteTimerFired() {
+  TRACE_EVENT("power", "ChargeHistory::OnRewriteTimerFired");
   for (const std::pair<const base::FilePath, base::TimeDelta>& it :
        scheduled_rewrites_) {
     bool success = WriteTimeDeltaToFile(it.first, it.second);
@@ -965,33 +972,19 @@ void AdaptiveChargingController::OnPredictionResponse(
     return;
   }
 
-  // This goes through the predictions, which are a value between (0.0, 1.0),
-  // which indicate the probability of being unplugged at a certain hour.
-  int hour = 0;
-  for (int i = 1; i < result.size(); ++i) {
-    // In the case of 2 probabilities being the max values, bias towards the
-    // earlier probability.
-    if (result[i] > result[hour])
-      hour = i;
+  // This sums the predictions, which are a value between (0.0, 1.0), until the
+  // result is greater than `min_probability_`. The `hour` at which that happens
+  // is our prediction.
+  double probability_sum = 0.0;
+  int hour;
+  for (hour = 0; hour < result.size(); ++hour) {
+    probability_sum += result[hour];
+    if (probability_sum >= min_probability_)
+      break;
   }
 
   LOG(INFO) << "Adaptive Charging ML predicts AC unplug will occur after "
             << hour << " hour(s)";
-
-  // If the max probability is less than `min_probability_` we treat that as the
-  // model not having enough confidence in the prediction to delay charging.
-  if (result[hour] < min_probability_) {
-    StopAdaptiveCharging();
-
-    // If charging was delayed already, treat this as an unplug prediction for
-    // `kFinishChargingDelay` time from now.
-    if (hold_percent_start_time_ != base::TimeTicks())
-      target_full_charge_time_ =
-          clock_.GetCurrentBootTime() + kFinishChargingDelay;
-    else
-      target_full_charge_time_ = clock_.GetCurrentBootTime();
-    return;
-  }
 
   // If slow charging has commenced, check how long we have been slow-charging
   // for as well as the total charging time we may get with the new prediction
@@ -1065,10 +1058,9 @@ void AdaptiveChargingController::OnPredictionResponse(
 
   const system::PowerStatus status = power_supply_->GetPowerStatus();
 
-  // If the last value in `result` was the largest probability and greater than
-  // `min_probability_`, we don't set the `charge_alarm_` yet. It will be set
-  // when this is no longer the case when this function is run again via the
-  // `recheck_alarm_` or a suspend attempt.
+  // If the prediction is for the final hour in `result`, we don't set
+  // `charge_alarm_` yet. It will be set when this is no longer the case when
+  // this function is run again via the `recheck_alarm_` or a suspend attempt.
   if (target_delay != base::TimeDelta::Max()) {
     // Don't allow the time to start charging, which is
     // `target_full_charge_time_` - `kFinishChargingDelay`,
@@ -1364,6 +1356,106 @@ void AdaptiveChargingController::UpdateAdaptiveCharging(
 
   features["Reason"].set_int32_value(static_cast<int32_t>(reason));
 
+  // Add various ChargeHistory stats to `features`.
+  base::TimeDelta time_on_ac = charge_history_.GetTimeOnAC();
+  if (time_on_ac != base::TimeDelta()) {
+    base::TimeDelta time_full_on_ac = charge_history_.GetTimeFullOnAC();
+    base::TimeDelta hold_time_on_ac = charge_history_.GetHoldTimeOnAC();
+    features["RatioTimeFullCharge"].set_int32_value(static_cast<int32_t>(
+        10 * (time_full_on_ac + hold_time_on_ac) / time_on_ac));
+  } else {
+    features["RatioTimeFullCharge"].set_int32_value(0);
+  }
+
+  ChargeHistoryState charge_state;
+  charge_history_.CopyToProtocolBuffer(&charge_state);
+  features["ChargeEventHistorySize"].set_int32_value(
+      charge_state.charge_event_size());
+
+  // The indices are reversed in `RankerExample` versus `ChargeHistoryState`.
+  const auto& charge_events = charge_state.charge_event();
+  int event = 0;
+  for (auto rit = charge_events.rbegin();
+       rit != charge_events.rend() && event < kMaxChargeEvents;
+       ++rit, ++event) {
+    std::string suffix = std::to_string(event);
+    int32_t val = -1;
+    if (rit->has_duration()) {
+      val = base::Microseconds(rit->duration()).InMinutes();
+    }
+    features[std::string("ChargeEventHistoryDuration") + suffix]
+        .set_int32_value(val);
+
+    val = -1;
+    if (rit->has_start_time()) {
+      val = base::Microseconds(rit->start_time()).InMinutes();
+    }
+    features[std::string("ChargeEventHistoryStartTime") + suffix]
+        .set_int32_value(val);
+  }
+
+  // The model assumes missing values, up to the max number of events, have -1
+  // filled in.
+  for (; event < kMaxChargeEvents; ++event) {
+    std::string suffix = std::to_string(event);
+    features[std::string("ChargeEventHistoryDuration") + suffix]
+        .set_int32_value(-1);
+    features[std::string("ChargeEventHistoryStartTime") + suffix]
+        .set_int32_value(-1);
+  }
+
+  features["DailySummarySize"].set_int32_value(
+      charge_state.daily_history_size());
+
+  // These indices are also reversed in `RankerExample` versus
+  // `ChargeHistoryState`.
+  auto& daily_history = charge_state.daily_history();
+  auto rit = daily_history.rbegin();
+  for (int day = 0; day < kMaxRetentionDays; ++day) {
+    base::Time date = now.UTCMidnight() - base::Days(day);
+    std::string suffix = std::to_string(day);
+
+    // Fill in missing days with -1 values.
+    if (rit == daily_history.rend() || !rit->has_utc_midnight() ||
+        base::Time::FromDeltaSinceWindowsEpoch(
+            base::Microseconds(rit->utc_midnight())) < date) {
+      features[std::string("DailySummaryHoldTimeOnAc") + suffix]
+          .set_int32_value(-1);
+      features[std::string("DailySummaryTimeFullOnAc") + suffix]
+          .set_int32_value(-1);
+      features[std::string("DailySummaryTimeOnAc") + suffix].set_int32_value(
+          -1);
+      // Skip over DailyHistories without a utc_midnight value.
+      if (rit != daily_history.rend() && !rit->has_utc_midnight())
+        rit++;
+
+      continue;
+    }
+
+    // Missing values for existing days are also filled in with -1.
+    int32_t val = -1;
+    if (rit->has_hold_time_on_ac()) {
+      val = base::Microseconds(rit->hold_time_on_ac()).InMinutes();
+    }
+    features[std::string("DailySummaryHoldTimeOnAc") + suffix].set_int32_value(
+        val);
+
+    val = -1;
+    if (rit->has_time_full_on_ac()) {
+      val = base::Microseconds(rit->time_full_on_ac()).InMinutes();
+    }
+    features[std::string("DailySummaryTimeFullOnAc") + suffix].set_int32_value(
+        val);
+
+    val = -1;
+    if (rit->has_time_on_ac()) {
+      val = base::Microseconds(rit->time_on_ac()).InMinutes();
+    }
+    features[std::string("DailySummaryTimeOnAc") + suffix].set_int32_value(val);
+
+    ++rit;
+  }
+
   // This will call back into AdaptiveChargingController: when the DBus call to
   // the Adaptive Charging ml-service completes. Blocks if async is false.
   delegate_->GetAdaptiveChargingPrediction(proto, async);
@@ -1384,6 +1476,7 @@ void AdaptiveChargingController::StartSlowCharging() {
 }
 
 void AdaptiveChargingController::StopAdaptiveCharging() {
+  TRACE_EVENT("power", "AdaptiveChargingController::StopAdaptiveCharging");
   base::TimeTicks now = clock_.GetCurrentBootTime();
 
   if (state_ == AdaptiveChargingState::SLOWCHARGE) {
@@ -1447,6 +1540,7 @@ void AdaptiveChargingController::StartChargeAlarm(base::TimeDelta delay) {
 }
 
 void AdaptiveChargingController::OnRecheckAlarmFired() {
+  TRACE_EVENT("power", "AdaptiveChargingController::OnRecheckAlarmFired");
   UpdateAdaptiveCharging(UserChargingEvent::Event::PERIODIC_LOG,
                          true /* async */);
 }

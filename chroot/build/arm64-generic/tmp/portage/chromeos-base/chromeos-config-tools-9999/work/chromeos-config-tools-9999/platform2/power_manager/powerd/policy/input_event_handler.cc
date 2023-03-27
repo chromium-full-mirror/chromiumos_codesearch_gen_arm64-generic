@@ -14,6 +14,7 @@
 #include "power_manager/common/clock.h"
 #include "power_manager/common/power_constants.h"
 #include "power_manager/common/prefs.h"
+#include "power_manager/common/tracing.h"
 #include "power_manager/powerd/system/dbus_wrapper.h"
 #include "power_manager/powerd/system/display/display_watcher.h"
 #include "power_manager/powerd/system/input_watcher_interface.h"
@@ -90,7 +91,8 @@ void InputEventHandler::OnLidEvent(LidState state) {
     case LidState::NOT_PRESENT:
       return;
   }
-  proto.set_timestamp(clock_->GetCurrentTime().ToInternalValue());
+  proto.set_timestamp(
+      (clock_->GetCurrentTime() - base::TimeTicks()).InMicroseconds());
   dbus_wrapper_->EmitSignalWithProtocolBuffer(kInputEventSignal, proto);
 }
 
@@ -104,7 +106,8 @@ void InputEventHandler::OnTabletModeEvent(TabletMode mode) {
   proto.set_type(tablet_mode_ == TabletMode::ON
                      ? InputEvent_Type_TABLET_MODE_ON
                      : InputEvent_Type_TABLET_MODE_OFF);
-  proto.set_timestamp(clock_->GetCurrentTime().ToInternalValue());
+  proto.set_timestamp(
+      (clock_->GetCurrentTime() - base::TimeTicks()).InMicroseconds());
   dbus_wrapper_->EmitSignalWithProtocolBuffer(kInputEventSignal, proto);
 }
 
@@ -142,7 +145,7 @@ void InputEventHandler::OnPowerButtonEvent(ButtonState state) {
     proto.set_type(state == ButtonState::DOWN
                        ? InputEvent_Type_POWER_BUTTON_DOWN
                        : InputEvent_Type_POWER_BUTTON_UP);
-    proto.set_timestamp(now.ToInternalValue());
+    proto.set_timestamp((now - base::TimeTicks()).InMicroseconds());
     dbus_wrapper_->EmitSignalWithProtocolBuffer(kInputEventSignal, proto);
 
     if (state == ButtonState::DOWN) {
@@ -177,6 +180,7 @@ void InputEventHandler::IgnoreNextPowerButtonPress(
 }
 
 void InputEventHandler::OnPowerButtonAcknowledgmentTimeout() {
+  TRACE_EVENT("power", "InputEventHandler::OnPowerButtonAcknowledgmentTimeout");
   delegate_->ReportPowerButtonAcknowledgmentDelay(
       kPowerButtonAcknowledgmentTimeout);
   delegate_->HandleMissingPowerButtonAcknowledgment();
@@ -198,10 +202,13 @@ void InputEventHandler::OnHandlePowerButtonAcknowledgmentMethodCall(
     return;
   }
 
-  const auto timestamp = base::TimeTicks::FromInternalValue(timestamp_internal);
+  const auto timestamp =
+      base::TimeTicks() + base::Microseconds(timestamp_internal);
   VLOG(1) << "Received acknowledgment of power button press at "
-          << timestamp.ToInternalValue() << "; expected "
-          << expected_power_button_acknowledgment_timestamp_.ToInternalValue();
+          << timestamp_internal << "; expected "
+          << (expected_power_button_acknowledgment_timestamp_ -
+              base::TimeTicks())
+                 .InMicroseconds();
   if (timestamp == expected_power_button_acknowledgment_timestamp_) {
     delegate_->ReportPowerButtonAcknowledgmentDelay(
         clock_->GetCurrentTime() -
@@ -227,8 +234,7 @@ void InputEventHandler::OnIgnoreNextPowerButtonPressMethodCall(
     return;
   }
 
-  IgnoreNextPowerButtonPress(
-      base::TimeDelta::FromInternalValue(timeout_internal));
+  IgnoreNextPowerButtonPress(base::Microseconds(timeout_internal));
   std::move(response_sender).Run(dbus::Response::FromMethodCall(method_call));
 }
 

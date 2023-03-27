@@ -4643,7 +4643,7 @@ class Executor_GetLidAngle_ProxyToResponder : public ::mojo::internal::ProxyToRe
 #endif
 
   void Run(
-      ExecutedProcessResultPtr in_result);
+      absl::optional<uint16_t> in_lid_angle);
 };
 
 bool Executor_GetLidAngle_ForwardToCallback::Accept(
@@ -4656,11 +4656,12 @@ bool Executor_GetLidAngle_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  absl::optional<uint16_t> p_lid_angle = mojo::DefaultConstructTraits::CreateInstance<absl::optional<uint16_t>>();
   Executor_GetLidAngle_ResponseParamsDataView input_data_view(params, message);
   
-  if (success && !input_data_view.ReadResult(&p_result))
-    success = false;
+  if (success) {
+    p_lid_angle = input_data_view.lid_angle();
+  }
   if (!success) {
     ReportValidationErrorForMessage(
         message,
@@ -4670,20 +4671,20 @@ bool Executor_GetLidAngle_ForwardToCallback::Accept(
   }
   if (!callback_.is_null())
     std::move(callback_).Run(
-std::move(p_result));
+std::move(p_lid_angle));
   return true;
 }
 
 void Executor_GetLidAngle_ProxyToResponder::Run(
-    ExecutedProcessResultPtr in_result) {
+    absl::optional<uint16_t> in_lid_angle) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetLidAngle", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("result"), in_result,
-                        "<value of type ExecutedProcessResultPtr>");
+           dict.AddItem("lid_angle"), in_lid_angle,
+                        "<value of type absl::optional<uint16_t>>");
    });
 #endif
   
@@ -4697,17 +4698,10 @@ void Executor_GetLidAngle_ProxyToResponder::Run(
       ::ash::cros_healthd::mojom::internal::Executor_GetLidAngle_ResponseParams_Data> params(
           message);
   params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->result)::BaseType> result_fragment(
-          params.message());
-  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
-      in_result, result_fragment);
-  params->result.Set(
-      result_fragment.is_null() ? nullptr : result_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->result.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null result in ");
+  params->lid_angle_$flag = in_lid_angle.has_value();
+  if (in_lid_angle.has_value()) {
+    params->lid_angle_$value = in_lid_angle.value();
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Executor::Name_);
@@ -6677,24 +6671,24 @@ void ExecutorAsyncWaiter::ReadMsr(
 }
 
 void ExecutorAsyncWaiter::GetLidAngle(
-    ExecutedProcessResultPtr* out_result) {
+    absl::optional<uint16_t>* out_lid_angle) {
   base::RunLoop loop;
   proxy_->GetLidAngle(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ExecutedProcessResultPtr* out_result
+             absl::optional<uint16_t>* out_lid_angle
 ,
-             ExecutedProcessResultPtr result) {*out_result = std::move(result);
+             absl::optional<uint16_t> lid_angle) {*out_lid_angle = std::move(lid_angle);
             loop->Quit();
           },
           &loop,
-          out_result));
+          out_lid_angle));
   loop.Run();
 }
 
-ExecutedProcessResultPtr ExecutorAsyncWaiter::GetLidAngle(
+absl::optional<uint16_t> ExecutorAsyncWaiter::GetLidAngle(
     ) {
-  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  absl::optional<uint16_t> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<uint16_t>>();
   GetLidAngle(&async_wait_result);
   return async_wait_result;
 }

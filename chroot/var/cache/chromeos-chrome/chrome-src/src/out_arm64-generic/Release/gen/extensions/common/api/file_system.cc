@@ -22,6 +22,8 @@
 #include "base/strings/utf_string_conversions.h"
 #include "base/values.h"
 #include "tools/json_schema_compiler/util.h"
+#include "base/strings/string_piece.h"
+
 
 using base::UTF8ToUTF16;
 
@@ -40,20 +42,16 @@ AcceptOption::AcceptOption(AcceptOption&& rhs) = default;
 AcceptOption& AcceptOption::operator=(AcceptOption&& rhs) = default;
 // static
 bool AcceptOption::Populate(
-    const base::Value& value, AcceptOption* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, AcceptOption& out) {
   const base::Value* description_value = dict.Find("description");
   if (description_value) {
     {
       auto* temp = (*description_value).GetIfString();
       if (!temp) {
-        out->description = absl::nullopt;
+        out.description = absl::nullopt;
         return false;
       }
-      out->description = *temp;
+      out.description = *temp;
     }
   }
 
@@ -64,7 +62,7 @@ bool AcceptOption::Populate(
         return false;
       }
       else {
-        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*mime_types_value).GetList(), &out->mime_types)) {
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*mime_types_value).GetList(), out.mime_types)) {
           return false;
         }
       }
@@ -78,7 +76,7 @@ bool AcceptOption::Populate(
         return false;
       }
       else {
-        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*extensions_value).GetList(), &out->extensions)) {
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*extensions_value).GetList(), out.extensions)) {
           return false;
         }
       }
@@ -89,11 +87,33 @@ bool AcceptOption::Populate(
 }
 
 // static
-std::unique_ptr<AcceptOption> AcceptOption::FromValue(const base::Value& value) {
+bool AcceptOption::Populate(
+    const base::Value& value, AcceptOption& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<AcceptOption> AcceptOption::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<AcceptOption>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<AcceptOption> AcceptOption::FromValue(const base::Value::Dict& value) {
+  absl::optional<AcceptOption> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -134,7 +154,7 @@ const char* ToString(ChooseEntryType enum_param) {
   return "";
 }
 
-ChooseEntryType ParseChooseEntryType(const std::string& enum_string) {
+ChooseEntryType ParseChooseEntryType(base::StringPiece enum_string) {
   if (enum_string == "openFile")
     return CHOOSE_ENTRY_TYPE_OPENFILE;
   if (enum_string == "openWritableFile")
@@ -155,12 +175,8 @@ ChooseEntryOptions::ChooseEntryOptions(ChooseEntryOptions&& rhs) = default;
 ChooseEntryOptions& ChooseEntryOptions::operator=(ChooseEntryOptions&& rhs) = default;
 // static
 bool ChooseEntryOptions::Populate(
-    const base::Value& value, ChooseEntryOptions* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
-  out->type = CHOOSE_ENTRY_TYPE_NONE;
+    const base::Value::Dict& dict, ChooseEntryOptions& out) {
+  out.type = CHOOSE_ENTRY_TYPE_NONE;
   const base::Value* type_value = dict.Find("type");
   if (type_value) {
     {
@@ -168,13 +184,13 @@ bool ChooseEntryOptions::Populate(
       if (!choose_entry_type_as_string) {
         return false;
       }
-      out->type = ParseChooseEntryType(*choose_entry_type_as_string);
-      if (out->type == CHOOSE_ENTRY_TYPE_NONE) {
+      out.type = ParseChooseEntryType(*choose_entry_type_as_string);
+      if (out.type == CHOOSE_ENTRY_TYPE_NONE) {
         return false;
       }
     }
     } else {
-    out->type = CHOOSE_ENTRY_TYPE_NONE;
+    out.type = CHOOSE_ENTRY_TYPE_NONE;
   }
 
   const base::Value* suggested_name_value = dict.Find("suggestedName");
@@ -182,10 +198,10 @@ bool ChooseEntryOptions::Populate(
     {
       auto* temp = (*suggested_name_value).GetIfString();
       if (!temp) {
-        out->suggested_name = absl::nullopt;
+        out.suggested_name = absl::nullopt;
         return false;
       }
-      out->suggested_name = *temp;
+      out.suggested_name = *temp;
     }
   }
 
@@ -196,7 +212,7 @@ bool ChooseEntryOptions::Populate(
         return false;
       }
       else {
-        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*accepts_value).GetList(), &out->accepts)) {
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*accepts_value).GetList(), out.accepts)) {
           return false;
         }
       }
@@ -208,10 +224,10 @@ bool ChooseEntryOptions::Populate(
     {
       auto temp = (*accepts_all_types_value).GetIfBool();
       if (!temp.has_value()) {
-        out->accepts_all_types = absl::nullopt;
+        out.accepts_all_types = absl::nullopt;
         return false;
       }
-      out->accepts_all_types = *temp;
+      out.accepts_all_types = *temp;
     }
   }
 
@@ -220,10 +236,10 @@ bool ChooseEntryOptions::Populate(
     {
       auto temp = (*accepts_multiple_value).GetIfBool();
       if (!temp.has_value()) {
-        out->accepts_multiple = absl::nullopt;
+        out.accepts_multiple = absl::nullopt;
         return false;
       }
-      out->accepts_multiple = *temp;
+      out.accepts_multiple = *temp;
     }
   }
 
@@ -231,11 +247,33 @@ bool ChooseEntryOptions::Populate(
 }
 
 // static
-std::unique_ptr<ChooseEntryOptions> ChooseEntryOptions::FromValue(const base::Value& value) {
+bool ChooseEntryOptions::Populate(
+    const base::Value& value, ChooseEntryOptions& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<ChooseEntryOptions> ChooseEntryOptions::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<ChooseEntryOptions>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<ChooseEntryOptions> ChooseEntryOptions::FromValue(const base::Value::Dict& value) {
+  absl::optional<ChooseEntryOptions> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -275,11 +313,7 @@ RequestFileSystemOptions::RequestFileSystemOptions(RequestFileSystemOptions&& rh
 RequestFileSystemOptions& RequestFileSystemOptions::operator=(RequestFileSystemOptions&& rhs) = default;
 // static
 bool RequestFileSystemOptions::Populate(
-    const base::Value& value, RequestFileSystemOptions* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, RequestFileSystemOptions& out) {
   const base::Value* volume_id_value = dict.Find("volumeId");
   if (!volume_id_value) {
     return false;
@@ -289,7 +323,7 @@ bool RequestFileSystemOptions::Populate(
     if (!temp) {
       return false;
     }
-    out->volume_id = *temp;
+    out.volume_id = *temp;
   }
 
   const base::Value* writable_value = dict.Find("writable");
@@ -297,10 +331,10 @@ bool RequestFileSystemOptions::Populate(
     {
       auto temp = (*writable_value).GetIfBool();
       if (!temp.has_value()) {
-        out->writable = absl::nullopt;
+        out.writable = absl::nullopt;
         return false;
       }
-      out->writable = *temp;
+      out.writable = *temp;
     }
   }
 
@@ -308,11 +342,33 @@ bool RequestFileSystemOptions::Populate(
 }
 
 // static
-std::unique_ptr<RequestFileSystemOptions> RequestFileSystemOptions::FromValue(const base::Value& value) {
+bool RequestFileSystemOptions::Populate(
+    const base::Value& value, RequestFileSystemOptions& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<RequestFileSystemOptions> RequestFileSystemOptions::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<RequestFileSystemOptions>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<RequestFileSystemOptions> RequestFileSystemOptions::FromValue(const base::Value::Dict& value) {
+  absl::optional<RequestFileSystemOptions> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -338,11 +394,7 @@ Volume::Volume(Volume&& rhs) = default;
 Volume& Volume::operator=(Volume&& rhs) = default;
 // static
 bool Volume::Populate(
-    const base::Value& value, Volume* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, Volume& out) {
   const base::Value* volume_id_value = dict.Find("volumeId");
   if (!volume_id_value) {
     return false;
@@ -352,7 +404,7 @@ bool Volume::Populate(
     if (!temp) {
       return false;
     }
-    out->volume_id = *temp;
+    out.volume_id = *temp;
   }
 
   const base::Value* writable_value = dict.Find("writable");
@@ -364,18 +416,40 @@ bool Volume::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->writable = *temp;
+    out.writable = *temp;
   }
 
   return true;
 }
 
 // static
-std::unique_ptr<Volume> Volume::FromValue(const base::Value& value) {
+bool Volume::Populate(
+    const base::Value& value, Volume& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<Volume> Volume::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<Volume>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<Volume> Volume::FromValue(const base::Value::Dict& value) {
+  absl::optional<Volume> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -399,11 +473,7 @@ VolumeListChangedEvent::VolumeListChangedEvent(VolumeListChangedEvent&& rhs) = d
 VolumeListChangedEvent& VolumeListChangedEvent::operator=(VolumeListChangedEvent&& rhs) = default;
 // static
 bool VolumeListChangedEvent::Populate(
-    const base::Value& value, VolumeListChangedEvent* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, VolumeListChangedEvent& out) {
   const base::Value* volumes_value = dict.Find("volumes");
   if (!volumes_value) {
     return false;
@@ -413,7 +483,7 @@ bool VolumeListChangedEvent::Populate(
       return false;
     }
     else {
-      if (!json_schema_compiler::util::PopulateArrayFromList((*volumes_value).GetList(), &out->volumes)) {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*volumes_value).GetList(), out.volumes)) {
         return false;
       }
     }
@@ -423,11 +493,33 @@ bool VolumeListChangedEvent::Populate(
 }
 
 // static
-std::unique_ptr<VolumeListChangedEvent> VolumeListChangedEvent::FromValue(const base::Value& value) {
+bool VolumeListChangedEvent::Populate(
+    const base::Value& value, VolumeListChangedEvent& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<VolumeListChangedEvent> VolumeListChangedEvent::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<VolumeListChangedEvent>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<VolumeListChangedEvent> VolumeListChangedEvent::FromValue(const base::Value::Dict& value) {
+  absl::optional<VolumeListChangedEvent> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -456,13 +548,18 @@ Params::Entry::Entry(Entry&& rhs) = default;
 Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
 // static
 bool Params::Entry::Populate(
-    const base::Value& value, Entry* out) {
+    const base::Value::Dict& dict, Entry& out) {
+  out.additional_properties.Merge(dict.Clone());
+  return true;
+}
+
+// static
+bool Params::Entry::Populate(
+    const base::Value& value, Entry& out) {
   if (!value.is_dict()) {
     return false;
   }
-  const base::Value::Dict& dict = value.GetDict();
-  out->additional_properties.Merge(dict.Clone());
-  return true;
+  return Populate(value.GetDict(), out);
 }
 
 
@@ -476,7 +573,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -485,7 +582,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!entry_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!Entry::Populate(entry_value, &params->entry)) {
+      if (!Entry::Populate(entry_value.GetDict(), params.entry)) {
         return absl::nullopt;
       }
     }
@@ -517,13 +614,18 @@ Params::Entry::Entry(Entry&& rhs) = default;
 Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
 // static
 bool Params::Entry::Populate(
-    const base::Value& value, Entry* out) {
+    const base::Value::Dict& dict, Entry& out) {
+  out.additional_properties.Merge(dict.Clone());
+  return true;
+}
+
+// static
+bool Params::Entry::Populate(
+    const base::Value& value, Entry& out) {
   if (!value.is_dict()) {
     return false;
   }
-  const base::Value::Dict& dict = value.GetDict();
-  out->additional_properties.Merge(dict.Clone());
-  return true;
+  return Populate(value.GetDict(), out);
 }
 
 
@@ -537,7 +639,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -546,7 +648,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!entry_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!Entry::Populate(entry_value, &params->entry)) {
+      if (!Entry::Populate(entry_value.GetDict(), params.entry)) {
         return absl::nullopt;
       }
     }
@@ -593,13 +695,18 @@ Params::Entry::Entry(Entry&& rhs) = default;
 Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
 // static
 bool Params::Entry::Populate(
-    const base::Value& value, Entry* out) {
+    const base::Value::Dict& dict, Entry& out) {
+  out.additional_properties.Merge(dict.Clone());
+  return true;
+}
+
+// static
+bool Params::Entry::Populate(
+    const base::Value& value, Entry& out) {
   if (!value.is_dict()) {
     return false;
   }
-  const base::Value::Dict& dict = value.GetDict();
-  out->additional_properties.Merge(dict.Clone());
-  return true;
+  return Populate(value.GetDict(), out);
 }
 
 
@@ -613,7 +720,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -622,7 +729,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!entry_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!Entry::Populate(entry_value, &params->entry)) {
+      if (!Entry::Populate(entry_value.GetDict(), params.entry)) {
         return absl::nullopt;
       }
     }
@@ -656,7 +763,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -667,9 +774,9 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       }
       else {
         ChooseEntryOptions temp;
-        if (!ChooseEntryOptions::Populate(options_value, &temp))
+        if (!ChooseEntryOptions::Populate(options_value.GetDict(), temp))
           return absl::nullopt;
-        params->options = std::move(temp);
+        params.options = std::move(temp);
       }
     }
   }
@@ -732,7 +839,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -742,7 +849,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->id = *temp;
+      params.id = *temp;
     }
   }
   else {
@@ -789,7 +896,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -799,7 +906,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->id = *temp;
+      params.id = *temp;
     }
   }
   else {
@@ -829,13 +936,18 @@ Params::Entry::Entry(Entry&& rhs) = default;
 Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
 // static
 bool Params::Entry::Populate(
-    const base::Value& value, Entry* out) {
+    const base::Value::Dict& dict, Entry& out) {
+  out.additional_properties.Merge(dict.Clone());
+  return true;
+}
+
+// static
+bool Params::Entry::Populate(
+    const base::Value& value, Entry& out) {
   if (!value.is_dict()) {
     return false;
   }
-  const base::Value::Dict& dict = value.GetDict();
-  out->additional_properties.Merge(dict.Clone());
-  return true;
+  return Populate(value.GetDict(), out);
 }
 
 
@@ -849,7 +961,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -858,7 +970,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!entry_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!Entry::Populate(entry_value, &params->entry)) {
+      if (!Entry::Populate(entry_value.GetDict(), params.entry)) {
         return absl::nullopt;
       }
     }
@@ -885,7 +997,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -894,7 +1006,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!options_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!RequestFileSystemOptions::Populate(options_value, &params->options)) {
+      if (!RequestFileSystemOptions::Populate(options_value.GetDict(), params.options)) {
         return absl::nullopt;
       }
     }

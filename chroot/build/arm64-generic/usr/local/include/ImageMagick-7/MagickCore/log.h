@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2019 ImageMagick Studio LLC, a non-profit organization
+  Copyright @ 2002 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
   You may not use this file except in compliance with the License.  You may
@@ -45,7 +45,7 @@ typedef enum
   ExceptionEvent = 0x00100,   /* Log Errors and Warnings immediately */
   ImageEvent = 0x00200,
   LocaleEvent = 0x00400,
-  ModuleEvent = 0x00800,      /* Loding of coder and filter modules */
+  ModuleEvent = 0x00800,      /* Log coder and filter modules */
   PixelEvent = 0x01000,
   PolicyEvent = 0x02000,
   ResourceEvent = 0x04000,
@@ -68,8 +68,11 @@ extern MagickExport char
   **GetLogList(const char *,size_t *,ExceptionInfo *);
 
 extern MagickExport const char
-  *GetLogName(void),
+  *GetLogName(void) magick_attribute((__pure__)),
   *SetLogName(const char *);
+
+extern MagickExport LogEventType
+  GetLogEventMask(void) magick_attribute((__pure__));
 
 extern MagickExport const LogInfo
   **GetLogInfoList(const char *,size_t *,ExceptionInfo *);

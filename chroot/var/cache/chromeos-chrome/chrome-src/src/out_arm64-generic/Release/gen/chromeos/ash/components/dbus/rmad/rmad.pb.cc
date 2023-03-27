@@ -1985,6 +1985,7 @@ bool RmadComponent_IsValid(int value) {
     case 19:
     case 20:
     case 21:
+    case 22:
     case 33:
     case 34:
       return true;
@@ -1993,7 +1994,7 @@ bool RmadComponent_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RmadComponent_strings[24] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RmadComponent_strings[25] = {};
 
 static const char RmadComponent_names[] =
   "RMAD_COMPONENT_AP_I2C"
@@ -2015,6 +2016,7 @@ static const char RmadComponent_names[] =
   "RMAD_COMPONENT_SCREEN"
   "RMAD_COMPONENT_STORAGE"
   "RMAD_COMPONENT_STYLUS"
+  "RMAD_COMPONENT_TCPC"
   "RMAD_COMPONENT_TOUCHPAD"
   "RMAD_COMPONENT_TOUCHSCREEN"
   "RMAD_COMPONENT_UNKNOWN"
@@ -2041,29 +2043,30 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RmadComponent_entries[
   { {RmadComponent_names + 398, 21}, 15 },
   { {RmadComponent_names + 419, 22}, 3 },
   { {RmadComponent_names + 441, 21}, 7 },
-  { {RmadComponent_names + 462, 23}, 8 },
-  { {RmadComponent_names + 485, 26}, 9 },
-  { {RmadComponent_names + 511, 22}, 0 },
-  { {RmadComponent_names + 533, 25}, 4 },
-  { {RmadComponent_names + 558, 23}, 14 },
+  { {RmadComponent_names + 462, 19}, 22 },
+  { {RmadComponent_names + 481, 23}, 8 },
+  { {RmadComponent_names + 504, 26}, 9 },
+  { {RmadComponent_names + 530, 22}, 0 },
+  { {RmadComponent_names + 552, 25}, 4 },
+  { {RmadComponent_names + 577, 23}, 14 },
 };
 
 static const int RmadComponent_entries_by_number[] = {
-  21, // 0 -> RMAD_COMPONENT_UNKNOWN
+  22, // 0 -> RMAD_COMPONENT_UNKNOWN
   1, // 1 -> RMAD_COMPONENT_AUDIO_CODEC
   4, // 2 -> RMAD_COMPONENT_BATTERY
   17, // 3 -> RMAD_COMPONENT_STORAGE
-  22, // 4 -> RMAD_COMPONENT_VPD_CACHED
+  23, // 4 -> RMAD_COMPONENT_VPD_CACHED
   14, // 5 -> RMAD_COMPONENT_NETWORK
   5, // 6 -> RMAD_COMPONENT_CAMERA
   18, // 7 -> RMAD_COMPONENT_STYLUS
-  19, // 8 -> RMAD_COMPONENT_TOUCHPAD
-  20, // 9 -> RMAD_COMPONENT_TOUCHSCREEN
+  20, // 8 -> RMAD_COMPONENT_TOUCHPAD
+  21, // 9 -> RMAD_COMPONENT_TOUCHSCREEN
   8, // 10 -> RMAD_COMPONENT_DRAM
   7, // 11 -> RMAD_COMPONENT_DISPLAY_PANEL
   6, // 12 -> RMAD_COMPONENT_CELLULAR
   10, // 13 -> RMAD_COMPONENT_ETHERNET
-  23, // 14 -> RMAD_COMPONENT_WIRELESS
+  24, // 14 -> RMAD_COMPONENT_WIRELESS
   16, // 15 -> RMAD_COMPONENT_SCREEN
   2, // 16 -> RMAD_COMPONENT_BASE_ACCELEROMETER
   12, // 17 -> RMAD_COMPONENT_LID_ACCELEROMETER
@@ -2071,6 +2074,7 @@ static const int RmadComponent_entries_by_number[] = {
   13, // 19 -> RMAD_COMPONENT_LID_GYROSCOPE
   0, // 20 -> RMAD_COMPONENT_AP_I2C
   9, // 21 -> RMAD_COMPONENT_EC_I2C
+  19, // 22 -> RMAD_COMPONENT_TCPC
   11, // 33 -> RMAD_COMPONENT_KEYBOARD
   15, // 34 -> RMAD_COMPONENT_POWER_BUTTON
 };
@@ -2081,12 +2085,12 @@ const std::string& RmadComponent_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           RmadComponent_entries,
           RmadComponent_entries_by_number,
-          24, RmadComponent_strings);
+          25, RmadComponent_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       RmadComponent_entries,
       RmadComponent_entries_by_number,
-      24, value);
+      25, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      RmadComponent_strings[idx].get();
 }
@@ -2094,7 +2098,7 @@ bool RmadComponent_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RmadComponent* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      RmadComponent_entries, 24, name, &int_value);
+      RmadComponent_entries, 25, name, &int_value);
   if (success) {
     *value = static_cast<RmadComponent>(int_value);
   }

@@ -22,6 +22,8 @@
 #include "base/strings/utf_string_conversions.h"
 #include "base/values.h"
 #include "tools/json_schema_compiler/util.h"
+#include "base/strings/string_piece.h"
+
 
 using base::UTF8ToUTF16;
 
@@ -63,7 +65,7 @@ const char* ToString(ProcessType enum_param) {
   return "";
 }
 
-ProcessType ParseProcessType(const std::string& enum_string) {
+ProcessType ParseProcessType(base::StringPiece enum_string) {
   if (enum_string == "browser")
     return PROCESS_TYPE_BROWSER;
   if (enum_string == "renderer")
@@ -98,11 +100,7 @@ TaskInfo::TaskInfo(TaskInfo&& rhs) = default;
 TaskInfo& TaskInfo::operator=(TaskInfo&& rhs) = default;
 // static
 bool TaskInfo::Populate(
-    const base::Value& value, TaskInfo* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, TaskInfo& out) {
   const base::Value* title_value = dict.Find("title");
   if (!title_value) {
     return false;
@@ -112,7 +110,7 @@ bool TaskInfo::Populate(
     if (!temp) {
       return false;
     }
-    out->title = *temp;
+    out.title = *temp;
   }
 
   const base::Value* tab_id_value = dict.Find("tabId");
@@ -120,10 +118,10 @@ bool TaskInfo::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out->tab_id = absl::nullopt;
+        out.tab_id = absl::nullopt;
         return false;
       }
-      out->tab_id = *temp;
+      out.tab_id = *temp;
     }
   }
 
@@ -131,11 +129,33 @@ bool TaskInfo::Populate(
 }
 
 // static
-std::unique_ptr<TaskInfo> TaskInfo::FromValue(const base::Value& value) {
+bool TaskInfo::Populate(
+    const base::Value& value, TaskInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<TaskInfo> TaskInfo::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<TaskInfo>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<TaskInfo> TaskInfo::FromValue(const base::Value::Dict& value) {
+  absl::optional<TaskInfo> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -162,11 +182,7 @@ Cache::Cache(Cache&& rhs) = default;
 Cache& Cache::operator=(Cache&& rhs) = default;
 // static
 bool Cache::Populate(
-    const base::Value& value, Cache* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, Cache& out) {
   const base::Value* size_value = dict.Find("size");
   if (!size_value) {
     return false;
@@ -176,7 +192,7 @@ bool Cache::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->size = *temp;
+    out.size = *temp;
   }
 
   const base::Value* live_size_value = dict.Find("liveSize");
@@ -188,18 +204,40 @@ bool Cache::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->live_size = *temp;
+    out.live_size = *temp;
   }
 
   return true;
 }
 
 // static
-std::unique_ptr<Cache> Cache::FromValue(const base::Value& value) {
+bool Cache::Populate(
+    const base::Value& value, Cache& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<Cache> Cache::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<Cache>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<Cache> Cache::FromValue(const base::Value::Dict& value) {
+  absl::optional<Cache> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -226,11 +264,7 @@ Process::Process(Process&& rhs) = default;
 Process& Process::operator=(Process&& rhs) = default;
 // static
 bool Process::Populate(
-    const base::Value& value, Process* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, Process& out) {
   const base::Value* id_value = dict.Find("id");
   if (!id_value) {
     return false;
@@ -240,7 +274,7 @@ bool Process::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->id = *temp;
+    out.id = *temp;
   }
 
   const base::Value* os_process_id_value = dict.Find("osProcessId");
@@ -252,7 +286,7 @@ bool Process::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->os_process_id = *temp;
+    out.os_process_id = *temp;
   }
 
   const base::Value* type_value = dict.Find("type");
@@ -264,8 +298,8 @@ bool Process::Populate(
     if (!process_type_as_string) {
       return false;
     }
-    out->type = ParseProcessType(*process_type_as_string);
-    if (out->type == PROCESS_TYPE_NONE) {
+    out.type = ParseProcessType(*process_type_as_string);
+    if (out.type == PROCESS_TYPE_NONE) {
       return false;
     }
   }
@@ -279,7 +313,7 @@ bool Process::Populate(
     if (!temp) {
       return false;
     }
-    out->profile = *temp;
+    out.profile = *temp;
   }
 
   const base::Value* nacl_debug_port_value = dict.Find("naclDebugPort");
@@ -291,7 +325,7 @@ bool Process::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->nacl_debug_port = *temp;
+    out.nacl_debug_port = *temp;
   }
 
   const base::Value* tasks_value = dict.Find("tasks");
@@ -303,7 +337,7 @@ bool Process::Populate(
       return false;
     }
     else {
-      if (!json_schema_compiler::util::PopulateArrayFromList((*tasks_value).GetList(), &out->tasks)) {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*tasks_value).GetList(), out.tasks)) {
         return false;
       }
     }
@@ -314,10 +348,10 @@ bool Process::Populate(
     {
       auto temp = (*cpu_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->cpu = absl::nullopt;
+        out.cpu = absl::nullopt;
         return false;
       }
-      out->cpu = *temp;
+      out.cpu = *temp;
     }
   }
 
@@ -326,10 +360,10 @@ bool Process::Populate(
     {
       auto temp = (*network_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->network = absl::nullopt;
+        out.network = absl::nullopt;
         return false;
       }
-      out->network = *temp;
+      out.network = *temp;
     }
   }
 
@@ -338,10 +372,10 @@ bool Process::Populate(
     {
       auto temp = (*private_memory_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->private_memory = absl::nullopt;
+        out.private_memory = absl::nullopt;
         return false;
       }
-      out->private_memory = *temp;
+      out.private_memory = *temp;
     }
   }
 
@@ -350,10 +384,10 @@ bool Process::Populate(
     {
       auto temp = (*js_memory_allocated_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->js_memory_allocated = absl::nullopt;
+        out.js_memory_allocated = absl::nullopt;
         return false;
       }
-      out->js_memory_allocated = *temp;
+      out.js_memory_allocated = *temp;
     }
   }
 
@@ -362,10 +396,10 @@ bool Process::Populate(
     {
       auto temp = (*js_memory_used_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->js_memory_used = absl::nullopt;
+        out.js_memory_used = absl::nullopt;
         return false;
       }
-      out->js_memory_used = *temp;
+      out.js_memory_used = *temp;
     }
   }
 
@@ -374,10 +408,10 @@ bool Process::Populate(
     {
       auto temp = (*sqlite_memory_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->sqlite_memory = absl::nullopt;
+        out.sqlite_memory = absl::nullopt;
         return false;
       }
-      out->sqlite_memory = *temp;
+      out.sqlite_memory = *temp;
     }
   }
 
@@ -389,9 +423,9 @@ bool Process::Populate(
       }
       else {
         Cache temp;
-        if (!Cache::Populate((*image_cache_value), &temp))
+        if (!Cache::Populate((*image_cache_value).GetDict(), temp))
           return false;
-        out->image_cache = std::move(temp);
+        out.image_cache = std::move(temp);
       }
     }
   }
@@ -404,9 +438,9 @@ bool Process::Populate(
       }
       else {
         Cache temp;
-        if (!Cache::Populate((*script_cache_value), &temp))
+        if (!Cache::Populate((*script_cache_value).GetDict(), temp))
           return false;
-        out->script_cache = std::move(temp);
+        out.script_cache = std::move(temp);
       }
     }
   }
@@ -419,9 +453,9 @@ bool Process::Populate(
       }
       else {
         Cache temp;
-        if (!Cache::Populate((*css_cache_value), &temp))
+        if (!Cache::Populate((*css_cache_value).GetDict(), temp))
           return false;
-        out->css_cache = std::move(temp);
+        out.css_cache = std::move(temp);
       }
     }
   }
@@ -430,11 +464,33 @@ bool Process::Populate(
 }
 
 // static
-std::unique_ptr<Process> Process::FromValue(const base::Value& value) {
+bool Process::Populate(
+    const base::Value& value, Process& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<Process> Process::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<Process>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<Process> Process::FromValue(const base::Value::Dict& value) {
+  absl::optional<Process> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -511,7 +567,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -521,7 +577,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->tab_id = *temp;
+      params.tab_id = *temp;
     }
   }
   else {
@@ -553,7 +609,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -563,7 +619,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->process_id = *temp;
+      params.process_id = *temp;
     }
   }
   else {
@@ -593,15 +649,15 @@ Params::ProcessIds::ProcessIds(ProcessIds&& rhs) = default;
 Params::ProcessIds& Params::ProcessIds::operator=(ProcessIds&& rhs) = default;
 // static
 bool Params::ProcessIds::Populate(
-    const base::Value& value, ProcessIds* out) {
+    const base::Value& value, ProcessIds& out) {
   if (value.type() == base::Value::Type::INTEGER) {
     {
       auto temp = value.GetIfInt();
       if (!temp.has_value()) {
-        out->as_integer = absl::nullopt;
+        out.as_integer = absl::nullopt;
         return false;
       }
-      out->as_integer = *temp;
+      out.as_integer = *temp;
     }
     return true;
   }
@@ -611,7 +667,7 @@ bool Params::ProcessIds::Populate(
         return false;
       }
       else {
-        if (!json_schema_compiler::util::PopulateOptionalArrayFromList(value.GetList(), &out->as_integers)) {
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList(value.GetList(), out.as_integers)) {
           return false;
         }
       }
@@ -632,13 +688,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
     const base::Value& process_ids_value = args[0];
     {
-      if (!ProcessIds::Populate(process_ids_value, &params->process_ids))
+      if (!ProcessIds::Populate(process_ids_value, params.process_ids))
         return absl::nullopt;
     }
   }
@@ -654,7 +710,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->include_memory = *temp;
+      params.include_memory = *temp;
     }
   }
   else {

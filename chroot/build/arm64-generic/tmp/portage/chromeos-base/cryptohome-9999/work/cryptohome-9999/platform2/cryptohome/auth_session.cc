@@ -50,6 +50,7 @@
 #include "cryptohome/error/location_utils.h"
 #include "cryptohome/error/utilities.h"
 #include "cryptohome/features.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/keyset_management.h"
 #include "cryptohome/platform.h"
 #include "cryptohome/signature_sealing/structures_proto.h"
@@ -98,32 +99,6 @@ constexpr bool IsFactorTypeSupportedByVk(AuthFactorType auth_factor_type) {
          auth_factor_type == AuthFactorType::kPin ||
          auth_factor_type == AuthFactorType::kSmartCard ||
          auth_factor_type == AuthFactorType::kKiosk;
-}
-
-// Check if all factors are supported by Vault Keysets for the given user.
-// Support requires that every factor has a regular or backup VK, and not just
-// that every factor type supports VKs.
-bool AreAllFactorsSupportedByVk(const ObfuscatedUsername& obfuscated_username,
-                                const AuthFactorMap& auth_factor_map,
-                                KeysetManagement& keyset_management) {
-  // If there are any auth factors that don't support VK then clearly all
-  // factors don't support VK. This is technically redundant with the check
-  // below, but it saves actually having to go get the VKs if the user has
-  // factor types which can't support VKs at all.
-  for (AuthFactorMap::ValueView stored_auth_factor : auth_factor_map) {
-    if (!IsFactorTypeSupportedByVk(stored_auth_factor.auth_factor().type())) {
-      return false;
-    }
-  }
-  // If we get here, then all the factor types support VKs. Now we need to make
-  // sure they actually have VKs.
-  for (AuthFactorMap::ValueView stored_auth_factor : auth_factor_map) {
-    if (!keyset_management.GetVaultKeyset(
-            obfuscated_username, stored_auth_factor.auth_factor().label())) {
-      return false;
-    }
-  }
-  return true;
 }
 
 constexpr base::StringPiece IntentToDebugString(AuthIntent intent) {
@@ -273,12 +248,10 @@ CryptohomeStatus CleanUpAllBackupKeysets(
 
 }  // namespace
 
-std::unique_ptr<AuthSession> AuthSession::Create(
-    Username account_id,
-    unsigned int flags,
-    AuthIntent intent,
-    feature::PlatformFeaturesInterface* feature_lib,
-    BackingApis backing_apis) {
+std::unique_ptr<AuthSession> AuthSession::Create(Username account_id,
+                                                 unsigned int flags,
+                                                 AuthIntent intent,
+                                                 BackingApis backing_apis) {
   ObfuscatedUsername obfuscated_username = SanitizeUserName(account_id);
 
   // Try to determine if a user exists in two ways: they have a persistent
@@ -296,9 +269,9 @@ std::unique_ptr<AuthSession> AuthSession::Create(
 
   // Determine if migration is enabled.
   bool migrate_to_user_secret_stash = false;
-  if (feature_lib) {
+  if (backing_apis.features) {
     migrate_to_user_secret_stash =
-        feature_lib->IsEnabledBlocking(kCrOSLateBootMigrateToUserSecretStash);
+        backing_apis.features->IsFeatureEnabled(Features::kUSSMigration);
   }
 
   // If we have an existing persistent user, load all of their auth factors.
@@ -308,6 +281,18 @@ std::unique_ptr<AuthSession> AuthSession::Create(
     auth_factor_map = LoadAuthFactorMap(
         migrate_to_user_secret_stash, obfuscated_username,
         *backing_apis.platform, converter, *backing_apis.auth_factor_manager);
+
+    // If only uss factors exists, then we should remove all the backups.
+    if (!auth_factor_map.HasFactorWithStorage(
+            AuthFactorStorageType::kVaultKeyset)) {
+      CryptohomeStatus cleanup_status =
+          CleanUpAllBackupKeysets(*backing_apis.keyset_management,
+                                  obfuscated_username, auth_factor_map);
+      if (!cleanup_status.ok()) {
+        LOG(WARNING) << "Cleaning up backup keysets failed.";
+        // Error can be ignored.
+      }
+    }
   }
 
   // Assumption here is that keyset_management_ will outlive this AuthSession.
@@ -343,8 +328,6 @@ AuthSession::AuthSession(Params params, BackingApis backing_apis)
       serialized_token_(GetSerializedStringFromToken(token_).value_or("")),
       user_exists_(*params.user_exists),
       auth_factor_map_(std::move(params.auth_factor_map)),
-      enable_create_backup_vk_with_uss_(AreAllFactorsSupportedByVk(
-          obfuscated_username_, auth_factor_map_, *keyset_management_)),
       migrate_to_user_secret_stash_(*params.migrate_to_user_secret_stash) {
   // Preconditions.
   DCHECK(!serialized_token_.empty());
@@ -1053,18 +1036,124 @@ void AuthSession::AuthenticateAuthFactor(
                 CRYPTOHOME_ERROR_INVALID_ARGUMENT));
         return;
       }
-      // TODO(b/262308692): Implement the fingerprint auth factor selection.
-      // Locate the exact fingerprint template id through a biod dbus method,
-      // and use that template id to pick the right auth factor for
-      // |stored_auth_factors|. Each fingerprint template corresponds to one
-      // unique auth factor and the template id will be stored in the auth block
-      // state.
-      std::move(on_done).Run(MakeStatus<CryptohomeError>(
-          CRYPTOHOME_ERR_LOC(kLocAuthSessionLabelLookupUnimplemented),
-          ErrorActionSet(
-              {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
-          user_data_auth::CryptohomeErrorCode::
-              CRYPTOHOME_ERROR_NOT_IMPLEMENTED));
+
+      std::vector<AuthFactor> auth_factors;
+      // All the auth factors iterated here should have the same auth block
+      // type.
+      std::optional<AuthBlockType> auth_block_type;
+      for (const std::string& label : auth_factor_labels) {
+        // Load the auth factor and it should exist for authentication.
+        std::optional<AuthFactorMap::ValueView> stored_auth_factor =
+            auth_factor_map_.Find(label);
+        if (!stored_auth_factor) {
+          // This could happen for 2 reasons, either the user doesn't exist or
+          // the auth factor is not available for this user.
+          if (!user_exists_) {
+            // Attempting to authenticate a user that doesn't exist.
+            LOG(ERROR) << "Attempting to authenticate user that doesn't exist: "
+                       << username_;
+            std::move(on_done).Run(MakeStatus<CryptohomeError>(
+                CRYPTOHOME_ERR_LOC(
+                    kLocAuthSessionUserNotFoundInMultiLabelAuthAuthFactor),
+                ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+                user_data_auth::CryptohomeErrorCode::
+                    CRYPTOHOME_ERROR_ACCOUNT_NOT_FOUND));
+            return;
+          }
+          LOG(ERROR) << "Authentication factor not found: " << label;
+          std::move(on_done).Run(MakeStatus<CryptohomeError>(
+              CRYPTOHOME_ERR_LOC(
+                  kLocAuthSessionFactorNotFoundInMultiLabelAuthAuthFactor),
+              ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+              user_data_auth::CryptohomeErrorCode::
+                  CRYPTOHOME_ERROR_KEY_NOT_FOUND));
+          return;
+        }
+
+        // Ensure that if an auth factor is found, the requested type matches
+        // what we have on disk for the user.
+        if (*request_auth_factor_type !=
+            stored_auth_factor->auth_factor().type()) {
+          LOG(ERROR)
+              << "Unexpected mismatch in type from label and auth_input.";
+          std::move(on_done).Run(MakeStatus<CryptohomeError>(
+              CRYPTOHOME_ERR_LOC(kLocAuthSessionMultiLabelMismatchedAuthTypes),
+              ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+              user_data_auth::CryptohomeErrorCode::
+                  CRYPTOHOME_ERROR_INVALID_ARGUMENT));
+          return;
+        }
+
+        std::optional<AuthBlockType> cur_auth_block_type =
+            auth_block_utility_->GetAuthBlockTypeFromState(
+                stored_auth_factor->auth_factor().auth_block_state());
+        if (!cur_auth_block_type.has_value()) {
+          LOG(ERROR) << "Failed to determine auth block type.";
+          std::move(on_done).Run(MakeStatus<CryptohomeCryptoError>(
+              CRYPTOHOME_ERR_LOC(
+                  kLocAuthSessionInvalidBlockTypeInAuthAuthFactor),
+              ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+              CryptoError::CE_OTHER_CRYPTO));
+          return;
+        }
+        if (auth_block_type.has_value()) {
+          if (cur_auth_block_type.value() != auth_block_type.value()) {
+            LOG(ERROR) << "Unexpected mismatch in auth block types in auth "
+                          "factor candidates.";
+            std::move(on_done).Run(MakeStatus<CryptohomeCryptoError>(
+                CRYPTOHOME_ERR_LOC(
+                    kLocAuthSessionMismatchedBlockTypesInAuthAuthFactor),
+                ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+                CryptoError::CE_OTHER_CRYPTO));
+            return;
+          }
+        } else {
+          auth_block_type = cur_auth_block_type.value();
+        }
+
+        // Perform the storage type check here because we want to directly call
+        // AuthenticateViaUserSecretStash later on.
+        if (stored_auth_factor->storage_type() !=
+            AuthFactorStorageType::kUserSecretStash) {
+          LOG(ERROR) << "Multiple label arity auth factors are only supported "
+                        "with USS storage type.";
+          std::move(on_done).Run(MakeStatus<CryptohomeError>(
+              CRYPTOHOME_ERR_LOC(kLocAuthSessionMultiLabelInvalidStorageType),
+              ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+              user_data_auth::CryptohomeErrorCode::
+                  CRYPTOHOME_ERROR_INVALID_ARGUMENT));
+          return;
+        }
+
+        auth_factors.push_back(stored_auth_factor->auth_factor());
+      }
+
+      // auth_block_type is guaranteed to be non-null because we've checked
+      // auth_factor_labels's length above, and auth_block_type must be set in
+      // the first iteration of the loop.
+      DCHECK(auth_block_type.has_value());
+
+      CryptohomeStatusOr<AuthInput> auth_input =
+          CreateAuthInputForSelectFactor(*request_auth_factor_type);
+      if (!auth_input.ok()) {
+        std::move(on_done).Run(
+            MakeStatus<CryptohomeError>(
+                CRYPTOHOME_ERR_LOC(
+                    kLocAuthSessionAuthInputParseFailed4InAuthAuthFactor))
+                .Wrap(std::move(auth_input).err_status()));
+        return;
+      }
+
+      // Record current time for timing for how long AuthenticateAuthFactor will
+      // take.
+      auto auth_session_performance_timer =
+          std::make_unique<AuthSessionPerformanceTimer>(
+              kAuthSessionAuthenticateAuthFactorUSSTimer);
+      auth_block_utility_->SelectAuthFactorWithAuthBlock(
+          auth_block_type.value(), auth_input.value(), std::move(auth_factors),
+          base::BindOnce(&AuthSession::AuthenticateViaSelectedAuthFactor,
+                         weak_factory_.GetWeakPtr(), std::move(on_done),
+                         std::move(auth_session_performance_timer)));
       return;
     }
   }
@@ -1137,22 +1226,22 @@ void AuthSession::RemoveAuthFactor(
     }
   }
 
-  if (!remove_using_uss || enable_create_backup_vk_with_uss_) {
-    // At this point either USS is not enabled or removal of the USS AuthFactor
-    // succeeded & rollback enabled. Remove the VaultKeyset with the given label
-    // from disk regardless of its purpose, i.e backup, regular or migrated.
-    CryptohomeStatus remove_status = RemoveKeysetByLabel(
-        *keyset_management_, obfuscated_username_, auth_factor_label);
-    if (!remove_status.ok() && stored_auth_factor->auth_factor().type() !=
-                                   AuthFactorType::kCryptohomeRecovery) {
-      LOG(ERROR) << "AuthSession: Failed to remove VaultKeyset.";
-      std::move(on_done).Run(MakeStatus<CryptohomeError>(
-          CRYPTOHOME_ERR_LOC(kLocAuthSessionRemoveVKFailedInRemoveAuthFactor),
-          ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
-          user_data_auth::CryptohomeErrorCode::
-              CRYPTOHOME_REMOVE_CREDENTIALS_FAILED));
-      return;
-    }
+  // Remove the VaultKeyset with the given label if it exists from disk
+  // regardless of its purpose, i.e backup, regular or migrated. Error is
+  // ignored if remove_using_uss was true as the keyset that matters is now
+  // deleted.
+  CryptohomeStatus remove_status = RemoveKeysetByLabel(
+      *keyset_management_, obfuscated_username_, auth_factor_label);
+  if (!remove_using_uss && !remove_status.ok() &&
+      stored_auth_factor->auth_factor().type() !=
+          AuthFactorType::kCryptohomeRecovery) {
+    LOG(ERROR) << "AuthSession: Failed to remove VaultKeyset.";
+    std::move(on_done).Run(MakeStatus<CryptohomeError>(
+        CRYPTOHOME_ERR_LOC(kLocAuthSessionRemoveVKFailedInRemoveAuthFactor),
+        ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+        user_data_auth::CryptohomeErrorCode::
+            CRYPTOHOME_REMOVE_CREDENTIALS_FAILED));
+    return;
   }
 
   // Remove the AuthFactor from the map.
@@ -1471,8 +1560,10 @@ void AuthSession::UpdateAuthFactorViaUserSecretStash(
     return;
   }
 
-  // Update and persist the backup VaultKeyset if backup creation is enabled.
-  if (enable_create_backup_vk_with_uss_) {
+  // Update and persist the backup VaultKeyset if any factor uses vault keyset
+  // as its primary backing store.
+  if (auth_factor_map_.HasFactorWithStorage(
+          AuthFactorStorageType::kVaultKeyset)) {
     DCHECK(IsFactorTypeSupportedByVk(auth_factor_type));
     CryptohomeStatus status = keyset_management_->UpdateKeysetWithKeyBlobs(
         VaultKeysetIntent{.backup = true}, obfuscated_username_, key_data,
@@ -1485,25 +1576,6 @@ void AuthSession::UpdateAuthFactorViaUserSecretStash(
                   kLocAuthSessionUpdateKeysetFailedInUpdateWithUSS))
               .Wrap(std::move(status)));
     }
-  }
-  // If we cannot maintain the backup VaultKeyset (per above), we must delete
-  // it if it exists. The user might be updating the factor because the
-  // credential leaked, so it'd be a security issue to leave the backup intact.
-  if (!enable_create_backup_vk_with_uss_ &&
-      IsFactorTypeSupportedByVk(auth_factor_type)) {
-    CryptohomeStatus cleanup_status = CleanUpBackupKeyset(
-        *keyset_management_, obfuscated_username_, auth_factor_label);
-    if (!cleanup_status.ok()) {
-      std::move(on_done).Run(
-          MakeStatus<CryptohomeError>(
-              CRYPTOHOME_ERR_LOC(
-                  kLocAuthSessionDeleteOldBackupFailedInUpdateWithUSS),
-              ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}))
-              .Wrap(std::move(cleanup_status)));
-      return;
-    }
-    LOG(INFO) << "Deleted obsolete backup VaultKeyset for "
-              << auth_factor_label;
   }
 
   // Update/persist the factor.
@@ -1916,7 +1988,7 @@ CryptohomeStatusOr<AuthInput> AuthSession::CreateAuthInputForAdding(
   }
 
   if (NeedsResetSecret(auth_factor_type)) {
-    if (user_secret_stash_ && !enable_create_backup_vk_with_uss_) {
+    if (user_secret_stash_) {
       // When using USS, every resettable factor gets a unique reset secret.
       // When USS is not backed up by VaultKeysets this secret needs to be
       // generated independently.
@@ -1940,6 +2012,53 @@ CryptohomeStatusOr<AuthInput> AuthSession::CreateAuthInputForAdding(
   }
 
   return std::move(auth_input.value());
+}
+
+CryptohomeStatusOr<AuthInput> AuthSession::CreateAuthInputForSelectFactor(
+    AuthFactorType auth_factor_type) {
+  AuthInput auth_input{};
+
+  if (NeedsRateLimiter(auth_factor_type)) {
+    // Load the USS container with the encrypted payload.
+    CryptohomeStatusOr<brillo::Blob> encrypted_uss =
+        user_secret_stash_storage_->LoadPersisted(obfuscated_username_);
+    if (!encrypted_uss.ok()) {
+      LOG(ERROR) << "Failed to load the user secret stash.";
+      return MakeStatus<CryptohomeError>(
+                 CRYPTOHOME_ERR_LOC(
+                     kLocAuthSessionLoadUSSFailedInAuthInputForSelect),
+                 user_data_auth::CRYPTOHOME_ERROR_BACKING_STORE_FAILURE)
+          .Wrap(std::move(encrypted_uss).err_status());
+    }
+
+    CryptohomeStatusOr<UserMetadata> user_metadata =
+        UserSecretStash::GetUserMetadata(encrypted_uss.value());
+    if (!user_metadata.ok()) {
+      LOG(ERROR) << "Failed to load the user metadata.";
+      return MakeStatus<CryptohomeError>(
+                 CRYPTOHOME_ERR_LOC(
+                     kLocAuthSessionGetMetadataFailedInAuthInputForSelect),
+                 user_data_auth::CRYPTOHOME_ERROR_BACKING_STORE_FAILURE)
+          .Wrap(std::move(user_metadata).err_status());
+    }
+
+    // Currently fingerprint is the only auth factor type using rate
+    // limiter, so the field name isn't generic. We'll make it generic to any
+    // auth factor types in the future.
+    if (!user_metadata->fingerprint_rate_limiter_id.has_value()) {
+      LOG(ERROR) << "No rate limiter ID in user metadata.";
+      return MakeStatus<CryptohomeError>(
+          CRYPTOHOME_ERR_LOC(kLocAuthSessionNoRateLimiterInAuthInputForSelect),
+          ErrorActionSet(
+              {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
+          user_data_auth::CRYPTOHOME_ERROR_KEY_NOT_FOUND);
+    }
+
+    auth_input.rate_limiter_label =
+        user_metadata->fingerprint_rate_limiter_id.value();
+  }
+
+  return auth_input;
 }
 
 CredentialVerifier* AuthSession::AddCredentialVerifier(
@@ -2197,8 +2316,6 @@ CryptohomeStatus AuthSession::PersistAuthFactorToUserSecretStashImpl(
 
   // If a USS only factor is added backup keysets should be removed.
   if (!IsFactorTypeSupportedByVk(auth_factor_type)) {
-    enable_create_backup_vk_with_uss_ = false;
-
     CryptohomeStatus cleanup_status = CleanUpAllBackupKeysets(
         *keyset_management_, obfuscated_username_, auth_factor_map_);
     if (!cleanup_status.ok()) {
@@ -2209,14 +2326,12 @@ CryptohomeStatus AuthSession::PersistAuthFactorToUserSecretStashImpl(
                   user_data_auth::CRYPTOHOME_ADD_CREDENTIALS_FAILED)
                   .Wrap(std::move(cleanup_status).err_status()));
     }
-  }
-  // Generate and persist the backup (or migrated) VaultKeyset. This is
-  // skipped if at least one factor (including the just-added one) is
-  // USS-only.
-  if (enable_create_backup_vk_with_uss_) {
-    // Clobbering is on by default, so if USS&AuthFactor is added for
-    // migration this will convert a regular VaultKeyset to a backup
-    // VaultKeyset.
+  } else if (auth_factor_map_.HasFactorWithStorage(
+                 AuthFactorStorageType::kVaultKeyset)) {
+    // Generate and persist the migrated VaultKeyset if any keyset has vault
+    // keyset as its primary authfactor. Clobbering is on by default, so if
+    // USS&AuthFactor is added for migration this will convert a regular
+    // VaultKeyset to a backup VaultKeyset.
     status = AddVaultKeyset(auth_factor_label, key_data, /*is_initial_keyset=*/
                             auth_factor_map_.empty(),
                             VaultKeysetIntent{.backup = true},
@@ -2627,6 +2742,35 @@ void AuthSession::AuthenticateViaSingleFactor(
       std::move(auth_session_performance_timer), std::move(on_done));
 }
 
+void AuthSession::AuthenticateViaSelectedAuthFactor(
+    StatusCallback on_done,
+    std::unique_ptr<AuthSessionPerformanceTimer> auth_session_performance_timer,
+    CryptohomeStatus callback_error,
+    std::optional<AuthInput> auth_input,
+    std::optional<AuthFactor> auth_factor) {
+  if (!callback_error.ok() || !auth_input.has_value() ||
+      !auth_factor.has_value()) {
+    if (callback_error.ok()) {
+      callback_error = MakeStatus<CryptohomeCryptoError>(
+          CRYPTOHOME_ERR_LOC(kLocAuthSessionNullParamInAuthViaSelected),
+          ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+          CryptoError::CE_OTHER_CRYPTO,
+          user_data_auth::CryptohomeErrorCode::
+              CRYPTOHOME_ERROR_NOT_IMPLEMENTED);
+    }
+    LOG(ERROR) << "AuthFactor selection failed before deriving KeyBlobs.";
+    std::move(on_done).Run(
+        MakeStatus<CryptohomeError>(
+            CRYPTOHOME_ERR_LOC(kLocAuthSessionSelectionFailed))
+            .Wrap(std::move(callback_error)));
+    return;
+  }
+
+  AuthenticateViaUserSecretStash(auth_factor->label(), auth_input.value(),
+                                 std::move(auth_session_performance_timer),
+                                 auth_factor.value(), std::move(on_done));
+}
+
 void AuthSession::LoadUSSMainKeyAndFsKeyset(
     AuthFactorType auth_factor_type,
     const std::string& auth_factor_label,
@@ -2722,11 +2866,12 @@ void AuthSession::LoadUSSMainKeyAndFsKeyset(
 
   // Set the credential verifier for this credential.
   AddCredentialVerifier(auth_factor_type, auth_factor_label, auth_input);
-  if (enable_create_backup_vk_with_uss_ &&
+  if (auth_factor_map_.HasFactorWithStorage(
+          AuthFactorStorageType::kVaultKeyset) &&
       auth_factor_type == AuthFactorType::kPassword) {
     // Authentication with UserSecretStash just finished. Now load the decrypted
-    // backup VaultKeyset from disk so that adding a PIN backup VaultKeyset will
-    // be possible when/if needed.
+    // backup VaultKeyset from disk so that migrating a PIN backup VaultKeyset
+    // will be possible when/if needed.
     MountStatusOr<std::unique_ptr<VaultKeyset>> vk_status =
         keyset_management_->GetValidKeysetWithKeyBlobs(
             obfuscated_username_, std::move(*key_blobs.get()),
@@ -2742,6 +2887,7 @@ void AuthSession::LoadUSSMainKeyAndFsKeyset(
   }
 
   ResetLECredentials();
+  ResetRateLimiterCredentials();
 
   ReportTimerDuration(auth_session_performance_timer.get());
   std::move(on_done).Run(std::move(prepare_status));
@@ -2817,6 +2963,61 @@ void AuthSession::ResetLECredentials() {
                                       error)) {
       LOG(WARNING) << "Failed to reset an LE credential for "
                    << state->le_label.value() << " with error: " << error;
+    }
+  }
+}
+
+void AuthSession::ResetRateLimiterCredentials() {
+  if (!user_secret_stash_) {
+    return;
+  }
+  std::optional<uint64_t> rate_limiter_label =
+      user_secret_stash_->GetFingerprintRateLimiterId();
+  if (!rate_limiter_label.has_value()) {
+    return;
+  }
+
+  // Currently only fingerprint auth factor has a rate-limiter.
+  std::optional<brillo::SecureBlob> reset_secret =
+      user_secret_stash_->GetRateLimiterResetSecret(
+          AuthFactorType::kFingerprint);
+  if (!reset_secret.has_value()) {
+    LOG(WARNING) << "Fingerprint rate-limiter has no reset secret in USS.";
+    return;
+  }
+  CryptoError error;
+  if (crypto_->GetWrongAuthAttempts(rate_limiter_label.value()) != 0 &&
+      !crypto_->ResetLeCredentialEx(rate_limiter_label.value(),
+                                    reset_secret.value(), error)) {
+    LOG(WARNING) << "Failed to reset fingerprint rate-limiter with error: "
+                 << error;
+  }
+
+  for (AuthFactorMap::ValueView stored_auth_factor : auth_factor_map_) {
+    const AuthFactor& auth_factor = stored_auth_factor.auth_factor();
+
+    // Look for only pinweaver backed AuthFactors.
+    auto* state = std::get_if<FingerprintAuthBlockState>(
+        &(auth_factor.auth_block_state().state));
+    if (!state) {
+      continue;
+    }
+    // Ensure that the AuthFactor has le_label.
+    if (!state->gsc_secret_label.has_value()) {
+      LOG(WARNING)
+          << "Fingerprint AuthBlock State does not have gsc_secret_label.";
+      continue;
+    }
+    // If the credential is already at 0 attempts, there is no need to reset
+    // it.
+    if (crypto_->GetWrongAuthAttempts(state->gsc_secret_label.value()) == 0) {
+      continue;
+    }
+    if (!crypto_->ResetLeCredentialEx(state->gsc_secret_label.value(),
+                                      reset_secret.value(), error)) {
+      LOG(WARNING) << "Failed to reset fingerprint credential for "
+                   << state->gsc_secret_label.value()
+                   << " with error: " << error;
     }
   }
 }

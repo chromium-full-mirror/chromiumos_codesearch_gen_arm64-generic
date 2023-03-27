@@ -42,8 +42,12 @@ class HdmiEventInfo_Data;
 class TouchscreenTouchEvent_Data;
 class TouchscreenConnectedEvent_Data;
 class StylusGarageEventInfo_Data;
+class StylusTouchPointInfo_Data;
+class StylusTouchEvent_Data;
+class StylusConnectedEvent_Data;
 class TouchpadEventInfo_Data;
 class TouchscreenEventInfo_Data;
+class StylusEventInfo_Data;
 class EventInfo_Data;
 
 struct InputTouchButton_Data {
@@ -93,6 +97,7 @@ struct EventCategoryEnum_Data {
       case 12:
       case 13:
       case 14:
+      case 15:
         return true;
     }
     return false;
@@ -483,6 +488,61 @@ static_assert(sizeof(TouchscreenEventInfo_Data) == mojo::internal::kUnionDataSiz
               "Bad sizeof(TouchscreenEventInfo_Data)");
 
 
+class  StylusEventInfo_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  StylusEventInfo_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~StylusEventInfo_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<StylusEventInfo_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class StylusEventInfo_Tag : uint32_t {
+
+    
+    kDefaultType,
+    
+    kTouchEvent,
+    
+    kConnectedEvent,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_default_type;
+    mojo::internal::Pointer<internal::StylusTouchEvent_Data> f_touch_event;
+    mojo::internal::Pointer<internal::StylusConnectedEvent_Data> f_connected_event;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  StylusEventInfo_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(StylusEventInfo_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(StylusEventInfo_Data)");
+
+
 class  EventInfo_Data {
  public:
   // Used to identify Mojom Union Data Classes.
@@ -539,6 +599,8 @@ class  EventInfo_Data {
     kTouchscreenEventInfo,
     
     kStylusGarageEventInfo,
+    
+    kStylusEventInfo,
   };
 
   // A note on layout:
@@ -560,6 +622,7 @@ class  EventInfo_Data {
     mojo::internal::Pointer<internal::HdmiEventInfo_Data> f_hdmi_event_info;
     mojo::internal::Pointer<internal::TouchscreenEventInfo_Data> f_touchscreen_event_info;
     mojo::internal::Pointer<internal::StylusGarageEventInfo_Data> f_stylus_garage_event_info;
+    mojo::internal::Pointer<internal::StylusEventInfo_Data> f_stylus_event_info;
     uint64_t unknown;
   };
 
@@ -1366,6 +1429,155 @@ struct StylusGarageEventInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     StylusGarageEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  StylusTouchPointInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t x;
+  uint32_t y;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> pressure;
+
+ private:
+  friend class mojo::internal::MessageFragment<StylusTouchPointInfo_Data>;
+
+  StylusTouchPointInfo_Data();
+  ~StylusTouchPointInfo_Data() = delete;
+};
+static_assert(sizeof(StylusTouchPointInfo_Data) == 24,
+              "Bad sizeof(StylusTouchPointInfo_Data)");
+// Used by StylusTouchPointInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct StylusTouchPointInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  StylusTouchPointInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~StylusTouchPointInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<StylusTouchPointInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    StylusTouchPointInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  StylusTouchEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::StylusTouchPointInfo_Data> touch_point;
+
+ private:
+  friend class mojo::internal::MessageFragment<StylusTouchEvent_Data>;
+
+  StylusTouchEvent_Data();
+  ~StylusTouchEvent_Data() = delete;
+};
+static_assert(sizeof(StylusTouchEvent_Data) == 16,
+              "Bad sizeof(StylusTouchEvent_Data)");
+// Used by StylusTouchEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct StylusTouchEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  StylusTouchEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~StylusTouchEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<StylusTouchEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    StylusTouchEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  StylusConnectedEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t max_x;
+  uint32_t max_y;
+  uint32_t max_pressure;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<StylusConnectedEvent_Data>;
+
+  StylusConnectedEvent_Data();
+  ~StylusConnectedEvent_Data() = delete;
+};
+static_assert(sizeof(StylusConnectedEvent_Data) == 24,
+              "Bad sizeof(StylusConnectedEvent_Data)");
+// Used by StylusConnectedEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct StylusConnectedEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  StylusConnectedEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~StylusConnectedEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<StylusConnectedEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    StylusConnectedEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

@@ -25,6 +25,7 @@ constexpr uint32_t kDelegate_FetchBootPerformance_Name = 6;
 constexpr uint32_t kDelegate_MonitorTouchscreen_Name = 7;
 constexpr uint32_t kDelegate_MonitorStylusGarage_Name = 8;
 constexpr uint32_t kDelegate_MonitorStylus_Name = 9;
+constexpr uint32_t kDelegate_GetLidAngle_Name = 10;
 
 }  // namespace internal
 }  // namespace mojom

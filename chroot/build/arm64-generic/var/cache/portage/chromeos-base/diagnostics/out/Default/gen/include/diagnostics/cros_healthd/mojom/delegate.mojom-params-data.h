@@ -265,6 +265,40 @@ class  Delegate_MonitorStylus_Params_Data {
 };
 static_assert(sizeof(Delegate_MonitorStylus_Params_Data) == 16,
               "Bad sizeof(Delegate_MonitorStylus_Params_Data)");
+class  Delegate_GetLidAngle_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetLidAngle_Params_Data>;
+
+  Delegate_GetLidAngle_Params_Data();
+  ~Delegate_GetLidAngle_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetLidAngle_Params_Data) == 8,
+              "Bad sizeof(Delegate_GetLidAngle_Params_Data)");
+class  Delegate_GetLidAngle_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t lid_angle_$flag : 1;
+  uint8_t pad0_[1];
+  uint16_t lid_angle_$value;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetLidAngle_ResponseParams_Data>;
+
+  Delegate_GetLidAngle_ResponseParams_Data();
+  ~Delegate_GetLidAngle_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetLidAngle_ResponseParams_Data) == 16,
+              "Bad sizeof(Delegate_GetLidAngle_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -699,6 +733,42 @@ class Delegate_MonitorStylus_ParamsDataView {
 };
 
 
+class Delegate_GetLidAngle_ParamsDataView {
+ public:
+  Delegate_GetLidAngle_ParamsDataView() = default;
+
+  Delegate_GetLidAngle_ParamsDataView(
+      internal::Delegate_GetLidAngle_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_GetLidAngle_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_GetLidAngle_ResponseParamsDataView {
+ public:
+  Delegate_GetLidAngle_ResponseParamsDataView() = default;
+
+  Delegate_GetLidAngle_ResponseParamsDataView(
+      internal::Delegate_GetLidAngle_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  absl::optional<uint16_t> lid_angle() const {
+
+    return data_->lid_angle_$flag
+        ? absl::make_optional(data_->lid_angle_$value)
+        : absl::nullopt;
+  }
+ private:
+  internal::Delegate_GetLidAngle_ResponseParams_Data* data_ = nullptr;
+};
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -755,6 +825,10 @@ inline void Delegate_FetchBootPerformance_ResponseParamsDataView::GetResultDataV
   auto pointer = &data_->result;
   *output = ::ash::cros_healthd::mojom::BootPerformanceResultDataView(pointer, message_);
 }
+
+
+
+
 
 
 

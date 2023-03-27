@@ -18,6 +18,8 @@
 #include <vector>
 
 #include "base/values.h"
+#include "base/strings/string_piece.h"
+
 
 namespace extensions {
 namespace api {
@@ -28,7 +30,7 @@ namespace processes {
 //
 
 // The types of the browser processes.
-enum ProcessType {
+enum  ProcessType {
   PROCESS_TYPE_NONE,
   PROCESS_TYPE_BROWSER,
   PROCESS_TYPE_RENDERER,
@@ -46,7 +48,7 @@ enum ProcessType {
 
 
 const char* ToString(ProcessType as_enum);
-ProcessType ParseProcessType(const std::string& as_string);
+ProcessType ParseProcessType(base::StringPiece as_string);
 
 struct TaskInfo {
   TaskInfo();
@@ -56,12 +58,19 @@ struct TaskInfo {
   TaskInfo(TaskInfo&& rhs);
   TaskInfo& operator=(TaskInfo&& rhs);
 
-  // Populates a TaskInfo object from a base::Value. Returns whether |out| was
-  // successfully populated.
-  static bool Populate(const base::Value& value, TaskInfo* out);
+  // Populates a TaskInfo object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, TaskInfo& out);
+
+  // Populates a TaskInfo object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, TaskInfo& out);
 
   // Creates a TaskInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TaskInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<TaskInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a TaskInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<TaskInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTaskInfo object.
@@ -83,12 +92,19 @@ struct Cache {
   Cache(Cache&& rhs);
   Cache& operator=(Cache&& rhs);
 
-  // Populates a Cache object from a base::Value. Returns whether |out| was
+  // Populates a Cache object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, Cache& out);
+
+  // Populates a Cache object from a Dict& instance. Returns whether |out| was
   // successfully populated.
-  static bool Populate(const base::Value& value, Cache* out);
+  static bool Populate(const base::Value::Dict& value, Cache& out);
 
   // Creates a Cache object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Cache> FromValue(const base::Value& value);
+  static std::unique_ptr<Cache> FromValueDeprecated(const base::Value& value);
+
+  // Creates a Cache object from a base::Value, or nullopt on failure.
+  static absl::optional<Cache> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCache object.
@@ -110,12 +126,19 @@ struct Process {
   Process(Process&& rhs);
   Process& operator=(Process&& rhs);
 
-  // Populates a Process object from a base::Value. Returns whether |out| was
+  // Populates a Process object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, Process& out);
+
+  // Populates a Process object from a Dict& instance. Returns whether |out| was
   // successfully populated.
-  static bool Populate(const base::Value& value, Process* out);
+  static bool Populate(const base::Value::Dict& value, Process& out);
 
   // Creates a Process object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Process> FromValue(const base::Value& value);
+  static std::unique_ptr<Process> FromValueDeprecated(const base::Value& value);
+
+  // Creates a Process object from a base::Value, or nullopt on failure.
+  static absl::optional<Process> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProcess object.
@@ -266,9 +289,9 @@ struct Params {
     ProcessIds(ProcessIds&& rhs);
     ProcessIds& operator=(ProcessIds&& rhs);
 
-    // Populates a ProcessIds object from a base::Value. Returns whether |out| was
-    // successfully populated.
-    static bool Populate(const base::Value& value, ProcessIds* out);
+    // Populates a ProcessIds object from a base::Value& instance. Returns whether
+    // |out| was successfully populated.
+    static bool Populate(const base::Value& value, ProcessIds& out);
     // Choices:
     absl::optional<int> as_integer;
     absl::optional<std::vector<int>> as_integers;

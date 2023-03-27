@@ -30,6 +30,7 @@
 #include "mojo/public/mojom/base/shared_memory.mojom.h"
 #include "mojo/public/mojom/base/time.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
+#include "ui/gfx/mojom/color_space.mojom.h"
 #include "media/mojo/mojom/video_encoder_info.mojom.h"
 #include "sandbox/policy/mojom/sandbox.mojom-forward.h"
 #include <string>
@@ -2930,7 +2931,8 @@ class  BitstreamBufferMetadata {
       ::base::TimeDelta timestamp,
       int32_t qp,
       CodecMetadataPtr codec_metadata,
-      const absl::optional<::gfx::Size>& encoded_size);
+      const absl::optional<::gfx::Size>& encoded_size,
+      const absl::optional<::gfx::ColorSpace>& encoded_color_space);
 
 BitstreamBufferMetadata(const BitstreamBufferMetadata&) = delete;
 BitstreamBufferMetadata& operator=(const BitstreamBufferMetadata&) = delete;
@@ -3018,6 +3020,8 @@ BitstreamBufferMetadata& operator=(const BitstreamBufferMetadata&) = delete;
   CodecMetadataPtr codec_metadata;
   
   absl::optional<::gfx::Size> encoded_size;
+  
+  absl::optional<::gfx::ColorSpace> encoded_color_space;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3763,7 +3767,8 @@ BitstreamBufferMetadataPtr BitstreamBufferMetadata::Clone() const {
       mojo::Clone(timestamp),
       mojo::Clone(qp),
       mojo::Clone(codec_metadata),
-      mojo::Clone(encoded_size)
+      mojo::Clone(encoded_size),
+      mojo::Clone(encoded_color_space)
   );
 }
 
@@ -3780,6 +3785,8 @@ bool BitstreamBufferMetadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->codec_metadata, other_struct.codec_metadata))
     return false;
   if (!mojo::Equals(this->encoded_size, other_struct.encoded_size))
+    return false;
+  if (!mojo::Equals(this->encoded_color_space, other_struct.encoded_color_space))
     return false;
   return true;
 }
@@ -3809,6 +3816,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.encoded_size < rhs.encoded_size)
     return true;
   if (rhs.encoded_size < lhs.encoded_size)
+    return false;
+  if (lhs.encoded_color_space < rhs.encoded_color_space)
+    return true;
+  if (rhs.encoded_color_space < lhs.encoded_color_space)
     return false;
   return false;
 }
@@ -4294,6 +4305,11 @@ struct  StructTraits<::media::mojom::BitstreamBufferMetadata::DataView,
   static const decltype(::media::mojom::BitstreamBufferMetadata::encoded_size)& encoded_size(
       const ::media::mojom::BitstreamBufferMetadataPtr& input) {
     return input->encoded_size;
+  }
+
+  static const decltype(::media::mojom::BitstreamBufferMetadata::encoded_color_space)& encoded_color_space(
+      const ::media::mojom::BitstreamBufferMetadataPtr& input) {
+    return input->encoded_color_space;
   }
 
   static bool Read(::media::mojom::BitstreamBufferMetadata::DataView input, ::media::mojom::BitstreamBufferMetadataPtr* output);

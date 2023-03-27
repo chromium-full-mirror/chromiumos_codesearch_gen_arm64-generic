@@ -18,6 +18,8 @@
 #include <vector>
 
 #include "base/values.h"
+#include "base/strings/string_piece.h"
+
 
 namespace extensions {
 namespace api {
@@ -27,7 +29,7 @@ namespace search {
 // Types
 //
 
-enum Disposition {
+enum  Disposition {
   DISPOSITION_NONE,
   DISPOSITION_CURRENT_TAB,
   DISPOSITION_NEW_TAB,
@@ -37,7 +39,7 @@ enum Disposition {
 
 
 const char* ToString(Disposition as_enum);
-Disposition ParseDisposition(const std::string& as_string);
+Disposition ParseDisposition(base::StringPiece as_string);
 
 struct QueryInfo {
   QueryInfo();
@@ -47,12 +49,19 @@ struct QueryInfo {
   QueryInfo(QueryInfo&& rhs);
   QueryInfo& operator=(QueryInfo&& rhs);
 
-  // Populates a QueryInfo object from a base::Value. Returns whether |out| was
-  // successfully populated.
-  static bool Populate(const base::Value& value, QueryInfo* out);
+  // Populates a QueryInfo object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, QueryInfo& out);
+
+  // Populates a QueryInfo object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, QueryInfo& out);
 
   // Creates a QueryInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<QueryInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<QueryInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a QueryInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<QueryInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisQueryInfo object.

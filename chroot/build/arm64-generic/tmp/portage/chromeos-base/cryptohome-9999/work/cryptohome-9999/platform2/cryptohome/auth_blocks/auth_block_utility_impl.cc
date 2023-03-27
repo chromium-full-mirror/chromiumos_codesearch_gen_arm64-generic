@@ -24,7 +24,6 @@
 #include "cryptohome/auth_blocks/auth_block.h"
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_blocks/auth_block_utils.h"
-#include "cryptohome/auth_blocks/challenge_credential_auth_block.h"
 #include "cryptohome/auth_blocks/cryptohome_recovery_auth_block.h"
 #include "cryptohome/auth_blocks/double_wrapped_compat_auth_block.h"
 #include "cryptohome/auth_blocks/fingerprint_auth_block.h"
@@ -293,15 +292,20 @@ void AuthBlockUtilityImpl::PrepareAuthFactorForAuth(
       return;
     }
     case AuthFactorType::kFingerprint: {
-      // TODO(b/262308692): Not implemented for now.
-      CryptohomeStatus status = MakeStatus<CryptohomeError>(
-          CRYPTOHOME_ERR_LOC(
-              kLocAuthBlockUtilUnimplementedPrepareForAuthFingerprint),
-          ErrorActionSet(
-              {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
-          user_data_auth::CryptohomeErrorCode::
-              CRYPTOHOME_ERROR_NOT_IMPLEMENTED);
-      std::move(callback).Run(std::move(status));
+      BiometricsAuthBlockService* bio_service = bio_service_getter_.Run();
+      if (!bio_service) {
+        CryptohomeStatus status = MakeStatus<CryptohomeError>(
+            CRYPTOHOME_ERR_LOC(
+                kLocAuthBlockUtilPrepareForAuthFingerprintNoService),
+            ErrorActionSet(
+                {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
+            user_data_auth::CryptohomeErrorCode::
+                CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+        std::move(callback).Run(std::move(status));
+        return;
+      }
+      bio_service->StartAuthenticateSession(AuthFactorType::kFingerprint,
+                                            username, std::move(callback));
       return;
     }
     case AuthFactorType::kPassword:
@@ -333,11 +337,11 @@ void AuthBlockUtilityImpl::PrepareAuthFactorForAdd(
       if (!bio_service) {
         CryptohomeStatus status = MakeStatus<CryptohomeError>(
             CRYPTOHOME_ERR_LOC(
-                kLocAuthBlockUtilPrepareForAuthFingerprintNoService),
+                kLocAuthBlockUtilPrepareForAddFingerprintNoService),
             ErrorActionSet(
                 {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
             user_data_auth::CryptohomeErrorCode::
-                CRYPTOHOME_ERROR_NOT_IMPLEMENTED);
+                CRYPTOHOME_ERROR_INVALID_ARGUMENT);
         std::move(callback).Run(std::move(status));
         return;
       }
@@ -430,6 +434,42 @@ void AuthBlockUtilityImpl::DeriveKeyBlobsWithAuthBlock(
       std::move(auth_block.value()), std::move(derive_callback));
 
   auth_block_ptr->Derive(auth_input, auth_state, std::move(managed_callback));
+}
+
+void AuthBlockUtilityImpl::SelectAuthFactorWithAuthBlock(
+    AuthBlockType auth_block_type,
+    const AuthInput& auth_input,
+    std::vector<AuthFactor> auth_factors,
+    AuthBlock::SelectFactorCallback select_callback) {
+  CryptoStatusOr<std::unique_ptr<AuthBlock>> auth_block =
+      GetAuthBlockWithType(auth_block_type, auth_input);
+  if (!auth_block.ok()) {
+    LOG(ERROR) << "Failed to retrieve auth block.";
+    std::move(select_callback)
+        .Run(MakeStatus<CryptohomeCryptoError>(
+                 CRYPTOHOME_ERR_LOC(
+                     kLocAuthBlockUtilNoAuthBlockInSelectAuthFactor))
+                 .Wrap(std::move(auth_block).err_status()),
+             std::nullopt, std::nullopt);
+    return;
+  }
+  ReportSelectFactorAuthBlock(auth_block_type);
+
+  // This lambda functions to keep the auth_block reference valid until
+  // the results are returned through select_callback.
+  AuthBlock* auth_block_ptr = auth_block->get();
+  auto managed_callback = base::BindOnce(
+      [](std::unique_ptr<AuthBlock> owned_auth_block,
+         AuthBlock::SelectFactorCallback callback, CryptohomeStatus error,
+         std::optional<AuthInput> auth_input,
+         std::optional<AuthFactor> auth_factor) {
+        std::move(callback).Run(std::move(error), std::move(auth_input),
+                                std::move(auth_factor));
+      },
+      std::move(auth_block.value()), std::move(select_callback));
+
+  auth_block_ptr->SelectFactor(auth_input, std::move(auth_factors),
+                               std::move(managed_callback));
 }
 
 CryptoStatusOr<AuthBlockType> AuthBlockUtilityImpl::GetAuthBlockTypeForCreation(

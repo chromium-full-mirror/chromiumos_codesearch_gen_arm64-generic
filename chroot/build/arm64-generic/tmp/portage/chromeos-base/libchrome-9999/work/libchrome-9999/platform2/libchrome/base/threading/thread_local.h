@@ -58,8 +58,9 @@
 
 namespace base {
 
+
 template <typename T>
-class ThreadLocalPointer {
+class [[deprecated("Use `thread_local T*` instead.")]] ThreadLocalPointer {
  public:
   ThreadLocalPointer() = default;
 
@@ -123,7 +124,7 @@ class ThreadLocalOwnedPointer {
 };
 #endif  // DCHECK_IS_ON()
 
-class ThreadLocalBoolean {
+class [[deprecated("Use `thread_local bool` instead.")]] ThreadLocalBoolean {
  public:
   ThreadLocalBoolean() = default;
 

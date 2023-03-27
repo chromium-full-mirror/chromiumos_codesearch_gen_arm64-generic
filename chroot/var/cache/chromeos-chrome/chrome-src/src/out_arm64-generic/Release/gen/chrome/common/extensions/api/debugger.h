@@ -18,6 +18,8 @@
 #include <vector>
 
 #include "base/values.h"
+#include "base/strings/string_piece.h"
+
 
 namespace extensions {
 namespace api {
@@ -36,12 +38,19 @@ struct Debuggee {
   Debuggee(Debuggee&& rhs);
   Debuggee& operator=(Debuggee&& rhs);
 
-  // Populates a Debuggee object from a base::Value. Returns whether |out| was
-  // successfully populated.
-  static bool Populate(const base::Value& value, Debuggee* out);
+  // Populates a Debuggee object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, Debuggee& out);
+
+  // Populates a Debuggee object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, Debuggee& out);
 
   // Creates a Debuggee object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Debuggee> FromValue(const base::Value& value);
+  static std::unique_ptr<Debuggee> FromValueDeprecated(const base::Value& value);
+
+  // Creates a Debuggee object from a base::Value, or nullopt on failure.
+  static absl::optional<Debuggee> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDebuggee object.
@@ -61,7 +70,7 @@ struct Debuggee {
 };
 
 // Target type.
-enum TargetInfoType {
+enum  TargetInfoType {
   TARGET_INFO_TYPE_NONE,
   TARGET_INFO_TYPE_PAGE,
   TARGET_INFO_TYPE_BACKGROUND_PAGE,
@@ -72,10 +81,10 @@ enum TargetInfoType {
 
 
 const char* ToString(TargetInfoType as_enum);
-TargetInfoType ParseTargetInfoType(const std::string& as_string);
+TargetInfoType ParseTargetInfoType(base::StringPiece as_string);
 
 // Connection termination reason.
-enum DetachReason {
+enum  DetachReason {
   DETACH_REASON_NONE,
   DETACH_REASON_TARGET_CLOSED,
   DETACH_REASON_CANCELED_BY_USER,
@@ -84,7 +93,7 @@ enum DetachReason {
 
 
 const char* ToString(DetachReason as_enum);
-DetachReason ParseDetachReason(const std::string& as_string);
+DetachReason ParseDetachReason(base::StringPiece as_string);
 
 // Debug target information
 struct TargetInfo {
@@ -95,12 +104,19 @@ struct TargetInfo {
   TargetInfo(TargetInfo&& rhs);
   TargetInfo& operator=(TargetInfo&& rhs);
 
-  // Populates a TargetInfo object from a base::Value. Returns whether |out| was
-  // successfully populated.
-  static bool Populate(const base::Value& value, TargetInfo* out);
+  // Populates a TargetInfo object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, TargetInfo& out);
+
+  // Populates a TargetInfo object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, TargetInfo& out);
 
   // Creates a TargetInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TargetInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<TargetInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a TargetInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<TargetInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTargetInfo object.
@@ -213,9 +229,13 @@ struct Params {
     CommandParams(CommandParams&& rhs);
     CommandParams& operator=(CommandParams&& rhs);
 
-    // Populates a CommandParams object from a base::Value. Returns whether |out|
-    // was successfully populated.
-    static bool Populate(const base::Value& value, CommandParams* out);
+    // Populates a CommandParams object from a base::Value& instance. Returns
+    // whether |out| was successfully populated.
+    static bool Populate(const base::Value& value, CommandParams& out);
+
+    // Populates a CommandParams object from a Dict& instance. Returns whether
+    // |out| was successfully populated.
+    static bool Populate(const base::Value::Dict& value, CommandParams& out);
 
     base::Value::Dict additional_properties;
   };

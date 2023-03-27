@@ -459,6 +459,8 @@ PROTOBUF_CONSTEXPR DeviceLocalAccountInfoProto::DeviceLocalAccountInfoProto(
   , android_kiosk_app_(nullptr)
   , web_kiosk_app_(nullptr)
   , type_(0)
+
+  , ephemeral_mode_(0)
 {}
 struct DeviceLocalAccountInfoProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceLocalAccountInfoProtoDefaultTypeInternal()
@@ -1660,18 +1662,18 @@ struct DeviceFamilyLinkAccountsAllowedProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceFamilyLinkAccountsAllowedProtoDefaultTypeInternal _DeviceFamilyLinkAccountsAllowedProto_default_instance_;
-PROTOBUF_CONSTEXPR DeviceArcDataSnapshotHoursProto::DeviceArcDataSnapshotHoursProto(
+PROTOBUF_CONSTEXPR OBSOLETE_DeviceArcDataSnapshotHoursProto::OBSOLETE_DeviceArcDataSnapshotHoursProto(
     ::_pbi::ConstantInitialized)
-  : arc_data_snapshot_hours_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
-struct DeviceArcDataSnapshotHoursProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DeviceArcDataSnapshotHoursProtoDefaultTypeInternal()
+  : obsolete_arc_data_snapshot_hours_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct OBSOLETE_DeviceArcDataSnapshotHoursProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OBSOLETE_DeviceArcDataSnapshotHoursProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~DeviceArcDataSnapshotHoursProtoDefaultTypeInternal() {}
+  ~OBSOLETE_DeviceArcDataSnapshotHoursProtoDefaultTypeInternal() {}
   union {
-    DeviceArcDataSnapshotHoursProto _instance;
+    OBSOLETE_DeviceArcDataSnapshotHoursProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceArcDataSnapshotHoursProtoDefaultTypeInternal _DeviceArcDataSnapshotHoursProto_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OBSOLETE_DeviceArcDataSnapshotHoursProtoDefaultTypeInternal _OBSOLETE_DeviceArcDataSnapshotHoursProto_default_instance_;
 PROTOBUF_CONSTEXPR DeviceSystemWideTracingEnabledProto::DeviceSystemWideTracingEnabledProto(
     ::_pbi::ConstantInitialized)
   : enabled_(false){}
@@ -2338,6 +2340,74 @@ constexpr DeviceLocalAccountInfoProto_AccountType DeviceLocalAccountInfoProto::A
 constexpr DeviceLocalAccountInfoProto_AccountType DeviceLocalAccountInfoProto::AccountType_MIN;
 constexpr DeviceLocalAccountInfoProto_AccountType DeviceLocalAccountInfoProto::AccountType_MAX;
 constexpr int DeviceLocalAccountInfoProto::AccountType_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool DeviceLocalAccountInfoProto_EphemeralMode_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceLocalAccountInfoProto_EphemeralMode_strings[4] = {};
+
+static const char DeviceLocalAccountInfoProto_EphemeralMode_names[] =
+  "EPHEMERAL_MODE_DISABLE"
+  "EPHEMERAL_MODE_ENABLE"
+  "EPHEMERAL_MODE_FOLLOW_DEVICE_WIDE_POLICY"
+  "EPHEMERAL_MODE_UNSET";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceLocalAccountInfoProto_EphemeralMode_entries[] = {
+  { {DeviceLocalAccountInfoProto_EphemeralMode_names + 0, 22}, 2 },
+  { {DeviceLocalAccountInfoProto_EphemeralMode_names + 22, 21}, 3 },
+  { {DeviceLocalAccountInfoProto_EphemeralMode_names + 43, 40}, 1 },
+  { {DeviceLocalAccountInfoProto_EphemeralMode_names + 83, 20}, 0 },
+};
+
+static const int DeviceLocalAccountInfoProto_EphemeralMode_entries_by_number[] = {
+  3, // 0 -> EPHEMERAL_MODE_UNSET
+  2, // 1 -> EPHEMERAL_MODE_FOLLOW_DEVICE_WIDE_POLICY
+  0, // 2 -> EPHEMERAL_MODE_DISABLE
+  1, // 3 -> EPHEMERAL_MODE_ENABLE
+};
+
+const std::string& DeviceLocalAccountInfoProto_EphemeralMode_Name(
+    DeviceLocalAccountInfoProto_EphemeralMode value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DeviceLocalAccountInfoProto_EphemeralMode_entries,
+          DeviceLocalAccountInfoProto_EphemeralMode_entries_by_number,
+          4, DeviceLocalAccountInfoProto_EphemeralMode_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DeviceLocalAccountInfoProto_EphemeralMode_entries,
+      DeviceLocalAccountInfoProto_EphemeralMode_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DeviceLocalAccountInfoProto_EphemeralMode_strings[idx].get();
+}
+bool DeviceLocalAccountInfoProto_EphemeralMode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceLocalAccountInfoProto_EphemeralMode* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DeviceLocalAccountInfoProto_EphemeralMode_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<DeviceLocalAccountInfoProto_EphemeralMode>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EPHEMERAL_MODE_UNSET;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EPHEMERAL_MODE_FOLLOW_DEVICE_WIDE_POLICY;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EPHEMERAL_MODE_DISABLE;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EPHEMERAL_MODE_ENABLE;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EphemeralMode_MIN;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EphemeralMode_MAX;
+constexpr int DeviceLocalAccountInfoProto::EphemeralMode_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool AccessibilitySettingsProto_ScreenMagnifierType_IsValid(int value) {
   switch (value) {
@@ -11626,6 +11696,9 @@ class DeviceLocalAccountInfoProto::_Internal {
   static void set_has_web_kiosk_app(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
+  static void set_has_ephemeral_mode(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
 };
 
 const ::enterprise_management::KioskAppInfoProto&
@@ -11681,7 +11754,9 @@ DeviceLocalAccountInfoProto::DeviceLocalAccountInfoProto(const DeviceLocalAccoun
   } else {
     web_kiosk_app_ = nullptr;
   }
-  type_ = from.type_;
+  ::memcpy(&type_, &from.type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&ephemeral_mode_) -
+    reinterpret_cast<char*>(&type_)) + sizeof(ephemeral_mode_));
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceLocalAccountInfoProto)
 }
 
@@ -11696,8 +11771,8 @@ account_id_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&kiosk_app_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&kiosk_app_)) + sizeof(type_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&ephemeral_mode_) -
+    reinterpret_cast<char*>(&kiosk_app_)) + sizeof(ephemeral_mode_));
 }
 
 DeviceLocalAccountInfoProto::~DeviceLocalAccountInfoProto() {
@@ -11749,7 +11824,11 @@ void DeviceLocalAccountInfoProto::Clear() {
       web_kiosk_app_->Clear();
     }
   }
-  type_ = 0;
+  if (cached_has_bits & 0x00000060u) {
+    ::memset(&type_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&ephemeral_mode_) -
+        reinterpret_cast<char*>(&type_)) + sizeof(ephemeral_mode_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -11813,6 +11892,19 @@ const char* DeviceLocalAccountInfoProto::_InternalParse(const char* ptr, ::_pbi:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_web_kiosk_app(), ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.DeviceLocalAccountInfoProto.EphemeralMode ephemeral_mode = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode_IsValid(val))) {
+            _internal_set_ephemeral_mode(static_cast<::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(7, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -11887,6 +11979,13 @@ uint8_t* DeviceLocalAccountInfoProto::_InternalSerialize(
         _Internal::web_kiosk_app(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.DeviceLocalAccountInfoProto.EphemeralMode ephemeral_mode = 7;
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      7, this->_internal_ephemeral_mode(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -11904,7 +12003,7 @@ size_t DeviceLocalAccountInfoProto::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     // optional string deprecated_public_session_id = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -11946,6 +12045,12 @@ size_t DeviceLocalAccountInfoProto::ByteSizeLong() const {
         ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
 
+    // optional .enterprise_management.DeviceLocalAccountInfoProto.EphemeralMode ephemeral_mode = 7;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_ephemeral_mode());
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -11968,7 +12073,7 @@ void DeviceLocalAccountInfoProto::MergeFrom(const DeviceLocalAccountInfoProto& f
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_deprecated_public_session_id(from._internal_deprecated_public_session_id());
     }
@@ -11986,6 +12091,9 @@ void DeviceLocalAccountInfoProto::MergeFrom(const DeviceLocalAccountInfoProto& f
     }
     if (cached_has_bits & 0x00000020u) {
       type_ = from.type_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      ephemeral_mode_ = from.ephemeral_mode_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -12018,8 +12126,8 @@ void DeviceLocalAccountInfoProto::InternalSwap(DeviceLocalAccountInfoProto* othe
       &other->account_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceLocalAccountInfoProto, type_)
-      + sizeof(DeviceLocalAccountInfoProto::type_)
+      PROTOBUF_FIELD_OFFSET(DeviceLocalAccountInfoProto, ephemeral_mode_)
+      + sizeof(DeviceLocalAccountInfoProto::ephemeral_mode_)
       - PROTOBUF_FIELD_OFFSET(DeviceLocalAccountInfoProto, kiosk_app_)>(
           reinterpret_cast<char*>(&kiosk_app_),
           reinterpret_cast<char*>(&other->kiosk_app_));
@@ -31514,44 +31622,44 @@ std::string DeviceFamilyLinkAccountsAllowedProto::GetTypeName() const {
 
 // ===================================================================
 
-class DeviceArcDataSnapshotHoursProto::_Internal {
+class OBSOLETE_DeviceArcDataSnapshotHoursProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<DeviceArcDataSnapshotHoursProto>()._has_bits_);
-  static void set_has_arc_data_snapshot_hours(HasBits* has_bits) {
+  using HasBits = decltype(std::declval<OBSOLETE_DeviceArcDataSnapshotHoursProto>()._has_bits_);
+  static void set_has_obsolete_arc_data_snapshot_hours(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-DeviceArcDataSnapshotHoursProto::DeviceArcDataSnapshotHoursProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+OBSOLETE_DeviceArcDataSnapshotHoursProto::OBSOLETE_DeviceArcDataSnapshotHoursProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceArcDataSnapshotHoursProto)
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto)
 }
-DeviceArcDataSnapshotHoursProto::DeviceArcDataSnapshotHoursProto(const DeviceArcDataSnapshotHoursProto& from)
+OBSOLETE_DeviceArcDataSnapshotHoursProto::OBSOLETE_DeviceArcDataSnapshotHoursProto(const OBSOLETE_DeviceArcDataSnapshotHoursProto& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  arc_data_snapshot_hours_.InitDefault();
+  obsolete_arc_data_snapshot_hours_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    arc_data_snapshot_hours_.Set("", GetArenaForAllocation());
+    obsolete_arc_data_snapshot_hours_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_arc_data_snapshot_hours()) {
-    arc_data_snapshot_hours_.Set(from._internal_arc_data_snapshot_hours(), 
+  if (from._internal_has_obsolete_arc_data_snapshot_hours()) {
+    obsolete_arc_data_snapshot_hours_.Set(from._internal_obsolete_arc_data_snapshot_hours(), 
       GetArenaForAllocation());
   }
-  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceArcDataSnapshotHoursProto)
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto)
 }
 
-inline void DeviceArcDataSnapshotHoursProto::SharedCtor() {
-arc_data_snapshot_hours_.InitDefault();
+inline void OBSOLETE_DeviceArcDataSnapshotHoursProto::SharedCtor() {
+obsolete_arc_data_snapshot_hours_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  arc_data_snapshot_hours_.Set("", GetArenaForAllocation());
+  obsolete_arc_data_snapshot_hours_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
-DeviceArcDataSnapshotHoursProto::~DeviceArcDataSnapshotHoursProto() {
-  // @@protoc_insertion_point(destructor:enterprise_management.DeviceArcDataSnapshotHoursProto)
+OBSOLETE_DeviceArcDataSnapshotHoursProto::~OBSOLETE_DeviceArcDataSnapshotHoursProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -31559,40 +31667,40 @@ DeviceArcDataSnapshotHoursProto::~DeviceArcDataSnapshotHoursProto() {
   SharedDtor();
 }
 
-inline void DeviceArcDataSnapshotHoursProto::SharedDtor() {
+inline void OBSOLETE_DeviceArcDataSnapshotHoursProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  arc_data_snapshot_hours_.Destroy();
+  obsolete_arc_data_snapshot_hours_.Destroy();
 }
 
-void DeviceArcDataSnapshotHoursProto::SetCachedSize(int size) const {
+void OBSOLETE_DeviceArcDataSnapshotHoursProto::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void DeviceArcDataSnapshotHoursProto::Clear() {
-// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceArcDataSnapshotHoursProto)
+void OBSOLETE_DeviceArcDataSnapshotHoursProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    arc_data_snapshot_hours_.ClearNonDefaultToEmpty();
+    obsolete_arc_data_snapshot_hours_.ClearNonDefaultToEmpty();
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DeviceArcDataSnapshotHoursProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* OBSOLETE_DeviceArcDataSnapshotHoursProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional string arc_data_snapshot_hours = 1;
+      // optional string OBSOLETE_arc_data_snapshot_hours = 1 [deprecated = true];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_arc_data_snapshot_hours();
+          auto str = _internal_mutable_obsolete_arc_data_snapshot_hours();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
@@ -31622,41 +31730,41 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DeviceArcDataSnapshotHoursProto::_InternalSerialize(
+uint8_t* OBSOLETE_DeviceArcDataSnapshotHoursProto::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceArcDataSnapshotHoursProto)
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional string arc_data_snapshot_hours = 1;
+  // optional string OBSOLETE_arc_data_snapshot_hours = 1 [deprecated = true];
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_arc_data_snapshot_hours(), target);
+        1, this->_internal_obsolete_arc_data_snapshot_hours(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceArcDataSnapshotHoursProto)
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto)
   return target;
 }
 
-size_t DeviceArcDataSnapshotHoursProto::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceArcDataSnapshotHoursProto)
+size_t OBSOLETE_DeviceArcDataSnapshotHoursProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional string arc_data_snapshot_hours = 1;
+  // optional string OBSOLETE_arc_data_snapshot_hours = 1 [deprecated = true];
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_arc_data_snapshot_hours());
+        this->_internal_obsolete_arc_data_snapshot_hours());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -31667,49 +31775,49 @@ size_t DeviceArcDataSnapshotHoursProto::ByteSizeLong() const {
   return total_size;
 }
 
-void DeviceArcDataSnapshotHoursProto::CheckTypeAndMergeFrom(
+void OBSOLETE_DeviceArcDataSnapshotHoursProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const DeviceArcDataSnapshotHoursProto*>(
+  MergeFrom(*::_pbi::DownCast<const OBSOLETE_DeviceArcDataSnapshotHoursProto*>(
       &from));
 }
 
-void DeviceArcDataSnapshotHoursProto::MergeFrom(const DeviceArcDataSnapshotHoursProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceArcDataSnapshotHoursProto)
+void OBSOLETE_DeviceArcDataSnapshotHoursProto::MergeFrom(const OBSOLETE_DeviceArcDataSnapshotHoursProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_arc_data_snapshot_hours()) {
-    _internal_set_arc_data_snapshot_hours(from._internal_arc_data_snapshot_hours());
+  if (from._internal_has_obsolete_arc_data_snapshot_hours()) {
+    _internal_set_obsolete_arc_data_snapshot_hours(from._internal_obsolete_arc_data_snapshot_hours());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void DeviceArcDataSnapshotHoursProto::CopyFrom(const DeviceArcDataSnapshotHoursProto& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceArcDataSnapshotHoursProto)
+void OBSOLETE_DeviceArcDataSnapshotHoursProto::CopyFrom(const OBSOLETE_DeviceArcDataSnapshotHoursProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool DeviceArcDataSnapshotHoursProto::IsInitialized() const {
+bool OBSOLETE_DeviceArcDataSnapshotHoursProto::IsInitialized() const {
   return true;
 }
 
-void DeviceArcDataSnapshotHoursProto::InternalSwap(DeviceArcDataSnapshotHoursProto* other) {
+void OBSOLETE_DeviceArcDataSnapshotHoursProto::InternalSwap(OBSOLETE_DeviceArcDataSnapshotHoursProto* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &arc_data_snapshot_hours_, lhs_arena,
-      &other->arc_data_snapshot_hours_, rhs_arena
+      &obsolete_arc_data_snapshot_hours_, lhs_arena,
+      &other->obsolete_arc_data_snapshot_hours_, rhs_arena
   );
 }
 
-std::string DeviceArcDataSnapshotHoursProto::GetTypeName() const {
-  return "enterprise_management.DeviceArcDataSnapshotHoursProto";
+std::string OBSOLETE_DeviceArcDataSnapshotHoursProto::GetTypeName() const {
+  return "enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto";
 }
 
 
@@ -34518,7 +34626,7 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_family_link_accounts_allowed(HasBits* has_bits) {
     (*has_bits)[3] |= 16384u;
   }
-  static const ::enterprise_management::DeviceArcDataSnapshotHoursProto& arc_data_snapshot_hours(const ChromeDeviceSettingsProto* msg);
+  static const ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto& arc_data_snapshot_hours(const ChromeDeviceSettingsProto* msg);
   static void set_has_arc_data_snapshot_hours(HasBits* has_bits) {
     (*has_bits)[3] |= 32768u;
   }
@@ -35092,7 +35200,7 @@ const ::enterprise_management::DeviceFamilyLinkAccountsAllowedProto&
 ChromeDeviceSettingsProto::_Internal::family_link_accounts_allowed(const ChromeDeviceSettingsProto* msg) {
   return *msg->family_link_accounts_allowed_;
 }
-const ::enterprise_management::DeviceArcDataSnapshotHoursProto&
+const ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto&
 ChromeDeviceSettingsProto::_Internal::arc_data_snapshot_hours(const ChromeDeviceSettingsProto* msg) {
   return *msg->arc_data_snapshot_hours_;
 }
@@ -35842,7 +35950,7 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
     family_link_accounts_allowed_ = nullptr;
   }
   if (from._internal_has_arc_data_snapshot_hours()) {
-    arc_data_snapshot_hours_ = new ::enterprise_management::DeviceArcDataSnapshotHoursProto(*from.arc_data_snapshot_hours_);
+    arc_data_snapshot_hours_ = new ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto(*from.arc_data_snapshot_hours_);
   } else {
     arc_data_snapshot_hours_ = nullptr;
   }
@@ -37688,7 +37796,7 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // optional .enterprise_management.DeviceArcDataSnapshotHoursProto arc_data_snapshot_hours = 115;
+      // optional .enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto arc_data_snapshot_hours = 115 [deprecated = true];
       case 115:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 154)) {
           ptr = ctx->ParseMessage(_internal_mutable_arc_data_snapshot_hours(), ptr);
@@ -38754,7 +38862,7 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         _Internal::family_link_accounts_allowed(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.DeviceArcDataSnapshotHoursProto arc_data_snapshot_hours = 115;
+  // optional .enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto arc_data_snapshot_hours = 115 [deprecated = true];
   if (cached_has_bits & 0x00008000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(115, _Internal::arc_data_snapshot_hours(this),
@@ -39803,7 +39911,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
           *family_link_accounts_allowed_);
     }
 
-    // optional .enterprise_management.DeviceArcDataSnapshotHoursProto arc_data_snapshot_hours = 115;
+    // optional .enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto arc_data_snapshot_hours = 115 [deprecated = true];
     if (cached_has_bits & 0x00008000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -40422,7 +40530,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_family_link_accounts_allowed()->::enterprise_management::DeviceFamilyLinkAccountsAllowedProto::MergeFrom(from._internal_family_link_accounts_allowed());
     }
     if (cached_has_bits & 0x00008000u) {
-      _internal_mutable_arc_data_snapshot_hours()->::enterprise_management::DeviceArcDataSnapshotHoursProto::MergeFrom(from._internal_arc_data_snapshot_hours());
+      _internal_mutable_arc_data_snapshot_hours()->::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto::MergeFrom(from._internal_arc_data_snapshot_hours());
     }
   }
   if (cached_has_bits & 0x00ff0000u) {
@@ -41061,9 +41169,9 @@ template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceFamilyLinkAccountsAl
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceFamilyLinkAccountsAllowedProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DeviceFamilyLinkAccountsAllowedProto >(arena);
 }
-template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceArcDataSnapshotHoursProto*
-Arena::CreateMaybeMessage< ::enterprise_management::DeviceArcDataSnapshotHoursProto >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::enterprise_management::DeviceArcDataSnapshotHoursProto >(arena);
+template<> PROTOBUF_NOINLINE ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto*
+Arena::CreateMaybeMessage< ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceSystemWideTracingEnabledProto*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceSystemWideTracingEnabledProto >(Arena* arena) {

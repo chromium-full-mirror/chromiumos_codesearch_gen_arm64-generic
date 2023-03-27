@@ -3017,6 +3017,64 @@ CrosHealthdEventService_AddEventObserver_Params_Data::CrosHealthdEventService_Ad
 
 
 // static
+bool CrosHealthdEventService_IsEventSupported_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdEventService_IsEventSupported_Params_Data* object =
+      static_cast<const CrosHealthdEventService_IsEventSupported_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::EventCategoryEnum_Data
+        ::Validate(object->category, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdEventService_IsEventSupported_Params_Data::CrosHealthdEventService_IsEventSupported_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdEventService_IsEventSupported_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdEventService_IsEventSupported_ResponseParams_Data* object =
+      static_cast<const CrosHealthdEventService_IsEventSupported_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->status, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->status, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdEventService_IsEventSupported_ResponseParams_Data::CrosHealthdEventService_IsEventSupported_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdProbeService_ProbeProcessInfo_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

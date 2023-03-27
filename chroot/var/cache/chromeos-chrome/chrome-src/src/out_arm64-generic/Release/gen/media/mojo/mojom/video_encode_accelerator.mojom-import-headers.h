@@ -16,6 +16,8 @@
 #include "mojo/public/mojom/base/time.mojom-import-headers.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-import-headers.h"
+#include "ui/gfx/mojom/color_space.mojom.h"
+#include "ui/gfx/mojom/color_space.mojom-import-headers.h"
 #include "media/mojo/mojom/video_encoder_info.mojom.h"
 #include "media/mojo/mojom/video_encoder_info.mojom-import-headers.h"
 #include "sandbox/policy/mojom/sandbox.mojom.h"

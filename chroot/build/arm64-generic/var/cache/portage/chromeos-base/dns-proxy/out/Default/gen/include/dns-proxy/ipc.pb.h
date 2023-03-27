@@ -28,6 +28,7 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_util.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_ipc_2eproto
@@ -51,6 +52,26 @@ template<> ::dns_proxy::ProxyAddrMessage* Arena::CreateMaybeMessage<::dns_proxy:
 PROTOBUF_NAMESPACE_CLOSE
 namespace dns_proxy {
 
+enum ProxyAddrMessage_MessageType : int {
+  ProxyAddrMessage_MessageType_UNKNOWN_MESSAGE = 0,
+  ProxyAddrMessage_MessageType_SET_ADDRS = 1,
+  ProxyAddrMessage_MessageType_CLEAR_ADDRS = 2
+};
+bool ProxyAddrMessage_MessageType_IsValid(int value);
+constexpr ProxyAddrMessage_MessageType ProxyAddrMessage_MessageType_MessageType_MIN = ProxyAddrMessage_MessageType_UNKNOWN_MESSAGE;
+constexpr ProxyAddrMessage_MessageType ProxyAddrMessage_MessageType_MessageType_MAX = ProxyAddrMessage_MessageType_CLEAR_ADDRS;
+constexpr int ProxyAddrMessage_MessageType_MessageType_ARRAYSIZE = ProxyAddrMessage_MessageType_MessageType_MAX + 1;
+
+const std::string& ProxyAddrMessage_MessageType_Name(ProxyAddrMessage_MessageType value);
+template<typename T>
+inline const std::string& ProxyAddrMessage_MessageType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ProxyAddrMessage_MessageType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ProxyAddrMessage_MessageType_Name.");
+  return ProxyAddrMessage_MessageType_Name(static_cast<ProxyAddrMessage_MessageType>(enum_t_value));
+}
+bool ProxyAddrMessage_MessageType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ProxyAddrMessage_MessageType* value);
 // ===================================================================
 
 class ProxyAddrMessage final :
@@ -160,10 +181,39 @@ class ProxyAddrMessage final :
 
   // nested types ----------------------------------------------------
 
+  typedef ProxyAddrMessage_MessageType MessageType;
+  static constexpr MessageType UNKNOWN_MESSAGE =
+    ProxyAddrMessage_MessageType_UNKNOWN_MESSAGE;
+  static constexpr MessageType SET_ADDRS =
+    ProxyAddrMessage_MessageType_SET_ADDRS;
+  static constexpr MessageType CLEAR_ADDRS =
+    ProxyAddrMessage_MessageType_CLEAR_ADDRS;
+  static inline bool MessageType_IsValid(int value) {
+    return ProxyAddrMessage_MessageType_IsValid(value);
+  }
+  static constexpr MessageType MessageType_MIN =
+    ProxyAddrMessage_MessageType_MessageType_MIN;
+  static constexpr MessageType MessageType_MAX =
+    ProxyAddrMessage_MessageType_MessageType_MAX;
+  static constexpr int MessageType_ARRAYSIZE =
+    ProxyAddrMessage_MessageType_MessageType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& MessageType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, MessageType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function MessageType_Name.");
+    return ProxyAddrMessage_MessageType_Name(enum_t_value);
+  }
+  static inline bool MessageType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      MessageType* value) {
+    return ProxyAddrMessage_MessageType_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kAddrsFieldNumber = 1,
+    kTypeFieldNumber = 2,
   };
   // repeated string addrs = 1;
   int addrs_size() const;
@@ -189,6 +239,19 @@ class ProxyAddrMessage final :
   std::string* _internal_add_addrs();
   public:
 
+  // required .dns_proxy.ProxyAddrMessage.MessageType type = 2;
+  bool has_type() const;
+  private:
+  bool _internal_has_type() const;
+  public:
+  void clear_type();
+  ::dns_proxy::ProxyAddrMessage_MessageType type() const;
+  void set_type(::dns_proxy::ProxyAddrMessage_MessageType value);
+  private:
+  ::dns_proxy::ProxyAddrMessage_MessageType _internal_type() const;
+  void _internal_set_type(::dns_proxy::ProxyAddrMessage_MessageType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:dns_proxy.ProxyAddrMessage)
  private:
   class _Internal;
@@ -197,8 +260,10 @@ class ProxyAddrMessage final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> addrs_;
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> addrs_;
+    int type_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_ipc_2eproto;
@@ -213,6 +278,35 @@ class ProxyAddrMessage final :
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
 // ProxyAddrMessage
+
+// required .dns_proxy.ProxyAddrMessage.MessageType type = 2;
+inline bool ProxyAddrMessage::_internal_has_type() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ProxyAddrMessage::has_type() const {
+  return _internal_has_type();
+}
+inline void ProxyAddrMessage::clear_type() {
+  _impl_.type_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline ::dns_proxy::ProxyAddrMessage_MessageType ProxyAddrMessage::_internal_type() const {
+  return static_cast< ::dns_proxy::ProxyAddrMessage_MessageType >(_impl_.type_);
+}
+inline ::dns_proxy::ProxyAddrMessage_MessageType ProxyAddrMessage::type() const {
+  // @@protoc_insertion_point(field_get:dns_proxy.ProxyAddrMessage.type)
+  return _internal_type();
+}
+inline void ProxyAddrMessage::_internal_set_type(::dns_proxy::ProxyAddrMessage_MessageType value) {
+  assert(::dns_proxy::ProxyAddrMessage_MessageType_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.type_ = value;
+}
+inline void ProxyAddrMessage::set_type(::dns_proxy::ProxyAddrMessage_MessageType value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:dns_proxy.ProxyAddrMessage.type)
+}
 
 // repeated string addrs = 1;
 inline int ProxyAddrMessage::_internal_addrs_size() const {
@@ -296,6 +390,12 @@ ProxyAddrMessage::mutable_addrs() {
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace dns_proxy
+
+PROTOBUF_NAMESPACE_OPEN
+
+template <> struct is_proto_enum< ::dns_proxy::ProxyAddrMessage_MessageType> : ::std::true_type {};
+
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 

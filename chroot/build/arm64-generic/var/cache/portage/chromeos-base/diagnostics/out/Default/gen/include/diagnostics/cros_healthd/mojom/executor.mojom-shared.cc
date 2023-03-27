@@ -1132,13 +1132,6 @@ bool Executor_GetLidAngle_ResponseParams_Data::Validate(
   [[maybe_unused]] const Executor_GetLidAngle_ResponseParams_Data* object =
       static_cast<const Executor_GetLidAngle_ResponseParams_Data*>(data);
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->result, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->result, validation_context))
-    return false;
-
   return true;
 }
 

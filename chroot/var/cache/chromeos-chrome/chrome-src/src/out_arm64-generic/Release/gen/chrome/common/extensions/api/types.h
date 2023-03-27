@@ -18,6 +18,8 @@
 #include <vector>
 
 #include "base/values.h"
+#include "base/strings/string_piece.h"
+
 
 namespace extensions {
 namespace api {
@@ -37,7 +39,7 @@ namespace types {
 // incognito profile that can only be set during an incognito session and is
 // deleted when the incognito session ends (overrides regular and
 // incognito_persistent preferences).</li></ul>
-enum ChromeSettingScope {
+enum  ChromeSettingScope {
   CHROME_SETTING_SCOPE_NONE,
   CHROME_SETTING_SCOPE_REGULAR,
   CHROME_SETTING_SCOPE_REGULAR_ONLY,
@@ -48,7 +50,7 @@ enum ChromeSettingScope {
 
 
 const char* ToString(ChromeSettingScope as_enum);
-ChromeSettingScope ParseChromeSettingScope(const std::string& as_string);
+ChromeSettingScope ParseChromeSettingScope(base::StringPiece as_string);
 
 // One of<ul><li><var>not_controllable</var>: cannot be controlled by any
 // extension</li><li><var>controlled_by_other_extensions</var>: controlled by
@@ -56,7 +58,7 @@ ChromeSettingScope ParseChromeSettingScope(const std::string& as_string);
 // precedence</li><li><var>controllable_by_this_extension</var>: can be
 // controlled by this extension</li><li><var>controlled_by_this_extension</var>:
 // controlled by this extension</li></ul>
-enum LevelOfControl {
+enum  LevelOfControl {
   LEVEL_OF_CONTROL_NONE,
   LEVEL_OF_CONTROL_NOT_CONTROLLABLE,
   LEVEL_OF_CONTROL_CONTROLLED_BY_OTHER_EXTENSIONS,
@@ -67,7 +69,7 @@ enum LevelOfControl {
 
 
 const char* ToString(LevelOfControl as_enum);
-LevelOfControl ParseLevelOfControl(const std::string& as_string);
+LevelOfControl ParseLevelOfControl(base::StringPiece as_string);
 
 // An interface that allows access to a Chrome browser setting. See
 // $(ref:accessibilityFeatures) for an example.
@@ -79,12 +81,19 @@ struct ChromeSetting {
   ChromeSetting(ChromeSetting&& rhs);
   ChromeSetting& operator=(ChromeSetting&& rhs);
 
-  // Populates a ChromeSetting object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, ChromeSetting* out);
+  // Populates a ChromeSetting object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, ChromeSetting& out);
+
+  // Populates a ChromeSetting object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, ChromeSetting& out);
 
   // Creates a ChromeSetting object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ChromeSetting> FromValue(const base::Value& value);
+  static std::unique_ptr<ChromeSetting> FromValueDeprecated(const base::Value& value);
+
+  // Creates a ChromeSetting object from a base::Value, or nullopt on failure.
+  static absl::optional<ChromeSetting> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChromeSetting object.

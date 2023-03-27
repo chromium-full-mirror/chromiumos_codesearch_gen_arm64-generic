@@ -15,6 +15,7 @@
 #include "mojo/public/mojom/base/shared_memory.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
+#include "ui/gfx/mojom/color_space.mojom-shared-internal.h"
 #include "media/mojo/mojom/video_encoder_info.mojom-shared-internal.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
@@ -1010,6 +1011,7 @@ class  BitstreamBufferMetadata_Data {
   uint8_t pad3_[4];
   internal::CodecMetadata_Data codec_metadata;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> encoded_size;
+  mojo::internal::Pointer<::gfx::mojom::internal::ColorSpace_Data> encoded_color_space;
 
  private:
   friend class mojo::internal::MessageFragment<BitstreamBufferMetadata_Data>;
@@ -1017,7 +1019,7 @@ class  BitstreamBufferMetadata_Data {
   BitstreamBufferMetadata_Data();
   ~BitstreamBufferMetadata_Data() = delete;
 };
-static_assert(sizeof(BitstreamBufferMetadata_Data) == 56,
+static_assert(sizeof(BitstreamBufferMetadata_Data) == 64,
               "Bad sizeof(BitstreamBufferMetadata_Data)");
 // Used by BitstreamBufferMetadata::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

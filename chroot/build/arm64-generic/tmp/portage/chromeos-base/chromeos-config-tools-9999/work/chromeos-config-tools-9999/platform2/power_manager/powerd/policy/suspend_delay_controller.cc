@@ -15,6 +15,7 @@
 #include <base/strings/string_number_conversions.h>
 #include <chromeos/dbus/service_constants.h>
 
+#include "power_manager/common/tracing.h"
 #include "power_manager/powerd/policy/suspend_delay_observer.h"
 #include "power_manager/proto_bindings/suspend.pb.h"
 
@@ -58,9 +59,8 @@ void SuspendDelayController::RegisterSuspendDelay(
   int delay_id = next_delay_id_++;
 
   DelayInfo info;
-  // Timeout is sent as |ToInternalValue| from clients.
-  base::TimeDelta timeout =
-      base::TimeDelta::FromInternalValue(request.timeout());
+  // Timeout is sent as microseconds from clients.
+  base::TimeDelta timeout = base::Microseconds(request.timeout());
   if ((timeout < base::TimeDelta()) || (timeout > max_delay_timeout_)) {
     info.timeout = max_delay_timeout_;
   } else {
@@ -217,6 +217,7 @@ void SuspendDelayController::RemoveDelayFromWaitList(int delay_id) {
 }
 
 void SuspendDelayController::OnMaxDelayExpiration() {
+  TRACE_EVENT("power", "SuspendDelayController::OnMaxDelayExpiration");
   std::string tardy_delays;
   for (int delay_id : delay_ids_being_waited_on_) {
     const DelayInfo& delay = registered_delays_[delay_id];
@@ -236,6 +237,7 @@ void SuspendDelayController::OnMaxDelayExpiration() {
 }
 
 void SuspendDelayController::OnMinDelayExpiration() {
+  TRACE_EVENT("power", "SuspendDelayController::OnMinDelayExpiration");
   if (delay_ids_being_waited_on_.empty()) {
     max_delay_expiration_timer_.Stop();
     PostNotifyObserversTask(current_suspend_id_);
@@ -250,6 +252,8 @@ void SuspendDelayController::PostNotifyObserversTask(int suspend_id) {
 }
 
 void SuspendDelayController::NotifyObservers(int suspend_id) {
+  TRACE_EVENT("power", "SuspendDelayController::NotifyObservers", "suspend_id",
+              suspend_id, "description", GetLogDescription());
   LOG(INFO) << "Notifying observers that " << GetLogDescription()
             << " is ready";
   for (SuspendDelayObserver& observer : observers_)

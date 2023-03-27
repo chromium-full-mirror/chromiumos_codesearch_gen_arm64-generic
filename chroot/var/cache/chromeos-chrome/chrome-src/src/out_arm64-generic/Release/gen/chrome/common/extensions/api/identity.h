@@ -18,6 +18,8 @@
 #include <vector>
 
 #include "base/values.h"
+#include "base/strings/string_piece.h"
+
 
 namespace extensions {
 namespace api {
@@ -35,12 +37,19 @@ struct AccountInfo {
   AccountInfo(AccountInfo&& rhs);
   AccountInfo& operator=(AccountInfo&& rhs);
 
-  // Populates a AccountInfo object from a base::Value. Returns whether |out|
+  // Populates a AccountInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, AccountInfo& out);
+
+  // Populates a AccountInfo object from a Dict& instance. Returns whether |out|
   // was successfully populated.
-  static bool Populate(const base::Value& value, AccountInfo* out);
+  static bool Populate(const base::Value::Dict& value, AccountInfo& out);
 
   // Creates a AccountInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AccountInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<AccountInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a AccountInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<AccountInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAccountInfo object.
@@ -52,7 +61,7 @@ struct AccountInfo {
 
 };
 
-enum AccountStatus {
+enum  AccountStatus {
   ACCOUNT_STATUS_NONE,
   ACCOUNT_STATUS_SYNC,
   ACCOUNT_STATUS_ANY,
@@ -61,7 +70,7 @@ enum AccountStatus {
 
 
 const char* ToString(AccountStatus as_enum);
-AccountStatus ParseAccountStatus(const std::string& as_string);
+AccountStatus ParseAccountStatus(base::StringPiece as_string);
 
 struct ProfileDetails {
   ProfileDetails();
@@ -71,12 +80,19 @@ struct ProfileDetails {
   ProfileDetails(ProfileDetails&& rhs);
   ProfileDetails& operator=(ProfileDetails&& rhs);
 
-  // Populates a ProfileDetails object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, ProfileDetails* out);
+  // Populates a ProfileDetails object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, ProfileDetails& out);
+
+  // Populates a ProfileDetails object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, ProfileDetails& out);
 
   // Creates a ProfileDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProfileDetails> FromValue(const base::Value& value);
+  static std::unique_ptr<ProfileDetails> FromValueDeprecated(const base::Value& value);
+
+  // Creates a ProfileDetails object from a base::Value, or nullopt on failure.
+  static absl::optional<ProfileDetails> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProfileDetails object.
@@ -97,12 +113,19 @@ struct ProfileUserInfo {
   ProfileUserInfo(ProfileUserInfo&& rhs);
   ProfileUserInfo& operator=(ProfileUserInfo&& rhs);
 
-  // Populates a ProfileUserInfo object from a base::Value. Returns whether
+  // Populates a ProfileUserInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, ProfileUserInfo& out);
+
+  // Populates a ProfileUserInfo object from a Dict& instance. Returns whether
   // |out| was successfully populated.
-  static bool Populate(const base::Value& value, ProfileUserInfo* out);
+  static bool Populate(const base::Value::Dict& value, ProfileUserInfo& out);
 
   // Creates a ProfileUserInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ProfileUserInfo> FromValue(const base::Value& value);
+  static std::unique_ptr<ProfileUserInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a ProfileUserInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<ProfileUserInfo> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProfileUserInfo object.
@@ -128,12 +151,19 @@ struct TokenDetails {
   TokenDetails(TokenDetails&& rhs);
   TokenDetails& operator=(TokenDetails&& rhs);
 
-  // Populates a TokenDetails object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, TokenDetails* out);
+  // Populates a TokenDetails object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, TokenDetails& out);
+
+  // Populates a TokenDetails object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, TokenDetails& out);
 
   // Creates a TokenDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<TokenDetails> FromValue(const base::Value& value);
+  static std::unique_ptr<TokenDetails> FromValueDeprecated(const base::Value& value);
+
+  // Creates a TokenDetails object from a base::Value, or nullopt on failure.
+  static absl::optional<TokenDetails> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTokenDetails object.
@@ -171,13 +201,21 @@ struct InvalidTokenDetails {
   InvalidTokenDetails(InvalidTokenDetails&& rhs);
   InvalidTokenDetails& operator=(InvalidTokenDetails&& rhs);
 
-  // Populates a InvalidTokenDetails object from a base::Value. Returns whether
-  // |out| was successfully populated.
-  static bool Populate(const base::Value& value, InvalidTokenDetails* out);
+  // Populates a InvalidTokenDetails object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, InvalidTokenDetails& out);
+
+  // Populates a InvalidTokenDetails object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, InvalidTokenDetails& out);
 
   // Creates a InvalidTokenDetails object from a base::Value, or NULL on
   // failure.
-  static std::unique_ptr<InvalidTokenDetails> FromValue(const base::Value& value);
+  static std::unique_ptr<InvalidTokenDetails> FromValueDeprecated(const base::Value& value);
+
+  // Creates a InvalidTokenDetails object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<InvalidTokenDetails> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInvalidTokenDetails object.
@@ -196,12 +234,20 @@ struct WebAuthFlowDetails {
   WebAuthFlowDetails(WebAuthFlowDetails&& rhs);
   WebAuthFlowDetails& operator=(WebAuthFlowDetails&& rhs);
 
-  // Populates a WebAuthFlowDetails object from a base::Value. Returns whether
-  // |out| was successfully populated.
-  static bool Populate(const base::Value& value, WebAuthFlowDetails* out);
+  // Populates a WebAuthFlowDetails object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, WebAuthFlowDetails& out);
+
+  // Populates a WebAuthFlowDetails object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, WebAuthFlowDetails& out);
 
   // Creates a WebAuthFlowDetails object from a base::Value, or NULL on failure.
-  static std::unique_ptr<WebAuthFlowDetails> FromValue(const base::Value& value);
+  static std::unique_ptr<WebAuthFlowDetails> FromValueDeprecated(const base::Value& value);
+
+  // Creates a WebAuthFlowDetails object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<WebAuthFlowDetails> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWebAuthFlowDetails object.
@@ -248,12 +294,20 @@ struct GetAuthTokenResult {
   GetAuthTokenResult(GetAuthTokenResult&& rhs);
   GetAuthTokenResult& operator=(GetAuthTokenResult&& rhs);
 
-  // Populates a GetAuthTokenResult object from a base::Value. Returns whether
-  // |out| was successfully populated.
-  static bool Populate(const base::Value& value, GetAuthTokenResult* out);
+  // Populates a GetAuthTokenResult object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, GetAuthTokenResult& out);
+
+  // Populates a GetAuthTokenResult object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, GetAuthTokenResult& out);
 
   // Creates a GetAuthTokenResult object from a base::Value, or NULL on failure.
-  static std::unique_ptr<GetAuthTokenResult> FromValue(const base::Value& value);
+  static std::unique_ptr<GetAuthTokenResult> FromValueDeprecated(const base::Value& value);
+
+  // Creates a GetAuthTokenResult object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<GetAuthTokenResult> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetAuthTokenResult object.

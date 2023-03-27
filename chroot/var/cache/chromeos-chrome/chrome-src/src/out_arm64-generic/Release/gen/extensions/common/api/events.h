@@ -36,12 +36,19 @@ struct Rule {
   Rule(Rule&& rhs);
   Rule& operator=(Rule&& rhs);
 
-  // Populates a Rule object from a base::Value. Returns whether |out| was
+  // Populates a Rule object from a base::Value& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value& value, Rule& out);
+
+  // Populates a Rule object from a Dict& instance. Returns whether |out| was
   // successfully populated.
-  static bool Populate(const base::Value& value, Rule* out);
+  static bool Populate(const base::Value::Dict& value, Rule& out);
 
   // Creates a Rule object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Rule> FromValue(const base::Value& value);
+  static std::unique_ptr<Rule> FromValueDeprecated(const base::Value& value);
+
+  // Creates a Rule object from a base::Value, or nullopt on failure.
+  static absl::optional<Rule> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRule object.

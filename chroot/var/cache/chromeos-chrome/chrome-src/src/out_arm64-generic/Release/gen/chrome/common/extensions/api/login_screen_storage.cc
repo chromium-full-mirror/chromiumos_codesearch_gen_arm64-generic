@@ -44,7 +44,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -54,7 +54,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
         return absl::nullopt;
       }
       else {
-        if (!json_schema_compiler::util::PopulateArrayFromList(extension_ids_value.GetList(), &params->extension_ids)) {
+        if (!json_schema_compiler::util::PopulateArrayFromList(extension_ids_value.GetList(), params.extension_ids)) {
           return absl::nullopt;
         }
       }
@@ -72,7 +72,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->data = *temp;
+      params.data = *temp;
     }
   }
   else {
@@ -102,7 +102,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -112,7 +112,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->owner_id = *temp;
+      params.owner_id = *temp;
     }
   }
   else {
@@ -144,7 +144,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -154,7 +154,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->extension_id = *temp;
+      params.extension_id = *temp;
     }
   }
   else {
@@ -169,7 +169,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->credentials = *temp;
+      params.credentials = *temp;
     }
   }
   else {

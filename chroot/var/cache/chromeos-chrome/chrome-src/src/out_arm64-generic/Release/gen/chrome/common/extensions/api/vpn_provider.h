@@ -18,6 +18,8 @@
 #include <vector>
 
 #include "base/values.h"
+#include "base/strings/string_piece.h"
+
 
 namespace extensions {
 namespace api {
@@ -35,12 +37,19 @@ struct Parameters {
   Parameters(Parameters&& rhs);
   Parameters& operator=(Parameters&& rhs);
 
-  // Populates a Parameters object from a base::Value. Returns whether |out| was
-  // successfully populated.
-  static bool Populate(const base::Value& value, Parameters* out);
+  // Populates a Parameters object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, Parameters& out);
+
+  // Populates a Parameters object from a Dict& instance. Returns whether |out|
+  // was successfully populated.
+  static bool Populate(const base::Value::Dict& value, Parameters& out);
 
   // Creates a Parameters object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Parameters> FromValue(const base::Value& value);
+  static std::unique_ptr<Parameters> FromValueDeprecated(const base::Value& value);
+
+  // Creates a Parameters object from a base::Value, or nullopt on failure.
+  static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisParameters object.
@@ -97,7 +106,7 @@ struct Parameters {
 
 // The enum is used by the platform to notify the client of the VPN session
 // status.
-enum PlatformMessage {
+enum  PlatformMessage {
   PLATFORM_MESSAGE_NONE,
   PLATFORM_MESSAGE_CONNECTED,
   PLATFORM_MESSAGE_DISCONNECTED,
@@ -112,11 +121,11 @@ enum PlatformMessage {
 
 
 const char* ToString(PlatformMessage as_enum);
-PlatformMessage ParsePlatformMessage(const std::string& as_string);
+PlatformMessage ParsePlatformMessage(base::StringPiece as_string);
 
 // The enum is used by the VPN client to inform the platform of its current
 // state. This helps provide meaningful messages to the user.
-enum VpnConnectionState {
+enum  VpnConnectionState {
   VPN_CONNECTION_STATE_NONE,
   VPN_CONNECTION_STATE_CONNECTED,
   VPN_CONNECTION_STATE_FAILURE,
@@ -125,11 +134,11 @@ enum VpnConnectionState {
 
 
 const char* ToString(VpnConnectionState as_enum);
-VpnConnectionState ParseVpnConnectionState(const std::string& as_string);
+VpnConnectionState ParseVpnConnectionState(base::StringPiece as_string);
 
 // The enum is used by the platform to indicate the event that triggered
 // <code>onUIEvent</code>.
-enum UIEvent {
+enum  UIEvent {
   UI_EVENT_NONE,
   UI_EVENT_SHOWADDDIALOG,
   UI_EVENT_SHOWCONFIGUREDIALOG,
@@ -138,7 +147,7 @@ enum UIEvent {
 
 
 const char* ToString(UIEvent as_enum);
-UIEvent ParseUIEvent(const std::string& as_string);
+UIEvent ParseUIEvent(base::StringPiece as_string);
 
 
 //

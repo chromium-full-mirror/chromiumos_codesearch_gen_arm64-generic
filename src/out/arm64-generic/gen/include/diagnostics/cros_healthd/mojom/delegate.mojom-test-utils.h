@@ -27,6 +27,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void MonitorTouchscreen(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> observer) override;
   void MonitorStylusGarage(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver> observer) override;
   void MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) override;
+  void GetLidAngle(GetLidAngleCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -51,6 +52,9 @@ class  DelegateAsyncWaiter {
   void FetchBootPerformance(
       ::ash::cros_healthd::mojom::BootPerformanceResultPtr* out_result);
   ::ash::cros_healthd::mojom::BootPerformanceResultPtr FetchBootPerformance();
+  void GetLidAngle(
+      absl::optional<uint16_t>* out_lid_angle);
+  absl::optional<uint16_t> GetLidAngle();
 
  private:
   Delegate* const proxy_;

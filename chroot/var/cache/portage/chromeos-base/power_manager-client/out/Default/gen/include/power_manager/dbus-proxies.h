@@ -341,14 +341,14 @@ class PowerManagerProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // The |timestamp_internal| arg is represented as the return value of
-  // base::TimeTicks::ToInternalValue().
+  // (|timestamp| - base::TimeTicks()).InMicroseconds().
   virtual bool HandlePowerButtonAcknowledgment(
       int64_t in_timestamp_internal,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // The |timestamp_internal| arg is represented as the return value of
-  // base::TimeTicks::ToInternalValue().
+  // (|timestamp| - base::TimeTicks()).InMicroseconds().
   virtual void HandlePowerButtonAcknowledgmentAsync(
       int64_t in_timestamp_internal,
       base::OnceCallback<void()> success_callback,
@@ -356,7 +356,7 @@ class PowerManagerProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // The |timeout_internal| arg is represented as the return value of
-  // base::TimeDelta::ToInternalValue(). Setting it to 0 cancels a
+  // base::TimeDelta::InMicroseconds(). Setting it to 0 cancels a
   // previously set period.
   virtual bool IgnoreNextPowerButtonPress(
       int64_t in_timeout_internal,
@@ -364,7 +364,7 @@ class PowerManagerProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // The |timeout_internal| arg is represented as the return value of
-  // base::TimeDelta::ToInternalValue(). Setting it to 0 cancels a
+  // base::TimeDelta::InMicroseconds(). Setting it to 0 cancels a
   // previously set period.
   virtual void IgnoreNextPowerButtonPressAsync(
       int64_t in_timeout_internal,
@@ -1615,7 +1615,7 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
   }
 
   // The |timestamp_internal| arg is represented as the return value of
-  // base::TimeTicks::ToInternalValue().
+  // (|timestamp| - base::TimeTicks()).InMicroseconds().
   bool HandlePowerButtonAcknowledgment(
       int64_t in_timestamp_internal,
       brillo::ErrorPtr* error,
@@ -1632,7 +1632,7 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
   }
 
   // The |timestamp_internal| arg is represented as the return value of
-  // base::TimeTicks::ToInternalValue().
+  // (|timestamp| - base::TimeTicks()).InMicroseconds().
   void HandlePowerButtonAcknowledgmentAsync(
       int64_t in_timestamp_internal,
       base::OnceCallback<void()> success_callback,
@@ -1649,7 +1649,7 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
   }
 
   // The |timeout_internal| arg is represented as the return value of
-  // base::TimeDelta::ToInternalValue(). Setting it to 0 cancels a
+  // base::TimeDelta::InMicroseconds(). Setting it to 0 cancels a
   // previously set period.
   bool IgnoreNextPowerButtonPress(
       int64_t in_timeout_internal,
@@ -1667,7 +1667,7 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
   }
 
   // The |timeout_internal| arg is represented as the return value of
-  // base::TimeDelta::ToInternalValue(). Setting it to 0 cancels a
+  // base::TimeDelta::InMicroseconds(). Setting it to 0 cancels a
   // previously set period.
   void IgnoreNextPowerButtonPressAsync(
       int64_t in_timeout_internal,

@@ -46,6 +46,8 @@ class HEADLESS_EXPORT ExperimentalObserver {
   // Shared storage was accessed by the associated page.
   // The following parameters are included in all events.
   virtual void OnSharedStorageAccessed(const SharedStorageAccessedParams& params) {}
+  virtual void OnStorageBucketCreatedOrUpdated(const StorageBucketCreatedOrUpdatedParams& params) {}
+  virtual void OnStorageBucketDeleted(const StorageBucketDeletedParams& params) {}
 };
 
 class HEADLESS_EXPORT Observer : public ExperimentalObserver {
@@ -64,6 +66,8 @@ class HEADLESS_EXPORT Observer : public ExperimentalObserver {
   // Experimental: Shared storage was accessed by the associated page.
   // The following parameters are included in all events.
   virtual void OnSharedStorageAccessed(const SharedStorageAccessedParams& params) final {}
+  virtual void OnStorageBucketCreatedOrUpdated(const StorageBucketCreatedOrUpdatedParams& params) final {}
+  virtual void OnStorageBucketDeleted(const StorageBucketDeletedParams& params) final {}
 };
 
 class HEADLESS_EXPORT Domain {
@@ -111,6 +115,8 @@ class HEADLESS_EXPORT Domain {
   static void HandleClearSharedStorageEntriesResponse(base::OnceCallback<void(std::unique_ptr<ClearSharedStorageEntriesResult>)> callback, const base::Value& response);
   static void HandleResetSharedStorageBudgetResponse(base::OnceCallback<void(std::unique_ptr<ResetSharedStorageBudgetResult>)> callback, const base::Value& response);
   static void HandleSetSharedStorageTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback, const base::Value& response);
+  static void HandleSetStorageBucketTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetStorageBucketTrackingResult>)> callback, const base::Value& response);
+  static void HandleDeleteStorageBucketResponse(base::OnceCallback<void(std::unique_ptr<DeleteStorageBucketResult>)> callback, const base::Value& response);
 
   void DispatchCacheStorageContentUpdatedEvent(const base::Value& params);
   void DispatchCacheStorageListUpdatedEvent(const base::Value& params);
@@ -118,6 +124,8 @@ class HEADLESS_EXPORT Domain {
   void DispatchIndexedDBListUpdatedEvent(const base::Value& params);
   void DispatchInterestGroupAccessedEvent(const base::Value& params);
   void DispatchSharedStorageAccessedEvent(const base::Value& params);
+  void DispatchStorageBucketCreatedOrUpdatedEvent(const base::Value& params);
+  void DispatchStorageBucketDeletedEvent(const base::Value& params);
 
   internal::MessageDispatcher* dispatcher_;  // Not owned.
   base::ObserverList<ExperimentalObserver>::Unchecked observers_;
@@ -226,6 +234,12 @@ class ExperimentalDomain : public Domain {
 
   // Enables/disables issuing of sharedStorageAccessed events.
   void SetSharedStorageTracking(std::unique_ptr<SetSharedStorageTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)>());
+
+  // Set tracking for a storage key's buckets.
+  void SetStorageBucketTracking(std::unique_ptr<SetStorageBucketTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetStorageBucketTrackingResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetStorageBucketTrackingResult>)>());
+
+  // Deletes the Storage Bucket with the given storage key and bucket name.
+  void DeleteStorageBucket(std::unique_ptr<DeleteStorageBucketParams> params, base::OnceCallback<void(std::unique_ptr<DeleteStorageBucketResult>)> callback = base::OnceCallback<void(std::unique_ptr<DeleteStorageBucketResult>)>());
 
 };
 

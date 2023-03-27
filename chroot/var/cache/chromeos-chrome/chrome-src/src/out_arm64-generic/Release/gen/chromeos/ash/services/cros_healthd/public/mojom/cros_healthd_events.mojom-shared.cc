@@ -83,6 +83,8 @@ NOINLINE static const char* EventCategoryEnumToStringHelper(EventCategoryEnum va
       return "kTouchscreen";
     case EventCategoryEnum::kStylusGarage:
       return "kStylusGarage";
+    case EventCategoryEnum::kStylus:
+      return "kStylus";
     default:
       return nullptr;
   }
@@ -502,6 +504,63 @@ bool TouchscreenEventInfo_Data::Validate(
   }
 }
 // static
+bool StylusEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const StylusEventInfo_Data* object = static_cast<const StylusEventInfo_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case StylusEventInfo_Tag::kDefaultType: {
+
+      return true;
+    }
+    case StylusEventInfo_Tag::kTouchEvent: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_touch_event, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_touch_event, validation_context))
+        return false;
+      return true;
+    }
+    case StylusEventInfo_Tag::kConnectedEvent: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_connected_event, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_connected_event, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
+// static
 bool EventInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context,
@@ -661,6 +720,17 @@ bool EventInfo_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_stylus_garage_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kStylusEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_stylus_event_info, 15, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateNonInlinedUnion(object->data.f_stylus_event_info,
+                                                   validation_context))
         return false;
       return true;
     }
@@ -1173,6 +1243,81 @@ bool StylusGarageEventInfo_Data::Validate(
 }
 
 StylusGarageEventInfo_Data::StylusGarageEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StylusTouchPointInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StylusTouchPointInfo_Data* object =
+      static_cast<const StylusTouchPointInfo_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->pressure, validation_context))
+    return false;
+
+  return true;
+}
+
+StylusTouchPointInfo_Data::StylusTouchPointInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StylusTouchEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StylusTouchEvent_Data* object =
+      static_cast<const StylusTouchEvent_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->touch_point, validation_context))
+    return false;
+
+  return true;
+}
+
+StylusTouchEvent_Data::StylusTouchEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StylusConnectedEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StylusConnectedEvent_Data* object =
+      static_cast<const StylusConnectedEvent_Data*>(data);
+
+  return true;
+}
+
+StylusConnectedEvent_Data::StylusConnectedEvent_Data()
     : header_({sizeof(*this), 0}) {}
 
 

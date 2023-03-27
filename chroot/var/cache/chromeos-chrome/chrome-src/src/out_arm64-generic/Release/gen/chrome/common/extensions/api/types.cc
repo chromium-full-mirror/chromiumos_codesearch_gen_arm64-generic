@@ -22,6 +22,8 @@
 #include "base/strings/utf_string_conversions.h"
 #include "base/values.h"
 #include "tools/json_schema_compiler/util.h"
+#include "base/strings/string_piece.h"
+
 
 using base::UTF8ToUTF16;
 
@@ -49,7 +51,7 @@ const char* ToString(ChromeSettingScope enum_param) {
   return "";
 }
 
-ChromeSettingScope ParseChromeSettingScope(const std::string& enum_string) {
+ChromeSettingScope ParseChromeSettingScope(base::StringPiece enum_string) {
   if (enum_string == "regular")
     return CHROME_SETTING_SCOPE_REGULAR;
   if (enum_string == "regular_only")
@@ -79,7 +81,7 @@ const char* ToString(LevelOfControl enum_param) {
   return "";
 }
 
-LevelOfControl ParseLevelOfControl(const std::string& enum_string) {
+LevelOfControl ParseLevelOfControl(base::StringPiece enum_string) {
   if (enum_string == "not_controllable")
     return LEVEL_OF_CONTROL_NOT_CONTROLLABLE;
   if (enum_string == "controlled_by_other_extensions")
@@ -100,19 +102,38 @@ ChromeSetting::ChromeSetting(ChromeSetting&& rhs) = default;
 ChromeSetting& ChromeSetting::operator=(ChromeSetting&& rhs) = default;
 // static
 bool ChromeSetting::Populate(
-    const base::Value& value, ChromeSetting* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
+    const base::Value::Dict& dict, ChromeSetting& out) {
   return true;
 }
 
 // static
-std::unique_ptr<ChromeSetting> ChromeSetting::FromValue(const base::Value& value) {
+bool ChromeSetting::Populate(
+    const base::Value& value, ChromeSetting& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<ChromeSetting> ChromeSetting::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<ChromeSetting>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<ChromeSetting> ChromeSetting::FromValue(const base::Value::Dict& value) {
+  absl::optional<ChromeSetting> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 

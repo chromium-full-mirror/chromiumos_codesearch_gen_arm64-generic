@@ -22,6 +22,8 @@
 #include "base/strings/utf_string_conversions.h"
 #include "base/values.h"
 #include "tools/json_schema_compiler/util.h"
+#include "base/strings/string_piece.h"
+
 
 using base::UTF8ToUTF16;
 
@@ -40,11 +42,7 @@ Parameters::Parameters(Parameters&& rhs) = default;
 Parameters& Parameters::operator=(Parameters&& rhs) = default;
 // static
 bool Parameters::Populate(
-    const base::Value& value, Parameters* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, Parameters& out) {
   const base::Value* address_value = dict.Find("address");
   if (!address_value) {
     return false;
@@ -54,7 +52,7 @@ bool Parameters::Populate(
     if (!temp) {
       return false;
     }
-    out->address = *temp;
+    out.address = *temp;
   }
 
   const base::Value* broadcast_address_value = dict.Find("broadcastAddress");
@@ -62,10 +60,10 @@ bool Parameters::Populate(
     {
       auto* temp = (*broadcast_address_value).GetIfString();
       if (!temp) {
-        out->broadcast_address = absl::nullopt;
+        out.broadcast_address = absl::nullopt;
         return false;
       }
-      out->broadcast_address = *temp;
+      out.broadcast_address = *temp;
     }
   }
 
@@ -74,10 +72,10 @@ bool Parameters::Populate(
     {
       auto* temp = (*mtu_value).GetIfString();
       if (!temp) {
-        out->mtu = absl::nullopt;
+        out.mtu = absl::nullopt;
         return false;
       }
-      out->mtu = *temp;
+      out.mtu = *temp;
     }
   }
 
@@ -90,7 +88,7 @@ bool Parameters::Populate(
       return false;
     }
     else {
-      if (!json_schema_compiler::util::PopulateArrayFromList((*exclusion_list_value).GetList(), &out->exclusion_list)) {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*exclusion_list_value).GetList(), out.exclusion_list)) {
         return false;
       }
     }
@@ -105,7 +103,7 @@ bool Parameters::Populate(
       return false;
     }
     else {
-      if (!json_schema_compiler::util::PopulateArrayFromList((*inclusion_list_value).GetList(), &out->inclusion_list)) {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*inclusion_list_value).GetList(), out.inclusion_list)) {
         return false;
       }
     }
@@ -118,7 +116,7 @@ bool Parameters::Populate(
         return false;
       }
       else {
-        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*domain_search_value).GetList(), &out->domain_search)) {
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*domain_search_value).GetList(), out.domain_search)) {
           return false;
         }
       }
@@ -134,7 +132,7 @@ bool Parameters::Populate(
       return false;
     }
     else {
-      if (!json_schema_compiler::util::PopulateArrayFromList((*dns_servers_value).GetList(), &out->dns_servers)) {
+      if (!json_schema_compiler::util::PopulateArrayFromList((*dns_servers_value).GetList(), out.dns_servers)) {
         return false;
       }
     }
@@ -145,10 +143,10 @@ bool Parameters::Populate(
     {
       auto* temp = (*reconnect_value).GetIfString();
       if (!temp) {
-        out->reconnect = absl::nullopt;
+        out.reconnect = absl::nullopt;
         return false;
       }
-      out->reconnect = *temp;
+      out.reconnect = *temp;
     }
   }
 
@@ -156,11 +154,33 @@ bool Parameters::Populate(
 }
 
 // static
-std::unique_ptr<Parameters> Parameters::FromValue(const base::Value& value) {
+bool Parameters::Populate(
+    const base::Value& value, Parameters& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<Parameters> Parameters::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<Parameters>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<Parameters> Parameters::FromValue(const base::Value::Dict& value) {
+  absl::optional<Parameters> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -221,7 +241,7 @@ const char* ToString(PlatformMessage enum_param) {
   return "";
 }
 
-PlatformMessage ParsePlatformMessage(const std::string& enum_string) {
+PlatformMessage ParsePlatformMessage(base::StringPiece enum_string) {
   if (enum_string == "connected")
     return PLATFORM_MESSAGE_CONNECTED;
   if (enum_string == "disconnected")
@@ -255,7 +275,7 @@ const char* ToString(VpnConnectionState enum_param) {
   return "";
 }
 
-VpnConnectionState ParseVpnConnectionState(const std::string& enum_string) {
+VpnConnectionState ParseVpnConnectionState(base::StringPiece enum_string) {
   if (enum_string == "connected")
     return VPN_CONNECTION_STATE_CONNECTED;
   if (enum_string == "failure")
@@ -277,7 +297,7 @@ const char* ToString(UIEvent enum_param) {
   return "";
 }
 
-UIEvent ParseUIEvent(const std::string& enum_string) {
+UIEvent ParseUIEvent(base::StringPiece enum_string) {
   if (enum_string == "showAddDialog")
     return UI_EVENT_SHOWADDDIALOG;
   if (enum_string == "showConfigureDialog")
@@ -303,7 +323,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -313,7 +333,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->name = *temp;
+      params.name = *temp;
     }
   }
   else {
@@ -345,7 +365,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -355,7 +375,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->id = *temp;
+      params.id = *temp;
     }
   }
   else {
@@ -385,7 +405,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -394,7 +414,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!parameters_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!Parameters::Populate(parameters_value, &params->parameters)) {
+      if (!Parameters::Populate(parameters_value.GetDict(), params.parameters)) {
         return absl::nullopt;
       }
     }
@@ -426,7 +446,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -436,7 +456,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
         return absl::nullopt;
       }
       else {
-        params->data = data_value.GetBlob();
+        params.data = data_value.GetBlob();
       }
     }
   }
@@ -467,7 +487,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -477,8 +497,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!vpn_connection_state_as_string) {
         return absl::nullopt;
       }
-      params->state = ParseVpnConnectionState(*vpn_connection_state_as_string);
-      if (params->state == VPN_CONNECTION_STATE_NONE) {
+      params.state = ParseVpnConnectionState(*vpn_connection_state_as_string);
+      if (params.state == VPN_CONNECTION_STATE_NONE) {
         return absl::nullopt;
       }
     }

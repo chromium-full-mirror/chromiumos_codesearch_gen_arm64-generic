@@ -40,6 +40,7 @@
 #include "cryptohome/error/cryptohome_crypto_error.h"
 #include "cryptohome/error/cryptohome_error.h"
 #include "cryptohome/error/cryptohome_mount_error.h"
+#include "cryptohome/features.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/keyset_management.h"
 #include "cryptohome/platform.h"
@@ -48,7 +49,6 @@
 #include "cryptohome/user_secret_stash_storage.h"
 #include "cryptohome/user_session/user_session_map.h"
 #include "cryptohome/username.h"
-#include "featured/feature_library.h"
 
 namespace cryptohome {
 
@@ -104,16 +104,15 @@ class AuthSession final {
     AuthBlockUtility* auth_block_utility = nullptr;
     AuthFactorManager* auth_factor_manager = nullptr;
     UserSecretStashStorage* user_secret_stash_storage = nullptr;
+    Features* features = nullptr;
   };
 
   // Creates new auth session for account_id. This method returns a unique_ptr
   // to the created AuthSession for the auth_session_manager to hold.
-  static std::unique_ptr<AuthSession> Create(
-      Username username,
-      unsigned int flags,
-      AuthIntent intent,
-      feature::PlatformFeaturesInterface* feature_lib,
-      BackingApis backing_apis);
+  static std::unique_ptr<AuthSession> Create(Username username,
+                                             unsigned int flags,
+                                             AuthIntent intent,
+                                             BackingApis backing_apis);
 
   // Construct an AuthSession initialized with all of the given state. This
   // should generally only be used directly in testing; production code should
@@ -240,10 +239,6 @@ class AuthSession final {
     vault_keyset_ = std::move(value);
   }
 
-  bool enable_create_backup_vk_with_uss_for_testing() const {
-    return enable_create_backup_vk_with_uss_;
-  }
-
   // Static function which returns a serialized token in a vector format. The
   // token is serialized into two uint64_t values which are stored in string of
   // size 16 bytes. The first 8 bytes represent the high value of the serialized
@@ -306,6 +301,13 @@ class AuthSession final {
   // password VaultKeyset. In each case a new backend pinweaver node is created.
   CryptohomeStatusOr<AuthInput> CreateAuthInputForMigration(
       const AuthInput& auth_input, AuthFactorType auth_factor_type);
+
+  // Creates AuthInput for selecting the correct auth factor to be used for
+  // authentication. As in this case the auth factor hasn't been decided yet,
+  // the AuthInput will typically be simpler than Add and Authenticate cases,
+  // and derivable from solely the |auth_factor_type|.
+  CryptohomeStatusOr<AuthInput> CreateAuthInputForSelectFactor(
+      AuthFactorType auth_factor_type);
 
   // Initializes a ChallengeCredentialAuthInput, i.e.
   // {.public_key_spki_der, .challenge_signature_algorithms} from
@@ -490,6 +492,12 @@ class AuthSession final {
   // backed by PinWeaver, the code will need to reset specific LE credentials.
   void ResetLECredentials();
 
+  // This function is used to reset the attempt count for rate-limiters.
+  // Normally credentials guarded by rate-limiters will never be locked, but we
+  // still check them to see if they're accidentally locked. In that case, the
+  // reset secret is the same as the rate-limiter's.
+  void ResetRateLimiterCredentials();
+
   // Authenticate the user with the single given auth factor. Additional
   // parameters are provided to aid legacy vault keyset authentication and
   // migration.
@@ -520,6 +528,17 @@ class AuthSession final {
       std::unique_ptr<AuthSessionPerformanceTimer>
           auth_session_performance_timer,
       StatusCallback on_done);
+
+  // Authenticates the user using the selected |auth_factor|. Used when the
+  // auth factor type takes multiple labels during authentication, and used as
+  // the callback for AuthBlockUtility::SelectAuthFactorWithAuthBlock.
+  void AuthenticateViaSelectedAuthFactor(
+      StatusCallback on_done,
+      std::unique_ptr<AuthSessionPerformanceTimer>
+          auth_session_performance_timer,
+      CryptohomeStatus callback_error,
+      std::optional<AuthInput> auth_input,
+      std::optional<AuthFactor> auth_factor);
 
   // Fetches a valid VaultKeyset for |obfuscated_username_| that matches the
   // label provided by key_data_.label(). The VaultKeyset is loaded and
@@ -641,8 +660,6 @@ class AuthSession final {
   // It's set only after GetRecoveryRequest() call, and is std::nullopt in other
   // cases.
   std::optional<brillo::SecureBlob> cryptohome_recovery_ephemeral_pub_key_;
-  // Switch to enable creation of the backup VaultKeysets together with the USS.
-  bool enable_create_backup_vk_with_uss_ = true;
   // Tokens from active auth factors, keyed off of the token's auth factor type.
   std::map<AuthFactorType, std::unique_ptr<PreparedAuthFactorToken>>
       active_auth_factor_tokens_;

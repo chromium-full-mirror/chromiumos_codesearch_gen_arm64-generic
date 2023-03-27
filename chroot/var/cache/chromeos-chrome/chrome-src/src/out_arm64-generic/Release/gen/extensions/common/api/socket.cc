@@ -22,6 +22,8 @@
 #include "base/strings/utf_string_conversions.h"
 #include "base/values.h"
 #include "tools/json_schema_compiler/util.h"
+#include "base/strings/string_piece.h"
+
 
 using base::UTF8ToUTF16;
 
@@ -45,7 +47,7 @@ const char* ToString(SocketType enum_param) {
   return "";
 }
 
-SocketType ParseSocketType(const std::string& enum_string) {
+SocketType ParseSocketType(base::StringPiece enum_string) {
   if (enum_string == "tcp")
     return SOCKET_TYPE_TCP;
   if (enum_string == "udp")
@@ -62,19 +64,38 @@ CreateOptions::CreateOptions(CreateOptions&& rhs) = default;
 CreateOptions& CreateOptions::operator=(CreateOptions&& rhs) = default;
 // static
 bool CreateOptions::Populate(
-    const base::Value& value, CreateOptions* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
+    const base::Value::Dict& dict, CreateOptions& out) {
   return true;
 }
 
 // static
-std::unique_ptr<CreateOptions> CreateOptions::FromValue(const base::Value& value) {
+bool CreateOptions::Populate(
+    const base::Value& value, CreateOptions& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<CreateOptions> CreateOptions::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<CreateOptions>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<CreateOptions> CreateOptions::FromValue(const base::Value::Dict& value) {
+  absl::optional<CreateOptions> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -94,11 +115,7 @@ CreateInfo::CreateInfo(CreateInfo&& rhs) = default;
 CreateInfo& CreateInfo::operator=(CreateInfo&& rhs) = default;
 // static
 bool CreateInfo::Populate(
-    const base::Value& value, CreateInfo* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, CreateInfo& out) {
   const base::Value* socket_id_value = dict.Find("socketId");
   if (!socket_id_value) {
     return false;
@@ -108,18 +125,40 @@ bool CreateInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->socket_id = *temp;
+    out.socket_id = *temp;
   }
 
   return true;
 }
 
 // static
-std::unique_ptr<CreateInfo> CreateInfo::FromValue(const base::Value& value) {
+bool CreateInfo::Populate(
+    const base::Value& value, CreateInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<CreateInfo> CreateInfo::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<CreateInfo>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<CreateInfo> CreateInfo::FromValue(const base::Value::Dict& value) {
+  absl::optional<CreateInfo> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -141,11 +180,7 @@ AcceptInfo::AcceptInfo(AcceptInfo&& rhs) = default;
 AcceptInfo& AcceptInfo::operator=(AcceptInfo&& rhs) = default;
 // static
 bool AcceptInfo::Populate(
-    const base::Value& value, AcceptInfo* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, AcceptInfo& out) {
   const base::Value* result_code_value = dict.Find("resultCode");
   if (!result_code_value) {
     return false;
@@ -155,7 +190,7 @@ bool AcceptInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->result_code = *temp;
+    out.result_code = *temp;
   }
 
   const base::Value* socket_id_value = dict.Find("socketId");
@@ -163,10 +198,10 @@ bool AcceptInfo::Populate(
     {
       auto temp = (*socket_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out->socket_id = absl::nullopt;
+        out.socket_id = absl::nullopt;
         return false;
       }
-      out->socket_id = *temp;
+      out.socket_id = *temp;
     }
   }
 
@@ -174,11 +209,33 @@ bool AcceptInfo::Populate(
 }
 
 // static
-std::unique_ptr<AcceptInfo> AcceptInfo::FromValue(const base::Value& value) {
+bool AcceptInfo::Populate(
+    const base::Value& value, AcceptInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<AcceptInfo> AcceptInfo::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<AcceptInfo>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<AcceptInfo> AcceptInfo::FromValue(const base::Value::Dict& value) {
+  absl::optional<AcceptInfo> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -204,11 +261,7 @@ ReadInfo::ReadInfo(ReadInfo&& rhs) = default;
 ReadInfo& ReadInfo::operator=(ReadInfo&& rhs) = default;
 // static
 bool ReadInfo::Populate(
-    const base::Value& value, ReadInfo* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, ReadInfo& out) {
   const base::Value* result_code_value = dict.Find("resultCode");
   if (!result_code_value) {
     return false;
@@ -218,7 +271,7 @@ bool ReadInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->result_code = *temp;
+    out.result_code = *temp;
   }
 
   const base::Value* data_value = dict.Find("data");
@@ -230,7 +283,7 @@ bool ReadInfo::Populate(
       return false;
     }
     else {
-      out->data = (*data_value).GetBlob();
+      out.data = (*data_value).GetBlob();
     }
   }
 
@@ -238,11 +291,33 @@ bool ReadInfo::Populate(
 }
 
 // static
-std::unique_ptr<ReadInfo> ReadInfo::FromValue(const base::Value& value) {
+bool ReadInfo::Populate(
+    const base::Value& value, ReadInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<ReadInfo> ReadInfo::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<ReadInfo>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<ReadInfo> ReadInfo::FromValue(const base::Value::Dict& value) {
+  absl::optional<ReadInfo> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -266,11 +341,7 @@ WriteInfo::WriteInfo(WriteInfo&& rhs) = default;
 WriteInfo& WriteInfo::operator=(WriteInfo&& rhs) = default;
 // static
 bool WriteInfo::Populate(
-    const base::Value& value, WriteInfo* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, WriteInfo& out) {
   const base::Value* bytes_written_value = dict.Find("bytesWritten");
   if (!bytes_written_value) {
     return false;
@@ -280,18 +351,40 @@ bool WriteInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->bytes_written = *temp;
+    out.bytes_written = *temp;
   }
 
   return true;
 }
 
 // static
-std::unique_ptr<WriteInfo> WriteInfo::FromValue(const base::Value& value) {
+bool WriteInfo::Populate(
+    const base::Value& value, WriteInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<WriteInfo> WriteInfo::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<WriteInfo>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<WriteInfo> WriteInfo::FromValue(const base::Value::Dict& value) {
+  absl::optional<WriteInfo> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -314,11 +407,7 @@ RecvFromInfo::RecvFromInfo(RecvFromInfo&& rhs) = default;
 RecvFromInfo& RecvFromInfo::operator=(RecvFromInfo&& rhs) = default;
 // static
 bool RecvFromInfo::Populate(
-    const base::Value& value, RecvFromInfo* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, RecvFromInfo& out) {
   const base::Value* result_code_value = dict.Find("resultCode");
   if (!result_code_value) {
     return false;
@@ -328,7 +417,7 @@ bool RecvFromInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->result_code = *temp;
+    out.result_code = *temp;
   }
 
   const base::Value* data_value = dict.Find("data");
@@ -340,7 +429,7 @@ bool RecvFromInfo::Populate(
       return false;
     }
     else {
-      out->data = (*data_value).GetBlob();
+      out.data = (*data_value).GetBlob();
     }
   }
 
@@ -353,7 +442,7 @@ bool RecvFromInfo::Populate(
     if (!temp) {
       return false;
     }
-    out->address = *temp;
+    out.address = *temp;
   }
 
   const base::Value* port_value = dict.Find("port");
@@ -365,18 +454,40 @@ bool RecvFromInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->port = *temp;
+    out.port = *temp;
   }
 
   return true;
 }
 
 // static
-std::unique_ptr<RecvFromInfo> RecvFromInfo::FromValue(const base::Value& value) {
+bool RecvFromInfo::Populate(
+    const base::Value& value, RecvFromInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<RecvFromInfo> RecvFromInfo::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<RecvFromInfo>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<RecvFromInfo> RecvFromInfo::FromValue(const base::Value::Dict& value) {
+  absl::optional<RecvFromInfo> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -405,11 +516,7 @@ SocketInfo::SocketInfo(SocketInfo&& rhs) = default;
 SocketInfo& SocketInfo::operator=(SocketInfo&& rhs) = default;
 // static
 bool SocketInfo::Populate(
-    const base::Value& value, SocketInfo* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, SocketInfo& out) {
   const base::Value* socket_type_value = dict.Find("socketType");
   if (!socket_type_value) {
     return false;
@@ -419,8 +526,8 @@ bool SocketInfo::Populate(
     if (!socket_type_as_string) {
       return false;
     }
-    out->socket_type = ParseSocketType(*socket_type_as_string);
-    if (out->socket_type == SOCKET_TYPE_NONE) {
+    out.socket_type = ParseSocketType(*socket_type_as_string);
+    if (out.socket_type == SOCKET_TYPE_NONE) {
       return false;
     }
   }
@@ -434,7 +541,7 @@ bool SocketInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->connected = *temp;
+    out.connected = *temp;
   }
 
   const base::Value* peer_address_value = dict.Find("peerAddress");
@@ -442,10 +549,10 @@ bool SocketInfo::Populate(
     {
       auto* temp = (*peer_address_value).GetIfString();
       if (!temp) {
-        out->peer_address = absl::nullopt;
+        out.peer_address = absl::nullopt;
         return false;
       }
-      out->peer_address = *temp;
+      out.peer_address = *temp;
     }
   }
 
@@ -454,10 +561,10 @@ bool SocketInfo::Populate(
     {
       auto temp = (*peer_port_value).GetIfInt();
       if (!temp.has_value()) {
-        out->peer_port = absl::nullopt;
+        out.peer_port = absl::nullopt;
         return false;
       }
-      out->peer_port = *temp;
+      out.peer_port = *temp;
     }
   }
 
@@ -466,10 +573,10 @@ bool SocketInfo::Populate(
     {
       auto* temp = (*local_address_value).GetIfString();
       if (!temp) {
-        out->local_address = absl::nullopt;
+        out.local_address = absl::nullopt;
         return false;
       }
-      out->local_address = *temp;
+      out.local_address = *temp;
     }
   }
 
@@ -478,10 +585,10 @@ bool SocketInfo::Populate(
     {
       auto temp = (*local_port_value).GetIfInt();
       if (!temp.has_value()) {
-        out->local_port = absl::nullopt;
+        out.local_port = absl::nullopt;
         return false;
       }
-      out->local_port = *temp;
+      out.local_port = *temp;
     }
   }
 
@@ -489,11 +596,33 @@ bool SocketInfo::Populate(
 }
 
 // static
-std::unique_ptr<SocketInfo> SocketInfo::FromValue(const base::Value& value) {
+bool SocketInfo::Populate(
+    const base::Value& value, SocketInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<SocketInfo> SocketInfo::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<SocketInfo>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<SocketInfo> SocketInfo::FromValue(const base::Value::Dict& value) {
+  absl::optional<SocketInfo> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -533,11 +662,7 @@ NetworkInterface::NetworkInterface(NetworkInterface&& rhs) = default;
 NetworkInterface& NetworkInterface::operator=(NetworkInterface&& rhs) = default;
 // static
 bool NetworkInterface::Populate(
-    const base::Value& value, NetworkInterface* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, NetworkInterface& out) {
   const base::Value* name_value = dict.Find("name");
   if (!name_value) {
     return false;
@@ -547,7 +672,7 @@ bool NetworkInterface::Populate(
     if (!temp) {
       return false;
     }
-    out->name = *temp;
+    out.name = *temp;
   }
 
   const base::Value* address_value = dict.Find("address");
@@ -559,7 +684,7 @@ bool NetworkInterface::Populate(
     if (!temp) {
       return false;
     }
-    out->address = *temp;
+    out.address = *temp;
   }
 
   const base::Value* prefix_length_value = dict.Find("prefixLength");
@@ -571,18 +696,40 @@ bool NetworkInterface::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->prefix_length = *temp;
+    out.prefix_length = *temp;
   }
 
   return true;
 }
 
 // static
-std::unique_ptr<NetworkInterface> NetworkInterface::FromValue(const base::Value& value) {
+bool NetworkInterface::Populate(
+    const base::Value& value, NetworkInterface& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<NetworkInterface> NetworkInterface::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<NetworkInterface>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<NetworkInterface> NetworkInterface::FromValue(const base::Value::Dict& value) {
+  absl::optional<NetworkInterface> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -608,20 +755,16 @@ TLSVersionConstraints::TLSVersionConstraints(TLSVersionConstraints&& rhs) = defa
 TLSVersionConstraints& TLSVersionConstraints::operator=(TLSVersionConstraints&& rhs) = default;
 // static
 bool TLSVersionConstraints::Populate(
-    const base::Value& value, TLSVersionConstraints* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, TLSVersionConstraints& out) {
   const base::Value* min_value = dict.Find("min");
   if (min_value) {
     {
       auto* temp = (*min_value).GetIfString();
       if (!temp) {
-        out->min = absl::nullopt;
+        out.min = absl::nullopt;
         return false;
       }
-      out->min = *temp;
+      out.min = *temp;
     }
   }
 
@@ -630,10 +773,10 @@ bool TLSVersionConstraints::Populate(
     {
       auto* temp = (*max_value).GetIfString();
       if (!temp) {
-        out->max = absl::nullopt;
+        out.max = absl::nullopt;
         return false;
       }
-      out->max = *temp;
+      out.max = *temp;
     }
   }
 
@@ -641,11 +784,33 @@ bool TLSVersionConstraints::Populate(
 }
 
 // static
-std::unique_ptr<TLSVersionConstraints> TLSVersionConstraints::FromValue(const base::Value& value) {
+bool TLSVersionConstraints::Populate(
+    const base::Value& value, TLSVersionConstraints& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<TLSVersionConstraints> TLSVersionConstraints::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<TLSVersionConstraints>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<TLSVersionConstraints> TLSVersionConstraints::FromValue(const base::Value::Dict& value) {
+  absl::optional<TLSVersionConstraints> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -673,11 +838,7 @@ SecureOptions::SecureOptions(SecureOptions&& rhs) = default;
 SecureOptions& SecureOptions::operator=(SecureOptions&& rhs) = default;
 // static
 bool SecureOptions::Populate(
-    const base::Value& value, SecureOptions* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, SecureOptions& out) {
   const base::Value* tls_version_value = dict.Find("tlsVersion");
   if (tls_version_value) {
     {
@@ -686,9 +847,9 @@ bool SecureOptions::Populate(
       }
       else {
         TLSVersionConstraints temp;
-        if (!TLSVersionConstraints::Populate((*tls_version_value), &temp))
+        if (!TLSVersionConstraints::Populate((*tls_version_value).GetDict(), temp))
           return false;
-        out->tls_version = std::move(temp);
+        out.tls_version = std::move(temp);
       }
     }
   }
@@ -697,11 +858,33 @@ bool SecureOptions::Populate(
 }
 
 // static
-std::unique_ptr<SecureOptions> SecureOptions::FromValue(const base::Value& value) {
+bool SecureOptions::Populate(
+    const base::Value& value, SecureOptions& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<SecureOptions> SecureOptions::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<SecureOptions>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<SecureOptions> SecureOptions::FromValue(const base::Value::Dict& value) {
+  absl::optional<SecureOptions> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -734,7 +917,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -744,8 +927,8 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!socket_type_as_string) {
         return absl::nullopt;
       }
-      params->type = ParseSocketType(*socket_type_as_string);
-      if (params->type == SOCKET_TYPE_NONE) {
+      params.type = ParseSocketType(*socket_type_as_string);
+      if (params.type == SOCKET_TYPE_NONE) {
         return absl::nullopt;
       }
     }
@@ -763,9 +946,9 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       }
       else {
         CreateOptions temp;
-        if (!CreateOptions::Populate(options_value, &temp))
+        if (!CreateOptions::Populate(options_value.GetDict(), temp))
           return absl::nullopt;
-        params->options = std::move(temp);
+        params.options = std::move(temp);
       }
     }
   }
@@ -795,7 +978,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -805,7 +988,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -830,7 +1013,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -840,7 +1023,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -855,7 +1038,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->hostname = *temp;
+      params.hostname = *temp;
     }
   }
   else {
@@ -870,7 +1053,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->port = *temp;
+      params.port = *temp;
     }
   }
   else {
@@ -902,7 +1085,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 3) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -912,7 +1095,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -927,7 +1110,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->address = *temp;
+      params.address = *temp;
     }
   }
   else {
@@ -942,7 +1125,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->port = *temp;
+      params.port = *temp;
     }
   }
   else {
@@ -974,7 +1157,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -984,7 +1167,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1009,7 +1192,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1019,7 +1202,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1032,10 +1215,10 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = buffer_size_value.GetIfInt();
       if (!temp.has_value()) {
-        params->buffer_size = absl::nullopt;
+        params.buffer_size = absl::nullopt;
         return absl::nullopt;
       }
-      params->buffer_size = *temp;
+      params.buffer_size = *temp;
     }
   }
 
@@ -1064,7 +1247,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1074,7 +1257,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1089,7 +1272,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
         return absl::nullopt;
       }
       else {
-        params->data = data_value.GetBlob();
+        params.data = data_value.GetBlob();
       }
     }
   }
@@ -1122,7 +1305,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1132,7 +1315,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1145,10 +1328,10 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = buffer_size_value.GetIfInt();
       if (!temp.has_value()) {
-        params->buffer_size = absl::nullopt;
+        params.buffer_size = absl::nullopt;
         return absl::nullopt;
       }
-      params->buffer_size = *temp;
+      params.buffer_size = *temp;
     }
   }
 
@@ -1177,7 +1360,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 4) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1187,7 +1370,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1202,7 +1385,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
         return absl::nullopt;
       }
       else {
-        params->data = data_value.GetBlob();
+        params.data = data_value.GetBlob();
       }
     }
   }
@@ -1218,7 +1401,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->address = *temp;
+      params.address = *temp;
     }
   }
   else {
@@ -1233,7 +1416,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->port = *temp;
+      params.port = *temp;
     }
   }
   else {
@@ -1265,7 +1448,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 3 || args.size() > 4) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1275,7 +1458,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1290,7 +1473,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->address = *temp;
+      params.address = *temp;
     }
   }
   else {
@@ -1305,7 +1488,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->port = *temp;
+      params.port = *temp;
     }
   }
   else {
@@ -1318,10 +1501,10 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = backlog_value.GetIfInt();
       if (!temp.has_value()) {
-        params->backlog = absl::nullopt;
+        params.backlog = absl::nullopt;
         return absl::nullopt;
       }
-      params->backlog = *temp;
+      params.backlog = *temp;
     }
   }
 
@@ -1350,7 +1533,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1360,7 +1543,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1392,7 +1575,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1402,7 +1585,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1417,7 +1600,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->enable = *temp;
+      params.enable = *temp;
     }
   }
   else {
@@ -1430,10 +1613,10 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = delay_value.GetIfInt();
       if (!temp.has_value()) {
-        params->delay = absl::nullopt;
+        params.delay = absl::nullopt;
         return absl::nullopt;
       }
-      params->delay = *temp;
+      params.delay = *temp;
     }
   }
 
@@ -1462,7 +1645,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1472,7 +1655,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1487,7 +1670,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->no_delay = *temp;
+      params.no_delay = *temp;
     }
   }
   else {
@@ -1519,7 +1702,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1529,7 +1712,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1572,7 +1755,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1582,7 +1765,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1597,7 +1780,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->address = *temp;
+      params.address = *temp;
     }
   }
   else {
@@ -1629,7 +1812,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1639,7 +1822,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1654,7 +1837,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->address = *temp;
+      params.address = *temp;
     }
   }
   else {
@@ -1686,7 +1869,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1696,7 +1879,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1711,7 +1894,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->ttl = *temp;
+      params.ttl = *temp;
     }
   }
   else {
@@ -1743,7 +1926,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1753,7 +1936,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1768,7 +1951,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->enabled = *temp;
+      params.enabled = *temp;
     }
   }
   else {
@@ -1800,7 +1983,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1810,7 +1993,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1842,7 +2025,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 1 || args.size() > 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -1852,7 +2035,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return absl::nullopt;
       }
-      params->socket_id = *temp;
+      params.socket_id = *temp;
     }
   }
   else {
@@ -1868,9 +2051,9 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       }
       else {
         SecureOptions temp;
-        if (!SecureOptions::Populate(options_value, &temp))
+        if (!SecureOptions::Populate(options_value.GetDict(), temp))
           return absl::nullopt;
-        params->options = std::move(temp);
+        params.options = std::move(temp);
       }
     }
   }

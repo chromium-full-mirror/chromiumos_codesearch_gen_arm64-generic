@@ -29,6 +29,7 @@
 #include "mojo/public/mojom/base/shared_memory.mojom-shared.h"
 #include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
+#include "ui/gfx/mojom/color_space.mojom-shared.h"
 #include "media/mojo/mojom/video_encoder_info.mojom-shared.h"
 #include "sandbox/policy/mojom/sandbox.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -949,6 +950,26 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->encoded_size.Get();
     return mojo::internal::Deserialize<::gfx::mojom::SizeDataView>(
+        pointer, output, message_);
+  }
+  inline void GetEncodedColorSpaceDataView(
+      ::gfx::mojom::ColorSpaceDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEncodedColorSpace(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::gfx::mojom::ColorSpaceDataView, UserType>(),
+    "Attempting to read the optional `encoded_color_space` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadEncodedColorSpace` instead "
+    "of `ReadEncodedColorSpace if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->encoded_color_space.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::ColorSpaceDataView>(
         pointer, output, message_);
   }
  private:
@@ -1892,6 +1913,14 @@ struct Serializer<::media::mojom::BitstreamBufferMetadataDataView, MaybeConstUse
         in_encoded_size, encoded_size_fragment);
     fragment->encoded_size.Set(
         encoded_size_fragment.is_null() ? nullptr : encoded_size_fragment.data());
+    decltype(Traits::encoded_color_space(input)) in_encoded_color_space = Traits::encoded_color_space(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->encoded_color_space)::BaseType> encoded_color_space_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::ColorSpaceDataView>(
+        in_encoded_color_space, encoded_color_space_fragment);
+    fragment->encoded_color_space.Set(
+        encoded_color_space_fragment.is_null() ? nullptr : encoded_color_space_fragment.data());
   }
 
   static bool Deserialize(::media::mojom::internal::BitstreamBufferMetadata_Data* input,
@@ -2228,6 +2257,11 @@ inline void BitstreamBufferMetadataDataView::GetEncodedSizeDataView(
     ::gfx::mojom::SizeDataView* output) {
   auto pointer = data_->encoded_size.Get();
   *output = ::gfx::mojom::SizeDataView(pointer, message_);
+}
+inline void BitstreamBufferMetadataDataView::GetEncodedColorSpaceDataView(
+    ::gfx::mojom::ColorSpaceDataView* output) {
+  auto pointer = data_->encoded_color_space.Get();
+  *output = ::gfx::mojom::ColorSpaceDataView(pointer, message_);
 }
 
 

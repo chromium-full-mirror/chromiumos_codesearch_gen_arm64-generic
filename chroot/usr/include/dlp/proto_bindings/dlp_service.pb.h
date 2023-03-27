@@ -320,6 +320,7 @@ class DlpFilesRule final :
   enum : int {
     kSourceUrlsFieldNumber = 1,
     kDestinationUrlsFieldNumber = 2,
+    kDestinationComponentsFieldNumber = 4,
     kLevelFieldNumber = 3,
   };
   // repeated string source_urls = 1;
@@ -370,6 +371,23 @@ class DlpFilesRule final :
   std::string* _internal_add_destination_urls();
   public:
 
+  // repeated .dlp.DlpComponent destination_components = 4;
+  int destination_components_size() const;
+  private:
+  int _internal_destination_components_size() const;
+  public:
+  void clear_destination_components();
+  private:
+  ::dlp::DlpComponent _internal_destination_components(int index) const;
+  void _internal_add_destination_components(::dlp::DlpComponent value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_destination_components();
+  public:
+  ::dlp::DlpComponent destination_components(int index) const;
+  void set_destination_components(int index, ::dlp::DlpComponent value);
+  void add_destination_components(::dlp::DlpComponent value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& destination_components() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_destination_components();
+
   // optional .dlp.DlpRuleLevel level = 3;
   bool has_level() const;
   private:
@@ -395,6 +413,7 @@ class DlpFilesRule final :
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> source_urls_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> destination_urls_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> destination_components_;
     int level_;
   };
   union { Impl_ _impl_; };
@@ -3386,6 +3405,51 @@ inline void DlpFilesRule::_internal_set_level(::dlp::DlpRuleLevel value) {
 inline void DlpFilesRule::set_level(::dlp::DlpRuleLevel value) {
   _internal_set_level(value);
   // @@protoc_insertion_point(field_set:dlp.DlpFilesRule.level)
+}
+
+// repeated .dlp.DlpComponent destination_components = 4;
+inline int DlpFilesRule::_internal_destination_components_size() const {
+  return _impl_.destination_components_.size();
+}
+inline int DlpFilesRule::destination_components_size() const {
+  return _internal_destination_components_size();
+}
+inline void DlpFilesRule::clear_destination_components() {
+  _impl_.destination_components_.Clear();
+}
+inline ::dlp::DlpComponent DlpFilesRule::_internal_destination_components(int index) const {
+  return static_cast< ::dlp::DlpComponent >(_impl_.destination_components_.Get(index));
+}
+inline ::dlp::DlpComponent DlpFilesRule::destination_components(int index) const {
+  // @@protoc_insertion_point(field_get:dlp.DlpFilesRule.destination_components)
+  return _internal_destination_components(index);
+}
+inline void DlpFilesRule::set_destination_components(int index, ::dlp::DlpComponent value) {
+  assert(::dlp::DlpComponent_IsValid(value));
+  _impl_.destination_components_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dlp.DlpFilesRule.destination_components)
+}
+inline void DlpFilesRule::_internal_add_destination_components(::dlp::DlpComponent value) {
+  assert(::dlp::DlpComponent_IsValid(value));
+  _impl_.destination_components_.Add(value);
+}
+inline void DlpFilesRule::add_destination_components(::dlp::DlpComponent value) {
+  _internal_add_destination_components(value);
+  // @@protoc_insertion_point(field_add:dlp.DlpFilesRule.destination_components)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+DlpFilesRule::destination_components() const {
+  // @@protoc_insertion_point(field_list:dlp.DlpFilesRule.destination_components)
+  return _impl_.destination_components_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+DlpFilesRule::_internal_mutable_destination_components() {
+  return &_impl_.destination_components_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+DlpFilesRule::mutable_destination_components() {
+  // @@protoc_insertion_point(field_mutable_list:dlp.DlpFilesRule.destination_components)
+  return _internal_mutable_destination_components();
 }
 
 // -------------------------------------------------------------------

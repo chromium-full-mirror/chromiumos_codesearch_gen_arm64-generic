@@ -75,6 +75,7 @@ constexpr uint32_t kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name = 4
 constexpr uint32_t kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name = 5;
 constexpr uint32_t kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name = 6;
 constexpr uint32_t kCrosHealthdEventService_AddEventObserver_Name = 7;
+constexpr uint32_t kCrosHealthdEventService_IsEventSupported_Name = 8;
 constexpr uint32_t kCrosHealthdProbeService_ProbeProcessInfo_Name = 0;
 constexpr uint32_t kCrosHealthdProbeService_ProbeTelemetryInfo_Name = 1;
 constexpr uint32_t kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name = 2;

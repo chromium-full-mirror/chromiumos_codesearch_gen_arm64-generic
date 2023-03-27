@@ -409,8 +409,8 @@ bool Platform::GetOwnership(const FilePath& path,
     ret = lstat(path.value().c_str(), &path_status);
 
   if (ret != 0) {
-    PLOG(ERROR) << (follow_links ? "" : "l") << "stat() of " << path.value()
-                << " failed.";
+    PLOG(ERROR) << (follow_links ? "" : "l") << "stat() of \"" << path.value()
+                << "\" failed.";
     return false;
   }
   if (user_id)
@@ -432,8 +432,8 @@ bool Platform::SetOwnership(const FilePath& path,
   else
     ret = lchown(path.value().c_str(), user_id, group_id);
   if (ret) {
-    PLOG(ERROR) << (follow_links ? "" : "l") << "chown() of " << path.value()
-                << " to (" << user_id << "," << group_id << ") failed.";
+    PLOG(ERROR) << (follow_links ? "" : "l") << "chown() of \"" << path.value()
+                << "\" to (" << user_id << "," << group_id << ") failed.";
     return false;
   }
   return true;
@@ -444,7 +444,7 @@ bool Platform::GetPermissions(const FilePath& path, mode_t* mode) const {
 
   struct stat path_status;
   if (stat(path.value().c_str(), &path_status) != 0) {
-    PLOG(ERROR) << "stat() of " << path.value() << " failed.";
+    PLOG(ERROR) << "stat() of \"" << path.value() << "\" failed.";
     return false;
   }
   *mode = path_status.st_mode;
@@ -455,8 +455,8 @@ bool Platform::SetPermissions(const FilePath& path, mode_t mode) {
   DCHECK(path.IsAbsolute()) << "path=" << path;
 
   if (chmod(path.value().c_str(), mode)) {
-    PLOG(ERROR) << "chmod() of " << path.value() << " to (" << std::oct << mode
-                << ") failed.";
+    PLOG(ERROR) << "chmod() of \"" << path.value() << "\" to (" << std::oct
+                << mode << ") failed.";
     return false;
   }
   return true;
@@ -520,7 +520,7 @@ bool Platform::GetQuotaProjectId(const base::FilePath& path,
     std::tie(fd, err) = brillo::SafeFD::Root().first.OpenExistingFile(path);
   }
   if (brillo::SafeFD::IsError(err)) {
-    PLOG(ERROR) << "Failed to open " << path.value() << " with error "
+    PLOG(ERROR) << "Failed to open \"" << path.value() << "\" with error "
                 << static_cast<int>(err);
     return false;
   }
@@ -549,7 +549,7 @@ bool Platform::SetQuotaProjectId(const base::FilePath& path, int project_id) {
     std::tie(fd, err) = brillo::SafeFD::Root().first.OpenExistingFile(path);
   }
   if (brillo::SafeFD::IsError(err)) {
-    PLOG(ERROR) << "Failed to open " << path.value() << " with error "
+    PLOG(ERROR) << "Failed to open \"" << path.value() << "\" with error "
                 << static_cast<int>(err);
     return false;
   }
@@ -569,7 +569,7 @@ bool Platform::SetQuotaProjectIdWithFd(int project_id, int fd, int* out_error) {
   fsx.fsx_projid = project_id;
   if (ioctl(fd, FS_IOC_FSSETXATTR, &fsx) < 0) {
     *out_error = errno;
-    PLOG(ERROR) << "ioctl(FS_IOC_FSSETXATTR) failed";
+    PLOG(ERROR) << "ioctl(FS_IOC_FSSETXATTR) failed: project_id=" << project_id;
     return false;
   }
   return true;
@@ -593,7 +593,7 @@ bool Platform::SetQuotaProjectInheritanceFlagWithFd(bool enable,
 
   if (ioctl(fd, FS_IOC_SETFLAGS, reinterpret_cast<void*>(&flags)) < 0) {
     *out_error = errno;
-    PLOG(ERROR) << "ioctl(FS_IOC_SETFLAGS) failed";
+    PLOG(ERROR) << "ioctl(FS_IOC_SETFLAGS) failed: flags=" << std::hex << flags;
     return false;
   }
   return true;
@@ -1004,7 +1004,7 @@ bool Platform::HasExtendedFileAttribute(const FilePath& path,
   ssize_t sz = lgetxattr(path.value().c_str(), name.c_str(), nullptr, 0);
   if (sz < 0) {
     if (errno != ENODATA) {
-      PLOG(ERROR) << "lgetxattr: " << path.value();
+      PLOG(ERROR) << "lgetxattr for " << name << ": " << path.value();
     }
     return false;
   }
@@ -1040,7 +1040,7 @@ bool Platform::GetExtendedFileAttributeAsString(const base::FilePath& path,
 
   ssize_t sz = lgetxattr(path.value().c_str(), name.c_str(), nullptr, 0);
   if (sz < 0) {
-    PLOG(ERROR) << "lgetxattr: " << path.value();
+    PLOG(ERROR) << "lgetxattr for " << name << ": " << path.value();
     return false;
   }
   std::vector<char> value_vector(sz);
@@ -1058,7 +1058,7 @@ bool Platform::GetExtendedFileAttribute(const base::FilePath& path,
   DCHECK(path.IsAbsolute()) << "path=" << path;
 
   if (lgetxattr(path.value().c_str(), name.c_str(), value, size) != size) {
-    PLOG(ERROR) << "lgetxattr: " << path.value();
+    PLOG(ERROR) << "lgetxattr for " << name << ": " << path.value();
     return false;
   }
   return true;
@@ -1071,7 +1071,8 @@ bool Platform::SetExtendedFileAttribute(const base::FilePath& path,
   DCHECK(path.IsAbsolute()) << "path=" << path;
 
   if (lsetxattr(path.value().c_str(), name.c_str(), value, size, 0) != 0) {
-    PLOG(ERROR) << "lsetxattr: " << path.value();
+    PLOG(ERROR) << "lsetxattr for " << name << ", " << value << ": "
+                << path.value();
     return false;
   }
   return true;
@@ -1082,7 +1083,7 @@ bool Platform::RemoveExtendedFileAttribute(const base::FilePath& path,
   DCHECK(path.IsAbsolute()) << "path=" << path;
 
   if (lremovexattr(path.value().c_str(), name.c_str()) != 0) {
-    PLOG(ERROR) << "lremovexattr: " << path.value();
+    PLOG(ERROR) << "lremovexattr for " << name << ": " << path.value();
     return false;
   }
   return true;
@@ -1108,7 +1109,7 @@ bool Platform::GetExtFileAttributes(const FilePath& path, int* flags) {
   return true;
 }
 
-bool Platform::SetExtFileAttributes(const FilePath& path, int flags) {
+bool Platform::SetExtFileAttributes(const FilePath& path, int added_flags) {
   DCHECK(path.IsAbsolute()) << "path=" << path;
 
   int fd = HANDLE_EINTR(open(path.value().c_str(), O_RDONLY));
@@ -1119,15 +1120,16 @@ bool Platform::SetExtFileAttributes(const FilePath& path, int flags) {
   // FS_IOC_SETFLAGS actually takes int*
   // though the signature suggests long*.
   // https://lwn.net/Articles/575846/
-  int current_flag;
-  if (ioctl(fd, FS_IOC_GETFLAGS, &current_flag) < 0) {
+  int current_flags;
+  if (ioctl(fd, FS_IOC_GETFLAGS, &current_flags) < 0) {
     PLOG(ERROR) << "ioctl GETFLAGS: " << path.value();
     IGNORE_EINTR(close(fd));
     return false;
   }
-  flags |= current_flag;
+  int flags = current_flags | added_flags;
   if (ioctl(fd, FS_IOC_SETFLAGS, &flags) < 0) {
-    PLOG(ERROR) << "ioctl SETFLAGS: " << path.value();
+    PLOG(ERROR) << "ioctl SETFLAGS for flags=" << std::hex << current_flags
+                << "+" << std::hex << added_flags << ": " << path.value();
     IGNORE_EINTR(close(fd));
     return false;
   }

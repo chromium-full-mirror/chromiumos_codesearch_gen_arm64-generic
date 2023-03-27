@@ -22,6 +22,8 @@
 #include "base/strings/utf_string_conversions.h"
 #include "base/values.h"
 #include "tools/json_schema_compiler/util.h"
+#include "base/strings/string_piece.h"
+
 
 using base::UTF8ToUTF16;
 
@@ -40,20 +42,16 @@ Debuggee::Debuggee(Debuggee&& rhs) = default;
 Debuggee& Debuggee::operator=(Debuggee&& rhs) = default;
 // static
 bool Debuggee::Populate(
-    const base::Value& value, Debuggee* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, Debuggee& out) {
   const base::Value* tab_id_value = dict.Find("tabId");
   if (tab_id_value) {
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out->tab_id = absl::nullopt;
+        out.tab_id = absl::nullopt;
         return false;
       }
-      out->tab_id = *temp;
+      out.tab_id = *temp;
     }
   }
 
@@ -62,10 +60,10 @@ bool Debuggee::Populate(
     {
       auto* temp = (*extension_id_value).GetIfString();
       if (!temp) {
-        out->extension_id = absl::nullopt;
+        out.extension_id = absl::nullopt;
         return false;
       }
-      out->extension_id = *temp;
+      out.extension_id = *temp;
     }
   }
 
@@ -74,10 +72,10 @@ bool Debuggee::Populate(
     {
       auto* temp = (*target_id_value).GetIfString();
       if (!temp) {
-        out->target_id = absl::nullopt;
+        out.target_id = absl::nullopt;
         return false;
       }
-      out->target_id = *temp;
+      out.target_id = *temp;
     }
   }
 
@@ -85,11 +83,33 @@ bool Debuggee::Populate(
 }
 
 // static
-std::unique_ptr<Debuggee> Debuggee::FromValue(const base::Value& value) {
+bool Debuggee::Populate(
+    const base::Value& value, Debuggee& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<Debuggee> Debuggee::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<Debuggee>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<Debuggee> Debuggee::FromValue(const base::Value::Dict& value) {
+  absl::optional<Debuggee> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -130,7 +150,7 @@ const char* ToString(TargetInfoType enum_param) {
   return "";
 }
 
-TargetInfoType ParseTargetInfoType(const std::string& enum_string) {
+TargetInfoType ParseTargetInfoType(base::StringPiece enum_string) {
   if (enum_string == "page")
     return TARGET_INFO_TYPE_PAGE;
   if (enum_string == "background_page")
@@ -156,7 +176,7 @@ const char* ToString(DetachReason enum_param) {
   return "";
 }
 
-DetachReason ParseDetachReason(const std::string& enum_string) {
+DetachReason ParseDetachReason(base::StringPiece enum_string) {
   if (enum_string == "target_closed")
     return DETACH_REASON_TARGET_CLOSED;
   if (enum_string == "canceled_by_user")
@@ -174,11 +194,7 @@ TargetInfo::TargetInfo(TargetInfo&& rhs) = default;
 TargetInfo& TargetInfo::operator=(TargetInfo&& rhs) = default;
 // static
 bool TargetInfo::Populate(
-    const base::Value& value, TargetInfo* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, TargetInfo& out) {
   const base::Value* type_value = dict.Find("type");
   if (!type_value) {
     return false;
@@ -188,8 +204,8 @@ bool TargetInfo::Populate(
     if (!target_info_type_as_string) {
       return false;
     }
-    out->type = ParseTargetInfoType(*target_info_type_as_string);
-    if (out->type == TARGET_INFO_TYPE_NONE) {
+    out.type = ParseTargetInfoType(*target_info_type_as_string);
+    if (out.type == TARGET_INFO_TYPE_NONE) {
       return false;
     }
   }
@@ -203,7 +219,7 @@ bool TargetInfo::Populate(
     if (!temp) {
       return false;
     }
-    out->id = *temp;
+    out.id = *temp;
   }
 
   const base::Value* tab_id_value = dict.Find("tabId");
@@ -211,10 +227,10 @@ bool TargetInfo::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out->tab_id = absl::nullopt;
+        out.tab_id = absl::nullopt;
         return false;
       }
-      out->tab_id = *temp;
+      out.tab_id = *temp;
     }
   }
 
@@ -223,10 +239,10 @@ bool TargetInfo::Populate(
     {
       auto* temp = (*extension_id_value).GetIfString();
       if (!temp) {
-        out->extension_id = absl::nullopt;
+        out.extension_id = absl::nullopt;
         return false;
       }
-      out->extension_id = *temp;
+      out.extension_id = *temp;
     }
   }
 
@@ -239,7 +255,7 @@ bool TargetInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->attached = *temp;
+    out.attached = *temp;
   }
 
   const base::Value* title_value = dict.Find("title");
@@ -251,7 +267,7 @@ bool TargetInfo::Populate(
     if (!temp) {
       return false;
     }
-    out->title = *temp;
+    out.title = *temp;
   }
 
   const base::Value* url_value = dict.Find("url");
@@ -263,7 +279,7 @@ bool TargetInfo::Populate(
     if (!temp) {
       return false;
     }
-    out->url = *temp;
+    out.url = *temp;
   }
 
   const base::Value* favicon_url_value = dict.Find("faviconUrl");
@@ -271,10 +287,10 @@ bool TargetInfo::Populate(
     {
       auto* temp = (*favicon_url_value).GetIfString();
       if (!temp) {
-        out->favicon_url = absl::nullopt;
+        out.favicon_url = absl::nullopt;
         return false;
       }
-      out->favicon_url = *temp;
+      out.favicon_url = *temp;
     }
   }
 
@@ -282,11 +298,33 @@ bool TargetInfo::Populate(
 }
 
 // static
-std::unique_ptr<TargetInfo> TargetInfo::FromValue(const base::Value& value) {
+bool TargetInfo::Populate(
+    const base::Value& value, TargetInfo& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<TargetInfo> TargetInfo::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<TargetInfo>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<TargetInfo> TargetInfo::FromValue(const base::Value::Dict& value) {
+  absl::optional<TargetInfo> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -337,7 +375,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 2) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -346,7 +384,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!target_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!Debuggee::Populate(target_value, &params->target)) {
+      if (!Debuggee::Populate(target_value.GetDict(), params.target)) {
         return absl::nullopt;
       }
     }
@@ -363,7 +401,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->required_version = *temp;
+      params.required_version = *temp;
     }
   }
   else {
@@ -393,7 +431,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -402,7 +440,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!target_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!Debuggee::Populate(target_value, &params->target)) {
+      if (!Debuggee::Populate(target_value.GetDict(), params.target)) {
         return absl::nullopt;
       }
     }
@@ -432,13 +470,18 @@ Params::CommandParams::CommandParams(CommandParams&& rhs) = default;
 Params::CommandParams& Params::CommandParams::operator=(CommandParams&& rhs) = default;
 // static
 bool Params::CommandParams::Populate(
-    const base::Value& value, CommandParams* out) {
+    const base::Value::Dict& dict, CommandParams& out) {
+  out.additional_properties.Merge(dict.Clone());
+  return true;
+}
+
+// static
+bool Params::CommandParams::Populate(
+    const base::Value& value, CommandParams& out) {
   if (!value.is_dict()) {
     return false;
   }
-  const base::Value::Dict& dict = value.GetDict();
-  out->additional_properties.Merge(dict.Clone());
-  return true;
+  return Populate(value.GetDict(), out);
 }
 
 
@@ -452,7 +495,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -461,7 +504,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!target_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!Debuggee::Populate(target_value, &params->target)) {
+      if (!Debuggee::Populate(target_value.GetDict(), params.target)) {
         return absl::nullopt;
       }
     }
@@ -478,7 +521,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!temp) {
         return absl::nullopt;
       }
-      params->method = *temp;
+      params.method = *temp;
     }
   }
   else {
@@ -494,9 +537,9 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       }
       else {
         CommandParams temp;
-        if (!CommandParams::Populate(command_params_value, &temp))
+        if (!CommandParams::Populate(command_params_value.GetDict(), temp))
           return absl::nullopt;
-        params->command_params = std::move(temp);
+        params.command_params = std::move(temp);
       }
     }
   }

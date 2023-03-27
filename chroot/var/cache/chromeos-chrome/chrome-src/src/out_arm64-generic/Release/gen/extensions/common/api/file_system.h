@@ -18,6 +18,8 @@
 #include <vector>
 
 #include "base/values.h"
+#include "base/strings/string_piece.h"
+
 
 namespace extensions {
 namespace api {
@@ -35,12 +37,19 @@ struct AcceptOption {
   AcceptOption(AcceptOption&& rhs);
   AcceptOption& operator=(AcceptOption&& rhs);
 
-  // Populates a AcceptOption object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, AcceptOption* out);
+  // Populates a AcceptOption object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, AcceptOption& out);
+
+  // Populates a AcceptOption object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, AcceptOption& out);
 
   // Creates a AcceptOption object from a base::Value, or NULL on failure.
-  static std::unique_ptr<AcceptOption> FromValue(const base::Value& value);
+  static std::unique_ptr<AcceptOption> FromValueDeprecated(const base::Value& value);
+
+  // Creates a AcceptOption object from a base::Value, or nullopt on failure.
+  static absl::optional<AcceptOption> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAcceptOption object.
@@ -60,7 +69,7 @@ struct AcceptOption {
 
 };
 
-enum ChooseEntryType {
+enum  ChooseEntryType {
   CHOOSE_ENTRY_TYPE_NONE,
   CHOOSE_ENTRY_TYPE_OPENFILE,
   CHOOSE_ENTRY_TYPE_OPENWRITABLEFILE,
@@ -71,7 +80,7 @@ enum ChooseEntryType {
 
 
 const char* ToString(ChooseEntryType as_enum);
-ChooseEntryType ParseChooseEntryType(const std::string& as_string);
+ChooseEntryType ParseChooseEntryType(base::StringPiece as_string);
 
 struct ChooseEntryOptions {
   ChooseEntryOptions();
@@ -81,12 +90,20 @@ struct ChooseEntryOptions {
   ChooseEntryOptions(ChooseEntryOptions&& rhs);
   ChooseEntryOptions& operator=(ChooseEntryOptions&& rhs);
 
-  // Populates a ChooseEntryOptions object from a base::Value. Returns whether
-  // |out| was successfully populated.
-  static bool Populate(const base::Value& value, ChooseEntryOptions* out);
+  // Populates a ChooseEntryOptions object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, ChooseEntryOptions& out);
+
+  // Populates a ChooseEntryOptions object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, ChooseEntryOptions& out);
 
   // Creates a ChooseEntryOptions object from a base::Value, or NULL on failure.
-  static std::unique_ptr<ChooseEntryOptions> FromValue(const base::Value& value);
+  static std::unique_ptr<ChooseEntryOptions> FromValueDeprecated(const base::Value& value);
+
+  // Creates a ChooseEntryOptions object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<ChooseEntryOptions> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChooseEntryOptions object.
@@ -124,13 +141,21 @@ struct RequestFileSystemOptions {
   RequestFileSystemOptions(RequestFileSystemOptions&& rhs);
   RequestFileSystemOptions& operator=(RequestFileSystemOptions&& rhs);
 
-  // Populates a RequestFileSystemOptions object from a base::Value. Returns
+  // Populates a RequestFileSystemOptions object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, RequestFileSystemOptions& out);
+
+  // Populates a RequestFileSystemOptions object from a Dict& instance. Returns
   // whether |out| was successfully populated.
-  static bool Populate(const base::Value& value, RequestFileSystemOptions* out);
+  static bool Populate(const base::Value::Dict& value, RequestFileSystemOptions& out);
 
   // Creates a RequestFileSystemOptions object from a base::Value, or NULL on
   // failure.
-  static std::unique_ptr<RequestFileSystemOptions> FromValue(const base::Value& value);
+  static std::unique_ptr<RequestFileSystemOptions> FromValueDeprecated(const base::Value& value);
+
+  // Creates a RequestFileSystemOptions object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<RequestFileSystemOptions> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRequestFileSystemOptions object.
@@ -153,12 +178,19 @@ struct Volume {
   Volume(Volume&& rhs);
   Volume& operator=(Volume&& rhs);
 
-  // Populates a Volume object from a base::Value. Returns whether |out| was
+  // Populates a Volume object from a base::Value& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value& value, Volume& out);
+
+  // Populates a Volume object from a Dict& instance. Returns whether |out| was
   // successfully populated.
-  static bool Populate(const base::Value& value, Volume* out);
+  static bool Populate(const base::Value::Dict& value, Volume& out);
 
   // Creates a Volume object from a base::Value, or NULL on failure.
-  static std::unique_ptr<Volume> FromValue(const base::Value& value);
+  static std::unique_ptr<Volume> FromValueDeprecated(const base::Value& value);
+
+  // Creates a Volume object from a base::Value, or nullopt on failure.
+  static absl::optional<Volume> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVolume object.
@@ -178,13 +210,21 @@ struct VolumeListChangedEvent {
   VolumeListChangedEvent(VolumeListChangedEvent&& rhs);
   VolumeListChangedEvent& operator=(VolumeListChangedEvent&& rhs);
 
-  // Populates a VolumeListChangedEvent object from a base::Value. Returns
+  // Populates a VolumeListChangedEvent object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, VolumeListChangedEvent& out);
+
+  // Populates a VolumeListChangedEvent object from a Dict& instance. Returns
   // whether |out| was successfully populated.
-  static bool Populate(const base::Value& value, VolumeListChangedEvent* out);
+  static bool Populate(const base::Value::Dict& value, VolumeListChangedEvent& out);
 
   // Creates a VolumeListChangedEvent object from a base::Value, or NULL on
   // failure.
-  static std::unique_ptr<VolumeListChangedEvent> FromValue(const base::Value& value);
+  static std::unique_ptr<VolumeListChangedEvent> FromValueDeprecated(const base::Value& value);
+
+  // Creates a VolumeListChangedEvent object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<VolumeListChangedEvent> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVolumeListChangedEvent object.
@@ -217,9 +257,13 @@ struct Params {
     Entry(Entry&& rhs);
     Entry& operator=(Entry&& rhs);
 
-    // Populates a Entry object from a base::Value. Returns whether |out| was
+    // Populates a Entry object from a base::Value& instance. Returns whether
+    // |out| was successfully populated.
+    static bool Populate(const base::Value& value, Entry& out);
+
+    // Populates a Entry object from a Dict& instance. Returns whether |out| was
     // successfully populated.
-    static bool Populate(const base::Value& value, Entry* out);
+    static bool Populate(const base::Value::Dict& value, Entry& out);
 
     base::Value::Dict additional_properties;
   };
@@ -257,9 +301,13 @@ struct Params {
     Entry(Entry&& rhs);
     Entry& operator=(Entry&& rhs);
 
-    // Populates a Entry object from a base::Value. Returns whether |out| was
+    // Populates a Entry object from a base::Value& instance. Returns whether
+    // |out| was successfully populated.
+    static bool Populate(const base::Value& value, Entry& out);
+
+    // Populates a Entry object from a Dict& instance. Returns whether |out| was
     // successfully populated.
-    static bool Populate(const base::Value& value, Entry* out);
+    static bool Populate(const base::Value::Dict& value, Entry& out);
 
     base::Value::Dict additional_properties;
   };
@@ -313,9 +361,13 @@ struct Params {
     Entry(Entry&& rhs);
     Entry& operator=(Entry&& rhs);
 
-    // Populates a Entry object from a base::Value. Returns whether |out| was
+    // Populates a Entry object from a base::Value& instance. Returns whether
+    // |out| was successfully populated.
+    static bool Populate(const base::Value& value, Entry& out);
+
+    // Populates a Entry object from a Dict& instance. Returns whether |out| was
     // successfully populated.
-    static bool Populate(const base::Value& value, Entry* out);
+    static bool Populate(const base::Value::Dict& value, Entry& out);
 
     base::Value::Dict additional_properties;
   };
@@ -473,9 +525,13 @@ struct Params {
     Entry(Entry&& rhs);
     Entry& operator=(Entry&& rhs);
 
-    // Populates a Entry object from a base::Value. Returns whether |out| was
+    // Populates a Entry object from a base::Value& instance. Returns whether
+    // |out| was successfully populated.
+    static bool Populate(const base::Value& value, Entry& out);
+
+    // Populates a Entry object from a Dict& instance. Returns whether |out| was
     // successfully populated.
-    static bool Populate(const base::Value& value, Entry* out);
+    static bool Populate(const base::Value::Dict& value, Entry& out);
 
     base::Value::Dict additional_properties;
   };

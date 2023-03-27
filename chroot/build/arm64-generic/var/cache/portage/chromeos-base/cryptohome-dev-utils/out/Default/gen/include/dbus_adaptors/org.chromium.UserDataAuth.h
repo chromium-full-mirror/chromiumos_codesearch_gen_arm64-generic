@@ -794,9 +794,6 @@ class CryptohomeMiscInterfaceInterface {
   virtual void GetRsuDeviceId(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetRsuDeviceIdReply>> response,
       const user_data_auth::GetRsuDeviceIdRequest& in_request) = 0;
-  virtual void CheckHealth(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::CheckHealthReply>> response,
-      const user_data_auth::CheckHealthRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::CryptohomeMiscInterface.
@@ -834,10 +831,6 @@ class CryptohomeMiscInterfaceAdaptor {
         "GetRsuDeviceId",
         base::Unretained(interface_),
         &CryptohomeMiscInterfaceInterface::GetRsuDeviceId);
-    itf->AddMethodHandler(
-        "CheckHealth",
-        base::Unretained(interface_),
-        &CryptohomeMiscInterfaceInterface::CheckHealth);
   }
 
   static dbus::ObjectPath GetObjectPath() {
@@ -868,10 +861,6 @@ class CryptohomeMiscInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetRsuDeviceId\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"CheckHealth\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

@@ -2790,39 +2790,6 @@ std::string GetProtoDebugStringWithIndent(const GetRsuDeviceIdRequest& value,
   return output;
 }
 
-std::string GetProtoDebugString(const CheckHealthRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const CheckHealthRequest& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const CheckHealthReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const CheckHealthReply& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  requires_powerwash: ";
-  base::StringAppendF(&output, "%s",
-                      value.requires_powerwash() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
 std::string GetProtoDebugString(const ResetApplicationContainerRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }

@@ -2467,18 +2467,6 @@ class CryptohomeMiscInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool CheckHealth(
-      const user_data_auth::CheckHealthRequest& in_request,
-      user_data_auth::CheckHealthReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void CheckHealthAsync(
-      const user_data_auth::CheckHealthRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::CheckHealthReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
 };
@@ -2697,37 +2685,6 @@ class CryptohomeMiscInterfaceProxy final : public CryptohomeMiscInterfaceProxyIn
         dbus_object_proxy_,
         "org.chromium.CryptohomeMiscInterface",
         "GetRsuDeviceId",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool CheckHealth(
-      const user_data_auth::CheckHealthRequest& in_request,
-      user_data_auth::CheckHealthReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.CryptohomeMiscInterface",
-        "CheckHealth",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void CheckHealthAsync(
-      const user_data_auth::CheckHealthRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::CheckHealthReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.CryptohomeMiscInterface",
-        "CheckHealth",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

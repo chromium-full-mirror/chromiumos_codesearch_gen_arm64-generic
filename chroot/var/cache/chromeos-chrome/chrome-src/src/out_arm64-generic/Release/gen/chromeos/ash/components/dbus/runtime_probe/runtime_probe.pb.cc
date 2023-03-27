@@ -396,6 +396,34 @@ struct EcI2cDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EcI2cDefaultTypeInternal _EcI2c_default_instance_;
+PROTOBUF_CONSTEXPR Tcpc_Fields::Tcpc_Fields(
+    ::_pbi::ConstantInitialized)
+  : port_(0u)
+  , vendor_id_(0u)
+  , product_id_(0u)
+  , device_id_(0u){}
+struct Tcpc_FieldsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Tcpc_FieldsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Tcpc_FieldsDefaultTypeInternal() {}
+  union {
+    Tcpc_Fields _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Tcpc_FieldsDefaultTypeInternal _Tcpc_Fields_default_instance_;
+PROTOBUF_CONSTEXPR Tcpc::Tcpc(
+    ::_pbi::ConstantInitialized)
+  : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , values_(nullptr){}
+struct TcpcDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TcpcDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TcpcDefaultTypeInternal() {}
+  union {
+    Tcpc _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TcpcDefaultTypeInternal _Tcpc_default_instance_;
 PROTOBUF_CONSTEXPR ProbeResult::ProbeResult(
     ::_pbi::ConstantInitialized)
   : audio_codec_()
@@ -478,6 +506,7 @@ PROTOBUF_CONSTEXPR ProbeSsfcComponentsResponse::ProbeSsfcComponentsResponse(
     ::_pbi::ConstantInitialized)
   : ap_i2c_()
   , ec_i2c_()
+  , tcpc_()
   , probe_config_checksum_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , error_(0)
 {}
@@ -9174,6 +9203,486 @@ std::string EcI2c::GetTypeName() const {
 
 // ===================================================================
 
+class Tcpc_Fields::_Internal {
+ public:
+};
+
+Tcpc_Fields::Tcpc_Fields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:runtime_probe.Tcpc.Fields)
+}
+Tcpc_Fields::Tcpc_Fields(const Tcpc_Fields& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&port_, &from.port_,
+    static_cast<size_t>(reinterpret_cast<char*>(&device_id_) -
+    reinterpret_cast<char*>(&port_)) + sizeof(device_id_));
+  // @@protoc_insertion_point(copy_constructor:runtime_probe.Tcpc.Fields)
+}
+
+inline void Tcpc_Fields::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&port_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&device_id_) -
+    reinterpret_cast<char*>(&port_)) + sizeof(device_id_));
+}
+
+Tcpc_Fields::~Tcpc_Fields() {
+  // @@protoc_insertion_point(destructor:runtime_probe.Tcpc.Fields)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Tcpc_Fields::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void Tcpc_Fields::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Tcpc_Fields::Clear() {
+// @@protoc_insertion_point(message_clear_start:runtime_probe.Tcpc.Fields)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&port_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&device_id_) -
+      reinterpret_cast<char*>(&port_)) + sizeof(device_id_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* Tcpc_Fields::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 port = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 vendor_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          vendor_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 product_id = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          product_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 device_id = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          device_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Tcpc_Fields::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:runtime_probe.Tcpc.Fields)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 port = 1;
+  if (this->_internal_port() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_port(), target);
+  }
+
+  // uint32 vendor_id = 2;
+  if (this->_internal_vendor_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_vendor_id(), target);
+  }
+
+  // uint32 product_id = 3;
+  if (this->_internal_product_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_product_id(), target);
+  }
+
+  // uint32 device_id = 4;
+  if (this->_internal_device_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_device_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:runtime_probe.Tcpc.Fields)
+  return target;
+}
+
+size_t Tcpc_Fields::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:runtime_probe.Tcpc.Fields)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint32 port = 1;
+  if (this->_internal_port() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_port());
+  }
+
+  // uint32 vendor_id = 2;
+  if (this->_internal_vendor_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_vendor_id());
+  }
+
+  // uint32 product_id = 3;
+  if (this->_internal_product_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_product_id());
+  }
+
+  // uint32 device_id = 4;
+  if (this->_internal_device_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_device_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Tcpc_Fields::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const Tcpc_Fields*>(
+      &from));
+}
+
+void Tcpc_Fields::MergeFrom(const Tcpc_Fields& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:runtime_probe.Tcpc.Fields)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_port() != 0) {
+    _internal_set_port(from._internal_port());
+  }
+  if (from._internal_vendor_id() != 0) {
+    _internal_set_vendor_id(from._internal_vendor_id());
+  }
+  if (from._internal_product_id() != 0) {
+    _internal_set_product_id(from._internal_product_id());
+  }
+  if (from._internal_device_id() != 0) {
+    _internal_set_device_id(from._internal_device_id());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void Tcpc_Fields::CopyFrom(const Tcpc_Fields& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:runtime_probe.Tcpc.Fields)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Tcpc_Fields::IsInitialized() const {
+  return true;
+}
+
+void Tcpc_Fields::InternalSwap(Tcpc_Fields* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Tcpc_Fields, device_id_)
+      + sizeof(Tcpc_Fields::device_id_)
+      - PROTOBUF_FIELD_OFFSET(Tcpc_Fields, port_)>(
+          reinterpret_cast<char*>(&port_),
+          reinterpret_cast<char*>(&other->port_));
+}
+
+std::string Tcpc_Fields::GetTypeName() const {
+  return "runtime_probe.Tcpc.Fields";
+}
+
+
+// ===================================================================
+
+class Tcpc::_Internal {
+ public:
+  static const ::runtime_probe::Tcpc_Fields& values(const Tcpc* msg);
+};
+
+const ::runtime_probe::Tcpc_Fields&
+Tcpc::_Internal::values(const Tcpc* msg) {
+  return *msg->values_;
+}
+Tcpc::Tcpc(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:runtime_probe.Tcpc)
+}
+Tcpc::Tcpc(const Tcpc& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_name().empty()) {
+    name_.Set(from._internal_name(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_values()) {
+    values_ = new ::runtime_probe::Tcpc_Fields(*from.values_);
+  } else {
+    values_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:runtime_probe.Tcpc)
+}
+
+inline void Tcpc::SharedCtor() {
+name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+values_ = nullptr;
+}
+
+Tcpc::~Tcpc() {
+  // @@protoc_insertion_point(destructor:runtime_probe.Tcpc)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Tcpc::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  name_.Destroy();
+  if (this != internal_default_instance()) delete values_;
+}
+
+void Tcpc::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Tcpc::Clear() {
+// @@protoc_insertion_point(message_clear_start:runtime_probe.Tcpc)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && values_ != nullptr) {
+    delete values_;
+  }
+  values_ = nullptr;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* Tcpc::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .runtime_probe.Tcpc.Fields values = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_values(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Tcpc::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:runtime_probe.Tcpc)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Tcpc.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // .runtime_probe.Tcpc.Fields values = 2;
+  if (this->_internal_has_values()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::values(this),
+        _Internal::values(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:runtime_probe.Tcpc)
+  return target;
+}
+
+size_t Tcpc::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:runtime_probe.Tcpc)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // .runtime_probe.Tcpc.Fields values = 2;
+  if (this->_internal_has_values()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *values_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Tcpc::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const Tcpc*>(
+      &from));
+}
+
+void Tcpc::MergeFrom(const Tcpc& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:runtime_probe.Tcpc)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _internal_set_name(from._internal_name());
+  }
+  if (from._internal_has_values()) {
+    _internal_mutable_values()->::runtime_probe::Tcpc_Fields::MergeFrom(from._internal_values());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void Tcpc::CopyFrom(const Tcpc& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:runtime_probe.Tcpc)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Tcpc::IsInitialized() const {
+  return true;
+}
+
+void Tcpc::InternalSwap(Tcpc* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  swap(values_, other->values_);
+}
+
+std::string Tcpc::GetTypeName() const {
+  return "runtime_probe.Tcpc";
+}
+
+
+// ===================================================================
+
 class ProbeResult::_Internal {
  public:
 };
@@ -11286,14 +11795,16 @@ ProbeSsfcComponentsResponse::ProbeSsfcComponentsResponse(::PROTOBUF_NAMESPACE_ID
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   ap_i2c_(arena),
-  ec_i2c_(arena) {
+  ec_i2c_(arena),
+  tcpc_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:runtime_probe.ProbeSsfcComponentsResponse)
 }
 ProbeSsfcComponentsResponse::ProbeSsfcComponentsResponse(const ProbeSsfcComponentsResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       ap_i2c_(from.ap_i2c_),
-      ec_i2c_(from.ec_i2c_) {
+      ec_i2c_(from.ec_i2c_),
+      tcpc_(from.tcpc_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   probe_config_checksum_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -11341,6 +11852,7 @@ void ProbeSsfcComponentsResponse::Clear() {
 
   ap_i2c_.Clear();
   ec_i2c_.Clear();
+  tcpc_.Clear();
   probe_config_checksum_.ClearToEmpty();
   error_ = 0;
   _internal_metadata_.Clear<std::string>();
@@ -11394,6 +11906,19 @@ const char* ProbeSsfcComponentsResponse::_InternalParse(const char* ptr, ::_pbi:
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<98>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .runtime_probe.Tcpc tcpc = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_tcpc(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<106>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -11459,6 +11984,14 @@ uint8_t* ProbeSsfcComponentsResponse::_InternalSerialize(
         InternalWriteMessage(12, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .runtime_probe.Tcpc tcpc = 13;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_tcpc_size()); i < n; i++) {
+    const auto& repfield = this->_internal_tcpc(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(13, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -11485,6 +12018,13 @@ size_t ProbeSsfcComponentsResponse::ByteSizeLong() const {
   // repeated .runtime_probe.EcI2c ec_i2c = 12;
   total_size += 1UL * this->_internal_ec_i2c_size();
   for (const auto& msg : this->ec_i2c_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .runtime_probe.Tcpc tcpc = 13;
+  total_size += 1UL * this->_internal_tcpc_size();
+  for (const auto& msg : this->tcpc_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -11524,6 +12064,7 @@ void ProbeSsfcComponentsResponse::MergeFrom(const ProbeSsfcComponentsResponse& f
 
   ap_i2c_.MergeFrom(from.ap_i2c_);
   ec_i2c_.MergeFrom(from.ec_i2c_);
+  tcpc_.MergeFrom(from.tcpc_);
   if (!from._internal_probe_config_checksum().empty()) {
     _internal_set_probe_config_checksum(from._internal_probe_config_checksum());
   }
@@ -11551,6 +12092,7 @@ void ProbeSsfcComponentsResponse::InternalSwap(ProbeSsfcComponentsResponse* othe
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ap_i2c_.InternalSwap(&other->ap_i2c_);
   ec_i2c_.InternalSwap(&other->ec_i2c_);
+  tcpc_.InternalSwap(&other->tcpc_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &probe_config_checksum_, lhs_arena,
       &other->probe_config_checksum_, rhs_arena
@@ -11661,6 +12203,14 @@ Arena::CreateMaybeMessage< ::runtime_probe::EcI2c_Fields >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::runtime_probe::EcI2c*
 Arena::CreateMaybeMessage< ::runtime_probe::EcI2c >(Arena* arena) {
   return Arena::CreateMessageInternal< ::runtime_probe::EcI2c >(arena);
+}
+template<> PROTOBUF_NOINLINE ::runtime_probe::Tcpc_Fields*
+Arena::CreateMaybeMessage< ::runtime_probe::Tcpc_Fields >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::runtime_probe::Tcpc_Fields >(arena);
+}
+template<> PROTOBUF_NOINLINE ::runtime_probe::Tcpc*
+Arena::CreateMaybeMessage< ::runtime_probe::Tcpc >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::runtime_probe::Tcpc >(arena);
 }
 template<> PROTOBUF_NOINLINE ::runtime_probe::ProbeResult*
 Arena::CreateMaybeMessage< ::runtime_probe::ProbeResult >(Arena* arena) {

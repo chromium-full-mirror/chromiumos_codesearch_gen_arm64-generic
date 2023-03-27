@@ -22,6 +22,7 @@ PROTOBUF_CONSTEXPR DlpFilesRule::DlpFilesRule(
     ::_pbi::ConstantInitialized)
   : source_urls_()
   , destination_urls_()
+  , destination_components_()
   , level_(0)
 {}
 struct DlpFilesRuleDefaultTypeInternal {
@@ -531,7 +532,8 @@ DlpFilesRule::DlpFilesRule(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   source_urls_(arena),
-  destination_urls_(arena) {
+  destination_urls_(arena),
+  destination_components_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:dlp.DlpFilesRule)
 }
@@ -539,7 +541,8 @@ DlpFilesRule::DlpFilesRule(const DlpFilesRule& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
       source_urls_(from.source_urls_),
-      destination_urls_(from.destination_urls_) {
+      destination_urls_(from.destination_urls_),
+      destination_components_(from.destination_components_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   level_ = from.level_;
   // @@protoc_insertion_point(copy_constructor:dlp.DlpFilesRule)
@@ -574,6 +577,7 @@ void DlpFilesRule::Clear() {
 
   source_urls_.Clear();
   destination_urls_.Clear();
+  destination_components_.Clear();
   level_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -627,6 +631,27 @@ const char* DlpFilesRule::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
+      // repeated .dlp.DlpComponent destination_components = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+            CHK_(ptr);
+            if (PROTOBUF_PREDICT_TRUE(::dlp::DlpComponent_IsValid(val))) {
+              _internal_add_destination_components(static_cast<::dlp::DlpComponent>(val));
+            } else {
+              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
+            }
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<32>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 34) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_destination_components(), ptr, ctx, ::dlp::DlpComponent_IsValid, &_internal_metadata_, 4);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -677,6 +702,13 @@ uint8_t* DlpFilesRule::_InternalSerialize(
       3, this->_internal_level(), target);
   }
 
+  // repeated .dlp.DlpComponent destination_components = 4;
+  for (int i = 0, n = this->_internal_destination_components_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        4, this->_internal_destination_components(i), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -709,6 +741,16 @@ size_t DlpFilesRule::ByteSizeLong() const {
       destination_urls_.Get(i));
   }
 
+  // repeated .dlp.DlpComponent destination_components = 4;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_destination_components_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_destination_components(static_cast<int>(i)));
+    }
+    total_size += (1UL * count) + data_size;
+  }
+
   // optional .dlp.DlpRuleLevel level = 3;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
@@ -738,6 +780,7 @@ void DlpFilesRule::MergeFrom(const DlpFilesRule& from) {
 
   source_urls_.MergeFrom(from.source_urls_);
   destination_urls_.MergeFrom(from.destination_urls_);
+  destination_components_.MergeFrom(from.destination_components_);
   if (from._internal_has_level()) {
     _internal_set_level(from._internal_level());
   }
@@ -761,6 +804,7 @@ void DlpFilesRule::InternalSwap(DlpFilesRule* other) {
   swap(_has_bits_[0], other->_has_bits_[0]);
   source_urls_.InternalSwap(&other->source_urls_);
   destination_urls_.InternalSwap(&other->destination_urls_);
+  destination_components_.InternalSwap(&other->destination_components_);
   swap(level_, other->level_);
 }
 

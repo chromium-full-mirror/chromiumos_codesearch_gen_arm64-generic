@@ -22,6 +22,8 @@
 #include "base/strings/utf_string_conversions.h"
 #include "base/values.h"
 #include "tools/json_schema_compiler/util.h"
+#include "base/strings/string_piece.h"
+
 
 using base::UTF8ToUTF16;
 
@@ -66,7 +68,7 @@ const char* ToString(AccessLevel enum_param) {
   return "";
 }
 
-AccessLevel ParseAccessLevel(const std::string& enum_string) {
+AccessLevel ParseAccessLevel(base::StringPiece enum_string) {
   if (enum_string == "TRUSTED_CONTEXTS")
     return ACCESS_LEVEL_TRUSTED_CONTEXTS;
   if (enum_string == "TRUSTED_AND_UNTRUSTED_CONTEXTS")
@@ -83,22 +85,18 @@ StorageChange::StorageChange(StorageChange&& rhs) = default;
 StorageChange& StorageChange::operator=(StorageChange&& rhs) = default;
 // static
 bool StorageChange::Populate(
-    const base::Value& value, StorageChange* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, StorageChange& out) {
   const base::Value* old_value_value = dict.Find("oldValue");
   if (old_value_value) {
     {
-      out->old_value = (*old_value_value).Clone();
+      out.old_value = (*old_value_value).Clone();
     }
   }
 
   const base::Value* new_value_value = dict.Find("newValue");
   if (new_value_value) {
     {
-      out->new_value = (*new_value_value).Clone();
+      out.new_value = (*new_value_value).Clone();
     }
   }
 
@@ -106,11 +104,33 @@ bool StorageChange::Populate(
 }
 
 // static
-std::unique_ptr<StorageChange> StorageChange::FromValue(const base::Value& value) {
+bool StorageChange::Populate(
+    const base::Value& value, StorageChange& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
+}
+
+// static
+std::unique_ptr<StorageChange> StorageChange::FromValueDeprecated(const base::Value& value) {
   auto out = std::make_unique<StorageChange>();
-  bool result = Populate(value, out.get());
-  if (!result)
+  if (!value.is_dict()) {
     return nullptr;
+  }
+  bool result = Populate(value.GetDict(), *out);
+  if (!result) {
+    return nullptr;
+  }
+  return out;
+}
+
+// static
+absl::optional<StorageChange> StorageChange::FromValue(const base::Value::Dict& value) {
+  absl::optional<StorageChange> out(absl::in_place);
+  bool result = Populate(value, out.value());
+  if (!result)
+    return absl::nullopt;
   return out;
 }
 
@@ -142,13 +162,18 @@ Params::Keys::Object::Object(Object&& rhs) = default;
 Params::Keys::Object& Params::Keys::Object::operator=(Object&& rhs) = default;
 // static
 bool Params::Keys::Object::Populate(
-    const base::Value& value, Object* out) {
+    const base::Value::Dict& dict, Object& out) {
+  out.additional_properties.Merge(dict.Clone());
+  return true;
+}
+
+// static
+bool Params::Keys::Object::Populate(
+    const base::Value& value, Object& out) {
   if (!value.is_dict()) {
     return false;
   }
-  const base::Value::Dict& dict = value.GetDict();
-  out->additional_properties.Merge(dict.Clone());
-  return true;
+  return Populate(value.GetDict(), out);
 }
 
 
@@ -161,15 +186,15 @@ Params::Keys::Keys(Keys&& rhs) = default;
 Params::Keys& Params::Keys::operator=(Keys&& rhs) = default;
 // static
 bool Params::Keys::Populate(
-    const base::Value& value, Keys* out) {
+    const base::Value& value, Keys& out) {
   if (value.type() == base::Value::Type::STRING) {
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out->as_string = absl::nullopt;
+        out.as_string = absl::nullopt;
         return false;
       }
-      out->as_string = *temp;
+      out.as_string = *temp;
     }
     return true;
   }
@@ -179,7 +204,7 @@ bool Params::Keys::Populate(
         return false;
       }
       else {
-        if (!json_schema_compiler::util::PopulateOptionalArrayFromList(value.GetList(), &out->as_strings)) {
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList(value.GetList(), out.as_strings)) {
           return false;
         }
       }
@@ -193,9 +218,9 @@ bool Params::Keys::Populate(
       }
       else {
         Object temp;
-        if (!Object::Populate(value, &temp))
+        if (!Object::Populate(value.GetDict(), temp))
           return false;
-        out->as_object = std::move(temp);
+        out.as_object = std::move(temp);
       }
     }
     return true;
@@ -214,16 +239,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
     const base::Value& keys_value = args[0];
     {
       Keys temp;
-      if (!Keys::Populate(keys_value, &temp))
+      if (!Keys::Populate(keys_value, temp))
         return absl::nullopt;
-      params->keys = std::move(temp);
+      params.keys = std::move(temp);
     }
   }
 
@@ -265,15 +290,15 @@ Params::Keys::Keys(Keys&& rhs) = default;
 Params::Keys& Params::Keys::operator=(Keys&& rhs) = default;
 // static
 bool Params::Keys::Populate(
-    const base::Value& value, Keys* out) {
+    const base::Value& value, Keys& out) {
   if (value.type() == base::Value::Type::STRING) {
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out->as_string = absl::nullopt;
+        out.as_string = absl::nullopt;
         return false;
       }
-      out->as_string = *temp;
+      out.as_string = *temp;
     }
     return true;
   }
@@ -283,7 +308,7 @@ bool Params::Keys::Populate(
         return false;
       }
       else {
-        if (!json_schema_compiler::util::PopulateOptionalArrayFromList(value.GetList(), &out->as_strings)) {
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList(value.GetList(), out.as_strings)) {
           return false;
         }
       }
@@ -304,16 +329,16 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() > 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
     const base::Value& keys_value = args[0];
     {
       Keys temp;
-      if (!Keys::Populate(keys_value, &temp))
+      if (!Keys::Populate(keys_value, temp))
         return absl::nullopt;
-      params->keys = std::move(temp);
+      params.keys = std::move(temp);
     }
   }
 
@@ -340,13 +365,18 @@ Params::Items::Items(Items&& rhs) = default;
 Params::Items& Params::Items::operator=(Items&& rhs) = default;
 // static
 bool Params::Items::Populate(
-    const base::Value& value, Items* out) {
+    const base::Value::Dict& dict, Items& out) {
+  out.additional_properties.Merge(dict.Clone());
+  return true;
+}
+
+// static
+bool Params::Items::Populate(
+    const base::Value& value, Items& out) {
   if (!value.is_dict()) {
     return false;
   }
-  const base::Value::Dict& dict = value.GetDict();
-  out->additional_properties.Merge(dict.Clone());
-  return true;
+  return Populate(value.GetDict(), out);
 }
 
 
@@ -360,7 +390,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -369,7 +399,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!items_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!Items::Populate(items_value, &params->items)) {
+      if (!Items::Populate(items_value.GetDict(), params.items)) {
         return absl::nullopt;
       }
     }
@@ -399,15 +429,15 @@ Params::Keys::Keys(Keys&& rhs) = default;
 Params::Keys& Params::Keys::operator=(Keys&& rhs) = default;
 // static
 bool Params::Keys::Populate(
-    const base::Value& value, Keys* out) {
+    const base::Value& value, Keys& out) {
   if (value.type() == base::Value::Type::STRING) {
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out->as_string = absl::nullopt;
+        out.as_string = absl::nullopt;
         return false;
       }
-      out->as_string = *temp;
+      out.as_string = *temp;
     }
     return true;
   }
@@ -417,7 +447,7 @@ bool Params::Keys::Populate(
         return false;
       }
       else {
-        if (!json_schema_compiler::util::PopulateOptionalArrayFromList(value.GetList(), &out->as_strings)) {
+        if (!json_schema_compiler::util::PopulateOptionalArrayFromList(value.GetList(), out.as_strings)) {
           return false;
         }
       }
@@ -438,13 +468,13 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
     const base::Value& keys_value = args[0];
     {
-      if (!Keys::Populate(keys_value, &params->keys))
+      if (!Keys::Populate(keys_value, params.keys))
         return absl::nullopt;
     }
   }
@@ -482,11 +512,7 @@ Params::AccessOptions::AccessOptions(AccessOptions&& rhs) = default;
 Params::AccessOptions& Params::AccessOptions::operator=(AccessOptions&& rhs) = default;
 // static
 bool Params::AccessOptions::Populate(
-    const base::Value& value, AccessOptions* out) {
-  if (!value.is_dict()) {
-    return false;
-  }
-  const base::Value::Dict& dict = value.GetDict();
+    const base::Value::Dict& dict, AccessOptions& out) {
   const base::Value* access_level_value = dict.Find("accessLevel");
   if (!access_level_value) {
     return false;
@@ -496,13 +522,22 @@ bool Params::AccessOptions::Populate(
     if (!access_level_as_string) {
       return false;
     }
-    out->access_level = ParseAccessLevel(*access_level_as_string);
-    if (out->access_level == ACCESS_LEVEL_NONE) {
+    out.access_level = ParseAccessLevel(*access_level_as_string);
+    if (out.access_level == ACCESS_LEVEL_NONE) {
       return false;
     }
   }
 
   return true;
+}
+
+// static
+bool Params::AccessOptions::Populate(
+    const base::Value& value, AccessOptions& out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  return Populate(value.GetDict(), out);
 }
 
 
@@ -516,7 +551,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
   if (args.size() != 1) {
     return absl::nullopt;
   }
-  absl::optional<Params> params((Params()));
+  Params params;
 
   if (0 < args.size() &&
       !args[0].is_none()) {
@@ -525,7 +560,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
       if (!access_options_value.is_dict()) {
         return absl::nullopt;
       }
-      if (!AccessOptions::Populate(access_options_value, &params->access_options)) {
+      if (!AccessOptions::Populate(access_options_value.GetDict(), params.access_options)) {
         return absl::nullopt;
       }
     }

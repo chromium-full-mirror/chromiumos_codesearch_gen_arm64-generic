@@ -38,6 +38,7 @@ const char Service_workers[] = "service_workers";
 const char Cache_storage[] = "cache_storage";
 const char Interest_groups[] = "interest_groups";
 const char Shared_storage[] = "shared_storage";
+const char Storage_buckets[] = "storage_buckets";
 const char All[] = "all";
 const char Other[] = "other";
 } // namespace StorageTypeEnum
@@ -204,6 +205,35 @@ CRDTP_BEGIN_SERIALIZER(SharedStorageAccessParams)
 CRDTP_END_SERIALIZER();
 
 
+namespace StorageBucketsDurabilityEnum {
+const char Relaxed[] = "relaxed";
+const char Strict[] = "strict";
+} // namespace StorageBucketsDurabilityEnum
+
+
+CRDTP_BEGIN_DESERIALIZER(StorageBucketInfo)
+    CRDTP_DESERIALIZE_FIELD("durability", m_durability),
+    CRDTP_DESERIALIZE_FIELD("expiration", m_expiration),
+    CRDTP_DESERIALIZE_FIELD("id", m_id),
+    CRDTP_DESERIALIZE_FIELD("isDefault", m_isDefault),
+    CRDTP_DESERIALIZE_FIELD("name", m_name),
+    CRDTP_DESERIALIZE_FIELD("persistent", m_persistent),
+    CRDTP_DESERIALIZE_FIELD("quota", m_quota),
+    CRDTP_DESERIALIZE_FIELD("storageKey", m_storageKey),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(StorageBucketInfo)
+    CRDTP_SERIALIZE_FIELD("storageKey", m_storageKey);
+    CRDTP_SERIALIZE_FIELD("id", m_id);
+    CRDTP_SERIALIZE_FIELD("name", m_name);
+    CRDTP_SERIALIZE_FIELD("isDefault", m_isDefault);
+    CRDTP_SERIALIZE_FIELD("expiration", m_expiration);
+    CRDTP_SERIALIZE_FIELD("quota", m_quota);
+    CRDTP_SERIALIZE_FIELD("persistent", m_persistent);
+    CRDTP_SERIALIZE_FIELD("durability", m_durability);
+CRDTP_END_SERIALIZER();
+
+
 // ------------- Enum values from params.
 
 
@@ -277,6 +307,24 @@ void Frontend::SharedStorageAccessed(double accessTime, const String& type, cons
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.sharedStorageAccessed", serializer.Finish()));
 }
 
+void Frontend::StorageBucketCreatedOrUpdated(std::unique_ptr<protocol::Storage::StorageBucketInfo> bucket)
+{
+    if (!frontend_channel_)
+        return;
+    crdtp::ObjectSerializer serializer;
+    serializer.AddField(crdtp::MakeSpan("bucket"), bucket);
+    frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.storageBucketCreatedOrUpdated", serializer.Finish()));
+}
+
+void Frontend::StorageBucketDeleted(const String& bucketId)
+{
+    if (!frontend_channel_)
+        return;
+    crdtp::ObjectSerializer serializer;
+    serializer.AddField(crdtp::MakeSpan("bucketId"), bucketId);
+    frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.storageBucketDeleted", serializer.Finish()));
+}
+
 void Frontend::flush()
 {
     frontend_channel_->FlushProtocolNotifications();
@@ -327,6 +375,8 @@ public:
     void clearSharedStorageEntries(const crdtp::Dispatchable& dispatchable);
     void resetSharedStorageBudget(const crdtp::Dispatchable& dispatchable);
     void setSharedStorageTracking(const crdtp::Dispatchable& dispatchable);
+    void setStorageBucketTracking(const crdtp::Dispatchable& dispatchable);
+    void deleteStorageBucket(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
 };
@@ -362,6 +412,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("deleteSharedStorageEntry"),
           &DomainDispatcherImpl::deleteSharedStorageEntry
+    },
+    {
+          crdtp::SpanFrom("deleteStorageBucket"),
+          &DomainDispatcherImpl::deleteStorageBucket
     },
     {
           crdtp::SpanFrom("getCookies"),
@@ -414,6 +468,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("setSharedStorageTracking"),
           &DomainDispatcherImpl::setSharedStorageTracking
+    },
+    {
+          crdtp::SpanFrom("setStorageBucketTracking"),
+          &DomainDispatcherImpl::setStorageBucketTracking
     },
     {
           crdtp::SpanFrom("trackCacheStorageForOrigin"),
@@ -1656,6 +1714,78 @@ void DomainDispatcherImpl::setSharedStorageTracking(const crdtp::Dispatchable& d
     DispatchResponse response = m_backend->SetSharedStorageTracking(params.enable);
     if (response.IsFallThrough()) {
         channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.setSharedStorageTracking"), dispatchable.Serialized());
+        return;
+    }
+    if (weak->get())
+        weak->get()->sendResponse(dispatchable.CallId(), response);
+    return;
+}
+
+namespace {
+
+struct setStorageBucketTrackingParams : public crdtp::DeserializableProtocolObject<setStorageBucketTrackingParams> {
+    String storageKey;
+    bool enable;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(setStorageBucketTrackingParams)
+    CRDTP_DESERIALIZE_FIELD("enable", enable),
+    CRDTP_DESERIALIZE_FIELD("storageKey", storageKey),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::setStorageBucketTracking(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    setStorageBucketTrackingParams params;
+    if (!setStorageBucketTrackingParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->SetStorageBucketTracking(params.storageKey, params.enable);
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.setStorageBucketTracking"), dispatchable.Serialized());
+        return;
+    }
+    if (weak->get())
+        weak->get()->sendResponse(dispatchable.CallId(), response);
+    return;
+}
+
+namespace {
+
+struct deleteStorageBucketParams : public crdtp::DeserializableProtocolObject<deleteStorageBucketParams> {
+    String storageKey;
+    String bucketName;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(deleteStorageBucketParams)
+    CRDTP_DESERIALIZE_FIELD("bucketName", bucketName),
+    CRDTP_DESERIALIZE_FIELD("storageKey", storageKey),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::deleteStorageBucket(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    deleteStorageBucketParams params;
+    if (!deleteStorageBucketParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->DeleteStorageBucket(params.storageKey, params.bucketName);
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.deleteStorageBucket"), dispatchable.Serialized());
         return;
     }
     if (weak->get())

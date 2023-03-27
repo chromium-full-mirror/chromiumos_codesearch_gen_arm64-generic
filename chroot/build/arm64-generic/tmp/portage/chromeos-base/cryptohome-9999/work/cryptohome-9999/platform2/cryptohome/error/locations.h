@@ -275,13 +275,13 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocDoubleWrappedAuthBlockInvalidBlockStateInDerive = 224,
   /* ./auth_blocks/double_wrapped_compat_auth_block.cc */
   kLocDoubleWrappedAuthBlockTpmDeriveFailedInDerive = 225,
-  /* ./auth_blocks/challenge_credential_auth_block.cc */
+  /* =Obsolete= */
   kLocChalCredAuthBlockCreateScryptAuthBlockFailedInCreate = 226,
-  /* ./auth_blocks/challenge_credential_auth_block.cc */
+  /* =Obsolete= */
   kLocChalCredAuthBlockDerivationFailedInCreate = 227,
-  /* ./auth_blocks/challenge_credential_auth_block.cc */
+  /* =Obsolete= */
   kLocChalCredAuthBlockInvalidBlockStateInDerive = 228,
-  /* ./auth_blocks/challenge_credential_auth_block.cc */
+  /* =Obsolete= */
   kLocChalCredAuthBlockScryptDeriveFailedInDerive = 229,
   /* ./auth_blocks/tpm_ecc_auth_block.cc */
   kLocTpmEccAuthBlockRetryLimitExceededInCreate = 230,
@@ -555,15 +555,15 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocVaultKeysetWrapAESDFailedInEncryptEx = 364,
   /* ./vault_keyset.cc */
   kLocVaultKeysetNotLoadedInDecryptEx = 365,
-  /* ./vault_keyset.cc */
+  /* =Obsolete= */
   kLocVaultKeysetNotLoadedInDecrypt = 366,
-  /* ./vault_keyset.cc */
+  /* =Obsolete= */
   kLocVaultKeysetNoBlockStateInDecryptVK = 367,
-  /* ./vault_keyset.cc */
+  /* =Obsolete= */
   kLocVaultKeysetUnknownBlockTypeInDecryptVK = 368,
-  /* ./vault_keyset.cc */
+  /* =Obsolete= */
   kLocVaultKeysetDeriveFailedInDecryptVK = 369,
-  /* ./vault_keyset.cc */
+  /* =Obsolete= */
   kLocVaultKeysetUnwrapVKFailedInDecryptVK = 370,
   /* ./vault_keyset.cc */
   kLocVaultKeysetKeysetDecryptFailedInUnwrapVKK = 371,
@@ -1033,7 +1033,7 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocAuthSessionLastFactorInRemoveAuthFactor = 603,
   /* ./auth_session.cc */
   kLocAuthSessionRemoveFactorFailedInRemoveAuthFactor = 604,
-  /* ./auth_factor/auth_factor.cc */
+  /* =Obsolete= */
   kLocAuthFactorPrepareForRemovalFailed = 605,
   /* ./auth_factor/auth_factor_manager.cc */
   kLocAuthFactorManagerGetPathFailedInSave = 606,
@@ -1627,6 +1627,38 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocFingerprintAuthBlockNoGscSecretLabelInDerive = 3370,
   /* ./auth_blocks/fingerprint_auth_block.cc */
   kLocFingerprintAuthBlockCheckCredentialFailedInCreate = 3371,
+  /* ./auth_blocks/auth_block.h */
+  kLocAuthBlockSelectFactorNotSupported = 3372,
+  /* ./auth_blocks/auth_block.h */
+  kLocAuthBlockSyncSelectFactorNotSupported = 3373,
+  /* ./auth_blocks/auth_block_utility_impl.cc */
+  kLocAuthBlockUtilNoAuthBlockInSelectAuthFactor = 3374,
+  /* ./auth_session.cc */
+  kLocAuthSessionUserNotFoundInMultiLabelAuthAuthFactor = 3375,
+  /* ./auth_session.cc */
+  kLocAuthSessionFactorNotFoundInMultiLabelAuthAuthFactor = 3376,
+  /* ./auth_session.cc */
+  kLocAuthSessionMultiLabelMismatchedAuthTypes = 3377,
+  /* ./auth_session.cc */
+  kLocAuthSessionInvalidBlockTypeInAuthAuthFactor = 3378,
+  /* ./auth_session.cc */
+  kLocAuthSessionMismatchedBlockTypesInAuthAuthFactor = 3379,
+  /* ./auth_session.cc */
+  kLocAuthSessionMultiLabelInvalidStorageType = 3380,
+  /* ./auth_session.cc */
+  kLocAuthSessionAuthInputParseFailed4InAuthAuthFactor = 3381,
+  /* ./auth_session.cc */
+  kLocAuthSessionLoadUSSFailedInAuthInputForSelect = 3382,
+  /* ./auth_session.cc */
+  kLocAuthSessionGetMetadataFailedInAuthInputForSelect = 3383,
+  /* ./auth_session.cc */
+  kLocAuthSessionNoRateLimiterInAuthInputForSelect = 3384,
+  /* ./auth_session.cc */
+  kLocAuthSessionNullParamInAuthViaSelected = 3385,
+  /* ./auth_session.cc */
+  kLocAuthSessionSelectionFailed = 3386,
+  /* ./auth_blocks/auth_block_utility_impl.cc */
+  kLocAuthBlockUtilPrepareForAddFingerprintNoService = 3387,
   //////////////////////////////////////////////////
   //// This is a separator block at value 3500
   //// See location_db.py for more info.
@@ -1661,7 +1693,7 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocAuthSessionTerminateInactiveAuthFactor = 3513,
   /* ./auth_blocks/fp_service.cc */
   kLocFpServiceCheckSessionStartCouldNotGetFpManager = 3514,
-  /* ./auth_blocks/auth_block_utility_impl.cc */
+  /* =Obsolete= */
   kLocAuthBlockUtilUnimplementedPrepareForAuthFingerprint = 3515,
   /* ./auth_session.cc */
   kLocAuthSessionMismatchedZeroLabelSizeAuthAuthFactor = 3516,
@@ -1677,7 +1709,7 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocAuthSessionAuthInputParseFailed3InAuthAuthFactor = 3521,
   /* ./auth_session.cc */
   kLocAuthSessionMismatchedMultipLabelSizeAuthAuthFactor = 3522,
-  /* ./auth_session.cc */
+  /* =Obsolete= */
   kLocAuthSessionLabelLookupUnimplemented = 3523,
   /* ./userdataauth.cc */
   kLocUserDataMalformedRequestInAuthAuthFactor = 3524,

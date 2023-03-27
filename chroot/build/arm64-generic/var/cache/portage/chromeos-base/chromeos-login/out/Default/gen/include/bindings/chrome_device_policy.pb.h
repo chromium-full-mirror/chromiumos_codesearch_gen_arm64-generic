@@ -713,6 +713,27 @@ inline const std::string& DeviceLocalAccountInfoProto_AccountType_Name(T enum_t_
 }
 bool DeviceLocalAccountInfoProto_AccountType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceLocalAccountInfoProto_AccountType* value);
+enum DeviceLocalAccountInfoProto_EphemeralMode : int {
+  DeviceLocalAccountInfoProto_EphemeralMode_EPHEMERAL_MODE_UNSET = 0,
+  DeviceLocalAccountInfoProto_EphemeralMode_EPHEMERAL_MODE_FOLLOW_DEVICE_WIDE_POLICY = 1,
+  DeviceLocalAccountInfoProto_EphemeralMode_EPHEMERAL_MODE_DISABLE = 2,
+  DeviceLocalAccountInfoProto_EphemeralMode_EPHEMERAL_MODE_ENABLE = 3
+};
+bool DeviceLocalAccountInfoProto_EphemeralMode_IsValid(int value);
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto_EphemeralMode_EphemeralMode_MIN = DeviceLocalAccountInfoProto_EphemeralMode_EPHEMERAL_MODE_UNSET;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto_EphemeralMode_EphemeralMode_MAX = DeviceLocalAccountInfoProto_EphemeralMode_EPHEMERAL_MODE_ENABLE;
+constexpr int DeviceLocalAccountInfoProto_EphemeralMode_EphemeralMode_ARRAYSIZE = DeviceLocalAccountInfoProto_EphemeralMode_EphemeralMode_MAX + 1;
+
+const std::string& DeviceLocalAccountInfoProto_EphemeralMode_Name(DeviceLocalAccountInfoProto_EphemeralMode value);
+template<typename T>
+inline const std::string& DeviceLocalAccountInfoProto_EphemeralMode_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, DeviceLocalAccountInfoProto_EphemeralMode>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function DeviceLocalAccountInfoProto_EphemeralMode_Name.");
+  return DeviceLocalAccountInfoProto_EphemeralMode_Name(static_cast<DeviceLocalAccountInfoProto_EphemeralMode>(enum_t_value));
+}
+bool DeviceLocalAccountInfoProto_EphemeralMode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceLocalAccountInfoProto_EphemeralMode* value);
 enum AccessibilitySettingsProto_ScreenMagnifierType : int {
   AccessibilitySettingsProto_ScreenMagnifierType_SCREEN_MAGNIFIER_TYPE_NONE = 0,
   AccessibilitySettingsProto_ScreenMagnifierType_SCREEN_MAGNIFIER_TYPE_FULL = 1
@@ -6836,6 +6857,36 @@ class DeviceLocalAccountInfoProto final :
     return DeviceLocalAccountInfoProto_AccountType_Parse(name, value);
   }
 
+  typedef DeviceLocalAccountInfoProto_EphemeralMode EphemeralMode;
+  static constexpr EphemeralMode EPHEMERAL_MODE_UNSET =
+    DeviceLocalAccountInfoProto_EphemeralMode_EPHEMERAL_MODE_UNSET;
+  static constexpr EphemeralMode EPHEMERAL_MODE_FOLLOW_DEVICE_WIDE_POLICY =
+    DeviceLocalAccountInfoProto_EphemeralMode_EPHEMERAL_MODE_FOLLOW_DEVICE_WIDE_POLICY;
+  static constexpr EphemeralMode EPHEMERAL_MODE_DISABLE =
+    DeviceLocalAccountInfoProto_EphemeralMode_EPHEMERAL_MODE_DISABLE;
+  static constexpr EphemeralMode EPHEMERAL_MODE_ENABLE =
+    DeviceLocalAccountInfoProto_EphemeralMode_EPHEMERAL_MODE_ENABLE;
+  static inline bool EphemeralMode_IsValid(int value) {
+    return DeviceLocalAccountInfoProto_EphemeralMode_IsValid(value);
+  }
+  static constexpr EphemeralMode EphemeralMode_MIN =
+    DeviceLocalAccountInfoProto_EphemeralMode_EphemeralMode_MIN;
+  static constexpr EphemeralMode EphemeralMode_MAX =
+    DeviceLocalAccountInfoProto_EphemeralMode_EphemeralMode_MAX;
+  static constexpr int EphemeralMode_ARRAYSIZE =
+    DeviceLocalAccountInfoProto_EphemeralMode_EphemeralMode_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& EphemeralMode_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, EphemeralMode>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function EphemeralMode_Name.");
+    return DeviceLocalAccountInfoProto_EphemeralMode_Name(enum_t_value);
+  }
+  static inline bool EphemeralMode_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      EphemeralMode* value) {
+    return DeviceLocalAccountInfoProto_EphemeralMode_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -6845,6 +6896,7 @@ class DeviceLocalAccountInfoProto final :
     kAndroidKioskAppFieldNumber = 5,
     kWebKioskAppFieldNumber = 6,
     kTypeFieldNumber = 3,
+    kEphemeralModeFieldNumber = 7,
   };
   // optional string deprecated_public_session_id = 1;
   bool has_deprecated_public_session_id() const;
@@ -6949,6 +7001,19 @@ class DeviceLocalAccountInfoProto final :
   void _internal_set_type(::enterprise_management::DeviceLocalAccountInfoProto_AccountType value);
   public:
 
+  // optional .enterprise_management.DeviceLocalAccountInfoProto.EphemeralMode ephemeral_mode = 7;
+  bool has_ephemeral_mode() const;
+  private:
+  bool _internal_has_ephemeral_mode() const;
+  public:
+  void clear_ephemeral_mode();
+  ::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode ephemeral_mode() const;
+  void set_ephemeral_mode(::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode value);
+  private:
+  ::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode _internal_ephemeral_mode() const;
+  void _internal_set_ephemeral_mode(::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode value);
+  public:
+
   // @@protoc_insertion_point(class_scope:enterprise_management.DeviceLocalAccountInfoProto)
  private:
   class _Internal;
@@ -6965,6 +7030,7 @@ class DeviceLocalAccountInfoProto final :
     ::enterprise_management::AndroidKioskAppInfoProto* android_kiosk_app_;
     ::enterprise_management::WebKioskAppInfoProto* web_kiosk_app_;
     int type_;
+    int ephemeral_mode_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
@@ -31644,6 +31710,35 @@ inline void DeviceLocalAccountInfoProto::set_allocated_web_kiosk_app(::enterpris
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceLocalAccountInfoProto.web_kiosk_app)
 }
 
+// optional .enterprise_management.DeviceLocalAccountInfoProto.EphemeralMode ephemeral_mode = 7;
+inline bool DeviceLocalAccountInfoProto::_internal_has_ephemeral_mode() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool DeviceLocalAccountInfoProto::has_ephemeral_mode() const {
+  return _internal_has_ephemeral_mode();
+}
+inline void DeviceLocalAccountInfoProto::clear_ephemeral_mode() {
+  _impl_.ephemeral_mode_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000040u;
+}
+inline ::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::_internal_ephemeral_mode() const {
+  return static_cast< ::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode >(_impl_.ephemeral_mode_);
+}
+inline ::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::ephemeral_mode() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceLocalAccountInfoProto.ephemeral_mode)
+  return _internal_ephemeral_mode();
+}
+inline void DeviceLocalAccountInfoProto::_internal_set_ephemeral_mode(::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode value) {
+  assert(::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000040u;
+  _impl_.ephemeral_mode_ = value;
+}
+inline void DeviceLocalAccountInfoProto::set_ephemeral_mode(::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode value) {
+  _internal_set_ephemeral_mode(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceLocalAccountInfoProto.ephemeral_mode)
+}
+
 // -------------------------------------------------------------------
 
 // DeviceLocalAccountsProto
@@ -52606,6 +52701,7 @@ template <> struct is_proto_enum< ::enterprise_management::AutoUpdateSettingsPro
 template <> struct is_proto_enum< ::enterprise_management::AutoUpdateSettingsProto_ChannelDowngradeBehavior> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::SystemTimezoneProto_AutomaticTimezoneDetectionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceLocalAccountInfoProto_AccountType> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::AccessibilitySettingsProto_ScreenMagnifierType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DisplayRotationDefaultProto_Rotation> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::LoginAuthenticationBehaviorProto_LoginBehavior> : ::std::true_type {};

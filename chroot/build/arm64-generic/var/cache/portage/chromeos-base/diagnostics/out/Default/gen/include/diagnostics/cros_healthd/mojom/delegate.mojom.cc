@@ -81,6 +81,9 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_MonitorStylus_Name: {
       return &Delegate::MonitorStylus_Sym::IPCStableHash;
     }
+    case internal::kDelegate_GetLidAngle_Name: {
+      return &Delegate::GetLidAngle_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -112,6 +115,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorStylusGarage";
       case internal::kDelegate_MonitorStylus_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorStylus";
+      case internal::kDelegate_GetLidAngle_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::GetLidAngle";
     }
   } else {
     switch (message.name()) {
@@ -135,6 +140,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorStylusGarage";
       case internal::kDelegate_MonitorStylus_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorStylus";
+      case internal::kDelegate_GetLidAngle_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::GetLidAngle";
     }
   }
   return "Receive unknown mojo message";
@@ -279,6 +286,19 @@ uint32_t Delegate::MonitorStylus_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Delegate::GetLidAngle_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::GetLidAngle");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Delegate_GetFingerprintFrame_ForwardToCallback
@@ -359,6 +379,22 @@ class Delegate_FetchBootPerformance_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Delegate::FetchBootPerformanceCallback callback_;
+};
+
+class Delegate_GetLidAngle_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_GetLidAngle_ForwardToCallback(
+      Delegate::GetLidAngleCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_GetLidAngle_ForwardToCallback(const Delegate_GetLidAngle_ForwardToCallback&) = delete;
+  Delegate_GetLidAngle_ForwardToCallback& operator=(const Delegate_GetLidAngle_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::GetLidAngleCallback callback_;
 };
 
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -765,6 +801,37 @@ void DelegateProxy::MonitorStylus(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DelegateProxy::GetLidAngle(
+    GetLidAngleCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetLidAngle");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_GetLidAngle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetLidAngle_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetLidAngle");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_GetLidAngle_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class Delegate_GetFingerprintFrame_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1424,6 +1491,128 @@ void Delegate_FetchBootPerformance_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Delegate_GetLidAngle_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::GetLidAngleCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_GetLidAngle_ProxyToResponder> proxy(
+        new Delegate_GetLidAngle_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_GetLidAngle_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_GetLidAngle_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_GetLidAngle_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::GetLidAngleCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      absl::optional<uint16_t> in_lid_angle);
+};
+
+bool Delegate_GetLidAngle_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_GetLidAngle_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_GetLidAngle_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  absl::optional<uint16_t> p_lid_angle = mojo::DefaultConstructTraits::CreateInstance<absl::optional<uint16_t>>();
+  Delegate_GetLidAngle_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success) {
+    p_lid_angle = input_data_view.lid_angle();
+  }
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 10, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_lid_angle));
+  return true;
+}
+
+void Delegate_GetLidAngle_ProxyToResponder::Run(
+    absl::optional<uint16_t> in_lid_angle) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetLidAngle", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("lid_angle"), in_lid_angle,
+                        "<value of type absl::optional<uint16_t>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_GetLidAngle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetLidAngle_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->lid_angle_$flag = in_lid_angle.has_value();
+  if (in_lid_angle.has_value()) {
+    params->lid_angle_$value = in_lid_angle.value();
+  }
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetLidAngle");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool DelegateStubDispatch::Accept(
@@ -1584,6 +1773,9 @@ std::move(p_observer));
       impl->MonitorStylus(
 std::move(p_observer));
       return true;
+    }
+    case internal::kDelegate_GetLidAngle_Name: {
+      break;
     }
   }
   return false;
@@ -1754,6 +1946,31 @@ std::move(p_name), std::move(callback));
     case internal::kDelegate_MonitorStylus_Name: {
       break;
     }
+    case internal::kDelegate_GetLidAngle_Name: {
+
+      internal::Delegate_GetLidAngle_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_GetLidAngle_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Delegate_GetLidAngle_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 10, false);
+        return false;
+      }
+      Delegate::GetLidAngleCallback callback =
+          Delegate_GetLidAngle_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetLidAngle(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -1780,6 +1997,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      nullptr /* no response */},
     {&internal::Delegate_MonitorStylus_Params_Data::Validate,
      nullptr /* no response */},
+    {&internal::Delegate_GetLidAngle_Params_Data::Validate,
+     &internal::Delegate_GetLidAngle_ResponseParams_Data::Validate},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -1841,6 +2060,9 @@ void DelegateInterceptorForTesting::MonitorStylusGarage(::mojo::PendingRemote<::
 }
 void DelegateInterceptorForTesting::MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) {
   GetForwardingInterface()->MonitorStylus(std::move(observer));
+}
+void DelegateInterceptorForTesting::GetLidAngle(GetLidAngleCallback callback) {
+  GetForwardingInterface()->GetLidAngle(std::move(callback));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
@@ -1957,6 +2179,29 @@ void DelegateAsyncWaiter::FetchBootPerformance(
     ) {
   ::ash::cros_healthd::mojom::BootPerformanceResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::BootPerformanceResultPtr>();
   FetchBootPerformance(&async_wait_result);
+  return async_wait_result;
+}
+
+void DelegateAsyncWaiter::GetLidAngle(
+    absl::optional<uint16_t>* out_lid_angle) {
+  base::RunLoop loop;
+  proxy_->GetLidAngle(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             absl::optional<uint16_t>* out_lid_angle
+,
+             absl::optional<uint16_t> lid_angle) {*out_lid_angle = std::move(lid_angle);
+            loop->Quit();
+          },
+          &loop,
+          out_lid_angle));
+  loop.Run();
+}
+
+absl::optional<uint16_t> DelegateAsyncWaiter::GetLidAngle(
+    ) {
+  absl::optional<uint16_t> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<uint16_t>>();
+  GetLidAngle(&async_wait_result);
   return async_wait_result;
 }
 

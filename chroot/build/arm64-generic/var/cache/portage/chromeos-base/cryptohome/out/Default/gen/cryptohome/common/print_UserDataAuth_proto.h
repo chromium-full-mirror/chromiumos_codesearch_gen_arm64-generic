@@ -505,12 +505,6 @@ std::string GetProtoDebugStringWithIndent(const GetRsuDeviceIdRequest& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const GetRsuDeviceIdRequest& value);
-std::string GetProtoDebugStringWithIndent(const CheckHealthRequest& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const CheckHealthRequest& value);
-std::string GetProtoDebugStringWithIndent(const CheckHealthReply& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const CheckHealthReply& value);
 std::string GetProtoDebugStringWithIndent(
     const ResetApplicationContainerRequest& value,
     int indent_size);

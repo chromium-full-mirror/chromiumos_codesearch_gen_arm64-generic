@@ -28,6 +28,7 @@
 #include "chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom-forward.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_diagnostics.mojom-forward.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_events.mojom-forward.h"
+#include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-forward.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom-forward.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-forward.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-forward.h"
@@ -585,6 +586,7 @@ template <typename ImplRefTraits>
 class CrosHealthdEventServiceStub;
 
 class CrosHealthdEventServiceRequestValidator;
+class CrosHealthdEventServiceResponseValidator;
 
 
 class CrosHealthdEventService
@@ -595,7 +597,7 @@ class CrosHealthdEventService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 2;
+  static constexpr uint32_t Version_ = 3;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -606,7 +608,7 @@ class CrosHealthdEventService
   using Stub_ = CrosHealthdEventServiceStub<ImplRefTraits>;
 
   using RequestValidator_ = CrosHealthdEventServiceRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = CrosHealthdEventServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kDEPRECATED_AddBluetoothObserverMinVersion = 0,
     kDEPRECATED_AddLidObserverMinVersion = 0,
@@ -616,6 +618,7 @@ class CrosHealthdEventService
     kDEPRECATED_AddThunderboltObserverMinVersion = 0,
     kDEPRECATED_AddUsbObserverMinVersion = 1,
     kAddEventObserverMinVersion = 2,
+    kIsEventSupportedMinVersion = 3,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -645,6 +648,9 @@ class CrosHealthdEventService
   struct AddEventObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct IsEventSupported_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosHealthdEventService() = default;
 
@@ -671,6 +677,11 @@ class CrosHealthdEventService
 
   
   virtual void AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) = 0;
+
+
+  using IsEventSupportedCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::SupportStatusPtr)>;
+  
+  virtual void IsEventSupported(::ash::cros_healthd::mojom::EventCategoryEnum category, IsEventSupportedCallback callback) = 0;
 };
 
 class CrosHealthdProbeServiceProxy;
@@ -1010,6 +1021,8 @@ class  CrosHealthdEventServiceProxy
   void DEPRECATED_AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) final;
   
   void AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) final;
+  
+  void IsEventSupported(::ash::cros_healthd::mojom::EventCategoryEnum category, IsEventSupportedCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1340,6 +1353,10 @@ class  WilcoEcServiceControllerRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  CrosHealthdDiagnosticsServiceResponseValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  CrosHealthdEventServiceResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

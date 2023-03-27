@@ -18,6 +18,8 @@
 #include <vector>
 
 #include "base/values.h"
+#include "base/strings/string_piece.h"
+
 
 namespace extensions {
 namespace api {
@@ -84,7 +86,7 @@ namespace session {
 //
 
 // The storage area's access level.
-enum AccessLevel {
+enum  AccessLevel {
   ACCESS_LEVEL_NONE,
   ACCESS_LEVEL_TRUSTED_CONTEXTS,
   ACCESS_LEVEL_TRUSTED_AND_UNTRUSTED_CONTEXTS,
@@ -93,7 +95,7 @@ enum AccessLevel {
 
 
 const char* ToString(AccessLevel as_enum);
-AccessLevel ParseAccessLevel(const std::string& as_string);
+AccessLevel ParseAccessLevel(base::StringPiece as_string);
 
 struct StorageChange {
   StorageChange();
@@ -103,12 +105,19 @@ struct StorageChange {
   StorageChange(StorageChange&& rhs);
   StorageChange& operator=(StorageChange&& rhs);
 
-  // Populates a StorageChange object from a base::Value. Returns whether |out|
-  // was successfully populated.
-  static bool Populate(const base::Value& value, StorageChange* out);
+  // Populates a StorageChange object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, StorageChange& out);
+
+  // Populates a StorageChange object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, StorageChange& out);
 
   // Creates a StorageChange object from a base::Value, or NULL on failure.
-  static std::unique_ptr<StorageChange> FromValue(const base::Value& value);
+  static std::unique_ptr<StorageChange> FromValueDeprecated(const base::Value& value);
+
+  // Creates a StorageChange object from a base::Value, or nullopt on failure.
+  static absl::optional<StorageChange> FromValue(const base::Value::Dict& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStorageChange object.
@@ -146,9 +155,9 @@ struct Params {
     Keys(Keys&& rhs);
     Keys& operator=(Keys&& rhs);
 
-    // Populates a Keys object from a base::Value. Returns whether |out| was
-    // successfully populated.
-    static bool Populate(const base::Value& value, Keys* out);
+    // Populates a Keys object from a base::Value& instance. Returns whether |out|
+    // was successfully populated.
+    static bool Populate(const base::Value& value, Keys& out);
     // Storage items to return in the callback, where the values are replaced with
     // those from storage if they exist.
     struct Object {
@@ -159,9 +168,13 @@ struct Params {
       Object(Object&& rhs);
       Object& operator=(Object&& rhs);
 
-      // Populates a Object object from a base::Value. Returns whether |out| was
+      // Populates a Object object from a base::Value& instance. Returns whether
+      // |out| was successfully populated.
+      static bool Populate(const base::Value& value, Object& out);
+
+      // Populates a Object object from a Dict& instance. Returns whether |out| was
       // successfully populated.
-      static bool Populate(const base::Value& value, Object* out);
+      static bool Populate(const base::Value::Dict& value, Object& out);
 
       base::Value::Dict additional_properties;
     };
@@ -230,9 +243,9 @@ struct Params {
     Keys(Keys&& rhs);
     Keys& operator=(Keys&& rhs);
 
-    // Populates a Keys object from a base::Value. Returns whether |out| was
-    // successfully populated.
-    static bool Populate(const base::Value& value, Keys* out);
+    // Populates a Keys object from a base::Value& instance. Returns whether |out|
+    // was successfully populated.
+    static bool Populate(const base::Value& value, Keys& out);
     // Choices:
     absl::optional<std::string> as_string;
     absl::optional<std::vector<std::string>> as_strings;
@@ -281,9 +294,13 @@ struct Params {
     Items(Items&& rhs);
     Items& operator=(Items&& rhs);
 
-    // Populates a Items object from a base::Value. Returns whether |out| was
+    // Populates a Items object from a base::Value& instance. Returns whether
+    // |out| was successfully populated.
+    static bool Populate(const base::Value& value, Items& out);
+
+    // Populates a Items object from a Dict& instance. Returns whether |out| was
     // successfully populated.
-    static bool Populate(const base::Value& value, Items* out);
+    static bool Populate(const base::Value::Dict& value, Items& out);
 
     base::Value::Dict additional_properties;
   };
@@ -329,9 +346,9 @@ struct Params {
     Keys(Keys&& rhs);
     Keys& operator=(Keys&& rhs);
 
-    // Populates a Keys object from a base::Value. Returns whether |out| was
-    // successfully populated.
-    static bool Populate(const base::Value& value, Keys* out);
+    // Populates a Keys object from a base::Value& instance. Returns whether |out|
+    // was successfully populated.
+    static bool Populate(const base::Value& value, Keys& out);
     // Choices:
     absl::optional<std::string> as_string;
     absl::optional<std::vector<std::string>> as_strings;
@@ -380,9 +397,13 @@ struct Params {
     AccessOptions(AccessOptions&& rhs);
     AccessOptions& operator=(AccessOptions&& rhs);
 
-    // Populates a AccessOptions object from a base::Value. Returns whether |out|
-    // was successfully populated.
-    static bool Populate(const base::Value& value, AccessOptions* out);
+    // Populates a AccessOptions object from a base::Value& instance. Returns
+    // whether |out| was successfully populated.
+    static bool Populate(const base::Value& value, AccessOptions& out);
+
+    // Populates a AccessOptions object from a Dict& instance. Returns whether
+    // |out| was successfully populated.
+    static bool Populate(const base::Value::Dict& value, AccessOptions& out);
 
     // The access level of the storage area.
     AccessLevel access_level;

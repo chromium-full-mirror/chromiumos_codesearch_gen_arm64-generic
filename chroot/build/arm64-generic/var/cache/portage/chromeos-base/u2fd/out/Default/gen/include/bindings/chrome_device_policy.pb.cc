@@ -512,7 +512,8 @@ PROTOBUF_CONSTEXPR DeviceLocalAccountInfoProto::DeviceLocalAccountInfoProto(
   , /*decltype(_impl_.kiosk_app_)*/nullptr
   , /*decltype(_impl_.android_kiosk_app_)*/nullptr
   , /*decltype(_impl_.web_kiosk_app_)*/nullptr
-  , /*decltype(_impl_.type_)*/0} {}
+  , /*decltype(_impl_.type_)*/0
+  , /*decltype(_impl_.ephemeral_mode_)*/0} {}
 struct DeviceLocalAccountInfoProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceLocalAccountInfoProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2575,6 +2576,74 @@ constexpr DeviceLocalAccountInfoProto_AccountType DeviceLocalAccountInfoProto::A
 constexpr DeviceLocalAccountInfoProto_AccountType DeviceLocalAccountInfoProto::AccountType_MIN;
 constexpr DeviceLocalAccountInfoProto_AccountType DeviceLocalAccountInfoProto::AccountType_MAX;
 constexpr int DeviceLocalAccountInfoProto::AccountType_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool DeviceLocalAccountInfoProto_EphemeralMode_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceLocalAccountInfoProto_EphemeralMode_strings[4] = {};
+
+static const char DeviceLocalAccountInfoProto_EphemeralMode_names[] =
+  "EPHEMERAL_MODE_DISABLE"
+  "EPHEMERAL_MODE_ENABLE"
+  "EPHEMERAL_MODE_FOLLOW_DEVICE_WIDE_POLICY"
+  "EPHEMERAL_MODE_UNSET";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceLocalAccountInfoProto_EphemeralMode_entries[] = {
+  { {DeviceLocalAccountInfoProto_EphemeralMode_names + 0, 22}, 2 },
+  { {DeviceLocalAccountInfoProto_EphemeralMode_names + 22, 21}, 3 },
+  { {DeviceLocalAccountInfoProto_EphemeralMode_names + 43, 40}, 1 },
+  { {DeviceLocalAccountInfoProto_EphemeralMode_names + 83, 20}, 0 },
+};
+
+static const int DeviceLocalAccountInfoProto_EphemeralMode_entries_by_number[] = {
+  3, // 0 -> EPHEMERAL_MODE_UNSET
+  2, // 1 -> EPHEMERAL_MODE_FOLLOW_DEVICE_WIDE_POLICY
+  0, // 2 -> EPHEMERAL_MODE_DISABLE
+  1, // 3 -> EPHEMERAL_MODE_ENABLE
+};
+
+const std::string& DeviceLocalAccountInfoProto_EphemeralMode_Name(
+    DeviceLocalAccountInfoProto_EphemeralMode value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DeviceLocalAccountInfoProto_EphemeralMode_entries,
+          DeviceLocalAccountInfoProto_EphemeralMode_entries_by_number,
+          4, DeviceLocalAccountInfoProto_EphemeralMode_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DeviceLocalAccountInfoProto_EphemeralMode_entries,
+      DeviceLocalAccountInfoProto_EphemeralMode_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DeviceLocalAccountInfoProto_EphemeralMode_strings[idx].get();
+}
+bool DeviceLocalAccountInfoProto_EphemeralMode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceLocalAccountInfoProto_EphemeralMode* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DeviceLocalAccountInfoProto_EphemeralMode_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<DeviceLocalAccountInfoProto_EphemeralMode>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EPHEMERAL_MODE_UNSET;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EPHEMERAL_MODE_FOLLOW_DEVICE_WIDE_POLICY;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EPHEMERAL_MODE_DISABLE;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EPHEMERAL_MODE_ENABLE;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EphemeralMode_MIN;
+constexpr DeviceLocalAccountInfoProto_EphemeralMode DeviceLocalAccountInfoProto::EphemeralMode_MAX;
+constexpr int DeviceLocalAccountInfoProto::EphemeralMode_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool AccessibilitySettingsProto_ScreenMagnifierType_IsValid(int value) {
   switch (value) {
@@ -12365,6 +12434,9 @@ class DeviceLocalAccountInfoProto::_Internal {
   static void set_has_web_kiosk_app(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
+  static void set_has_ephemeral_mode(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
 };
 
 const ::enterprise_management::KioskAppInfoProto&
@@ -12396,7 +12468,8 @@ DeviceLocalAccountInfoProto::DeviceLocalAccountInfoProto(const DeviceLocalAccoun
     , decltype(_impl_.kiosk_app_){nullptr}
     , decltype(_impl_.android_kiosk_app_){nullptr}
     , decltype(_impl_.web_kiosk_app_){nullptr}
-    , decltype(_impl_.type_){}};
+    , decltype(_impl_.type_){}
+    , decltype(_impl_.ephemeral_mode_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.deprecated_public_session_id_.InitDefault();
@@ -12424,7 +12497,9 @@ DeviceLocalAccountInfoProto::DeviceLocalAccountInfoProto(const DeviceLocalAccoun
   if (from._internal_has_web_kiosk_app()) {
     _this->_impl_.web_kiosk_app_ = new ::enterprise_management::WebKioskAppInfoProto(*from._impl_.web_kiosk_app_);
   }
-  _this->_impl_.type_ = from._impl_.type_;
+  ::memcpy(&_impl_.type_, &from._impl_.type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.ephemeral_mode_) -
+    reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.ephemeral_mode_));
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceLocalAccountInfoProto)
 }
 
@@ -12441,6 +12516,7 @@ inline void DeviceLocalAccountInfoProto::SharedCtor(
     , decltype(_impl_.android_kiosk_app_){nullptr}
     , decltype(_impl_.web_kiosk_app_){nullptr}
     , decltype(_impl_.type_){0}
+    , decltype(_impl_.ephemeral_mode_){0}
   };
   _impl_.deprecated_public_session_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -12501,7 +12577,11 @@ void DeviceLocalAccountInfoProto::Clear() {
       _impl_.web_kiosk_app_->Clear();
     }
   }
-  _impl_.type_ = 0;
+  if (cached_has_bits & 0x00000060u) {
+    ::memset(&_impl_.type_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.ephemeral_mode_) -
+        reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.ephemeral_mode_));
+  }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -12565,6 +12645,19 @@ const char* DeviceLocalAccountInfoProto::_InternalParse(const char* ptr, ::_pbi:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_web_kiosk_app(), ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.DeviceLocalAccountInfoProto.EphemeralMode ephemeral_mode = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode_IsValid(val))) {
+            _internal_set_ephemeral_mode(static_cast<::enterprise_management::DeviceLocalAccountInfoProto_EphemeralMode>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(7, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -12639,6 +12732,13 @@ uint8_t* DeviceLocalAccountInfoProto::_InternalSerialize(
         _Internal::web_kiosk_app(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.DeviceLocalAccountInfoProto.EphemeralMode ephemeral_mode = 7;
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      7, this->_internal_ephemeral_mode(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -12656,7 +12756,7 @@ size_t DeviceLocalAccountInfoProto::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     // optional string deprecated_public_session_id = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -12698,6 +12798,12 @@ size_t DeviceLocalAccountInfoProto::ByteSizeLong() const {
         ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
 
+    // optional .enterprise_management.DeviceLocalAccountInfoProto.EphemeralMode ephemeral_mode = 7;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_ephemeral_mode());
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -12721,7 +12827,7 @@ void DeviceLocalAccountInfoProto::MergeFrom(const DeviceLocalAccountInfoProto& f
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_deprecated_public_session_id(from._internal_deprecated_public_session_id());
     }
@@ -12742,6 +12848,9 @@ void DeviceLocalAccountInfoProto::MergeFrom(const DeviceLocalAccountInfoProto& f
     }
     if (cached_has_bits & 0x00000020u) {
       _this->_impl_.type_ = from._impl_.type_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      _this->_impl_.ephemeral_mode_ = from._impl_.ephemeral_mode_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
@@ -12774,8 +12883,8 @@ void DeviceLocalAccountInfoProto::InternalSwap(DeviceLocalAccountInfoProto* othe
       &other->_impl_.account_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceLocalAccountInfoProto, _impl_.type_)
-      + sizeof(DeviceLocalAccountInfoProto::_impl_.type_)
+      PROTOBUF_FIELD_OFFSET(DeviceLocalAccountInfoProto, _impl_.ephemeral_mode_)
+      + sizeof(DeviceLocalAccountInfoProto::_impl_.ephemeral_mode_)
       - PROTOBUF_FIELD_OFFSET(DeviceLocalAccountInfoProto, _impl_.kiosk_app_)>(
           reinterpret_cast<char*>(&_impl_.kiosk_app_),
           reinterpret_cast<char*>(&other->_impl_.kiosk_app_));

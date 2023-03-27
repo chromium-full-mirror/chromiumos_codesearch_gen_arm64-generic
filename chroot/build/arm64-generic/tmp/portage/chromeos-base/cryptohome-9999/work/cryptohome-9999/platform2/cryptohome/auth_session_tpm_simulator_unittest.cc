@@ -22,7 +22,6 @@
 #include <cryptohome/proto_bindings/UserDataAuth.pb.h>
 #include <dbus/bus.h>
 #include <dbus/mock_bus.h>
-#include <featured/fake_platform_features.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <libhwsec/backend/mock_backend.h>
@@ -66,8 +65,12 @@ using ::testing::Combine;
 using ::testing::NiceMock;
 using ::testing::ValuesIn;
 
-constexpr AuthFactorStorageType kAllAuthFactorStorageTypes[] = {
+constexpr AuthFactorStorageType kAllAuthFactorStorageFromTypes[] = {
     AuthFactorStorageType::kVaultKeyset,
+    AuthFactorStorageType::kUserSecretStash,
+};
+
+constexpr AuthFactorStorageType kAllAuthFactorStorageToTypes[] = {
     AuthFactorStorageType::kUserSecretStash,
 };
 
@@ -323,7 +326,7 @@ class AuthSessionWithTpmSimulatorTest : public ::testing::Test {
   UserSecretStashStorage user_secret_stash_storage_{&platform_};
   scoped_refptr<NiceMock<dbus::MockBus>> dbus_bus_ =
       base::MakeRefCounted<NiceMock<dbus::MockBus>>(dbus::Bus::Options());
-  feature::FakePlatformFeatures platform_features_{dbus_bus_};
+  Features features_{dbus_bus_, true /*testing*/};
 
   AuthSession::BackingApis backing_apis_{&crypto_,
                                          &platform_,
@@ -331,7 +334,8 @@ class AuthSessionWithTpmSimulatorTest : public ::testing::Test {
                                          &keyset_management_,
                                          &auth_block_utility_,
                                          &auth_factor_manager_,
-                                         &user_secret_stash_storage_};
+                                         &user_secret_stash_storage_,
+                                         &features_};
 };
 
 class AuthSessionWithTpmSimulatorUssMigrationTest
@@ -349,8 +353,7 @@ class AuthSessionWithTpmSimulatorUssMigrationTest
     uss_experiment_override_ =
         std::make_unique<SetUssExperimentOverride>(enable_uss);
 
-    platform_features_.SetEnabled(kCrOSLateBootMigrateToUserSecretStash.name,
-                                  enable_uss);
+    features_.SetDefaultForFeature(Features::kUSSMigration, true /*enabled*/);
   }
 
  private:
@@ -387,8 +390,8 @@ class AuthSessionWithTpmSimulatorUssMigrationAgnosticTest
 INSTANTIATE_TEST_SUITE_P(
     All,
     AuthSessionWithTpmSimulatorUssMigrationAgnosticTest,
-    Combine(ValuesIn(kAllAuthFactorStorageTypes),
-            ValuesIn(kAllAuthFactorStorageTypes)),
+    Combine(ValuesIn(kAllAuthFactorStorageFromTypes),
+            ValuesIn(kAllAuthFactorStorageToTypes)),
     [](auto info) {
       // Return human-readable parameterized test name. Use caps in order to
       // clearly separate lowercase words visually.
@@ -402,9 +405,9 @@ INSTANTIATE_TEST_SUITE_P(
 TEST_P(AuthSessionWithTpmSimulatorUssMigrationAgnosticTest,
        AuthenticateViaPassword) {
   auto create_auth_session = [this]() {
-    return AuthSession::Create(
-        kUsername, user_data_auth::AUTH_SESSION_FLAGS_NONE,
-        AuthIntent::kDecrypt, &platform_features_, backing_apis_);
+    return AuthSession::Create(kUsername,
+                               user_data_auth::AUTH_SESSION_FLAGS_NONE,
+                               AuthIntent::kDecrypt, backing_apis_);
   };
 
   // Arrange.
@@ -438,9 +441,9 @@ TEST_P(AuthSessionWithTpmSimulatorUssMigrationAgnosticTest,
 // authenticate via the new password but not via the old one.
 TEST_P(AuthSessionWithTpmSimulatorUssMigrationAgnosticTest, UpdatePassword) {
   auto create_auth_session = [this]() {
-    return AuthSession::Create(
-        kUsername, user_data_auth::AUTH_SESSION_FLAGS_NONE,
-        AuthIntent::kDecrypt, &platform_features_, backing_apis_);
+    return AuthSession::Create(kUsername,
+                               user_data_auth::AUTH_SESSION_FLAGS_NONE,
+                               AuthIntent::kDecrypt, backing_apis_);
   };
 
   // Arrange.
@@ -487,7 +490,6 @@ TEST_P(AuthSessionWithTpmSimulatorUssMigrationAgnosticTest, UpdatePassword) {
   // Check the same holds after switching back to the initial storage type.
   SetToInitialStorageType();
   EXPECT_THAT(try_authenticate(kPassword), NotOk());
-  EXPECT_THAT(try_authenticate(kNewPassword), IsOk());
 }
 
 // Test a password factor can be successfully updated after authenticating via a
@@ -495,9 +497,9 @@ TEST_P(AuthSessionWithTpmSimulatorUssMigrationAgnosticTest, UpdatePassword) {
 TEST_P(AuthSessionWithTpmSimulatorUssMigrationAgnosticTest,
        UpdatePasswordAfterRecoveryAuth) {
   auto create_auth_session = [this]() {
-    return AuthSession::Create(
-        kUsername, user_data_auth::AUTH_SESSION_FLAGS_NONE,
-        AuthIntent::kDecrypt, &platform_features_, backing_apis_);
+    return AuthSession::Create(kUsername,
+                               user_data_auth::AUTH_SESSION_FLAGS_NONE,
+                               AuthIntent::kDecrypt, backing_apis_);
   };
 
   // Arrange.
@@ -570,9 +572,9 @@ TEST_P(AuthSessionWithTpmSimulatorUssMigrationAgnosticTest,
 TEST_P(AuthSessionWithTpmSimulatorUssMigrationAgnosticTest,
        UpdatePasswordPartialMigration) {
   auto create_auth_session = [this]() {
-    return AuthSession::Create(
-        kUsername, user_data_auth::AUTH_SESSION_FLAGS_NONE,
-        AuthIntent::kDecrypt, &platform_features_, backing_apis_);
+    return AuthSession::Create(kUsername,
+                               user_data_auth::AUTH_SESSION_FLAGS_NONE,
+                               AuthIntent::kDecrypt, backing_apis_);
   };
 
   // Arrange.

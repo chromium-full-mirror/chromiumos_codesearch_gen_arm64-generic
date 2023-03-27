@@ -790,7 +790,7 @@ bool BitstreamBufferMetadata_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+          data, 64, validation_context)) {
     return false;
   }
 
@@ -810,6 +810,9 @@ bool BitstreamBufferMetadata_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidateStruct(object->encoded_size, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->encoded_color_space, validation_context))
     return false;
 
   return true;

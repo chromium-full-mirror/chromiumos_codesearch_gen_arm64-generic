@@ -17,6 +17,18 @@ namespace v2 {
 
 namespace fast_pair {
 
+class DiscoveryNotificationShown final : public ::metrics::structured::Event {
+ public:
+  DiscoveryNotificationShown();
+  ~DiscoveryNotificationShown() override;
+
+    DiscoveryNotificationShown& SetProtocol(const int64_t value);
+  DiscoveryNotificationShown& SetFastPairVersion(const int64_t value);
+  DiscoveryNotificationShown& SetModelId(const int64_t value);
+  DiscoveryNotificationShown& SetRSSI(const int64_t value);
+  DiscoveryNotificationShown& SetTxPower(const int64_t value);
+};
+
 class PairingStart final : public ::metrics::structured::Event {
  public:
   PairingStart();
@@ -25,6 +37,8 @@ class PairingStart final : public ::metrics::structured::Event {
     PairingStart& SetProtocol(const int64_t value);
   PairingStart& SetFastPairVersion(const int64_t value);
   PairingStart& SetModelId(const int64_t value);
+  PairingStart& SetRSSI(const int64_t value);
+  PairingStart& SetTxPower(const int64_t value);
 };
 
 class PairingComplete final : public ::metrics::structured::Event {
@@ -35,6 +49,8 @@ class PairingComplete final : public ::metrics::structured::Event {
     PairingComplete& SetProtocol(const int64_t value);
   PairingComplete& SetFastPairVersion(const int64_t value);
   PairingComplete& SetModelId(const int64_t value);
+  PairingComplete& SetRSSI(const int64_t value);
+  PairingComplete& SetTxPower(const int64_t value);
 };
 
 class PairFailure final : public ::metrics::structured::Event {
@@ -259,6 +275,7 @@ class AppDiscovery_AppLauncherResultOpened final : public ::metrics::structured:
     AppDiscovery_AppLauncherResultOpened& SetFuzzyStringMatch(const double value);
   AppDiscovery_AppLauncherResultOpened& SetAppId(const std::string& value);
   AppDiscovery_AppLauncherResultOpened& SetAppName(const std::string& value);
+  AppDiscovery_AppLauncherResultOpened& SetResultCategory(const int64_t value);
 };
 
 class UserLogin final : public ::metrics::structured::Event {
@@ -274,6 +291,14 @@ class UserLogout final : public ::metrics::structured::Event {
   ~UserLogout() override;
 
   };
+
+class SystemSuspended final : public ::metrics::structured::Event {
+ public:
+  SystemSuspended();
+  ~SystemSuspended() override;
+
+    SystemSuspended& SetReason(const int64_t value);
+};
 
 class Test1 final : public ::metrics::structured::Event {
  public:

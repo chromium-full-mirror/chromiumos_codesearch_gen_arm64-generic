@@ -30,6 +30,8 @@ class SharedStorageMetadata;
 class SharedStorageReportingMetadata;
 class SharedStorageUrlWithMetadata;
 class SharedStorageAccessParams;
+using StorageBucketsDurability = String;
+class StorageBucketInfo;
 
 // ------------- Forward and enum declarations.
 
@@ -45,6 +47,7 @@ CONTENT_EXPORT extern const char Service_workers[];
 CONTENT_EXPORT extern const char Cache_storage[];
 CONTENT_EXPORT extern const char Interest_groups[];
 CONTENT_EXPORT extern const char Shared_storage[];
+CONTENT_EXPORT extern const char Storage_buckets[];
 CONTENT_EXPORT extern const char All[];
 CONTENT_EXPORT extern const char Other[];
 } // namespace StorageTypeEnum
@@ -76,6 +79,11 @@ CONTENT_EXPORT extern const char WorkletEntries[];
 CONTENT_EXPORT extern const char WorkletLength[];
 CONTENT_EXPORT extern const char WorkletRemainingBudget[];
 } // namespace SharedStorageAccessTypeEnum
+
+namespace StorageBucketsDurabilityEnum {
+CONTENT_EXPORT extern const char Relaxed[];
+CONTENT_EXPORT extern const char Strict[];
+} // namespace StorageBucketsDurabilityEnum
 
 // ------------- Type and builder declarations.
 
@@ -885,6 +893,151 @@ private:
 };
 
 
+class CONTENT_EXPORT StorageBucketInfo : public ::crdtp::ProtocolObject<StorageBucketInfo> {
+public:
+    ~StorageBucketInfo() override { }
+
+    String GetStorageKey() { return m_storageKey; }
+    void SetStorageKey(const String& value) { m_storageKey = value; }
+
+    String GetId() { return m_id; }
+    void SetId(const String& value) { m_id = value; }
+
+    String GetName() { return m_name; }
+    void SetName(const String& value) { m_name = value; }
+
+    bool GetIsDefault() { return m_isDefault; }
+    void SetIsDefault(bool value) { m_isDefault = value; }
+
+    double GetExpiration() { return m_expiration; }
+    void SetExpiration(double value) { m_expiration = value; }
+
+    double GetQuota() { return m_quota; }
+    void SetQuota(double value) { m_quota = value; }
+
+    bool GetPersistent() { return m_persistent; }
+    void SetPersistent(bool value) { m_persistent = value; }
+
+    String GetDurability() { return m_durability; }
+    void SetDurability(const String& value) { m_durability = value; }
+
+    template<int STATE>
+    class StorageBucketInfoBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            StorageKeySet = 1 << 1,
+            IdSet = 1 << 2,
+            NameSet = 1 << 3,
+            IsDefaultSet = 1 << 4,
+            ExpirationSet = 1 << 5,
+            QuotaSet = 1 << 6,
+            PersistentSet = 1 << 7,
+            DurabilitySet = 1 << 8,
+            AllFieldsSet = (StorageKeySet | IdSet | NameSet | IsDefaultSet | ExpirationSet | QuotaSet | PersistentSet | DurabilitySet | 0)};
+
+
+        StorageBucketInfoBuilder<STATE | StorageKeySet>& SetStorageKey(const String& value)
+        {
+            static_assert(!(STATE & StorageKeySet), "property storageKey should not be set yet");
+            m_result->SetStorageKey(value);
+            return castState<StorageKeySet>();
+        }
+
+        StorageBucketInfoBuilder<STATE | IdSet>& SetId(const String& value)
+        {
+            static_assert(!(STATE & IdSet), "property id should not be set yet");
+            m_result->SetId(value);
+            return castState<IdSet>();
+        }
+
+        StorageBucketInfoBuilder<STATE | NameSet>& SetName(const String& value)
+        {
+            static_assert(!(STATE & NameSet), "property name should not be set yet");
+            m_result->SetName(value);
+            return castState<NameSet>();
+        }
+
+        StorageBucketInfoBuilder<STATE | IsDefaultSet>& SetIsDefault(bool value)
+        {
+            static_assert(!(STATE & IsDefaultSet), "property isDefault should not be set yet");
+            m_result->SetIsDefault(value);
+            return castState<IsDefaultSet>();
+        }
+
+        StorageBucketInfoBuilder<STATE | ExpirationSet>& SetExpiration(double value)
+        {
+            static_assert(!(STATE & ExpirationSet), "property expiration should not be set yet");
+            m_result->SetExpiration(value);
+            return castState<ExpirationSet>();
+        }
+
+        StorageBucketInfoBuilder<STATE | QuotaSet>& SetQuota(double value)
+        {
+            static_assert(!(STATE & QuotaSet), "property quota should not be set yet");
+            m_result->SetQuota(value);
+            return castState<QuotaSet>();
+        }
+
+        StorageBucketInfoBuilder<STATE | PersistentSet>& SetPersistent(bool value)
+        {
+            static_assert(!(STATE & PersistentSet), "property persistent should not be set yet");
+            m_result->SetPersistent(value);
+            return castState<PersistentSet>();
+        }
+
+        StorageBucketInfoBuilder<STATE | DurabilitySet>& SetDurability(const String& value)
+        {
+            static_assert(!(STATE & DurabilitySet), "property durability should not be set yet");
+            m_result->SetDurability(value);
+            return castState<DurabilitySet>();
+        }
+
+        std::unique_ptr<StorageBucketInfo> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class StorageBucketInfo;
+        StorageBucketInfoBuilder() : m_result(new StorageBucketInfo()) { }
+
+        template<int STEP> StorageBucketInfoBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<StorageBucketInfoBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::StorageBucketInfo> m_result;
+    };
+
+    static StorageBucketInfoBuilder<0> Create()
+    {
+        return StorageBucketInfoBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    StorageBucketInfo()
+    {
+          m_isDefault = false;
+          m_expiration = 0;
+          m_quota = 0;
+          m_persistent = false;
+    }
+
+    String m_storageKey;
+    String m_id;
+    String m_name;
+    bool m_isDefault;
+    double m_expiration;
+    double m_quota;
+    bool m_persistent;
+    String m_durability;
+};
+
+
 // ------------- Backend interface.
 
 class CONTENT_EXPORT Backend {
@@ -1030,6 +1183,8 @@ public:
     };
     virtual void ResetSharedStorageBudget(const String& in_ownerOrigin, std::unique_ptr<ResetSharedStorageBudgetCallback> callback) = 0;
     virtual DispatchResponse SetSharedStorageTracking(bool in_enable) = 0;
+    virtual DispatchResponse SetStorageBucketTracking(const String& in_storageKey, bool in_enable) = 0;
+    virtual DispatchResponse DeleteStorageBucket(const String& in_storageKey, const String& in_bucketName) = 0;
 
     virtual DispatchResponse Disable()
     {
@@ -1048,6 +1203,8 @@ public:
     void IndexedDBListUpdated(const String& origin, const String& storageKey);
     void InterestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name);
     void SharedStorageAccessed(double accessTime, const String& type, const String& mainFrameId, const String& ownerOrigin, std::unique_ptr<protocol::Storage::SharedStorageAccessParams> params);
+    void StorageBucketCreatedOrUpdated(std::unique_ptr<protocol::Storage::StorageBucketInfo> bucket);
+    void StorageBucketDeleted(const String& bucketId);
 
   void flush();
   void sendRawNotification(std::unique_ptr<Serializable>);

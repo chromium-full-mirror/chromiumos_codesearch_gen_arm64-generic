@@ -246,6 +246,7 @@ class  CrosHealthdEventServiceInterceptorForTesting : public CrosHealthdEventSer
   void DEPRECATED_AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) override;
   void DEPRECATED_AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) override;
   void AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) override;
+  void IsEventSupported(::ash::cros_healthd::mojom::EventCategoryEnum category, IsEventSupportedCallback callback) override;
 };
 class  CrosHealthdEventServiceAsyncWaiter {
  public:
@@ -255,6 +256,9 @@ class  CrosHealthdEventServiceAsyncWaiter {
   CrosHealthdEventServiceAsyncWaiter& operator=(const CrosHealthdEventServiceAsyncWaiter&) = delete;
 
   ~CrosHealthdEventServiceAsyncWaiter();
+  void IsEventSupported(
+      ::ash::cros_healthd::mojom::EventCategoryEnum category, ::ash::cros_healthd::mojom::SupportStatusPtr* out_status);
+  ::ash::cros_healthd::mojom::SupportStatusPtr IsEventSupported(::ash::cros_healthd::mojom::EventCategoryEnum category);
 
  private:
   CrosHealthdEventService* const proxy_;

@@ -554,7 +554,10 @@ class  Executor_GetLidAngle_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
+  uint8_t lid_angle_$flag : 1;
+  uint8_t pad0_[1];
+  uint16_t lid_angle_$value;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<Executor_GetLidAngle_ResponseParams_Data>;
@@ -1602,22 +1605,17 @@ class Executor_GetLidAngle_ResponseParamsDataView {
   Executor_GetLidAngle_ResponseParamsDataView(
       internal::Executor_GetLidAngle_ResponseParams_Data* data,
       mojo::Message* message)
-      : data_(data), message_(message) {}
+      : data_(data) {}
 
   bool is_null() const { return !data_; }
-  inline void GetResultDataView(
-      ExecutedProcessResultDataView* output);
+  absl::optional<uint16_t> lid_angle() const {
 
-  template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) {
-    
-    auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
-        pointer, output, message_);
+    return data_->lid_angle_$flag
+        ? absl::make_optional(data_->lid_angle_$value)
+        : absl::nullopt;
   }
  private:
   internal::Executor_GetLidAngle_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
 };
 
 
@@ -2277,11 +2275,6 @@ inline void Executor_ReadMsr_ResponseParamsDataView::GetValueDataView(
 
 
 
-inline void Executor_GetLidAngle_ResponseParamsDataView::GetResultDataView(
-    ExecutedProcessResultDataView* output) {
-  auto pointer = data_->result.Get();
-  *output = ExecutedProcessResultDataView(pointer, message_);
-}
 
 
 

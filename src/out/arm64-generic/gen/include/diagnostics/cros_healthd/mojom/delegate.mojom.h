@@ -83,6 +83,7 @@ class Delegate
     kMonitorTouchscreenMinVersion = 0,
     kMonitorStylusGarageMinVersion = 0,
     kMonitorStylusMinVersion = 0,
+    kGetLidAngleMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -116,6 +117,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MonitorStylus_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetLidAngle_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -160,6 +164,11 @@ class Delegate
 
   
   virtual void MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) = 0;
+
+
+  using GetLidAngleCallback = base::OnceCallback<void(absl::optional<uint16_t>)>;
+  
+  virtual void GetLidAngle(GetLidAngleCallback callback) = 0;
 };
 
 
@@ -190,6 +199,8 @@ class  DelegateProxy
   void MonitorStylusGarage(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver> observer) final;
   
   void MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) final;
+  
+  void GetLidAngle(GetLidAngleCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -39,10 +39,12 @@ NOINLINE static const char* BuiltinModelIdToStringHelper(BuiltinModelId value) {
       return "SMART_DIM_20190521";
     case BuiltinModelId::UNSUPPORTED_SEARCH_RANKER_20190923:
       return "UNSUPPORTED_SEARCH_RANKER_20190923";
-    case BuiltinModelId::ADAPTIVE_CHARGING_20211105:
-      return "ADAPTIVE_CHARGING_20211105";
+    case BuiltinModelId::UNSUPPORTED_ADAPTIVE_CHARGING_20211105:
+      return "UNSUPPORTED_ADAPTIVE_CHARGING_20211105";
     case BuiltinModelId::PONCHO_PALM_REJECTION_20230213:
       return "PONCHO_PALM_REJECTION_20230213";
+    case BuiltinModelId::ADAPTIVE_CHARGING_20230314:
+      return "ADAPTIVE_CHARGING_20230314";
     default:
       return nullptr;
   }
