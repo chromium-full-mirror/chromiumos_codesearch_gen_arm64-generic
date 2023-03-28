@@ -434,6 +434,7 @@ class Executor
     kMonitorTouchscreenMinVersion = 0,
     kMonitorStylusGarageMinVersion = 0,
     kMonitorStylusMinVersion = 0,
+    kGetPsrMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -497,6 +498,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MonitorStylus_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetPsr_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -591,6 +595,11 @@ class Executor
 
   
   virtual void MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
+
+
+  using GetPsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::PsrInfoPtr, const absl::optional<std::string>&)>;
+  
+  virtual void GetPsr(GetPsrCallback callback) = 0;
 };
 
 
@@ -749,6 +758,8 @@ class  ExecutorProxy
   void MonitorStylusGarage(::mojo::PendingRemote<StylusGarageObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
   
   void MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
+  
+  void GetPsr(GetPsrCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

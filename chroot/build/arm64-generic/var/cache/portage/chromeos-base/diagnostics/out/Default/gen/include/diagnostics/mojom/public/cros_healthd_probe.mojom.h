@@ -2351,6 +2351,152 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  PsrEvent {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PsrEvent, T>::value>;
+  using DataView = PsrEventDataView;
+  using Data_ = internal::PsrEvent_Data;
+  using EventType = PsrEvent_EventType;
+
+  template <typename... Args>
+  static PsrEventPtr New(Args&&... args) {
+    return PsrEventPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PsrEventPtr From(const U& u) {
+    return mojo::TypeConverter<PsrEventPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PsrEvent>::Convert(*this);
+  }
+
+
+  PsrEvent();
+
+  PsrEvent(
+      PsrEvent::EventType type,
+      uint32_t time,
+      uint32_t data);
+
+
+  ~PsrEvent();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PsrEventPtr>
+  PsrEventPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PsrEvent::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PsrEvent::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PsrEvent::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PsrEvent::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PsrEvent_UnserializedMessageContext<
+            UserType, PsrEvent::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PsrEvent::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PsrEvent::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PsrEvent_UnserializedMessageContext<
+            UserType, PsrEvent::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PsrEvent::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  PsrEvent::EventType type;
+  
+  uint32_t time;
+  
+  uint32_t data;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PsrEvent::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PsrEvent::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PsrEvent::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PsrEvent::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
 
 
 
@@ -9495,6 +9641,12 @@ class  SystemInfo {
       VpdInfoPtr vpd_info,
       DmiInfoPtr dmi_info);
 
+  SystemInfo(
+      OsInfoPtr os_info,
+      VpdInfoPtr vpd_info,
+      DmiInfoPtr dmi_info,
+      PsrInfoPtr psr_info);
+
 SystemInfo(const SystemInfo&) = delete;
 SystemInfo& operator=(const SystemInfo&) = delete;
 
@@ -9575,6 +9727,8 @@ SystemInfo& operator=(const SystemInfo&) = delete;
   VpdInfoPtr vpd_info;
   
   DmiInfoPtr dmi_info;
+  
+  PsrInfoPtr psr_info;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -10256,6 +10410,189 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, DmiInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  PsrInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PsrInfo, T>::value>;
+  using DataView = PsrInfoDataView;
+  using Data_ = internal::PsrInfo_Data;
+  using LogState = PsrInfo_LogState;
+
+  template <typename... Args>
+  static PsrInfoPtr New(Args&&... args) {
+    return PsrInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PsrInfoPtr From(const U& u) {
+    return mojo::TypeConverter<PsrInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PsrInfo>::Convert(*this);
+  }
+
+
+  PsrInfo();
+
+  PsrInfo(
+      PsrInfo::LogState log_state,
+      const std::string& uuid,
+      const std::string& upid,
+      uint32_t log_start_date,
+      const std::string& oem_name,
+      const std::string& oem_make,
+      const std::string& oem_model,
+      const std::string& manufacture_country,
+      const std::string& oem_data,
+      uint32_t uptime_seconds,
+      uint32_t s5_counter,
+      uint32_t s4_counter,
+      uint32_t s3_counter,
+      uint32_t warm_reset_counter,
+      std::vector<PsrEventPtr> events);
+
+PsrInfo(const PsrInfo&) = delete;
+PsrInfo& operator=(const PsrInfo&) = delete;
+
+  ~PsrInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PsrInfoPtr>
+  PsrInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PsrInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PsrInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PsrInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PsrInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PsrInfo_UnserializedMessageContext<
+            UserType, PsrInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PsrInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PsrInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PsrInfo_UnserializedMessageContext<
+            UserType, PsrInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PsrInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  PsrInfo::LogState log_state;
+  
+  std::string uuid;
+  
+  std::string upid;
+  
+  uint32_t log_start_date;
+  
+  std::string oem_name;
+  
+  std::string oem_make;
+  
+  std::string oem_model;
+  
+  std::string manufacture_country;
+  
+  std::string oem_data;
+  
+  uint32_t uptime_seconds;
+  
+  uint32_t s5_counter;
+  
+  uint32_t s4_counter;
+  
+  uint32_t s3_counter;
+  
+  uint32_t warm_reset_counter;
+  
+  std::vector<PsrEventPtr> events;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PsrInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PsrInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PsrInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PsrInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -16618,7 +16955,8 @@ SystemInfoPtr SystemInfo::Clone() const {
   return New(
       mojo::Clone(os_info),
       mojo::Clone(vpd_info),
-      mojo::Clone(dmi_info)
+      mojo::Clone(dmi_info),
+      mojo::Clone(psr_info)
   );
 }
 
@@ -16629,6 +16967,8 @@ bool SystemInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->vpd_info, other_struct.vpd_info))
     return false;
   if (!mojo::Equals(this->dmi_info, other_struct.dmi_info))
+    return false;
+  if (!mojo::Equals(this->psr_info, other_struct.psr_info))
     return false;
   return true;
 }
@@ -16646,6 +16986,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.dmi_info < rhs.dmi_info)
     return true;
   if (rhs.dmi_info < lhs.dmi_info)
+    return false;
+  if (lhs.psr_info < rhs.psr_info)
+    return true;
+  if (rhs.psr_info < lhs.psr_info)
     return false;
   return false;
 }
@@ -16909,6 +17253,162 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.sys_vendor < rhs.sys_vendor)
     return true;
   if (rhs.sys_vendor < lhs.sys_vendor)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+PsrEventPtr PsrEvent::Clone() const {
+  return New(
+      mojo::Clone(type),
+      mojo::Clone(time),
+      mojo::Clone(data)
+  );
+}
+
+template <typename T, PsrEvent::EnableIfSame<T>*>
+bool PsrEvent::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->type, other_struct.type))
+    return false;
+  if (!mojo::Equals(this->time, other_struct.time))
+    return false;
+  if (!mojo::Equals(this->data, other_struct.data))
+    return false;
+  return true;
+}
+
+template <typename T, PsrEvent::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
+    return false;
+  if (lhs.time < rhs.time)
+    return true;
+  if (rhs.time < lhs.time)
+    return false;
+  if (lhs.data < rhs.data)
+    return true;
+  if (rhs.data < lhs.data)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+PsrInfoPtr PsrInfo::Clone() const {
+  return New(
+      mojo::Clone(log_state),
+      mojo::Clone(uuid),
+      mojo::Clone(upid),
+      mojo::Clone(log_start_date),
+      mojo::Clone(oem_name),
+      mojo::Clone(oem_make),
+      mojo::Clone(oem_model),
+      mojo::Clone(manufacture_country),
+      mojo::Clone(oem_data),
+      mojo::Clone(uptime_seconds),
+      mojo::Clone(s5_counter),
+      mojo::Clone(s4_counter),
+      mojo::Clone(s3_counter),
+      mojo::Clone(warm_reset_counter),
+      mojo::Clone(events)
+  );
+}
+
+template <typename T, PsrInfo::EnableIfSame<T>*>
+bool PsrInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->log_state, other_struct.log_state))
+    return false;
+  if (!mojo::Equals(this->uuid, other_struct.uuid))
+    return false;
+  if (!mojo::Equals(this->upid, other_struct.upid))
+    return false;
+  if (!mojo::Equals(this->log_start_date, other_struct.log_start_date))
+    return false;
+  if (!mojo::Equals(this->oem_name, other_struct.oem_name))
+    return false;
+  if (!mojo::Equals(this->oem_make, other_struct.oem_make))
+    return false;
+  if (!mojo::Equals(this->oem_model, other_struct.oem_model))
+    return false;
+  if (!mojo::Equals(this->manufacture_country, other_struct.manufacture_country))
+    return false;
+  if (!mojo::Equals(this->oem_data, other_struct.oem_data))
+    return false;
+  if (!mojo::Equals(this->uptime_seconds, other_struct.uptime_seconds))
+    return false;
+  if (!mojo::Equals(this->s5_counter, other_struct.s5_counter))
+    return false;
+  if (!mojo::Equals(this->s4_counter, other_struct.s4_counter))
+    return false;
+  if (!mojo::Equals(this->s3_counter, other_struct.s3_counter))
+    return false;
+  if (!mojo::Equals(this->warm_reset_counter, other_struct.warm_reset_counter))
+    return false;
+  if (!mojo::Equals(this->events, other_struct.events))
+    return false;
+  return true;
+}
+
+template <typename T, PsrInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.log_state < rhs.log_state)
+    return true;
+  if (rhs.log_state < lhs.log_state)
+    return false;
+  if (lhs.uuid < rhs.uuid)
+    return true;
+  if (rhs.uuid < lhs.uuid)
+    return false;
+  if (lhs.upid < rhs.upid)
+    return true;
+  if (rhs.upid < lhs.upid)
+    return false;
+  if (lhs.log_start_date < rhs.log_start_date)
+    return true;
+  if (rhs.log_start_date < lhs.log_start_date)
+    return false;
+  if (lhs.oem_name < rhs.oem_name)
+    return true;
+  if (rhs.oem_name < lhs.oem_name)
+    return false;
+  if (lhs.oem_make < rhs.oem_make)
+    return true;
+  if (rhs.oem_make < lhs.oem_make)
+    return false;
+  if (lhs.oem_model < rhs.oem_model)
+    return true;
+  if (rhs.oem_model < lhs.oem_model)
+    return false;
+  if (lhs.manufacture_country < rhs.manufacture_country)
+    return true;
+  if (rhs.manufacture_country < lhs.manufacture_country)
+    return false;
+  if (lhs.oem_data < rhs.oem_data)
+    return true;
+  if (rhs.oem_data < lhs.oem_data)
+    return false;
+  if (lhs.uptime_seconds < rhs.uptime_seconds)
+    return true;
+  if (rhs.uptime_seconds < lhs.uptime_seconds)
+    return false;
+  if (lhs.s5_counter < rhs.s5_counter)
+    return true;
+  if (rhs.s5_counter < lhs.s5_counter)
+    return false;
+  if (lhs.s4_counter < rhs.s4_counter)
+    return true;
+  if (rhs.s4_counter < lhs.s4_counter)
+    return false;
+  if (lhs.s3_counter < rhs.s3_counter)
+    return true;
+  if (rhs.s3_counter < lhs.s3_counter)
+    return false;
+  if (lhs.warm_reset_counter < rhs.warm_reset_counter)
+    return true;
+  if (rhs.warm_reset_counter < lhs.warm_reset_counter)
+    return false;
+  if (lhs.events < rhs.events)
+    return true;
+  if (rhs.events < lhs.events)
     return false;
   return false;
 }
@@ -19674,6 +20174,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::SystemInfo::DataView,
     return input->dmi_info;
   }
 
+  static const decltype(::ash::cros_healthd::mojom::SystemInfo::psr_info)& psr_info(
+      const ::ash::cros_healthd::mojom::SystemInfoPtr& input) {
+    return input->psr_info;
+  }
+
   static bool Read(::ash::cros_healthd::mojom::SystemInfo::DataView input, ::ash::cros_healthd::mojom::SystemInfoPtr* output);
 };
 
@@ -19860,6 +20365,116 @@ struct  StructTraits<::ash::cros_healthd::mojom::DmiInfo::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::DmiInfo::DataView input, ::ash::cros_healthd::mojom::DmiInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::PsrEvent::DataView,
+                                         ::ash::cros_healthd::mojom::PsrEventPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::PsrEventPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::PsrEventPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::PsrEvent::type) type(
+      const ::ash::cros_healthd::mojom::PsrEventPtr& input) {
+    return input->type;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::PsrEvent::time) time(
+      const ::ash::cros_healthd::mojom::PsrEventPtr& input) {
+    return input->time;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::PsrEvent::data) data(
+      const ::ash::cros_healthd::mojom::PsrEventPtr& input) {
+    return input->data;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::PsrEvent::DataView input, ::ash::cros_healthd::mojom::PsrEventPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::PsrInfo::DataView,
+                                         ::ash::cros_healthd::mojom::PsrInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::PsrInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::PsrInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::PsrInfo::log_state) log_state(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->log_state;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::PsrInfo::uuid)& uuid(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->uuid;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::PsrInfo::upid)& upid(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->upid;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::PsrInfo::log_start_date) log_start_date(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->log_start_date;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::PsrInfo::oem_name)& oem_name(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->oem_name;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::PsrInfo::oem_make)& oem_make(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->oem_make;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::PsrInfo::oem_model)& oem_model(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->oem_model;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::PsrInfo::manufacture_country)& manufacture_country(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->manufacture_country;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::PsrInfo::oem_data)& oem_data(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->oem_data;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::PsrInfo::uptime_seconds) uptime_seconds(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->uptime_seconds;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::PsrInfo::s5_counter) s5_counter(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->s5_counter;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::PsrInfo::s4_counter) s4_counter(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->s4_counter;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::PsrInfo::s3_counter) s3_counter(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->s3_counter;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::PsrInfo::warm_reset_counter) warm_reset_counter(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->warm_reset_counter;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::PsrInfo::events)& events(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->events;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::PsrInfo::DataView input, ::ash::cros_healthd::mojom::PsrInfoPtr* output);
 };
 
 

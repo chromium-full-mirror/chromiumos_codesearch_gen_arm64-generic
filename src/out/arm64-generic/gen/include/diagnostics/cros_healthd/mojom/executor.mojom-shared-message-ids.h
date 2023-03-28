@@ -50,6 +50,7 @@ constexpr uint32_t kExecutor_FetchBootPerformance_Name = 16;
 constexpr uint32_t kExecutor_MonitorTouchscreen_Name = 17;
 constexpr uint32_t kExecutor_MonitorStylusGarage_Name = 18;
 constexpr uint32_t kExecutor_MonitorStylus_Name = 19;
+constexpr uint32_t kExecutor_GetPsr_Name = 20;
 
 }  // namespace internal
 }  // namespace mojom

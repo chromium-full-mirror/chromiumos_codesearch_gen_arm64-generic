@@ -57,6 +57,8 @@ class OsInfo_Data;
 class OsVersion_Data;
 class VpdInfo_Data;
 class DmiInfo_Data;
+class PsrEvent_Data;
+class PsrInfo_Data;
 class WirelessInterfaceInfo_Data;
 class WirelessLinkInfo_Data;
 class AudioInfo_Data;
@@ -662,6 +664,60 @@ struct CpuVirtualizationInfo_Type_Data {
 };
 
 struct OsInfo_EfiPlatformSize_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct PsrEvent_EventType_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct PsrInfo_LogState_Data {
  public:
   static bool constexpr kIsExtensible = true;
 
@@ -3758,6 +3814,7 @@ class  SystemInfo_Data {
   mojo::internal::Pointer<internal::OsInfo_Data> os_info;
   mojo::internal::Pointer<internal::VpdInfo_Data> vpd_info;
   mojo::internal::Pointer<internal::DmiInfo_Data> dmi_info;
+  mojo::internal::Pointer<internal::PsrInfo_Data> psr_info;
 
  private:
   friend class mojo::internal::MessageFragment<SystemInfo_Data>;
@@ -3765,7 +3822,7 @@ class  SystemInfo_Data {
   SystemInfo_Data();
   ~SystemInfo_Data() = delete;
 };
-static_assert(sizeof(SystemInfo_Data) == 32,
+static_assert(sizeof(SystemInfo_Data) == 40,
               "Bad sizeof(SystemInfo_Data)");
 // Used by SystemInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -4016,6 +4073,120 @@ struct DmiInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     DmiInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  PsrEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  uint32_t time;
+  uint32_t data;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<PsrEvent_Data>;
+
+  PsrEvent_Data();
+  ~PsrEvent_Data() = delete;
+};
+static_assert(sizeof(PsrEvent_Data) == 24,
+              "Bad sizeof(PsrEvent_Data)");
+// Used by PsrEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PsrEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PsrEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PsrEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PsrEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PsrEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  PsrInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t log_state;
+  uint32_t log_start_date;
+  mojo::internal::Pointer<mojo::internal::String_Data> uuid;
+  mojo::internal::Pointer<mojo::internal::String_Data> upid;
+  mojo::internal::Pointer<mojo::internal::String_Data> oem_name;
+  mojo::internal::Pointer<mojo::internal::String_Data> oem_make;
+  mojo::internal::Pointer<mojo::internal::String_Data> oem_model;
+  mojo::internal::Pointer<mojo::internal::String_Data> manufacture_country;
+  mojo::internal::Pointer<mojo::internal::String_Data> oem_data;
+  uint32_t uptime_seconds;
+  uint32_t s5_counter;
+  uint32_t s4_counter;
+  uint32_t s3_counter;
+  uint32_t warm_reset_counter;
+  uint8_t pad13_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::PsrEvent_Data>>> events;
+
+ private:
+  friend class mojo::internal::MessageFragment<PsrInfo_Data>;
+
+  PsrInfo_Data();
+  ~PsrInfo_Data() = delete;
+};
+static_assert(sizeof(PsrInfo_Data) == 104,
+              "Bad sizeof(PsrInfo_Data)");
+// Used by PsrInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PsrInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PsrInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PsrInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PsrInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PsrInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  WirelessInterfaceInfo_Data {
  public:
   static bool Validate(const void* data,

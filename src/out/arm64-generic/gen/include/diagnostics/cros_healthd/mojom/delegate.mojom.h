@@ -84,6 +84,7 @@ class Delegate
     kMonitorStylusGarageMinVersion = 0,
     kMonitorStylusMinVersion = 0,
     kGetLidAngleMinVersion = 0,
+    kGetPsrMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -120,6 +121,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetLidAngle_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetPsr_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -169,6 +173,11 @@ class Delegate
   using GetLidAngleCallback = base::OnceCallback<void(absl::optional<uint16_t>)>;
   
   virtual void GetLidAngle(GetLidAngleCallback callback) = 0;
+
+
+  using GetPsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::PsrInfoPtr, const absl::optional<std::string>&)>;
+  
+  virtual void GetPsr(GetPsrCallback callback) = 0;
 };
 
 
@@ -201,6 +210,8 @@ class  DelegateProxy
   void MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) final;
   
   void GetLidAngle(GetLidAngleCallback callback) final;
+  
+  void GetPsr(GetPsrCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

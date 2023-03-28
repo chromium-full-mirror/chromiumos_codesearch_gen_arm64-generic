@@ -33,50 +33,44 @@ class ManagerProxyInterface {
   virtual ~ManagerProxyInterface() = default;
 
   virtual bool ListScanners(
-      std::vector<uint8_t>* out_scanner_list,
+      ::lorgnette::ListScannersResponse* out_scanner_list,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void ListScannersAsync(
-      base::OnceCallback<void(const std::vector<uint8_t>& /*scanner_list*/)> success_callback,
+      base::OnceCallback<void(const ::lorgnette::ListScannersResponse& /*scanner_list*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // Returns the supported capabilities for scanner |device_name|.
   virtual bool GetScannerCapabilities(
       const std::string& in_device_name,
-      std::vector<uint8_t>* out_capabilities,
+      ::lorgnette::ScannerCapabilities* out_capabilities,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // Returns the supported capabilities for scanner |device_name|.
   virtual void GetScannerCapabilitiesAsync(
       const std::string& in_device_name,
-      base::OnceCallback<void(const std::vector<uint8_t>& /*capabilities*/)> success_callback,
+      base::OnceCallback<void(const ::lorgnette::ScannerCapabilities& /*capabilities*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // Sets up a multi-page scan job.
   // Initiates a connection to the scanner and prepares for scanning. Once
   // called, the client can call GetNextImage to fetch image data.
-  //
-  //   Serialized StartScanRequest proto specifying the scanner to use and
-  //   the settings for the scan.
   virtual bool StartScan(
-      const std::vector<uint8_t>& in_start_scan_request,
-      std::vector<uint8_t>* out_start_scan_response,
+      const ::lorgnette::StartScanRequest& in_start_scan_request,
+      ::lorgnette::StartScanResponse* out_start_scan_response,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // Sets up a multi-page scan job.
   // Initiates a connection to the scanner and prepares for scanning. Once
   // called, the client can call GetNextImage to fetch image data.
-  //
-  //   Serialized StartScanRequest proto specifying the scanner to use and
-  //   the settings for the scan.
   virtual void StartScanAsync(
-      const std::vector<uint8_t>& in_start_scan_request,
-      base::OnceCallback<void(const std::vector<uint8_t>& /*start_scan_response*/)> success_callback,
+      const ::lorgnette::StartScanRequest& in_start_scan_request,
+      base::OnceCallback<void(const ::lorgnette::StartScanResponse& /*start_scan_response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -85,14 +79,10 @@ class ManagerProxyInterface {
   //
   // A response will be sent once image acquisition has started successfully
   // or if acquiring the image failed.
-  //
-  //   Serialized GetNextImageRequest proto specifying the scan job uuid.
-  //
-  //   Output file descriptor. PNG image data will be written to this fd.
   virtual bool GetNextImage(
-      const std::vector<uint8_t>& in_get_next_image_request,
+      const ::lorgnette::GetNextImageRequest& in_get_next_image_request,
       const base::ScopedFD& in_out_fd,
-      std::vector<uint8_t>* out_get_next_image_response,
+      ::lorgnette::GetNextImageResponse* out_get_next_image_response,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -101,37 +91,29 @@ class ManagerProxyInterface {
   //
   // A response will be sent once image acquisition has started successfully
   // or if acquiring the image failed.
-  //
-  //   Serialized GetNextImageRequest proto specifying the scan job uuid.
-  //
-  //   Output file descriptor. PNG image data will be written to this fd.
   virtual void GetNextImageAsync(
-      const std::vector<uint8_t>& in_get_next_image_request,
+      const ::lorgnette::GetNextImageRequest& in_get_next_image_request,
       const base::ScopedFD& in_out_fd,
-      base::OnceCallback<void(const std::vector<uint8_t>& /*get_next_image_response*/)> success_callback,
+      base::OnceCallback<void(const ::lorgnette::GetNextImageResponse& /*get_next_image_response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // Attempts to cancel the scan job specified by the given UUID.
-  //
-  //   Serialized CancelScanRequest proto specifying the scan job to cancel.
   virtual bool CancelScan(
-      const std::vector<uint8_t>& in_cancel_scan_request,
-      std::vector<uint8_t>* out_cancel_scan_response,
+      const ::lorgnette::CancelScanRequest& in_cancel_scan_request,
+      ::lorgnette::CancelScanResponse* out_cancel_scan_response,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // Attempts to cancel the scan job specified by the given UUID.
-  //
-  //   Serialized CancelScanRequest proto specifying the scan job to cancel.
   virtual void CancelScanAsync(
-      const std::vector<uint8_t>& in_cancel_scan_request,
-      base::OnceCallback<void(const std::vector<uint8_t>& /*cancel_scan_response*/)> success_callback,
+      const ::lorgnette::CancelScanRequest& in_cancel_scan_request,
+      base::OnceCallback<void(const ::lorgnette::CancelScanResponse& /*cancel_scan_response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void RegisterScanStatusChangedSignalHandler(
-      const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
+      const base::RepeatingCallback<void(const ::lorgnette::ScanStatusChangedSignal&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
@@ -165,7 +147,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
   void RegisterScanStatusChangedSignalHandler(
-      const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
+      const base::RepeatingCallback<void(const ::lorgnette::ScanStatusChangedSignal&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
     brillo::dbus_utils::ConnectToSignal(
         dbus_object_proxy_,
@@ -188,7 +170,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
   bool ListScanners(
-      std::vector<uint8_t>* out_scanner_list,
+      ::lorgnette::ListScannersResponse* out_scanner_list,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -202,7 +184,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
   void ListScannersAsync(
-      base::OnceCallback<void(const std::vector<uint8_t>& /*scanner_list*/)> success_callback,
+      base::OnceCallback<void(const ::lorgnette::ListScannersResponse& /*scanner_list*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     brillo::dbus_utils::CallMethodWithTimeout(
@@ -217,7 +199,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   // Returns the supported capabilities for scanner |device_name|.
   bool GetScannerCapabilities(
       const std::string& in_device_name,
-      std::vector<uint8_t>* out_capabilities,
+      ::lorgnette::ScannerCapabilities* out_capabilities,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -234,7 +216,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   // Returns the supported capabilities for scanner |device_name|.
   void GetScannerCapabilitiesAsync(
       const std::string& in_device_name,
-      base::OnceCallback<void(const std::vector<uint8_t>& /*capabilities*/)> success_callback,
+      base::OnceCallback<void(const ::lorgnette::ScannerCapabilities& /*capabilities*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     brillo::dbus_utils::CallMethodWithTimeout(
@@ -250,12 +232,9 @@ class ManagerProxy final : public ManagerProxyInterface {
   // Sets up a multi-page scan job.
   // Initiates a connection to the scanner and prepares for scanning. Once
   // called, the client can call GetNextImage to fetch image data.
-  //
-  //   Serialized StartScanRequest proto specifying the scanner to use and
-  //   the settings for the scan.
   bool StartScan(
-      const std::vector<uint8_t>& in_start_scan_request,
-      std::vector<uint8_t>* out_start_scan_response,
+      const ::lorgnette::StartScanRequest& in_start_scan_request,
+      ::lorgnette::StartScanResponse* out_start_scan_response,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -272,12 +251,9 @@ class ManagerProxy final : public ManagerProxyInterface {
   // Sets up a multi-page scan job.
   // Initiates a connection to the scanner and prepares for scanning. Once
   // called, the client can call GetNextImage to fetch image data.
-  //
-  //   Serialized StartScanRequest proto specifying the scanner to use and
-  //   the settings for the scan.
   void StartScanAsync(
-      const std::vector<uint8_t>& in_start_scan_request,
-      base::OnceCallback<void(const std::vector<uint8_t>& /*start_scan_response*/)> success_callback,
+      const ::lorgnette::StartScanRequest& in_start_scan_request,
+      base::OnceCallback<void(const ::lorgnette::StartScanResponse& /*start_scan_response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     brillo::dbus_utils::CallMethodWithTimeout(
@@ -295,14 +271,10 @@ class ManagerProxy final : public ManagerProxyInterface {
   //
   // A response will be sent once image acquisition has started successfully
   // or if acquiring the image failed.
-  //
-  //   Serialized GetNextImageRequest proto specifying the scan job uuid.
-  //
-  //   Output file descriptor. PNG image data will be written to this fd.
   bool GetNextImage(
-      const std::vector<uint8_t>& in_get_next_image_request,
+      const ::lorgnette::GetNextImageRequest& in_get_next_image_request,
       const base::ScopedFD& in_out_fd,
-      std::vector<uint8_t>* out_get_next_image_response,
+      ::lorgnette::GetNextImageResponse* out_get_next_image_response,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -322,14 +294,10 @@ class ManagerProxy final : public ManagerProxyInterface {
   //
   // A response will be sent once image acquisition has started successfully
   // or if acquiring the image failed.
-  //
-  //   Serialized GetNextImageRequest proto specifying the scan job uuid.
-  //
-  //   Output file descriptor. PNG image data will be written to this fd.
   void GetNextImageAsync(
-      const std::vector<uint8_t>& in_get_next_image_request,
+      const ::lorgnette::GetNextImageRequest& in_get_next_image_request,
       const base::ScopedFD& in_out_fd,
-      base::OnceCallback<void(const std::vector<uint8_t>& /*get_next_image_response*/)> success_callback,
+      base::OnceCallback<void(const ::lorgnette::GetNextImageResponse& /*get_next_image_response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     brillo::dbus_utils::CallMethodWithTimeout(
@@ -344,11 +312,9 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
   // Attempts to cancel the scan job specified by the given UUID.
-  //
-  //   Serialized CancelScanRequest proto specifying the scan job to cancel.
   bool CancelScan(
-      const std::vector<uint8_t>& in_cancel_scan_request,
-      std::vector<uint8_t>* out_cancel_scan_response,
+      const ::lorgnette::CancelScanRequest& in_cancel_scan_request,
+      ::lorgnette::CancelScanResponse* out_cancel_scan_response,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -363,11 +329,9 @@ class ManagerProxy final : public ManagerProxyInterface {
   }
 
   // Attempts to cancel the scan job specified by the given UUID.
-  //
-  //   Serialized CancelScanRequest proto specifying the scan job to cancel.
   void CancelScanAsync(
-      const std::vector<uint8_t>& in_cancel_scan_request,
-      base::OnceCallback<void(const std::vector<uint8_t>& /*cancel_scan_response*/)> success_callback,
+      const ::lorgnette::CancelScanRequest& in_cancel_scan_request,
+      base::OnceCallback<void(const ::lorgnette::CancelScanResponse& /*cancel_scan_response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     brillo::dbus_utils::CallMethodWithTimeout(

@@ -1695,6 +1695,66 @@ bool Executor_MonitorStylus_Params_Data::Validate(
 Executor_MonitorStylus_Params_Data::Executor_MonitorStylus_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Executor_GetPsr_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetPsr_Params_Data* object =
+      static_cast<const Executor_GetPsr_Params_Data*>(data);
+
+  return true;
+}
+
+Executor_GetPsr_Params_Data::Executor_GetPsr_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetPsr_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetPsr_ResponseParams_Data* object =
+      static_cast<const Executor_GetPsr_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_GetPsr_ResponseParams_Data::Executor_GetPsr_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd

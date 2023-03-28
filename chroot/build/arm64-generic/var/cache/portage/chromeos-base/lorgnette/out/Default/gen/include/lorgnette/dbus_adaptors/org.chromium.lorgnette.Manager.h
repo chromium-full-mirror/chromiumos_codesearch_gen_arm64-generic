@@ -25,38 +25,29 @@ class ManagerInterface {
 
   virtual bool ListScanners(
       brillo::ErrorPtr* error,
-      std::vector<uint8_t>* out_scanner_list) = 0;
+      ::lorgnette::ListScannersResponse* out_scanner_list) = 0;
   // Returns the supported capabilities for scanner |device_name|.
   virtual bool GetScannerCapabilities(
       brillo::ErrorPtr* error,
       const std::string& in_device_name,
-      std::vector<uint8_t>* out_capabilities) = 0;
+      ::lorgnette::ScannerCapabilities* out_capabilities) = 0;
   // Sets up a multi-page scan job.
   // Initiates a connection to the scanner and prepares for scanning. Once
   // called, the client can call GetNextImage to fetch image data.
-  //
-  //   Serialized StartScanRequest proto specifying the scanner to use and
-  //   the settings for the scan.
-  virtual std::vector<uint8_t> StartScan(
-      const std::vector<uint8_t>& in_start_scan_request) = 0;
+  virtual ::lorgnette::StartScanResponse StartScan(
+      const ::lorgnette::StartScanRequest& in_start_scan_request) = 0;
   // Reads the next image for the given scan job and outputs image data to
   // out_fd.
   //
   // A response will be sent once image acquisition has started successfully
   // or if acquiring the image failed.
-  //
-  //   Serialized GetNextImageRequest proto specifying the scan job uuid.
-  //
-  //   Output file descriptor. PNG image data will be written to this fd.
   virtual void GetNextImage(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>>> response,
-      const std::vector<uint8_t>& in_get_next_image_request,
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<::lorgnette::GetNextImageResponse>> response,
+      const ::lorgnette::GetNextImageRequest& in_get_next_image_request,
       const base::ScopedFD& in_out_fd) = 0;
   // Attempts to cancel the scan job specified by the given UUID.
-  //
-  //   Serialized CancelScanRequest proto specifying the scan job to cancel.
-  virtual std::vector<uint8_t> CancelScan(
-      const std::vector<uint8_t>& in_cancel_scan_request) = 0;
+  virtual ::lorgnette::CancelScanResponse CancelScan(
+      const ::lorgnette::CancelScanRequest& in_cancel_scan_request) = 0;
 };
 
 // Interface adaptor for org::chromium::lorgnette::Manager.
@@ -94,10 +85,8 @@ class ManagerAdaptor {
     signal_ScanStatusChanged_ = itf->RegisterSignalOfType<SignalScanStatusChangedType>("ScanStatusChanged");
   }
 
-  // A serialized ScanStatusChangedSignal proto, containing a scan id, scan
-  // state, and potentially a failure reason or progress percentage.
   void SendScanStatusChangedSignal(
-      const std::vector<uint8_t>& in_scan_status_changed_signal) {
+      const ::lorgnette::ScanStatusChangedSignal& in_scan_status_changed_signal) {
     auto signal = signal_ScanStatusChanged_.lock();
     if (signal)
       signal->Send(in_scan_status_changed_signal);
@@ -138,7 +127,7 @@ class ManagerAdaptor {
 
  private:
   using SignalScanStatusChangedType = brillo::dbus_utils::DBusSignal<
-      std::vector<uint8_t> /*scan_status_changed_signal*/>;
+      ::lorgnette::ScanStatusChangedSignal /*scan_status_changed_signal*/>;
   std::weak_ptr<SignalScanStatusChangedType> signal_ScanStatusChanged_;
 
   ManagerInterface* interface_;  // Owned by container of this adapter.

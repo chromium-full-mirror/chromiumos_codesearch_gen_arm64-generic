@@ -86,6 +86,10 @@ class VpdInfoDataView;
 
 class DmiInfoDataView;
 
+class PsrEventDataView;
+
+class PsrInfoDataView;
+
 class WirelessInterfaceInfoDataView;
 
 class WirelessLinkInfoDataView;
@@ -223,6 +227,10 @@ enum class CpuVirtualizationInfo_Type : int32_t;
 
 enum class OsInfo_EfiPlatformSize : int32_t;
 
+enum class PsrEvent_EventType : int32_t;
+
+enum class PsrInfo_LogState : int32_t;
+
 enum class InputDevice_ConnectionType : int32_t;
 
 enum class Sensor_Type : int32_t;
@@ -320,6 +328,12 @@ using VpdInfoPtr = mojo::StructPtr<VpdInfo>;
 
 class DmiInfo;
 using DmiInfoPtr = mojo::StructPtr<DmiInfo>;
+
+class PsrEvent;
+using PsrEventPtr = mojo::InlinedStructPtr<PsrEvent>;
+
+class PsrInfo;
+using PsrInfoPtr = mojo::StructPtr<PsrInfo>;
 
 class WirelessInterfaceInfo;
 using WirelessInterfaceInfoPtr = mojo::StructPtr<WirelessInterfaceInfo>;

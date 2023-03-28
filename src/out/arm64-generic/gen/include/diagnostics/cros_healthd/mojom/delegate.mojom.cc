@@ -84,6 +84,9 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_GetLidAngle_Name: {
       return &Delegate::GetLidAngle_Sym::IPCStableHash;
     }
+    case internal::kDelegate_GetPsr_Name: {
+      return &Delegate::GetPsr_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -117,6 +120,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorStylus";
       case internal::kDelegate_GetLidAngle_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::GetLidAngle";
+      case internal::kDelegate_GetPsr_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::GetPsr";
     }
   } else {
     switch (message.name()) {
@@ -142,6 +147,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorStylus";
       case internal::kDelegate_GetLidAngle_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetLidAngle";
+      case internal::kDelegate_GetPsr_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::GetPsr";
     }
   }
   return "Receive unknown mojo message";
@@ -299,6 +306,19 @@ uint32_t Delegate::GetLidAngle_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Delegate::GetPsr_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::GetPsr");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Delegate_GetFingerprintFrame_ForwardToCallback
@@ -395,6 +415,22 @@ class Delegate_GetLidAngle_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Delegate::GetLidAngleCallback callback_;
+};
+
+class Delegate_GetPsr_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_GetPsr_ForwardToCallback(
+      Delegate::GetPsrCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_GetPsr_ForwardToCallback(const Delegate_GetPsr_ForwardToCallback&) = delete;
+  Delegate_GetPsr_ForwardToCallback& operator=(const Delegate_GetPsr_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::GetPsrCallback callback_;
 };
 
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -830,6 +866,37 @@ void DelegateProxy::GetLidAngle(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Delegate_GetLidAngle_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::GetPsr(
+    GetPsrCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetPsr");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_GetPsr_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetPsr_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetPsr");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_GetPsr_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -1613,6 +1680,148 @@ void Delegate_GetLidAngle_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Delegate_GetPsr_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::GetPsrCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_GetPsr_ProxyToResponder> proxy(
+        new Delegate_GetPsr_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_GetPsr_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_GetPsr_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_GetPsr_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::GetPsrCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::PsrInfoPtr in_result, const absl::optional<std::string>& in_err);
+};
+
+bool Delegate_GetPsr_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_GetPsr_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_GetPsr_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::PsrInfoPtr p_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::PsrInfoPtr>();
+  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  Delegate_GetPsr_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 11, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result), 
+std::move(p_err));
+  return true;
+}
+
+void Delegate_GetPsr_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::PsrInfoPtr in_result, const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetPsr", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ::ash::cros_healthd::mojom::PsrInfoPtr>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_GetPsr_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetPsr_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result)::BaseType> result_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::PsrInfoDataView>(
+      in_result, result_fragment);
+  params->result.Set(
+      result_fragment.is_null() ? nullptr : result_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetPsr");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool DelegateStubDispatch::Accept(
@@ -1775,6 +1984,9 @@ std::move(p_observer));
       return true;
     }
     case internal::kDelegate_GetLidAngle_Name: {
+      break;
+    }
+    case internal::kDelegate_GetPsr_Name: {
       break;
     }
   }
@@ -1971,6 +2183,31 @@ std::move(p_name), std::move(callback));
       impl->GetLidAngle(std::move(callback));
       return true;
     }
+    case internal::kDelegate_GetPsr_Name: {
+
+      internal::Delegate_GetPsr_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_GetPsr_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Delegate_GetPsr_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 11, false);
+        return false;
+      }
+      Delegate::GetPsrCallback callback =
+          Delegate_GetPsr_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetPsr(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -1999,6 +2236,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      nullptr /* no response */},
     {&internal::Delegate_GetLidAngle_Params_Data::Validate,
      &internal::Delegate_GetLidAngle_ResponseParams_Data::Validate},
+    {&internal::Delegate_GetPsr_Params_Data::Validate,
+     &internal::Delegate_GetPsr_ResponseParams_Data::Validate},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -2063,6 +2302,9 @@ void DelegateInterceptorForTesting::MonitorStylus(::mojo::PendingRemote<::ash::c
 }
 void DelegateInterceptorForTesting::GetLidAngle(GetLidAngleCallback callback) {
   GetForwardingInterface()->GetLidAngle(std::move(callback));
+}
+void DelegateInterceptorForTesting::GetPsr(GetPsrCallback callback) {
+  GetForwardingInterface()->GetPsr(std::move(callback));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
@@ -2204,6 +2446,28 @@ absl::optional<uint16_t> DelegateAsyncWaiter::GetLidAngle(
   GetLidAngle(&async_wait_result);
   return async_wait_result;
 }
+
+void DelegateAsyncWaiter::GetPsr(
+    ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->GetPsr(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::PsrInfoPtr* out_result
+,
+             absl::optional<std::string>* out_err
+,
+             ::ash::cros_healthd::mojom::PsrInfoPtr result,
+             const absl::optional<std::string>& err) {*out_result = std::move(result);*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_result,
+          out_err));
+  loop.Run();
+}
+
+
 
 
 

@@ -163,6 +163,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void MonitorTouchscreen(::mojo::PendingRemote<TouchscreenObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void MonitorStylusGarage(::mojo::PendingRemote<StylusGarageObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
+  void GetPsr(GetPsrCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -211,6 +212,9 @@ class  ExecutorAsyncWaiter {
   void FetchBootPerformance(
       ::ash::cros_healthd::mojom::BootPerformanceResultPtr* out_result);
   ::ash::cros_healthd::mojom::BootPerformanceResultPtr FetchBootPerformance();
+  void GetPsr(
+      ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, absl::optional<std::string>* out_err);
+  
 
  private:
   Executor* const proxy_;
