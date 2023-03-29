@@ -2398,6 +2398,9 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_MonitorTouchpad_Name: {
       return &Executor::MonitorTouchpad_Sym::IPCStableHash;
     }
+    case internal::kExecutor_RunStressAppTest_Name: {
+      return &Executor::RunStressAppTest_Sym::IPCStableHash;
+    }
     case internal::kExecutor_FetchBootPerformance_Name: {
       return &Executor::FetchBootPerformance_Sym::IPCStableHash;
     }
@@ -2456,6 +2459,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::MonitorAudioJack";
       case internal::kExecutor_MonitorTouchpad_Name:
             return "Receive ash::cros_healthd::mojom::Executor::MonitorTouchpad";
+      case internal::kExecutor_RunStressAppTest_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::RunStressAppTest";
       case internal::kExecutor_FetchBootPerformance_Name:
             return "Receive ash::cros_healthd::mojom::Executor::FetchBootPerformance";
       case internal::kExecutor_MonitorTouchscreen_Name:
@@ -2501,6 +2506,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorAudioJack";
       case internal::kExecutor_MonitorTouchpad_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorTouchpad";
+      case internal::kExecutor_RunStressAppTest_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::RunStressAppTest";
       case internal::kExecutor_FetchBootPerformance_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::FetchBootPerformance";
       case internal::kExecutor_MonitorTouchscreen_Name:
@@ -2729,6 +2736,19 @@ uint32_t Executor::MonitorTouchpad_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Executor::MonitorTouchpad");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::RunStressAppTest_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::RunStressAppTest");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -3679,6 +3699,62 @@ void ExecutorProxy::MonitorTouchpad(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Executor::Name_);
   message.set_method_name("MonitorTouchpad");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void ExecutorProxy::RunStressAppTest(
+    uint32_t in_test_mem_mib, uint32_t in_test_seconds, StressAppTestType in_test_type, ::mojo::PendingReceiver<ProcessControl> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Executor::RunStressAppTest", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("test_mem_mib"), in_test_mem_mib,
+                        "<value of type uint32_t>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("test_seconds"), in_test_seconds,
+                        "<value of type uint32_t>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("test_type"), in_test_type,
+                        "<value of type StressAppTestType>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<ProcessControl>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_RunStressAppTest_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_RunStressAppTest_Params_Data> params(
+          message);
+  params.Allocate();
+  params->test_mem_mib = in_test_mem_mib;
+  params->test_seconds = in_test_seconds;
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::StressAppTestType>(
+      in_test_type, &params->test_type);
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Executor.RunStressAppTest request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("RunStressAppTest");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -5514,7 +5590,7 @@ bool Executor_FetchBootPerformance_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 16, true);
+        Executor::Name_, 17, true);
     return false;
   }
   if (!callback_.is_null())
@@ -5643,7 +5719,7 @@ bool Executor_GetPsr_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 20, true);
+        Executor::Name_, 21, true);
     return false;
   }
   if (!callback_.is_null())
@@ -5878,6 +5954,46 @@ std::move(p_observer),
 std::move(p_process_control));
       return true;
     }
+    case internal::kExecutor_RunStressAppTest_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Executor_RunStressAppTest_Params_Data* params =
+          reinterpret_cast<internal::Executor_RunStressAppTest_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      uint32_t p_test_mem_mib = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_test_seconds = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      StressAppTestType p_test_type = mojo::DefaultConstructTraits::CreateInstance<StressAppTestType>();
+      ::mojo::PendingReceiver<ProcessControl> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      Executor_RunStressAppTest_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_test_mem_mib = input_data_view.test_mem_mib();
+      if (success)
+        p_test_seconds = input_data_view.test_seconds();
+      if (success && !input_data_view.ReadTestType(&p_test_type))
+        success = false;
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 16, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunStressAppTest(
+std::move(p_test_mem_mib), 
+std::move(p_test_seconds), 
+std::move(p_test_type), 
+std::move(p_receiver));
+      return true;
+    }
     case internal::kExecutor_FetchBootPerformance_Name: {
       break;
     }
@@ -5905,7 +6021,7 @@ std::move(p_process_control));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 17, false);
+            Executor::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5939,7 +6055,7 @@ std::move(p_process_control));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 18, false);
+            Executor::Name_, 19, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -5973,7 +6089,7 @@ std::move(p_process_control));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 19, false);
+            Executor::Name_, 20, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -6355,6 +6471,9 @@ std::move(p_name), std::move(callback));
     case internal::kExecutor_MonitorTouchpad_Name: {
       break;
     }
+    case internal::kExecutor_RunStressAppTest_Name: {
+      break;
+    }
     case internal::kExecutor_FetchBootPerformance_Name: {
 
       internal::Executor_FetchBootPerformance_Params_Data* params =
@@ -6369,7 +6488,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 16, false);
+            Executor::Name_, 17, false);
         return false;
       }
       Executor::FetchBootPerformanceCallback callback =
@@ -6403,7 +6522,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 20, false);
+            Executor::Name_, 21, false);
         return false;
       }
       Executor::GetPsrCallback callback =
@@ -6451,6 +6570,8 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
     {&internal::Executor_MonitorAudioJack_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::Executor_MonitorTouchpad_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::Executor_RunStressAppTest_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::Executor_FetchBootPerformance_Params_Data::Validate,
      &internal::Executor_FetchBootPerformance_ResponseParams_Data::Validate},
@@ -6753,6 +6874,9 @@ void ExecutorInterceptorForTesting::MonitorAudioJack(::mojo::PendingRemote<Audio
 }
 void ExecutorInterceptorForTesting::MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
   GetForwardingInterface()->MonitorTouchpad(std::move(observer), std::move(process_control));
+}
+void ExecutorInterceptorForTesting::RunStressAppTest(uint32_t test_mem_mib, uint32_t test_seconds, StressAppTestType test_type, ::mojo::PendingReceiver<ProcessControl> receiver) {
+  GetForwardingInterface()->RunStressAppTest(std::move(test_mem_mib), std::move(test_seconds), std::move(test_type), std::move(receiver));
 }
 void ExecutorInterceptorForTesting::FetchBootPerformance(FetchBootPerformanceCallback callback) {
   GetForwardingInterface()->FetchBootPerformance(std::move(callback));

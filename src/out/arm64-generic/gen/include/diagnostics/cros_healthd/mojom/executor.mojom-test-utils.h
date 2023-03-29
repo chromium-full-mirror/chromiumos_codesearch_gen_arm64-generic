@@ -159,6 +159,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) override;
   void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
+  void RunStressAppTest(uint32_t test_mem_mib, uint32_t test_seconds, StressAppTestType test_type, ::mojo::PendingReceiver<ProcessControl> receiver) override;
   void FetchBootPerformance(FetchBootPerformanceCallback callback) override;
   void MonitorTouchscreen(::mojo::PendingRemote<TouchscreenObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void MonitorStylusGarage(::mojo::PendingRemote<StylusGarageObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;

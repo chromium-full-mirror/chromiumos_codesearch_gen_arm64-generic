@@ -33,6 +33,8 @@ class FingerprintFrameResultDataView;
 
 enum class FingerprintCaptureType : int32_t;
 
+enum class StressAppTestType : int32_t;
+
 enum class Executor_File : int32_t;
 
 enum class Executor_IwCommand : int32_t;

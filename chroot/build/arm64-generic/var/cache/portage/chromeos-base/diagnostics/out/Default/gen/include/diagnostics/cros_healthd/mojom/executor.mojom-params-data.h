@@ -766,6 +766,25 @@ class  Executor_MonitorTouchpad_Params_Data {
 };
 static_assert(sizeof(Executor_MonitorTouchpad_Params_Data) == 24,
               "Bad sizeof(Executor_MonitorTouchpad_Params_Data)");
+class  Executor_RunStressAppTest_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t test_mem_mib;
+  uint32_t test_seconds;
+  int32_t test_type;
+  mojo::internal::Handle_Data receiver;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RunStressAppTest_Params_Data>;
+
+  Executor_RunStressAppTest_Params_Data();
+  ~Executor_RunStressAppTest_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_RunStressAppTest_Params_Data) == 24,
+              "Bad sizeof(Executor_RunStressAppTest_Params_Data)");
 class  Executor_FetchBootPerformance_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2024,6 +2043,47 @@ class Executor_MonitorTouchpad_ParamsDataView {
 };
 
 
+class Executor_RunStressAppTest_ParamsDataView {
+ public:
+  Executor_RunStressAppTest_ParamsDataView() = default;
+
+  Executor_RunStressAppTest_ParamsDataView(
+      internal::Executor_RunStressAppTest_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t test_mem_mib() const {
+    return data_->test_mem_mib;
+  }
+  uint32_t test_seconds() const {
+    return data_->test_seconds;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadTestType(UserType* output) const {
+    auto data_value = data_->test_type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StressAppTestType>(
+        data_value, output);
+  }
+  StressAppTestType test_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::StressAppTestType>(data_->test_type));
+  }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_RunStressAppTest_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class Executor_FetchBootPerformance_ParamsDataView {
  public:
   Executor_FetchBootPerformance_ParamsDataView() = default;
@@ -2423,6 +2483,8 @@ inline void Executor_GetHciDeviceConfig_ResponseParamsDataView::GetResultDataVie
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
 }
+
+
 
 
 

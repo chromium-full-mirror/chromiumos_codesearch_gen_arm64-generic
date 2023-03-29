@@ -102,6 +102,22 @@ inline bool IsKnownEnumValue(FingerprintCaptureType value) {
 }
 
 
+enum class StressAppTestType : int32_t {
+  
+  kCpuStress = 0,
+  
+  kCpuCache = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, StressAppTestType value);
+inline bool IsKnownEnumValue(StressAppTestType value) {
+  return internal::StressAppTestType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class Executor_File : int32_t {
   
   kUEFISecureBootVariable = 0,
@@ -311,6 +327,10 @@ struct hash<::ash::cros_healthd::mojom::FingerprintCaptureType>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::FingerprintCaptureType> {};
 
 template <>
+struct hash<::ash::cros_healthd::mojom::StressAppTestType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::StressAppTestType> {};
+
+template <>
 struct hash<::ash::cros_healthd::mojom::Executor_File>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Executor_File> {};
 
@@ -337,6 +357,26 @@ struct Serializer<::ash::cros_healthd::mojom::FingerprintCaptureType, MaybeConst
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::FingerprintCaptureType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::StressAppTestType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::StressAppTestType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::StressAppTestType>(input)), output);
   }
 };
 
@@ -552,6 +592,15 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::FingerprintCaptureType> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::FingerprintCaptureType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::StressAppTestType> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::StressAppTestType value);
 };
 
 } // namespace perfetto

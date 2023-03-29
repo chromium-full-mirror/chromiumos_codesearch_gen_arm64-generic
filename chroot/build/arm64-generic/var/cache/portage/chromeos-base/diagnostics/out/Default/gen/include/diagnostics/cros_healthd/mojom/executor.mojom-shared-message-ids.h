@@ -46,11 +46,12 @@ constexpr uint32_t kExecutor_ResetLedColor_Name = 12;
 constexpr uint32_t kExecutor_GetHciDeviceConfig_Name = 13;
 constexpr uint32_t kExecutor_MonitorAudioJack_Name = 14;
 constexpr uint32_t kExecutor_MonitorTouchpad_Name = 15;
-constexpr uint32_t kExecutor_FetchBootPerformance_Name = 16;
-constexpr uint32_t kExecutor_MonitorTouchscreen_Name = 17;
-constexpr uint32_t kExecutor_MonitorStylusGarage_Name = 18;
-constexpr uint32_t kExecutor_MonitorStylus_Name = 19;
-constexpr uint32_t kExecutor_GetPsr_Name = 20;
+constexpr uint32_t kExecutor_RunStressAppTest_Name = 16;
+constexpr uint32_t kExecutor_FetchBootPerformance_Name = 17;
+constexpr uint32_t kExecutor_MonitorTouchscreen_Name = 18;
+constexpr uint32_t kExecutor_MonitorStylusGarage_Name = 19;
+constexpr uint32_t kExecutor_MonitorStylus_Name = 20;
+constexpr uint32_t kExecutor_GetPsr_Name = 21;
 
 }  // namespace internal
 }  // namespace mojom

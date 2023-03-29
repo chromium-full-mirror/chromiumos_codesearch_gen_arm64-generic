@@ -48,6 +48,30 @@ std::ostream& operator<<(std::ostream& os, FingerprintCaptureType value) {
   return os << FingerprintCaptureTypeToString(value);
 }
 
+NOINLINE static const char* StressAppTestTypeToStringHelper(StressAppTestType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case StressAppTestType::kCpuStress:
+      return "kCpuStress";
+    case StressAppTestType::kCpuCache:
+      return "kCpuCache";
+    default:
+      return nullptr;
+  }
+}
+
+std::string StressAppTestTypeToString(StressAppTestType value) {
+  const char *str = StressAppTestTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown StressAppTestType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, StressAppTestType value) {
+  return os << StressAppTestTypeToString(value);
+}
+
 NOINLINE static const char* Executor_FileToStringHelper(Executor_File value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -1521,6 +1545,43 @@ Executor_MonitorTouchpad_Params_Data::Executor_MonitorTouchpad_Params_Data()
 
 
 // static
+bool Executor_RunStressAppTest_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RunStressAppTest_Params_Data* object =
+      static_cast<const Executor_RunStressAppTest_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::StressAppTestType_Data
+        ::Validate(object->test_type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_RunStressAppTest_Params_Data::Executor_RunStressAppTest_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Executor_FetchBootPerformance_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1766,6 +1827,16 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::FingerprintCaptureType>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::FingerprintCaptureType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::FingerprintCaptureTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::StressAppTestType>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::StressAppTestType value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::StressAppTestTypeToString(value));
 }
 
 } // namespace perfetto

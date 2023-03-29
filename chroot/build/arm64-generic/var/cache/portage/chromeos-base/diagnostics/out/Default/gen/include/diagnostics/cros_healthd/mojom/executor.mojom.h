@@ -430,6 +430,7 @@ class Executor
     kGetHciDeviceConfigMinVersion = 0,
     kMonitorAudioJackMinVersion = 0,
     kMonitorTouchpadMinVersion = 0,
+    kRunStressAppTestMinVersion = 0,
     kFetchBootPerformanceMinVersion = 0,
     kMonitorTouchscreenMinVersion = 0,
     kMonitorStylusGarageMinVersion = 0,
@@ -486,6 +487,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MonitorTouchpad_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunStressAppTest_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct FetchBootPerformance_Sym {
@@ -581,6 +585,9 @@ class Executor
 
   
   virtual void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
+
+  
+  virtual void RunStressAppTest(uint32_t test_mem_mib, uint32_t test_seconds, StressAppTestType test_type, ::mojo::PendingReceiver<ProcessControl> receiver) = 0;
 
 
   using FetchBootPerformanceCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::BootPerformanceResultPtr)>;
@@ -750,6 +757,8 @@ class  ExecutorProxy
   void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
   
   void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
+  
+  void RunStressAppTest(uint32_t test_mem_mib, uint32_t test_seconds, StressAppTestType test_type, ::mojo::PendingReceiver<ProcessControl> receiver) final;
   
   void FetchBootPerformance(FetchBootPerformanceCallback callback) final;
   

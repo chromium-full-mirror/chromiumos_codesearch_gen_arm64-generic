@@ -283,6 +283,8 @@ constexpr const char* kActions[] = {"unmount",
                                     "reset_application_container",
                                     "prepare_auth_factor",
                                     "terminate_auth_factor",
+                                    "prepare_and_add_auth_factor",
+                                    "prepare_and_authenticate_auth_factor",
                                     nullptr};
 enum ActionEnum {
   ACTION_UNMOUNT,
@@ -369,10 +371,13 @@ enum ActionEnum {
   ACTION_RESET_APPLICATION_CONTAINER,
   ACTION_PREPARE_AUTH_FACTOR,
   ACTION_TERMINATE_AUTH_FACTOR,
+  ACTION_PREPARE_AND_ADD_AUTH_FACTOR,
+  ACTION_PREPARE_AND_AUTHENTICATE_AUTH_FACTOR,
 };
 constexpr char kUserSwitch[] = "user";
 constexpr char kPasswordSwitch[] = "password";
 constexpr char kKeyLabelSwitch[] = "key_label";
+constexpr char kKeyLabelsSwitch[] = "key_labels";
 constexpr char kNewKeyLabelSwitch[] = "new_key_label";
 constexpr char kForceSwitch[] = "force";
 constexpr char kAttrNameSwitch[] = "name";
@@ -930,11 +935,8 @@ void OnPrepareSignal(
     Printer* printer,
     user_data_auth::AuthFactorType auth_factor_type,
     user_data_auth::AuthFactorPreparePurpose prepare_purpose,
+    base::RepeatingCallback<void(base::RunLoop*, int*)> on_success,
     const user_data_auth::PrepareAuthFactorProgress& progress) {
-  auto QuitWithSuccess = [&]() {
-    run_loop->Quit();
-    *ret_code = 0;
-  };
   auto QuitWithFailure = [&](const std::string& msg) {
     printer->PrintHumanOutput(msg);
     run_loop->Quit();
@@ -963,7 +965,7 @@ void OnPrepareSignal(
           return;
         } else if (fp_progress.done()) {
           // Preparation is finished.
-          QuitWithSuccess();
+          on_success.Run(run_loop, ret_code);
           return;
         }
         return;
@@ -992,8 +994,9 @@ void OnPrepareSignal(
           QuitWithFailure("Session failed.\n");
           return;
         }
-        // Preparation is finished.
-        QuitWithSuccess();
+        // Preparation is finished, next action expected in the session is
+        // AuthenticateAuthFactor.
+        on_success.Run(run_loop, ret_code);
         return;
       }
       default:
@@ -1050,6 +1053,253 @@ void OnPrepareSignalConnected(base::RunLoop* run_loop,
     *ret_code = static_cast<int>(reply.error());
     return;
   }
+}
+
+int DoAddAuthFactor(
+    Printer& printer,
+    base::CommandLine* cl,
+    org::chromium::UserDataAuthInterfaceProxy& userdataauth_proxy,
+    org::chromium::CryptohomeMiscInterfaceProxy& misc_proxy) {
+  user_data_auth::AddAuthFactorRequest req;
+  user_data_auth::AddAuthFactorReply reply;
+
+  std::string auth_session_id_hex, auth_session_id;
+
+  if (!GetAuthSessionId(printer, cl, &auth_session_id_hex))
+    return 1;
+  base::HexStringToString(auth_session_id_hex.c_str(), &auth_session_id);
+  req.set_auth_session_id(auth_session_id);
+  if (!BuildAuthFactor(printer, cl, req.mutable_auth_factor()) ||
+      !BuildAuthInput(printer, cl, &misc_proxy, req.mutable_auth_input())) {
+    return 1;
+  }
+
+  brillo::ErrorPtr error;
+  VLOG(1) << "Attempting to add AuthFactor";
+  if (!userdataauth_proxy.AddAuthFactor(req, &reply, &error,
+                                        kDefaultTimeoutMs) ||
+      error) {
+    printer.PrintFormattedHumanOutput("AddAuthFactor call failed: %s.\n",
+                                      BrilloErrorToString(error.get()).c_str());
+    return 1;
+  }
+  printer.PrintReplyProtobuf(reply);
+  if (reply.error() !=
+      user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
+    printer.PrintHumanOutput("Failed to AddAuthFactor.\n");
+    return static_cast<int>(reply.error());
+  }
+
+  printer.PrintHumanOutput("AuthFactor added.\n");
+  return 0;
+}
+
+int DoAuthenticateAuthFactor(
+    Printer& printer,
+    base::CommandLine* cl,
+    org::chromium::UserDataAuthInterfaceProxy& userdataauth_proxy,
+    org::chromium::CryptohomeMiscInterfaceProxy& misc_proxy) {
+  user_data_auth::AuthenticateAuthFactorRequest req;
+  user_data_auth::AuthenticateAuthFactorReply reply;
+
+  std::string auth_session_id_hex, auth_session_id;
+
+  if (!GetAuthSessionId(printer, cl, &auth_session_id_hex))
+    return 1;
+  base::HexStringToString(auth_session_id_hex.c_str(), &auth_session_id);
+  req.set_auth_session_id(auth_session_id);
+
+  bool has_key_label_switch = cl->HasSwitch(switches::kKeyLabelSwitch);
+  bool has_key_labels_switch = cl->HasSwitch(switches::kKeyLabelsSwitch);
+  if (!(has_key_label_switch ^ has_key_labels_switch)) {
+    printer.PrintHumanOutput(
+        "Exactly one of `key_label` and `key_labels` should be specified.\n");
+    return 1;
+  }
+  req.set_auth_factor_label(cl->GetSwitchValueASCII(switches::kKeyLabelSwitch));
+  std::vector<std::string> labels =
+      base::SplitString(cl->GetSwitchValueASCII(switches::kKeyLabelsSwitch),
+                        ",", base::WhitespaceHandling::KEEP_WHITESPACE,
+                        base::SplitResult::SPLIT_WANT_ALL);
+  for (std::string& label : labels) {
+    req.add_auth_factor_labels(std::move(label));
+  }
+  if (!BuildAuthInput(printer, cl, &misc_proxy, req.mutable_auth_input())) {
+    return 1;
+  }
+
+  brillo::ErrorPtr error;
+  VLOG(1) << "Attempting to authenticate AuthFactor";
+  if (!userdataauth_proxy.AuthenticateAuthFactor(req, &reply, &error,
+                                                 kDefaultTimeoutMs) ||
+      error) {
+    printer.PrintFormattedHumanOutput(
+        "AuthenticateAuthFactor call failed: %s.\n",
+        BrilloErrorToString(error.get()).c_str());
+    return 1;
+  }
+  printer.PrintReplyProtobuf(reply);
+  if (reply.error() !=
+      user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
+    printer.PrintHumanOutput("Failed to authenticate AuthFactor.\n");
+    return static_cast<int>(reply.error());
+  }
+
+  printer.PrintHumanOutput("AuthFactor authenticated.\n");
+  return 0;
+}
+
+// The |on_success| callback is triggered whenever the prepare signal that
+// represents a "complete state", i.e., it's the caller's turn to perform the
+// next action now.
+int DoPrepareAuthFactor(
+    Printer& printer,
+    base::CommandLine* cl,
+    org::chromium::UserDataAuthInterfaceProxy& proxy,
+    user_data_auth::AuthFactorPreparePurpose prepare_purpose,
+    base::RepeatingCallback<void(base::RunLoop*, int*)> on_success) {
+  user_data_auth::PrepareAuthFactorRequest request;
+
+  std::string auth_session_id_hex, auth_session_id;
+  if (!GetAuthSessionId(printer, cl, &auth_session_id_hex))
+    return 1;
+  base::HexStringToString(auth_session_id_hex.c_str(), &auth_session_id);
+  request.set_auth_session_id(auth_session_id);
+
+  user_data_auth::AuthFactorType auth_factor_type;
+  if (!GetAuthFactorType(printer, cl, &auth_factor_type))
+    return 1;
+  request.set_auth_factor_type(auth_factor_type);
+  request.set_purpose(prepare_purpose);
+
+  // Because signals might be emitted as soon as PrepareAuthFactor operation
+  // returns successfully, we need to ensure the signal is connected first.
+  // Therefore, the actual request will be sent in OnPrepareSignalConnected.
+  // We will indefinitely block on the prepare signals in the CLI until either
+  // the operation failed or completed. So we'll start the run loop here, pass
+  // its pointer to the callbacks, and let the callbacks end the run loop when
+  // the conditions are met.
+  int ret_code = 1;
+  base::RunLoop run_loop;
+  proxy.RegisterPrepareAuthFactorProgressSignalHandler(
+      base::BindRepeating(&OnPrepareSignal, &run_loop, &ret_code, &printer,
+                          auth_factor_type, prepare_purpose, on_success),
+      base::BindOnce(&OnPrepareSignalConnected, &run_loop, &ret_code, &printer,
+                     &proxy, std::move(request)));
+
+  run_loop.Run();
+  return ret_code;
+}
+
+int DoTerminateAuthFactor(Printer& printer,
+                          base::CommandLine* cl,
+                          org::chromium::UserDataAuthInterfaceProxy& proxy) {
+  user_data_auth::TerminateAuthFactorRequest request;
+  user_data_auth::TerminateAuthFactorReply reply;
+
+  std::string auth_session_id_hex, auth_session_id;
+  if (!GetAuthSessionId(printer, cl, &auth_session_id_hex))
+    return 1;
+  base::HexStringToString(auth_session_id_hex.c_str(), &auth_session_id);
+  request.set_auth_session_id(auth_session_id);
+
+  user_data_auth::AuthFactorType auth_factor_type;
+  if (!GetAuthFactorType(printer, cl, &auth_factor_type))
+    return 1;
+  request.set_auth_factor_type(auth_factor_type);
+
+  brillo::ErrorPtr error;
+  VLOG(1) << "Attempting to TerminateAuthFactor";
+  if (!proxy.TerminateAuthFactor(request, &reply, &error, kDefaultTimeoutMs) ||
+      error) {
+    printer.PrintFormattedHumanOutput("TerminateAuthFactor call failed: %s.\n",
+                                      BrilloErrorToString(error.get()).c_str());
+    return 1;
+  }
+
+  printer.PrintReplyProtobuf(reply);
+  if (reply.error() !=
+      user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
+    printer.PrintHumanOutput("Failed to prepare auth factor.\n");
+    return static_cast<int>(reply.error());
+  }
+  return 0;
+}
+
+// This is used as the |on_success| callback for the PrepareAuthFactor signal
+// handler. Attempts to add the auth factor and quit the run loop that listens
+// to the signals.
+void AddAfterPrepareDone(
+    Printer* printer,
+    base::CommandLine* cl,
+    org::chromium::UserDataAuthInterfaceProxy* userdataauth_proxy,
+    org::chromium::CryptohomeMiscInterfaceProxy* misc_proxy,
+    base::RunLoop* run_loop,
+    int* ret_code) {
+  *ret_code = DoAddAuthFactor(*printer, cl, *userdataauth_proxy, *misc_proxy);
+  run_loop->Quit();
+}
+
+// Perform PrepareAuthFactor. Upon the complete signal, add the auth factor.
+// Terminate the auth factor afterwards in all situations.
+int DoPrepareAddTerminate(
+    Printer& printer,
+    base::CommandLine* cl,
+    org::chromium::UserDataAuthInterfaceProxy& userdataauth_proxy,
+    org::chromium::CryptohomeMiscInterfaceProxy& misc_proxy) {
+  auto prepare_add_result = DoPrepareAuthFactor(
+      printer, cl, userdataauth_proxy, user_data_auth::PURPOSE_ADD_AUTH_FACTOR,
+      base::BindRepeating(&AddAfterPrepareDone, &printer, cl,
+                          &userdataauth_proxy, &misc_proxy));
+  int terminate_result = DoTerminateAuthFactor(printer, cl, userdataauth_proxy);
+  // Prioritize returning the prepare_add_result as it's usually more useful.
+  if (prepare_add_result != 0) {
+    return prepare_add_result;
+  }
+  return terminate_result;
+}
+
+// This is used as the |on_success| callback for the PrepareAuthFactor signal
+// handler. Attempts to authenticate the auth factor, and, if either the result
+// is success or a non-retryable error, quit the run loop that listens to the
+// signals.
+void AuthenticateAfterPrepareDone(
+    Printer* printer,
+    base::CommandLine* cl,
+    org::chromium::UserDataAuthInterfaceProxy* userdataauth_proxy,
+    org::chromium::CryptohomeMiscInterfaceProxy* misc_proxy,
+    base::RunLoop* run_loop,
+    int* ret_code) {
+  *ret_code =
+      DoAuthenticateAuthFactor(*printer, cl, *userdataauth_proxy, *misc_proxy);
+  // Currently the only auth factor type that utilizes this helper function is
+  // fingerprint, and this is the easiest way to determine whether it needs to
+  // keep the session open for retries. Switch to a more generic method in the
+  // future.
+  if (*ret_code !=
+      user_data_auth::CRYPTOHOME_ERROR_FINGERPRINT_RETRY_REQUIRED) {
+    run_loop->Quit();
+  }
+}
+
+// Perform PrepareAuthFactor. Upon the complete signal, authenticate the auth
+// factor. Terminate the auth factor afterwards in all situations.
+int DoPrepareAuthenticateTerminate(
+    Printer& printer,
+    base::CommandLine* cl,
+    org::chromium::UserDataAuthInterfaceProxy& userdataauth_proxy,
+    org::chromium::CryptohomeMiscInterfaceProxy& misc_proxy) {
+  auto prepare_auth_result = DoPrepareAuthFactor(
+      printer, cl, userdataauth_proxy,
+      user_data_auth::PURPOSE_AUTHENTICATE_AUTH_FACTOR,
+      base::BindRepeating(&AuthenticateAfterPrepareDone, &printer, cl,
+                          &userdataauth_proxy, &misc_proxy));
+  int terminate_result = DoTerminateAuthFactor(printer, cl, userdataauth_proxy);
+  // Prioritize returning the prepare_auth_result as it's usually more useful.
+  if (prepare_auth_result != 0) {
+    return prepare_auth_result;
+  }
+  return terminate_result;
 }
 
 }  // namespace
@@ -3196,77 +3446,12 @@ int main(int argc, char** argv) {
     printer.PrintHumanOutput("Prepared vault for migration.\n");
   } else if (!strcmp(switches::kActions[switches::ACTION_ADD_AUTH_FACTOR],
                      action.c_str())) {
-    user_data_auth::AddAuthFactorRequest req;
-    user_data_auth::AddAuthFactorReply reply;
-
-    std::string auth_session_id_hex, auth_session_id;
-
-    if (!GetAuthSessionId(printer, cl, &auth_session_id_hex))
-      return 1;
-    base::HexStringToString(auth_session_id_hex.c_str(), &auth_session_id);
-    req.set_auth_session_id(auth_session_id);
-    if (!BuildAuthFactor(printer, cl, req.mutable_auth_factor()) ||
-        !BuildAuthInput(printer, cl, &misc_proxy, req.mutable_auth_input())) {
-      return 1;
-    }
-
-    brillo::ErrorPtr error;
-    VLOG(1) << "Attempting to add AuthFactor";
-    if (!userdataauth_proxy.AddAuthFactor(req, &reply, &error, timeout_ms) ||
-        error) {
-      printer.PrintFormattedHumanOutput(
-          "AddAuthFactor call failed: %s.\n",
-          BrilloErrorToString(error.get()).c_str());
-      return 1;
-    }
-    printer.PrintReplyProtobuf(reply);
-    if (reply.error() !=
-        user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
-      printer.PrintHumanOutput("Failed to AddAuthFactor.\n");
-      return static_cast<int>(reply.error());
-    }
-
-    printer.PrintHumanOutput("AuthFactor added.\n");
+    return DoAddAuthFactor(printer, cl, userdataauth_proxy, misc_proxy);
   } else if (!strcmp(
                  switches::kActions[switches::ACTION_AUTHENTICATE_AUTH_FACTOR],
                  action.c_str())) {
-    user_data_auth::AuthenticateAuthFactorRequest req;
-    user_data_auth::AuthenticateAuthFactorReply reply;
-
-    std::string auth_session_id_hex, auth_session_id;
-
-    if (!GetAuthSessionId(printer, cl, &auth_session_id_hex))
-      return 1;
-    base::HexStringToString(auth_session_id_hex.c_str(), &auth_session_id);
-    req.set_auth_session_id(auth_session_id);
-    if (cl->GetSwitchValueASCII(switches::kKeyLabelSwitch).empty()) {
-      printer.PrintHumanOutput("No auth factor label specified.\n");
-      return 1;
-    }
-    req.set_auth_factor_label(
-        cl->GetSwitchValueASCII(switches::kKeyLabelSwitch));
-    if (!BuildAuthInput(printer, cl, &misc_proxy, req.mutable_auth_input())) {
-      return 1;
-    }
-
-    brillo::ErrorPtr error;
-    VLOG(1) << "Attempting to authenticate AuthFactor";
-    if (!userdataauth_proxy.AuthenticateAuthFactor(req, &reply, &error,
-                                                   timeout_ms) ||
-        error) {
-      printer.PrintFormattedHumanOutput(
-          "AuthenticateAuthFactor call failed: %s.\n",
-          BrilloErrorToString(error.get()).c_str());
-      return 1;
-    }
-    printer.PrintReplyProtobuf(reply);
-    if (reply.error() !=
-        user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
-      printer.PrintHumanOutput("Failed to authenticate AuthFactor.\n");
-      return static_cast<int>(reply.error());
-    }
-
-    printer.PrintHumanOutput("AuthFactor authenticated.\n");
+    return DoAuthenticateAuthFactor(printer, cl, userdataauth_proxy,
+                                    misc_proxy);
   } else if (!strcmp(switches::kActions[switches::ACTION_UPDATE_AUTH_FACTOR],
                      action.c_str())) {
     user_data_auth::UpdateAuthFactorRequest req;
@@ -3472,74 +3657,25 @@ int main(int argc, char** argv) {
     }
   } else if (!strcmp(switches::kActions[switches::ACTION_PREPARE_AUTH_FACTOR],
                      action.c_str())) {
-    user_data_auth::PrepareAuthFactorRequest request;
-
-    std::string auth_session_id_hex, auth_session_id;
-    if (!GetAuthSessionId(printer, cl, &auth_session_id_hex))
-      return 1;
-    base::HexStringToString(auth_session_id_hex.c_str(), &auth_session_id);
-    request.set_auth_session_id(auth_session_id);
-
-    user_data_auth::AuthFactorType auth_factor_type;
-    if (!GetAuthFactorType(printer, cl, &auth_factor_type))
-      return 1;
-    request.set_auth_factor_type(auth_factor_type);
-
     user_data_auth::AuthFactorPreparePurpose prepare_purpose;
     if (!GetPreparePurpose(printer, cl, &prepare_purpose))
       return 1;
-    request.set_purpose(prepare_purpose);
 
-    // Because signals might be emitted as soon as PrepareAuthFactor operation
-    // returns successfully, we need to ensure the signal is connected first.
-    // Therefore, the actual request will be sent in OnPrepareSignalConnected.
-    // We will indefinitely block on the prepare signals in the CLI until either
-    // the operation failed or completed. So we'll start the run loop here, pass
-    // its pointer to the callbacks, and let the callbacks end the run loop when
-    // the conditions are met.
-    int ret_code = 1;
-    base::RunLoop run_loop;
-    userdataauth_proxy.RegisterPrepareAuthFactorProgressSignalHandler(
-        base::BindRepeating(&OnPrepareSignal, &run_loop, &ret_code, &printer,
-                            auth_factor_type, prepare_purpose),
-        base::BindOnce(&OnPrepareSignalConnected, &run_loop, &ret_code,
-                       &printer, &userdataauth_proxy, std::move(request)));
-
-    run_loop.Run();
-    return ret_code;
+    return DoPrepareAuthFactor(printer, cl, userdataauth_proxy, prepare_purpose,
+                               base::DoNothingAs<void(base::RunLoop*, int*)>());
   } else if (!strcmp(switches::kActions[switches::ACTION_TERMINATE_AUTH_FACTOR],
                      action.c_str())) {
-    user_data_auth::TerminateAuthFactorRequest request;
-    user_data_auth::TerminateAuthFactorReply reply;
-
-    std::string auth_session_id_hex, auth_session_id;
-    if (!GetAuthSessionId(printer, cl, &auth_session_id_hex))
-      return 1;
-    base::HexStringToString(auth_session_id_hex.c_str(), &auth_session_id);
-    request.set_auth_session_id(auth_session_id);
-
-    user_data_auth::AuthFactorType auth_factor_type;
-    if (!GetAuthFactorType(printer, cl, &auth_factor_type))
-      return 1;
-    request.set_auth_factor_type(auth_factor_type);
-
-    brillo::ErrorPtr error;
-    VLOG(1) << "Attempting to TerminateAuthFactor";
-    if (!userdataauth_proxy.TerminateAuthFactor(request, &reply, &error,
-                                                timeout_ms) ||
-        error) {
-      printer.PrintFormattedHumanOutput(
-          "TerminateAuthFactor call failed: %s.\n",
-          BrilloErrorToString(error.get()).c_str());
-      return 1;
-    }
-
-    printer.PrintReplyProtobuf(reply);
-    if (reply.error() !=
-        user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
-      printer.PrintHumanOutput("Failed to prepare auth factor.\n");
-      return static_cast<int>(reply.error());
-    }
+    return DoTerminateAuthFactor(printer, cl, userdataauth_proxy);
+  } else if (!strcmp(switches::kActions
+                         [switches::ACTION_PREPARE_AND_ADD_AUTH_FACTOR],
+                     action.c_str())) {
+    return DoPrepareAddTerminate(printer, cl, userdataauth_proxy, misc_proxy);
+  } else if (!strcmp(
+                 switches::kActions
+                     [switches::ACTION_PREPARE_AND_AUTHENTICATE_AUTH_FACTOR],
+                 action.c_str())) {
+    return DoPrepareAuthenticateTerminate(printer, cl, userdataauth_proxy,
+                                          misc_proxy);
   } else {
     printer.PrintHumanOutput(
         "Unknown action or no action given.  Available actions:\n");
