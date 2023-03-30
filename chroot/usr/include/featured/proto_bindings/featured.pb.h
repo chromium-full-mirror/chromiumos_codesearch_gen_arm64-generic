@@ -42,6 +42,9 @@ struct TableStruct_featured_2eproto {
   static const uint32_t offsets[];
 };
 namespace featured {
+class ComputedState;
+struct ComputedStateDefaultTypeInternal;
+extern ComputedStateDefaultTypeInternal _ComputedState_default_instance_;
 class FeatureOverride;
 struct FeatureOverrideDefaultTypeInternal;
 extern FeatureOverrideDefaultTypeInternal _FeatureOverride_default_instance_;
@@ -56,6 +59,7 @@ struct StoreDefaultTypeInternal;
 extern StoreDefaultTypeInternal _Store_default_instance_;
 }  // namespace featured
 PROTOBUF_NAMESPACE_OPEN
+template<> ::featured::ComputedState* Arena::CreateMaybeMessage<::featured::ComputedState>(Arena*);
 template<> ::featured::FeatureOverride* Arena::CreateMaybeMessage<::featured::FeatureOverride>(Arena*);
 template<> ::featured::Param* Arena::CreateMaybeMessage<::featured::Param>(Arena*);
 template<> ::featured::SeedDetails* Arena::CreateMaybeMessage<::featured::SeedDetails>(Arena*);
@@ -782,6 +786,165 @@ class Store final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_featured_2eproto;
 };
+// -------------------------------------------------------------------
+
+class ComputedState final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:featured.ComputedState) */ {
+ public:
+  inline ComputedState() : ComputedState(nullptr) {}
+  ~ComputedState() override;
+  explicit PROTOBUF_CONSTEXPR ComputedState(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ComputedState(const ComputedState& from);
+  ComputedState(ComputedState&& from) noexcept
+    : ComputedState() {
+    *this = ::std::move(from);
+  }
+
+  inline ComputedState& operator=(const ComputedState& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ComputedState& operator=(ComputedState&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ComputedState& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ComputedState* internal_default_instance() {
+    return reinterpret_cast<const ComputedState*>(
+               &_ComputedState_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(ComputedState& a, ComputedState& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ComputedState* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ComputedState* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ComputedState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ComputedState>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ComputedState& from);
+  void MergeFrom(const ComputedState& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ComputedState* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "featured.ComputedState";
+  }
+  protected:
+  explicit ComputedState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kOverridesFieldNumber = 1,
+    kUsedSeedFieldNumber = 2,
+  };
+  // repeated .featured.FeatureOverride overrides = 1;
+  int overrides_size() const;
+  private:
+  int _internal_overrides_size() const;
+  public:
+  void clear_overrides();
+  ::featured::FeatureOverride* mutable_overrides(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >*
+      mutable_overrides();
+  private:
+  const ::featured::FeatureOverride& _internal_overrides(int index) const;
+  ::featured::FeatureOverride* _internal_add_overrides();
+  public:
+  const ::featured::FeatureOverride& overrides(int index) const;
+  ::featured::FeatureOverride* add_overrides();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >&
+      overrides() const;
+
+  // .featured.SeedDetails used_seed = 2;
+  bool has_used_seed() const;
+  private:
+  bool _internal_has_used_seed() const;
+  public:
+  void clear_used_seed();
+  const ::featured::SeedDetails& used_seed() const;
+  PROTOBUF_NODISCARD ::featured::SeedDetails* release_used_seed();
+  ::featured::SeedDetails* mutable_used_seed();
+  void set_allocated_used_seed(::featured::SeedDetails* used_seed);
+  private:
+  const ::featured::SeedDetails& _internal_used_seed() const;
+  ::featured::SeedDetails* _internal_mutable_used_seed();
+  public:
+  void unsafe_arena_set_allocated_used_seed(
+      ::featured::SeedDetails* used_seed);
+  ::featured::SeedDetails* unsafe_arena_release_used_seed();
+
+  // @@protoc_insertion_point(class_scope:featured.ComputedState)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride > overrides_;
+    ::featured::SeedDetails* used_seed_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_featured_2eproto;
+};
 // ===================================================================
 
 
@@ -1475,9 +1638,145 @@ Store::overrides() const {
   return _impl_.overrides_;
 }
 
+// -------------------------------------------------------------------
+
+// ComputedState
+
+// repeated .featured.FeatureOverride overrides = 1;
+inline int ComputedState::_internal_overrides_size() const {
+  return _impl_.overrides_.size();
+}
+inline int ComputedState::overrides_size() const {
+  return _internal_overrides_size();
+}
+inline void ComputedState::clear_overrides() {
+  _impl_.overrides_.Clear();
+}
+inline ::featured::FeatureOverride* ComputedState::mutable_overrides(int index) {
+  // @@protoc_insertion_point(field_mutable:featured.ComputedState.overrides)
+  return _impl_.overrides_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >*
+ComputedState::mutable_overrides() {
+  // @@protoc_insertion_point(field_mutable_list:featured.ComputedState.overrides)
+  return &_impl_.overrides_;
+}
+inline const ::featured::FeatureOverride& ComputedState::_internal_overrides(int index) const {
+  return _impl_.overrides_.Get(index);
+}
+inline const ::featured::FeatureOverride& ComputedState::overrides(int index) const {
+  // @@protoc_insertion_point(field_get:featured.ComputedState.overrides)
+  return _internal_overrides(index);
+}
+inline ::featured::FeatureOverride* ComputedState::_internal_add_overrides() {
+  return _impl_.overrides_.Add();
+}
+inline ::featured::FeatureOverride* ComputedState::add_overrides() {
+  ::featured::FeatureOverride* _add = _internal_add_overrides();
+  // @@protoc_insertion_point(field_add:featured.ComputedState.overrides)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >&
+ComputedState::overrides() const {
+  // @@protoc_insertion_point(field_list:featured.ComputedState.overrides)
+  return _impl_.overrides_;
+}
+
+// .featured.SeedDetails used_seed = 2;
+inline bool ComputedState::_internal_has_used_seed() const {
+  return this != internal_default_instance() && _impl_.used_seed_ != nullptr;
+}
+inline bool ComputedState::has_used_seed() const {
+  return _internal_has_used_seed();
+}
+inline void ComputedState::clear_used_seed() {
+  if (GetArenaForAllocation() == nullptr && _impl_.used_seed_ != nullptr) {
+    delete _impl_.used_seed_;
+  }
+  _impl_.used_seed_ = nullptr;
+}
+inline const ::featured::SeedDetails& ComputedState::_internal_used_seed() const {
+  const ::featured::SeedDetails* p = _impl_.used_seed_;
+  return p != nullptr ? *p : reinterpret_cast<const ::featured::SeedDetails&>(
+      ::featured::_SeedDetails_default_instance_);
+}
+inline const ::featured::SeedDetails& ComputedState::used_seed() const {
+  // @@protoc_insertion_point(field_get:featured.ComputedState.used_seed)
+  return _internal_used_seed();
+}
+inline void ComputedState::unsafe_arena_set_allocated_used_seed(
+    ::featured::SeedDetails* used_seed) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.used_seed_);
+  }
+  _impl_.used_seed_ = used_seed;
+  if (used_seed) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:featured.ComputedState.used_seed)
+}
+inline ::featured::SeedDetails* ComputedState::release_used_seed() {
+  
+  ::featured::SeedDetails* temp = _impl_.used_seed_;
+  _impl_.used_seed_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::featured::SeedDetails* ComputedState::unsafe_arena_release_used_seed() {
+  // @@protoc_insertion_point(field_release:featured.ComputedState.used_seed)
+  
+  ::featured::SeedDetails* temp = _impl_.used_seed_;
+  _impl_.used_seed_ = nullptr;
+  return temp;
+}
+inline ::featured::SeedDetails* ComputedState::_internal_mutable_used_seed() {
+  
+  if (_impl_.used_seed_ == nullptr) {
+    auto* p = CreateMaybeMessage<::featured::SeedDetails>(GetArenaForAllocation());
+    _impl_.used_seed_ = p;
+  }
+  return _impl_.used_seed_;
+}
+inline ::featured::SeedDetails* ComputedState::mutable_used_seed() {
+  ::featured::SeedDetails* _msg = _internal_mutable_used_seed();
+  // @@protoc_insertion_point(field_mutable:featured.ComputedState.used_seed)
+  return _msg;
+}
+inline void ComputedState::set_allocated_used_seed(::featured::SeedDetails* used_seed) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.used_seed_;
+  }
+  if (used_seed) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(used_seed);
+    if (message_arena != submessage_arena) {
+      used_seed = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, used_seed, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.used_seed_ = used_seed;
+  // @@protoc_insertion_point(field_set_allocated:featured.ComputedState.used_seed)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

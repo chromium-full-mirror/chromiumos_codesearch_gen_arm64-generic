@@ -213,10 +213,8 @@ enum class Camera3StreamType : int32_t {
   CAMERA3_STREAM_INPUT = 1,
   
   CAMERA3_STREAM_BIDIRECTIONAL = 2,
-  
-  CAMERA3_NUM_STREAM_TYPES = 3,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 2,
 };
 
  std::ostream& operator<<(std::ostream& os, Camera3StreamType value);
@@ -283,10 +281,8 @@ enum class Camera3MsgType : int32_t {
   CAMERA3_MSG_ERROR = 1,
   
   CAMERA3_MSG_SHUTTER = 2,
-  
-  CAMERA3_NUM_MESSAGES = 3,
   kMinValue = 1,
-  kMaxValue = 3,
+  kMaxValue = 2,
 };
 
  std::ostream& operator<<(std::ostream& os, Camera3MsgType value);
@@ -305,10 +301,8 @@ enum class Camera3ErrorMsgCode : int32_t {
   CAMERA3_MSG_ERROR_RESULT = 3,
   
   CAMERA3_MSG_ERROR_BUFFER = 4,
-  
-  CAMERA3_MSG_NUM_ERRORS = 5,
   kMinValue = 1,
-  kMaxValue = 5,
+  kMaxValue = 4,
 };
 
  std::ostream& operator<<(std::ostream& os, Camera3ErrorMsgCode value);
@@ -329,10 +323,8 @@ enum class Camera3BufferRequestStatus : int32_t {
   CAMERA3_BUF_REQ_FAILED_ILLEGAL_ARGUMENTS = 3,
   
   CAMERA3_BUF_REQ_FAILED_UNKNOWN = 4,
-  
-  CAMERA3_BUF_REQ_NUM_STATUS = 5,
   kMinValue = 0,
-  kMaxValue = 5,
+  kMaxValue = 4,
 };
 
  std::ostream& operator<<(std::ostream& os, Camera3BufferRequestStatus value);
@@ -353,10 +345,8 @@ enum class Camera3StreamBufferReqStatus : int32_t {
   CAMERA3_PS_BUF_REQ_STREAM_DISCONNECTED = 3,
   
   CAMERA3_PS_BUF_REQ_UNKNOWN_ERROR = 4,
-  
-  CAMERA3_PS_BUF_REQ_NUM_STATUS = 5,
   kMinValue = 0,
-  kMaxValue = 5,
+  kMaxValue = 4,
 };
 
  std::ostream& operator<<(std::ostream& os, Camera3StreamBufferReqStatus value);

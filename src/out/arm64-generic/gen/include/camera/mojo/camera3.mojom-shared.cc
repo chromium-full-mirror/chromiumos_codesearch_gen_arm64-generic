@@ -68,8 +68,6 @@ NOINLINE static const char* Camera3StreamTypeToStringHelper(Camera3StreamType va
       return "CAMERA3_STREAM_INPUT";
     case Camera3StreamType::CAMERA3_STREAM_BIDIRECTIONAL:
       return "CAMERA3_STREAM_BIDIRECTIONAL";
-    case Camera3StreamType::CAMERA3_NUM_STREAM_TYPES:
-      return "CAMERA3_NUM_STREAM_TYPES";
     default:
       return nullptr;
   }
@@ -170,8 +168,6 @@ NOINLINE static const char* Camera3MsgTypeToStringHelper(Camera3MsgType value) {
       return "CAMERA3_MSG_ERROR";
     case Camera3MsgType::CAMERA3_MSG_SHUTTER:
       return "CAMERA3_MSG_SHUTTER";
-    case Camera3MsgType::CAMERA3_NUM_MESSAGES:
-      return "CAMERA3_NUM_MESSAGES";
     default:
       return nullptr;
   }
@@ -200,8 +196,6 @@ NOINLINE static const char* Camera3ErrorMsgCodeToStringHelper(Camera3ErrorMsgCod
       return "CAMERA3_MSG_ERROR_RESULT";
     case Camera3ErrorMsgCode::CAMERA3_MSG_ERROR_BUFFER:
       return "CAMERA3_MSG_ERROR_BUFFER";
-    case Camera3ErrorMsgCode::CAMERA3_MSG_NUM_ERRORS:
-      return "CAMERA3_MSG_NUM_ERRORS";
     default:
       return nullptr;
   }
@@ -232,8 +226,6 @@ NOINLINE static const char* Camera3BufferRequestStatusToStringHelper(Camera3Buff
       return "CAMERA3_BUF_REQ_FAILED_ILLEGAL_ARGUMENTS";
     case Camera3BufferRequestStatus::CAMERA3_BUF_REQ_FAILED_UNKNOWN:
       return "CAMERA3_BUF_REQ_FAILED_UNKNOWN";
-    case Camera3BufferRequestStatus::CAMERA3_BUF_REQ_NUM_STATUS:
-      return "CAMERA3_BUF_REQ_NUM_STATUS";
     default:
       return nullptr;
   }
@@ -264,8 +256,6 @@ NOINLINE static const char* Camera3StreamBufferReqStatusToStringHelper(Camera3St
       return "CAMERA3_PS_BUF_REQ_STREAM_DISCONNECTED";
     case Camera3StreamBufferReqStatus::CAMERA3_PS_BUF_REQ_UNKNOWN_ERROR:
       return "CAMERA3_PS_BUF_REQ_UNKNOWN_ERROR";
-    case Camera3StreamBufferReqStatus::CAMERA3_PS_BUF_REQ_NUM_STATUS:
-      return "CAMERA3_PS_BUF_REQ_NUM_STATUS";
     default:
       return nullptr;
   }

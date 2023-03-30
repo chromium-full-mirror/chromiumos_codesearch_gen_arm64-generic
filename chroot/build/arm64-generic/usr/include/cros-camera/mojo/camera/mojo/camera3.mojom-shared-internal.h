@@ -79,7 +79,6 @@ struct Camera3StreamType_Data {
       case 0:
       case 1:
       case 2:
-      case 3:
         return true;
     }
     return false;
@@ -178,7 +177,6 @@ struct Camera3MsgType_Data {
     switch (value) {
       case 1:
       case 2:
-      case 3:
         return true;
     }
     return false;
@@ -205,7 +203,6 @@ struct Camera3ErrorMsgCode_Data {
       case 2:
       case 3:
       case 4:
-      case 5:
         return true;
     }
     return false;
@@ -233,7 +230,6 @@ struct Camera3BufferRequestStatus_Data {
       case 2:
       case 3:
       case 4:
-      case 5:
         return true;
     }
     return false;
@@ -261,7 +257,6 @@ struct Camera3StreamBufferReqStatus_Data {
       case 2:
       case 3:
       case 4:
-      case 5:
         return true;
     }
     return false;

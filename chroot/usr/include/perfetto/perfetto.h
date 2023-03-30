@@ -13767,6 +13767,7 @@ class PERFETTO_EXPORT_COMPONENT TrackDescriptor : public ::protozero::CppMessage
     kThreadFieldNumber = 4,
     kChromeThreadFieldNumber = 7,
     kCounterFieldNumber = 8,
+    kDisallowMergingWithSystemTracksFieldNumber = 9,
   };
 
   TrackDescriptor();
@@ -13815,6 +13816,10 @@ class PERFETTO_EXPORT_COMPONENT TrackDescriptor : public ::protozero::CppMessage
   const CounterDescriptor& counter() const { return *counter_; }
   CounterDescriptor* mutable_counter() { _has_field_.set(8); return counter_.get(); }
 
+  bool has_disallow_merging_with_system_tracks() const { return _has_field_[9]; }
+  bool disallow_merging_with_system_tracks() const { return disallow_merging_with_system_tracks_; }
+  void set_disallow_merging_with_system_tracks(bool value) { disallow_merging_with_system_tracks_ = value; _has_field_.set(9); }
+
  private:
   uint64_t uuid_{};
   uint64_t parent_uuid_{};
@@ -13824,12 +13829,13 @@ class PERFETTO_EXPORT_COMPONENT TrackDescriptor : public ::protozero::CppMessage
   ::protozero::CopyablePtr<ThreadDescriptor> thread_;
   ::protozero::CopyablePtr<ChromeThreadDescriptor> chrome_thread_;
   ::protozero::CopyablePtr<CounterDescriptor> counter_;
+  bool disallow_merging_with_system_tracks_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<9> _has_field_{};
+  std::bitset<10> _has_field_{};
 };
 
 }  // namespace perfetto
@@ -13862,7 +13868,7 @@ class CounterDescriptor;
 class ProcessDescriptor;
 class ThreadDescriptor;
 
-class TrackDescriptor_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/8, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TrackDescriptor_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TrackDescriptor_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TrackDescriptor_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -13883,6 +13889,8 @@ class TrackDescriptor_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIEL
   ::protozero::ConstBytes chrome_thread() const { return at<7>().as_bytes(); }
   bool has_counter() const { return at<8>().valid(); }
   ::protozero::ConstBytes counter() const { return at<8>().as_bytes(); }
+  bool has_disallow_merging_with_system_tracks() const { return at<9>().valid(); }
+  bool disallow_merging_with_system_tracks() const { return at<9>().as_bool(); }
 };
 
 class TrackDescriptor : public ::protozero::Message {
@@ -13897,6 +13905,7 @@ class TrackDescriptor : public ::protozero::Message {
     kThreadFieldNumber = 4,
     kChromeThreadFieldNumber = 7,
     kCounterFieldNumber = 8,
+    kDisallowMergingWithSystemTracksFieldNumber = 9,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TrackDescriptor"; }
 
@@ -14030,6 +14039,24 @@ class TrackDescriptor : public ::protozero::Message {
     return BeginNestedMessage<T>(8);
   }
 
+
+  using FieldMetadata_DisallowMergingWithSystemTracks =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TrackDescriptor>;
+
+  static constexpr FieldMetadata_DisallowMergingWithSystemTracks kDisallowMergingWithSystemTracks{};
+  void set_disallow_merging_with_system_tracks(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DisallowMergingWithSystemTracks::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
 };
 
 } // Namespace.
@@ -17675,6 +17702,86 @@ class TrackEventDataSource
             typename TimestampTypeCheck = typename std::enable_if<
                 IsValidTimestamp<TimestampType>()>::type,
             typename TrackTypeCheck =
+                typename std::enable_if<IsValidTrack<TrackType>()>::type>
+  static perfetto::EventContext WriteTrackEvent(
+      typename Base::TraceContext& ctx,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      const TrackType& track,
+      const TimestampType& timestamp) PERFETTO_NO_INLINE {
+    using CatTraits = CategoryTraits<CategoryType>;
+    const Category* static_category =
+        CatTraits::GetStaticCategory(Registry, category);
+
+    const TrackEventTlsState& tls_state = *ctx.GetCustomTlsState();
+    TraceTimestamp trace_timestamp = ::perfetto::TraceTimestampTraits<
+        TimestampType>::ConvertTimestampToTraceTimeNs(timestamp);
+
+    TraceWriterBase* trace_writer = ctx.tls_inst_->trace_writer.get();
+    // Make sure incremental state is valid.
+    TrackEventIncrementalState* incr_state = ctx.GetIncrementalState();
+    TrackEventInternal::ResetIncrementalStateIfRequired(
+        trace_writer, incr_state, tls_state, trace_timestamp);
+
+    // Write the track descriptor before any event on the track.
+    if (track) {
+      TrackEventInternal::WriteTrackDescriptorIfNeeded(
+          track, trace_writer, incr_state, tls_state, trace_timestamp);
+    }
+
+    // Write the event itself.
+    bool on_current_thread_track =
+        (&track == &TrackEventInternal::kDefaultTrack);
+    auto event_ctx = TrackEventInternal::WriteEvent(
+        trace_writer, incr_state, tls_state, static_category, type,
+        trace_timestamp, on_current_thread_track);
+    // event name should be emitted with `TRACE_EVENT_BEGIN` macros
+    // but not with `TRACE_EVENT_END`.
+    if (type != protos::pbzero::TrackEvent::TYPE_SLICE_END) {
+      TrackEventInternal::WriteEventName(event_name, event_ctx, tls_state);
+    }
+    // Write dynamic categories (except for events that don't require
+    // categories). For counter events, the counter name (and optional
+    // category) is stored as part of the track descriptor instead being
+    // recorded with individual events.
+    if (CatTraits::kIsDynamic &&
+        type != protos::pbzero::TrackEvent::TYPE_SLICE_END &&
+        type != protos::pbzero::TrackEvent::TYPE_COUNTER) {
+      DynamicCategory dynamic_category =
+          CatTraits::GetDynamicCategory(category);
+      Category cat = Category::FromDynamicCategory(dynamic_category);
+      cat.ForEachGroupMember([&](const char* member_name, size_t name_size) {
+        event_ctx.event()->add_categories(member_name, name_size);
+        return true;
+      });
+    }
+    if (type == protos::pbzero::TrackEvent::TYPE_UNSPECIFIED) {
+      // Explicitly clear the track, so that the event is not associated
+      // with the default track, but instead uses the legacy mechanism
+      // based on the phase and pid/tid override.
+      event_ctx.event()->set_track_uuid(0);
+    } else if (!on_current_thread_track) {
+      // We emit these events using TrackDescriptors, and we cannot emit
+      // events on behalf of other processes using the TrackDescriptor
+      // format. Chrome is the only user of events with explicit process
+      // ids and currently only Chrome emits PHASE_MEMORY_DUMP events
+      // with an explicit process id, so we should be fine here.
+      // TODO(mohitms): Get rid of events with explicit process ids
+      // entirely.
+      event_ctx.event()->set_track_uuid(track.uuid);
+    }
+
+    return event_ctx;
+  }
+
+  template <typename CategoryType,
+            typename EventNameType,
+            typename TrackType = Track,
+            typename TimestampType = uint64_t,
+            typename TimestampTypeCheck = typename std::enable_if<
+                IsValidTimestamp<TimestampType>()>::type,
+            typename TrackTypeCheck =
                 typename std::enable_if<IsValidTrack<TrackType>()>::type,
             typename... Arguments>
   static void TraceForCategoryImpl(
@@ -17686,8 +17793,6 @@ class TrackEventDataSource
       const TimestampType& timestamp,
       Arguments&&... args) PERFETTO_ALWAYS_INLINE {
     using CatTraits = CategoryTraits<CategoryType>;
-    const Category* static_category =
-        CatTraits::GetStaticCategory(Registry, category);
     TraceWithInstances(
         instances, category, [&](typename Base::TraceContext ctx) {
           // If this category is dynamic, first check whether it's enabled.
@@ -17697,69 +17802,10 @@ class TrackEventDataSource
             return;
           }
 
-          const TrackEventTlsState& tls_state = *ctx.GetCustomTlsState();
-          TraceTimestamp trace_timestamp = ::perfetto::TraceTimestampTraits<
-              TimestampType>::ConvertTimestampToTraceTimeNs(timestamp);
-
-          TraceWriterBase* trace_writer = ctx.tls_inst_->trace_writer.get();
-          // Make sure incremental state is valid.
-          TrackEventIncrementalState* incr_state = ctx.GetIncrementalState();
-          TrackEventInternal::ResetIncrementalStateIfRequired(
-              trace_writer, incr_state, tls_state, trace_timestamp);
-
-          // Write the track descriptor before any event on the track.
-          if (track) {
-            TrackEventInternal::WriteTrackDescriptorIfNeeded(
-                track, trace_writer, incr_state, tls_state, trace_timestamp);
-          }
-
-          // Write the event itself.
-          {
-            bool on_current_thread_track =
-                (&track == &TrackEventInternal::kDefaultTrack);
-            auto event_ctx = TrackEventInternal::WriteEvent(
-                trace_writer, incr_state, tls_state, static_category, type,
-                trace_timestamp, on_current_thread_track);
-            // event name should be emitted with `TRACE_EVENT_BEGIN` macros
-            // but not with `TRACE_EVENT_END`.
-            if (type != protos::pbzero::TrackEvent::TYPE_SLICE_END) {
-              TrackEventInternal::WriteEventName(event_name, event_ctx,
-                                                 tls_state);
-            }
-            // Write dynamic categories (except for events that don't require
-            // categories). For counter events, the counter name (and optional
-            // category) is stored as part of the track descriptor instead being
-            // recorded with individual events.
-            if (CatTraits::kIsDynamic &&
-                type != protos::pbzero::TrackEvent::TYPE_SLICE_END &&
-                type != protos::pbzero::TrackEvent::TYPE_COUNTER) {
-              DynamicCategory dynamic_category =
-                  CatTraits::GetDynamicCategory(category);
-              Category cat = Category::FromDynamicCategory(dynamic_category);
-              cat.ForEachGroupMember(
-                  [&](const char* member_name, size_t name_size) {
-                    event_ctx.event()->add_categories(member_name, name_size);
-                    return true;
-                  });
-            }
-            if (type == protos::pbzero::TrackEvent::TYPE_UNSPECIFIED) {
-              // Explicitly clear the track, so that the event is not associated
-              // with the default track, but instead uses the legacy mechanism
-              // based on the phase and pid/tid override.
-              event_ctx.event()->set_track_uuid(0);
-            } else if (!on_current_thread_track) {
-              // We emit these events using TrackDescriptors, and we cannot emit
-              // events on behalf of other processes using the TrackDescriptor
-              // format. Chrome is the only user of events with explicit process
-              // ids and currently only Chrome emits PHASE_MEMORY_DUMP events
-              // with an explicit process id, so we should be fine here.
-              // TODO(mohitms): Get rid of events with explicit process ids
-              // entirely.
-              event_ctx.event()->set_track_uuid(track.uuid);
-            }
-            WriteTrackEventArgs(std::move(event_ctx),
-                                std::forward<Arguments>(args)...);
-          }  // event_ctx
+          auto event_ctx = WriteTrackEvent(ctx, category, event_name, type,
+                                           track, timestamp);
+          WriteTrackEventArgs(std::move(event_ctx),
+                              std::forward<Arguments>(args)...);
         });
   }
 
@@ -124493,7 +124539,7 @@ class CounterDescriptor;
 class ProcessDescriptor;
 class ThreadDescriptor;
 
-class TrackDescriptor_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/8, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TrackDescriptor_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TrackDescriptor_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TrackDescriptor_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -124514,6 +124560,8 @@ class TrackDescriptor_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIEL
   ::protozero::ConstBytes chrome_thread() const { return at<7>().as_bytes(); }
   bool has_counter() const { return at<8>().valid(); }
   ::protozero::ConstBytes counter() const { return at<8>().as_bytes(); }
+  bool has_disallow_merging_with_system_tracks() const { return at<9>().valid(); }
+  bool disallow_merging_with_system_tracks() const { return at<9>().as_bool(); }
 };
 
 class TrackDescriptor : public ::protozero::Message {
@@ -124528,6 +124576,7 @@ class TrackDescriptor : public ::protozero::Message {
     kThreadFieldNumber = 4,
     kChromeThreadFieldNumber = 7,
     kCounterFieldNumber = 8,
+    kDisallowMergingWithSystemTracksFieldNumber = 9,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TrackDescriptor"; }
 
@@ -124661,6 +124710,24 @@ class TrackDescriptor : public ::protozero::Message {
     return BeginNestedMessage<T>(8);
   }
 
+
+  using FieldMetadata_DisallowMergingWithSystemTracks =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TrackDescriptor>;
+
+  static constexpr FieldMetadata_DisallowMergingWithSystemTracks kDisallowMergingWithSystemTracks{};
+  void set_disallow_merging_with_system_tracks(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DisallowMergingWithSystemTracks::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
 };
 
 } // Namespace.
@@ -137934,6 +138001,7 @@ class PERFETTO_EXPORT_COMPONENT TrackDescriptor : public ::protozero::CppMessage
     kThreadFieldNumber = 4,
     kChromeThreadFieldNumber = 7,
     kCounterFieldNumber = 8,
+    kDisallowMergingWithSystemTracksFieldNumber = 9,
   };
 
   TrackDescriptor();
@@ -137982,6 +138050,10 @@ class PERFETTO_EXPORT_COMPONENT TrackDescriptor : public ::protozero::CppMessage
   const CounterDescriptor& counter() const { return *counter_; }
   CounterDescriptor* mutable_counter() { _has_field_.set(8); return counter_.get(); }
 
+  bool has_disallow_merging_with_system_tracks() const { return _has_field_[9]; }
+  bool disallow_merging_with_system_tracks() const { return disallow_merging_with_system_tracks_; }
+  void set_disallow_merging_with_system_tracks(bool value) { disallow_merging_with_system_tracks_ = value; _has_field_.set(9); }
+
  private:
   uint64_t uuid_{};
   uint64_t parent_uuid_{};
@@ -137991,12 +138063,13 @@ class PERFETTO_EXPORT_COMPONENT TrackDescriptor : public ::protozero::CppMessage
   ::protozero::CopyablePtr<ThreadDescriptor> thread_;
   ::protozero::CopyablePtr<ChromeThreadDescriptor> chrome_thread_;
   ::protozero::CopyablePtr<CounterDescriptor> counter_;
+  bool disallow_merging_with_system_tracks_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<9> _has_field_{};
+  std::bitset<10> _has_field_{};
 };
 
 }  // namespace perfetto

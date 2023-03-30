@@ -208,6 +208,9 @@ TEST_F(FingerprintAuthBlockTest, CreateSuccess) {
           .server_nonce = BlobToSecureBlob(kFakeGscNonce),
           .iv = BlobToSecureBlob(kFakeGscIv),
           .encrypted_he_secret = BlobToSecureBlob(kFakeLabelSeed)}));
+  EXPECT_CALL(mock_le_manager_,
+              ResetCredential(kFakeRateLimiterLabel, kFakeResetSecret, false))
+      .WillOnce(ReturnOk<CryptohomeLECredError>());
   EXPECT_CALL(
       *mock_processor_,
       CreateCredential(
@@ -326,6 +329,9 @@ TEST_F(FingerprintAuthBlockTest, CreateCreateCredentialFailed) {
           .server_nonce = BlobToSecureBlob(kFakeGscNonce),
           .iv = BlobToSecureBlob(kFakeGscIv),
           .encrypted_he_secret = BlobToSecureBlob(kFakeLabelSeed)}));
+  EXPECT_CALL(mock_le_manager_,
+              ResetCredential(kFakeRateLimiterLabel, kFakeResetSecret, false))
+      .WillOnce(ReturnOk<CryptohomeLECredError>());
   EXPECT_CALL(*mock_processor_, CreateCredential(_, _, _))
       .WillOnce([&](auto&&, auto&&, auto&& callback) {
         std::move(callback).Run(MakeStatus<CryptohomeError>(
@@ -366,6 +372,9 @@ TEST_F(FingerprintAuthBlockTest, CreateInsertCredentialFailed) {
           .server_nonce = BlobToSecureBlob(kFakeGscNonce),
           .iv = BlobToSecureBlob(kFakeGscIv),
           .encrypted_he_secret = BlobToSecureBlob(kFakeLabelSeed)}));
+  EXPECT_CALL(mock_le_manager_,
+              ResetCredential(kFakeRateLimiterLabel, kFakeResetSecret, false))
+      .WillOnce(ReturnOk<CryptohomeLECredError>());
   EXPECT_CALL(
       *mock_processor_,
       CreateCredential(
@@ -424,6 +433,9 @@ TEST_F(FingerprintAuthBlockTest, CreateWithNoLimiterSuccess) {
           .server_nonce = BlobToSecureBlob(kFakeGscNonce),
           .iv = BlobToSecureBlob(kFakeGscIv),
           .encrypted_he_secret = BlobToSecureBlob(kFakeLabelSeed)}));
+  EXPECT_CALL(mock_le_manager_,
+              ResetCredential(kFakeRateLimiterLabel, _, false))
+      .WillOnce(ReturnOk<CryptohomeLECredError>());
   EXPECT_CALL(
       *mock_processor_,
       CreateCredential(
@@ -673,6 +685,8 @@ TEST_F(FingerprintAuthBlockTest, SelectFactorMatchFailed) {
             ErrorActionSet({ErrorAction::kIncorrectAuth}),
             user_data_auth::CRYPTOHOME_ERROR_NOT_IMPLEMENTED));
       });
+  EXPECT_CALL(mock_le_manager_, GetDelayInSeconds(kFakeRateLimiterLabel))
+      .WillOnce(ReturnValue(0));
 
   SelectFactorTestFuture result;
   auth_block_->SelectFactor(kFakeAuthInput, kFakeAuthFactors,
@@ -681,6 +695,54 @@ TEST_F(FingerprintAuthBlockTest, SelectFactorMatchFailed) {
   ASSERT_TRUE(result.IsReady());
   auto [status, auth_input, auth_factor] = result.Take();
   EXPECT_TRUE(ContainsActionInStack(status, ErrorAction::kIncorrectAuth));
+  EXPECT_FALSE(ContainsActionInStack(status, ErrorAction::kLeLockedOut));
+  EXPECT_FALSE(auth_input.has_value());
+  EXPECT_FALSE(auth_factor.has_value());
+}
+
+TEST_F(FingerprintAuthBlockTest, SelectFactorMatchFailedAndLocked) {
+  const brillo::Blob kFakeGscNonce(32, 1), kFakeLabelSeed(32, 2);
+  const brillo::Blob kFakeGscIv(16, 1);
+  const AuthInput kFakeAuthInput{.rate_limiter_label = kFakeRateLimiterLabel};
+  const std::vector<AuthFactor> kFakeAuthFactors{
+      AuthFactor(AuthFactorType::kFingerprint, kFakeAuthFactorLabel1,
+                 AuthFactorMetadata{},
+                 GetFingerprintStateWithRecordId(kFakeRecordId)),
+      AuthFactor(AuthFactorType::kFingerprint, kFakeAuthFactorLabel2,
+                 AuthFactorMetadata{},
+                 GetFingerprintStateWithRecordId(kFakeRecordId2))};
+
+  std::unique_ptr<PreparedAuthFactorToken> token;
+  StartAuthenticateSession(token);
+  ASSERT_NE(token, nullptr);
+
+  EXPECT_CALL(
+      mock_le_manager_,
+      StartBiometricsAuth(kFingerprintAuthChannel, kFakeRateLimiterLabel,
+                          BlobToSecureBlob(kFakeAuthNonce)))
+      .WillOnce(ReturnValue(LECredentialManager::StartBiometricsAuthReply{
+          .server_nonce = BlobToSecureBlob(kFakeGscNonce),
+          .iv = BlobToSecureBlob(kFakeGscIv),
+          .encrypted_he_secret = BlobToSecureBlob(kFakeLabelSeed)}));
+  EXPECT_CALL(*mock_processor_, MatchCredential(_, _))
+      .WillOnce([&](auto&&, auto&& callback) {
+        std::move(callback).Run(MakeStatus<CryptohomeError>(
+            kErrorLocationPlaceholder,
+            ErrorActionSet({ErrorAction::kIncorrectAuth}),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_IMPLEMENTED));
+      });
+  // Even if the lockout isn't infinite, LeLockedOut should be reported.
+  EXPECT_CALL(mock_le_manager_, GetDelayInSeconds(kFakeRateLimiterLabel))
+      .WillOnce(ReturnValue(10));
+
+  SelectFactorTestFuture result;
+  auth_block_->SelectFactor(kFakeAuthInput, kFakeAuthFactors,
+                            result.GetCallback());
+
+  ASSERT_TRUE(result.IsReady());
+  auto [status, auth_input, auth_factor] = result.Take();
+  EXPECT_TRUE(ContainsActionInStack(status, ErrorAction::kIncorrectAuth));
+  EXPECT_TRUE(ContainsActionInStack(status, ErrorAction::kLeLockedOut));
   EXPECT_FALSE(auth_input.has_value());
   EXPECT_FALSE(auth_factor.has_value());
 }

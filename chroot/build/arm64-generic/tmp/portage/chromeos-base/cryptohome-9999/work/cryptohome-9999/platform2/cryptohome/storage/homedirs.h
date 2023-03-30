@@ -57,6 +57,18 @@ class HomeDirs {
     bool is_mounted = false;
   };
 
+  // Returned by RemoveCryptohomesBasedOnPolicy.
+  enum class CryptohomesRemovedStatus {
+    // RemoveCryptohomesBasedOnPolicy returns an error.
+    kError = 0,
+    // RemoveCryptohomesBasedOnPolicy hasn't removed any cryptohomes.
+    kNone = 1,
+    // RemoveCryptohomesBasedOnPolicy has removed some cryptohomes.
+    kSome = 2,
+    // RemoveCryptohomesBasedOnPolicy has removed all cryptohomes.
+    kAll = 3,
+  };
+
   using RemoveCallback = base::RepeatingCallback<void(
       const ObfuscatedUsername& obfuscated_username)>;
 
@@ -73,9 +85,10 @@ class HomeDirs {
 
   virtual ~HomeDirs();
 
-  // Removes all cryptohomes owned by anyone other than the owner user (if set),
-  // regardless of free disk space.
-  virtual void RemoveNonOwnerCryptohomes();
+  // Removes all ephemeral cryptohomes except mounted owned by anyone other than
+  // the owner user (if set) and non ephemeral users, regardless of free disk
+  // space. Returns the Status of removal.
+  virtual CryptohomesRemovedStatus RemoveCryptohomesBasedOnPolicy();
 
   // Returns the owner's username.
   virtual bool GetOwner(ObfuscatedUsername* owner);
@@ -85,8 +98,9 @@ class HomeDirs {
   // become such in case it signs in now.
   bool IsOrWillBeOwner(const Username& account_id);
 
-  // Returns whether the ephemeral users policy is enabled.
-  virtual bool AreEphemeralUsersEnabled();
+  // Get the Ephemeral related policies.
+  virtual bool GetEphemeralSettings(
+      policy::DevicePolicy::EphemeralSettings* settings);
 
   // Returns whether Keylocker should be used for per-user encrypted storage.
   virtual bool KeylockerForStorageEncryptionEnabled();

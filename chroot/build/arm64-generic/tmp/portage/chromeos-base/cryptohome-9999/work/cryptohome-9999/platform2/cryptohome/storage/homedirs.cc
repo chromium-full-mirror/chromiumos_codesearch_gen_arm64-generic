@@ -37,6 +37,7 @@
 #include "cryptohome/storage/cryptohome_vault.h"
 #include "cryptohome/storage/cryptohome_vault_factory.h"
 #include "cryptohome/storage/encrypted_container/encrypted_container.h"
+#include "cryptohome/storage/ephemeral_policy_util.h"
 #include "cryptohome/storage/error.h"
 #include "cryptohome/storage/mount_helper.h"
 #include "cryptohome/username.h"
@@ -75,14 +76,18 @@ void HomeDirs::LoadDevicePolicy() {
   policy_provider_->Reload();
 }
 
-bool HomeDirs::AreEphemeralUsersEnabled() {
+bool HomeDirs::GetEphemeralSettings(
+    policy::DevicePolicy::EphemeralSettings* settings) {
   LoadDevicePolicy();
-  // If the policy cannot be loaded, default to non-ephemeral users.
-  bool ephemeral_users_enabled = false;
-  if (policy_provider_->device_policy_is_loaded())
-    policy_provider_->GetDevicePolicy().GetEphemeralUsersEnabled(
-        &ephemeral_users_enabled);
-  return ephemeral_users_enabled;
+  if (!policy_provider_->device_policy_is_loaded()) {
+    return false;
+  }
+
+  if (!policy_provider_->GetDevicePolicy().GetEphemeralSettings(settings)) {
+    return false;
+  }
+
+  return true;
 }
 
 bool HomeDirs::KeylockerForStorageEncryptionEnabled() {
@@ -196,26 +201,51 @@ bool HomeDirs::DmcryptCacheContainerExists(
                                 kDmcryptCacheContainerSuffix);
 }
 
-void HomeDirs::RemoveNonOwnerCryptohomes() {
+HomeDirs::CryptohomesRemovedStatus HomeDirs::RemoveCryptohomesBasedOnPolicy() {
   // If the device is not enterprise owned it should have an owner user.
+  auto state = HomeDirs::CryptohomesRemovedStatus::kError;
   ObfuscatedUsername owner;
-  if (!enterprise_owned_ && !GetOwner(&owner)) {
-    return;
+  bool has_owner = GetOwner(&owner);
+  if (!enterprise_owned_ && !has_owner) {
+    return state;
   }
 
   auto homedirs = GetHomeDirs();
   FilterMountedHomedirs(&homedirs);
+  policy::DevicePolicy::EphemeralSettings settings;
+  if (!GetEphemeralSettings(&settings)) {
+    return state;
+  }
 
+  size_t cryptohomes_removed = 0;
+  EphemeralPolicyUtil ephemeral_util(settings);
   for (const auto& dir : homedirs) {
-    if (GetOwner(&owner)) {
-      if (dir.obfuscated == owner && !enterprise_owned_) {
-        continue;  // Remove them all if enterprise owned.
-      }
+    if (has_owner && !enterprise_owned_ && dir.obfuscated == owner) {
+      continue;  // Owner vault shouldn't be remove.
     }
-    if (!HomeDirs::Remove(dir.obfuscated)) {
-      LOG(WARNING) << "Failed to remove all non-owner home directories.";
+
+    if (!ephemeral_util.ShouldRemoveBasedOnPolicy(dir.obfuscated)) {
+      continue;
+    }
+
+    if (HomeDirs::Remove(dir.obfuscated)) {
+      cryptohomes_removed++;
+    } else {
+      LOG(WARNING)
+          << "Failed to remove ephemeral cryptohome with obfuscated username: "
+          << dir.obfuscated;
     }
   }
+
+  if (cryptohomes_removed == 0) {
+    state = HomeDirs::CryptohomesRemovedStatus::kNone;
+  } else if (cryptohomes_removed == homedirs.size()) {
+    state = HomeDirs::CryptohomesRemovedStatus::kAll;
+  } else {
+    state = HomeDirs::CryptohomesRemovedStatus::kSome;
+  }
+
+  return state;
 }
 
 std::vector<HomeDirs::HomeDir> HomeDirs::GetHomeDirs() {
