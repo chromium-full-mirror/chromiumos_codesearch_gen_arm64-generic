@@ -44,6 +44,9 @@ struct TableStruct_security_5fxdr_5fevents_2eproto {
 };
 namespace cros_xdr {
 namespace reporting {
+class AgentEventAtomicVariant;
+struct AgentEventAtomicVariantDefaultTypeInternal;
+extern AgentEventAtomicVariantDefaultTypeInternal _AgentEventAtomicVariant_default_instance_;
 class AgentHeartbeatEvent;
 struct AgentHeartbeatEventDefaultTypeInternal;
 extern AgentHeartbeatEventDefaultTypeInternal _AgentHeartbeatEvent_default_instance_;
@@ -98,6 +101,7 @@ extern XdrProcessEventDefaultTypeInternal _XdrProcessEvent_default_instance_;
 }  // namespace reporting
 }  // namespace cros_xdr
 PROTOBUF_NAMESPACE_OPEN
+template<> ::cros_xdr::reporting::AgentEventAtomicVariant* Arena::CreateMaybeMessage<::cros_xdr::reporting::AgentEventAtomicVariant>(Arena*);
 template<> ::cros_xdr::reporting::AgentHeartbeatEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::AgentHeartbeatEvent>(Arena*);
 template<> ::cros_xdr::reporting::AgentStartEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::AgentStartEvent>(Arena*);
 template<> ::cros_xdr::reporting::CommonEventDataFields* Arena::CreateMaybeMessage<::cros_xdr::reporting::CommonEventDataFields>(Arena*);
@@ -1943,6 +1947,212 @@ class AgentHeartbeatEvent final :
 };
 // -------------------------------------------------------------------
 
+class AgentEventAtomicVariant final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.AgentEventAtomicVariant) */ {
+ public:
+  inline AgentEventAtomicVariant() : AgentEventAtomicVariant(nullptr) {}
+  ~AgentEventAtomicVariant() override;
+  explicit PROTOBUF_CONSTEXPR AgentEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AgentEventAtomicVariant(const AgentEventAtomicVariant& from);
+  AgentEventAtomicVariant(AgentEventAtomicVariant&& from) noexcept
+    : AgentEventAtomicVariant() {
+    *this = ::std::move(from);
+  }
+
+  inline AgentEventAtomicVariant& operator=(const AgentEventAtomicVariant& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AgentEventAtomicVariant& operator=(AgentEventAtomicVariant&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const AgentEventAtomicVariant& default_instance() {
+    return *internal_default_instance();
+  }
+  enum VariantTypeCase {
+    kAgentStart = 2,
+    kAgentHeartbeat = 3,
+    VARIANT_TYPE_NOT_SET = 0,
+  };
+
+  static inline const AgentEventAtomicVariant* internal_default_instance() {
+    return reinterpret_cast<const AgentEventAtomicVariant*>(
+               &_AgentEventAtomicVariant_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(AgentEventAtomicVariant& a, AgentEventAtomicVariant& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AgentEventAtomicVariant* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AgentEventAtomicVariant* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AgentEventAtomicVariant* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AgentEventAtomicVariant>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AgentEventAtomicVariant& from);
+  void MergeFrom(const AgentEventAtomicVariant& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AgentEventAtomicVariant* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cros_xdr.reporting.AgentEventAtomicVariant";
+  }
+  protected:
+  explicit AgentEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCommonFieldNumber = 1,
+    kAgentStartFieldNumber = 2,
+    kAgentHeartbeatFieldNumber = 3,
+  };
+  // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
+  bool has_common() const;
+  private:
+  bool _internal_has_common() const;
+  public:
+  void clear_common();
+  const ::cros_xdr::reporting::CommonEventVariantDataFields& common() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::CommonEventVariantDataFields* release_common();
+  ::cros_xdr::reporting::CommonEventVariantDataFields* mutable_common();
+  void set_allocated_common(::cros_xdr::reporting::CommonEventVariantDataFields* common);
+  private:
+  const ::cros_xdr::reporting::CommonEventVariantDataFields& _internal_common() const;
+  ::cros_xdr::reporting::CommonEventVariantDataFields* _internal_mutable_common();
+  public:
+  void unsafe_arena_set_allocated_common(
+      ::cros_xdr::reporting::CommonEventVariantDataFields* common);
+  ::cros_xdr::reporting::CommonEventVariantDataFields* unsafe_arena_release_common();
+
+  // .cros_xdr.reporting.AgentStartEvent agent_start = 2;
+  bool has_agent_start() const;
+  private:
+  bool _internal_has_agent_start() const;
+  public:
+  void clear_agent_start();
+  const ::cros_xdr::reporting::AgentStartEvent& agent_start() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::AgentStartEvent* release_agent_start();
+  ::cros_xdr::reporting::AgentStartEvent* mutable_agent_start();
+  void set_allocated_agent_start(::cros_xdr::reporting::AgentStartEvent* agent_start);
+  private:
+  const ::cros_xdr::reporting::AgentStartEvent& _internal_agent_start() const;
+  ::cros_xdr::reporting::AgentStartEvent* _internal_mutable_agent_start();
+  public:
+  void unsafe_arena_set_allocated_agent_start(
+      ::cros_xdr::reporting::AgentStartEvent* agent_start);
+  ::cros_xdr::reporting::AgentStartEvent* unsafe_arena_release_agent_start();
+
+  // .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3;
+  bool has_agent_heartbeat() const;
+  private:
+  bool _internal_has_agent_heartbeat() const;
+  public:
+  void clear_agent_heartbeat();
+  const ::cros_xdr::reporting::AgentHeartbeatEvent& agent_heartbeat() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::AgentHeartbeatEvent* release_agent_heartbeat();
+  ::cros_xdr::reporting::AgentHeartbeatEvent* mutable_agent_heartbeat();
+  void set_allocated_agent_heartbeat(::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat);
+  private:
+  const ::cros_xdr::reporting::AgentHeartbeatEvent& _internal_agent_heartbeat() const;
+  ::cros_xdr::reporting::AgentHeartbeatEvent* _internal_mutable_agent_heartbeat();
+  public:
+  void unsafe_arena_set_allocated_agent_heartbeat(
+      ::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat);
+  ::cros_xdr::reporting::AgentHeartbeatEvent* unsafe_arena_release_agent_heartbeat();
+
+  void clear_variant_type();
+  VariantTypeCase variant_type_case() const;
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.AgentEventAtomicVariant)
+ private:
+  class _Internal;
+  void set_has_agent_start();
+  void set_has_agent_heartbeat();
+
+  inline bool has_variant_type() const;
+  inline void clear_has_variant_type();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::cros_xdr::reporting::CommonEventVariantDataFields* common_;
+    union VariantTypeUnion {
+      constexpr VariantTypeUnion() : _constinit_{} {}
+        ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+      ::cros_xdr::reporting::AgentStartEvent* agent_start_;
+      ::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat_;
+    } variant_type_;
+    uint32_t _oneof_case_[1];
+
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
+};
+// -------------------------------------------------------------------
+
 class XdrAgentEvent final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.XdrAgentEvent) */ {
  public:
@@ -1995,7 +2205,7 @@ class XdrAgentEvent final :
                &_XdrAgentEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(XdrAgentEvent& a, XdrAgentEvent& b) {
     a.Swap(&b);
@@ -2059,10 +2269,29 @@ class XdrAgentEvent final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kBatchedEventsFieldNumber = 4,
     kCommonFieldNumber = 1,
     kAgentStartFieldNumber = 2,
     kAgentHeartbeatFieldNumber = 3,
   };
+  // repeated .cros_xdr.reporting.AgentEventAtomicVariant batched_events = 4;
+  int batched_events_size() const;
+  private:
+  int _internal_batched_events_size() const;
+  public:
+  void clear_batched_events();
+  ::cros_xdr::reporting::AgentEventAtomicVariant* mutable_batched_events(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::cros_xdr::reporting::AgentEventAtomicVariant >*
+      mutable_batched_events();
+  private:
+  const ::cros_xdr::reporting::AgentEventAtomicVariant& _internal_batched_events(int index) const;
+  ::cros_xdr::reporting::AgentEventAtomicVariant* _internal_add_batched_events();
+  public:
+  const ::cros_xdr::reporting::AgentEventAtomicVariant& batched_events(int index) const;
+  ::cros_xdr::reporting::AgentEventAtomicVariant* add_batched_events();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::cros_xdr::reporting::AgentEventAtomicVariant >&
+      batched_events() const;
+
   // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
   bool has_common() const;
   private:
@@ -2081,41 +2310,41 @@ class XdrAgentEvent final :
       ::cros_xdr::reporting::CommonEventDataFields* common);
   ::cros_xdr::reporting::CommonEventDataFields* unsafe_arena_release_common();
 
-  // .cros_xdr.reporting.AgentStartEvent agent_start = 2;
-  bool has_agent_start() const;
+  // .cros_xdr.reporting.AgentStartEvent agent_start = 2 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_agent_start() const;
   private:
   bool _internal_has_agent_start() const;
   public:
-  void clear_agent_start();
-  const ::cros_xdr::reporting::AgentStartEvent& agent_start() const;
-  PROTOBUF_NODISCARD ::cros_xdr::reporting::AgentStartEvent* release_agent_start();
-  ::cros_xdr::reporting::AgentStartEvent* mutable_agent_start();
-  void set_allocated_agent_start(::cros_xdr::reporting::AgentStartEvent* agent_start);
+  PROTOBUF_DEPRECATED void clear_agent_start();
+  PROTOBUF_DEPRECATED const ::cros_xdr::reporting::AgentStartEvent& agent_start() const;
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::cros_xdr::reporting::AgentStartEvent* release_agent_start();
+  PROTOBUF_DEPRECATED ::cros_xdr::reporting::AgentStartEvent* mutable_agent_start();
+  PROTOBUF_DEPRECATED void set_allocated_agent_start(::cros_xdr::reporting::AgentStartEvent* agent_start);
   private:
   const ::cros_xdr::reporting::AgentStartEvent& _internal_agent_start() const;
   ::cros_xdr::reporting::AgentStartEvent* _internal_mutable_agent_start();
   public:
-  void unsafe_arena_set_allocated_agent_start(
+  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_agent_start(
       ::cros_xdr::reporting::AgentStartEvent* agent_start);
-  ::cros_xdr::reporting::AgentStartEvent* unsafe_arena_release_agent_start();
+  PROTOBUF_DEPRECATED ::cros_xdr::reporting::AgentStartEvent* unsafe_arena_release_agent_start();
 
-  // .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3;
-  bool has_agent_heartbeat() const;
+  // .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_agent_heartbeat() const;
   private:
   bool _internal_has_agent_heartbeat() const;
   public:
-  void clear_agent_heartbeat();
-  const ::cros_xdr::reporting::AgentHeartbeatEvent& agent_heartbeat() const;
-  PROTOBUF_NODISCARD ::cros_xdr::reporting::AgentHeartbeatEvent* release_agent_heartbeat();
-  ::cros_xdr::reporting::AgentHeartbeatEvent* mutable_agent_heartbeat();
-  void set_allocated_agent_heartbeat(::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat);
+  PROTOBUF_DEPRECATED void clear_agent_heartbeat();
+  PROTOBUF_DEPRECATED const ::cros_xdr::reporting::AgentHeartbeatEvent& agent_heartbeat() const;
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::cros_xdr::reporting::AgentHeartbeatEvent* release_agent_heartbeat();
+  PROTOBUF_DEPRECATED ::cros_xdr::reporting::AgentHeartbeatEvent* mutable_agent_heartbeat();
+  PROTOBUF_DEPRECATED void set_allocated_agent_heartbeat(::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat);
   private:
   const ::cros_xdr::reporting::AgentHeartbeatEvent& _internal_agent_heartbeat() const;
   ::cros_xdr::reporting::AgentHeartbeatEvent* _internal_mutable_agent_heartbeat();
   public:
-  void unsafe_arena_set_allocated_agent_heartbeat(
+  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_agent_heartbeat(
       ::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat);
-  ::cros_xdr::reporting::AgentHeartbeatEvent* unsafe_arena_release_agent_heartbeat();
+  PROTOBUF_DEPRECATED ::cros_xdr::reporting::AgentHeartbeatEvent* unsafe_arena_release_agent_heartbeat();
 
   void clear_message_type();
   MessageTypeCase message_type_case() const;
@@ -2134,6 +2363,7 @@ class XdrAgentEvent final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::cros_xdr::reporting::AgentEventAtomicVariant > batched_events_;
     ::cros_xdr::reporting::CommonEventDataFields* common_;
     union MessageTypeUnion {
       constexpr MessageTypeUnion() : _constinit_{} {}
@@ -2195,7 +2425,7 @@ class ProcessExecEvent final :
                &_ProcessExecEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(ProcessExecEvent& a, ProcessExecEvent& b) {
     a.Swap(&b);
@@ -2417,7 +2647,7 @@ class ProcessTerminateEvent final :
                &_ProcessTerminateEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(ProcessTerminateEvent& a, ProcessTerminateEvent& b) {
     a.Swap(&b);
@@ -2584,7 +2814,7 @@ class CommonEventVariantDataFields final :
                &_CommonEventVariantDataFields_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(CommonEventVariantDataFields& a, CommonEventVariantDataFields& b) {
     a.Swap(&b);
@@ -2648,8 +2878,27 @@ class CommonEventVariantDataFields final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kDeviceUserFieldNumber = 2,
     kCreateTimestampUsFieldNumber = 1,
   };
+  // optional string device_user = 2;
+  bool has_device_user() const;
+  private:
+  bool _internal_has_device_user() const;
+  public:
+  void clear_device_user();
+  const std::string& device_user() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_device_user(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_device_user();
+  PROTOBUF_NODISCARD std::string* release_device_user();
+  void set_allocated_device_user(std::string* device_user);
+  private:
+  const std::string& _internal_device_user() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_device_user(const std::string& value);
+  std::string* _internal_mutable_device_user();
+  public:
+
   // optional int64 create_timestamp_us = 1;
   bool has_create_timestamp_us() const;
   private:
@@ -2673,6 +2922,7 @@ class CommonEventVariantDataFields final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_user_;
     int64_t create_timestamp_us_;
   };
   union { Impl_ _impl_; };
@@ -2732,7 +2982,7 @@ class ProcessEventAtomicVariant final :
                &_ProcessEventAtomicVariant_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(ProcessEventAtomicVariant& a, ProcessEventAtomicVariant& b) {
     a.Swap(&b);
@@ -2938,7 +3188,7 @@ class XdrProcessEvent final :
                &_XdrProcessEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(XdrProcessEvent& a, XdrProcessEvent& b) {
     a.Swap(&b);
@@ -3164,7 +3414,7 @@ class XdrNetworkEvent final :
                &_XdrNetworkEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(XdrNetworkEvent& a, XdrNetworkEvent& b) {
     a.Swap(&b);
@@ -3364,7 +3614,7 @@ class NetworkFlowEvent final :
                &_NetworkFlowEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(NetworkFlowEvent& a, NetworkFlowEvent& b) {
     a.Swap(&b);
@@ -3814,7 +4064,7 @@ class NetworkSocketListenEvent final :
                &_NetworkSocketListenEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(NetworkSocketListenEvent& a, NetworkSocketListenEvent& b) {
     a.Swap(&b);
@@ -5870,6 +6120,257 @@ inline void AgentHeartbeatEvent::set_allocated_tcb(::cros_xdr::reporting::TcbAtt
 
 // -------------------------------------------------------------------
 
+// AgentEventAtomicVariant
+
+// optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
+inline bool AgentEventAtomicVariant::_internal_has_common() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.common_ != nullptr);
+  return value;
+}
+inline bool AgentEventAtomicVariant::has_common() const {
+  return _internal_has_common();
+}
+inline void AgentEventAtomicVariant::clear_common() {
+  if (_impl_.common_ != nullptr) _impl_.common_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::cros_xdr::reporting::CommonEventVariantDataFields& AgentEventAtomicVariant::_internal_common() const {
+  const ::cros_xdr::reporting::CommonEventVariantDataFields* p = _impl_.common_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::CommonEventVariantDataFields&>(
+      ::cros_xdr::reporting::_CommonEventVariantDataFields_default_instance_);
+}
+inline const ::cros_xdr::reporting::CommonEventVariantDataFields& AgentEventAtomicVariant::common() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.AgentEventAtomicVariant.common)
+  return _internal_common();
+}
+inline void AgentEventAtomicVariant::unsafe_arena_set_allocated_common(
+    ::cros_xdr::reporting::CommonEventVariantDataFields* common) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.common_);
+  }
+  _impl_.common_ = common;
+  if (common) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.AgentEventAtomicVariant.common)
+}
+inline ::cros_xdr::reporting::CommonEventVariantDataFields* AgentEventAtomicVariant::release_common() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::CommonEventVariantDataFields* temp = _impl_.common_;
+  _impl_.common_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::cros_xdr::reporting::CommonEventVariantDataFields* AgentEventAtomicVariant::unsafe_arena_release_common() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.AgentEventAtomicVariant.common)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::CommonEventVariantDataFields* temp = _impl_.common_;
+  _impl_.common_ = nullptr;
+  return temp;
+}
+inline ::cros_xdr::reporting::CommonEventVariantDataFields* AgentEventAtomicVariant::_internal_mutable_common() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.common_ == nullptr) {
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::CommonEventVariantDataFields>(GetArenaForAllocation());
+    _impl_.common_ = p;
+  }
+  return _impl_.common_;
+}
+inline ::cros_xdr::reporting::CommonEventVariantDataFields* AgentEventAtomicVariant::mutable_common() {
+  ::cros_xdr::reporting::CommonEventVariantDataFields* _msg = _internal_mutable_common();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.AgentEventAtomicVariant.common)
+  return _msg;
+}
+inline void AgentEventAtomicVariant::set_allocated_common(::cros_xdr::reporting::CommonEventVariantDataFields* common) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.common_;
+  }
+  if (common) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(common);
+    if (message_arena != submessage_arena) {
+      common = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.common_ = common;
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.AgentEventAtomicVariant.common)
+}
+
+// .cros_xdr.reporting.AgentStartEvent agent_start = 2;
+inline bool AgentEventAtomicVariant::_internal_has_agent_start() const {
+  return variant_type_case() == kAgentStart;
+}
+inline bool AgentEventAtomicVariant::has_agent_start() const {
+  return _internal_has_agent_start();
+}
+inline void AgentEventAtomicVariant::set_has_agent_start() {
+  _impl_._oneof_case_[0] = kAgentStart;
+}
+inline void AgentEventAtomicVariant::clear_agent_start() {
+  if (_internal_has_agent_start()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.variant_type_.agent_start_;
+    }
+    clear_has_variant_type();
+  }
+}
+inline ::cros_xdr::reporting::AgentStartEvent* AgentEventAtomicVariant::release_agent_start() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.AgentEventAtomicVariant.agent_start)
+  if (_internal_has_agent_start()) {
+    clear_has_variant_type();
+    ::cros_xdr::reporting::AgentStartEvent* temp = _impl_.variant_type_.agent_start_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.variant_type_.agent_start_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::cros_xdr::reporting::AgentStartEvent& AgentEventAtomicVariant::_internal_agent_start() const {
+  return _internal_has_agent_start()
+      ? *_impl_.variant_type_.agent_start_
+      : reinterpret_cast< ::cros_xdr::reporting::AgentStartEvent&>(::cros_xdr::reporting::_AgentStartEvent_default_instance_);
+}
+inline const ::cros_xdr::reporting::AgentStartEvent& AgentEventAtomicVariant::agent_start() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.AgentEventAtomicVariant.agent_start)
+  return _internal_agent_start();
+}
+inline ::cros_xdr::reporting::AgentStartEvent* AgentEventAtomicVariant::unsafe_arena_release_agent_start() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:cros_xdr.reporting.AgentEventAtomicVariant.agent_start)
+  if (_internal_has_agent_start()) {
+    clear_has_variant_type();
+    ::cros_xdr::reporting::AgentStartEvent* temp = _impl_.variant_type_.agent_start_;
+    _impl_.variant_type_.agent_start_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void AgentEventAtomicVariant::unsafe_arena_set_allocated_agent_start(::cros_xdr::reporting::AgentStartEvent* agent_start) {
+  clear_variant_type();
+  if (agent_start) {
+    set_has_agent_start();
+    _impl_.variant_type_.agent_start_ = agent_start;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.AgentEventAtomicVariant.agent_start)
+}
+inline ::cros_xdr::reporting::AgentStartEvent* AgentEventAtomicVariant::_internal_mutable_agent_start() {
+  if (!_internal_has_agent_start()) {
+    clear_variant_type();
+    set_has_agent_start();
+    _impl_.variant_type_.agent_start_ = CreateMaybeMessage< ::cros_xdr::reporting::AgentStartEvent >(GetArenaForAllocation());
+  }
+  return _impl_.variant_type_.agent_start_;
+}
+inline ::cros_xdr::reporting::AgentStartEvent* AgentEventAtomicVariant::mutable_agent_start() {
+  ::cros_xdr::reporting::AgentStartEvent* _msg = _internal_mutable_agent_start();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.AgentEventAtomicVariant.agent_start)
+  return _msg;
+}
+
+// .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3;
+inline bool AgentEventAtomicVariant::_internal_has_agent_heartbeat() const {
+  return variant_type_case() == kAgentHeartbeat;
+}
+inline bool AgentEventAtomicVariant::has_agent_heartbeat() const {
+  return _internal_has_agent_heartbeat();
+}
+inline void AgentEventAtomicVariant::set_has_agent_heartbeat() {
+  _impl_._oneof_case_[0] = kAgentHeartbeat;
+}
+inline void AgentEventAtomicVariant::clear_agent_heartbeat() {
+  if (_internal_has_agent_heartbeat()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.variant_type_.agent_heartbeat_;
+    }
+    clear_has_variant_type();
+  }
+}
+inline ::cros_xdr::reporting::AgentHeartbeatEvent* AgentEventAtomicVariant::release_agent_heartbeat() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.AgentEventAtomicVariant.agent_heartbeat)
+  if (_internal_has_agent_heartbeat()) {
+    clear_has_variant_type();
+    ::cros_xdr::reporting::AgentHeartbeatEvent* temp = _impl_.variant_type_.agent_heartbeat_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.variant_type_.agent_heartbeat_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::cros_xdr::reporting::AgentHeartbeatEvent& AgentEventAtomicVariant::_internal_agent_heartbeat() const {
+  return _internal_has_agent_heartbeat()
+      ? *_impl_.variant_type_.agent_heartbeat_
+      : reinterpret_cast< ::cros_xdr::reporting::AgentHeartbeatEvent&>(::cros_xdr::reporting::_AgentHeartbeatEvent_default_instance_);
+}
+inline const ::cros_xdr::reporting::AgentHeartbeatEvent& AgentEventAtomicVariant::agent_heartbeat() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.AgentEventAtomicVariant.agent_heartbeat)
+  return _internal_agent_heartbeat();
+}
+inline ::cros_xdr::reporting::AgentHeartbeatEvent* AgentEventAtomicVariant::unsafe_arena_release_agent_heartbeat() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:cros_xdr.reporting.AgentEventAtomicVariant.agent_heartbeat)
+  if (_internal_has_agent_heartbeat()) {
+    clear_has_variant_type();
+    ::cros_xdr::reporting::AgentHeartbeatEvent* temp = _impl_.variant_type_.agent_heartbeat_;
+    _impl_.variant_type_.agent_heartbeat_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void AgentEventAtomicVariant::unsafe_arena_set_allocated_agent_heartbeat(::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat) {
+  clear_variant_type();
+  if (agent_heartbeat) {
+    set_has_agent_heartbeat();
+    _impl_.variant_type_.agent_heartbeat_ = agent_heartbeat;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.AgentEventAtomicVariant.agent_heartbeat)
+}
+inline ::cros_xdr::reporting::AgentHeartbeatEvent* AgentEventAtomicVariant::_internal_mutable_agent_heartbeat() {
+  if (!_internal_has_agent_heartbeat()) {
+    clear_variant_type();
+    set_has_agent_heartbeat();
+    _impl_.variant_type_.agent_heartbeat_ = CreateMaybeMessage< ::cros_xdr::reporting::AgentHeartbeatEvent >(GetArenaForAllocation());
+  }
+  return _impl_.variant_type_.agent_heartbeat_;
+}
+inline ::cros_xdr::reporting::AgentHeartbeatEvent* AgentEventAtomicVariant::mutable_agent_heartbeat() {
+  ::cros_xdr::reporting::AgentHeartbeatEvent* _msg = _internal_mutable_agent_heartbeat();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.AgentEventAtomicVariant.agent_heartbeat)
+  return _msg;
+}
+
+inline bool AgentEventAtomicVariant::has_variant_type() const {
+  return variant_type_case() != VARIANT_TYPE_NOT_SET;
+}
+inline void AgentEventAtomicVariant::clear_has_variant_type() {
+  _impl_._oneof_case_[0] = VARIANT_TYPE_NOT_SET;
+}
+inline AgentEventAtomicVariant::VariantTypeCase AgentEventAtomicVariant::variant_type_case() const {
+  return AgentEventAtomicVariant::VariantTypeCase(_impl_._oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
 // XdrAgentEvent
 
 // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
@@ -5962,7 +6463,7 @@ inline void XdrAgentEvent::set_allocated_common(::cros_xdr::reporting::CommonEve
   // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrAgentEvent.common)
 }
 
-// .cros_xdr.reporting.AgentStartEvent agent_start = 2;
+// .cros_xdr.reporting.AgentStartEvent agent_start = 2 [deprecated = true];
 inline bool XdrAgentEvent::_internal_has_agent_start() const {
   return message_type_case() == kAgentStart;
 }
@@ -6036,7 +6537,7 @@ inline ::cros_xdr::reporting::AgentStartEvent* XdrAgentEvent::mutable_agent_star
   return _msg;
 }
 
-// .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3;
+// .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3 [deprecated = true];
 inline bool XdrAgentEvent::_internal_has_agent_heartbeat() const {
   return message_type_case() == kAgentHeartbeat;
 }
@@ -6108,6 +6609,46 @@ inline ::cros_xdr::reporting::AgentHeartbeatEvent* XdrAgentEvent::mutable_agent_
   ::cros_xdr::reporting::AgentHeartbeatEvent* _msg = _internal_mutable_agent_heartbeat();
   // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrAgentEvent.agent_heartbeat)
   return _msg;
+}
+
+// repeated .cros_xdr.reporting.AgentEventAtomicVariant batched_events = 4;
+inline int XdrAgentEvent::_internal_batched_events_size() const {
+  return _impl_.batched_events_.size();
+}
+inline int XdrAgentEvent::batched_events_size() const {
+  return _internal_batched_events_size();
+}
+inline void XdrAgentEvent::clear_batched_events() {
+  _impl_.batched_events_.Clear();
+}
+inline ::cros_xdr::reporting::AgentEventAtomicVariant* XdrAgentEvent::mutable_batched_events(int index) {
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrAgentEvent.batched_events)
+  return _impl_.batched_events_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::cros_xdr::reporting::AgentEventAtomicVariant >*
+XdrAgentEvent::mutable_batched_events() {
+  // @@protoc_insertion_point(field_mutable_list:cros_xdr.reporting.XdrAgentEvent.batched_events)
+  return &_impl_.batched_events_;
+}
+inline const ::cros_xdr::reporting::AgentEventAtomicVariant& XdrAgentEvent::_internal_batched_events(int index) const {
+  return _impl_.batched_events_.Get(index);
+}
+inline const ::cros_xdr::reporting::AgentEventAtomicVariant& XdrAgentEvent::batched_events(int index) const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.XdrAgentEvent.batched_events)
+  return _internal_batched_events(index);
+}
+inline ::cros_xdr::reporting::AgentEventAtomicVariant* XdrAgentEvent::_internal_add_batched_events() {
+  return _impl_.batched_events_.Add();
+}
+inline ::cros_xdr::reporting::AgentEventAtomicVariant* XdrAgentEvent::add_batched_events() {
+  ::cros_xdr::reporting::AgentEventAtomicVariant* _add = _internal_add_batched_events();
+  // @@protoc_insertion_point(field_add:cros_xdr.reporting.XdrAgentEvent.batched_events)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::cros_xdr::reporting::AgentEventAtomicVariant >&
+XdrAgentEvent::batched_events() const {
+  // @@protoc_insertion_point(field_list:cros_xdr.reporting.XdrAgentEvent.batched_events)
+  return _impl_.batched_events_;
 }
 
 inline bool XdrAgentEvent::has_message_type() const {
@@ -6701,7 +7242,7 @@ inline void ProcessTerminateEvent::set_allocated_process(::cros_xdr::reporting::
 
 // optional int64 create_timestamp_us = 1;
 inline bool CommonEventVariantDataFields::_internal_has_create_timestamp_us() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool CommonEventVariantDataFields::has_create_timestamp_us() const {
@@ -6709,7 +7250,7 @@ inline bool CommonEventVariantDataFields::has_create_timestamp_us() const {
 }
 inline void CommonEventVariantDataFields::clear_create_timestamp_us() {
   _impl_.create_timestamp_us_ = int64_t{0};
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 inline int64_t CommonEventVariantDataFields::_internal_create_timestamp_us() const {
   return _impl_.create_timestamp_us_;
@@ -6719,12 +7260,80 @@ inline int64_t CommonEventVariantDataFields::create_timestamp_us() const {
   return _internal_create_timestamp_us();
 }
 inline void CommonEventVariantDataFields::_internal_set_create_timestamp_us(int64_t value) {
-  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_._has_bits_[0] |= 0x00000002u;
   _impl_.create_timestamp_us_ = value;
 }
 inline void CommonEventVariantDataFields::set_create_timestamp_us(int64_t value) {
   _internal_set_create_timestamp_us(value);
   // @@protoc_insertion_point(field_set:cros_xdr.reporting.CommonEventVariantDataFields.create_timestamp_us)
+}
+
+// optional string device_user = 2;
+inline bool CommonEventVariantDataFields::_internal_has_device_user() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool CommonEventVariantDataFields::has_device_user() const {
+  return _internal_has_device_user();
+}
+inline void CommonEventVariantDataFields::clear_device_user() {
+  _impl_.device_user_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& CommonEventVariantDataFields::device_user() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.CommonEventVariantDataFields.device_user)
+  return _internal_device_user();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CommonEventVariantDataFields::set_device_user(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000001u;
+ _impl_.device_user_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.CommonEventVariantDataFields.device_user)
+}
+inline std::string* CommonEventVariantDataFields::mutable_device_user() {
+  std::string* _s = _internal_mutable_device_user();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.CommonEventVariantDataFields.device_user)
+  return _s;
+}
+inline const std::string& CommonEventVariantDataFields::_internal_device_user() const {
+  return _impl_.device_user_.Get();
+}
+inline void CommonEventVariantDataFields::_internal_set_device_user(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.device_user_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CommonEventVariantDataFields::_internal_mutable_device_user() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.device_user_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CommonEventVariantDataFields::release_device_user() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.CommonEventVariantDataFields.device_user)
+  if (!_internal_has_device_user()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* p = _impl_.device_user_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.device_user_.IsDefault()) {
+    _impl_.device_user_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void CommonEventVariantDataFields::set_allocated_device_user(std::string* device_user) {
+  if (device_user != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.device_user_.SetAllocated(device_user, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.device_user_.IsDefault()) {
+    _impl_.device_user_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.CommonEventVariantDataFields.device_user)
 }
 
 // -------------------------------------------------------------------
@@ -8623,6 +9232,8 @@ inline void NetworkSocketListenEvent::set_bind_port(uint64_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

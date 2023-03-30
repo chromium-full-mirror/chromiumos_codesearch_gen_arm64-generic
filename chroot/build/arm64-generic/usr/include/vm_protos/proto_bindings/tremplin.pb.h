@@ -2714,28 +2714,28 @@ class StartContainerRequest final :
   std::string* _internal_mutable_container_name();
   public:
 
-  // string host_public_key = 2;
-  void clear_host_public_key();
-  const std::string& host_public_key() const;
+  // string host_public_key = 2 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_host_public_key();
+  PROTOBUF_DEPRECATED const std::string& host_public_key() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_host_public_key(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_host_public_key();
-  PROTOBUF_NODISCARD std::string* release_host_public_key();
-  void set_allocated_host_public_key(std::string* host_public_key);
+  PROTOBUF_DEPRECATED void set_host_public_key(ArgT0&& arg0, ArgT... args);
+  PROTOBUF_DEPRECATED std::string* mutable_host_public_key();
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED std::string* release_host_public_key();
+  PROTOBUF_DEPRECATED void set_allocated_host_public_key(std::string* host_public_key);
   private:
   const std::string& _internal_host_public_key() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_host_public_key(const std::string& value);
   std::string* _internal_mutable_host_public_key();
   public:
 
-  // string container_private_key = 3;
-  void clear_container_private_key();
-  const std::string& container_private_key() const;
+  // string container_private_key = 3 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_container_private_key();
+  PROTOBUF_DEPRECATED const std::string& container_private_key() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_container_private_key(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_container_private_key();
-  PROTOBUF_NODISCARD std::string* release_container_private_key();
-  void set_allocated_container_private_key(std::string* container_private_key);
+  PROTOBUF_DEPRECATED void set_container_private_key(ArgT0&& arg0, ArgT... args);
+  PROTOBUF_DEPRECATED std::string* mutable_container_private_key();
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED std::string* release_container_private_key();
+  PROTOBUF_DEPRECATED void set_allocated_container_private_key(std::string* container_private_key);
   private:
   const std::string& _internal_container_private_key() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_private_key(const std::string& value);
@@ -11997,7 +11997,7 @@ inline void StartContainerRequest::set_allocated_container_name(std::string* con
   // @@protoc_insertion_point(field_set_allocated:vm_tools.tremplin.StartContainerRequest.container_name)
 }
 
-// string host_public_key = 2;
+// string host_public_key = 2 [deprecated = true];
 inline void StartContainerRequest::clear_host_public_key() {
   _impl_.host_public_key_.ClearToEmpty();
 }
@@ -12047,7 +12047,7 @@ inline void StartContainerRequest::set_allocated_host_public_key(std::string* ho
   // @@protoc_insertion_point(field_set_allocated:vm_tools.tremplin.StartContainerRequest.host_public_key)
 }
 
-// string container_private_key = 3;
+// string container_private_key = 3 [deprecated = true];
 inline void StartContainerRequest::clear_container_private_key() {
   _impl_.container_private_key_.ClearToEmpty();
 }
