@@ -27,42 +27,26 @@ using hwsec_foundation::status::StatusChain;
 
 // PopulateActionFromRetry is a helper function that converts the libhwsec
 // TPMRetryAction into CryptohomeError's Action.
-void PopulateActionFromRetry(const hwsec::TPMRetryAction retry,
-                             std::set<CryptohomeError::Action>* actions) {
+ErrorActionSet PopulateActionFromRetry(const hwsec::TPMRetryAction retry) {
   switch (retry) {
+    case hwsec::TPMRetryAction::kReboot:
+      return ErrorActionSet({PossibleAction::kReboot});
     case hwsec::TPMRetryAction::kCommunication:
     case hwsec::TPMRetryAction::kSession:
-    case hwsec::TPMRetryAction::kReboot:
-      actions->insert(ErrorAction::kReboot);
-      break;
     case hwsec::TPMRetryAction::kLater:
-      actions->insert(ErrorAction::kRetry);
-      break;
+      return ErrorActionSet({PossibleAction::kRetry, PossibleAction::kReboot});
     case hwsec::TPMRetryAction::kDefend:
-      actions->insert(ErrorAction::kTpmLockout);
-      break;
+      return ErrorActionSet(PrimaryAction::kTpmLockout);
     case hwsec::TPMRetryAction::kUserAuth:
-      actions->insert(ErrorAction::kAuth);
-      break;
+      return ErrorActionSet({PossibleAction::kAuth});
     case hwsec::TPMRetryAction::kNoRetry:
     case hwsec::TPMRetryAction::kEllipticCurveScalarOutOfRange:
     case hwsec::TPMRetryAction::kUserPresence:
     case hwsec::TPMRetryAction::kSpaceNotFound:
-      actions->insert(ErrorAction::kDevCheckUnexpectedState);
-      break;
+      return ErrorActionSet({PossibleAction::kDevCheckUnexpectedState});
     case hwsec::TPMRetryAction::kNone:
-      // No action.
-      break;
+      return NoErrorAction();
   }
-}
-
-// Converts a normal ErrorLocation into a Unified Error Code that this class'
-// |loc_| expects.
-CryptohomeError::ErrorLocationPair ErrorLocationToUnified(
-    const CryptohomeError::ErrorLocationPair& loc) {
-  DCHECK_EQ(loc.location() & (~hwsec::unified_tpm_error::kUnifiedErrorMask), 0);
-  return CryptohomeError::ErrorLocationPair(
-      loc.location() & hwsec::unified_tpm_error::kUnifiedErrorMask, loc.name());
 }
 
 StatusChain<CryptohomeTPMError> FromTPMErrorBase(
@@ -82,9 +66,8 @@ StatusChain<CryptohomeTPMError> FromTPMErrorBase(
   CryptohomeError::ErrorLocation loc = last->UnifiedErrorCode();
 
   // Populate the retry actions and status string.
-  std::set<CryptohomeError::Action> actual_actions;
   auto retry = status->ToTPMRetryAction();
-  PopulateActionFromRetry(retry, &actual_actions);
+  ErrorActionSet actual_actions = PopulateActionFromRetry(retry);
   std::string loc_str =
       base::StringPrintf("(%s)", status.ToFullString().c_str());
 
@@ -97,7 +80,7 @@ StatusChain<CryptohomeTPMError> FromTPMErrorBase(
 
 CryptohomeTPMError::CryptohomeTPMError(
     const ErrorLocationPair& loc,
-    const std::set<CryptohomeError::Action>& actions,
+    const ErrorActionSet& actions,
     const hwsec::TPMRetryAction retry,
     const std::optional<user_data_auth::CryptohomeErrorCode> ec)
     : CryptohomeCryptoError(
@@ -105,47 +88,8 @@ CryptohomeTPMError::CryptohomeTPMError(
       retry_(retry) {}
 
 StatusChain<CryptohomeTPMError> CryptohomeTPMError::MakeStatusTrait::operator()(
-    const ErrorLocationPair& loc,
-    std::set<CryptohomeError::Action> actions,
-    const hwsec::TPMRetryAction retry,
-    const std::optional<user_data_auth::CryptohomeErrorCode> ec) {
-  PopulateActionFromRetry(retry, &actions);
-  auto unified = ErrorLocationToUnified(loc);
-  return NewStatus<CryptohomeTPMError>(unified, std::move(actions), retry, ec);
-}
-
-StatusChain<CryptohomeTPMError> CryptohomeTPMError::MakeStatusTrait::operator()(
     StatusChain<hwsec::TPMErrorBase> status) {
   return FromTPMErrorBase(std::move(status));
-}
-
-CryptohomeTPMError::MakeStatusTrait::Unactioned
-CryptohomeTPMError::MakeStatusTrait::operator()(
-    const ErrorLocationPair& loc,
-    const std::set<CryptohomeError::Action>& actions) {
-  return CryptohomeTPMError::MakeStatusTrait::Unactioned(loc,
-                                                         std::move(actions));
-}
-
-CryptohomeTPMError::MakeStatusTrait::Unactioned
-CryptohomeTPMError::MakeStatusTrait::operator()(const ErrorLocationPair& loc) {
-  return CryptohomeTPMError::MakeStatusTrait::Unactioned(loc, NoErrorAction());
-}
-
-CryptohomeTPMError::MakeStatusTrait::Unactioned::Unactioned(
-    const ErrorLocationPair& loc,
-    const std::set<CryptohomeError::Action>& actions)
-    : unified_loc_(ErrorLocationToUnified(loc)), actions_(std::move(actions)) {}
-
-StatusChain<CryptohomeTPMError>
-CryptohomeTPMError::MakeStatusTrait::Unactioned::Wrap(
-    StatusChain<CryptohomeTPMError> status  //
-    [[clang::param_typestate(unconsumed)]]  //
-    [[clang::return_typestate(consumed)]]) && {
-  DCHECK(!status.ok());
-  return NewStatus<CryptohomeTPMError>(unified_loc_, std::move(actions_),
-                                       status->ToTPMRetryAction(), std::nullopt)
-      .Wrap(std::move(status));
 }
 
 }  // namespace error

@@ -20,9 +20,11 @@
 
 #include "cryptohome/error/location_utils.h"
 
+using cryptohome::error::CryptohomeCryptoError;
 using cryptohome::error::CryptohomeTPMError;
-using cryptohome::error::ErrorAction;
 using cryptohome::error::ErrorActionSet;
+using cryptohome::error::PossibleAction;
+using cryptohome::error::PrimaryAction;
 using hwsec::TPMRetryAction;
 using hwsec_foundation::status::MakeStatus;
 using hwsec_foundation::status::OkStatus;
@@ -80,12 +82,12 @@ void OnDBusChallengeKeySuccess(
     // feature.
     LOG(INFO) << "Signature key challenge failed: empty response";
     std::move(original_callback)
-        .Run(MakeStatus<CryptohomeTPMError>(
+        .Run(MakeStatus<CryptohomeCryptoError>(
             CRYPTOHOME_ERR_LOC(
                 kLocKeyChallengeServiceEmptyResponseInChallengeKey),
-            ErrorActionSet(
-                {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kReboot}),
-            TPMRetryAction::kNoRetry));
+            ErrorActionSet({PossibleAction::kDevCheckUnexpectedState,
+                            PossibleAction::kReboot}),
+            CryptoError::CE_OTHER_FATAL));
     return;
   }
   auto response_proto = std::make_unique<KeyChallengeResponse>();
@@ -93,11 +95,11 @@ void OnDBusChallengeKeySuccess(
     LOG(ERROR)
         << "Failed to parse KeyChallengeResponse from ChallengeKey D-Bus call";
     std::move(original_callback)
-        .Run(MakeStatus<CryptohomeTPMError>(
+        .Run(MakeStatus<CryptohomeCryptoError>(
             CRYPTOHOME_ERR_LOC(
                 kLocKeyChallengeServiceParseFailedInChallengeKey),
-            ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
-            TPMRetryAction::kNoRetry));
+            ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
+            CryptoError::CE_OTHER_FATAL));
     return;
   }
   // TODO(crbug.com/1046860): Remove the logging after stabilizing the feature.
@@ -115,24 +117,24 @@ void OnDBusChallengeKeyFailure(
         callback_holder,
     brillo::Error* error) {
   // TODO(crbug.com/1046860): Remove the logging after stabilizing the feature.
-  TPMStatus status;
+  CryptoStatus status;
   if (error) {
     LOG(INFO) << "Signature key challenge failed: dbus error code "
               << error->GetCode() << ", message " << error->GetMessage();
     // TODO(b/230326115): Distinguish between user cancellation and actual
     // error.
-    status = MakeStatus<CryptohomeTPMError>(
+    status = MakeStatus<CryptohomeCryptoError>(
         CRYPTOHOME_ERR_LOC(kLocKeyChallengeServiceKnownDBusErrorInChallengeKey),
-        ErrorActionSet({ErrorAction::kIncorrectAuth}),
-        TPMRetryAction::kUserAuth);
+        ErrorActionSet(PrimaryAction::kIncorrectAuth),
+        CryptoError::CE_OTHER_CRYPTO);
   } else {
     LOG(INFO) << "Key challenge failed: unknown dbus error";
-    status = MakeStatus<CryptohomeTPMError>(
+    status = MakeStatus<CryptohomeCryptoError>(
         CRYPTOHOME_ERR_LOC(
             kLocKeyChallengeServiceUnknownDBusErrorInChallengeKey),
-        ErrorActionSet(
-            {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kReboot}),
-        TPMRetryAction::kNoRetry);
+        ErrorActionSet({PossibleAction::kDevCheckUnexpectedState,
+                        PossibleAction::kReboot}),
+        CryptoError::CE_OTHER_FATAL);
   }
   KeyChallengeService::ResponseCallback original_callback =
       callback_holder->get();
@@ -227,11 +229,11 @@ void KeyChallengeServiceImpl::ChallengeKey(
     LOG(ERROR) << "Invalid key challenge service name "
                << key_delegate_dbus_service_name_;
     std::move(response_callback)
-        .Run(MakeStatus<CryptohomeTPMError>(
+        .Run(MakeStatus<CryptohomeCryptoError>(
             CRYPTOHOME_ERR_LOC(
                 kLocKeyChallengeServiceInvalidDBusNameInChallengeKey),
-            ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
-            TPMRetryAction::kNoRetry));
+            ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
+            CryptoError::CE_OTHER_FATAL));
     return;
   }
   std::shared_ptr<OnceCallbackHolder<ResponseCallback>> callback_holder(

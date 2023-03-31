@@ -35,20 +35,6 @@ using hwsec::TPMRetryAction;
 using hwsec_foundation::status::MakeStatus;
 using hwsec_foundation::status::StatusChain;
 
-TEST_F(CryptohomeTPMErrorTest, BasicConstruction) {
-  auto err1 = MakeStatus<CryptohomeTPMError>(
-      kErrorLocationForTesting1,
-      ErrorActionSet({ErrorAction::kResumePreviousMigration}),
-      hwsec::TPMRetryAction::kNoRetry);
-
-  ASSERT_FALSE(err1.ok());
-  EXPECT_EQ(err1->local_location(), kErrorLocationForTesting1.location());
-  EXPECT_EQ(err1->local_actions(),
-            ErrorActionSet({ErrorAction::kResumePreviousMigration,
-                            ErrorAction::kDevCheckUnexpectedState}));
-  EXPECT_EQ(err1->ToTPMRetryAction(), hwsec::TPMRetryAction::kNoRetry);
-}
-
 TEST_F(CryptohomeTPMErrorTest, Success) {
   StatusChain<CryptohomeTPMError> err;
   EXPECT_TRUE(err.ok());
@@ -65,7 +51,7 @@ TEST_F(CryptohomeTPMErrorTest, FromTPMError) {
       err1->local_location(),
       (0x0132 + hwsec::unified_tpm_error::kUnifiedErrorHashedTpmErrorBase) |
           hwsec::unified_tpm_error::kUnifiedErrorBit);
-  EXPECT_EQ(err1->local_actions(), ErrorActionSet({ErrorAction::kReboot}));
+  EXPECT_EQ(err1->local_actions(), ErrorActionSet({PossibleAction::kReboot}));
   EXPECT_EQ(err1->ToTPMRetryAction(), hwsec::TPMRetryAction::kReboot);
 }
 
@@ -85,7 +71,7 @@ TEST_F(CryptohomeTPMErrorTest, FromTPMErrorStacked) {
       (0x0132 + hwsec::unified_tpm_error::kUnifiedErrorHashedTpmErrorBase) |
           hwsec::unified_tpm_error::kUnifiedErrorBit);
   // Retry actions should be from the last in the chain.
-  EXPECT_EQ(err1->local_actions(), ErrorActionSet({ErrorAction::kReboot}));
+  EXPECT_EQ(err1->local_actions(), ErrorActionSet({PossibleAction::kReboot}));
   EXPECT_EQ(err1->ToTPMRetryAction(), hwsec::TPMRetryAction::kReboot);
 }
 

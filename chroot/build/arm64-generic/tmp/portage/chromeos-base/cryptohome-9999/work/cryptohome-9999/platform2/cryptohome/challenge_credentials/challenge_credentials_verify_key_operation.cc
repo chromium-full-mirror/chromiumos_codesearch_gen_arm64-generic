@@ -20,10 +20,12 @@
 #include "cryptohome/error/location_utils.h"
 
 using brillo::Blob;
+using cryptohome::error::CryptohomeCryptoError;
 using cryptohome::error::CryptohomeError;
 using cryptohome::error::CryptohomeTPMError;
-using cryptohome::error::ErrorAction;
 using cryptohome::error::ErrorActionSet;
+using cryptohome::error::PossibleAction;
+using cryptohome::error::PrimaryAction;
 using hwsec::TPMError;
 using hwsec::TPMErrorBase;
 using hwsec::TPMRetryAction;
@@ -143,10 +145,10 @@ void ChallengeCredentialsVerifyKeyOperation::Start() {
   if (!public_key_info_.signature_algorithm.size()) {
     LOG(ERROR) << "The key does not support any signature algorithm";
     Complete(&completion_callback_,
-             MakeStatus<CryptohomeTPMError>(
+             MakeStatus<CryptohomeCryptoError>(
                  CRYPTOHOME_ERR_LOC(kLocChalCredVerifyNoAlgorithm),
-                 ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
-                 TPMRetryAction::kNoRetry));
+                 ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
+                 CryptoError::CE_OTHER_CRYPTO));
     return;
   }
   const std::optional<structure::ChallengeSignatureAlgorithm>
@@ -154,10 +156,10 @@ void ChallengeCredentialsVerifyKeyOperation::Start() {
   if (!chosen_challenge_algorithm) {
     LOG(ERROR) << "Failed to choose verification signature challenge algorithm";
     Complete(&completion_callback_,
-             MakeStatus<CryptohomeTPMError>(
+             MakeStatus<CryptohomeCryptoError>(
                  CRYPTOHOME_ERR_LOC(kLocChalCredVerifyNoAlgorithmChosen),
-                 ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
-                 TPMRetryAction::kNoRetry));
+                 ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
+                 CryptoError::CE_OTHER_CRYPTO));
     return;
   }
   hwsec::StatusOr<Blob> challenge = hwsec_->GetRandomBlob(kChallengeByteCount);
@@ -166,7 +168,7 @@ void ChallengeCredentialsVerifyKeyOperation::Start() {
         << "Failed to generate random bytes for the verification challenge: "
         << challenge.status();
     Complete(&completion_callback_,
-             MakeStatus<CryptohomeTPMError>(
+             MakeStatus<CryptohomeCryptoError>(
                  CRYPTOHOME_ERR_LOC(kLocChalCredVerifyGetRandomFailed))
                  .Wrap(MakeStatus<CryptohomeTPMError>(
                      std::move(challenge).err_status())));
@@ -182,10 +184,10 @@ void ChallengeCredentialsVerifyKeyOperation::Start() {
 }
 
 void ChallengeCredentialsVerifyKeyOperation::Abort(
-    TPMStatus status [[clang::param_typestate(unconsumed)]]) {
+    CryptoStatus status [[clang::param_typestate(unconsumed)]]) {
   DCHECK(thread_checker_.CalledOnValidThread());
   Complete(&completion_callback_,
-           MakeStatus<CryptohomeTPMError>(
+           MakeStatus<CryptohomeCryptoError>(
                CRYPTOHOME_ERR_LOC(kLocChalCredVerifyAborted))
                .Wrap(std::move(status)));
   // |this| can be already destroyed at this point.
@@ -195,12 +197,12 @@ void ChallengeCredentialsVerifyKeyOperation::OnChallengeResponse(
     const Blob& public_key_spki_der,
     structure::ChallengeSignatureAlgorithm challenge_algorithm,
     const Blob& challenge,
-    TPMStatusOr<std::unique_ptr<Blob>> challenge_response_status) {
+    CryptoStatusOr<std::unique_ptr<Blob>> challenge_response_status) {
   DCHECK(thread_checker_.CalledOnValidThread());
   if (!challenge_response_status.ok()) {
     LOG(ERROR) << "Verification signature challenge failed";
     Complete(&completion_callback_,
-             MakeStatus<CryptohomeTPMError>(
+             MakeStatus<CryptohomeCryptoError>(
                  CRYPTOHOME_ERR_LOC(kLocChalCredVerifyChallengeFailed))
                  .Wrap(std::move(challenge_response_status).err_status()));
     return;
@@ -211,13 +213,13 @@ void ChallengeCredentialsVerifyKeyOperation::OnChallengeResponse(
                         *challenge_response)) {
     LOG(ERROR) << "Invalid signature for the verification challenge";
     Complete(&completion_callback_,
-             MakeStatus<CryptohomeTPMError>(
+             MakeStatus<CryptohomeCryptoError>(
                  CRYPTOHOME_ERR_LOC(kLocChalCredVerifyInvalidSignature),
-                 ErrorActionSet({ErrorAction::kIncorrectAuth}),
-                 TPMRetryAction::kUserAuth));
+                 ErrorActionSet(PrimaryAction::kIncorrectAuth),
+                 CryptoError::CE_OTHER_CRYPTO));
     return;
   }
-  Complete(&completion_callback_, OkStatus<CryptohomeTPMError>());
+  Complete(&completion_callback_, OkStatus<CryptohomeCryptoError>());
 }
 
 }  // namespace cryptohome
