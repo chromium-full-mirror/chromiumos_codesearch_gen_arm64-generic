@@ -46,11 +46,17 @@ struct Debuggee {
   // was successfully populated.
   static bool Populate(const base::Value::Dict& value, Debuggee& out);
 
+  // Creates a deep copy of Debuggee.
+  Debuggee Clone() const;
+
   // Creates a Debuggee object from a base::Value, or NULL on failure.
   static std::unique_ptr<Debuggee> FromValueDeprecated(const base::Value& value);
 
-  // Creates a Debuggee object from a base::Value, or nullopt on failure.
+  // Creates a Debuggee object from a base::Value::Dict, or nullopt on failure.
   static absl::optional<Debuggee> FromValue(const base::Value::Dict& value);
+
+  // Creates a Debuggee object from a base::Value, or nullopt on failure.
+  static absl::optional<Debuggee> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDebuggee object.
@@ -71,7 +77,7 @@ struct Debuggee {
 
 // Target type.
 enum  TargetInfoType {
-  TARGET_INFO_TYPE_NONE,
+  TARGET_INFO_TYPE_NONE = 0,
   TARGET_INFO_TYPE_PAGE,
   TARGET_INFO_TYPE_BACKGROUND_PAGE,
   TARGET_INFO_TYPE_WORKER,
@@ -85,7 +91,7 @@ TargetInfoType ParseTargetInfoType(base::StringPiece as_string);
 
 // Connection termination reason.
 enum  DetachReason {
-  DETACH_REASON_NONE,
+  DETACH_REASON_NONE = 0,
   DETACH_REASON_TARGET_CLOSED,
   DETACH_REASON_CANCELED_BY_USER,
   DETACH_REASON_LAST = DETACH_REASON_CANCELED_BY_USER,
@@ -112,11 +118,18 @@ struct TargetInfo {
   // was successfully populated.
   static bool Populate(const base::Value::Dict& value, TargetInfo& out);
 
+  // Creates a deep copy of TargetInfo.
+  TargetInfo Clone() const;
+
   // Creates a TargetInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<TargetInfo> FromValueDeprecated(const base::Value& value);
 
-  // Creates a TargetInfo object from a base::Value, or nullopt on failure.
+  // Creates a TargetInfo object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<TargetInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a TargetInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<TargetInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTargetInfo object.
@@ -236,6 +249,16 @@ struct Params {
     // Populates a CommandParams object from a Dict& instance. Returns whether
     // |out| was successfully populated.
     static bool Populate(const base::Value::Dict& value, CommandParams& out);
+
+    // Creates a deep copy of CommandParams.
+    CommandParams Clone() const;
+
+    // Creates a CommandParams object from a base::Value::Dict, or nullopt on
+    // failure.
+    static absl::optional<CommandParams> FromValue(const base::Value::Dict& value);
+
+    // Creates a CommandParams object from a base::Value, or nullopt on failure.
+    static absl::optional<CommandParams> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };

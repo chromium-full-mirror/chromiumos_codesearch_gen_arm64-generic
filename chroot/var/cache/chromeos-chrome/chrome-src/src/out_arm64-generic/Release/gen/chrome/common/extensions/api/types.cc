@@ -100,6 +100,11 @@ ChromeSetting::ChromeSetting()
 ChromeSetting::~ChromeSetting() = default;
 ChromeSetting::ChromeSetting(ChromeSetting&& rhs) = default;
 ChromeSetting& ChromeSetting::operator=(ChromeSetting&& rhs) = default;
+ChromeSetting ChromeSetting::Clone() const {
+  ChromeSetting out;
+  return out;
+}
+
 // static
 bool ChromeSetting::Populate(
     const base::Value::Dict& dict, ChromeSetting& out) {
@@ -130,10 +135,21 @@ std::unique_ptr<ChromeSetting> ChromeSetting::FromValueDeprecated(const base::Va
 
 // static
 absl::optional<ChromeSetting> ChromeSetting::FromValue(const base::Value::Dict& value) {
-  absl::optional<ChromeSetting> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  ChromeSetting out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<ChromeSetting> ChromeSetting::FromValue(const base::Value& value) {
+  ChromeSetting out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 

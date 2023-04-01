@@ -30,7 +30,7 @@ namespace search {
 //
 
 enum  Disposition {
-  DISPOSITION_NONE,
+  DISPOSITION_NONE = 0,
   DISPOSITION_CURRENT_TAB,
   DISPOSITION_NEW_TAB,
   DISPOSITION_NEW_WINDOW,
@@ -57,11 +57,17 @@ struct QueryInfo {
   // was successfully populated.
   static bool Populate(const base::Value::Dict& value, QueryInfo& out);
 
+  // Creates a deep copy of QueryInfo.
+  QueryInfo Clone() const;
+
   // Creates a QueryInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<QueryInfo> FromValueDeprecated(const base::Value& value);
 
-  // Creates a QueryInfo object from a base::Value, or nullopt on failure.
+  // Creates a QueryInfo object from a base::Value::Dict, or nullopt on failure.
   static absl::optional<QueryInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a QueryInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<QueryInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisQueryInfo object.

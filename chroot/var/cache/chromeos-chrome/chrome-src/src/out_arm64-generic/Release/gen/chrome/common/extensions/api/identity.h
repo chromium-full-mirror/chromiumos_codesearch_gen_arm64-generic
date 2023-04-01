@@ -45,11 +45,18 @@ struct AccountInfo {
   // was successfully populated.
   static bool Populate(const base::Value::Dict& value, AccountInfo& out);
 
+  // Creates a deep copy of AccountInfo.
+  AccountInfo Clone() const;
+
   // Creates a AccountInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<AccountInfo> FromValueDeprecated(const base::Value& value);
 
-  // Creates a AccountInfo object from a base::Value, or nullopt on failure.
+  // Creates a AccountInfo object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<AccountInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a AccountInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<AccountInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAccountInfo object.
@@ -62,7 +69,7 @@ struct AccountInfo {
 };
 
 enum  AccountStatus {
-  ACCOUNT_STATUS_NONE,
+  ACCOUNT_STATUS_NONE = 0,
   ACCOUNT_STATUS_SYNC,
   ACCOUNT_STATUS_ANY,
   ACCOUNT_STATUS_LAST = ACCOUNT_STATUS_ANY,
@@ -88,11 +95,18 @@ struct ProfileDetails {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, ProfileDetails& out);
 
+  // Creates a deep copy of ProfileDetails.
+  ProfileDetails Clone() const;
+
   // Creates a ProfileDetails object from a base::Value, or NULL on failure.
   static std::unique_ptr<ProfileDetails> FromValueDeprecated(const base::Value& value);
 
-  // Creates a ProfileDetails object from a base::Value, or nullopt on failure.
+  // Creates a ProfileDetails object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<ProfileDetails> FromValue(const base::Value::Dict& value);
+
+  // Creates a ProfileDetails object from a base::Value, or nullopt on failure.
+  static absl::optional<ProfileDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProfileDetails object.
@@ -121,11 +135,18 @@ struct ProfileUserInfo {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, ProfileUserInfo& out);
 
+  // Creates a deep copy of ProfileUserInfo.
+  ProfileUserInfo Clone() const;
+
   // Creates a ProfileUserInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<ProfileUserInfo> FromValueDeprecated(const base::Value& value);
 
-  // Creates a ProfileUserInfo object from a base::Value, or nullopt on failure.
+  // Creates a ProfileUserInfo object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<ProfileUserInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a ProfileUserInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<ProfileUserInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProfileUserInfo object.
@@ -159,11 +180,18 @@ struct TokenDetails {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, TokenDetails& out);
 
+  // Creates a deep copy of TokenDetails.
+  TokenDetails Clone() const;
+
   // Creates a TokenDetails object from a base::Value, or NULL on failure.
   static std::unique_ptr<TokenDetails> FromValueDeprecated(const base::Value& value);
 
-  // Creates a TokenDetails object from a base::Value, or nullopt on failure.
+  // Creates a TokenDetails object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<TokenDetails> FromValue(const base::Value::Dict& value);
+
+  // Creates a TokenDetails object from a base::Value, or nullopt on failure.
+  static absl::optional<TokenDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTokenDetails object.
@@ -209,13 +237,20 @@ struct InvalidTokenDetails {
   // whether |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, InvalidTokenDetails& out);
 
+  // Creates a deep copy of InvalidTokenDetails.
+  InvalidTokenDetails Clone() const;
+
   // Creates a InvalidTokenDetails object from a base::Value, or NULL on
   // failure.
   static std::unique_ptr<InvalidTokenDetails> FromValueDeprecated(const base::Value& value);
 
+  // Creates a InvalidTokenDetails object from a base::Value::Dict, or nullopt
+  // on failure.
+  static absl::optional<InvalidTokenDetails> FromValue(const base::Value::Dict& value);
+
   // Creates a InvalidTokenDetails object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<InvalidTokenDetails> FromValue(const base::Value::Dict& value);
+  static absl::optional<InvalidTokenDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisInvalidTokenDetails object.
@@ -242,12 +277,19 @@ struct WebAuthFlowDetails {
   // whether |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, WebAuthFlowDetails& out);
 
+  // Creates a deep copy of WebAuthFlowDetails.
+  WebAuthFlowDetails Clone() const;
+
   // Creates a WebAuthFlowDetails object from a base::Value, or NULL on failure.
   static std::unique_ptr<WebAuthFlowDetails> FromValueDeprecated(const base::Value& value);
 
-  // Creates a WebAuthFlowDetails object from a base::Value, or nullopt on
+  // Creates a WebAuthFlowDetails object from a base::Value::Dict, or nullopt on
   // failure.
   static absl::optional<WebAuthFlowDetails> FromValue(const base::Value::Dict& value);
+
+  // Creates a WebAuthFlowDetails object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<WebAuthFlowDetails> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisWebAuthFlowDetails object.
@@ -302,12 +344,19 @@ struct GetAuthTokenResult {
   // whether |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, GetAuthTokenResult& out);
 
+  // Creates a deep copy of GetAuthTokenResult.
+  GetAuthTokenResult Clone() const;
+
   // Creates a GetAuthTokenResult object from a base::Value, or NULL on failure.
   static std::unique_ptr<GetAuthTokenResult> FromValueDeprecated(const base::Value& value);
 
-  // Creates a GetAuthTokenResult object from a base::Value, or nullopt on
+  // Creates a GetAuthTokenResult object from a base::Value::Dict, or nullopt on
   // failure.
   static absl::optional<GetAuthTokenResult> FromValue(const base::Value::Dict& value);
+
+  // Creates a GetAuthTokenResult object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<GetAuthTokenResult> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetAuthTokenResult object.

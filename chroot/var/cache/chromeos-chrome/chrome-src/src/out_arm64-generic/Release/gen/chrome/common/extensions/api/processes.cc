@@ -98,6 +98,13 @@ TaskInfo::TaskInfo()
 TaskInfo::~TaskInfo() = default;
 TaskInfo::TaskInfo(TaskInfo&& rhs) = default;
 TaskInfo& TaskInfo::operator=(TaskInfo&& rhs) = default;
+TaskInfo TaskInfo::Clone() const {
+  TaskInfo out;
+  out.title = title;
+  out.tab_id = tab_id;
+  return out;
+}
+
 // static
 bool TaskInfo::Populate(
     const base::Value::Dict& dict, TaskInfo& out) {
@@ -152,10 +159,21 @@ std::unique_ptr<TaskInfo> TaskInfo::FromValueDeprecated(const base::Value& value
 
 // static
 absl::optional<TaskInfo> TaskInfo::FromValue(const base::Value::Dict& value) {
-  absl::optional<TaskInfo> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  TaskInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<TaskInfo> TaskInfo::FromValue(const base::Value& value) {
+  TaskInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -180,6 +198,13 @@ live_size(0.0) {}
 Cache::~Cache() = default;
 Cache::Cache(Cache&& rhs) = default;
 Cache& Cache::operator=(Cache&& rhs) = default;
+Cache Cache::Clone() const {
+  Cache out;
+  out.size = size;
+  out.live_size = live_size;
+  return out;
+}
+
 // static
 bool Cache::Populate(
     const base::Value::Dict& dict, Cache& out) {
@@ -234,10 +259,21 @@ std::unique_ptr<Cache> Cache::FromValueDeprecated(const base::Value& value) {
 
 // static
 absl::optional<Cache> Cache::FromValue(const base::Value::Dict& value) {
-  absl::optional<Cache> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  Cache out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Cache> Cache::FromValue(const base::Value& value) {
+  Cache out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -256,12 +292,41 @@ base::Value::Dict Cache::ToValue() const {
 Process::Process()
 : id(0),
 os_process_id(0),
-type(PROCESS_TYPE_NONE),
+type(),
 nacl_debug_port(0) {}
 
 Process::~Process() = default;
 Process::Process(Process&& rhs) = default;
 Process& Process::operator=(Process&& rhs) = default;
+Process Process::Clone() const {
+  Process out;
+  out.id = id;
+  out.os_process_id = os_process_id;
+  out.type = type;
+  out.profile = profile;
+  out.nacl_debug_port = nacl_debug_port;
+  out.tasks.reserve(tasks.size());
+  for (const auto& element : tasks) {
+    out.tasks.push_back(element.Clone());
+  }
+  out.cpu = cpu;
+  out.network = network;
+  out.private_memory = private_memory;
+  out.js_memory_allocated = js_memory_allocated;
+  out.js_memory_used = js_memory_used;
+  out.sqlite_memory = sqlite_memory;
+  if (image_cache) {
+    out.image_cache = image_cache->Clone();
+  }
+  if (script_cache) {
+    out.script_cache = script_cache->Clone();
+  }
+  if (css_cache) {
+    out.css_cache = css_cache->Clone();
+  }
+  return out;
+}
+
 // static
 bool Process::Populate(
     const base::Value::Dict& dict, Process& out) {
@@ -299,7 +364,7 @@ bool Process::Populate(
       return false;
     }
     out.type = ParseProcessType(*process_type_as_string);
-    if (out.type == PROCESS_TYPE_NONE) {
+    if (out.type == ProcessType()) {
       return false;
     }
   }
@@ -487,10 +552,21 @@ std::unique_ptr<Process> Process::FromValueDeprecated(const base::Value& value) 
 
 // static
 absl::optional<Process> Process::FromValue(const base::Value::Dict& value) {
-  absl::optional<Process> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  Process out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Process> Process::FromValue(const base::Value& value) {
+  Process out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -647,6 +723,13 @@ Params::ProcessIds::ProcessIds()
 Params::ProcessIds::~ProcessIds() = default;
 Params::ProcessIds::ProcessIds(ProcessIds&& rhs) = default;
 Params::ProcessIds& Params::ProcessIds::operator=(ProcessIds&& rhs) = default;
+Params::ProcessIds Params::ProcessIds::Clone() const {
+  ProcessIds out;
+  out.as_integer = as_integer;
+  out.as_integers = as_integers;
+  return out;
+}
+
 // static
 bool Params::ProcessIds::Populate(
     const base::Value& value, ProcessIds& out) {
@@ -675,6 +758,16 @@ bool Params::ProcessIds::Populate(
     return true;
   }
   return false;
+}
+
+// static
+absl::optional<Params::ProcessIds> Params::ProcessIds::FromValue(const base::Value& value) {
+  ProcessIds out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 

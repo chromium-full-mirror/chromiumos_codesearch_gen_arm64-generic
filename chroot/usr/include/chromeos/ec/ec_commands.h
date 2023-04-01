@@ -1273,7 +1273,7 @@ struct ec_response_get_version_v1 {
 	char cros_fwid_rw[32]; /* Added in version 1 */
 } __ec_align4;
 
-/* Read test - DEPRECATED */
+/* Read test - OBSOLETE */
 #define EC_CMD_READ_TEST 0x0003
 
 /*
@@ -4997,37 +4997,15 @@ struct ec_response_device_event {
 /*****************************************************************************/
 /* Smart battery pass-through */
 
-/* Get / Set 16-bit smart battery registers */
+/* Get / Set 16-bit smart battery registers  - OBSOLETE */
 #define EC_CMD_SB_READ_WORD 0x00B0
 #define EC_CMD_SB_WRITE_WORD 0x00B1
 
 /* Get / Set string smart battery parameters
- * formatted as SMBUS "block".
+ * formatted as SMBUS "block". - OBSOLETE
  */
 #define EC_CMD_SB_READ_BLOCK 0x00B2
 #define EC_CMD_SB_WRITE_BLOCK 0x00B3
-
-struct ec_params_sb_rd {
-	uint8_t reg;
-} __ec_align1;
-
-struct ec_response_sb_rd_word {
-	uint16_t value;
-} __ec_align2;
-
-struct ec_params_sb_wr_word {
-	uint8_t reg;
-	uint16_t value;
-} __ec_align1;
-
-struct ec_response_sb_rd_block {
-	uint8_t data[32];
-} __ec_align1;
-
-struct ec_params_sb_wr_block {
-	uint8_t reg;
-	uint16_t data[32];
-} __ec_align1;
 
 /*****************************************************************************/
 /* Battery vendor parameters
@@ -5057,61 +5035,9 @@ struct ec_response_battery_vendor_param {
 
 /*****************************************************************************/
 /*
- * Smart Battery Firmware Update Commands
+ * Smart Battery Firmware Update Command - OBSOLETE
  */
 #define EC_CMD_SB_FW_UPDATE 0x00B5
-
-enum ec_sb_fw_update_subcmd {
-	EC_SB_FW_UPDATE_PREPARE = 0x0,
-	EC_SB_FW_UPDATE_INFO = 0x1, /*query sb info */
-	EC_SB_FW_UPDATE_BEGIN = 0x2, /*check if protected */
-	EC_SB_FW_UPDATE_WRITE = 0x3, /*check if protected */
-	EC_SB_FW_UPDATE_END = 0x4,
-	EC_SB_FW_UPDATE_STATUS = 0x5,
-	EC_SB_FW_UPDATE_PROTECT = 0x6,
-	EC_SB_FW_UPDATE_MAX = 0x7,
-};
-
-#define SB_FW_UPDATE_CMD_WRITE_BLOCK_SIZE 32
-#define SB_FW_UPDATE_CMD_STATUS_SIZE 2
-#define SB_FW_UPDATE_CMD_INFO_SIZE 8
-
-struct ec_sb_fw_update_header {
-	uint16_t subcmd; /* enum ec_sb_fw_update_subcmd */
-	uint16_t fw_id; /* firmware id */
-} __ec_align4;
-
-struct ec_params_sb_fw_update {
-	struct ec_sb_fw_update_header hdr;
-	union {
-		/* EC_SB_FW_UPDATE_PREPARE  = 0x0 */
-		/* EC_SB_FW_UPDATE_INFO     = 0x1 */
-		/* EC_SB_FW_UPDATE_BEGIN    = 0x2 */
-		/* EC_SB_FW_UPDATE_END      = 0x4 */
-		/* EC_SB_FW_UPDATE_STATUS   = 0x5 */
-		/* EC_SB_FW_UPDATE_PROTECT  = 0x6 */
-		/* Those have no args */
-
-		/* EC_SB_FW_UPDATE_WRITE    = 0x3 */
-		struct __ec_align4 {
-			uint8_t data[SB_FW_UPDATE_CMD_WRITE_BLOCK_SIZE];
-		} write;
-	};
-} __ec_align4;
-
-struct ec_response_sb_fw_update {
-	union {
-		/* EC_SB_FW_UPDATE_INFO     = 0x1 */
-		struct __ec_align1 {
-			uint8_t data[SB_FW_UPDATE_CMD_INFO_SIZE];
-		} info;
-
-		/* EC_SB_FW_UPDATE_STATUS   = 0x5 */
-		struct __ec_align1 {
-			uint8_t data[SB_FW_UPDATE_CMD_STATUS_SIZE];
-		} status;
-	};
-} __ec_align1;
 
 /*
  * Entering Verified Boot Mode Command

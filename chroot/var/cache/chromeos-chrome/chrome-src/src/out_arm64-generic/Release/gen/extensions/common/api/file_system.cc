@@ -40,6 +40,14 @@ AcceptOption::AcceptOption()
 AcceptOption::~AcceptOption() = default;
 AcceptOption::AcceptOption(AcceptOption&& rhs) = default;
 AcceptOption& AcceptOption::operator=(AcceptOption&& rhs) = default;
+AcceptOption AcceptOption::Clone() const {
+  AcceptOption out;
+  out.description = description;
+  out.mime_types = mime_types;
+  out.extensions = extensions;
+  return out;
+}
+
 // static
 bool AcceptOption::Populate(
     const base::Value::Dict& dict, AcceptOption& out) {
@@ -110,10 +118,21 @@ std::unique_ptr<AcceptOption> AcceptOption::FromValueDeprecated(const base::Valu
 
 // static
 absl::optional<AcceptOption> AcceptOption::FromValue(const base::Value::Dict& value) {
-  absl::optional<AcceptOption> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  AcceptOption out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<AcceptOption> AcceptOption::FromValue(const base::Value& value) {
+  AcceptOption out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -168,15 +187,31 @@ ChooseEntryType ParseChooseEntryType(base::StringPiece enum_string) {
 
 
 ChooseEntryOptions::ChooseEntryOptions()
-: type(CHOOSE_ENTRY_TYPE_NONE) {}
+: type() {}
 
 ChooseEntryOptions::~ChooseEntryOptions() = default;
 ChooseEntryOptions::ChooseEntryOptions(ChooseEntryOptions&& rhs) = default;
 ChooseEntryOptions& ChooseEntryOptions::operator=(ChooseEntryOptions&& rhs) = default;
+ChooseEntryOptions ChooseEntryOptions::Clone() const {
+  ChooseEntryOptions out;
+  out.type = type;
+  out.suggested_name = suggested_name;
+  if (accepts) {
+    out.accepts.emplace();
+    out.accepts->reserve(accepts->size());
+    for (const auto& element : *accepts) {
+      out.accepts->push_back(element.Clone());
+    }
+  }
+  out.accepts_all_types = accepts_all_types;
+  out.accepts_multiple = accepts_multiple;
+  return out;
+}
+
 // static
 bool ChooseEntryOptions::Populate(
     const base::Value::Dict& dict, ChooseEntryOptions& out) {
-  out.type = CHOOSE_ENTRY_TYPE_NONE;
+  out.type = ChooseEntryType();
   const base::Value* type_value = dict.Find("type");
   if (type_value) {
     {
@@ -185,12 +220,12 @@ bool ChooseEntryOptions::Populate(
         return false;
       }
       out.type = ParseChooseEntryType(*choose_entry_type_as_string);
-      if (out.type == CHOOSE_ENTRY_TYPE_NONE) {
+      if (out.type == ChooseEntryType()) {
         return false;
       }
     }
     } else {
-    out.type = CHOOSE_ENTRY_TYPE_NONE;
+    out.type = ChooseEntryType();
   }
 
   const base::Value* suggested_name_value = dict.Find("suggestedName");
@@ -270,17 +305,28 @@ std::unique_ptr<ChooseEntryOptions> ChooseEntryOptions::FromValueDeprecated(cons
 
 // static
 absl::optional<ChooseEntryOptions> ChooseEntryOptions::FromValue(const base::Value::Dict& value) {
-  absl::optional<ChooseEntryOptions> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  ChooseEntryOptions out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<ChooseEntryOptions> ChooseEntryOptions::FromValue(const base::Value& value) {
+  ChooseEntryOptions out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
 base::Value::Dict ChooseEntryOptions::ToValue() const {
   base::Value::Dict to_value_result;
 
-  if (this->type != CHOOSE_ENTRY_TYPE_NONE) {
+  if (this->type != ChooseEntryType()) {
     to_value_result.Set("type", file_system::ToString(this->type));
 
   }
@@ -311,6 +357,13 @@ RequestFileSystemOptions::RequestFileSystemOptions()
 RequestFileSystemOptions::~RequestFileSystemOptions() = default;
 RequestFileSystemOptions::RequestFileSystemOptions(RequestFileSystemOptions&& rhs) = default;
 RequestFileSystemOptions& RequestFileSystemOptions::operator=(RequestFileSystemOptions&& rhs) = default;
+RequestFileSystemOptions RequestFileSystemOptions::Clone() const {
+  RequestFileSystemOptions out;
+  out.volume_id = volume_id;
+  out.writable = writable;
+  return out;
+}
+
 // static
 bool RequestFileSystemOptions::Populate(
     const base::Value::Dict& dict, RequestFileSystemOptions& out) {
@@ -365,10 +418,21 @@ std::unique_ptr<RequestFileSystemOptions> RequestFileSystemOptions::FromValueDep
 
 // static
 absl::optional<RequestFileSystemOptions> RequestFileSystemOptions::FromValue(const base::Value::Dict& value) {
-  absl::optional<RequestFileSystemOptions> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  RequestFileSystemOptions out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<RequestFileSystemOptions> RequestFileSystemOptions::FromValue(const base::Value& value) {
+  RequestFileSystemOptions out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -392,6 +456,13 @@ Volume::Volume()
 Volume::~Volume() = default;
 Volume::Volume(Volume&& rhs) = default;
 Volume& Volume::operator=(Volume&& rhs) = default;
+Volume Volume::Clone() const {
+  Volume out;
+  out.volume_id = volume_id;
+  out.writable = writable;
+  return out;
+}
+
 // static
 bool Volume::Populate(
     const base::Value::Dict& dict, Volume& out) {
@@ -446,10 +517,21 @@ std::unique_ptr<Volume> Volume::FromValueDeprecated(const base::Value& value) {
 
 // static
 absl::optional<Volume> Volume::FromValue(const base::Value::Dict& value) {
-  absl::optional<Volume> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  Volume out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Volume> Volume::FromValue(const base::Value& value) {
+  Volume out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -471,6 +553,15 @@ VolumeListChangedEvent::VolumeListChangedEvent()
 VolumeListChangedEvent::~VolumeListChangedEvent() = default;
 VolumeListChangedEvent::VolumeListChangedEvent(VolumeListChangedEvent&& rhs) = default;
 VolumeListChangedEvent& VolumeListChangedEvent::operator=(VolumeListChangedEvent&& rhs) = default;
+VolumeListChangedEvent VolumeListChangedEvent::Clone() const {
+  VolumeListChangedEvent out;
+  out.volumes.reserve(volumes.size());
+  for (const auto& element : volumes) {
+    out.volumes.push_back(element.Clone());
+  }
+  return out;
+}
+
 // static
 bool VolumeListChangedEvent::Populate(
     const base::Value::Dict& dict, VolumeListChangedEvent& out) {
@@ -516,10 +607,21 @@ std::unique_ptr<VolumeListChangedEvent> VolumeListChangedEvent::FromValueDepreca
 
 // static
 absl::optional<VolumeListChangedEvent> VolumeListChangedEvent::FromValue(const base::Value::Dict& value) {
-  absl::optional<VolumeListChangedEvent> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  VolumeListChangedEvent out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<VolumeListChangedEvent> VolumeListChangedEvent::FromValue(const base::Value& value) {
+  VolumeListChangedEvent out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -546,6 +648,11 @@ Params::Entry::Entry()
 Params::Entry::~Entry() = default;
 Params::Entry::Entry(Entry&& rhs) = default;
 Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
+Params::Entry Params::Entry::Clone() const {
+  Entry out;
+  return out;
+}
+
 // static
 bool Params::Entry::Populate(
     const base::Value::Dict& dict, Entry& out) {
@@ -560,6 +667,26 @@ bool Params::Entry::Populate(
     return false;
   }
   return Populate(value.GetDict(), out);
+}
+
+// static
+absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
+  Entry out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
+  Entry out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 
@@ -612,6 +739,11 @@ Params::Entry::Entry()
 Params::Entry::~Entry() = default;
 Params::Entry::Entry(Entry&& rhs) = default;
 Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
+Params::Entry Params::Entry::Clone() const {
+  Entry out;
+  return out;
+}
+
 // static
 bool Params::Entry::Populate(
     const base::Value::Dict& dict, Entry& out) {
@@ -626,6 +758,26 @@ bool Params::Entry::Populate(
     return false;
   }
   return Populate(value.GetDict(), out);
+}
+
+// static
+absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
+  Entry out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
+  Entry out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 
@@ -693,6 +845,11 @@ Params::Entry::Entry()
 Params::Entry::~Entry() = default;
 Params::Entry::Entry(Entry&& rhs) = default;
 Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
+Params::Entry Params::Entry::Clone() const {
+  Entry out;
+  return out;
+}
+
 // static
 bool Params::Entry::Populate(
     const base::Value::Dict& dict, Entry& out) {
@@ -707,6 +864,26 @@ bool Params::Entry::Populate(
     return false;
   }
   return Populate(value.GetDict(), out);
+}
+
+// static
+absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
+  Entry out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
+  Entry out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 
@@ -934,6 +1111,11 @@ Params::Entry::Entry()
 Params::Entry::~Entry() = default;
 Params::Entry::Entry(Entry&& rhs) = default;
 Params::Entry& Params::Entry::operator=(Entry&& rhs) = default;
+Params::Entry Params::Entry::Clone() const {
+  Entry out;
+  return out;
+}
+
 // static
 bool Params::Entry::Populate(
     const base::Value::Dict& dict, Entry& out) {
@@ -948,6 +1130,26 @@ bool Params::Entry::Populate(
     return false;
   }
   return Populate(value.GetDict(), out);
+}
+
+// static
+absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value::Dict& value) {
+  Entry out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Params::Entry> Params::Entry::FromValue(const base::Value& value) {
+  Entry out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 

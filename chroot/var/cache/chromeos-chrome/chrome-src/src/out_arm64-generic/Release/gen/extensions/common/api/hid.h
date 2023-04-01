@@ -43,12 +43,19 @@ struct HidCollectionInfo {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, HidCollectionInfo& out);
 
+  // Creates a deep copy of HidCollectionInfo.
+  HidCollectionInfo Clone() const;
+
   // Creates a HidCollectionInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<HidCollectionInfo> FromValueDeprecated(const base::Value& value);
 
-  // Creates a HidCollectionInfo object from a base::Value, or nullopt on
+  // Creates a HidCollectionInfo object from a base::Value::Dict, or nullopt on
   // failure.
   static absl::optional<HidCollectionInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a HidCollectionInfo object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<HidCollectionInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHidCollectionInfo object.
@@ -81,11 +88,18 @@ struct HidDeviceInfo {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, HidDeviceInfo& out);
 
+  // Creates a deep copy of HidDeviceInfo.
+  HidDeviceInfo Clone() const;
+
   // Creates a HidDeviceInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<HidDeviceInfo> FromValueDeprecated(const base::Value& value);
 
-  // Creates a HidDeviceInfo object from a base::Value, or nullopt on failure.
+  // Creates a HidDeviceInfo object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<HidDeviceInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a HidDeviceInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<HidDeviceInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHidDeviceInfo object.
@@ -139,11 +153,18 @@ struct HidConnectInfo {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, HidConnectInfo& out);
 
+  // Creates a deep copy of HidConnectInfo.
+  HidConnectInfo Clone() const;
+
   // Creates a HidConnectInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<HidConnectInfo> FromValueDeprecated(const base::Value& value);
 
-  // Creates a HidConnectInfo object from a base::Value, or nullopt on failure.
+  // Creates a HidConnectInfo object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<HidConnectInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a HidConnectInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<HidConnectInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisHidConnectInfo object.
@@ -170,11 +191,18 @@ struct DeviceFilter {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, DeviceFilter& out);
 
+  // Creates a deep copy of DeviceFilter.
+  DeviceFilter Clone() const;
+
   // Creates a DeviceFilter object from a base::Value, or NULL on failure.
   static std::unique_ptr<DeviceFilter> FromValueDeprecated(const base::Value& value);
 
-  // Creates a DeviceFilter object from a base::Value, or nullopt on failure.
+  // Creates a DeviceFilter object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<DeviceFilter> FromValue(const base::Value::Dict& value);
+
+  // Creates a DeviceFilter object from a base::Value, or nullopt on failure.
+  static absl::optional<DeviceFilter> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisDeviceFilter object.
@@ -210,12 +238,19 @@ struct GetDevicesOptions {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, GetDevicesOptions& out);
 
+  // Creates a deep copy of GetDevicesOptions.
+  GetDevicesOptions Clone() const;
+
   // Creates a GetDevicesOptions object from a base::Value, or NULL on failure.
   static std::unique_ptr<GetDevicesOptions> FromValueDeprecated(const base::Value& value);
 
-  // Creates a GetDevicesOptions object from a base::Value, or nullopt on
+  // Creates a GetDevicesOptions object from a base::Value::Dict, or nullopt on
   // failure.
   static absl::optional<GetDevicesOptions> FromValue(const base::Value::Dict& value);
+
+  // Creates a GetDevicesOptions object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<GetDevicesOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisGetDevicesOptions object.

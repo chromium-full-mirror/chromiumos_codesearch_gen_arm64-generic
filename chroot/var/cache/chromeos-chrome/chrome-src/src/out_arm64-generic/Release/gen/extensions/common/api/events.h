@@ -44,11 +44,17 @@ struct Rule {
   // successfully populated.
   static bool Populate(const base::Value::Dict& value, Rule& out);
 
+  // Creates a deep copy of Rule.
+  Rule Clone() const;
+
   // Creates a Rule object from a base::Value, or NULL on failure.
   static std::unique_ptr<Rule> FromValueDeprecated(const base::Value& value);
 
-  // Creates a Rule object from a base::Value, or nullopt on failure.
+  // Creates a Rule object from a base::Value::Dict, or nullopt on failure.
   static absl::optional<Rule> FromValue(const base::Value::Dict& value);
+
+  // Creates a Rule object from a base::Value, or nullopt on failure.
+  static absl::optional<Rule> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRule object.

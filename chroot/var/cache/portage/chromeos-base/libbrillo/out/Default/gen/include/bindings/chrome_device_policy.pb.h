@@ -89,9 +89,6 @@ extern DeviceAdvancedBatteryChargeModeProtoDefaultTypeInternal _DeviceAdvancedBa
 class DeviceAllowedBluetoothServicesProto;
 struct DeviceAllowedBluetoothServicesProtoDefaultTypeInternal;
 extern DeviceAllowedBluetoothServicesProtoDefaultTypeInternal _DeviceAllowedBluetoothServicesProto_default_instance_;
-class DeviceArcDataSnapshotHoursProto;
-struct DeviceArcDataSnapshotHoursProtoDefaultTypeInternal;
-extern DeviceArcDataSnapshotHoursProtoDefaultTypeInternal _DeviceArcDataSnapshotHoursProto_default_instance_;
 class DeviceAuthDataCacheLifetimeProto;
 struct DeviceAuthDataCacheLifetimeProtoDefaultTypeInternal;
 extern DeviceAuthDataCacheLifetimeProtoDefaultTypeInternal _DeviceAuthDataCacheLifetimeProto_default_instance_;
@@ -350,6 +347,9 @@ extern OBSOLETE_AppPackEntryProtoDefaultTypeInternal _OBSOLETE_AppPackEntryProto
 class OBSOLETE_AppPackProto;
 struct OBSOLETE_AppPackProtoDefaultTypeInternal;
 extern OBSOLETE_AppPackProtoDefaultTypeInternal _OBSOLETE_AppPackProto_default_instance_;
+class OBSOLETE_DeviceArcDataSnapshotHoursProto;
+struct OBSOLETE_DeviceArcDataSnapshotHoursProtoDefaultTypeInternal;
+extern OBSOLETE_DeviceArcDataSnapshotHoursProtoDefaultTypeInternal _OBSOLETE_DeviceArcDataSnapshotHoursProto_default_instance_;
 class OBSOLETE_DeviceBorealisAllowedProto;
 struct OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal;
 extern OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal _OBSOLETE_DeviceBorealisAllowedProto_default_instance_;
@@ -478,7 +478,6 @@ template<> ::enterprise_management::ChromeDeviceSettingsProto* Arena::CreateMayb
 template<> ::enterprise_management::DataRoamingEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DataRoamingEnabledProto>(Arena*);
 template<> ::enterprise_management::DeviceAdvancedBatteryChargeModeProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceAdvancedBatteryChargeModeProto>(Arena*);
 template<> ::enterprise_management::DeviceAllowedBluetoothServicesProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceAllowedBluetoothServicesProto>(Arena*);
-template<> ::enterprise_management::DeviceArcDataSnapshotHoursProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceArcDataSnapshotHoursProto>(Arena*);
 template<> ::enterprise_management::DeviceAuthDataCacheLifetimeProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceAuthDataCacheLifetimeProto>(Arena*);
 template<> ::enterprise_management::DeviceBatteryChargeModeProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceBatteryChargeModeProto>(Arena*);
 template<> ::enterprise_management::DeviceBootOnAcProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceBootOnAcProto>(Arena*);
@@ -565,6 +564,7 @@ template<> ::enterprise_management::NetworkHostnameProto* Arena::CreateMaybeMess
 template<> ::enterprise_management::NetworkThrottlingEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::NetworkThrottlingEnabledProto>(Arena*);
 template<> ::enterprise_management::OBSOLETE_AppPackEntryProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_AppPackEntryProto>(Arena*);
 template<> ::enterprise_management::OBSOLETE_AppPackProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_AppPackProto>(Arena*);
+template<> ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto>(Arena*);
 template<> ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto>(Arena*);
 template<> ::enterprise_management::OBSOLETE_DeviceLoginScreenIsolateOriginsProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_DeviceLoginScreenIsolateOriginsProto>(Arena*);
 template<> ::enterprise_management::OBSOLETE_DeviceLoginScreenSitePerProcessProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_DeviceLoginScreenSitePerProcessProto>(Arena*);
@@ -21992,24 +21992,24 @@ class DeviceFamilyLinkAccountsAllowedProto final :
 };
 // -------------------------------------------------------------------
 
-class DeviceArcDataSnapshotHoursProto final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceArcDataSnapshotHoursProto) */ {
+class OBSOLETE_DeviceArcDataSnapshotHoursProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto) */ {
  public:
-  inline DeviceArcDataSnapshotHoursProto() : DeviceArcDataSnapshotHoursProto(nullptr) {}
-  ~DeviceArcDataSnapshotHoursProto() override;
-  explicit PROTOBUF_CONSTEXPR DeviceArcDataSnapshotHoursProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline OBSOLETE_DeviceArcDataSnapshotHoursProto() : OBSOLETE_DeviceArcDataSnapshotHoursProto(nullptr) {}
+  ~OBSOLETE_DeviceArcDataSnapshotHoursProto() override;
+  explicit PROTOBUF_CONSTEXPR OBSOLETE_DeviceArcDataSnapshotHoursProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  DeviceArcDataSnapshotHoursProto(const DeviceArcDataSnapshotHoursProto& from);
-  DeviceArcDataSnapshotHoursProto(DeviceArcDataSnapshotHoursProto&& from) noexcept
-    : DeviceArcDataSnapshotHoursProto() {
+  OBSOLETE_DeviceArcDataSnapshotHoursProto(const OBSOLETE_DeviceArcDataSnapshotHoursProto& from);
+  OBSOLETE_DeviceArcDataSnapshotHoursProto(OBSOLETE_DeviceArcDataSnapshotHoursProto&& from) noexcept
+    : OBSOLETE_DeviceArcDataSnapshotHoursProto() {
     *this = ::std::move(from);
   }
 
-  inline DeviceArcDataSnapshotHoursProto& operator=(const DeviceArcDataSnapshotHoursProto& from) {
+  inline OBSOLETE_DeviceArcDataSnapshotHoursProto& operator=(const OBSOLETE_DeviceArcDataSnapshotHoursProto& from) {
     CopyFrom(from);
     return *this;
   }
-  inline DeviceArcDataSnapshotHoursProto& operator=(DeviceArcDataSnapshotHoursProto&& from) noexcept {
+  inline OBSOLETE_DeviceArcDataSnapshotHoursProto& operator=(OBSOLETE_DeviceArcDataSnapshotHoursProto&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -22030,20 +22030,20 @@ class DeviceArcDataSnapshotHoursProto final :
     return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const DeviceArcDataSnapshotHoursProto& default_instance() {
+  static const OBSOLETE_DeviceArcDataSnapshotHoursProto& default_instance() {
     return *internal_default_instance();
   }
-  static inline const DeviceArcDataSnapshotHoursProto* internal_default_instance() {
-    return reinterpret_cast<const DeviceArcDataSnapshotHoursProto*>(
-               &_DeviceArcDataSnapshotHoursProto_default_instance_);
+  static inline const OBSOLETE_DeviceArcDataSnapshotHoursProto* internal_default_instance() {
+    return reinterpret_cast<const OBSOLETE_DeviceArcDataSnapshotHoursProto*>(
+               &_OBSOLETE_DeviceArcDataSnapshotHoursProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     124;
 
-  friend void swap(DeviceArcDataSnapshotHoursProto& a, DeviceArcDataSnapshotHoursProto& b) {
+  friend void swap(OBSOLETE_DeviceArcDataSnapshotHoursProto& a, OBSOLETE_DeviceArcDataSnapshotHoursProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(DeviceArcDataSnapshotHoursProto* other) {
+  inline void Swap(OBSOLETE_DeviceArcDataSnapshotHoursProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -22056,7 +22056,7 @@ class DeviceArcDataSnapshotHoursProto final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(DeviceArcDataSnapshotHoursProto* other) {
+  void UnsafeArenaSwap(OBSOLETE_DeviceArcDataSnapshotHoursProto* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -22064,12 +22064,12 @@ class DeviceArcDataSnapshotHoursProto final :
 
   // implements Message ----------------------------------------------
 
-  DeviceArcDataSnapshotHoursProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<DeviceArcDataSnapshotHoursProto>(arena);
+  OBSOLETE_DeviceArcDataSnapshotHoursProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OBSOLETE_DeviceArcDataSnapshotHoursProto>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const DeviceArcDataSnapshotHoursProto& from);
-  void MergeFrom(const DeviceArcDataSnapshotHoursProto& from);
+  void CopyFrom(const OBSOLETE_DeviceArcDataSnapshotHoursProto& from);
+  void MergeFrom(const OBSOLETE_DeviceArcDataSnapshotHoursProto& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -22083,15 +22083,15 @@ class DeviceArcDataSnapshotHoursProto final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(DeviceArcDataSnapshotHoursProto* other);
+  void InternalSwap(OBSOLETE_DeviceArcDataSnapshotHoursProto* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "enterprise_management.DeviceArcDataSnapshotHoursProto";
+    return "enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto";
   }
   protected:
-  explicit DeviceArcDataSnapshotHoursProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit OBSOLETE_DeviceArcDataSnapshotHoursProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -22102,27 +22102,27 @@ class DeviceArcDataSnapshotHoursProto final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kArcDataSnapshotHoursFieldNumber = 1,
+    kOBSOLETEArcDataSnapshotHoursFieldNumber = 1,
   };
-  // optional string arc_data_snapshot_hours = 1;
-  bool has_arc_data_snapshot_hours() const;
+  // optional string OBSOLETE_arc_data_snapshot_hours = 1 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_obsolete_arc_data_snapshot_hours() const;
   private:
-  bool _internal_has_arc_data_snapshot_hours() const;
+  bool _internal_has_obsolete_arc_data_snapshot_hours() const;
   public:
-  void clear_arc_data_snapshot_hours();
-  const std::string& arc_data_snapshot_hours() const;
+  PROTOBUF_DEPRECATED void clear_obsolete_arc_data_snapshot_hours();
+  PROTOBUF_DEPRECATED const std::string& obsolete_arc_data_snapshot_hours() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_arc_data_snapshot_hours(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_arc_data_snapshot_hours();
-  PROTOBUF_NODISCARD std::string* release_arc_data_snapshot_hours();
-  void set_allocated_arc_data_snapshot_hours(std::string* arc_data_snapshot_hours);
+  PROTOBUF_DEPRECATED void set_obsolete_arc_data_snapshot_hours(ArgT0&& arg0, ArgT... args);
+  PROTOBUF_DEPRECATED std::string* mutable_obsolete_arc_data_snapshot_hours();
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED std::string* release_obsolete_arc_data_snapshot_hours();
+  PROTOBUF_DEPRECATED void set_allocated_obsolete_arc_data_snapshot_hours(std::string* obsolete_arc_data_snapshot_hours);
   private:
-  const std::string& _internal_arc_data_snapshot_hours() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_arc_data_snapshot_hours(const std::string& value);
-  std::string* _internal_mutable_arc_data_snapshot_hours();
+  const std::string& _internal_obsolete_arc_data_snapshot_hours() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_obsolete_arc_data_snapshot_hours(const std::string& value);
+  std::string* _internal_mutable_obsolete_arc_data_snapshot_hours();
   public:
 
-  // @@protoc_insertion_point(class_scope:enterprise_management.DeviceArcDataSnapshotHoursProto)
+  // @@protoc_insertion_point(class_scope:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto)
  private:
   class _Internal;
 
@@ -22132,7 +22132,7 @@ class DeviceArcDataSnapshotHoursProto final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr arc_data_snapshot_hours_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr obsolete_arc_data_snapshot_hours_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
@@ -26252,23 +26252,23 @@ class ChromeDeviceSettingsProto final :
       ::enterprise_management::DeviceFamilyLinkAccountsAllowedProto* family_link_accounts_allowed);
   ::enterprise_management::DeviceFamilyLinkAccountsAllowedProto* unsafe_arena_release_family_link_accounts_allowed();
 
-  // optional .enterprise_management.DeviceArcDataSnapshotHoursProto arc_data_snapshot_hours = 115;
-  bool has_arc_data_snapshot_hours() const;
+  // optional .enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto arc_data_snapshot_hours = 115 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_arc_data_snapshot_hours() const;
   private:
   bool _internal_has_arc_data_snapshot_hours() const;
   public:
-  void clear_arc_data_snapshot_hours();
-  const ::enterprise_management::DeviceArcDataSnapshotHoursProto& arc_data_snapshot_hours() const;
-  PROTOBUF_NODISCARD ::enterprise_management::DeviceArcDataSnapshotHoursProto* release_arc_data_snapshot_hours();
-  ::enterprise_management::DeviceArcDataSnapshotHoursProto* mutable_arc_data_snapshot_hours();
-  void set_allocated_arc_data_snapshot_hours(::enterprise_management::DeviceArcDataSnapshotHoursProto* arc_data_snapshot_hours);
+  PROTOBUF_DEPRECATED void clear_arc_data_snapshot_hours();
+  PROTOBUF_DEPRECATED const ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto& arc_data_snapshot_hours() const;
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* release_arc_data_snapshot_hours();
+  PROTOBUF_DEPRECATED ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* mutable_arc_data_snapshot_hours();
+  PROTOBUF_DEPRECATED void set_allocated_arc_data_snapshot_hours(::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* arc_data_snapshot_hours);
   private:
-  const ::enterprise_management::DeviceArcDataSnapshotHoursProto& _internal_arc_data_snapshot_hours() const;
-  ::enterprise_management::DeviceArcDataSnapshotHoursProto* _internal_mutable_arc_data_snapshot_hours();
+  const ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto& _internal_arc_data_snapshot_hours() const;
+  ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* _internal_mutable_arc_data_snapshot_hours();
   public:
-  void unsafe_arena_set_allocated_arc_data_snapshot_hours(
-      ::enterprise_management::DeviceArcDataSnapshotHoursProto* arc_data_snapshot_hours);
-  ::enterprise_management::DeviceArcDataSnapshotHoursProto* unsafe_arena_release_arc_data_snapshot_hours();
+  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_arc_data_snapshot_hours(
+      ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* arc_data_snapshot_hours);
+  PROTOBUF_DEPRECATED ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* unsafe_arena_release_arc_data_snapshot_hours();
 
   // optional .enterprise_management.BooleanPolicyProto device_allow_mgs_to_store_display_properties = 116;
   bool has_device_allow_mgs_to_store_display_properties() const;
@@ -26949,7 +26949,7 @@ class ChromeDeviceSettingsProto final :
     ::enterprise_management::UserAllowlistProto* user_allowlist_;
     ::enterprise_management::UsbDetachableAllowlistProto* usb_detachable_allowlist_;
     ::enterprise_management::DeviceFamilyLinkAccountsAllowedProto* family_link_accounts_allowed_;
-    ::enterprise_management::DeviceArcDataSnapshotHoursProto* arc_data_snapshot_hours_;
+    ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* arc_data_snapshot_hours_;
     ::enterprise_management::BooleanPolicyProto* device_allow_mgs_to_store_display_properties_;
     ::enterprise_management::DeviceSystemWideTracingEnabledProto* device_system_wide_tracing_enabled_;
     ::enterprise_management::DevicePciPeripheralDataAccessEnabledProto* device_pci_peripheral_data_access_enabled_;
@@ -39005,74 +39005,74 @@ inline void DeviceFamilyLinkAccountsAllowedProto::set_family_link_accounts_allow
 
 // -------------------------------------------------------------------
 
-// DeviceArcDataSnapshotHoursProto
+// OBSOLETE_DeviceArcDataSnapshotHoursProto
 
-// optional string arc_data_snapshot_hours = 1;
-inline bool DeviceArcDataSnapshotHoursProto::_internal_has_arc_data_snapshot_hours() const {
+// optional string OBSOLETE_arc_data_snapshot_hours = 1 [deprecated = true];
+inline bool OBSOLETE_DeviceArcDataSnapshotHoursProto::_internal_has_obsolete_arc_data_snapshot_hours() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool DeviceArcDataSnapshotHoursProto::has_arc_data_snapshot_hours() const {
-  return _internal_has_arc_data_snapshot_hours();
+inline bool OBSOLETE_DeviceArcDataSnapshotHoursProto::has_obsolete_arc_data_snapshot_hours() const {
+  return _internal_has_obsolete_arc_data_snapshot_hours();
 }
-inline void DeviceArcDataSnapshotHoursProto::clear_arc_data_snapshot_hours() {
-  _impl_.arc_data_snapshot_hours_.ClearToEmpty();
+inline void OBSOLETE_DeviceArcDataSnapshotHoursProto::clear_obsolete_arc_data_snapshot_hours() {
+  _impl_.obsolete_arc_data_snapshot_hours_.ClearToEmpty();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const std::string& DeviceArcDataSnapshotHoursProto::arc_data_snapshot_hours() const {
-  // @@protoc_insertion_point(field_get:enterprise_management.DeviceArcDataSnapshotHoursProto.arc_data_snapshot_hours)
-  return _internal_arc_data_snapshot_hours();
+inline const std::string& OBSOLETE_DeviceArcDataSnapshotHoursProto::obsolete_arc_data_snapshot_hours() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto.OBSOLETE_arc_data_snapshot_hours)
+  return _internal_obsolete_arc_data_snapshot_hours();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void DeviceArcDataSnapshotHoursProto::set_arc_data_snapshot_hours(ArgT0&& arg0, ArgT... args) {
+void OBSOLETE_DeviceArcDataSnapshotHoursProto::set_obsolete_arc_data_snapshot_hours(ArgT0&& arg0, ArgT... args) {
  _impl_._has_bits_[0] |= 0x00000001u;
- _impl_.arc_data_snapshot_hours_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:enterprise_management.DeviceArcDataSnapshotHoursProto.arc_data_snapshot_hours)
+ _impl_.obsolete_arc_data_snapshot_hours_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto.OBSOLETE_arc_data_snapshot_hours)
 }
-inline std::string* DeviceArcDataSnapshotHoursProto::mutable_arc_data_snapshot_hours() {
-  std::string* _s = _internal_mutable_arc_data_snapshot_hours();
-  // @@protoc_insertion_point(field_mutable:enterprise_management.DeviceArcDataSnapshotHoursProto.arc_data_snapshot_hours)
+inline std::string* OBSOLETE_DeviceArcDataSnapshotHoursProto::mutable_obsolete_arc_data_snapshot_hours() {
+  std::string* _s = _internal_mutable_obsolete_arc_data_snapshot_hours();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto.OBSOLETE_arc_data_snapshot_hours)
   return _s;
 }
-inline const std::string& DeviceArcDataSnapshotHoursProto::_internal_arc_data_snapshot_hours() const {
-  return _impl_.arc_data_snapshot_hours_.Get();
+inline const std::string& OBSOLETE_DeviceArcDataSnapshotHoursProto::_internal_obsolete_arc_data_snapshot_hours() const {
+  return _impl_.obsolete_arc_data_snapshot_hours_.Get();
 }
-inline void DeviceArcDataSnapshotHoursProto::_internal_set_arc_data_snapshot_hours(const std::string& value) {
+inline void OBSOLETE_DeviceArcDataSnapshotHoursProto::_internal_set_obsolete_arc_data_snapshot_hours(const std::string& value) {
   _impl_._has_bits_[0] |= 0x00000001u;
-  _impl_.arc_data_snapshot_hours_.Set(value, GetArenaForAllocation());
+  _impl_.obsolete_arc_data_snapshot_hours_.Set(value, GetArenaForAllocation());
 }
-inline std::string* DeviceArcDataSnapshotHoursProto::_internal_mutable_arc_data_snapshot_hours() {
+inline std::string* OBSOLETE_DeviceArcDataSnapshotHoursProto::_internal_mutable_obsolete_arc_data_snapshot_hours() {
   _impl_._has_bits_[0] |= 0x00000001u;
-  return _impl_.arc_data_snapshot_hours_.Mutable(GetArenaForAllocation());
+  return _impl_.obsolete_arc_data_snapshot_hours_.Mutable(GetArenaForAllocation());
 }
-inline std::string* DeviceArcDataSnapshotHoursProto::release_arc_data_snapshot_hours() {
-  // @@protoc_insertion_point(field_release:enterprise_management.DeviceArcDataSnapshotHoursProto.arc_data_snapshot_hours)
-  if (!_internal_has_arc_data_snapshot_hours()) {
+inline std::string* OBSOLETE_DeviceArcDataSnapshotHoursProto::release_obsolete_arc_data_snapshot_hours() {
+  // @@protoc_insertion_point(field_release:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto.OBSOLETE_arc_data_snapshot_hours)
+  if (!_internal_has_obsolete_arc_data_snapshot_hours()) {
     return nullptr;
   }
   _impl_._has_bits_[0] &= ~0x00000001u;
-  auto* p = _impl_.arc_data_snapshot_hours_.Release();
+  auto* p = _impl_.obsolete_arc_data_snapshot_hours_.Release();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.arc_data_snapshot_hours_.IsDefault()) {
-    _impl_.arc_data_snapshot_hours_.Set("", GetArenaForAllocation());
+  if (_impl_.obsolete_arc_data_snapshot_hours_.IsDefault()) {
+    _impl_.obsolete_arc_data_snapshot_hours_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   return p;
 }
-inline void DeviceArcDataSnapshotHoursProto::set_allocated_arc_data_snapshot_hours(std::string* arc_data_snapshot_hours) {
-  if (arc_data_snapshot_hours != nullptr) {
+inline void OBSOLETE_DeviceArcDataSnapshotHoursProto::set_allocated_obsolete_arc_data_snapshot_hours(std::string* obsolete_arc_data_snapshot_hours) {
+  if (obsolete_arc_data_snapshot_hours != nullptr) {
     _impl_._has_bits_[0] |= 0x00000001u;
   } else {
     _impl_._has_bits_[0] &= ~0x00000001u;
   }
-  _impl_.arc_data_snapshot_hours_.SetAllocated(arc_data_snapshot_hours, GetArenaForAllocation());
+  _impl_.obsolete_arc_data_snapshot_hours_.SetAllocated(obsolete_arc_data_snapshot_hours, GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.arc_data_snapshot_hours_.IsDefault()) {
-    _impl_.arc_data_snapshot_hours_.Set("", GetArenaForAllocation());
+  if (_impl_.obsolete_arc_data_snapshot_hours_.IsDefault()) {
+    _impl_.obsolete_arc_data_snapshot_hours_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceArcDataSnapshotHoursProto.arc_data_snapshot_hours)
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto.OBSOLETE_arc_data_snapshot_hours)
 }
 
 // -------------------------------------------------------------------
@@ -49551,7 +49551,7 @@ inline void ChromeDeviceSettingsProto::set_allocated_family_link_accounts_allowe
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.family_link_accounts_allowed)
 }
 
-// optional .enterprise_management.DeviceArcDataSnapshotHoursProto arc_data_snapshot_hours = 115;
+// optional .enterprise_management.OBSOLETE_DeviceArcDataSnapshotHoursProto arc_data_snapshot_hours = 115 [deprecated = true];
 inline bool ChromeDeviceSettingsProto::_internal_has_arc_data_snapshot_hours() const {
   bool value = (_impl_._has_bits_[3] & 0x00008000u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.arc_data_snapshot_hours_ != nullptr);
@@ -49564,17 +49564,17 @@ inline void ChromeDeviceSettingsProto::clear_arc_data_snapshot_hours() {
   if (_impl_.arc_data_snapshot_hours_ != nullptr) _impl_.arc_data_snapshot_hours_->Clear();
   _impl_._has_bits_[3] &= ~0x00008000u;
 }
-inline const ::enterprise_management::DeviceArcDataSnapshotHoursProto& ChromeDeviceSettingsProto::_internal_arc_data_snapshot_hours() const {
-  const ::enterprise_management::DeviceArcDataSnapshotHoursProto* p = _impl_.arc_data_snapshot_hours_;
-  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceArcDataSnapshotHoursProto&>(
-      ::enterprise_management::_DeviceArcDataSnapshotHoursProto_default_instance_);
+inline const ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto& ChromeDeviceSettingsProto::_internal_arc_data_snapshot_hours() const {
+  const ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* p = _impl_.arc_data_snapshot_hours_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto&>(
+      ::enterprise_management::_OBSOLETE_DeviceArcDataSnapshotHoursProto_default_instance_);
 }
-inline const ::enterprise_management::DeviceArcDataSnapshotHoursProto& ChromeDeviceSettingsProto::arc_data_snapshot_hours() const {
+inline const ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto& ChromeDeviceSettingsProto::arc_data_snapshot_hours() const {
   // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.arc_data_snapshot_hours)
   return _internal_arc_data_snapshot_hours();
 }
 inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_arc_data_snapshot_hours(
-    ::enterprise_management::DeviceArcDataSnapshotHoursProto* arc_data_snapshot_hours) {
+    ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* arc_data_snapshot_hours) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.arc_data_snapshot_hours_);
   }
@@ -49586,9 +49586,9 @@ inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_arc_data_snaps
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.arc_data_snapshot_hours)
 }
-inline ::enterprise_management::DeviceArcDataSnapshotHoursProto* ChromeDeviceSettingsProto::release_arc_data_snapshot_hours() {
+inline ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* ChromeDeviceSettingsProto::release_arc_data_snapshot_hours() {
   _impl_._has_bits_[3] &= ~0x00008000u;
-  ::enterprise_management::DeviceArcDataSnapshotHoursProto* temp = _impl_.arc_data_snapshot_hours_;
+  ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* temp = _impl_.arc_data_snapshot_hours_;
   _impl_.arc_data_snapshot_hours_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -49601,27 +49601,27 @@ inline ::enterprise_management::DeviceArcDataSnapshotHoursProto* ChromeDeviceSet
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::enterprise_management::DeviceArcDataSnapshotHoursProto* ChromeDeviceSettingsProto::unsafe_arena_release_arc_data_snapshot_hours() {
+inline ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* ChromeDeviceSettingsProto::unsafe_arena_release_arc_data_snapshot_hours() {
   // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.arc_data_snapshot_hours)
   _impl_._has_bits_[3] &= ~0x00008000u;
-  ::enterprise_management::DeviceArcDataSnapshotHoursProto* temp = _impl_.arc_data_snapshot_hours_;
+  ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* temp = _impl_.arc_data_snapshot_hours_;
   _impl_.arc_data_snapshot_hours_ = nullptr;
   return temp;
 }
-inline ::enterprise_management::DeviceArcDataSnapshotHoursProto* ChromeDeviceSettingsProto::_internal_mutable_arc_data_snapshot_hours() {
+inline ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* ChromeDeviceSettingsProto::_internal_mutable_arc_data_snapshot_hours() {
   _impl_._has_bits_[3] |= 0x00008000u;
   if (_impl_.arc_data_snapshot_hours_ == nullptr) {
-    auto* p = CreateMaybeMessage<::enterprise_management::DeviceArcDataSnapshotHoursProto>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto>(GetArenaForAllocation());
     _impl_.arc_data_snapshot_hours_ = p;
   }
   return _impl_.arc_data_snapshot_hours_;
 }
-inline ::enterprise_management::DeviceArcDataSnapshotHoursProto* ChromeDeviceSettingsProto::mutable_arc_data_snapshot_hours() {
-  ::enterprise_management::DeviceArcDataSnapshotHoursProto* _msg = _internal_mutable_arc_data_snapshot_hours();
+inline ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* ChromeDeviceSettingsProto::mutable_arc_data_snapshot_hours() {
+  ::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* _msg = _internal_mutable_arc_data_snapshot_hours();
   // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.arc_data_snapshot_hours)
   return _msg;
 }
-inline void ChromeDeviceSettingsProto::set_allocated_arc_data_snapshot_hours(::enterprise_management::DeviceArcDataSnapshotHoursProto* arc_data_snapshot_hours) {
+inline void ChromeDeviceSettingsProto::set_allocated_arc_data_snapshot_hours(::enterprise_management::OBSOLETE_DeviceArcDataSnapshotHoursProto* arc_data_snapshot_hours) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.arc_data_snapshot_hours_;

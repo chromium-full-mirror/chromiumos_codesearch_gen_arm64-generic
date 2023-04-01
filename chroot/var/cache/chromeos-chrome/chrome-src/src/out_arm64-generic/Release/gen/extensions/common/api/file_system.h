@@ -45,11 +45,18 @@ struct AcceptOption {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, AcceptOption& out);
 
+  // Creates a deep copy of AcceptOption.
+  AcceptOption Clone() const;
+
   // Creates a AcceptOption object from a base::Value, or NULL on failure.
   static std::unique_ptr<AcceptOption> FromValueDeprecated(const base::Value& value);
 
-  // Creates a AcceptOption object from a base::Value, or nullopt on failure.
+  // Creates a AcceptOption object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<AcceptOption> FromValue(const base::Value::Dict& value);
+
+  // Creates a AcceptOption object from a base::Value, or nullopt on failure.
+  static absl::optional<AcceptOption> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisAcceptOption object.
@@ -70,7 +77,7 @@ struct AcceptOption {
 };
 
 enum  ChooseEntryType {
-  CHOOSE_ENTRY_TYPE_NONE,
+  CHOOSE_ENTRY_TYPE_NONE = 0,
   CHOOSE_ENTRY_TYPE_OPENFILE,
   CHOOSE_ENTRY_TYPE_OPENWRITABLEFILE,
   CHOOSE_ENTRY_TYPE_SAVEFILE,
@@ -98,12 +105,19 @@ struct ChooseEntryOptions {
   // whether |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, ChooseEntryOptions& out);
 
+  // Creates a deep copy of ChooseEntryOptions.
+  ChooseEntryOptions Clone() const;
+
   // Creates a ChooseEntryOptions object from a base::Value, or NULL on failure.
   static std::unique_ptr<ChooseEntryOptions> FromValueDeprecated(const base::Value& value);
 
-  // Creates a ChooseEntryOptions object from a base::Value, or nullopt on
+  // Creates a ChooseEntryOptions object from a base::Value::Dict, or nullopt on
   // failure.
   static absl::optional<ChooseEntryOptions> FromValue(const base::Value::Dict& value);
+
+  // Creates a ChooseEntryOptions object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<ChooseEntryOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChooseEntryOptions object.
@@ -149,13 +163,20 @@ struct RequestFileSystemOptions {
   // whether |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, RequestFileSystemOptions& out);
 
+  // Creates a deep copy of RequestFileSystemOptions.
+  RequestFileSystemOptions Clone() const;
+
   // Creates a RequestFileSystemOptions object from a base::Value, or NULL on
   // failure.
   static std::unique_ptr<RequestFileSystemOptions> FromValueDeprecated(const base::Value& value);
 
+  // Creates a RequestFileSystemOptions object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<RequestFileSystemOptions> FromValue(const base::Value::Dict& value);
+
   // Creates a RequestFileSystemOptions object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<RequestFileSystemOptions> FromValue(const base::Value::Dict& value);
+  static absl::optional<RequestFileSystemOptions> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisRequestFileSystemOptions object.
@@ -186,11 +207,17 @@ struct Volume {
   // successfully populated.
   static bool Populate(const base::Value::Dict& value, Volume& out);
 
+  // Creates a deep copy of Volume.
+  Volume Clone() const;
+
   // Creates a Volume object from a base::Value, or NULL on failure.
   static std::unique_ptr<Volume> FromValueDeprecated(const base::Value& value);
 
-  // Creates a Volume object from a base::Value, or nullopt on failure.
+  // Creates a Volume object from a base::Value::Dict, or nullopt on failure.
   static absl::optional<Volume> FromValue(const base::Value::Dict& value);
+
+  // Creates a Volume object from a base::Value, or nullopt on failure.
+  static absl::optional<Volume> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVolume object.
@@ -218,13 +245,20 @@ struct VolumeListChangedEvent {
   // whether |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, VolumeListChangedEvent& out);
 
+  // Creates a deep copy of VolumeListChangedEvent.
+  VolumeListChangedEvent Clone() const;
+
   // Creates a VolumeListChangedEvent object from a base::Value, or NULL on
   // failure.
   static std::unique_ptr<VolumeListChangedEvent> FromValueDeprecated(const base::Value& value);
 
+  // Creates a VolumeListChangedEvent object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<VolumeListChangedEvent> FromValue(const base::Value::Dict& value);
+
   // Creates a VolumeListChangedEvent object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<VolumeListChangedEvent> FromValue(const base::Value::Dict& value);
+  static absl::optional<VolumeListChangedEvent> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisVolumeListChangedEvent object.
@@ -264,6 +298,15 @@ struct Params {
     // Populates a Entry object from a Dict& instance. Returns whether |out| was
     // successfully populated.
     static bool Populate(const base::Value::Dict& value, Entry& out);
+
+    // Creates a deep copy of Entry.
+    Entry Clone() const;
+
+    // Creates a Entry object from a base::Value::Dict, or nullopt on failure.
+    static absl::optional<Entry> FromValue(const base::Value::Dict& value);
+
+    // Creates a Entry object from a base::Value, or nullopt on failure.
+    static absl::optional<Entry> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -308,6 +351,15 @@ struct Params {
     // Populates a Entry object from a Dict& instance. Returns whether |out| was
     // successfully populated.
     static bool Populate(const base::Value::Dict& value, Entry& out);
+
+    // Creates a deep copy of Entry.
+    Entry Clone() const;
+
+    // Creates a Entry object from a base::Value::Dict, or nullopt on failure.
+    static absl::optional<Entry> FromValue(const base::Value::Dict& value);
+
+    // Creates a Entry object from a base::Value, or nullopt on failure.
+    static absl::optional<Entry> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -368,6 +420,15 @@ struct Params {
     // Populates a Entry object from a Dict& instance. Returns whether |out| was
     // successfully populated.
     static bool Populate(const base::Value::Dict& value, Entry& out);
+
+    // Creates a deep copy of Entry.
+    Entry Clone() const;
+
+    // Creates a Entry object from a base::Value::Dict, or nullopt on failure.
+    static absl::optional<Entry> FromValue(const base::Value::Dict& value);
+
+    // Creates a Entry object from a base::Value, or nullopt on failure.
+    static absl::optional<Entry> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };
@@ -532,6 +593,15 @@ struct Params {
     // Populates a Entry object from a Dict& instance. Returns whether |out| was
     // successfully populated.
     static bool Populate(const base::Value::Dict& value, Entry& out);
+
+    // Creates a deep copy of Entry.
+    Entry Clone() const;
+
+    // Creates a Entry object from a base::Value::Dict, or nullopt on failure.
+    static absl::optional<Entry> FromValue(const base::Value::Dict& value);
+
+    // Creates a Entry object from a base::Value, or nullopt on failure.
+    static absl::optional<Entry> FromValue(const base::Value& value);
 
     base::Value::Dict additional_properties;
   };

@@ -45,11 +45,18 @@ struct Parameters {
   // was successfully populated.
   static bool Populate(const base::Value::Dict& value, Parameters& out);
 
+  // Creates a deep copy of Parameters.
+  Parameters Clone() const;
+
   // Creates a Parameters object from a base::Value, or NULL on failure.
   static std::unique_ptr<Parameters> FromValueDeprecated(const base::Value& value);
 
-  // Creates a Parameters object from a base::Value, or nullopt on failure.
+  // Creates a Parameters object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<Parameters> FromValue(const base::Value::Dict& value);
+
+  // Creates a Parameters object from a base::Value, or nullopt on failure.
+  static absl::optional<Parameters> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisParameters object.
@@ -107,7 +114,7 @@ struct Parameters {
 // The enum is used by the platform to notify the client of the VPN session
 // status.
 enum  PlatformMessage {
-  PLATFORM_MESSAGE_NONE,
+  PLATFORM_MESSAGE_NONE = 0,
   PLATFORM_MESSAGE_CONNECTED,
   PLATFORM_MESSAGE_DISCONNECTED,
   PLATFORM_MESSAGE_ERROR,
@@ -126,7 +133,7 @@ PlatformMessage ParsePlatformMessage(base::StringPiece as_string);
 // The enum is used by the VPN client to inform the platform of its current
 // state. This helps provide meaningful messages to the user.
 enum  VpnConnectionState {
-  VPN_CONNECTION_STATE_NONE,
+  VPN_CONNECTION_STATE_NONE = 0,
   VPN_CONNECTION_STATE_CONNECTED,
   VPN_CONNECTION_STATE_FAILURE,
   VPN_CONNECTION_STATE_LAST = VPN_CONNECTION_STATE_FAILURE,
@@ -139,7 +146,7 @@ VpnConnectionState ParseVpnConnectionState(base::StringPiece as_string);
 // The enum is used by the platform to indicate the event that triggered
 // <code>onUIEvent</code>.
 enum  UIEvent {
-  UI_EVENT_NONE,
+  UI_EVENT_NONE = 0,
   UI_EVENT_SHOWADDDIALOG,
   UI_EVENT_SHOWCONFIGUREDIALOG,
   UI_EVENT_LAST = UI_EVENT_SHOWCONFIGUREDIALOG,

@@ -39,6 +39,10 @@ class Camera3ShutterMsgDataView;
 
 class Camera3NotifyMsgDataView;
 
+class Camera3BufferRequestDataView;
+
+class Camera3StreamBufferRetDataView;
+
 class Camera3PhyscamMetadataDataView;
 
 class Camera3CaptureRequestDataView;
@@ -60,6 +64,10 @@ enum class Camera3BufferStatus : int32_t;
 enum class Camera3MsgType : int32_t;
 
 enum class Camera3ErrorMsgCode : int32_t;
+
+enum class Camera3BufferRequestStatus : int32_t;
+
+enum class Camera3StreamBufferReqStatus : int32_t;
 
 enum class Camera3RequestTemplate : int32_t;
 
@@ -107,6 +115,12 @@ using Camera3ShutterMsgPtr = mojo::InlinedStructPtr<Camera3ShutterMsg>;
 
 class Camera3NotifyMsg;
 using Camera3NotifyMsgPtr = mojo::StructPtr<Camera3NotifyMsg>;
+
+class Camera3BufferRequest;
+using Camera3BufferRequestPtr = mojo::InlinedStructPtr<Camera3BufferRequest>;
+
+class Camera3StreamBufferRet;
+using Camera3StreamBufferRetPtr = mojo::StructPtr<Camera3StreamBufferRet>;
 
 class Camera3PhyscamMetadata;
 using Camera3PhyscamMetadataPtr = mojo::StructPtr<Camera3PhyscamMetadata>;

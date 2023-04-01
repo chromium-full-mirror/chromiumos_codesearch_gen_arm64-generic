@@ -32,6 +32,8 @@ class Camera3StreamBuffer_Data;
 class Camera3ErrorMsg_Data;
 class Camera3ShutterMsg_Data;
 class Camera3NotifyMsg_Data;
+class Camera3BufferRequest_Data;
+class Camera3StreamBufferRet_Data;
 class Camera3PhyscamMetadata_Data;
 class Camera3CaptureRequest_Data;
 class Camera3CaptureResult_Data;
@@ -77,7 +79,6 @@ struct Camera3StreamType_Data {
       case 0:
       case 1:
       case 2:
-      case 3:
         return true;
     }
     return false;
@@ -176,7 +177,6 @@ struct Camera3MsgType_Data {
     switch (value) {
       case 1:
       case 2:
-      case 3:
         return true;
     }
     return false;
@@ -203,7 +203,60 @@ struct Camera3ErrorMsgCode_Data {
       case 2:
       case 3:
       case 4:
-      case 5:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct Camera3BufferRequestStatus_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct Camera3StreamBufferReqStatus_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
         return true;
     }
     return false;
@@ -502,6 +555,9 @@ class  CameraBufferHandle_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> strides;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> offsets;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> sizes;
+  uint8_t has_modifier : 1;
+  uint8_t pad9_[7];
+  uint64_t modifier;
 
  private:
   friend class mojo::internal::MessageFragment<CameraBufferHandle_Data>;
@@ -509,7 +565,7 @@ class  CameraBufferHandle_Data {
   CameraBufferHandle_Data();
   ~CameraBufferHandle_Data() = delete;
 };
-static_assert(sizeof(CameraBufferHandle_Data) == 64,
+static_assert(sizeof(CameraBufferHandle_Data) == 80,
               "Bad sizeof(CameraBufferHandle_Data)");
 // Used by CameraBufferHandle::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -747,6 +803,107 @@ struct Camera3NotifyMsg_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Camera3NotifyMsg_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Camera3BufferRequest_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t stream_id;
+  uint32_t num_buffers_requested;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Camera3BufferRequest_Data>;
+
+  Camera3BufferRequest_Data();
+  ~Camera3BufferRequest_Data() = delete;
+};
+static_assert(sizeof(Camera3BufferRequest_Data) == 24,
+              "Bad sizeof(Camera3BufferRequest_Data)");
+// Used by Camera3BufferRequest::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Camera3BufferRequest_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Camera3BufferRequest_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Camera3BufferRequest_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Camera3BufferRequest_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Camera3BufferRequest_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Camera3StreamBufferRet_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t stream_id;
+  int32_t status;
+  uint8_t pad1_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Camera3StreamBuffer_Data>>> output_buffers;
+
+ private:
+  friend class mojo::internal::MessageFragment<Camera3StreamBufferRet_Data>;
+
+  Camera3StreamBufferRet_Data();
+  ~Camera3StreamBufferRet_Data() = delete;
+};
+static_assert(sizeof(Camera3StreamBufferRet_Data) == 32,
+              "Bad sizeof(Camera3StreamBufferRet_Data)");
+// Used by Camera3StreamBufferRet::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Camera3StreamBufferRet_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Camera3StreamBufferRet_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Camera3StreamBufferRet_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Camera3StreamBufferRet_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Camera3StreamBufferRet_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Camera3PhyscamMetadata_Data {
  public:
   static bool Validate(const void* data,

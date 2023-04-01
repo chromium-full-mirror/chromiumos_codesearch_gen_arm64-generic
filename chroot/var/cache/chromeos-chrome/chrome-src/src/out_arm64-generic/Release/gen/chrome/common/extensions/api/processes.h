@@ -31,7 +31,7 @@ namespace processes {
 
 // The types of the browser processes.
 enum  ProcessType {
-  PROCESS_TYPE_NONE,
+  PROCESS_TYPE_NONE = 0,
   PROCESS_TYPE_BROWSER,
   PROCESS_TYPE_RENDERER,
   PROCESS_TYPE_EXTENSION,
@@ -66,11 +66,17 @@ struct TaskInfo {
   // was successfully populated.
   static bool Populate(const base::Value::Dict& value, TaskInfo& out);
 
+  // Creates a deep copy of TaskInfo.
+  TaskInfo Clone() const;
+
   // Creates a TaskInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<TaskInfo> FromValueDeprecated(const base::Value& value);
 
-  // Creates a TaskInfo object from a base::Value, or nullopt on failure.
+  // Creates a TaskInfo object from a base::Value::Dict, or nullopt on failure.
   static absl::optional<TaskInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a TaskInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<TaskInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisTaskInfo object.
@@ -100,11 +106,17 @@ struct Cache {
   // successfully populated.
   static bool Populate(const base::Value::Dict& value, Cache& out);
 
+  // Creates a deep copy of Cache.
+  Cache Clone() const;
+
   // Creates a Cache object from a base::Value, or NULL on failure.
   static std::unique_ptr<Cache> FromValueDeprecated(const base::Value& value);
 
-  // Creates a Cache object from a base::Value, or nullopt on failure.
+  // Creates a Cache object from a base::Value::Dict, or nullopt on failure.
   static absl::optional<Cache> FromValue(const base::Value::Dict& value);
+
+  // Creates a Cache object from a base::Value, or nullopt on failure.
+  static absl::optional<Cache> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisCache object.
@@ -134,11 +146,17 @@ struct Process {
   // successfully populated.
   static bool Populate(const base::Value::Dict& value, Process& out);
 
+  // Creates a deep copy of Process.
+  Process Clone() const;
+
   // Creates a Process object from a base::Value, or NULL on failure.
   static std::unique_ptr<Process> FromValueDeprecated(const base::Value& value);
 
-  // Creates a Process object from a base::Value, or nullopt on failure.
+  // Creates a Process object from a base::Value::Dict, or nullopt on failure.
   static absl::optional<Process> FromValue(const base::Value::Dict& value);
+
+  // Creates a Process object from a base::Value, or nullopt on failure.
+  static absl::optional<Process> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisProcess object.
@@ -292,6 +310,12 @@ struct Params {
     // Populates a ProcessIds object from a base::Value& instance. Returns whether
     // |out| was successfully populated.
     static bool Populate(const base::Value& value, ProcessIds& out);
+
+    // Creates a deep copy of ProcessIds.
+    ProcessIds Clone() const;
+
+    // Creates a ProcessIds object from a base::Value, or nullopt on failure.
+    static absl::optional<ProcessIds> FromValue(const base::Value& value);
     // Choices:
     absl::optional<int> as_integer;
     absl::optional<std::vector<int>> as_integers;

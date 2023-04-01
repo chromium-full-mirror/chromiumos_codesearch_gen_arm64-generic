@@ -40,7 +40,7 @@ namespace types {
 // deleted when the incognito session ends (overrides regular and
 // incognito_persistent preferences).</li></ul>
 enum  ChromeSettingScope {
-  CHROME_SETTING_SCOPE_NONE,
+  CHROME_SETTING_SCOPE_NONE = 0,
   CHROME_SETTING_SCOPE_REGULAR,
   CHROME_SETTING_SCOPE_REGULAR_ONLY,
   CHROME_SETTING_SCOPE_INCOGNITO_PERSISTENT,
@@ -59,7 +59,7 @@ ChromeSettingScope ParseChromeSettingScope(base::StringPiece as_string);
 // controlled by this extension</li><li><var>controlled_by_this_extension</var>:
 // controlled by this extension</li></ul>
 enum  LevelOfControl {
-  LEVEL_OF_CONTROL_NONE,
+  LEVEL_OF_CONTROL_NONE = 0,
   LEVEL_OF_CONTROL_NOT_CONTROLLABLE,
   LEVEL_OF_CONTROL_CONTROLLED_BY_OTHER_EXTENSIONS,
   LEVEL_OF_CONTROL_CONTROLLABLE_BY_THIS_EXTENSION,
@@ -89,11 +89,18 @@ struct ChromeSetting {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, ChromeSetting& out);
 
+  // Creates a deep copy of ChromeSetting.
+  ChromeSetting Clone() const;
+
   // Creates a ChromeSetting object from a base::Value, or NULL on failure.
   static std::unique_ptr<ChromeSetting> FromValueDeprecated(const base::Value& value);
 
-  // Creates a ChromeSetting object from a base::Value, or nullopt on failure.
+  // Creates a ChromeSetting object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<ChromeSetting> FromValue(const base::Value::Dict& value);
+
+  // Creates a ChromeSetting object from a base::Value, or nullopt on failure.
+  static absl::optional<ChromeSetting> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisChromeSetting object.

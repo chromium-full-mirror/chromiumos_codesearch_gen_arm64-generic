@@ -51,6 +51,10 @@ class Camera3ShutterMsgDataView;
 
 class Camera3NotifyMsgDataView;
 
+class Camera3BufferRequestDataView;
+
+class Camera3StreamBufferRetDataView;
+
 class Camera3PhyscamMetadataDataView;
 
 class Camera3CaptureRequestDataView;
@@ -118,6 +122,20 @@ struct MojomTypeTraits<::cros::mojom::Camera3ShutterMsgDataView> {
 template <>
 struct MojomTypeTraits<::cros::mojom::Camera3NotifyMsgDataView> {
   using Data = ::cros::mojom::internal::Camera3NotifyMsg_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::cros::mojom::Camera3BufferRequestDataView> {
+  using Data = ::cros::mojom::internal::Camera3BufferRequest_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::cros::mojom::Camera3StreamBufferRetDataView> {
+  using Data = ::cros::mojom::internal::Camera3StreamBufferRet_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -195,10 +213,8 @@ enum class Camera3StreamType : int32_t {
   CAMERA3_STREAM_INPUT = 1,
   
   CAMERA3_STREAM_BIDIRECTIONAL = 2,
-  
-  CAMERA3_NUM_STREAM_TYPES = 3,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 2,
 };
 
  std::ostream& operator<<(std::ostream& os, Camera3StreamType value);
@@ -265,10 +281,8 @@ enum class Camera3MsgType : int32_t {
   CAMERA3_MSG_ERROR = 1,
   
   CAMERA3_MSG_SHUTTER = 2,
-  
-  CAMERA3_NUM_MESSAGES = 3,
   kMinValue = 1,
-  kMaxValue = 3,
+  kMaxValue = 2,
 };
 
  std::ostream& operator<<(std::ostream& os, Camera3MsgType value);
@@ -287,15 +301,57 @@ enum class Camera3ErrorMsgCode : int32_t {
   CAMERA3_MSG_ERROR_RESULT = 3,
   
   CAMERA3_MSG_ERROR_BUFFER = 4,
-  
-  CAMERA3_MSG_NUM_ERRORS = 5,
   kMinValue = 1,
-  kMaxValue = 5,
+  kMaxValue = 4,
 };
 
  std::ostream& operator<<(std::ostream& os, Camera3ErrorMsgCode value);
 inline bool IsKnownEnumValue(Camera3ErrorMsgCode value) {
   return internal::Camera3ErrorMsgCode_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class Camera3BufferRequestStatus : int32_t {
+  
+  CAMERA3_BUF_REQ_OK = 0,
+  
+  CAMERA3_BUF_REQ_FAILED_PARTIAL = 1,
+  
+  CAMERA3_BUF_REQ_FAILED_CONFIGURING = 2,
+  
+  CAMERA3_BUF_REQ_FAILED_ILLEGAL_ARGUMENTS = 3,
+  
+  CAMERA3_BUF_REQ_FAILED_UNKNOWN = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+};
+
+ std::ostream& operator<<(std::ostream& os, Camera3BufferRequestStatus value);
+inline bool IsKnownEnumValue(Camera3BufferRequestStatus value) {
+  return internal::Camera3BufferRequestStatus_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class Camera3StreamBufferReqStatus : int32_t {
+  
+  CAMERA3_PS_BUF_REQ_OK = 0,
+  
+  CAMERA3_PS_BUF_REQ_NO_BUFFER_AVAILABLE = 1,
+  
+  CAMERA3_PS_BUF_REQ_MAX_BUFFER_EXCEEDED = 2,
+  
+  CAMERA3_PS_BUF_REQ_STREAM_DISCONNECTED = 3,
+  
+  CAMERA3_PS_BUF_REQ_UNKNOWN_ERROR = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+};
+
+ std::ostream& operator<<(std::ostream& os, Camera3StreamBufferReqStatus value);
+inline bool IsKnownEnumValue(Camera3StreamBufferReqStatus value) {
+  return internal::Camera3StreamBufferReqStatus_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -634,6 +690,16 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
         pointer, output, message_);
   }
+  bool has_modifier() const {
+    if (data_->header_.version < 5)
+      return bool{};
+    return data_->has_modifier;
+  }
+  uint64_t modifier() const {
+    if (data_->header_.version < 5)
+      return uint64_t{};
+    return data_->modifier;
+  }
  private:
   internal::CameraBufferHandle_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -793,6 +859,76 @@ class Camera3NotifyMsgDataView {
   }
  private:
   internal::Camera3NotifyMsg_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Camera3BufferRequestDataView {
+ public:
+  Camera3BufferRequestDataView() = default;
+
+  Camera3BufferRequestDataView(
+      internal::Camera3BufferRequest_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t stream_id() const {
+    return data_->stream_id;
+  }
+  uint32_t num_buffers_requested() const {
+    return data_->num_buffers_requested;
+  }
+ private:
+  internal::Camera3BufferRequest_Data* data_ = nullptr;
+};
+
+
+class Camera3StreamBufferRetDataView {
+ public:
+  Camera3StreamBufferRetDataView() = default;
+
+  Camera3StreamBufferRetDataView(
+      internal::Camera3StreamBufferRet_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t stream_id() const {
+    return data_->stream_id;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
+    auto data_value = data_->status;
+    return mojo::internal::Deserialize<::cros::mojom::Camera3StreamBufferReqStatus>(
+        data_value, output);
+  }
+  Camera3StreamBufferReqStatus status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::Camera3StreamBufferReqStatus>(data_->status));
+  }
+  inline void GetOutputBuffersDataView(
+      mojo::ArrayDataView<Camera3StreamBufferDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOutputBuffers(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferDataView>, UserType>(),
+    "Attempting to read the optional `output_buffers` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadOutputBuffers` instead "
+    "of `ReadOutputBuffers if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->output_buffers.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Camera3StreamBufferRet_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1092,6 +1228,14 @@ struct hash<::cros::mojom::Camera3ErrorMsgCode>
     : public mojo::internal::EnumHashImpl<::cros::mojom::Camera3ErrorMsgCode> {};
 
 template <>
+struct hash<::cros::mojom::Camera3BufferRequestStatus>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::Camera3BufferRequestStatus> {};
+
+template <>
+struct hash<::cros::mojom::Camera3StreamBufferReqStatus>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::Camera3StreamBufferReqStatus> {};
+
+template <>
 struct hash<::cros::mojom::Camera3RequestTemplate>
     : public mojo::internal::EnumHashImpl<::cros::mojom::Camera3RequestTemplate> {};
 
@@ -1238,6 +1382,46 @@ struct Serializer<::cros::mojom::Camera3ErrorMsgCode, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::cros::mojom::Camera3ErrorMsgCode>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::Camera3BufferRequestStatus, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::Camera3BufferRequestStatus, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::Camera3BufferRequestStatus>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::Camera3StreamBufferReqStatus, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::Camera3StreamBufferReqStatus, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::Camera3StreamBufferReqStatus>(input)), output);
   }
 };
 
@@ -1496,6 +1680,8 @@ struct Serializer<::cros::mojom::CameraBufferHandleDataView, MaybeConstUserType>
         in_sizes, sizes_fragment, &sizes_validate_params);
     fragment->sizes.Set(
         sizes_fragment.is_null() ? nullptr : sizes_fragment.data());
+    fragment->has_modifier = Traits::has_modifier(input);
+    fragment->modifier = Traits::modifier(input);
   }
 
   static bool Deserialize(::cros::mojom::internal::CameraBufferHandle_Data* input,
@@ -1657,6 +1843,79 @@ struct Serializer<::cros::mojom::Camera3NotifyMsgDataView, MaybeConstUserType> {
       return CallSetToNullIfExists<Traits>(output);
 
     ::cros::mojom::Camera3NotifyMsgDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::Camera3BufferRequestDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::cros::mojom::Camera3BufferRequestDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::cros::mojom::internal::Camera3BufferRequest_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->stream_id = Traits::stream_id(input);
+    fragment->num_buffers_requested = Traits::num_buffers_requested(input);
+  }
+
+  static bool Deserialize(::cros::mojom::internal::Camera3BufferRequest_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::cros::mojom::Camera3BufferRequestDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::Camera3StreamBufferRetDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::cros::mojom::Camera3StreamBufferRetDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::cros::mojom::internal::Camera3StreamBufferRet_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->stream_id = Traits::stream_id(input);
+    mojo::internal::Serialize<::cros::mojom::Camera3StreamBufferReqStatus>(
+        Traits::status(input), &fragment->status);
+    decltype(Traits::output_buffers(input)) in_output_buffers = Traits::output_buffers(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->output_buffers)::BaseType>
+        output_buffers_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& output_buffers_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferDataView>>(
+        in_output_buffers, output_buffers_fragment, &output_buffers_validate_params);
+    fragment->output_buffers.Set(
+        output_buffers_fragment.is_null() ? nullptr : output_buffers_fragment.data());
+  }
+
+  static bool Deserialize(::cros::mojom::internal::Camera3StreamBufferRet_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::cros::mojom::Camera3StreamBufferRetDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -2018,6 +2277,15 @@ inline void Camera3NotifyMsgDataView::GetMessageDataView(
 }
 
 
+
+
+inline void Camera3StreamBufferRetDataView::GetOutputBuffersDataView(
+    mojo::ArrayDataView<Camera3StreamBufferDataView>* output) {
+  auto pointer = data_->output_buffers.Get();
+  *output = mojo::ArrayDataView<Camera3StreamBufferDataView>(pointer, message_);
+}
+
+
 inline void Camera3PhyscamMetadataDataView::GetMetadataDataView(
     ::cros::mojom::CameraMetadataDataView* output) {
   auto pointer = data_->metadata.Get();
@@ -2153,6 +2421,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3ErrorMsgCode> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3ErrorMsgCode value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::Camera3BufferRequestStatus> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3BufferRequestStatus value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::Camera3StreamBufferReqStatus> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3StreamBufferReqStatus value);
 };
 
 } // namespace perfetto

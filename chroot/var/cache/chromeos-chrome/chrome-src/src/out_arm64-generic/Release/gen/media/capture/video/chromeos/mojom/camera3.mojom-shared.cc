@@ -68,8 +68,6 @@ NOINLINE static const char* Camera3StreamTypeToStringHelper(Camera3StreamType va
       return "CAMERA3_STREAM_INPUT";
     case Camera3StreamType::CAMERA3_STREAM_BIDIRECTIONAL:
       return "CAMERA3_STREAM_BIDIRECTIONAL";
-    case Camera3StreamType::CAMERA3_NUM_STREAM_TYPES:
-      return "CAMERA3_NUM_STREAM_TYPES";
     default:
       return nullptr;
   }
@@ -170,8 +168,6 @@ NOINLINE static const char* Camera3MsgTypeToStringHelper(Camera3MsgType value) {
       return "CAMERA3_MSG_ERROR";
     case Camera3MsgType::CAMERA3_MSG_SHUTTER:
       return "CAMERA3_MSG_SHUTTER";
-    case Camera3MsgType::CAMERA3_NUM_MESSAGES:
-      return "CAMERA3_NUM_MESSAGES";
     default:
       return nullptr;
   }
@@ -200,8 +196,6 @@ NOINLINE static const char* Camera3ErrorMsgCodeToStringHelper(Camera3ErrorMsgCod
       return "CAMERA3_MSG_ERROR_RESULT";
     case Camera3ErrorMsgCode::CAMERA3_MSG_ERROR_BUFFER:
       return "CAMERA3_MSG_ERROR_BUFFER";
-    case Camera3ErrorMsgCode::CAMERA3_MSG_NUM_ERRORS:
-      return "CAMERA3_MSG_NUM_ERRORS";
     default:
       return nullptr;
   }
@@ -217,6 +211,66 @@ std::string Camera3ErrorMsgCodeToString(Camera3ErrorMsgCode value) {
 
 std::ostream& operator<<(std::ostream& os, Camera3ErrorMsgCode value) {
   return os << Camera3ErrorMsgCodeToString(value);
+}
+
+NOINLINE static const char* Camera3BufferRequestStatusToStringHelper(Camera3BufferRequestStatus value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Camera3BufferRequestStatus::CAMERA3_BUF_REQ_OK:
+      return "CAMERA3_BUF_REQ_OK";
+    case Camera3BufferRequestStatus::CAMERA3_BUF_REQ_FAILED_PARTIAL:
+      return "CAMERA3_BUF_REQ_FAILED_PARTIAL";
+    case Camera3BufferRequestStatus::CAMERA3_BUF_REQ_FAILED_CONFIGURING:
+      return "CAMERA3_BUF_REQ_FAILED_CONFIGURING";
+    case Camera3BufferRequestStatus::CAMERA3_BUF_REQ_FAILED_ILLEGAL_ARGUMENTS:
+      return "CAMERA3_BUF_REQ_FAILED_ILLEGAL_ARGUMENTS";
+    case Camera3BufferRequestStatus::CAMERA3_BUF_REQ_FAILED_UNKNOWN:
+      return "CAMERA3_BUF_REQ_FAILED_UNKNOWN";
+    default:
+      return nullptr;
+  }
+}
+
+std::string Camera3BufferRequestStatusToString(Camera3BufferRequestStatus value) {
+  const char *str = Camera3BufferRequestStatusToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Camera3BufferRequestStatus value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Camera3BufferRequestStatus value) {
+  return os << Camera3BufferRequestStatusToString(value);
+}
+
+NOINLINE static const char* Camera3StreamBufferReqStatusToStringHelper(Camera3StreamBufferReqStatus value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Camera3StreamBufferReqStatus::CAMERA3_PS_BUF_REQ_OK:
+      return "CAMERA3_PS_BUF_REQ_OK";
+    case Camera3StreamBufferReqStatus::CAMERA3_PS_BUF_REQ_NO_BUFFER_AVAILABLE:
+      return "CAMERA3_PS_BUF_REQ_NO_BUFFER_AVAILABLE";
+    case Camera3StreamBufferReqStatus::CAMERA3_PS_BUF_REQ_MAX_BUFFER_EXCEEDED:
+      return "CAMERA3_PS_BUF_REQ_MAX_BUFFER_EXCEEDED";
+    case Camera3StreamBufferReqStatus::CAMERA3_PS_BUF_REQ_STREAM_DISCONNECTED:
+      return "CAMERA3_PS_BUF_REQ_STREAM_DISCONNECTED";
+    case Camera3StreamBufferReqStatus::CAMERA3_PS_BUF_REQ_UNKNOWN_ERROR:
+      return "CAMERA3_PS_BUF_REQ_UNKNOWN_ERROR";
+    default:
+      return nullptr;
+  }
+}
+
+std::string Camera3StreamBufferReqStatusToString(Camera3StreamBufferReqStatus value) {
+  const char *str = Camera3StreamBufferReqStatusToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Camera3StreamBufferReqStatus value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Camera3StreamBufferReqStatus value) {
+  return os << Camera3StreamBufferReqStatusToString(value);
 }
 
 NOINLINE static const char* Camera3RequestTemplateToStringHelper(Camera3RequestTemplate value) {
@@ -493,6 +547,7 @@ bool CameraBufferHandle_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 56 },
     { 3, 64 },
+    { 5, 80 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -555,7 +610,7 @@ bool CameraBufferHandle_Data::Validate(
 }
 
 CameraBufferHandle_Data::CameraBufferHandle_Data()
-    : header_({sizeof(*this), 3}) {}
+    : header_({sizeof(*this), 5}) {}
 
 
 // static
@@ -688,6 +743,64 @@ bool Camera3NotifyMsg_Data::Validate(
 }
 
 Camera3NotifyMsg_Data::Camera3NotifyMsg_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Camera3BufferRequest_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Camera3BufferRequest_Data* object =
+      static_cast<const Camera3BufferRequest_Data*>(data);
+
+  return true;
+}
+
+Camera3BufferRequest_Data::Camera3BufferRequest_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Camera3StreamBufferRet_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Camera3StreamBufferRet_Data* object =
+      static_cast<const Camera3StreamBufferRet_Data*>(data);
+
+
+  if (!::cros::mojom::internal::Camera3StreamBufferReqStatus_Data
+        ::Validate(object->status, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& output_buffers_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->output_buffers, validation_context,
+                                         &output_buffers_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Camera3StreamBufferRet_Data::Camera3StreamBufferRet_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -888,6 +1001,109 @@ bool Camera3CallbackOps_Notify_Params_Data::Validate(
 }
 
 Camera3CallbackOps_Notify_Params_Data::Camera3CallbackOps_Notify_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Camera3CallbackOps_RequestStreamBuffers_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Camera3CallbackOps_RequestStreamBuffers_Params_Data* object =
+      static_cast<const Camera3CallbackOps_RequestStreamBuffers_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->buffer_reqs, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& buffer_reqs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->buffer_reqs, validation_context,
+                                         &buffer_reqs_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Camera3CallbackOps_RequestStreamBuffers_Params_Data::Camera3CallbackOps_RequestStreamBuffers_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data* object =
+      static_cast<const Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data*>(data);
+
+
+  if (!::cros::mojom::internal::Camera3BufferRequestStatus_Data
+        ::Validate(object->result, validation_context))
+    return false;
+
+  constexpr const mojo::internal::ContainerValidateParams& returned_buf_reqs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->returned_buf_reqs, validation_context,
+                                         &returned_buf_reqs_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data::Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Camera3CallbackOps_ReturnStreamBuffers_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Camera3CallbackOps_ReturnStreamBuffers_Params_Data* object =
+      static_cast<const Camera3CallbackOps_ReturnStreamBuffers_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->buffers, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& buffers_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->buffers, validation_context,
+                                         &buffers_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Camera3CallbackOps_ReturnStreamBuffers_Params_Data::Camera3CallbackOps_ReturnStreamBuffers_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1388,6 +1604,40 @@ bool Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data
 Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Camera3DeviceOps_SignalStreamFlush_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Camera3DeviceOps_SignalStreamFlush_Params_Data* object =
+      static_cast<const Camera3DeviceOps_SignalStreamFlush_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->stream_ids, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& stream_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->stream_ids, validation_context,
+                                         &stream_ids_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Camera3DeviceOps_SignalStreamFlush_Params_Data::Camera3DeviceOps_SignalStreamFlush_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros
@@ -1458,6 +1708,26 @@ namespace perfetto {
 void TraceFormatTraits<::cros::mojom::Camera3ErrorMsgCode>::WriteIntoTrace(
    perfetto::TracedValue context, ::cros::mojom::Camera3ErrorMsgCode value) {
   return std::move(context).WriteString(::cros::mojom::Camera3ErrorMsgCodeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::Camera3BufferRequestStatus>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::Camera3BufferRequestStatus value) {
+  return std::move(context).WriteString(::cros::mojom::Camera3BufferRequestStatusToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::Camera3StreamBufferReqStatus>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::Camera3StreamBufferReqStatus value) {
+  return std::move(context).WriteString(::cros::mojom::Camera3StreamBufferReqStatusToString(value));
 }
 
 } // namespace perfetto

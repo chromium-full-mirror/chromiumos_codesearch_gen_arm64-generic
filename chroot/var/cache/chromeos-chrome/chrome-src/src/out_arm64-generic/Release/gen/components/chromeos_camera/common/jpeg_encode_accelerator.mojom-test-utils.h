@@ -18,7 +18,7 @@ class  JpegEncodeAcceleratorInterceptorForTesting : public JpegEncodeAccelerator
   virtual JpegEncodeAccelerator* GetForwardingInterface() = 0;
   void Initialize(InitializeCallback callback) override;
   void EncodeWithFD(int32_t task_id, ::mojo::ScopedHandle input_fd, uint32_t input_buffer_size, int32_t coded_size_width, int32_t coded_size_height, ::mojo::ScopedHandle exif_fd, uint32_t exif_buffer_size, ::mojo::ScopedHandle output_fd, uint32_t output_buffer_size, EncodeWithFDCallback callback) override;
-  void EncodeWithDmaBuf(int32_t task_id, uint32_t input_format, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> input_planes, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, EncodeWithDmaBufCallback callback) override;
+  void EncodeWithDmaBuf(int32_t task_id, uint32_t input_format, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> input_planes, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, bool has_input_modifier, uint64_t input_modifier, EncodeWithDmaBufCallback callback) override;
 };
 class  JpegEncodeAcceleratorAsyncWaiter {
  public:
@@ -35,7 +35,7 @@ class  JpegEncodeAcceleratorAsyncWaiter {
       int32_t task_id, ::mojo::ScopedHandle input_fd, uint32_t input_buffer_size, int32_t coded_size_width, int32_t coded_size_height, ::mojo::ScopedHandle exif_fd, uint32_t exif_buffer_size, ::mojo::ScopedHandle output_fd, uint32_t output_buffer_size, int32_t* out_task_id, uint32_t* out_encoded_buffer_size, ::chromeos_camera::JpegEncodeAccelerator::Status* out_status);
   
   void EncodeWithDmaBuf(
-      int32_t task_id, uint32_t input_format, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> input_planes, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, uint32_t* out_encoded_buffer_size, ::chromeos_camera::JpegEncodeAccelerator::Status* out_status);
+      int32_t task_id, uint32_t input_format, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> input_planes, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, bool has_input_modifier, uint64_t input_modifier, uint32_t* out_encoded_buffer_size, ::chromeos_camera::JpegEncodeAccelerator::Status* out_status);
   
 
  private:

@@ -18,6 +18,8 @@ class  Camera3CallbackOpsInterceptorForTesting : public Camera3CallbackOps {
   virtual Camera3CallbackOps* GetForwardingInterface() = 0;
   void ProcessCaptureResult(Camera3CaptureResultPtr result) override;
   void Notify(Camera3NotifyMsgPtr msg) override;
+  void RequestStreamBuffers(std::vector<Camera3BufferRequestPtr> buffer_reqs, RequestStreamBuffersCallback callback) override;
+  void ReturnStreamBuffers(std::vector<Camera3StreamBufferPtr> buffers) override;
 };
 class  Camera3CallbackOpsAsyncWaiter {
  public:
@@ -27,6 +29,9 @@ class  Camera3CallbackOpsAsyncWaiter {
   Camera3CallbackOpsAsyncWaiter& operator=(const Camera3CallbackOpsAsyncWaiter&) = delete;
 
   ~Camera3CallbackOpsAsyncWaiter();
+  void RequestStreamBuffers(
+      std::vector<Camera3BufferRequestPtr> buffer_reqs, Camera3BufferRequestStatus* out_result, absl::optional<std::vector<Camera3StreamBufferRetPtr>>* out_returned_buf_reqs);
+  
 
  private:
   Camera3CallbackOps* const proxy_;
@@ -44,6 +49,7 @@ class  Camera3DeviceOpsInterceptorForTesting : public Camera3DeviceOps {
   void RegisterBuffer(uint64_t buffer_id, Camera3DeviceOps::BufferType type, std::vector<::mojo::ScopedHandle> fds, uint32_t drm_format, HalPixelFormat hal_pixel_format, uint32_t width, uint32_t height, const std::vector<uint32_t>& strides, const std::vector<uint32_t>& offsets, RegisterBufferCallback callback) override;
   void Close(CloseCallback callback) override;
   void ConfigureStreamsAndGetAllocatedBuffers(Camera3StreamConfigurationPtr config, ConfigureStreamsAndGetAllocatedBuffersCallback callback) override;
+  void SignalStreamFlush(const std::vector<uint64_t>& stream_ids) override;
 };
 class  Camera3DeviceOpsAsyncWaiter {
  public:

@@ -62,6 +62,11 @@ CreateOptions::CreateOptions()
 CreateOptions::~CreateOptions() = default;
 CreateOptions::CreateOptions(CreateOptions&& rhs) = default;
 CreateOptions& CreateOptions::operator=(CreateOptions&& rhs) = default;
+CreateOptions CreateOptions::Clone() const {
+  CreateOptions out;
+  return out;
+}
+
 // static
 bool CreateOptions::Populate(
     const base::Value::Dict& dict, CreateOptions& out) {
@@ -92,10 +97,21 @@ std::unique_ptr<CreateOptions> CreateOptions::FromValueDeprecated(const base::Va
 
 // static
 absl::optional<CreateOptions> CreateOptions::FromValue(const base::Value::Dict& value) {
-  absl::optional<CreateOptions> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  CreateOptions out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<CreateOptions> CreateOptions::FromValue(const base::Value& value) {
+  CreateOptions out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -113,6 +129,12 @@ CreateInfo::CreateInfo()
 CreateInfo::~CreateInfo() = default;
 CreateInfo::CreateInfo(CreateInfo&& rhs) = default;
 CreateInfo& CreateInfo::operator=(CreateInfo&& rhs) = default;
+CreateInfo CreateInfo::Clone() const {
+  CreateInfo out;
+  out.socket_id = socket_id;
+  return out;
+}
+
 // static
 bool CreateInfo::Populate(
     const base::Value::Dict& dict, CreateInfo& out) {
@@ -155,10 +177,21 @@ std::unique_ptr<CreateInfo> CreateInfo::FromValueDeprecated(const base::Value& v
 
 // static
 absl::optional<CreateInfo> CreateInfo::FromValue(const base::Value::Dict& value) {
-  absl::optional<CreateInfo> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  CreateInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<CreateInfo> CreateInfo::FromValue(const base::Value& value) {
+  CreateInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -178,6 +211,13 @@ AcceptInfo::AcceptInfo()
 AcceptInfo::~AcceptInfo() = default;
 AcceptInfo::AcceptInfo(AcceptInfo&& rhs) = default;
 AcceptInfo& AcceptInfo::operator=(AcceptInfo&& rhs) = default;
+AcceptInfo AcceptInfo::Clone() const {
+  AcceptInfo out;
+  out.result_code = result_code;
+  out.socket_id = socket_id;
+  return out;
+}
+
 // static
 bool AcceptInfo::Populate(
     const base::Value::Dict& dict, AcceptInfo& out) {
@@ -232,10 +272,21 @@ std::unique_ptr<AcceptInfo> AcceptInfo::FromValueDeprecated(const base::Value& v
 
 // static
 absl::optional<AcceptInfo> AcceptInfo::FromValue(const base::Value::Dict& value) {
-  absl::optional<AcceptInfo> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  AcceptInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<AcceptInfo> AcceptInfo::FromValue(const base::Value& value) {
+  AcceptInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -259,6 +310,13 @@ ReadInfo::ReadInfo()
 ReadInfo::~ReadInfo() = default;
 ReadInfo::ReadInfo(ReadInfo&& rhs) = default;
 ReadInfo& ReadInfo::operator=(ReadInfo&& rhs) = default;
+ReadInfo ReadInfo::Clone() const {
+  ReadInfo out;
+  out.result_code = result_code;
+  out.data = data;
+  return out;
+}
+
 // static
 bool ReadInfo::Populate(
     const base::Value::Dict& dict, ReadInfo& out) {
@@ -314,10 +372,21 @@ std::unique_ptr<ReadInfo> ReadInfo::FromValueDeprecated(const base::Value& value
 
 // static
 absl::optional<ReadInfo> ReadInfo::FromValue(const base::Value::Dict& value) {
-  absl::optional<ReadInfo> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  ReadInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<ReadInfo> ReadInfo::FromValue(const base::Value& value) {
+  ReadInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -339,6 +408,12 @@ WriteInfo::WriteInfo()
 WriteInfo::~WriteInfo() = default;
 WriteInfo::WriteInfo(WriteInfo&& rhs) = default;
 WriteInfo& WriteInfo::operator=(WriteInfo&& rhs) = default;
+WriteInfo WriteInfo::Clone() const {
+  WriteInfo out;
+  out.bytes_written = bytes_written;
+  return out;
+}
+
 // static
 bool WriteInfo::Populate(
     const base::Value::Dict& dict, WriteInfo& out) {
@@ -381,10 +456,21 @@ std::unique_ptr<WriteInfo> WriteInfo::FromValueDeprecated(const base::Value& val
 
 // static
 absl::optional<WriteInfo> WriteInfo::FromValue(const base::Value::Dict& value) {
-  absl::optional<WriteInfo> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  WriteInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<WriteInfo> WriteInfo::FromValue(const base::Value& value) {
+  WriteInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -405,6 +491,15 @@ port(0) {}
 RecvFromInfo::~RecvFromInfo() = default;
 RecvFromInfo::RecvFromInfo(RecvFromInfo&& rhs) = default;
 RecvFromInfo& RecvFromInfo::operator=(RecvFromInfo&& rhs) = default;
+RecvFromInfo RecvFromInfo::Clone() const {
+  RecvFromInfo out;
+  out.result_code = result_code;
+  out.data = data;
+  out.address = address;
+  out.port = port;
+  return out;
+}
+
 // static
 bool RecvFromInfo::Populate(
     const base::Value::Dict& dict, RecvFromInfo& out) {
@@ -484,10 +579,21 @@ std::unique_ptr<RecvFromInfo> RecvFromInfo::FromValueDeprecated(const base::Valu
 
 // static
 absl::optional<RecvFromInfo> RecvFromInfo::FromValue(const base::Value::Dict& value) {
-  absl::optional<RecvFromInfo> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  RecvFromInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<RecvFromInfo> RecvFromInfo::FromValue(const base::Value& value) {
+  RecvFromInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -508,12 +614,23 @@ base::Value::Dict RecvFromInfo::ToValue() const {
 
 
 SocketInfo::SocketInfo()
-: socket_type(SOCKET_TYPE_NONE),
+: socket_type(),
 connected(false) {}
 
 SocketInfo::~SocketInfo() = default;
 SocketInfo::SocketInfo(SocketInfo&& rhs) = default;
 SocketInfo& SocketInfo::operator=(SocketInfo&& rhs) = default;
+SocketInfo SocketInfo::Clone() const {
+  SocketInfo out;
+  out.socket_type = socket_type;
+  out.connected = connected;
+  out.peer_address = peer_address;
+  out.peer_port = peer_port;
+  out.local_address = local_address;
+  out.local_port = local_port;
+  return out;
+}
+
 // static
 bool SocketInfo::Populate(
     const base::Value::Dict& dict, SocketInfo& out) {
@@ -527,7 +644,7 @@ bool SocketInfo::Populate(
       return false;
     }
     out.socket_type = ParseSocketType(*socket_type_as_string);
-    if (out.socket_type == SOCKET_TYPE_NONE) {
+    if (out.socket_type == SocketType()) {
       return false;
     }
   }
@@ -619,10 +736,21 @@ std::unique_ptr<SocketInfo> SocketInfo::FromValueDeprecated(const base::Value& v
 
 // static
 absl::optional<SocketInfo> SocketInfo::FromValue(const base::Value::Dict& value) {
-  absl::optional<SocketInfo> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  SocketInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<SocketInfo> SocketInfo::FromValue(const base::Value& value) {
+  SocketInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -660,6 +788,14 @@ NetworkInterface::NetworkInterface()
 NetworkInterface::~NetworkInterface() = default;
 NetworkInterface::NetworkInterface(NetworkInterface&& rhs) = default;
 NetworkInterface& NetworkInterface::operator=(NetworkInterface&& rhs) = default;
+NetworkInterface NetworkInterface::Clone() const {
+  NetworkInterface out;
+  out.name = name;
+  out.address = address;
+  out.prefix_length = prefix_length;
+  return out;
+}
+
 // static
 bool NetworkInterface::Populate(
     const base::Value::Dict& dict, NetworkInterface& out) {
@@ -726,10 +862,21 @@ std::unique_ptr<NetworkInterface> NetworkInterface::FromValueDeprecated(const ba
 
 // static
 absl::optional<NetworkInterface> NetworkInterface::FromValue(const base::Value::Dict& value) {
-  absl::optional<NetworkInterface> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  NetworkInterface out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<NetworkInterface> NetworkInterface::FromValue(const base::Value& value) {
+  NetworkInterface out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -753,6 +900,13 @@ TLSVersionConstraints::TLSVersionConstraints()
 TLSVersionConstraints::~TLSVersionConstraints() = default;
 TLSVersionConstraints::TLSVersionConstraints(TLSVersionConstraints&& rhs) = default;
 TLSVersionConstraints& TLSVersionConstraints::operator=(TLSVersionConstraints&& rhs) = default;
+TLSVersionConstraints TLSVersionConstraints::Clone() const {
+  TLSVersionConstraints out;
+  out.min = min;
+  out.max = max;
+  return out;
+}
+
 // static
 bool TLSVersionConstraints::Populate(
     const base::Value::Dict& dict, TLSVersionConstraints& out) {
@@ -807,10 +961,21 @@ std::unique_ptr<TLSVersionConstraints> TLSVersionConstraints::FromValueDeprecate
 
 // static
 absl::optional<TLSVersionConstraints> TLSVersionConstraints::FromValue(const base::Value::Dict& value) {
-  absl::optional<TLSVersionConstraints> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  TLSVersionConstraints out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<TLSVersionConstraints> TLSVersionConstraints::FromValue(const base::Value& value) {
+  TLSVersionConstraints out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -836,6 +1001,14 @@ SecureOptions::SecureOptions()
 SecureOptions::~SecureOptions() = default;
 SecureOptions::SecureOptions(SecureOptions&& rhs) = default;
 SecureOptions& SecureOptions::operator=(SecureOptions&& rhs) = default;
+SecureOptions SecureOptions::Clone() const {
+  SecureOptions out;
+  if (tls_version) {
+    out.tls_version = tls_version->Clone();
+  }
+  return out;
+}
+
 // static
 bool SecureOptions::Populate(
     const base::Value::Dict& dict, SecureOptions& out) {
@@ -881,10 +1054,21 @@ std::unique_ptr<SecureOptions> SecureOptions::FromValueDeprecated(const base::Va
 
 // static
 absl::optional<SecureOptions> SecureOptions::FromValue(const base::Value::Dict& value) {
-  absl::optional<SecureOptions> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  SecureOptions out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<SecureOptions> SecureOptions::FromValue(const base::Value& value) {
+  SecureOptions out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -928,7 +1112,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
         return absl::nullopt;
       }
       params.type = ParseSocketType(*socket_type_as_string);
-      if (params.type == SOCKET_TYPE_NONE) {
+      if (params.type == SocketType()) {
         return absl::nullopt;
       }
     }

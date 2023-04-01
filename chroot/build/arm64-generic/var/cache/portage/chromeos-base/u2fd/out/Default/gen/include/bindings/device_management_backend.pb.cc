@@ -130,7 +130,6 @@ PROTOBUF_CONSTEXPR DeviceRegisterResponse::DeviceRegisterResponse(
   , /*decltype(_impl_.device_management_token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.machine_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.configuration_seed_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.directory_api_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.enrollment_type_)*/0} {}
 struct DeviceRegisterResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceRegisterResponseDefaultTypeInternal()
@@ -1329,23 +1328,6 @@ struct ExtensionDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExtensionDefaultTypeInternal _Extension_default_instance_;
-PROTOBUF_CONSTEXPR Plugin::Plugin(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_._has_bits_)*/{}
-  , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.filename_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.description_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
-struct PluginDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PluginDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~PluginDefaultTypeInternal() {}
-  union {
-    Plugin _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PluginDefaultTypeInternal _Plugin_default_instance_;
 PROTOBUF_CONSTEXPR Policy::Policy(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -1423,7 +1405,6 @@ PROTOBUF_CONSTEXPR BrowserReport::BrowserReport(
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.chrome_user_profile_reports_)*/{}
   , /*decltype(_impl_.chrome_user_profile_infos_)*/{}
-  , /*decltype(_impl_.plugins_)*/{}
   , /*decltype(_impl_.browser_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.executable_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.installed_browser_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -12030,13 +12011,10 @@ class DeviceRegisterResponse::_Internal {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_enrollment_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_configuration_seed(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
-  }
-  static void set_has_directory_api_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
     return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
@@ -12059,7 +12037,6 @@ DeviceRegisterResponse::DeviceRegisterResponse(const DeviceRegisterResponse& fro
     , decltype(_impl_.device_management_token_){}
     , decltype(_impl_.machine_name_){}
     , decltype(_impl_.configuration_seed_){}
-    , decltype(_impl_.directory_api_id_){}
     , decltype(_impl_.enrollment_type_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -12087,14 +12064,6 @@ DeviceRegisterResponse::DeviceRegisterResponse(const DeviceRegisterResponse& fro
     _this->_impl_.configuration_seed_.Set(from._internal_configuration_seed(), 
       _this->GetArenaForAllocation());
   }
-  _impl_.directory_api_id_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.directory_api_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_directory_api_id()) {
-    _this->_impl_.directory_api_id_.Set(from._internal_directory_api_id(), 
-      _this->GetArenaForAllocation());
-  }
   _this->_impl_.enrollment_type_ = from._impl_.enrollment_type_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceRegisterResponse)
 }
@@ -12110,7 +12079,6 @@ inline void DeviceRegisterResponse::SharedCtor(
     , decltype(_impl_.device_management_token_){}
     , decltype(_impl_.machine_name_){}
     , decltype(_impl_.configuration_seed_){}
-    , decltype(_impl_.directory_api_id_){}
     , decltype(_impl_.enrollment_type_){0}
   };
   _impl_.device_management_token_.InitDefault();
@@ -12124,10 +12092,6 @@ inline void DeviceRegisterResponse::SharedCtor(
   _impl_.configuration_seed_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.configuration_seed_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.directory_api_id_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.directory_api_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -12146,7 +12110,6 @@ inline void DeviceRegisterResponse::SharedDtor() {
   _impl_.device_management_token_.Destroy();
   _impl_.machine_name_.Destroy();
   _impl_.configuration_seed_.Destroy();
-  _impl_.directory_api_id_.Destroy();
 }
 
 void DeviceRegisterResponse::SetCachedSize(int size) const {
@@ -12161,7 +12124,7 @@ void DeviceRegisterResponse::Clear() {
 
   _impl_.user_affiliation_ids_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _impl_.device_management_token_.ClearNonDefaultToEmpty();
     }
@@ -12170,9 +12133,6 @@ void DeviceRegisterResponse::Clear() {
     }
     if (cached_has_bits & 0x00000004u) {
       _impl_.configuration_seed_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000008u) {
-      _impl_.directory_api_id_.ClearNonDefaultToEmpty();
     }
   }
   _impl_.enrollment_type_ = 0;
@@ -12241,15 +12201,6 @@ const char* DeviceRegisterResponse::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
-      // optional string directory_api_id = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
-          auto str = _internal_mutable_directory_api_id();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -12294,7 +12245,7 @@ uint8_t* DeviceRegisterResponse::_InternalSerialize(
   }
 
   // optional .enterprise_management.DeviceRegisterResponse.DeviceMode enrollment_type = 3 [default = ENTERPRISE];
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_enrollment_type(), target);
@@ -12310,12 +12261,6 @@ uint8_t* DeviceRegisterResponse::_InternalSerialize(
   for (int i = 0, n = this->_internal_user_affiliation_ids_size(); i < n; i++) {
     const auto& s = this->_internal_user_affiliation_ids(i);
     target = stream->WriteString(5, s, target);
-  }
-
-  // optional string directory_api_id = 6;
-  if (cached_has_bits & 0x00000008u) {
-    target = stream->WriteStringMaybeAliased(
-        6, this->_internal_directory_api_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -12349,7 +12294,7 @@ size_t DeviceRegisterResponse::ByteSizeLong() const {
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000001eu) {
+  if (cached_has_bits & 0x0000000eu) {
     // optional string machine_name = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
@@ -12364,15 +12309,8 @@ size_t DeviceRegisterResponse::ByteSizeLong() const {
           this->_internal_configuration_seed());
     }
 
-    // optional string directory_api_id = 6;
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_directory_api_id());
-    }
-
     // optional .enterprise_management.DeviceRegisterResponse.DeviceMode enrollment_type = 3 [default = ENTERPRISE];
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_enrollment_type());
     }
@@ -12401,7 +12339,7 @@ void DeviceRegisterResponse::MergeFrom(const DeviceRegisterResponse& from) {
 
   _this->_impl_.user_affiliation_ids_.MergeFrom(from._impl_.user_affiliation_ids_);
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_device_management_token(from._internal_device_management_token());
     }
@@ -12412,9 +12350,6 @@ void DeviceRegisterResponse::MergeFrom(const DeviceRegisterResponse& from) {
       _this->_internal_set_configuration_seed(from._internal_configuration_seed());
     }
     if (cached_has_bits & 0x00000008u) {
-      _this->_internal_set_directory_api_id(from._internal_directory_api_id());
-    }
-    if (cached_has_bits & 0x00000010u) {
       _this->_impl_.enrollment_type_ = from._impl_.enrollment_type_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
@@ -12452,10 +12387,6 @@ void DeviceRegisterResponse::InternalSwap(DeviceRegisterResponse* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.configuration_seed_, lhs_arena,
       &other->_impl_.configuration_seed_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.directory_api_id_, lhs_arena,
-      &other->_impl_.directory_api_id_, rhs_arena
   );
   swap(_impl_.enrollment_type_, other->_impl_.enrollment_type_);
 }
@@ -37611,378 +37542,6 @@ std::string Extension::GetTypeName() const {
 
 // ===================================================================
 
-class Plugin::_Internal {
- public:
-  using HasBits = decltype(std::declval<Plugin>()._impl_._has_bits_);
-  static void set_has_name(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_version(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
-  static void set_has_filename(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_description(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
-};
-
-Plugin::Plugin(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:enterprise_management.Plugin)
-}
-Plugin::Plugin(const Plugin& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  Plugin* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.version_){}
-    , decltype(_impl_.filename_){}
-    , decltype(_impl_.description_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _impl_.name_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_name()) {
-    _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.version_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_version()) {
-    _this->_impl_.version_.Set(from._internal_version(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.filename_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.filename_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_filename()) {
-    _this->_impl_.filename_.Set(from._internal_filename(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.description_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.description_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_description()) {
-    _this->_impl_.description_.Set(from._internal_description(), 
-      _this->GetArenaForAllocation());
-  }
-  // @@protoc_insertion_point(copy_constructor:enterprise_management.Plugin)
-}
-
-inline void Plugin::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.name_){}
-    , decltype(_impl_.version_){}
-    , decltype(_impl_.filename_){}
-    , decltype(_impl_.description_){}
-  };
-  _impl_.name_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.version_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.version_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.filename_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.filename_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.description_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.description_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-}
-
-Plugin::~Plugin() {
-  // @@protoc_insertion_point(destructor:enterprise_management.Plugin)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void Plugin::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.name_.Destroy();
-  _impl_.version_.Destroy();
-  _impl_.filename_.Destroy();
-  _impl_.description_.Destroy();
-}
-
-void Plugin::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void Plugin::Clear() {
-// @@protoc_insertion_point(message_clear_start:enterprise_management.Plugin)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
-    if (cached_has_bits & 0x00000001u) {
-      _impl_.name_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _impl_.version_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000004u) {
-      _impl_.filename_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000008u) {
-      _impl_.description_.ClearNonDefaultToEmpty();
-    }
-  }
-  _impl_._has_bits_.Clear();
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* Plugin::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional string name = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_name();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional string version = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_version();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional string filename = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_filename();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional string description = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
-          auto str = _internal_mutable_description();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  _impl_._has_bits_.Or(has_bits);
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* Plugin::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.Plugin)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = _impl_._has_bits_[0];
-  // optional string name = 1;
-  if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
-  }
-
-  // optional string version = 2;
-  if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_version(), target);
-  }
-
-  // optional string filename = 3;
-  if (cached_has_bits & 0x00000004u) {
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_filename(), target);
-  }
-
-  // optional string description = 4;
-  if (cached_has_bits & 0x00000008u) {
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_description(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.Plugin)
-  return target;
-}
-
-size_t Plugin::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:enterprise_management.Plugin)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
-    // optional string name = 1;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_name());
-    }
-
-    // optional string version = 2;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_version());
-    }
-
-    // optional string filename = 3;
-    if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_filename());
-    }
-
-    // optional string description = 4;
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_description());
-    }
-
-  }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void Plugin::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const Plugin*>(
-      &from));
-}
-
-void Plugin::MergeFrom(const Plugin& from) {
-  Plugin* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.Plugin)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
-    if (cached_has_bits & 0x00000001u) {
-      _this->_internal_set_name(from._internal_name());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _this->_internal_set_version(from._internal_version());
-    }
-    if (cached_has_bits & 0x00000004u) {
-      _this->_internal_set_filename(from._internal_filename());
-    }
-    if (cached_has_bits & 0x00000008u) {
-      _this->_internal_set_description(from._internal_description());
-    }
-  }
-  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void Plugin::CopyFrom(const Plugin& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.Plugin)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Plugin::IsInitialized() const {
-  return true;
-}
-
-void Plugin::InternalSwap(Plugin* other) {
-  using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.name_, lhs_arena,
-      &other->_impl_.name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.version_, lhs_arena,
-      &other->_impl_.version_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.filename_, lhs_arena,
-      &other->_impl_.filename_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.description_, lhs_arena,
-      &other->_impl_.description_, rhs_arena
-  );
-}
-
-std::string Plugin::GetTypeName() const {
-  return "enterprise_management.Plugin";
-}
-
-
-// ===================================================================
-
 class Policy::_Internal {
  public:
   using HasBits = decltype(std::declval<Policy>()._impl_._has_bits_);
@@ -39480,7 +39039,6 @@ BrowserReport::BrowserReport(const BrowserReport& from)
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.chrome_user_profile_reports_){from._impl_.chrome_user_profile_reports_}
     , decltype(_impl_.chrome_user_profile_infos_){from._impl_.chrome_user_profile_infos_}
-    , decltype(_impl_.plugins_){from._impl_.plugins_}
     , decltype(_impl_.browser_version_){}
     , decltype(_impl_.executable_path_){}
     , decltype(_impl_.installed_browser_version_){}
@@ -39527,7 +39085,6 @@ inline void BrowserReport::SharedCtor(
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.chrome_user_profile_reports_){arena}
     , decltype(_impl_.chrome_user_profile_infos_){arena}
-    , decltype(_impl_.plugins_){arena}
     , decltype(_impl_.browser_version_){}
     , decltype(_impl_.executable_path_){}
     , decltype(_impl_.installed_browser_version_){}
@@ -39561,7 +39118,6 @@ inline void BrowserReport::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.chrome_user_profile_reports_.~RepeatedPtrField();
   _impl_.chrome_user_profile_infos_.~RepeatedPtrField();
-  _impl_.plugins_.~RepeatedPtrField();
   _impl_.browser_version_.Destroy();
   _impl_.executable_path_.Destroy();
   _impl_.installed_browser_version_.Destroy();
@@ -39579,7 +39135,6 @@ void BrowserReport::Clear() {
 
   _impl_.chrome_user_profile_reports_.Clear();
   _impl_.chrome_user_profile_infos_.Clear();
-  _impl_.plugins_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
@@ -39662,19 +39217,6 @@ const char* BrowserReport::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .enterprise_management.Plugin plugins = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_plugins(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -39762,14 +39304,6 @@ uint8_t* BrowserReport::_InternalSerialize(
         InternalWriteMessage(6, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // repeated .enterprise_management.Plugin plugins = 7;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_plugins_size()); i < n; i++) {
-    const auto& repfield = this->_internal_plugins(i);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(7, repfield, repfield.GetCachedSize(), target, stream);
-  }
-
   // optional string installed_browser_version = 8;
   if (cached_has_bits & 0x00000004u) {
     target = stream->WriteStringMaybeAliased(
@@ -39808,13 +39342,6 @@ size_t BrowserReport::ByteSizeLong() const {
   // repeated .enterprise_management.ChromeUserProfileInfo chrome_user_profile_infos = 6;
   total_size += 1UL * this->_internal_chrome_user_profile_infos_size();
   for (const auto& msg : this->_impl_.chrome_user_profile_infos_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .enterprise_management.Plugin plugins = 7;
-  total_size += 1UL * this->_internal_plugins_size();
-  for (const auto& msg : this->_impl_.plugins_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -39877,7 +39404,6 @@ void BrowserReport::MergeFrom(const BrowserReport& from) {
 
   _this->_impl_.chrome_user_profile_reports_.MergeFrom(from._impl_.chrome_user_profile_reports_);
   _this->_impl_.chrome_user_profile_infos_.MergeFrom(from._impl_.chrome_user_profile_infos_);
-  _this->_impl_.plugins_.MergeFrom(from._impl_.plugins_);
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -39919,7 +39445,6 @@ void BrowserReport::InternalSwap(BrowserReport* other) {
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.chrome_user_profile_reports_.InternalSwap(&other->_impl_.chrome_user_profile_reports_);
   _impl_.chrome_user_profile_infos_.InternalSwap(&other->_impl_.chrome_user_profile_infos_);
-  _impl_.plugins_.InternalSwap(&other->_impl_.plugins_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.browser_version_, lhs_arena,
       &other->_impl_.browser_version_, rhs_arena
@@ -73584,10 +73109,6 @@ Arena::CreateMaybeMessage< ::enterprise_management::ExtensionRequest >(Arena* ar
 template<> PROTOBUF_NOINLINE ::enterprise_management::Extension*
 Arena::CreateMaybeMessage< ::enterprise_management::Extension >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::Extension >(arena);
-}
-template<> PROTOBUF_NOINLINE ::enterprise_management::Plugin*
-Arena::CreateMaybeMessage< ::enterprise_management::Plugin >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::enterprise_management::Plugin >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::Policy*
 Arena::CreateMaybeMessage< ::enterprise_management::Policy >(Arena* arena) {

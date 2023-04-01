@@ -87,7 +87,7 @@ namespace session {
 
 // The storage area's access level.
 enum  AccessLevel {
-  ACCESS_LEVEL_NONE,
+  ACCESS_LEVEL_NONE = 0,
   ACCESS_LEVEL_TRUSTED_CONTEXTS,
   ACCESS_LEVEL_TRUSTED_AND_UNTRUSTED_CONTEXTS,
   ACCESS_LEVEL_LAST = ACCESS_LEVEL_TRUSTED_AND_UNTRUSTED_CONTEXTS,
@@ -113,11 +113,18 @@ struct StorageChange {
   // |out| was successfully populated.
   static bool Populate(const base::Value::Dict& value, StorageChange& out);
 
+  // Creates a deep copy of StorageChange.
+  StorageChange Clone() const;
+
   // Creates a StorageChange object from a base::Value, or NULL on failure.
   static std::unique_ptr<StorageChange> FromValueDeprecated(const base::Value& value);
 
-  // Creates a StorageChange object from a base::Value, or nullopt on failure.
+  // Creates a StorageChange object from a base::Value::Dict, or nullopt on
+  // failure.
   static absl::optional<StorageChange> FromValue(const base::Value::Dict& value);
+
+  // Creates a StorageChange object from a base::Value, or nullopt on failure.
+  static absl::optional<StorageChange> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
   // thisStorageChange object.
@@ -158,6 +165,12 @@ struct Params {
     // Populates a Keys object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
     static bool Populate(const base::Value& value, Keys& out);
+
+    // Creates a deep copy of Keys.
+    Keys Clone() const;
+
+    // Creates a Keys object from a base::Value, or nullopt on failure.
+    static absl::optional<Keys> FromValue(const base::Value& value);
     // Storage items to return in the callback, where the values are replaced with
     // those from storage if they exist.
     struct Object {
@@ -175,6 +188,15 @@ struct Params {
       // Populates a Object object from a Dict& instance. Returns whether |out| was
       // successfully populated.
       static bool Populate(const base::Value::Dict& value, Object& out);
+
+      // Creates a deep copy of Object.
+      Object Clone() const;
+
+      // Creates a Object object from a base::Value::Dict, or nullopt on failure.
+      static absl::optional<Object> FromValue(const base::Value::Dict& value);
+
+      // Creates a Object object from a base::Value, or nullopt on failure.
+      static absl::optional<Object> FromValue(const base::Value& value);
 
       base::Value::Dict additional_properties;
     };
@@ -246,6 +268,12 @@ struct Params {
     // Populates a Keys object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
     static bool Populate(const base::Value& value, Keys& out);
+
+    // Creates a deep copy of Keys.
+    Keys Clone() const;
+
+    // Creates a Keys object from a base::Value, or nullopt on failure.
+    static absl::optional<Keys> FromValue(const base::Value& value);
     // Choices:
     absl::optional<std::string> as_string;
     absl::optional<std::vector<std::string>> as_strings;
@@ -302,6 +330,15 @@ struct Params {
     // successfully populated.
     static bool Populate(const base::Value::Dict& value, Items& out);
 
+    // Creates a deep copy of Items.
+    Items Clone() const;
+
+    // Creates a Items object from a base::Value::Dict, or nullopt on failure.
+    static absl::optional<Items> FromValue(const base::Value::Dict& value);
+
+    // Creates a Items object from a base::Value, or nullopt on failure.
+    static absl::optional<Items> FromValue(const base::Value& value);
+
     base::Value::Dict additional_properties;
   };
 
@@ -349,6 +386,12 @@ struct Params {
     // Populates a Keys object from a base::Value& instance. Returns whether |out|
     // was successfully populated.
     static bool Populate(const base::Value& value, Keys& out);
+
+    // Creates a deep copy of Keys.
+    Keys Clone() const;
+
+    // Creates a Keys object from a base::Value, or nullopt on failure.
+    static absl::optional<Keys> FromValue(const base::Value& value);
     // Choices:
     absl::optional<std::string> as_string;
     absl::optional<std::vector<std::string>> as_strings;
@@ -404,6 +447,16 @@ struct Params {
     // Populates a AccessOptions object from a Dict& instance. Returns whether
     // |out| was successfully populated.
     static bool Populate(const base::Value::Dict& value, AccessOptions& out);
+
+    // Creates a deep copy of AccessOptions.
+    AccessOptions Clone() const;
+
+    // Creates a AccessOptions object from a base::Value::Dict, or nullopt on
+    // failure.
+    static absl::optional<AccessOptions> FromValue(const base::Value::Dict& value);
+
+    // Creates a AccessOptions object from a base::Value, or nullopt on failure.
+    static absl::optional<AccessOptions> FromValue(const base::Value& value);
 
     // The access level of the storage area.
     AccessLevel access_level;

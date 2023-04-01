@@ -83,6 +83,17 @@ StorageChange::StorageChange()
 StorageChange::~StorageChange() = default;
 StorageChange::StorageChange(StorageChange&& rhs) = default;
 StorageChange& StorageChange::operator=(StorageChange&& rhs) = default;
+StorageChange StorageChange::Clone() const {
+  StorageChange out;
+  if (old_value) {
+    out.old_value = old_value->Clone();
+  }
+  if (new_value) {
+    out.new_value = new_value->Clone();
+  }
+  return out;
+}
+
 // static
 bool StorageChange::Populate(
     const base::Value::Dict& dict, StorageChange& out) {
@@ -127,10 +138,21 @@ std::unique_ptr<StorageChange> StorageChange::FromValueDeprecated(const base::Va
 
 // static
 absl::optional<StorageChange> StorageChange::FromValue(const base::Value::Dict& value) {
-  absl::optional<StorageChange> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  StorageChange out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<StorageChange> StorageChange::FromValue(const base::Value& value) {
+  StorageChange out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -160,6 +182,11 @@ Params::Keys::Object::Object()
 Params::Keys::Object::~Object() = default;
 Params::Keys::Object::Object(Object&& rhs) = default;
 Params::Keys::Object& Params::Keys::Object::operator=(Object&& rhs) = default;
+Params::Keys::Object Params::Keys::Object::Clone() const {
+  Object out;
+  return out;
+}
+
 // static
 bool Params::Keys::Object::Populate(
     const base::Value::Dict& dict, Object& out) {
@@ -176,6 +203,26 @@ bool Params::Keys::Object::Populate(
   return Populate(value.GetDict(), out);
 }
 
+// static
+absl::optional<Params::Keys::Object> Params::Keys::Object::FromValue(const base::Value::Dict& value) {
+  Object out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Params::Keys::Object> Params::Keys::Object::FromValue(const base::Value& value) {
+  Object out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
+}
+
 
 
 Params::Keys::Keys()
@@ -184,6 +231,16 @@ Params::Keys::Keys()
 Params::Keys::~Keys() = default;
 Params::Keys::Keys(Keys&& rhs) = default;
 Params::Keys& Params::Keys::operator=(Keys&& rhs) = default;
+Params::Keys Params::Keys::Clone() const {
+  Keys out;
+  out.as_string = as_string;
+  out.as_strings = as_strings;
+  if (as_object) {
+    out.as_object = as_object->Clone();
+  }
+  return out;
+}
+
 // static
 bool Params::Keys::Populate(
     const base::Value& value, Keys& out) {
@@ -226,6 +283,16 @@ bool Params::Keys::Populate(
     return true;
   }
   return false;
+}
+
+// static
+absl::optional<Params::Keys> Params::Keys::FromValue(const base::Value& value) {
+  Keys out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 
@@ -288,6 +355,13 @@ Params::Keys::Keys()
 Params::Keys::~Keys() = default;
 Params::Keys::Keys(Keys&& rhs) = default;
 Params::Keys& Params::Keys::operator=(Keys&& rhs) = default;
+Params::Keys Params::Keys::Clone() const {
+  Keys out;
+  out.as_string = as_string;
+  out.as_strings = as_strings;
+  return out;
+}
+
 // static
 bool Params::Keys::Populate(
     const base::Value& value, Keys& out) {
@@ -316,6 +390,16 @@ bool Params::Keys::Populate(
     return true;
   }
   return false;
+}
+
+// static
+absl::optional<Params::Keys> Params::Keys::FromValue(const base::Value& value) {
+  Keys out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 
@@ -363,6 +447,11 @@ Params::Items::Items()
 Params::Items::~Items() = default;
 Params::Items::Items(Items&& rhs) = default;
 Params::Items& Params::Items::operator=(Items&& rhs) = default;
+Params::Items Params::Items::Clone() const {
+  Items out;
+  return out;
+}
+
 // static
 bool Params::Items::Populate(
     const base::Value::Dict& dict, Items& out) {
@@ -377,6 +466,26 @@ bool Params::Items::Populate(
     return false;
   }
   return Populate(value.GetDict(), out);
+}
+
+// static
+absl::optional<Params::Items> Params::Items::FromValue(const base::Value::Dict& value) {
+  Items out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Params::Items> Params::Items::FromValue(const base::Value& value) {
+  Items out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 
@@ -427,6 +536,13 @@ Params::Keys::Keys()
 Params::Keys::~Keys() = default;
 Params::Keys::Keys(Keys&& rhs) = default;
 Params::Keys& Params::Keys::operator=(Keys&& rhs) = default;
+Params::Keys Params::Keys::Clone() const {
+  Keys out;
+  out.as_string = as_string;
+  out.as_strings = as_strings;
+  return out;
+}
+
 // static
 bool Params::Keys::Populate(
     const base::Value& value, Keys& out) {
@@ -455,6 +571,16 @@ bool Params::Keys::Populate(
     return true;
   }
   return false;
+}
+
+// static
+absl::optional<Params::Keys> Params::Keys::FromValue(const base::Value& value) {
+  Keys out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 
@@ -505,11 +631,17 @@ base::Value::List Results::Create() {
 namespace SetAccessLevel {
 
 Params::AccessOptions::AccessOptions()
-: access_level(ACCESS_LEVEL_NONE) {}
+: access_level() {}
 
 Params::AccessOptions::~AccessOptions() = default;
 Params::AccessOptions::AccessOptions(AccessOptions&& rhs) = default;
 Params::AccessOptions& Params::AccessOptions::operator=(AccessOptions&& rhs) = default;
+Params::AccessOptions Params::AccessOptions::Clone() const {
+  AccessOptions out;
+  out.access_level = access_level;
+  return out;
+}
+
 // static
 bool Params::AccessOptions::Populate(
     const base::Value::Dict& dict, AccessOptions& out) {
@@ -523,7 +655,7 @@ bool Params::AccessOptions::Populate(
       return false;
     }
     out.access_level = ParseAccessLevel(*access_level_as_string);
-    if (out.access_level == ACCESS_LEVEL_NONE) {
+    if (out.access_level == AccessLevel()) {
       return false;
     }
   }
@@ -538,6 +670,26 @@ bool Params::AccessOptions::Populate(
     return false;
   }
   return Populate(value.GetDict(), out);
+}
+
+// static
+absl::optional<Params::AccessOptions> Params::AccessOptions::FromValue(const base::Value::Dict& value) {
+  AccessOptions out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Params::AccessOptions> Params::AccessOptions::FromValue(const base::Value& value) {
+  AccessOptions out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 

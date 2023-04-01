@@ -59,7 +59,7 @@ class JpegEncodeAccelerator
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -105,7 +105,7 @@ class JpegEncodeAccelerator
 
   using EncodeWithDmaBufCallback = base::OnceCallback<void(uint32_t, ::chromeos_camera::JpegEncodeAccelerator::Status)>;
   
-  virtual void EncodeWithDmaBuf(int32_t task_id, uint32_t input_format, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> input_planes, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, EncodeWithDmaBufCallback callback) = 0;
+  virtual void EncodeWithDmaBuf(int32_t task_id, uint32_t input_format, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> input_planes, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, bool has_input_modifier, uint64_t input_modifier, EncodeWithDmaBufCallback callback) = 0;
 };
 
 
@@ -121,7 +121,7 @@ class  JpegEncodeAcceleratorProxy
   
   void EncodeWithFD(int32_t task_id, ::mojo::ScopedHandle input_fd, uint32_t input_buffer_size, int32_t coded_size_width, int32_t coded_size_height, ::mojo::ScopedHandle exif_fd, uint32_t exif_buffer_size, ::mojo::ScopedHandle output_fd, uint32_t output_buffer_size, EncodeWithFDCallback callback) final;
   
-  void EncodeWithDmaBuf(int32_t task_id, uint32_t input_format, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> input_planes, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, EncodeWithDmaBufCallback callback) final;
+  void EncodeWithDmaBuf(int32_t task_id, uint32_t input_format, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> input_planes, std::vector<::chromeos_camera::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, bool has_input_modifier, uint64_t input_modifier, EncodeWithDmaBufCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -40,6 +40,19 @@ Parameters::Parameters()
 Parameters::~Parameters() = default;
 Parameters::Parameters(Parameters&& rhs) = default;
 Parameters& Parameters::operator=(Parameters&& rhs) = default;
+Parameters Parameters::Clone() const {
+  Parameters out;
+  out.address = address;
+  out.broadcast_address = broadcast_address;
+  out.mtu = mtu;
+  out.exclusion_list = exclusion_list;
+  out.inclusion_list = inclusion_list;
+  out.domain_search = domain_search;
+  out.dns_servers = dns_servers;
+  out.reconnect = reconnect;
+  return out;
+}
+
 // static
 bool Parameters::Populate(
     const base::Value::Dict& dict, Parameters& out) {
@@ -177,10 +190,21 @@ std::unique_ptr<Parameters> Parameters::FromValueDeprecated(const base::Value& v
 
 // static
 absl::optional<Parameters> Parameters::FromValue(const base::Value::Dict& value) {
-  absl::optional<Parameters> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  Parameters out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Parameters> Parameters::FromValue(const base::Value& value) {
+  Parameters out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -498,7 +522,7 @@ absl::optional<Params> Params::Create(const base::Value::List& args) {
         return absl::nullopt;
       }
       params.state = ParseVpnConnectionState(*vpn_connection_state_as_string);
-      if (params.state == VPN_CONNECTION_STATE_NONE) {
+      if (params.state == VpnConnectionState()) {
         return absl::nullopt;
       }
     }

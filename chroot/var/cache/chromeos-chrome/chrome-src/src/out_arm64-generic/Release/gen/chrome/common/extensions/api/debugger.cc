@@ -40,6 +40,14 @@ Debuggee::Debuggee()
 Debuggee::~Debuggee() = default;
 Debuggee::Debuggee(Debuggee&& rhs) = default;
 Debuggee& Debuggee::operator=(Debuggee&& rhs) = default;
+Debuggee Debuggee::Clone() const {
+  Debuggee out;
+  out.tab_id = tab_id;
+  out.extension_id = extension_id;
+  out.target_id = target_id;
+  return out;
+}
+
 // static
 bool Debuggee::Populate(
     const base::Value::Dict& dict, Debuggee& out) {
@@ -106,10 +114,21 @@ std::unique_ptr<Debuggee> Debuggee::FromValueDeprecated(const base::Value& value
 
 // static
 absl::optional<Debuggee> Debuggee::FromValue(const base::Value::Dict& value) {
-  absl::optional<Debuggee> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  Debuggee out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Debuggee> Debuggee::FromValue(const base::Value& value) {
+  Debuggee out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -186,12 +205,25 @@ DetachReason ParseDetachReason(base::StringPiece enum_string) {
 
 
 TargetInfo::TargetInfo()
-: type(TARGET_INFO_TYPE_NONE),
+: type(),
 attached(false) {}
 
 TargetInfo::~TargetInfo() = default;
 TargetInfo::TargetInfo(TargetInfo&& rhs) = default;
 TargetInfo& TargetInfo::operator=(TargetInfo&& rhs) = default;
+TargetInfo TargetInfo::Clone() const {
+  TargetInfo out;
+  out.type = type;
+  out.id = id;
+  out.tab_id = tab_id;
+  out.extension_id = extension_id;
+  out.attached = attached;
+  out.title = title;
+  out.url = url;
+  out.favicon_url = favicon_url;
+  return out;
+}
+
 // static
 bool TargetInfo::Populate(
     const base::Value::Dict& dict, TargetInfo& out) {
@@ -205,7 +237,7 @@ bool TargetInfo::Populate(
       return false;
     }
     out.type = ParseTargetInfoType(*target_info_type_as_string);
-    if (out.type == TARGET_INFO_TYPE_NONE) {
+    if (out.type == TargetInfoType()) {
       return false;
     }
   }
@@ -321,10 +353,21 @@ std::unique_ptr<TargetInfo> TargetInfo::FromValueDeprecated(const base::Value& v
 
 // static
 absl::optional<TargetInfo> TargetInfo::FromValue(const base::Value::Dict& value) {
-  absl::optional<TargetInfo> out(absl::in_place);
-  bool result = Populate(value, out.value());
-  if (!result)
+  TargetInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
     return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<TargetInfo> TargetInfo::FromValue(const base::Value& value) {
+  TargetInfo out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
   return out;
 }
 
@@ -468,6 +511,11 @@ Params::CommandParams::CommandParams()
 Params::CommandParams::~CommandParams() = default;
 Params::CommandParams::CommandParams(CommandParams&& rhs) = default;
 Params::CommandParams& Params::CommandParams::operator=(CommandParams&& rhs) = default;
+Params::CommandParams Params::CommandParams::Clone() const {
+  CommandParams out;
+  return out;
+}
+
 // static
 bool Params::CommandParams::Populate(
     const base::Value::Dict& dict, CommandParams& out) {
@@ -482,6 +530,26 @@ bool Params::CommandParams::Populate(
     return false;
   }
   return Populate(value.GetDict(), out);
+}
+
+// static
+absl::optional<Params::CommandParams> Params::CommandParams::FromValue(const base::Value::Dict& value) {
+  CommandParams out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
+}
+
+// static
+absl::optional<Params::CommandParams> Params::CommandParams::FromValue(const base::Value& value) {
+  CommandParams out;
+  bool result = Populate(value, out);
+  if (!result) {
+    return absl::nullopt;
+  }
+  return out;
 }
 
 
