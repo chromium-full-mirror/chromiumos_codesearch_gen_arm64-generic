@@ -728,6 +728,26 @@ inline const std::string& SystemProfileProto_AppPackageNameAllowlistFilter_Name(
 }
 bool SystemProfileProto_AppPackageNameAllowlistFilter_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_AppPackageNameAllowlistFilter* value);
+enum SystemProfileProto_ClientSideSamplingStatus : int {
+  SystemProfileProto_ClientSideSamplingStatus_SAMPLING_UNKNOWN = 0,
+  SystemProfileProto_ClientSideSamplingStatus_SAMPLING_APPLIED = 1,
+  SystemProfileProto_ClientSideSamplingStatus_SAMPLING_NOT_APPLIED = 2
+};
+bool SystemProfileProto_ClientSideSamplingStatus_IsValid(int value);
+constexpr SystemProfileProto_ClientSideSamplingStatus SystemProfileProto_ClientSideSamplingStatus_ClientSideSamplingStatus_MIN = SystemProfileProto_ClientSideSamplingStatus_SAMPLING_UNKNOWN;
+constexpr SystemProfileProto_ClientSideSamplingStatus SystemProfileProto_ClientSideSamplingStatus_ClientSideSamplingStatus_MAX = SystemProfileProto_ClientSideSamplingStatus_SAMPLING_NOT_APPLIED;
+constexpr int SystemProfileProto_ClientSideSamplingStatus_ClientSideSamplingStatus_ARRAYSIZE = SystemProfileProto_ClientSideSamplingStatus_ClientSideSamplingStatus_MAX + 1;
+
+const std::string& SystemProfileProto_ClientSideSamplingStatus_Name(SystemProfileProto_ClientSideSamplingStatus value);
+template<typename T>
+inline const std::string& SystemProfileProto_ClientSideSamplingStatus_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SystemProfileProto_ClientSideSamplingStatus>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SystemProfileProto_ClientSideSamplingStatus_Name.");
+  return SystemProfileProto_ClientSideSamplingStatus_Name(static_cast<SystemProfileProto_ClientSideSamplingStatus>(enum_t_value));
+}
+bool SystemProfileProto_ClientSideSamplingStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_ClientSideSamplingStatus* value);
 enum SystemProfileProto_InstallerPackage : int {
   SystemProfileProto_InstallerPackage_INSTALLER_PACKAGE_UNKNOWN = 0,
   SystemProfileProto_InstallerPackage_INSTALLER_PACKAGE_NONE = 1,
@@ -7097,6 +7117,34 @@ class SystemProfileProto final :
     return SystemProfileProto_AppPackageNameAllowlistFilter_Parse(name, value);
   }
 
+  typedef SystemProfileProto_ClientSideSamplingStatus ClientSideSamplingStatus;
+  static constexpr ClientSideSamplingStatus SAMPLING_UNKNOWN =
+    SystemProfileProto_ClientSideSamplingStatus_SAMPLING_UNKNOWN;
+  static constexpr ClientSideSamplingStatus SAMPLING_APPLIED =
+    SystemProfileProto_ClientSideSamplingStatus_SAMPLING_APPLIED;
+  static constexpr ClientSideSamplingStatus SAMPLING_NOT_APPLIED =
+    SystemProfileProto_ClientSideSamplingStatus_SAMPLING_NOT_APPLIED;
+  static inline bool ClientSideSamplingStatus_IsValid(int value) {
+    return SystemProfileProto_ClientSideSamplingStatus_IsValid(value);
+  }
+  static constexpr ClientSideSamplingStatus ClientSideSamplingStatus_MIN =
+    SystemProfileProto_ClientSideSamplingStatus_ClientSideSamplingStatus_MIN;
+  static constexpr ClientSideSamplingStatus ClientSideSamplingStatus_MAX =
+    SystemProfileProto_ClientSideSamplingStatus_ClientSideSamplingStatus_MAX;
+  static constexpr int ClientSideSamplingStatus_ARRAYSIZE =
+    SystemProfileProto_ClientSideSamplingStatus_ClientSideSamplingStatus_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& ClientSideSamplingStatus_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, ClientSideSamplingStatus>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function ClientSideSamplingStatus_Name.");
+    return SystemProfileProto_ClientSideSamplingStatus_Name(enum_t_value);
+  }
+  static inline bool ClientSideSamplingStatus_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      ClientSideSamplingStatus* value) {
+    return SystemProfileProto_ClientSideSamplingStatus_Parse(name, value);
+  }
+
   typedef SystemProfileProto_InstallerPackage InstallerPackage;
   static constexpr InstallerPackage INSTALLER_PACKAGE_UNKNOWN =
     SystemProfileProto_InstallerPackage_INSTALLER_PACKAGE_UNKNOWN;
@@ -7168,6 +7216,7 @@ class SystemProfileProto final :
     kInstallerPackageFieldNumber = 35,
     kPseudoLowEntropySourceFieldNumber = 37,
     kAppPackageNameAllowlistFilterFieldNumber = 42,
+    kClientSideSamplingStatusFieldNumber = 43,
   };
   // repeated .metrics.SystemProfileProto.FieldTrial field_trial = 9;
   int field_trial_size() const;
@@ -7786,6 +7835,19 @@ class SystemProfileProto final :
   void _internal_set_app_package_name_allowlist_filter(::metrics::SystemProfileProto_AppPackageNameAllowlistFilter value);
   public:
 
+  // optional .metrics.SystemProfileProto.ClientSideSamplingStatus client_side_sampling_status = 43;
+  bool has_client_side_sampling_status() const;
+  private:
+  bool _internal_has_client_side_sampling_status() const;
+  public:
+  void clear_client_side_sampling_status();
+  ::metrics::SystemProfileProto_ClientSideSamplingStatus client_side_sampling_status() const;
+  void set_client_side_sampling_status(::metrics::SystemProfileProto_ClientSideSamplingStatus value);
+  private:
+  ::metrics::SystemProfileProto_ClientSideSamplingStatus _internal_client_side_sampling_status() const;
+  void _internal_set_client_side_sampling_status(::metrics::SystemProfileProto_ClientSideSamplingStatus value);
+  public:
+
   // @@protoc_insertion_point(class_scope:metrics.SystemProfileProto)
  private:
   class _Internal;
@@ -7833,6 +7895,7 @@ class SystemProfileProto final :
   int installer_package_;
   int32_t pseudo_low_entropy_source_;
   int app_package_name_allowlist_filter_;
+  int client_side_sampling_status_;
   friend struct ::TableStruct_system_5fprofile_2eproto;
 };
 // ===================================================================
@@ -15900,6 +15963,35 @@ inline void SystemProfileProto::set_app_package_name_allowlist_filter(::metrics:
   // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.app_package_name_allowlist_filter)
 }
 
+// optional .metrics.SystemProfileProto.ClientSideSamplingStatus client_side_sampling_status = 43;
+inline bool SystemProfileProto::_internal_has_client_side_sampling_status() const {
+  bool value = (_has_bits_[0] & 0x80000000u) != 0;
+  return value;
+}
+inline bool SystemProfileProto::has_client_side_sampling_status() const {
+  return _internal_has_client_side_sampling_status();
+}
+inline void SystemProfileProto::clear_client_side_sampling_status() {
+  client_side_sampling_status_ = 0;
+  _has_bits_[0] &= ~0x80000000u;
+}
+inline ::metrics::SystemProfileProto_ClientSideSamplingStatus SystemProfileProto::_internal_client_side_sampling_status() const {
+  return static_cast< ::metrics::SystemProfileProto_ClientSideSamplingStatus >(client_side_sampling_status_);
+}
+inline ::metrics::SystemProfileProto_ClientSideSamplingStatus SystemProfileProto::client_side_sampling_status() const {
+  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.client_side_sampling_status)
+  return _internal_client_side_sampling_status();
+}
+inline void SystemProfileProto::_internal_set_client_side_sampling_status(::metrics::SystemProfileProto_ClientSideSamplingStatus value) {
+  assert(::metrics::SystemProfileProto_ClientSideSamplingStatus_IsValid(value));
+  _has_bits_[0] |= 0x80000000u;
+  client_side_sampling_status_ = value;
+}
+inline void SystemProfileProto::set_client_side_sampling_status(::metrics::SystemProfileProto_ClientSideSamplingStatus value) {
+  _internal_set_client_side_sampling_status(value);
+  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.client_side_sampling_status)
+}
+
 // optional .metrics.SystemProfileProto.InstallerPackage installer_package = 35;
 inline bool SystemProfileProto::_internal_has_installer_package() const {
   bool value = (_has_bits_[0] & 0x10000000u) != 0;
@@ -16188,6 +16280,7 @@ template <> struct is_proto_enum< ::metrics::SystemProfileProto_UmaDefaultState>
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_AntiVirusState> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_ComponentId> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_AppPackageNameAllowlistFilter> : ::std::true_type {};
+template <> struct is_proto_enum< ::metrics::SystemProfileProto_ClientSideSamplingStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_InstallerPackage> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE

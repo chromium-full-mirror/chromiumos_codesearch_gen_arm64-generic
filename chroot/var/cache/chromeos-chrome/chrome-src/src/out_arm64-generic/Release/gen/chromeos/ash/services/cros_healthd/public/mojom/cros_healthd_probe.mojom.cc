@@ -2453,7 +2453,8 @@ bool SupportedCapabilities::Validate(
 SystemInfo::SystemInfo()
     : os_info(),
       vpd_info(),
-      dmi_info() {}
+      dmi_info(),
+      psr_info() {}
 
 SystemInfo::SystemInfo(
     OsInfoPtr os_info_in,
@@ -2461,7 +2462,18 @@ SystemInfo::SystemInfo(
     DmiInfoPtr dmi_info_in)
     : os_info(std::move(os_info_in)),
       vpd_info(std::move(vpd_info_in)),
-      dmi_info(std::move(dmi_info_in)) {}
+      dmi_info(std::move(dmi_info_in)),
+      psr_info() {}
+
+SystemInfo::SystemInfo(
+    OsInfoPtr os_info_in,
+    VpdInfoPtr vpd_info_in,
+    DmiInfoPtr dmi_info_in,
+    PsrInfoPtr psr_info_in)
+    : os_info(std::move(os_info_in)),
+      vpd_info(std::move(vpd_info_in)),
+      dmi_info(std::move(dmi_info_in)),
+      psr_info(std::move(psr_info_in)) {}
 
 SystemInfo::~SystemInfo() = default;
 
@@ -2491,6 +2503,15 @@ void SystemInfo::WriteIntoTrace(
       "dmi_info"), this->dmi_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type DmiInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "psr_info"), this->psr_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type PsrInfoPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2961,6 +2982,260 @@ void DmiInfo::WriteIntoTrace(
 }
 
 bool DmiInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+PsrEvent::PsrEvent()
+    : type(),
+      time(),
+      data() {}
+
+PsrEvent::PsrEvent(
+    PsrEvent::EventType type_in,
+    uint32_t time_in,
+    uint32_t data_in)
+    : type(std::move(type_in)),
+      time(std::move(time_in)),
+      data(std::move(data_in)) {}
+
+PsrEvent::~PsrEvent() = default;
+size_t PsrEvent::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->type);
+  seed = mojo::internal::Hash(seed, this->time);
+  seed = mojo::internal::Hash(seed, this->data);
+  return seed;
+}
+
+void PsrEvent::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type PsrEvent::EventType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "time"), this->time,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "data"), this->data,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool PsrEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+PsrInfo::PsrInfo()
+    : log_state(),
+      uuid(),
+      upid(),
+      log_start_date(),
+      oem_name(),
+      oem_make(),
+      oem_model(),
+      manufacture_country(),
+      oem_data(),
+      uptime_seconds(),
+      s5_counter(),
+      s4_counter(),
+      s3_counter(),
+      warm_reset_counter(),
+      events() {}
+
+PsrInfo::PsrInfo(
+    PsrInfo::LogState log_state_in,
+    const std::string& uuid_in,
+    const std::string& upid_in,
+    uint32_t log_start_date_in,
+    const std::string& oem_name_in,
+    const std::string& oem_make_in,
+    const std::string& oem_model_in,
+    const std::string& manufacture_country_in,
+    const std::string& oem_data_in,
+    uint32_t uptime_seconds_in,
+    uint32_t s5_counter_in,
+    uint32_t s4_counter_in,
+    uint32_t s3_counter_in,
+    uint32_t warm_reset_counter_in,
+    std::vector<PsrEventPtr> events_in)
+    : log_state(std::move(log_state_in)),
+      uuid(std::move(uuid_in)),
+      upid(std::move(upid_in)),
+      log_start_date(std::move(log_start_date_in)),
+      oem_name(std::move(oem_name_in)),
+      oem_make(std::move(oem_make_in)),
+      oem_model(std::move(oem_model_in)),
+      manufacture_country(std::move(manufacture_country_in)),
+      oem_data(std::move(oem_data_in)),
+      uptime_seconds(std::move(uptime_seconds_in)),
+      s5_counter(std::move(s5_counter_in)),
+      s4_counter(std::move(s4_counter_in)),
+      s3_counter(std::move(s3_counter_in)),
+      warm_reset_counter(std::move(warm_reset_counter_in)),
+      events(std::move(events_in)) {}
+
+PsrInfo::~PsrInfo() = default;
+
+void PsrInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "log_state"), this->log_state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type PsrInfo::LogState>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "uuid"), this->uuid,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "upid"), this->upid,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "log_start_date"), this->log_start_date,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "oem_name"), this->oem_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "oem_make"), this->oem_make,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "oem_model"), this->oem_model,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "manufacture_country"), this->manufacture_country,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "oem_data"), this->oem_data,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "uptime_seconds"), this->uptime_seconds,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "s5_counter"), this->s5_counter,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "s4_counter"), this->s4_counter,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "s3_counter"), this->s3_counter,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "warm_reset_counter"), this->warm_reset_counter,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "events"), this->events,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<PsrEventPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool PsrInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -8449,6 +8724,8 @@ bool StructTraits<::ash::cros_healthd::mojom::SystemInfo::DataView, ::ash::cros_
         success = false;
       if (success && !input.ReadDmiInfo(&result->dmi_info))
         success = false;
+      if (success && !input.ReadPsrInfo(&result->psr_info))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -8554,6 +8831,66 @@ bool StructTraits<::ash::cros_healthd::mojom::DmiInfo::DataView, ::ash::cros_hea
       if (success && !input.ReadProductVersion(&result->product_version))
         success = false;
       if (success && !input.ReadSysVendor(&result->sys_vendor))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::PsrEvent::DataView, ::ash::cros_healthd::mojom::PsrEventPtr>::Read(
+    ::ash::cros_healthd::mojom::PsrEvent::DataView input,
+    ::ash::cros_healthd::mojom::PsrEventPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::PsrEventPtr result(::ash::cros_healthd::mojom::PsrEvent::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success)
+        result->time = input.time();
+      if (success)
+        result->data = input.data();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::PsrInfo::DataView, ::ash::cros_healthd::mojom::PsrInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::PsrInfo::DataView input,
+    ::ash::cros_healthd::mojom::PsrInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::PsrInfoPtr result(::ash::cros_healthd::mojom::PsrInfo::New());
+  
+      if (success && !input.ReadLogState(&result->log_state))
+        success = false;
+      if (success && !input.ReadUuid(&result->uuid))
+        success = false;
+      if (success && !input.ReadUpid(&result->upid))
+        success = false;
+      if (success)
+        result->log_start_date = input.log_start_date();
+      if (success && !input.ReadOemName(&result->oem_name))
+        success = false;
+      if (success && !input.ReadOemMake(&result->oem_make))
+        success = false;
+      if (success && !input.ReadOemModel(&result->oem_model))
+        success = false;
+      if (success && !input.ReadManufactureCountry(&result->manufacture_country))
+        success = false;
+      if (success && !input.ReadOemData(&result->oem_data))
+        success = false;
+      if (success)
+        result->uptime_seconds = input.uptime_seconds();
+      if (success)
+        result->s5_counter = input.s5_counter();
+      if (success)
+        result->s4_counter = input.s4_counter();
+      if (success)
+        result->s3_counter = input.s3_counter();
+      if (success)
+        result->warm_reset_counter = input.warm_reset_counter();
+      if (success && !input.ReadEvents(&result->events))
         success = false;
   *output = std::move(result);
   return success;

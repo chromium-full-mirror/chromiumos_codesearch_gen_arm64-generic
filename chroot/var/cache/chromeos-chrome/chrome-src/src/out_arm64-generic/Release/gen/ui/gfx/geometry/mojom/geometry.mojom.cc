@@ -709,6 +709,70 @@ bool Quaternion::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+QuadF::QuadF()
+    : p1(mojo::DefaultConstructTraits::CreateInstance<::gfx::PointF>()),
+      p2(mojo::DefaultConstructTraits::CreateInstance<::gfx::PointF>()),
+      p3(mojo::DefaultConstructTraits::CreateInstance<::gfx::PointF>()),
+      p4(mojo::DefaultConstructTraits::CreateInstance<::gfx::PointF>()) {}
+
+QuadF::QuadF(
+    const ::gfx::PointF& p1_in,
+    const ::gfx::PointF& p2_in,
+    const ::gfx::PointF& p3_in,
+    const ::gfx::PointF& p4_in)
+    : p1(std::move(p1_in)),
+      p2(std::move(p2_in)),
+      p3(std::move(p3_in)),
+      p4(std::move(p4_in)) {}
+
+QuadF::~QuadF() = default;
+
+void QuadF::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "p1"), this->p1,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::PointF&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "p2"), this->p2,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::PointF&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "p3"), this->p3,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::PointF&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "p4"), this->p4,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::PointF&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool QuadF::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 
 
 }  // namespace mojom
@@ -945,6 +1009,26 @@ bool StructTraits<::gfx::mojom::Quaternion::DataView, ::gfx::mojom::QuaternionPt
         result->z = input.z();
       if (success)
         result->w = input.w();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::gfx::mojom::QuadF::DataView, ::gfx::mojom::QuadFPtr>::Read(
+    ::gfx::mojom::QuadF::DataView input,
+    ::gfx::mojom::QuadFPtr* output) {
+  bool success = true;
+  ::gfx::mojom::QuadFPtr result(::gfx::mojom::QuadF::New());
+  
+      if (success && !input.ReadP1(&result->p1))
+        success = false;
+      if (success && !input.ReadP2(&result->p2))
+        success = false;
+      if (success && !input.ReadP3(&result->p3))
+        success = false;
+      if (success && !input.ReadP4(&result->p4))
+        success = false;
   *output = std::move(result);
   return success;
 }

@@ -482,6 +482,8 @@ PROTOBUF_CONSTEXPR SystemProfileProto::SystemProfileProto(
 
   , pseudo_low_entropy_source_(0)
   , app_package_name_allowlist_filter_(0)
+
+  , client_side_sampling_status_(0)
 {}
 struct SystemProfileProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SystemProfileProtoDefaultTypeInternal()
@@ -2557,6 +2559,69 @@ constexpr SystemProfileProto_AppPackageNameAllowlistFilter SystemProfileProto::N
 constexpr SystemProfileProto_AppPackageNameAllowlistFilter SystemProfileProto::AppPackageNameAllowlistFilter_MIN;
 constexpr SystemProfileProto_AppPackageNameAllowlistFilter SystemProfileProto::AppPackageNameAllowlistFilter_MAX;
 constexpr int SystemProfileProto::AppPackageNameAllowlistFilter_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool SystemProfileProto_ClientSideSamplingStatus_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_ClientSideSamplingStatus_strings[3] = {};
+
+static const char SystemProfileProto_ClientSideSamplingStatus_names[] =
+  "SAMPLING_APPLIED"
+  "SAMPLING_NOT_APPLIED"
+  "SAMPLING_UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemProfileProto_ClientSideSamplingStatus_entries[] = {
+  { {SystemProfileProto_ClientSideSamplingStatus_names + 0, 16}, 1 },
+  { {SystemProfileProto_ClientSideSamplingStatus_names + 16, 20}, 2 },
+  { {SystemProfileProto_ClientSideSamplingStatus_names + 36, 16}, 0 },
+};
+
+static const int SystemProfileProto_ClientSideSamplingStatus_entries_by_number[] = {
+  2, // 0 -> SAMPLING_UNKNOWN
+  0, // 1 -> SAMPLING_APPLIED
+  1, // 2 -> SAMPLING_NOT_APPLIED
+};
+
+const std::string& SystemProfileProto_ClientSideSamplingStatus_Name(
+    SystemProfileProto_ClientSideSamplingStatus value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SystemProfileProto_ClientSideSamplingStatus_entries,
+          SystemProfileProto_ClientSideSamplingStatus_entries_by_number,
+          3, SystemProfileProto_ClientSideSamplingStatus_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SystemProfileProto_ClientSideSamplingStatus_entries,
+      SystemProfileProto_ClientSideSamplingStatus_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     SystemProfileProto_ClientSideSamplingStatus_strings[idx].get();
+}
+bool SystemProfileProto_ClientSideSamplingStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_ClientSideSamplingStatus* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SystemProfileProto_ClientSideSamplingStatus_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<SystemProfileProto_ClientSideSamplingStatus>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr SystemProfileProto_ClientSideSamplingStatus SystemProfileProto::SAMPLING_UNKNOWN;
+constexpr SystemProfileProto_ClientSideSamplingStatus SystemProfileProto::SAMPLING_APPLIED;
+constexpr SystemProfileProto_ClientSideSamplingStatus SystemProfileProto::SAMPLING_NOT_APPLIED;
+constexpr SystemProfileProto_ClientSideSamplingStatus SystemProfileProto::ClientSideSamplingStatus_MIN;
+constexpr SystemProfileProto_ClientSideSamplingStatus SystemProfileProto::ClientSideSamplingStatus_MAX;
+constexpr int SystemProfileProto::ClientSideSamplingStatus_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool SystemProfileProto_InstallerPackage_IsValid(int value) {
   switch (value) {
@@ -11685,6 +11750,9 @@ class SystemProfileProto::_Internal {
   static void set_has_app_package_name_allowlist_filter(HasBits* has_bits) {
     (*has_bits)[0] |= 1073741824u;
   }
+  static void set_has_client_side_sampling_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 2147483648u;
+  }
   static void set_has_installer_package(HasBits* has_bits) {
     (*has_bits)[0] |= 268435456u;
   }
@@ -11863,8 +11931,8 @@ SystemProfileProto::SystemProfileProto(const SystemProfileProto& from)
     demo_mode_dimensions_ = nullptr;
   }
   ::memcpy(&build_timestamp_, &from.build_timestamp_,
-    static_cast<size_t>(reinterpret_cast<char*>(&app_package_name_allowlist_filter_) -
-    reinterpret_cast<char*>(&build_timestamp_)) + sizeof(app_package_name_allowlist_filter_));
+    static_cast<size_t>(reinterpret_cast<char*>(&client_side_sampling_status_) -
+    reinterpret_cast<char*>(&build_timestamp_)) + sizeof(client_side_sampling_status_));
   // @@protoc_insertion_point(copy_constructor:metrics.SystemProfileProto)
 }
 
@@ -11899,8 +11967,8 @@ log_written_by_app_version_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&os_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&app_package_name_allowlist_filter_) -
-    reinterpret_cast<char*>(&os_)) + sizeof(app_package_name_allowlist_filter_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&client_side_sampling_status_) -
+    reinterpret_cast<char*>(&os_)) + sizeof(client_side_sampling_status_));
 }
 
 SystemProfileProto::~SystemProfileProto() {
@@ -12016,10 +12084,10 @@ void SystemProfileProto::Clear() {
         reinterpret_cast<char*>(&is_extended_stable_channel_) -
         reinterpret_cast<char*>(&build_timestamp_)) + sizeof(is_extended_stable_channel_));
   }
-  if (cached_has_bits & 0x7f000000u) {
+  if (cached_has_bits & 0xff000000u) {
     ::memset(&is_instrumented_build_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&app_package_name_allowlist_filter_) -
-        reinterpret_cast<char*>(&is_instrumented_build_)) + sizeof(app_package_name_allowlist_filter_));
+        reinterpret_cast<char*>(&client_side_sampling_status_) -
+        reinterpret_cast<char*>(&is_instrumented_build_)) + sizeof(client_side_sampling_status_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -12414,6 +12482,19 @@ const char* SystemProfileProto::_InternalParse(const char* ptr, ::_pbi::ParseCon
         } else
           goto handle_unusual;
         continue;
+      // optional .metrics.SystemProfileProto.ClientSideSamplingStatus client_side_sampling_status = 43;
+      case 43:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::metrics::SystemProfileProto_ClientSideSamplingStatus_IsValid(val))) {
+            _internal_set_client_side_sampling_status(static_cast<::metrics::SystemProfileProto_ClientSideSamplingStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(43, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -12696,6 +12777,13 @@ uint8_t* SystemProfileProto::_InternalSerialize(
       42, this->_internal_app_package_name_allowlist_filter(), target);
   }
 
+  // optional .metrics.SystemProfileProto.ClientSideSamplingStatus client_side_sampling_status = 43;
+  if (cached_has_bits & 0x80000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      43, this->_internal_client_side_sampling_status(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -12933,7 +13021,7 @@ size_t SystemProfileProto::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x7f000000u) {
+  if (cached_has_bits & 0xff000000u) {
     // optional bool is_instrumented_build = 20 [default = false];
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 + 1;
@@ -12975,6 +13063,12 @@ size_t SystemProfileProto::ByteSizeLong() const {
     if (cached_has_bits & 0x40000000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_app_package_name_allowlist_filter());
+    }
+
+    // optional .metrics.SystemProfileProto.ClientSideSamplingStatus client_side_sampling_status = 43;
+    if (cached_has_bits & 0x80000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_client_side_sampling_status());
     }
 
   }
@@ -13085,7 +13179,7 @@ void SystemProfileProto::MergeFrom(const SystemProfileProto& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x7f000000u) {
+  if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
       is_instrumented_build_ = from.is_instrumented_build_;
     }
@@ -13106,6 +13200,9 @@ void SystemProfileProto::MergeFrom(const SystemProfileProto& from) {
     }
     if (cached_has_bits & 0x40000000u) {
       app_package_name_allowlist_filter_ = from.app_package_name_allowlist_filter_;
+    }
+    if (cached_has_bits & 0x80000000u) {
+      client_side_sampling_status_ = from.client_side_sampling_status_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -13165,8 +13262,8 @@ void SystemProfileProto::InternalSwap(SystemProfileProto* other) {
       &other->log_written_by_app_version_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SystemProfileProto, app_package_name_allowlist_filter_)
-      + sizeof(SystemProfileProto::app_package_name_allowlist_filter_)
+      PROTOBUF_FIELD_OFFSET(SystemProfileProto, client_side_sampling_status_)
+      + sizeof(SystemProfileProto::client_side_sampling_status_)
       - PROTOBUF_FIELD_OFFSET(SystemProfileProto, os_)>(
           reinterpret_cast<char*>(&os_),
           reinterpret_cast<char*>(&other->os_));

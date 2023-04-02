@@ -517,13 +517,14 @@ enum BlockCaptureReason : int32_t {
   BLOCKED_BROWSER_CONTROLS_LOCKED = 9,
   BLOCKED_TAB_SWITCHER_MODE = 10,
   BLOCKED_COMPOSITOR_IN_MOTION = 11,
+  BLOCKED_NTP_Y_TRANSLATION = 12,
 };
 } // namespace perfetto_pbzero_enum_AndroidToolbar
 using AndroidToolbar_BlockCaptureReason = perfetto_pbzero_enum_AndroidToolbar::BlockCaptureReason;
 
 
 constexpr AndroidToolbar_BlockCaptureReason AndroidToolbar_BlockCaptureReason_MIN = AndroidToolbar_BlockCaptureReason::BLOCKED_UNKNOWN;
-constexpr AndroidToolbar_BlockCaptureReason AndroidToolbar_BlockCaptureReason_MAX = AndroidToolbar_BlockCaptureReason::BLOCKED_COMPOSITOR_IN_MOTION;
+constexpr AndroidToolbar_BlockCaptureReason AndroidToolbar_BlockCaptureReason_MAX = AndroidToolbar_BlockCaptureReason::BLOCKED_NTP_Y_TRANSLATION;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -564,6 +565,9 @@ const char* AndroidToolbar_BlockCaptureReason_Name(::perfetto::protos::pbzero::A
 
   case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_COMPOSITOR_IN_MOTION:
     return "BLOCKED_COMPOSITOR_IN_MOTION";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_NTP_Y_TRANSLATION:
+    return "BLOCKED_NTP_Y_TRANSLATION";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3339,6 +3343,7 @@ class AndroidToolbar : public ::protozero::Message {
   static const BlockCaptureReason BLOCKED_BROWSER_CONTROLS_LOCKED = BlockCaptureReason::BLOCKED_BROWSER_CONTROLS_LOCKED;
   static const BlockCaptureReason BLOCKED_TAB_SWITCHER_MODE = BlockCaptureReason::BLOCKED_TAB_SWITCHER_MODE;
   static const BlockCaptureReason BLOCKED_COMPOSITOR_IN_MOTION = BlockCaptureReason::BLOCKED_COMPOSITOR_IN_MOTION;
+  static const BlockCaptureReason BLOCKED_NTP_Y_TRANSLATION = BlockCaptureReason::BLOCKED_NTP_Y_TRANSLATION;
   static const AllowCaptureReason ALLOWED_UNKNOWN = AllowCaptureReason::ALLOWED_UNKNOWN;
   static const AllowCaptureReason ALLOWED_FORCE_CAPTURE = AllowCaptureReason::ALLOWED_FORCE_CAPTURE;
   static const AllowCaptureReason ALLOWED_SNAPSHOT_DIFFERENCE = AllowCaptureReason::ALLOWED_SNAPSHOT_DIFFERENCE;

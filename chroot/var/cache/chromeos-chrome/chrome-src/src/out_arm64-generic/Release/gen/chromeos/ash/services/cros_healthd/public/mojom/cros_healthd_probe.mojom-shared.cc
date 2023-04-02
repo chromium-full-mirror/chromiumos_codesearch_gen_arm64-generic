@@ -674,6 +674,66 @@ std::ostream& operator<<(std::ostream& os, OsInfo_EfiPlatformSize value) {
   return os << OsInfo_EfiPlatformSizeToString(value);
 }
 
+NOINLINE static const char* PsrEvent_EventTypeToStringHelper(PsrEvent_EventType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case PsrEvent_EventType::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case PsrEvent_EventType::kLogStart:
+      return "kLogStart";
+    case PsrEvent_EventType::kLogEnd:
+      return "kLogEnd";
+    case PsrEvent_EventType::kCsmeRecovery:
+      return "kCsmeRecovery";
+    case PsrEvent_EventType::kPrtcFailure:
+      return "kPrtcFailure";
+    case PsrEvent_EventType::kSvnIncrease:
+      return "kSvnIncrease";
+    default:
+      return nullptr;
+  }
+}
+
+std::string PsrEvent_EventTypeToString(PsrEvent_EventType value) {
+  const char *str = PsrEvent_EventTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown PsrEvent_EventType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, PsrEvent_EventType value) {
+  return os << PsrEvent_EventTypeToString(value);
+}
+
+NOINLINE static const char* PsrInfo_LogStateToStringHelper(PsrInfo_LogState value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case PsrInfo_LogState::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case PsrInfo_LogState::kNotStarted:
+      return "kNotStarted";
+    case PsrInfo_LogState::kStarted:
+      return "kStarted";
+    case PsrInfo_LogState::kStopped:
+      return "kStopped";
+    default:
+      return nullptr;
+  }
+}
+
+std::string PsrInfo_LogStateToString(PsrInfo_LogState value) {
+  const char *str = PsrInfo_LogStateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown PsrInfo_LogState value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, PsrInfo_LogState value) {
+  return os << PsrInfo_LogStateToString(value);
+}
+
 NOINLINE static const char* InputDevice_ConnectionTypeToStringHelper(InputDevice_ConnectionType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -3628,8 +3688,12 @@ bool SystemInfo_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 32 },
+    { 1, 40 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -3650,12 +3714,17 @@ bool SystemInfo_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->dmi_info, validation_context))
     return false;
+  if (object->header_.version < 1)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->psr_info, validation_context))
+    return false;
 
   return true;
 }
 
 SystemInfo_Data::SystemInfo_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static
@@ -3983,6 +4052,150 @@ bool DmiInfo_Data::Validate(
 }
 
 DmiInfo_Data::DmiInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PsrEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PsrEvent_Data* object =
+      static_cast<const PsrEvent_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::PsrEvent_EventType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  return true;
+}
+
+PsrEvent_Data::PsrEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PsrInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 104, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PsrInfo_Data* object =
+      static_cast<const PsrInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::PsrInfo_LogState_Data
+        ::Validate(object->log_state, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->uuid, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& uuid_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->uuid, validation_context,
+                                         &uuid_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->upid, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& upid_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->upid, validation_context,
+                                         &upid_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->oem_name, 5, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& oem_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->oem_name, validation_context,
+                                         &oem_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->oem_make, 6, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& oem_make_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->oem_make, validation_context,
+                                         &oem_make_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->oem_model, 7, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& oem_model_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->oem_model, validation_context,
+                                         &oem_model_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->manufacture_country, 8, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& manufacture_country_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->manufacture_country, validation_context,
+                                         &manufacture_country_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->oem_data, 9, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& oem_data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->oem_data, validation_context,
+                                         &oem_data_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->events, 15, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& events_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->events, validation_context,
+                                         &events_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+PsrInfo_Data::PsrInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -5790,6 +6003,26 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::OsInfo_EfiPlatformSizeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::PsrEvent_EventType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::PsrEvent_EventType value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::PsrEvent_EventTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::PsrInfo_LogState>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::PsrInfo_LogState value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::PsrInfo_LogStateToString(value));
 }
 
 } // namespace perfetto

@@ -322,6 +322,57 @@ bool Quaternion_Data::Validate(
 Quaternion_Data::Quaternion_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool QuadF_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const QuadF_Data* object =
+      static_cast<const QuadF_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->p1, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->p1, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->p2, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->p2, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->p3, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->p3, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->p4, 4, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->p4, validation_context))
+    return false;
+
+  return true;
+}
+
+QuadF_Data::QuadF_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace gfx

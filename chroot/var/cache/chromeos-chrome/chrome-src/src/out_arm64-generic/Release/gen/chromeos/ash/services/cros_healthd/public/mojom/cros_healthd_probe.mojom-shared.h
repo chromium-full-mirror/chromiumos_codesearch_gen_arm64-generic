@@ -98,6 +98,10 @@ class VpdInfoDataView;
 
 class DmiInfoDataView;
 
+class PsrEventDataView;
+
+class PsrInfoDataView;
+
 class WirelessInterfaceInfoDataView;
 
 class WirelessLinkInfoDataView;
@@ -416,6 +420,20 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::VpdInfoDataView> {
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::DmiInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::DmiInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::PsrEventDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::PsrEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::PsrInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::PsrInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -1499,6 +1517,64 @@ inline OsInfo_EfiPlatformSize ToKnownEnumValue(OsInfo_EfiPlatformSize value) {
     return value;
   }
   return OsInfo_EfiPlatformSize::kDefaultValue;
+}
+
+
+enum class PsrEvent_EventType : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kLogStart = 1,
+  
+  kLogEnd = 2,
+  
+  kCsmeRecovery = 3,
+  
+  kPrtcFailure = 4,
+  
+  kSvnIncrease = 5,
+  kMinValue = 0,
+  kMaxValue = 5,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, PsrEvent_EventType value);
+inline bool IsKnownEnumValue(PsrEvent_EventType value) {
+  return internal::PsrEvent_EventType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline PsrEvent_EventType ToKnownEnumValue(PsrEvent_EventType value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return PsrEvent_EventType::kDefaultValue;
+}
+
+
+enum class PsrInfo_LogState : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kNotStarted = 1,
+  
+  kStarted = 2,
+  
+  kStopped = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, PsrInfo_LogState value);
+inline bool IsKnownEnumValue(PsrInfo_LogState value) {
+  return internal::PsrInfo_LogState_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline PsrInfo_LogState ToKnownEnumValue(PsrInfo_LogState value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return PsrInfo_LogState::kDefaultValue;
 }
 
 
@@ -3213,6 +3289,27 @@ static_assert(
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DmiInfoDataView>(
         pointer, output, message_);
   }
+  inline void GetPsrInfoDataView(
+      PsrInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPsrInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::PsrInfoDataView, UserType>(),
+    "Attempting to read the optional `psr_info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPsrInfo` instead "
+    "of `ReadPsrInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->psr_info.Get() : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PsrInfoDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::SystemInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -3785,6 +3882,161 @@ static_assert(
   }
  private:
   internal::DmiInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PsrEventDataView {
+ public:
+  PsrEventDataView() = default;
+
+  PsrEventDataView(
+      internal::PsrEvent_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PsrEvent_EventType>(
+        data_value, output);
+  }
+  PsrEvent_EventType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::PsrEvent_EventType>(data_->type));
+  }
+  uint32_t time() const {
+    return data_->time;
+  }
+  uint32_t data() const {
+    return data_->data;
+  }
+ private:
+  internal::PsrEvent_Data* data_ = nullptr;
+};
+
+
+class PsrInfoDataView {
+ public:
+  PsrInfoDataView() = default;
+
+  PsrInfoDataView(
+      internal::PsrInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadLogState(UserType* output) const {
+    auto data_value = data_->log_state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PsrInfo_LogState>(
+        data_value, output);
+  }
+  PsrInfo_LogState log_state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::PsrInfo_LogState>(data_->log_state));
+  }
+  inline void GetUuidDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUuid(UserType* output) {
+    
+    auto* pointer = data_->uuid.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetUpidDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUpid(UserType* output) {
+    
+    auto* pointer = data_->upid.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  uint32_t log_start_date() const {
+    return data_->log_start_date;
+  }
+  inline void GetOemNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOemName(UserType* output) {
+    
+    auto* pointer = data_->oem_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetOemMakeDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOemMake(UserType* output) {
+    
+    auto* pointer = data_->oem_make.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetOemModelDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOemModel(UserType* output) {
+    
+    auto* pointer = data_->oem_model.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetManufactureCountryDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadManufactureCountry(UserType* output) {
+    
+    auto* pointer = data_->manufacture_country.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetOemDataDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOemData(UserType* output) {
+    
+    auto* pointer = data_->oem_data.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  uint32_t uptime_seconds() const {
+    return data_->uptime_seconds;
+  }
+  uint32_t s5_counter() const {
+    return data_->s5_counter;
+  }
+  uint32_t s4_counter() const {
+    return data_->s4_counter;
+  }
+  uint32_t s3_counter() const {
+    return data_->s3_counter;
+  }
+  uint32_t warm_reset_counter() const {
+    return data_->warm_reset_counter;
+  }
+  inline void GetEventsDataView(
+      mojo::ArrayDataView<PsrEventDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEvents(UserType* output) {
+    
+    auto* pointer = data_->events.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::PsrEventDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PsrInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -7842,6 +8094,14 @@ struct hash<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize> {};
 
 template <>
+struct hash<::ash::cros_healthd::mojom::PsrEvent_EventType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::PsrEvent_EventType> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::PsrInfo_LogState>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::PsrInfo_LogState> {};
+
+template <>
 struct hash<::ash::cros_healthd::mojom::InputDevice_ConnectionType>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::InputDevice_ConnectionType> {};
 
@@ -8252,6 +8512,46 @@ struct Serializer<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize, MaybeConst
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PsrEvent_EventType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::PsrEvent_EventType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::PsrEvent_EventType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PsrInfo_LogState, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::PsrInfo_LogState, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::PsrInfo_LogState>(input)), output);
   }
 };
 
@@ -9783,6 +10083,14 @@ struct Serializer<::ash::cros_healthd::mojom::SystemInfoDataView, MaybeConstUser
         in_dmi_info, dmi_info_fragment);
     fragment->dmi_info.Set(
         dmi_info_fragment.is_null() ? nullptr : dmi_info_fragment.data());
+    decltype(Traits::psr_info(input)) in_psr_info = Traits::psr_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->psr_info)::BaseType> psr_info_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::PsrInfoDataView>(
+        in_psr_info, psr_info_fragment);
+    fragment->psr_info.Set(
+        psr_info_fragment.is_null() ? nullptr : psr_info_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::SystemInfo_Data* input,
@@ -10152,6 +10460,174 @@ struct Serializer<::ash::cros_healthd::mojom::DmiInfoDataView, MaybeConstUserTyp
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::DmiInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PsrEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::PsrEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::PsrEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::PsrEvent_EventType>(
+        Traits::type(input), &fragment->type);
+    fragment->time = Traits::time(input);
+    fragment->data = Traits::data(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::PsrEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::PsrEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PsrInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::PsrInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::PsrInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::PsrInfo_LogState>(
+        Traits::log_state(input), &fragment->log_state);
+    decltype(Traits::uuid(input)) in_uuid = Traits::uuid(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->uuid)::BaseType> uuid_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_uuid, uuid_fragment);
+    fragment->uuid.Set(
+        uuid_fragment.is_null() ? nullptr : uuid_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->uuid.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null uuid in PsrInfo struct");
+    decltype(Traits::upid(input)) in_upid = Traits::upid(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->upid)::BaseType> upid_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_upid, upid_fragment);
+    fragment->upid.Set(
+        upid_fragment.is_null() ? nullptr : upid_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->upid.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null upid in PsrInfo struct");
+    fragment->log_start_date = Traits::log_start_date(input);
+    decltype(Traits::oem_name(input)) in_oem_name = Traits::oem_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->oem_name)::BaseType> oem_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_oem_name, oem_name_fragment);
+    fragment->oem_name.Set(
+        oem_name_fragment.is_null() ? nullptr : oem_name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->oem_name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null oem_name in PsrInfo struct");
+    decltype(Traits::oem_make(input)) in_oem_make = Traits::oem_make(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->oem_make)::BaseType> oem_make_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_oem_make, oem_make_fragment);
+    fragment->oem_make.Set(
+        oem_make_fragment.is_null() ? nullptr : oem_make_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->oem_make.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null oem_make in PsrInfo struct");
+    decltype(Traits::oem_model(input)) in_oem_model = Traits::oem_model(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->oem_model)::BaseType> oem_model_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_oem_model, oem_model_fragment);
+    fragment->oem_model.Set(
+        oem_model_fragment.is_null() ? nullptr : oem_model_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->oem_model.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null oem_model in PsrInfo struct");
+    decltype(Traits::manufacture_country(input)) in_manufacture_country = Traits::manufacture_country(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->manufacture_country)::BaseType> manufacture_country_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_manufacture_country, manufacture_country_fragment);
+    fragment->manufacture_country.Set(
+        manufacture_country_fragment.is_null() ? nullptr : manufacture_country_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->manufacture_country.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null manufacture_country in PsrInfo struct");
+    decltype(Traits::oem_data(input)) in_oem_data = Traits::oem_data(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->oem_data)::BaseType> oem_data_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_oem_data, oem_data_fragment);
+    fragment->oem_data.Set(
+        oem_data_fragment.is_null() ? nullptr : oem_data_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->oem_data.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null oem_data in PsrInfo struct");
+    fragment->uptime_seconds = Traits::uptime_seconds(input);
+    fragment->s5_counter = Traits::s5_counter(input);
+    fragment->s4_counter = Traits::s4_counter(input);
+    fragment->s3_counter = Traits::s3_counter(input);
+    fragment->warm_reset_counter = Traits::warm_reset_counter(input);
+    decltype(Traits::events(input)) in_events = Traits::events(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->events)::BaseType>
+        events_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& events_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::PsrEventDataView>>(
+        in_events, events_fragment, &events_validate_params);
+    fragment->events.Set(
+        events_fragment.is_null() ? nullptr : events_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->events.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null events in PsrInfo struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::PsrInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::PsrInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -14737,6 +15213,12 @@ inline void SystemInfoDataView::GetDmiInfoDataView(
   auto pointer = data_->dmi_info.Get();
   *output = DmiInfoDataView(pointer, message_);
 }
+inline void SystemInfoDataView::GetPsrInfoDataView(
+    PsrInfoDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->psr_info.Get() : nullptr;
+  *output = PsrInfoDataView(pointer, message_);
+}
 
 
 inline void OsInfoDataView::GetCodeNameDataView(
@@ -14882,6 +15364,50 @@ inline void DmiInfoDataView::GetSysVendorDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->sys_vendor.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void PsrInfoDataView::GetUuidDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->uuid.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void PsrInfoDataView::GetUpidDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->upid.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void PsrInfoDataView::GetOemNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->oem_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void PsrInfoDataView::GetOemMakeDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->oem_make.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void PsrInfoDataView::GetOemModelDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->oem_model.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void PsrInfoDataView::GetManufactureCountryDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->manufacture_country.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void PsrInfoDataView::GetOemDataDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->oem_data.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void PsrInfoDataView::GetEventsDataView(
+    mojo::ArrayDataView<PsrEventDataView>* output) {
+  auto pointer = data_->events.Get();
+  *output = mojo::ArrayDataView<PsrEventDataView>(pointer, message_);
 }
 
 
@@ -15975,6 +16501,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::PsrEvent_EventType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::PsrEvent_EventType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::PsrInfo_LogState> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::PsrInfo_LogState value);
 };
 
 } // namespace perfetto
