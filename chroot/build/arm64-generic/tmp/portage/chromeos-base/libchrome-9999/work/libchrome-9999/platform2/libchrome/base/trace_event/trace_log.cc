@@ -188,7 +188,7 @@ class PerfettoProtoAppender
 
  private:
   std::vector<protozero_libchrome::ContiguousMemoryRange> ranges_;
-  perfetto_libchrome::protos::pbzero::DebugAnnotation* annotation_proto_;
+  raw_ptr<perfetto_libchrome::protos::pbzero::DebugAnnotation> annotation_proto_;
 };
 
 void AddConvertableToTraceFormat(
