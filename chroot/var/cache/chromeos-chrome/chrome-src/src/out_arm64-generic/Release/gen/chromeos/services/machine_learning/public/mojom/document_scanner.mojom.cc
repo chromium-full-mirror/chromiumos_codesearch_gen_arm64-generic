@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -48,12 +48,12 @@ namespace machine_learning {
 namespace mojom {
 DocumentScannerConfig::DocumentScannerConfig()
     : deprecated_library_dlc_path(),
-      library_dlc_path(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::base::FilePath>>()) {}
+      library_dlc_path() {}
 
 DocumentScannerConfig::DocumentScannerConfig(
     const std::string& deprecated_library_dlc_path_in)
     : deprecated_library_dlc_path(std::move(deprecated_library_dlc_path_in)),
-      library_dlc_path(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::base::FilePath>>()) {}
+      library_dlc_path() {}
 
 DocumentScannerConfig::DocumentScannerConfig(
     const std::string& deprecated_library_dlc_path_in,
@@ -544,7 +544,7 @@ bool DocumentScanner_DetectCornersFromNV12Image_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  DetectCornersResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<DetectCornersResultPtr>();
+  DetectCornersResultPtr p_result{};
   DocumentScanner_DetectCornersFromNV12Image_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -672,7 +672,7 @@ bool DocumentScanner_DetectCornersFromJPEGImage_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  DetectCornersResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<DetectCornersResultPtr>();
+  DetectCornersResultPtr p_result{};
   DocumentScanner_DetectCornersFromJPEGImage_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -800,7 +800,7 @@ bool DocumentScanner_DoPostProcessing_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  DoPostProcessingResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<DoPostProcessingResultPtr>();
+  DoPostProcessingResultPtr p_result{};
   DocumentScanner_DoPostProcessing_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -905,7 +905,7 @@ bool DocumentScannerStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::base::ReadOnlySharedMemoryRegion p_nv12_image = mojo::DefaultConstructTraits::CreateInstance<::base::ReadOnlySharedMemoryRegion>();
+      ::base::ReadOnlySharedMemoryRegion p_nv12_image{};
       DocumentScanner_DetectCornersFromNV12Image_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadNv12Image(&p_nv12_image))
@@ -934,7 +934,7 @@ std::move(p_nv12_image), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::base::ReadOnlySharedMemoryRegion p_jpeg_image = mojo::DefaultConstructTraits::CreateInstance<::base::ReadOnlySharedMemoryRegion>();
+      ::base::ReadOnlySharedMemoryRegion p_jpeg_image{};
       DocumentScanner_DetectCornersFromJPEGImage_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadJpegImage(&p_jpeg_image))
@@ -963,9 +963,9 @@ std::move(p_jpeg_image), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::base::ReadOnlySharedMemoryRegion p_jpeg_image = mojo::DefaultConstructTraits::CreateInstance<::base::ReadOnlySharedMemoryRegion>();
-      std::vector<::gfx::PointF> p_corners = mojo::DefaultConstructTraits::CreateInstance<std::vector<::gfx::PointF>>();
-      ::chromeos::machine_learning::mojom::Rotation p_rotation = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::Rotation>();
+      ::base::ReadOnlySharedMemoryRegion p_jpeg_image{};
+      std::vector<::gfx::PointF> p_corners{};
+      ::chromeos::machine_learning::mojom::Rotation p_rotation{};
       DocumentScanner_DoPostProcessing_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadJpegImage(&p_jpeg_image))
@@ -1116,7 +1116,7 @@ void DocumentScannerAsyncWaiter::DetectCornersFromNV12Image(
 
 DetectCornersResultPtr DocumentScannerAsyncWaiter::DetectCornersFromNV12Image(
     ::base::ReadOnlySharedMemoryRegion nv12_image) {
-  DetectCornersResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<DetectCornersResultPtr>();
+  DetectCornersResultPtr async_wait_result;
   DetectCornersFromNV12Image(std::move(nv12_image),&async_wait_result);
   return async_wait_result;
 }
@@ -1139,7 +1139,7 @@ void DocumentScannerAsyncWaiter::DetectCornersFromJPEGImage(
 
 DetectCornersResultPtr DocumentScannerAsyncWaiter::DetectCornersFromJPEGImage(
     ::base::ReadOnlySharedMemoryRegion jpeg_image) {
-  DetectCornersResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<DetectCornersResultPtr>();
+  DetectCornersResultPtr async_wait_result;
   DetectCornersFromJPEGImage(std::move(jpeg_image),&async_wait_result);
   return async_wait_result;
 }
@@ -1162,7 +1162,7 @@ void DocumentScannerAsyncWaiter::DoPostProcessing(
 
 DoPostProcessingResultPtr DocumentScannerAsyncWaiter::DoPostProcessing(
     ::base::ReadOnlySharedMemoryRegion jpeg_image, const std::vector<::gfx::PointF>& corners, ::chromeos::machine_learning::mojom::Rotation rotation) {
-  DoPostProcessingResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<DoPostProcessingResultPtr>();
+  DoPostProcessingResultPtr async_wait_result;
   DoPostProcessing(std::move(jpeg_image),std::move(corners),std::move(rotation),&async_wait_result);
   return async_wait_result;
 }

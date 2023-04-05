@@ -134,6 +134,9 @@ class NaggyMockImpl;
 // calls to ensure the integrity of the mock objects' states.
 GTEST_API_ GTEST_DECLARE_STATIC_MUTEX_(g_gmock_mutex);
 
+// Untyped base class for ActionResultHolder<R>.
+class UntypedActionResultHolderBase;
+
 // Abstract base class of FunctionMocker.  This is the
 // type-agnostic part of the function mocker interface.  Its pure
 // virtual methods are implemented by FunctionMocker.
@@ -155,6 +158,20 @@ class GTEST_API_ UntypedFunctionMockerBase {
   // In all of the following Untyped* functions, it's the caller's
   // responsibility to guarantee the correctness of the arguments'
   // types.
+
+  // Performs the default action with the given arguments and returns
+  // the action's result.  The call description string will be used in
+  // the error message to describe the call in the case the default
+  // action fails.
+  // L = *
+  virtual UntypedActionResultHolderBase* UntypedPerformDefaultAction(
+      void* untyped_args, const std::string& call_description) const = 0;
+
+  // Performs the given action with the given arguments and returns
+  // the action's result.
+  // L = *
+  virtual UntypedActionResultHolderBase* UntypedPerformAction(
+      const void* untyped_action, void* untyped_args) const = 0;
 
   // Writes a message that the call is uninteresting (i.e. neither
   // explicitly expected nor explicitly unexpected) to the given
@@ -198,6 +215,13 @@ class GTEST_API_ UntypedFunctionMockerBase {
   // Returns the name of this mock method.  Must be called after
   // SetOwnerAndName() has been called.
   const char* Name() const GTEST_LOCK_EXCLUDED_(g_gmock_mutex);
+
+  // Returns the result of invoking this mock function with the given
+  // arguments.  This function can be safely called from multiple
+  // threads concurrently.  The caller is responsible for deleting the
+  // result.
+  UntypedActionResultHolderBase* UntypedInvokeWith(void* untyped_args)
+      GTEST_LOCK_EXCLUDED_(g_gmock_mutex);
 
  protected:
   typedef std::vector<const void*> UntypedOnCallSpecs;
@@ -1373,28 +1397,104 @@ class ReferenceOrValueWrapper<T&> {
   T* value_ptr_;
 };
 
-// Prints the held value as an action's result to os.
+// C++ treats the void type specially.  For example, you cannot define
+// a void-typed variable or pass a void value to a function.
+// ActionResultHolder<T> holds a value of type T, where T must be a
+// copyable type or void (T doesn't need to be default-constructable).
+// It hides the syntactic difference between void and other types, and
+// is used to unify the code for invoking both void-returning and
+// non-void-returning mock functions.
+
+// Untyped base class for ActionResultHolder<T>.
+class UntypedActionResultHolderBase {
+ public:
+  virtual ~UntypedActionResultHolderBase() {}
+
+  // Prints the held value as an action's result to os.
+  virtual void PrintAsActionResult(::std::ostream* os) const = 0;
+};
+
+// This generic definition is used when T is not void.
 template <typename T>
-void PrintAsActionResult(const T& result, std::ostream& os) {
-  os << "\n          Returns: ";
-  // T may be a reference type, so we don't use UniversalPrint().
-  UniversalPrinter<T>::Print(result, &os);
-}
+class ActionResultHolder : public UntypedActionResultHolderBase {
+ public:
+  // Returns the held value. Must not be called more than once.
+  T Unwrap() { return result_.Unwrap(); }
+
+  // Prints the held value as an action's result to os.
+  void PrintAsActionResult(::std::ostream* os) const override {
+    *os << "\n          Returns: ";
+    // T may be a reference type, so we don't use UniversalPrint().
+    UniversalPrinter<T>::Print(result_.Peek(), os);
+  }
+
+  // Performs the given mock function's default action and returns the
+  // result in a new-ed ActionResultHolder.
+  template <typename F>
+  static ActionResultHolder* PerformDefaultAction(
+      const FunctionMocker<F>* func_mocker,
+      typename Function<F>::ArgumentTuple&& args,
+      const std::string& call_description) {
+    return new ActionResultHolder(Wrapper(
+        func_mocker->PerformDefaultAction(std::move(args), call_description)));
+  }
+
+  // Performs the given action and returns the result in a new-ed
+  // ActionResultHolder.
+  template <typename F>
+  static ActionResultHolder* PerformAction(
+      const Action<F>& action, typename Function<F>::ArgumentTuple&& args) {
+    return new ActionResultHolder(Wrapper(action.Perform(std::move(args))));
+  }
+
+ private:
+  typedef ReferenceOrValueWrapper<T> Wrapper;
+
+  explicit ActionResultHolder(Wrapper result) : result_(std::move(result)) {}
+
+  Wrapper result_;
+
+  ActionResultHolder(const ActionResultHolder&) = delete;
+  ActionResultHolder& operator=(const ActionResultHolder&) = delete;
+};
+
+// Specialization for T = void.
+template <>
+class ActionResultHolder<void> : public UntypedActionResultHolderBase {
+ public:
+  void Unwrap() {}
+
+  void PrintAsActionResult(::std::ostream* /* os */) const override {}
+
+  // Performs the given mock function's default action and returns ownership
+  // of an empty ActionResultHolder*.
+  template <typename F>
+  static ActionResultHolder* PerformDefaultAction(
+      const FunctionMocker<F>* func_mocker,
+      typename Function<F>::ArgumentTuple&& args,
+      const std::string& call_description) {
+    func_mocker->PerformDefaultAction(std::move(args), call_description);
+    return new ActionResultHolder;
+  }
+
+  // Performs the given action and returns ownership of an empty
+  // ActionResultHolder*.
+  template <typename F>
+  static ActionResultHolder* PerformAction(
+      const Action<F>& action, typename Function<F>::ArgumentTuple&& args) {
+    action.Perform(std::move(args));
+    return new ActionResultHolder;
+  }
+
+ private:
+  ActionResultHolder() {}
+  ActionResultHolder(const ActionResultHolder&) = delete;
+  ActionResultHolder& operator=(const ActionResultHolder&) = delete;
+};
 
 // Reports an uninteresting call (whose description is in msg) in the
 // manner specified by 'reaction'.
-GTEST_API_ void ReportUninterestingCall(CallReaction reaction,
-                                        const std::string& msg);
-
-// A generic RAII type that runs a user-provided function in its destructor.
-class Cleanup final {
- public:
-  explicit Cleanup(std::function<void()> f) : f_(std::move(f)) {}
-  ~Cleanup() { f_(); }
-
- private:
-  std::function<void()> f_;
-};
+void ReportUninterestingCall(CallReaction reaction, const std::string& msg);
 
 template <typename F>
 class FunctionMocker;
@@ -1476,6 +1576,32 @@ class FunctionMocker<R(Args...)> final : public UntypedFunctionMockerBase {
     return DefaultValue<Result>::Get();
   }
 
+  // Performs the default action with the given arguments and returns
+  // the action's result.  The call description string will be used in
+  // the error message to describe the call in the case the default
+  // action fails.  The caller is responsible for deleting the result.
+  // L = *
+  UntypedActionResultHolderBase* UntypedPerformDefaultAction(
+      void* untyped_args,  // must point to an ArgumentTuple
+      const std::string& call_description) const override {
+    ArgumentTuple* args = static_cast<ArgumentTuple*>(untyped_args);
+    return ResultHolder::PerformDefaultAction(this, std::move(*args),
+                                              call_description);
+  }
+
+  // Performs the given action with the given arguments and returns
+  // the action's result.  The caller is responsible for deleting the
+  // result.
+  // L = *
+  UntypedActionResultHolderBase* UntypedPerformAction(
+      const void* untyped_action, void* untyped_args) const override {
+    // Make a copy of the action before performing it, in case the
+    // action deletes the mock object (and thus deletes itself).
+    const Action<F> action = *static_cast<const Action<F>*>(untyped_action);
+    ArgumentTuple* args = static_cast<ArgumentTuple*>(untyped_args);
+    return ResultHolder::PerformAction(action, std::move(*args));
+  }
+
   // Implements UntypedFunctionMockerBase::ClearDefaultActionsLocked():
   // clears the ON_CALL()s set on this mock function.
   void ClearDefaultActionsLocked() override
@@ -1507,7 +1633,10 @@ class FunctionMocker<R(Args...)> final : public UntypedFunctionMockerBase {
   // arguments.  This function can be safely called from multiple
   // threads concurrently.
   Result Invoke(Args... args) GTEST_LOCK_EXCLUDED_(g_gmock_mutex) {
-    return InvokeWith(ArgumentTuple(std::forward<Args>(args)...));
+    ArgumentTuple tuple(std::forward<Args>(args)...);
+    std::unique_ptr<ResultHolder> holder(DownCast_<ResultHolder*>(
+        this->UntypedInvokeWith(static_cast<void*>(&tuple))));
+    return holder->Unwrap();
   }
 
   MockSpec<F> With(Matcher<Args>... m) {
@@ -1517,6 +1646,8 @@ class FunctionMocker<R(Args...)> final : public UntypedFunctionMockerBase {
  protected:
   template <typename Function>
   friend class MockSpec;
+
+  typedef ActionResultHolder<Result> ResultHolder;
 
   // Adds and returns a default action spec for this mock function.
   OnCallSpec<F>& AddNewOnCallSpec(const char* file, int line,
@@ -1688,67 +1819,13 @@ class FunctionMocker<R(Args...)> final : public UntypedFunctionMockerBase {
       expectation->DescribeCallCountTo(why);
     }
   }
-
-  // Performs the given action (or the default if it's null) with the given
-  // arguments and returns the action's result.
-  // L = *
-  R PerformAction(const void* untyped_action, ArgumentTuple&& args,
-                  const std::string& call_description) const {
-    if (untyped_action == nullptr) {
-      return PerformDefaultAction(std::move(args), call_description);
-    }
-
-    // Make a copy of the action before performing it, in case the
-    // action deletes the mock object (and thus deletes itself).
-    const Action<F> action = *static_cast<const Action<F>*>(untyped_action);
-    return action.Perform(std::move(args));
-  }
-
-  // Is it possible to store an object of the supplied type in a local variable
-  // for the sake of printing it, then return it on to the caller?
-  template <typename T>
-  using can_print_result = internal::conjunction<
-      // void can't be stored as an object (and we also don't need to print it).
-      internal::negation<std::is_void<T>>,
-      // Non-moveable types can't be returned on to the user, so there's no way
-      // for us to intercept and print them.
-      std::is_move_constructible<T>>;
-
-  // Perform the supplied action, printing the result to os.
-  template <typename T = R,
-            typename std::enable_if<can_print_result<T>::value, int>::type = 0>
-  R PerformActionAndPrintResult(const void* const untyped_action,
-                                ArgumentTuple&& args,
-                                const std::string& call_description,
-                                std::ostream& os) {
-    R result = PerformAction(untyped_action, std::move(args), call_description);
-
-    PrintAsActionResult(result, os);
-    return std::forward<R>(result);
-  }
-
-  // An overload for when it's not possible to print the result. In this case we
-  // simply perform the action.
-  template <typename T = R,
-            typename std::enable_if<
-                internal::negation<can_print_result<T>>::value, int>::type = 0>
-  R PerformActionAndPrintResult(const void* const untyped_action,
-                                ArgumentTuple&& args,
-                                const std::string& call_description,
-                                std::ostream&) {
-    return PerformAction(untyped_action, std::move(args), call_description);
-  }
-
-  // Returns the result of invoking this mock function with the given
-  // arguments. This function can be safely called from multiple
-  // threads concurrently.
-  R InvokeWith(ArgumentTuple&& args) GTEST_LOCK_EXCLUDED_(g_gmock_mutex);
 };  // class FunctionMocker
 
 // Calculates the result of invoking this mock function with the given
-// arguments, prints it, and returns it.
-template <typename R, typename... Args>
-R FunctionMocker<R(Args...)>::InvokeWith(ArgumentTuple&& args)
+// arguments, prints it, and returns it.  The caller is responsible
+// for deleting the result.
+inline UntypedActionResultHolderBase*
+UntypedFunctionMockerBase::UntypedInvokeWith(void* const untyped_args)
     GTEST_LOCK_EXCLUDED_(g_gmock_mutex) {
   // See the definition of untyped_expectations_ for why access to it
   // is unprotected here.
@@ -1781,23 +1858,23 @@ R FunctionMocker<R(Args...)>::InvokeWith(ArgumentTuple&& args)
 
     if (!need_to_report_uninteresting_call) {
       // Perform the action without printing the call information.
-      return this->PerformDefaultAction(
-          std::move(args), "Function call: " + std::string(Name()));
+      return this->UntypedPerformDefaultAction(
+          untyped_args, "Function call: " + std::string(Name()));
     }
 
     // Warns about the uninteresting call.
     ::std::stringstream ss;
-    this->UntypedDescribeUninterestingCall(&args, &ss);
+    this->UntypedDescribeUninterestingCall(untyped_args, &ss);
 
-    // Perform the action, print the result, and then report the uninteresting
-    // call.
-    //
-    // We use RAII to do the latter in case R is void or a non-moveable type. In
-    // either case we can't assign it to a local variable.
-    const Cleanup report_uninteresting_call(
-        [&] { ReportUninterestingCall(reaction, ss.str()); });
+    // Calculates the function result.
+    UntypedActionResultHolderBase* const result =
+        this->UntypedPerformDefaultAction(untyped_args, ss.str());
 
-    return PerformActionAndPrintResult(nullptr, std::move(args), ss.str(), ss);
+    // Prints the function result.
+    if (result != nullptr) result->PrintAsActionResult(&ss);
+
+    ReportUninterestingCall(reaction, ss.str());
+    return result;
   }
 
   bool is_excessive = false;
@@ -1810,7 +1887,7 @@ R FunctionMocker<R(Args...)>::InvokeWith(ArgumentTuple&& args)
   // releases g_gmock_mutex.
 
   const ExpectationBase* const untyped_expectation =
-      this->UntypedFindMatchingExpectation(&args, &untyped_action,
+      this->UntypedFindMatchingExpectation(untyped_args, &untyped_action,
                                            &is_excessive, &ss, &why);
   const bool found = untyped_expectation != nullptr;
 
@@ -1822,11 +1899,13 @@ R FunctionMocker<R(Args...)>::InvokeWith(ArgumentTuple&& args)
       !found || is_excessive || LogIsVisible(kInfo);
   if (!need_to_report_call) {
     // Perform the action without printing the call information.
-    return PerformAction(untyped_action, std::move(args), "");
+    return untyped_action == nullptr
+               ? this->UntypedPerformDefaultAction(untyped_args, "")
+               : this->UntypedPerformAction(untyped_action, untyped_args);
   }
 
   ss << "    Function call: " << Name();
-  this->UntypedPrintArgs(&args, &ss);
+  this->UntypedPrintArgs(untyped_args, &ss);
 
   // In case the action deletes a piece of the expectation, we
   // generate the message beforehand.
@@ -1834,12 +1913,14 @@ R FunctionMocker<R(Args...)>::InvokeWith(ArgumentTuple&& args)
     untyped_expectation->DescribeLocationTo(&loc);
   }
 
-  // Perform the action, print the result, and then fail or log in whatever way
-  // is appropriate.
-  //
-  // We use RAII to do the latter in case R is void or a non-moveable type. In
-  // either case we can't assign it to a local variable.
-  const Cleanup handle_failures([&] {
+  UntypedActionResultHolderBase* result = nullptr;
+
+  auto perform_action = [&] {
+    return untyped_action == nullptr
+               ? this->UntypedPerformDefaultAction(untyped_args, ss.str())
+               : this->UntypedPerformAction(untyped_action, untyped_args);
+  };
+  auto handle_failures = [&] {
     ss << "\n" << why.str();
 
     if (!found) {
@@ -1854,10 +1935,21 @@ R FunctionMocker<R(Args...)>::InvokeWith(ArgumentTuple&& args)
       // described in ss.
       Log(kInfo, loc.str() + ss.str(), 2);
     }
-  });
+  };
+#if GTEST_HAS_EXCEPTIONS
+  try {
+    result = perform_action();
+  } catch (...) {
+    handle_failures();
+    throw;
+  }
+#else
+  result = perform_action();
+#endif
 
-  return PerformActionAndPrintResult(untyped_action, std::move(args), ss.str(),
-                                     ss);
+  if (result != nullptr) result->PrintAsActionResult(&ss);
+  handle_failures();
+  return result;
 }
 
 }  // namespace internal

@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -423,7 +423,7 @@ bool GrammarChecker_Check_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  GrammarCheckerResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<GrammarCheckerResultPtr>();
+  GrammarCheckerResultPtr p_result{};
   GrammarChecker_Check_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -522,7 +522,7 @@ bool GrammarCheckerStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      GrammarCheckerQueryPtr p_query = mojo::DefaultConstructTraits::CreateInstance<GrammarCheckerQueryPtr>();
+      GrammarCheckerQueryPtr p_query{};
       GrammarChecker_Check_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadQuery(&p_query))
@@ -677,7 +677,7 @@ void GrammarCheckerAsyncWaiter::Check(
 
 GrammarCheckerResultPtr GrammarCheckerAsyncWaiter::Check(
     GrammarCheckerQueryPtr query) {
-  GrammarCheckerResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<GrammarCheckerResultPtr>();
+  GrammarCheckerResultPtr async_wait_result;
   Check(std::move(query),&async_wait_result);
   return async_wait_result;
 }

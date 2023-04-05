@@ -514,12 +514,13 @@ enum DownstreamNetworkResult : int {
   INVALID_ARGUMENT = 1,
   INTERFACE_USED = 2,
   ERROR = 3,
+  DHCP_SERVER_FAILURE = 4,
   DownstreamNetworkResult_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   DownstreamNetworkResult_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool DownstreamNetworkResult_IsValid(int value);
 constexpr DownstreamNetworkResult DownstreamNetworkResult_MIN = SUCCESS;
-constexpr DownstreamNetworkResult DownstreamNetworkResult_MAX = ERROR;
+constexpr DownstreamNetworkResult DownstreamNetworkResult_MAX = DHCP_SERVER_FAILURE;
 constexpr int DownstreamNetworkResult_ARRAYSIZE = DownstreamNetworkResult_MAX + 1;
 
 const std::string& DownstreamNetworkResult_Name(DownstreamNetworkResult value);
@@ -6247,6 +6248,8 @@ class IPv4Configuration final :
   enum : int {
     kOptionsFieldNumber = 4,
     kGatewayAddrFieldNumber = 2,
+    kDhcpStartAddrFieldNumber = 5,
+    kDhcpEndAddrFieldNumber = 6,
     kIpv4SubnetFieldNumber = 1,
     kUseDhcpFieldNumber = 3,
   };
@@ -6268,7 +6271,11 @@ class IPv4Configuration final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::IPv4Configuration_DhcpOption >&
       options() const;
 
-  // bytes gateway_addr = 2;
+  // optional bytes gateway_addr = 2;
+  bool has_gateway_addr() const;
+  private:
+  bool _internal_has_gateway_addr() const;
+  public:
   void clear_gateway_addr();
   const std::string& gateway_addr() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -6282,7 +6289,43 @@ class IPv4Configuration final :
   std::string* _internal_mutable_gateway_addr();
   public:
 
-  // .patchpanel.IPv4Subnet ipv4_subnet = 1;
+  // optional bytes dhcp_start_addr = 5;
+  bool has_dhcp_start_addr() const;
+  private:
+  bool _internal_has_dhcp_start_addr() const;
+  public:
+  void clear_dhcp_start_addr();
+  const std::string& dhcp_start_addr() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_dhcp_start_addr(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_dhcp_start_addr();
+  PROTOBUF_NODISCARD std::string* release_dhcp_start_addr();
+  void set_allocated_dhcp_start_addr(std::string* dhcp_start_addr);
+  private:
+  const std::string& _internal_dhcp_start_addr() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_dhcp_start_addr(const std::string& value);
+  std::string* _internal_mutable_dhcp_start_addr();
+  public:
+
+  // optional bytes dhcp_end_addr = 6;
+  bool has_dhcp_end_addr() const;
+  private:
+  bool _internal_has_dhcp_end_addr() const;
+  public:
+  void clear_dhcp_end_addr();
+  const std::string& dhcp_end_addr() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_dhcp_end_addr(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_dhcp_end_addr();
+  PROTOBUF_NODISCARD std::string* release_dhcp_end_addr();
+  void set_allocated_dhcp_end_addr(std::string* dhcp_end_addr);
+  private:
+  const std::string& _internal_dhcp_end_addr() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_dhcp_end_addr(const std::string& value);
+  std::string* _internal_mutable_dhcp_end_addr();
+  public:
+
+  // optional .patchpanel.IPv4Subnet ipv4_subnet = 1;
   bool has_ipv4_subnet() const;
   private:
   bool _internal_has_ipv4_subnet() const;
@@ -6316,11 +6359,14 @@ class IPv4Configuration final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::IPv4Configuration_DhcpOption > options_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr gateway_addr_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dhcp_start_addr_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dhcp_end_addr_;
   ::patchpanel::IPv4Subnet* ipv4_subnet_;
   bool use_dhcp_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_patchpanel_5fservice_2eproto;
 };
 // -------------------------------------------------------------------
@@ -6660,7 +6706,7 @@ class TetheredNetworkRequest final :
   std::string* _internal_mutable_upstream_ifname();
   public:
 
-  // .patchpanel.IPv4Configuration ipv4_config = 4;
+  // optional .patchpanel.IPv4Configuration ipv4_config = 4;
   bool has_ipv4_config() const;
   private:
   bool _internal_has_ipv4_config() const;
@@ -6703,12 +6749,13 @@ class TetheredNetworkRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ifname_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr upstream_ifname_;
   ::patchpanel::IPv4Configuration* ipv4_config_;
   int upstream_technology_;
   bool disable_ipv6_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_patchpanel_5fservice_2eproto;
 };
 // -------------------------------------------------------------------
@@ -10381,18 +10428,18 @@ inline void IPv4Configuration_DhcpOption::set_allocated_content(std::string* con
 
 // IPv4Configuration
 
-// .patchpanel.IPv4Subnet ipv4_subnet = 1;
+// optional .patchpanel.IPv4Subnet ipv4_subnet = 1;
 inline bool IPv4Configuration::_internal_has_ipv4_subnet() const {
-  return this != internal_default_instance() && ipv4_subnet_ != nullptr;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  PROTOBUF_ASSUME(!value || ipv4_subnet_ != nullptr);
+  return value;
 }
 inline bool IPv4Configuration::has_ipv4_subnet() const {
   return _internal_has_ipv4_subnet();
 }
 inline void IPv4Configuration::clear_ipv4_subnet() {
-  if (GetArenaForAllocation() == nullptr && ipv4_subnet_ != nullptr) {
-    delete ipv4_subnet_;
-  }
-  ipv4_subnet_ = nullptr;
+  if (ipv4_subnet_ != nullptr) ipv4_subnet_->Clear();
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline const ::patchpanel::IPv4Subnet& IPv4Configuration::_internal_ipv4_subnet() const {
   const ::patchpanel::IPv4Subnet* p = ipv4_subnet_;
@@ -10410,14 +10457,14 @@ inline void IPv4Configuration::unsafe_arena_set_allocated_ipv4_subnet(
   }
   ipv4_subnet_ = ipv4_subnet;
   if (ipv4_subnet) {
-    
+    _has_bits_[0] |= 0x00000008u;
   } else {
-    
+    _has_bits_[0] &= ~0x00000008u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.IPv4Configuration.ipv4_subnet)
 }
 inline ::patchpanel::IPv4Subnet* IPv4Configuration::release_ipv4_subnet() {
-  
+  _has_bits_[0] &= ~0x00000008u;
   ::patchpanel::IPv4Subnet* temp = ipv4_subnet_;
   ipv4_subnet_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -10433,13 +10480,13 @@ inline ::patchpanel::IPv4Subnet* IPv4Configuration::release_ipv4_subnet() {
 }
 inline ::patchpanel::IPv4Subnet* IPv4Configuration::unsafe_arena_release_ipv4_subnet() {
   // @@protoc_insertion_point(field_release:patchpanel.IPv4Configuration.ipv4_subnet)
-  
+  _has_bits_[0] &= ~0x00000008u;
   ::patchpanel::IPv4Subnet* temp = ipv4_subnet_;
   ipv4_subnet_ = nullptr;
   return temp;
 }
 inline ::patchpanel::IPv4Subnet* IPv4Configuration::_internal_mutable_ipv4_subnet() {
-  
+  _has_bits_[0] |= 0x00000008u;
   if (ipv4_subnet_ == nullptr) {
     auto* p = CreateMaybeMessage<::patchpanel::IPv4Subnet>(GetArenaForAllocation());
     ipv4_subnet_ = p;
@@ -10463,17 +10510,25 @@ inline void IPv4Configuration::set_allocated_ipv4_subnet(::patchpanel::IPv4Subne
       ipv4_subnet = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, ipv4_subnet, submessage_arena);
     }
-    
+    _has_bits_[0] |= 0x00000008u;
   } else {
-    
+    _has_bits_[0] &= ~0x00000008u;
   }
   ipv4_subnet_ = ipv4_subnet;
   // @@protoc_insertion_point(field_set_allocated:patchpanel.IPv4Configuration.ipv4_subnet)
 }
 
-// bytes gateway_addr = 2;
+// optional bytes gateway_addr = 2;
+inline bool IPv4Configuration::_internal_has_gateway_addr() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool IPv4Configuration::has_gateway_addr() const {
+  return _internal_has_gateway_addr();
+}
 inline void IPv4Configuration::clear_gateway_addr() {
   gateway_addr_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& IPv4Configuration::gateway_addr() const {
   // @@protoc_insertion_point(field_get:patchpanel.IPv4Configuration.gateway_addr)
@@ -10482,7 +10537,7 @@ inline const std::string& IPv4Configuration::gateway_addr() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void IPv4Configuration::set_gateway_addr(ArgT0&& arg0, ArgT... args) {
- 
+ _has_bits_[0] |= 0x00000001u;
  gateway_addr_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:patchpanel.IPv4Configuration.gateway_addr)
 }
@@ -10495,22 +10550,32 @@ inline const std::string& IPv4Configuration::_internal_gateway_addr() const {
   return gateway_addr_.Get();
 }
 inline void IPv4Configuration::_internal_set_gateway_addr(const std::string& value) {
-  
+  _has_bits_[0] |= 0x00000001u;
   gateway_addr_.Set(value, GetArenaForAllocation());
 }
 inline std::string* IPv4Configuration::_internal_mutable_gateway_addr() {
-  
+  _has_bits_[0] |= 0x00000001u;
   return gateway_addr_.Mutable(GetArenaForAllocation());
 }
 inline std::string* IPv4Configuration::release_gateway_addr() {
   // @@protoc_insertion_point(field_release:patchpanel.IPv4Configuration.gateway_addr)
-  return gateway_addr_.Release();
+  if (!_internal_has_gateway_addr()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = gateway_addr_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (gateway_addr_.IsDefault()) {
+    gateway_addr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
 }
 inline void IPv4Configuration::set_allocated_gateway_addr(std::string* gateway_addr) {
   if (gateway_addr != nullptr) {
-    
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    
+    _has_bits_[0] &= ~0x00000001u;
   }
   gateway_addr_.SetAllocated(gateway_addr, GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -10579,6 +10644,142 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::IPv4Config
 IPv4Configuration::options() const {
   // @@protoc_insertion_point(field_list:patchpanel.IPv4Configuration.options)
   return options_;
+}
+
+// optional bytes dhcp_start_addr = 5;
+inline bool IPv4Configuration::_internal_has_dhcp_start_addr() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool IPv4Configuration::has_dhcp_start_addr() const {
+  return _internal_has_dhcp_start_addr();
+}
+inline void IPv4Configuration::clear_dhcp_start_addr() {
+  dhcp_start_addr_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& IPv4Configuration::dhcp_start_addr() const {
+  // @@protoc_insertion_point(field_get:patchpanel.IPv4Configuration.dhcp_start_addr)
+  return _internal_dhcp_start_addr();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void IPv4Configuration::set_dhcp_start_addr(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ dhcp_start_addr_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.IPv4Configuration.dhcp_start_addr)
+}
+inline std::string* IPv4Configuration::mutable_dhcp_start_addr() {
+  std::string* _s = _internal_mutable_dhcp_start_addr();
+  // @@protoc_insertion_point(field_mutable:patchpanel.IPv4Configuration.dhcp_start_addr)
+  return _s;
+}
+inline const std::string& IPv4Configuration::_internal_dhcp_start_addr() const {
+  return dhcp_start_addr_.Get();
+}
+inline void IPv4Configuration::_internal_set_dhcp_start_addr(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  dhcp_start_addr_.Set(value, GetArenaForAllocation());
+}
+inline std::string* IPv4Configuration::_internal_mutable_dhcp_start_addr() {
+  _has_bits_[0] |= 0x00000002u;
+  return dhcp_start_addr_.Mutable(GetArenaForAllocation());
+}
+inline std::string* IPv4Configuration::release_dhcp_start_addr() {
+  // @@protoc_insertion_point(field_release:patchpanel.IPv4Configuration.dhcp_start_addr)
+  if (!_internal_has_dhcp_start_addr()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = dhcp_start_addr_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (dhcp_start_addr_.IsDefault()) {
+    dhcp_start_addr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void IPv4Configuration::set_allocated_dhcp_start_addr(std::string* dhcp_start_addr) {
+  if (dhcp_start_addr != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  dhcp_start_addr_.SetAllocated(dhcp_start_addr, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (dhcp_start_addr_.IsDefault()) {
+    dhcp_start_addr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.IPv4Configuration.dhcp_start_addr)
+}
+
+// optional bytes dhcp_end_addr = 6;
+inline bool IPv4Configuration::_internal_has_dhcp_end_addr() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool IPv4Configuration::has_dhcp_end_addr() const {
+  return _internal_has_dhcp_end_addr();
+}
+inline void IPv4Configuration::clear_dhcp_end_addr() {
+  dhcp_end_addr_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& IPv4Configuration::dhcp_end_addr() const {
+  // @@protoc_insertion_point(field_get:patchpanel.IPv4Configuration.dhcp_end_addr)
+  return _internal_dhcp_end_addr();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void IPv4Configuration::set_dhcp_end_addr(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000004u;
+ dhcp_end_addr_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.IPv4Configuration.dhcp_end_addr)
+}
+inline std::string* IPv4Configuration::mutable_dhcp_end_addr() {
+  std::string* _s = _internal_mutable_dhcp_end_addr();
+  // @@protoc_insertion_point(field_mutable:patchpanel.IPv4Configuration.dhcp_end_addr)
+  return _s;
+}
+inline const std::string& IPv4Configuration::_internal_dhcp_end_addr() const {
+  return dhcp_end_addr_.Get();
+}
+inline void IPv4Configuration::_internal_set_dhcp_end_addr(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  dhcp_end_addr_.Set(value, GetArenaForAllocation());
+}
+inline std::string* IPv4Configuration::_internal_mutable_dhcp_end_addr() {
+  _has_bits_[0] |= 0x00000004u;
+  return dhcp_end_addr_.Mutable(GetArenaForAllocation());
+}
+inline std::string* IPv4Configuration::release_dhcp_end_addr() {
+  // @@protoc_insertion_point(field_release:patchpanel.IPv4Configuration.dhcp_end_addr)
+  if (!_internal_has_dhcp_end_addr()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  auto* p = dhcp_end_addr_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (dhcp_end_addr_.IsDefault()) {
+    dhcp_end_addr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void IPv4Configuration::set_allocated_dhcp_end_addr(std::string* dhcp_end_addr) {
+  if (dhcp_end_addr != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  dhcp_end_addr_.SetAllocated(dhcp_end_addr, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (dhcp_end_addr_.IsDefault()) {
+    dhcp_end_addr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.IPv4Configuration.dhcp_end_addr)
 }
 
 // -------------------------------------------------------------------
@@ -10899,18 +11100,18 @@ inline void TetheredNetworkRequest::set_upstream_technology(::patchpanel::Tether
   // @@protoc_insertion_point(field_set:patchpanel.TetheredNetworkRequest.upstream_technology)
 }
 
-// .patchpanel.IPv4Configuration ipv4_config = 4;
+// optional .patchpanel.IPv4Configuration ipv4_config = 4;
 inline bool TetheredNetworkRequest::_internal_has_ipv4_config() const {
-  return this != internal_default_instance() && ipv4_config_ != nullptr;
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || ipv4_config_ != nullptr);
+  return value;
 }
 inline bool TetheredNetworkRequest::has_ipv4_config() const {
   return _internal_has_ipv4_config();
 }
 inline void TetheredNetworkRequest::clear_ipv4_config() {
-  if (GetArenaForAllocation() == nullptr && ipv4_config_ != nullptr) {
-    delete ipv4_config_;
-  }
-  ipv4_config_ = nullptr;
+  if (ipv4_config_ != nullptr) ipv4_config_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::patchpanel::IPv4Configuration& TetheredNetworkRequest::_internal_ipv4_config() const {
   const ::patchpanel::IPv4Configuration* p = ipv4_config_;
@@ -10928,14 +11129,14 @@ inline void TetheredNetworkRequest::unsafe_arena_set_allocated_ipv4_config(
   }
   ipv4_config_ = ipv4_config;
   if (ipv4_config) {
-    
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    
+    _has_bits_[0] &= ~0x00000001u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.TetheredNetworkRequest.ipv4_config)
 }
 inline ::patchpanel::IPv4Configuration* TetheredNetworkRequest::release_ipv4_config() {
-  
+  _has_bits_[0] &= ~0x00000001u;
   ::patchpanel::IPv4Configuration* temp = ipv4_config_;
   ipv4_config_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -10951,13 +11152,13 @@ inline ::patchpanel::IPv4Configuration* TetheredNetworkRequest::release_ipv4_con
 }
 inline ::patchpanel::IPv4Configuration* TetheredNetworkRequest::unsafe_arena_release_ipv4_config() {
   // @@protoc_insertion_point(field_release:patchpanel.TetheredNetworkRequest.ipv4_config)
-  
+  _has_bits_[0] &= ~0x00000001u;
   ::patchpanel::IPv4Configuration* temp = ipv4_config_;
   ipv4_config_ = nullptr;
   return temp;
 }
 inline ::patchpanel::IPv4Configuration* TetheredNetworkRequest::_internal_mutable_ipv4_config() {
-  
+  _has_bits_[0] |= 0x00000001u;
   if (ipv4_config_ == nullptr) {
     auto* p = CreateMaybeMessage<::patchpanel::IPv4Configuration>(GetArenaForAllocation());
     ipv4_config_ = p;
@@ -10981,9 +11182,9 @@ inline void TetheredNetworkRequest::set_allocated_ipv4_config(::patchpanel::IPv4
       ipv4_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, ipv4_config, submessage_arena);
     }
-    
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    
+    _has_bits_[0] &= ~0x00000001u;
   }
   ipv4_config_ = ipv4_config;
   // @@protoc_insertion_point(field_set_allocated:patchpanel.TetheredNetworkRequest.ipv4_config)

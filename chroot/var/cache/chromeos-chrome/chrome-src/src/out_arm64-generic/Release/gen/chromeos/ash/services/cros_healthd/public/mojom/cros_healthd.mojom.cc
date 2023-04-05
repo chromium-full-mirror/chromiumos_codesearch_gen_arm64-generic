@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -584,7 +584,7 @@ bool CrosHealthdServiceFactoryStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<CrosHealthdDiagnosticsService> p_service = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<CrosHealthdDiagnosticsService>>();
+      ::mojo::PendingReceiver<CrosHealthdDiagnosticsService> p_service{};
       CrosHealthdServiceFactory_GetDiagnosticsService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -612,7 +612,7 @@ std::move(p_service));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<CrosHealthdEventService> p_service = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<CrosHealthdEventService>>();
+      ::mojo::PendingReceiver<CrosHealthdEventService> p_service{};
       CrosHealthdServiceFactory_GetEventService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -640,7 +640,7 @@ std::move(p_service));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<CrosHealthdProbeService> p_service = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<CrosHealthdProbeService>>();
+      ::mojo::PendingReceiver<CrosHealthdProbeService> p_service{};
       CrosHealthdServiceFactory_GetProbeService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -668,7 +668,7 @@ std::move(p_service));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkHealthService> p_remote = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkHealthService>>();
+      ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkHealthService> p_remote{};
       CrosHealthdServiceFactory_SendNetworkHealthService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -696,7 +696,7 @@ std::move(p_remote));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines> p_network_diagnostics_routines = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines>>();
+      ::mojo::PendingRemote<::chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines> p_network_diagnostics_routines{};
       CrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -724,7 +724,7 @@ std::move(p_network_diagnostics_routines));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<CrosHealthdSystemService> p_service = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<CrosHealthdSystemService>>();
+      ::mojo::PendingReceiver<CrosHealthdSystemService> p_service{};
       CrosHealthdServiceFactory_GetSystemService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -752,7 +752,7 @@ std::move(p_service));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector> p_remote = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector> p_remote{};
       CrosHealthdServiceFactory_SendChromiumDataCollector_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -4246,7 +4246,7 @@ bool CrosHealthdDiagnosticsService_GetAvailableRoutines_ForwardToCallback::Accep
               message->mutable_payload());
   
   bool success = true;
-  std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> p_available_routines = mojo::DefaultConstructTraits::CreateInstance<std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>>();
+  std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> p_available_routines{};
   CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadAvailableRoutines(&p_available_routines))
@@ -4376,7 +4376,7 @@ bool CrosHealthdDiagnosticsService_GetRoutineUpdate_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RoutineUpdatePtr p_routine_update = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RoutineUpdatePtr>();
+  ::ash::cros_healthd::mojom::RoutineUpdatePtr p_routine_update{};
   CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadRoutineUpdate(&p_routine_update))
@@ -4504,7 +4504,7 @@ bool CrosHealthdDiagnosticsService_RunUrandomRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4632,7 +4632,7 @@ bool CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ForwardToCallback::
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4760,7 +4760,7 @@ bool CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4888,7 +4888,7 @@ bool CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5016,7 +5016,7 @@ bool CrosHealthdDiagnosticsService_RunAcPowerRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5144,7 +5144,7 @@ bool CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5272,7 +5272,7 @@ bool CrosHealthdDiagnosticsService_RunCpuStressRoutine_ForwardToCallback::Accept
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5400,7 +5400,7 @@ bool CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ForwardToCall
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5528,7 +5528,7 @@ bool CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ForwardToC
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5656,7 +5656,7 @@ bool CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5784,7 +5784,7 @@ bool CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ForwardToCallback::Acc
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5912,7 +5912,7 @@ bool CrosHealthdDiagnosticsService_RunDiskReadRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6040,7 +6040,7 @@ bool CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ForwardToCallback::Acce
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6168,7 +6168,7 @@ bool CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ForwardToCallback:
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6296,7 +6296,7 @@ bool CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6424,7 +6424,7 @@ bool CrosHealthdDiagnosticsService_RunMemoryRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6552,7 +6552,7 @@ bool CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ForwardToCallback::
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6680,7 +6680,7 @@ bool CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ForwardToCallback::A
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6808,7 +6808,7 @@ bool CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ForwardToCallbac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6936,7 +6936,7 @@ bool CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ForwardToCa
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -7064,7 +7064,7 @@ bool CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ForwardToCallbac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -7192,7 +7192,7 @@ bool CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ForwardToCallback::Accep
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -7320,7 +7320,7 @@ bool CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -7448,7 +7448,7 @@ bool CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -7576,7 +7576,7 @@ bool CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ForwardToCallback::Acc
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -7704,7 +7704,7 @@ bool CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -7832,7 +7832,7 @@ bool CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ForwardToCallback::Acc
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -7960,7 +7960,7 @@ bool CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ForwardToCallback
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -8088,7 +8088,7 @@ bool CrosHealthdDiagnosticsService_RunArcHttpRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -8216,7 +8216,7 @@ bool CrosHealthdDiagnosticsService_RunArcPingRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -8344,7 +8344,7 @@ bool CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ForwardToCallback:
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -8472,7 +8472,7 @@ bool CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ForwardToCallback::
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -8600,7 +8600,7 @@ bool CrosHealthdDiagnosticsService_RunFingerprintRoutine_ForwardToCallback::Acce
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -8728,7 +8728,7 @@ bool CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback:
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -8856,7 +8856,7 @@ bool CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -8984,7 +8984,7 @@ bool CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -9112,7 +9112,7 @@ bool CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback::Acc
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -9240,7 +9240,7 @@ bool CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ForwardToCallback::A
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -9368,7 +9368,7 @@ bool CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback::Acc
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -9496,7 +9496,7 @@ bool CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback::A
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -9624,7 +9624,7 @@ bool CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallbac
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -9752,7 +9752,7 @@ bool CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -9880,7 +9880,7 @@ bool CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback:
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -10136,9 +10136,9 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum p_command = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum>();
-      bool p_include_output = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      int32_t p_id{};
+      ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum p_command{};
+      bool p_include_output{};
       CrosHealthdDiagnosticsService_GetRoutineUpdate_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -10173,7 +10173,7 @@ std::move(p_include_output), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunUrandomRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -10252,7 +10252,7 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::NullableUint32Ptr p_percentage_used_threshold = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_percentage_used_threshold{};
       CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPercentageUsedThreshold(&p_percentage_used_threshold))
@@ -10281,8 +10281,8 @@ std::move(p_percentage_used_threshold), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::AcPowerStatusEnum p_expected_status = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::AcPowerStatusEnum>();
-      absl::optional<std::string> p_expected_power_type = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+      ::ash::cros_healthd::mojom::AcPowerStatusEnum p_expected_status{};
+      absl::optional<std::string> p_expected_power_type{};
       CrosHealthdDiagnosticsService_RunAcPowerRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadExpectedStatus(&p_expected_status))
@@ -10314,7 +10314,7 @@ std::move(p_expected_power_type), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -10343,7 +10343,7 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunCpuStressRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -10372,7 +10372,7 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -10401,7 +10401,7 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_wear_level_threshold = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_wear_level_threshold{};
       CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -10430,7 +10430,7 @@ std::move(p_wear_level_threshold), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::NullableUint32Ptr p_wear_level_threshold = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_wear_level_threshold{};
       CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadWearLevelThreshold(&p_wear_level_threshold))
@@ -10459,7 +10459,7 @@ std::move(p_wear_level_threshold), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum p_nvme_self_test_type = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>();
+      ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum p_nvme_self_test_type{};
       CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadNvmeSelfTestType(&p_nvme_self_test_type))
@@ -10488,9 +10488,9 @@ std::move(p_nvme_self_test_type), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum p_type = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum>();
-      uint32_t p_length_seconds = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_file_size_mb = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum p_type{};
+      uint32_t p_length_seconds{};
+      uint32_t p_file_size_mb{};
       CrosHealthdDiagnosticsService_RunDiskReadRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -10525,7 +10525,7 @@ std::move(p_file_size_mb), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -10554,8 +10554,8 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_length_seconds = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_maximum_discharge_percent_allowed = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_length_seconds{};
+      uint32_t p_maximum_discharge_percent_allowed{};
       CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -10587,8 +10587,8 @@ std::move(p_maximum_discharge_percent_allowed), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_length_seconds = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_minimum_charge_percent_required = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_length_seconds{};
+      uint32_t p_minimum_charge_percent_required{};
       CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -10920,7 +10920,7 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_stun_server_hostname = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+      absl::optional<std::string> p_stun_server_hostname{};
       CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStunServerHostname(&p_stun_server_hostname))
@@ -11099,7 +11099,7 @@ std::move(p_stun_server_hostname), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      bool p_target_state = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      bool p_target_state{};
       CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -11128,9 +11128,9 @@ std::move(p_target_state), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::LedName p_name = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedName>();
-      ::ash::cros_healthd::mojom::LedColor p_color = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedColor>();
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> p_replier = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier>>();
+      ::ash::cros_healthd::mojom::LedName p_name{};
+      ::ash::cros_healthd::mojom::LedColor p_color{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> p_replier{};
       CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadName(&p_name))
@@ -11192,9 +11192,9 @@ std::move(p_replier), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint64_t p_node_id = mojo::DefaultConstructTraits::CreateInstance<uint64_t>();
-      uint8_t p_volume = mojo::DefaultConstructTraits::CreateInstance<uint8_t>();
-      bool p_mute_on = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      uint64_t p_node_id{};
+      uint8_t p_volume{};
+      bool p_mute_on{};
       CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -11229,9 +11229,9 @@ std::move(p_mute_on), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint64_t p_node_id = mojo::DefaultConstructTraits::CreateInstance<uint64_t>();
-      uint8_t p_gain = mojo::DefaultConstructTraits::CreateInstance<uint8_t>();
-      bool p_mute_on = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      uint64_t p_node_id{};
+      uint8_t p_gain{};
+      bool p_mute_on{};
       CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -11316,7 +11316,7 @@ std::move(p_mute_on), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -11345,7 +11345,7 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::string p_peripheral_id = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+      std::string p_peripheral_id{};
       CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPeripheralId(&p_peripheral_id))
@@ -12155,7 +12155,7 @@ bool CrosHealthdEventService_IsEventSupported_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::SupportStatusPtr p_status = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::SupportStatusPtr>();
+  ::ash::cros_healthd::mojom::SupportStatusPtr p_status{};
   CrosHealthdEventService_IsEventSupported_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -12236,7 +12236,7 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -12264,7 +12264,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddLidObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -12292,7 +12292,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddPowerObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -12320,7 +12320,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver>>();
+      ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver> p_observer{};
       CrosHealthdEventService_AddNetworkObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -12348,7 +12348,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddAudioObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -12376,7 +12376,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -12404,7 +12404,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> p_observer{};
       CrosHealthdEventService_DEPRECATED_AddUsbObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -12432,8 +12432,8 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::EventCategoryEnum p_category = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::EventCategoryEnum>();
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver>>();
+      ::ash::cros_healthd::mojom::EventCategoryEnum p_category{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> p_observer{};
       CrosHealthdEventService_AddEventObserver_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCategory(&p_category))
@@ -12504,7 +12504,7 @@ bool CrosHealthdEventServiceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::EventCategoryEnum p_category = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::EventCategoryEnum>();
+      ::ash::cros_healthd::mojom::EventCategoryEnum p_category{};
       CrosHealthdEventService_IsEventSupported_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCategory(&p_category))
@@ -12906,7 +12906,7 @@ bool CrosHealthdProbeService_ProbeProcessInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::ProcessResultPtr p_process_info = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::ProcessResultPtr>();
+  ::ash::cros_healthd::mojom::ProcessResultPtr p_process_info{};
   CrosHealthdProbeService_ProbeProcessInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadProcessInfo(&p_process_info))
@@ -13032,7 +13032,7 @@ bool CrosHealthdProbeService_ProbeTelemetryInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::TelemetryInfoPtr p_telemetry_info = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::TelemetryInfoPtr>();
+  ::ash::cros_healthd::mojom::TelemetryInfoPtr p_telemetry_info{};
   CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadTelemetryInfo(&p_telemetry_info))
@@ -13160,7 +13160,7 @@ bool CrosHealthdProbeService_ProbeMultipleProcessInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::MultipleProcessResultPtr p_multiple_process_info = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::MultipleProcessResultPtr>();
+  ::ash::cros_healthd::mojom::MultipleProcessResultPtr p_multiple_process_info{};
   CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadMultipleProcessInfo(&p_multiple_process_info))
@@ -13265,7 +13265,7 @@ bool CrosHealthdProbeServiceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_process_id = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_process_id{};
       CrosHealthdProbeService_ProbeProcessInfo_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -13294,7 +13294,7 @@ std::move(p_process_id), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum> p_categories = mojo::DefaultConstructTraits::CreateInstance<std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>>();
+      std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum> p_categories{};
       CrosHealthdProbeService_ProbeTelemetryInfo_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCategories(&p_categories))
@@ -13323,8 +13323,8 @@ std::move(p_categories), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::vector<uint32_t>> p_process_ids = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::vector<uint32_t>>>();
-      bool p_ignore_single_process_error = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      absl::optional<std::vector<uint32_t>> p_process_ids{};
+      bool p_ignore_single_process_error{};
       CrosHealthdProbeService_ProbeMultipleProcessInfo_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadProcessIds(&p_process_ids))
@@ -13535,7 +13535,7 @@ bool CrosHealthdSystemService_GetServiceStatus_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ServiceStatusPtr p_response = mojo::DefaultConstructTraits::CreateInstance<ServiceStatusPtr>();
+  ServiceStatusPtr p_response{};
   CrosHealthdSystemService_GetServiceStatus_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -14015,7 +14015,7 @@ bool WilcoEcServiceController_GetEcTelemetry_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr>();
+  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr p_response{};
   WilcoEcServiceController_GetEcTelemetry_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -14098,7 +14098,7 @@ bool WilcoEcServiceControllerStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver> p_observer{};
       WilcoEcServiceController_AddEcObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -14189,7 +14189,7 @@ bool WilcoEcServiceControllerStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      std::string p_payload_string = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+      std::string p_payload_string{};
       WilcoEcServiceController_GetEcTelemetry_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPayloadString(&p_payload_string))
@@ -14465,7 +14465,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::GetAvailableRoutines(
 
 std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> CrosHealthdDiagnosticsServiceAsyncWaiter::GetAvailableRoutines(
     ) {
-  std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>>();
+  std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> async_wait_result;
   GetAvailableRoutines(&async_wait_result);
   return async_wait_result;
 }
@@ -14488,7 +14488,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::GetRoutineUpdate(
 
 ::ash::cros_healthd::mojom::RoutineUpdatePtr CrosHealthdDiagnosticsServiceAsyncWaiter::GetRoutineUpdate(
     int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output) {
-  ::ash::cros_healthd::mojom::RoutineUpdatePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RoutineUpdatePtr>();
+  ::ash::cros_healthd::mojom::RoutineUpdatePtr async_wait_result;
   GetRoutineUpdate(std::move(id),std::move(command),std::move(include_output),&async_wait_result);
   return async_wait_result;
 }
@@ -14511,7 +14511,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunUrandomRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunUrandomRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunUrandomRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
@@ -14534,7 +14534,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryCapacityRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryCapacityRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBatteryCapacityRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -14557,7 +14557,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBatteryHealthRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -14580,7 +14580,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunSmartctlCheckRoutine(std::move(percentage_used_threshold),&async_wait_result);
   return async_wait_result;
 }
@@ -14603,7 +14603,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
     ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunAcPowerRoutine(std::move(expected_status),std::move(expected_power_type),&async_wait_result);
   return async_wait_result;
 }
@@ -14626,7 +14626,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuCacheRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuCacheRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunCpuCacheRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
@@ -14649,7 +14649,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuStressRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuStressRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunCpuStressRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
@@ -14672,7 +14672,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFloatingPointAccuracyRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunFloatingPointAccuracyRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunFloatingPointAccuracyRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
@@ -14695,7 +14695,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunNvmeWearLevelRoutin
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunNvmeWearLevelRoutine(
     uint32_t wear_level_threshold) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   DEPRECATED_RunNvmeWearLevelRoutine(std::move(wear_level_threshold),&async_wait_result);
   return async_wait_result;
 }
@@ -14718,7 +14718,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunNvmeWearLevelRoutine(std::move(wear_level_threshold),&async_wait_result);
   return async_wait_result;
 }
@@ -14741,7 +14741,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeSelfTestRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeSelfTestRoutine(
     ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunNvmeSelfTestRoutine(std::move(nvme_self_test_type),&async_wait_result);
   return async_wait_result;
 }
@@ -14764,7 +14764,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDiskReadRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDiskReadRoutine(
     ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunDiskReadRoutine(std::move(type),std::move(length_seconds),std::move(file_size_mb),&async_wait_result);
   return async_wait_result;
 }
@@ -14787,7 +14787,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrimeSearchRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrimeSearchRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunPrimeSearchRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
@@ -14810,7 +14810,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryDischargeRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryDischargeRoutine(
     uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBatteryDischargeRoutine(std::move(length_seconds),std::move(maximum_discharge_percent_allowed),&async_wait_result);
   return async_wait_result;
 }
@@ -14833,7 +14833,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
     uint32_t length_seconds, uint32_t minimum_charge_percent_required) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBatteryChargeRoutine(std::move(length_seconds),std::move(minimum_charge_percent_required),&async_wait_result);
   return async_wait_result;
 }
@@ -14856,7 +14856,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunMemoryRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -14879,7 +14879,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunLanConnectivityRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunLanConnectivityRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunLanConnectivityRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -14902,7 +14902,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSignalStrengthRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSignalStrengthRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunSignalStrengthRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -14925,7 +14925,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunGatewayCanBePingedRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunGatewayCanBePingedRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunGatewayCanBePingedRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -14948,7 +14948,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHasSecureWiFiConnectionRoutine
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHasSecureWiFiConnectionRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunHasSecureWiFiConnectionRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -14971,7 +14971,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolverPresentRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolverPresentRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunDnsResolverPresentRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -14994,7 +14994,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsLatencyRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsLatencyRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunDnsLatencyRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15017,7 +15017,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolutionRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolutionRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunDnsResolutionRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15040,7 +15040,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCaptivePortalRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCaptivePortalRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunCaptivePortalRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15063,7 +15063,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpFirewallRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpFirewallRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunHttpFirewallRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15086,7 +15086,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsFirewallRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsFirewallRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunHttpsFirewallRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15109,7 +15109,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsLatencyRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsLatencyRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunHttpsLatencyRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15132,7 +15132,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
     const absl::optional<std::string>& stun_server_hostname) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunVideoConferencingRoutine(std::move(stun_server_hostname),&async_wait_result);
   return async_wait_result;
 }
@@ -15155,7 +15155,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcHttpRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcHttpRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunArcHttpRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15178,7 +15178,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcPingRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcPingRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunArcPingRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15201,7 +15201,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcDnsResolutionRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcDnsResolutionRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunArcDnsResolutionRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15224,7 +15224,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSensitiveSensorRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSensitiveSensorRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunSensitiveSensorRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15247,7 +15247,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFingerprintRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunFingerprintRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunFingerprintRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15270,7 +15270,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFingerprintAliveRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunFingerprintAliveRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunFingerprintAliveRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15293,7 +15293,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrivacyScreenRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrivacyScreenRoutine(
     bool target_state) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunPrivacyScreenRoutine(std::move(target_state),&async_wait_result);
   return async_wait_result;
 }
@@ -15316,7 +15316,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunLedLitUpRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunLedLitUpRoutine(
     ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunLedLitUpRoutine(std::move(name),std::move(color),std::move(replier),&async_wait_result);
   return async_wait_result;
 }
@@ -15339,7 +15339,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunEmmcLifetimeRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunEmmcLifetimeRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunEmmcLifetimeRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15362,7 +15362,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAudioSetVolumeRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunAudioSetVolumeRoutine(
     uint64_t node_id, uint8_t volume, bool mute_on) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunAudioSetVolumeRoutine(std::move(node_id),std::move(volume),std::move(mute_on),&async_wait_result);
   return async_wait_result;
 }
@@ -15385,7 +15385,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAudioSetGainRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunAudioSetGainRoutine(
     uint64_t node_id, uint8_t gain, bool mute_on) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunAudioSetGainRoutine(std::move(node_id),std::move(gain),std::move(mute_on),&async_wait_result);
   return async_wait_result;
 }
@@ -15408,7 +15408,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothPowerRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothPowerRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBluetoothPowerRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15431,7 +15431,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothDiscoveryRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothDiscoveryRoutine(
     ) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBluetoothDiscoveryRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -15454,7 +15454,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothScanningRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothScanningRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBluetoothScanningRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
@@ -15477,7 +15477,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothPairingRoutine(
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothPairingRoutine(
     const std::string& peripheral_id) {
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBluetoothPairingRoutine(std::move(peripheral_id),&async_wait_result);
   return async_wait_result;
 }
@@ -15535,7 +15535,7 @@ void CrosHealthdEventServiceAsyncWaiter::IsEventSupported(
 
 ::ash::cros_healthd::mojom::SupportStatusPtr CrosHealthdEventServiceAsyncWaiter::IsEventSupported(
     ::ash::cros_healthd::mojom::EventCategoryEnum category) {
-  ::ash::cros_healthd::mojom::SupportStatusPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::SupportStatusPtr>();
+  ::ash::cros_healthd::mojom::SupportStatusPtr async_wait_result;
   IsEventSupported(std::move(category),&async_wait_result);
   return async_wait_result;
 }
@@ -15575,7 +15575,7 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeProcessInfo(
 
 ::ash::cros_healthd::mojom::ProcessResultPtr CrosHealthdProbeServiceAsyncWaiter::ProbeProcessInfo(
     uint32_t process_id) {
-  ::ash::cros_healthd::mojom::ProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::ProcessResultPtr>();
+  ::ash::cros_healthd::mojom::ProcessResultPtr async_wait_result;
   ProbeProcessInfo(std::move(process_id),&async_wait_result);
   return async_wait_result;
 }
@@ -15598,7 +15598,7 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
 
 ::ash::cros_healthd::mojom::TelemetryInfoPtr CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
     const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories) {
-  ::ash::cros_healthd::mojom::TelemetryInfoPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::TelemetryInfoPtr>();
+  ::ash::cros_healthd::mojom::TelemetryInfoPtr async_wait_result;
   ProbeTelemetryInfo(std::move(categories),&async_wait_result);
   return async_wait_result;
 }
@@ -15621,7 +15621,7 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeMultipleProcessInfo(
 
 ::ash::cros_healthd::mojom::MultipleProcessResultPtr CrosHealthdProbeServiceAsyncWaiter::ProbeMultipleProcessInfo(
     const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error) {
-  ::ash::cros_healthd::mojom::MultipleProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::MultipleProcessResultPtr>();
+  ::ash::cros_healthd::mojom::MultipleProcessResultPtr async_wait_result;
   ProbeMultipleProcessInfo(std::move(process_ids),std::move(ignore_single_process_error),&async_wait_result);
   return async_wait_result;
 }
@@ -15655,7 +15655,7 @@ void CrosHealthdSystemServiceAsyncWaiter::GetServiceStatus(
 
 ServiceStatusPtr CrosHealthdSystemServiceAsyncWaiter::GetServiceStatus(
     ) {
-  ServiceStatusPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ServiceStatusPtr>();
+  ServiceStatusPtr async_wait_result;
   GetServiceStatus(&async_wait_result);
   return async_wait_result;
 }
@@ -15698,7 +15698,7 @@ void WilcoEcServiceControllerAsyncWaiter::GetEcTelemetry(
 
 ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr WilcoEcServiceControllerAsyncWaiter::GetEcTelemetry(
     const std::string& payload_string) {
-  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr>();
+  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr async_wait_result;
   GetEcTelemetry(std::move(payload_string),&async_wait_result);
   return async_wait_result;
 }

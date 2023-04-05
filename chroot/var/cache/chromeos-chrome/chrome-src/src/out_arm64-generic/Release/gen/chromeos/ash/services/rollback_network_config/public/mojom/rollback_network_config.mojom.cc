@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -295,7 +295,7 @@ bool RollbackNetworkConfig_RollbackConfigImport_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_success = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_success{};
   RollbackNetworkConfig_RollbackConfigImport_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -413,7 +413,7 @@ bool RollbackNetworkConfig_RollbackConfigExport_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::string p_config = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+  std::string p_config{};
   RollbackNetworkConfig_RollbackConfigExport_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadConfig(&p_config))
@@ -515,7 +515,7 @@ bool RollbackNetworkConfigStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      std::string p_config = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+      std::string p_config{};
       RollbackNetworkConfig_RollbackConfigImport_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -632,7 +632,7 @@ void RollbackNetworkConfigAsyncWaiter::RollbackConfigImport(
 
 bool RollbackNetworkConfigAsyncWaiter::RollbackConfigImport(
     const std::string& config) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   RollbackConfigImport(std::move(config),&async_wait_result);
   return async_wait_result;
 }
@@ -655,7 +655,7 @@ void RollbackNetworkConfigAsyncWaiter::RollbackConfigExport(
 
 std::string RollbackNetworkConfigAsyncWaiter::RollbackConfigExport(
     ) {
-  std::string async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+  std::string async_wait_result;
   RollbackConfigExport(&async_wait_result);
   return async_wait_result;
 }

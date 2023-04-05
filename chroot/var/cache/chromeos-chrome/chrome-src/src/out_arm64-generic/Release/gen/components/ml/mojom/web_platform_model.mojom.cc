@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -376,9 +376,9 @@ bool ModelLoader_Load_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  LoadModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
-  ::mojo::PendingRemote<Model> p_remote = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<Model>>();
-  ModelInfoPtr p_model_info = mojo::DefaultConstructTraits::CreateInstance<ModelInfoPtr>();
+  LoadModelResult p_result{};
+  ::mojo::PendingRemote<Model> p_remote{};
+  ModelInfoPtr p_model_info{};
   ModelLoader_Load_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -491,7 +491,7 @@ bool ModelLoaderStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo_base::BigBuffer p_model_content = mojo::DefaultConstructTraits::CreateInstance<::mojo_base::BigBuffer>();
+      ::mojo_base::BigBuffer p_model_content{};
       ModelLoader_Load_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadModelContent(&p_model_content))
@@ -715,8 +715,8 @@ bool Model_Compute_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ComputeResult p_result = mojo::DefaultConstructTraits::CreateInstance<ComputeResult>();
-  absl::optional<base::flat_map<std::string, std::vector<uint8_t>>> p_output_tensors = mojo::DefaultConstructTraits::CreateInstance<absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>>();
+  ComputeResult p_result{};
+  absl::optional<base::flat_map<std::string, std::vector<uint8_t>>> p_output_tensors{};
   Model_Compute_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -821,7 +821,7 @@ bool ModelStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      base::flat_map<std::string, std::vector<uint8_t>> p_input_tensors = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<std::string, std::vector<uint8_t>>>();
+      base::flat_map<std::string, std::vector<uint8_t>> p_input_tensors{};
       Model_Compute_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInputTensors(&p_input_tensors))

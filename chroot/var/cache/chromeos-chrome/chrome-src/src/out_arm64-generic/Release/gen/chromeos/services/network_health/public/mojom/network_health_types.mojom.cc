@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -141,7 +141,7 @@ Network::Network()
       ipv6_addresses(),
       portal_state(::chromeos::network_config::mojom::PortalState::kUnknown),
       signal_strength_stats(),
-      portal_probe_url(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::GURL>>()) {}
+      portal_probe_url() {}
 
 Network::Network(
     ::chromeos::network_config::mojom::NetworkType type_in,
@@ -163,7 +163,7 @@ Network::Network(
       ipv6_addresses(std::move(ipv6_addresses_in)),
       portal_state(std::move(portal_state_in)),
       signal_strength_stats(),
-      portal_probe_url(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::GURL>>()) {}
+      portal_probe_url() {}
 
 Network::Network(
     ::chromeos::network_config::mojom::NetworkType type_in,
@@ -186,7 +186,7 @@ Network::Network(
       ipv6_addresses(std::move(ipv6_addresses_in)),
       portal_state(std::move(portal_state_in)),
       signal_strength_stats(std::move(signal_strength_stats_in)),
-      portal_probe_url(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::GURL>>()) {}
+      portal_probe_url() {}
 
 Network::Network(
     ::chromeos::network_config::mojom::NetworkType type_in,

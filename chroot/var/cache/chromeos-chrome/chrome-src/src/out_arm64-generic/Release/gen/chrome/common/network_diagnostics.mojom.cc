@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -165,7 +165,7 @@ bool NetworkDiagnosticsStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::GURL p_failed_url = mojo::DefaultConstructTraits::CreateInstance<::GURL>();
+      ::GURL p_failed_url{};
       NetworkDiagnostics_RunNetworkDiagnostics_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFailedUrl(&p_failed_url))
@@ -382,7 +382,7 @@ bool NetworkDiagnosticsClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      bool p_can_show = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      bool p_can_show{};
       NetworkDiagnosticsClient_SetCanShowNetworkDiagnosticsDialog_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -408,7 +408,7 @@ std::move(p_can_show));
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_status = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      int32_t p_status{};
       NetworkDiagnosticsClient_DNSProbeStatus_ParamsDataView input_data_view(params, message);
       
       if (success)

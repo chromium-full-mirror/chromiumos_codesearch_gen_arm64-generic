@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -47,10 +47,10 @@
 namespace media {
 namespace mojom {
 SupportedVideoDecoderConfig::SupportedVideoDecoderConfig()
-    : profile_min(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
-      profile_max(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
-      coded_size_min(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
-      coded_size_max(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
+    : profile_min(),
+      profile_max(),
+      coded_size_min(),
+      coded_size_max(),
       allow_encrypted(),
       require_encrypted() {}
 
@@ -135,7 +135,7 @@ bool SupportedVideoDecoderConfig::Validate(
   return Data_::Validate(data, validation_context);
 }
 CommandBufferId::CommandBufferId()
-    : channel_token(mojo::DefaultConstructTraits::CreateInstance<::base::UnguessableToken>()),
+    : channel_token(),
       route_id() {}
 
 CommandBufferId::CommandBufferId(
@@ -304,8 +304,8 @@ bool VideoFrameHandleReleaserStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::base::UnguessableToken p_release_token = mojo::DefaultConstructTraits::CreateInstance<::base::UnguessableToken>();
-      absl::optional<::gpu::SyncToken> p_release_sync_token = mojo::DefaultConstructTraits::CreateInstance<absl::optional<::gpu::SyncToken>>();
+      ::base::UnguessableToken p_release_token{};
+      absl::optional<::gpu::SyncToken> p_release_sync_token{};
       VideoFrameHandleReleaser_ReleaseVideoFrame_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadReleaseToken(&p_release_token))
@@ -1024,8 +1024,8 @@ bool VideoDecoder_GetSupportedConfigs_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<::media::SupportedVideoDecoderConfig> p_supported_configs = mojo::DefaultConstructTraits::CreateInstance<std::vector<::media::SupportedVideoDecoderConfig>>();
-  ::media::VideoDecoderType p_decoder_type = mojo::DefaultConstructTraits::CreateInstance<::media::VideoDecoderType>();
+  std::vector<::media::SupportedVideoDecoderConfig> p_supported_configs{};
+  ::media::VideoDecoderType p_decoder_type{};
   VideoDecoder_GetSupportedConfigs_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadSupportedConfigs(&p_supported_configs))
@@ -1113,8 +1113,8 @@ bool VideoDecoder_GetSupportedConfigs_HandleSyncResponse::Accept(
           message->mutable_payload());
   
   bool success = true;
-  std::vector<::media::SupportedVideoDecoderConfig> p_supported_configs = mojo::DefaultConstructTraits::CreateInstance<std::vector<::media::SupportedVideoDecoderConfig>>();
-  ::media::VideoDecoderType p_decoder_type = mojo::DefaultConstructTraits::CreateInstance<::media::VideoDecoderType>();
+  std::vector<::media::SupportedVideoDecoderConfig> p_supported_configs{};
+  ::media::VideoDecoderType p_decoder_type{};
   VideoDecoder_GetSupportedConfigs_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadSupportedConfigs(&p_supported_configs))
@@ -1192,10 +1192,10 @@ bool VideoDecoder_Initialize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::media::DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<::media::DecoderStatus>();
-  bool p_needs_bitstream_conversion = mojo::DefaultConstructTraits::CreateInstance<bool>();
-  int32_t p_max_decode_requests = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-  ::media::VideoDecoderType p_decoder_type = mojo::DefaultConstructTraits::CreateInstance<::media::VideoDecoderType>();
+  ::media::DecoderStatus p_status{};
+  bool p_needs_bitstream_conversion{};
+  int32_t p_max_decode_requests{};
+  ::media::VideoDecoderType p_decoder_type{};
   VideoDecoder_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -1345,7 +1345,7 @@ bool VideoDecoder_Decode_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::media::DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<::media::DecoderStatus>();
+  ::media::DecoderStatus p_status{};
   VideoDecoder_Decode_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -1537,12 +1537,12 @@ bool VideoDecoderStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingAssociatedRemote<VideoDecoderClient> p_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingAssociatedRemote<VideoDecoderClient>>();
-      ::mojo::PendingRemote<::media::mojom::MediaLog> p_media_log = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::media::mojom::MediaLog>>();
-      ::mojo::PendingReceiver<VideoFrameHandleReleaser> p_video_frame_handle_releaser = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<VideoFrameHandleReleaser>>();
-      ::mojo::ScopedDataPipeConsumerHandle p_decoder_buffer_pipe = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedDataPipeConsumerHandle>();
-      CommandBufferIdPtr p_command_buffer_id = mojo::DefaultConstructTraits::CreateInstance<CommandBufferIdPtr>();
-      ::gfx::ColorSpace p_target_color_space = mojo::DefaultConstructTraits::CreateInstance<::gfx::ColorSpace>();
+      ::mojo::PendingAssociatedRemote<VideoDecoderClient> p_client{};
+      ::mojo::PendingRemote<::media::mojom::MediaLog> p_media_log{};
+      ::mojo::PendingReceiver<VideoFrameHandleReleaser> p_video_frame_handle_releaser{};
+      ::mojo::ScopedDataPipeConsumerHandle p_decoder_buffer_pipe{};
+      CommandBufferIdPtr p_command_buffer_id{};
+      ::gfx::ColorSpace p_target_color_space{};
       VideoDecoder_Construct_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1598,7 +1598,7 @@ std::move(p_target_color_space));
               message->mutable_payload());
       
       bool success = true;
-      ::media::OverlayInfo p_overlay_info = mojo::DefaultConstructTraits::CreateInstance<::media::OverlayInfo>();
+      ::media::OverlayInfo p_overlay_info{};
       VideoDecoder_OnOverlayInfoChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadOverlayInfo(&p_overlay_info))
@@ -1665,9 +1665,9 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::media::VideoDecoderConfig p_config = mojo::DefaultConstructTraits::CreateInstance<::media::VideoDecoderConfig>();
-      bool p_low_delay = mojo::DefaultConstructTraits::CreateInstance<bool>();
-      absl::optional<::base::UnguessableToken> p_cdm_id = mojo::DefaultConstructTraits::CreateInstance<absl::optional<::base::UnguessableToken>>();
+      ::media::VideoDecoderConfig p_config{};
+      bool p_low_delay{};
+      absl::optional<::base::UnguessableToken> p_cdm_id{};
       VideoDecoder_Initialize_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -1702,7 +1702,7 @@ std::move(p_cdm_id), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::media::mojom::DecoderBufferPtr p_buffer = mojo::DefaultConstructTraits::CreateInstance<::media::mojom::DecoderBufferPtr>();
+      ::media::mojom::DecoderBufferPtr p_buffer{};
       VideoDecoder_Decode_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadBuffer(&p_buffer))
@@ -2031,9 +2031,9 @@ bool VideoDecoderClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::scoped_refptr<::media::VideoFrame> p_frame = mojo::DefaultConstructTraits::CreateInstance<::scoped_refptr<::media::VideoFrame>>();
-      bool p_can_read_without_stalling = mojo::DefaultConstructTraits::CreateInstance<bool>();
-      absl::optional<::base::UnguessableToken> p_release_token = mojo::DefaultConstructTraits::CreateInstance<absl::optional<::base::UnguessableToken>>();
+      ::scoped_refptr<::media::VideoFrame> p_frame{};
+      bool p_can_read_without_stalling{};
+      absl::optional<::base::UnguessableToken> p_release_token{};
       VideoDecoderClient_OnVideoFrameDecoded_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFrame(&p_frame))
@@ -2065,7 +2065,7 @@ std::move(p_release_token));
               message->mutable_payload());
       
       bool success = true;
-      ::media::WaitingReason p_reason = mojo::DefaultConstructTraits::CreateInstance<::media::WaitingReason>();
+      ::media::WaitingReason p_reason{};
       VideoDecoderClient_OnWaiting_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadReason(&p_reason))
@@ -2091,7 +2091,7 @@ std::move(p_reason));
               message->mutable_payload());
       
       bool success = true;
-      bool p_restart_for_transitions = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      bool p_restart_for_transitions{};
       VideoDecoderClient_RequestOverlayInfo_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -2313,7 +2313,7 @@ void VideoDecoderAsyncWaiter::Decode(
 
 ::media::DecoderStatus VideoDecoderAsyncWaiter::Decode(
     ::media::mojom::DecoderBufferPtr buffer) {
-  ::media::DecoderStatus async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::media::DecoderStatus>();
+  ::media::DecoderStatus async_wait_result;
   Decode(std::move(buffer),&async_wait_result);
   return async_wait_result;
 }

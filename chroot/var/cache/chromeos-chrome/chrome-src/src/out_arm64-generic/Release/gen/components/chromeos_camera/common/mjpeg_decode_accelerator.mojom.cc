@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -50,7 +50,7 @@ BitstreamBuffer::BitstreamBuffer()
       memory_handle(),
       size(),
       offset(),
-      timestamp(mojo::DefaultConstructTraits::CreateInstance<::base::TimeDelta>()),
+      timestamp(),
       key_id(),
       iv(),
       subsamples() {}
@@ -589,7 +589,7 @@ bool MjpegDecodeAccelerator_Initialize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_success = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_success{};
   MjpegDecodeAccelerator_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -707,8 +707,8 @@ bool MjpegDecodeAccelerator_Decode_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_bitstream_buffer_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-  ::chromeos_camera::MjpegDecodeAccelerator::Error p_error = mojo::DefaultConstructTraits::CreateInstance<::chromeos_camera::MjpegDecodeAccelerator::Error>();
+  int32_t p_bitstream_buffer_id{};
+  ::chromeos_camera::MjpegDecodeAccelerator::Error p_error{};
   MjpegDecodeAccelerator_Decode_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -834,7 +834,7 @@ bool MjpegDecodeAccelerator_DecodeWithDmaBuf_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos_camera::MjpegDecodeAccelerator::Error p_error = mojo::DefaultConstructTraits::CreateInstance<::chromeos_camera::MjpegDecodeAccelerator::Error>();
+  ::chromeos_camera::MjpegDecodeAccelerator::Error p_error{};
   MjpegDecodeAccelerator_DecodeWithDmaBuf_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -977,10 +977,10 @@ bool MjpegDecodeAcceleratorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::media::BitstreamBuffer p_input_buffer = mojo::DefaultConstructTraits::CreateInstance<::media::BitstreamBuffer>();
-      ::gfx::Size p_coded_size = mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>();
-      ::mojo::ScopedSharedBufferHandle p_output_handle = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedSharedBufferHandle>();
-      uint32_t p_output_buffer_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      ::media::BitstreamBuffer p_input_buffer{};
+      ::gfx::Size p_coded_size{};
+      ::mojo::ScopedSharedBufferHandle p_output_handle{};
+      uint32_t p_output_buffer_size{};
       MjpegDecodeAccelerator_Decode_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInputBuffer(&p_input_buffer))
@@ -1018,11 +1018,11 @@ std::move(p_output_buffer_size), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_task_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      ::mojo::ScopedHandle p_src_dmabuf_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
-      uint32_t p_src_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_src_offset = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      ::chromeos_camera::mojom::DmaBufVideoFramePtr p_dst_frame = mojo::DefaultConstructTraits::CreateInstance<::chromeos_camera::mojom::DmaBufVideoFramePtr>();
+      int32_t p_task_id{};
+      ::mojo::ScopedHandle p_src_dmabuf_fd{};
+      uint32_t p_src_size{};
+      uint32_t p_src_offset{};
+      ::chromeos_camera::mojom::DmaBufVideoFramePtr p_dst_frame{};
       MjpegDecodeAccelerator_DecodeWithDmaBuf_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1166,7 +1166,7 @@ void MjpegDecodeAcceleratorAsyncWaiter::Initialize(
 
 bool MjpegDecodeAcceleratorAsyncWaiter::Initialize(
     ) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   Initialize(&async_wait_result);
   return async_wait_result;
 }
@@ -1211,7 +1211,7 @@ void MjpegDecodeAcceleratorAsyncWaiter::DecodeWithDmaBuf(
 
 ::chromeos_camera::MjpegDecodeAccelerator::Error MjpegDecodeAcceleratorAsyncWaiter::DecodeWithDmaBuf(
     int32_t task_id, ::mojo::ScopedHandle src_dmabuf_fd, uint32_t src_size, uint32_t src_offset, ::chromeos_camera::mojom::DmaBufVideoFramePtr dst_frame) {
-  ::chromeos_camera::MjpegDecodeAccelerator::Error async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::chromeos_camera::MjpegDecodeAccelerator::Error>();
+  ::chromeos_camera::MjpegDecodeAccelerator::Error async_wait_result;
   DecodeWithDmaBuf(std::move(task_id),std::move(src_dmabuf_fd),std::move(src_size),std::move(src_offset),std::move(dst_frame),&async_wait_result);
   return async_wait_result;
 }

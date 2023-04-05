@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -548,7 +548,7 @@ bool Sensor_GetDefaultConfiguration_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::device::PlatformSensorConfiguration p_configuration = mojo::DefaultConstructTraits::CreateInstance<::device::PlatformSensorConfiguration>();
+  ::device::PlatformSensorConfiguration p_configuration{};
   Sensor_GetDefaultConfiguration_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadConfiguration(&p_configuration))
@@ -676,7 +676,7 @@ bool Sensor_AddConfiguration_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_success = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_success{};
   Sensor_AddConfiguration_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -755,7 +755,7 @@ bool SensorStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::device::PlatformSensorConfiguration p_configuration = mojo::DefaultConstructTraits::CreateInstance<::device::PlatformSensorConfiguration>();
+      ::device::PlatformSensorConfiguration p_configuration{};
       Sensor_RemoveConfiguration_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfiguration(&p_configuration))
@@ -825,7 +825,7 @@ std::move(p_configuration));
               message->mutable_payload());
       
       bool success = true;
-      bool p_enabled = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      bool p_enabled{};
       Sensor_ConfigureReadingChangeNotifications_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -889,7 +889,7 @@ bool SensorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::device::PlatformSensorConfiguration p_configuration = mojo::DefaultConstructTraits::CreateInstance<::device::PlatformSensorConfiguration>();
+      ::device::PlatformSensorConfiguration p_configuration{};
       Sensor_AddConfiguration_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfiguration(&p_configuration))
@@ -1249,7 +1249,7 @@ void SensorAsyncWaiter::GetDefaultConfiguration(
 
 ::device::PlatformSensorConfiguration SensorAsyncWaiter::GetDefaultConfiguration(
     ) {
-  ::device::PlatformSensorConfiguration async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::device::PlatformSensorConfiguration>();
+  ::device::PlatformSensorConfiguration async_wait_result;
   GetDefaultConfiguration(&async_wait_result);
   return async_wait_result;
 }
@@ -1272,7 +1272,7 @@ void SensorAsyncWaiter::AddConfiguration(
 
 bool SensorAsyncWaiter::AddConfiguration(
     const ::device::PlatformSensorConfiguration& configuration) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   AddConfiguration(std::move(configuration),&async_wait_result);
   return async_wait_result;
 }

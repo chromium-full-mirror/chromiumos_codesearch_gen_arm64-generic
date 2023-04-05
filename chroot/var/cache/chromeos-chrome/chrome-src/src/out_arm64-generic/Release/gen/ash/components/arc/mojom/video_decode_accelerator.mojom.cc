@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -112,7 +112,7 @@ bool BitstreamBuffer::Validate(
 Picture::Picture()
     : picture_buffer_id(),
       bitstream_id(),
-      crop_rect(mojo::DefaultConstructTraits::CreateInstance<::gfx::Rect>()) {}
+      crop_rect() {}
 
 Picture::Picture(
     int32_t picture_buffer_id_in,
@@ -163,7 +163,7 @@ bool Picture::Validate(
 }
 PictureBufferFormat::PictureBufferFormat()
     : min_num_buffers(),
-      coded_size(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()) {}
+      coded_size() {}
 
 PictureBufferFormat::PictureBufferFormat(
     uint32_t min_num_buffers_in,
@@ -202,7 +202,7 @@ bool PictureBufferFormat::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoDecodeAcceleratorConfig::VideoDecodeAcceleratorConfig()
-    : profile(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
+    : profile(),
       secure_mode() {}
 
 VideoDecodeAcceleratorConfig::VideoDecodeAcceleratorConfig(
@@ -880,7 +880,7 @@ bool VideoDecodeAccelerator_Initialize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  VideoDecodeAccelerator::Result p_result = mojo::DefaultConstructTraits::CreateInstance<VideoDecodeAccelerator::Result>();
+  VideoDecodeAccelerator::Result p_result{};
   VideoDecodeAccelerator_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -999,7 +999,7 @@ bool VideoDecodeAccelerator_Reset_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  VideoDecodeAccelerator::Result p_result = mojo::DefaultConstructTraits::CreateInstance<VideoDecodeAccelerator::Result>();
+  VideoDecodeAccelerator::Result p_result{};
   VideoDecodeAccelerator_Reset_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1118,7 +1118,7 @@ bool VideoDecodeAccelerator_Flush_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  VideoDecodeAccelerator::Result p_result = mojo::DefaultConstructTraits::CreateInstance<VideoDecodeAccelerator::Result>();
+  VideoDecodeAccelerator::Result p_result{};
   VideoDecodeAccelerator_Flush_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1195,7 +1195,7 @@ bool VideoDecodeAcceleratorStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      BitstreamBufferPtr p_bitstream_buffer = mojo::DefaultConstructTraits::CreateInstance<BitstreamBufferPtr>();
+      BitstreamBufferPtr p_bitstream_buffer{};
       VideoDecodeAccelerator_Decode_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadBitstreamBuffer(&p_bitstream_buffer))
@@ -1221,7 +1221,7 @@ std::move(p_bitstream_buffer));
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_count = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_count{};
       VideoDecodeAccelerator_AssignPictureBuffers_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1247,11 +1247,11 @@ std::move(p_count));
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_picture_buffer_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      ::arc::mojom::HalPixelFormat p_format = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::HalPixelFormat>();
-      ::mojo::ScopedHandle p_handle_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
-      std::vector<::arc::VideoFramePlane> p_planes = mojo::DefaultConstructTraits::CreateInstance<std::vector<::arc::VideoFramePlane>>();
-      BufferModifierPtr p_modifier = mojo::DefaultConstructTraits::CreateInstance<BufferModifierPtr>();
+      int32_t p_picture_buffer_id{};
+      ::arc::mojom::HalPixelFormat p_format{};
+      ::mojo::ScopedHandle p_handle_fd{};
+      std::vector<::arc::VideoFramePlane> p_planes{};
+      BufferModifierPtr p_modifier{};
       VideoDecodeAccelerator_ImportBufferForPicture_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1289,7 +1289,7 @@ std::move(p_modifier));
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_picture_buffer_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      int32_t p_picture_buffer_id{};
       VideoDecodeAccelerator_ReusePictureBuffer_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1334,8 +1334,8 @@ bool VideoDecodeAcceleratorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      VideoDecodeAcceleratorConfigPtr p_config = mojo::DefaultConstructTraits::CreateInstance<VideoDecodeAcceleratorConfigPtr>();
-      ::mojo::PendingRemote<VideoDecodeClient> p_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<VideoDecodeClient>>();
+      VideoDecodeAcceleratorConfigPtr p_config{};
+      ::mojo::PendingRemote<VideoDecodeClient> p_client{};
       VideoDecodeAccelerator_Initialize_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -1776,7 +1776,7 @@ bool VideoDecodeClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      PicturePtr p_picture = mojo::DefaultConstructTraits::CreateInstance<PicturePtr>();
+      PicturePtr p_picture{};
       VideoDecodeClient_PictureReady_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPicture(&p_picture))
@@ -1802,7 +1802,7 @@ std::move(p_picture));
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_bitstream_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      int32_t p_bitstream_id{};
       VideoDecodeClient_NotifyEndOfBitstreamBuffer_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1828,7 +1828,7 @@ std::move(p_bitstream_id));
               message->mutable_payload());
       
       bool success = true;
-      VideoDecodeAccelerator::Result p_error = mojo::DefaultConstructTraits::CreateInstance<VideoDecodeAccelerator::Result>();
+      VideoDecodeAccelerator::Result p_error{};
       VideoDecodeClient_NotifyError_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadError(&p_error))
@@ -1854,8 +1854,8 @@ std::move(p_error));
               message->mutable_payload());
       
       bool success = true;
-      PictureBufferFormatPtr p_format = mojo::DefaultConstructTraits::CreateInstance<PictureBufferFormatPtr>();
-      ::gfx::Rect p_visible_rect = mojo::DefaultConstructTraits::CreateInstance<::gfx::Rect>();
+      PictureBufferFormatPtr p_format{};
+      ::gfx::Rect p_visible_rect{};
       VideoDecodeClient_ProvidePictureBuffers_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFormat(&p_format))
@@ -2071,7 +2071,7 @@ void VideoDecodeAcceleratorAsyncWaiter::Initialize(
 
 VideoDecodeAccelerator::Result VideoDecodeAcceleratorAsyncWaiter::Initialize(
     VideoDecodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoDecodeClient> client) {
-  VideoDecodeAccelerator::Result async_wait_result = mojo::DefaultConstructTraits::CreateInstance<VideoDecodeAccelerator::Result>();
+  VideoDecodeAccelerator::Result async_wait_result;
   Initialize(std::move(config),std::move(client),&async_wait_result);
   return async_wait_result;
 }
@@ -2094,7 +2094,7 @@ void VideoDecodeAcceleratorAsyncWaiter::Reset(
 
 VideoDecodeAccelerator::Result VideoDecodeAcceleratorAsyncWaiter::Reset(
     ) {
-  VideoDecodeAccelerator::Result async_wait_result = mojo::DefaultConstructTraits::CreateInstance<VideoDecodeAccelerator::Result>();
+  VideoDecodeAccelerator::Result async_wait_result;
   Reset(&async_wait_result);
   return async_wait_result;
 }
@@ -2117,7 +2117,7 @@ void VideoDecodeAcceleratorAsyncWaiter::Flush(
 
 VideoDecodeAccelerator::Result VideoDecodeAcceleratorAsyncWaiter::Flush(
     ) {
-  VideoDecodeAccelerator::Result async_wait_result = mojo::DefaultConstructTraits::CreateInstance<VideoDecodeAccelerator::Result>();
+  VideoDecodeAccelerator::Result async_wait_result;
   Flush(&async_wait_result);
   return async_wait_result;
 }

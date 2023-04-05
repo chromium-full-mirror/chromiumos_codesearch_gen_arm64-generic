@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -710,10 +710,10 @@ bool Quaternion::Validate(
   return Data_::Validate(data, validation_context);
 }
 QuadF::QuadF()
-    : p1(mojo::DefaultConstructTraits::CreateInstance<::gfx::PointF>()),
-      p2(mojo::DefaultConstructTraits::CreateInstance<::gfx::PointF>()),
-      p3(mojo::DefaultConstructTraits::CreateInstance<::gfx::PointF>()),
-      p4(mojo::DefaultConstructTraits::CreateInstance<::gfx::PointF>()) {}
+    : p1(),
+      p2(),
+      p3(),
+      p4() {}
 
 QuadF::QuadF(
     const ::gfx::PointF& p1_in,

@@ -513,6 +513,8 @@ PROTOBUF_CONSTEXPR IPv4Configuration::IPv4Configuration(
     ::_pbi::ConstantInitialized)
   : options_()
   , gateway_addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , dhcp_start_addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , dhcp_end_addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , ipv4_subnet_(nullptr)
   , use_dhcp_(false){}
 struct IPv4ConfigurationDefaultTypeInternal {
@@ -1465,32 +1467,36 @@ bool DownstreamNetworkResult_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DownstreamNetworkResult_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DownstreamNetworkResult_strings[5] = {};
 
 static const char DownstreamNetworkResult_names[] =
+  "DHCP_SERVER_FAILURE"
   "ERROR"
   "INTERFACE_USED"
   "INVALID_ARGUMENT"
   "SUCCESS";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DownstreamNetworkResult_entries[] = {
-  { {DownstreamNetworkResult_names + 0, 5}, 3 },
-  { {DownstreamNetworkResult_names + 5, 14}, 2 },
-  { {DownstreamNetworkResult_names + 19, 16}, 1 },
-  { {DownstreamNetworkResult_names + 35, 7}, 0 },
+  { {DownstreamNetworkResult_names + 0, 19}, 4 },
+  { {DownstreamNetworkResult_names + 19, 5}, 3 },
+  { {DownstreamNetworkResult_names + 24, 14}, 2 },
+  { {DownstreamNetworkResult_names + 38, 16}, 1 },
+  { {DownstreamNetworkResult_names + 54, 7}, 0 },
 };
 
 static const int DownstreamNetworkResult_entries_by_number[] = {
-  3, // 0 -> SUCCESS
-  2, // 1 -> INVALID_ARGUMENT
-  1, // 2 -> INTERFACE_USED
-  0, // 3 -> ERROR
+  4, // 0 -> SUCCESS
+  3, // 1 -> INVALID_ARGUMENT
+  2, // 2 -> INTERFACE_USED
+  1, // 3 -> ERROR
+  0, // 4 -> DHCP_SERVER_FAILURE
 };
 
 const std::string& DownstreamNetworkResult_Name(
@@ -1499,12 +1505,12 @@ const std::string& DownstreamNetworkResult_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           DownstreamNetworkResult_entries,
           DownstreamNetworkResult_entries_by_number,
-          4, DownstreamNetworkResult_strings);
+          5, DownstreamNetworkResult_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       DownstreamNetworkResult_entries,
       DownstreamNetworkResult_entries_by_number,
-      4, value);
+      5, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      DownstreamNetworkResult_strings[idx].get();
 }
@@ -1512,7 +1518,7 @@ bool DownstreamNetworkResult_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DownstreamNetworkResult* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      DownstreamNetworkResult_entries, 4, name, &int_value);
+      DownstreamNetworkResult_entries, 5, name, &int_value);
   if (success) {
     *value = static_cast<DownstreamNetworkResult>(int_value);
   }
@@ -9230,7 +9236,20 @@ std::string IPv4Configuration_DhcpOption::GetTypeName() const {
 
 class IPv4Configuration::_Internal {
  public:
+  using HasBits = decltype(std::declval<IPv4Configuration>()._has_bits_);
   static const ::patchpanel::IPv4Subnet& ipv4_subnet(const IPv4Configuration* msg);
+  static void set_has_ipv4_subnet(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_gateway_addr(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_dhcp_start_addr(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_dhcp_end_addr(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 const ::patchpanel::IPv4Subnet&
@@ -9246,14 +9265,31 @@ IPv4Configuration::IPv4Configuration(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 IPv4Configuration::IPv4Configuration(const IPv4Configuration& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
       options_(from.options_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   gateway_addr_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     gateway_addr_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_gateway_addr().empty()) {
+  if (from._internal_has_gateway_addr()) {
     gateway_addr_.Set(from._internal_gateway_addr(), 
+      GetArenaForAllocation());
+  }
+  dhcp_start_addr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    dhcp_start_addr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_dhcp_start_addr()) {
+    dhcp_start_addr_.Set(from._internal_dhcp_start_addr(), 
+      GetArenaForAllocation());
+  }
+  dhcp_end_addr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    dhcp_end_addr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_dhcp_end_addr()) {
+    dhcp_end_addr_.Set(from._internal_dhcp_end_addr(), 
       GetArenaForAllocation());
   }
   if (from._internal_has_ipv4_subnet()) {
@@ -9269,6 +9305,14 @@ inline void IPv4Configuration::SharedCtor() {
 gateway_addr_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   gateway_addr_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+dhcp_start_addr_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  dhcp_start_addr_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+dhcp_end_addr_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  dhcp_end_addr_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&ipv4_subnet_) - reinterpret_cast<char*>(this)),
@@ -9288,6 +9332,8 @@ IPv4Configuration::~IPv4Configuration() {
 inline void IPv4Configuration::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   gateway_addr_.Destroy();
+  dhcp_start_addr_.Destroy();
+  dhcp_end_addr_.Destroy();
   if (this != internal_default_instance()) delete ipv4_subnet_;
 }
 
@@ -9302,22 +9348,35 @@ void IPv4Configuration::Clear() {
   (void) cached_has_bits;
 
   options_.Clear();
-  gateway_addr_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && ipv4_subnet_ != nullptr) {
-    delete ipv4_subnet_;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
+      gateway_addr_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      dhcp_start_addr_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      dhcp_end_addr_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      GOOGLE_DCHECK(ipv4_subnet_ != nullptr);
+      ipv4_subnet_->Clear();
+    }
   }
-  ipv4_subnet_ = nullptr;
   use_dhcp_ = false;
+  _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* IPv4Configuration::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .patchpanel.IPv4Subnet ipv4_subnet = 1;
+      // optional .patchpanel.IPv4Subnet ipv4_subnet = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_ipv4_subnet(), ptr);
@@ -9325,7 +9384,7 @@ const char* IPv4Configuration::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // bytes gateway_addr = 2;
+      // optional bytes gateway_addr = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_gateway_addr();
@@ -9355,6 +9414,24 @@ const char* IPv4Configuration::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
+      // optional bytes dhcp_start_addr = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_dhcp_start_addr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bytes dhcp_end_addr = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          auto str = _internal_mutable_dhcp_end_addr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -9371,6 +9448,7 @@ const char* IPv4Configuration::_InternalParse(const char* ptr, ::_pbi::ParseCont
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -9384,15 +9462,15 @@ uint8_t* IPv4Configuration::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .patchpanel.IPv4Subnet ipv4_subnet = 1;
-  if (this->_internal_has_ipv4_subnet()) {
+  // optional .patchpanel.IPv4Subnet ipv4_subnet = 1;
+  if (_internal_has_ipv4_subnet()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::ipv4_subnet(this),
         _Internal::ipv4_subnet(this).GetCachedSize(), target, stream);
   }
 
-  // bytes gateway_addr = 2;
-  if (!this->_internal_gateway_addr().empty()) {
+  // optional bytes gateway_addr = 2;
+  if (_internal_has_gateway_addr()) {
     target = stream->WriteBytesMaybeAliased(
         2, this->_internal_gateway_addr(), target);
   }
@@ -9409,6 +9487,18 @@ uint8_t* IPv4Configuration::_InternalSerialize(
     const auto& repfield = this->_internal_options(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
         InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // optional bytes dhcp_start_addr = 5;
+  if (_internal_has_dhcp_start_addr()) {
+    target = stream->WriteBytesMaybeAliased(
+        5, this->_internal_dhcp_start_addr(), target);
+  }
+
+  // optional bytes dhcp_end_addr = 6;
+  if (_internal_has_dhcp_end_addr()) {
+    target = stream->WriteBytesMaybeAliased(
+        6, this->_internal_dhcp_end_addr(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9434,20 +9524,37 @@ size_t IPv4Configuration::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // bytes gateway_addr = 2;
-  if (!this->_internal_gateway_addr().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_gateway_addr());
-  }
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    // optional bytes gateway_addr = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_gateway_addr());
+    }
 
-  // .patchpanel.IPv4Subnet ipv4_subnet = 1;
-  if (this->_internal_has_ipv4_subnet()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *ipv4_subnet_);
-  }
+    // optional bytes dhcp_start_addr = 5;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_dhcp_start_addr());
+    }
 
+    // optional bytes dhcp_end_addr = 6;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_dhcp_end_addr());
+    }
+
+    // optional .patchpanel.IPv4Subnet ipv4_subnet = 1;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *ipv4_subnet_);
+    }
+
+  }
   // bool use_dhcp = 3;
   if (this->_internal_use_dhcp() != 0) {
     total_size += 1 + 1;
@@ -9474,11 +9581,20 @@ void IPv4Configuration::MergeFrom(const IPv4Configuration& from) {
   (void) cached_has_bits;
 
   options_.MergeFrom(from.options_);
-  if (!from._internal_gateway_addr().empty()) {
-    _internal_set_gateway_addr(from._internal_gateway_addr());
-  }
-  if (from._internal_has_ipv4_subnet()) {
-    _internal_mutable_ipv4_subnet()->::patchpanel::IPv4Subnet::MergeFrom(from._internal_ipv4_subnet());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_gateway_addr(from._internal_gateway_addr());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_dhcp_start_addr(from._internal_dhcp_start_addr());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_dhcp_end_addr(from._internal_dhcp_end_addr());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _internal_mutable_ipv4_subnet()->::patchpanel::IPv4Subnet::MergeFrom(from._internal_ipv4_subnet());
+    }
   }
   if (from._internal_use_dhcp() != 0) {
     _internal_set_use_dhcp(from._internal_use_dhcp());
@@ -9502,10 +9618,19 @@ void IPv4Configuration::InternalSwap(IPv4Configuration* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   options_.InternalSwap(&other->options_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &gateway_addr_, lhs_arena,
       &other->gateway_addr_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &dhcp_start_addr_, lhs_arena,
+      &other->dhcp_start_addr_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &dhcp_end_addr_, lhs_arena,
+      &other->dhcp_end_addr_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(IPv4Configuration, use_dhcp_)
@@ -9801,7 +9926,11 @@ std::string DownstreamNetwork::GetTypeName() const {
 
 class TetheredNetworkRequest::_Internal {
  public:
+  using HasBits = decltype(std::declval<TetheredNetworkRequest>()._has_bits_);
   static const ::patchpanel::IPv4Configuration& ipv4_config(const TetheredNetworkRequest* msg);
+  static void set_has_ipv4_config(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 const ::patchpanel::IPv4Configuration&
@@ -9815,7 +9944,8 @@ TetheredNetworkRequest::TetheredNetworkRequest(::PROTOBUF_NAMESPACE_ID::Arena* a
   // @@protoc_insertion_point(arena_constructor:patchpanel.TetheredNetworkRequest)
 }
 TetheredNetworkRequest::TetheredNetworkRequest(const TetheredNetworkRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ifname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -9887,18 +10017,21 @@ void TetheredNetworkRequest::Clear() {
 
   ifname_.ClearToEmpty();
   upstream_ifname_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && ipv4_config_ != nullptr) {
-    delete ipv4_config_;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(ipv4_config_ != nullptr);
+    ipv4_config_->Clear();
   }
-  ipv4_config_ = nullptr;
   ::memset(&upstream_technology_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&disable_ipv6_) -
       reinterpret_cast<char*>(&upstream_technology_)) + sizeof(disable_ipv6_));
+  _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* TetheredNetworkRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
@@ -9932,7 +10065,7 @@ const char* TetheredNetworkRequest::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
-      // .patchpanel.IPv4Configuration ipv4_config = 4;
+      // optional .patchpanel.IPv4Configuration ipv4_config = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_ipv4_config(), ptr);
@@ -9964,6 +10097,7 @@ const char* TetheredNetworkRequest::_InternalParse(const char* ptr, ::_pbi::Pars
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -10004,8 +10138,8 @@ uint8_t* TetheredNetworkRequest::_InternalSerialize(
       3, this->_internal_upstream_technology(), target);
   }
 
-  // .patchpanel.IPv4Configuration ipv4_config = 4;
-  if (this->_internal_has_ipv4_config()) {
+  // optional .patchpanel.IPv4Configuration ipv4_config = 4;
+  if (_internal_has_ipv4_config()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::ipv4_config(this),
         _Internal::ipv4_config(this).GetCachedSize(), target, stream);
@@ -10047,8 +10181,9 @@ size_t TetheredNetworkRequest::ByteSizeLong() const {
         this->_internal_upstream_ifname());
   }
 
-  // .patchpanel.IPv4Configuration ipv4_config = 4;
-  if (this->_internal_has_ipv4_config()) {
+  // optional .patchpanel.IPv4Configuration ipv4_config = 4;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *ipv4_config_);
@@ -10119,6 +10254,7 @@ void TetheredNetworkRequest::InternalSwap(TetheredNetworkRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &ifname_, lhs_arena,
       &other->ifname_, rhs_arena

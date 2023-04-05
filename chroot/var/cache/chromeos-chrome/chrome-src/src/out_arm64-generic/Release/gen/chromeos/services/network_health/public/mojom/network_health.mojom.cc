@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -323,8 +323,8 @@ bool NetworkEventsObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      std::string p_guid = mojo::DefaultConstructTraits::CreateInstance<std::string>();
-      ::chromeos::network_health::mojom::NetworkState p_state = mojo::DefaultConstructTraits::CreateInstance<::chromeos::network_health::mojom::NetworkState>();
+      std::string p_guid{};
+      ::chromeos::network_health::mojom::NetworkState p_state{};
       NetworkEventsObserver_OnConnectionStateChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadGuid(&p_guid))
@@ -353,8 +353,8 @@ std::move(p_state));
               message->mutable_payload());
       
       bool success = true;
-      std::string p_guid = mojo::DefaultConstructTraits::CreateInstance<std::string>();
-      ::chromeos::network_health::mojom::UInt32ValuePtr p_signal_strength = mojo::DefaultConstructTraits::CreateInstance<::chromeos::network_health::mojom::UInt32ValuePtr>();
+      std::string p_guid{};
+      ::chromeos::network_health::mojom::UInt32ValuePtr p_signal_strength{};
       NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadGuid(&p_guid))
@@ -383,7 +383,7 @@ std::move(p_signal_strength));
               message->mutable_payload());
       
       bool success = true;
-      std::vector<::chromeos::network_health::mojom::NetworkPtr> p_networks = mojo::DefaultConstructTraits::CreateInstance<std::vector<::chromeos::network_health::mojom::NetworkPtr>>();
+      std::vector<::chromeos::network_health::mojom::NetworkPtr> p_networks{};
       NetworkEventsObserver_OnNetworkListChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadNetworks(&p_networks))
@@ -803,7 +803,7 @@ bool NetworkHealthService_GetNetworkList_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<::chromeos::network_health::mojom::NetworkPtr> p_networks = mojo::DefaultConstructTraits::CreateInstance<std::vector<::chromeos::network_health::mojom::NetworkPtr>>();
+  std::vector<::chromeos::network_health::mojom::NetworkPtr> p_networks{};
   NetworkHealthService_GetNetworkList_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadNetworks(&p_networks))
@@ -933,7 +933,7 @@ bool NetworkHealthService_GetHealthSnapshot_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::network_health::mojom::NetworkHealthStatePtr p_state = mojo::DefaultConstructTraits::CreateInstance<::chromeos::network_health::mojom::NetworkHealthStatePtr>();
+  ::chromeos::network_health::mojom::NetworkHealthStatePtr p_state{};
   NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadState(&p_state))
@@ -1061,7 +1061,7 @@ bool NetworkHealthService_GetRecentlyActiveNetworks_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<std::string> p_guids = mojo::DefaultConstructTraits::CreateInstance<std::vector<std::string>>();
+  std::vector<std::string> p_guids{};
   NetworkHealthService_GetRecentlyActiveNetworks_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadGuids(&p_guids))
@@ -1146,7 +1146,7 @@ bool NetworkHealthServiceStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<NetworkEventsObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<NetworkEventsObserver>>();
+      ::mojo::PendingRemote<NetworkEventsObserver> p_observer{};
       NetworkHealthService_AddObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1364,7 +1364,7 @@ void NetworkHealthServiceAsyncWaiter::GetNetworkList(
 
 std::vector<::chromeos::network_health::mojom::NetworkPtr> NetworkHealthServiceAsyncWaiter::GetNetworkList(
     ) {
-  std::vector<::chromeos::network_health::mojom::NetworkPtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<::chromeos::network_health::mojom::NetworkPtr>>();
+  std::vector<::chromeos::network_health::mojom::NetworkPtr> async_wait_result;
   GetNetworkList(&async_wait_result);
   return async_wait_result;
 }
@@ -1387,7 +1387,7 @@ void NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
 
 ::chromeos::network_health::mojom::NetworkHealthStatePtr NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
     ) {
-  ::chromeos::network_health::mojom::NetworkHealthStatePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::chromeos::network_health::mojom::NetworkHealthStatePtr>();
+  ::chromeos::network_health::mojom::NetworkHealthStatePtr async_wait_result;
   GetHealthSnapshot(&async_wait_result);
   return async_wait_result;
 }
@@ -1410,7 +1410,7 @@ void NetworkHealthServiceAsyncWaiter::GetRecentlyActiveNetworks(
 
 std::vector<std::string> NetworkHealthServiceAsyncWaiter::GetRecentlyActiveNetworks(
     ) {
-  std::vector<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<std::string>>();
+  std::vector<std::string> async_wait_result;
   GetRecentlyActiveNetworks(&async_wait_result);
   return async_wait_result;
 }

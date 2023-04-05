@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -332,7 +332,7 @@ bool ChannelStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_pid = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      int32_t p_pid{};
       Channel_SetPeerPid_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -358,7 +358,7 @@ std::move(p_pid));
               message->mutable_payload());
       
       bool success = true;
-      ::IPC::MessageView p_message = mojo::DefaultConstructTraits::CreateInstance<::IPC::MessageView>();
+      ::IPC::MessageView p_message{};
       Channel_Receive_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadMessage(&p_message))
@@ -384,7 +384,7 @@ std::move(p_message));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::GenericPendingAssociatedReceiver p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::GenericPendingAssociatedReceiver>();
+      ::mojo::GenericPendingAssociatedReceiver p_receiver{};
       Channel_GetAssociatedInterface_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadReceiver(&p_receiver))

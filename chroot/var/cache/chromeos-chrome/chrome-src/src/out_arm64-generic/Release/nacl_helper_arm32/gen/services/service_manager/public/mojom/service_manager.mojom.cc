@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -46,7 +46,7 @@
 namespace service_manager {
 namespace mojom {
 RunningServiceInfo::RunningServiceInfo()
-    : identity(mojo::DefaultConstructTraits::CreateInstance<::service_manager::Identity>()),
+    : identity(),
       pid(),
       state() {}
 
@@ -567,7 +567,7 @@ bool ServiceManagerListenerStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      std::vector<RunningServiceInfoPtr> p_running_services = mojo::DefaultConstructTraits::CreateInstance<std::vector<RunningServiceInfoPtr>>();
+      std::vector<RunningServiceInfoPtr> p_running_services{};
       ServiceManagerListener_OnInit_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRunningServices(&p_running_services))
@@ -593,7 +593,7 @@ std::move(p_running_services));
               message->mutable_payload());
       
       bool success = true;
-      RunningServiceInfoPtr p_service = mojo::DefaultConstructTraits::CreateInstance<RunningServiceInfoPtr>();
+      RunningServiceInfoPtr p_service{};
       ServiceManagerListener_OnServiceCreated_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadService(&p_service))
@@ -619,8 +619,8 @@ std::move(p_service));
               message->mutable_payload());
       
       bool success = true;
-      ::service_manager::Identity p_identity = mojo::DefaultConstructTraits::CreateInstance<::service_manager::Identity>();
-      uint32_t p_pid_deprecated = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      ::service_manager::Identity p_identity{};
+      uint32_t p_pid_deprecated{};
       ServiceManagerListener_OnServiceStarted_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIdentity(&p_identity))
@@ -649,8 +649,8 @@ std::move(p_pid_deprecated));
               message->mutable_payload());
       
       bool success = true;
-      ::service_manager::Identity p_identity = mojo::DefaultConstructTraits::CreateInstance<::service_manager::Identity>();
-      uint32_t p_pid = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      ::service_manager::Identity p_identity{};
+      uint32_t p_pid{};
       ServiceManagerListener_OnServicePIDReceived_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIdentity(&p_identity))
@@ -679,7 +679,7 @@ std::move(p_pid));
               message->mutable_payload());
       
       bool success = true;
-      ::service_manager::Identity p_identity = mojo::DefaultConstructTraits::CreateInstance<::service_manager::Identity>();
+      ::service_manager::Identity p_identity{};
       ServiceManagerListener_OnServiceFailedToStart_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIdentity(&p_identity))
@@ -705,7 +705,7 @@ std::move(p_identity));
               message->mutable_payload());
       
       bool success = true;
-      ::service_manager::Identity p_identity = mojo::DefaultConstructTraits::CreateInstance<::service_manager::Identity>();
+      ::service_manager::Identity p_identity{};
       ServiceManagerListener_OnServiceStopped_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIdentity(&p_identity))
@@ -894,7 +894,7 @@ bool ServiceManagerStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<ServiceManagerListener> p_listener = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<ServiceManagerListener>>();
+      ::mojo::PendingRemote<ServiceManagerListener> p_listener{};
       ServiceManager_AddListener_ParamsDataView input_data_view(params, message);
       
       if (success) {

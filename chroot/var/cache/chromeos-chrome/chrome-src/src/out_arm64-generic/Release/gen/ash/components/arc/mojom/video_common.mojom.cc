@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -138,8 +138,8 @@ bool ColorPlaneLayout::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoFrameLayout::VideoFrameLayout()
-    : format(mojo::DefaultConstructTraits::CreateInstance<::media::VideoPixelFormat>()),
-      coded_size(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
+    : format(),
+      coded_size(),
       planes(),
       is_multi_planar(),
       buffer_addr_align(),
