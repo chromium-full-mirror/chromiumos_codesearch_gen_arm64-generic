@@ -60,7 +60,6 @@
 #include "cryptohome/user_session/user_session_factory.h"
 #include "cryptohome/user_session/user_session_map.h"
 #include "cryptohome/username.h"
-#include "cryptohome/uss_experiment_config_fetcher.h"
 
 namespace cryptohome {
 
@@ -572,12 +571,6 @@ class UserDataAuth {
     fingerprint_manager_ = fingerprint_manager;
   }
 
-  // Override |uss_experiment_config_fetcher_| for testing purpose
-  void set_uss_experiment_config_fetcher(
-      UssExperimentConfigFetcher* uss_experiment_config_fetcher) {
-    uss_experiment_config_fetcher_ = uss_experiment_config_fetcher;
-  }
-
   // Override |mount_factory_| for testing purpose
   void set_mount_factory_for_testing(MountFactory* mount_factory) {
     mount_factory_ = mount_factory;
@@ -932,6 +925,10 @@ class UserDataAuth {
   // value in AuthSession manager.
   void InitializeFeatureLibrary();
 
+  // Called on Mount thread. This returns the feature library, or null if it has
+  // not yet been initialized.
+  Features* GetFeatures();
+
   // =============== PinWeaver Related Methods ===============
 
   // Called on Mount thread. Pairing secret (Pk) is established once per
@@ -1251,15 +1248,6 @@ class UserDataAuth {
   // Recorded when a requests comes in. Counts of 1 will not reported.
   std::atomic<int> parallel_task_count_ = 0;
 
-  // The default USS experiment config fetcher object. This is used to fetch the
-  // USS experiment config when network is first connected.
-  std::unique_ptr<UssExperimentConfigFetcher>
-      default_uss_experiment_config_fetcher_;
-
-  // The actual USS experiment config fetcher object. Usually set to
-  // default_uss_experiment_config_fetcher_, but can be overridden for testing.
-  UssExperimentConfigFetcher* uss_experiment_config_fetcher_;
-
   // Flag to cache the status of whether Pk establishment is blocked
   // successfully, so we don't have to do this multiple times.
   bool pk_establishment_blocked_ = false;
@@ -1269,6 +1257,7 @@ class UserDataAuth {
 
   // This holds the object that checks for feature enabled.
   Features* features_;
+  AsyncInitFeatures async_init_features_;
 
   friend class AuthSessionTestWithKeysetManagement;
   FRIEND_TEST(AuthSessionTestWithKeysetManagement,
