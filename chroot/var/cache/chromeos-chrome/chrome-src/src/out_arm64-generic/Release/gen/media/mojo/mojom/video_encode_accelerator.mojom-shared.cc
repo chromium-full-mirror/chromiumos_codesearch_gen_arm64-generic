@@ -745,7 +745,7 @@ bool Av1Metadata_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -753,28 +753,6 @@ bool Av1Metadata_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const Av1Metadata_Data* object =
       static_cast<const Av1Metadata_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->spatial_layer_resolutions, 6, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& spatial_layer_resolutions_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->spatial_layer_resolutions, validation_context,
-                                         &spatial_layer_resolutions_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->f_diffs, 7, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& f_diffs_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->f_diffs, validation_context,
-                                         &f_diffs_validate_params)) {
-    return false;
-  }
 
   return true;
 }

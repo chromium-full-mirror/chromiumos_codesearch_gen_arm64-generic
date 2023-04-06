@@ -680,23 +680,15 @@ bool H264Metadata::Validate(
   return Data_::Validate(data, validation_context);
 }
 H265Metadata::H265Metadata()
-    : temporal_idx(),
-      spatial_idx(),
-      layer_sync() {}
+    : temporal_idx() {}
 
 H265Metadata::H265Metadata(
-    uint8_t temporal_idx_in,
-    uint8_t spatial_idx_in,
-    bool layer_sync_in)
-    : temporal_idx(std::move(temporal_idx_in)),
-      spatial_idx(std::move(spatial_idx_in)),
-      layer_sync(std::move(layer_sync_in)) {}
+    uint8_t temporal_idx_in)
+    : temporal_idx(std::move(temporal_idx_in)) {}
 
 H265Metadata::~H265Metadata() = default;
 size_t H265Metadata::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->temporal_idx);
-  seed = mojo::internal::Hash(seed, this->spatial_idx);
-  seed = mojo::internal::Hash(seed, this->layer_sync);
   return seed;
 }
 
@@ -708,24 +700,6 @@ void H265Metadata::WriteIntoTrace(
       "temporal_idx"), this->temporal_idx,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint8_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "spatial_idx"), this->spatial_idx,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint8_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "layer_sync"), this->layer_sync,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -914,94 +888,26 @@ bool Vp9Metadata::Validate(
   return Data_::Validate(data, validation_context);
 }
 Av1Metadata::Av1Metadata()
-    : inter_pic_predicted(),
-      switch_frame(),
-      end_of_picture(),
-      temporal_idx(),
-      spatial_idx(),
-      spatial_layer_resolutions(),
-      f_diffs() {}
+    : temporal_idx() {}
 
 Av1Metadata::Av1Metadata(
-    bool inter_pic_predicted_in,
-    bool switch_frame_in,
-    bool end_of_picture_in,
-    uint8_t temporal_idx_in,
-    uint8_t spatial_idx_in,
-    std::vector<::gfx::Size> spatial_layer_resolutions_in,
-    std::vector<uint8_t> f_diffs_in)
-    : inter_pic_predicted(std::move(inter_pic_predicted_in)),
-      switch_frame(std::move(switch_frame_in)),
-      end_of_picture(std::move(end_of_picture_in)),
-      temporal_idx(std::move(temporal_idx_in)),
-      spatial_idx(std::move(spatial_idx_in)),
-      spatial_layer_resolutions(std::move(spatial_layer_resolutions_in)),
-      f_diffs(std::move(f_diffs_in)) {}
+    uint8_t temporal_idx_in)
+    : temporal_idx(std::move(temporal_idx_in)) {}
 
 Av1Metadata::~Av1Metadata() = default;
+size_t Av1Metadata::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->temporal_idx);
+  return seed;
+}
 
 void Av1Metadata::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "inter_pic_predicted"), this->inter_pic_predicted,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "switch_frame"), this->switch_frame,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "end_of_picture"), this->end_of_picture,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "temporal_idx"), this->temporal_idx,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint8_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "spatial_idx"), this->spatial_idx,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint8_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "spatial_layer_resolutions"), this->spatial_layer_resolutions,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<::gfx::Size>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "f_diffs"), this->f_diffs,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<uint8_t>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4066,10 +3972,6 @@ bool StructTraits<::media::mojom::H265Metadata::DataView, ::media::mojom::H265Me
   
       if (success)
         result->temporal_idx = input.temporal_idx();
-      if (success)
-        result->spatial_idx = input.spatial_idx();
-      if (success)
-        result->layer_sync = input.layer_sync();
   *output = std::move(result);
   return success;
 }
@@ -4131,19 +4033,7 @@ bool StructTraits<::media::mojom::Av1Metadata::DataView, ::media::mojom::Av1Meta
   ::media::mojom::Av1MetadataPtr result(::media::mojom::Av1Metadata::New());
   
       if (success)
-        result->inter_pic_predicted = input.inter_pic_predicted();
-      if (success)
-        result->switch_frame = input.switch_frame();
-      if (success)
-        result->end_of_picture = input.end_of_picture();
-      if (success)
         result->temporal_idx = input.temporal_idx();
-      if (success)
-        result->spatial_idx = input.spatial_idx();
-      if (success && !input.ReadSpatialLayerResolutions(&result->spatial_layer_resolutions))
-        success = false;
-      if (success && !input.ReadFDiffs(&result->f_diffs))
-        success = false;
   *output = std::move(result);
   return success;
 }

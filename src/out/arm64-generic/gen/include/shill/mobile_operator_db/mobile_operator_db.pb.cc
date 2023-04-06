@@ -115,15 +115,18 @@ PROTOBUF_CONSTEXPR Data::Data(
   , /*decltype(_impl_.localized_name_)*/{}
   , /*decltype(_impl_.olp_)*/{}
   , /*decltype(_impl_.roaming_filter_)*/{}
+  , /*decltype(_impl_.mhs_entitlement_param_)*/{}
   , /*decltype(_impl_.mccmnc_)*/{}
   , /*decltype(_impl_.mobile_apn_)*/{}
   , /*decltype(_impl_.uuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.country_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.mhs_entitlement_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.mtu_)*/0
   , /*decltype(_impl_.requires_roaming_)*/false
   , /*decltype(_impl_.prioritizes_name_)*/false
   , /*decltype(_impl_.tethering_allowed_)*/false
-  , /*decltype(_impl_.use_dun_apn_as_default_)*/false} {}
+  , /*decltype(_impl_.use_dun_apn_as_default_)*/false
+  , /*decltype(_impl_.mhs_entitlement_method_)*/2} {}
 struct DataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -454,7 +457,60 @@ constexpr MobileAPN_ApnType MobileAPN::ApnType_MIN;
 constexpr MobileAPN_ApnType MobileAPN::ApnType_MAX;
 constexpr int MobileAPN::ApnType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-bool OnlinePortal_Method_IsValid(int value) {
+bool Data_EntitlementParam_IsValid(int value) {
+  switch (value) {
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Data_EntitlementParam_strings[1] = {};
+
+static const char Data_EntitlementParam_names[] =
+  "IMSI";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Data_EntitlementParam_entries[] = {
+  { {Data_EntitlementParam_names + 0, 4}, 1 },
+};
+
+static const int Data_EntitlementParam_entries_by_number[] = {
+  0, // 1 -> IMSI
+};
+
+const std::string& Data_EntitlementParam_Name(
+    Data_EntitlementParam value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          Data_EntitlementParam_entries,
+          Data_EntitlementParam_entries_by_number,
+          1, Data_EntitlementParam_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      Data_EntitlementParam_entries,
+      Data_EntitlementParam_entries_by_number,
+      1, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     Data_EntitlementParam_strings[idx].get();
+}
+bool Data_EntitlementParam_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Data_EntitlementParam* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      Data_EntitlementParam_entries, 1, name, &int_value);
+  if (success) {
+    *value = static_cast<Data_EntitlementParam>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr Data_EntitlementParam Data::IMSI;
+constexpr Data_EntitlementParam Data::EntitlementParam_MIN;
+constexpr Data_EntitlementParam Data::EntitlementParam_MAX;
+constexpr int Data::EntitlementParam_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool HttpMethod_IsValid(int value) {
   switch (value) {
     case 1:
     case 2:
@@ -464,54 +520,47 @@ bool OnlinePortal_Method_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OnlinePortal_Method_strings[2] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> HttpMethod_strings[2] = {};
 
-static const char OnlinePortal_Method_names[] =
+static const char HttpMethod_names[] =
   "GET"
   "POST";
 
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OnlinePortal_Method_entries[] = {
-  { {OnlinePortal_Method_names + 0, 3}, 1 },
-  { {OnlinePortal_Method_names + 3, 4}, 2 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry HttpMethod_entries[] = {
+  { {HttpMethod_names + 0, 3}, 1 },
+  { {HttpMethod_names + 3, 4}, 2 },
 };
 
-static const int OnlinePortal_Method_entries_by_number[] = {
+static const int HttpMethod_entries_by_number[] = {
   0, // 1 -> GET
   1, // 2 -> POST
 };
 
-const std::string& OnlinePortal_Method_Name(
-    OnlinePortal_Method value) {
+const std::string& HttpMethod_Name(
+    HttpMethod value) {
   static const bool dummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          OnlinePortal_Method_entries,
-          OnlinePortal_Method_entries_by_number,
-          2, OnlinePortal_Method_strings);
+          HttpMethod_entries,
+          HttpMethod_entries_by_number,
+          2, HttpMethod_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      OnlinePortal_Method_entries,
-      OnlinePortal_Method_entries_by_number,
+      HttpMethod_entries,
+      HttpMethod_entries_by_number,
       2, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     OnlinePortal_Method_strings[idx].get();
+                     HttpMethod_strings[idx].get();
 }
-bool OnlinePortal_Method_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OnlinePortal_Method* value) {
+bool HttpMethod_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, HttpMethod* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      OnlinePortal_Method_entries, 2, name, &int_value);
+      HttpMethod_entries, 2, name, &int_value);
   if (success) {
-    *value = static_cast<OnlinePortal_Method>(int_value);
+    *value = static_cast<HttpMethod>(int_value);
   }
   return success;
 }
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-constexpr OnlinePortal_Method OnlinePortal::GET;
-constexpr OnlinePortal_Method OnlinePortal::POST;
-constexpr OnlinePortal_Method OnlinePortal::Method_MIN;
-constexpr OnlinePortal_Method OnlinePortal::Method_MAX;
-constexpr int OnlinePortal::Method_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
 // ===================================================================
 
@@ -2206,13 +2255,13 @@ const char* OnlinePortal::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
-      // required .shill.mobile_operator_db.OnlinePortal.Method method = 2;
+      // required .shill.mobile_operator_db.HttpMethod method = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::shill::mobile_operator_db::OnlinePortal_Method_IsValid(val))) {
-            _internal_set_method(static_cast<::shill::mobile_operator_db::OnlinePortal_Method>(val));
+          if (PROTOBUF_PREDICT_TRUE(::shill::mobile_operator_db::HttpMethod_IsValid(val))) {
+            _internal_set_method(static_cast<::shill::mobile_operator_db::HttpMethod>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
           }
@@ -2275,7 +2324,7 @@ uint8_t* OnlinePortal::_InternalSerialize(
         _Internal::olp_filter(this).GetCachedSize(), target, stream);
   }
 
-  // required .shill.mobile_operator_db.OnlinePortal.Method method = 2;
+  // required .shill.mobile_operator_db.HttpMethod method = 2;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
@@ -2314,7 +2363,7 @@ size_t OnlinePortal::RequiredFieldsByteSizeFallback() const {
   }
 
   if (_internal_has_method()) {
-    // required .shill.mobile_operator_db.OnlinePortal.Method method = 2;
+    // required .shill.mobile_operator_db.HttpMethod method = 2;
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_method());
   }
@@ -2331,7 +2380,7 @@ size_t OnlinePortal::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_url());
 
-    // required .shill.mobile_operator_db.OnlinePortal.Method method = 2;
+    // required .shill.mobile_operator_db.HttpMethod method = 2;
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_method());
 
@@ -2450,19 +2499,25 @@ class Data::_Internal {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_requires_roaming(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
-  static void set_has_mtu(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_prioritizes_name(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
-  static void set_has_tethering_allowed(HasBits* has_bits) {
+  static void set_has_mtu(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_prioritizes_name(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
-  static void set_has_use_dun_apn_as_default(HasBits* has_bits) {
+  static void set_has_tethering_allowed(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
+  }
+  static void set_has_use_dun_apn_as_default(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
+  static void set_has_mhs_entitlement_url(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_mhs_entitlement_method(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
     return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
@@ -2484,15 +2539,18 @@ Data::Data(const Data& from)
     , decltype(_impl_.localized_name_){from._impl_.localized_name_}
     , decltype(_impl_.olp_){from._impl_.olp_}
     , decltype(_impl_.roaming_filter_){from._impl_.roaming_filter_}
+    , decltype(_impl_.mhs_entitlement_param_){from._impl_.mhs_entitlement_param_}
     , decltype(_impl_.mccmnc_){from._impl_.mccmnc_}
     , decltype(_impl_.mobile_apn_){from._impl_.mobile_apn_}
     , decltype(_impl_.uuid_){}
     , decltype(_impl_.country_){}
+    , decltype(_impl_.mhs_entitlement_url_){}
     , decltype(_impl_.mtu_){}
     , decltype(_impl_.requires_roaming_){}
     , decltype(_impl_.prioritizes_name_){}
     , decltype(_impl_.tethering_allowed_){}
-    , decltype(_impl_.use_dun_apn_as_default_){}};
+    , decltype(_impl_.use_dun_apn_as_default_){}
+    , decltype(_impl_.mhs_entitlement_method_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.uuid_.InitDefault();
@@ -2511,9 +2569,17 @@ Data::Data(const Data& from)
     _this->_impl_.country_.Set(from._internal_country(), 
       _this->GetArenaForAllocation());
   }
+  _impl_.mhs_entitlement_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.mhs_entitlement_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_mhs_entitlement_url()) {
+    _this->_impl_.mhs_entitlement_url_.Set(from._internal_mhs_entitlement_url(), 
+      _this->GetArenaForAllocation());
+  }
   ::memcpy(&_impl_.mtu_, &from._impl_.mtu_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.use_dun_apn_as_default_) -
-    reinterpret_cast<char*>(&_impl_.mtu_)) + sizeof(_impl_.use_dun_apn_as_default_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mhs_entitlement_method_) -
+    reinterpret_cast<char*>(&_impl_.mtu_)) + sizeof(_impl_.mhs_entitlement_method_));
   // @@protoc_insertion_point(copy_constructor:shill.mobile_operator_db.Data)
 }
 
@@ -2527,15 +2593,18 @@ inline void Data::SharedCtor(
     , decltype(_impl_.localized_name_){arena}
     , decltype(_impl_.olp_){arena}
     , decltype(_impl_.roaming_filter_){arena}
+    , decltype(_impl_.mhs_entitlement_param_){arena}
     , decltype(_impl_.mccmnc_){arena}
     , decltype(_impl_.mobile_apn_){arena}
     , decltype(_impl_.uuid_){}
     , decltype(_impl_.country_){}
+    , decltype(_impl_.mhs_entitlement_url_){}
     , decltype(_impl_.mtu_){0}
     , decltype(_impl_.requires_roaming_){false}
     , decltype(_impl_.prioritizes_name_){false}
     , decltype(_impl_.tethering_allowed_){false}
     , decltype(_impl_.use_dun_apn_as_default_){false}
+    , decltype(_impl_.mhs_entitlement_method_){2}
   };
   _impl_.uuid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -2544,6 +2613,10 @@ inline void Data::SharedCtor(
   _impl_.country_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.country_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.mhs_entitlement_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.mhs_entitlement_url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -2561,10 +2634,12 @@ inline void Data::SharedDtor() {
   _impl_.localized_name_.~RepeatedPtrField();
   _impl_.olp_.~RepeatedPtrField();
   _impl_.roaming_filter_.~RepeatedPtrField();
+  _impl_.mhs_entitlement_param_.~RepeatedField();
   _impl_.mccmnc_.~RepeatedPtrField();
   _impl_.mobile_apn_.~RepeatedPtrField();
   _impl_.uuid_.Destroy();
   _impl_.country_.Destroy();
+  _impl_.mhs_entitlement_url_.Destroy();
 }
 
 void Data::SetCachedSize(int size) const {
@@ -2580,22 +2655,27 @@ void Data::Clear() {
   _impl_.localized_name_.Clear();
   _impl_.olp_.Clear();
   _impl_.roaming_filter_.Clear();
+  _impl_.mhs_entitlement_param_.Clear();
   _impl_.mccmnc_.Clear();
   _impl_.mobile_apn_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _impl_.uuid_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
       _impl_.country_.ClearNonDefaultToEmpty();
     }
+    if (cached_has_bits & 0x00000004u) {
+      _impl_.mhs_entitlement_url_.ClearNonDefaultToEmpty();
+    }
   }
-  if (cached_has_bits & 0x0000007cu) {
+  if (cached_has_bits & 0x000000f8u) {
     ::memset(&_impl_.mtu_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&_impl_.use_dun_apn_as_default_) -
         reinterpret_cast<char*>(&_impl_.mtu_)) + sizeof(_impl_.use_dun_apn_as_default_));
   }
+  _impl_.mhs_entitlement_method_ = 2;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -2709,6 +2789,49 @@ const char* Data::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
+      // optional string mhs_entitlement_url = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+          auto str = _internal_mutable_mhs_entitlement_url();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .shill.mobile_operator_db.Data.EntitlementParam mhs_entitlement_param = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+            CHK_(ptr);
+            if (PROTOBUF_PREDICT_TRUE(::shill::mobile_operator_db::Data_EntitlementParam_IsValid(val))) {
+              _internal_add_mhs_entitlement_param(static_cast<::shill::mobile_operator_db::Data_EntitlementParam>(val));
+            } else {
+              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(13, val, mutable_unknown_fields());
+            }
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<104>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 106) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_mhs_entitlement_param(), ptr, ctx, ::shill::mobile_operator_db::Data_EntitlementParam_IsValid, &_internal_metadata_, 13);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .shill.mobile_operator_db.HttpMethod mhs_entitlement_method = 14 [default = POST];
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::shill::mobile_operator_db::HttpMethod_IsValid(val))) {
+            _internal_set_mhs_entitlement_method(static_cast<::shill::mobile_operator_db::HttpMethod>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(14, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
       // repeated string mccmnc = 21;
       case 21:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
@@ -2788,7 +2911,7 @@ uint8_t* Data::_InternalSerialize(
   }
 
   // optional bool requires_roaming = 5 [default = false];
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_requires_roaming(), target);
   }
@@ -2802,13 +2925,13 @@ uint8_t* Data::_InternalSerialize(
   }
 
   // optional int32 mtu = 7;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_mtu(), target);
   }
 
   // optional bool prioritizes_name = 8 [default = false];
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_prioritizes_name(), target);
   }
@@ -2822,15 +2945,35 @@ uint8_t* Data::_InternalSerialize(
   }
 
   // optional bool tethering_allowed = 10 [default = false];
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_tethering_allowed(), target);
   }
 
   // optional bool use_dun_apn_as_default = 11;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(11, this->_internal_use_dun_apn_as_default(), target);
+  }
+
+  // optional string mhs_entitlement_url = 12;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        12, this->_internal_mhs_entitlement_url(), target);
+  }
+
+  // repeated .shill.mobile_operator_db.Data.EntitlementParam mhs_entitlement_param = 13;
+  for (int i = 0, n = this->_internal_mhs_entitlement_param_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        13, this->_internal_mhs_entitlement_param(i), target);
+  }
+
+  // optional .shill.mobile_operator_db.HttpMethod mhs_entitlement_method = 14 [default = POST];
+  if (cached_has_bits & 0x00000100u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      14, this->_internal_mhs_entitlement_method(), target);
   }
 
   // repeated string mccmnc = 21;
@@ -2890,6 +3033,16 @@ size_t Data::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // repeated .shill.mobile_operator_db.Data.EntitlementParam mhs_entitlement_param = 13;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_mhs_entitlement_param_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_mhs_entitlement_param(static_cast<int>(i)));
+    }
+    total_size += (1UL * count) + data_size;
+  }
+
   // repeated string mccmnc = 21;
   total_size += 2 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.mccmnc_.size());
@@ -2906,7 +3059,7 @@ size_t Data::ByteSizeLong() const {
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000007eu) {
+  if (cached_has_bits & 0x000000feu) {
     // optional string country = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
@@ -2914,32 +3067,45 @@ size_t Data::ByteSizeLong() const {
           this->_internal_country());
     }
 
-    // optional int32 mtu = 7;
+    // optional string mhs_entitlement_url = 12;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_mhs_entitlement_url());
+    }
+
+    // optional int32 mtu = 7;
+    if (cached_has_bits & 0x00000008u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_mtu());
     }
 
     // optional bool requires_roaming = 5 [default = false];
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 1 + 1;
-    }
-
-    // optional bool prioritizes_name = 8 [default = false];
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 + 1;
     }
 
-    // optional bool tethering_allowed = 10 [default = false];
+    // optional bool prioritizes_name = 8 [default = false];
     if (cached_has_bits & 0x00000020u) {
       total_size += 1 + 1;
     }
 
-    // optional bool use_dun_apn_as_default = 11;
+    // optional bool tethering_allowed = 10 [default = false];
     if (cached_has_bits & 0x00000040u) {
       total_size += 1 + 1;
     }
 
+    // optional bool use_dun_apn_as_default = 11;
+    if (cached_has_bits & 0x00000080u) {
+      total_size += 1 + 1;
+    }
+
   }
+  // optional .shill.mobile_operator_db.HttpMethod mhs_entitlement_method = 14 [default = POST];
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_mhs_entitlement_method());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -2964,10 +3130,11 @@ void Data::MergeFrom(const Data& from) {
   _this->_impl_.localized_name_.MergeFrom(from._impl_.localized_name_);
   _this->_impl_.olp_.MergeFrom(from._impl_.olp_);
   _this->_impl_.roaming_filter_.MergeFrom(from._impl_.roaming_filter_);
+  _this->_impl_.mhs_entitlement_param_.MergeFrom(from._impl_.mhs_entitlement_param_);
   _this->_impl_.mccmnc_.MergeFrom(from._impl_.mccmnc_);
   _this->_impl_.mobile_apn_.MergeFrom(from._impl_.mobile_apn_);
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_uuid(from._internal_uuid());
     }
@@ -2975,21 +3142,27 @@ void Data::MergeFrom(const Data& from) {
       _this->_internal_set_country(from._internal_country());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_impl_.mtu_ = from._impl_.mtu_;
+      _this->_internal_set_mhs_entitlement_url(from._internal_mhs_entitlement_url());
     }
     if (cached_has_bits & 0x00000008u) {
-      _this->_impl_.requires_roaming_ = from._impl_.requires_roaming_;
+      _this->_impl_.mtu_ = from._impl_.mtu_;
     }
     if (cached_has_bits & 0x00000010u) {
-      _this->_impl_.prioritizes_name_ = from._impl_.prioritizes_name_;
+      _this->_impl_.requires_roaming_ = from._impl_.requires_roaming_;
     }
     if (cached_has_bits & 0x00000020u) {
-      _this->_impl_.tethering_allowed_ = from._impl_.tethering_allowed_;
+      _this->_impl_.prioritizes_name_ = from._impl_.prioritizes_name_;
     }
     if (cached_has_bits & 0x00000040u) {
+      _this->_impl_.tethering_allowed_ = from._impl_.tethering_allowed_;
+    }
+    if (cached_has_bits & 0x00000080u) {
       _this->_impl_.use_dun_apn_as_default_ = from._impl_.use_dun_apn_as_default_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000100u) {
+    _this->_internal_set_mhs_entitlement_method(from._internal_mhs_entitlement_method());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -3023,6 +3196,7 @@ void Data::InternalSwap(Data* other) {
   _impl_.localized_name_.InternalSwap(&other->_impl_.localized_name_);
   _impl_.olp_.InternalSwap(&other->_impl_.olp_);
   _impl_.roaming_filter_.InternalSwap(&other->_impl_.roaming_filter_);
+  _impl_.mhs_entitlement_param_.InternalSwap(&other->_impl_.mhs_entitlement_param_);
   _impl_.mccmnc_.InternalSwap(&other->_impl_.mccmnc_);
   _impl_.mobile_apn_.InternalSwap(&other->_impl_.mobile_apn_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
@@ -3033,12 +3207,17 @@ void Data::InternalSwap(Data* other) {
       &_impl_.country_, lhs_arena,
       &other->_impl_.country_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.mhs_entitlement_url_, lhs_arena,
+      &other->_impl_.mhs_entitlement_url_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Data, _impl_.use_dun_apn_as_default_)
       + sizeof(Data::_impl_.use_dun_apn_as_default_)
       - PROTOBUF_FIELD_OFFSET(Data, _impl_.mtu_)>(
           reinterpret_cast<char*>(&_impl_.mtu_),
           reinterpret_cast<char*>(&other->_impl_.mtu_));
+  swap(_impl_.mhs_entitlement_method_, other->_impl_.mhs_entitlement_method_);
 }
 
 std::string Data::GetTypeName() const {

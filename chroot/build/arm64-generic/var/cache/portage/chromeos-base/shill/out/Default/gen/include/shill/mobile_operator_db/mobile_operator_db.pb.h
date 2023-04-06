@@ -171,25 +171,43 @@ inline const std::string& MobileAPN_ApnType_Name(T enum_t_value) {
 }
 bool MobileAPN_ApnType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MobileAPN_ApnType* value);
-enum OnlinePortal_Method : int {
-  OnlinePortal_Method_GET = 1,
-  OnlinePortal_Method_POST = 2
+enum Data_EntitlementParam : int {
+  Data_EntitlementParam_IMSI = 1
 };
-bool OnlinePortal_Method_IsValid(int value);
-constexpr OnlinePortal_Method OnlinePortal_Method_Method_MIN = OnlinePortal_Method_GET;
-constexpr OnlinePortal_Method OnlinePortal_Method_Method_MAX = OnlinePortal_Method_POST;
-constexpr int OnlinePortal_Method_Method_ARRAYSIZE = OnlinePortal_Method_Method_MAX + 1;
+bool Data_EntitlementParam_IsValid(int value);
+constexpr Data_EntitlementParam Data_EntitlementParam_EntitlementParam_MIN = Data_EntitlementParam_IMSI;
+constexpr Data_EntitlementParam Data_EntitlementParam_EntitlementParam_MAX = Data_EntitlementParam_IMSI;
+constexpr int Data_EntitlementParam_EntitlementParam_ARRAYSIZE = Data_EntitlementParam_EntitlementParam_MAX + 1;
 
-const std::string& OnlinePortal_Method_Name(OnlinePortal_Method value);
+const std::string& Data_EntitlementParam_Name(Data_EntitlementParam value);
 template<typename T>
-inline const std::string& OnlinePortal_Method_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, OnlinePortal_Method>::value ||
+inline const std::string& Data_EntitlementParam_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, Data_EntitlementParam>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function OnlinePortal_Method_Name.");
-  return OnlinePortal_Method_Name(static_cast<OnlinePortal_Method>(enum_t_value));
+    "Incorrect type passed to function Data_EntitlementParam_Name.");
+  return Data_EntitlementParam_Name(static_cast<Data_EntitlementParam>(enum_t_value));
 }
-bool OnlinePortal_Method_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OnlinePortal_Method* value);
+bool Data_EntitlementParam_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Data_EntitlementParam* value);
+enum HttpMethod : int {
+  GET = 1,
+  POST = 2
+};
+bool HttpMethod_IsValid(int value);
+constexpr HttpMethod HttpMethod_MIN = GET;
+constexpr HttpMethod HttpMethod_MAX = POST;
+constexpr int HttpMethod_ARRAYSIZE = HttpMethod_MAX + 1;
+
+const std::string& HttpMethod_Name(HttpMethod value);
+template<typename T>
+inline const std::string& HttpMethod_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, HttpMethod>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function HttpMethod_Name.");
+  return HttpMethod_Name(static_cast<HttpMethod>(enum_t_value));
+}
+bool HttpMethod_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, HttpMethod* value);
 // ===================================================================
 
 class FilterRange final :
@@ -1300,32 +1318,6 @@ class OnlinePortal final :
 
   // nested types ----------------------------------------------------
 
-  typedef OnlinePortal_Method Method;
-  static constexpr Method GET =
-    OnlinePortal_Method_GET;
-  static constexpr Method POST =
-    OnlinePortal_Method_POST;
-  static inline bool Method_IsValid(int value) {
-    return OnlinePortal_Method_IsValid(value);
-  }
-  static constexpr Method Method_MIN =
-    OnlinePortal_Method_Method_MIN;
-  static constexpr Method Method_MAX =
-    OnlinePortal_Method_Method_MAX;
-  static constexpr int Method_ARRAYSIZE =
-    OnlinePortal_Method_Method_ARRAYSIZE;
-  template<typename T>
-  static inline const std::string& Method_Name(T enum_t_value) {
-    static_assert(::std::is_same<T, Method>::value ||
-      ::std::is_integral<T>::value,
-      "Incorrect type passed to function Method_Name.");
-    return OnlinePortal_Method_Name(enum_t_value);
-  }
-  static inline bool Method_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
-      Method* value) {
-    return OnlinePortal_Method_Parse(name, value);
-  }
-
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -1388,17 +1380,17 @@ class OnlinePortal final :
       ::shill::mobile_operator_db::Filter* olp_filter);
   ::shill::mobile_operator_db::Filter* unsafe_arena_release_olp_filter();
 
-  // required .shill.mobile_operator_db.OnlinePortal.Method method = 2;
+  // required .shill.mobile_operator_db.HttpMethod method = 2;
   bool has_method() const;
   private:
   bool _internal_has_method() const;
   public:
   void clear_method();
-  ::shill::mobile_operator_db::OnlinePortal_Method method() const;
-  void set_method(::shill::mobile_operator_db::OnlinePortal_Method value);
+  ::shill::mobile_operator_db::HttpMethod method() const;
+  void set_method(::shill::mobile_operator_db::HttpMethod value);
   private:
-  ::shill::mobile_operator_db::OnlinePortal_Method _internal_method() const;
-  void _internal_set_method(::shill::mobile_operator_db::OnlinePortal_Method value);
+  ::shill::mobile_operator_db::HttpMethod _internal_method() const;
+  void _internal_set_method(::shill::mobile_operator_db::HttpMethod value);
   public:
 
   // @@protoc_insertion_point(class_scope:shill.mobile_operator_db.OnlinePortal)
@@ -1531,21 +1523,48 @@ class Data final :
 
   // nested types ----------------------------------------------------
 
+  typedef Data_EntitlementParam EntitlementParam;
+  static constexpr EntitlementParam IMSI =
+    Data_EntitlementParam_IMSI;
+  static inline bool EntitlementParam_IsValid(int value) {
+    return Data_EntitlementParam_IsValid(value);
+  }
+  static constexpr EntitlementParam EntitlementParam_MIN =
+    Data_EntitlementParam_EntitlementParam_MIN;
+  static constexpr EntitlementParam EntitlementParam_MAX =
+    Data_EntitlementParam_EntitlementParam_MAX;
+  static constexpr int EntitlementParam_ARRAYSIZE =
+    Data_EntitlementParam_EntitlementParam_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& EntitlementParam_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, EntitlementParam>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function EntitlementParam_Name.");
+    return Data_EntitlementParam_Name(enum_t_value);
+  }
+  static inline bool EntitlementParam_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      EntitlementParam* value) {
+    return Data_EntitlementParam_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kLocalizedNameFieldNumber = 4,
     kOlpFieldNumber = 6,
     kRoamingFilterFieldNumber = 9,
+    kMhsEntitlementParamFieldNumber = 13,
     kMccmncFieldNumber = 21,
     kMobileApnFieldNumber = 22,
     kUuidFieldNumber = 1,
     kCountryFieldNumber = 3,
+    kMhsEntitlementUrlFieldNumber = 12,
     kMtuFieldNumber = 7,
     kRequiresRoamingFieldNumber = 5,
     kPrioritizesNameFieldNumber = 8,
     kTetheringAllowedFieldNumber = 10,
     kUseDunApnAsDefaultFieldNumber = 11,
+    kMhsEntitlementMethodFieldNumber = 14,
   };
   // repeated .shill.mobile_operator_db.LocalizedName localized_name = 4;
   int localized_name_size() const;
@@ -1600,6 +1619,23 @@ class Data final :
   ::shill::mobile_operator_db::Filter* add_roaming_filter();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator_db::Filter >&
       roaming_filter() const;
+
+  // repeated .shill.mobile_operator_db.Data.EntitlementParam mhs_entitlement_param = 13;
+  int mhs_entitlement_param_size() const;
+  private:
+  int _internal_mhs_entitlement_param_size() const;
+  public:
+  void clear_mhs_entitlement_param();
+  private:
+  ::shill::mobile_operator_db::Data_EntitlementParam _internal_mhs_entitlement_param(int index) const;
+  void _internal_add_mhs_entitlement_param(::shill::mobile_operator_db::Data_EntitlementParam value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_mhs_entitlement_param();
+  public:
+  ::shill::mobile_operator_db::Data_EntitlementParam mhs_entitlement_param(int index) const;
+  void set_mhs_entitlement_param(int index, ::shill::mobile_operator_db::Data_EntitlementParam value);
+  void add_mhs_entitlement_param(::shill::mobile_operator_db::Data_EntitlementParam value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& mhs_entitlement_param() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_mhs_entitlement_param();
 
   // repeated string mccmnc = 21;
   int mccmnc_size() const;
@@ -1679,6 +1715,24 @@ class Data final :
   std::string* _internal_mutable_country();
   public:
 
+  // optional string mhs_entitlement_url = 12;
+  bool has_mhs_entitlement_url() const;
+  private:
+  bool _internal_has_mhs_entitlement_url() const;
+  public:
+  void clear_mhs_entitlement_url();
+  const std::string& mhs_entitlement_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mhs_entitlement_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mhs_entitlement_url();
+  PROTOBUF_NODISCARD std::string* release_mhs_entitlement_url();
+  void set_allocated_mhs_entitlement_url(std::string* mhs_entitlement_url);
+  private:
+  const std::string& _internal_mhs_entitlement_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mhs_entitlement_url(const std::string& value);
+  std::string* _internal_mutable_mhs_entitlement_url();
+  public:
+
   // optional int32 mtu = 7;
   bool has_mtu() const;
   private:
@@ -1744,6 +1798,19 @@ class Data final :
   void _internal_set_use_dun_apn_as_default(bool value);
   public:
 
+  // optional .shill.mobile_operator_db.HttpMethod mhs_entitlement_method = 14 [default = POST];
+  bool has_mhs_entitlement_method() const;
+  private:
+  bool _internal_has_mhs_entitlement_method() const;
+  public:
+  void clear_mhs_entitlement_method();
+  ::shill::mobile_operator_db::HttpMethod mhs_entitlement_method() const;
+  void set_mhs_entitlement_method(::shill::mobile_operator_db::HttpMethod value);
+  private:
+  ::shill::mobile_operator_db::HttpMethod _internal_mhs_entitlement_method() const;
+  void _internal_set_mhs_entitlement_method(::shill::mobile_operator_db::HttpMethod value);
+  public:
+
   // @@protoc_insertion_point(class_scope:shill.mobile_operator_db.Data)
  private:
   class _Internal;
@@ -1757,15 +1824,18 @@ class Data final :
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator_db::LocalizedName > localized_name_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator_db::OnlinePortal > olp_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator_db::Filter > roaming_filter_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> mhs_entitlement_param_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> mccmnc_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator_db::MobileAPN > mobile_apn_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr uuid_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr country_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mhs_entitlement_url_;
     int32_t mtu_;
     bool requires_roaming_;
     bool prioritizes_name_;
     bool tethering_allowed_;
     bool use_dun_apn_as_default_;
+    int mhs_entitlement_method_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_mobile_5foperator_5fdb_2eproto;
@@ -3385,7 +3455,7 @@ inline void OnlinePortal::set_allocated_olp_filter(::shill::mobile_operator_db::
   // @@protoc_insertion_point(field_set_allocated:shill.mobile_operator_db.OnlinePortal.olp_filter)
 }
 
-// required .shill.mobile_operator_db.OnlinePortal.Method method = 2;
+// required .shill.mobile_operator_db.HttpMethod method = 2;
 inline bool OnlinePortal::_internal_has_method() const {
   bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
@@ -3397,19 +3467,19 @@ inline void OnlinePortal::clear_method() {
   _impl_.method_ = 1;
   _impl_._has_bits_[0] &= ~0x00000008u;
 }
-inline ::shill::mobile_operator_db::OnlinePortal_Method OnlinePortal::_internal_method() const {
-  return static_cast< ::shill::mobile_operator_db::OnlinePortal_Method >(_impl_.method_);
+inline ::shill::mobile_operator_db::HttpMethod OnlinePortal::_internal_method() const {
+  return static_cast< ::shill::mobile_operator_db::HttpMethod >(_impl_.method_);
 }
-inline ::shill::mobile_operator_db::OnlinePortal_Method OnlinePortal::method() const {
+inline ::shill::mobile_operator_db::HttpMethod OnlinePortal::method() const {
   // @@protoc_insertion_point(field_get:shill.mobile_operator_db.OnlinePortal.method)
   return _internal_method();
 }
-inline void OnlinePortal::_internal_set_method(::shill::mobile_operator_db::OnlinePortal_Method value) {
-  assert(::shill::mobile_operator_db::OnlinePortal_Method_IsValid(value));
+inline void OnlinePortal::_internal_set_method(::shill::mobile_operator_db::HttpMethod value) {
+  assert(::shill::mobile_operator_db::HttpMethod_IsValid(value));
   _impl_._has_bits_[0] |= 0x00000008u;
   _impl_.method_ = value;
 }
-inline void OnlinePortal::set_method(::shill::mobile_operator_db::OnlinePortal_Method value) {
+inline void OnlinePortal::set_method(::shill::mobile_operator_db::HttpMethod value) {
   _internal_set_method(value);
   // @@protoc_insertion_point(field_set:shill.mobile_operator_db.OnlinePortal.method)
 }
@@ -3732,7 +3802,7 @@ Data::localized_name() const {
 
 // optional bool requires_roaming = 5 [default = false];
 inline bool Data::_internal_has_requires_roaming() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool Data::has_requires_roaming() const {
@@ -3740,7 +3810,7 @@ inline bool Data::has_requires_roaming() const {
 }
 inline void Data::clear_requires_roaming() {
   _impl_.requires_roaming_ = false;
-  _impl_._has_bits_[0] &= ~0x00000008u;
+  _impl_._has_bits_[0] &= ~0x00000010u;
 }
 inline bool Data::_internal_requires_roaming() const {
   return _impl_.requires_roaming_;
@@ -3750,7 +3820,7 @@ inline bool Data::requires_roaming() const {
   return _internal_requires_roaming();
 }
 inline void Data::_internal_set_requires_roaming(bool value) {
-  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_._has_bits_[0] |= 0x00000010u;
   _impl_.requires_roaming_ = value;
 }
 inline void Data::set_requires_roaming(bool value) {
@@ -3800,7 +3870,7 @@ Data::olp() const {
 
 // optional int32 mtu = 7;
 inline bool Data::_internal_has_mtu() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool Data::has_mtu() const {
@@ -3808,7 +3878,7 @@ inline bool Data::has_mtu() const {
 }
 inline void Data::clear_mtu() {
   _impl_.mtu_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 inline int32_t Data::_internal_mtu() const {
   return _impl_.mtu_;
@@ -3818,7 +3888,7 @@ inline int32_t Data::mtu() const {
   return _internal_mtu();
 }
 inline void Data::_internal_set_mtu(int32_t value) {
-  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x00000008u;
   _impl_.mtu_ = value;
 }
 inline void Data::set_mtu(int32_t value) {
@@ -3828,7 +3898,7 @@ inline void Data::set_mtu(int32_t value) {
 
 // optional bool prioritizes_name = 8 [default = false];
 inline bool Data::_internal_has_prioritizes_name() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool Data::has_prioritizes_name() const {
@@ -3836,7 +3906,7 @@ inline bool Data::has_prioritizes_name() const {
 }
 inline void Data::clear_prioritizes_name() {
   _impl_.prioritizes_name_ = false;
-  _impl_._has_bits_[0] &= ~0x00000010u;
+  _impl_._has_bits_[0] &= ~0x00000020u;
 }
 inline bool Data::_internal_prioritizes_name() const {
   return _impl_.prioritizes_name_;
@@ -3846,7 +3916,7 @@ inline bool Data::prioritizes_name() const {
   return _internal_prioritizes_name();
 }
 inline void Data::_internal_set_prioritizes_name(bool value) {
-  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_._has_bits_[0] |= 0x00000020u;
   _impl_.prioritizes_name_ = value;
 }
 inline void Data::set_prioritizes_name(bool value) {
@@ -3896,7 +3966,7 @@ Data::roaming_filter() const {
 
 // optional bool tethering_allowed = 10 [default = false];
 inline bool Data::_internal_has_tethering_allowed() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
 inline bool Data::has_tethering_allowed() const {
@@ -3904,7 +3974,7 @@ inline bool Data::has_tethering_allowed() const {
 }
 inline void Data::clear_tethering_allowed() {
   _impl_.tethering_allowed_ = false;
-  _impl_._has_bits_[0] &= ~0x00000020u;
+  _impl_._has_bits_[0] &= ~0x00000040u;
 }
 inline bool Data::_internal_tethering_allowed() const {
   return _impl_.tethering_allowed_;
@@ -3914,7 +3984,7 @@ inline bool Data::tethering_allowed() const {
   return _internal_tethering_allowed();
 }
 inline void Data::_internal_set_tethering_allowed(bool value) {
-  _impl_._has_bits_[0] |= 0x00000020u;
+  _impl_._has_bits_[0] |= 0x00000040u;
   _impl_.tethering_allowed_ = value;
 }
 inline void Data::set_tethering_allowed(bool value) {
@@ -3924,7 +3994,7 @@ inline void Data::set_tethering_allowed(bool value) {
 
 // optional bool use_dun_apn_as_default = 11;
 inline bool Data::_internal_has_use_dun_apn_as_default() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool Data::has_use_dun_apn_as_default() const {
@@ -3932,7 +4002,7 @@ inline bool Data::has_use_dun_apn_as_default() const {
 }
 inline void Data::clear_use_dun_apn_as_default() {
   _impl_.use_dun_apn_as_default_ = false;
-  _impl_._has_bits_[0] &= ~0x00000040u;
+  _impl_._has_bits_[0] &= ~0x00000080u;
 }
 inline bool Data::_internal_use_dun_apn_as_default() const {
   return _impl_.use_dun_apn_as_default_;
@@ -3942,12 +4012,154 @@ inline bool Data::use_dun_apn_as_default() const {
   return _internal_use_dun_apn_as_default();
 }
 inline void Data::_internal_set_use_dun_apn_as_default(bool value) {
-  _impl_._has_bits_[0] |= 0x00000040u;
+  _impl_._has_bits_[0] |= 0x00000080u;
   _impl_.use_dun_apn_as_default_ = value;
 }
 inline void Data::set_use_dun_apn_as_default(bool value) {
   _internal_set_use_dun_apn_as_default(value);
   // @@protoc_insertion_point(field_set:shill.mobile_operator_db.Data.use_dun_apn_as_default)
+}
+
+// optional string mhs_entitlement_url = 12;
+inline bool Data::_internal_has_mhs_entitlement_url() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool Data::has_mhs_entitlement_url() const {
+  return _internal_has_mhs_entitlement_url();
+}
+inline void Data::clear_mhs_entitlement_url() {
+  _impl_.mhs_entitlement_url_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& Data::mhs_entitlement_url() const {
+  // @@protoc_insertion_point(field_get:shill.mobile_operator_db.Data.mhs_entitlement_url)
+  return _internal_mhs_entitlement_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Data::set_mhs_entitlement_url(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000004u;
+ _impl_.mhs_entitlement_url_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:shill.mobile_operator_db.Data.mhs_entitlement_url)
+}
+inline std::string* Data::mutable_mhs_entitlement_url() {
+  std::string* _s = _internal_mutable_mhs_entitlement_url();
+  // @@protoc_insertion_point(field_mutable:shill.mobile_operator_db.Data.mhs_entitlement_url)
+  return _s;
+}
+inline const std::string& Data::_internal_mhs_entitlement_url() const {
+  return _impl_.mhs_entitlement_url_.Get();
+}
+inline void Data::_internal_set_mhs_entitlement_url(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.mhs_entitlement_url_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Data::_internal_mutable_mhs_entitlement_url() {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  return _impl_.mhs_entitlement_url_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Data::release_mhs_entitlement_url() {
+  // @@protoc_insertion_point(field_release:shill.mobile_operator_db.Data.mhs_entitlement_url)
+  if (!_internal_has_mhs_entitlement_url()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  auto* p = _impl_.mhs_entitlement_url_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.mhs_entitlement_url_.IsDefault()) {
+    _impl_.mhs_entitlement_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void Data::set_allocated_mhs_entitlement_url(std::string* mhs_entitlement_url) {
+  if (mhs_entitlement_url != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+  _impl_.mhs_entitlement_url_.SetAllocated(mhs_entitlement_url, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.mhs_entitlement_url_.IsDefault()) {
+    _impl_.mhs_entitlement_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:shill.mobile_operator_db.Data.mhs_entitlement_url)
+}
+
+// repeated .shill.mobile_operator_db.Data.EntitlementParam mhs_entitlement_param = 13;
+inline int Data::_internal_mhs_entitlement_param_size() const {
+  return _impl_.mhs_entitlement_param_.size();
+}
+inline int Data::mhs_entitlement_param_size() const {
+  return _internal_mhs_entitlement_param_size();
+}
+inline void Data::clear_mhs_entitlement_param() {
+  _impl_.mhs_entitlement_param_.Clear();
+}
+inline ::shill::mobile_operator_db::Data_EntitlementParam Data::_internal_mhs_entitlement_param(int index) const {
+  return static_cast< ::shill::mobile_operator_db::Data_EntitlementParam >(_impl_.mhs_entitlement_param_.Get(index));
+}
+inline ::shill::mobile_operator_db::Data_EntitlementParam Data::mhs_entitlement_param(int index) const {
+  // @@protoc_insertion_point(field_get:shill.mobile_operator_db.Data.mhs_entitlement_param)
+  return _internal_mhs_entitlement_param(index);
+}
+inline void Data::set_mhs_entitlement_param(int index, ::shill::mobile_operator_db::Data_EntitlementParam value) {
+  assert(::shill::mobile_operator_db::Data_EntitlementParam_IsValid(value));
+  _impl_.mhs_entitlement_param_.Set(index, value);
+  // @@protoc_insertion_point(field_set:shill.mobile_operator_db.Data.mhs_entitlement_param)
+}
+inline void Data::_internal_add_mhs_entitlement_param(::shill::mobile_operator_db::Data_EntitlementParam value) {
+  assert(::shill::mobile_operator_db::Data_EntitlementParam_IsValid(value));
+  _impl_.mhs_entitlement_param_.Add(value);
+}
+inline void Data::add_mhs_entitlement_param(::shill::mobile_operator_db::Data_EntitlementParam value) {
+  _internal_add_mhs_entitlement_param(value);
+  // @@protoc_insertion_point(field_add:shill.mobile_operator_db.Data.mhs_entitlement_param)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+Data::mhs_entitlement_param() const {
+  // @@protoc_insertion_point(field_list:shill.mobile_operator_db.Data.mhs_entitlement_param)
+  return _impl_.mhs_entitlement_param_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+Data::_internal_mutable_mhs_entitlement_param() {
+  return &_impl_.mhs_entitlement_param_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+Data::mutable_mhs_entitlement_param() {
+  // @@protoc_insertion_point(field_mutable_list:shill.mobile_operator_db.Data.mhs_entitlement_param)
+  return _internal_mutable_mhs_entitlement_param();
+}
+
+// optional .shill.mobile_operator_db.HttpMethod mhs_entitlement_method = 14 [default = POST];
+inline bool Data::_internal_has_mhs_entitlement_method() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000100u) != 0;
+  return value;
+}
+inline bool Data::has_mhs_entitlement_method() const {
+  return _internal_has_mhs_entitlement_method();
+}
+inline void Data::clear_mhs_entitlement_method() {
+  _impl_.mhs_entitlement_method_ = 2;
+  _impl_._has_bits_[0] &= ~0x00000100u;
+}
+inline ::shill::mobile_operator_db::HttpMethod Data::_internal_mhs_entitlement_method() const {
+  return static_cast< ::shill::mobile_operator_db::HttpMethod >(_impl_.mhs_entitlement_method_);
+}
+inline ::shill::mobile_operator_db::HttpMethod Data::mhs_entitlement_method() const {
+  // @@protoc_insertion_point(field_get:shill.mobile_operator_db.Data.mhs_entitlement_method)
+  return _internal_mhs_entitlement_method();
+}
+inline void Data::_internal_set_mhs_entitlement_method(::shill::mobile_operator_db::HttpMethod value) {
+  assert(::shill::mobile_operator_db::HttpMethod_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000100u;
+  _impl_.mhs_entitlement_method_ = value;
+}
+inline void Data::set_mhs_entitlement_method(::shill::mobile_operator_db::HttpMethod value) {
+  _internal_set_mhs_entitlement_method(value);
+  // @@protoc_insertion_point(field_set:shill.mobile_operator_db.Data.mhs_entitlement_method)
 }
 
 // repeated string mccmnc = 21;
@@ -4476,7 +4688,8 @@ template <> struct is_proto_enum< ::shill::mobile_operator_db::Filter_Type> : ::
 template <> struct is_proto_enum< ::shill::mobile_operator_db::MobileAPN_Authentication> : ::std::true_type {};
 template <> struct is_proto_enum< ::shill::mobile_operator_db::MobileAPN_IpType> : ::std::true_type {};
 template <> struct is_proto_enum< ::shill::mobile_operator_db::MobileAPN_ApnType> : ::std::true_type {};
-template <> struct is_proto_enum< ::shill::mobile_operator_db::OnlinePortal_Method> : ::std::true_type {};
+template <> struct is_proto_enum< ::shill::mobile_operator_db::Data_EntitlementParam> : ::std::true_type {};
+template <> struct is_proto_enum< ::shill::mobile_operator_db::HttpMethod> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

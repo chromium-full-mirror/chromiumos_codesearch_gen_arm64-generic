@@ -1322,10 +1322,8 @@ class  H265Metadata {
 
   H265Metadata();
 
-  H265Metadata(
-      uint8_t temporal_idx,
-      uint8_t spatial_idx,
-      bool layer_sync);
+  explicit H265Metadata(
+      uint8_t temporal_idx);
 
 
   ~H265Metadata();
@@ -1402,10 +1400,6 @@ class  H265Metadata {
 
   
   uint8_t temporal_idx;
-  
-  uint8_t spatial_idx;
-  
-  bool layer_sync;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1580,6 +1574,143 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
+
+
+
+class  Av1Metadata {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Av1Metadata, T>::value>;
+  using DataView = Av1MetadataDataView;
+  using Data_ = internal::Av1Metadata_Data;
+
+  template <typename... Args>
+  static Av1MetadataPtr New(Args&&... args) {
+    return Av1MetadataPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static Av1MetadataPtr From(const U& u) {
+    return mojo::TypeConverter<Av1MetadataPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Av1Metadata>::Convert(*this);
+  }
+
+
+  Av1Metadata();
+
+  explicit Av1Metadata(
+      uint8_t temporal_idx);
+
+
+  ~Av1Metadata();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = Av1MetadataPtr>
+  Av1MetadataPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        Av1Metadata::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Av1Metadata::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Av1Metadata_UnserializedMessageContext<
+            UserType, Av1Metadata::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Av1Metadata::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return Av1Metadata::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Av1Metadata_UnserializedMessageContext<
+            UserType, Av1Metadata::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Av1Metadata::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint8_t temporal_idx;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -2744,160 +2875,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  Av1Metadata {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<Av1Metadata, T>::value>;
-  using DataView = Av1MetadataDataView;
-  using Data_ = internal::Av1Metadata_Data;
-
-  template <typename... Args>
-  static Av1MetadataPtr New(Args&&... args) {
-    return Av1MetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static Av1MetadataPtr From(const U& u) {
-    return mojo::TypeConverter<Av1MetadataPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, Av1Metadata>::Convert(*this);
-  }
-
-
-  Av1Metadata();
-
-  Av1Metadata(
-      bool inter_pic_predicted,
-      bool switch_frame,
-      bool end_of_picture,
-      uint8_t temporal_idx,
-      uint8_t spatial_idx,
-      std::vector<::gfx::Size> spatial_layer_resolutions,
-      std::vector<uint8_t> f_diffs);
-
-
-  ~Av1Metadata();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = Av1MetadataPtr>
-  Av1MetadataPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        Av1Metadata::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        Av1Metadata::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::Av1Metadata_UnserializedMessageContext<
-            UserType, Av1Metadata::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<Av1Metadata::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return Av1Metadata::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::Av1Metadata_UnserializedMessageContext<
-            UserType, Av1Metadata::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<Av1Metadata::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  bool inter_pic_predicted;
-  
-  bool switch_frame;
-  
-  bool end_of_picture;
-  
-  uint8_t temporal_idx;
-  
-  uint8_t spatial_idx;
-  
-  std::vector<::gfx::Size> spatial_layer_resolutions;
-  
-  std::vector<uint8_t> f_diffs;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, Av1Metadata::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
 
 class  BitstreamBufferMetadata {
  public:
@@ -3548,19 +3525,13 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 H265MetadataPtr H265Metadata::Clone() const {
   return New(
-      mojo::Clone(temporal_idx),
-      mojo::Clone(spatial_idx),
-      mojo::Clone(layer_sync)
+      mojo::Clone(temporal_idx)
   );
 }
 
 template <typename T, H265Metadata::EnableIfSame<T>*>
 bool H265Metadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->temporal_idx, other_struct.temporal_idx))
-    return false;
-  if (!mojo::Equals(this->spatial_idx, other_struct.spatial_idx))
-    return false;
-  if (!mojo::Equals(this->layer_sync, other_struct.layer_sync))
     return false;
   return true;
 }
@@ -3570,14 +3541,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.temporal_idx < rhs.temporal_idx)
     return true;
   if (rhs.temporal_idx < lhs.temporal_idx)
-    return false;
-  if (lhs.spatial_idx < rhs.spatial_idx)
-    return true;
-  if (rhs.spatial_idx < lhs.spatial_idx)
-    return false;
-  if (lhs.layer_sync < rhs.layer_sync)
-    return true;
-  if (rhs.layer_sync < lhs.layer_sync)
     return false;
   return false;
 }
@@ -3698,64 +3661,22 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 Av1MetadataPtr Av1Metadata::Clone() const {
   return New(
-      mojo::Clone(inter_pic_predicted),
-      mojo::Clone(switch_frame),
-      mojo::Clone(end_of_picture),
-      mojo::Clone(temporal_idx),
-      mojo::Clone(spatial_idx),
-      mojo::Clone(spatial_layer_resolutions),
-      mojo::Clone(f_diffs)
+      mojo::Clone(temporal_idx)
   );
 }
 
 template <typename T, Av1Metadata::EnableIfSame<T>*>
 bool Av1Metadata::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->inter_pic_predicted, other_struct.inter_pic_predicted))
-    return false;
-  if (!mojo::Equals(this->switch_frame, other_struct.switch_frame))
-    return false;
-  if (!mojo::Equals(this->end_of_picture, other_struct.end_of_picture))
-    return false;
   if (!mojo::Equals(this->temporal_idx, other_struct.temporal_idx))
-    return false;
-  if (!mojo::Equals(this->spatial_idx, other_struct.spatial_idx))
-    return false;
-  if (!mojo::Equals(this->spatial_layer_resolutions, other_struct.spatial_layer_resolutions))
-    return false;
-  if (!mojo::Equals(this->f_diffs, other_struct.f_diffs))
     return false;
   return true;
 }
 
 template <typename T, Av1Metadata::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.inter_pic_predicted < rhs.inter_pic_predicted)
-    return true;
-  if (rhs.inter_pic_predicted < lhs.inter_pic_predicted)
-    return false;
-  if (lhs.switch_frame < rhs.switch_frame)
-    return true;
-  if (rhs.switch_frame < lhs.switch_frame)
-    return false;
-  if (lhs.end_of_picture < rhs.end_of_picture)
-    return true;
-  if (rhs.end_of_picture < lhs.end_of_picture)
-    return false;
   if (lhs.temporal_idx < rhs.temporal_idx)
     return true;
   if (rhs.temporal_idx < lhs.temporal_idx)
-    return false;
-  if (lhs.spatial_idx < rhs.spatial_idx)
-    return true;
-  if (rhs.spatial_idx < lhs.spatial_idx)
-    return false;
-  if (lhs.spatial_layer_resolutions < rhs.spatial_layer_resolutions)
-    return true;
-  if (rhs.spatial_layer_resolutions < lhs.spatial_layer_resolutions)
-    return false;
-  if (lhs.f_diffs < rhs.f_diffs)
-    return true;
-  if (rhs.f_diffs < lhs.f_diffs)
     return false;
   return false;
 }
@@ -4132,16 +4053,6 @@ struct  StructTraits<::media::mojom::H265Metadata::DataView,
     return input->temporal_idx;
   }
 
-  static decltype(::media::mojom::H265Metadata::spatial_idx) spatial_idx(
-      const ::media::mojom::H265MetadataPtr& input) {
-    return input->spatial_idx;
-  }
-
-  static decltype(::media::mojom::H265Metadata::layer_sync) layer_sync(
-      const ::media::mojom::H265MetadataPtr& input) {
-    return input->layer_sync;
-  }
-
   static bool Read(::media::mojom::H265Metadata::DataView input, ::media::mojom::H265MetadataPtr* output);
 };
 
@@ -4232,39 +4143,9 @@ struct  StructTraits<::media::mojom::Av1Metadata::DataView,
   static bool IsNull(const ::media::mojom::Av1MetadataPtr& input) { return !input; }
   static void SetToNull(::media::mojom::Av1MetadataPtr* output) { output->reset(); }
 
-  static decltype(::media::mojom::Av1Metadata::inter_pic_predicted) inter_pic_predicted(
-      const ::media::mojom::Av1MetadataPtr& input) {
-    return input->inter_pic_predicted;
-  }
-
-  static decltype(::media::mojom::Av1Metadata::switch_frame) switch_frame(
-      const ::media::mojom::Av1MetadataPtr& input) {
-    return input->switch_frame;
-  }
-
-  static decltype(::media::mojom::Av1Metadata::end_of_picture) end_of_picture(
-      const ::media::mojom::Av1MetadataPtr& input) {
-    return input->end_of_picture;
-  }
-
   static decltype(::media::mojom::Av1Metadata::temporal_idx) temporal_idx(
       const ::media::mojom::Av1MetadataPtr& input) {
     return input->temporal_idx;
-  }
-
-  static decltype(::media::mojom::Av1Metadata::spatial_idx) spatial_idx(
-      const ::media::mojom::Av1MetadataPtr& input) {
-    return input->spatial_idx;
-  }
-
-  static const decltype(::media::mojom::Av1Metadata::spatial_layer_resolutions)& spatial_layer_resolutions(
-      const ::media::mojom::Av1MetadataPtr& input) {
-    return input->spatial_layer_resolutions;
-  }
-
-  static const decltype(::media::mojom::Av1Metadata::f_diffs)& f_diffs(
-      const ::media::mojom::Av1MetadataPtr& input) {
-    return input->f_diffs;
   }
 
   static bool Read(::media::mojom::Av1Metadata::DataView input, ::media::mojom::Av1MetadataPtr* output);

@@ -555,9 +555,6 @@ class  CameraBufferHandle_Data {
   mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> strides;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> offsets;
   mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> sizes;
-  uint8_t has_modifier : 1;
-  uint8_t pad9_[7];
-  uint64_t modifier;
 
  private:
   friend class mojo::internal::MessageFragment<CameraBufferHandle_Data>;
@@ -565,7 +562,7 @@ class  CameraBufferHandle_Data {
   CameraBufferHandle_Data();
   ~CameraBufferHandle_Data() = delete;
 };
-static_assert(sizeof(CameraBufferHandle_Data) == 80,
+static_assert(sizeof(CameraBufferHandle_Data) == 64,
               "Bad sizeof(CameraBufferHandle_Data)");
 // Used by CameraBufferHandle::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -104,7 +104,7 @@ class Vp9Metadata;
 using Vp9MetadataPtr = mojo::StructPtr<Vp9Metadata>;
 
 class Av1Metadata;
-using Av1MetadataPtr = mojo::StructPtr<Av1Metadata>;
+using Av1MetadataPtr = mojo::InlinedStructPtr<Av1Metadata>;
 
 class BitstreamBufferMetadata;
 using BitstreamBufferMetadataPtr = mojo::StructPtr<BitstreamBufferMetadata>;

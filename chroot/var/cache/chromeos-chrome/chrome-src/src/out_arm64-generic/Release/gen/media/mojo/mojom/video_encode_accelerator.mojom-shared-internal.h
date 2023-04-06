@@ -790,9 +790,7 @@ class  H265Metadata_Data {
 
   mojo::internal::StructHeader header_;
   uint8_t temporal_idx;
-  uint8_t spatial_idx;
-  uint8_t layer_sync : 1;
-  uint8_t padfinal_[5];
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<H265Metadata_Data>;
@@ -948,14 +946,8 @@ class  Av1Metadata_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint8_t inter_pic_predicted : 1;
-  uint8_t switch_frame : 1;
-  uint8_t end_of_picture : 1;
   uint8_t temporal_idx;
-  uint8_t spatial_idx;
-  uint8_t pad4_[5];
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::gfx::mojom::internal::Size_Data>>> spatial_layer_resolutions;
-  mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> f_diffs;
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<Av1Metadata_Data>;
@@ -963,7 +955,7 @@ class  Av1Metadata_Data {
   Av1Metadata_Data();
   ~Av1Metadata_Data() = delete;
 };
-static_assert(sizeof(Av1Metadata_Data) == 32,
+static_assert(sizeof(Av1Metadata_Data) == 16,
               "Bad sizeof(Av1Metadata_Data)");
 // Used by Av1Metadata::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

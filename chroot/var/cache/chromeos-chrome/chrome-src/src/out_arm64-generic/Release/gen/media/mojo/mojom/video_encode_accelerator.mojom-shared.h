@@ -740,12 +740,6 @@ class H265MetadataDataView {
   uint8_t temporal_idx() const {
     return data_->temporal_idx;
   }
-  uint8_t spatial_idx() const {
-    return data_->spatial_idx;
-  }
-  bool layer_sync() const {
-    return data_->layer_sync;
-  }
  private:
   internal::H265Metadata_Data* data_ = nullptr;
 };
@@ -839,47 +833,14 @@ class Av1MetadataDataView {
   Av1MetadataDataView(
       internal::Av1Metadata_Data* data,
       mojo::Message* message)
-      : data_(data), message_(message) {}
+      : data_(data) {}
 
   bool is_null() const { return !data_; }
-  bool inter_pic_predicted() const {
-    return data_->inter_pic_predicted;
-  }
-  bool switch_frame() const {
-    return data_->switch_frame;
-  }
-  bool end_of_picture() const {
-    return data_->end_of_picture;
-  }
   uint8_t temporal_idx() const {
     return data_->temporal_idx;
   }
-  uint8_t spatial_idx() const {
-    return data_->spatial_idx;
-  }
-  inline void GetSpatialLayerResolutionsDataView(
-      mojo::ArrayDataView<::gfx::mojom::SizeDataView>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadSpatialLayerResolutions(UserType* output) {
-    
-    auto* pointer = data_->spatial_layer_resolutions.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::gfx::mojom::SizeDataView>>(
-        pointer, output, message_);
-  }
-  inline void GetFDiffsDataView(
-      mojo::ArrayDataView<uint8_t>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadFDiffs(UserType* output) {
-    
-    auto* pointer = data_->f_diffs.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
-        pointer, output, message_);
-  }
  private:
   internal::Av1Metadata_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
 };
 
 
@@ -1695,8 +1656,6 @@ struct Serializer<::media::mojom::H265MetadataDataView, MaybeConstUserType> {
       return;
     fragment.Allocate();
     fragment->temporal_idx = Traits::temporal_idx(input);
-    fragment->spatial_idx = Traits::spatial_idx(input);
-    fragment->layer_sync = Traits::layer_sync(input);
   }
 
   static bool Deserialize(::media::mojom::internal::H265Metadata_Data* input,
@@ -1822,39 +1781,7 @@ struct Serializer<::media::mojom::Av1MetadataDataView, MaybeConstUserType> {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    fragment->inter_pic_predicted = Traits::inter_pic_predicted(input);
-    fragment->switch_frame = Traits::switch_frame(input);
-    fragment->end_of_picture = Traits::end_of_picture(input);
     fragment->temporal_idx = Traits::temporal_idx(input);
-    fragment->spatial_idx = Traits::spatial_idx(input);
-    decltype(Traits::spatial_layer_resolutions(input)) in_spatial_layer_resolutions = Traits::spatial_layer_resolutions(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->spatial_layer_resolutions)::BaseType>
-        spatial_layer_resolutions_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& spatial_layer_resolutions_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<::gfx::mojom::SizeDataView>>(
-        in_spatial_layer_resolutions, spatial_layer_resolutions_fragment, &spatial_layer_resolutions_validate_params);
-    fragment->spatial_layer_resolutions.Set(
-        spatial_layer_resolutions_fragment.is_null() ? nullptr : spatial_layer_resolutions_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->spatial_layer_resolutions.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null spatial_layer_resolutions in Av1Metadata struct");
-    decltype(Traits::f_diffs(input)) in_f_diffs = Traits::f_diffs(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->f_diffs)::BaseType>
-        f_diffs_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& f_diffs_validate_params =
-        mojo::internal::GetArrayValidator<0, false, nullptr>();
-    mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
-        in_f_diffs, f_diffs_fragment, &f_diffs_validate_params);
-    fragment->f_diffs.Set(
-        f_diffs_fragment.is_null() ? nullptr : f_diffs_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->f_diffs.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null f_diffs in Av1Metadata struct");
   }
 
   static bool Deserialize(::media::mojom::internal::Av1Metadata_Data* input,
@@ -2231,16 +2158,6 @@ inline void Vp9MetadataDataView::GetPDiffsDataView(
 }
 
 
-inline void Av1MetadataDataView::GetSpatialLayerResolutionsDataView(
-    mojo::ArrayDataView<::gfx::mojom::SizeDataView>* output) {
-  auto pointer = data_->spatial_layer_resolutions.Get();
-  *output = mojo::ArrayDataView<::gfx::mojom::SizeDataView>(pointer, message_);
-}
-inline void Av1MetadataDataView::GetFDiffsDataView(
-    mojo::ArrayDataView<uint8_t>* output) {
-  auto pointer = data_->f_diffs.Get();
-  *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
-}
 
 
 inline void BitstreamBufferMetadataDataView::GetTimestampDataView(
