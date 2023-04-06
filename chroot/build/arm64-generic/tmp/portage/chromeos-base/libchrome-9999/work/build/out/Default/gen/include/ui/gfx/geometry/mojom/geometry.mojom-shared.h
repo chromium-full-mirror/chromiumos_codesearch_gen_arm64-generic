@@ -59,6 +59,8 @@ class Vector3dFDataView;
 
 class QuaternionDataView;
 
+class QuadFDataView;
+
 
 
 }  // namespace mojom
@@ -154,6 +156,13 @@ struct MojomTypeTraits<::gfx::mojom::Vector3dFDataView> {
 template <>
 struct MojomTypeTraits<::gfx::mojom::QuaternionDataView> {
   using Data = ::gfx::mojom::internal::Quaternion_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::gfx::mojom::QuadFDataView> {
+  using Data = ::gfx::mojom::internal::QuadF_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -472,6 +481,62 @@ class QuaternionDataView {
   }
  private:
   internal::Quaternion_Data* data_ = nullptr;
+};
+
+
+class QuadFDataView {
+ public:
+  QuadFDataView() = default;
+
+  QuadFDataView(
+      internal::QuadF_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetP1DataView(
+      PointFDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadP1(UserType* output) {
+    
+    auto* pointer = data_->p1.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::PointFDataView>(
+        pointer, output, message_);
+  }
+  inline void GetP2DataView(
+      PointFDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadP2(UserType* output) {
+    
+    auto* pointer = data_->p2.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::PointFDataView>(
+        pointer, output, message_);
+  }
+  inline void GetP3DataView(
+      PointFDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadP3(UserType* output) {
+    
+    auto* pointer = data_->p3.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::PointFDataView>(
+        pointer, output, message_);
+  }
+  inline void GetP4DataView(
+      PointFDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadP4(UserType* output) {
+    
+    auto* pointer = data_->p4.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::PointFDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::QuadF_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -899,6 +964,83 @@ struct Serializer<::gfx::mojom::QuaternionDataView, MaybeConstUserType> {
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::gfx::mojom::QuadFDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::gfx::mojom::QuadFDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::gfx::mojom::internal::QuadF_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::p1(input)) in_p1 = Traits::p1(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->p1)::BaseType> p1_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::PointFDataView>(
+        in_p1, p1_fragment);
+    fragment->p1.Set(
+        p1_fragment.is_null() ? nullptr : p1_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->p1.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null p1 in QuadF struct");
+    decltype(Traits::p2(input)) in_p2 = Traits::p2(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->p2)::BaseType> p2_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::PointFDataView>(
+        in_p2, p2_fragment);
+    fragment->p2.Set(
+        p2_fragment.is_null() ? nullptr : p2_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->p2.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null p2 in QuadF struct");
+    decltype(Traits::p3(input)) in_p3 = Traits::p3(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->p3)::BaseType> p3_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::PointFDataView>(
+        in_p3, p3_fragment);
+    fragment->p3.Set(
+        p3_fragment.is_null() ? nullptr : p3_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->p3.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null p3 in QuadF struct");
+    decltype(Traits::p4(input)) in_p4 = Traits::p4(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->p4)::BaseType> p4_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::PointFDataView>(
+        in_p4, p4_fragment);
+    fragment->p4.Set(
+        p4_fragment.is_null() ? nullptr : p4_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->p4.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null p4 in QuadF struct");
+  }
+
+  static bool Deserialize(::gfx::mojom::internal::QuadF_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::gfx::mojom::QuadFDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -929,6 +1071,28 @@ namespace mojom {
 
 
 
+
+
+inline void QuadFDataView::GetP1DataView(
+    PointFDataView* output) {
+  auto pointer = data_->p1.Get();
+  *output = PointFDataView(pointer, message_);
+}
+inline void QuadFDataView::GetP2DataView(
+    PointFDataView* output) {
+  auto pointer = data_->p2.Get();
+  *output = PointFDataView(pointer, message_);
+}
+inline void QuadFDataView::GetP3DataView(
+    PointFDataView* output) {
+  auto pointer = data_->p3.Get();
+  *output = PointFDataView(pointer, message_);
+}
+inline void QuadFDataView::GetP4DataView(
+    PointFDataView* output) {
+  auto pointer = data_->p4.Get();
+  *output = PointFDataView(pointer, message_);
+}
 
 
 

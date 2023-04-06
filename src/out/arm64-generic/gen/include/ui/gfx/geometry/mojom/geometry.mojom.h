@@ -1922,6 +1922,156 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
+
+
+
+class  QuadF {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<QuadF, T>::value>;
+  using DataView = QuadFDataView;
+  using Data_ = internal::QuadF_Data;
+
+  template <typename... Args>
+  static QuadFPtr New(Args&&... args) {
+    return QuadFPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static QuadFPtr From(const U& u) {
+    return mojo::TypeConverter<QuadFPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, QuadF>::Convert(*this);
+  }
+
+
+  QuadF();
+
+  QuadF(
+      PointFPtr p1,
+      PointFPtr p2,
+      PointFPtr p3,
+      PointFPtr p4);
+
+QuadF(const QuadF&) = delete;
+QuadF& operator=(const QuadF&) = delete;
+
+  ~QuadF();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = QuadFPtr>
+  QuadFPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, QuadF::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, QuadF::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        QuadF::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        QuadF::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::QuadF_UnserializedMessageContext<
+            UserType, QuadF::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<QuadF::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return QuadF::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::QuadF_UnserializedMessageContext<
+            UserType, QuadF::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<QuadF::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  PointFPtr p1;
+  
+  PointFPtr p2;
+  
+  PointFPtr p3;
+  
+  PointFPtr p4;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, QuadF::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, QuadF::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, QuadF::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, QuadF::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename StructPtrType>
 PointPtr Point::Clone() const {
   return New(
@@ -2383,6 +2533,49 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+QuadFPtr QuadF::Clone() const {
+  return New(
+      mojo::Clone(p1),
+      mojo::Clone(p2),
+      mojo::Clone(p3),
+      mojo::Clone(p4)
+  );
+}
+
+template <typename T, QuadF::EnableIfSame<T>*>
+bool QuadF::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->p1, other_struct.p1))
+    return false;
+  if (!mojo::Equals(this->p2, other_struct.p2))
+    return false;
+  if (!mojo::Equals(this->p3, other_struct.p3))
+    return false;
+  if (!mojo::Equals(this->p4, other_struct.p4))
+    return false;
+  return true;
+}
+
+template <typename T, QuadF::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.p1 < rhs.p1)
+    return true;
+  if (rhs.p1 < lhs.p1)
+    return false;
+  if (lhs.p2 < rhs.p2)
+    return true;
+  if (rhs.p2 < lhs.p2)
+    return false;
+  if (lhs.p3 < rhs.p3)
+    return true;
+  if (rhs.p3 < lhs.p3)
+    return false;
+  if (lhs.p4 < rhs.p4)
+    return true;
+  if (rhs.p4 < lhs.p4)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -2708,6 +2901,36 @@ struct  StructTraits<::gfx::mojom::Quaternion::DataView,
   }
 
   static bool Read(::gfx::mojom::Quaternion::DataView input, ::gfx::mojom::QuaternionPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::gfx::mojom::QuadF::DataView,
+                                         ::gfx::mojom::QuadFPtr> {
+  static bool IsNull(const ::gfx::mojom::QuadFPtr& input) { return !input; }
+  static void SetToNull(::gfx::mojom::QuadFPtr* output) { output->reset(); }
+
+  static const decltype(::gfx::mojom::QuadF::p1)& p1(
+      const ::gfx::mojom::QuadFPtr& input) {
+    return input->p1;
+  }
+
+  static const decltype(::gfx::mojom::QuadF::p2)& p2(
+      const ::gfx::mojom::QuadFPtr& input) {
+    return input->p2;
+  }
+
+  static const decltype(::gfx::mojom::QuadF::p3)& p3(
+      const ::gfx::mojom::QuadFPtr& input) {
+    return input->p3;
+  }
+
+  static const decltype(::gfx::mojom::QuadF::p4)& p4(
+      const ::gfx::mojom::QuadFPtr& input) {
+    return input->p4;
+  }
+
+  static bool Read(::gfx::mojom::QuadF::DataView input, ::gfx::mojom::QuadFPtr* output);
 };
 
 }  // namespace mojo

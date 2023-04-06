@@ -102,7 +102,8 @@ PROTOBUF_CONSTEXPR Process::Process(
   , /*decltype(_impl_.image_)*/nullptr
   , /*decltype(_impl_.canonical_pid_)*/uint64_t{0u}
   , /*decltype(_impl_.canonical_uid_)*/uint64_t{0u}
-  , /*decltype(_impl_.rel_start_time_s_)*/int64_t{0}} {}
+  , /*decltype(_impl_.rel_start_time_s_)*/int64_t{0}
+  , /*decltype(_impl_.meta_first_appearance_)*/false} {}
 struct ProcessDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ProcessDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2311,6 +2312,9 @@ class Process::_Internal {
   static void set_has_rel_start_time_s(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
+  static void set_has_meta_first_appearance(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
 };
 
 const ::cros_xdr::reporting::FileImage&
@@ -2334,7 +2338,8 @@ Process::Process(const Process& from)
     , decltype(_impl_.image_){nullptr}
     , decltype(_impl_.canonical_pid_){}
     , decltype(_impl_.canonical_uid_){}
-    , decltype(_impl_.rel_start_time_s_){}};
+    , decltype(_impl_.rel_start_time_s_){}
+    , decltype(_impl_.meta_first_appearance_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.process_uuid_.InitDefault();
@@ -2357,8 +2362,8 @@ Process::Process(const Process& from)
     _this->_impl_.image_ = new ::cros_xdr::reporting::FileImage(*from._impl_.image_);
   }
   ::memcpy(&_impl_.canonical_pid_, &from._impl_.canonical_pid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.rel_start_time_s_) -
-    reinterpret_cast<char*>(&_impl_.canonical_pid_)) + sizeof(_impl_.rel_start_time_s_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.meta_first_appearance_) -
+    reinterpret_cast<char*>(&_impl_.canonical_pid_)) + sizeof(_impl_.meta_first_appearance_));
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.Process)
 }
 
@@ -2375,6 +2380,7 @@ inline void Process::SharedCtor(
     , decltype(_impl_.canonical_pid_){uint64_t{0u}}
     , decltype(_impl_.canonical_uid_){uint64_t{0u}}
     , decltype(_impl_.rel_start_time_s_){int64_t{0}}
+    , decltype(_impl_.meta_first_appearance_){false}
   };
   _impl_.process_uuid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -2425,10 +2431,10 @@ void Process::Clear() {
       _impl_.image_->Clear();
     }
   }
-  if (cached_has_bits & 0x00000038u) {
+  if (cached_has_bits & 0x00000078u) {
     ::memset(&_impl_.canonical_pid_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&_impl_.rel_start_time_s_) -
-        reinterpret_cast<char*>(&_impl_.canonical_pid_)) + sizeof(_impl_.rel_start_time_s_));
+        reinterpret_cast<char*>(&_impl_.meta_first_appearance_) -
+        reinterpret_cast<char*>(&_impl_.canonical_pid_)) + sizeof(_impl_.meta_first_appearance_));
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -2490,6 +2496,15 @@ const char* Process::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           _Internal::set_has_rel_start_time_s(&has_bits);
           _impl_.rel_start_time_s_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool meta_first_appearance = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _Internal::set_has_meta_first_appearance(&has_bits);
+          _impl_.meta_first_appearance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2562,6 +2577,12 @@ uint8_t* Process::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(6, this->_internal_rel_start_time_s(), target);
   }
 
+  // optional bool meta_first_appearance = 7;
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_meta_first_appearance(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2579,7 +2600,7 @@ size_t Process::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     // optional string process_uuid = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -2616,6 +2637,11 @@ size_t Process::ByteSizeLong() const {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_rel_start_time_s());
     }
 
+    // optional bool meta_first_appearance = 7;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 + 1;
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -2639,7 +2665,7 @@ void Process::MergeFrom(const Process& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_process_uuid(from._internal_process_uuid());
     }
@@ -2658,6 +2684,9 @@ void Process::MergeFrom(const Process& from) {
     }
     if (cached_has_bits & 0x00000020u) {
       _this->_impl_.rel_start_time_s_ = from._impl_.rel_start_time_s_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      _this->_impl_.meta_first_appearance_ = from._impl_.meta_first_appearance_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
@@ -2690,8 +2719,8 @@ void Process::InternalSwap(Process* other) {
       &other->_impl_.commandline_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Process, _impl_.rel_start_time_s_)
-      + sizeof(Process::_impl_.rel_start_time_s_)
+      PROTOBUF_FIELD_OFFSET(Process, _impl_.meta_first_appearance_)
+      + sizeof(Process::_impl_.meta_first_appearance_)
       - PROTOBUF_FIELD_OFFSET(Process, _impl_.image_)>(
           reinterpret_cast<char*>(&_impl_.image_),
           reinterpret_cast<char*>(&other->_impl_.image_));

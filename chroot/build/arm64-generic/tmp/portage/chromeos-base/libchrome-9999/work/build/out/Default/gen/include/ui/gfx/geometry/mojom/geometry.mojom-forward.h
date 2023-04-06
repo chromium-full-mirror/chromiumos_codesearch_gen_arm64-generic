@@ -49,6 +49,8 @@ class Vector3dFDataView;
 
 class QuaternionDataView;
 
+class QuadFDataView;
+
 class Point;
 using PointPtr = mojo::InlinedStructPtr<Point>;
 
@@ -87,6 +89,9 @@ using Vector3dFPtr = mojo::InlinedStructPtr<Vector3dF>;
 
 class Quaternion;
 using QuaternionPtr = mojo::InlinedStructPtr<Quaternion>;
+
+class QuadF;
+using QuadFPtr = mojo::StructPtr<QuadF>;
 
 
 

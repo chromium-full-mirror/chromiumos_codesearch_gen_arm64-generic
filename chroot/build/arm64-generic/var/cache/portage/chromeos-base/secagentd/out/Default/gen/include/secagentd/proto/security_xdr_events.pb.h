@@ -1305,6 +1305,7 @@ class Process final :
     kCanonicalPidFieldNumber = 2,
     kCanonicalUidFieldNumber = 3,
     kRelStartTimeSFieldNumber = 6,
+    kMetaFirstAppearanceFieldNumber = 7,
   };
   // optional string process_uuid = 1;
   bool has_process_uuid() const;
@@ -1399,6 +1400,19 @@ class Process final :
   void _internal_set_rel_start_time_s(int64_t value);
   public:
 
+  // optional bool meta_first_appearance = 7;
+  bool has_meta_first_appearance() const;
+  private:
+  bool _internal_has_meta_first_appearance() const;
+  public:
+  void clear_meta_first_appearance();
+  bool meta_first_appearance() const;
+  void set_meta_first_appearance(bool value);
+  private:
+  bool _internal_meta_first_appearance() const;
+  void _internal_set_meta_first_appearance(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:cros_xdr.reporting.Process)
  private:
   class _Internal;
@@ -1415,6 +1429,7 @@ class Process final :
     uint64_t canonical_pid_;
     uint64_t canonical_uid_;
     int64_t rel_start_time_s_;
+    bool meta_first_appearance_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
@@ -5728,6 +5743,34 @@ inline void Process::_internal_set_rel_start_time_s(int64_t value) {
 inline void Process::set_rel_start_time_s(int64_t value) {
   _internal_set_rel_start_time_s(value);
   // @@protoc_insertion_point(field_set:cros_xdr.reporting.Process.rel_start_time_s)
+}
+
+// optional bool meta_first_appearance = 7;
+inline bool Process::_internal_has_meta_first_appearance() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool Process::has_meta_first_appearance() const {
+  return _internal_has_meta_first_appearance();
+}
+inline void Process::clear_meta_first_appearance() {
+  _impl_.meta_first_appearance_ = false;
+  _impl_._has_bits_[0] &= ~0x00000040u;
+}
+inline bool Process::_internal_meta_first_appearance() const {
+  return _impl_.meta_first_appearance_;
+}
+inline bool Process::meta_first_appearance() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Process.meta_first_appearance)
+  return _internal_meta_first_appearance();
+}
+inline void Process::_internal_set_meta_first_appearance(bool value) {
+  _impl_._has_bits_[0] |= 0x00000040u;
+  _impl_.meta_first_appearance_ = value;
+}
+inline void Process::set_meta_first_appearance(bool value) {
+  _internal_set_meta_first_appearance(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Process.meta_first_appearance)
 }
 
 // -------------------------------------------------------------------

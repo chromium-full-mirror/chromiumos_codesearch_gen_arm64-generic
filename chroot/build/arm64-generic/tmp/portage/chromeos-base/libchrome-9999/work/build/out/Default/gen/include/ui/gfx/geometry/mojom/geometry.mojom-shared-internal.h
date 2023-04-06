@@ -36,6 +36,7 @@ class Vector2d_Data;
 class Vector2dF_Data;
 class Vector3dF_Data;
 class Quaternion_Data;
+class QuadF_Data;
 
 #pragma pack(push, 1)
 class  Point_Data {
@@ -689,6 +690,57 @@ struct Quaternion_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     Quaternion_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  QuadF_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::PointF_Data> p1;
+  mojo::internal::Pointer<internal::PointF_Data> p2;
+  mojo::internal::Pointer<internal::PointF_Data> p3;
+  mojo::internal::Pointer<internal::PointF_Data> p4;
+
+ private:
+  friend class mojo::internal::MessageFragment<QuadF_Data>;
+
+  QuadF_Data();
+  ~QuadF_Data() = delete;
+};
+static_assert(sizeof(QuadF_Data) == 40,
+              "Bad sizeof(QuadF_Data)");
+// Used by QuadF::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct QuadF_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  QuadF_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~QuadF_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<QuadF_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    QuadF_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 
