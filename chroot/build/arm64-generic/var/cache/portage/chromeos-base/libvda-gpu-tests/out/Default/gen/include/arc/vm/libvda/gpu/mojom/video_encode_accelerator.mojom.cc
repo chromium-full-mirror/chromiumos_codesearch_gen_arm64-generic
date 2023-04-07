@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -1182,7 +1182,7 @@ bool VideoEncodeAccelerator_GetSupportedProfiles_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<VideoEncodeProfilePtr> p_profiles = mojo::DefaultConstructTraits::CreateInstance<std::vector<VideoEncodeProfilePtr>>();
+  std::vector<VideoEncodeProfilePtr> p_profiles{};
   VideoEncodeAccelerator_GetSupportedProfiles_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadProfiles(&p_profiles))
@@ -1312,7 +1312,7 @@ bool VideoEncodeAccelerator_Initialize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  VideoEncodeAccelerator::Result p_result = mojo::DefaultConstructTraits::CreateInstance<VideoEncodeAccelerator::Result>();
+  VideoEncodeAccelerator::Result p_result{};
   VideoEncodeAccelerator_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1431,7 +1431,7 @@ bool VideoEncodeAccelerator_InitializeDeprecated_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_success = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_success{};
   VideoEncodeAccelerator_InitializeDeprecated_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1655,9 +1655,9 @@ bool VideoEncodeAccelerator_UseBitstreamBuffer_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  uint32_t p_payload_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-  bool p_key_frame = mojo::DefaultConstructTraits::CreateInstance<bool>();
-  int64_t p_timestamp = mojo::DefaultConstructTraits::CreateInstance<int64_t>();
+  uint32_t p_payload_size{};
+  bool p_key_frame{};
+  int64_t p_timestamp{};
   VideoEncodeAccelerator_UseBitstreamBuffer_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1789,7 +1789,7 @@ bool VideoEncodeAccelerator_Flush_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_flush_done = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_flush_done{};
   VideoEncodeAccelerator_Flush_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1877,8 +1877,8 @@ bool VideoEncodeAcceleratorStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      BitratePtr p_bitrate = mojo::DefaultConstructTraits::CreateInstance<BitratePtr>();
-      uint32_t p_framerate = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      BitratePtr p_bitrate{};
+      uint32_t p_framerate{};
       VideoEncodeAccelerator_RequestEncodingParametersChange_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadBitrate(&p_bitrate))
@@ -1907,8 +1907,8 @@ std::move(p_framerate));
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_bitrate = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_framerate = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_bitrate{};
+      uint32_t p_framerate{};
       VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1978,8 +1978,8 @@ bool VideoEncodeAcceleratorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      VideoEncodeAcceleratorConfigPtr p_config = mojo::DefaultConstructTraits::CreateInstance<VideoEncodeAcceleratorConfigPtr>();
-      ::mojo::PendingRemote<VideoEncodeClient> p_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<VideoEncodeClient>>();
+      VideoEncodeAcceleratorConfigPtr p_config{};
+      ::mojo::PendingRemote<VideoEncodeClient> p_client{};
       VideoEncodeAccelerator_Initialize_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -2013,8 +2013,8 @@ std::move(p_client), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      VideoEncodeAcceleratorConfigPtr p_config = mojo::DefaultConstructTraits::CreateInstance<VideoEncodeAcceleratorConfigPtr>();
-      ::mojo::PendingRemote<VideoEncodeClient> p_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<VideoEncodeClient>>();
+      VideoEncodeAcceleratorConfigPtr p_config{};
+      ::mojo::PendingRemote<VideoEncodeClient> p_client{};
       VideoEncodeAccelerator_InitializeDeprecated_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -2048,11 +2048,11 @@ std::move(p_client), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::arc::mojom::VideoPixelFormat p_format = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::VideoPixelFormat>();
-      ::mojo::ScopedHandle p_frame_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
-      std::vector<::arc::mojom::VideoFramePlanePtr> p_planes = mojo::DefaultConstructTraits::CreateInstance<std::vector<::arc::mojom::VideoFramePlanePtr>>();
-      int64_t p_timestamp = mojo::DefaultConstructTraits::CreateInstance<int64_t>();
-      bool p_force_keyframe = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      ::arc::mojom::VideoPixelFormat p_format{};
+      ::mojo::ScopedHandle p_frame_fd{};
+      std::vector<::arc::mojom::VideoFramePlanePtr> p_planes{};
+      int64_t p_timestamp{};
+      bool p_force_keyframe{};
       VideoEncodeAccelerator_Encode_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFormat(&p_format))
@@ -2093,9 +2093,9 @@ std::move(p_force_keyframe), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::ScopedHandle p_shmem_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
-      uint32_t p_offset = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      ::mojo::ScopedHandle p_shmem_fd{};
+      uint32_t p_offset{};
+      uint32_t p_size{};
       VideoEncodeAccelerator_UseBitstreamBuffer_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -2376,9 +2376,9 @@ bool VideoEncodeClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_input_count = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      ::arc::mojom::SizePtr p_input_coded_size = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::SizePtr>();
-      uint32_t p_output_buffer_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_input_count{};
+      ::arc::mojom::SizePtr p_input_coded_size{};
+      uint32_t p_output_buffer_size{};
       VideoEncodeClient_RequireBitstreamBuffers_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -2410,7 +2410,7 @@ std::move(p_output_buffer_size));
               message->mutable_payload());
       
       bool success = true;
-      VideoEncodeAccelerator::Error p_error = mojo::DefaultConstructTraits::CreateInstance<VideoEncodeAccelerator::Error>();
+      VideoEncodeAccelerator::Error p_error{};
       VideoEncodeClient_NotifyError_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadError(&p_error))
@@ -2646,7 +2646,7 @@ void VideoEncodeAcceleratorAsyncWaiter::GetSupportedProfiles(
 
 std::vector<VideoEncodeProfilePtr> VideoEncodeAcceleratorAsyncWaiter::GetSupportedProfiles(
     ) {
-  std::vector<VideoEncodeProfilePtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<VideoEncodeProfilePtr>>();
+  std::vector<VideoEncodeProfilePtr> async_wait_result;
   GetSupportedProfiles(&async_wait_result);
   return async_wait_result;
 }
@@ -2669,7 +2669,7 @@ void VideoEncodeAcceleratorAsyncWaiter::Initialize(
 
 VideoEncodeAccelerator::Result VideoEncodeAcceleratorAsyncWaiter::Initialize(
     VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoEncodeClient> client) {
-  VideoEncodeAccelerator::Result async_wait_result = mojo::DefaultConstructTraits::CreateInstance<VideoEncodeAccelerator::Result>();
+  VideoEncodeAccelerator::Result async_wait_result;
   Initialize(std::move(config),std::move(client),&async_wait_result);
   return async_wait_result;
 }
@@ -2692,7 +2692,7 @@ void VideoEncodeAcceleratorAsyncWaiter::InitializeDeprecated(
 
 bool VideoEncodeAcceleratorAsyncWaiter::InitializeDeprecated(
     VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoEncodeClient> client) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   InitializeDeprecated(std::move(config),std::move(client),&async_wait_result);
   return async_wait_result;
 }
@@ -2755,7 +2755,7 @@ void VideoEncodeAcceleratorAsyncWaiter::Flush(
 
 bool VideoEncodeAcceleratorAsyncWaiter::Flush(
     ) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   Flush(&async_wait_result);
   return async_wait_result;
 }

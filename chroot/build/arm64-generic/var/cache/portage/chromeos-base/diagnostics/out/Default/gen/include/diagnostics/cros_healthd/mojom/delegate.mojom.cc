@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -959,8 +959,8 @@ bool Delegate_GetFingerprintFrame_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::FingerprintFrameResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::FingerprintFrameResultPtr>();
-  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  ::ash::cros_healthd::mojom::FingerprintFrameResultPtr p_result{};
+  absl::optional<std::string> p_err{};
   Delegate_GetFingerprintFrame_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1101,8 +1101,8 @@ bool Delegate_GetFingerprintInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::FingerprintInfoResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::FingerprintInfoResultPtr>();
-  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  ::ash::cros_healthd::mojom::FingerprintInfoResultPtr p_result{};
+  absl::optional<std::string> p_err{};
   Delegate_GetFingerprintInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1243,7 +1243,7 @@ bool Delegate_SetLedColor_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> p_err{};
   Delegate_SetLedColor_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadErr(&p_err))
@@ -1367,7 +1367,7 @@ bool Delegate_ResetLedColor_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> p_err{};
   Delegate_ResetLedColor_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadErr(&p_err))
@@ -1491,7 +1491,7 @@ bool Delegate_FetchBootPerformance_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::BootPerformanceResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::BootPerformanceResultPtr>();
+  ::ash::cros_healthd::mojom::BootPerformanceResultPtr p_result{};
   Delegate_FetchBootPerformance_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1617,7 +1617,7 @@ bool Delegate_GetLidAngle_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<uint16_t> p_lid_angle = mojo::DefaultConstructTraits::CreateInstance<absl::optional<uint16_t>>();
+  absl::optional<uint16_t> p_lid_angle{};
   Delegate_GetLidAngle_ResponseParamsDataView input_data_view(params, message);
   
   if (success) {
@@ -1739,8 +1739,8 @@ bool Delegate_GetPsr_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::PsrInfoPtr p_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::PsrInfoPtr>();
-  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  ::ash::cros_healthd::mojom::PsrInfoPtr p_result{};
+  absl::optional<std::string> p_err{};
   Delegate_GetPsr_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1848,7 +1848,7 @@ bool DelegateStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> p_observer{};
       Delegate_MonitorAudioJack_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1876,7 +1876,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> p_observer{};
       Delegate_MonitorTouchpad_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1907,7 +1907,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> p_observer{};
       Delegate_MonitorTouchscreen_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1935,7 +1935,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver> p_observer{};
       Delegate_MonitorStylusGarage_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1963,7 +1963,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver>>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> p_observer{};
       Delegate_MonitorStylus_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -2010,7 +2010,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::FingerprintCaptureType p_type = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::FingerprintCaptureType>();
+      ::ash::cros_healthd::mojom::FingerprintCaptureType p_type{};
       Delegate_GetFingerprintFrame_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -2064,8 +2064,8 @@ std::move(p_type), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::LedName p_name = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedName>();
-      ::ash::cros_healthd::mojom::LedColor p_color = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedColor>();
+      ::ash::cros_healthd::mojom::LedName p_name{};
+      ::ash::cros_healthd::mojom::LedColor p_color{};
       Delegate_SetLedColor_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadName(&p_name))
@@ -2097,7 +2097,7 @@ std::move(p_color), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::LedName p_name = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedName>();
+      ::ash::cros_healthd::mojom::LedName p_name{};
       Delegate_ResetLedColor_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadName(&p_name))
@@ -2373,7 +2373,7 @@ void DelegateAsyncWaiter::SetLedColor(
 
 absl::optional<std::string> DelegateAsyncWaiter::SetLedColor(
     ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color) {
-  absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> async_wait_result;
   SetLedColor(std::move(name),std::move(color),&async_wait_result);
   return async_wait_result;
 }
@@ -2396,7 +2396,7 @@ void DelegateAsyncWaiter::ResetLedColor(
 
 absl::optional<std::string> DelegateAsyncWaiter::ResetLedColor(
     ::ash::cros_healthd::mojom::LedName name) {
-  absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> async_wait_result;
   ResetLedColor(std::move(name),&async_wait_result);
   return async_wait_result;
 }
@@ -2419,7 +2419,7 @@ void DelegateAsyncWaiter::FetchBootPerformance(
 
 ::ash::cros_healthd::mojom::BootPerformanceResultPtr DelegateAsyncWaiter::FetchBootPerformance(
     ) {
-  ::ash::cros_healthd::mojom::BootPerformanceResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::BootPerformanceResultPtr>();
+  ::ash::cros_healthd::mojom::BootPerformanceResultPtr async_wait_result;
   FetchBootPerformance(&async_wait_result);
   return async_wait_result;
 }
@@ -2442,7 +2442,7 @@ void DelegateAsyncWaiter::GetLidAngle(
 
 absl::optional<uint16_t> DelegateAsyncWaiter::GetLidAngle(
     ) {
-  absl::optional<uint16_t> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<uint16_t>>();
+  absl::optional<uint16_t> async_wait_result;
   GetLidAngle(&async_wait_result);
   return async_wait_result;
 }

@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -166,7 +166,7 @@ bool AshEventReporterStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr p_info = mojo::DefaultConstructTraits::CreateInstance<::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr>();
+      ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr p_info{};
       AshEventReporter_SendKeyboardDiagnosticEvent_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInfo(&p_info))

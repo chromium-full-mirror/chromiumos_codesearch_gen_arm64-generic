@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -583,7 +583,7 @@ bool ChromiumDataCollector_GetTouchscreenDevices_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<TouchscreenDevicePtr> p_devices = mojo::DefaultConstructTraits::CreateInstance<std::vector<TouchscreenDevicePtr>>();
+  std::vector<TouchscreenDevicePtr> p_devices{};
   ChromiumDataCollector_GetTouchscreenDevices_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDevices(&p_devices))
@@ -713,7 +713,7 @@ bool ChromiumDataCollector_GetTouchpadLibraryName_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::string p_library_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+  std::string p_library_name{};
   ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadLibraryName(&p_library_name))
@@ -841,7 +841,7 @@ bool ChromiumDataCollector_SetPrivacyScreenState_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_success = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_success{};
   ChromiumDataCollector_SetPrivacyScreenState_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -959,7 +959,7 @@ bool ChromiumDataCollector_SetAudioOutputMute_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_success = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_success{};
   ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1107,7 +1107,7 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      bool p_state = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      bool p_state{};
       ChromiumDataCollector_SetPrivacyScreenState_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1136,7 +1136,7 @@ std::move(p_state), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      bool p_mute_on = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      bool p_mute_on{};
       ChromiumDataCollector_SetAudioOutputMute_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1282,7 +1282,7 @@ void ChromiumDataCollectorAsyncWaiter::GetTouchscreenDevices(
 
 std::vector<TouchscreenDevicePtr> ChromiumDataCollectorAsyncWaiter::GetTouchscreenDevices(
     ) {
-  std::vector<TouchscreenDevicePtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<TouchscreenDevicePtr>>();
+  std::vector<TouchscreenDevicePtr> async_wait_result;
   GetTouchscreenDevices(&async_wait_result);
   return async_wait_result;
 }
@@ -1305,7 +1305,7 @@ void ChromiumDataCollectorAsyncWaiter::GetTouchpadLibraryName(
 
 std::string ChromiumDataCollectorAsyncWaiter::GetTouchpadLibraryName(
     ) {
-  std::string async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+  std::string async_wait_result;
   GetTouchpadLibraryName(&async_wait_result);
   return async_wait_result;
 }
@@ -1328,7 +1328,7 @@ void ChromiumDataCollectorAsyncWaiter::SetPrivacyScreenState(
 
 bool ChromiumDataCollectorAsyncWaiter::SetPrivacyScreenState(
     bool state) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   SetPrivacyScreenState(std::move(state),&async_wait_result);
   return async_wait_result;
 }
@@ -1351,7 +1351,7 @@ void ChromiumDataCollectorAsyncWaiter::SetAudioOutputMute(
 
 bool ChromiumDataCollectorAsyncWaiter::SetAudioOutputMute(
     bool mute_on) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   SetAudioOutputMute(std::move(mute_on),&async_wait_result);
   return async_wait_result;
 }

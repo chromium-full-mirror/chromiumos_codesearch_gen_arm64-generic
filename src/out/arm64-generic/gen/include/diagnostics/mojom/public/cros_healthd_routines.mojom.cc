@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -604,8 +604,8 @@ bool CrosHealthdRoutinesServiceStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      RoutineArgumentPtr p_routine_argument = mojo::DefaultConstructTraits::CreateInstance<RoutineArgumentPtr>();
-      ::mojo::PendingReceiver<RoutineControl> p_routine_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<RoutineControl>>();
+      RoutineArgumentPtr p_routine_argument{};
+      ::mojo::PendingReceiver<RoutineControl> p_routine_receiver{};
       CrosHealthdRoutinesService_CreateRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRoutineArgument(&p_routine_argument))
@@ -936,7 +936,7 @@ bool RoutineControl_GetState_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineStatePtr p_state = mojo::DefaultConstructTraits::CreateInstance<RoutineStatePtr>();
+  RoutineStatePtr p_state{};
   RoutineControl_GetState_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadState(&p_state))
@@ -1022,7 +1022,7 @@ bool RoutineControlStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<RoutineObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<RoutineObserver>>();
+      ::mojo::PendingRemote<RoutineObserver> p_observer{};
       RoutineControl_AddObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1251,7 +1251,7 @@ bool RoutineObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      RoutineStatePtr p_state = mojo::DefaultConstructTraits::CreateInstance<RoutineStatePtr>();
+      RoutineStatePtr p_state{};
       RoutineObserver_OnRoutineStateChange_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadState(&p_state))
@@ -1587,7 +1587,7 @@ void RoutineControlAsyncWaiter::GetState(
 
 RoutineStatePtr RoutineControlAsyncWaiter::GetState(
     ) {
-  RoutineStatePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineStatePtr>();
+  RoutineStatePtr async_wait_result;
   GetState(&async_wait_result);
   return async_wait_result;
 }

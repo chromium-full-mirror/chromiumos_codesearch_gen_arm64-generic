@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -681,8 +681,8 @@ bool CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-  ::mojo::PendingRemote<CameraHalServerCallbacks> p_callbacks = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<CameraHalServerCallbacks>>();
+  int32_t p_result{};
+  ::mojo::PendingRemote<CameraHalServerCallbacks> p_callbacks{};
   CameraHalDispatcher_RegisterServerWithToken_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -814,7 +814,7 @@ bool CameraHalDispatcher_RegisterClientWithToken_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   CameraHalDispatcher_RegisterClientWithToken_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -932,7 +932,7 @@ bool CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback::Accept
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1005,7 +1005,7 @@ bool CameraHalDispatcherStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<CameraHalServer> p_server = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<CameraHalServer>>();
+      ::mojo::PendingRemote<CameraHalServer> p_server{};
       CameraHalDispatcher_RegisterServer_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1033,7 +1033,7 @@ std::move(p_server));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<CameraHalClient> p_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<CameraHalClient>>();
+      ::mojo::PendingRemote<CameraHalClient> p_client{};
       CameraHalDispatcher_RegisterClient_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1061,7 +1061,7 @@ std::move(p_client));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::cros::mojom::MjpegDecodeAccelerator> p_jda_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::cros::mojom::MjpegDecodeAccelerator>>();
+      ::mojo::PendingReceiver<::cros::mojom::MjpegDecodeAccelerator> p_jda_receiver{};
       CameraHalDispatcher_GetMjpegDecodeAccelerator_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1089,7 +1089,7 @@ std::move(p_jda_receiver));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::cros::mojom::JpegEncodeAccelerator> p_jea_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::cros::mojom::JpegEncodeAccelerator>>();
+      ::mojo::PendingReceiver<::cros::mojom::JpegEncodeAccelerator> p_jea_receiver{};
       CameraHalDispatcher_GetJpegEncodeAccelerator_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1151,8 +1151,8 @@ bool CameraHalDispatcherStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<CameraHalServer> p_server = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<CameraHalServer>>();
-      ::mojo_base::mojom::UnguessableTokenPtr p_auth_token = mojo::DefaultConstructTraits::CreateInstance<::mojo_base::mojom::UnguessableTokenPtr>();
+      ::mojo::PendingRemote<CameraHalServer> p_server{};
+      ::mojo_base::mojom::UnguessableTokenPtr p_auth_token{};
       CameraHalDispatcher_RegisterServerWithToken_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1186,9 +1186,9 @@ std::move(p_auth_token), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<CameraHalClient> p_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<CameraHalClient>>();
-      CameraClientType p_type = mojo::DefaultConstructTraits::CreateInstance<CameraClientType>();
-      ::mojo_base::mojom::UnguessableTokenPtr p_auth_token = mojo::DefaultConstructTraits::CreateInstance<::mojo_base::mojom::UnguessableTokenPtr>();
+      ::mojo::PendingRemote<CameraHalClient> p_client{};
+      CameraClientType p_type{};
+      ::mojo_base::mojom::UnguessableTokenPtr p_auth_token{};
       CameraHalDispatcher_RegisterClientWithToken_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1225,8 +1225,8 @@ std::move(p_auth_token), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::cros::mojom::SensorHalClient> p_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::cros::mojom::SensorHalClient>>();
-      ::mojo_base::mojom::UnguessableTokenPtr p_auth_token = mojo::DefaultConstructTraits::CreateInstance<::mojo_base::mojom::UnguessableTokenPtr>();
+      ::mojo::PendingRemote<::cros::mojom::SensorHalClient> p_client{};
+      ::mojo_base::mojom::UnguessableTokenPtr p_auth_token{};
       CameraHalDispatcher_RegisterSensorClientWithToken_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1843,7 +1843,7 @@ bool CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  CameraPrivacySwitchState p_state = mojo::DefaultConstructTraits::CreateInstance<CameraPrivacySwitchState>();
+  CameraPrivacySwitchState p_state{};
   CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadState(&p_state))
@@ -1962,7 +1962,7 @@ bool CameraHalServer_GetAutoFramingSupported_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_supported = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_supported{};
   CameraHalServer_GetAutoFramingSupported_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2080,7 +2080,7 @@ bool CameraHalServer_SetCameraEffect_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  SetEffectResult p_result = mojo::DefaultConstructTraits::CreateInstance<SetEffectResult>();
+  SetEffectResult p_result{};
   CameraHalServer_SetCameraEffect_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2154,8 +2154,8 @@ bool CameraHalServerStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::cros::mojom::CameraModule> p_camera_module_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::cros::mojom::CameraModule>>();
-      CameraClientType p_type = mojo::DefaultConstructTraits::CreateInstance<CameraClientType>();
+      ::mojo::PendingReceiver<::cros::mojom::CameraModule> p_camera_module_receiver{};
+      CameraClientType p_type{};
       CameraHalServer_CreateChannel_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -2186,7 +2186,7 @@ std::move(p_type));
               message->mutable_payload());
       
       bool success = true;
-      bool p_enabled = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      bool p_enabled{};
       CameraHalServer_SetTracingEnabled_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -2212,7 +2212,7 @@ std::move(p_enabled));
               message->mutable_payload());
       
       bool success = true;
-      CameraAutoFramingState p_state = mojo::DefaultConstructTraits::CreateInstance<CameraAutoFramingState>();
+      CameraAutoFramingState p_state{};
       CameraHalServer_SetAutoFramingState_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadState(&p_state))
@@ -2241,7 +2241,7 @@ std::move(p_state));
               message->mutable_payload());
       
       bool success = true;
-      CameraPrivacySwitchState p_state = mojo::DefaultConstructTraits::CreateInstance<CameraPrivacySwitchState>();
+      CameraPrivacySwitchState p_state{};
       CameraHalServer_SetCameraSWPrivacySwitchState_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadState(&p_state))
@@ -2348,7 +2348,7 @@ bool CameraHalServerStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::cros::mojom::EffectsConfigPtr p_config = mojo::DefaultConstructTraits::CreateInstance<::cros::mojom::EffectsConfigPtr>();
+      ::cros::mojom::EffectsConfigPtr p_config{};
       CameraHalServer_SetCameraEffect_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -2641,9 +2641,9 @@ bool CameraHalServerCallbacksStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_camera_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      bool p_opened = mojo::DefaultConstructTraits::CreateInstance<bool>();
-      CameraClientType p_type = mojo::DefaultConstructTraits::CreateInstance<CameraClientType>();
+      int32_t p_camera_id{};
+      bool p_opened{};
+      CameraClientType p_type{};
       CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -2675,8 +2675,8 @@ std::move(p_type));
               message->mutable_payload());
       
       bool success = true;
-      CameraPrivacySwitchState p_state = mojo::DefaultConstructTraits::CreateInstance<CameraPrivacySwitchState>();
-      int32_t p_camera_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      CameraPrivacySwitchState p_state{};
+      int32_t p_camera_id{};
       CameraHalServerCallbacks_CameraPrivacySwitchStateChange_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadState(&p_state))
@@ -2705,7 +2705,7 @@ std::move(p_camera_id));
               message->mutable_payload());
       
       bool success = true;
-      CameraPrivacySwitchState p_state = mojo::DefaultConstructTraits::CreateInstance<CameraPrivacySwitchState>();
+      CameraPrivacySwitchState p_state{};
       CameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadState(&p_state))
@@ -2879,7 +2879,7 @@ bool CameraHalClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::cros::mojom::CameraModule> p_camera_module = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::cros::mojom::CameraModule>>();
+      ::mojo::PendingRemote<::cros::mojom::CameraModule> p_camera_module{};
       CameraHalClient_SetUpChannel_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -3015,7 +3015,7 @@ void CameraHalDispatcherAsyncWaiter::RegisterClientWithToken(
 
 int32_t CameraHalDispatcherAsyncWaiter::RegisterClientWithToken(
     ::mojo::PendingRemote<CameraHalClient> client, CameraClientType type, ::mojo_base::mojom::UnguessableTokenPtr auth_token) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   RegisterClientWithToken(std::move(client),std::move(type),std::move(auth_token),&async_wait_result);
   return async_wait_result;
 }
@@ -3038,7 +3038,7 @@ void CameraHalDispatcherAsyncWaiter::RegisterSensorClientWithToken(
 
 int32_t CameraHalDispatcherAsyncWaiter::RegisterSensorClientWithToken(
     ::mojo::PendingRemote<::cros::mojom::SensorHalClient> client, ::mojo_base::mojom::UnguessableTokenPtr auth_token) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   RegisterSensorClientWithToken(std::move(client),std::move(auth_token),&async_wait_result);
   return async_wait_result;
 }
@@ -3090,7 +3090,7 @@ void CameraHalServerAsyncWaiter::GetCameraSWPrivacySwitchState(
 
 CameraPrivacySwitchState CameraHalServerAsyncWaiter::GetCameraSWPrivacySwitchState(
     ) {
-  CameraPrivacySwitchState async_wait_result = mojo::DefaultConstructTraits::CreateInstance<CameraPrivacySwitchState>();
+  CameraPrivacySwitchState async_wait_result;
   GetCameraSWPrivacySwitchState(&async_wait_result);
   return async_wait_result;
 }
@@ -3113,7 +3113,7 @@ void CameraHalServerAsyncWaiter::GetAutoFramingSupported(
 
 bool CameraHalServerAsyncWaiter::GetAutoFramingSupported(
     ) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   GetAutoFramingSupported(&async_wait_result);
   return async_wait_result;
 }
@@ -3136,7 +3136,7 @@ void CameraHalServerAsyncWaiter::SetCameraEffect(
 
 SetEffectResult CameraHalServerAsyncWaiter::SetCameraEffect(
     ::cros::mojom::EffectsConfigPtr config) {
-  SetEffectResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<SetEffectResult>();
+  SetEffectResult async_wait_result;
   SetCameraEffect(std::move(config),&async_wait_result);
   return async_wait_result;
 }

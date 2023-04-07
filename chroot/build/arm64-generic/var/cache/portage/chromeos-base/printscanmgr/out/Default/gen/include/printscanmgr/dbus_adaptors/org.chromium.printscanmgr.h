@@ -22,33 +22,24 @@ class printscanmgrInterface {
  public:
   virtual ~printscanmgrInterface() = default;
 
-  // Add a printer that can be auto-configured to CUPS.  Immediately attempt
-  // to connect.  Returns a CupsResult - see
-  // src/platform2/system_api/dbus/printscanmgr/dbus-constants.h for details.
-  virtual int32_t CupsAddAutoConfiguredPrinter(
-      const std::string& in_name,
-      const std::string& in_uri) = 0;
-  // Add a printer to CUPS using the passed PPD contents.  Immediately
-  // attempt to connect.  Returns a CupsResult - see
-  // src/platform2/system_api/dbus/printscanmgr/dbus-constants.h for details.
-  virtual int32_t CupsAddManuallyConfiguredPrinter(
-      const std::string& in_name,
-      const std::string& in_uri,
-      const std::vector<uint8_t>& in_ppd_contents) = 0;
-  // Remove a printer from CUPS.  Returns true if the printer was removed
-  // successfully.
-  virtual bool CupsRemovePrinter(
-      const std::string& in_name) = 0;
-  // Retrieve the PPD from CUPS for a given printer.  On success, returns the
-  // PPD as a vector of bytes.  On error, returns an empty vector.
-  virtual std::vector<uint8_t> CupsRetrievePpd(
-      const std::string& in_name) = 0;
-  // Collect printscan debug logs for the specified categories.
-  // If no categories are specified, disable log collection
-  // for all categories.
-  virtual bool PrintscanDebugSetCategories(
-      brillo::ErrorPtr* error,
-      uint32_t in_categories) = 0;
+  // Adds a printer that can be auto-configured to CUPS. Immediately attempts
+  // to connect.
+  virtual ::printscanmgr::CupsAddAutoConfiguredPrinterResponse CupsAddAutoConfiguredPrinter(
+      const ::printscanmgr::CupsAddAutoConfiguredPrinterRequest& in_request) = 0;
+  // Adds a printer to CUPS using the passed PPD contents. Immediately
+  // attempts to connect.
+  virtual ::printscanmgr::CupsAddManuallyConfiguredPrinterResponse CupsAddManuallyConfiguredPrinter(
+      const ::printscanmgr::CupsAddManuallyConfiguredPrinterRequest& in_request) = 0;
+  // Removes a printer from CUPS.
+  virtual ::printscanmgr::CupsRemovePrinterResponse CupsRemovePrinter(
+      const ::printscanmgr::CupsRemovePrinterRequest& in_request) = 0;
+  // Retrieves the PPD from CUPS for a given printer.
+  virtual ::printscanmgr::CupsRetrievePpdResponse CupsRetrievePpd(
+      const ::printscanmgr::CupsRetrievePpdRequest& in_request) = 0;
+  // Collect printscan debug logs for the specified categories, or disable
+  // printing and scanning debug logging.
+  virtual ::printscanmgr::PrintscanDebugSetCategoriesResponse PrintscanDebugSetCategories(
+      const ::printscanmgr::PrintscanDebugSetCategoriesRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::printscanmgr.
@@ -78,7 +69,7 @@ class printscanmgrAdaptor {
         "CupsRetrievePpd",
         base::Unretained(interface_),
         &printscanmgrInterface::CupsRetrievePpd);
-    itf->AddSimpleMethodHandlerWithError(
+    itf->AddSimpleMethodHandler(
         "PrintscanDebugSetCategories",
         base::Unretained(interface_),
         &printscanmgrInterface::PrintscanDebugSetCategories);
@@ -92,26 +83,24 @@ class printscanmgrAdaptor {
     return
         "  <interface name=\"org.chromium.printscanmgr\">\n"
         "    <method name=\"CupsAddAutoConfiguredPrinter\">\n"
-        "      <arg name=\"name\" type=\"s\" direction=\"in\"/>\n"
-        "      <arg name=\"uri\" type=\"s\" direction=\"in\"/>\n"
-        "      <arg name=\"result\" type=\"i\" direction=\"out\"/>\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"CupsAddManuallyConfiguredPrinter\">\n"
-        "      <arg name=\"name\" type=\"s\" direction=\"in\"/>\n"
-        "      <arg name=\"uri\" type=\"s\" direction=\"in\"/>\n"
-        "      <arg name=\"ppd_contents\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"result\" type=\"i\" direction=\"out\"/>\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"CupsRemovePrinter\">\n"
-        "      <arg name=\"name\" type=\"s\" direction=\"in\"/>\n"
-        "      <arg name=\"result\" type=\"b\" direction=\"out\"/>\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"CupsRetrievePpd\">\n"
-        "      <arg name=\"name\" type=\"s\" direction=\"in\"/>\n"
-        "      <arg name=\"ppd\" type=\"ay\" direction=\"out\"/>\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"PrintscanDebugSetCategories\">\n"
-        "      <arg name=\"categories\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "  </interface>\n";
   }

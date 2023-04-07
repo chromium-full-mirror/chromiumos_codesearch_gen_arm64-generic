@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -3264,7 +3264,7 @@ bool CrosHealthdUsbObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      UsbEventInfoPtr p_info = mojo::DefaultConstructTraits::CreateInstance<UsbEventInfoPtr>();
+      UsbEventInfoPtr p_info{};
       CrosHealthdUsbObserver_OnAdd_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInfo(&p_info))
@@ -3290,7 +3290,7 @@ std::move(p_info));
               message->mutable_payload());
       
       bool success = true;
-      UsbEventInfoPtr p_info = mojo::DefaultConstructTraits::CreateInstance<UsbEventInfoPtr>();
+      UsbEventInfoPtr p_info{};
       CrosHealthdUsbObserver_OnRemove_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInfo(&p_info))
@@ -3686,7 +3686,7 @@ bool EventObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      EventInfoPtr p_info = mojo::DefaultConstructTraits::CreateInstance<EventInfoPtr>();
+      EventInfoPtr p_info{};
       EventObserver_OnEvent_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInfo(&p_info))

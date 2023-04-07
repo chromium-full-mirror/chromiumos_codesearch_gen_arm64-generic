@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -518,7 +518,7 @@ bool SensorService_GetDeviceIds_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<int32_t> p_iio_device_ids = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
+  std::vector<int32_t> p_iio_device_ids{};
   SensorService_GetDeviceIds_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadIioDeviceIds(&p_iio_device_ids))
@@ -648,7 +648,7 @@ bool SensorService_GetAllDeviceIds_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  base::flat_map<int32_t, std::vector<DeviceType>> p_iio_device_ids_types = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<int32_t, std::vector<DeviceType>>>();
+  base::flat_map<int32_t, std::vector<DeviceType>> p_iio_device_ids_types{};
   SensorService_GetAllDeviceIds_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadIioDeviceIdsTypes(&p_iio_device_ids_types))
@@ -739,8 +739,8 @@ bool SensorServiceStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_iio_device_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      ::mojo::PendingReceiver<SensorDevice> p_device_request = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<SensorDevice>>();
+      int32_t p_iio_device_id{};
+      ::mojo::PendingReceiver<SensorDevice> p_device_request{};
       SensorService_GetDevice_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -771,7 +771,7 @@ std::move(p_device_request));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<SensorServiceNewDevicesObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<SensorServiceNewDevicesObserver>>();
+      ::mojo::PendingRemote<SensorServiceNewDevicesObserver> p_observer{};
       SensorService_RegisterNewDevicesObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -812,7 +812,7 @@ bool SensorServiceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      DeviceType p_type = mojo::DefaultConstructTraits::CreateInstance<DeviceType>();
+      DeviceType p_type{};
       SensorService_GetDeviceIds_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -1912,7 +1912,7 @@ bool SensorDevice_GetAttributes_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<absl::optional<std::string>> p_values = mojo::DefaultConstructTraits::CreateInstance<std::vector<absl::optional<std::string>>>();
+  std::vector<absl::optional<std::string>> p_values{};
   SensorDevice_GetAttributes_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValues(&p_values))
@@ -2042,7 +2042,7 @@ bool SensorDevice_SetFrequency_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  double p_result_freq = mojo::DefaultConstructTraits::CreateInstance<double>();
+  double p_result_freq{};
   SensorDevice_SetFrequency_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2160,7 +2160,7 @@ bool SensorDevice_GetAllChannelIds_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<std::string> p_iio_chn_ids = mojo::DefaultConstructTraits::CreateInstance<std::vector<std::string>>();
+  std::vector<std::string> p_iio_chn_ids{};
   SensorDevice_GetAllChannelIds_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadIioChnIds(&p_iio_chn_ids))
@@ -2290,7 +2290,7 @@ bool SensorDevice_SetChannelsEnabled_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<int32_t> p_failed_indices = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
+  std::vector<int32_t> p_failed_indices{};
   SensorDevice_SetChannelsEnabled_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadFailedIndices(&p_failed_indices))
@@ -2420,7 +2420,7 @@ bool SensorDevice_GetChannelsEnabled_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<bool> p_enabled = mojo::DefaultConstructTraits::CreateInstance<std::vector<bool>>();
+  std::vector<bool> p_enabled{};
   SensorDevice_GetChannelsEnabled_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadEnabled(&p_enabled))
@@ -2550,7 +2550,7 @@ bool SensorDevice_GetChannelsAttributes_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<absl::optional<std::string>> p_values = mojo::DefaultConstructTraits::CreateInstance<std::vector<absl::optional<std::string>>>();
+  std::vector<absl::optional<std::string>> p_values{};
   SensorDevice_GetChannelsAttributes_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValues(&p_values))
@@ -2680,7 +2680,7 @@ bool SensorDevice_GetAllEvents_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<IioEventPtr> p_iio_events = mojo::DefaultConstructTraits::CreateInstance<std::vector<IioEventPtr>>();
+  std::vector<IioEventPtr> p_iio_events{};
   SensorDevice_GetAllEvents_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadIioEvents(&p_iio_events))
@@ -2810,7 +2810,7 @@ bool SensorDevice_GetEventsAttributes_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<absl::optional<std::string>> p_values = mojo::DefaultConstructTraits::CreateInstance<std::vector<absl::optional<std::string>>>();
+  std::vector<absl::optional<std::string>> p_values{};
   SensorDevice_GetEventsAttributes_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValues(&p_values))
@@ -2895,7 +2895,7 @@ bool SensorDeviceStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_timeout = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_timeout{};
       SensorDevice_SetTimeout_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -2927,7 +2927,7 @@ std::move(p_timeout));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<SensorDeviceSamplesObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<SensorDeviceSamplesObserver>>();
+      ::mojo::PendingRemote<SensorDeviceSamplesObserver> p_observer{};
       SensorDevice_StartReadingSamples_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -2995,8 +2995,8 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      std::vector<int32_t> p_iio_event_indices = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
-      ::mojo::PendingRemote<SensorDeviceEventsObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<SensorDeviceEventsObserver>>();
+      std::vector<int32_t> p_iio_event_indices{};
+      ::mojo::PendingRemote<SensorDeviceEventsObserver> p_observer{};
       SensorDevice_StartReadingEvents_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIioEventIndices(&p_iio_event_indices))
@@ -3043,7 +3043,7 @@ bool SensorDeviceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<std::string> p_attr_names = mojo::DefaultConstructTraits::CreateInstance<std::vector<std::string>>();
+      std::vector<std::string> p_attr_names{};
       SensorDevice_GetAttributes_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadAttrNames(&p_attr_names))
@@ -3072,7 +3072,7 @@ std::move(p_attr_names), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      double p_frequency = mojo::DefaultConstructTraits::CreateInstance<double>();
+      double p_frequency{};
       SensorDevice_SetFrequency_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -3132,8 +3132,8 @@ std::move(p_frequency), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<int32_t> p_iio_chn_indices = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
-      bool p_en = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      std::vector<int32_t> p_iio_chn_indices{};
+      bool p_en{};
       SensorDevice_SetChannelsEnabled_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIioChnIndices(&p_iio_chn_indices))
@@ -3165,7 +3165,7 @@ std::move(p_en), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<int32_t> p_iio_chn_indices = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
+      std::vector<int32_t> p_iio_chn_indices{};
       SensorDevice_GetChannelsEnabled_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIioChnIndices(&p_iio_chn_indices))
@@ -3194,8 +3194,8 @@ std::move(p_iio_chn_indices), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<int32_t> p_iio_chn_indices = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
-      std::string p_attr_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+      std::vector<int32_t> p_iio_chn_indices{};
+      std::string p_attr_name{};
       SensorDevice_GetChannelsAttributes_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIioChnIndices(&p_iio_chn_indices))
@@ -3252,8 +3252,8 @@ std::move(p_attr_name), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<int32_t> p_iio_event_indices = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
-      std::string p_attr_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+      std::vector<int32_t> p_iio_event_indices{};
+      std::string p_attr_name{};
       SensorDevice_GetEventsAttributes_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIioEventIndices(&p_iio_event_indices))
@@ -3506,7 +3506,7 @@ bool SensorDeviceSamplesObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      base::flat_map<int32_t, int64_t> p_sample = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<int32_t, int64_t>>();
+      base::flat_map<int32_t, int64_t> p_sample{};
       SensorDeviceSamplesObserver_OnSampleUpdated_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadSample(&p_sample))
@@ -3532,7 +3532,7 @@ std::move(p_sample));
               message->mutable_payload());
       
       bool success = true;
-      ObserverErrorType p_type = mojo::DefaultConstructTraits::CreateInstance<ObserverErrorType>();
+      ObserverErrorType p_type{};
       SensorDeviceSamplesObserver_OnErrorOccurred_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -3712,8 +3712,8 @@ bool SensorServiceNewDevicesObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_iio_device_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      std::vector<DeviceType> p_types = mojo::DefaultConstructTraits::CreateInstance<std::vector<DeviceType>>();
+      int32_t p_iio_device_id{};
+      std::vector<DeviceType> p_types{};
       SensorServiceNewDevicesObserver_OnNewDeviceAdded_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -3944,7 +3944,7 @@ bool SensorDeviceEventsObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      IioEventPtr p_iio_event = mojo::DefaultConstructTraits::CreateInstance<IioEventPtr>();
+      IioEventPtr p_iio_event{};
       SensorDeviceEventsObserver_OnEventUpdated_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadIioEvent(&p_iio_event))
@@ -3970,7 +3970,7 @@ std::move(p_iio_event));
               message->mutable_payload());
       
       bool success = true;
-      ObserverErrorType p_type = mojo::DefaultConstructTraits::CreateInstance<ObserverErrorType>();
+      ObserverErrorType p_type{};
       SensorDeviceEventsObserver_OnErrorOccurred_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -4100,7 +4100,7 @@ void SensorServiceAsyncWaiter::GetDeviceIds(
 
 std::vector<int32_t> SensorServiceAsyncWaiter::GetDeviceIds(
     DeviceType type) {
-  std::vector<int32_t> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
+  std::vector<int32_t> async_wait_result;
   GetDeviceIds(std::move(type),&async_wait_result);
   return async_wait_result;
 }
@@ -4123,7 +4123,7 @@ void SensorServiceAsyncWaiter::GetAllDeviceIds(
 
 base::flat_map<int32_t, std::vector<DeviceType>> SensorServiceAsyncWaiter::GetAllDeviceIds(
     ) {
-  base::flat_map<int32_t, std::vector<DeviceType>> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<int32_t, std::vector<DeviceType>>>();
+  base::flat_map<int32_t, std::vector<DeviceType>> async_wait_result;
   GetAllDeviceIds(&async_wait_result);
   return async_wait_result;
 }
@@ -4190,7 +4190,7 @@ void SensorDeviceAsyncWaiter::GetAttributes(
 
 std::vector<absl::optional<std::string>> SensorDeviceAsyncWaiter::GetAttributes(
     const std::vector<std::string>& attr_names) {
-  std::vector<absl::optional<std::string>> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<absl::optional<std::string>>>();
+  std::vector<absl::optional<std::string>> async_wait_result;
   GetAttributes(std::move(attr_names),&async_wait_result);
   return async_wait_result;
 }
@@ -4213,7 +4213,7 @@ void SensorDeviceAsyncWaiter::SetFrequency(
 
 double SensorDeviceAsyncWaiter::SetFrequency(
     double frequency) {
-  double async_wait_result = mojo::DefaultConstructTraits::CreateInstance<double>();
+  double async_wait_result;
   SetFrequency(std::move(frequency),&async_wait_result);
   return async_wait_result;
 }
@@ -4236,7 +4236,7 @@ void SensorDeviceAsyncWaiter::GetAllChannelIds(
 
 std::vector<std::string> SensorDeviceAsyncWaiter::GetAllChannelIds(
     ) {
-  std::vector<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<std::string>>();
+  std::vector<std::string> async_wait_result;
   GetAllChannelIds(&async_wait_result);
   return async_wait_result;
 }
@@ -4259,7 +4259,7 @@ void SensorDeviceAsyncWaiter::SetChannelsEnabled(
 
 std::vector<int32_t> SensorDeviceAsyncWaiter::SetChannelsEnabled(
     const std::vector<int32_t>& iio_chn_indices, bool en) {
-  std::vector<int32_t> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
+  std::vector<int32_t> async_wait_result;
   SetChannelsEnabled(std::move(iio_chn_indices),std::move(en),&async_wait_result);
   return async_wait_result;
 }
@@ -4282,7 +4282,7 @@ void SensorDeviceAsyncWaiter::GetChannelsEnabled(
 
 std::vector<bool> SensorDeviceAsyncWaiter::GetChannelsEnabled(
     const std::vector<int32_t>& iio_chn_indices) {
-  std::vector<bool> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<bool>>();
+  std::vector<bool> async_wait_result;
   GetChannelsEnabled(std::move(iio_chn_indices),&async_wait_result);
   return async_wait_result;
 }
@@ -4305,7 +4305,7 @@ void SensorDeviceAsyncWaiter::GetChannelsAttributes(
 
 std::vector<absl::optional<std::string>> SensorDeviceAsyncWaiter::GetChannelsAttributes(
     const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name) {
-  std::vector<absl::optional<std::string>> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<absl::optional<std::string>>>();
+  std::vector<absl::optional<std::string>> async_wait_result;
   GetChannelsAttributes(std::move(iio_chn_indices),std::move(attr_name),&async_wait_result);
   return async_wait_result;
 }
@@ -4328,7 +4328,7 @@ void SensorDeviceAsyncWaiter::GetAllEvents(
 
 std::vector<IioEventPtr> SensorDeviceAsyncWaiter::GetAllEvents(
     ) {
-  std::vector<IioEventPtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<IioEventPtr>>();
+  std::vector<IioEventPtr> async_wait_result;
   GetAllEvents(&async_wait_result);
   return async_wait_result;
 }
@@ -4351,7 +4351,7 @@ void SensorDeviceAsyncWaiter::GetEventsAttributes(
 
 std::vector<absl::optional<std::string>> SensorDeviceAsyncWaiter::GetEventsAttributes(
     const std::vector<int32_t>& iio_event_indices, const std::string& attr_name) {
-  std::vector<absl::optional<std::string>> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<absl::optional<std::string>>>();
+  std::vector<absl::optional<std::string>> async_wait_result;
   GetEventsAttributes(std::move(iio_event_indices),std::move(attr_name),&async_wait_result);
   return async_wait_result;
 }

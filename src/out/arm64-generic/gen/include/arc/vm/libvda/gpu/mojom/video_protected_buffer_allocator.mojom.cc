@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -388,7 +388,7 @@ bool VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ForwardToCallba
               message->mutable_payload());
   
   bool success = true;
-  bool p_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_result{};
   VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -506,7 +506,7 @@ bool VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ForwardToCallba
               message->mutable_payload());
   
   bool success = true;
-  bool p_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_result{};
   VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -585,7 +585,7 @@ bool VideoProtectedBufferAllocatorStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::ScopedHandle p_handle_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+      ::mojo::ScopedHandle p_handle_fd{};
       VideoProtectedBufferAllocator_ReleaseProtectedBuffer_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -624,8 +624,8 @@ bool VideoProtectedBufferAllocatorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::ScopedHandle p_handle_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
-      uint64_t p_size = mojo::DefaultConstructTraits::CreateInstance<uint64_t>();
+      ::mojo::ScopedHandle p_handle_fd{};
+      uint64_t p_size{};
       VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -657,9 +657,9 @@ std::move(p_size), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::ScopedHandle p_handle_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
-      ::arc::mojom::HalPixelFormat p_pixel_format = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::HalPixelFormat>();
-      ::arc::mojom::SizePtr p_picture_size = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::SizePtr>();
+      ::mojo::ScopedHandle p_handle_fd{};
+      ::arc::mojom::HalPixelFormat p_pixel_format{};
+      ::arc::mojom::SizePtr p_picture_size{};
       VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -763,7 +763,7 @@ void VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedSharedMemory(
 
 bool VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedSharedMemory(
     ::mojo::ScopedHandle handle_fd, uint64_t size) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   AllocateProtectedSharedMemory(std::move(handle_fd),std::move(size),&async_wait_result);
   return async_wait_result;
 }
@@ -786,7 +786,7 @@ void VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedNativePixmap(
 
 bool VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedNativePixmap(
     ::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, ::arc::mojom::SizePtr picture_size) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   AllocateProtectedNativePixmap(std::move(handle_fd),std::move(pixel_format),std::move(picture_size),&async_wait_result);
   return async_wait_result;
 }

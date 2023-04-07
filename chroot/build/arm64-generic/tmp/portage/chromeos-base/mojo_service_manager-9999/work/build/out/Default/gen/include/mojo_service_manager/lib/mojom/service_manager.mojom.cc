@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -833,7 +833,7 @@ bool ServiceManager_Query_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ErrorOrServiceStatePtr p_result = mojo::DefaultConstructTraits::CreateInstance<ErrorOrServiceStatePtr>();
+  ErrorOrServiceStatePtr p_result{};
   ServiceManager_Query_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -914,8 +914,8 @@ bool ServiceManagerStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      std::string p_service_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
-      ::mojo::PendingRemote<ServiceProvider> p_service_provider = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<ServiceProvider>>();
+      std::string p_service_name{};
+      ::mojo::PendingRemote<ServiceProvider> p_service_provider{};
       ServiceManager_Register_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadServiceName(&p_service_name))
@@ -946,9 +946,9 @@ std::move(p_service_provider));
               message->mutable_payload());
       
       bool success = true;
-      std::string p_service_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
-      absl::optional<base::TimeDelta> p_timeout = mojo::DefaultConstructTraits::CreateInstance<absl::optional<base::TimeDelta>>();
-      ::mojo::ScopedMessagePipeHandle p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedMessagePipeHandle>();
+      std::string p_service_name{};
+      absl::optional<base::TimeDelta> p_timeout{};
+      ::mojo::ScopedMessagePipeHandle p_receiver{};
       ServiceManager_Request_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadServiceName(&p_service_name))
@@ -983,7 +983,7 @@ std::move(p_receiver));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<ServiceObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<ServiceObserver>>();
+      ::mojo::PendingRemote<ServiceObserver> p_observer{};
       ServiceManager_AddServiceObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1030,7 +1030,7 @@ bool ServiceManagerStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      std::string p_service_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+      std::string p_service_name{};
       ServiceManager_Query_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadServiceName(&p_service_name))
@@ -1208,8 +1208,8 @@ bool ServiceProviderStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ProcessIdentityPtr p_client_identity = mojo::DefaultConstructTraits::CreateInstance<ProcessIdentityPtr>();
-      ::mojo::ScopedMessagePipeHandle p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedMessagePipeHandle>();
+      ProcessIdentityPtr p_client_identity{};
+      ::mojo::ScopedMessagePipeHandle p_receiver{};
       ServiceProvider_Request_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadClientIdentity(&p_client_identity))
@@ -1381,7 +1381,7 @@ bool ServiceObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ServiceEventPtr p_event = mojo::DefaultConstructTraits::CreateInstance<ServiceEventPtr>();
+      ServiceEventPtr p_event{};
       ServiceObserver_OnServiceEvent_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadEvent(&p_event))
@@ -1642,7 +1642,7 @@ void ServiceManagerAsyncWaiter::Query(
 
 ErrorOrServiceStatePtr ServiceManagerAsyncWaiter::Query(
     const std::string& service_name) {
-  ErrorOrServiceStatePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ErrorOrServiceStatePtr>();
+  ErrorOrServiceStatePtr async_wait_result;
   Query(std::move(service_name),&async_wait_result);
   return async_wait_result;
 }

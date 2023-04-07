@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -1497,8 +1497,8 @@ bool Camera3CallbackOps_RequestStreamBuffers_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  Camera3BufferRequestStatus p_result = mojo::DefaultConstructTraits::CreateInstance<Camera3BufferRequestStatus>();
-  absl::optional<std::vector<Camera3StreamBufferRetPtr>> p_returned_buf_reqs = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::vector<Camera3StreamBufferRetPtr>>>();
+  Camera3BufferRequestStatus p_result{};
+  absl::optional<std::vector<Camera3StreamBufferRetPtr>> p_returned_buf_reqs{};
   Camera3CallbackOps_RequestStreamBuffers_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1587,7 +1587,7 @@ bool Camera3CallbackOpsStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      Camera3CaptureResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<Camera3CaptureResultPtr>();
+      Camera3CaptureResultPtr p_result{};
       Camera3CallbackOps_ProcessCaptureResult_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadResult(&p_result))
@@ -1613,7 +1613,7 @@ std::move(p_result));
               message->mutable_payload());
       
       bool success = true;
-      Camera3NotifyMsgPtr p_msg = mojo::DefaultConstructTraits::CreateInstance<Camera3NotifyMsgPtr>();
+      Camera3NotifyMsgPtr p_msg{};
       Camera3CallbackOps_Notify_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadMsg(&p_msg))
@@ -1642,7 +1642,7 @@ std::move(p_msg));
               message->mutable_payload());
       
       bool success = true;
-      std::vector<Camera3StreamBufferPtr> p_buffers = mojo::DefaultConstructTraits::CreateInstance<std::vector<Camera3StreamBufferPtr>>();
+      std::vector<Camera3StreamBufferPtr> p_buffers{};
       Camera3CallbackOps_ReturnStreamBuffers_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadBuffers(&p_buffers))
@@ -1687,7 +1687,7 @@ bool Camera3CallbackOpsStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<Camera3BufferRequestPtr> p_buffer_reqs = mojo::DefaultConstructTraits::CreateInstance<std::vector<Camera3BufferRequestPtr>>();
+      std::vector<Camera3BufferRequestPtr> p_buffer_reqs{};
       Camera3CallbackOps_RequestStreamBuffers_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadBufferReqs(&p_buffer_reqs))
@@ -2656,7 +2656,7 @@ bool Camera3DeviceOps_Initialize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   Camera3DeviceOps_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2774,8 +2774,8 @@ bool Camera3DeviceOps_ConfigureStreams_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-  Camera3StreamConfigurationPtr p_updated_config = mojo::DefaultConstructTraits::CreateInstance<Camera3StreamConfigurationPtr>();
+  int32_t p_result{};
+  Camera3StreamConfigurationPtr p_updated_config{};
   Camera3DeviceOps_ConfigureStreams_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2906,7 +2906,7 @@ bool Camera3DeviceOps_ConstructDefaultRequestSettings_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::cros::mojom::CameraMetadataPtr p_settings = mojo::DefaultConstructTraits::CreateInstance<::cros::mojom::CameraMetadataPtr>();
+  ::cros::mojom::CameraMetadataPtr p_settings{};
   Camera3DeviceOps_ConstructDefaultRequestSettings_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadSettings(&p_settings))
@@ -3030,7 +3030,7 @@ bool Camera3DeviceOps_ProcessCaptureRequest_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   Camera3DeviceOps_ProcessCaptureRequest_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -3148,7 +3148,7 @@ bool Camera3DeviceOps_Flush_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   Camera3DeviceOps_Flush_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -3266,7 +3266,7 @@ bool Camera3DeviceOps_RegisterBuffer_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   Camera3DeviceOps_RegisterBuffer_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -3384,7 +3384,7 @@ bool Camera3DeviceOps_Close_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   Camera3DeviceOps_Close_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -3502,9 +3502,9 @@ bool Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ForwardToCallback::
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-  Camera3StreamConfigurationPtr p_updated_config = mojo::DefaultConstructTraits::CreateInstance<Camera3StreamConfigurationPtr>();
-  base::flat_map<uint64_t, std::vector<Camera3StreamBufferPtr>> p_allocated_buffers = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<uint64_t, std::vector<Camera3StreamBufferPtr>>>();
+  int32_t p_result{};
+  Camera3StreamConfigurationPtr p_updated_config{};
+  base::flat_map<uint64_t, std::vector<Camera3StreamBufferPtr>> p_allocated_buffers{};
   Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -3621,7 +3621,7 @@ bool Camera3DeviceOpsStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::ScopedHandle p_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+      ::mojo::ScopedHandle p_fd{};
       Camera3DeviceOps_Dump_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -3659,7 +3659,7 @@ std::move(p_fd));
               message->mutable_payload());
       
       bool success = true;
-      std::vector<uint64_t> p_stream_ids = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint64_t>>();
+      std::vector<uint64_t> p_stream_ids{};
       Camera3DeviceOps_SignalStreamFlush_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStreamIds(&p_stream_ids))
@@ -3698,7 +3698,7 @@ bool Camera3DeviceOpsStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<Camera3CallbackOps> p_callback_ops = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<Camera3CallbackOps>>();
+      ::mojo::PendingRemote<Camera3CallbackOps> p_callback_ops{};
       Camera3DeviceOps_Initialize_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -3729,7 +3729,7 @@ std::move(p_callback_ops), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      Camera3StreamConfigurationPtr p_config = mojo::DefaultConstructTraits::CreateInstance<Camera3StreamConfigurationPtr>();
+      Camera3StreamConfigurationPtr p_config{};
       Camera3DeviceOps_ConfigureStreams_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -3758,7 +3758,7 @@ std::move(p_config), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      Camera3RequestTemplate p_type = mojo::DefaultConstructTraits::CreateInstance<Camera3RequestTemplate>();
+      Camera3RequestTemplate p_type{};
       Camera3DeviceOps_ConstructDefaultRequestSettings_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -3787,7 +3787,7 @@ std::move(p_type), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      Camera3CaptureRequestPtr p_request = mojo::DefaultConstructTraits::CreateInstance<Camera3CaptureRequestPtr>();
+      Camera3CaptureRequestPtr p_request{};
       Camera3DeviceOps_ProcessCaptureRequest_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRequest(&p_request))
@@ -3844,15 +3844,15 @@ std::move(p_request), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint64_t p_buffer_id = mojo::DefaultConstructTraits::CreateInstance<uint64_t>();
-      Camera3DeviceOps::BufferType p_type = mojo::DefaultConstructTraits::CreateInstance<Camera3DeviceOps::BufferType>();
-      std::vector<::mojo::ScopedHandle> p_fds = mojo::DefaultConstructTraits::CreateInstance<std::vector<::mojo::ScopedHandle>>();
-      uint32_t p_drm_format = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      HalPixelFormat p_hal_pixel_format = mojo::DefaultConstructTraits::CreateInstance<HalPixelFormat>();
-      uint32_t p_width = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_height = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      std::vector<uint32_t> p_strides = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint32_t>>();
-      std::vector<uint32_t> p_offsets = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint32_t>>();
+      uint64_t p_buffer_id{};
+      Camera3DeviceOps::BufferType p_type{};
+      std::vector<::mojo::ScopedHandle> p_fds{};
+      uint32_t p_drm_format{};
+      HalPixelFormat p_hal_pixel_format{};
+      uint32_t p_width{};
+      uint32_t p_height{};
+      std::vector<uint32_t> p_strides{};
+      std::vector<uint32_t> p_offsets{};
       Camera3DeviceOps_RegisterBuffer_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -3930,7 +3930,7 @@ std::move(p_offsets), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      Camera3StreamConfigurationPtr p_config = mojo::DefaultConstructTraits::CreateInstance<Camera3StreamConfigurationPtr>();
+      Camera3StreamConfigurationPtr p_config{};
       Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -4413,7 +4413,7 @@ void Camera3DeviceOpsAsyncWaiter::Initialize(
 
 int32_t Camera3DeviceOpsAsyncWaiter::Initialize(
     ::mojo::PendingRemote<Camera3CallbackOps> callback_ops) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   Initialize(std::move(callback_ops),&async_wait_result);
   return async_wait_result;
 }
@@ -4458,7 +4458,7 @@ void Camera3DeviceOpsAsyncWaiter::ConstructDefaultRequestSettings(
 
 ::cros::mojom::CameraMetadataPtr Camera3DeviceOpsAsyncWaiter::ConstructDefaultRequestSettings(
     Camera3RequestTemplate type) {
-  ::cros::mojom::CameraMetadataPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::cros::mojom::CameraMetadataPtr>();
+  ::cros::mojom::CameraMetadataPtr async_wait_result;
   ConstructDefaultRequestSettings(std::move(type),&async_wait_result);
   return async_wait_result;
 }
@@ -4481,7 +4481,7 @@ void Camera3DeviceOpsAsyncWaiter::ProcessCaptureRequest(
 
 int32_t Camera3DeviceOpsAsyncWaiter::ProcessCaptureRequest(
     Camera3CaptureRequestPtr request) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   ProcessCaptureRequest(std::move(request),&async_wait_result);
   return async_wait_result;
 }
@@ -4504,7 +4504,7 @@ void Camera3DeviceOpsAsyncWaiter::Flush(
 
 int32_t Camera3DeviceOpsAsyncWaiter::Flush(
     ) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   Flush(&async_wait_result);
   return async_wait_result;
 }
@@ -4527,7 +4527,7 @@ void Camera3DeviceOpsAsyncWaiter::RegisterBuffer(
 
 int32_t Camera3DeviceOpsAsyncWaiter::RegisterBuffer(
     uint64_t buffer_id, Camera3DeviceOps::BufferType type, std::vector<::mojo::ScopedHandle> fds, uint32_t drm_format, HalPixelFormat hal_pixel_format, uint32_t width, uint32_t height, const std::vector<uint32_t>& strides, const std::vector<uint32_t>& offsets) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   RegisterBuffer(std::move(buffer_id),std::move(type),std::move(fds),std::move(drm_format),std::move(hal_pixel_format),std::move(width),std::move(height),std::move(strides),std::move(offsets),&async_wait_result);
   return async_wait_result;
 }
@@ -4550,7 +4550,7 @@ void Camera3DeviceOpsAsyncWaiter::Close(
 
 int32_t Camera3DeviceOpsAsyncWaiter::Close(
     ) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   Close(&async_wait_result);
   return async_wait_result;
 }

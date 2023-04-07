@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -355,8 +355,8 @@ bool CameraModuleCallbacksStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_camera_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      CameraDeviceStatus p_new_status = mojo::DefaultConstructTraits::CreateInstance<CameraDeviceStatus>();
+      int32_t p_camera_id{};
+      CameraDeviceStatus p_new_status{};
       CameraModuleCallbacks_CameraDeviceStatusChange_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -385,8 +385,8 @@ std::move(p_new_status));
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_camera_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      TorchModeStatus p_new_status = mojo::DefaultConstructTraits::CreateInstance<TorchModeStatus>();
+      int32_t p_camera_id{};
+      TorchModeStatus p_new_status{};
       CameraModuleCallbacks_TorchModeStatusChange_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -899,7 +899,7 @@ bool VendorTagOps_GetTagCount_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   VendorTagOps_GetTagCount_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1017,7 +1017,7 @@ bool VendorTagOps_GetAllTags_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<uint32_t> p_tag_array = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint32_t>>();
+  std::vector<uint32_t> p_tag_array{};
   VendorTagOps_GetAllTags_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadTagArray(&p_tag_array))
@@ -1147,7 +1147,7 @@ bool VendorTagOps_GetSectionName_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_name = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> p_name{};
   VendorTagOps_GetSectionName_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadName(&p_name))
@@ -1271,7 +1271,7 @@ bool VendorTagOps_GetTagName_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_name = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> p_name{};
   VendorTagOps_GetTagName_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadName(&p_name))
@@ -1395,7 +1395,7 @@ bool VendorTagOps_GetTagType_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_type = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_type{};
   VendorTagOps_GetTagType_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1546,7 +1546,7 @@ bool VendorTagOpsStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_tag = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_tag{};
       VendorTagOps_GetSectionName_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1575,7 +1575,7 @@ std::move(p_tag), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_tag = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_tag{};
       VendorTagOps_GetTagName_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1604,7 +1604,7 @@ std::move(p_tag), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_tag = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_tag{};
       VendorTagOps_GetTagType_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -2361,7 +2361,7 @@ bool CameraModule_OpenDevice_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   CameraModule_OpenDevice_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2479,7 +2479,7 @@ bool CameraModule_GetNumberOfCameras_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   CameraModule_GetNumberOfCameras_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2597,8 +2597,8 @@ bool CameraModule_GetCameraInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-  CameraInfoPtr p_camera_info = mojo::DefaultConstructTraits::CreateInstance<CameraInfoPtr>();
+  int32_t p_result{};
+  CameraInfoPtr p_camera_info{};
   CameraModule_GetCameraInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2729,7 +2729,7 @@ bool CameraModule_SetCallbacks_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   CameraModule_SetCallbacks_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2847,7 +2847,7 @@ bool CameraModule_SetTorchMode_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   CameraModule_SetTorchMode_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -2965,7 +2965,7 @@ bool CameraModule_Init_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   CameraModule_Init_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -3189,7 +3189,7 @@ bool CameraModule_SetCallbacksAssociated_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_result{};
   CameraModule_SetCallbacksAssociated_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -3299,8 +3299,8 @@ bool CameraModuleStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_camera_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      ::mojo::PendingReceiver<::cros::mojom::Camera3DeviceOps> p_device_ops_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::cros::mojom::Camera3DeviceOps>>();
+      int32_t p_camera_id{};
+      ::mojo::PendingReceiver<::cros::mojom::Camera3DeviceOps> p_device_ops_receiver{};
       CameraModule_OpenDevice_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -3359,7 +3359,7 @@ std::move(p_device_ops_receiver), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_camera_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      int32_t p_camera_id{};
       CameraModule_GetCameraInfo_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -3388,7 +3388,7 @@ std::move(p_camera_id), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<CameraModuleCallbacks> p_callbacks = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<CameraModuleCallbacks>>();
+      ::mojo::PendingRemote<CameraModuleCallbacks> p_callbacks{};
       CameraModule_SetCallbacks_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -3419,8 +3419,8 @@ std::move(p_callbacks), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_camera_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      bool p_enabled = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      int32_t p_camera_id{};
+      bool p_enabled{};
       CameraModule_SetTorchMode_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -3477,7 +3477,7 @@ std::move(p_enabled), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<VendorTagOps> p_vendor_tag_ops_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<VendorTagOps>>();
+      ::mojo::PendingReceiver<VendorTagOps> p_vendor_tag_ops_receiver{};
       CameraModule_GetVendorTagOps_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -3508,7 +3508,7 @@ std::move(p_vendor_tag_ops_receiver), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingAssociatedRemote<CameraModuleCallbacks> p_callbacks = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingAssociatedRemote<CameraModuleCallbacks>>();
+      ::mojo::PendingAssociatedRemote<CameraModuleCallbacks> p_callbacks{};
       CameraModule_SetCallbacksAssociated_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -3673,7 +3673,7 @@ void VendorTagOpsAsyncWaiter::GetTagCount(
 
 int32_t VendorTagOpsAsyncWaiter::GetTagCount(
     ) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   GetTagCount(&async_wait_result);
   return async_wait_result;
 }
@@ -3696,7 +3696,7 @@ void VendorTagOpsAsyncWaiter::GetAllTags(
 
 std::vector<uint32_t> VendorTagOpsAsyncWaiter::GetAllTags(
     ) {
-  std::vector<uint32_t> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint32_t>>();
+  std::vector<uint32_t> async_wait_result;
   GetAllTags(&async_wait_result);
   return async_wait_result;
 }
@@ -3719,7 +3719,7 @@ void VendorTagOpsAsyncWaiter::GetSectionName(
 
 absl::optional<std::string> VendorTagOpsAsyncWaiter::GetSectionName(
     uint32_t tag) {
-  absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> async_wait_result;
   GetSectionName(std::move(tag),&async_wait_result);
   return async_wait_result;
 }
@@ -3742,7 +3742,7 @@ void VendorTagOpsAsyncWaiter::GetTagName(
 
 absl::optional<std::string> VendorTagOpsAsyncWaiter::GetTagName(
     uint32_t tag) {
-  absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> async_wait_result;
   GetTagName(std::move(tag),&async_wait_result);
   return async_wait_result;
 }
@@ -3765,7 +3765,7 @@ void VendorTagOpsAsyncWaiter::GetTagType(
 
 int32_t VendorTagOpsAsyncWaiter::GetTagType(
     uint32_t tag) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   GetTagType(std::move(tag),&async_wait_result);
   return async_wait_result;
 }
@@ -3820,7 +3820,7 @@ void CameraModuleAsyncWaiter::OpenDevice(
 
 int32_t CameraModuleAsyncWaiter::OpenDevice(
     int32_t camera_id, ::mojo::PendingReceiver<::cros::mojom::Camera3DeviceOps> device_ops_receiver) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   OpenDevice(std::move(camera_id),std::move(device_ops_receiver),&async_wait_result);
   return async_wait_result;
 }
@@ -3843,7 +3843,7 @@ void CameraModuleAsyncWaiter::GetNumberOfCameras(
 
 int32_t CameraModuleAsyncWaiter::GetNumberOfCameras(
     ) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   GetNumberOfCameras(&async_wait_result);
   return async_wait_result;
 }
@@ -3888,7 +3888,7 @@ void CameraModuleAsyncWaiter::SetCallbacks(
 
 int32_t CameraModuleAsyncWaiter::SetCallbacks(
     ::mojo::PendingRemote<CameraModuleCallbacks> callbacks) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   SetCallbacks(std::move(callbacks),&async_wait_result);
   return async_wait_result;
 }
@@ -3911,7 +3911,7 @@ void CameraModuleAsyncWaiter::SetTorchMode(
 
 int32_t CameraModuleAsyncWaiter::SetTorchMode(
     int32_t camera_id, bool enabled) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   SetTorchMode(std::move(camera_id),std::move(enabled),&async_wait_result);
   return async_wait_result;
 }
@@ -3934,7 +3934,7 @@ void CameraModuleAsyncWaiter::Init(
 
 int32_t CameraModuleAsyncWaiter::Init(
     ) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   Init(&async_wait_result);
   return async_wait_result;
 }
@@ -3971,7 +3971,7 @@ void CameraModuleAsyncWaiter::SetCallbacksAssociated(
 
 int32_t CameraModuleAsyncWaiter::SetCallbacksAssociated(
     ::mojo::PendingAssociatedRemote<CameraModuleCallbacks> callbacks) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   SetCallbacksAssociated(std::move(callbacks),&async_wait_result);
   return async_wait_result;
 }

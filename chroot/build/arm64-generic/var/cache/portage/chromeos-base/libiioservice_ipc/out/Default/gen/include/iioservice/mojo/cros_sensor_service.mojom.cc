@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -160,7 +160,7 @@ bool SensorHalServerStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::cros::mojom::SensorService> p_sensor_service_request = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::cros::mojom::SensorService>>();
+      ::mojo::PendingReceiver<::cros::mojom::SensorService> p_sensor_service_request{};
       SensorHalServer_CreateChannel_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -326,7 +326,7 @@ bool SensorHalClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::cros::mojom::SensorService> p_sensor_service_ptr = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::cros::mojom::SensorService>>();
+      ::mojo::PendingRemote<::cros::mojom::SensorService> p_sensor_service_ptr{};
       SensorHalClient_SetUpChannel_ParamsDataView input_data_view(params, message);
       
       if (success) {

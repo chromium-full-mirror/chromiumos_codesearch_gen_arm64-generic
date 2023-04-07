@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -609,7 +609,7 @@ bool VideoDecoder_Initialize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<DecoderStatus>();
+  DecoderStatus p_status{};
   VideoDecoder_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -728,7 +728,7 @@ bool VideoDecoder_Decode_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<DecoderStatus>();
+  DecoderStatus p_status{};
   VideoDecoder_Decode_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -917,7 +917,7 @@ bool VideoDecoderStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_video_frame_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      int32_t p_video_frame_id{};
       VideoDecoder_ReleaseVideoFrame_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -956,9 +956,9 @@ bool VideoDecoderStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      VideoDecoderConfigPtr p_config = mojo::DefaultConstructTraits::CreateInstance<VideoDecoderConfigPtr>();
-      ::mojo::PendingRemote<VideoDecoderClient> p_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<VideoDecoderClient>>();
-      ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> p_video_frame_pool = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool>>();
+      VideoDecoderConfigPtr p_config{};
+      ::mojo::PendingRemote<VideoDecoderClient> p_client{};
+      ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> p_video_frame_pool{};
       VideoDecoder_Initialize_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -997,7 +997,7 @@ std::move(p_video_frame_pool), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      DecoderBufferPtr p_buffer = mojo::DefaultConstructTraits::CreateInstance<DecoderBufferPtr>();
+      DecoderBufferPtr p_buffer{};
       VideoDecoder_Decode_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadBuffer(&p_buffer))
@@ -1258,9 +1258,9 @@ bool VideoDecoderClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      int32_t p_video_frame_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      ::arc::mojom::RectPtr p_visible_rect = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::RectPtr>();
-      int64_t p_timestamp = mojo::DefaultConstructTraits::CreateInstance<int64_t>();
+      int32_t p_video_frame_id{};
+      ::arc::mojom::RectPtr p_visible_rect{};
+      int64_t p_timestamp{};
       VideoDecoderClient_OnVideoFrameDecoded_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1292,7 +1292,7 @@ std::move(p_timestamp));
               message->mutable_payload());
       
       bool success = true;
-      DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<DecoderStatus>();
+      DecoderStatus p_status{};
       VideoDecoderClient_OnError_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStatus(&p_status))
@@ -1464,7 +1464,7 @@ void VideoDecoderAsyncWaiter::Initialize(
 
 DecoderStatus VideoDecoderAsyncWaiter::Initialize(
     VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool) {
-  DecoderStatus async_wait_result = mojo::DefaultConstructTraits::CreateInstance<DecoderStatus>();
+  DecoderStatus async_wait_result;
   Initialize(std::move(config),std::move(client),std::move(video_frame_pool),&async_wait_result);
   return async_wait_result;
 }
@@ -1487,7 +1487,7 @@ void VideoDecoderAsyncWaiter::Decode(
 
 DecoderStatus VideoDecoderAsyncWaiter::Decode(
     DecoderBufferPtr buffer) {
-  DecoderStatus async_wait_result = mojo::DefaultConstructTraits::CreateInstance<DecoderStatus>();
+  DecoderStatus async_wait_result;
   Decode(std::move(buffer),&async_wait_result);
   return async_wait_result;
 }

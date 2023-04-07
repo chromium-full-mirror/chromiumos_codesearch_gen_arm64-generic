@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -365,7 +365,7 @@ bool MjpegDecodeAccelerator_Initialize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_success = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_success{};
   MjpegDecodeAccelerator_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -483,7 +483,7 @@ bool MjpegDecodeAccelerator_DecodeWithDmaBuf_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  DecodeError p_error = mojo::DefaultConstructTraits::CreateInstance<DecodeError>();
+  DecodeError p_error{};
   MjpegDecodeAccelerator_DecodeWithDmaBuf_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -623,11 +623,11 @@ bool MjpegDecodeAcceleratorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_task_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-      ::mojo::ScopedHandle p_src_dmabuf_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
-      uint32_t p_src_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_src_offset = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      ::cros::mojom::DmaBufVideoFramePtr p_dst_frame = mojo::DefaultConstructTraits::CreateInstance<::cros::mojom::DmaBufVideoFramePtr>();
+      int32_t p_task_id{};
+      ::mojo::ScopedHandle p_src_dmabuf_fd{};
+      uint32_t p_src_size{};
+      uint32_t p_src_offset{};
+      ::cros::mojom::DmaBufVideoFramePtr p_dst_frame{};
       MjpegDecodeAccelerator_DecodeWithDmaBuf_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -739,7 +739,7 @@ void MjpegDecodeAcceleratorAsyncWaiter::Initialize(
 
 bool MjpegDecodeAcceleratorAsyncWaiter::Initialize(
     ) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   Initialize(&async_wait_result);
   return async_wait_result;
 }
@@ -762,7 +762,7 @@ void MjpegDecodeAcceleratorAsyncWaiter::DecodeWithDmaBuf(
 
 DecodeError MjpegDecodeAcceleratorAsyncWaiter::DecodeWithDmaBuf(
     int32_t task_id, ::mojo::ScopedHandle src_dmabuf_fd, uint32_t src_size, uint32_t src_offset, ::cros::mojom::DmaBufVideoFramePtr dst_frame) {
-  DecodeError async_wait_result = mojo::DefaultConstructTraits::CreateInstance<DecodeError>();
+  DecodeError async_wait_result;
   DecodeWithDmaBuf(std::move(task_id),std::move(src_dmabuf_fd),std::move(src_size),std::move(src_offset),std::move(dst_frame),&async_wait_result);
   return async_wait_result;
 }

@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -536,7 +536,7 @@ bool ProcessControl_GetStdout_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::mojo::ScopedHandle p_stdout = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  ::mojo::ScopedHandle p_stdout{};
   ProcessControl_GetStdout_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -659,7 +659,7 @@ bool ProcessControl_GetStderr_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::mojo::ScopedHandle p_stderr = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  ::mojo::ScopedHandle p_stderr{};
   ProcessControl_GetStderr_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -782,7 +782,7 @@ bool ProcessControl_GetReturnCode_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_return_code = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t p_return_code{};
   ProcessControl_GetReturnCode_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1474,7 +1474,7 @@ bool TouchpadObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::TouchpadButtonEventPtr p_button_event = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::TouchpadButtonEventPtr>();
+      ::ash::cros_healthd::mojom::TouchpadButtonEventPtr p_button_event{};
       TouchpadObserver_OnButton_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadButtonEvent(&p_button_event))
@@ -1500,7 +1500,7 @@ std::move(p_button_event));
               message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::TouchpadTouchEventPtr p_touch_event = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::TouchpadTouchEventPtr>();
+      ::ash::cros_healthd::mojom::TouchpadTouchEventPtr p_touch_event{};
       TouchpadObserver_OnTouch_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadTouchEvent(&p_touch_event))
@@ -1526,7 +1526,7 @@ std::move(p_touch_event));
               message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::TouchpadConnectedEventPtr p_connected_event = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::TouchpadConnectedEventPtr>();
+      ::ash::cros_healthd::mojom::TouchpadConnectedEventPtr p_connected_event{};
       TouchpadObserver_OnConnected_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConnectedEvent(&p_connected_event))
@@ -1773,7 +1773,7 @@ bool TouchscreenObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr p_touch_event = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::TouchscreenTouchEventPtr>();
+      ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr p_touch_event{};
       TouchscreenObserver_OnTouch_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadTouchEvent(&p_touch_event))
@@ -1799,7 +1799,7 @@ std::move(p_touch_event));
               message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr p_connected_event = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr>();
+      ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr p_connected_event{};
       TouchscreenObserver_OnConnected_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConnectedEvent(&p_connected_event))
@@ -2265,7 +2265,7 @@ bool StylusObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::StylusTouchEventPtr p_touch_event = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::StylusTouchEventPtr>();
+      ::ash::cros_healthd::mojom::StylusTouchEventPtr p_touch_event{};
       StylusObserver_OnTouch_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadTouchEvent(&p_touch_event))
@@ -2291,7 +2291,7 @@ std::move(p_touch_event));
               message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::StylusConnectedEventPtr p_connected_event = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::StylusConnectedEventPtr>();
+      ::ash::cros_healthd::mojom::StylusConnectedEventPtr p_connected_event{};
       StylusObserver_OnConnected_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConnectedEvent(&p_connected_event))
@@ -4037,7 +4037,7 @@ bool Executor_ReadFile_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_content = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> p_content{};
   Executor_ReadFile_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadContent(&p_content))
@@ -4161,7 +4161,7 @@ bool Executor_GetFanSpeed_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  ExecutedProcessResultPtr p_result{};
   Executor_GetFanSpeed_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -4289,7 +4289,7 @@ bool Executor_RunIw_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  ExecutedProcessResultPtr p_result{};
   Executor_RunIw_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -4417,7 +4417,7 @@ bool Executor_RunMemtester_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  ExecutedProcessResultPtr p_result{};
   Executor_RunMemtester_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -4545,7 +4545,7 @@ bool Executor_GetProcessIOContents_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  base::flat_map<uint32_t, std::string> p_contents = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<uint32_t, std::string>>();
+  base::flat_map<uint32_t, std::string> p_contents{};
   Executor_GetProcessIOContents_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadContents(&p_contents))
@@ -4675,7 +4675,7 @@ bool Executor_ReadMsr_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::NullableUint64Ptr p_value = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint64Ptr>();
+  ::ash::cros_healthd::mojom::NullableUint64Ptr p_value{};
   Executor_ReadMsr_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValue(&p_value))
@@ -4799,7 +4799,7 @@ bool Executor_GetLidAngle_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<uint16_t> p_lid_angle = mojo::DefaultConstructTraits::CreateInstance<absl::optional<uint16_t>>();
+  absl::optional<uint16_t> p_lid_angle{};
   Executor_GetLidAngle_ResponseParamsDataView input_data_view(params, message);
   
   if (success) {
@@ -4921,8 +4921,8 @@ bool Executor_GetFingerprintFrame_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  FingerprintFrameResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<FingerprintFrameResultPtr>();
-  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  FingerprintFrameResultPtr p_result{};
+  absl::optional<std::string> p_err{};
   Executor_GetFingerprintFrame_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -5063,8 +5063,8 @@ bool Executor_GetFingerprintInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  FingerprintInfoResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<FingerprintInfoResultPtr>();
-  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  FingerprintInfoResultPtr p_result{};
+  absl::optional<std::string> p_err{};
   Executor_GetFingerprintInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -5205,7 +5205,7 @@ bool Executor_SetLedColor_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> p_err{};
   Executor_SetLedColor_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadErr(&p_err))
@@ -5329,7 +5329,7 @@ bool Executor_ResetLedColor_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> p_err{};
   Executor_ResetLedColor_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadErr(&p_err))
@@ -5453,7 +5453,7 @@ bool Executor_GetHciDeviceConfig_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  ExecutedProcessResultPtr p_result{};
   Executor_GetHciDeviceConfig_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -5581,7 +5581,7 @@ bool Executor_FetchBootPerformance_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::BootPerformanceResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::BootPerformanceResultPtr>();
+  ::ash::cros_healthd::mojom::BootPerformanceResultPtr p_result{};
   Executor_FetchBootPerformance_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -5707,8 +5707,8 @@ bool Executor_GetPsr_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::PsrInfoPtr p_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::PsrInfoPtr>();
-  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  ::ash::cros_healthd::mojom::PsrInfoPtr p_result{};
+  absl::optional<std::string> p_err{};
   Executor_GetPsr_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -5816,8 +5816,8 @@ bool ExecutorStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_test_mem_kib = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      ::mojo::PendingReceiver<ProcessControl> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      uint32_t p_test_mem_kib{};
+      ::mojo::PendingReceiver<ProcessControl> p_receiver{};
       Executor_RunMemtesterV2_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -5894,8 +5894,8 @@ std::move(p_receiver));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<AudioJackObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<AudioJackObserver>>();
-      ::mojo::PendingReceiver<ProcessControl> p_process_control = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      ::mojo::PendingRemote<AudioJackObserver> p_observer{};
+      ::mojo::PendingReceiver<ProcessControl> p_process_control{};
       Executor_MonitorAudioJack_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -5928,8 +5928,8 @@ std::move(p_process_control));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<TouchpadObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<TouchpadObserver>>();
-      ::mojo::PendingReceiver<ProcessControl> p_process_control = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      ::mojo::PendingRemote<TouchpadObserver> p_observer{};
+      ::mojo::PendingReceiver<ProcessControl> p_process_control{};
       Executor_MonitorTouchpad_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -5962,10 +5962,10 @@ std::move(p_process_control));
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_test_mem_mib = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_test_seconds = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      StressAppTestType p_test_type = mojo::DefaultConstructTraits::CreateInstance<StressAppTestType>();
-      ::mojo::PendingReceiver<ProcessControl> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      uint32_t p_test_mem_mib{};
+      uint32_t p_test_seconds{};
+      StressAppTestType p_test_type{};
+      ::mojo::PendingReceiver<ProcessControl> p_receiver{};
       Executor_RunStressAppTest_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -6005,8 +6005,8 @@ std::move(p_receiver));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<TouchscreenObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<TouchscreenObserver>>();
-      ::mojo::PendingReceiver<ProcessControl> p_process_control = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      ::mojo::PendingRemote<TouchscreenObserver> p_observer{};
+      ::mojo::PendingReceiver<ProcessControl> p_process_control{};
       Executor_MonitorTouchscreen_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -6039,8 +6039,8 @@ std::move(p_process_control));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<StylusGarageObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<StylusGarageObserver>>();
-      ::mojo::PendingReceiver<ProcessControl> p_process_control = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      ::mojo::PendingRemote<StylusGarageObserver> p_observer{};
+      ::mojo::PendingReceiver<ProcessControl> p_process_control{};
       Executor_MonitorStylusGarage_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -6073,8 +6073,8 @@ std::move(p_process_control));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<StylusObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<StylusObserver>>();
-      ::mojo::PendingReceiver<ProcessControl> p_process_control = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      ::mojo::PendingRemote<StylusObserver> p_observer{};
+      ::mojo::PendingReceiver<ProcessControl> p_process_control{};
       Executor_MonitorStylus_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -6123,7 +6123,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      Executor::File p_file_enum = mojo::DefaultConstructTraits::CreateInstance<Executor::File>();
+      Executor::File p_file_enum{};
       Executor_ReadFile_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFileEnum(&p_file_enum))
@@ -6177,8 +6177,8 @@ std::move(p_file_enum), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      Executor::IwCommand p_cmd = mojo::DefaultConstructTraits::CreateInstance<Executor::IwCommand>();
-      std::string p_interface_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+      Executor::IwCommand p_cmd{};
+      std::string p_interface_name{};
       Executor_RunIw_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCmd(&p_cmd))
@@ -6210,7 +6210,7 @@ std::move(p_interface_name), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_test_mem_kib = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_test_mem_kib{};
       Executor_RunMemtester_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -6245,7 +6245,7 @@ std::move(p_test_mem_kib), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<uint32_t> p_pids = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint32_t>>();
+      std::vector<uint32_t> p_pids{};
       Executor_GetProcessIOContents_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPids(&p_pids))
@@ -6274,8 +6274,8 @@ std::move(p_pids), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_msr_reg = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_cpu_index = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_msr_reg{};
+      uint32_t p_cpu_index{};
       Executor_ReadMsr_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -6332,7 +6332,7 @@ std::move(p_cpu_index), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      FingerprintCaptureType p_type = mojo::DefaultConstructTraits::CreateInstance<FingerprintCaptureType>();
+      FingerprintCaptureType p_type{};
       Executor_GetFingerprintFrame_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -6386,8 +6386,8 @@ std::move(p_type), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::LedName p_name = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedName>();
-      ::ash::cros_healthd::mojom::LedColor p_color = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedColor>();
+      ::ash::cros_healthd::mojom::LedName p_name{};
+      ::ash::cros_healthd::mojom::LedColor p_color{};
       Executor_SetLedColor_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadName(&p_name))
@@ -6419,7 +6419,7 @@ std::move(p_color), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::LedName p_name = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedName>();
+      ::ash::cros_healthd::mojom::LedName p_name{};
       Executor_ResetLedColor_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadName(&p_name))
@@ -6700,7 +6700,7 @@ void ProcessControlAsyncWaiter::GetStdout(
 
 ::mojo::ScopedHandle ProcessControlAsyncWaiter::GetStdout(
     ) {
-  ::mojo::ScopedHandle async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  ::mojo::ScopedHandle async_wait_result;
   GetStdout(&async_wait_result);
   return async_wait_result;
 }
@@ -6723,7 +6723,7 @@ void ProcessControlAsyncWaiter::GetStderr(
 
 ::mojo::ScopedHandle ProcessControlAsyncWaiter::GetStderr(
     ) {
-  ::mojo::ScopedHandle async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  ::mojo::ScopedHandle async_wait_result;
   GetStderr(&async_wait_result);
   return async_wait_result;
 }
@@ -6746,7 +6746,7 @@ void ProcessControlAsyncWaiter::GetReturnCode(
 
 int32_t ProcessControlAsyncWaiter::GetReturnCode(
     ) {
-  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  int32_t async_wait_result;
   GetReturnCode(&async_wait_result);
   return async_wait_result;
 }
@@ -6916,7 +6916,7 @@ void ExecutorAsyncWaiter::ReadFile(
 
 absl::optional<std::string> ExecutorAsyncWaiter::ReadFile(
     Executor::File file_enum) {
-  absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> async_wait_result;
   ReadFile(std::move(file_enum),&async_wait_result);
   return async_wait_result;
 }
@@ -6939,7 +6939,7 @@ void ExecutorAsyncWaiter::GetFanSpeed(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::GetFanSpeed(
     ) {
-  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  ExecutedProcessResultPtr async_wait_result;
   GetFanSpeed(&async_wait_result);
   return async_wait_result;
 }
@@ -6962,7 +6962,7 @@ void ExecutorAsyncWaiter::RunIw(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::RunIw(
     Executor::IwCommand cmd, const std::string& interface_name) {
-  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  ExecutedProcessResultPtr async_wait_result;
   RunIw(std::move(cmd),std::move(interface_name),&async_wait_result);
   return async_wait_result;
 }
@@ -6985,7 +6985,7 @@ void ExecutorAsyncWaiter::RunMemtester(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::RunMemtester(
     uint32_t test_mem_kib) {
-  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  ExecutedProcessResultPtr async_wait_result;
   RunMemtester(std::move(test_mem_kib),&async_wait_result);
   return async_wait_result;
 }
@@ -7008,7 +7008,7 @@ void ExecutorAsyncWaiter::GetProcessIOContents(
 
 base::flat_map<uint32_t, std::string> ExecutorAsyncWaiter::GetProcessIOContents(
     const std::vector<uint32_t>& pids) {
-  base::flat_map<uint32_t, std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<uint32_t, std::string>>();
+  base::flat_map<uint32_t, std::string> async_wait_result;
   GetProcessIOContents(std::move(pids),&async_wait_result);
   return async_wait_result;
 }
@@ -7031,7 +7031,7 @@ void ExecutorAsyncWaiter::ReadMsr(
 
 ::ash::cros_healthd::mojom::NullableUint64Ptr ExecutorAsyncWaiter::ReadMsr(
     uint32_t msr_reg, uint32_t cpu_index) {
-  ::ash::cros_healthd::mojom::NullableUint64Ptr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint64Ptr>();
+  ::ash::cros_healthd::mojom::NullableUint64Ptr async_wait_result;
   ReadMsr(std::move(msr_reg),std::move(cpu_index),&async_wait_result);
   return async_wait_result;
 }
@@ -7054,7 +7054,7 @@ void ExecutorAsyncWaiter::GetLidAngle(
 
 absl::optional<uint16_t> ExecutorAsyncWaiter::GetLidAngle(
     ) {
-  absl::optional<uint16_t> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<uint16_t>>();
+  absl::optional<uint16_t> async_wait_result;
   GetLidAngle(&async_wait_result);
   return async_wait_result;
 }
@@ -7121,7 +7121,7 @@ void ExecutorAsyncWaiter::SetLedColor(
 
 absl::optional<std::string> ExecutorAsyncWaiter::SetLedColor(
     ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color) {
-  absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> async_wait_result;
   SetLedColor(std::move(name),std::move(color),&async_wait_result);
   return async_wait_result;
 }
@@ -7144,7 +7144,7 @@ void ExecutorAsyncWaiter::ResetLedColor(
 
 absl::optional<std::string> ExecutorAsyncWaiter::ResetLedColor(
     ::ash::cros_healthd::mojom::LedName name) {
-  absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  absl::optional<std::string> async_wait_result;
   ResetLedColor(std::move(name),&async_wait_result);
   return async_wait_result;
 }
@@ -7167,7 +7167,7 @@ void ExecutorAsyncWaiter::GetHciDeviceConfig(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::GetHciDeviceConfig(
     ) {
-  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  ExecutedProcessResultPtr async_wait_result;
   GetHciDeviceConfig(&async_wait_result);
   return async_wait_result;
 }
@@ -7190,7 +7190,7 @@ void ExecutorAsyncWaiter::FetchBootPerformance(
 
 ::ash::cros_healthd::mojom::BootPerformanceResultPtr ExecutorAsyncWaiter::FetchBootPerformance(
     ) {
-  ::ash::cros_healthd::mojom::BootPerformanceResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::BootPerformanceResultPtr>();
+  ::ash::cros_healthd::mojom::BootPerformanceResultPtr async_wait_result;
   FetchBootPerformance(&async_wait_result);
   return async_wait_result;
 }

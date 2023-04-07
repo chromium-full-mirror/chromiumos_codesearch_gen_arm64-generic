@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -448,7 +448,7 @@ bool LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_matched = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool p_matched{};
   LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -717,7 +717,7 @@ void LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
 
 bool LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
     ) {
-  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  bool async_wait_result;
   GetColorMatched(&async_wait_result);
   return async_wait_result;
 }

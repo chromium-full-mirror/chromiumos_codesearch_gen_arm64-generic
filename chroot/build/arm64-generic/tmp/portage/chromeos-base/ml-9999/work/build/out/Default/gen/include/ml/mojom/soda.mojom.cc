@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -187,11 +187,11 @@ bool SodaConfig::Validate(
   return Data_::Validate(data, validation_context);
 }
 TimingInfo::TimingInfo()
-    : audio_start_epoch(mojo::DefaultConstructTraits::CreateInstance<base::Time>()),
-      audio_start_time(mojo::DefaultConstructTraits::CreateInstance<base::TimeDelta>()),
-      elapsed_wall_time(mojo::DefaultConstructTraits::CreateInstance<base::TimeDelta>()),
-      event_end_time(mojo::DefaultConstructTraits::CreateInstance<base::TimeDelta>()),
-      latency(mojo::DefaultConstructTraits::CreateInstance<base::TimeDelta>()),
+    : audio_start_epoch(),
+      audio_start_time(),
+      elapsed_wall_time(),
+      event_end_time(),
+      latency(),
       normalized_latency(),
       word_alignments() {}
 
@@ -368,7 +368,7 @@ bool PartialResult::Validate(
 }
 HypothesisPartInResult::HypothesisPartInResult()
     : text(),
-      alignment(mojo::DefaultConstructTraits::CreateInstance<base::TimeDelta>()) {}
+      alignment() {}
 
 HypothesisPartInResult::HypothesisPartInResult(
     std::vector<std::string> text_in,
@@ -867,7 +867,7 @@ bool SodaClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      SpeechRecognizerEventPtr p_event = mojo::DefaultConstructTraits::CreateInstance<SpeechRecognizerEventPtr>();
+      SpeechRecognizerEventPtr p_event{};
       SodaClient_OnSpeechRecognizerEvent_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadEvent(&p_event))
@@ -1198,7 +1198,7 @@ bool SodaRecognizerStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      std::vector<uint8_t> p_audio = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint8_t>>();
+      std::vector<uint8_t> p_audio{};
       SodaRecognizer_AddAudio_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadAudio(&p_audio))

@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -484,7 +484,7 @@ bool Model_REMOVED_0_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  CreateGraphExecutorResult p_result = mojo::DefaultConstructTraits::CreateInstance<CreateGraphExecutorResult>();
+  CreateGraphExecutorResult p_result{};
   Model_REMOVED_0_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -603,7 +603,7 @@ bool Model_CreateGraphExecutor_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  CreateGraphExecutorResult p_result = mojo::DefaultConstructTraits::CreateInstance<CreateGraphExecutorResult>();
+  CreateGraphExecutorResult p_result{};
   Model_CreateGraphExecutor_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -696,7 +696,7 @@ bool ModelStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor>>();
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> p_receiver{};
       Model_REMOVED_0_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -727,8 +727,8 @@ std::move(p_receiver), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      GraphExecutorOptionsPtr p_options = mojo::DefaultConstructTraits::CreateInstance<GraphExecutorOptionsPtr>();
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor>>();
+      GraphExecutorOptionsPtr p_options{};
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> p_receiver{};
       Model_CreateGraphExecutor_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadOptions(&p_options))
@@ -877,7 +877,7 @@ void ModelAsyncWaiter::REMOVED_0(
 
 CreateGraphExecutorResult ModelAsyncWaiter::REMOVED_0(
     ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver) {
-  CreateGraphExecutorResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<CreateGraphExecutorResult>();
+  CreateGraphExecutorResult async_wait_result;
   REMOVED_0(std::move(receiver),&async_wait_result);
   return async_wait_result;
 }
@@ -900,7 +900,7 @@ void ModelAsyncWaiter::CreateGraphExecutor(
 
 CreateGraphExecutorResult ModelAsyncWaiter::CreateGraphExecutor(
     GraphExecutorOptionsPtr options, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver) {
-  CreateGraphExecutorResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<CreateGraphExecutorResult>();
+  CreateGraphExecutorResult async_wait_result;
   CreateGraphExecutor(std::move(options),std::move(receiver),&async_wait_result);
   return async_wait_result;
 }

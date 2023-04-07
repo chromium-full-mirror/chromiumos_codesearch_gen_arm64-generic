@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -309,8 +309,8 @@ bool WilcoDtcSupportdServiceFactoryStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<WilcoDtcSupportdService> p_service = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<WilcoDtcSupportdService>>();
-      ::mojo::PendingRemote<WilcoDtcSupportdClient> p_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<WilcoDtcSupportdClient>>();
+      ::mojo::PendingReceiver<WilcoDtcSupportdService> p_service{};
+      ::mojo::PendingRemote<WilcoDtcSupportdClient> p_client{};
       WilcoDtcSupportdServiceFactory_GetService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -584,7 +584,7 @@ bool WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::mojo::ScopedHandle p_response_json_message = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  ::mojo::ScopedHandle p_response_json_message{};
   WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -696,7 +696,7 @@ bool WilcoDtcSupportdServiceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::ScopedHandle p_json_message = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+      ::mojo::ScopedHandle p_json_message{};
       WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1276,9 +1276,9 @@ bool WilcoDtcSupportdClient_PerformWebRequest_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  WilcoDtcSupportdWebRequestStatus p_status = mojo::DefaultConstructTraits::CreateInstance<WilcoDtcSupportdWebRequestStatus>();
-  int32_t p_http_status = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
-  ::mojo::ScopedHandle p_response_body = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  WilcoDtcSupportdWebRequestStatus p_status{};
+  int32_t p_http_status{};
+  ::mojo::ScopedHandle p_response_body{};
   WilcoDtcSupportdClient_PerformWebRequest_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -1412,7 +1412,7 @@ bool WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::mojo::ScopedHandle p_response_json_message = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  ::mojo::ScopedHandle p_response_json_message{};
   WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1531,7 +1531,7 @@ bool WilcoDtcSupportdClient_GetConfigurationData_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::string p_json_configuration_data = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+  std::string p_json_configuration_data{};
   WilcoDtcSupportdClient_GetConfigurationData_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadJsonConfigurationData(&p_json_configuration_data))
@@ -1623,7 +1623,7 @@ bool WilcoDtcSupportdClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      WilcoDtcSupportdEvent p_event = mojo::DefaultConstructTraits::CreateInstance<WilcoDtcSupportdEvent>();
+      WilcoDtcSupportdEvent p_event{};
       WilcoDtcSupportdClient_HandleEvent_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadEvent(&p_event))
@@ -1649,7 +1649,7 @@ std::move(p_event));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> p_service = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService>>();
+      ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> p_service{};
       WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1677,7 +1677,7 @@ std::move(p_service));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> p_service = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService>>();
+      ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> p_service{};
       WilcoDtcSupportdClient_GetCrosHealthdProbeService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1718,10 +1718,10 @@ bool WilcoDtcSupportdClientStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      WilcoDtcSupportdWebRequestHttpMethod p_http_method = mojo::DefaultConstructTraits::CreateInstance<WilcoDtcSupportdWebRequestHttpMethod>();
-      ::mojo::ScopedHandle p_url = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
-      std::vector<::mojo::ScopedHandle> p_headers = mojo::DefaultConstructTraits::CreateInstance<std::vector<::mojo::ScopedHandle>>();
-      ::mojo::ScopedHandle p_request_body = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+      WilcoDtcSupportdWebRequestHttpMethod p_http_method{};
+      ::mojo::ScopedHandle p_url{};
+      std::vector<::mojo::ScopedHandle> p_headers{};
+      ::mojo::ScopedHandle p_request_body{};
       WilcoDtcSupportdClient_PerformWebRequest_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadHttpMethod(&p_http_method))
@@ -1759,7 +1759,7 @@ std::move(p_request_body), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::ScopedHandle p_json_message = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+      ::mojo::ScopedHandle p_json_message{};
       WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1918,7 +1918,7 @@ void WilcoDtcSupportdServiceAsyncWaiter::SendUiMessageToWilcoDtc(
 
 ::mojo::ScopedHandle WilcoDtcSupportdServiceAsyncWaiter::SendUiMessageToWilcoDtc(
     ::mojo::ScopedHandle json_message) {
-  ::mojo::ScopedHandle async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  ::mojo::ScopedHandle async_wait_result;
   SendUiMessageToWilcoDtc(std::move(json_message),&async_wait_result);
   return async_wait_result;
 }
@@ -1993,7 +1993,7 @@ void WilcoDtcSupportdClientAsyncWaiter::SendWilcoDtcMessageToUi(
 
 ::mojo::ScopedHandle WilcoDtcSupportdClientAsyncWaiter::SendWilcoDtcMessageToUi(
     ::mojo::ScopedHandle json_message) {
-  ::mojo::ScopedHandle async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  ::mojo::ScopedHandle async_wait_result;
   SendWilcoDtcMessageToUi(std::move(json_message),&async_wait_result);
   return async_wait_result;
 }
@@ -2016,7 +2016,7 @@ void WilcoDtcSupportdClientAsyncWaiter::GetConfigurationData(
 
 std::string WilcoDtcSupportdClientAsyncWaiter::GetConfigurationData(
     ) {
-  std::string async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+  std::string async_wait_result;
   GetConfigurationData(&async_wait_result);
   return async_wait_result;
 }

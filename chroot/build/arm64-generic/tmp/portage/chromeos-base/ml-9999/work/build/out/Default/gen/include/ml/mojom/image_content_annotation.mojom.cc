@@ -22,7 +22,7 @@
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
-#include "mojo/public/cpp/bindings/default_construct_traits.h"
+#include "mojo/public/cpp/bindings/lib/default_construct_tag_internal.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -461,7 +461,7 @@ bool ImageContentAnnotator_AnnotateRawImage_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ImageAnnotationResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ImageAnnotationResultPtr>();
+  ImageAnnotationResultPtr p_result{};
   ImageContentAnnotator_AnnotateRawImage_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -589,7 +589,7 @@ bool ImageContentAnnotator_AnnotateEncodedImage_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ImageAnnotationResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ImageAnnotationResultPtr>();
+  ImageAnnotationResultPtr p_result{};
   ImageContentAnnotator_AnnotateEncodedImage_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -691,10 +691,10 @@ bool ImageContentAnnotatorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr p_rgb_bytes = mojo::DefaultConstructTraits::CreateInstance<::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr>();
-      uint32_t p_width = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_height = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      uint32_t p_line_stride = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr p_rgb_bytes{};
+      uint32_t p_width{};
+      uint32_t p_height{};
+      uint32_t p_line_stride{};
       ImageContentAnnotator_AnnotateRawImage_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRgbBytes(&p_rgb_bytes))
@@ -732,7 +732,7 @@ std::move(p_line_stride), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr p_encoded_image = mojo::DefaultConstructTraits::CreateInstance<::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr>();
+      ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr p_encoded_image{};
       ImageContentAnnotator_AnnotateEncodedImage_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadEncodedImage(&p_encoded_image))
@@ -874,7 +874,7 @@ void ImageContentAnnotatorAsyncWaiter::AnnotateRawImage(
 
 ImageAnnotationResultPtr ImageContentAnnotatorAsyncWaiter::AnnotateRawImage(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr rgb_bytes, uint32_t width, uint32_t height, uint32_t line_stride) {
-  ImageAnnotationResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ImageAnnotationResultPtr>();
+  ImageAnnotationResultPtr async_wait_result;
   AnnotateRawImage(std::move(rgb_bytes),std::move(width),std::move(height),std::move(line_stride),&async_wait_result);
   return async_wait_result;
 }
@@ -897,7 +897,7 @@ void ImageContentAnnotatorAsyncWaiter::AnnotateEncodedImage(
 
 ImageAnnotationResultPtr ImageContentAnnotatorAsyncWaiter::AnnotateEncodedImage(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr encoded_image) {
-  ImageAnnotationResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ImageAnnotationResultPtr>();
+  ImageAnnotationResultPtr async_wait_result;
   AnnotateEncodedImage(std::move(encoded_image),&async_wait_result);
   return async_wait_result;
 }
