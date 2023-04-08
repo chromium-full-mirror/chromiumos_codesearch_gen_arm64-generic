@@ -225,14 +225,6 @@ class  DmaBufVideoFrame {
       uint32_t coded_height,
       std::vector<DmaBufPlanePtr> planes);
 
-  DmaBufVideoFrame(
-      ::media::VideoPixelFormat format,
-      uint32_t coded_width,
-      uint32_t coded_height,
-      std::vector<DmaBufPlanePtr> planes,
-      bool has_modifier,
-      uint64_t modifier);
-
 DmaBufVideoFrame(const DmaBufVideoFrame&) = delete;
 DmaBufVideoFrame& operator=(const DmaBufVideoFrame&) = delete;
 
@@ -310,10 +302,6 @@ DmaBufVideoFrame& operator=(const DmaBufVideoFrame&) = delete;
   uint32_t coded_height;
   
   std::vector<DmaBufPlanePtr> planes;
-  
-  bool has_modifier;
-  
-  uint64_t modifier;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -393,9 +381,7 @@ DmaBufVideoFramePtr DmaBufVideoFrame::Clone() const {
       mojo::Clone(format),
       mojo::Clone(coded_width),
       mojo::Clone(coded_height),
-      mojo::Clone(planes),
-      mojo::Clone(has_modifier),
-      mojo::Clone(modifier)
+      mojo::Clone(planes)
   );
 }
 
@@ -408,10 +394,6 @@ bool DmaBufVideoFrame::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->coded_height, other_struct.coded_height))
     return false;
   if (!mojo::Equals(this->planes, other_struct.planes))
-    return false;
-  if (!mojo::Equals(this->has_modifier, other_struct.has_modifier))
-    return false;
-  if (!mojo::Equals(this->modifier, other_struct.modifier))
     return false;
   return true;
 }
@@ -433,14 +415,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.planes < rhs.planes)
     return true;
   if (rhs.planes < lhs.planes)
-    return false;
-  if (lhs.has_modifier < rhs.has_modifier)
-    return true;
-  if (rhs.has_modifier < lhs.has_modifier)
-    return false;
-  if (lhs.modifier < rhs.modifier)
-    return true;
-  if (rhs.modifier < lhs.modifier)
     return false;
   return false;
 }
@@ -506,16 +480,6 @@ struct  StructTraits<::chromeos_camera::mojom::DmaBufVideoFrame::DataView,
   static  decltype(::chromeos_camera::mojom::DmaBufVideoFrame::planes)& planes(
        ::chromeos_camera::mojom::DmaBufVideoFramePtr& input) {
     return input->planes;
-  }
-
-  static decltype(::chromeos_camera::mojom::DmaBufVideoFrame::has_modifier) has_modifier(
-      const ::chromeos_camera::mojom::DmaBufVideoFramePtr& input) {
-    return input->has_modifier;
-  }
-
-  static decltype(::chromeos_camera::mojom::DmaBufVideoFrame::modifier) modifier(
-      const ::chromeos_camera::mojom::DmaBufVideoFramePtr& input) {
-    return input->modifier;
   }
 
   static bool Read(::chromeos_camera::mojom::DmaBufVideoFrame::DataView input, ::chromeos_camera::mojom::DmaBufVideoFramePtr* output);

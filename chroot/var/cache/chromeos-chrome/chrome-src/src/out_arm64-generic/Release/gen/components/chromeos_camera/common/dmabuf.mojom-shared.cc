@@ -62,12 +62,8 @@ bool DmaBufVideoFrame_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
-    { 0, 32 },
-    { 1, 40 },
-  };
-  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
-          data, kVersionSizes, validation_context)) {
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -96,7 +92,7 @@ bool DmaBufVideoFrame_Data::Validate(
 }
 
 DmaBufVideoFrame_Data::DmaBufVideoFrame_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal
 }  // namespace mojom

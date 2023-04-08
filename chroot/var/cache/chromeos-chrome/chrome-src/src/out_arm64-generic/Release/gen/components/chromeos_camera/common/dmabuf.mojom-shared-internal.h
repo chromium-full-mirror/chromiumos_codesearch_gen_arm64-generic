@@ -88,10 +88,8 @@ class  DmaBufVideoFrame_Data {
   int32_t format;
   uint32_t coded_width;
   uint32_t coded_height;
-  uint8_t has_modifier : 1;
-  uint8_t pad3_[3];
+  uint8_t pad2_[4];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::DmaBufPlane_Data>>> planes;
-  uint64_t modifier;
 
  private:
   friend class mojo::internal::MessageFragment<DmaBufVideoFrame_Data>;
@@ -99,7 +97,7 @@ class  DmaBufVideoFrame_Data {
   DmaBufVideoFrame_Data();
   ~DmaBufVideoFrame_Data() = delete;
 };
-static_assert(sizeof(DmaBufVideoFrame_Data) == 40,
+static_assert(sizeof(DmaBufVideoFrame_Data) == 32,
               "Bad sizeof(DmaBufVideoFrame_Data)");
 // Used by DmaBufVideoFrame::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

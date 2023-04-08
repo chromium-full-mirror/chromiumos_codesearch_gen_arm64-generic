@@ -547,7 +547,6 @@ bool CameraBufferHandle_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 56 },
     { 3, 64 },
-    { 5, 80 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -610,7 +609,7 @@ bool CameraBufferHandle_Data::Validate(
 }
 
 CameraBufferHandle_Data::CameraBufferHandle_Data()
-    : header_({sizeof(*this), 5}) {}
+    : header_({sizeof(*this), 3}) {}
 
 
 // static
