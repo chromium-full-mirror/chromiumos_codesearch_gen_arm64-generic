@@ -1145,10 +1145,13 @@ TEST_F(BackendPinweaverTpm2Test, StartBiometricsAuth) {
   const std::string kFakeCred = "fake_cred";
   const std::string kNewCred = "new_cred";
   const std::string kFakeMac = "fake_mac";
-  const brillo::SecureBlob kFakeClientNonce("fake_client_nonce");
-  const brillo::SecureBlob kFakeServerNonce("fake_server_nonce");
-  const brillo::SecureBlob kFakeEncryptedHeSecret("fake_encrypted_he_secret");
-  const brillo::SecureBlob kFakeIv("fake_iv");
+  const brillo::Blob kFakeClientNonce =
+      brillo::BlobFromString("fake_client_nonce");
+  const brillo::Blob kFakeServerNonce =
+      brillo::BlobFromString("fake_server_nonce");
+  const brillo::Blob kFakeEncryptedHeSecret =
+      brillo::BlobFromString("fake_encrypted_he_secret");
+  const brillo::Blob kFakeIv = brillo::BlobFromString("fake_iv");
   const std::vector<brillo::Blob>& kHAux = {
       brillo::Blob(32, 'X'),
       brillo::Blob(32, 'Y'),
@@ -1198,7 +1201,8 @@ TEST_F(BackendPinweaverTpm2Test, StartBiometricsAuthAuthFail) {
   const std::string kFakeCred = "fake_cred";
   const std::string kNewCred = "new_cred";
   const std::string kFakeMac = "fake_mac";
-  const brillo::SecureBlob kFakeClientNonce("fake_client_nonce");
+  const brillo::Blob kFakeClientNonce =
+      brillo::BlobFromString("fake_client_nonce");
   const std::vector<brillo::Blob>& kHAux = {
       brillo::Blob(32, 'X'),
       brillo::Blob(32, 'Y'),
@@ -1246,7 +1250,8 @@ TEST_F(BackendPinweaverTpm2Test, StartBiometricsAuthTpmFail) {
   const std::string kFakeCred = "fake_cred";
   const std::string kNewCred = "new_cred";
   const std::string kFakeMac = "fake_mac";
-  const brillo::SecureBlob kFakeClientNonce("fake_client_nonce");
+  const brillo::Blob kFakeClientNonce =
+      brillo::BlobFromString("fake_client_nonce");
   const std::vector<brillo::Blob>& kHAux = {
       brillo::Blob(32, 'X'),
       brillo::Blob(32, 'Y'),
@@ -1277,7 +1282,8 @@ TEST_F(BackendPinweaverTpm2Test, StartBiometricsAuthV1NotSupported) {
   const std::string kFakeCred = "fake_cred";
   const std::string kNewCred = "new_cred";
   const std::string kFakeMac = "fake_mac";
-  const brillo::SecureBlob kFakeClientNonce("fake_client_nonce");
+  const brillo::Blob kFakeClientNonce =
+      brillo::BlobFromString("fake_client_nonce");
   const std::vector<brillo::Blob>& kHAux = {
       brillo::Blob(32, 'X'),
       brillo::Blob(32, 'Y'),
@@ -1302,7 +1308,8 @@ TEST_F(BackendPinweaverTpm2Test, StartBiometricsAuthInvalidAuthChannel) {
   const std::string kFakeCred = "fake_cred";
   const std::string kNewCred = "new_cred";
   const std::string kFakeMac = "fake_mac";
-  const brillo::SecureBlob kFakeClientNonce("fake_client_nonce");
+  const brillo::Blob kFakeClientNonce =
+      brillo::BlobFromString("fake_client_nonce");
   const std::vector<brillo::Blob>& kHAux = {
       brillo::Blob(32, 'X'),
       brillo::Blob(32, 'Y'),

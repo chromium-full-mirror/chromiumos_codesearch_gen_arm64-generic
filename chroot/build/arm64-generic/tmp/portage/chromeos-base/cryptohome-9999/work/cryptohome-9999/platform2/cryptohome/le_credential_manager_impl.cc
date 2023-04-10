@@ -367,10 +367,9 @@ LECredStatus LECredentialManagerImpl::InsertRateLimiter(
 }
 
 LECredStatusOr<LECredentialManager::StartBiometricsAuthReply>
-LECredentialManagerImpl::StartBiometricsAuth(
-    uint8_t auth_channel,
-    uint64_t label,
-    const brillo::SecureBlob& client_nonce) {
+LECredentialManagerImpl::StartBiometricsAuth(uint8_t auth_channel,
+                                             uint64_t label,
+                                             const brillo::Blob& client_nonce) {
   if (!hash_tree_->IsValid() || !Sync()) {
     return MakeStatus<CryptohomeLECredError>(
         CRYPTOHOME_ERR_LOC(kLocLECredManInvalidTreeInStartBiometricsAuth),

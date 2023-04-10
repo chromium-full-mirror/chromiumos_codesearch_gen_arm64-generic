@@ -632,7 +632,7 @@ PinWeaverTpm2::StartBiometricsAuth(uint8_t auth_channel,
                                    const uint64_t label,
                                    const std::vector<brillo::Blob>& h_aux,
                                    const brillo::Blob& orig_cred_metadata,
-                                   const brillo::SecureBlob& client_nonce) {
+                                   const brillo::Blob& client_nonce) {
   ASSIGN_OR_RETURN(uint8_t version, GetVersion());
   if (version <= 1) {
     return MakeStatus<TPMError>(
@@ -649,9 +649,9 @@ PinWeaverTpm2::StartBiometricsAuth(uint8_t auth_channel,
 
   uint32_t pinweaver_status = 0;
   std::string root;
-  brillo::SecureBlob server_nonce;
-  brillo::SecureBlob encrypted_he_secret;
-  brillo::SecureBlob iv;
+  brillo::Blob server_nonce;
+  brillo::Blob encrypted_he_secret;
+  brillo::Blob iv;
   std::string cred_metadata_string;
   std::string mac_string;
 
