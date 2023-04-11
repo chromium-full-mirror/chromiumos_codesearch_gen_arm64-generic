@@ -15,6 +15,7 @@
 #include <base/check.h>
 #include <base/functional/callback_helpers.h>
 #include <base/logging.h>
+#include <base/notreached.h>
 #include <base/time/time.h>
 #include <chromeos/mojo/service_constants.h>
 #include <metrics/metrics_library.h>
@@ -345,8 +346,15 @@ void CrosHealthdDiagnosticsService::RunLanConnectivityRoutine(
 }
 
 void CrosHealthdDiagnosticsService::RunMemoryRoutine(
+    std::optional<uint32_t> max_testing_mem_kib,
     RunMemoryRoutineCallback callback) {
-  RunRoutine(routine_factory_->MakeMemoryRoutine(),
+  auto memory_routine_v2 =
+      std::make_unique<RoutineAdapter>(mojo_ipc::RoutineArgument::Tag::kMemory);
+  routine_service_->CreateRoutine(
+      mojo_ipc::RoutineArgument::NewMemory(
+          mojo_ipc::MemoryRoutineArgument::New(max_testing_mem_kib)),
+      memory_routine_v2->BindNewPipeAndPassReceiver());
+  RunRoutine(std::move(memory_routine_v2),
              mojo_ipc::DiagnosticRoutineEnum::kMemory, std::move(callback));
 }
 

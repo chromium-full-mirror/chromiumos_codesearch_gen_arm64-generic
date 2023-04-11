@@ -3212,9 +3212,16 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryChargeRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunMemoryRoutine(
-    RunMemoryRoutineCallback callback) {
+    absl::optional<uint32_t> in_max_testing_mem_kib, RunMemoryRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine");
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("max_testing_mem_kib"), in_max_testing_mem_kib,
+                        "<value of type absl::optional<uint32_t>>");
+   });
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -3231,6 +3238,10 @@ void CrosHealthdDiagnosticsServiceProxy::RunMemoryRoutine(
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data> params(
           message);
   params.Allocate();
+  params->max_testing_mem_kib_$flag = in_max_testing_mem_kib.has_value();
+  if (in_max_testing_mem_kib.has_value()) {
+    params->max_testing_mem_kib_$value = in_max_testing_mem_kib.value();
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
@@ -10620,8 +10631,12 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
+      absl::optional<uint32_t> p_max_testing_mem_kib{};
       CrosHealthdDiagnosticsService_RunMemoryRoutine_ParamsDataView input_data_view(params, message);
       
+      if (success) {
+        p_max_testing_mem_kib = input_data_view.max_testing_mem_kib();
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -10634,7 +10649,8 @@ std::move(p_minimum_charge_percent_required), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunMemoryRoutine(std::move(callback));
+      impl->RunMemoryRoutine(
+std::move(p_max_testing_mem_kib), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name: {
@@ -14358,8 +14374,8 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryDischargeRout
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required, RunBatteryChargeRoutineCallback callback) {
   GetForwardingInterface()->RunBatteryChargeRoutine(std::move(length_seconds), std::move(minimum_charge_percent_required), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunMemoryRoutine(RunMemoryRoutineCallback callback) {
-  GetForwardingInterface()->RunMemoryRoutine(std::move(callback));
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) {
+  GetForwardingInterface()->RunMemoryRoutine(std::move(max_testing_mem_kib), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunLanConnectivityRoutine(RunLanConnectivityRoutineCallback callback) {
   GetForwardingInterface()->RunLanConnectivityRoutine(std::move(callback));
@@ -14839,9 +14855,9 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
-    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    absl::optional<uint32_t> max_testing_mem_kib, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
-  proxy_->RunMemoryRoutine(
+  proxy_->RunMemoryRoutine(std::move(max_testing_mem_kib),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
@@ -14855,9 +14871,9 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
 }
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
-    ) {
+    absl::optional<uint32_t> max_testing_mem_kib) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
-  RunMemoryRoutine(&async_wait_result);
+  RunMemoryRoutine(std::move(max_testing_mem_kib),&async_wait_result);
   return async_wait_result;
 }
 

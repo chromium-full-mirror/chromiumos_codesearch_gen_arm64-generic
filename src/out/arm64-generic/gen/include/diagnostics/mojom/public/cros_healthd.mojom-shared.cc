@@ -1237,8 +1237,12 @@ bool CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 10, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1251,7 +1255,7 @@ bool CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data::Validate(
 }
 
 CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 10}) {}
 
 
 // static

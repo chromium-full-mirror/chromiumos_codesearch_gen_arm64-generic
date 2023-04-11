@@ -58,7 +58,7 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunPrimeSearchRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunPrimeSearchRoutineCallback callback) override;
   void RunBatteryDischargeRoutine(uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, RunBatteryDischargeRoutineCallback callback) override;
   void RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required, RunBatteryChargeRoutineCallback callback) override;
-  void RunMemoryRoutine(RunMemoryRoutineCallback callback) override;
+  void RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) override;
   void RunLanConnectivityRoutine(RunLanConnectivityRoutineCallback callback) override;
   void RunSignalStrengthRoutine(RunSignalStrengthRoutineCallback callback) override;
   void RunGatewayCanBePingedRoutine(RunGatewayCanBePingedRoutineCallback callback) override;
@@ -147,8 +147,8 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
       uint32_t length_seconds, uint32_t minimum_charge_percent_required, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required);
   void RunMemoryRoutine(
-      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunMemoryRoutine();
+      absl::optional<uint32_t> max_testing_mem_kib, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib);
   void RunLanConnectivityRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunLanConnectivityRoutine();

@@ -153,7 +153,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 9;
+  static constexpr uint32_t Version_ = 10;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -442,7 +442,7 @@ class CrosHealthdDiagnosticsService
 
   using RunMemoryRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunMemoryRoutine(RunMemoryRoutineCallback callback) = 0;
+  virtual void RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) = 0;
 
 
   using RunLanConnectivityRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -937,7 +937,7 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required, RunBatteryChargeRoutineCallback callback) final;
   
-  void RunMemoryRoutine(RunMemoryRoutineCallback callback) final;
+  void RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) final;
   
   void RunLanConnectivityRoutine(RunLanConnectivityRoutineCallback callback) final;
   

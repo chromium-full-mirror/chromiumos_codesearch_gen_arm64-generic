@@ -716,18 +716,20 @@ TEST_F(CrosHealthdDiagnosticsServiceTest, RunBatteryChargeRoutine) {
 // Test that the memory routine can be run.
 TEST_F(CrosHealthdDiagnosticsServiceTest, RunMemoryRoutine) {
   constexpr mojo_ipc::DiagnosticRoutineStatusEnum kExpectedStatus =
-      mojo_ipc::DiagnosticRoutineStatusEnum::kWaiting;
+      mojo_ipc::DiagnosticRoutineStatusEnum::kRunning;
   routine_factory()->SetNonInteractiveStatus(
       kExpectedStatus, /*status_message=*/"", /*progress_percent=*/50,
       /*output=*/"");
 
   mojo_ipc::RunRoutineResponsePtr response;
   base::RunLoop run_loop;
-  service()->RunMemoryRoutine(base::BindLambdaForTesting(
-      [&](mojo_ipc::RunRoutineResponsePtr received_response) {
-        response = std::move(received_response);
-        run_loop.Quit();
-      }));
+  service()->RunMemoryRoutine(
+      /*max_testing_mem_kib=*/std::nullopt,
+      base::BindLambdaForTesting(
+          [&](mojo_ipc::RunRoutineResponsePtr received_response) {
+            response = std::move(received_response);
+            run_loop.Quit();
+          }));
   run_loop.Run();
 
   EXPECT_EQ(response->id, 1);

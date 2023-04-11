@@ -697,6 +697,9 @@ class  CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t max_testing_mem_kib_$flag : 1;
+  uint8_t pad0_[3];
+  uint32_t max_testing_mem_kib_$value;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data>;
@@ -704,7 +707,7 @@ class  CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data {
   CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data();
   ~CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data) == 8,
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data)");
 class  CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParams_Data {
  public:
@@ -3068,6 +3071,15 @@ class CrosHealthdDiagnosticsService_RunMemoryRoutine_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  absl::optional<uint32_t> max_testing_mem_kib() const {
+    if (data_->header_.version < 10) {
+      return absl::nullopt;
+    }
+
+    return data_->max_testing_mem_kib_$flag
+        ? absl::make_optional(data_->max_testing_mem_kib_$value)
+        : absl::nullopt;
+  }
  private:
   internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data* data_ = nullptr;
 };
