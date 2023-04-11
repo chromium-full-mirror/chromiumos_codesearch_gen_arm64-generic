@@ -56,7 +56,7 @@ PROTOBUF_CONSTEXPR SocketAddress::SocketAddress(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.addr_)*/0u
+  , /*decltype(_impl_.addr_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.port_)*/0u} {}
 struct SocketAddressDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SocketAddressDefaultTypeInternal()
@@ -888,9 +888,15 @@ SocketAddress::SocketAddress(const SocketAddress& from)
     , decltype(_impl_.port_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.addr_, &from._impl_.addr_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.port_) -
-    reinterpret_cast<char*>(&_impl_.addr_)) + sizeof(_impl_.port_));
+  _impl_.addr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.addr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_addr()) {
+    _this->_impl_.addr_.Set(from._internal_addr(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.port_ = from._impl_.port_;
   // @@protoc_insertion_point(copy_constructor:system_proxy.worker.SocketAddress)
 }
 
@@ -901,9 +907,13 @@ inline void SocketAddress::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.addr_){0u}
+    , decltype(_impl_.addr_){}
     , decltype(_impl_.port_){0u}
   };
+  _impl_.addr_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.addr_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SocketAddress::~SocketAddress() {
@@ -917,6 +927,7 @@ SocketAddress::~SocketAddress() {
 
 inline void SocketAddress::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.addr_.Destroy();
 }
 
 void SocketAddress::SetCachedSize(int size) const {
@@ -930,11 +941,10 @@ void SocketAddress::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    ::memset(&_impl_.addr_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&_impl_.port_) -
-        reinterpret_cast<char*>(&_impl_.addr_)) + sizeof(_impl_.port_));
+  if (cached_has_bits & 0x00000001u) {
+    _impl_.addr_.ClearNonDefaultToEmpty();
   }
+  _impl_.port_ = 0u;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -946,11 +956,11 @@ const char* SocketAddress::_InternalParse(const char* ptr, ::_pbi::ParseContext*
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional uint32 addr = 1;
+      // optional bytes addr = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _Internal::set_has_addr(&has_bits);
-          _impl_.addr_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_addr();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -995,10 +1005,10 @@ uint8_t* SocketAddress::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // optional uint32 addr = 1;
+  // optional bytes addr = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_addr(), target);
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_addr(), target);
   }
 
   // optional uint32 port = 2;
@@ -1025,9 +1035,11 @@ size_t SocketAddress::ByteSizeLong() const {
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // optional uint32 addr = 1;
+    // optional bytes addr = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_addr());
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_addr());
     }
 
     // optional uint32 port = 2;
@@ -1060,7 +1072,7 @@ void SocketAddress::MergeFrom(const SocketAddress& from) {
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_impl_.addr_ = from._impl_.addr_;
+      _this->_internal_set_addr(from._internal_addr());
     }
     if (cached_has_bits & 0x00000002u) {
       _this->_impl_.port_ = from._impl_.port_;
@@ -1083,14 +1095,15 @@ bool SocketAddress::IsInitialized() const {
 
 void SocketAddress::InternalSwap(SocketAddress* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SocketAddress, _impl_.port_)
-      + sizeof(SocketAddress::_impl_.port_)
-      - PROTOBUF_FIELD_OFFSET(SocketAddress, _impl_.addr_)>(
-          reinterpret_cast<char*>(&_impl_.addr_),
-          reinterpret_cast<char*>(&other->_impl_.addr_));
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.addr_, lhs_arena,
+      &other->_impl_.addr_, rhs_arena
+  );
+  swap(_impl_.port_, other->_impl_.port_);
 }
 
 std::string SocketAddress::GetTypeName() const {

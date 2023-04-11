@@ -609,17 +609,22 @@ class SocketAddress final :
     kAddrFieldNumber = 1,
     kPortFieldNumber = 2,
   };
-  // optional uint32 addr = 1;
+  // optional bytes addr = 1;
   bool has_addr() const;
   private:
   bool _internal_has_addr() const;
   public:
   void clear_addr();
-  uint32_t addr() const;
-  void set_addr(uint32_t value);
+  const std::string& addr() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_addr(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_addr();
+  PROTOBUF_NODISCARD std::string* release_addr();
+  void set_allocated_addr(std::string* addr);
   private:
-  uint32_t _internal_addr() const;
-  void _internal_set_addr(uint32_t value);
+  const std::string& _internal_addr() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_addr(const std::string& value);
+  std::string* _internal_mutable_addr();
   public:
 
   // optional uint32 port = 2;
@@ -645,7 +650,7 @@ class SocketAddress final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    uint32_t addr_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr addr_;
     uint32_t port_;
   };
   union { Impl_ _impl_; };
@@ -2568,7 +2573,7 @@ Credentials::mutable_policy_credentials_auth_schemes() {
 
 // SocketAddress
 
-// optional uint32 addr = 1;
+// optional bytes addr = 1;
 inline bool SocketAddress::_internal_has_addr() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -2577,23 +2582,63 @@ inline bool SocketAddress::has_addr() const {
   return _internal_has_addr();
 }
 inline void SocketAddress::clear_addr() {
-  _impl_.addr_ = 0u;
+  _impl_.addr_.ClearToEmpty();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline uint32_t SocketAddress::_internal_addr() const {
-  return _impl_.addr_;
-}
-inline uint32_t SocketAddress::addr() const {
+inline const std::string& SocketAddress::addr() const {
   // @@protoc_insertion_point(field_get:system_proxy.worker.SocketAddress.addr)
   return _internal_addr();
 }
-inline void SocketAddress::_internal_set_addr(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  _impl_.addr_ = value;
-}
-inline void SocketAddress::set_addr(uint32_t value) {
-  _internal_set_addr(value);
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SocketAddress::set_addr(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000001u;
+ _impl_.addr_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:system_proxy.worker.SocketAddress.addr)
+}
+inline std::string* SocketAddress::mutable_addr() {
+  std::string* _s = _internal_mutable_addr();
+  // @@protoc_insertion_point(field_mutable:system_proxy.worker.SocketAddress.addr)
+  return _s;
+}
+inline const std::string& SocketAddress::_internal_addr() const {
+  return _impl_.addr_.Get();
+}
+inline void SocketAddress::_internal_set_addr(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.addr_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SocketAddress::_internal_mutable_addr() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.addr_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SocketAddress::release_addr() {
+  // @@protoc_insertion_point(field_release:system_proxy.worker.SocketAddress.addr)
+  if (!_internal_has_addr()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* p = _impl_.addr_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.addr_.IsDefault()) {
+    _impl_.addr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void SocketAddress::set_allocated_addr(std::string* addr) {
+  if (addr != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.addr_.SetAllocated(addr, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.addr_.IsDefault()) {
+    _impl_.addr_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:system_proxy.worker.SocketAddress.addr)
 }
 
 // optional uint32 port = 2;
