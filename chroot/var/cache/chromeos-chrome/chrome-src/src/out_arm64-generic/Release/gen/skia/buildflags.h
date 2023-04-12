@@ -7,6 +7,8 @@
 #include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_SKIA_SUPPORT_SKOTTIE() (1)
+#define BUILDFLAG_INTERNAL_ENABLE_SKIA_GRAPHITE() (0)
 #define BUILDFLAG_INTERNAL_SKIA_USE_DAWN() (0)
+#define BUILDFLAG_INTERNAL_SKIA_USE_METAL() (0)
 
 #endif  // SKIA_BUILDFLAGS_H_

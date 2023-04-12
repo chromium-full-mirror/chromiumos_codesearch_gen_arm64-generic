@@ -455,6 +455,7 @@ class StructuredEventProto final :
     kMetricsFieldNumber = 3,
     kProfileEventIdFieldNumber = 1,
     kEventNameHashFieldNumber = 2,
+    kProjectNameHashFieldNumber = 5,
     kEventTypeFieldNumber = 4,
   };
   // repeated .metrics.StructuredEventProto.Metric metrics = 3;
@@ -501,6 +502,19 @@ class StructuredEventProto final :
   void _internal_set_event_name_hash(uint64_t value);
   public:
 
+  // optional fixed64 project_name_hash = 5;
+  bool has_project_name_hash() const;
+  private:
+  bool _internal_has_project_name_hash() const;
+  public:
+  void clear_project_name_hash();
+  uint64_t project_name_hash() const;
+  void set_project_name_hash(uint64_t value);
+  private:
+  uint64_t _internal_project_name_hash() const;
+  void _internal_set_project_name_hash(uint64_t value);
+  public:
+
   // optional .metrics.StructuredEventProto.EventType event_type = 4;
   bool has_event_type() const;
   private:
@@ -527,6 +541,7 @@ class StructuredEventProto final :
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto_Metric > metrics_;
     uint64_t profile_event_id_;
     uint64_t event_name_hash_;
+    uint64_t project_name_hash_;
     int event_type_;
   };
   union { Impl_ _impl_; };
@@ -1019,7 +1034,7 @@ StructuredEventProto::metrics() const {
 
 // optional .metrics.StructuredEventProto.EventType event_type = 4;
 inline bool StructuredEventProto::_internal_has_event_type() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool StructuredEventProto::has_event_type() const {
@@ -1027,7 +1042,7 @@ inline bool StructuredEventProto::has_event_type() const {
 }
 inline void StructuredEventProto::clear_event_type() {
   _impl_.event_type_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 inline ::metrics::StructuredEventProto_EventType StructuredEventProto::_internal_event_type() const {
   return static_cast< ::metrics::StructuredEventProto_EventType >(_impl_.event_type_);
@@ -1038,12 +1053,40 @@ inline ::metrics::StructuredEventProto_EventType StructuredEventProto::event_typ
 }
 inline void StructuredEventProto::_internal_set_event_type(::metrics::StructuredEventProto_EventType value) {
   assert(::metrics::StructuredEventProto_EventType_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x00000008u;
   _impl_.event_type_ = value;
 }
 inline void StructuredEventProto::set_event_type(::metrics::StructuredEventProto_EventType value) {
   _internal_set_event_type(value);
   // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.event_type)
+}
+
+// optional fixed64 project_name_hash = 5;
+inline bool StructuredEventProto::_internal_has_project_name_hash() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool StructuredEventProto::has_project_name_hash() const {
+  return _internal_has_project_name_hash();
+}
+inline void StructuredEventProto::clear_project_name_hash() {
+  _impl_.project_name_hash_ = uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline uint64_t StructuredEventProto::_internal_project_name_hash() const {
+  return _impl_.project_name_hash_;
+}
+inline uint64_t StructuredEventProto::project_name_hash() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.project_name_hash)
+  return _internal_project_name_hash();
+}
+inline void StructuredEventProto::_internal_set_project_name_hash(uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.project_name_hash_ = value;
+}
+inline void StructuredEventProto::set_project_name_hash(uint64_t value) {
+  _internal_set_project_name_hash(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.project_name_hash)
 }
 
 // -------------------------------------------------------------------

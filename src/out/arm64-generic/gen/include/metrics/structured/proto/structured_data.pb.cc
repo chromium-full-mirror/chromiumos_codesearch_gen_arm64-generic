@@ -41,6 +41,7 @@ PROTOBUF_CONSTEXPR StructuredEventProto::StructuredEventProto(
   , /*decltype(_impl_.metrics_)*/{}
   , /*decltype(_impl_.profile_event_id_)*/uint64_t{0u}
   , /*decltype(_impl_.event_name_hash_)*/uint64_t{0u}
+  , /*decltype(_impl_.project_name_hash_)*/uint64_t{0u}
   , /*decltype(_impl_.event_type_)*/0} {}
 struct StructuredEventProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StructuredEventProtoDefaultTypeInternal()
@@ -499,6 +500,9 @@ class StructuredEventProto::_Internal {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_event_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_project_name_hash(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
 };
@@ -518,6 +522,7 @@ StructuredEventProto::StructuredEventProto(const StructuredEventProto& from)
     , decltype(_impl_.metrics_){from._impl_.metrics_}
     , decltype(_impl_.profile_event_id_){}
     , decltype(_impl_.event_name_hash_){}
+    , decltype(_impl_.project_name_hash_){}
     , decltype(_impl_.event_type_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -537,6 +542,7 @@ inline void StructuredEventProto::SharedCtor(
     , decltype(_impl_.metrics_){arena}
     , decltype(_impl_.profile_event_id_){uint64_t{0u}}
     , decltype(_impl_.event_name_hash_){uint64_t{0u}}
+    , decltype(_impl_.project_name_hash_){uint64_t{0u}}
     , decltype(_impl_.event_type_){0}
   };
 }
@@ -567,7 +573,7 @@ void StructuredEventProto::Clear() {
 
   _impl_.metrics_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     ::memset(&_impl_.profile_event_id_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&_impl_.event_type_) -
         reinterpret_cast<char*>(&_impl_.profile_event_id_)) + sizeof(_impl_.event_type_));
@@ -627,6 +633,15 @@ const char* StructuredEventProto::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional fixed64 project_name_hash = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 41)) {
+          _Internal::set_has_project_name_hash(&has_bits);
+          _impl_.project_name_hash_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint64_t>(ptr);
+          ptr += sizeof(uint64_t);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -679,10 +694,16 @@ uint8_t* StructuredEventProto::_InternalSerialize(
   }
 
   // optional .metrics.StructuredEventProto.EventType event_type = 4;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_event_type(), target);
+  }
+
+  // optional fixed64 project_name_hash = 5;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFixed64ToArray(5, this->_internal_project_name_hash(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -709,7 +730,7 @@ size_t StructuredEventProto::ByteSizeLong() const {
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional fixed64 profile_event_id = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 + 8;
@@ -720,8 +741,13 @@ size_t StructuredEventProto::ByteSizeLong() const {
       total_size += 1 + 8;
     }
 
-    // optional .metrics.StructuredEventProto.EventType event_type = 4;
+    // optional fixed64 project_name_hash = 5;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 8;
+    }
+
+    // optional .metrics.StructuredEventProto.EventType event_type = 4;
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_event_type());
     }
@@ -750,7 +776,7 @@ void StructuredEventProto::MergeFrom(const StructuredEventProto& from) {
 
   _this->_impl_.metrics_.MergeFrom(from._impl_.metrics_);
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_impl_.profile_event_id_ = from._impl_.profile_event_id_;
     }
@@ -758,6 +784,9 @@ void StructuredEventProto::MergeFrom(const StructuredEventProto& from) {
       _this->_impl_.event_name_hash_ = from._impl_.event_name_hash_;
     }
     if (cached_has_bits & 0x00000004u) {
+      _this->_impl_.project_name_hash_ = from._impl_.project_name_hash_;
+    }
+    if (cached_has_bits & 0x00000008u) {
       _this->_impl_.event_type_ = from._impl_.event_type_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;

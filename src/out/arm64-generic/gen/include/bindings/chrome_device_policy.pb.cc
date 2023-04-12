@@ -426,6 +426,20 @@ struct OBSOLETE_StartUpUrlsProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OBSOLETE_StartUpUrlsProtoDefaultTypeInternal _OBSOLETE_StartUpUrlsProto_default_instance_;
+PROTOBUF_CONSTEXPR DeviceLoginScreenGeolocationAccessLevelProto::DeviceLoginScreenGeolocationAccessLevelProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.geolocation_access_level_)*/1} {}
+struct DeviceLoginScreenGeolocationAccessLevelProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeviceLoginScreenGeolocationAccessLevelProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DeviceLoginScreenGeolocationAccessLevelProtoDefaultTypeInternal() {}
+  union {
+    DeviceLoginScreenGeolocationAccessLevelProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceLoginScreenGeolocationAccessLevelProtoDefaultTypeInternal _DeviceLoginScreenGeolocationAccessLevelProto_default_instance_;
 PROTOBUF_CONSTEXPR SystemTimezoneProto::SystemTimezoneProto(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -2210,7 +2224,8 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , /*decltype(_impl_.device_screensaver_login_screen_idle_timeout_seconds_)*/nullptr
   , /*decltype(_impl_.device_screensaver_login_screen_image_display_interval_seconds_)*/nullptr
   , /*decltype(_impl_.device_screensaver_login_screen_images_)*/nullptr
-  , /*decltype(_impl_.device_system_aec_enabled_)*/nullptr} {}
+  , /*decltype(_impl_.device_system_aec_enabled_)*/nullptr
+  , /*decltype(_impl_.device_login_screen_geolocation_access_level_)*/nullptr} {}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2430,6 +2445,64 @@ constexpr AutoUpdateSettingsProto_ChannelDowngradeBehavior AutoUpdateSettingsPro
 constexpr AutoUpdateSettingsProto_ChannelDowngradeBehavior AutoUpdateSettingsProto::ChannelDowngradeBehavior_MIN;
 constexpr AutoUpdateSettingsProto_ChannelDowngradeBehavior AutoUpdateSettingsProto::ChannelDowngradeBehavior_MAX;
 constexpr int AutoUpdateSettingsProto::ChannelDowngradeBehavior_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_strings[2] = {};
+
+static const char DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_names[] =
+  "ALLOWED"
+  "DISALLOWED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_entries[] = {
+  { {DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_names + 0, 7}, 1 },
+  { {DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_names + 7, 10}, 0 },
+};
+
+static const int DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_entries_by_number[] = {
+  1, // 0 -> DISALLOWED
+  0, // 1 -> ALLOWED
+};
+
+const std::string& DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_Name(
+    DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_entries,
+          DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_entries_by_number,
+          2, DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_entries,
+      DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_entries_by_number,
+      2, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_strings[idx].get();
+}
+bool DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel DeviceLoginScreenGeolocationAccessLevelProto::DISALLOWED;
+constexpr DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel DeviceLoginScreenGeolocationAccessLevelProto::ALLOWED;
+constexpr DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel DeviceLoginScreenGeolocationAccessLevelProto::GeolocationAccessLevel_MIN;
+constexpr DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel DeviceLoginScreenGeolocationAccessLevelProto::GeolocationAccessLevel_MAX;
+constexpr int DeviceLoginScreenGeolocationAccessLevelProto::GeolocationAccessLevel_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool SystemTimezoneProto_AutomaticTimezoneDetectionType_IsValid(int value) {
   switch (value) {
@@ -10988,6 +11061,205 @@ void OBSOLETE_StartUpUrlsProto::InternalSwap(OBSOLETE_StartUpUrlsProto* other) {
 
 std::string OBSOLETE_StartUpUrlsProto::GetTypeName() const {
   return "enterprise_management.OBSOLETE_StartUpUrlsProto";
+}
+
+
+// ===================================================================
+
+class DeviceLoginScreenGeolocationAccessLevelProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<DeviceLoginScreenGeolocationAccessLevelProto>()._impl_._has_bits_);
+  static void set_has_geolocation_access_level(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+DeviceLoginScreenGeolocationAccessLevelProto::DeviceLoginScreenGeolocationAccessLevelProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto)
+}
+DeviceLoginScreenGeolocationAccessLevelProto::DeviceLoginScreenGeolocationAccessLevelProto(const DeviceLoginScreenGeolocationAccessLevelProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DeviceLoginScreenGeolocationAccessLevelProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.geolocation_access_level_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.geolocation_access_level_ = from._impl_.geolocation_access_level_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto)
+}
+
+inline void DeviceLoginScreenGeolocationAccessLevelProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.geolocation_access_level_){1}
+  };
+}
+
+DeviceLoginScreenGeolocationAccessLevelProto::~DeviceLoginScreenGeolocationAccessLevelProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DeviceLoginScreenGeolocationAccessLevelProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void DeviceLoginScreenGeolocationAccessLevelProto::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void DeviceLoginScreenGeolocationAccessLevelProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.geolocation_access_level_ = 1;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DeviceLoginScreenGeolocationAccessLevelProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto.GeolocationAccessLevel geolocation_access_level = 1 [default = ALLOWED];
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel_IsValid(val))) {
+            _internal_set_geolocation_access_level(static_cast<::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto_GeolocationAccessLevel>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DeviceLoginScreenGeolocationAccessLevelProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto.GeolocationAccessLevel geolocation_access_level = 1 [default = ALLOWED];
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_geolocation_access_level(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto)
+  return target;
+}
+
+size_t DeviceLoginScreenGeolocationAccessLevelProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto.GeolocationAccessLevel geolocation_access_level = 1 [default = ALLOWED];
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_geolocation_access_level());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeviceLoginScreenGeolocationAccessLevelProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DeviceLoginScreenGeolocationAccessLevelProto*>(
+      &from));
+}
+
+void DeviceLoginScreenGeolocationAccessLevelProto::MergeFrom(const DeviceLoginScreenGeolocationAccessLevelProto& from) {
+  DeviceLoginScreenGeolocationAccessLevelProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_geolocation_access_level()) {
+    _this->_internal_set_geolocation_access_level(from._internal_geolocation_access_level());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DeviceLoginScreenGeolocationAccessLevelProto::CopyFrom(const DeviceLoginScreenGeolocationAccessLevelProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeviceLoginScreenGeolocationAccessLevelProto::IsInitialized() const {
+  return true;
+}
+
+void DeviceLoginScreenGeolocationAccessLevelProto::InternalSwap(DeviceLoginScreenGeolocationAccessLevelProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.geolocation_access_level_, other->_impl_.geolocation_access_level_);
+}
+
+std::string DeviceLoginScreenGeolocationAccessLevelProto::GetTypeName() const {
+  return "enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto";
 }
 
 
@@ -36969,6 +37241,10 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_system_aec_enabled(HasBits* has_bits) {
     (*has_bits)[4] |= 16384u;
   }
+  static const ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto& device_login_screen_geolocation_access_level(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_login_screen_geolocation_access_level(HasBits* has_bits) {
+    (*has_bits)[4] |= 32768u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -37543,6 +37819,10 @@ const ::enterprise_management::DeviceSystemAecEnabledProto&
 ChromeDeviceSettingsProto::_Internal::device_system_aec_enabled(const ChromeDeviceSettingsProto* msg) {
   return *msg->_impl_.device_system_aec_enabled_;
 }
+const ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto&
+ChromeDeviceSettingsProto::_Internal::device_login_screen_geolocation_access_level(const ChromeDeviceSettingsProto* msg) {
+  return *msg->_impl_.device_login_screen_geolocation_access_level_;
+}
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (_impl_.device_login_screen_system_info_enforced_ != nullptr) _impl_.device_login_screen_system_info_enforced_->Clear();
   _impl_._has_bits_[2] &= ~0x02000000u;
@@ -37753,7 +38033,8 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
     , decltype(_impl_.device_screensaver_login_screen_idle_timeout_seconds_){nullptr}
     , decltype(_impl_.device_screensaver_login_screen_image_display_interval_seconds_){nullptr}
     , decltype(_impl_.device_screensaver_login_screen_images_){nullptr}
-    , decltype(_impl_.device_system_aec_enabled_){nullptr}};
+    , decltype(_impl_.device_system_aec_enabled_){nullptr}
+    , decltype(_impl_.device_login_screen_geolocation_access_level_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_device_policy_refresh_rate()) {
@@ -38185,6 +38466,9 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   if (from._internal_has_device_system_aec_enabled()) {
     _this->_impl_.device_system_aec_enabled_ = new ::enterprise_management::DeviceSystemAecEnabledProto(*from._impl_.device_system_aec_enabled_);
   }
+  if (from._internal_has_device_login_screen_geolocation_access_level()) {
+    _this->_impl_.device_login_screen_geolocation_access_level_ = new ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto(*from._impl_.device_login_screen_geolocation_access_level_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
@@ -38338,6 +38622,7 @@ inline void ChromeDeviceSettingsProto::SharedCtor(
     , decltype(_impl_.device_screensaver_login_screen_image_display_interval_seconds_){nullptr}
     , decltype(_impl_.device_screensaver_login_screen_images_){nullptr}
     , decltype(_impl_.device_system_aec_enabled_){nullptr}
+    , decltype(_impl_.device_login_screen_geolocation_access_level_){nullptr}
   };
 }
 
@@ -38495,6 +38780,7 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.device_screensaver_login_screen_image_display_interval_seconds_;
   if (this != internal_default_instance()) delete _impl_.device_screensaver_login_screen_images_;
   if (this != internal_default_instance()) delete _impl_.device_system_aec_enabled_;
+  if (this != internal_default_instance()) delete _impl_.device_login_screen_geolocation_access_level_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -39090,7 +39376,7 @@ void ChromeDeviceSettingsProto::Clear() {
       _impl_.keyboard_backlight_color_->Clear();
     }
   }
-  if (cached_has_bits & 0x00007f00u) {
+  if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
       GOOGLE_DCHECK(_impl_.device_hindi_inscript_layout_enabled_ != nullptr);
       _impl_.device_hindi_inscript_layout_enabled_->Clear();
@@ -39118,6 +39404,10 @@ void ChromeDeviceSettingsProto::Clear() {
     if (cached_has_bits & 0x00004000u) {
       GOOGLE_DCHECK(_impl_.device_system_aec_enabled_ != nullptr);
       _impl_.device_system_aec_enabled_->Clear();
+    }
+    if (cached_has_bits & 0x00008000u) {
+      GOOGLE_DCHECK(_impl_.device_login_screen_geolocation_access_level_ != nullptr);
+      _impl_.device_login_screen_geolocation_access_level_->Clear();
     }
   }
   _impl_._has_bits_.Clear();
@@ -40274,6 +40564,14 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto device_login_screen_geolocation_access_level = 147;
+      case 147:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 154)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_login_screen_geolocation_access_level(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -41309,6 +41607,13 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         _Internal::device_system_aec_enabled(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto device_login_screen_geolocation_access_level = 147;
+  if (cached_has_bits & 0x00008000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(147, _Internal::device_login_screen_geolocation_access_level(this),
+        _Internal::device_login_screen_geolocation_access_level(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -42316,7 +42621,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00007f00u) {
+  if (cached_has_bits & 0x0000ff00u) {
     // optional .enterprise_management.DeviceHindiInscriptLayoutEnabledProto device_hindi_inscript_layout_enabled = 140;
     if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
@@ -42364,6 +42669,13 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.device_system_aec_enabled_);
+    }
+
+    // optional .enterprise_management.DeviceLoginScreenGeolocationAccessLevelProto device_login_screen_geolocation_access_level = 147;
+    if (cached_has_bits & 0x00008000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.device_login_screen_geolocation_access_level_);
     }
 
   }
@@ -42971,7 +43283,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
           from._internal_keyboard_backlight_color());
     }
   }
-  if (cached_has_bits & 0x00007f00u) {
+  if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
       _this->_internal_mutable_device_hindi_inscript_layout_enabled()->::enterprise_management::DeviceHindiInscriptLayoutEnabledProto::MergeFrom(
           from._internal_device_hindi_inscript_layout_enabled());
@@ -43000,6 +43312,10 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _this->_internal_mutable_device_system_aec_enabled()->::enterprise_management::DeviceSystemAecEnabledProto::MergeFrom(
           from._internal_device_system_aec_enabled());
     }
+    if (cached_has_bits & 0x00008000u) {
+      _this->_internal_mutable_device_login_screen_geolocation_access_level()->::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto::MergeFrom(
+          from._internal_device_login_screen_geolocation_access_level());
+    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -43024,8 +43340,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   swap(_impl_._has_bits_[4], other->_impl_._has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.device_system_aec_enabled_)
-      + sizeof(ChromeDeviceSettingsProto::_impl_.device_system_aec_enabled_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.device_login_screen_geolocation_access_level_)
+      + sizeof(ChromeDeviceSettingsProto::_impl_.device_login_screen_geolocation_access_level_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&_impl_.device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->_impl_.device_policy_refresh_rate_));
@@ -43138,6 +43454,10 @@ Arena::CreateMaybeMessage< ::enterprise_management::AutoUpdateSettingsProto >(Ar
 template<> PROTOBUF_NOINLINE ::enterprise_management::OBSOLETE_StartUpUrlsProto*
 Arena::CreateMaybeMessage< ::enterprise_management::OBSOLETE_StartUpUrlsProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::OBSOLETE_StartUpUrlsProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto*
+Arena::CreateMaybeMessage< ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::SystemTimezoneProto*
 Arena::CreateMaybeMessage< ::enterprise_management::SystemTimezoneProto >(Arena* arena) {

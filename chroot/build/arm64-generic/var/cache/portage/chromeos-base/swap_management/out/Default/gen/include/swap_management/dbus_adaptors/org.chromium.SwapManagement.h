@@ -31,24 +31,17 @@ class SwapManagementInterface {
   // Turn swap usage off and then on (leaves config files alone).
   virtual bool SwapRestart(
       brillo::ErrorPtr* error) = 0;
-  // Enable swap file usage via config files.
-  virtual std::string SwapEnable(
-      int32_t in_size,
-      bool in_change_now) = 0;
-  // Disable swap file usage via config files.
-  virtual std::string SwapDisable(
-      bool in_change_now) = 0;
+  // Set zram size in swap file. Change can be applied after SwapRestart or reboot.
+  virtual bool SwapSetSize(
+      brillo::ErrorPtr* error,
+      uint32_t in_size) = 0;
+  // Show current swap status.
+  virtual std::string SwapStatus() = 0;
   // Enable/Disable the MGLRU feature.
   virtual bool MGLRUSetEnable(
       brillo::ErrorPtr* error,
       bool in_enable,
       bool* out_result) = 0;
-  // Show current swap status.
-  virtual std::string SwapStatus() = 0;
-  // Persistently change the value of various parameters.
-  virtual std::string SwapSetParameter(
-      const std::string& in_command_name,
-      uint32_t in_value) = 0;
   // Enable writeback of zram swapped pages.
   virtual std::string SwapZramEnableWriteback(
       uint32_t in_size_mb) = 0;
@@ -86,26 +79,18 @@ class SwapManagementAdaptor {
         "SwapRestart",
         base::Unretained(interface_),
         &SwapManagementInterface::SwapRestart);
-    itf->AddSimpleMethodHandler(
-        "SwapEnable",
-        base::Unretained(interface_),
-        &SwapManagementInterface::SwapEnable);
-    itf->AddSimpleMethodHandler(
-        "SwapDisable",
-        base::Unretained(interface_),
-        &SwapManagementInterface::SwapDisable);
     itf->AddSimpleMethodHandlerWithError(
-        "MGLRUSetEnable",
+        "SwapSetSize",
         base::Unretained(interface_),
-        &SwapManagementInterface::MGLRUSetEnable);
+        &SwapManagementInterface::SwapSetSize);
     itf->AddSimpleMethodHandler(
         "SwapStatus",
         base::Unretained(interface_),
         &SwapManagementInterface::SwapStatus);
-    itf->AddSimpleMethodHandler(
-        "SwapSetParameter",
+    itf->AddSimpleMethodHandlerWithError(
+        "MGLRUSetEnable",
         base::Unretained(interface_),
-        &SwapManagementInterface::SwapSetParameter);
+        &SwapManagementInterface::MGLRUSetEnable);
     itf->AddSimpleMethodHandler(
         "SwapZramEnableWriteback",
         base::Unretained(interface_),
@@ -137,26 +122,15 @@ class SwapManagementAdaptor {
         "    </method>\n"
         "    <method name=\"SwapRestart\">\n"
         "    </method>\n"
-        "    <method name=\"SwapEnable\">\n"
-        "      <arg name=\"size\" type=\"i\" direction=\"in\"/>\n"
-        "      <arg name=\"change_now\" type=\"b\" direction=\"in\"/>\n"
-        "      <arg name=\"status\" type=\"s\" direction=\"out\"/>\n"
+        "    <method name=\"SwapSetSize\">\n"
+        "      <arg name=\"size\" type=\"u\" direction=\"in\"/>\n"
         "    </method>\n"
-        "    <method name=\"SwapDisable\">\n"
-        "      <arg name=\"change_now\" type=\"b\" direction=\"in\"/>\n"
+        "    <method name=\"SwapStatus\">\n"
         "      <arg name=\"status\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"MGLRUSetEnable\">\n"
         "      <arg name=\"enable\" type=\"b\" direction=\"in\"/>\n"
         "      <arg name=\"result\" type=\"b\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"SwapStatus\">\n"
-        "      <arg name=\"status\" type=\"s\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"SwapSetParameter\">\n"
-        "      <arg name=\"command_name\" type=\"s\" direction=\"in\"/>\n"
-        "      <arg name=\"value\" type=\"u\" direction=\"in\"/>\n"
-        "      <arg name=\"status\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"SwapZramEnableWriteback\">\n"
         "      <arg name=\"size_mb\" type=\"u\" direction=\"in\"/>\n"
