@@ -498,7 +498,7 @@ class SeedDetails final :
     kFetchTimeFieldNumber = 10,
     kMilestoneFieldNumber = 5,
   };
-  // string compressed_data = 1;
+  // bytes compressed_data = 1;
   void clear_compressed_data();
   const std::string& compressed_data() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -1174,7 +1174,7 @@ FeatureOverride::params() const {
 
 // SeedDetails
 
-// string compressed_data = 1;
+// bytes compressed_data = 1;
 inline void SeedDetails::clear_compressed_data() {
   _impl_.compressed_data_.ClearToEmpty();
 }
@@ -1186,7 +1186,7 @@ template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void SeedDetails::set_compressed_data(ArgT0&& arg0, ArgT... args) {
  
- _impl_.compressed_data_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+ _impl_.compressed_data_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:featured.SeedDetails.compressed_data)
 }
 inline std::string* SeedDetails::mutable_compressed_data() {
