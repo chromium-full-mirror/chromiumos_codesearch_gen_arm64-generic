@@ -76,13 +76,13 @@ struct AcceptOption {
 
 };
 
-enum  ChooseEntryType {
-  CHOOSE_ENTRY_TYPE_NONE = 0,
-  CHOOSE_ENTRY_TYPE_OPENFILE,
-  CHOOSE_ENTRY_TYPE_OPENWRITABLEFILE,
-  CHOOSE_ENTRY_TYPE_SAVEFILE,
-  CHOOSE_ENTRY_TYPE_OPENDIRECTORY,
-  CHOOSE_ENTRY_TYPE_LAST = CHOOSE_ENTRY_TYPE_OPENDIRECTORY,
+enum class ChooseEntryType {
+  kNone = 0,
+  kOpenFile,
+  kOpenWritableFile,
+  kSaveFile,
+  kOpenDirectory,
+  kMaxValue = kOpenDirectory,
 };
 
 

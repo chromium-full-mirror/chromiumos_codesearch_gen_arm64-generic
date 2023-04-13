@@ -86,11 +86,11 @@ namespace session {
 //
 
 // The storage area's access level.
-enum  AccessLevel {
-  ACCESS_LEVEL_NONE = 0,
-  ACCESS_LEVEL_TRUSTED_CONTEXTS,
-  ACCESS_LEVEL_TRUSTED_AND_UNTRUSTED_CONTEXTS,
-  ACCESS_LEVEL_LAST = ACCESS_LEVEL_TRUSTED_AND_UNTRUSTED_CONTEXTS,
+enum class AccessLevel {
+  kNone = 0,
+  kTrustedContexts,
+  kTrustedAndUntrustedContexts,
+  kMaxValue = kTrustedAndUntrustedContexts,
 };
 
 

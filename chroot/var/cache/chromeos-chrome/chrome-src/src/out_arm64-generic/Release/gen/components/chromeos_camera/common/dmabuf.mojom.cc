@@ -113,7 +113,9 @@ DmaBufVideoFrame::DmaBufVideoFrame()
     : format(),
       coded_width(),
       coded_height(),
-      planes() {}
+      planes(),
+      has_modifier(),
+      modifier() {}
 
 DmaBufVideoFrame::DmaBufVideoFrame(
     ::media::VideoPixelFormat format_in,
@@ -123,7 +125,23 @@ DmaBufVideoFrame::DmaBufVideoFrame(
     : format(std::move(format_in)),
       coded_width(std::move(coded_width_in)),
       coded_height(std::move(coded_height_in)),
-      planes(std::move(planes_in)) {}
+      planes(std::move(planes_in)),
+      has_modifier(),
+      modifier() {}
+
+DmaBufVideoFrame::DmaBufVideoFrame(
+    ::media::VideoPixelFormat format_in,
+    uint32_t coded_width_in,
+    uint32_t coded_height_in,
+    std::vector<DmaBufPlanePtr> planes_in,
+    bool has_modifier_in,
+    uint64_t modifier_in)
+    : format(std::move(format_in)),
+      coded_width(std::move(coded_width_in)),
+      coded_height(std::move(coded_height_in)),
+      planes(std::move(planes_in)),
+      has_modifier(std::move(has_modifier_in)),
+      modifier(std::move(modifier_in)) {}
 
 DmaBufVideoFrame::~DmaBufVideoFrame() = default;
 
@@ -162,6 +180,24 @@ void DmaBufVideoFrame::WriteIntoTrace(
       "planes"), this->planes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::vector<DmaBufPlanePtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "has_modifier"), this->has_modifier,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "modifier"), this->modifier,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -217,6 +253,10 @@ bool StructTraits<::chromeos_camera::mojom::DmaBufVideoFrame::DataView, ::chrome
         result->coded_height = input.coded_height();
       if (success && !input.ReadPlanes(&result->planes))
         success = false;
+      if (success)
+        result->has_modifier = input.has_modifier();
+      if (success)
+        result->modifier = input.modifier();
   *output = std::move(result);
   return success;
 }

@@ -1161,10 +1161,6 @@ absl::optional<int> Value::FindIntKey(StringPiece key) const {
   return GetDict().FindInt(key);
 }
 
-absl::optional<double> Value::FindDoubleKey(StringPiece key) const {
-  return GetDict().FindDouble(key);
-}
-
 const std::string* Value::FindStringKey(StringPiece key) const {
   return GetDict().FindString(key);
 }
@@ -1283,14 +1279,6 @@ const Value* Value::FindListPath(StringPiece path) const {
 
 Value* Value::FindListPath(StringPiece path) {
   return const_cast<Value*>(std::as_const(*this).FindListPath(path));
-}
-
-Value::dict_iterator_proxy Value::DictItems() {
-  return dict_iterator_proxy(&GetDict().storage_);
-}
-
-Value::const_dict_iterator_proxy Value::DictItems() const {
-  return const_dict_iterator_proxy(&GetDict().storage_);
 }
 
 size_t Value::DictSize() const {

@@ -120,6 +120,27 @@ std::string GetProtoDebugStringWithIndent(AuthIntent value, int indent_size) {
   return "<unknown>";
 }
 
+std::string GetProtoDebugString(LockoutPolicy value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(LockoutPolicy value,
+                                          int indent_size) {
+  if (value == LOCKOUT_POLICY_UNKNOWN) {
+    return "LOCKOUT_POLICY_UNKNOWN";
+  }
+  if (value == LOCKOUT_POLICY_NONE) {
+    return "LOCKOUT_POLICY_NONE";
+  }
+  if (value == LOCKOUT_POLICY_ATTEMPT_LIMITED) {
+    return "LOCKOUT_POLICY_ATTEMPT_LIMITED";
+  }
+  if (value == LOCKOUT_POLICY_TIME_LIMITED) {
+    return "LOCKOUT_POLICY_TIME_LIMITED";
+  }
+  return "<unknown>";
+}
+
 std::string GetProtoDebugString(const PasswordAuthInput& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -479,6 +500,13 @@ std::string GetProtoDebugStringWithIndent(const CommonMetadata& value,
   output += indent + "  chrome_version_last_updated: ";
   base::StringAppendF(&output, "%s",
                       value.chrome_version_last_updated().c_str());
+  output += "\n";
+
+  output += indent + "  lockout_policy: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.lockout_policy(), indent_size + 2)
+          .c_str());
   output += "\n";
 
   output += indent + "}\n";

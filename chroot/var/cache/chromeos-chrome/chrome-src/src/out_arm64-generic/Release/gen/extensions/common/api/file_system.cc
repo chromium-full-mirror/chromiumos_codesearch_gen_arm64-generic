@@ -158,15 +158,15 @@ base::Value::Dict AcceptOption::ToValue() const {
 
 const char* ToString(ChooseEntryType enum_param) {
   switch (enum_param) {
-    case CHOOSE_ENTRY_TYPE_OPENFILE:
+    case ChooseEntryType::kOpenFile:
       return "openFile";
-    case CHOOSE_ENTRY_TYPE_OPENWRITABLEFILE:
+    case ChooseEntryType::kOpenWritableFile:
       return "openWritableFile";
-    case CHOOSE_ENTRY_TYPE_SAVEFILE:
+    case ChooseEntryType::kSaveFile:
       return "saveFile";
-    case CHOOSE_ENTRY_TYPE_OPENDIRECTORY:
+    case ChooseEntryType::kOpenDirectory:
       return "openDirectory";
-    case CHOOSE_ENTRY_TYPE_NONE:
+    case ChooseEntryType::kNone:
       return "";
   }
   NOTREACHED();
@@ -175,14 +175,14 @@ const char* ToString(ChooseEntryType enum_param) {
 
 ChooseEntryType ParseChooseEntryType(base::StringPiece enum_string) {
   if (enum_string == "openFile")
-    return CHOOSE_ENTRY_TYPE_OPENFILE;
+    return ChooseEntryType::kOpenFile;
   if (enum_string == "openWritableFile")
-    return CHOOSE_ENTRY_TYPE_OPENWRITABLEFILE;
+    return ChooseEntryType::kOpenWritableFile;
   if (enum_string == "saveFile")
-    return CHOOSE_ENTRY_TYPE_SAVEFILE;
+    return ChooseEntryType::kSaveFile;
   if (enum_string == "openDirectory")
-    return CHOOSE_ENTRY_TYPE_OPENDIRECTORY;
-  return CHOOSE_ENTRY_TYPE_NONE;
+    return ChooseEntryType::kOpenDirectory;
+  return ChooseEntryType::kNone;
 }
 
 

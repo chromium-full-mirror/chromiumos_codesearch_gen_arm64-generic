@@ -54,6 +54,10 @@ namespace perfetto_pbzero_enum_BlinkExecutionContext {
 enum ContextType : int32_t;
 }  // namespace perfetto_pbzero_enum_BlinkExecutionContext
 using BlinkExecutionContext_ContextType = perfetto_pbzero_enum_BlinkExecutionContext::ContextType;
+namespace perfetto_pbzero_enum_BlinkExecutionContext {
+enum WorldType : int32_t;
+}  // namespace perfetto_pbzero_enum_BlinkExecutionContext
+using BlinkExecutionContext_WorldType = perfetto_pbzero_enum_BlinkExecutionContext::WorldType;
 namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_JSFunctionArgument {
 enum ArgumentType : int32_t;
 }  // namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_JSFunctionArgument
@@ -499,6 +503,55 @@ const char* BlinkExecutionContext_ContextType_Name(::perfetto::protos::pbzero::B
 
   case ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType::SERVICE_WORKER:
     return "SERVICE_WORKER";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_BlinkExecutionContext {
+enum WorldType : int32_t {
+  WORLD_UNKNOWN = 0,
+  WORLD_MAIN = 1,
+  WORLD_ISOLATED = 2,
+  WORLD_INSPECTOR_ISOLATED = 3,
+  WORLD_REG_EXP = 4,
+  WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN = 5,
+  WORLD_WORKER = 6,
+  WORLD_SHADOW_REALM = 7,
+};
+} // namespace perfetto_pbzero_enum_BlinkExecutionContext
+using BlinkExecutionContext_WorldType = perfetto_pbzero_enum_BlinkExecutionContext::WorldType;
+
+
+constexpr BlinkExecutionContext_WorldType BlinkExecutionContext_WorldType_MIN = BlinkExecutionContext_WorldType::WORLD_UNKNOWN;
+constexpr BlinkExecutionContext_WorldType BlinkExecutionContext_WorldType_MAX = BlinkExecutionContext_WorldType::WORLD_SHADOW_REALM;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* BlinkExecutionContext_WorldType_Name(::perfetto::protos::pbzero::BlinkExecutionContext_WorldType value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_UNKNOWN:
+    return "WORLD_UNKNOWN";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_MAIN:
+    return "WORLD_MAIN";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_ISOLATED:
+    return "WORLD_ISOLATED";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_INSPECTOR_ISOLATED:
+    return "WORLD_INSPECTOR_ISOLATED";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_REG_EXP:
+    return "WORLD_REG_EXP";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN:
+    return "WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_WORKER:
+    return "WORLD_WORKER";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_SHADOW_REALM:
+    return "WORLD_SHADOW_REALM";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -2881,7 +2934,7 @@ class BlinkSourceLocation : public ::protozero::Message {
 
 };
 
-class BlinkExecutionContext_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class BlinkExecutionContext_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   BlinkExecutionContext_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit BlinkExecutionContext_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -2892,6 +2945,8 @@ class BlinkExecutionContext_Decoder : public ::protozero::TypedProtoDecoder</*MA
   ::protozero::ConstChars url() const { return at<2>().as_string(); }
   bool has_origin() const { return at<3>().valid(); }
   ::protozero::ConstChars origin() const { return at<3>().as_string(); }
+  bool has_world_type() const { return at<4>().valid(); }
+  int32_t world_type() const { return at<4>().as_int32(); }
 };
 
 class BlinkExecutionContext : public ::protozero::Message {
@@ -2901,6 +2956,7 @@ class BlinkExecutionContext : public ::protozero::Message {
     kTypeFieldNumber = 1,
     kUrlFieldNumber = 2,
     kOriginFieldNumber = 3,
+    kWorldTypeFieldNumber = 4,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.BlinkExecutionContext"; }
 
@@ -2909,12 +2965,25 @@ class BlinkExecutionContext : public ::protozero::Message {
   static inline const char* ContextType_Name(ContextType value) {
     return ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType_Name(value);
   }
+
+  using WorldType = ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType;
+  static inline const char* WorldType_Name(WorldType value) {
+    return ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType_Name(value);
+  }
   static const ContextType UNKNOWN_CONTEXT = ContextType::UNKNOWN_CONTEXT;
   static const ContextType WINDOW = ContextType::WINDOW;
   static const ContextType WORKLET = ContextType::WORKLET;
   static const ContextType DEDICATED_WORKER = ContextType::DEDICATED_WORKER;
   static const ContextType SHARED_WORKER = ContextType::SHARED_WORKER;
   static const ContextType SERVICE_WORKER = ContextType::SERVICE_WORKER;
+  static const WorldType WORLD_UNKNOWN = WorldType::WORLD_UNKNOWN;
+  static const WorldType WORLD_MAIN = WorldType::WORLD_MAIN;
+  static const WorldType WORLD_ISOLATED = WorldType::WORLD_ISOLATED;
+  static const WorldType WORLD_INSPECTOR_ISOLATED = WorldType::WORLD_INSPECTOR_ISOLATED;
+  static const WorldType WORLD_REG_EXP = WorldType::WORLD_REG_EXP;
+  static const WorldType WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN = WorldType::WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN;
+  static const WorldType WORLD_WORKER = WorldType::WORLD_WORKER;
+  static const WorldType WORLD_SHADOW_REALM = WorldType::WORLD_SHADOW_REALM;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<
@@ -2979,6 +3048,24 @@ class BlinkExecutionContext : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_WorldType =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType,
+      BlinkExecutionContext>;
+
+  static constexpr FieldMetadata_WorldType kWorldType{};
+  void set_world_type(::perfetto::protos::pbzero::BlinkExecutionContext_WorldType value) {
+    static constexpr uint32_t field_id = FieldMetadata_WorldType::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
         ::Append(*this, field_id, value);
   }
 };

@@ -216,6 +216,29 @@ inline const std::string& AuthIntent_Name(T enum_t_value) {
 }
 bool AuthIntent_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthIntent* value);
+enum LockoutPolicy : int {
+  LOCKOUT_POLICY_UNKNOWN = 0,
+  LOCKOUT_POLICY_NONE = 1,
+  LOCKOUT_POLICY_ATTEMPT_LIMITED = 2,
+  LOCKOUT_POLICY_TIME_LIMITED = 3,
+  LockoutPolicy_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  LockoutPolicy_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool LockoutPolicy_IsValid(int value);
+constexpr LockoutPolicy LockoutPolicy_MIN = LOCKOUT_POLICY_UNKNOWN;
+constexpr LockoutPolicy LockoutPolicy_MAX = LOCKOUT_POLICY_TIME_LIMITED;
+constexpr int LockoutPolicy_ARRAYSIZE = LockoutPolicy_MAX + 1;
+
+const std::string& LockoutPolicy_Name(LockoutPolicy value);
+template<typename T>
+inline const std::string& LockoutPolicy_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, LockoutPolicy>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function LockoutPolicy_Name.");
+  return LockoutPolicy_Name(static_cast<LockoutPolicy>(enum_t_value));
+}
+bool LockoutPolicy_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, LockoutPolicy* value);
 // ===================================================================
 
 class PasswordAuthInput final :
@@ -2386,6 +2409,7 @@ class CommonMetadata final :
   enum : int {
     kChromeosVersionLastUpdatedFieldNumber = 1,
     kChromeVersionLastUpdatedFieldNumber = 2,
+    kLockoutPolicyFieldNumber = 3,
   };
   // string chromeos_version_last_updated = 1;
   void clear_chromeos_version_last_updated();
@@ -2415,6 +2439,15 @@ class CommonMetadata final :
   std::string* _internal_mutable_chrome_version_last_updated();
   public:
 
+  // .user_data_auth.LockoutPolicy lockout_policy = 3;
+  void clear_lockout_policy();
+  ::user_data_auth::LockoutPolicy lockout_policy() const;
+  void set_lockout_policy(::user_data_auth::LockoutPolicy value);
+  private:
+  ::user_data_auth::LockoutPolicy _internal_lockout_policy() const;
+  void _internal_set_lockout_policy(::user_data_auth::LockoutPolicy value);
+  public:
+
   // @@protoc_insertion_point(class_scope:user_data_auth.CommonMetadata)
  private:
   class _Internal;
@@ -2425,6 +2458,7 @@ class CommonMetadata final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr chromeos_version_last_updated_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr chrome_version_last_updated_;
+    int lockout_policy_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -4416,6 +4450,26 @@ inline void CommonMetadata::set_allocated_chrome_version_last_updated(std::strin
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.CommonMetadata.chrome_version_last_updated)
 }
 
+// .user_data_auth.LockoutPolicy lockout_policy = 3;
+inline void CommonMetadata::clear_lockout_policy() {
+  _impl_.lockout_policy_ = 0;
+}
+inline ::user_data_auth::LockoutPolicy CommonMetadata::_internal_lockout_policy() const {
+  return static_cast< ::user_data_auth::LockoutPolicy >(_impl_.lockout_policy_);
+}
+inline ::user_data_auth::LockoutPolicy CommonMetadata::lockout_policy() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CommonMetadata.lockout_policy)
+  return _internal_lockout_policy();
+}
+inline void CommonMetadata::_internal_set_lockout_policy(::user_data_auth::LockoutPolicy value) {
+  
+  _impl_.lockout_policy_ = value;
+}
+inline void CommonMetadata::set_lockout_policy(::user_data_auth::LockoutPolicy value) {
+  _internal_set_lockout_policy(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.CommonMetadata.lockout_policy)
+}
+
 // -------------------------------------------------------------------
 
 // LegacyFingerprintMetadata
@@ -5163,6 +5217,7 @@ template <> struct is_proto_enum< ::user_data_auth::AuthFactorType> : ::std::tru
 template <> struct is_proto_enum< ::user_data_auth::AuthFactorPreparePurpose> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::SmartCardSignatureAlgorithm> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::AuthIntent> : ::std::true_type {};
+template <> struct is_proto_enum< ::user_data_auth::LockoutPolicy> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

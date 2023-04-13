@@ -37,6 +37,8 @@ BRILLO_EXPORT std::string GetProtoDebugString(
     SmartCardSignatureAlgorithm value);
 std::string GetProtoDebugStringWithIndent(AuthIntent value, int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(AuthIntent value);
+std::string GetProtoDebugStringWithIndent(LockoutPolicy value, int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(LockoutPolicy value);
 std::string GetProtoDebugStringWithIndent(const PasswordAuthInput& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const PasswordAuthInput& value);

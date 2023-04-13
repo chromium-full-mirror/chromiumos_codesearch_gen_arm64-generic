@@ -36,11 +36,11 @@ namespace socket {
 
 const char* ToString(SocketType enum_param) {
   switch (enum_param) {
-    case SOCKET_TYPE_TCP:
+    case SocketType::kTcp:
       return "tcp";
-    case SOCKET_TYPE_UDP:
+    case SocketType::kUdp:
       return "udp";
-    case SOCKET_TYPE_NONE:
+    case SocketType::kNone:
       return "";
   }
   NOTREACHED();
@@ -49,10 +49,10 @@ const char* ToString(SocketType enum_param) {
 
 SocketType ParseSocketType(base::StringPiece enum_string) {
   if (enum_string == "tcp")
-    return SOCKET_TYPE_TCP;
+    return SocketType::kTcp;
   if (enum_string == "udp")
-    return SOCKET_TYPE_UDP;
-  return SOCKET_TYPE_NONE;
+    return SocketType::kUdp;
+  return SocketType::kNone;
 }
 
 

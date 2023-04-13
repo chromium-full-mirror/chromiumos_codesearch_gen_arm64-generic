@@ -140,6 +140,16 @@ class DmaBufVideoFrameDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos_camera::mojom::DmaBufPlaneDataView>>(
         pointer, output, message_);
   }
+  bool has_modifier() const {
+    if (data_->header_.version < 1)
+      return bool{};
+    return data_->has_modifier;
+  }
+  uint64_t modifier() const {
+    if (data_->header_.version < 1)
+      return uint64_t{};
+    return data_->modifier;
+  }
  private:
   internal::DmaBufVideoFrame_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -226,6 +236,8 @@ struct Serializer<::chromeos_camera::mojom::DmaBufVideoFrameDataView, MaybeConst
         fragment->planes.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null planes in DmaBufVideoFrame struct");
+    fragment->has_modifier = Traits::has_modifier(input);
+    fragment->modifier = Traits::modifier(input);
   }
 
   static bool Deserialize(::chromeos_camera::mojom::internal::DmaBufVideoFrame_Data* input,

@@ -1507,6 +1507,19 @@ class  CameraBufferHandle {
       std::vector<uint32_t> offsets,
       absl::optional<std::vector<uint32_t>> sizes);
 
+  CameraBufferHandle(
+      uint64_t buffer_id,
+      std::vector<::mojo::ScopedHandle> fds,
+      uint32_t drm_format,
+      HalPixelFormat hal_pixel_format,
+      uint32_t width,
+      uint32_t height,
+      std::vector<uint32_t> strides,
+      std::vector<uint32_t> offsets,
+      absl::optional<std::vector<uint32_t>> sizes,
+      bool has_modifier,
+      uint64_t modifier);
+
 CameraBufferHandle(const CameraBufferHandle&) = delete;
 CameraBufferHandle& operator=(const CameraBufferHandle&) = delete;
 
@@ -1594,6 +1607,10 @@ CameraBufferHandle& operator=(const CameraBufferHandle&) = delete;
   std::vector<uint32_t> offsets;
   
   absl::optional<std::vector<uint32_t>> sizes;
+  
+  bool has_modifier;
+  
+  uint64_t modifier;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2710,7 +2727,9 @@ CameraBufferHandlePtr CameraBufferHandle::Clone() const {
       mojo::Clone(height),
       mojo::Clone(strides),
       mojo::Clone(offsets),
-      mojo::Clone(sizes)
+      mojo::Clone(sizes),
+      mojo::Clone(has_modifier),
+      mojo::Clone(modifier)
   );
 }
 
@@ -2733,6 +2752,10 @@ bool CameraBufferHandle::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->offsets, other_struct.offsets))
     return false;
   if (!mojo::Equals(this->sizes, other_struct.sizes))
+    return false;
+  if (!mojo::Equals(this->has_modifier, other_struct.has_modifier))
+    return false;
+  if (!mojo::Equals(this->modifier, other_struct.modifier))
     return false;
   return true;
 }
@@ -2774,6 +2797,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.sizes < rhs.sizes)
     return true;
   if (rhs.sizes < lhs.sizes)
+    return false;
+  if (lhs.has_modifier < rhs.has_modifier)
+    return true;
+  if (rhs.has_modifier < lhs.has_modifier)
+    return false;
+  if (lhs.modifier < rhs.modifier)
+    return true;
+  if (rhs.modifier < lhs.modifier)
     return false;
   return false;
 }
@@ -3291,6 +3322,16 @@ struct  StructTraits<::cros::mojom::CameraBufferHandle::DataView,
   static const decltype(::cros::mojom::CameraBufferHandle::sizes)& sizes(
       const ::cros::mojom::CameraBufferHandlePtr& input) {
     return input->sizes;
+  }
+
+  static decltype(::cros::mojom::CameraBufferHandle::has_modifier) has_modifier(
+      const ::cros::mojom::CameraBufferHandlePtr& input) {
+    return input->has_modifier;
+  }
+
+  static decltype(::cros::mojom::CameraBufferHandle::modifier) modifier(
+      const ::cros::mojom::CameraBufferHandlePtr& input) {
+    return input->modifier;
   }
 
   static bool Read(::cros::mojom::CameraBufferHandle::DataView input, ::cros::mojom::CameraBufferHandlePtr* output);

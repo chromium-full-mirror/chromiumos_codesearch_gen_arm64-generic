@@ -29,17 +29,17 @@ namespace os_events {
 // Types
 //
 
-enum class EventCategoryEnum {
+enum class EventCategory {
   kNone = 0,
   kAudioJack,
   kMaxValue = kAudioJack,
 };
 
 
-const char* ToString(EventCategoryEnum as_enum);
-EventCategoryEnum ParseEventCategoryEnum(base::StringPiece as_string);
+const char* ToString(EventCategory as_enum);
+EventCategory ParseEventCategory(base::StringPiece as_string);
 
-enum class EventSupportStatusEnum {
+enum class EventSupportStatus {
   kNone = 0,
   kSupported,
   kUnsupported,
@@ -47,57 +47,58 @@ enum class EventSupportStatusEnum {
 };
 
 
-const char* ToString(EventSupportStatusEnum as_enum);
-EventSupportStatusEnum ParseEventSupportStatusEnum(base::StringPiece as_string);
+const char* ToString(EventSupportStatus as_enum);
+EventSupportStatus ParseEventSupportStatus(base::StringPiece as_string);
 
-struct EventSupportStatus {
-  EventSupportStatus();
-  ~EventSupportStatus();
-  EventSupportStatus(const EventSupportStatus&) = delete;
-  EventSupportStatus& operator=(const EventSupportStatus&) = delete;
-  EventSupportStatus(EventSupportStatus&& rhs);
-  EventSupportStatus& operator=(EventSupportStatus&& rhs);
+struct EventSupportStatusInfo {
+  EventSupportStatusInfo();
+  ~EventSupportStatusInfo();
+  EventSupportStatusInfo(const EventSupportStatusInfo&) = delete;
+  EventSupportStatusInfo& operator=(const EventSupportStatusInfo&) = delete;
+  EventSupportStatusInfo(EventSupportStatusInfo&& rhs);
+  EventSupportStatusInfo& operator=(EventSupportStatusInfo&& rhs);
 
-  // Populates a EventSupportStatus object from a base::Value& instance. Returns
+  // Populates a EventSupportStatusInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, EventSupportStatusInfo& out);
+
+  // Populates a EventSupportStatusInfo object from a Dict& instance. Returns
   // whether |out| was successfully populated.
-  static bool Populate(const base::Value& value, EventSupportStatus& out);
+  static bool Populate(const base::Value::Dict& value, EventSupportStatusInfo& out);
 
-  // Populates a EventSupportStatus object from a Dict& instance. Returns
-  // whether |out| was successfully populated.
-  static bool Populate(const base::Value::Dict& value, EventSupportStatus& out);
+  // Creates a deep copy of EventSupportStatusInfo.
+  EventSupportStatusInfo Clone() const;
 
-  // Creates a deep copy of EventSupportStatus.
-  EventSupportStatus Clone() const;
-
-  // Creates a EventSupportStatus object from a base::Value, or NULL on failure.
-  static std::unique_ptr<EventSupportStatus> FromValueDeprecated(const base::Value& value);
-
-  // Creates a EventSupportStatus object from a base::Value::Dict, or nullopt on
+  // Creates a EventSupportStatusInfo object from a base::Value, or NULL on
   // failure.
-  static absl::optional<EventSupportStatus> FromValue(const base::Value::Dict& value);
+  static std::unique_ptr<EventSupportStatusInfo> FromValueDeprecated(const base::Value& value);
 
-  // Creates a EventSupportStatus object from a base::Value, or nullopt on
+  // Creates a EventSupportStatusInfo object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<EventSupportStatusInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a EventSupportStatusInfo object from a base::Value, or nullopt on
   // failure.
-  static absl::optional<EventSupportStatus> FromValue(const base::Value& value);
+  static absl::optional<EventSupportStatusInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
-  // thisEventSupportStatus object.
+  // thisEventSupportStatusInfo object.
   base::Value::Dict ToValue() const;
 
-  EventSupportStatusEnum status;
+  EventSupportStatus status;
 
 };
 
-enum class AudioJackEventState {
+enum class AudioJackEvent {
   kNone = 0,
-  kAdd,
-  kRemove,
-  kMaxValue = kRemove,
+  kConnected,
+  kDisconnected,
+  kMaxValue = kDisconnected,
 };
 
 
-const char* ToString(AudioJackEventState as_enum);
-AudioJackEventState ParseAudioJackEventState(base::StringPiece as_string);
+const char* ToString(AudioJackEvent as_enum);
+AudioJackEvent ParseAudioJackEvent(base::StringPiece as_string);
 
 struct AudioJackEventInfo {
   AudioJackEventInfo();
@@ -133,7 +134,7 @@ struct AudioJackEventInfo {
   // thisAudioJackEventInfo object.
   base::Value::Dict ToValue() const;
 
-  AudioJackEventState event_state;
+  AudioJackEvent event;
 
 };
 
@@ -152,7 +153,7 @@ struct Params {
   Params& operator=(Params&& rhs);
   ~Params();
 
-  EventCategoryEnum category;
+  EventCategory category;
 
 
  private:
@@ -161,7 +162,7 @@ struct Params {
 
 namespace Results {
 
-base::Value::List Create(const EventSupportStatus& status);
+base::Value::List Create(const EventSupportStatusInfo& info);
 }  // namespace Results
 
 }  // namespace IsEventSupported
@@ -176,7 +177,7 @@ struct Params {
   Params& operator=(Params&& rhs);
   ~Params();
 
-  EventCategoryEnum category;
+  EventCategory category;
 
 
  private:
@@ -200,7 +201,7 @@ struct Params {
   Params& operator=(Params&& rhs);
   ~Params();
 
-  EventCategoryEnum category;
+  EventCategory category;
 
 
  private:

@@ -18,6 +18,7 @@
 #include <base/logging.h>
 #include <base/strings/string_util.h>
 #include <base/strings/stringprintf.h>
+#include <base/task/single_thread_task_runner.h>
 
 #include "diagnostics/base/mojo_utils.h"
 
@@ -128,8 +129,9 @@ base::Value::Dict SensitiveSensorRoutine::SensorDetail::GetDetailValue(
     out_types.Append(ConverDeviceTypeToString(type));
   sensor_output.Set("types", std::move(out_types));
   base::Value::List out_channels;
-  for (const auto& channel_name : GetRequiredChannels(types))
-    out_channels.Append(channel_name);
+  if (channels.has_value())
+    for (const auto& channel_name : channels.value())
+      out_channels.Append(channel_name);
   sensor_output.Set("channels", std::move(out_channels));
   return sensor_output;
 }
@@ -157,7 +159,7 @@ void SensitiveSensorRoutine::Start() {
   UpdateStatus(mojom::DiagnosticRoutineStatusEnum::kRunning,
                kSensitiveSensorRoutineRunningMessage);
 
-  base::ThreadTaskRunnerHandle::Get()->PostDelayedTask(
+  base::SingleThreadTaskRunner::GetCurrentDefault()->PostDelayedTask(
       FROM_HERE,
       base::BindOnce(&SensitiveSensorRoutine::OnTimeoutOccurred,
                      weak_ptr_factory_.GetWeakPtr()),
@@ -273,6 +275,7 @@ void SensitiveSensorRoutine::HandleFrequencyResponse(int32_t sensor_id,
 
 void SensitiveSensorRoutine::HandleChannelIdsResponse(
     int32_t sensor_id, const std::vector<std::string>& channels) {
+  pending_sensors_[sensor_id].channels = channels;
   std::vector<int32_t> channel_indices;
   for (auto required_channel :
        GetRequiredChannels(pending_sensors_[sensor_id].types)) {

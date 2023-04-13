@@ -338,7 +338,9 @@ CameraBufferHandle::CameraBufferHandle()
       height(),
       strides(),
       offsets(),
-      sizes() {}
+      sizes(),
+      has_modifier(),
+      modifier() {}
 
 CameraBufferHandle::CameraBufferHandle(
     uint64_t buffer_id_in,
@@ -357,7 +359,9 @@ CameraBufferHandle::CameraBufferHandle(
       height(std::move(height_in)),
       strides(std::move(strides_in)),
       offsets(std::move(offsets_in)),
-      sizes() {}
+      sizes(),
+      has_modifier(),
+      modifier() {}
 
 CameraBufferHandle::CameraBufferHandle(
     uint64_t buffer_id_in,
@@ -377,7 +381,33 @@ CameraBufferHandle::CameraBufferHandle(
       height(std::move(height_in)),
       strides(std::move(strides_in)),
       offsets(std::move(offsets_in)),
-      sizes(std::move(sizes_in)) {}
+      sizes(std::move(sizes_in)),
+      has_modifier(),
+      modifier() {}
+
+CameraBufferHandle::CameraBufferHandle(
+    uint64_t buffer_id_in,
+    std::vector<::mojo::ScopedHandle> fds_in,
+    uint32_t drm_format_in,
+    HalPixelFormat hal_pixel_format_in,
+    uint32_t width_in,
+    uint32_t height_in,
+    std::vector<uint32_t> strides_in,
+    std::vector<uint32_t> offsets_in,
+    absl::optional<std::vector<uint32_t>> sizes_in,
+    bool has_modifier_in,
+    uint64_t modifier_in)
+    : buffer_id(std::move(buffer_id_in)),
+      fds(std::move(fds_in)),
+      drm_format(std::move(drm_format_in)),
+      hal_pixel_format(std::move(hal_pixel_format_in)),
+      width(std::move(width_in)),
+      height(std::move(height_in)),
+      strides(std::move(strides_in)),
+      offsets(std::move(offsets_in)),
+      sizes(std::move(sizes_in)),
+      has_modifier(std::move(has_modifier_in)),
+      modifier(std::move(modifier_in)) {}
 
 CameraBufferHandle::~CameraBufferHandle() = default;
 
@@ -461,6 +491,24 @@ void CameraBufferHandle::WriteIntoTrace(
       "sizes"), this->sizes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const absl::optional<std::vector<uint32_t>>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "has_modifier"), this->has_modifier,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "modifier"), this->modifier,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4091,6 +4139,10 @@ bool StructTraits<::cros::mojom::CameraBufferHandle::DataView, ::cros::mojom::Ca
         success = false;
       if (success && !input.ReadSizes(&result->sizes))
         success = false;
+      if (success)
+        result->has_modifier = input.has_modifier();
+      if (success)
+        result->modifier = input.modifier();
   *output = std::move(result);
   return success;
 }

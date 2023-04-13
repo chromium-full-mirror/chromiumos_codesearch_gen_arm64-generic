@@ -308,23 +308,22 @@ class  VideoEncodeAcceleratorClient_BitstreamBufferReady_Params_Data {
 };
 static_assert(sizeof(VideoEncodeAcceleratorClient_BitstreamBufferReady_Params_Data) == 24,
               "Bad sizeof(VideoEncodeAcceleratorClient_BitstreamBufferReady_Params_Data)");
-class  VideoEncodeAcceleratorClient_NotifyError_Params_Data {
+class  VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  int32_t error;
-  uint8_t padfinal_[4];
+  mojo::internal::Pointer<::media::mojom::internal::EncoderStatus_Data> status;
 
  private:
-  friend class mojo::internal::MessageFragment<VideoEncodeAcceleratorClient_NotifyError_Params_Data>;
+  friend class mojo::internal::MessageFragment<VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data>;
 
-  VideoEncodeAcceleratorClient_NotifyError_Params_Data();
-  ~VideoEncodeAcceleratorClient_NotifyError_Params_Data() = delete;
+  VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data();
+  ~VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data() = delete;
 };
-static_assert(sizeof(VideoEncodeAcceleratorClient_NotifyError_Params_Data) == 16,
-              "Bad sizeof(VideoEncodeAcceleratorClient_NotifyError_Params_Data)");
+static_assert(sizeof(VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data) == 16,
+              "Bad sizeof(VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data)");
 class  VideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -756,28 +755,29 @@ class VideoEncodeAcceleratorClient_BitstreamBufferReady_ParamsDataView {
 };
 
 
-class VideoEncodeAcceleratorClient_NotifyError_ParamsDataView {
+class VideoEncodeAcceleratorClient_NotifyErrorStatus_ParamsDataView {
  public:
-  VideoEncodeAcceleratorClient_NotifyError_ParamsDataView() = default;
+  VideoEncodeAcceleratorClient_NotifyErrorStatus_ParamsDataView() = default;
 
-  VideoEncodeAcceleratorClient_NotifyError_ParamsDataView(
-      internal::VideoEncodeAcceleratorClient_NotifyError_Params_Data* data,
+  VideoEncodeAcceleratorClient_NotifyErrorStatus_ParamsDataView(
+      internal::VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  inline void GetStatusDataView(
+      ::media::mojom::EncoderStatusDataView* output);
+
   template <typename UserType>
-  [[nodiscard]] bool ReadError(UserType* output) const {
-    auto data_value = data_->error;
-    return mojo::internal::Deserialize<::media::mojom::VideoEncodeAccelerator_Error>(
-        data_value, output);
-  }
-  VideoEncodeAccelerator_Error error() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::media::mojom::VideoEncodeAccelerator_Error>(data_->error));
+  [[nodiscard]] bool ReadStatus(UserType* output) {
+    
+    auto* pointer = data_->status.Get();
+    return mojo::internal::Deserialize<::media::mojom::EncoderStatusDataView>(
+        pointer, output, message_);
   }
  private:
-  internal::VideoEncodeAcceleratorClient_NotifyError_Params_Data* data_ = nullptr;
+  internal::VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -880,6 +880,11 @@ inline void VideoEncodeAcceleratorClient_BitstreamBufferReady_ParamsDataView::Ge
 }
 
 
+inline void VideoEncodeAcceleratorClient_NotifyErrorStatus_ParamsDataView::GetStatusDataView(
+    ::media::mojom::EncoderStatusDataView* output) {
+  auto pointer = data_->status.Get();
+  *output = ::media::mojom::EncoderStatusDataView(pointer, message_);
+}
 
 
 inline void VideoEncodeAcceleratorClient_NotifyEncoderInfoChange_ParamsDataView::GetInfoDataView(

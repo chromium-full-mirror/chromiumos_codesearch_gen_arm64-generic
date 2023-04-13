@@ -57,11 +57,11 @@ namespace session {
 
 const char* ToString(AccessLevel enum_param) {
   switch (enum_param) {
-    case ACCESS_LEVEL_TRUSTED_CONTEXTS:
+    case AccessLevel::kTrustedContexts:
       return "TRUSTED_CONTEXTS";
-    case ACCESS_LEVEL_TRUSTED_AND_UNTRUSTED_CONTEXTS:
+    case AccessLevel::kTrustedAndUntrustedContexts:
       return "TRUSTED_AND_UNTRUSTED_CONTEXTS";
-    case ACCESS_LEVEL_NONE:
+    case AccessLevel::kNone:
       return "";
   }
   NOTREACHED();
@@ -70,10 +70,10 @@ const char* ToString(AccessLevel enum_param) {
 
 AccessLevel ParseAccessLevel(base::StringPiece enum_string) {
   if (enum_string == "TRUSTED_CONTEXTS")
-    return ACCESS_LEVEL_TRUSTED_CONTEXTS;
+    return AccessLevel::kTrustedContexts;
   if (enum_string == "TRUSTED_AND_UNTRUSTED_CONTEXTS")
-    return ACCESS_LEVEL_TRUSTED_AND_UNTRUSTED_CONTEXTS;
-  return ACCESS_LEVEL_NONE;
+    return AccessLevel::kTrustedAndUntrustedContexts;
+  return AccessLevel::kNone;
 }
 
 

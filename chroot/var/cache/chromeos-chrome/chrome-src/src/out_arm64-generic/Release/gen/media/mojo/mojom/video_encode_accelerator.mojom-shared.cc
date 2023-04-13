@@ -1288,7 +1288,7 @@ VideoEncodeAcceleratorClient_BitstreamBufferReady_Params_Data::VideoEncodeAccele
 
 
 // static
-bool VideoEncodeAcceleratorClient_NotifyError_Params_Data::Validate(
+bool VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1300,18 +1300,20 @@ bool VideoEncodeAcceleratorClient_NotifyError_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const VideoEncodeAcceleratorClient_NotifyError_Params_Data* object =
-      static_cast<const VideoEncodeAcceleratorClient_NotifyError_Params_Data*>(data);
+  [[maybe_unused]] const VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data* object =
+      static_cast<const VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data*>(data);
 
-
-  if (!::media::mojom::internal::VideoEncodeAccelerator_Error_Data
-        ::Validate(object->error, validation_context))
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->status, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->status, validation_context))
     return false;
 
   return true;
 }
 
-VideoEncodeAcceleratorClient_NotifyError_Params_Data::VideoEncodeAcceleratorClient_NotifyError_Params_Data()
+VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data::VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

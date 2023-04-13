@@ -292,7 +292,7 @@ class VideoEncodeAcceleratorClient
   enum MethodMinVersions : uint32_t {
     kRequireBitstreamBuffersMinVersion = 0,
     kBitstreamBufferReadyMinVersion = 0,
-    kNotifyErrorMinVersion = 0,
+    kNotifyErrorStatusMinVersion = 0,
     kNotifyEncoderInfoChangeMinVersion = 0,
   };
 
@@ -305,7 +305,7 @@ class VideoEncodeAcceleratorClient
   struct BitstreamBufferReady_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct NotifyError_Sym {
+  struct NotifyErrorStatus_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct NotifyEncoderInfoChange_Sym {
@@ -321,7 +321,7 @@ class VideoEncodeAcceleratorClient
   virtual void BitstreamBufferReady(int32_t bitstream_buffer_id, const ::media::BitstreamBufferMetadata& metadata) = 0;
 
   
-  virtual void NotifyError(::media::VideoEncodeAccelerator::Error error) = 0;
+  virtual void NotifyErrorStatus(const ::media::EncoderStatus& status) = 0;
 
   
   virtual void NotifyEncoderInfoChange(const ::media::VideoEncoderInfo& info) = 0;
@@ -403,7 +403,7 @@ class  VideoEncodeAcceleratorClientProxy
   
   void BitstreamBufferReady(int32_t bitstream_buffer_id, const ::media::BitstreamBufferMetadata& metadata) final;
   
-  void NotifyError(::media::VideoEncodeAccelerator::Error error) final;
+  void NotifyErrorStatus(const ::media::EncoderStatus& status) final;
   
   void NotifyEncoderInfoChange(const ::media::VideoEncoderInfo& info) final;
 

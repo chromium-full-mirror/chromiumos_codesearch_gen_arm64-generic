@@ -36,6 +36,42 @@ struct SerializedFingerprintMetadataBuilder;
 struct SerializedAuthFactor;
 struct SerializedAuthFactorBuilder;
 
+enum class SerializedLockoutPolicy : int32_t {
+  UNKNOWN = 0,
+  NO_LOCKOUT = 1,
+  ATTEMPT_LIMITED = 2,
+  TIME_LIMITED = 3,
+  MIN = UNKNOWN,
+  MAX = TIME_LIMITED
+};
+
+inline const SerializedLockoutPolicy (&EnumValuesSerializedLockoutPolicy())[4] {
+  static const SerializedLockoutPolicy values[] = {
+    SerializedLockoutPolicy::UNKNOWN,
+    SerializedLockoutPolicy::NO_LOCKOUT,
+    SerializedLockoutPolicy::ATTEMPT_LIMITED,
+    SerializedLockoutPolicy::TIME_LIMITED
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesSerializedLockoutPolicy() {
+  static const char * const names[5] = {
+    "UNKNOWN",
+    "NO_LOCKOUT",
+    "ATTEMPT_LIMITED",
+    "TIME_LIMITED",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameSerializedLockoutPolicy(SerializedLockoutPolicy e) {
+  if (flatbuffers::IsOutRange(e, SerializedLockoutPolicy::UNKNOWN, SerializedLockoutPolicy::TIME_LIMITED)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesSerializedLockoutPolicy()[index];
+}
+
 enum class SerializedAuthFactorMetadata : uint8_t {
   NONE = 0,
   SerializedPasswordMetadata = 1,
@@ -116,7 +152,8 @@ struct SerializedCommonMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
   typedef SerializedCommonMetadataBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_CHROMEOS_VERSION_LAST_UPDATED = 4,
-    VT_CHROME_VERSION_LAST_UPDATED = 6
+    VT_CHROME_VERSION_LAST_UPDATED = 6,
+    VT_LOCKOUT_POLICY = 8
   };
   const flatbuffers::String *chromeos_version_last_updated() const {
     return GetPointer<const flatbuffers::String *>(VT_CHROMEOS_VERSION_LAST_UPDATED);
@@ -124,12 +161,16 @@ struct SerializedCommonMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
   const flatbuffers::String *chrome_version_last_updated() const {
     return GetPointer<const flatbuffers::String *>(VT_CHROME_VERSION_LAST_UPDATED);
   }
+  cryptohome::SerializedLockoutPolicy lockout_policy() const {
+    return static_cast<cryptohome::SerializedLockoutPolicy>(GetField<int32_t>(VT_LOCKOUT_POLICY, 0));
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_CHROMEOS_VERSION_LAST_UPDATED) &&
            verifier.VerifyString(chromeos_version_last_updated()) &&
            VerifyOffset(verifier, VT_CHROME_VERSION_LAST_UPDATED) &&
            verifier.VerifyString(chrome_version_last_updated()) &&
+           VerifyField<int32_t>(verifier, VT_LOCKOUT_POLICY) &&
            verifier.EndTable();
   }
 };
@@ -143,6 +184,9 @@ struct SerializedCommonMetadataBuilder {
   }
   void add_chrome_version_last_updated(flatbuffers::Offset<flatbuffers::String> chrome_version_last_updated) {
     fbb_.AddOffset(SerializedCommonMetadata::VT_CHROME_VERSION_LAST_UPDATED, chrome_version_last_updated);
+  }
+  void add_lockout_policy(cryptohome::SerializedLockoutPolicy lockout_policy) {
+    fbb_.AddElement<int32_t>(SerializedCommonMetadata::VT_LOCKOUT_POLICY, static_cast<int32_t>(lockout_policy), 0);
   }
   explicit SerializedCommonMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -158,8 +202,10 @@ struct SerializedCommonMetadataBuilder {
 inline flatbuffers::Offset<SerializedCommonMetadata> CreateSerializedCommonMetadata(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::String> chromeos_version_last_updated = 0,
-    flatbuffers::Offset<flatbuffers::String> chrome_version_last_updated = 0) {
+    flatbuffers::Offset<flatbuffers::String> chrome_version_last_updated = 0,
+    cryptohome::SerializedLockoutPolicy lockout_policy = cryptohome::SerializedLockoutPolicy::UNKNOWN) {
   SerializedCommonMetadataBuilder builder_(_fbb);
+  builder_.add_lockout_policy(lockout_policy);
   builder_.add_chrome_version_last_updated(chrome_version_last_updated);
   builder_.add_chromeos_version_last_updated(chromeos_version_last_updated);
   return builder_.Finish();
@@ -168,13 +214,15 @@ inline flatbuffers::Offset<SerializedCommonMetadata> CreateSerializedCommonMetad
 inline flatbuffers::Offset<SerializedCommonMetadata> CreateSerializedCommonMetadataDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const char *chromeos_version_last_updated = nullptr,
-    const char *chrome_version_last_updated = nullptr) {
+    const char *chrome_version_last_updated = nullptr,
+    cryptohome::SerializedLockoutPolicy lockout_policy = cryptohome::SerializedLockoutPolicy::UNKNOWN) {
   auto chromeos_version_last_updated__ = chromeos_version_last_updated ? _fbb.CreateString(chromeos_version_last_updated) : 0;
   auto chrome_version_last_updated__ = chrome_version_last_updated ? _fbb.CreateString(chrome_version_last_updated) : 0;
   return cryptohome::CreateSerializedCommonMetadata(
       _fbb,
       chromeos_version_last_updated__,
-      chrome_version_last_updated__);
+      chrome_version_last_updated__,
+      lockout_policy);
 }
 
 struct SerializedPasswordMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {

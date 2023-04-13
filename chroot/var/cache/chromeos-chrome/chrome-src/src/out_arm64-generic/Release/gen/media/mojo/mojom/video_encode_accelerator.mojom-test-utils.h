@@ -94,7 +94,7 @@ class  VideoEncodeAcceleratorClientInterceptorForTesting : public VideoEncodeAcc
   virtual VideoEncodeAcceleratorClient* GetForwardingInterface() = 0;
   void RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) override;
   void BitstreamBufferReady(int32_t bitstream_buffer_id, const ::media::BitstreamBufferMetadata& metadata) override;
-  void NotifyError(::media::VideoEncodeAccelerator::Error error) override;
+  void NotifyErrorStatus(const ::media::EncoderStatus& status) override;
   void NotifyEncoderInfoChange(const ::media::VideoEncoderInfo& info) override;
 };
 class  VideoEncodeAcceleratorClientAsyncWaiter {

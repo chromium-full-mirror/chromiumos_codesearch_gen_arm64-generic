@@ -3296,8 +3296,8 @@ VideoEncodeAcceleratorClient::IPCStableHashFunction VideoEncodeAcceleratorClient
     case internal::kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name: {
       return &VideoEncodeAcceleratorClient::BitstreamBufferReady_Sym::IPCStableHash;
     }
-    case internal::kVideoEncodeAcceleratorClient_NotifyError_Name: {
-      return &VideoEncodeAcceleratorClient::NotifyError_Sym::IPCStableHash;
+    case internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name: {
+      return &VideoEncodeAcceleratorClient::NotifyErrorStatus_Sym::IPCStableHash;
     }
     case internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name: {
       return &VideoEncodeAcceleratorClient::NotifyEncoderInfoChange_Sym::IPCStableHash;
@@ -3317,8 +3317,8 @@ const char* VideoEncodeAcceleratorClient::MessageToMethodName_(mojo::Message& me
             return "Receive media::mojom::VideoEncodeAcceleratorClient::RequireBitstreamBuffers";
       case internal::kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name:
             return "Receive media::mojom::VideoEncodeAcceleratorClient::BitstreamBufferReady";
-      case internal::kVideoEncodeAcceleratorClient_NotifyError_Name:
-            return "Receive media::mojom::VideoEncodeAcceleratorClient::NotifyError";
+      case internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name:
+            return "Receive media::mojom::VideoEncodeAcceleratorClient::NotifyErrorStatus";
       case internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name:
             return "Receive media::mojom::VideoEncodeAcceleratorClient::NotifyEncoderInfoChange";
     }
@@ -3328,8 +3328,8 @@ const char* VideoEncodeAcceleratorClient::MessageToMethodName_(mojo::Message& me
             return "Receive reply media::mojom::VideoEncodeAcceleratorClient::RequireBitstreamBuffers";
       case internal::kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name:
             return "Receive reply media::mojom::VideoEncodeAcceleratorClient::BitstreamBufferReady";
-      case internal::kVideoEncodeAcceleratorClient_NotifyError_Name:
-            return "Receive reply media::mojom::VideoEncodeAcceleratorClient::NotifyError";
+      case internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name:
+            return "Receive reply media::mojom::VideoEncodeAcceleratorClient::NotifyErrorStatus";
       case internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name:
             return "Receive reply media::mojom::VideoEncodeAcceleratorClient::NotifyEncoderInfoChange";
     }
@@ -3372,7 +3372,7 @@ uint32_t VideoEncodeAcceleratorClient::BitstreamBufferReady_Sym::IPCStableHash()
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t VideoEncodeAcceleratorClient::NotifyError_Sym::IPCStableHash() {
+uint32_t VideoEncodeAcceleratorClient::NotifyErrorStatus_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -3380,7 +3380,7 @@ uint32_t VideoEncodeAcceleratorClient::NotifyError_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)media::mojom::VideoEncodeAcceleratorClient::NotifyError");
+          "(Impl)media::mojom::VideoEncodeAcceleratorClient::NotifyErrorStatus");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -3512,16 +3512,16 @@ void VideoEncodeAcceleratorClientProxy::BitstreamBufferReady(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void VideoEncodeAcceleratorClientProxy::NotifyError(
-    ::media::VideoEncodeAccelerator::Error in_error) {
+void VideoEncodeAcceleratorClientProxy::NotifyErrorStatus(
+    const ::media::EncoderStatus& in_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send media::mojom::VideoEncodeAcceleratorClient::NotifyError", "input_parameters",
+    "mojom", "Send media::mojom::VideoEncodeAcceleratorClient::NotifyErrorStatus", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("error"), in_error,
-                        "<value of type ::media::VideoEncodeAccelerator::Error>");
+           dict.AddItem("status"), in_status,
+                        "<value of type const ::media::EncoderStatus&>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -3534,17 +3534,26 @@ void VideoEncodeAcceleratorClientProxy::NotifyError(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kVideoEncodeAcceleratorClient_NotifyError_Name, kFlags, 0, 0, nullptr);
+      internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::media::mojom::internal::VideoEncodeAcceleratorClient_NotifyError_Params_Data> params(
+      ::media::mojom::internal::VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::media::mojom::VideoEncodeAccelerator_Error>(
-      in_error, &params->error);
+  mojo::internal::MessageFragment<
+      typename decltype(params->status)::BaseType> status_fragment(
+          params.message());
+  mojo::internal::Serialize<::media::mojom::EncoderStatusDataView>(
+      in_status, status_fragment);
+  params->status.Set(
+      status_fragment.is_null() ? nullptr : status_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->status.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null status in VideoEncodeAcceleratorClient.NotifyErrorStatus request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(VideoEncodeAcceleratorClient::Name_);
-  message.set_method_name("NotifyError");
+  message.set_method_name("NotifyErrorStatus");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -3668,18 +3677,18 @@ std::move(p_bitstream_buffer_id),
 std::move(p_metadata));
       return true;
     }
-    case internal::kVideoEncodeAcceleratorClient_NotifyError_Name: {
+    case internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name: {
 
       DCHECK(message->is_serialized());
-      internal::VideoEncodeAcceleratorClient_NotifyError_Params_Data* params =
-          reinterpret_cast<internal::VideoEncodeAcceleratorClient_NotifyError_Params_Data*>(
+      internal::VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data* params =
+          reinterpret_cast<internal::VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
-      ::media::VideoEncodeAccelerator::Error p_error{};
-      VideoEncodeAcceleratorClient_NotifyError_ParamsDataView input_data_view(params, message);
+      ::media::EncoderStatus p_status{};
+      VideoEncodeAcceleratorClient_NotifyErrorStatus_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadError(&p_error))
+      if (success && !input_data_view.ReadStatus(&p_status))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -3690,8 +3699,8 @@ std::move(p_metadata));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NotifyError(
-std::move(p_error));
+      impl->NotifyErrorStatus(
+std::move(p_status));
       return true;
     }
     case internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name: {
@@ -3739,7 +3748,7 @@ bool VideoEncodeAcceleratorClientStubDispatch::AcceptWithResponder(
     case internal::kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name: {
       break;
     }
-    case internal::kVideoEncodeAcceleratorClient_NotifyError_Name: {
+    case internal::kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name: {
       break;
     }
     case internal::kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name: {
@@ -3755,7 +3764,7 @@ static const mojo::internal::GenericValidationInfo kVideoEncodeAcceleratorClient
      nullptr /* no response */},
     {&internal::VideoEncodeAcceleratorClient_BitstreamBufferReady_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::VideoEncodeAcceleratorClient_NotifyError_Params_Data::Validate,
+    {&internal::VideoEncodeAcceleratorClient_NotifyErrorStatus_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::VideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Params_Data::Validate,
      nullptr /* no response */},
@@ -4343,8 +4352,8 @@ void VideoEncodeAcceleratorClientInterceptorForTesting::RequireBitstreamBuffers(
 void VideoEncodeAcceleratorClientInterceptorForTesting::BitstreamBufferReady(int32_t bitstream_buffer_id, const ::media::BitstreamBufferMetadata& metadata) {
   GetForwardingInterface()->BitstreamBufferReady(std::move(bitstream_buffer_id), std::move(metadata));
 }
-void VideoEncodeAcceleratorClientInterceptorForTesting::NotifyError(::media::VideoEncodeAccelerator::Error error) {
-  GetForwardingInterface()->NotifyError(std::move(error));
+void VideoEncodeAcceleratorClientInterceptorForTesting::NotifyErrorStatus(const ::media::EncoderStatus& status) {
+  GetForwardingInterface()->NotifyErrorStatus(std::move(status));
 }
 void VideoEncodeAcceleratorClientInterceptorForTesting::NotifyEncoderInfoChange(const ::media::VideoEncoderInfo& info) {
   GetForwardingInterface()->NotifyEncoderInfoChange(std::move(info));

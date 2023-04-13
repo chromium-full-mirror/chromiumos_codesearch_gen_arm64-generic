@@ -275,13 +275,28 @@ struct XdrProcessEventDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 XdrProcessEventDefaultTypeInternal _XdrProcessEvent_default_instance_;
-PROTOBUF_CONSTEXPR XdrNetworkEvent::XdrNetworkEvent(
+PROTOBUF_CONSTEXPR NetworkEventAtomicVariant::NetworkEventAtomicVariant(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.common_)*/nullptr
-  , /*decltype(_impl_.message_type_)*/{}
+  , /*decltype(_impl_.variant_type_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
+struct NetworkEventAtomicVariantDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR NetworkEventAtomicVariantDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~NetworkEventAtomicVariantDefaultTypeInternal() {}
+  union {
+    NetworkEventAtomicVariant _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkEventAtomicVariantDefaultTypeInternal _NetworkEventAtomicVariant_default_instance_;
+PROTOBUF_CONSTEXPR XdrNetworkEvent::XdrNetworkEvent(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.batched_events_)*/{}
+  , /*decltype(_impl_.common_)*/nullptr} {}
 struct XdrNetworkEventDefaultTypeInternal {
   PROTOBUF_CONSTEXPR XdrNetworkEventDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -5947,32 +5962,32 @@ std::string XdrProcessEvent::GetTypeName() const {
 
 // ===================================================================
 
-class XdrNetworkEvent::_Internal {
+class NetworkEventAtomicVariant::_Internal {
  public:
-  using HasBits = decltype(std::declval<XdrNetworkEvent>()._impl_._has_bits_);
-  static const ::cros_xdr::reporting::CommonEventDataFields& common(const XdrNetworkEvent* msg);
+  using HasBits = decltype(std::declval<NetworkEventAtomicVariant>()._impl_._has_bits_);
+  static const ::cros_xdr::reporting::CommonEventVariantDataFields& common(const NetworkEventAtomicVariant* msg);
   static void set_has_common(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::cros_xdr::reporting::NetworkFlowEvent& network_flow(const XdrNetworkEvent* msg);
-  static const ::cros_xdr::reporting::NetworkSocketListenEvent& socket_listen(const XdrNetworkEvent* msg);
+  static const ::cros_xdr::reporting::NetworkFlowEvent& network_flow(const NetworkEventAtomicVariant* msg);
+  static const ::cros_xdr::reporting::NetworkSocketListenEvent& socket_listen(const NetworkEventAtomicVariant* msg);
 };
 
-const ::cros_xdr::reporting::CommonEventDataFields&
-XdrNetworkEvent::_Internal::common(const XdrNetworkEvent* msg) {
+const ::cros_xdr::reporting::CommonEventVariantDataFields&
+NetworkEventAtomicVariant::_Internal::common(const NetworkEventAtomicVariant* msg) {
   return *msg->_impl_.common_;
 }
 const ::cros_xdr::reporting::NetworkFlowEvent&
-XdrNetworkEvent::_Internal::network_flow(const XdrNetworkEvent* msg) {
-  return *msg->_impl_.message_type_.network_flow_;
+NetworkEventAtomicVariant::_Internal::network_flow(const NetworkEventAtomicVariant* msg) {
+  return *msg->_impl_.variant_type_.network_flow_;
 }
 const ::cros_xdr::reporting::NetworkSocketListenEvent&
-XdrNetworkEvent::_Internal::socket_listen(const XdrNetworkEvent* msg) {
-  return *msg->_impl_.message_type_.socket_listen_;
+NetworkEventAtomicVariant::_Internal::socket_listen(const NetworkEventAtomicVariant* msg) {
+  return *msg->_impl_.variant_type_.socket_listen_;
 }
-void XdrNetworkEvent::set_allocated_network_flow(::cros_xdr::reporting::NetworkFlowEvent* network_flow) {
+void NetworkEventAtomicVariant::set_allocated_network_flow(::cros_xdr::reporting::NetworkFlowEvent* network_flow) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  clear_message_type();
+  clear_variant_type();
   if (network_flow) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
       ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(network_flow);
@@ -5981,13 +5996,13 @@ void XdrNetworkEvent::set_allocated_network_flow(::cros_xdr::reporting::NetworkF
           message_arena, network_flow, submessage_arena);
     }
     set_has_network_flow();
-    _impl_.message_type_.network_flow_ = network_flow;
+    _impl_.variant_type_.network_flow_ = network_flow;
   }
-  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrNetworkEvent.network_flow)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkEventAtomicVariant.network_flow)
 }
-void XdrNetworkEvent::set_allocated_socket_listen(::cros_xdr::reporting::NetworkSocketListenEvent* socket_listen) {
+void NetworkEventAtomicVariant::set_allocated_socket_listen(::cros_xdr::reporting::NetworkSocketListenEvent* socket_listen) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  clear_message_type();
+  clear_variant_type();
   if (socket_listen) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
       ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(socket_listen);
@@ -5996,32 +6011,32 @@ void XdrNetworkEvent::set_allocated_socket_listen(::cros_xdr::reporting::Network
           message_arena, socket_listen, submessage_arena);
     }
     set_has_socket_listen();
-    _impl_.message_type_.socket_listen_ = socket_listen;
+    _impl_.variant_type_.socket_listen_ = socket_listen;
   }
-  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrNetworkEvent.socket_listen)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkEventAtomicVariant.socket_listen)
 }
-XdrNetworkEvent::XdrNetworkEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+NetworkEventAtomicVariant::NetworkEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.XdrNetworkEvent)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.NetworkEventAtomicVariant)
 }
-XdrNetworkEvent::XdrNetworkEvent(const XdrNetworkEvent& from)
+NetworkEventAtomicVariant::NetworkEventAtomicVariant(const NetworkEventAtomicVariant& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  XdrNetworkEvent* const _this = this; (void)_this;
+  NetworkEventAtomicVariant* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.common_){nullptr}
-    , decltype(_impl_.message_type_){}
+    , decltype(_impl_.variant_type_){}
     , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_common()) {
-    _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventDataFields(*from._impl_.common_);
+    _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventVariantDataFields(*from._impl_.common_);
   }
-  clear_has_message_type();
-  switch (from.message_type_case()) {
+  clear_has_variant_type();
+  switch (from.variant_type_case()) {
     case kNetworkFlow: {
       _this->_internal_mutable_network_flow()->::cros_xdr::reporting::NetworkFlowEvent::MergeFrom(
           from._internal_network_flow());
@@ -6032,14 +6047,14 @@ XdrNetworkEvent::XdrNetworkEvent(const XdrNetworkEvent& from)
           from._internal_socket_listen());
       break;
     }
-    case MESSAGE_TYPE_NOT_SET: {
+    case VARIANT_TYPE_NOT_SET: {
       break;
     }
   }
-  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.XdrNetworkEvent)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.NetworkEventAtomicVariant)
 }
 
-inline void XdrNetworkEvent::SharedCtor(
+inline void NetworkEventAtomicVariant::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -6047,14 +6062,14 @@ inline void XdrNetworkEvent::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.common_){nullptr}
-    , decltype(_impl_.message_type_){}
+    , decltype(_impl_.variant_type_){}
     , /*decltype(_impl_._oneof_case_)*/{}
   };
-  clear_has_message_type();
+  clear_has_variant_type();
 }
 
-XdrNetworkEvent::~XdrNetworkEvent() {
-  // @@protoc_insertion_point(destructor:cros_xdr.reporting.XdrNetworkEvent)
+NetworkEventAtomicVariant::~NetworkEventAtomicVariant() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.NetworkEventAtomicVariant)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -6062,43 +6077,43 @@ XdrNetworkEvent::~XdrNetworkEvent() {
   SharedDtor();
 }
 
-inline void XdrNetworkEvent::SharedDtor() {
+inline void NetworkEventAtomicVariant::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.common_;
-  if (has_message_type()) {
-    clear_message_type();
+  if (has_variant_type()) {
+    clear_variant_type();
   }
 }
 
-void XdrNetworkEvent::SetCachedSize(int size) const {
+void NetworkEventAtomicVariant::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void XdrNetworkEvent::clear_message_type() {
-// @@protoc_insertion_point(one_of_clear_start:cros_xdr.reporting.XdrNetworkEvent)
-  switch (message_type_case()) {
+void NetworkEventAtomicVariant::clear_variant_type() {
+// @@protoc_insertion_point(one_of_clear_start:cros_xdr.reporting.NetworkEventAtomicVariant)
+  switch (variant_type_case()) {
     case kNetworkFlow: {
       if (GetArenaForAllocation() == nullptr) {
-        delete _impl_.message_type_.network_flow_;
+        delete _impl_.variant_type_.network_flow_;
       }
       break;
     }
     case kSocketListen: {
       if (GetArenaForAllocation() == nullptr) {
-        delete _impl_.message_type_.socket_listen_;
+        delete _impl_.variant_type_.socket_listen_;
       }
       break;
     }
-    case MESSAGE_TYPE_NOT_SET: {
+    case VARIANT_TYPE_NOT_SET: {
       break;
     }
   }
-  _impl_._oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
+  _impl_._oneof_case_[0] = VARIANT_TYPE_NOT_SET;
 }
 
 
-void XdrNetworkEvent::Clear() {
-// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.XdrNetworkEvent)
+void NetworkEventAtomicVariant::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.NetworkEventAtomicVariant)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -6108,19 +6123,19 @@ void XdrNetworkEvent::Clear() {
     GOOGLE_DCHECK(_impl_.common_ != nullptr);
     _impl_.common_->Clear();
   }
-  clear_message_type();
+  clear_variant_type();
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* XdrNetworkEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* NetworkEventAtomicVariant::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+      // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
@@ -6168,21 +6183,21 @@ failure:
 #undef CHK_
 }
 
-uint8_t* XdrNetworkEvent::_InternalSerialize(
+uint8_t* NetworkEventAtomicVariant::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.XdrNetworkEvent)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.NetworkEventAtomicVariant)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::common(this),
         _Internal::common(this).GetCachedSize(), target, stream);
   }
 
-  switch (message_type_case()) {
+  switch (variant_type_case()) {
     case kNetworkFlow: {
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
         InternalWriteMessage(2, _Internal::network_flow(this),
@@ -6201,6 +6216,275 @@ uint8_t* XdrNetworkEvent::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.NetworkEventAtomicVariant)
+  return target;
+}
+
+size_t NetworkEventAtomicVariant::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.NetworkEventAtomicVariant)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.common_);
+  }
+
+  switch (variant_type_case()) {
+    // .cros_xdr.reporting.NetworkFlowEvent network_flow = 2;
+    case kNetworkFlow: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.variant_type_.network_flow_);
+      break;
+    }
+    // .cros_xdr.reporting.NetworkSocketListenEvent socket_listen = 3;
+    case kSocketListen: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.variant_type_.socket_listen_);
+      break;
+    }
+    case VARIANT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void NetworkEventAtomicVariant::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const NetworkEventAtomicVariant*>(
+      &from));
+}
+
+void NetworkEventAtomicVariant::MergeFrom(const NetworkEventAtomicVariant& from) {
+  NetworkEventAtomicVariant* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.NetworkEventAtomicVariant)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_common()) {
+    _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventVariantDataFields::MergeFrom(
+        from._internal_common());
+  }
+  switch (from.variant_type_case()) {
+    case kNetworkFlow: {
+      _this->_internal_mutable_network_flow()->::cros_xdr::reporting::NetworkFlowEvent::MergeFrom(
+          from._internal_network_flow());
+      break;
+    }
+    case kSocketListen: {
+      _this->_internal_mutable_socket_listen()->::cros_xdr::reporting::NetworkSocketListenEvent::MergeFrom(
+          from._internal_socket_listen());
+      break;
+    }
+    case VARIANT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void NetworkEventAtomicVariant::CopyFrom(const NetworkEventAtomicVariant& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.NetworkEventAtomicVariant)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NetworkEventAtomicVariant::IsInitialized() const {
+  return true;
+}
+
+void NetworkEventAtomicVariant::InternalSwap(NetworkEventAtomicVariant* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.common_, other->_impl_.common_);
+  swap(_impl_.variant_type_, other->_impl_.variant_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
+}
+
+std::string NetworkEventAtomicVariant::GetTypeName() const {
+  return "cros_xdr.reporting.NetworkEventAtomicVariant";
+}
+
+
+// ===================================================================
+
+class XdrNetworkEvent::_Internal {
+ public:
+  using HasBits = decltype(std::declval<XdrNetworkEvent>()._impl_._has_bits_);
+  static const ::cros_xdr::reporting::CommonEventDataFields& common(const XdrNetworkEvent* msg);
+  static void set_has_common(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::cros_xdr::reporting::CommonEventDataFields&
+XdrNetworkEvent::_Internal::common(const XdrNetworkEvent* msg) {
+  return *msg->_impl_.common_;
+}
+XdrNetworkEvent::XdrNetworkEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.XdrNetworkEvent)
+}
+XdrNetworkEvent::XdrNetworkEvent(const XdrNetworkEvent& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  XdrNetworkEvent* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.batched_events_){from._impl_.batched_events_}
+    , decltype(_impl_.common_){nullptr}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_common()) {
+    _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventDataFields(*from._impl_.common_);
+  }
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.XdrNetworkEvent)
+}
+
+inline void XdrNetworkEvent::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.batched_events_){arena}
+    , decltype(_impl_.common_){nullptr}
+  };
+}
+
+XdrNetworkEvent::~XdrNetworkEvent() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.XdrNetworkEvent)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void XdrNetworkEvent::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.batched_events_.~RepeatedPtrField();
+  if (this != internal_default_instance()) delete _impl_.common_;
+}
+
+void XdrNetworkEvent::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void XdrNetworkEvent::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.XdrNetworkEvent)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.batched_events_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    _impl_.common_->Clear();
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* XdrNetworkEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .cros_xdr.reporting.NetworkEventAtomicVariant batched_events = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_batched_events(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* XdrNetworkEvent::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.XdrNetworkEvent)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::common(this),
+        _Internal::common(this).GetCachedSize(), target, stream);
+  }
+
+  // repeated .cros_xdr.reporting.NetworkEventAtomicVariant batched_events = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_batched_events_size()); i < n; i++) {
+    const auto& repfield = this->_internal_batched_events(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
   // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.XdrNetworkEvent)
   return target;
 }
@@ -6213,6 +6497,13 @@ size_t XdrNetworkEvent::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // repeated .cros_xdr.reporting.NetworkEventAtomicVariant batched_events = 2;
+  total_size += 1UL * this->_internal_batched_events_size();
+  for (const auto& msg : this->_impl_.batched_events_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
@@ -6221,25 +6512,6 @@ size_t XdrNetworkEvent::ByteSizeLong() const {
         *_impl_.common_);
   }
 
-  switch (message_type_case()) {
-    // .cros_xdr.reporting.NetworkFlowEvent network_flow = 2;
-    case kNetworkFlow: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.message_type_.network_flow_);
-      break;
-    }
-    // .cros_xdr.reporting.NetworkSocketListenEvent socket_listen = 3;
-    case kSocketListen: {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.message_type_.socket_listen_);
-      break;
-    }
-    case MESSAGE_TYPE_NOT_SET: {
-      break;
-    }
-  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -6261,24 +6533,10 @@ void XdrNetworkEvent::MergeFrom(const XdrNetworkEvent& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  _this->_impl_.batched_events_.MergeFrom(from._impl_.batched_events_);
   if (from._internal_has_common()) {
     _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventDataFields::MergeFrom(
         from._internal_common());
-  }
-  switch (from.message_type_case()) {
-    case kNetworkFlow: {
-      _this->_internal_mutable_network_flow()->::cros_xdr::reporting::NetworkFlowEvent::MergeFrom(
-          from._internal_network_flow());
-      break;
-    }
-    case kSocketListen: {
-      _this->_internal_mutable_socket_listen()->::cros_xdr::reporting::NetworkSocketListenEvent::MergeFrom(
-          from._internal_socket_listen());
-      break;
-    }
-    case MESSAGE_TYPE_NOT_SET: {
-      break;
-    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -6298,9 +6556,8 @@ void XdrNetworkEvent::InternalSwap(XdrNetworkEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.batched_events_.InternalSwap(&other->_impl_.batched_events_);
   swap(_impl_.common_, other->_impl_.common_);
-  swap(_impl_.message_type_, other->_impl_.message_type_);
-  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string XdrNetworkEvent::GetTypeName() const {
@@ -7551,6 +7808,10 @@ Arena::CreateMaybeMessage< ::cros_xdr::reporting::ProcessEventAtomicVariant >(Ar
 template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::XdrProcessEvent*
 Arena::CreateMaybeMessage< ::cros_xdr::reporting::XdrProcessEvent >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cros_xdr::reporting::XdrProcessEvent >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::NetworkEventAtomicVariant*
+Arena::CreateMaybeMessage< ::cros_xdr::reporting::NetworkEventAtomicVariant >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::NetworkEventAtomicVariant >(arena);
 }
 template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::XdrNetworkEvent*
 Arena::CreateMaybeMessage< ::cros_xdr::reporting::XdrNetworkEvent >(Arena* arena) {

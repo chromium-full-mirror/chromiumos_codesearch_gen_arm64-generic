@@ -29,11 +29,11 @@ namespace socket {
 // Types
 //
 
-enum  SocketType {
-  SOCKET_TYPE_NONE = 0,
-  SOCKET_TYPE_TCP,
-  SOCKET_TYPE_UDP,
-  SOCKET_TYPE_LAST = SOCKET_TYPE_UDP,
+enum class SocketType {
+  kNone = 0,
+  kTcp,
+  kUdp,
+  kMaxValue = kUdp,
 };
 
 

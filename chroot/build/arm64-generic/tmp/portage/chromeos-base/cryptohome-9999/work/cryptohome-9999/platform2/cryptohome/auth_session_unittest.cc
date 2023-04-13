@@ -21,7 +21,6 @@
 #include <base/test/simple_test_clock.h>
 #include <base/test/task_environment.h>
 #include <base/test/test_future.h>
-#include <base/threading/sequenced_task_runner_handle.h>
 #include <base/timer/mock_timer.h>
 #include <base/unguessable_token.h>
 #include <brillo/cryptohome.h>
@@ -330,7 +329,7 @@ class AuthSessionTest : public ::testing::Test {
       base::test::TaskEnvironment::TimeSource::MOCK_TIME};
   base::SimpleTestClock clock_;
   scoped_refptr<base::SequencedTaskRunner> task_runner_ =
-      base::SequencedTaskRunnerHandle::Get();
+      base::SequencedTaskRunner::GetCurrentDefault();
 
   // Mocks and fakes for the test AuthSessions to use.
   NiceMock<hwsec::MockCryptohomeFrontend> hwsec_;
@@ -2439,7 +2438,8 @@ TEST_F(AuthSessionWithUssExperimentTest, AuthenticatePasswordAuthFactorViaUss) {
       key_blobs.DeriveUssCredentialSecret();
   ASSERT_TRUE(wrapping_key.has_value());
   EXPECT_TRUE(uss->AddWrappedMainKey(uss_main_key.value(), kFakeLabel,
-                                     wrapping_key.value())
+                                     wrapping_key.value(),
+                                     OverwriteExistingKeyBlock::kDisabled)
                   .ok());
   CryptohomeStatusOr<brillo::Blob> encrypted_uss =
       uss->GetEncryptedContainer(uss_main_key.value());
@@ -2535,7 +2535,8 @@ TEST_F(AuthSessionWithUssExperimentTest,
       key_blobs.DeriveUssCredentialSecret();
   ASSERT_TRUE(wrapping_key.has_value());
   EXPECT_TRUE(uss->AddWrappedMainKey(uss_main_key.value(), kFakeLabel,
-                                     wrapping_key.value())
+                                     wrapping_key.value(),
+                                     OverwriteExistingKeyBlock::kDisabled)
                   .ok());
   CryptohomeStatusOr<brillo::Blob> encrypted_uss =
       uss->GetEncryptedContainer(uss_main_key.value());
@@ -2632,7 +2633,8 @@ TEST_F(AuthSessionWithUssExperimentTest,
       key_blobs.DeriveUssCredentialSecret();
   ASSERT_TRUE(wrapping_key.has_value());
   EXPECT_TRUE(uss->AddWrappedMainKey(uss_main_key.value(), kFakeLabel,
-                                     wrapping_key.value())
+                                     wrapping_key.value(),
+                                     OverwriteExistingKeyBlock::kDisabled)
                   .ok());
   CryptohomeStatusOr<brillo::Blob> encrypted_uss =
       uss->GetEncryptedContainer(uss_main_key.value());
@@ -2728,7 +2730,8 @@ TEST_F(AuthSessionWithUssExperimentTest, AuthenticatePinAuthFactorViaUss) {
       key_blobs.DeriveUssCredentialSecret();
   ASSERT_TRUE(wrapping_key.has_value());
   EXPECT_TRUE(uss->AddWrappedMainKey(uss_main_key.value(), kFakePinLabel,
-                                     wrapping_key.value())
+                                     wrapping_key.value(),
+                                     OverwriteExistingKeyBlock::kDisabled)
                   .ok());
   CryptohomeStatusOr<brillo::Blob> encrypted_uss =
       uss->GetEncryptedContainer(uss_main_key.value());
@@ -2875,7 +2878,8 @@ TEST_F(AuthSessionWithUssExperimentTest,
       key_blobs.DeriveUssCredentialSecret();
   ASSERT_TRUE(wrapping_key.has_value());
   EXPECT_TRUE(uss->AddWrappedMainKey(uss_main_key.value(), kFakeLabel,
-                                     wrapping_key.value())
+                                     wrapping_key.value(),
+                                     OverwriteExistingKeyBlock::kDisabled)
                   .ok());
   CryptohomeStatusOr<brillo::Blob> encrypted_uss =
       uss->GetEncryptedContainer(uss_main_key.value());
@@ -3010,7 +3014,8 @@ TEST_F(AuthSessionWithUssExperimentTest, AuthenticateSmartCardAuthFactor) {
       key_blobs.DeriveUssCredentialSecret();
   ASSERT_TRUE(wrapping_key.has_value());
   EXPECT_TRUE(uss->AddWrappedMainKey(uss_main_key.value(), kFakeLabel,
-                                     wrapping_key.value())
+                                     wrapping_key.value(),
+                                     OverwriteExistingKeyBlock::kDisabled)
                   .ok());
   CryptohomeStatusOr<brillo::Blob> encrypted_uss =
       uss->GetEncryptedContainer(uss_main_key.value());

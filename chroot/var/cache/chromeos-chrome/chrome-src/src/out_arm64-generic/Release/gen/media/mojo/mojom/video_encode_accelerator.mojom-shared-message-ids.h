@@ -26,7 +26,7 @@ constexpr uint32_t kVideoEncodeAccelerator_IsFlushSupported_Name = 5;
 constexpr uint32_t kVideoEncodeAccelerator_Flush_Name = 6;
 constexpr uint32_t kVideoEncodeAcceleratorClient_RequireBitstreamBuffers_Name = 0;
 constexpr uint32_t kVideoEncodeAcceleratorClient_BitstreamBufferReady_Name = 1;
-constexpr uint32_t kVideoEncodeAcceleratorClient_NotifyError_Name = 2;
+constexpr uint32_t kVideoEncodeAcceleratorClient_NotifyErrorStatus_Name = 2;
 constexpr uint32_t kVideoEncodeAcceleratorClient_NotifyEncoderInfoChange_Name = 3;
 
 }  // namespace internal
