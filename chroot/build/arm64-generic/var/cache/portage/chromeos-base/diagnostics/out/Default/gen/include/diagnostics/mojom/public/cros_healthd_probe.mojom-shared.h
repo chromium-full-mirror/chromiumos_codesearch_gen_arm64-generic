@@ -2576,6 +2576,11 @@ class LogicalCpuInfoDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::CpuCStateInfoDataView>>(
         pointer, output, message_);
   }
+  uint32_t core_id() const {
+    if (data_->header_.version < 1)
+      return uint32_t{};
+    return data_->core_id;
+  }
  private:
   internal::LogicalCpuInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -9515,6 +9520,7 @@ struct Serializer<::ash::cros_healthd::mojom::LogicalCpuInfoDataView, MaybeConst
         fragment->c_states.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null c_states in LogicalCpuInfo struct");
+    fragment->core_id = Traits::core_id(input);
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::LogicalCpuInfo_Data* input,

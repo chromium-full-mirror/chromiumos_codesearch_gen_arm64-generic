@@ -1507,7 +1507,8 @@ LogicalCpuInfo::LogicalCpuInfo()
       user_time_user_hz(),
       system_time_user_hz(),
       idle_time_user_hz(),
-      c_states() {}
+      c_states(),
+      core_id() {}
 
 LogicalCpuInfo::LogicalCpuInfo(
     uint32_t max_clock_speed_khz_in,
@@ -1523,7 +1524,26 @@ LogicalCpuInfo::LogicalCpuInfo(
       user_time_user_hz(std::move(user_time_user_hz_in)),
       system_time_user_hz(std::move(system_time_user_hz_in)),
       idle_time_user_hz(std::move(idle_time_user_hz_in)),
-      c_states(std::move(c_states_in)) {}
+      c_states(std::move(c_states_in)),
+      core_id() {}
+
+LogicalCpuInfo::LogicalCpuInfo(
+    uint32_t max_clock_speed_khz_in,
+    uint32_t scaling_max_frequency_khz_in,
+    uint32_t scaling_current_frequency_khz_in,
+    uint64_t user_time_user_hz_in,
+    uint64_t system_time_user_hz_in,
+    uint64_t idle_time_user_hz_in,
+    std::vector<CpuCStateInfoPtr> c_states_in,
+    uint32_t core_id_in)
+    : max_clock_speed_khz(std::move(max_clock_speed_khz_in)),
+      scaling_max_frequency_khz(std::move(scaling_max_frequency_khz_in)),
+      scaling_current_frequency_khz(std::move(scaling_current_frequency_khz_in)),
+      user_time_user_hz(std::move(user_time_user_hz_in)),
+      system_time_user_hz(std::move(system_time_user_hz_in)),
+      idle_time_user_hz(std::move(idle_time_user_hz_in)),
+      c_states(std::move(c_states_in)),
+      core_id(std::move(core_id_in)) {}
 
 LogicalCpuInfo::~LogicalCpuInfo() = default;
 
@@ -1589,6 +1609,15 @@ void LogicalCpuInfo::WriteIntoTrace(
       "c_states"), this->c_states,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::vector<CpuCStateInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "core_id"), this->core_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8554,6 +8583,8 @@ bool StructTraits<::ash::cros_healthd::mojom::LogicalCpuInfo::DataView, ::ash::c
         result->idle_time_user_hz = input.idle_time_user_hz();
       if (success && !input.ReadCStates(&result->c_states))
         success = false;
+      if (success)
+        result->core_id = input.core_id();
   *output = std::move(result);
   return success;
 }
