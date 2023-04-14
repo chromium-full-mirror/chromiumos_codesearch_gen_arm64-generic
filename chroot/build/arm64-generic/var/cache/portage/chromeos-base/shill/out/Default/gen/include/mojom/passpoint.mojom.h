@@ -40,6 +40,58 @@ namespace chromeos {
 namespace connectivity {
 namespace mojom {
 
+class PasspointEventsListenerProxy;
+
+template <typename ImplRefTraits>
+class PasspointEventsListenerStub;
+
+class PasspointEventsListenerRequestValidator;
+
+
+class PasspointEventsListener
+    : public PasspointEventsListenerInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = PasspointEventsListenerInterfaceBase;
+  using Proxy_ = PasspointEventsListenerProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = PasspointEventsListenerStub<ImplRefTraits>;
+
+  using RequestValidator_ = PasspointEventsListenerRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnPasspointSubscriptionAddedMinVersion = 0,
+    kOnPasspointSubscriptionRemovedMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnPasspointSubscriptionAdded_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnPasspointSubscriptionRemoved_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~PasspointEventsListener() = default;
+
+  
+  virtual void OnPasspointSubscriptionAdded(PasspointSubscriptionPtr subscription) = 0;
+
+  
+  virtual void OnPasspointSubscriptionRemoved(PasspointSubscriptionPtr subscription) = 0;
+};
+
 class PasspointServiceProxy;
 
 template <typename ImplRefTraits>
@@ -71,12 +123,24 @@ class PasspointService
   using ResponseValidator_ = PasspointServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kGetPasspointSubscriptionMinVersion = 0,
+    kListPasspointSubscriptionsMinVersion = 0,
+    kDeletePasspointSubscriptionMinVersion = 0,
+    kRegisterPasspointListenerMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct GetPasspointSubscription_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ListPasspointSubscriptions_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct DeletePasspointSubscription_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RegisterPasspointListener_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -86,6 +150,36 @@ class PasspointService
   using GetPasspointSubscriptionCallback = base::OnceCallback<void(PasspointSubscriptionPtr)>;
   
   virtual void GetPasspointSubscription(const std::string& id, GetPasspointSubscriptionCallback callback) = 0;
+
+
+  using ListPasspointSubscriptionsCallback = base::OnceCallback<void(std::vector<PasspointSubscriptionPtr>)>;
+  
+  virtual void ListPasspointSubscriptions(ListPasspointSubscriptionsCallback callback) = 0;
+
+
+  using DeletePasspointSubscriptionCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void DeletePasspointSubscription(const std::string& id, DeletePasspointSubscriptionCallback callback) = 0;
+
+  
+  virtual void RegisterPasspointListener(::mojo::PendingRemote<PasspointEventsListener> listener) = 0;
+};
+
+
+
+class  PasspointEventsListenerProxy
+    : public PasspointEventsListener {
+ public:
+  using InterfaceType = PasspointEventsListener;
+
+  explicit PasspointEventsListenerProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnPasspointSubscriptionAdded(PasspointSubscriptionPtr subscription) final;
+  
+  void OnPasspointSubscriptionRemoved(PasspointSubscriptionPtr subscription) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
 };
 
 
@@ -98,9 +192,56 @@ class  PasspointServiceProxy
   explicit PasspointServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void GetPasspointSubscription(const std::string& id, GetPasspointSubscriptionCallback callback) final;
+  
+  void ListPasspointSubscriptions(ListPasspointSubscriptionsCallback callback) final;
+  
+  void DeletePasspointSubscription(const std::string& id, DeletePasspointSubscriptionCallback callback) final;
+  
+  void RegisterPasspointListener(::mojo::PendingRemote<PasspointEventsListener> listener) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
+};
+class  PasspointEventsListenerStubDispatch {
+ public:
+  static bool Accept(PasspointEventsListener* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      PasspointEventsListener* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<PasspointEventsListener>>
+class PasspointEventsListenerStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  PasspointEventsListenerStub() = default;
+  ~PasspointEventsListenerStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return PasspointEventsListenerStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return PasspointEventsListenerStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
 };
 class  PasspointServiceStubDispatch {
  public:
@@ -142,6 +283,10 @@ class PasspointServiceStub
 
  private:
   ImplPointerType sink_;
+};
+class  PasspointEventsListenerRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
 };
 class  PasspointServiceRequestValidator : public mojo::MessageReceiver {
  public:
@@ -190,7 +335,8 @@ class  PasspointSubscription {
       std::vector<std::string> domains,
       const std::string& friendly_name,
       const std::string& provisioning_source,
-      const absl::optional<std::string>& trusted_ca);
+      const absl::optional<std::string>& trusted_ca,
+      int64_t expiration_epoch_ms);
 
 
   ~PasspointSubscription();
@@ -274,6 +420,8 @@ class  PasspointSubscription {
   std::string provisioning_source;
   
   absl::optional<std::string> trusted_ca;
+  
+  int64_t expiration_epoch_ms;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -311,7 +459,8 @@ PasspointSubscriptionPtr PasspointSubscription::Clone() const {
       mojo::Clone(domains),
       mojo::Clone(friendly_name),
       mojo::Clone(provisioning_source),
-      mojo::Clone(trusted_ca)
+      mojo::Clone(trusted_ca),
+      mojo::Clone(expiration_epoch_ms)
   );
 }
 
@@ -326,6 +475,8 @@ bool PasspointSubscription::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->provisioning_source, other_struct.provisioning_source))
     return false;
   if (!mojo::Equals(this->trusted_ca, other_struct.trusted_ca))
+    return false;
+  if (!mojo::Equals(this->expiration_epoch_ms, other_struct.expiration_epoch_ms))
     return false;
   return true;
 }
@@ -351,6 +502,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.trusted_ca < rhs.trusted_ca)
     return true;
   if (rhs.trusted_ca < lhs.trusted_ca)
+    return false;
+  if (lhs.expiration_epoch_ms < rhs.expiration_epoch_ms)
+    return true;
+  if (rhs.expiration_epoch_ms < lhs.expiration_epoch_ms)
     return false;
   return false;
 }
@@ -392,6 +547,11 @@ struct  StructTraits<::chromeos::connectivity::mojom::PasspointSubscription::Dat
   static const decltype(::chromeos::connectivity::mojom::PasspointSubscription::trusted_ca)& trusted_ca(
       const ::chromeos::connectivity::mojom::PasspointSubscriptionPtr& input) {
     return input->trusted_ca;
+  }
+
+  static decltype(::chromeos::connectivity::mojom::PasspointSubscription::expiration_epoch_ms) expiration_epoch_ms(
+      const ::chromeos::connectivity::mojom::PasspointSubscriptionPtr& input) {
+    return input->expiration_epoch_ms;
   }
 
   static bool Read(::chromeos::connectivity::mojom::PasspointSubscription::DataView input, ::chromeos::connectivity::mojom::PasspointSubscriptionPtr* output);

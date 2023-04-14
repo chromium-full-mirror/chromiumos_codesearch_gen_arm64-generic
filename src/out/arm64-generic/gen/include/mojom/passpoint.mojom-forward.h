@@ -29,6 +29,8 @@ class PasspointSubscriptionDataView;
 class PasspointSubscription;
 using PasspointSubscriptionPtr = mojo::StructPtr<PasspointSubscription>;
 
+class PasspointEventsListener;
+
 class PasspointService;
 
 

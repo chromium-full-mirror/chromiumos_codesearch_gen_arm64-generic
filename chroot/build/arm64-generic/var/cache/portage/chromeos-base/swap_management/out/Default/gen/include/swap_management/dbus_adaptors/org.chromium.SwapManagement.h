@@ -43,8 +43,9 @@ class SwapManagementInterface {
       bool in_enable,
       bool* out_result) = 0;
   // Enable writeback of zram swapped pages.
-  virtual std::string SwapZramEnableWriteback(
-      uint32_t in_size_mb) = 0;
+  virtual bool SwapZramEnableWriteback(
+      brillo::ErrorPtr* error,
+      uint32_t in_size) = 0;
   // Mark pages as idle which have been in zram for |age| in seconds.
   virtual std::string SwapZramMarkIdle(
       uint32_t in_age) = 0;
@@ -91,7 +92,7 @@ class SwapManagementAdaptor {
         "MGLRUSetEnable",
         base::Unretained(interface_),
         &SwapManagementInterface::MGLRUSetEnable);
-    itf->AddSimpleMethodHandler(
+    itf->AddSimpleMethodHandlerWithError(
         "SwapZramEnableWriteback",
         base::Unretained(interface_),
         &SwapManagementInterface::SwapZramEnableWriteback);
@@ -133,8 +134,7 @@ class SwapManagementAdaptor {
         "      <arg name=\"result\" type=\"b\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"SwapZramEnableWriteback\">\n"
-        "      <arg name=\"size_mb\" type=\"u\" direction=\"in\"/>\n"
-        "      <arg name=\"result\" type=\"s\" direction=\"out\"/>\n"
+        "      <arg name=\"size\" type=\"u\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"SwapZramMarkIdle\">\n"
         "      <arg name=\"age\" type=\"u\" direction=\"in\"/>\n"

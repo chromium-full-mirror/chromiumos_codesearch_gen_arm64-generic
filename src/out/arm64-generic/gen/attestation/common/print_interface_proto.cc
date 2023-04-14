@@ -1491,6 +1491,14 @@ std::string GetProtoDebugStringWithIndent(
                         value.include_customer_id() ? "true" : "false");
     output += "\n";
   }
+  if (value.has_key_profile()) {
+    output += indent + "  key_profile: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.key_profile(), indent_size + 2)
+            .c_str());
+    output += "\n";
+  }
   output += indent + "}\n";
   return output;
 }

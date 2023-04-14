@@ -15,6 +15,9 @@
 #include <libhwsec-foundation/error/error.h>
 
 #include "cryptohome/error/action.h"
+#include "cryptohome/error/cryptohome_crypto_error.h"
+#include "cryptohome/error/cryptohome_error.h"
+#include "cryptohome/error/cryptohome_le_cred_error.h"
 #include "cryptohome/error/reporting.h"
 
 namespace cryptohome {
@@ -22,6 +25,25 @@ namespace cryptohome {
 namespace error {
 
 namespace {
+
+class PrimaryActions : public std::bitset<kPrimaryActionEnumSize> {
+ public:
+  PrimaryActions() = default;
+  explicit PrimaryActions(std::initializer_list<PrimaryAction> init) {
+    for (PrimaryAction action : init) {
+      operator[](action) = true;
+    }
+  }
+
+  using std::bitset<kPrimaryActionEnumSize>::operator[];
+
+  bool operator[](PrimaryAction pos) const {
+    return bitset::operator[](static_cast<size_t>(pos));
+  }
+  reference operator[](PrimaryAction pos) {
+    return bitset::operator[](static_cast<size_t>(pos));
+  }
+};
 
 user_data_auth::PrimaryAction PrimaryActionToProto(PrimaryAction action) {
   switch (action) {
@@ -56,6 +78,19 @@ user_data_auth::PossibleAction PossibleActionToProto(PossibleAction action) {
   }
 }
 
+std::string PrimaryActionToString(PrimaryAction action) {
+  switch (action) {
+    case PrimaryAction::kTpmUpdateRequired:
+      return "TPM Update Required";
+    case PrimaryAction::kTpmLockout:
+      return "TPM Lockout";
+    case PrimaryAction::kIncorrectAuth:
+      return "Incorrect Auth";
+    case PrimaryAction::kLeLockedOut:
+      return "LE Locked Out";
+  }
+}
+
 // Retrieve the ErrorID (aka, the location) from the stack of errors.
 // It looks something like this: 5-42-17
 std::string ErrorIDFromStack(
@@ -70,6 +105,8 @@ std::string ErrorIDFromStack(
   return result;
 }
 
+}  // namespace
+
 // Retrieves the recommendation from cryptohome to the caller (Chromium).
 // PrimaryAction means that cryptohome is certain that an action will resolve
 // the issue, or there's a specific reason why it failed. PossibleAction means
@@ -79,35 +116,74 @@ std::string ErrorIDFromStack(
 // the future.
 // TODO(b/275676828): Determine best way to choose one primary action from the
 // stack.
+template <typename ErrorType>
 void ActionsFromStack(
-    const hwsec_foundation::status::StatusChain<CryptohomeError>& stack,
+    const hwsec_foundation::status::StatusChain<ErrorType>& stack,
     std::optional<PrimaryAction>& primary,
     PossibleActions& possible) {
-  // Check to see if we've any PrimaryAction in the stack.
+  PrimaryActions primary_actions;
+  // Collect all actions in the stack.
   for (const auto& err : stack.const_range()) {
     // NOTE(b/229708597) The underlying StatusChain will prohibit the iteration
     // of the stack soon, and therefore other users of StatusChain should avoid
     // iterating through the StatusChain without consulting the owner of the
     // bug.
     if (std::holds_alternative<PrimaryAction>(err->local_actions())) {
-      primary = std::get<PrimaryAction>(err->local_actions());
-      break;
+      primary_actions[std::get<PrimaryAction>(err->local_actions())] = true;
+    } else {
+      possible |= std::get<PossibleActions>(err->local_actions());
     }
-    possible |= std::get<PossibleActions>(err->local_actions());
   }
 
-  if (primary.has_value()) {
-    // If we are sure, we'll not propose actions that we're not certain about.
-    possible.reset();
+  if (primary_actions.none()) {
     return;
   }
+  // If we are sure, we'll not propose actions that we're not certain about.
+  possible.reset();
 
-  // If we get here, we're not sure about the failures.
-  // Since the PossibleAction(s) are populated as well, we can return.
+  if (primary_actions[PrimaryAction::kIncorrectAuth] &&
+      primary_actions.count() == 1) {
+    primary = PrimaryAction::kIncorrectAuth;
+    return;
+  }
+  // If IncorrectAuth isn't the only primary action, it is considered inferior
+  // and we should remove it.
+  primary_actions[PrimaryAction::kIncorrectAuth] = false;
+
+  bool should_warn = primary_actions.count() > 1;
+  std::stringstream ss;
+  ss << "Multiple conflicting primary actions:";
+
+  // Other primary actions are considered the same tier, which shouldn't
+  // co-exist. Return one of them that exists in the stack.
+  for (size_t i = 0; i < kPrimaryActionEnumSize; ++i) {
+    PrimaryAction primary_action = static_cast<PrimaryAction>(i);
+    if (primary_actions[i]) {
+      primary = primary_action;
+      primary_actions[i] = false;
+      ss << " " << PrimaryActionToString(primary_action)
+         << (primary_actions.any() ? "," : ".");
+    }
+  }
+  if (should_warn) {
+    LOG(DFATAL) << ss.str();
+  }
   return;
 }
 
-}  // namespace
+// Instantiate for common types.
+template void ActionsFromStack(
+    const hwsec_foundation::status::StatusChain<CryptohomeError>& stack,
+    std::optional<PrimaryAction>& primary,
+    PossibleActions& possible);
+template void ActionsFromStack(
+    const hwsec_foundation::status::StatusChain<CryptohomeCryptoError>& stack,
+    std::optional<PrimaryAction>& primary,
+    PossibleActions& possible);
+template void ActionsFromStack(
+    const hwsec_foundation::status::StatusChain<CryptohomeLECredError>& stack,
+    std::optional<PrimaryAction>& primary,
+    PossibleActions& possible);
 
 user_data_auth::CryptohomeErrorCode LegacyErrorCodeFromStack(
     const hwsec_foundation::status::StatusChain<CryptohomeError>& stack) {

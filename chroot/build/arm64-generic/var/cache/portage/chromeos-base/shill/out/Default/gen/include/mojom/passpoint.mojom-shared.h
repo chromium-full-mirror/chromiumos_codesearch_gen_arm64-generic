@@ -61,6 +61,16 @@ namespace chromeos {
 namespace connectivity {
 namespace mojom {
 // Interface base classes. They are used for type safety check.
+class PasspointEventsListenerInterfaceBase {};
+
+using PasspointEventsListenerPtrDataView =
+    mojo::InterfacePtrDataView<PasspointEventsListenerInterfaceBase>;
+using PasspointEventsListenerRequestDataView =
+    mojo::InterfaceRequestDataView<PasspointEventsListenerInterfaceBase>;
+using PasspointEventsListenerAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<PasspointEventsListenerInterfaceBase>;
+using PasspointEventsListenerAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<PasspointEventsListenerInterfaceBase>;
 class PasspointServiceInterfaceBase {};
 
 using PasspointServicePtrDataView =
@@ -142,6 +152,9 @@ static_assert(
     auto* pointer = data_->trusted_ca.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
+  }
+  int64_t expiration_epoch_ms() const {
+    return data_->expiration_epoch_ms;
   }
  private:
   internal::PasspointSubscription_Data* data_ = nullptr;
@@ -231,6 +244,7 @@ struct Serializer<::chromeos::connectivity::mojom::PasspointSubscriptionDataView
         in_trusted_ca, trusted_ca_fragment);
     fragment->trusted_ca.Set(
         trusted_ca_fragment.is_null() ? nullptr : trusted_ca_fragment.data());
+    fragment->expiration_epoch_ms = Traits::expiration_epoch_ms(input);
   }
 
   static bool Deserialize(::chromeos::connectivity::mojom::internal::PasspointSubscription_Data* input,

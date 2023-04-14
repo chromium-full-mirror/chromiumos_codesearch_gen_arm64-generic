@@ -22,6 +22,38 @@ namespace chromeos {
 namespace connectivity {
 namespace mojom {
 namespace internal {
+class  PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::PasspointSubscription_Data> subscription;
+
+ private:
+  friend class mojo::internal::MessageFragment<PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data>;
+
+  PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data();
+  ~PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data() = delete;
+};
+static_assert(sizeof(PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data) == 16,
+              "Bad sizeof(PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data)");
+class  PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::PasspointSubscription_Data> subscription;
+
+ private:
+  friend class mojo::internal::MessageFragment<PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data>;
+
+  PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data();
+  ~PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data() = delete;
+};
+static_assert(sizeof(PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data) == 16,
+              "Bad sizeof(PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data)");
 class  PasspointService_GetPasspointSubscription_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -54,8 +86,140 @@ class  PasspointService_GetPasspointSubscription_ResponseParams_Data {
 };
 static_assert(sizeof(PasspointService_GetPasspointSubscription_ResponseParams_Data) == 16,
               "Bad sizeof(PasspointService_GetPasspointSubscription_ResponseParams_Data)");
+class  PasspointService_ListPasspointSubscriptions_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PasspointService_ListPasspointSubscriptions_Params_Data>;
+
+  PasspointService_ListPasspointSubscriptions_Params_Data();
+  ~PasspointService_ListPasspointSubscriptions_Params_Data() = delete;
+};
+static_assert(sizeof(PasspointService_ListPasspointSubscriptions_Params_Data) == 8,
+              "Bad sizeof(PasspointService_ListPasspointSubscriptions_Params_Data)");
+class  PasspointService_ListPasspointSubscriptions_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::PasspointSubscription_Data>>> result;
+
+ private:
+  friend class mojo::internal::MessageFragment<PasspointService_ListPasspointSubscriptions_ResponseParams_Data>;
+
+  PasspointService_ListPasspointSubscriptions_ResponseParams_Data();
+  ~PasspointService_ListPasspointSubscriptions_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PasspointService_ListPasspointSubscriptions_ResponseParams_Data) == 16,
+              "Bad sizeof(PasspointService_ListPasspointSubscriptions_ResponseParams_Data)");
+class  PasspointService_DeletePasspointSubscription_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> id;
+
+ private:
+  friend class mojo::internal::MessageFragment<PasspointService_DeletePasspointSubscription_Params_Data>;
+
+  PasspointService_DeletePasspointSubscription_Params_Data();
+  ~PasspointService_DeletePasspointSubscription_Params_Data() = delete;
+};
+static_assert(sizeof(PasspointService_DeletePasspointSubscription_Params_Data) == 16,
+              "Bad sizeof(PasspointService_DeletePasspointSubscription_Params_Data)");
+class  PasspointService_DeletePasspointSubscription_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<PasspointService_DeletePasspointSubscription_ResponseParams_Data>;
+
+  PasspointService_DeletePasspointSubscription_ResponseParams_Data();
+  ~PasspointService_DeletePasspointSubscription_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PasspointService_DeletePasspointSubscription_ResponseParams_Data) == 16,
+              "Bad sizeof(PasspointService_DeletePasspointSubscription_ResponseParams_Data)");
+class  PasspointService_RegisterPasspointListener_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data listener;
+
+ private:
+  friend class mojo::internal::MessageFragment<PasspointService_RegisterPasspointListener_Params_Data>;
+
+  PasspointService_RegisterPasspointListener_Params_Data();
+  ~PasspointService_RegisterPasspointListener_Params_Data() = delete;
+};
+static_assert(sizeof(PasspointService_RegisterPasspointListener_Params_Data) == 16,
+              "Bad sizeof(PasspointService_RegisterPasspointListener_Params_Data)");
 
 }  // namespace internal
+
+
+class PasspointEventsListener_OnPasspointSubscriptionAdded_ParamsDataView {
+ public:
+  PasspointEventsListener_OnPasspointSubscriptionAdded_ParamsDataView() = default;
+
+  PasspointEventsListener_OnPasspointSubscriptionAdded_ParamsDataView(
+      internal::PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSubscriptionDataView(
+      PasspointSubscriptionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSubscription(UserType* output) {
+    
+    auto* pointer = data_->subscription.Get();
+    return mojo::internal::Deserialize<::chromeos::connectivity::mojom::PasspointSubscriptionDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PasspointEventsListener_OnPasspointSubscriptionAdded_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PasspointEventsListener_OnPasspointSubscriptionRemoved_ParamsDataView {
+ public:
+  PasspointEventsListener_OnPasspointSubscriptionRemoved_ParamsDataView() = default;
+
+  PasspointEventsListener_OnPasspointSubscriptionRemoved_ParamsDataView(
+      internal::PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetSubscriptionDataView(
+      PasspointSubscriptionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSubscription(UserType* output) {
+    
+    auto* pointer = data_->subscription.Get();
+    return mojo::internal::Deserialize<::chromeos::connectivity::mojom::PasspointSubscriptionDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PasspointEventsListener_OnPasspointSubscriptionRemoved_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 class PasspointService_GetPasspointSubscription_ParamsDataView {
@@ -119,6 +283,130 @@ static_assert(
   mojo::Message* message_ = nullptr;
 };
 
+
+class PasspointService_ListPasspointSubscriptions_ParamsDataView {
+ public:
+  PasspointService_ListPasspointSubscriptions_ParamsDataView() = default;
+
+  PasspointService_ListPasspointSubscriptions_ParamsDataView(
+      internal::PasspointService_ListPasspointSubscriptions_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PasspointService_ListPasspointSubscriptions_Params_Data* data_ = nullptr;
+};
+
+
+class PasspointService_ListPasspointSubscriptions_ResponseParamsDataView {
+ public:
+  PasspointService_ListPasspointSubscriptions_ResponseParamsDataView() = default;
+
+  PasspointService_ListPasspointSubscriptions_ResponseParamsDataView(
+      internal::PasspointService_ListPasspointSubscriptions_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      mojo::ArrayDataView<PasspointSubscriptionDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::connectivity::mojom::PasspointSubscriptionDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PasspointService_ListPasspointSubscriptions_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PasspointService_DeletePasspointSubscription_ParamsDataView {
+ public:
+  PasspointService_DeletePasspointSubscription_ParamsDataView() = default;
+
+  PasspointService_DeletePasspointSubscription_ParamsDataView(
+      internal::PasspointService_DeletePasspointSubscription_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadId(UserType* output) {
+    
+    auto* pointer = data_->id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PasspointService_DeletePasspointSubscription_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PasspointService_DeletePasspointSubscription_ResponseParamsDataView {
+ public:
+  PasspointService_DeletePasspointSubscription_ResponseParamsDataView() = default;
+
+  PasspointService_DeletePasspointSubscription_ResponseParamsDataView(
+      internal::PasspointService_DeletePasspointSubscription_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+ private:
+  internal::PasspointService_DeletePasspointSubscription_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class PasspointService_RegisterPasspointListener_ParamsDataView {
+ public:
+  PasspointService_RegisterPasspointListener_ParamsDataView() = default;
+
+  PasspointService_RegisterPasspointListener_ParamsDataView(
+      internal::PasspointService_RegisterPasspointListener_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeListener() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chromeos::connectivity::mojom::PasspointEventsListenerInterfaceBase>>(
+            &data_->listener, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::PasspointService_RegisterPasspointListener_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+inline void PasspointEventsListener_OnPasspointSubscriptionAdded_ParamsDataView::GetSubscriptionDataView(
+    PasspointSubscriptionDataView* output) {
+  auto pointer = data_->subscription.Get();
+  *output = PasspointSubscriptionDataView(pointer, message_);
+}
+
+
+inline void PasspointEventsListener_OnPasspointSubscriptionRemoved_ParamsDataView::GetSubscriptionDataView(
+    PasspointSubscriptionDataView* output) {
+  auto pointer = data_->subscription.Get();
+  *output = PasspointSubscriptionDataView(pointer, message_);
+}
+
+
 inline void PasspointService_GetPasspointSubscription_ParamsDataView::GetIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->id.Get();
@@ -131,6 +419,26 @@ inline void PasspointService_GetPasspointSubscription_ResponseParamsDataView::Ge
   auto pointer = data_->result.Get();
   *output = PasspointSubscriptionDataView(pointer, message_);
 }
+
+
+
+
+inline void PasspointService_ListPasspointSubscriptions_ResponseParamsDataView::GetResultDataView(
+    mojo::ArrayDataView<PasspointSubscriptionDataView>* output) {
+  auto pointer = data_->result.Get();
+  *output = mojo::ArrayDataView<PasspointSubscriptionDataView>(pointer, message_);
+}
+
+
+inline void PasspointService_DeletePasspointSubscription_ParamsDataView::GetIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
 
 }  // namespace mojom
 }  // namespace connectivity

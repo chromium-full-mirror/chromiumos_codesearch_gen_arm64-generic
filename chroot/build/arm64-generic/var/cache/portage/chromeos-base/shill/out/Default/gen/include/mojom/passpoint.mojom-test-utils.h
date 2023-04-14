@@ -15,9 +15,31 @@ namespace connectivity {
 namespace mojom {
 
 
+class  PasspointEventsListenerInterceptorForTesting : public PasspointEventsListener {
+  virtual PasspointEventsListener* GetForwardingInterface() = 0;
+  void OnPasspointSubscriptionAdded(PasspointSubscriptionPtr subscription) override;
+  void OnPasspointSubscriptionRemoved(PasspointSubscriptionPtr subscription) override;
+};
+class  PasspointEventsListenerAsyncWaiter {
+ public:
+  explicit PasspointEventsListenerAsyncWaiter(PasspointEventsListener* proxy);
+
+  PasspointEventsListenerAsyncWaiter(const PasspointEventsListenerAsyncWaiter&) = delete;
+  PasspointEventsListenerAsyncWaiter& operator=(const PasspointEventsListenerAsyncWaiter&) = delete;
+
+  ~PasspointEventsListenerAsyncWaiter();
+
+ private:
+  PasspointEventsListener* const proxy_;
+};
+
+
 class  PasspointServiceInterceptorForTesting : public PasspointService {
   virtual PasspointService* GetForwardingInterface() = 0;
   void GetPasspointSubscription(const std::string& id, GetPasspointSubscriptionCallback callback) override;
+  void ListPasspointSubscriptions(ListPasspointSubscriptionsCallback callback) override;
+  void DeletePasspointSubscription(const std::string& id, DeletePasspointSubscriptionCallback callback) override;
+  void RegisterPasspointListener(::mojo::PendingRemote<PasspointEventsListener> listener) override;
 };
 class  PasspointServiceAsyncWaiter {
  public:
@@ -30,6 +52,12 @@ class  PasspointServiceAsyncWaiter {
   void GetPasspointSubscription(
       const std::string& id, PasspointSubscriptionPtr* out_result);
   PasspointSubscriptionPtr GetPasspointSubscription(const std::string& id);
+  void ListPasspointSubscriptions(
+      std::vector<PasspointSubscriptionPtr>* out_result);
+  std::vector<PasspointSubscriptionPtr> ListPasspointSubscriptions();
+  void DeletePasspointSubscription(
+      const std::string& id, bool* out_success);
+  bool DeletePasspointSubscription(const std::string& id);
 
  private:
   PasspointService* const proxy_;

@@ -15,7 +15,12 @@ namespace mojom {
 namespace internal {
 
 
+constexpr uint32_t kPasspointEventsListener_OnPasspointSubscriptionAdded_Name = 0;
+constexpr uint32_t kPasspointEventsListener_OnPasspointSubscriptionRemoved_Name = 1;
 constexpr uint32_t kPasspointService_GetPasspointSubscription_Name = 0;
+constexpr uint32_t kPasspointService_ListPasspointSubscriptions_Name = 1;
+constexpr uint32_t kPasspointService_DeletePasspointSubscription_Name = 2;
+constexpr uint32_t kPasspointService_RegisterPasspointListener_Name = 3;
 
 }  // namespace internal
 }  // namespace mojom

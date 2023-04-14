@@ -272,9 +272,6 @@ std::string GetProtoDebugStringWithIndent(PossibleAction value,
   if (value == POSSIBLY_AUTH) {
     return "POSSIBLY_AUTH";
   }
-  if (value == POSSIBLY_INCORRECT_AUTH) {
-    return "POSSIBLY_INCORRECT_AUTH";
-  }
   if (value == POSSIBLY_DELETE_VAULT) {
     return "POSSIBLY_DELETE_VAULT";
   }

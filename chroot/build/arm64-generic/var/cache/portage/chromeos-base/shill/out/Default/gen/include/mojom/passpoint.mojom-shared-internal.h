@@ -38,6 +38,7 @@ class  PasspointSubscription_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> friendly_name;
   mojo::internal::Pointer<mojo::internal::String_Data> provisioning_source;
   mojo::internal::Pointer<mojo::internal::String_Data> trusted_ca;
+  int64_t expiration_epoch_ms;
 
  private:
   friend class mojo::internal::MessageFragment<PasspointSubscription_Data>;
@@ -45,7 +46,7 @@ class  PasspointSubscription_Data {
   PasspointSubscription_Data();
   ~PasspointSubscription_Data() = delete;
 };
-static_assert(sizeof(PasspointSubscription_Data) == 48,
+static_assert(sizeof(PasspointSubscription_Data) == 56,
               "Bad sizeof(PasspointSubscription_Data)");
 // Used by PasspointSubscription::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
