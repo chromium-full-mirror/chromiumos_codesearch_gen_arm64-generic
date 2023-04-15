@@ -1047,7 +1047,8 @@ PROTOBUF_CONSTEXPR DeviceStatusReportRequest::DeviceStatusReportRequest(
   , channel_(0)
 
   , root_device_total_storage_bytes_(int64_t{0})
-  , write_protect_switch_(false){}
+  , write_protect_switch_(false)
+  , is_lacros_primary_browser_(false){}
 struct DeviceStatusReportRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceStatusReportRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -30515,6 +30516,9 @@ class DeviceStatusReportRequest::_Internal {
   static void set_has_root_device_total_storage_bytes(HasBits* has_bits) {
     (*has_bits)[0] |= 16777216u;
   }
+  static void set_has_is_lacros_primary_browser(HasBits* has_bits) {
+    (*has_bits)[0] |= 67108864u;
+  }
 };
 
 const ::enterprise_management::OsUpdateStatus&
@@ -30747,8 +30751,8 @@ DeviceStatusReportRequest::DeviceStatusReportRequest(const DeviceStatusReportReq
     boot_info_ = nullptr;
   }
   ::memcpy(&system_ram_total_, &from.system_ram_total_,
-    static_cast<size_t>(reinterpret_cast<char*>(&write_protect_switch_) -
-    reinterpret_cast<char*>(&system_ram_total_)) + sizeof(write_protect_switch_));
+    static_cast<size_t>(reinterpret_cast<char*>(&is_lacros_primary_browser_) -
+    reinterpret_cast<char*>(&system_ram_total_)) + sizeof(is_lacros_primary_browser_));
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceStatusReportRequest)
 }
 
@@ -30771,8 +30775,8 @@ browser_version_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&os_update_status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&write_protect_switch_) -
-    reinterpret_cast<char*>(&os_update_status_)) + sizeof(write_protect_switch_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&is_lacros_primary_browser_) -
+    reinterpret_cast<char*>(&os_update_status_)) + sizeof(is_lacros_primary_browser_));
 }
 
 DeviceStatusReportRequest::~DeviceStatusReportRequest() {
@@ -30928,10 +30932,10 @@ void DeviceStatusReportRequest::Clear() {
         reinterpret_cast<char*>(&channel_) -
         reinterpret_cast<char*>(&system_ram_total_)) + sizeof(channel_));
   }
-  if (cached_has_bits & 0x03000000u) {
+  if (cached_has_bits & 0x07000000u) {
     ::memset(&root_device_total_storage_bytes_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&write_protect_switch_) -
-        reinterpret_cast<char*>(&root_device_total_storage_bytes_)) + sizeof(write_protect_switch_));
+        reinterpret_cast<char*>(&is_lacros_primary_browser_) -
+        reinterpret_cast<char*>(&root_device_total_storage_bytes_)) + sizeof(is_lacros_primary_browser_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -31392,6 +31396,15 @@ const char* DeviceStatusReportRequest::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional bool is_lacros_primary_browser = 48;
+      case 48:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+          _Internal::set_has_is_lacros_primary_browser(&has_bits);
+          is_lacros_primary_browser_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -31729,6 +31742,12 @@ uint8_t* DeviceStatusReportRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(47, this->_internal_root_device_total_storage_bytes(), target);
   }
 
+  // optional bool is_lacros_primary_browser = 48;
+  if (cached_has_bits & 0x04000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(48, this->_internal_is_lacros_primary_browser(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -32040,7 +32059,7 @@ size_t DeviceStatusReportRequest::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x03000000u) {
+  if (cached_has_bits & 0x07000000u) {
     // optional int64 root_device_total_storage_bytes = 47;
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
@@ -32050,6 +32069,11 @@ size_t DeviceStatusReportRequest::ByteSizeLong() const {
 
     // optional bool write_protect_switch = 24;
     if (cached_has_bits & 0x02000000u) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool is_lacros_primary_browser = 48;
+    if (cached_has_bits & 0x04000000u) {
       total_size += 2 + 1;
     }
 
@@ -32171,12 +32195,15 @@ void DeviceStatusReportRequest::MergeFrom(const DeviceStatusReportRequest& from)
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x03000000u) {
+  if (cached_has_bits & 0x07000000u) {
     if (cached_has_bits & 0x01000000u) {
       root_device_total_storage_bytes_ = from.root_device_total_storage_bytes_;
     }
     if (cached_has_bits & 0x02000000u) {
       write_protect_switch_ = from.write_protect_switch_;
+    }
+    if (cached_has_bits & 0x04000000u) {
+      is_lacros_primary_browser_ = from.is_lacros_primary_browser_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -32238,8 +32265,8 @@ void DeviceStatusReportRequest::InternalSwap(DeviceStatusReportRequest* other) {
       &other->browser_version_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceStatusReportRequest, write_protect_switch_)
-      + sizeof(DeviceStatusReportRequest::write_protect_switch_)
+      PROTOBUF_FIELD_OFFSET(DeviceStatusReportRequest, is_lacros_primary_browser_)
+      + sizeof(DeviceStatusReportRequest::is_lacros_primary_browser_)
       - PROTOBUF_FIELD_OFFSET(DeviceStatusReportRequest, os_update_status_)>(
           reinterpret_cast<char*>(&os_update_status_),
           reinterpret_cast<char*>(&other->os_update_status_));

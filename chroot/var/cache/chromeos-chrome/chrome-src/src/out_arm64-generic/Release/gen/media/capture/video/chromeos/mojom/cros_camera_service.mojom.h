@@ -63,7 +63,7 @@ class CameraHalDispatcher
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 6;
+  static constexpr uint32_t Version_ = 10;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -83,6 +83,7 @@ class CameraHalDispatcher
     kRegisterServerWithTokenMinVersion = 4,
     kRegisterClientWithTokenMinVersion = 4,
     kRegisterSensorClientWithTokenMinVersion = 6,
+    kBindServiceToMojoServiceManagerMinVersion = 10,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -107,6 +108,9 @@ class CameraHalDispatcher
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RegisterSensorClientWithToken_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct BindServiceToMojoServiceManager_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -138,6 +142,9 @@ class CameraHalDispatcher
   using RegisterSensorClientWithTokenCallback = base::OnceCallback<void(int32_t)>;
   
   virtual void RegisterSensorClientWithToken(::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> client, const ::base::UnguessableToken& auth_token, RegisterSensorClientWithTokenCallback callback) = 0;
+
+  
+  virtual void BindServiceToMojoServiceManager(const std::string& service_name, ::mojo::ScopedMessagePipeHandle receiver) = 0;
 };
 
 class CameraHalServerProxy;
@@ -315,6 +322,8 @@ class  CameraHalDispatcherProxy
   void RegisterClientWithToken(::mojo::PendingRemote<::cros::mojom::CameraHalClient> client, CameraClientType type, const ::base::UnguessableToken& auth_token, RegisterClientWithTokenCallback callback) final;
   
   void RegisterSensorClientWithToken(::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> client, const ::base::UnguessableToken& auth_token, RegisterSensorClientWithTokenCallback callback) final;
+  
+  void BindServiceToMojoServiceManager(const std::string& service_name, ::mojo::ScopedMessagePipeHandle receiver) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -16459,6 +16459,7 @@ kSoundVolumeFieldNumber = 19,
 kChannelFieldNumber = 22,
 kRootDeviceTotalStorageBytesFieldNumber = 47,
 kWriteProtectSwitchFieldNumber = 24,
+kIsLacrosPrimaryBrowserFieldNumber = 48,
 };
 // repeated .enterprise_management.ActiveTimePeriod active_periods = 6;
 int active_periods_size() const;
@@ -17217,6 +17218,19 @@ bool _internal_write_protect_switch() const;
 void _internal_set_write_protect_switch(bool value);
 public:
 
+// optional bool is_lacros_primary_browser = 48;
+bool has_is_lacros_primary_browser() const;
+private:
+bool _internal_has_is_lacros_primary_browser() const;
+public:
+void clear_is_lacros_primary_browser();
+bool is_lacros_primary_browser() const;
+void set_is_lacros_primary_browser(bool value);
+private:
+bool _internal_is_lacros_primary_browser() const;
+void _internal_set_is_lacros_primary_browser(bool value);
+public:
+
 // @@protoc_insertion_point(class_scope:enterprise_management.DeviceStatusReportRequest)
 private:
 class _Internal;
@@ -17269,6 +17283,7 @@ int32_t sound_volume_;
 int channel_;
 int64_t root_device_total_storage_bytes_;
 bool write_protect_switch_;
+bool is_lacros_primary_browser_;
 friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
@@ -58901,6 +58916,34 @@ root_device_total_storage_bytes_ = value;
 inline void DeviceStatusReportRequest::set_root_device_total_storage_bytes(int64_t value) {
 _internal_set_root_device_total_storage_bytes(value);
 // @@protoc_insertion_point(field_set:enterprise_management.DeviceStatusReportRequest.root_device_total_storage_bytes)
+}
+
+// optional bool is_lacros_primary_browser = 48;
+inline bool DeviceStatusReportRequest::_internal_has_is_lacros_primary_browser() const {
+bool value = (_has_bits_[0] & 0x04000000u) != 0;
+return value;
+}
+inline bool DeviceStatusReportRequest::has_is_lacros_primary_browser() const {
+return _internal_has_is_lacros_primary_browser();
+}
+inline void DeviceStatusReportRequest::clear_is_lacros_primary_browser() {
+is_lacros_primary_browser_ = false;
+_has_bits_[0] &= ~0x04000000u;
+}
+inline bool DeviceStatusReportRequest::_internal_is_lacros_primary_browser() const {
+return is_lacros_primary_browser_;
+}
+inline bool DeviceStatusReportRequest::is_lacros_primary_browser() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceStatusReportRequest.is_lacros_primary_browser)
+return _internal_is_lacros_primary_browser();
+}
+inline void DeviceStatusReportRequest::_internal_set_is_lacros_primary_browser(bool value) {
+_has_bits_[0] |= 0x04000000u;
+is_lacros_primary_browser_ = value;
+}
+inline void DeviceStatusReportRequest::set_is_lacros_primary_browser(bool value) {
+_internal_set_is_lacros_primary_browser(value);
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceStatusReportRequest.is_lacros_primary_browser)
 }
 
 // -------------------------------------------------------------------

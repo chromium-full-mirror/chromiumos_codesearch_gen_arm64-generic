@@ -71,6 +71,9 @@ CameraHalDispatcher::IPCStableHashFunction CameraHalDispatcher::MessageToMethodI
     case internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name: {
       return &CameraHalDispatcher::RegisterSensorClientWithToken_Sym::IPCStableHash;
     }
+    case internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name: {
+      return &CameraHalDispatcher::BindServiceToMojoServiceManager_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -96,6 +99,8 @@ const char* CameraHalDispatcher::MessageToMethodName_(mojo::Message& message) {
             return "Receive cros::mojom::CameraHalDispatcher::RegisterClientWithToken";
       case internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name:
             return "Receive cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken";
+      case internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name:
+            return "Receive cros::mojom::CameraHalDispatcher::BindServiceToMojoServiceManager";
     }
   } else {
     switch (message.name()) {
@@ -113,6 +118,8 @@ const char* CameraHalDispatcher::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply cros::mojom::CameraHalDispatcher::RegisterClientWithToken";
       case internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name:
             return "Receive reply cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken";
+      case internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name:
+            return "Receive reply cros::mojom::CameraHalDispatcher::BindServiceToMojoServiceManager";
     }
   }
   return "Receive unknown mojo message";
@@ -214,6 +221,19 @@ uint32_t CameraHalDispatcher::RegisterSensorClientWithToken_Sym::IPCStableHash()
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalDispatcher::BindServiceToMojoServiceManager_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalDispatcher::BindServiceToMojoServiceManager");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -621,6 +641,63 @@ void CameraHalDispatcherProxy::RegisterSensorClientWithToken(
       new CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CameraHalDispatcherProxy::BindServiceToMojoServiceManager(
+    const std::string& in_service_name, ::mojo::ScopedMessagePipeHandle in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::CameraHalDispatcher::BindServiceToMojoServiceManager", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("service_name"), in_service_name,
+                        "<value of type const std::string&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::ScopedMessagePipeHandle>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->service_name)::BaseType> service_name_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_service_name, service_name_fragment);
+  params->service_name.Set(
+      service_name_fragment.is_null() ? nullptr : service_name_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->service_name.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null service_name in CameraHalDispatcher.BindServiceToMojoServiceManager request");
+  mojo::internal::Serialize<mojo::ScopedMessagePipeHandle>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in CameraHalDispatcher.BindServiceToMojoServiceManager request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CameraHalDispatcher::Name_);
+  message.set_method_name("BindServiceToMojoServiceManager");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1118,6 +1195,36 @@ std::move(p_jea_receiver));
     case internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name: {
       break;
     }
+    case internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data* params =
+          reinterpret_cast<internal::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::string p_service_name{};
+      ::mojo::ScopedMessagePipeHandle p_receiver{};
+      CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadServiceName(&p_service_name))
+        success = false;
+      if (success)
+        p_receiver = input_data_view.TakeReceiver();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CameraHalDispatcher::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindServiceToMojoServiceManager(
+std::move(p_service_name), 
+std::move(p_receiver));
+      return true;
+    }
   }
   return false;
 }
@@ -1252,6 +1359,9 @@ std::move(p_client),
 std::move(p_auth_token), std::move(callback));
       return true;
     }
+    case internal::kCameraHalDispatcher_BindServiceToMojoServiceManager_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1272,6 +1382,8 @@ static const mojo::internal::GenericValidationInfo kCameraHalDispatcherValidatio
      &internal::CameraHalDispatcher_RegisterClientWithToken_ResponseParams_Data::Validate},
     {&internal::CameraHalDispatcher_RegisterSensorClientWithToken_Params_Data::Validate,
      &internal::CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data::Validate},
+    {&internal::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool CameraHalDispatcherRequestValidator::Accept(mojo::Message* message) {
@@ -2803,6 +2915,9 @@ void CameraHalDispatcherInterceptorForTesting::RegisterClientWithToken(::mojo::P
 }
 void CameraHalDispatcherInterceptorForTesting::RegisterSensorClientWithToken(::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> client, const ::base::UnguessableToken& auth_token, RegisterSensorClientWithTokenCallback callback) {
   GetForwardingInterface()->RegisterSensorClientWithToken(std::move(client), std::move(auth_token), std::move(callback));
+}
+void CameraHalDispatcherInterceptorForTesting::BindServiceToMojoServiceManager(const std::string& service_name, ::mojo::ScopedMessagePipeHandle receiver) {
+  GetForwardingInterface()->BindServiceToMojoServiceManager(std::move(service_name), std::move(receiver));
 }
 CameraHalDispatcherAsyncWaiter::CameraHalDispatcherAsyncWaiter(
     CameraHalDispatcher* proxy) : proxy_(proxy) {}

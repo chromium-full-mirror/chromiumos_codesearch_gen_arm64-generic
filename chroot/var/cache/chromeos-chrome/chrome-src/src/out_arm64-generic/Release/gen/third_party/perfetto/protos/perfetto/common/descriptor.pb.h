@@ -59,6 +59,9 @@ extern EnumValueDescriptorProtoDefaultTypeInternal _EnumValueDescriptorProto_def
 class FieldDescriptorProto;
 struct FieldDescriptorProtoDefaultTypeInternal;
 extern FieldDescriptorProtoDefaultTypeInternal _FieldDescriptorProto_default_instance_;
+class FieldOptions;
+struct FieldOptionsDefaultTypeInternal;
+extern FieldOptionsDefaultTypeInternal _FieldOptions_default_instance_;
 class FileDescriptorProto;
 struct FileDescriptorProtoDefaultTypeInternal;
 extern FileDescriptorProtoDefaultTypeInternal _FileDescriptorProto_default_instance_;
@@ -79,6 +82,7 @@ template<> ::perfetto::protos::DescriptorProto_ReservedRange* Arena::CreateMaybe
 template<> ::perfetto::protos::EnumDescriptorProto* Arena::CreateMaybeMessage<::perfetto::protos::EnumDescriptorProto>(Arena*);
 template<> ::perfetto::protos::EnumValueDescriptorProto* Arena::CreateMaybeMessage<::perfetto::protos::EnumValueDescriptorProto>(Arena*);
 template<> ::perfetto::protos::FieldDescriptorProto* Arena::CreateMaybeMessage<::perfetto::protos::FieldDescriptorProto>(Arena*);
+template<> ::perfetto::protos::FieldOptions* Arena::CreateMaybeMessage<::perfetto::protos::FieldOptions>(Arena*);
 template<> ::perfetto::protos::FileDescriptorProto* Arena::CreateMaybeMessage<::perfetto::protos::FileDescriptorProto>(Arena*);
 template<> ::perfetto::protos::FileDescriptorSet* Arena::CreateMaybeMessage<::perfetto::protos::FileDescriptorSet>(Arena*);
 template<> ::perfetto::protos::OneofDescriptorProto* Arena::CreateMaybeMessage<::perfetto::protos::OneofDescriptorProto>(Arena*);
@@ -1031,6 +1035,145 @@ class DescriptorProto final :
 };
 // -------------------------------------------------------------------
 
+class FieldOptions final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:perfetto.protos.FieldOptions) */ {
+ public:
+  inline FieldOptions() : FieldOptions(nullptr) {}
+  ~FieldOptions() override;
+  explicit PROTOBUF_CONSTEXPR FieldOptions(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  FieldOptions(const FieldOptions& from);
+  FieldOptions(FieldOptions&& from) noexcept
+    : FieldOptions() {
+    *this = ::std::move(from);
+  }
+
+  inline FieldOptions& operator=(const FieldOptions& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FieldOptions& operator=(FieldOptions&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const FieldOptions& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const FieldOptions* internal_default_instance() {
+    return reinterpret_cast<const FieldOptions*>(
+               &_FieldOptions_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(FieldOptions& a, FieldOptions& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(FieldOptions* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FieldOptions* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  FieldOptions* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<FieldOptions>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const FieldOptions& from);
+  void MergeFrom(const FieldOptions& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(FieldOptions* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "perfetto.protos.FieldOptions";
+  }
+  protected:
+  explicit FieldOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPackedFieldNumber = 2,
+  };
+  // optional bool packed = 2;
+  bool has_packed() const;
+  private:
+  bool _internal_has_packed() const;
+  public:
+  void clear_packed();
+  bool packed() const;
+  void set_packed(bool value);
+  private:
+  bool _internal_packed() const;
+  void _internal_set_packed(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:perfetto.protos.FieldOptions)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  bool packed_;
+  friend struct ::TableStruct_protos_2fperfetto_2fcommon_2fdescriptor_2eproto;
+};
+// -------------------------------------------------------------------
+
 class FieldDescriptorProto final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:perfetto.protos.FieldDescriptorProto) */ {
  public:
@@ -1077,7 +1220,7 @@ class FieldDescriptorProto final :
                &_FieldDescriptorProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(FieldDescriptorProto& a, FieldDescriptorProto& b) {
     a.Swap(&b);
@@ -1231,6 +1374,7 @@ class FieldDescriptorProto final :
     kExtendeeFieldNumber = 2,
     kTypeNameFieldNumber = 6,
     kDefaultValueFieldNumber = 7,
+    kOptionsFieldNumber = 8,
     kNumberFieldNumber = 3,
     kOneofIndexFieldNumber = 9,
     kLabelFieldNumber = 4,
@@ -1308,6 +1452,24 @@ class FieldDescriptorProto final :
   std::string* _internal_mutable_default_value();
   public:
 
+  // optional .perfetto.protos.FieldOptions options = 8;
+  bool has_options() const;
+  private:
+  bool _internal_has_options() const;
+  public:
+  void clear_options();
+  const ::perfetto::protos::FieldOptions& options() const;
+  PROTOBUF_NODISCARD ::perfetto::protos::FieldOptions* release_options();
+  ::perfetto::protos::FieldOptions* mutable_options();
+  void set_allocated_options(::perfetto::protos::FieldOptions* options);
+  private:
+  const ::perfetto::protos::FieldOptions& _internal_options() const;
+  ::perfetto::protos::FieldOptions* _internal_mutable_options();
+  public:
+  void unsafe_arena_set_allocated_options(
+      ::perfetto::protos::FieldOptions* options);
+  ::perfetto::protos::FieldOptions* unsafe_arena_release_options();
+
   // optional int32 number = 3;
   bool has_number() const;
   private:
@@ -1373,6 +1535,7 @@ class FieldDescriptorProto final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr extendee_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr type_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr default_value_;
+  ::perfetto::protos::FieldOptions* options_;
   int32_t number_;
   int32_t oneof_index_;
   int label_;
@@ -1427,7 +1590,7 @@ class OneofDescriptorProto final :
                &_OneofDescriptorProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(OneofDescriptorProto& a, OneofDescriptorProto& b) {
     a.Swap(&b);
@@ -1591,7 +1754,7 @@ class EnumDescriptorProto final :
                &_EnumDescriptorProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(EnumDescriptorProto& a, EnumDescriptorProto& b) {
     a.Swap(&b);
@@ -1781,7 +1944,7 @@ class EnumValueDescriptorProto final :
                &_EnumValueDescriptorProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(EnumValueDescriptorProto& a, EnumValueDescriptorProto& b) {
     a.Swap(&b);
@@ -1940,7 +2103,7 @@ class OneofOptions final :
                &_OneofOptions_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(OneofOptions& a, OneofOptions& b) {
     a.Swap(&b);
@@ -3134,6 +3297,38 @@ DescriptorProto::mutable_reserved_name() {
 
 // -------------------------------------------------------------------
 
+// FieldOptions
+
+// optional bool packed = 2;
+inline bool FieldOptions::_internal_has_packed() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool FieldOptions::has_packed() const {
+  return _internal_has_packed();
+}
+inline void FieldOptions::clear_packed() {
+  packed_ = false;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline bool FieldOptions::_internal_packed() const {
+  return packed_;
+}
+inline bool FieldOptions::packed() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.FieldOptions.packed)
+  return _internal_packed();
+}
+inline void FieldOptions::_internal_set_packed(bool value) {
+  _has_bits_[0] |= 0x00000001u;
+  packed_ = value;
+}
+inline void FieldOptions::set_packed(bool value) {
+  _internal_set_packed(value);
+  // @@protoc_insertion_point(field_set:perfetto.protos.FieldOptions.packed)
+}
+
+// -------------------------------------------------------------------
+
 // FieldDescriptorProto
 
 // optional string name = 1;
@@ -3206,7 +3401,7 @@ inline void FieldDescriptorProto::set_allocated_name(std::string* name) {
 
 // optional int32 number = 3;
 inline bool FieldDescriptorProto::_internal_has_number() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool FieldDescriptorProto::has_number() const {
@@ -3214,7 +3409,7 @@ inline bool FieldDescriptorProto::has_number() const {
 }
 inline void FieldDescriptorProto::clear_number() {
   number_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline int32_t FieldDescriptorProto::_internal_number() const {
   return number_;
@@ -3224,7 +3419,7 @@ inline int32_t FieldDescriptorProto::number() const {
   return _internal_number();
 }
 inline void FieldDescriptorProto::_internal_set_number(int32_t value) {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
   number_ = value;
 }
 inline void FieldDescriptorProto::set_number(int32_t value) {
@@ -3234,7 +3429,7 @@ inline void FieldDescriptorProto::set_number(int32_t value) {
 
 // optional .perfetto.protos.FieldDescriptorProto.Label label = 4;
 inline bool FieldDescriptorProto::_internal_has_label() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool FieldDescriptorProto::has_label() const {
@@ -3242,7 +3437,7 @@ inline bool FieldDescriptorProto::has_label() const {
 }
 inline void FieldDescriptorProto::clear_label() {
   label_ = 1;
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline ::perfetto::protos::FieldDescriptorProto_Label FieldDescriptorProto::_internal_label() const {
   return static_cast< ::perfetto::protos::FieldDescriptorProto_Label >(label_);
@@ -3253,7 +3448,7 @@ inline ::perfetto::protos::FieldDescriptorProto_Label FieldDescriptorProto::labe
 }
 inline void FieldDescriptorProto::_internal_set_label(::perfetto::protos::FieldDescriptorProto_Label value) {
   assert(::perfetto::protos::FieldDescriptorProto_Label_IsValid(value));
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000080u;
   label_ = value;
 }
 inline void FieldDescriptorProto::set_label(::perfetto::protos::FieldDescriptorProto_Label value) {
@@ -3263,7 +3458,7 @@ inline void FieldDescriptorProto::set_label(::perfetto::protos::FieldDescriptorP
 
 // optional .perfetto.protos.FieldDescriptorProto.Type type = 5;
 inline bool FieldDescriptorProto::_internal_has_type() const {
-  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool FieldDescriptorProto::has_type() const {
@@ -3271,7 +3466,7 @@ inline bool FieldDescriptorProto::has_type() const {
 }
 inline void FieldDescriptorProto::clear_type() {
   type_ = 1;
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline ::perfetto::protos::FieldDescriptorProto_Type FieldDescriptorProto::_internal_type() const {
   return static_cast< ::perfetto::protos::FieldDescriptorProto_Type >(type_);
@@ -3282,7 +3477,7 @@ inline ::perfetto::protos::FieldDescriptorProto_Type FieldDescriptorProto::type(
 }
 inline void FieldDescriptorProto::_internal_set_type(::perfetto::protos::FieldDescriptorProto_Type value) {
   assert(::perfetto::protos::FieldDescriptorProto_Type_IsValid(value));
-  _has_bits_[0] |= 0x00000080u;
+  _has_bits_[0] |= 0x00000100u;
   type_ = value;
 }
 inline void FieldDescriptorProto::set_type(::perfetto::protos::FieldDescriptorProto_Type value) {
@@ -3494,9 +3689,99 @@ inline void FieldDescriptorProto::set_allocated_default_value(std::string* defau
   // @@protoc_insertion_point(field_set_allocated:perfetto.protos.FieldDescriptorProto.default_value)
 }
 
+// optional .perfetto.protos.FieldOptions options = 8;
+inline bool FieldDescriptorProto::_internal_has_options() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  PROTOBUF_ASSUME(!value || options_ != nullptr);
+  return value;
+}
+inline bool FieldDescriptorProto::has_options() const {
+  return _internal_has_options();
+}
+inline void FieldDescriptorProto::clear_options() {
+  if (options_ != nullptr) options_->Clear();
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline const ::perfetto::protos::FieldOptions& FieldDescriptorProto::_internal_options() const {
+  const ::perfetto::protos::FieldOptions* p = options_;
+  return p != nullptr ? *p : reinterpret_cast<const ::perfetto::protos::FieldOptions&>(
+      ::perfetto::protos::_FieldOptions_default_instance_);
+}
+inline const ::perfetto::protos::FieldOptions& FieldDescriptorProto::options() const {
+  // @@protoc_insertion_point(field_get:perfetto.protos.FieldDescriptorProto.options)
+  return _internal_options();
+}
+inline void FieldDescriptorProto::unsafe_arena_set_allocated_options(
+    ::perfetto::protos::FieldOptions* options) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(options_);
+  }
+  options_ = options;
+  if (options) {
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:perfetto.protos.FieldDescriptorProto.options)
+}
+inline ::perfetto::protos::FieldOptions* FieldDescriptorProto::release_options() {
+  _has_bits_[0] &= ~0x00000010u;
+  ::perfetto::protos::FieldOptions* temp = options_;
+  options_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::perfetto::protos::FieldOptions* FieldDescriptorProto::unsafe_arena_release_options() {
+  // @@protoc_insertion_point(field_release:perfetto.protos.FieldDescriptorProto.options)
+  _has_bits_[0] &= ~0x00000010u;
+  ::perfetto::protos::FieldOptions* temp = options_;
+  options_ = nullptr;
+  return temp;
+}
+inline ::perfetto::protos::FieldOptions* FieldDescriptorProto::_internal_mutable_options() {
+  _has_bits_[0] |= 0x00000010u;
+  if (options_ == nullptr) {
+    auto* p = CreateMaybeMessage<::perfetto::protos::FieldOptions>(GetArenaForAllocation());
+    options_ = p;
+  }
+  return options_;
+}
+inline ::perfetto::protos::FieldOptions* FieldDescriptorProto::mutable_options() {
+  ::perfetto::protos::FieldOptions* _msg = _internal_mutable_options();
+  // @@protoc_insertion_point(field_mutable:perfetto.protos.FieldDescriptorProto.options)
+  return _msg;
+}
+inline void FieldDescriptorProto::set_allocated_options(::perfetto::protos::FieldOptions* options) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete options_;
+  }
+  if (options) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(options);
+    if (message_arena != submessage_arena) {
+      options = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, options, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  options_ = options;
+  // @@protoc_insertion_point(field_set_allocated:perfetto.protos.FieldDescriptorProto.options)
+}
+
 // optional int32 oneof_index = 9;
 inline bool FieldDescriptorProto::_internal_has_oneof_index() const {
-  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
 inline bool FieldDescriptorProto::has_oneof_index() const {
@@ -3504,7 +3789,7 @@ inline bool FieldDescriptorProto::has_oneof_index() const {
 }
 inline void FieldDescriptorProto::clear_oneof_index() {
   oneof_index_ = 0;
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline int32_t FieldDescriptorProto::_internal_oneof_index() const {
   return oneof_index_;
@@ -3514,7 +3799,7 @@ inline int32_t FieldDescriptorProto::oneof_index() const {
   return _internal_oneof_index();
 }
 inline void FieldDescriptorProto::_internal_set_oneof_index(int32_t value) {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000040u;
   oneof_index_ = value;
 }
 inline void FieldDescriptorProto::set_oneof_index(int32_t value) {
@@ -3978,6 +4263,8 @@ inline void EnumValueDescriptorProto::set_number(int32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

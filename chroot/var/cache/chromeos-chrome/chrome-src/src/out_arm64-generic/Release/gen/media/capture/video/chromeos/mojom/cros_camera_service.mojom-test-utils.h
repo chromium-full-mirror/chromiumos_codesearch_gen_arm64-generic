@@ -23,6 +23,7 @@ class  CameraHalDispatcherInterceptorForTesting : public CameraHalDispatcher {
   void RegisterServerWithToken(::mojo::PendingRemote<CameraHalServer> server, const ::base::UnguessableToken& auth_token, RegisterServerWithTokenCallback callback) override;
   void RegisterClientWithToken(::mojo::PendingRemote<::cros::mojom::CameraHalClient> client, CameraClientType type, const ::base::UnguessableToken& auth_token, RegisterClientWithTokenCallback callback) override;
   void RegisterSensorClientWithToken(::mojo::PendingRemote<::chromeos::sensors::mojom::SensorHalClient> client, const ::base::UnguessableToken& auth_token, RegisterSensorClientWithTokenCallback callback) override;
+  void BindServiceToMojoServiceManager(const std::string& service_name, ::mojo::ScopedMessagePipeHandle receiver) override;
 };
 class  CameraHalDispatcherAsyncWaiter {
  public:

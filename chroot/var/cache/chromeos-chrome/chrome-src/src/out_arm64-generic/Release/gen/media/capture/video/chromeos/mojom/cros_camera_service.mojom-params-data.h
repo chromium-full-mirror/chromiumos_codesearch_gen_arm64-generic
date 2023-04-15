@@ -192,6 +192,24 @@ class  CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data {
 };
 static_assert(sizeof(CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data) == 16,
               "Bad sizeof(CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParams_Data)");
+class  CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> service_name;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data>;
+
+  CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data();
+  ~CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data() = delete;
+};
+static_assert(sizeof(CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data) == 24,
+              "Bad sizeof(CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data)");
 class  CameraHalServer_CreateChannel_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -694,6 +712,40 @@ class CameraHalDispatcher_RegisterSensorClientWithToken_ResponseParamsDataView {
 };
 
 
+class CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsDataView {
+ public:
+  CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsDataView() = default;
+
+  CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsDataView(
+      internal::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetServiceNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadServiceName(UserType* output) {
+    
+    auto* pointer = data_->service_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  mojo::ScopedMessagePipeHandle TakeReceiver() {
+    mojo::ScopedMessagePipeHandle result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::ScopedMessagePipeHandle>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::CameraHalDispatcher_BindServiceToMojoServiceManager_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class CameraHalServer_CreateChannel_ParamsDataView {
  public:
   CameraHalServer_CreateChannel_ParamsDataView() = default;
@@ -1042,6 +1094,13 @@ inline void CameraHalDispatcher_RegisterSensorClientWithToken_ParamsDataView::Ge
 }
 
 
+
+
+inline void CameraHalDispatcher_BindServiceToMojoServiceManager_ParamsDataView::GetServiceNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->service_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 
