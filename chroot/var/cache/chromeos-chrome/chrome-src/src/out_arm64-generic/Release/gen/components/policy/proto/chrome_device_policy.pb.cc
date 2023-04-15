@@ -228,6 +228,7 @@ PROTOBUF_CONSTEXPR DeviceReportingProto::DeviceReportingProto(
   , report_security_status_(false)
   , report_crd_sessions_(false)
   , report_peripherals_(false)
+  , report_network_events_(false)
   , device_activity_heartbeat_enabled_(false)
   , report_network_configuration_(true)
   , report_network_status_(true)
@@ -1041,7 +1042,7 @@ struct DeviceScreensaverLoginScreenImagesProtoDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceScreensaverLoginScreenImagesProtoDefaultTypeInternal _DeviceScreensaverLoginScreenImagesProto_default_instance_;
 PROTOBUF_CONSTEXPR DeviceScreensaverLoginScreenEnabledProto::DeviceScreensaverLoginScreenEnabledProto(
     ::_pbi::ConstantInitialized)
-  : device_screensaver_login_screen_mode_(false){}
+  : device_screensaver_login_screen_enabled_(false){}
 struct DeviceScreensaverLoginScreenEnabledProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceScreensaverLoginScreenEnabledProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -6670,28 +6671,28 @@ class DeviceReportingProto::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceReportingProto>()._has_bits_);
   static void set_has_report_version_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 134217728u;
-  }
-  static void set_has_report_activity_times(HasBits* has_bits) {
     (*has_bits)[0] |= 268435456u;
   }
-  static void set_has_report_boot_mode(HasBits* has_bits) {
+  static void set_has_report_activity_times(HasBits* has_bits) {
     (*has_bits)[0] |= 536870912u;
+  }
+  static void set_has_report_boot_mode(HasBits* has_bits) {
+    (*has_bits)[0] |= 1073741824u;
   }
   static void set_has_report_location(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_report_network_interfaces(HasBits* has_bits) {
-    (*has_bits)[0] |= 1073741824u;
-  }
-  static void set_has_report_users(HasBits* has_bits) {
     (*has_bits)[0] |= 2147483648u;
   }
-  static void set_has_report_hardware_status(HasBits* has_bits) {
+  static void set_has_report_users(HasBits* has_bits) {
     (*has_bits)[1] |= 1u;
   }
-  static void set_has_report_session_status(HasBits* has_bits) {
+  static void set_has_report_hardware_status(HasBits* has_bits) {
     (*has_bits)[1] |= 2u;
+  }
+  static void set_has_report_session_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 4u;
   }
   static void set_has_report_os_update_status(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
@@ -6748,13 +6749,13 @@ class DeviceReportingProto::_Internal {
     (*has_bits)[0] |= 524288u;
   }
   static void set_has_report_audio_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 4u;
+    (*has_bits)[1] |= 8u;
   }
   static void set_has_report_network_configuration(HasBits* has_bits) {
-    (*has_bits)[0] |= 16777216u;
+    (*has_bits)[0] |= 33554432u;
   }
   static void set_has_report_network_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 33554432u;
+    (*has_bits)[0] |= 67108864u;
   }
   static void set_has_report_security_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1048576u;
@@ -6765,30 +6766,33 @@ class DeviceReportingProto::_Internal {
   static void set_has_report_peripherals(HasBits* has_bits) {
     (*has_bits)[0] |= 4194304u;
   }
+  static void set_has_report_network_events(HasBits* has_bits) {
+    (*has_bits)[0] |= 8388608u;
+  }
   static void set_has_device_status_frequency(HasBits* has_bits) {
-    (*has_bits)[1] |= 8u;
-  }
-  static void set_has_enable_granular_reporting(HasBits* has_bits) {
-    (*has_bits)[0] |= 67108864u;
-  }
-  static void set_has_report_network_telemetry_collection_rate_ms(HasBits* has_bits) {
     (*has_bits)[1] |= 16u;
   }
-  static void set_has_report_network_telemetry_event_checking_rate_ms(HasBits* has_bits) {
+  static void set_has_enable_granular_reporting(HasBits* has_bits) {
+    (*has_bits)[0] |= 134217728u;
+  }
+  static void set_has_report_network_telemetry_collection_rate_ms(HasBits* has_bits) {
     (*has_bits)[1] |= 32u;
   }
-  static void set_has_report_device_audio_status_checking_rate_ms(HasBits* has_bits) {
+  static void set_has_report_network_telemetry_event_checking_rate_ms(HasBits* has_bits) {
     (*has_bits)[1] |= 64u;
+  }
+  static void set_has_report_device_audio_status_checking_rate_ms(HasBits* has_bits) {
+    (*has_bits)[1] |= 128u;
   }
   static const ::enterprise_management::StringList& report_signal_strength_event_driven_telemetry(const DeviceReportingProto* msg);
   static void set_has_report_signal_strength_event_driven_telemetry(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_device_activity_heartbeat_enabled(HasBits* has_bits) {
-    (*has_bits)[0] |= 8388608u;
+    (*has_bits)[0] |= 16777216u;
   }
   static void set_has_device_activity_heartbeat_collection_rate_ms(HasBits* has_bits) {
-    (*has_bits)[1] |= 128u;
+    (*has_bits)[1] |= 256u;
   }
 };
 
@@ -6885,10 +6889,11 @@ void DeviceReportingProto::Clear() {
   }
   if (cached_has_bits & 0x00ff0000u) {
     ::memset(&report_vpd_info_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&device_activity_heartbeat_enabled_) -
-        reinterpret_cast<char*>(&report_vpd_info_)) + sizeof(device_activity_heartbeat_enabled_));
+        reinterpret_cast<char*>(&report_network_events_) -
+        reinterpret_cast<char*>(&report_vpd_info_)) + sizeof(report_network_events_));
   }
   if (cached_has_bits & 0xff000000u) {
+    device_activity_heartbeat_enabled_ = false;
     report_network_configuration_ = true;
     report_network_status_ = true;
     enable_granular_reporting_ = true;
@@ -6896,10 +6901,10 @@ void DeviceReportingProto::Clear() {
     report_activity_times_ = true;
     report_boot_mode_ = true;
     report_network_interfaces_ = true;
-    report_users_ = true;
   }
   cached_has_bits = _has_bits_[1];
   if (cached_has_bits & 0x000000ffu) {
+    report_users_ = true;
     report_hardware_status_ = true;
     report_session_status_ = true;
     report_audio_status_ = true;
@@ -6907,8 +6912,8 @@ void DeviceReportingProto::Clear() {
     report_network_telemetry_collection_rate_ms_ = int64_t{3600000};
     report_network_telemetry_event_checking_rate_ms_ = int64_t{600000};
     report_device_audio_status_checking_rate_ms_ = int64_t{600000};
-    device_activity_heartbeat_collection_rate_ms_ = int64_t{900000};
   }
+  device_activity_heartbeat_collection_rate_ms_ = int64_t{900000};
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -7278,6 +7283,15 @@ const char* DeviceReportingProto::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional bool report_network_events = 41 [default = false];
+      case 41:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          _Internal::set_has_report_network_events(&_has_bits_);
+          report_network_events_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -7309,19 +7323,19 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional bool report_version_info = 1 [default = true];
-  if (cached_has_bits & 0x08000000u) {
+  if (cached_has_bits & 0x10000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_report_version_info(), target);
   }
 
   // optional bool report_activity_times = 2 [default = true];
-  if (cached_has_bits & 0x10000000u) {
+  if (cached_has_bits & 0x20000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_report_activity_times(), target);
   }
 
   // optional bool report_boot_mode = 3 [default = true];
-  if (cached_has_bits & 0x20000000u) {
+  if (cached_has_bits & 0x40000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_report_boot_mode(), target);
   }
@@ -7333,32 +7347,32 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
   }
 
   // optional bool report_network_interfaces = 5 [default = true, deprecated = true];
-  if (cached_has_bits & 0x40000000u) {
+  if (cached_has_bits & 0x80000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_report_network_interfaces(), target);
   }
 
+  cached_has_bits = _has_bits_[1];
   // optional bool report_users = 6 [default = true];
-  if (cached_has_bits & 0x80000000u) {
+  if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_report_users(), target);
   }
 
-  cached_has_bits = _has_bits_[1];
   // optional bool report_hardware_status = 7 [default = true, deprecated = true];
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_report_hardware_status(), target);
   }
 
   // optional bool report_session_status = 8 [default = true];
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_report_session_status(), target);
   }
 
   // optional int64 device_status_frequency = 9 [default = 10800000];
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(9, this->_internal_device_status_frequency(), target);
   }
@@ -7474,20 +7488,20 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional bool report_audio_status = 28 [default = true];
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(28, this->_internal_report_audio_status(), target);
   }
 
   cached_has_bits = _has_bits_[0];
   // optional bool report_network_configuration = 29 [default = true];
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(29, this->_internal_report_network_configuration(), target);
   }
 
   // optional bool report_network_status = 30 [default = true];
-  if (cached_has_bits & 0x02000000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(30, this->_internal_report_network_status(), target);
   }
@@ -7499,26 +7513,26 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
   }
 
   // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x08000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(32, this->_internal_enable_granular_reporting(), target);
   }
 
   cached_has_bits = _has_bits_[1];
   // optional int64 report_network_telemetry_collection_rate_ms = 33 [default = 3600000];
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(33, this->_internal_report_network_telemetry_collection_rate_ms(), target);
   }
 
   // optional int64 report_network_telemetry_event_checking_rate_ms = 34 [default = 600000];
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(34, this->_internal_report_network_telemetry_event_checking_rate_ms(), target);
   }
 
   // optional int64 report_device_audio_status_checking_rate_ms = 35 [default = 600000];
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(35, this->_internal_report_device_audio_status_checking_rate_ms(), target);
   }
@@ -7544,16 +7558,23 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
   }
 
   // optional bool device_activity_heartbeat_enabled = 39 [default = false];
-  if (cached_has_bits & 0x00800000u) {
+  if (cached_has_bits & 0x01000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(39, this->_internal_device_activity_heartbeat_enabled(), target);
   }
 
   cached_has_bits = _has_bits_[1];
   // optional int64 device_activity_heartbeat_collection_rate_ms = 40 [default = 900000];
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(40, this->_internal_device_activity_heartbeat_collection_rate_ms(), target);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  // optional bool report_network_events = 41 [default = false];
+  if (cached_has_bits & 0x00800000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(41, this->_internal_report_network_events(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -7695,49 +7716,49 @@ size_t DeviceReportingProto::ByteSizeLong() const {
       total_size += 2 + 1;
     }
 
-    // optional bool device_activity_heartbeat_enabled = 39 [default = false];
+    // optional bool report_network_events = 41 [default = false];
     if (cached_has_bits & 0x00800000u) {
       total_size += 2 + 1;
     }
 
   }
   if (cached_has_bits & 0xff000000u) {
-    // optional bool report_network_configuration = 29 [default = true];
+    // optional bool device_activity_heartbeat_enabled = 39 [default = false];
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_network_status = 30 [default = true];
+    // optional bool report_network_configuration = 29 [default = true];
     if (cached_has_bits & 0x02000000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
+    // optional bool report_network_status = 30 [default = true];
     if (cached_has_bits & 0x04000000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_version_info = 1 [default = true];
+    // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
     if (cached_has_bits & 0x08000000u) {
-      total_size += 1 + 1;
+      total_size += 2 + 1;
     }
 
-    // optional bool report_activity_times = 2 [default = true];
+    // optional bool report_version_info = 1 [default = true];
     if (cached_has_bits & 0x10000000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_boot_mode = 3 [default = true];
+    // optional bool report_activity_times = 2 [default = true];
     if (cached_has_bits & 0x20000000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_network_interfaces = 5 [default = true, deprecated = true];
+    // optional bool report_boot_mode = 3 [default = true];
     if (cached_has_bits & 0x40000000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_users = 6 [default = true];
+    // optional bool report_network_interfaces = 5 [default = true, deprecated = true];
     if (cached_has_bits & 0x80000000u) {
       total_size += 1 + 1;
     }
@@ -7745,55 +7766,60 @@ size_t DeviceReportingProto::ByteSizeLong() const {
   }
   cached_has_bits = _has_bits_[1];
   if (cached_has_bits & 0x000000ffu) {
-    // optional bool report_hardware_status = 7 [default = true, deprecated = true];
+    // optional bool report_users = 6 [default = true];
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_session_status = 8 [default = true];
+    // optional bool report_hardware_status = 7 [default = true, deprecated = true];
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_audio_status = 28 [default = true];
+    // optional bool report_session_status = 8 [default = true];
     if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool report_audio_status = 28 [default = true];
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 + 1;
     }
 
     // optional int64 device_status_frequency = 9 [default = 10800000];
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_device_status_frequency());
     }
 
     // optional int64 report_network_telemetry_collection_rate_ms = 33 [default = 3600000];
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_report_network_telemetry_collection_rate_ms());
     }
 
     // optional int64 report_network_telemetry_event_checking_rate_ms = 34 [default = 600000];
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_report_network_telemetry_event_checking_rate_ms());
     }
 
     // optional int64 report_device_audio_status_checking_rate_ms = 35 [default = 600000];
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_report_device_audio_status_checking_rate_ms());
     }
 
-    // optional int64 device_activity_heartbeat_collection_rate_ms = 40 [default = 900000];
-    if (cached_has_bits & 0x00000080u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::Int64Size(
-          this->_internal_device_activity_heartbeat_collection_rate_ms());
-    }
-
   }
+  // optional int64 device_activity_heartbeat_collection_rate_ms = 40 [default = 900000];
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int64Size(
+        this->_internal_device_activity_heartbeat_collection_rate_ms());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -7892,64 +7918,67 @@ void DeviceReportingProto::MergeFrom(const DeviceReportingProto& from) {
       report_peripherals_ = from.report_peripherals_;
     }
     if (cached_has_bits & 0x00800000u) {
-      device_activity_heartbeat_enabled_ = from.device_activity_heartbeat_enabled_;
+      report_network_events_ = from.report_network_events_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
-      report_network_configuration_ = from.report_network_configuration_;
+      device_activity_heartbeat_enabled_ = from.device_activity_heartbeat_enabled_;
     }
     if (cached_has_bits & 0x02000000u) {
-      report_network_status_ = from.report_network_status_;
+      report_network_configuration_ = from.report_network_configuration_;
     }
     if (cached_has_bits & 0x04000000u) {
-      enable_granular_reporting_ = from.enable_granular_reporting_;
+      report_network_status_ = from.report_network_status_;
     }
     if (cached_has_bits & 0x08000000u) {
-      report_version_info_ = from.report_version_info_;
+      enable_granular_reporting_ = from.enable_granular_reporting_;
     }
     if (cached_has_bits & 0x10000000u) {
-      report_activity_times_ = from.report_activity_times_;
+      report_version_info_ = from.report_version_info_;
     }
     if (cached_has_bits & 0x20000000u) {
-      report_boot_mode_ = from.report_boot_mode_;
+      report_activity_times_ = from.report_activity_times_;
     }
     if (cached_has_bits & 0x40000000u) {
-      report_network_interfaces_ = from.report_network_interfaces_;
+      report_boot_mode_ = from.report_boot_mode_;
     }
     if (cached_has_bits & 0x80000000u) {
-      report_users_ = from.report_users_;
+      report_network_interfaces_ = from.report_network_interfaces_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
   cached_has_bits = from._has_bits_[1];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      report_hardware_status_ = from.report_hardware_status_;
+      report_users_ = from.report_users_;
     }
     if (cached_has_bits & 0x00000002u) {
-      report_session_status_ = from.report_session_status_;
+      report_hardware_status_ = from.report_hardware_status_;
     }
     if (cached_has_bits & 0x00000004u) {
-      report_audio_status_ = from.report_audio_status_;
+      report_session_status_ = from.report_session_status_;
     }
     if (cached_has_bits & 0x00000008u) {
-      device_status_frequency_ = from.device_status_frequency_;
+      report_audio_status_ = from.report_audio_status_;
     }
     if (cached_has_bits & 0x00000010u) {
-      report_network_telemetry_collection_rate_ms_ = from.report_network_telemetry_collection_rate_ms_;
+      device_status_frequency_ = from.device_status_frequency_;
     }
     if (cached_has_bits & 0x00000020u) {
-      report_network_telemetry_event_checking_rate_ms_ = from.report_network_telemetry_event_checking_rate_ms_;
+      report_network_telemetry_collection_rate_ms_ = from.report_network_telemetry_collection_rate_ms_;
     }
     if (cached_has_bits & 0x00000040u) {
-      report_device_audio_status_checking_rate_ms_ = from.report_device_audio_status_checking_rate_ms_;
+      report_network_telemetry_event_checking_rate_ms_ = from.report_network_telemetry_event_checking_rate_ms_;
     }
     if (cached_has_bits & 0x00000080u) {
-      device_activity_heartbeat_collection_rate_ms_ = from.device_activity_heartbeat_collection_rate_ms_;
+      report_device_audio_status_checking_rate_ms_ = from.report_device_audio_status_checking_rate_ms_;
     }
     _has_bits_[1] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000100u) {
+    _internal_set_device_activity_heartbeat_collection_rate_ms(from._internal_device_activity_heartbeat_collection_rate_ms());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -21892,7 +21921,7 @@ std::string DeviceScreensaverLoginScreenImagesProto::GetTypeName() const {
 class DeviceScreensaverLoginScreenEnabledProto::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceScreensaverLoginScreenEnabledProto>()._has_bits_);
-  static void set_has_device_screensaver_login_screen_mode(HasBits* has_bits) {
+  static void set_has_device_screensaver_login_screen_enabled(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
@@ -21907,12 +21936,12 @@ DeviceScreensaverLoginScreenEnabledProto::DeviceScreensaverLoginScreenEnabledPro
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  device_screensaver_login_screen_mode_ = from.device_screensaver_login_screen_mode_;
+  device_screensaver_login_screen_enabled_ = from.device_screensaver_login_screen_enabled_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceScreensaverLoginScreenEnabledProto)
 }
 
 inline void DeviceScreensaverLoginScreenEnabledProto::SharedCtor() {
-device_screensaver_login_screen_mode_ = false;
+device_screensaver_login_screen_enabled_ = false;
 }
 
 DeviceScreensaverLoginScreenEnabledProto::~DeviceScreensaverLoginScreenEnabledProto() {
@@ -21938,7 +21967,7 @@ void DeviceScreensaverLoginScreenEnabledProto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  device_screensaver_login_screen_mode_ = false;
+  device_screensaver_login_screen_enabled_ = false;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -21950,11 +21979,11 @@ const char* DeviceScreensaverLoginScreenEnabledProto::_InternalParse(const char*
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional bool device_screensaver_login_screen_mode = 1;
+      // optional bool device_screensaver_login_screen_enabled = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _Internal::set_has_device_screensaver_login_screen_mode(&has_bits);
-          device_screensaver_login_screen_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _Internal::set_has_device_screensaver_login_screen_enabled(&has_bits);
+          device_screensaver_login_screen_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -21990,10 +22019,10 @@ uint8_t* DeviceScreensaverLoginScreenEnabledProto::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional bool device_screensaver_login_screen_mode = 1;
+  // optional bool device_screensaver_login_screen_enabled = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_device_screensaver_login_screen_mode(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_device_screensaver_login_screen_enabled(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -22012,7 +22041,7 @@ size_t DeviceScreensaverLoginScreenEnabledProto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional bool device_screensaver_login_screen_mode = 1;
+  // optional bool device_screensaver_login_screen_enabled = 1;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 + 1;
@@ -22038,8 +22067,8 @@ void DeviceScreensaverLoginScreenEnabledProto::MergeFrom(const DeviceScreensaver
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_device_screensaver_login_screen_mode()) {
-    _internal_set_device_screensaver_login_screen_mode(from._internal_device_screensaver_login_screen_mode());
+  if (from._internal_has_device_screensaver_login_screen_enabled()) {
+    _internal_set_device_screensaver_login_screen_enabled(from._internal_device_screensaver_login_screen_enabled());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -22059,7 +22088,7 @@ void DeviceScreensaverLoginScreenEnabledProto::InternalSwap(DeviceScreensaverLog
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(device_screensaver_login_screen_mode_, other->device_screensaver_login_screen_mode_);
+  swap(device_screensaver_login_screen_enabled_, other->device_screensaver_login_screen_enabled_);
 }
 
 std::string DeviceScreensaverLoginScreenEnabledProto::GetTypeName() const {

@@ -2937,10 +2937,10 @@ class StartArcVmRequest final :
   void _internal_set_logd_config_size(int32_t value);
   public:
 
-  // bool enable_gmscore_lmk_protection = 24;
-  void clear_enable_gmscore_lmk_protection();
-  bool enable_gmscore_lmk_protection() const;
-  void set_enable_gmscore_lmk_protection(bool value);
+  // bool enable_gmscore_lmk_protection = 24 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_enable_gmscore_lmk_protection();
+  PROTOBUF_DEPRECATED bool enable_gmscore_lmk_protection() const;
+  PROTOBUF_DEPRECATED void set_enable_gmscore_lmk_protection(bool value);
   private:
   bool _internal_enable_gmscore_lmk_protection() const;
   void _internal_set_enable_gmscore_lmk_protection(bool value);
@@ -16660,7 +16660,7 @@ inline void StartArcVmRequest::set_enable_tts_caching(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_tts_caching)
 }
 
-// bool enable_gmscore_lmk_protection = 24;
+// bool enable_gmscore_lmk_protection = 24 [deprecated = true];
 inline void StartArcVmRequest::clear_enable_gmscore_lmk_protection() {
   _impl_.enable_gmscore_lmk_protection_ = false;
 }

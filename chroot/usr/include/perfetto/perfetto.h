@@ -7158,6 +7158,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BuiltinDataSource : public ::protoze
     kPrimaryTraceClockFieldNumber = 5,
     kSnapshotIntervalMsFieldNumber = 6,
     kPreferSuspendClockForSnapshotFieldNumber = 7,
+    kDisableChunkUsageHistogramsFieldNumber = 8,
   };
 
   TraceConfig_BuiltinDataSource();
@@ -7202,6 +7203,10 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BuiltinDataSource : public ::protoze
   bool prefer_suspend_clock_for_snapshot() const { return prefer_suspend_clock_for_snapshot_; }
   void set_prefer_suspend_clock_for_snapshot(bool value) { prefer_suspend_clock_for_snapshot_ = value; _has_field_.set(7); }
 
+  bool has_disable_chunk_usage_histograms() const { return _has_field_[8]; }
+  bool disable_chunk_usage_histograms() const { return disable_chunk_usage_histograms_; }
+  void set_disable_chunk_usage_histograms(bool value) { disable_chunk_usage_histograms_ = value; _has_field_.set(8); }
+
  private:
   bool disable_clock_snapshotting_{};
   bool disable_trace_config_{};
@@ -7210,12 +7215,13 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BuiltinDataSource : public ::protoze
   BuiltinClock primary_trace_clock_{};
   uint32_t snapshot_interval_ms_{};
   bool prefer_suspend_clock_for_snapshot_{};
+  bool disable_chunk_usage_histograms_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<8> _has_field_{};
+  std::bitset<9> _has_field_{};
 };
 
 
@@ -20453,6 +20459,7 @@ class EnumValueDescriptorProto;
 class EnumDescriptorProto;
 class OneofDescriptorProto;
 class FieldDescriptorProto;
+class FieldOptions;
 class DescriptorProto;
 class DescriptorProto_ReservedRange;
 class FileDescriptorProto;
@@ -20696,6 +20703,7 @@ class PERFETTO_EXPORT_COMPONENT FieldDescriptorProto : public ::protozero::CppMe
     kTypeNameFieldNumber = 6,
     kExtendeeFieldNumber = 2,
     kDefaultValueFieldNumber = 7,
+    kOptionsFieldNumber = 8,
     kOneofIndexFieldNumber = 9,
   };
 
@@ -20741,6 +20749,10 @@ class PERFETTO_EXPORT_COMPONENT FieldDescriptorProto : public ::protozero::CppMe
   const std::string& default_value() const { return default_value_; }
   void set_default_value(const std::string& value) { default_value_ = value; _has_field_.set(7); }
 
+  bool has_options() const { return _has_field_[8]; }
+  const FieldOptions& options() const { return *options_; }
+  FieldOptions* mutable_options() { _has_field_.set(8); return options_.get(); }
+
   bool has_oneof_index() const { return _has_field_[9]; }
   int32_t oneof_index() const { return oneof_index_; }
   void set_oneof_index(int32_t value) { oneof_index_ = value; _has_field_.set(9); }
@@ -20753,6 +20765,7 @@ class PERFETTO_EXPORT_COMPONENT FieldDescriptorProto : public ::protozero::CppMe
   std::string type_name_{};
   std::string extendee_{};
   std::string default_value_{};
+  ::protozero::CopyablePtr<FieldOptions> options_;
   int32_t oneof_index_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
@@ -20760,6 +20773,41 @@ class PERFETTO_EXPORT_COMPONENT FieldDescriptorProto : public ::protozero::CppMe
   std::string unknown_fields_;
 
   std::bitset<10> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT FieldOptions : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPackedFieldNumber = 2,
+  };
+
+  FieldOptions();
+  ~FieldOptions() override;
+  FieldOptions(FieldOptions&&) noexcept;
+  FieldOptions& operator=(FieldOptions&&);
+  FieldOptions(const FieldOptions&);
+  FieldOptions& operator=(const FieldOptions&);
+  bool operator==(const FieldOptions&) const;
+  bool operator!=(const FieldOptions& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_packed() const { return _has_field_[2]; }
+  bool packed() const { return packed_; }
+  void set_packed(bool value) { packed_ = value; _has_field_.set(2); }
+
+ private:
+  bool packed_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
 };
 
 
@@ -22250,6 +22298,7 @@ namespace protos {
 namespace gen {
 class TraceStats;
 class TraceStats_FilterStats;
+class TraceStats_WriterStats;
 class TraceStats_BufferStats;
 enum TraceStats_FinalFlushOutcome : int;
 }  // namespace perfetto
@@ -22272,6 +22321,7 @@ enum TraceStats_FinalFlushOutcome : int {
 class PERFETTO_EXPORT_COMPONENT TraceStats : public ::protozero::CppMessageObj {
  public:
   using BufferStats = TraceStats_BufferStats;
+  using WriterStats = TraceStats_WriterStats;
   using FilterStats = TraceStats_FilterStats;
   using FinalFlushOutcome = TraceStats_FinalFlushOutcome;
   static constexpr auto FINAL_FLUSH_UNSPECIFIED = TraceStats_FinalFlushOutcome_FINAL_FLUSH_UNSPECIFIED;
@@ -22281,6 +22331,8 @@ class PERFETTO_EXPORT_COMPONENT TraceStats : public ::protozero::CppMessageObj {
   static constexpr auto FinalFlushOutcome_MAX = TraceStats_FinalFlushOutcome_FINAL_FLUSH_FAILED;
   enum FieldNumbers {
     kBufferStatsFieldNumber = 1,
+    kChunkPayloadHistogramDefFieldNumber = 17,
+    kWriterStatsFieldNumber = 18,
     kProducersConnectedFieldNumber = 2,
     kProducersSeenFieldNumber = 3,
     kDataSourcesRegisteredFieldNumber = 4,
@@ -22316,6 +22368,19 @@ class PERFETTO_EXPORT_COMPONENT TraceStats : public ::protozero::CppMessageObj {
   int buffer_stats_size() const;
   void clear_buffer_stats();
   TraceStats_BufferStats* add_buffer_stats();
+
+  const std::vector<int64_t>& chunk_payload_histogram_def() const { return chunk_payload_histogram_def_; }
+  std::vector<int64_t>* mutable_chunk_payload_histogram_def() { return &chunk_payload_histogram_def_; }
+  int chunk_payload_histogram_def_size() const { return static_cast<int>(chunk_payload_histogram_def_.size()); }
+  void clear_chunk_payload_histogram_def() { chunk_payload_histogram_def_.clear(); }
+  void add_chunk_payload_histogram_def(int64_t value) { chunk_payload_histogram_def_.emplace_back(value); }
+  int64_t* add_chunk_payload_histogram_def() { chunk_payload_histogram_def_.emplace_back(); return &chunk_payload_histogram_def_.back(); }
+
+  const std::vector<TraceStats_WriterStats>& writer_stats() const { return writer_stats_; }
+  std::vector<TraceStats_WriterStats>* mutable_writer_stats() { return &writer_stats_; }
+  int writer_stats_size() const;
+  void clear_writer_stats();
+  TraceStats_WriterStats* add_writer_stats();
 
   bool has_producers_connected() const { return _has_field_[2]; }
   uint32_t producers_connected() const { return producers_connected_; }
@@ -22375,6 +22440,8 @@ class PERFETTO_EXPORT_COMPONENT TraceStats : public ::protozero::CppMessageObj {
 
  private:
   std::vector<TraceStats_BufferStats> buffer_stats_;
+  std::vector<int64_t> chunk_payload_histogram_def_;
+  std::vector<TraceStats_WriterStats> writer_stats_;
   uint32_t producers_connected_{};
   uint64_t producers_seen_{};
   uint32_t data_sources_registered_{};
@@ -22394,7 +22461,7 @@ class PERFETTO_EXPORT_COMPONENT TraceStats : public ::protozero::CppMessageObj {
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<16> _has_field_{};
+  std::bitset<19> _has_field_{};
 };
 
 
@@ -22448,6 +22515,59 @@ class PERFETTO_EXPORT_COMPONENT TraceStats_FilterStats : public ::protozero::Cpp
   std::string unknown_fields_;
 
   std::bitset<5> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceStats_WriterStats : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kSequenceIdFieldNumber = 1,
+    kChunkPayloadHistogramCountsFieldNumber = 2,
+    kChunkPayloadHistogramSumFieldNumber = 3,
+  };
+
+  TraceStats_WriterStats();
+  ~TraceStats_WriterStats() override;
+  TraceStats_WriterStats(TraceStats_WriterStats&&) noexcept;
+  TraceStats_WriterStats& operator=(TraceStats_WriterStats&&);
+  TraceStats_WriterStats(const TraceStats_WriterStats&);
+  TraceStats_WriterStats& operator=(const TraceStats_WriterStats&);
+  bool operator==(const TraceStats_WriterStats&) const;
+  bool operator!=(const TraceStats_WriterStats& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_sequence_id() const { return _has_field_[1]; }
+  uint64_t sequence_id() const { return sequence_id_; }
+  void set_sequence_id(uint64_t value) { sequence_id_ = value; _has_field_.set(1); }
+
+  const std::vector<uint64_t>& chunk_payload_histogram_counts() const { return chunk_payload_histogram_counts_; }
+  std::vector<uint64_t>* mutable_chunk_payload_histogram_counts() { return &chunk_payload_histogram_counts_; }
+  int chunk_payload_histogram_counts_size() const { return static_cast<int>(chunk_payload_histogram_counts_.size()); }
+  void clear_chunk_payload_histogram_counts() { chunk_payload_histogram_counts_.clear(); }
+  void add_chunk_payload_histogram_counts(uint64_t value) { chunk_payload_histogram_counts_.emplace_back(value); }
+  uint64_t* add_chunk_payload_histogram_counts() { chunk_payload_histogram_counts_.emplace_back(); return &chunk_payload_histogram_counts_.back(); }
+
+  const std::vector<int64_t>& chunk_payload_histogram_sum() const { return chunk_payload_histogram_sum_; }
+  std::vector<int64_t>* mutable_chunk_payload_histogram_sum() { return &chunk_payload_histogram_sum_; }
+  int chunk_payload_histogram_sum_size() const { return static_cast<int>(chunk_payload_histogram_sum_.size()); }
+  void clear_chunk_payload_histogram_sum() { chunk_payload_histogram_sum_.clear(); }
+  void add_chunk_payload_histogram_sum(int64_t value) { chunk_payload_histogram_sum_.emplace_back(value); }
+  int64_t* add_chunk_payload_histogram_sum() { chunk_payload_histogram_sum_.emplace_back(); return &chunk_payload_histogram_sum_.back(); }
+
+ private:
+  uint64_t sequence_id_{};
+  std::vector<uint64_t> chunk_payload_histogram_counts_;
+  std::vector<int64_t> chunk_payload_histogram_sum_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
 };
 
 
@@ -24061,6 +24181,7 @@ class DescriptorProto_ReservedRange;
 class EnumDescriptorProto;
 class EnumValueDescriptorProto;
 class FieldDescriptorProto;
+class FieldOptions;
 class FileDescriptorProto;
 class OneofDescriptorProto;
 class OneofOptions;
@@ -24435,6 +24556,8 @@ class FieldDescriptorProto_Decoder : public ::protozero::TypedProtoDecoder</*MAX
   ::protozero::ConstChars extendee() const { return at<2>().as_string(); }
   bool has_default_value() const { return at<7>().valid(); }
   ::protozero::ConstChars default_value() const { return at<7>().as_string(); }
+  bool has_options() const { return at<8>().valid(); }
+  ::protozero::ConstBytes options() const { return at<8>().as_bytes(); }
   bool has_oneof_index() const { return at<9>().valid(); }
   int32_t oneof_index() const { return at<9>().as_int32(); }
 };
@@ -24450,6 +24573,7 @@ class FieldDescriptorProto : public ::protozero::Message {
     kTypeNameFieldNumber = 6,
     kExtendeeFieldNumber = 2,
     kDefaultValueFieldNumber = 7,
+    kOptionsFieldNumber = 8,
     kOneofIndexFieldNumber = 9,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FieldDescriptorProto"; }
@@ -24636,6 +24760,20 @@ class FieldDescriptorProto : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
+  using FieldMetadata_Options =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      FieldOptions,
+      FieldDescriptorProto>;
+
+  static constexpr FieldMetadata_Options kOptions{};
+  template <typename T = FieldOptions> T* set_options() {
+    return BeginNestedMessage<T>(8);
+  }
+
+
   using FieldMetadata_OneofIndex =
     ::protozero::proto_utils::FieldMetadata<
       9,
@@ -24651,6 +24789,43 @@ class FieldDescriptorProto : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class FieldOptions_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  FieldOptions_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit FieldOptions_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit FieldOptions_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_packed() const { return at<2>().valid(); }
+  bool packed() const { return at<2>().as_bool(); }
+};
+
+class FieldOptions : public ::protozero::Message {
+ public:
+  using Decoder = FieldOptions_Decoder;
+  enum : int32_t {
+    kPackedFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.FieldOptions"; }
+
+
+  using FieldMetadata_Packed =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      FieldOptions>;
+
+  static constexpr FieldMetadata_Packed kPacked{};
+  void set_packed(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_Packed::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };
@@ -27616,6 +27791,7 @@ namespace pbzero {
 
 class TraceStats_BufferStats;
 class TraceStats_FilterStats;
+class TraceStats_WriterStats;
 namespace perfetto_pbzero_enum_TraceStats {
 enum FinalFlushOutcome : int32_t;
 }  // namespace perfetto_pbzero_enum_TraceStats
@@ -27650,13 +27826,17 @@ const char* TraceStats_FinalFlushOutcome_Name(::perfetto::protos::pbzero::TraceS
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class TraceStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/15, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class TraceStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/18, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TraceStats_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceStats_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit TraceStats_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_buffer_stats() const { return at<1>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> buffer_stats() const { return GetRepeated<::protozero::ConstBytes>(1); }
+  bool has_chunk_payload_histogram_def() const { return at<17>().valid(); }
+  ::protozero::RepeatedFieldIterator<int64_t> chunk_payload_histogram_def() const { return GetRepeated<int64_t>(17); }
+  bool has_writer_stats() const { return at<18>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> writer_stats() const { return GetRepeated<::protozero::ConstBytes>(18); }
   bool has_producers_connected() const { return at<2>().valid(); }
   uint32_t producers_connected() const { return at<2>().as_uint32(); }
   bool has_producers_seen() const { return at<3>().valid(); }
@@ -27692,6 +27872,8 @@ class TraceStats : public ::protozero::Message {
   using Decoder = TraceStats_Decoder;
   enum : int32_t {
     kBufferStatsFieldNumber = 1,
+    kChunkPayloadHistogramDefFieldNumber = 17,
+    kWriterStatsFieldNumber = 18,
     kProducersConnectedFieldNumber = 2,
     kProducersSeenFieldNumber = 3,
     kDataSourcesRegisteredFieldNumber = 4,
@@ -27710,6 +27892,7 @@ class TraceStats : public ::protozero::Message {
   static constexpr const char* GetName() { return ".perfetto.protos.TraceStats"; }
 
   using BufferStats = ::perfetto::protos::pbzero::TraceStats_BufferStats;
+  using WriterStats = ::perfetto::protos::pbzero::TraceStats_WriterStats;
   using FilterStats = ::perfetto::protos::pbzero::TraceStats_FilterStats;
 
   using FinalFlushOutcome = ::perfetto::protos::pbzero::TraceStats_FinalFlushOutcome;
@@ -27731,6 +27914,38 @@ class TraceStats : public ::protozero::Message {
   static constexpr FieldMetadata_BufferStats kBufferStats{};
   template <typename T = TraceStats_BufferStats> T* add_buffer_stats() {
     return BeginNestedMessage<T>(1);
+  }
+
+
+  using FieldMetadata_ChunkPayloadHistogramDef =
+    ::protozero::proto_utils::FieldMetadata<
+      17,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      TraceStats>;
+
+  static constexpr FieldMetadata_ChunkPayloadHistogramDef kChunkPayloadHistogramDef{};
+  void add_chunk_payload_histogram_def(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ChunkPayloadHistogramDef::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_WriterStats =
+    ::protozero::proto_utils::FieldMetadata<
+      18,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      TraceStats_WriterStats,
+      TraceStats>;
+
+  static constexpr FieldMetadata_WriterStats kWriterStats{};
+  template <typename T = TraceStats_WriterStats> T* add_writer_stats() {
+    return BeginNestedMessage<T>(18);
   }
 
 
@@ -28080,6 +28295,77 @@ class TraceStats_FilterStats : public ::protozero::Message {
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint64>
         ::Append(*this, field_id, value);
+  }
+};
+
+class TraceStats_WriterStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  TraceStats_WriterStats_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit TraceStats_WriterStats_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit TraceStats_WriterStats_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_sequence_id() const { return at<1>().valid(); }
+  uint64_t sequence_id() const { return at<1>().as_uint64(); }
+  bool has_chunk_payload_histogram_counts() const { return at<2>().valid(); }
+  ::protozero::PackedRepeatedFieldIterator<::protozero::proto_utils::ProtoWireType::kVarInt, uint64_t> chunk_payload_histogram_counts(bool* parse_error_ptr) const { return GetPackedRepeated<::protozero::proto_utils::ProtoWireType::kVarInt, uint64_t>(2, parse_error_ptr); }
+  bool has_chunk_payload_histogram_sum() const { return at<3>().valid(); }
+  ::protozero::PackedRepeatedFieldIterator<::protozero::proto_utils::ProtoWireType::kVarInt, int64_t> chunk_payload_histogram_sum(bool* parse_error_ptr) const { return GetPackedRepeated<::protozero::proto_utils::ProtoWireType::kVarInt, int64_t>(3, parse_error_ptr); }
+};
+
+class TraceStats_WriterStats : public ::protozero::Message {
+ public:
+  using Decoder = TraceStats_WriterStats_Decoder;
+  enum : int32_t {
+    kSequenceIdFieldNumber = 1,
+    kChunkPayloadHistogramCountsFieldNumber = 2,
+    kChunkPayloadHistogramSumFieldNumber = 3,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.TraceStats.WriterStats"; }
+
+
+  using FieldMetadata_SequenceId =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      TraceStats_WriterStats>;
+
+  static constexpr FieldMetadata_SequenceId kSequenceId{};
+  void set_sequence_id(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SequenceId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ChunkPayloadHistogramCounts =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kRepeatedPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      TraceStats_WriterStats>;
+
+  static constexpr FieldMetadata_ChunkPayloadHistogramCounts kChunkPayloadHistogramCounts{};
+  void set_chunk_payload_histogram_counts(const ::protozero::PackedVarInt& packed_buffer) {
+    AppendBytes(FieldMetadata_ChunkPayloadHistogramCounts::kFieldId, packed_buffer.data(),
+                packed_buffer.size());
+  }
+
+  using FieldMetadata_ChunkPayloadHistogramSum =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kRepeatedPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      TraceStats_WriterStats>;
+
+  static constexpr FieldMetadata_ChunkPayloadHistogramSum kChunkPayloadHistogramSum{};
+  void set_chunk_payload_histogram_sum(const ::protozero::PackedVarInt& packed_buffer) {
+    AppendBytes(FieldMetadata_ChunkPayloadHistogramSum::kFieldId, packed_buffer.data(),
+                packed_buffer.size());
   }
 };
 
@@ -41098,7 +41384,7 @@ class TraceConfig_ProducerConfig : public ::protozero::Message {
   }
 };
 
-class TraceConfig_BuiltinDataSource_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TraceConfig_BuiltinDataSource_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/8, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TraceConfig_BuiltinDataSource_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceConfig_BuiltinDataSource_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -41117,6 +41403,8 @@ class TraceConfig_BuiltinDataSource_Decoder : public ::protozero::TypedProtoDeco
   uint32_t snapshot_interval_ms() const { return at<6>().as_uint32(); }
   bool has_prefer_suspend_clock_for_snapshot() const { return at<7>().valid(); }
   bool prefer_suspend_clock_for_snapshot() const { return at<7>().as_bool(); }
+  bool has_disable_chunk_usage_histograms() const { return at<8>().valid(); }
+  bool disable_chunk_usage_histograms() const { return at<8>().as_bool(); }
 };
 
 class TraceConfig_BuiltinDataSource : public ::protozero::Message {
@@ -41130,6 +41418,7 @@ class TraceConfig_BuiltinDataSource : public ::protozero::Message {
     kPrimaryTraceClockFieldNumber = 5,
     kSnapshotIntervalMsFieldNumber = 6,
     kPreferSuspendClockForSnapshotFieldNumber = 7,
+    kDisableChunkUsageHistogramsFieldNumber = 8,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TraceConfig.BuiltinDataSource"; }
 
@@ -41253,6 +41542,24 @@ class TraceConfig_BuiltinDataSource : public ::protozero::Message {
   static constexpr FieldMetadata_PreferSuspendClockForSnapshot kPreferSuspendClockForSnapshot{};
   void set_prefer_suspend_clock_for_snapshot(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_PreferSuspendClockForSnapshot::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DisableChunkUsageHistograms =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TraceConfig_BuiltinDataSource>;
+
+  static constexpr FieldMetadata_DisableChunkUsageHistograms kDisableChunkUsageHistograms{};
+  void set_disable_chunk_usage_histograms(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_DisableChunkUsageHistograms::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -48867,6 +49174,7 @@ class SoftirqEntryFtraceEvent;
 class SoftirqExitFtraceEvent;
 class SoftirqRaiseFtraceEvent;
 class SuspendResumeFtraceEvent;
+class SuspendResumeMinimalFtraceEvent;
 class SyncPtFtraceEvent;
 class SyncTimelineFtraceEvent;
 class SyncWaitFtraceEvent;
@@ -48919,7 +49227,7 @@ class WorkqueueExecuteStartFtraceEvent;
 class WorkqueueQueueWorkFtraceEvent;
 class ZeroFtraceEvent;
 
-class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/480, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/481, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   FtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -49848,6 +50156,8 @@ class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes host_smc() const { return at<479>().as_bytes(); }
   bool has_host_mem_abort() const { return at<480>().valid(); }
   ::protozero::ConstBytes host_mem_abort() const { return at<480>().as_bytes(); }
+  bool has_suspend_resume_minimal() const { return at<481>().valid(); }
+  ::protozero::ConstBytes suspend_resume_minimal() const { return at<481>().as_bytes(); }
 };
 
 class FtraceEvent : public ::protozero::Message {
@@ -50316,6 +50626,7 @@ class FtraceEvent : public ::protozero::Message {
     kHostHcallFieldNumber = 478,
     kHostSmcFieldNumber = 479,
     kHostMemAbortFieldNumber = 480,
+    kSuspendResumeMinimalFieldNumber = 481,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceEvent"; }
 
@@ -56797,6 +57108,20 @@ class FtraceEvent : public ::protozero::Message {
   static constexpr FieldMetadata_HostMemAbort kHostMemAbort{};
   template <typename T = HostMemAbortFtraceEvent> T* set_host_mem_abort() {
     return BeginNestedMessage<T>(480);
+  }
+
+
+  using FieldMetadata_SuspendResumeMinimal =
+    ::protozero::proto_utils::FieldMetadata<
+      481,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      SuspendResumeMinimalFtraceEvent,
+      FtraceEvent>;
+
+  static constexpr FieldMetadata_SuspendResumeMinimal kSuspendResumeMinimal{};
+  template <typename T = SuspendResumeMinimalFtraceEvent> T* set_suspend_resume_minimal() {
+    return BeginNestedMessage<T>(481);
   }
 
 };
@@ -103777,6 +104102,43 @@ namespace protos {
 namespace pbzero {
 
 
+class SuspendResumeMinimalFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  SuspendResumeMinimalFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit SuspendResumeMinimalFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit SuspendResumeMinimalFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_start() const { return at<1>().valid(); }
+  uint32_t start() const { return at<1>().as_uint32(); }
+};
+
+class SuspendResumeMinimalFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = SuspendResumeMinimalFtraceEvent_Decoder;
+  enum : int32_t {
+    kStartFieldNumber = 1,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.SuspendResumeMinimalFtraceEvent"; }
+
+
+  using FieldMetadata_Start =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      SuspendResumeMinimalFtraceEvent>;
+
+  static constexpr FieldMetadata_Start kStart{};
+  void set_start(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Start::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+};
+
 class RssStatThrottledFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   RssStatThrottledFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
@@ -144825,6 +145187,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BuiltinDataSource : public ::protoze
     kPrimaryTraceClockFieldNumber = 5,
     kSnapshotIntervalMsFieldNumber = 6,
     kPreferSuspendClockForSnapshotFieldNumber = 7,
+    kDisableChunkUsageHistogramsFieldNumber = 8,
   };
 
   TraceConfig_BuiltinDataSource();
@@ -144869,6 +145232,10 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BuiltinDataSource : public ::protoze
   bool prefer_suspend_clock_for_snapshot() const { return prefer_suspend_clock_for_snapshot_; }
   void set_prefer_suspend_clock_for_snapshot(bool value) { prefer_suspend_clock_for_snapshot_ = value; _has_field_.set(7); }
 
+  bool has_disable_chunk_usage_histograms() const { return _has_field_[8]; }
+  bool disable_chunk_usage_histograms() const { return disable_chunk_usage_histograms_; }
+  void set_disable_chunk_usage_histograms(bool value) { disable_chunk_usage_histograms_ = value; _has_field_.set(8); }
+
  private:
   bool disable_clock_snapshotting_{};
   bool disable_trace_config_{};
@@ -144877,12 +145244,13 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BuiltinDataSource : public ::protoze
   BuiltinClock primary_trace_clock_{};
   uint32_t snapshot_interval_ms_{};
   bool prefer_suspend_clock_for_snapshot_{};
+  bool disable_chunk_usage_histograms_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<8> _has_field_{};
+  std::bitset<9> _has_field_{};
 };
 
 
@@ -145029,6 +145397,7 @@ class ObserveEventsRequest;
 class GetTraceStatsResponse;
 class TraceStats;
 class TraceStats_FilterStats;
+class TraceStats_WriterStats;
 class TraceStats_BufferStats;
 class GetTraceStatsRequest;
 class AttachResponse;
