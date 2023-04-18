@@ -26,7 +26,7 @@
 #include "diagnostics/cros_healthd/mojom/executor.mojom-shared.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-forward.h"
-#include "diagnostics/mojom/public/cros_healthd_events.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd_events.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-forward.h"
 #include <string>
@@ -163,10 +163,10 @@ class AudioJackObserver
   virtual ~AudioJackObserver() = default;
 
   
-  virtual void OnAdd() = 0;
+  virtual void OnAdd(::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType device_type) = 0;
 
   
-  virtual void OnRemove() = 0;
+  virtual void OnRemove(::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType device_type) = 0;
 };
 
 class TouchpadObserverProxy;
@@ -639,9 +639,9 @@ class  AudioJackObserverProxy
 
   explicit AudioJackObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void OnAdd() final;
+  void OnAdd(::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType device_type) final;
   
-  void OnRemove() final;
+  void OnRemove(::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType device_type) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

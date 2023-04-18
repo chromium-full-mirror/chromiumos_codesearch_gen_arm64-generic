@@ -85,6 +85,8 @@ enum class AudioEventInfo_State : int32_t;
 
 enum class AudioJackEventInfo_State : int32_t;
 
+enum class AudioJackEventInfo_DeviceType : int32_t;
+
 enum class SdCardEventInfo_State : int32_t;
 
 enum class HdmiEventInfo_State : int32_t;

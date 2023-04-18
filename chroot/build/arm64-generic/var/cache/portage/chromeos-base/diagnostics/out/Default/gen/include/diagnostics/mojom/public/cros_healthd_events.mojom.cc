@@ -308,15 +308,24 @@ bool AudioEventInfo::Validate(
   return Data_::Validate(data, validation_context);
 }
 AudioJackEventInfo::AudioJackEventInfo()
-    : state() {}
+    : state(),
+      device_type() {}
 
 AudioJackEventInfo::AudioJackEventInfo(
     AudioJackEventInfo::State state_in)
-    : state(std::move(state_in)) {}
+    : state(std::move(state_in)),
+      device_type() {}
+
+AudioJackEventInfo::AudioJackEventInfo(
+    AudioJackEventInfo::State state_in,
+    AudioJackEventInfo::DeviceType device_type_in)
+    : state(std::move(state_in)),
+      device_type(std::move(device_type_in)) {}
 
 AudioJackEventInfo::~AudioJackEventInfo() = default;
 size_t AudioJackEventInfo::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->state);
+  seed = mojo::internal::Hash(seed, this->device_type);
   return seed;
 }
 
@@ -328,6 +337,15 @@ void AudioJackEventInfo::WriteIntoTrace(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type AudioJackEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_type"), this->device_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type AudioJackEventInfo::DeviceType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3847,6 +3865,8 @@ bool StructTraits<::ash::cros_healthd::mojom::AudioJackEventInfo::DataView, ::as
   ::ash::cros_healthd::mojom::AudioJackEventInfoPtr result(::ash::cros_healthd::mojom::AudioJackEventInfo::New());
   
       if (success && !input.ReadState(&result->state))
+        success = false;
+      if (success && !input.ReadDeviceType(&result->device_type))
         success = false;
   *output = std::move(result);
   return success;

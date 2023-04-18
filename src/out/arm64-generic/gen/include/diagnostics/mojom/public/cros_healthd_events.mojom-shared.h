@@ -528,6 +528,31 @@ inline AudioJackEventInfo_State ToKnownEnumValue(AudioJackEventInfo_State value)
 }
 
 
+enum class AudioJackEventInfo_DeviceType : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kHeadphone = 1,
+  
+  kMicrophone = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, AudioJackEventInfo_DeviceType value);
+inline bool IsKnownEnumValue(AudioJackEventInfo_DeviceType value) {
+  return internal::AudioJackEventInfo_DeviceType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline AudioJackEventInfo_DeviceType ToKnownEnumValue(AudioJackEventInfo_DeviceType value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return AudioJackEventInfo_DeviceType::kDefaultValue;
+}
+
+
 enum class SdCardEventInfo_State : int32_t {
   
   kUnmappedEnumField = 0,
@@ -893,6 +918,19 @@ class AudioJackEventInfoDataView {
   AudioJackEventInfo_State state() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::cros_healthd::mojom::AudioJackEventInfo_State>(data_->state));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadDeviceType(UserType* output) const {
+    auto data_value = data_->header_.version >= 1
+                      ? data_->device_type : 0;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>(
+        data_value, output);
+  }
+  AudioJackEventInfo_DeviceType device_type() const {
+    if (data_->header_.version < 1)
+      return AudioJackEventInfo_DeviceType{};
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>(data_->device_type));
   }
  private:
   internal::AudioJackEventInfo_Data* data_ = nullptr;
@@ -1720,6 +1758,10 @@ struct hash<::ash::cros_healthd::mojom::AudioJackEventInfo_State>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::AudioJackEventInfo_State> {};
 
 template <>
+struct hash<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType> {};
+
+template <>
 struct hash<::ash::cros_healthd::mojom::SdCardEventInfo_State>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::SdCardEventInfo_State> {};
 
@@ -1910,6 +1952,26 @@ struct Serializer<::ash::cros_healthd::mojom::AudioJackEventInfo_State, MaybeCon
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::AudioJackEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>(input)), output);
   }
 };
 
@@ -2217,6 +2279,8 @@ struct Serializer<::ash::cros_healthd::mojom::AudioJackEventInfoDataView, MaybeC
     fragment.Allocate();
     mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioJackEventInfo_State>(
         Traits::state(input), &fragment->state);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>(
+        Traits::device_type(input), &fragment->device_type);
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioJackEventInfo_Data* input,
@@ -3517,6 +3581,15 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::AudioJackEventInfo_State> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::AudioJackEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType value);
 };
 
 } // namespace perfetto

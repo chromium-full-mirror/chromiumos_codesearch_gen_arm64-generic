@@ -417,7 +417,7 @@ bool AudioJackObserver_OnAdd_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -425,6 +425,11 @@ bool AudioJackObserver_OnAdd_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const AudioJackObserver_OnAdd_Params_Data* object =
       static_cast<const AudioJackObserver_OnAdd_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::AudioJackEventInfo_DeviceType_Data
+        ::Validate(object->device_type, validation_context))
+    return false;
 
   return true;
 }
@@ -440,7 +445,7 @@ bool AudioJackObserver_OnRemove_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -448,6 +453,11 @@ bool AudioJackObserver_OnRemove_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const AudioJackObserver_OnRemove_Params_Data* object =
       static_cast<const AudioJackObserver_OnRemove_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::AudioJackEventInfo_DeviceType_Data
+        ::Validate(object->device_type, validation_context))
+    return false;
 
   return true;
 }

@@ -1074,9 +1074,16 @@ AudioJackObserverProxy::AudioJackObserverProxy(mojo::MessageReceiverWithResponde
 }
 
 void AudioJackObserverProxy::OnAdd(
-    ) {
+    ::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType in_device_type) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::AudioJackObserver::OnAdd");
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::AudioJackObserver::OnAdd", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("device_type"), in_device_type,
+                        "<value of type ::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType>");
+   });
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -1093,6 +1100,8 @@ void AudioJackObserverProxy::OnAdd(
       ::ash::cros_healthd::mojom::internal::AudioJackObserver_OnAdd_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>(
+      in_device_type, &params->device_type);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AudioJackObserver::Name_);
@@ -1104,9 +1113,16 @@ void AudioJackObserverProxy::OnAdd(
 }
 
 void AudioJackObserverProxy::OnRemove(
-    ) {
+    ::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType in_device_type) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::AudioJackObserver::OnRemove");
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::AudioJackObserver::OnRemove", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("device_type"), in_device_type,
+                        "<value of type ::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType>");
+   });
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -1123,6 +1139,8 @@ void AudioJackObserverProxy::OnRemove(
       ::ash::cros_healthd::mojom::internal::AudioJackObserver_OnRemove_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>(
+      in_device_type, &params->device_type);
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(AudioJackObserver::Name_);
@@ -1146,8 +1164,11 @@ bool AudioJackObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
+      ::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType p_device_type{};
       AudioJackObserver_OnAdd_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadDeviceType(&p_device_type))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1157,7 +1178,8 @@ bool AudioJackObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnAdd();
+      impl->OnAdd(
+std::move(p_device_type));
       return true;
     }
     case internal::kAudioJackObserver_OnRemove_Name: {
@@ -1168,8 +1190,11 @@ bool AudioJackObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
+      ::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType p_device_type{};
       AudioJackObserver_OnRemove_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadDeviceType(&p_device_type))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -1179,7 +1204,8 @@ bool AudioJackObserverStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->OnRemove();
+      impl->OnRemove(
+std::move(p_device_type));
       return true;
     }
   }
@@ -6754,11 +6780,11 @@ int32_t ProcessControlAsyncWaiter::GetReturnCode(
 
 
 
-void AudioJackObserverInterceptorForTesting::OnAdd() {
-  GetForwardingInterface()->OnAdd();
+void AudioJackObserverInterceptorForTesting::OnAdd(::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType device_type) {
+  GetForwardingInterface()->OnAdd(std::move(device_type));
 }
-void AudioJackObserverInterceptorForTesting::OnRemove() {
-  GetForwardingInterface()->OnRemove();
+void AudioJackObserverInterceptorForTesting::OnRemove(::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType device_type) {
+  GetForwardingInterface()->OnRemove(std::move(device_type));
 }
 AudioJackObserverAsyncWaiter::AudioJackObserverAsyncWaiter(
     AudioJackObserver* proxy) : proxy_(proxy) {}

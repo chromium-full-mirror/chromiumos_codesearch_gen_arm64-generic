@@ -298,6 +298,31 @@ struct AudioJackEventInfo_State_Data {
   }
 };
 
+struct AudioJackEventInfo_DeviceType_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct SdCardEventInfo_State_Data {
  public:
   static bool constexpr kIsExtensible = true;
@@ -938,7 +963,7 @@ class  AudioJackEventInfo_Data {
 
   mojo::internal::StructHeader header_;
   int32_t state;
-  uint8_t padfinal_[4];
+  int32_t device_type;
 
  private:
   friend class mojo::internal::MessageFragment<AudioJackEventInfo_Data>;

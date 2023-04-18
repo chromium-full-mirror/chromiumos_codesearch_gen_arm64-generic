@@ -47,8 +47,8 @@ class  ProcessControlAsyncWaiter {
 
 class  AudioJackObserverInterceptorForTesting : public AudioJackObserver {
   virtual AudioJackObserver* GetForwardingInterface() = 0;
-  void OnAdd() override;
-  void OnRemove() override;
+  void OnAdd(::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType device_type) override;
+  void OnRemove(::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType device_type) override;
 };
 class  AudioJackObserverAsyncWaiter {
  public:

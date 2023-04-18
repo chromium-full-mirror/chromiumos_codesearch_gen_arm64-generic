@@ -139,6 +139,8 @@ class  AudioJackObserver_OnAdd_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t device_type;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<AudioJackObserver_OnAdd_Params_Data>;
@@ -146,7 +148,7 @@ class  AudioJackObserver_OnAdd_Params_Data {
   AudioJackObserver_OnAdd_Params_Data();
   ~AudioJackObserver_OnAdd_Params_Data() = delete;
 };
-static_assert(sizeof(AudioJackObserver_OnAdd_Params_Data) == 8,
+static_assert(sizeof(AudioJackObserver_OnAdd_Params_Data) == 16,
               "Bad sizeof(AudioJackObserver_OnAdd_Params_Data)");
 class  AudioJackObserver_OnRemove_Params_Data {
  public:
@@ -154,6 +156,8 @@ class  AudioJackObserver_OnRemove_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  int32_t device_type;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<AudioJackObserver_OnRemove_Params_Data>;
@@ -161,7 +165,7 @@ class  AudioJackObserver_OnRemove_Params_Data {
   AudioJackObserver_OnRemove_Params_Data();
   ~AudioJackObserver_OnRemove_Params_Data() = delete;
 };
-static_assert(sizeof(AudioJackObserver_OnRemove_Params_Data) == 8,
+static_assert(sizeof(AudioJackObserver_OnRemove_Params_Data) == 16,
               "Bad sizeof(AudioJackObserver_OnRemove_Params_Data)");
 class  TouchpadObserver_OnButton_Params_Data {
  public:
@@ -1042,6 +1046,16 @@ class AudioJackObserver_OnAdd_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadDeviceType(UserType* output) const {
+    auto data_value = data_->device_type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType device_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>(data_->device_type));
+  }
  private:
   internal::AudioJackObserver_OnAdd_Params_Data* data_ = nullptr;
 };
@@ -1057,6 +1071,16 @@ class AudioJackObserver_OnRemove_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadDeviceType(UserType* output) const {
+    auto data_value = data_->device_type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType device_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>(data_->device_type));
+  }
  private:
   internal::AudioJackObserver_OnRemove_Params_Data* data_ = nullptr;
 };

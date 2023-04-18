@@ -1725,6 +1725,7 @@ class  AudioJackEventInfo {
   using DataView = AudioJackEventInfoDataView;
   using Data_ = internal::AudioJackEventInfo_Data;
   using State = AudioJackEventInfo_State;
+  using DeviceType = AudioJackEventInfo_DeviceType;
 
   template <typename... Args>
   static AudioJackEventInfoPtr New(Args&&... args) {
@@ -1747,6 +1748,10 @@ class  AudioJackEventInfo {
 
   explicit AudioJackEventInfo(
       AudioJackEventInfo::State state);
+
+  AudioJackEventInfo(
+      AudioJackEventInfo::State state,
+      AudioJackEventInfo::DeviceType device_type);
 
 
   ~AudioJackEventInfo();
@@ -1823,6 +1828,8 @@ class  AudioJackEventInfo {
 
   
   AudioJackEventInfo::State state;
+  
+  AudioJackEventInfo::DeviceType device_type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -4996,13 +5003,16 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 AudioJackEventInfoPtr AudioJackEventInfo::Clone() const {
   return New(
-      mojo::Clone(state)
+      mojo::Clone(state),
+      mojo::Clone(device_type)
   );
 }
 
 template <typename T, AudioJackEventInfo::EnableIfSame<T>*>
 bool AudioJackEventInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  if (!mojo::Equals(this->device_type, other_struct.device_type))
     return false;
   return true;
 }
@@ -5012,6 +5022,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.state < rhs.state)
     return true;
   if (rhs.state < lhs.state)
+    return false;
+  if (lhs.device_type < rhs.device_type)
+    return true;
+  if (rhs.device_type < lhs.device_type)
     return false;
   return false;
 }
@@ -5524,6 +5538,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::AudioJackEventInfo::DataView,
   static decltype(::ash::cros_healthd::mojom::AudioJackEventInfo::state) state(
       const ::ash::cros_healthd::mojom::AudioJackEventInfoPtr& input) {
     return input->state;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::AudioJackEventInfo::device_type) device_type(
+      const ::ash::cros_healthd::mojom::AudioJackEventInfoPtr& input) {
+    return input->device_type;
   }
 
   static bool Read(::ash::cros_healthd::mojom::AudioJackEventInfo::DataView input, ::ash::cros_healthd::mojom::AudioJackEventInfoPtr* output);
