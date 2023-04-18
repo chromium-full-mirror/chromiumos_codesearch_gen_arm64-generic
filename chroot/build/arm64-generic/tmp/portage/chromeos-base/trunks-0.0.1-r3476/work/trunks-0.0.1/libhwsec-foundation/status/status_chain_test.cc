@@ -148,27 +148,20 @@ TEST_F(StatusChainTest, CtorAssign) {
       MakeStatus<Fake4Error>("e3", 3).Wrap(std::move(ctor_type_mismatch));
   EXPECT_TRUE(ctor_type_mismatch.ok());
   EXPECT_EQ(assign_type_mismatch->val(), 3);
-
-  StatusChain<FakeBaseError> from_release(assign_type_mismatch.release_stack());
-  EXPECT_TRUE(assign_type_mismatch.ok());
-  EXPECT_EQ(from_release->val(), 3);
 }
 
 TEST_F(StatusChainTest, PointerAccessSwapReset) {
   StatusChain<Fake1Error> ptr1;
-  EXPECT_EQ(ptr1.get(), StatusChain<Fake1Error>::pointer());
 
   StatusChain<Fake1Error> ptr2(new Fake1Error("e1", 1));
   ptr2.WrapInPlace(MakeStatus<Fake2Error>("e2", 2));
   EXPECT_EQ(ptr2->val(), 1);
-  EXPECT_EQ(ptr2.get()->val(), 1);
   EXPECT_EQ((*ptr2).val(), 1);
   EXPECT_EQ(ptr2.error().val(), 1);
 
   ptr1.reset(new Fake1Error("e3", 3));
   ptr1.WrapInPlace(MakeStatus<Fake2Error>("e4", 4));
   EXPECT_EQ(ptr1->val(), 3);
-  EXPECT_EQ(ptr1.get()->val(), 3);
   EXPECT_EQ((*ptr1).val(), 3);
   EXPECT_EQ(ptr1.error().val(), 3);
 
@@ -176,12 +169,10 @@ TEST_F(StatusChainTest, PointerAccessSwapReset) {
   ptr1.AssertNotOk();
   ptr2.AssertNotOk();
   EXPECT_EQ(ptr1->val(), 1);
-  EXPECT_EQ(ptr1.get()->val(), 1);
   EXPECT_EQ((*ptr1).val(), 1);
   EXPECT_EQ(ptr1.error().val(), 1);
 
   EXPECT_EQ(ptr2->val(), 3);
-  EXPECT_EQ(ptr2.get()->val(), 3);
   EXPECT_EQ((*ptr2).val(), 3);
   EXPECT_EQ(ptr2.error().val(), 3);
 
@@ -189,12 +180,10 @@ TEST_F(StatusChainTest, PointerAccessSwapReset) {
   ptr1.AssertNotOk();
   ptr2.AssertNotOk();
   EXPECT_EQ(ptr1->val(), 3);
-  EXPECT_EQ(ptr1.get()->val(), 3);
   EXPECT_EQ((*ptr1).val(), 3);
   EXPECT_EQ(ptr1.error().val(), 3);
 
   EXPECT_EQ(ptr2->val(), 1);
-  EXPECT_EQ(ptr2.get()->val(), 1);
   EXPECT_EQ((*ptr2).val(), 1);
   EXPECT_EQ(ptr2.error().val(), 1);
 
@@ -203,7 +192,6 @@ TEST_F(StatusChainTest, PointerAccessSwapReset) {
 
   ptr2.reset(new Fake1Error("e5", 5));
   EXPECT_EQ(ptr2->val(), 5);
-  EXPECT_EQ(ptr2.get()->val(), 5);
   EXPECT_EQ((*ptr2).val(), 5);
   EXPECT_EQ(ptr2.error().val(), 5);
 }
@@ -224,7 +212,7 @@ TEST_F(StatusChainTest, StackElementAccess) {
   EXPECT_EQ(e6->val(), 32);
 }
 
-TEST_F(StatusChainTest, WrappingUnwrapping) {
+TEST_F(StatusChainTest, Wrapping) {
   StatusChain<FakeBaseError> e0;
   EXPECT_FALSE(e0.IsWrapping());
 
@@ -243,32 +231,6 @@ TEST_F(StatusChainTest, WrappingUnwrapping) {
   EXPECT_FALSE(e1.IsWrapping());
   EXPECT_TRUE(e2.IsWrapping());
   EXPECT_EQ(e2->val(), 2);
-
-  auto e1_unwrap = std::move(e2).Unwrap();
-  EXPECT_FALSE(e2.IsWrapping());
-  EXPECT_TRUE(e1_unwrap.IsWrapping());
-  e1_unwrap.AssertNotOk();
-  EXPECT_EQ(e1_unwrap->val(), 1);
-
-  StatusChain<FakeBaseError> e3 =
-      MakeStatus<Fake1Error>("e3", 3).Wrap(std::move(e1_unwrap));
-  EXPECT_FALSE(e1_unwrap.IsWrapping());
-  EXPECT_TRUE(e3.IsWrapping());
-  EXPECT_EQ(e3->val(), 3);
-
-  auto e0_unwrap = std::move(e3).Unwrap().HintNotOk().Unwrap();
-  EXPECT_FALSE(e3.IsWrapping());
-  EXPECT_FALSE(e0_unwrap.IsWrapping());
-  e0_unwrap.AssertNotOk();
-  EXPECT_EQ(e0_unwrap->val(), -1);
-
-  e0_unwrap.WrapInPlace(MakeStatus<Fake2Error>("e4", 4));
-  EXPECT_TRUE(e0_unwrap.IsWrapping());
-  EXPECT_EQ(e0_unwrap->val(), -1);
-
-  e0_unwrap.UnwrapInPlace().UnwrapInPlace();
-  EXPECT_TRUE(e0_unwrap.ok());
-  EXPECT_FALSE(e0_unwrap.IsWrapping());
 }
 
 TEST_F(StatusChainTest, RangesAndIterators) {
@@ -327,6 +289,18 @@ TEST_F(StatusChainTest, RangesAndIterators) {
   StatusChain<Fake3Error>::const_iterator cit = e6.range().begin();
   EXPECT_EQ(crange, e6.range());
   EXPECT_EQ(cit, e6.range().begin());
+
+  // Change the range content.
+  for (const auto error_obj_ptr : e6.range()) {
+    // shouldn't need to cast since iterator should point to FakeBaseError.
+    error_obj_ptr->set_val(10);
+  }
+  val = 0;
+  for (const auto error_obj_ptr : e6.const_range()) {
+    // shouldn't need to cast since iterator should point to FakeBaseError.
+    val += error_obj_ptr->val();
+  }
+  EXPECT_EQ(val, 10 * 6);
 }
 
 TEST_F(StatusChainTest, WrapTransform) {
