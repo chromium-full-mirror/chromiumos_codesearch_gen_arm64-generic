@@ -23,7 +23,7 @@
 
 namespace ash {
 namespace cros_healthd {
-namespace internal {
+namespace external {
 namespace mojo_base {
 namespace mojom {
 class TimeDataView;
@@ -46,7 +46,7 @@ using TimeTicksPtr = mojo::InlinedStructPtr<TimeTicks>;
 
 }  // namespace mojom
 }  // namespace mojo_base
-}  // namespace internal
+}  // namespace external
 }  // namespace cros_healthd
 }  // namespace ash
 

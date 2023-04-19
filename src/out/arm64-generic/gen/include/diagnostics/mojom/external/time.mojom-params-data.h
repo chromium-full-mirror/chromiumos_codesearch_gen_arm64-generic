@@ -20,7 +20,7 @@ class ValidationContext;
 }
 namespace ash {
 namespace cros_healthd {
-namespace internal {
+namespace external {
 namespace mojo_base {
 namespace mojom {
 namespace internal {
@@ -28,7 +28,7 @@ namespace internal {
 }  // namespace internal
 }  // namespace mojom
 }  // namespace mojo_base
-}  // namespace internal
+}  // namespace external
 }  // namespace cros_healthd
 }  // namespace ash
 

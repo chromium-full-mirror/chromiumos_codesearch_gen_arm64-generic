@@ -20,11 +20,13 @@
 #include <base/strings/string_piece.h>
 #include <base/task/sequenced_task_runner.h>
 #include <base/thread_annotations.h>
-#include "base/time/time.h"
+#include <base/time/time.h>
+
 #include "missive/compression/compression_module.h"
 #include "missive/encryption/encryption_module_interface.h"
 #include "missive/proto/record.pb.h"
 #include "missive/proto/record_constants.pb.h"
+#include "missive/storage/storage_base.h"
 #include "missive/storage/storage_configuration.h"
 #include "missive/storage/storage_queue.h"
 #include "missive/storage/storage_uploader_interface.h"
@@ -33,13 +35,9 @@
 
 namespace reporting {
 
-// Key delivery UMA name
-static constexpr char kKeyDeliveryResultUma[] =
-    "Platform.Missive.KeyDeliveryResult";
-
 // Storage represents the data to be collected, stored persistently and uploaded
 // according to the priority.
-class Storage : public base::RefCountedThreadSafe<Storage> {
+class Storage : public StorageInterface {
  public:
   // Creates Storage instance, and returns it with the completion callback.
   static void Create(
@@ -47,7 +45,8 @@ class Storage : public base::RefCountedThreadSafe<Storage> {
       UploaderInterface::AsyncStartUploaderCb async_start_upload_cb,
       scoped_refptr<EncryptionModuleInterface> encryption_module,
       scoped_refptr<CompressionModule> compression_module,
-      base::OnceCallback<void(StatusOr<scoped_refptr<Storage>>)> completion_cb);
+      base::OnceCallback<void(StatusOr<scoped_refptr<StorageInterface>>)>
+          completion_cb);
 
   Storage(const Storage& other) = delete;
   Storage& operator=(const Storage& other) = delete;
@@ -58,7 +57,7 @@ class Storage : public base::RefCountedThreadSafe<Storage> {
   // become too large, it is closed and new file is created.
   void Write(Priority priority,
              Record record,
-             base::OnceCallback<void(Status)> completion_cb);
+             base::OnceCallback<void(Status)> completion_cb) override;
 
   // Confirms acceptance of the records according to the
   // |sequence_information.priority()| up to
@@ -72,40 +71,25 @@ class Storage : public base::RefCountedThreadSafe<Storage> {
   // were confirmed before; otherwise it is accepted unconditionally.
   void Confirm(SequenceInformation sequence_information,
                bool force,
-               base::OnceCallback<void(Status)> completion_cb);
+               base::OnceCallback<void(Status)> completion_cb) override;
 
   // Initiates upload of collected records according to the priority.
   // Called usually for a queue with an infinite or very large upload period.
   // Multiple |Flush| calls can safely run in parallel.
   // Invokes |completion_cb| with error if upload fails or cannot start.
-  void Flush(Priority priority, base::OnceCallback<void(Status)> completion_cb);
+  void Flush(Priority priority,
+             base::OnceCallback<void(Status)> completion_cb) override;
 
   // If the server attached signed encryption key to the response, it needs to
   // be paased here.
-  void UpdateEncryptionKey(SignedEncryptionInfo signed_encryption_key);
+  void UpdateEncryptionKey(SignedEncryptionInfo signed_encryption_key) override;
 
   // Registers completion notification callback. Thread-safe.
   // All registered callbacks are called when all queues destructions come
   // to their completion and the Storage is destructed as well.
-  void RegisterCompletionCallback(base::OnceClosure callback);
-
- protected:
-  virtual ~Storage();
+  void RegisterCompletionCallback(base::OnceClosure callback) override;
 
  private:
-  friend class base::RefCountedThreadSafe<Storage>;
-
-  // Private bridge class.
-  class QueueUploaderInterface;
-
-  // Private helper class for key upload/download to the file system.
-  class KeyInStorage;
-
-  // Private helper class for initial key delivery from the server.
-  // It can be invoked multiple times in parallel, but will only do
-  // one server roundtrip and notify all requestors upon its completion.
-  class KeyDelivery;
-
   // Private constructor, to be called by Create factory method only.
   // Queues need to be added afterwards.
   Storage(const StorageOptions& options,

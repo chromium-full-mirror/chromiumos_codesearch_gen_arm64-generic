@@ -20,7 +20,7 @@
 #include "diagnostics/mojom/external/time.mojom-params-data.h"
 namespace ash {
 namespace cros_healthd {
-namespace internal {
+namespace external {
 namespace mojo_base {
 namespace mojom {
 
@@ -98,6 +98,6 @@ TimeTicks_Data::TimeTicks_Data()
 }  // namespace internal
 }  // namespace mojom
 }  // namespace mojo_base
-}  // namespace internal
+}  // namespace external
 }  // namespace cros_healthd
 }  // namespace ash

@@ -45,7 +45,7 @@
 
 namespace ash {
 namespace cros_healthd {
-namespace internal {
+namespace external {
 namespace mojo_base {
 namespace mojom {
 Time::Time()
@@ -140,7 +140,7 @@ bool TimeTicks::Validate(
 
 }  // namespace mojom
 }  // namespace mojo_base
-}  // namespace internal
+}  // namespace external
 }  // namespace cros_healthd
 }  // namespace ash
 
@@ -149,11 +149,11 @@ namespace mojo {
 
 
 // static
-bool StructTraits<::ash::cros_healthd::internal::mojo_base::mojom::Time::DataView, ::ash::cros_healthd::internal::mojo_base::mojom::TimePtr>::Read(
-    ::ash::cros_healthd::internal::mojo_base::mojom::Time::DataView input,
-    ::ash::cros_healthd::internal::mojo_base::mojom::TimePtr* output) {
+bool StructTraits<::ash::cros_healthd::external::mojo_base::mojom::Time::DataView, ::ash::cros_healthd::external::mojo_base::mojom::TimePtr>::Read(
+    ::ash::cros_healthd::external::mojo_base::mojom::Time::DataView input,
+    ::ash::cros_healthd::external::mojo_base::mojom::TimePtr* output) {
   bool success = true;
-  ::ash::cros_healthd::internal::mojo_base::mojom::TimePtr result(::ash::cros_healthd::internal::mojo_base::mojom::Time::New());
+  ::ash::cros_healthd::external::mojo_base::mojom::TimePtr result(::ash::cros_healthd::external::mojo_base::mojom::Time::New());
   
       if (success)
         result->internal_value = input.internal_value();
@@ -163,11 +163,11 @@ bool StructTraits<::ash::cros_healthd::internal::mojo_base::mojom::Time::DataVie
 
 
 // static
-bool StructTraits<::ash::cros_healthd::internal::mojo_base::mojom::TimeDelta::DataView, ::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr>::Read(
-    ::ash::cros_healthd::internal::mojo_base::mojom::TimeDelta::DataView input,
-    ::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr* output) {
+bool StructTraits<::ash::cros_healthd::external::mojo_base::mojom::TimeDelta::DataView, ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaPtr>::Read(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDelta::DataView input,
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaPtr* output) {
   bool success = true;
-  ::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr result(::ash::cros_healthd::internal::mojo_base::mojom::TimeDelta::New());
+  ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaPtr result(::ash::cros_healthd::external::mojo_base::mojom::TimeDelta::New());
   
       if (success)
         result->microseconds = input.microseconds();
@@ -177,11 +177,11 @@ bool StructTraits<::ash::cros_healthd::internal::mojo_base::mojom::TimeDelta::Da
 
 
 // static
-bool StructTraits<::ash::cros_healthd::internal::mojo_base::mojom::TimeTicks::DataView, ::ash::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr>::Read(
-    ::ash::cros_healthd::internal::mojo_base::mojom::TimeTicks::DataView input,
-    ::ash::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr* output) {
+bool StructTraits<::ash::cros_healthd::external::mojo_base::mojom::TimeTicks::DataView, ::ash::cros_healthd::external::mojo_base::mojom::TimeTicksPtr>::Read(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeTicks::DataView input,
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeTicksPtr* output) {
   bool success = true;
-  ::ash::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr result(::ash::cros_healthd::internal::mojo_base::mojom::TimeTicks::New());
+  ::ash::cros_healthd::external::mojo_base::mojom::TimeTicksPtr result(::ash::cros_healthd::external::mojo_base::mojom::TimeTicks::New());
   
       if (success)
         result->internal_value = input.internal_value();
@@ -198,7 +198,7 @@ bool StructTraits<::ash::cros_healthd::internal::mojo_base::mojom::TimeTicks::Da
 
 namespace ash {
 namespace cros_healthd {
-namespace internal {
+namespace external {
 namespace mojo_base {
 namespace mojom {
 
@@ -207,7 +207,7 @@ namespace mojom {
 
 }  // namespace mojom
 }  // namespace mojo_base
-}  // namespace internal
+}  // namespace external
 }  // namespace cros_healthd
 }  // namespace ash
 
