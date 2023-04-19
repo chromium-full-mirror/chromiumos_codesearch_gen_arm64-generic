@@ -40,20 +40,22 @@ class SwapManagementInterface {
   // Enable/Disable the MGLRU feature.
   virtual bool MGLRUSetEnable(
       brillo::ErrorPtr* error,
-      bool in_enable,
-      bool* out_result) = 0;
+      bool in_enable) = 0;
   // Enable writeback of zram swapped pages.
   virtual bool SwapZramEnableWriteback(
       brillo::ErrorPtr* error,
       uint32_t in_size) = 0;
   // Mark pages as idle which have been in zram for |age| in seconds.
-  virtual std::string SwapZramMarkIdle(
+  virtual bool SwapZramMarkIdle(
+      brillo::ErrorPtr* error,
       uint32_t in_age) = 0;
   // Set the zram writeback page limit to |limit| pages.
-  virtual std::string SwapZramSetWritebackLimit(
+  virtual bool SwapZramSetWritebackLimit(
+      brillo::ErrorPtr* error,
       uint32_t in_limit) = 0;
   // Initiate a zram writeback using the provided |mode|.
-  virtual std::string InitiateSwapZramWriteback(
+  virtual bool InitiateSwapZramWriteback(
+      brillo::ErrorPtr* error,
       uint32_t in_mode) = 0;
 };
 
@@ -96,15 +98,15 @@ class SwapManagementAdaptor {
         "SwapZramEnableWriteback",
         base::Unretained(interface_),
         &SwapManagementInterface::SwapZramEnableWriteback);
-    itf->AddSimpleMethodHandler(
+    itf->AddSimpleMethodHandlerWithError(
         "SwapZramMarkIdle",
         base::Unretained(interface_),
         &SwapManagementInterface::SwapZramMarkIdle);
-    itf->AddSimpleMethodHandler(
+    itf->AddSimpleMethodHandlerWithError(
         "SwapZramSetWritebackLimit",
         base::Unretained(interface_),
         &SwapManagementInterface::SwapZramSetWritebackLimit);
-    itf->AddSimpleMethodHandler(
+    itf->AddSimpleMethodHandlerWithError(
         "InitiateSwapZramWriteback",
         base::Unretained(interface_),
         &SwapManagementInterface::InitiateSwapZramWriteback);
@@ -131,22 +133,18 @@ class SwapManagementAdaptor {
         "    </method>\n"
         "    <method name=\"MGLRUSetEnable\">\n"
         "      <arg name=\"enable\" type=\"b\" direction=\"in\"/>\n"
-        "      <arg name=\"result\" type=\"b\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"SwapZramEnableWriteback\">\n"
         "      <arg name=\"size\" type=\"u\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"SwapZramMarkIdle\">\n"
         "      <arg name=\"age\" type=\"u\" direction=\"in\"/>\n"
-        "      <arg name=\"result\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"SwapZramSetWritebackLimit\">\n"
         "      <arg name=\"limit\" type=\"u\" direction=\"in\"/>\n"
-        "      <arg name=\"result\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"InitiateSwapZramWriteback\">\n"
         "      <arg name=\"mode\" type=\"u\" direction=\"in\"/>\n"
-        "      <arg name=\"result\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "  </interface>\n";
   }
