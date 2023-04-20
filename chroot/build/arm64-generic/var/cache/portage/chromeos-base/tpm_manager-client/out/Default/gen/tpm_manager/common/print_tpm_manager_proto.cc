@@ -162,8 +162,8 @@ std::string GetProtoDebugStringWithIndent(RoVerificationStatus value,
   if (value == RO_STATUS_NOT_TRIGGERED) {
     return "RO_STATUS_NOT_TRIGGERED";
   }
-  if (value == RO_STATUS_PASS) {
-    return "RO_STATUS_PASS";
+  if (value == RO_STATUS_PASS_UNVERIFIED_GBB) {
+    return "RO_STATUS_PASS_UNVERIFIED_GBB";
   }
   if (value == RO_STATUS_FAIL) {
     return "RO_STATUS_FAIL";
@@ -176,6 +176,63 @@ std::string GetProtoDebugStringWithIndent(RoVerificationStatus value,
   }
   if (value == RO_STATUS_UNSUPPORTED_TRIGGERED) {
     return "RO_STATUS_UNSUPPORTED_TRIGGERED";
+  }
+  if (value == RO_STATUS_PASS) {
+    return "RO_STATUS_PASS";
+  }
+  if (value == RO_STATUS_IN_PROGRESS) {
+    return "RO_STATUS_IN_PROGRESS";
+  }
+  if (value == RO_STATUS_V2_SUCCESS) {
+    return "RO_STATUS_V2_SUCCESS";
+  }
+  if (value == RO_STATUS_V2_FAILED_VERIFICATION) {
+    return "RO_STATUS_V2_FAILED_VERIFICATION";
+  }
+  if (value == RO_STATUS_V2_INCONSISTENT_GSCVD) {
+    return "RO_STATUS_V2_INCONSISTENT_GSCVD";
+  }
+  if (value == RO_STATUS_V2_INCONSISTENT_KEYBLOCK) {
+    return "RO_STATUS_V2_INCONSISTENT_KEYBLOCK";
+  }
+  if (value == RO_STATUS_V2_INCONSISTENT_KEY) {
+    return "RO_STATUS_V2_INCONSISTENT_KEY";
+  }
+  if (value == RO_STATUS_V2_SPI_READ) {
+    return "RO_STATUS_V2_SPI_READ";
+  }
+  if (value == RO_STATUS_V2_UNSUPPORTED_CRYPTO_ALGORITHM) {
+    return "RO_STATUS_V2_UNSUPPORTED_CRYPTO_ALGORITHM";
+  }
+  if (value == RO_STATUS_V2_VERSION_MISMATCH) {
+    return "RO_STATUS_V2_VERSION_MISMATCH";
+  }
+  if (value == RO_STATUS_V2_OUT_OF_MEMORY) {
+    return "RO_STATUS_V2_OUT_OF_MEMORY";
+  }
+  if (value == RO_STATUS_V2_INTERNAL) {
+    return "RO_STATUS_V2_INTERNAL";
+  }
+  if (value == RO_STATUS_V2_TOO_BIG) {
+    return "RO_STATUS_V2_TOO_BIG";
+  }
+  if (value == RO_STATUS_V2_MISSING_GSCVD) {
+    return "RO_STATUS_V2_MISSING_GSCVD";
+  }
+  if (value == RO_STATUS_V2_BOARD_ID_MISMATCH) {
+    return "RO_STATUS_V2_BOARD_ID_MISMATCH";
+  }
+  if (value == RO_STATUS_V2_SETTING_NOT_PROVISIONED) {
+    return "RO_STATUS_V2_SETTING_NOT_PROVISIONED";
+  }
+  if (value == RO_STATUS_V2_NON_ZERO_GBB_FLAGS) {
+    return "RO_STATUS_V2_NON_ZERO_GBB_FLAGS";
+  }
+  if (value == RO_STATUS_V2_WRONG_ROOT_KEY) {
+    return "RO_STATUS_V2_WRONG_ROOT_KEY";
+  }
+  if (value == RO_STATUS_V2_UNKNOWN) {
+    return "RO_STATUS_V2_UNKNOWN";
   }
   return "<unknown>";
 }
