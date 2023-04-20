@@ -48,6 +48,7 @@
 #include "cryptohome/error/cryptohome_crypto_error.h"
 #include "cryptohome/error/cryptohome_error.h"
 #include "cryptohome/error/location_utils.h"
+#include "cryptohome/error/reap.h"
 #include "cryptohome/error/utilities.h"
 #include "cryptohome/features.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
@@ -245,6 +246,14 @@ CryptohomeStatus CleanUpAllBackupKeysets(
     }
   }
   return OkStatus<CryptohomeError>();
+}
+
+void ReportRecreateAuthFactorError(CryptohomeStatus status,
+                                   AuthFactorType auth_factor_type) {
+  std::string error_bucket_name =
+      std::string(kCryptohomeErrorRecreateAuthFactorErrorBucket) + "." +
+      AuthFactorTypeToCamelCaseString(auth_factor_type);
+  ReapAndReportError(std::move(status), std::move(error_bucket_name));
 }
 
 }  // namespace
@@ -810,6 +819,8 @@ void AuthSession::OnMigrationUssCreated(
   if (!migration_auth_input_status.ok()) {
     LOG(ERROR) << "Failed to create migration AuthInput: "
                << migration_auth_input_status.status();
+    ReapAndReportError(std::move(migration_auth_input_status).status(),
+                       kCryptohomeErrorUssMigrationErrorBucket);
     ReportVkToUssMigrationStatus(VkToUssMigrationStatus::kFailedInput);
     std::move(on_done).Run(std::move(pre_migration_status));
     return;
@@ -2188,6 +2199,8 @@ void AuthSession::PersistAuthFactorToUserSecretStashOnMigration(
   if (!status.ok()) {
     LOG(ERROR) << "USS migration of VaultKeyset with label "
                << auth_factor_label << " is failed: " << status;
+    ReapAndReportError(std::move(status),
+                       kCryptohomeErrorUssMigrationErrorBucket);
     ReportVkToUssMigrationStatus(VkToUssMigrationStatus::kFailedPersist);
     std::move(on_done).Run(std::move(pre_migration_status));
     return;
@@ -2903,7 +2916,8 @@ void AuthSession::RecreateUssAuthFactor(
     LOG(WARNING) << "Unable to update obsolete auth factor, cannot determine "
                     "new block type: "
                  << auth_block_type.err_status();
-    // TODO(b/272560921): log the status to a UMA metric.
+    ReportRecreateAuthFactorError(std::move(auth_block_type).status(),
+                                  auth_factor_type);
     std::move(on_done).Run(std::move(original_status));
     return;
   }
@@ -2918,7 +2932,7 @@ void AuthSession::RecreateUssAuthFactor(
     LOG(WARNING) << "Unable to update obsolete auth factor, it does not "
                     "seem to exist: "
                  << status;
-    // TODO(b/272560921): log the status to a UMA metric.
+    ReportRecreateAuthFactorError(std::move(status), auth_factor_type);
     std::move(on_done).Run(std::move(original_status));
     return;
   }
@@ -2936,7 +2950,7 @@ void AuthSession::RecreateUssAuthFactor(
     LOG(WARNING) << "Unable to update obsolete auth factor, cannot "
                     "construct new KeyData: "
                  << status;
-    // TODO(b/272560921): log the status to a UMA metric.
+    ReportRecreateAuthFactorError(std::move(status), auth_factor_type);
     std::move(on_done).Run(std::move(original_status));
     return;
   }
@@ -2946,7 +2960,8 @@ void AuthSession::RecreateUssAuthFactor(
   if (!auth_input_for_add.ok()) {
     LOG(WARNING) << "Unable to construct an auth input to recreate the factor: "
                  << auth_input_for_add.err_status();
-    // TODO(b/272560921): log the status to a UMA metric.
+    ReportRecreateAuthFactorError(std::move(auth_input_for_add).status(),
+                                  auth_factor_type);
     std::move(on_done).Run(std::move(original_status));
     return;
   }
@@ -2957,15 +2972,16 @@ void AuthSession::RecreateUssAuthFactor(
   // the Update at all.
   StatusCallback status_callback = base::BindOnce(
       [](CryptohomeStatus original_status, StatusCallback on_done,
-         CryptohomeStatus update_status) {
+         AuthFactorType auth_factor_type, CryptohomeStatus update_status) {
         if (!update_status.ok()) {
           LOG(WARNING) << "Recreating factor with update failed: "
                        << update_status;
-          // TODO(b/272560921): log |update_status| to a UMA metric.
+          ReportRecreateAuthFactorError(std::move(update_status),
+                                        auth_factor_type);
         }
         std::move(on_done).Run(std::move(original_status));
       },
-      std::move(original_status), std::move(on_done));
+      std::move(original_status), std::move(on_done), auth_factor_type);
 
   // Attempt to re-create the factor via a Create+Update.
   auto create_callback = base::BindOnce(

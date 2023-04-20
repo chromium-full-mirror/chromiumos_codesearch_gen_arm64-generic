@@ -627,6 +627,10 @@ class BRILLO_EXPORT CellularConnectionAttempt final : public ::metrics::structur
   CellularConnectionAttempt& Setuse_apn_revamp_ui(const int64_t value);
   int64_t Getuse_apn_revamp_uiForTest() const;
 
+  static constexpr uint64_t kconnection_attempt_typeNameHash = UINT64_C(11442697273927239582);
+  CellularConnectionAttempt& Setconnection_attempt_type(const int64_t value);
+  int64_t Getconnection_attempt_typeForTest() const;
+
 };
 
 class BRILLO_EXPORT ModemFwdFwInstallResult final : public ::metrics::structured::EventBase {

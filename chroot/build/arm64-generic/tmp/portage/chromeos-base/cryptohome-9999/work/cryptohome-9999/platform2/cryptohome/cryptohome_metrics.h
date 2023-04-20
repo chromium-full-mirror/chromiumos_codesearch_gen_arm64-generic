@@ -319,6 +319,10 @@ inline constexpr char kCryptohomeErrorLeafWithTPMSuffix[] = "LeafErrorWithTPM";
 inline constexpr char kCryptohomeErrorDevCheckUnexpectedStateSuffix[] =
     "DevUnexpectedState";
 inline constexpr char kCryptohomeErrorAllLocationsSuffix[] = "AllLocations";
+inline constexpr char kCryptohomeErrorUssMigrationErrorBucket[] =
+    "UssMigrationError";
+inline constexpr char kCryptohomeErrorRecreateAuthFactorErrorBucket[] =
+    "RecreateAuthFactorError";
 
 // List of possible results of fetching the USS experiment config. If fetching
 // failed, the status is kFetchError. If parsing failed, the status is

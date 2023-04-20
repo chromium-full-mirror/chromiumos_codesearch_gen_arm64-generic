@@ -3517,6 +3517,7 @@ class DeviceReportingProto final :
     kReportSecurityStatusFieldNumber = 31,
     kReportCrdSessionsFieldNumber = 36,
     kReportPeripheralsFieldNumber = 37,
+    kReportNetworkEventsFieldNumber = 41,
     kDeviceActivityHeartbeatEnabledFieldNumber = 39,
     kReportNetworkConfigurationFieldNumber = 29,
     kReportNetworkStatusFieldNumber = 30,
@@ -3839,6 +3840,19 @@ class DeviceReportingProto final :
   void _internal_set_report_peripherals(bool value);
   public:
 
+  // optional bool report_network_events = 41 [default = false];
+  bool has_report_network_events() const;
+  private:
+  bool _internal_has_report_network_events() const;
+  public:
+  void clear_report_network_events();
+  bool report_network_events() const;
+  void set_report_network_events(bool value);
+  private:
+  bool _internal_report_network_events() const;
+  void _internal_set_report_network_events(bool value);
+  public:
+
   // optional bool device_activity_heartbeat_enabled = 39 [default = false];
   bool has_device_activity_heartbeat_enabled() const;
   private:
@@ -4093,6 +4107,7 @@ class DeviceReportingProto final :
     bool report_security_status_;
     bool report_crd_sessions_;
     bool report_peripherals_;
+    bool report_network_events_;
     bool device_activity_heartbeat_enabled_;
     bool report_network_configuration_;
     bool report_network_status_;
@@ -14323,19 +14338,19 @@ class DeviceScreensaverLoginScreenEnabledProto final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDeviceScreensaverLoginScreenModeFieldNumber = 1,
+    kDeviceScreensaverLoginScreenEnabledFieldNumber = 1,
   };
-  // optional bool device_screensaver_login_screen_mode = 1;
-  bool has_device_screensaver_login_screen_mode() const;
+  // optional bool device_screensaver_login_screen_enabled = 1;
+  bool has_device_screensaver_login_screen_enabled() const;
   private:
-  bool _internal_has_device_screensaver_login_screen_mode() const;
+  bool _internal_has_device_screensaver_login_screen_enabled() const;
   public:
-  void clear_device_screensaver_login_screen_mode();
-  bool device_screensaver_login_screen_mode() const;
-  void set_device_screensaver_login_screen_mode(bool value);
+  void clear_device_screensaver_login_screen_enabled();
+  bool device_screensaver_login_screen_enabled() const;
+  void set_device_screensaver_login_screen_enabled(bool value);
   private:
-  bool _internal_device_screensaver_login_screen_mode() const;
-  void _internal_set_device_screensaver_login_screen_mode(bool value);
+  bool _internal_device_screensaver_login_screen_enabled() const;
+  void _internal_set_device_screensaver_login_screen_enabled(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:enterprise_management.DeviceScreensaverLoginScreenEnabledProto)
@@ -14348,7 +14363,7 @@ class DeviceScreensaverLoginScreenEnabledProto final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    bool device_screensaver_login_screen_mode_;
+    bool device_screensaver_login_screen_enabled_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
@@ -28243,7 +28258,7 @@ inline void HostnameUserConfigurableProto::set_device_hostname_user_configurable
 
 // optional bool report_version_info = 1 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_version_info() const {
-  bool value = (_impl_._has_bits_[0] & 0x08000000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x10000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_version_info() const {
@@ -28251,7 +28266,7 @@ inline bool DeviceReportingProto::has_report_version_info() const {
 }
 inline void DeviceReportingProto::clear_report_version_info() {
   _impl_.report_version_info_ = true;
-  _impl_._has_bits_[0] &= ~0x08000000u;
+  _impl_._has_bits_[0] &= ~0x10000000u;
 }
 inline bool DeviceReportingProto::_internal_report_version_info() const {
   return _impl_.report_version_info_;
@@ -28261,7 +28276,7 @@ inline bool DeviceReportingProto::report_version_info() const {
   return _internal_report_version_info();
 }
 inline void DeviceReportingProto::_internal_set_report_version_info(bool value) {
-  _impl_._has_bits_[0] |= 0x08000000u;
+  _impl_._has_bits_[0] |= 0x10000000u;
   _impl_.report_version_info_ = value;
 }
 inline void DeviceReportingProto::set_report_version_info(bool value) {
@@ -28271,7 +28286,7 @@ inline void DeviceReportingProto::set_report_version_info(bool value) {
 
 // optional bool report_activity_times = 2 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_activity_times() const {
-  bool value = (_impl_._has_bits_[0] & 0x10000000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x20000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_activity_times() const {
@@ -28279,7 +28294,7 @@ inline bool DeviceReportingProto::has_report_activity_times() const {
 }
 inline void DeviceReportingProto::clear_report_activity_times() {
   _impl_.report_activity_times_ = true;
-  _impl_._has_bits_[0] &= ~0x10000000u;
+  _impl_._has_bits_[0] &= ~0x20000000u;
 }
 inline bool DeviceReportingProto::_internal_report_activity_times() const {
   return _impl_.report_activity_times_;
@@ -28289,7 +28304,7 @@ inline bool DeviceReportingProto::report_activity_times() const {
   return _internal_report_activity_times();
 }
 inline void DeviceReportingProto::_internal_set_report_activity_times(bool value) {
-  _impl_._has_bits_[0] |= 0x10000000u;
+  _impl_._has_bits_[0] |= 0x20000000u;
   _impl_.report_activity_times_ = value;
 }
 inline void DeviceReportingProto::set_report_activity_times(bool value) {
@@ -28299,7 +28314,7 @@ inline void DeviceReportingProto::set_report_activity_times(bool value) {
 
 // optional bool report_boot_mode = 3 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_boot_mode() const {
-  bool value = (_impl_._has_bits_[0] & 0x20000000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x40000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_boot_mode() const {
@@ -28307,7 +28322,7 @@ inline bool DeviceReportingProto::has_report_boot_mode() const {
 }
 inline void DeviceReportingProto::clear_report_boot_mode() {
   _impl_.report_boot_mode_ = true;
-  _impl_._has_bits_[0] &= ~0x20000000u;
+  _impl_._has_bits_[0] &= ~0x40000000u;
 }
 inline bool DeviceReportingProto::_internal_report_boot_mode() const {
   return _impl_.report_boot_mode_;
@@ -28317,7 +28332,7 @@ inline bool DeviceReportingProto::report_boot_mode() const {
   return _internal_report_boot_mode();
 }
 inline void DeviceReportingProto::_internal_set_report_boot_mode(bool value) {
-  _impl_._has_bits_[0] |= 0x20000000u;
+  _impl_._has_bits_[0] |= 0x40000000u;
   _impl_.report_boot_mode_ = value;
 }
 inline void DeviceReportingProto::set_report_boot_mode(bool value) {
@@ -28355,7 +28370,7 @@ inline void DeviceReportingProto::set_report_location(bool value) {
 
 // optional bool report_network_interfaces = 5 [default = true, deprecated = true];
 inline bool DeviceReportingProto::_internal_has_report_network_interfaces() const {
-  bool value = (_impl_._has_bits_[0] & 0x40000000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x80000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_network_interfaces() const {
@@ -28363,7 +28378,7 @@ inline bool DeviceReportingProto::has_report_network_interfaces() const {
 }
 inline void DeviceReportingProto::clear_report_network_interfaces() {
   _impl_.report_network_interfaces_ = true;
-  _impl_._has_bits_[0] &= ~0x40000000u;
+  _impl_._has_bits_[0] &= ~0x80000000u;
 }
 inline bool DeviceReportingProto::_internal_report_network_interfaces() const {
   return _impl_.report_network_interfaces_;
@@ -28373,7 +28388,7 @@ inline bool DeviceReportingProto::report_network_interfaces() const {
   return _internal_report_network_interfaces();
 }
 inline void DeviceReportingProto::_internal_set_report_network_interfaces(bool value) {
-  _impl_._has_bits_[0] |= 0x40000000u;
+  _impl_._has_bits_[0] |= 0x80000000u;
   _impl_.report_network_interfaces_ = value;
 }
 inline void DeviceReportingProto::set_report_network_interfaces(bool value) {
@@ -28383,7 +28398,7 @@ inline void DeviceReportingProto::set_report_network_interfaces(bool value) {
 
 // optional bool report_users = 6 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_users() const {
-  bool value = (_impl_._has_bits_[0] & 0x80000000u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000001u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_users() const {
@@ -28391,7 +28406,7 @@ inline bool DeviceReportingProto::has_report_users() const {
 }
 inline void DeviceReportingProto::clear_report_users() {
   _impl_.report_users_ = true;
-  _impl_._has_bits_[0] &= ~0x80000000u;
+  _impl_._has_bits_[1] &= ~0x00000001u;
 }
 inline bool DeviceReportingProto::_internal_report_users() const {
   return _impl_.report_users_;
@@ -28401,7 +28416,7 @@ inline bool DeviceReportingProto::report_users() const {
   return _internal_report_users();
 }
 inline void DeviceReportingProto::_internal_set_report_users(bool value) {
-  _impl_._has_bits_[0] |= 0x80000000u;
+  _impl_._has_bits_[1] |= 0x00000001u;
   _impl_.report_users_ = value;
 }
 inline void DeviceReportingProto::set_report_users(bool value) {
@@ -28411,7 +28426,7 @@ inline void DeviceReportingProto::set_report_users(bool value) {
 
 // optional bool report_hardware_status = 7 [default = true, deprecated = true];
 inline bool DeviceReportingProto::_internal_has_report_hardware_status() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000002u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_hardware_status() const {
@@ -28419,7 +28434,7 @@ inline bool DeviceReportingProto::has_report_hardware_status() const {
 }
 inline void DeviceReportingProto::clear_report_hardware_status() {
   _impl_.report_hardware_status_ = true;
-  _impl_._has_bits_[1] &= ~0x00000001u;
+  _impl_._has_bits_[1] &= ~0x00000002u;
 }
 inline bool DeviceReportingProto::_internal_report_hardware_status() const {
   return _impl_.report_hardware_status_;
@@ -28429,7 +28444,7 @@ inline bool DeviceReportingProto::report_hardware_status() const {
   return _internal_report_hardware_status();
 }
 inline void DeviceReportingProto::_internal_set_report_hardware_status(bool value) {
-  _impl_._has_bits_[1] |= 0x00000001u;
+  _impl_._has_bits_[1] |= 0x00000002u;
   _impl_.report_hardware_status_ = value;
 }
 inline void DeviceReportingProto::set_report_hardware_status(bool value) {
@@ -28439,7 +28454,7 @@ inline void DeviceReportingProto::set_report_hardware_status(bool value) {
 
 // optional bool report_session_status = 8 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_session_status() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000004u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_session_status() const {
@@ -28447,7 +28462,7 @@ inline bool DeviceReportingProto::has_report_session_status() const {
 }
 inline void DeviceReportingProto::clear_report_session_status() {
   _impl_.report_session_status_ = true;
-  _impl_._has_bits_[1] &= ~0x00000002u;
+  _impl_._has_bits_[1] &= ~0x00000004u;
 }
 inline bool DeviceReportingProto::_internal_report_session_status() const {
   return _impl_.report_session_status_;
@@ -28457,7 +28472,7 @@ inline bool DeviceReportingProto::report_session_status() const {
   return _internal_report_session_status();
 }
 inline void DeviceReportingProto::_internal_set_report_session_status(bool value) {
-  _impl_._has_bits_[1] |= 0x00000002u;
+  _impl_._has_bits_[1] |= 0x00000004u;
   _impl_.report_session_status_ = value;
 }
 inline void DeviceReportingProto::set_report_session_status(bool value) {
@@ -28971,7 +28986,7 @@ inline void DeviceReportingProto::set_report_login_logout(bool value) {
 
 // optional bool report_audio_status = 28 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_audio_status() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000008u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_audio_status() const {
@@ -28979,7 +28994,7 @@ inline bool DeviceReportingProto::has_report_audio_status() const {
 }
 inline void DeviceReportingProto::clear_report_audio_status() {
   _impl_.report_audio_status_ = true;
-  _impl_._has_bits_[1] &= ~0x00000004u;
+  _impl_._has_bits_[1] &= ~0x00000008u;
 }
 inline bool DeviceReportingProto::_internal_report_audio_status() const {
   return _impl_.report_audio_status_;
@@ -28989,7 +29004,7 @@ inline bool DeviceReportingProto::report_audio_status() const {
   return _internal_report_audio_status();
 }
 inline void DeviceReportingProto::_internal_set_report_audio_status(bool value) {
-  _impl_._has_bits_[1] |= 0x00000004u;
+  _impl_._has_bits_[1] |= 0x00000008u;
   _impl_.report_audio_status_ = value;
 }
 inline void DeviceReportingProto::set_report_audio_status(bool value) {
@@ -28999,7 +29014,7 @@ inline void DeviceReportingProto::set_report_audio_status(bool value) {
 
 // optional bool report_network_configuration = 29 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_network_configuration() const {
-  bool value = (_impl_._has_bits_[0] & 0x01000000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x02000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_network_configuration() const {
@@ -29007,7 +29022,7 @@ inline bool DeviceReportingProto::has_report_network_configuration() const {
 }
 inline void DeviceReportingProto::clear_report_network_configuration() {
   _impl_.report_network_configuration_ = true;
-  _impl_._has_bits_[0] &= ~0x01000000u;
+  _impl_._has_bits_[0] &= ~0x02000000u;
 }
 inline bool DeviceReportingProto::_internal_report_network_configuration() const {
   return _impl_.report_network_configuration_;
@@ -29017,7 +29032,7 @@ inline bool DeviceReportingProto::report_network_configuration() const {
   return _internal_report_network_configuration();
 }
 inline void DeviceReportingProto::_internal_set_report_network_configuration(bool value) {
-  _impl_._has_bits_[0] |= 0x01000000u;
+  _impl_._has_bits_[0] |= 0x02000000u;
   _impl_.report_network_configuration_ = value;
 }
 inline void DeviceReportingProto::set_report_network_configuration(bool value) {
@@ -29027,7 +29042,7 @@ inline void DeviceReportingProto::set_report_network_configuration(bool value) {
 
 // optional bool report_network_status = 30 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_network_status() const {
-  bool value = (_impl_._has_bits_[0] & 0x02000000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x04000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_network_status() const {
@@ -29035,7 +29050,7 @@ inline bool DeviceReportingProto::has_report_network_status() const {
 }
 inline void DeviceReportingProto::clear_report_network_status() {
   _impl_.report_network_status_ = true;
-  _impl_._has_bits_[0] &= ~0x02000000u;
+  _impl_._has_bits_[0] &= ~0x04000000u;
 }
 inline bool DeviceReportingProto::_internal_report_network_status() const {
   return _impl_.report_network_status_;
@@ -29045,7 +29060,7 @@ inline bool DeviceReportingProto::report_network_status() const {
   return _internal_report_network_status();
 }
 inline void DeviceReportingProto::_internal_set_report_network_status(bool value) {
-  _impl_._has_bits_[0] |= 0x02000000u;
+  _impl_._has_bits_[0] |= 0x04000000u;
   _impl_.report_network_status_ = value;
 }
 inline void DeviceReportingProto::set_report_network_status(bool value) {
@@ -29137,9 +29152,37 @@ inline void DeviceReportingProto::set_report_peripherals(bool value) {
   // @@protoc_insertion_point(field_set:enterprise_management.DeviceReportingProto.report_peripherals)
 }
 
+// optional bool report_network_events = 41 [default = false];
+inline bool DeviceReportingProto::_internal_has_report_network_events() const {
+  bool value = (_impl_._has_bits_[0] & 0x00800000u) != 0;
+  return value;
+}
+inline bool DeviceReportingProto::has_report_network_events() const {
+  return _internal_has_report_network_events();
+}
+inline void DeviceReportingProto::clear_report_network_events() {
+  _impl_.report_network_events_ = false;
+  _impl_._has_bits_[0] &= ~0x00800000u;
+}
+inline bool DeviceReportingProto::_internal_report_network_events() const {
+  return _impl_.report_network_events_;
+}
+inline bool DeviceReportingProto::report_network_events() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceReportingProto.report_network_events)
+  return _internal_report_network_events();
+}
+inline void DeviceReportingProto::_internal_set_report_network_events(bool value) {
+  _impl_._has_bits_[0] |= 0x00800000u;
+  _impl_.report_network_events_ = value;
+}
+inline void DeviceReportingProto::set_report_network_events(bool value) {
+  _internal_set_report_network_events(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceReportingProto.report_network_events)
+}
+
 // optional int64 device_status_frequency = 9 [default = 10800000];
 inline bool DeviceReportingProto::_internal_has_device_status_frequency() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000010u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_device_status_frequency() const {
@@ -29147,7 +29190,7 @@ inline bool DeviceReportingProto::has_device_status_frequency() const {
 }
 inline void DeviceReportingProto::clear_device_status_frequency() {
   _impl_.device_status_frequency_ = int64_t{10800000};
-  _impl_._has_bits_[1] &= ~0x00000008u;
+  _impl_._has_bits_[1] &= ~0x00000010u;
 }
 inline int64_t DeviceReportingProto::_internal_device_status_frequency() const {
   return _impl_.device_status_frequency_;
@@ -29157,7 +29200,7 @@ inline int64_t DeviceReportingProto::device_status_frequency() const {
   return _internal_device_status_frequency();
 }
 inline void DeviceReportingProto::_internal_set_device_status_frequency(int64_t value) {
-  _impl_._has_bits_[1] |= 0x00000008u;
+  _impl_._has_bits_[1] |= 0x00000010u;
   _impl_.device_status_frequency_ = value;
 }
 inline void DeviceReportingProto::set_device_status_frequency(int64_t value) {
@@ -29167,7 +29210,7 @@ inline void DeviceReportingProto::set_device_status_frequency(int64_t value) {
 
 // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
 inline bool DeviceReportingProto::_internal_has_enable_granular_reporting() const {
-  bool value = (_impl_._has_bits_[0] & 0x04000000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x08000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_enable_granular_reporting() const {
@@ -29175,7 +29218,7 @@ inline bool DeviceReportingProto::has_enable_granular_reporting() const {
 }
 inline void DeviceReportingProto::clear_enable_granular_reporting() {
   _impl_.enable_granular_reporting_ = true;
-  _impl_._has_bits_[0] &= ~0x04000000u;
+  _impl_._has_bits_[0] &= ~0x08000000u;
 }
 inline bool DeviceReportingProto::_internal_enable_granular_reporting() const {
   return _impl_.enable_granular_reporting_;
@@ -29185,7 +29228,7 @@ inline bool DeviceReportingProto::enable_granular_reporting() const {
   return _internal_enable_granular_reporting();
 }
 inline void DeviceReportingProto::_internal_set_enable_granular_reporting(bool value) {
-  _impl_._has_bits_[0] |= 0x04000000u;
+  _impl_._has_bits_[0] |= 0x08000000u;
   _impl_.enable_granular_reporting_ = value;
 }
 inline void DeviceReportingProto::set_enable_granular_reporting(bool value) {
@@ -29195,7 +29238,7 @@ inline void DeviceReportingProto::set_enable_granular_reporting(bool value) {
 
 // optional int64 report_network_telemetry_collection_rate_ms = 33 [default = 3600000];
 inline bool DeviceReportingProto::_internal_has_report_network_telemetry_collection_rate_ms() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000020u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_network_telemetry_collection_rate_ms() const {
@@ -29203,7 +29246,7 @@ inline bool DeviceReportingProto::has_report_network_telemetry_collection_rate_m
 }
 inline void DeviceReportingProto::clear_report_network_telemetry_collection_rate_ms() {
   _impl_.report_network_telemetry_collection_rate_ms_ = int64_t{3600000};
-  _impl_._has_bits_[1] &= ~0x00000010u;
+  _impl_._has_bits_[1] &= ~0x00000020u;
 }
 inline int64_t DeviceReportingProto::_internal_report_network_telemetry_collection_rate_ms() const {
   return _impl_.report_network_telemetry_collection_rate_ms_;
@@ -29213,7 +29256,7 @@ inline int64_t DeviceReportingProto::report_network_telemetry_collection_rate_ms
   return _internal_report_network_telemetry_collection_rate_ms();
 }
 inline void DeviceReportingProto::_internal_set_report_network_telemetry_collection_rate_ms(int64_t value) {
-  _impl_._has_bits_[1] |= 0x00000010u;
+  _impl_._has_bits_[1] |= 0x00000020u;
   _impl_.report_network_telemetry_collection_rate_ms_ = value;
 }
 inline void DeviceReportingProto::set_report_network_telemetry_collection_rate_ms(int64_t value) {
@@ -29223,7 +29266,7 @@ inline void DeviceReportingProto::set_report_network_telemetry_collection_rate_m
 
 // optional int64 report_network_telemetry_event_checking_rate_ms = 34 [default = 600000];
 inline bool DeviceReportingProto::_internal_has_report_network_telemetry_event_checking_rate_ms() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000040u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_network_telemetry_event_checking_rate_ms() const {
@@ -29231,7 +29274,7 @@ inline bool DeviceReportingProto::has_report_network_telemetry_event_checking_ra
 }
 inline void DeviceReportingProto::clear_report_network_telemetry_event_checking_rate_ms() {
   _impl_.report_network_telemetry_event_checking_rate_ms_ = int64_t{600000};
-  _impl_._has_bits_[1] &= ~0x00000020u;
+  _impl_._has_bits_[1] &= ~0x00000040u;
 }
 inline int64_t DeviceReportingProto::_internal_report_network_telemetry_event_checking_rate_ms() const {
   return _impl_.report_network_telemetry_event_checking_rate_ms_;
@@ -29241,7 +29284,7 @@ inline int64_t DeviceReportingProto::report_network_telemetry_event_checking_rat
   return _internal_report_network_telemetry_event_checking_rate_ms();
 }
 inline void DeviceReportingProto::_internal_set_report_network_telemetry_event_checking_rate_ms(int64_t value) {
-  _impl_._has_bits_[1] |= 0x00000020u;
+  _impl_._has_bits_[1] |= 0x00000040u;
   _impl_.report_network_telemetry_event_checking_rate_ms_ = value;
 }
 inline void DeviceReportingProto::set_report_network_telemetry_event_checking_rate_ms(int64_t value) {
@@ -29251,7 +29294,7 @@ inline void DeviceReportingProto::set_report_network_telemetry_event_checking_ra
 
 // optional int64 report_device_audio_status_checking_rate_ms = 35 [default = 600000];
 inline bool DeviceReportingProto::_internal_has_report_device_audio_status_checking_rate_ms() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000080u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_device_audio_status_checking_rate_ms() const {
@@ -29259,7 +29302,7 @@ inline bool DeviceReportingProto::has_report_device_audio_status_checking_rate_m
 }
 inline void DeviceReportingProto::clear_report_device_audio_status_checking_rate_ms() {
   _impl_.report_device_audio_status_checking_rate_ms_ = int64_t{600000};
-  _impl_._has_bits_[1] &= ~0x00000040u;
+  _impl_._has_bits_[1] &= ~0x00000080u;
 }
 inline int64_t DeviceReportingProto::_internal_report_device_audio_status_checking_rate_ms() const {
   return _impl_.report_device_audio_status_checking_rate_ms_;
@@ -29269,7 +29312,7 @@ inline int64_t DeviceReportingProto::report_device_audio_status_checking_rate_ms
   return _internal_report_device_audio_status_checking_rate_ms();
 }
 inline void DeviceReportingProto::_internal_set_report_device_audio_status_checking_rate_ms(int64_t value) {
-  _impl_._has_bits_[1] |= 0x00000040u;
+  _impl_._has_bits_[1] |= 0x00000080u;
   _impl_.report_device_audio_status_checking_rate_ms_ = value;
 }
 inline void DeviceReportingProto::set_report_device_audio_status_checking_rate_ms(int64_t value) {
@@ -29366,7 +29409,7 @@ inline void DeviceReportingProto::set_allocated_report_signal_strength_event_dri
 
 // optional bool device_activity_heartbeat_enabled = 39 [default = false];
 inline bool DeviceReportingProto::_internal_has_device_activity_heartbeat_enabled() const {
-  bool value = (_impl_._has_bits_[0] & 0x00800000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x01000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_device_activity_heartbeat_enabled() const {
@@ -29374,7 +29417,7 @@ inline bool DeviceReportingProto::has_device_activity_heartbeat_enabled() const 
 }
 inline void DeviceReportingProto::clear_device_activity_heartbeat_enabled() {
   _impl_.device_activity_heartbeat_enabled_ = false;
-  _impl_._has_bits_[0] &= ~0x00800000u;
+  _impl_._has_bits_[0] &= ~0x01000000u;
 }
 inline bool DeviceReportingProto::_internal_device_activity_heartbeat_enabled() const {
   return _impl_.device_activity_heartbeat_enabled_;
@@ -29384,7 +29427,7 @@ inline bool DeviceReportingProto::device_activity_heartbeat_enabled() const {
   return _internal_device_activity_heartbeat_enabled();
 }
 inline void DeviceReportingProto::_internal_set_device_activity_heartbeat_enabled(bool value) {
-  _impl_._has_bits_[0] |= 0x00800000u;
+  _impl_._has_bits_[0] |= 0x01000000u;
   _impl_.device_activity_heartbeat_enabled_ = value;
 }
 inline void DeviceReportingProto::set_device_activity_heartbeat_enabled(bool value) {
@@ -29394,7 +29437,7 @@ inline void DeviceReportingProto::set_device_activity_heartbeat_enabled(bool val
 
 // optional int64 device_activity_heartbeat_collection_rate_ms = 40 [default = 900000];
 inline bool DeviceReportingProto::_internal_has_device_activity_heartbeat_collection_rate_ms() const {
-  bool value = (_impl_._has_bits_[1] & 0x00000080u) != 0;
+  bool value = (_impl_._has_bits_[1] & 0x00000100u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_device_activity_heartbeat_collection_rate_ms() const {
@@ -29402,7 +29445,7 @@ inline bool DeviceReportingProto::has_device_activity_heartbeat_collection_rate_
 }
 inline void DeviceReportingProto::clear_device_activity_heartbeat_collection_rate_ms() {
   _impl_.device_activity_heartbeat_collection_rate_ms_ = int64_t{900000};
-  _impl_._has_bits_[1] &= ~0x00000080u;
+  _impl_._has_bits_[1] &= ~0x00000100u;
 }
 inline int64_t DeviceReportingProto::_internal_device_activity_heartbeat_collection_rate_ms() const {
   return _impl_.device_activity_heartbeat_collection_rate_ms_;
@@ -29412,7 +29455,7 @@ inline int64_t DeviceReportingProto::device_activity_heartbeat_collection_rate_m
   return _internal_device_activity_heartbeat_collection_rate_ms();
 }
 inline void DeviceReportingProto::_internal_set_device_activity_heartbeat_collection_rate_ms(int64_t value) {
-  _impl_._has_bits_[1] |= 0x00000080u;
+  _impl_._has_bits_[1] |= 0x00000100u;
   _impl_.device_activity_heartbeat_collection_rate_ms_ = value;
 }
 inline void DeviceReportingProto::set_device_activity_heartbeat_collection_rate_ms(int64_t value) {
@@ -36261,32 +36304,32 @@ DeviceScreensaverLoginScreenImagesProto::mutable_device_screensaver_login_screen
 
 // DeviceScreensaverLoginScreenEnabledProto
 
-// optional bool device_screensaver_login_screen_mode = 1;
-inline bool DeviceScreensaverLoginScreenEnabledProto::_internal_has_device_screensaver_login_screen_mode() const {
+// optional bool device_screensaver_login_screen_enabled = 1;
+inline bool DeviceScreensaverLoginScreenEnabledProto::_internal_has_device_screensaver_login_screen_enabled() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool DeviceScreensaverLoginScreenEnabledProto::has_device_screensaver_login_screen_mode() const {
-  return _internal_has_device_screensaver_login_screen_mode();
+inline bool DeviceScreensaverLoginScreenEnabledProto::has_device_screensaver_login_screen_enabled() const {
+  return _internal_has_device_screensaver_login_screen_enabled();
 }
-inline void DeviceScreensaverLoginScreenEnabledProto::clear_device_screensaver_login_screen_mode() {
-  _impl_.device_screensaver_login_screen_mode_ = false;
+inline void DeviceScreensaverLoginScreenEnabledProto::clear_device_screensaver_login_screen_enabled() {
+  _impl_.device_screensaver_login_screen_enabled_ = false;
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline bool DeviceScreensaverLoginScreenEnabledProto::_internal_device_screensaver_login_screen_mode() const {
-  return _impl_.device_screensaver_login_screen_mode_;
+inline bool DeviceScreensaverLoginScreenEnabledProto::_internal_device_screensaver_login_screen_enabled() const {
+  return _impl_.device_screensaver_login_screen_enabled_;
 }
-inline bool DeviceScreensaverLoginScreenEnabledProto::device_screensaver_login_screen_mode() const {
-  // @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverLoginScreenEnabledProto.device_screensaver_login_screen_mode)
-  return _internal_device_screensaver_login_screen_mode();
+inline bool DeviceScreensaverLoginScreenEnabledProto::device_screensaver_login_screen_enabled() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverLoginScreenEnabledProto.device_screensaver_login_screen_enabled)
+  return _internal_device_screensaver_login_screen_enabled();
 }
-inline void DeviceScreensaverLoginScreenEnabledProto::_internal_set_device_screensaver_login_screen_mode(bool value) {
+inline void DeviceScreensaverLoginScreenEnabledProto::_internal_set_device_screensaver_login_screen_enabled(bool value) {
   _impl_._has_bits_[0] |= 0x00000001u;
-  _impl_.device_screensaver_login_screen_mode_ = value;
+  _impl_.device_screensaver_login_screen_enabled_ = value;
 }
-inline void DeviceScreensaverLoginScreenEnabledProto::set_device_screensaver_login_screen_mode(bool value) {
-  _internal_set_device_screensaver_login_screen_mode(value);
-  // @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverLoginScreenEnabledProto.device_screensaver_login_screen_mode)
+inline void DeviceScreensaverLoginScreenEnabledProto::set_device_screensaver_login_screen_enabled(bool value) {
+  _internal_set_device_screensaver_login_screen_enabled(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverLoginScreenEnabledProto.device_screensaver_login_screen_enabled)
 }
 
 // -------------------------------------------------------------------

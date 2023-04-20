@@ -993,6 +993,15 @@ int64_t CellularConnectionAttempt::Getuse_apn_revamp_uiForTest() const {
   return GetIntMetricForTest(kuse_apn_revamp_uiNameHash);
 }
 
+CellularConnectionAttempt& CellularConnectionAttempt::Setconnection_attempt_type(const int64_t value) {
+  AddIntMetric(kconnection_attempt_typeNameHash, value);
+  return *this;
+}
+
+int64_t CellularConnectionAttempt::Getconnection_attempt_typeForTest() const {
+  return GetIntMetricForTest(kconnection_attempt_typeNameHash);
+}
+
 ModemFwdFwInstallResult::ModemFwdFwInstallResult() :
   ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
 ModemFwdFwInstallResult::~ModemFwdFwInstallResult() = default;
