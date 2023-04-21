@@ -1335,6 +1335,13 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionReply& value,
                           .c_str());
   output += "\n";
 
+  output += indent + "  broadcast_id: ";
+  base::StringAppendF(
+      &output, "%s",
+      base::HexEncode(value.broadcast_id().data(), value.broadcast_id().size())
+          .c_str());
+  output += "\n";
+
   output += indent + "  user_exists: ";
   base::StringAppendF(&output, "%s", value.user_exists() ? "true" : "false");
   output += "\n";

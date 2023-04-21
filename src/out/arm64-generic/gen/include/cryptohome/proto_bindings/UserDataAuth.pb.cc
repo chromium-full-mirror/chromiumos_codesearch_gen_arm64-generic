@@ -501,6 +501,7 @@ PROTOBUF_CONSTEXPR StartAuthSessionReply::StartAuthSessionReply(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.auth_factors_)*/{}
   , /*decltype(_impl_.auth_session_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.broadcast_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.error_info_)*/nullptr
   , /*decltype(_impl_.error_)*/0
   , /*decltype(_impl_.user_exists_)*/false
@@ -10316,6 +10317,7 @@ StartAuthSessionReply::StartAuthSessionReply(const StartAuthSessionReply& from)
   new (&_impl_) Impl_{
       decltype(_impl_.auth_factors_){from._impl_.auth_factors_}
     , decltype(_impl_.auth_session_id_){}
+    , decltype(_impl_.broadcast_id_){}
     , decltype(_impl_.error_info_){nullptr}
     , decltype(_impl_.error_){}
     , decltype(_impl_.user_exists_){}
@@ -10328,6 +10330,14 @@ StartAuthSessionReply::StartAuthSessionReply(const StartAuthSessionReply& from)
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_auth_session_id().empty()) {
     _this->_impl_.auth_session_id_.Set(from._internal_auth_session_id(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.broadcast_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.broadcast_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_broadcast_id().empty()) {
+    _this->_impl_.broadcast_id_.Set(from._internal_broadcast_id(), 
       _this->GetArenaForAllocation());
   }
   if (from._internal_has_error_info()) {
@@ -10346,6 +10356,7 @@ inline void StartAuthSessionReply::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.auth_factors_){arena}
     , decltype(_impl_.auth_session_id_){}
+    , decltype(_impl_.broadcast_id_){}
     , decltype(_impl_.error_info_){nullptr}
     , decltype(_impl_.error_){0}
     , decltype(_impl_.user_exists_){false}
@@ -10354,6 +10365,10 @@ inline void StartAuthSessionReply::SharedCtor(
   _impl_.auth_session_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.auth_session_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.broadcast_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.broadcast_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -10370,6 +10385,7 @@ inline void StartAuthSessionReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.auth_factors_.~RepeatedPtrField();
   _impl_.auth_session_id_.Destroy();
+  _impl_.broadcast_id_.Destroy();
   if (this != internal_default_instance()) delete _impl_.error_info_;
 }
 
@@ -10385,6 +10401,7 @@ void StartAuthSessionReply::Clear() {
 
   _impl_.auth_factors_.Clear();
   _impl_.auth_session_id_.ClearToEmpty();
+  _impl_.broadcast_id_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && _impl_.error_info_ != nullptr) {
     delete _impl_.error_info_;
   }
@@ -10444,6 +10461,15 @@ const char* StartAuthSessionReply::_InternalParse(const char* ptr, ::_pbi::Parse
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes broadcast_id = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          auto str = _internal_mutable_broadcast_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -10511,6 +10537,12 @@ uint8_t* StartAuthSessionReply::_InternalSerialize(
         _Internal::error_info(this).GetCachedSize(), target, stream);
   }
 
+  // bytes broadcast_id = 8;
+  if (!this->_internal_broadcast_id().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        8, this->_internal_broadcast_id(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -10539,6 +10571,13 @@ size_t StartAuthSessionReply::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_auth_session_id());
+  }
+
+  // bytes broadcast_id = 8;
+  if (!this->_internal_broadcast_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_broadcast_id());
   }
 
   // .user_data_auth.CryptohomeErrorInfo error_info = 6;
@@ -10584,6 +10623,9 @@ void StartAuthSessionReply::MergeFrom(const StartAuthSessionReply& from) {
   if (!from._internal_auth_session_id().empty()) {
     _this->_internal_set_auth_session_id(from._internal_auth_session_id());
   }
+  if (!from._internal_broadcast_id().empty()) {
+    _this->_internal_set_broadcast_id(from._internal_broadcast_id());
+  }
   if (from._internal_has_error_info()) {
     _this->_internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(
         from._internal_error_info());
@@ -10617,6 +10659,10 @@ void StartAuthSessionReply::InternalSwap(StartAuthSessionReply* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.auth_session_id_, lhs_arena,
       &other->_impl_.auth_session_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.broadcast_id_, lhs_arena,
+      &other->_impl_.broadcast_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(StartAuthSessionReply, _impl_.user_exists_)

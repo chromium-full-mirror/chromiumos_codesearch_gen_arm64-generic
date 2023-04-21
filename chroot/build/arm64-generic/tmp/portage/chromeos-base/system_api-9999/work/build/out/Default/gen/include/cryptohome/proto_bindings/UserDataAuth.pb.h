@@ -6004,6 +6004,7 @@ class StartAuthSessionReply final :
   enum : int {
     kAuthFactorsFieldNumber = 5,
     kAuthSessionIdFieldNumber = 2,
+    kBroadcastIdFieldNumber = 8,
     kErrorInfoFieldNumber = 6,
     kErrorFieldNumber = 1,
     kUserExistsFieldNumber = 3,
@@ -6038,6 +6039,20 @@ class StartAuthSessionReply final :
   const std::string& _internal_auth_session_id() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_auth_session_id(const std::string& value);
   std::string* _internal_mutable_auth_session_id();
+  public:
+
+  // bytes broadcast_id = 8;
+  void clear_broadcast_id();
+  const std::string& broadcast_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_broadcast_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_broadcast_id();
+  PROTOBUF_NODISCARD std::string* release_broadcast_id();
+  void set_allocated_broadcast_id(std::string* broadcast_id);
+  private:
+  const std::string& _internal_broadcast_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_broadcast_id(const std::string& value);
+  std::string* _internal_mutable_broadcast_id();
   public:
 
   // .user_data_auth.CryptohomeErrorInfo error_info = 6;
@@ -6086,6 +6101,7 @@ class StartAuthSessionReply final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFactor > auth_factors_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_session_id_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr broadcast_id_;
     ::user_data_auth::CryptohomeErrorInfo* error_info_;
     int error_;
     bool user_exists_;
@@ -23134,6 +23150,56 @@ inline void StartAuthSessionReply::set_allocated_auth_session_id(std::string* au
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.StartAuthSessionReply.auth_session_id)
+}
+
+// bytes broadcast_id = 8;
+inline void StartAuthSessionReply::clear_broadcast_id() {
+  _impl_.broadcast_id_.ClearToEmpty();
+}
+inline const std::string& StartAuthSessionReply::broadcast_id() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.StartAuthSessionReply.broadcast_id)
+  return _internal_broadcast_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void StartAuthSessionReply::set_broadcast_id(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.broadcast_id_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.StartAuthSessionReply.broadcast_id)
+}
+inline std::string* StartAuthSessionReply::mutable_broadcast_id() {
+  std::string* _s = _internal_mutable_broadcast_id();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.StartAuthSessionReply.broadcast_id)
+  return _s;
+}
+inline const std::string& StartAuthSessionReply::_internal_broadcast_id() const {
+  return _impl_.broadcast_id_.Get();
+}
+inline void StartAuthSessionReply::_internal_set_broadcast_id(const std::string& value) {
+  
+  _impl_.broadcast_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* StartAuthSessionReply::_internal_mutable_broadcast_id() {
+  
+  return _impl_.broadcast_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* StartAuthSessionReply::release_broadcast_id() {
+  // @@protoc_insertion_point(field_release:user_data_auth.StartAuthSessionReply.broadcast_id)
+  return _impl_.broadcast_id_.Release();
+}
+inline void StartAuthSessionReply::set_allocated_broadcast_id(std::string* broadcast_id) {
+  if (broadcast_id != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.broadcast_id_.SetAllocated(broadcast_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.broadcast_id_.IsDefault()) {
+    _impl_.broadcast_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.StartAuthSessionReply.broadcast_id)
 }
 
 // bool user_exists = 3;
