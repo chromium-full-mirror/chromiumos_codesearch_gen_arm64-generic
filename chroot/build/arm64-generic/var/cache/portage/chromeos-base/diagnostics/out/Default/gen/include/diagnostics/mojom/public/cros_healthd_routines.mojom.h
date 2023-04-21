@@ -521,6 +521,139 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  AudioDriverRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<AudioDriverRoutineArgument, T>::value>;
+  using DataView = AudioDriverRoutineArgumentDataView;
+  using Data_ = internal::AudioDriverRoutineArgument_Data;
+
+  template <typename... Args>
+  static AudioDriverRoutineArgumentPtr New(Args&&... args) {
+    return AudioDriverRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static AudioDriverRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<AudioDriverRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, AudioDriverRoutineArgument>::Convert(*this);
+  }
+
+
+  AudioDriverRoutineArgument();
+
+
+  ~AudioDriverRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = AudioDriverRoutineArgumentPtr>
+  AudioDriverRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, AudioDriverRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, AudioDriverRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        AudioDriverRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        AudioDriverRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::AudioDriverRoutineArgument_UnserializedMessageContext<
+            UserType, AudioDriverRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<AudioDriverRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return AudioDriverRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::AudioDriverRoutineArgument_UnserializedMessageContext<
+            UserType, AudioDriverRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<AudioDriverRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, AudioDriverRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, AudioDriverRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, AudioDriverRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, AudioDriverRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineStateInitialized {
  public:
@@ -932,6 +1065,147 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  AudioDriverRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<AudioDriverRoutineDetail, T>::value>;
+  using DataView = AudioDriverRoutineDetailDataView;
+  using Data_ = internal::AudioDriverRoutineDetail_Data;
+
+  template <typename... Args>
+  static AudioDriverRoutineDetailPtr New(Args&&... args) {
+    return AudioDriverRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static AudioDriverRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<AudioDriverRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, AudioDriverRoutineDetail>::Convert(*this);
+  }
+
+
+  AudioDriverRoutineDetail();
+
+  AudioDriverRoutineDetail(
+      bool internal_card_detected,
+      bool audio_devices_succeed_to_open);
+
+
+  ~AudioDriverRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = AudioDriverRoutineDetailPtr>
+  AudioDriverRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, AudioDriverRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, AudioDriverRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        AudioDriverRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        AudioDriverRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::AudioDriverRoutineDetail_UnserializedMessageContext<
+            UserType, AudioDriverRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<AudioDriverRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return AudioDriverRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::AudioDriverRoutineDetail_UnserializedMessageContext<
+            UserType, AudioDriverRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<AudioDriverRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool internal_card_detected;
+  
+  bool audio_devices_succeed_to_open;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, AudioDriverRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, AudioDriverRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, AudioDriverRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, AudioDriverRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineArgument {
  public:
@@ -963,6 +1237,14 @@ class  RoutineArgument {
       MemoryRoutineArgumentPtr memory) {
     auto result = RoutineArgumentPtr(absl::in_place);
     result->set_memory(std::move(memory));
+    return result;
+  }
+  // Construct an instance holding |audio_driver|.
+  static RoutineArgumentPtr
+  NewAudioDriver(
+      AudioDriverRoutineArgumentPtr audio_driver) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_audio_driver(std::move(audio_driver));
     return result;
   }
 
@@ -1031,6 +1313,18 @@ class  RoutineArgument {
   
   void set_memory(
       MemoryRoutineArgumentPtr memory);
+  
+  bool is_audio_driver() const { return tag_ == Tag::kAudioDriver; }
+
+  
+  AudioDriverRoutineArgumentPtr& get_audio_driver() const {
+    CHECK(tag_ == Tag::kAudioDriver);
+    return *(data_.audio_driver);
+  }
+
+  
+  void set_audio_driver(
+      AudioDriverRoutineArgumentPtr audio_driver);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1051,6 +1345,7 @@ class  RoutineArgument {
     ~Union_() = default;
     bool unrecognizedArgument;
     MemoryRoutineArgumentPtr* memory;
+    AudioDriverRoutineArgumentPtr* audio_driver;
   };
 
   static bool Validate(const void* data,
@@ -1259,6 +1554,14 @@ class  RoutineDetail {
     result->set_memory(std::move(memory));
     return result;
   }
+  // Construct an instance holding |audio_driver|.
+  static RoutineDetailPtr
+  NewAudioDriver(
+      AudioDriverRoutineDetailPtr audio_driver) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_audio_driver(std::move(audio_driver));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -1313,6 +1616,18 @@ class  RoutineDetail {
   
   void set_memory(
       MemoryRoutineDetailPtr memory);
+  
+  bool is_audio_driver() const { return tag_ == Tag::kAudioDriver; }
+
+  
+  AudioDriverRoutineDetailPtr& get_audio_driver() const {
+    CHECK(tag_ == Tag::kAudioDriver);
+    return *(data_.audio_driver);
+  }
+
+  
+  void set_audio_driver(
+      AudioDriverRoutineDetailPtr audio_driver);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1332,6 +1647,7 @@ class  RoutineDetail {
     Union_() = default;
     ~Union_() = default;
     MemoryRoutineDetailPtr* memory;
+    AudioDriverRoutineDetailPtr* audio_driver;
   };
 
   static bool Validate(const void* data,
@@ -1341,6 +1657,7 @@ class  RoutineDetail {
   Tag tag_;
   Union_ data_;
 };
+
 
 
 
@@ -1776,6 +2093,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  MemtesterResult {
  public:
   template <typename T>
@@ -1921,6 +2239,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kMemory:
       return NewMemory(
           mojo::Clone(*data_.memory));
+    case Tag::kAudioDriver:
+      return NewAudioDriver(
+          mojo::Clone(*data_.audio_driver));
   }
   return nullptr;
 }
@@ -1937,6 +2258,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
     case Tag::kMemory:
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
+    case Tag::kAudioDriver:
+      return mojo::Equals(*(data_.audio_driver), *(other.data_.audio_driver));
   }
 
   return false;
@@ -1986,6 +2309,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kMemory:
       return NewMemory(
           mojo::Clone(*data_.memory));
+    case Tag::kAudioDriver:
+      return NewAudioDriver(
+          mojo::Clone(*data_.audio_driver));
   }
   return nullptr;
 }
@@ -2000,6 +2326,8 @@ bool RoutineDetail::Equals(const T& other) const {
   switch (tag_) {
     case Tag::kMemory:
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
+    case Tag::kAudioDriver:
+      return mojo::Equals(*(data_.audio_driver), *(other.data_.audio_driver));
   }
 
   return false;
@@ -2024,6 +2352,21 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.max_testing_mem_kib < lhs.max_testing_mem_kib)
     return false;
+  return false;
+}
+template <typename StructPtrType>
+AudioDriverRoutineArgumentPtr AudioDriverRoutineArgument::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, AudioDriverRoutineArgument::EnableIfSame<T>*>
+bool AudioDriverRoutineArgument::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, AudioDriverRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
@@ -2173,6 +2516,35 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+AudioDriverRoutineDetailPtr AudioDriverRoutineDetail::Clone() const {
+  return New(
+      mojo::Clone(internal_card_detected),
+      mojo::Clone(audio_devices_succeed_to_open)
+  );
+}
+
+template <typename T, AudioDriverRoutineDetail::EnableIfSame<T>*>
+bool AudioDriverRoutineDetail::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->internal_card_detected, other_struct.internal_card_detected))
+    return false;
+  if (!mojo::Equals(this->audio_devices_succeed_to_open, other_struct.audio_devices_succeed_to_open))
+    return false;
+  return true;
+}
+
+template <typename T, AudioDriverRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.internal_card_detected < rhs.internal_card_detected)
+    return true;
+  if (rhs.internal_card_detected < lhs.internal_card_detected)
+    return false;
+  if (lhs.audio_devices_succeed_to_open < rhs.audio_devices_succeed_to_open)
+    return true;
+  if (rhs.audio_devices_succeed_to_open < lhs.audio_devices_succeed_to_open)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 MemtesterResultPtr MemtesterResult::Clone() const {
   return New(
       mojo::Clone(passed_items),
@@ -2222,6 +2594,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView
   }
 
   static bool Read(::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView input, ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::AudioDriverRoutineArgument::DataView input, ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr* output);
 };
 
 
@@ -2326,6 +2708,26 @@ struct  StructTraits<::ash::cros_healthd::mojom::MemoryRoutineDetail::DataView,
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::AudioDriverRoutineDetail::internal_card_detected) internal_card_detected(
+      const ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr& input) {
+    return input->internal_card_detected;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::AudioDriverRoutineDetail::audio_devices_succeed_to_open) audio_devices_succeed_to_open(
+      const ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr& input) {
+    return input->audio_devices_succeed_to_open;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::AudioDriverRoutineDetail::DataView input, ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
                                          ::ash::cros_healthd::mojom::MemtesterResultPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) { return !input; }
@@ -2361,6 +2763,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr& memory(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_memory();
+  }
+
+  static const ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr& audio_driver(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_audio_driver();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -2409,6 +2815,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr& memory(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_memory();
+  }
+
+  static const ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr& audio_driver(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_audio_driver();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

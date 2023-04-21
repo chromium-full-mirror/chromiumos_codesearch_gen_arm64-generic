@@ -6,5 +6,7 @@
 
 #ifndef CAMERA_MOJO_EFFECTS_EFFECTS_PIPELINE_MOJOM_IMPORT_HEADERS_H_
 #define CAMERA_MOJO_EFFECTS_EFFECTS_PIPELINE_MOJOM_IMPORT_HEADERS_H_
+#include "camera/mojo/file_path.mojom.h"
+#include "camera/mojo/file_path.mojom-import-headers.h"
 
 #endif  // CAMERA_MOJO_EFFECTS_EFFECTS_PIPELINE_MOJOM_IMPORT_HEADERS_H_

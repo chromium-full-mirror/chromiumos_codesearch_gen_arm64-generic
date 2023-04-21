@@ -37,6 +37,8 @@ namespace cros_healthd {
 namespace mojom {
 class MemoryRoutineArgumentDataView;
 
+class AudioDriverRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -48,6 +50,8 @@ class RoutineStateWaitingDataView;
 class RoutineStateFinishedDataView;
 
 class MemoryRoutineDetailDataView;
+
+class AudioDriverRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
@@ -66,6 +70,13 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::MemoryRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioDriverRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -108,6 +119,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateFinishedDataView>
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::MemoryRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioDriverRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -310,6 +328,21 @@ class MemoryRoutineArgumentDataView {
 };
 
 
+class AudioDriverRoutineArgumentDataView {
+ public:
+  AudioDriverRoutineArgumentDataView() = default;
+
+  AudioDriverRoutineArgumentDataView(
+      internal::AudioDriverRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::AudioDriverRoutineArgument_Data* data_ = nullptr;
+};
+
+
 class RoutineStateDataView {
  public:
   RoutineStateDataView() = default;
@@ -473,6 +506,27 @@ class MemoryRoutineDetailDataView {
 };
 
 
+class AudioDriverRoutineDetailDataView {
+ public:
+  AudioDriverRoutineDetailDataView() = default;
+
+  AudioDriverRoutineDetailDataView(
+      internal::AudioDriverRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool internal_card_detected() const {
+    return data_->internal_card_detected;
+  }
+  bool audio_devices_succeed_to_open() const {
+    return data_->audio_devices_succeed_to_open;
+  }
+ private:
+  internal::AudioDriverRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class MemtesterResultDataView {
  public:
   MemtesterResultDataView() = default;
@@ -542,6 +596,17 @@ class RoutineArgumentDataView {
     CHECK(is_memory());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView>(
         data_->data.f_memory.Get(), output, message_);
+  }
+  bool is_audio_driver() const { return data_->tag == Tag::kAudioDriver; }
+  inline void GetAudioDriverDataView(
+      AudioDriverRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAudioDriver(UserType* output) const {
+    
+    CHECK(is_audio_driver());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView>(
+        data_->data.f_audio_driver.Get(), output, message_);
   }
 
  private:
@@ -649,6 +714,17 @@ class RoutineDetailDataView {
     CHECK(is_memory());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView>(
         data_->data.f_memory.Get(), output, message_);
+  }
+  bool is_audio_driver() const { return data_->tag == Tag::kAudioDriver; }
+  inline void GetAudioDriverDataView(
+      AudioDriverRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAudioDriver(UserType* output) const {
+    
+    CHECK(is_audio_driver());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView>(
+        data_->data.f_audio_driver.Get(), output, message_);
   }
 
  private:
@@ -767,6 +843,35 @@ struct Serializer<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView, May
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::AudioDriverRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioDriverRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -996,6 +1101,37 @@ struct Serializer<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::AudioDriverRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->internal_card_detected = Traits::internal_card_detected(input);
+    fragment->audio_devices_succeed_to_open = Traits::audio_devices_succeed_to_open(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioDriverRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::MemtesterResultDataView, UserType>;
@@ -1093,6 +1229,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null memory in RoutineArgument union");
         fragment->data.f_memory.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kAudioDriver: {
+        decltype(Traits::audio_driver(input))
+            in_audio_driver = Traits::audio_driver(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_audio_driver)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView>(
+            in_audio_driver, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null audio_driver in RoutineArgument union");
+        fragment->data.f_audio_driver.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -1258,6 +1410,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kAudioDriver: {
+        decltype(Traits::audio_driver(input))
+            in_audio_driver = Traits::audio_driver(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_audio_driver)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView>(
+            in_audio_driver, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null audio_driver in RoutineDetail union");
+        fragment->data.f_audio_driver.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1280,6 +1448,8 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
+
 
 
 
@@ -1315,6 +1485,8 @@ inline void MemoryRoutineDetailDataView::GetResultDataView(
 }
 
 
+
+
 inline void MemtesterResultDataView::GetPassedItemsDataView(
     mojo::ArrayDataView<MemtesterTestItemEnum>* output) {
   auto pointer = data_->passed_items.Get();
@@ -1331,6 +1503,11 @@ inline void RoutineArgumentDataView::GetMemoryDataView(
     MemoryRoutineArgumentDataView* output) const {
   CHECK(is_memory());
   *output = MemoryRoutineArgumentDataView(data_->data.f_memory.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetAudioDriverDataView(
+    AudioDriverRoutineArgumentDataView* output) const {
+  CHECK(is_audio_driver());
+  *output = AudioDriverRoutineArgumentDataView(data_->data.f_audio_driver.Get(), message_);
 }
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
@@ -1358,6 +1535,11 @@ inline void RoutineDetailDataView::GetMemoryDataView(
     MemoryRoutineDetailDataView* output) const {
   CHECK(is_memory());
   *output = MemoryRoutineDetailDataView(data_->data.f_memory.Get(), message_);
+}
+inline void RoutineDetailDataView::GetAudioDriverDataView(
+    AudioDriverRoutineDetailDataView* output) const {
+  CHECK(is_audio_driver());
+  *output = AudioDriverRoutineDetailDataView(data_->data.f_audio_driver.Get(), message_);
 }
 
 

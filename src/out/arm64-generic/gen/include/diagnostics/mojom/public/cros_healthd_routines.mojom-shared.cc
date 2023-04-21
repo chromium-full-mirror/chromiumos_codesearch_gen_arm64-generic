@@ -176,6 +176,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case RoutineArgument_Tag::kAudioDriver: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_audio_driver, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_audio_driver, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       return true;
@@ -296,6 +306,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case RoutineDetail_Tag::kAudioDriver: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_audio_driver, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_audio_driver, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(
@@ -328,6 +348,29 @@ bool MemoryRoutineArgument_Data::Validate(
 }
 
 MemoryRoutineArgument_Data::MemoryRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AudioDriverRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AudioDriverRoutineArgument_Data* object =
+      static_cast<const AudioDriverRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+AudioDriverRoutineArgument_Data::AudioDriverRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -499,6 +542,29 @@ bool MemoryRoutineDetail_Data::Validate(
 }
 
 MemoryRoutineDetail_Data::MemoryRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AudioDriverRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AudioDriverRoutineDetail_Data* object =
+      static_cast<const AudioDriverRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+AudioDriverRoutineDetail_Data::AudioDriverRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 

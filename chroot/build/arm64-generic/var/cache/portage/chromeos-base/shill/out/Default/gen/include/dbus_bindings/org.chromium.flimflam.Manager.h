@@ -58,6 +58,8 @@ class ManagerInterface {
       brillo::ErrorPtr* error) = 0;
   virtual bool RecheckPortal(
       brillo::ErrorPtr* error) = 0;
+  virtual bool RequestWiFiRestart(
+      brillo::ErrorPtr* error) = 0;
   virtual bool RequestScan(
       brillo::ErrorPtr* error,
       const std::string& in_1) = 0;
@@ -208,6 +210,10 @@ class ManagerAdaptor {
         "RecheckPortal",
         base::Unretained(interface_),
         &ManagerInterface::RecheckPortal);
+    itf->AddSimpleMethodHandlerWithError(
+        "RequestWiFiRestart",
+        base::Unretained(interface_),
+        &ManagerInterface::RequestWiFiRestart);
     itf->AddSimpleMethodHandlerWithError(
         "RequestScan",
         base::Unretained(interface_),
@@ -380,6 +386,8 @@ class ManagerAdaptor {
         "    <method name=\"PopAllUserProfiles\">\n"
         "    </method>\n"
         "    <method name=\"RecheckPortal\">\n"
+        "    </method>\n"
+        "    <method name=\"RequestWiFiRestart\">\n"
         "    </method>\n"
         "    <method name=\"RequestScan\">\n"
         "      <arg name=\"\" type=\"s\" direction=\"in\"/>\n"

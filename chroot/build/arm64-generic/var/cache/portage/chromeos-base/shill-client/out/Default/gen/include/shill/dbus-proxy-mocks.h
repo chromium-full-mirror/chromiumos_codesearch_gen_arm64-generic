@@ -338,6 +338,13 @@ class ManagerProxyMock : public ManagerProxyInterface {
                void(base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD2(RequestWiFiRestart,
+               bool(brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(RequestWiFiRestartAsync,
+               void(base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD3(RequestScan,
                bool(const std::string&,
                     brillo::ErrorPtr* /*error*/,

@@ -25,12 +25,14 @@ namespace cros_healthd {
 namespace mojom {
 namespace internal {
 class MemoryRoutineArgument_Data;
+class AudioDriverRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
 class RoutineStateWaiting_Data;
 class RoutineStateFinished_Data;
 class MemoryRoutineDetail_Data;
+class AudioDriverRoutineDetail_Data;
 class MemtesterResult_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
@@ -163,6 +165,8 @@ class  RoutineArgument_Data {
     kUnrecognizedArgument,
     
     kMemory,
+    
+    kAudioDriver,
   };
 
   // A note on layout:
@@ -172,6 +176,7 @@ class  RoutineArgument_Data {
     Union_() : unknown(0) {}
     uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::MemoryRoutineArgument_Data> f_memory;
+    mojo::internal::Pointer<internal::AudioDriverRoutineArgument_Data> f_audio_driver;
     uint64_t unknown;
   };
 
@@ -271,6 +276,8 @@ class  RoutineDetail_Data {
 
     
     kMemory,
+    
+    kAudioDriver,
   };
 
   // A note on layout:
@@ -279,6 +286,7 @@ class  RoutineDetail_Data {
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
     mojo::internal::Pointer<internal::MemoryRoutineDetail_Data> f_memory;
+    mojo::internal::Pointer<internal::AudioDriverRoutineDetail_Data> f_audio_driver;
     uint64_t unknown;
   };
 
@@ -338,6 +346,53 @@ struct MemoryRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     MemoryRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  AudioDriverRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<AudioDriverRoutineArgument_Data>;
+
+  AudioDriverRoutineArgument_Data();
+  ~AudioDriverRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(AudioDriverRoutineArgument_Data) == 8,
+              "Bad sizeof(AudioDriverRoutineArgument_Data)");
+// Used by AudioDriverRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AudioDriverRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AudioDriverRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AudioDriverRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AudioDriverRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AudioDriverRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -631,6 +686,56 @@ struct MemoryRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     MemoryRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  AudioDriverRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t internal_card_detected : 1;
+  uint8_t audio_devices_succeed_to_open : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<AudioDriverRoutineDetail_Data>;
+
+  AudioDriverRoutineDetail_Data();
+  ~AudioDriverRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(AudioDriverRoutineDetail_Data) == 16,
+              "Bad sizeof(AudioDriverRoutineDetail_Data)");
+// Used by AudioDriverRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AudioDriverRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AudioDriverRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AudioDriverRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AudioDriverRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AudioDriverRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  MemtesterResult_Data {
  public:
   static bool Validate(const void* data,

@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "camera/mojo/effects/effects_pipeline.mojom-shared-internal.h"
+#include "camera/mojo/file_path.mojom-shared.h"
 
 
 
@@ -175,7 +176,7 @@ class EffectsConfigDataView {
   EffectsConfigDataView(
       internal::EffectsConfig_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
   template <typename UserType>
@@ -239,8 +240,30 @@ class EffectsConfigDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::cros::mojom::SegmentationModel>(data_->segmentation_model));
   }
+  inline void GetBackgroundFilepathDataView(
+      ::mojo_base::mojom::RelativeFilePathDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBackgroundFilepath(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::RelativeFilePathDataView, UserType>(),
+    "Attempting to read the optional `background_filepath` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadBackgroundFilepath` instead "
+    "of `ReadBackgroundFilepath if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 3
+                    ? data_->background_filepath.Get() : nullptr;
+    return mojo::internal::Deserialize<::mojo_base::mojom::RelativeFilePathDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::EffectsConfig_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -375,6 +398,14 @@ struct Serializer<::cros::mojom::EffectsConfigDataView, MaybeConstUserType> {
     fragment->relight_enabled = Traits::relight_enabled(input);
     mojo::internal::Serialize<::cros::mojom::SegmentationModel>(
         Traits::segmentation_model(input), &fragment->segmentation_model);
+    decltype(Traits::background_filepath(input)) in_background_filepath = Traits::background_filepath(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->background_filepath)::BaseType> background_filepath_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::RelativeFilePathDataView>(
+        in_background_filepath, background_filepath_fragment);
+    fragment->background_filepath.Set(
+        background_filepath_fragment.is_null() ? nullptr : background_filepath_fragment.data());
   }
 
   static bool Deserialize(::cros::mojom::internal::EffectsConfig_Data* input,
@@ -396,6 +427,12 @@ struct Serializer<::cros::mojom::EffectsConfigDataView, MaybeConstUserType> {
 namespace cros {
 namespace mojom {
 
+inline void EffectsConfigDataView::GetBackgroundFilepathDataView(
+    ::mojo_base::mojom::RelativeFilePathDataView* output) {
+  auto pointer = data_->header_.version >= 3
+                 ? data_->background_filepath.Get() : nullptr;
+  *output = ::mojo_base::mojom::RelativeFilePathDataView(pointer, message_);
+}
 
 
 

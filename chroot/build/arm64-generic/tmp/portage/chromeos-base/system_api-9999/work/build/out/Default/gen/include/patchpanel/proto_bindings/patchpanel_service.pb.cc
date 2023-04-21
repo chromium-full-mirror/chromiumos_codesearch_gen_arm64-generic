@@ -539,6 +539,8 @@ PROTOBUF_CONSTEXPR IPv4Configuration::IPv4Configuration(
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.options_)*/{}
+  , /*decltype(_impl_.dns_servers_)*/{}
+  , /*decltype(_impl_.domain_searches_)*/{}
   , /*decltype(_impl_.gateway_addr_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.dhcp_start_addr_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.dhcp_end_addr_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -9787,6 +9789,8 @@ IPv4Configuration::IPv4Configuration(const IPv4Configuration& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.options_){from._impl_.options_}
+    , decltype(_impl_.dns_servers_){from._impl_.dns_servers_}
+    , decltype(_impl_.domain_searches_){from._impl_.domain_searches_}
     , decltype(_impl_.gateway_addr_){}
     , decltype(_impl_.dhcp_start_addr_){}
     , decltype(_impl_.dhcp_end_addr_){}
@@ -9833,6 +9837,8 @@ inline void IPv4Configuration::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.options_){arena}
+    , decltype(_impl_.dns_servers_){arena}
+    , decltype(_impl_.domain_searches_){arena}
     , decltype(_impl_.gateway_addr_){}
     , decltype(_impl_.dhcp_start_addr_){}
     , decltype(_impl_.dhcp_end_addr_){}
@@ -9865,6 +9871,8 @@ IPv4Configuration::~IPv4Configuration() {
 inline void IPv4Configuration::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.options_.~RepeatedPtrField();
+  _impl_.dns_servers_.~RepeatedPtrField();
+  _impl_.domain_searches_.~RepeatedPtrField();
   _impl_.gateway_addr_.Destroy();
   _impl_.dhcp_start_addr_.Destroy();
   _impl_.dhcp_end_addr_.Destroy();
@@ -9882,6 +9890,8 @@ void IPv4Configuration::Clear() {
   (void) cached_has_bits;
 
   _impl_.options_.Clear();
+  _impl_.dns_servers_.Clear();
+  _impl_.domain_searches_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -9966,6 +9976,35 @@ const char* IPv4Configuration::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
+      // repeated bytes dns_servers = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_dns_servers();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string domain_searches = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_domain_searches();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -10035,6 +10074,22 @@ uint8_t* IPv4Configuration::_InternalSerialize(
         6, this->_internal_dhcp_end_addr(), target);
   }
 
+  // repeated bytes dns_servers = 7;
+  for (int i = 0, n = this->_internal_dns_servers_size(); i < n; i++) {
+    const auto& s = this->_internal_dns_servers(i);
+    target = stream->WriteBytes(7, s, target);
+  }
+
+  // repeated string domain_searches = 8;
+  for (int i = 0, n = this->_internal_domain_searches_size(); i < n; i++) {
+    const auto& s = this->_internal_domain_searches(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "patchpanel.IPv4Configuration.domain_searches");
+    target = stream->WriteString(8, s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -10056,6 +10111,22 @@ size_t IPv4Configuration::ByteSizeLong() const {
   for (const auto& msg : this->_impl_.options_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated bytes dns_servers = 7;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.dns_servers_.size());
+  for (int i = 0, n = _impl_.dns_servers_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+      _impl_.dns_servers_.Get(i));
+  }
+
+  // repeated string domain_searches = 8;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.domain_searches_.size());
+  for (int i = 0, n = _impl_.domain_searches_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      _impl_.domain_searches_.Get(i));
   }
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -10116,6 +10187,8 @@ void IPv4Configuration::MergeFrom(const IPv4Configuration& from) {
   (void) cached_has_bits;
 
   _this->_impl_.options_.MergeFrom(from._impl_.options_);
+  _this->_impl_.dns_servers_.MergeFrom(from._impl_.dns_servers_);
+  _this->_impl_.domain_searches_.MergeFrom(from._impl_.domain_searches_);
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -10156,6 +10229,8 @@ void IPv4Configuration::InternalSwap(IPv4Configuration* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.options_.InternalSwap(&other->_impl_.options_);
+  _impl_.dns_servers_.InternalSwap(&other->_impl_.dns_servers_);
+  _impl_.domain_searches_.InternalSwap(&other->_impl_.domain_searches_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.gateway_addr_, lhs_arena,
       &other->_impl_.gateway_addr_, rhs_arena

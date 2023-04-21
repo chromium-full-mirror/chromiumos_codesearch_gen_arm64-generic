@@ -26,6 +26,8 @@ namespace cros_healthd {
 namespace mojom {
 class MemoryRoutineArgumentDataView;
 
+class AudioDriverRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -37,6 +39,8 @@ class RoutineStateWaitingDataView;
 class RoutineStateFinishedDataView;
 
 class MemoryRoutineDetailDataView;
+
+class AudioDriverRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
@@ -51,6 +55,9 @@ enum class RoutineControlExceptionEnum : int32_t;
 enum class RoutineStateWaiting_Reason : int32_t;
 class MemoryRoutineArgument;
 using MemoryRoutineArgumentPtr = mojo::InlinedStructPtr<MemoryRoutineArgument>;
+
+class AudioDriverRoutineArgument;
+using AudioDriverRoutineArgumentPtr = mojo::InlinedStructPtr<AudioDriverRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -69,6 +76,9 @@ using RoutineStateFinishedPtr = mojo::StructPtr<RoutineStateFinished>;
 
 class MemoryRoutineDetail;
 using MemoryRoutineDetailPtr = mojo::StructPtr<MemoryRoutineDetail>;
+
+class AudioDriverRoutineDetail;
+using AudioDriverRoutineDetailPtr = mojo::InlinedStructPtr<AudioDriverRoutineDetail>;
 
 class MemtesterResult;
 using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;

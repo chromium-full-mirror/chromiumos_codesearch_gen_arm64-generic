@@ -1013,6 +1013,15 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool RequestWiFiRestart(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void RequestWiFiRestartAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool RequestScan(
       const std::string& in_1,
       brillo::ErrorPtr* error,
@@ -1719,6 +1728,32 @@ class ManagerProxy final : public ManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.flimflam.Manager",
         "RecheckPortal",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  bool RequestWiFiRestart(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "RequestWiFiRestart",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void RequestWiFiRestartAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "RequestWiFiRestart",
         std::move(success_callback),
         std::move(error_callback));
   }

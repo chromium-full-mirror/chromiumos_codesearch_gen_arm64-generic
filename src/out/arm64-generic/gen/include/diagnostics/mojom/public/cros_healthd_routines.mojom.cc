@@ -74,6 +74,23 @@ bool MemoryRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+AudioDriverRoutineArgument::AudioDriverRoutineArgument() {}
+
+AudioDriverRoutineArgument::~AudioDriverRoutineArgument() = default;
+size_t AudioDriverRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void AudioDriverRoutineArgument::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool AudioDriverRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -273,6 +290,51 @@ bool MemoryRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+AudioDriverRoutineDetail::AudioDriverRoutineDetail()
+    : internal_card_detected(),
+      audio_devices_succeed_to_open() {}
+
+AudioDriverRoutineDetail::AudioDriverRoutineDetail(
+    bool internal_card_detected_in,
+    bool audio_devices_succeed_to_open_in)
+    : internal_card_detected(std::move(internal_card_detected_in)),
+      audio_devices_succeed_to_open(std::move(audio_devices_succeed_to_open_in)) {}
+
+AudioDriverRoutineDetail::~AudioDriverRoutineDetail() = default;
+size_t AudioDriverRoutineDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->internal_card_detected);
+  seed = mojo::internal::Hash(seed, this->audio_devices_succeed_to_open);
+  return seed;
+}
+
+void AudioDriverRoutineDetail::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "internal_card_detected"), this->internal_card_detected,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "audio_devices_succeed_to_open"), this->audio_devices_succeed_to_open,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool AudioDriverRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 MemtesterResult::MemtesterResult()
     : passed_items(),
       failed_items() {}
@@ -341,6 +403,17 @@ void RoutineArgument::set_memory(
         std::move(memory));
   }
 }
+void RoutineArgument::set_audio_driver(
+    AudioDriverRoutineArgumentPtr audio_driver) {
+  if (tag_ == Tag::kAudioDriver) {
+    *(data_.audio_driver) = std::move(audio_driver);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kAudioDriver;
+    data_.audio_driver = new AudioDriverRoutineArgumentPtr(
+        std::move(audio_driver));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -351,6 +424,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kMemory:
 
       delete data_.memory;
+      break;
+    case Tag::kAudioDriver:
+
+      delete data_.audio_driver;
       break;
   }
 }
@@ -461,6 +538,17 @@ void RoutineDetail::set_memory(
         std::move(memory));
   }
 }
+void RoutineDetail::set_audio_driver(
+    AudioDriverRoutineDetailPtr audio_driver) {
+  if (tag_ == Tag::kAudioDriver) {
+    *(data_.audio_driver) = std::move(audio_driver);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kAudioDriver;
+    data_.audio_driver = new AudioDriverRoutineDetailPtr(
+        std::move(audio_driver));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -468,6 +556,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kMemory:
 
       delete data_.memory;
+      break;
+    case Tag::kAudioDriver:
+
+      delete data_.audio_driver;
       break;
   }
 }
@@ -1326,6 +1418,18 @@ bool StructTraits<::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView, :
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgument::DataView, ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioDriverRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr result(::ash::cros_healthd::mojom::AudioDriverRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -1414,6 +1518,22 @@ bool StructTraits<::ash::cros_healthd::mojom::MemoryRoutineDetail::DataView, ::a
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetail::DataView, ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioDriverRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr result(::ash::cros_healthd::mojom::AudioDriverRoutineDetail::New());
+  
+      if (success)
+        result->internal_card_detected = input.internal_card_detected();
+      if (success)
+        result->audio_devices_succeed_to_open = input.audio_devices_succeed_to_open();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::cros_healthd::mojom::MemtesterResultPtr>::Read(
     ::ash::cros_healthd::mojom::MemtesterResult::DataView input,
     ::ash::cros_healthd::mojom::MemtesterResultPtr* output) {
@@ -1447,6 +1567,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewMemory(
           std::move(result_memory));
+      break;
+    }
+    case Tag::kAudioDriver: {
+      ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr result_audio_driver;
+      if (!input.ReadAudioDriver(&result_audio_driver))
+        return false;
+
+      *output = UnionType::NewAudioDriver(
+          std::move(result_audio_driver));
       break;
     }
     default:
@@ -1523,6 +1652,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewMemory(
           std::move(result_memory));
+      break;
+    }
+    case Tag::kAudioDriver: {
+      ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr result_audio_driver;
+      if (!input.ReadAudioDriver(&result_audio_driver))
+        return false;
+
+      *output = UnionType::NewAudioDriver(
+          std::move(result_audio_driver));
       break;
     }
     default:
