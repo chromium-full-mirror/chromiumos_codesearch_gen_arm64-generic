@@ -166,6 +166,7 @@ bool EffectsConfig_Data::Validate(
     { 0, 24 },
     { 1, 24 },
     { 2, 32 },
+    { 3, 40 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -198,12 +199,17 @@ bool EffectsConfig_Data::Validate(
   if (!::cros::mojom::internal::SegmentationModel_Data
         ::Validate(object->segmentation_model, validation_context))
     return false;
+  if (object->header_.version < 3)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->background_filepath, validation_context))
+    return false;
 
   return true;
 }
 
 EffectsConfig_Data::EffectsConfig_Data()
-    : header_({sizeof(*this), 2}) {}
+    : header_({sizeof(*this), 3}) {}
 
 }  // namespace internal
 }  // namespace mojom

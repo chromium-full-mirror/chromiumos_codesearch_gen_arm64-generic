@@ -6845,7 +6845,7 @@ class TetheredNetworkRequest final :
     kUpstreamIfnameFieldNumber = 2,
     kIpv4ConfigFieldNumber = 4,
     kUpstreamTechnologyFieldNumber = 3,
-    kDisableIpv6FieldNumber = 5,
+    kEnableIpv6FieldNumber = 5,
   };
   // string ifname = 1;
   void clear_ifname();
@@ -6902,13 +6902,13 @@ class TetheredNetworkRequest final :
   void _internal_set_upstream_technology(::patchpanel::TetheredNetworkRequest_UpstreamTechnology value);
   public:
 
-  // bool disable_ipv6 = 5;
-  void clear_disable_ipv6();
-  bool disable_ipv6() const;
-  void set_disable_ipv6(bool value);
+  // bool enable_ipv6 = 5;
+  void clear_enable_ipv6();
+  bool enable_ipv6() const;
+  void set_enable_ipv6(bool value);
   private:
-  bool _internal_disable_ipv6() const;
-  void _internal_set_disable_ipv6(bool value);
+  bool _internal_enable_ipv6() const;
+  void _internal_set_enable_ipv6(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:patchpanel.TetheredNetworkRequest)
@@ -6925,7 +6925,7 @@ class TetheredNetworkRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr upstream_ifname_;
     ::patchpanel::IPv4Configuration* ipv4_config_;
     int upstream_technology_;
-    bool disable_ipv6_;
+    bool enable_ipv6_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_patchpanel_5fservice_2eproto;
@@ -11530,24 +11530,24 @@ inline void TetheredNetworkRequest::set_allocated_ipv4_config(::patchpanel::IPv4
   // @@protoc_insertion_point(field_set_allocated:patchpanel.TetheredNetworkRequest.ipv4_config)
 }
 
-// bool disable_ipv6 = 5;
-inline void TetheredNetworkRequest::clear_disable_ipv6() {
-  _impl_.disable_ipv6_ = false;
+// bool enable_ipv6 = 5;
+inline void TetheredNetworkRequest::clear_enable_ipv6() {
+  _impl_.enable_ipv6_ = false;
 }
-inline bool TetheredNetworkRequest::_internal_disable_ipv6() const {
-  return _impl_.disable_ipv6_;
+inline bool TetheredNetworkRequest::_internal_enable_ipv6() const {
+  return _impl_.enable_ipv6_;
 }
-inline bool TetheredNetworkRequest::disable_ipv6() const {
-  // @@protoc_insertion_point(field_get:patchpanel.TetheredNetworkRequest.disable_ipv6)
-  return _internal_disable_ipv6();
+inline bool TetheredNetworkRequest::enable_ipv6() const {
+  // @@protoc_insertion_point(field_get:patchpanel.TetheredNetworkRequest.enable_ipv6)
+  return _internal_enable_ipv6();
 }
-inline void TetheredNetworkRequest::_internal_set_disable_ipv6(bool value) {
+inline void TetheredNetworkRequest::_internal_set_enable_ipv6(bool value) {
   
-  _impl_.disable_ipv6_ = value;
+  _impl_.enable_ipv6_ = value;
 }
-inline void TetheredNetworkRequest::set_disable_ipv6(bool value) {
-  _internal_set_disable_ipv6(value);
-  // @@protoc_insertion_point(field_set:patchpanel.TetheredNetworkRequest.disable_ipv6)
+inline void TetheredNetworkRequest::set_enable_ipv6(bool value) {
+  _internal_set_enable_ipv6(value);
+  // @@protoc_insertion_point(field_set:patchpanel.TetheredNetworkRequest.enable_ipv6)
 }
 
 // -------------------------------------------------------------------

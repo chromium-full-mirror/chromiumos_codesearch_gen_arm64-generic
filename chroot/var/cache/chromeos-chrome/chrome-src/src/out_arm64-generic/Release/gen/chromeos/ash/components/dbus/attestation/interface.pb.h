@@ -7397,6 +7397,7 @@ class SignEnterpriseChallengeRequest final :
     kVaTypeFieldNumber = 7,
     kIncludeSignedPublicKeyFieldNumber = 5,
     kIncludeCustomerIdFieldNumber = 11,
+    kKeyProfileFieldNumber = 12,
   };
   // optional string key_label = 1;
   bool has_key_label() const;
@@ -7581,6 +7582,19 @@ class SignEnterpriseChallengeRequest final :
   void _internal_set_include_customer_id(bool value);
   public:
 
+  // optional .attestation.KeyProfile key_profile = 12;
+  bool has_key_profile() const;
+  private:
+  bool _internal_has_key_profile() const;
+  public:
+  void clear_key_profile();
+  ::attestation::KeyProfile key_profile() const;
+  void set_key_profile(::attestation::KeyProfile value);
+  private:
+  ::attestation::KeyProfile _internal_key_profile() const;
+  void _internal_set_key_profile(::attestation::KeyProfile value);
+  public:
+
   // @@protoc_insertion_point(class_scope:attestation.SignEnterpriseChallengeRequest)
  private:
   class _Internal;
@@ -7601,6 +7615,7 @@ class SignEnterpriseChallengeRequest final :
   int va_type_;
   bool include_signed_public_key_;
   bool include_customer_id_;
+  int key_profile_;
   friend struct ::TableStruct_interface_2eproto;
 };
 // -------------------------------------------------------------------
@@ -16068,6 +16083,35 @@ inline void SignEnterpriseChallengeRequest::_internal_set_include_customer_id(bo
 inline void SignEnterpriseChallengeRequest::set_include_customer_id(bool value) {
   _internal_set_include_customer_id(value);
   // @@protoc_insertion_point(field_set:attestation.SignEnterpriseChallengeRequest.include_customer_id)
+}
+
+// optional .attestation.KeyProfile key_profile = 12;
+inline bool SignEnterpriseChallengeRequest::_internal_has_key_profile() const {
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  return value;
+}
+inline bool SignEnterpriseChallengeRequest::has_key_profile() const {
+  return _internal_has_key_profile();
+}
+inline void SignEnterpriseChallengeRequest::clear_key_profile() {
+  key_profile_ = 0;
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline ::attestation::KeyProfile SignEnterpriseChallengeRequest::_internal_key_profile() const {
+  return static_cast< ::attestation::KeyProfile >(key_profile_);
+}
+inline ::attestation::KeyProfile SignEnterpriseChallengeRequest::key_profile() const {
+  // @@protoc_insertion_point(field_get:attestation.SignEnterpriseChallengeRequest.key_profile)
+  return _internal_key_profile();
+}
+inline void SignEnterpriseChallengeRequest::_internal_set_key_profile(::attestation::KeyProfile value) {
+  assert(::attestation::KeyProfile_IsValid(value));
+  _has_bits_[0] |= 0x00000800u;
+  key_profile_ = value;
+}
+inline void SignEnterpriseChallengeRequest::set_key_profile(::attestation::KeyProfile value) {
+  _internal_set_key_profile(value);
+  // @@protoc_insertion_point(field_set:attestation.SignEnterpriseChallengeRequest.key_profile)
 }
 
 // -------------------------------------------------------------------

@@ -3188,7 +3188,7 @@ class  LogicalCpuInfo_Data {
   uint32_t max_clock_speed_khz;
   uint32_t scaling_max_frequency_khz;
   uint32_t scaling_current_frequency_khz;
-  uint8_t pad2_[4];
+  uint32_t core_id;
   uint64_t user_time_user_hz;
   uint64_t system_time_user_hz;
   uint64_t idle_time_user_hz;

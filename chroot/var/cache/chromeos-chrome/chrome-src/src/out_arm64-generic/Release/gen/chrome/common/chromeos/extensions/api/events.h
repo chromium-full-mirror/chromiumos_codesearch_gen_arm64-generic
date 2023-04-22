@@ -32,7 +32,8 @@ namespace os_events {
 enum class EventCategory {
   kNone = 0,
   kAudioJack,
-  kMaxValue = kAudioJack,
+  kLid,
+  kMaxValue = kLid,
 };
 
 
@@ -100,6 +101,28 @@ enum class AudioJackEvent {
 const char* ToString(AudioJackEvent as_enum);
 AudioJackEvent ParseAudioJackEvent(base::StringPiece as_string);
 
+enum class AudioJackDeviceType {
+  kNone = 0,
+  kHeadphone,
+  kMicrophone,
+  kMaxValue = kMicrophone,
+};
+
+
+const char* ToString(AudioJackDeviceType as_enum);
+AudioJackDeviceType ParseAudioJackDeviceType(base::StringPiece as_string);
+
+enum class LidEvent {
+  kNone = 0,
+  kClosed,
+  kOpened,
+  kMaxValue = kOpened,
+};
+
+
+const char* ToString(LidEvent as_enum);
+LidEvent ParseLidEvent(base::StringPiece as_string);
+
 struct AudioJackEventInfo {
   AudioJackEventInfo();
   ~AudioJackEventInfo();
@@ -135,6 +158,45 @@ struct AudioJackEventInfo {
   base::Value::Dict ToValue() const;
 
   AudioJackEvent event;
+
+  AudioJackDeviceType device_type;
+
+};
+
+struct LidEventInfo {
+  LidEventInfo();
+  ~LidEventInfo();
+  LidEventInfo(const LidEventInfo&) = delete;
+  LidEventInfo& operator=(const LidEventInfo&) = delete;
+  LidEventInfo(LidEventInfo&& rhs);
+  LidEventInfo& operator=(LidEventInfo&& rhs);
+
+  // Populates a LidEventInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, LidEventInfo& out);
+
+  // Populates a LidEventInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, LidEventInfo& out);
+
+  // Creates a deep copy of LidEventInfo.
+  LidEventInfo Clone() const;
+
+  // Creates a LidEventInfo object from a base::Value, or NULL on failure.
+  static std::unique_ptr<LidEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a LidEventInfo object from a base::Value::Dict, or nullopt on
+  // failure.
+  static absl::optional<LidEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a LidEventInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<LidEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisLidEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  LidEvent event;
 
 };
 
@@ -225,6 +287,13 @@ extern const char kEventName[];  // "os.events.onAudioJackEvent"
 
 base::Value::List Create(const AudioJackEventInfo& event_info);
 }  // namespace OnAudioJackEvent
+
+namespace OnLidEvent {
+
+extern const char kEventName[];  // "os.events.onLidEvent"
+
+base::Value::List Create(const LidEventInfo& event_info);
+}  // namespace OnLidEvent
 
 }  // namespace os_events
 }  // namespace api

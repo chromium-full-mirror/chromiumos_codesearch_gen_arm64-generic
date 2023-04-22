@@ -8950,6 +8950,16 @@ class  LogicalCpuInfo {
       uint64_t idle_time_user_hz,
       std::vector<CpuCStateInfoPtr> c_states);
 
+  LogicalCpuInfo(
+      uint32_t max_clock_speed_khz,
+      uint32_t scaling_max_frequency_khz,
+      uint32_t scaling_current_frequency_khz,
+      uint64_t user_time_user_hz,
+      uint64_t system_time_user_hz,
+      uint64_t idle_time_user_hz,
+      std::vector<CpuCStateInfoPtr> c_states,
+      uint32_t core_id);
+
 LogicalCpuInfo(const LogicalCpuInfo&) = delete;
 LogicalCpuInfo& operator=(const LogicalCpuInfo&) = delete;
 
@@ -9038,6 +9048,8 @@ LogicalCpuInfo& operator=(const LogicalCpuInfo&) = delete;
   uint64_t idle_time_user_hz;
   
   std::vector<CpuCStateInfoPtr> c_states;
+  
+  uint32_t core_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -16364,7 +16376,8 @@ LogicalCpuInfoPtr LogicalCpuInfo::Clone() const {
       mojo::Clone(user_time_user_hz),
       mojo::Clone(system_time_user_hz),
       mojo::Clone(idle_time_user_hz),
-      mojo::Clone(c_states)
+      mojo::Clone(c_states),
+      mojo::Clone(core_id)
   );
 }
 
@@ -16383,6 +16396,8 @@ bool LogicalCpuInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->idle_time_user_hz, other_struct.idle_time_user_hz))
     return false;
   if (!mojo::Equals(this->c_states, other_struct.c_states))
+    return false;
+  if (!mojo::Equals(this->core_id, other_struct.core_id))
     return false;
   return true;
 }
@@ -16416,6 +16431,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.c_states < rhs.c_states)
     return true;
   if (rhs.c_states < lhs.c_states)
+    return false;
+  if (lhs.core_id < rhs.core_id)
+    return true;
+  if (rhs.core_id < lhs.core_id)
     return false;
   return false;
 }
@@ -19746,6 +19765,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::LogicalCpuInfo::DataView,
   static const decltype(::ash::cros_healthd::mojom::LogicalCpuInfo::c_states)& c_states(
       const ::ash::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
     return input->c_states;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::LogicalCpuInfo::core_id) core_id(
+      const ::ash::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
+    return input->core_id;
   }
 
   static bool Read(::ash::cros_healthd::mojom::LogicalCpuInfo::DataView input, ::ash::cros_healthd::mojom::LogicalCpuInfoPtr* output);

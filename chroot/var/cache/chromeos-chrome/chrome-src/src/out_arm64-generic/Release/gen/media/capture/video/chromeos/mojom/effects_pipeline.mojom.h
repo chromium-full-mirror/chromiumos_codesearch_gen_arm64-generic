@@ -25,6 +25,7 @@
 
 #include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-shared.h"
 #include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-forward.h"
+#include "mojo/public/mojom/base/file_path.mojom.h"
 #include <string>
 #include <vector>
 
@@ -96,6 +97,19 @@ class  EffectsConfig {
       bool relight_enabled,
       SegmentationModel segmentation_model);
 
+  EffectsConfig(
+      CameraEffect effect,
+      BlurLevel blur_level,
+      GpuApi segmentation_gpu_api,
+      uint16_t graph_max_frames_in_flight,
+      bool blur_enabled,
+      bool replace_enabled,
+      bool relight_enabled,
+      SegmentationModel segmentation_model,
+      ::mojo_base::mojom::RelativeFilePathPtr background_filepath);
+
+EffectsConfig(const EffectsConfig&) = delete;
+EffectsConfig& operator=(const EffectsConfig&) = delete;
 
   ~EffectsConfig();
 
@@ -113,7 +127,6 @@ class  EffectsConfig {
 
   template <typename T, EffectsConfig::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -185,6 +198,8 @@ class  EffectsConfig {
   bool relight_enabled;
   
   SegmentationModel segmentation_model;
+  
+  ::mojo_base::mojom::RelativeFilePathPtr background_filepath;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -225,7 +240,8 @@ EffectsConfigPtr EffectsConfig::Clone() const {
       mojo::Clone(blur_enabled),
       mojo::Clone(replace_enabled),
       mojo::Clone(relight_enabled),
-      mojo::Clone(segmentation_model)
+      mojo::Clone(segmentation_model),
+      mojo::Clone(background_filepath)
   );
 }
 
@@ -246,6 +262,8 @@ bool EffectsConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->relight_enabled, other_struct.relight_enabled))
     return false;
   if (!mojo::Equals(this->segmentation_model, other_struct.segmentation_model))
+    return false;
+  if (!mojo::Equals(this->background_filepath, other_struct.background_filepath))
     return false;
   return true;
 }
@@ -283,6 +301,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.segmentation_model < rhs.segmentation_model)
     return true;
   if (rhs.segmentation_model < lhs.segmentation_model)
+    return false;
+  if (lhs.background_filepath < rhs.background_filepath)
+    return true;
+  if (rhs.background_filepath < lhs.background_filepath)
     return false;
   return false;
 }
@@ -338,6 +360,11 @@ struct  StructTraits<::cros::mojom::EffectsConfig::DataView,
   static decltype(::cros::mojom::EffectsConfig::segmentation_model) segmentation_model(
       const ::cros::mojom::EffectsConfigPtr& input) {
     return input->segmentation_model;
+  }
+
+  static const decltype(::cros::mojom::EffectsConfig::background_filepath)& background_filepath(
+      const ::cros::mojom::EffectsConfigPtr& input) {
+    return input->background_filepath;
   }
 
   static bool Read(::cros::mojom::EffectsConfig::DataView input, ::cros::mojom::EffectsConfigPtr* output);

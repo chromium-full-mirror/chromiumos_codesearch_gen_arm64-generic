@@ -2199,7 +2199,6 @@ bool PossibleAction_IsValid(int value) {
     case 1:
     case 2:
     case 3:
-    case 4:
     case 5:
     case 6:
     case 7:
@@ -2210,14 +2209,13 @@ bool PossibleAction_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PossibleAction_strings[9] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PossibleAction_strings[8] = {};
 
 static const char PossibleAction_names[] =
   "POSSIBLY_AUTH"
   "POSSIBLY_DELETE_VAULT"
   "POSSIBLY_DEV_CHECK_UNEXPECTED_STATE"
   "POSSIBLY_FATAL"
-  "POSSIBLY_INCORRECT_AUTH"
   "POSSIBLY_NONE"
   "POSSIBLY_POWERWASH"
   "POSSIBLY_REBOOT"
@@ -2228,21 +2226,19 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PossibleAction_entries
   { {PossibleAction_names + 13, 21}, 5 },
   { {PossibleAction_names + 34, 35}, 7 },
   { {PossibleAction_names + 69, 14}, 8 },
-  { {PossibleAction_names + 83, 23}, 4 },
-  { {PossibleAction_names + 106, 13}, 0 },
-  { {PossibleAction_names + 119, 18}, 6 },
-  { {PossibleAction_names + 137, 15}, 2 },
-  { {PossibleAction_names + 152, 14}, 1 },
+  { {PossibleAction_names + 83, 13}, 0 },
+  { {PossibleAction_names + 96, 18}, 6 },
+  { {PossibleAction_names + 114, 15}, 2 },
+  { {PossibleAction_names + 129, 14}, 1 },
 };
 
 static const int PossibleAction_entries_by_number[] = {
-  5, // 0 -> POSSIBLY_NONE
-  8, // 1 -> POSSIBLY_RETRY
-  7, // 2 -> POSSIBLY_REBOOT
+  4, // 0 -> POSSIBLY_NONE
+  7, // 1 -> POSSIBLY_RETRY
+  6, // 2 -> POSSIBLY_REBOOT
   0, // 3 -> POSSIBLY_AUTH
-  4, // 4 -> POSSIBLY_INCORRECT_AUTH
   1, // 5 -> POSSIBLY_DELETE_VAULT
-  6, // 6 -> POSSIBLY_POWERWASH
+  5, // 6 -> POSSIBLY_POWERWASH
   2, // 7 -> POSSIBLY_DEV_CHECK_UNEXPECTED_STATE
   3, // 8 -> POSSIBLY_FATAL
 };
@@ -2253,12 +2249,12 @@ const std::string& PossibleAction_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           PossibleAction_entries,
           PossibleAction_entries_by_number,
-          9, PossibleAction_strings);
+          8, PossibleAction_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       PossibleAction_entries,
       PossibleAction_entries_by_number,
-      9, value);
+      8, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      PossibleAction_strings[idx].get();
 }
@@ -2266,7 +2262,7 @@ bool PossibleAction_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PossibleAction* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      PossibleAction_entries, 9, name, &int_value);
+      PossibleAction_entries, 8, name, &int_value);
   if (success) {
     *value = static_cast<PossibleAction>(int_value);
   }

@@ -22,6 +22,7 @@ class AndroidActivity;
 class AndroidView;
 class BlinkExecutionContext;
 class BlinkHighEntropyAPI_CalledJsApi;
+class BlinkHighEntropyAPI_FontLookup;
 class BlinkHighEntropyAPI_JSFunctionArgument;
 class BlinkSourceLocation;
 class BrowsingContextState;
@@ -58,6 +59,10 @@ namespace perfetto_pbzero_enum_BlinkExecutionContext {
 enum WorldType : int32_t;
 }  // namespace perfetto_pbzero_enum_BlinkExecutionContext
 using BlinkExecutionContext_WorldType = perfetto_pbzero_enum_BlinkExecutionContext::WorldType;
+namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_FontLookup {
+enum FontLookupType : int32_t;
+}  // namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_FontLookup
+using BlinkHighEntropyAPI_FontLookup_FontLookupType = perfetto_pbzero_enum_BlinkHighEntropyAPI_FontLookup::FontLookupType;
 namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_JSFunctionArgument {
 enum ArgumentType : int32_t;
 }  // namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_JSFunctionArgument
@@ -405,6 +410,35 @@ const char* TabSwitchMeasurement_TabState_Name(::perfetto::protos::pbzero::TabSw
 
   case ::perfetto::protos::pbzero::TabSwitchMeasurement_TabState::STATE_NOT_LOADED_NO_SAVED_FRAMES:
     return "STATE_NOT_LOADED_NO_SAVED_FRAMES";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_FontLookup {
+enum FontLookupType : int32_t {
+  FONT_LOOKUP_UNKNOWN_TYPE = 0,
+  FONT_LOOKUP_UNIQUE_OR_FAMILY_NAME = 1,
+  FONT_LOOKUP_UNIQUE_NAME_ONLY = 2,
+};
+} // namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_FontLookup
+using BlinkHighEntropyAPI_FontLookup_FontLookupType = perfetto_pbzero_enum_BlinkHighEntropyAPI_FontLookup::FontLookupType;
+
+
+constexpr BlinkHighEntropyAPI_FontLookup_FontLookupType BlinkHighEntropyAPI_FontLookup_FontLookupType_MIN = BlinkHighEntropyAPI_FontLookup_FontLookupType::FONT_LOOKUP_UNKNOWN_TYPE;
+constexpr BlinkHighEntropyAPI_FontLookup_FontLookupType BlinkHighEntropyAPI_FontLookup_FontLookupType_MAX = BlinkHighEntropyAPI_FontLookup_FontLookupType::FONT_LOOKUP_UNIQUE_NAME_ONLY;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* BlinkHighEntropyAPI_FontLookup_FontLookupType_Name(::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType::FONT_LOOKUP_UNKNOWN_TYPE:
+    return "FONT_LOOKUP_UNKNOWN_TYPE";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType::FONT_LOOKUP_UNIQUE_OR_FAMILY_NAME:
+    return "FONT_LOOKUP_UNIQUE_OR_FAMILY_NAME";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType::FONT_LOOKUP_UNIQUE_NAME_ONLY:
+    return "FONT_LOOKUP_UNIQUE_NAME_ONLY";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -2549,7 +2583,7 @@ class TabSwitchMeasurement : public ::protozero::Message {
   }
 };
 
-class BlinkHighEntropyAPI_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class BlinkHighEntropyAPI_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   BlinkHighEntropyAPI_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit BlinkHighEntropyAPI_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -2558,6 +2592,10 @@ class BlinkHighEntropyAPI_Decoder : public ::protozero::TypedProtoDecoder</*MAX_
   ::protozero::ConstBytes execution_context() const { return at<1>().as_bytes(); }
   bool has_called_api() const { return at<2>().valid(); }
   ::protozero::ConstBytes called_api() const { return at<2>().as_bytes(); }
+  bool has_source_location() const { return at<3>().valid(); }
+  ::protozero::ConstBytes source_location() const { return at<3>().as_bytes(); }
+  bool has_font_lookup() const { return at<4>().valid(); }
+  ::protozero::ConstBytes font_lookup() const { return at<4>().as_bytes(); }
 };
 
 class BlinkHighEntropyAPI : public ::protozero::Message {
@@ -2566,11 +2604,14 @@ class BlinkHighEntropyAPI : public ::protozero::Message {
   enum : int32_t {
     kExecutionContextFieldNumber = 1,
     kCalledApiFieldNumber = 2,
+    kSourceLocationFieldNumber = 3,
+    kFontLookupFieldNumber = 4,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.BlinkHighEntropyAPI"; }
 
   using JSFunctionArgument = ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument;
   using CalledJsApi = ::perfetto::protos::pbzero::BlinkHighEntropyAPI_CalledJsApi;
+  using FontLookup = ::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup;
 
   using FieldMetadata_ExecutionContext =
     ::protozero::proto_utils::FieldMetadata<
@@ -2599,6 +2640,169 @@ class BlinkHighEntropyAPI : public ::protozero::Message {
     return BeginNestedMessage<T>(2);
   }
 
+
+  using FieldMetadata_SourceLocation =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BlinkSourceLocation,
+      BlinkHighEntropyAPI>;
+
+  static constexpr FieldMetadata_SourceLocation kSourceLocation{};
+  template <typename T = BlinkSourceLocation> T* set_source_location() {
+    return BeginNestedMessage<T>(3);
+  }
+
+
+  using FieldMetadata_FontLookup =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BlinkHighEntropyAPI_FontLookup,
+      BlinkHighEntropyAPI>;
+
+  static constexpr FieldMetadata_FontLookup kFontLookup{};
+  template <typename T = BlinkHighEntropyAPI_FontLookup> T* set_font_lookup() {
+    return BeginNestedMessage<T>(4);
+  }
+
+};
+
+class BlinkHighEntropyAPI_FontLookup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BlinkHighEntropyAPI_FontLookup_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BlinkHighEntropyAPI_FontLookup_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BlinkHighEntropyAPI_FontLookup_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_type() const { return at<1>().valid(); }
+  int32_t type() const { return at<1>().as_int32(); }
+  bool has_name() const { return at<2>().valid(); }
+  ::protozero::ConstChars name() const { return at<2>().as_string(); }
+  bool has_weight() const { return at<3>().valid(); }
+  uint64_t weight() const { return at<3>().as_uint64(); }
+  bool has_width() const { return at<4>().valid(); }
+  uint64_t width() const { return at<4>().as_uint64(); }
+  bool has_slope() const { return at<5>().valid(); }
+  uint64_t slope() const { return at<5>().as_uint64(); }
+};
+
+class BlinkHighEntropyAPI_FontLookup : public ::protozero::Message {
+ public:
+  using Decoder = BlinkHighEntropyAPI_FontLookup_Decoder;
+  enum : int32_t {
+    kTypeFieldNumber = 1,
+    kNameFieldNumber = 2,
+    kWeightFieldNumber = 3,
+    kWidthFieldNumber = 4,
+    kSlopeFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BlinkHighEntropyAPI.FontLookup"; }
+
+
+  using FontLookupType = ::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType;
+  static inline const char* FontLookupType_Name(FontLookupType value) {
+    return ::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType_Name(value);
+  }
+  static const FontLookupType FONT_LOOKUP_UNKNOWN_TYPE = FontLookupType::FONT_LOOKUP_UNKNOWN_TYPE;
+  static const FontLookupType FONT_LOOKUP_UNIQUE_OR_FAMILY_NAME = FontLookupType::FONT_LOOKUP_UNIQUE_OR_FAMILY_NAME;
+  static const FontLookupType FONT_LOOKUP_UNIQUE_NAME_ONLY = FontLookupType::FONT_LOOKUP_UNIQUE_NAME_ONLY;
+
+  using FieldMetadata_Type =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType,
+      BlinkHighEntropyAPI_FontLookup>;
+
+  static constexpr FieldMetadata_Type kType{};
+  void set_type(::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType value) {
+    static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Name =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      BlinkHighEntropyAPI_FontLookup>;
+
+  static constexpr FieldMetadata_Name kName{};
+  void set_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Name::kFieldId, data, size);
+  }
+  void set_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Name::kFieldId, chars.data, chars.size);
+  }
+  void set_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Name::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Weight =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      BlinkHighEntropyAPI_FontLookup>;
+
+  static constexpr FieldMetadata_Weight kWeight{};
+  void set_weight(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Weight::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Width =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      BlinkHighEntropyAPI_FontLookup>;
+
+  static constexpr FieldMetadata_Width kWidth{};
+  void set_width(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Width::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Slope =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      BlinkHighEntropyAPI_FontLookup>;
+
+  static constexpr FieldMetadata_Slope kSlope{};
+  void set_slope(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Slope::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
 };
 
 class BlinkHighEntropyAPI_CalledJsApi_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {

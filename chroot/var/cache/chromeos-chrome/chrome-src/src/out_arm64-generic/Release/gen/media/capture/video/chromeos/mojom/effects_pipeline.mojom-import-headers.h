@@ -6,5 +6,7 @@
 
 #ifndef MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_EFFECTS_PIPELINE_MOJOM_IMPORT_HEADERS_H_
 #define MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_EFFECTS_PIPELINE_MOJOM_IMPORT_HEADERS_H_
+#include "mojo/public/mojom/base/file_path.mojom.h"
+#include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
 
 #endif  // MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_EFFECTS_PIPELINE_MOJOM_IMPORT_HEADERS_H_

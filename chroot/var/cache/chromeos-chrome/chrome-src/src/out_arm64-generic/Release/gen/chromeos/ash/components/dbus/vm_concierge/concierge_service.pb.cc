@@ -5500,7 +5500,7 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // bool enable_gmscore_lmk_protection = 24;
+      // bool enable_gmscore_lmk_protection = 24 [deprecated = true];
       case 24:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 192)) {
           enable_gmscore_lmk_protection_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -5836,7 +5836,7 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(23, this->_internal_enable_tts_caching(), target);
   }
 
-  // bool enable_gmscore_lmk_protection = 24;
+  // bool enable_gmscore_lmk_protection = 24 [deprecated = true];
   if (this->_internal_enable_gmscore_lmk_protection() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(24, this->_internal_enable_gmscore_lmk_protection(), target);
@@ -6108,7 +6108,7 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         this->_internal_logd_config_size());
   }
 
-  // bool enable_gmscore_lmk_protection = 24;
+  // bool enable_gmscore_lmk_protection = 24 [deprecated = true];
   if (this->_internal_enable_gmscore_lmk_protection() != 0) {
     total_size += 2 + 1;
   }

@@ -53,7 +53,8 @@ EffectsConfig::EffectsConfig()
       blur_enabled(),
       replace_enabled(),
       relight_enabled(),
-      segmentation_model() {}
+      segmentation_model(),
+      background_filepath() {}
 
 EffectsConfig::EffectsConfig(
     CameraEffect effect_in,
@@ -67,7 +68,8 @@ EffectsConfig::EffectsConfig(
       blur_enabled(),
       replace_enabled(),
       relight_enabled(),
-      segmentation_model() {}
+      segmentation_model(),
+      background_filepath() {}
 
 EffectsConfig::EffectsConfig(
     CameraEffect effect_in,
@@ -84,7 +86,8 @@ EffectsConfig::EffectsConfig(
       blur_enabled(std::move(blur_enabled_in)),
       replace_enabled(std::move(replace_enabled_in)),
       relight_enabled(std::move(relight_enabled_in)),
-      segmentation_model() {}
+      segmentation_model(),
+      background_filepath() {}
 
 EffectsConfig::EffectsConfig(
     CameraEffect effect_in,
@@ -102,20 +105,30 @@ EffectsConfig::EffectsConfig(
       blur_enabled(std::move(blur_enabled_in)),
       replace_enabled(std::move(replace_enabled_in)),
       relight_enabled(std::move(relight_enabled_in)),
-      segmentation_model(std::move(segmentation_model_in)) {}
+      segmentation_model(std::move(segmentation_model_in)),
+      background_filepath() {}
+
+EffectsConfig::EffectsConfig(
+    CameraEffect effect_in,
+    BlurLevel blur_level_in,
+    GpuApi segmentation_gpu_api_in,
+    uint16_t graph_max_frames_in_flight_in,
+    bool blur_enabled_in,
+    bool replace_enabled_in,
+    bool relight_enabled_in,
+    SegmentationModel segmentation_model_in,
+    ::mojo_base::mojom::RelativeFilePathPtr background_filepath_in)
+    : effect(std::move(effect_in)),
+      blur_level(std::move(blur_level_in)),
+      segmentation_gpu_api(std::move(segmentation_gpu_api_in)),
+      graph_max_frames_in_flight(std::move(graph_max_frames_in_flight_in)),
+      blur_enabled(std::move(blur_enabled_in)),
+      replace_enabled(std::move(replace_enabled_in)),
+      relight_enabled(std::move(relight_enabled_in)),
+      segmentation_model(std::move(segmentation_model_in)),
+      background_filepath(std::move(background_filepath_in)) {}
 
 EffectsConfig::~EffectsConfig() = default;
-size_t EffectsConfig::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->effect);
-  seed = mojo::internal::Hash(seed, this->blur_level);
-  seed = mojo::internal::Hash(seed, this->segmentation_gpu_api);
-  seed = mojo::internal::Hash(seed, this->graph_max_frames_in_flight);
-  seed = mojo::internal::Hash(seed, this->blur_enabled);
-  seed = mojo::internal::Hash(seed, this->replace_enabled);
-  seed = mojo::internal::Hash(seed, this->relight_enabled);
-  seed = mojo::internal::Hash(seed, this->segmentation_model);
-  return seed;
-}
 
 void EffectsConfig::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -192,6 +205,15 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "background_filepath"), this->background_filepath,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::mojo_base::mojom::RelativeFilePathPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool EffectsConfig::Validate(
@@ -230,6 +252,8 @@ bool StructTraits<::cros::mojom::EffectsConfig::DataView, ::cros::mojom::Effects
       if (success)
         result->relight_enabled = input.relight_enabled();
       if (success && !input.ReadSegmentationModel(&result->segmentation_model))
+        success = false;
+      if (success && !input.ReadBackgroundFilepath(&result->background_filepath))
         success = false;
   *output = std::move(result);
   return success;

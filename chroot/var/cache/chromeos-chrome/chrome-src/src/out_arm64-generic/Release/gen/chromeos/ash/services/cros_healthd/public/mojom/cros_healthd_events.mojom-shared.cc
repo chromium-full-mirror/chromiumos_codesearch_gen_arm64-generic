@@ -300,6 +300,32 @@ std::ostream& operator<<(std::ostream& os, AudioJackEventInfo_State value) {
   return os << AudioJackEventInfo_StateToString(value);
 }
 
+NOINLINE static const char* AudioJackEventInfo_DeviceTypeToStringHelper(AudioJackEventInfo_DeviceType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AudioJackEventInfo_DeviceType::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case AudioJackEventInfo_DeviceType::kHeadphone:
+      return "kHeadphone";
+    case AudioJackEventInfo_DeviceType::kMicrophone:
+      return "kMicrophone";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AudioJackEventInfo_DeviceTypeToString(AudioJackEventInfo_DeviceType value) {
+  const char *str = AudioJackEventInfo_DeviceTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AudioJackEventInfo_DeviceType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AudioJackEventInfo_DeviceType value) {
+  return os << AudioJackEventInfo_DeviceTypeToString(value);
+}
+
 NOINLINE static const char* SdCardEventInfo_StateToStringHelper(SdCardEventInfo_State value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -955,8 +981,12 @@ bool AudioJackEventInfo_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 16 },
+    { 1, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -969,12 +999,19 @@ bool AudioJackEventInfo_Data::Validate(
   if (!::ash::cros_healthd::mojom::internal::AudioJackEventInfo_State_Data
         ::Validate(object->state, validation_context))
     return false;
+  if (object->header_.version < 1)
+    return true;
+
+
+  if (!::ash::cros_healthd::mojom::internal::AudioJackEventInfo_DeviceType_Data
+        ::Validate(object->device_type, validation_context))
+    return false;
 
   return true;
 }
 
 AudioJackEventInfo_Data::AudioJackEventInfo_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static
@@ -1961,6 +1998,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::AudioJackEventInfo_State>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::AudioJackEventInfo_State value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::AudioJackEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceType value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::AudioJackEventInfo_DeviceTypeToString(value));
 }
 
 } // namespace perfetto

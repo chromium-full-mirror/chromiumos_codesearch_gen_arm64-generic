@@ -44,7 +44,7 @@ namespace sync {
 }  // namespace sync
 
 namespace local {
-  const int QUOTA_BYTES = 5242880;
+  const int QUOTA_BYTES = 10485760;
 }  // namespace local
 
 namespace session {

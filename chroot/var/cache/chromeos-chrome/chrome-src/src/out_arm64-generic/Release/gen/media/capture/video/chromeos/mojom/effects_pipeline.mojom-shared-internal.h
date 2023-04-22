@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -167,7 +168,8 @@ class  EffectsConfig_Data {
   uint8_t relight_enabled : 1;
   uint8_t pad6_[1];
   int32_t segmentation_model;
-  uint8_t padfinal_[4];
+  uint8_t pad7_[4];
+  mojo::internal::Pointer<::mojo_base::mojom::internal::RelativeFilePath_Data> background_filepath;
 
  private:
   friend class mojo::internal::MessageFragment<EffectsConfig_Data>;
@@ -175,7 +177,7 @@ class  EffectsConfig_Data {
   EffectsConfig_Data();
   ~EffectsConfig_Data() = delete;
 };
-static_assert(sizeof(EffectsConfig_Data) == 32,
+static_assert(sizeof(EffectsConfig_Data) == 40,
               "Bad sizeof(EffectsConfig_Data)");
 // Used by EffectsConfig::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

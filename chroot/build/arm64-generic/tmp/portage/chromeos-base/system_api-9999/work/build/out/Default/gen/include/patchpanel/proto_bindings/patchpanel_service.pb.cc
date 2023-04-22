@@ -578,7 +578,7 @@ PROTOBUF_CONSTEXPR TetheredNetworkRequest::TetheredNetworkRequest(
   , /*decltype(_impl_.upstream_ifname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.ipv4_config_)*/nullptr
   , /*decltype(_impl_.upstream_technology_)*/0
-  , /*decltype(_impl_.disable_ipv6_)*/false} {}
+  , /*decltype(_impl_.enable_ipv6_)*/false} {}
 struct TetheredNetworkRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TetheredNetworkRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -10579,7 +10579,7 @@ TetheredNetworkRequest::TetheredNetworkRequest(const TetheredNetworkRequest& fro
     , decltype(_impl_.upstream_ifname_){}
     , decltype(_impl_.ipv4_config_){nullptr}
     , decltype(_impl_.upstream_technology_){}
-    , decltype(_impl_.disable_ipv6_){}};
+    , decltype(_impl_.enable_ipv6_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.ifname_.InitDefault();
@@ -10602,8 +10602,8 @@ TetheredNetworkRequest::TetheredNetworkRequest(const TetheredNetworkRequest& fro
     _this->_impl_.ipv4_config_ = new ::patchpanel::IPv4Configuration(*from._impl_.ipv4_config_);
   }
   ::memcpy(&_impl_.upstream_technology_, &from._impl_.upstream_technology_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.disable_ipv6_) -
-    reinterpret_cast<char*>(&_impl_.upstream_technology_)) + sizeof(_impl_.disable_ipv6_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.enable_ipv6_) -
+    reinterpret_cast<char*>(&_impl_.upstream_technology_)) + sizeof(_impl_.enable_ipv6_));
   // @@protoc_insertion_point(copy_constructor:patchpanel.TetheredNetworkRequest)
 }
 
@@ -10618,7 +10618,7 @@ inline void TetheredNetworkRequest::SharedCtor(
     , decltype(_impl_.upstream_ifname_){}
     , decltype(_impl_.ipv4_config_){nullptr}
     , decltype(_impl_.upstream_technology_){0}
-    , decltype(_impl_.disable_ipv6_){false}
+    , decltype(_impl_.enable_ipv6_){false}
   };
   _impl_.ifname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -10664,8 +10664,8 @@ void TetheredNetworkRequest::Clear() {
     _impl_.ipv4_config_->Clear();
   }
   ::memset(&_impl_.upstream_technology_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.disable_ipv6_) -
-      reinterpret_cast<char*>(&_impl_.upstream_technology_)) + sizeof(_impl_.disable_ipv6_));
+      reinterpret_cast<char*>(&_impl_.enable_ipv6_) -
+      reinterpret_cast<char*>(&_impl_.upstream_technology_)) + sizeof(_impl_.enable_ipv6_));
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -10714,10 +10714,10 @@ const char* TetheredNetworkRequest::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
-      // bool disable_ipv6 = 5;
+      // bool enable_ipv6 = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          _impl_.disable_ipv6_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.enable_ipv6_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -10786,10 +10786,10 @@ uint8_t* TetheredNetworkRequest::_InternalSerialize(
         _Internal::ipv4_config(this).GetCachedSize(), target, stream);
   }
 
-  // bool disable_ipv6 = 5;
-  if (this->_internal_disable_ipv6() != 0) {
+  // bool enable_ipv6 = 5;
+  if (this->_internal_enable_ipv6() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_disable_ipv6(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_enable_ipv6(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -10836,8 +10836,8 @@ size_t TetheredNetworkRequest::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_upstream_technology());
   }
 
-  // bool disable_ipv6 = 5;
-  if (this->_internal_disable_ipv6() != 0) {
+  // bool enable_ipv6 = 5;
+  if (this->_internal_enable_ipv6() != 0) {
     total_size += 1 + 1;
   }
 
@@ -10875,8 +10875,8 @@ void TetheredNetworkRequest::MergeFrom(const TetheredNetworkRequest& from) {
   if (from._internal_upstream_technology() != 0) {
     _this->_internal_set_upstream_technology(from._internal_upstream_technology());
   }
-  if (from._internal_disable_ipv6() != 0) {
-    _this->_internal_set_disable_ipv6(from._internal_disable_ipv6());
+  if (from._internal_enable_ipv6() != 0) {
+    _this->_internal_set_enable_ipv6(from._internal_enable_ipv6());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -10907,8 +10907,8 @@ void TetheredNetworkRequest::InternalSwap(TetheredNetworkRequest* other) {
       &other->_impl_.upstream_ifname_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(TetheredNetworkRequest, _impl_.disable_ipv6_)
-      + sizeof(TetheredNetworkRequest::_impl_.disable_ipv6_)
+      PROTOBUF_FIELD_OFFSET(TetheredNetworkRequest, _impl_.enable_ipv6_)
+      + sizeof(TetheredNetworkRequest::_impl_.enable_ipv6_)
       - PROTOBUF_FIELD_OFFSET(TetheredNetworkRequest, _impl_.ipv4_config_)>(
           reinterpret_cast<char*>(&_impl_.ipv4_config_),
           reinterpret_cast<char*>(&other->_impl_.ipv4_config_));

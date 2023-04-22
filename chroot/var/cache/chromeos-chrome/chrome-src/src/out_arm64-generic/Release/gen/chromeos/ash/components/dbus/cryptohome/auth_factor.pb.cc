@@ -192,7 +192,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR CommonMetadata::CommonMetadata(
     ::_pbi::ConstantInitialized)
   : chromeos_version_last_updated_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , chrome_version_last_updated_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , chrome_version_last_updated_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , lockout_policy_(0)
+{}
 struct CommonMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CommonMetadataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -491,6 +493,65 @@ bool AuthIntent_Parse(
       AuthIntent_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<AuthIntent>(int_value);
+  }
+  return success;
+}
+bool LockoutPolicy_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> LockoutPolicy_strings[4] = {};
+
+static const char LockoutPolicy_names[] =
+  "LOCKOUT_POLICY_ATTEMPT_LIMITED"
+  "LOCKOUT_POLICY_NONE"
+  "LOCKOUT_POLICY_TIME_LIMITED"
+  "LOCKOUT_POLICY_UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry LockoutPolicy_entries[] = {
+  { {LockoutPolicy_names + 0, 30}, 2 },
+  { {LockoutPolicy_names + 30, 19}, 1 },
+  { {LockoutPolicy_names + 49, 27}, 3 },
+  { {LockoutPolicy_names + 76, 22}, 0 },
+};
+
+static const int LockoutPolicy_entries_by_number[] = {
+  3, // 0 -> LOCKOUT_POLICY_UNKNOWN
+  1, // 1 -> LOCKOUT_POLICY_NONE
+  0, // 2 -> LOCKOUT_POLICY_ATTEMPT_LIMITED
+  2, // 3 -> LOCKOUT_POLICY_TIME_LIMITED
+};
+
+const std::string& LockoutPolicy_Name(
+    LockoutPolicy value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          LockoutPolicy_entries,
+          LockoutPolicy_entries_by_number,
+          4, LockoutPolicy_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      LockoutPolicy_entries,
+      LockoutPolicy_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     LockoutPolicy_strings[idx].get();
+}
+bool LockoutPolicy_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, LockoutPolicy* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      LockoutPolicy_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<LockoutPolicy>(int_value);
   }
   return success;
 }
@@ -3552,6 +3613,7 @@ CommonMetadata::CommonMetadata(const CommonMetadata& from)
     chrome_version_last_updated_.Set(from._internal_chrome_version_last_updated(), 
       GetArenaForAllocation());
   }
+  lockout_policy_ = from.lockout_policy_;
   // @@protoc_insertion_point(copy_constructor:user_data_auth.CommonMetadata)
 }
 
@@ -3564,6 +3626,7 @@ chrome_version_last_updated_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   chrome_version_last_updated_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+lockout_policy_ = 0;
 }
 
 CommonMetadata::~CommonMetadata() {
@@ -3593,6 +3656,7 @@ void CommonMetadata::Clear() {
 
   chromeos_version_last_updated_.ClearToEmpty();
   chrome_version_last_updated_.ClearToEmpty();
+  lockout_policy_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3619,6 +3683,15 @@ const char* CommonMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.LockoutPolicy lockout_policy = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_lockout_policy(static_cast<::user_data_auth::LockoutPolicy>(val));
         } else
           goto handle_unusual;
         continue;
@@ -3671,6 +3744,13 @@ uint8_t* CommonMetadata::_InternalSerialize(
         2, this->_internal_chrome_version_last_updated(), target);
   }
 
+  // .user_data_auth.LockoutPolicy lockout_policy = 3;
+  if (this->_internal_lockout_policy() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_lockout_policy(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3701,6 +3781,12 @@ size_t CommonMetadata::ByteSizeLong() const {
         this->_internal_chrome_version_last_updated());
   }
 
+  // .user_data_auth.LockoutPolicy lockout_policy = 3;
+  if (this->_internal_lockout_policy() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_lockout_policy());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3726,6 +3812,9 @@ void CommonMetadata::MergeFrom(const CommonMetadata& from) {
   }
   if (!from._internal_chrome_version_last_updated().empty()) {
     _internal_set_chrome_version_last_updated(from._internal_chrome_version_last_updated());
+  }
+  if (from._internal_lockout_policy() != 0) {
+    _internal_set_lockout_policy(from._internal_lockout_policy());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -3754,6 +3843,7 @@ void CommonMetadata::InternalSwap(CommonMetadata* other) {
       &chrome_version_last_updated_, lhs_arena,
       &other->chrome_version_last_updated_, rhs_arena
   );
+  swap(lockout_policy_, other->lockout_policy_);
 }
 
 std::string CommonMetadata::GetTypeName() const {
