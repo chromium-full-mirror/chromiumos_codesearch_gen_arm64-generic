@@ -28,6 +28,7 @@
 #include "base/strings/stringprintf.h"
 #include "base/time/time.h"
 #include "missive/proto/record_constants.pb.h"
+#include "secagentd/device_user.h"
 #include "secagentd/message_sender.h"
 #include "secagentd/metrics_sender.h"
 #include "secagentd/plugins.h"
@@ -39,18 +40,6 @@ namespace {
 
 constexpr int kWaitForServicesTimeoutMs = 2000;
 constexpr char kBootDataFilepath[] = "/sys/kernel/boot_params/data";
-
-// Converts a brillo::Error* to string for printing.
-std::string BrilloErrorToString(brillo::Error* err) {
-  std::string result;
-  if (err) {
-    result = base::StrCat({"(", err->GetDomain(), ", ", err->GetCode(), ", ",
-                           err->GetMessage(), ")"});
-  } else {
-    result = "(null)";
-  }
-  return result;
-}
 
 std::string TpmPropertyToStr(uint32_t value) {
   std::string str;
@@ -72,12 +61,14 @@ namespace pb = cros_xdr::reporting;
 
 AgentPlugin::AgentPlugin(
     scoped_refptr<MessageSenderInterface> message_sender,
+    scoped_refptr<DeviceUserInterface> device_user,
     std::unique_ptr<org::chromium::AttestationProxyInterface> attestation_proxy,
     std::unique_ptr<org::chromium::TpmManagerProxyInterface> tpm_manager_proxy,
     base::OnceCallback<void()> cb,
     uint32_t heartbeat_timer)
     : weak_ptr_factory_(this),
       message_sender_(message_sender),
+      device_user_(device_user),
       heartbeat_timer_(base::Seconds(std::max(heartbeat_timer, uint32_t(1)))) {
   CHECK(message_sender != nullptr);
   attestation_proxy_ = std::move(attestation_proxy);
@@ -182,9 +173,8 @@ void AgentPlugin::GetCrosSecureBootInformation(bool available) {
   if (!attestation_proxy_->GetStatus(request, &out_reply, &error,
                                      kWaitForServicesTimeoutMs) ||
       error.get()) {
-    LOG(ERROR) << "Failed to get boot information "
-               << BrilloErrorToString(error.get());
     cros_bootmode_metric_ = metrics::CrosBootmode::kFailedRetrieval;
+    LOG(ERROR) << "Failed to get boot information " << error->GetMessage();
     return;
   }
 
@@ -216,8 +206,7 @@ void AgentPlugin::GetTpmInformation(bool available) {
   if (!tpm_manager_proxy_->GetTpmStatus(status_request, &status_reply, &error,
                                         kWaitForServicesTimeoutMs) ||
       error.get()) {
-    LOG(ERROR) << "Failed to get TPM status "
-               << BrilloErrorToString(error.get());
+    LOG(ERROR) << "Failed to get TPM status " << error->GetMessage();
     tpm_metric_ = metrics::Tpm::kFailedRetrieval;
     return;
   }
@@ -233,9 +222,8 @@ void AgentPlugin::GetTpmInformation(bool available) {
   if (!tpm_manager_proxy_->GetVersionInfo(version_request, &version_reply,
                                           &error, kWaitForServicesTimeoutMs) ||
       error.get()) {
-    LOG(ERROR) << "Failed to get TPM information "
-               << BrilloErrorToString(error.get());
     tpm_metric_ = metrics::Tpm::kFailedRetrieval;
+    LOG(ERROR) << "Failed to get TPM information " << error->GetMessage();
     return;
   }
   tpm_metric_ = metrics::Tpm::kSuccess;
@@ -276,25 +264,36 @@ void AgentPlugin::GetTpmInformation(bool available) {
 }
 
 void AgentPlugin::SendAgentStartEvent() {
-  auto agent_event = std::make_unique<pb::XdrAgentEvent>();
+  auto xdr_proto = std::make_unique<pb::XdrAgentEvent>();
+  auto agent_start = xdr_proto->add_batched_events();
   base::AutoLock lock(tcb_attributes_lock_);
-  agent_event->mutable_agent_start()->mutable_tcb()->CopyFrom(tcb_attributes_);
+  agent_start->mutable_agent_start()->mutable_tcb()->CopyFrom(tcb_attributes_);
+  agent_start->mutable_common()->set_create_timestamp_us(
+      base::Time::Now().ToJavaTime() * base::Time::kMicrosecondsPerMillisecond);
+  agent_start->mutable_common()->set_device_user(device_user_->GetDeviceUser());
+
   message_sender_->SendMessage(
-      reporting::CROS_SECURITY_AGENT, agent_event->mutable_common(),
-      std::move(agent_event),
+      reporting::CROS_SECURITY_AGENT, xdr_proto->mutable_common(),
+      std::move(xdr_proto),
       base::BindOnce(&AgentPlugin::StartEventStatusCallback,
                      weak_ptr_factory_.GetWeakPtr()));
 }
 
 void AgentPlugin::SendAgentHeartbeatEvent() {
   // Create agent heartbeat event.
-  auto agent_event = std::make_unique<pb::XdrAgentEvent>();
+  auto xdr_proto = std::make_unique<pb::XdrAgentEvent>();
+  auto agent_heartbeat = xdr_proto->add_batched_events();
   base::AutoLock lock(tcb_attributes_lock_);
-  agent_event->mutable_agent_heartbeat()->mutable_tcb()->CopyFrom(
+  agent_heartbeat->mutable_agent_heartbeat()->mutable_tcb()->CopyFrom(
       tcb_attributes_);
+  agent_heartbeat->mutable_common()->set_create_timestamp_us(
+      base::Time::Now().ToJavaTime() * base::Time::kMicrosecondsPerMillisecond);
+  agent_heartbeat->mutable_common()->set_device_user(
+      device_user_->GetDeviceUser());
+
   message_sender_->SendMessage(reporting::CROS_SECURITY_AGENT,
-                               agent_event->mutable_common(),
-                               std::move(agent_event), std::nullopt);
+                               xdr_proto->mutable_common(),
+                               std::move(xdr_proto), std::nullopt);
 }
 
 void AgentPlugin::StartEventStatusCallback(reporting::Status status) {

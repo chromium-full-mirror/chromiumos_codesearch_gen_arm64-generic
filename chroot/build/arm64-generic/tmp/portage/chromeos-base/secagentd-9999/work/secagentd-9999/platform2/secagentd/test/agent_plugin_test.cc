@@ -31,6 +31,7 @@
 #include "missive/util/status.h"
 #include "secagentd/plugins.h"
 #include "secagentd/proto/security_xdr_events.pb.h"
+#include "secagentd/test/mock_device_user.h"
 #include "secagentd/test/mock_message_sender.h"
 #include "tpm_manager/dbus-constants.h"
 #include "tpm_manager/proto_bindings/tpm_manager.pb.h"
@@ -65,12 +66,15 @@ struct BootmodeAndTpm {
   pb::TcbAttributes_SecurityChip::Kind expected_security_chip_kind;
 };
 
+constexpr char kDeviceUser[] = "deviceUser@email.com";
+
 class AgentPluginTestFixture : public ::testing::TestWithParam<BootmodeAndTpm> {
  protected:
   AgentPluginTestFixture()
       : task_environment_(base::test::TaskEnvironment::TimeSource::MOCK_TIME) {}
   void SetUp() override {
     message_sender_ = base::MakeRefCounted<MockMessageSender>();
+    device_user_ = base::MakeRefCounted<MockDeviceUser>();
     plugin_factory_ = std::make_unique<PluginFactory>();
     dbus::Bus::Options options;
     options.bus_type = dbus::Bus::SYSTEM;
@@ -88,7 +92,7 @@ class AgentPluginTestFixture : public ::testing::TestWithParam<BootmodeAndTpm> {
 
   void CreateAgentPlugin(base::RunLoop* run_loop) {
     plugin_ = plugin_factory_->CreateAgentPlugin(
-        message_sender_, std::move(attestation_proxy_),
+        message_sender_, device_user_, std::move(attestation_proxy_),
         std::move(tpm_manager_proxy_),
         base::BindOnce(
             [](base::RunLoop* run_loop) {
@@ -167,6 +171,7 @@ class AgentPluginTestFixture : public ::testing::TestWithParam<BootmodeAndTpm> {
   scoped_refptr<dbus::MockBus> bus_;
   scoped_refptr<dbus::MockObjectProxy> attestation_object_proxy_;
   scoped_refptr<dbus::MockObjectProxy> tpm_manager_object_proxy_;
+  scoped_refptr<MockDeviceUser> device_user_;
   std::unique_ptr<PluginFactory> plugin_factory_;
   std::unique_ptr<PluginInterface> plugin_;
   AgentPlugin* agent_plugin_;
@@ -219,6 +224,10 @@ TEST_F(AgentPluginTestFixture, TestSendStartEventServicesAvailable) {
             return true;
           })));
 
+  EXPECT_CALL(*device_user_, GetDeviceUser)
+      .Times(3)
+      .WillRepeatedly(Return(kDeviceUser));
+
   // Setup message sender mock. WillOnce is for StartEvent and
   // WillRepeatedly is for HeartbeatEvent.
   // In each case the sent proto will be deserialized into either a StartEvent
@@ -249,15 +258,28 @@ TEST_F(AgentPluginTestFixture, TestSendStartEventServicesAvailable) {
   task_environment_.FastForwardBy(base::Minutes(10));
 
   // Check tcb attributes for agent start and heartbeat.
-  CheckTcbAttributes(agent_start_message->agent_start().tcb(), tpm_information,
-                     level, revision, family_string, manufacturer_string);
-  CheckTcbAttributes(agent_heartbeat_message->agent_heartbeat().tcb(),
-                     tpm_information, level, revision, family_string,
-                     manufacturer_string);
+  EXPECT_EQ(1, agent_start_message->batched_events_size());
+  CheckTcbAttributes(
+      agent_start_message->batched_events()[0].agent_start().tcb(),
+      tpm_information, level, revision, family_string, manufacturer_string);
+  EXPECT_EQ(1, agent_heartbeat_message->batched_events_size());
+  CheckTcbAttributes(
+      agent_heartbeat_message->batched_events()[0].agent_heartbeat().tcb(),
+      tpm_information, level, revision, family_string, manufacturer_string);
+
+  EXPECT_EQ(kDeviceUser,
+            agent_start_message->batched_events()[0].common().device_user());
+  EXPECT_EQ(
+      kDeviceUser,
+      agent_heartbeat_message->batched_events()[0].common().device_user());
 }
 
 TEST_F(AgentPluginTestFixture, TestSetHeartbeatTimerNonzero) {
   SetupObjectProxies(false);
+
+  EXPECT_CALL(*device_user_, GetDeviceUser)
+      .Times(4)
+      .WillRepeatedly(Return(kDeviceUser));
 
   EXPECT_CALL(*message_sender_,
               SendMessage(reporting::Destination::CROS_SECURITY_AGENT, _, _, _))
@@ -280,9 +302,19 @@ TEST_F(AgentPluginTestFixture, TestSetHeartbeatTimerNonzero) {
 TEST_F(AgentPluginTestFixture, TestSetHeartbeatTimerZero) {
   SetupObjectProxies(false);
 
+  heartbeat_timer = 0;
+  static constexpr double kTimePassed = 3.1;
+  // When heartbeat timer is 0 seconds it defaults to 1.
+  // Add 1 for Agent start.
+  static constexpr int kTimes = 1 + kTimePassed / 1;
+
+  EXPECT_CALL(*device_user_, GetDeviceUser)
+      .Times(kTimes)
+      .WillRepeatedly(Return(kDeviceUser));
+
   EXPECT_CALL(*message_sender_,
               SendMessage(reporting::Destination::CROS_SECURITY_AGENT, _, _, _))
-      .Times(4)
+      .Times(kTimes)
       .WillOnce(WithArgs<3>(
           Invoke([](std::optional<reporting::ReportQueue::EnqueueCallback> cb) {
             EXPECT_TRUE(cb.has_value());
@@ -293,13 +325,14 @@ TEST_F(AgentPluginTestFixture, TestSetHeartbeatTimerZero) {
             EXPECT_FALSE(cb.has_value());
           })));
 
-  heartbeat_timer = 0;
   CreateAndRunAgentPlugin();
-  task_environment_.FastForwardBy(base::Seconds(3.5));
+  task_environment_.FastForwardBy(base::Seconds(kTimePassed));
 }
 
 TEST_F(AgentPluginTestFixture, TestSendStartEventServicesUnvailable) {
   SetupObjectProxies(false);
+
+  EXPECT_CALL(*device_user_, GetDeviceUser).WillOnce(Return(kDeviceUser));
 
   auto agent_message = std::make_unique<pb::XdrAgentEvent>();
   EXPECT_CALL(*message_sender_,
@@ -317,18 +350,33 @@ TEST_F(AgentPluginTestFixture, TestSendStartEventServicesUnvailable) {
 
   CreateAndRunAgentPlugin();
 
-  auto tcb = agent_message->agent_start().tcb();
+  EXPECT_EQ(1, agent_message->batched_events_size());
+  auto tcb = agent_message->batched_events()[0].agent_start().tcb();
   EXPECT_FALSE(tcb.has_firmware_secure_boot());
   EXPECT_FALSE(tcb.has_security_chip());
+
+  EXPECT_EQ(kDeviceUser,
+            agent_message->batched_events()[0].common().device_user());
 }
 
 TEST_F(AgentPluginTestFixture, TestSendStartEventServicesFailedToRetrieve) {
   SetupObjectProxies(true);
 
-  EXPECT_CALL(*attestation_proxy_, GetStatus).WillOnce(Return(false));
-  EXPECT_CALL(*tpm_manager_proxy_, GetTpmStatus).WillOnce(Return(false));
+  EXPECT_CALL(*attestation_proxy_, GetStatus)
+      .WillOnce(WithArgs<2>(Invoke([](brillo::ErrorPtr* error) {
+        *error = brillo::Error::Create(FROM_HERE, "", "", "GetStatus failed");
+        return false;
+      })));
+  EXPECT_CALL(*tpm_manager_proxy_, GetTpmStatus)
+      .WillOnce(WithArgs<2>(Invoke([](brillo::ErrorPtr* error) {
+        *error =
+            brillo::Error::Create(FROM_HERE, "", "", "GetTpmStatus failed");
+        return false;
+      })));
 
-  auto agent_message = std::make_unique<pb::XdrAgentEvent>();
+  EXPECT_CALL(*device_user_, GetDeviceUser).WillOnce(Return(kDeviceUser));
+
+  auto agent_message = std::make_unique<pb::AgentEventAtomicVariant>();
   EXPECT_CALL(*message_sender_,
               SendMessage(reporting::Destination::CROS_SECURITY_AGENT, _, _, _))
       .WillOnce(WithArgs<2, 3>(Invoke(
@@ -351,6 +399,10 @@ TEST_F(AgentPluginTestFixture, TestSendStartEventServicesFailedToRetrieve) {
 
 TEST_F(AgentPluginTestFixture, TestSendStartEventFailure) {
   SetupObjectProxies(false);
+
+  EXPECT_CALL(*device_user_, GetDeviceUser)
+      .Times(4)
+      .WillRepeatedly(Return(kDeviceUser));
 
   EXPECT_CALL(*message_sender_,
               SendMessage(reporting::Destination::CROS_SECURITY_AGENT, _, _, _))

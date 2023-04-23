@@ -17,6 +17,7 @@
 #include "google/protobuf/message_lite.h"
 #include "missive/proto/record_constants.pb.h"
 #include "secagentd/bpf/process.h"
+#include "secagentd/device_user.h"
 #include "secagentd/message_sender.h"
 #include "secagentd/metrics_sender.h"
 #include "secagentd/plugins.h"
@@ -68,11 +69,13 @@ ProcessPlugin::ProcessPlugin(
     scoped_refptr<MessageSenderInterface> message_sender,
     scoped_refptr<ProcessCacheInterface> process_cache,
     scoped_refptr<PoliciesFeaturesBrokerInterface> policies_features_broker,
+    scoped_refptr<DeviceUserInterface> device_user,
     uint32_t batch_interval_s)
     : weak_ptr_factory_(this),
       message_sender_(message_sender),
       process_cache_(process_cache),
       policies_features_broker_(policies_features_broker),
+      device_user_(device_user),
       batch_sender_(
           std::make_unique<BatchSender<std::string,
                                        pb::XdrProcessEvent,
@@ -134,8 +137,11 @@ void ProcessPlugin::HandleRingBufferEvent(const bpf::cros_event& bpf_event) {
     LOG(ERROR) << "ProcessBPF: unknown BPF process event type.";
     return;
   }
+
   if (policies_features_broker_->GetFeature(
           PoliciesFeaturesBroker::Feature::kCrOSLateBootSecagentdBatchEvents)) {
+    atomic_event->mutable_common()->set_device_user(
+        device_user_->GetDeviceUser());
     EnqueueBatchedEvent(std::move(atomic_event));
   } else {
     DeprecatedSendImmediate(std::move(atomic_event));
