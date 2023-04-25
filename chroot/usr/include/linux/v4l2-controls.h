@@ -605,8 +605,6 @@ enum v4l2_mpeg_video_vp9_profile {
 	V4L2_MPEG_VIDEO_VP9_PROFILE_3				= 3,
 };
 
-#define V4L2_CID_MPEG_VIDEO_PREPEND_SPSPPS_TO_IDR       (V4L2_CID_MPEG_BASE + 644)
-
 /* CIDs for HEVC encoding. */
 
 #define V4L2_CID_MPEG_VIDEO_HEVC_MIN_QP		(V4L2_CID_MPEG_BASE + 600)

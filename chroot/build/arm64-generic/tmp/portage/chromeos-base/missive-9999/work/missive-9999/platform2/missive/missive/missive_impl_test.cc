@@ -44,10 +44,8 @@ namespace {
 class MockStorageModule : public StorageModule {
  public:
   // As opposed to the production |StorageModule|, test module does not need to
-  // call factory method - it is created directly by constructor.  The
-  // `legacy_storage_enabled` parameter can be any value since this is a feature
-  // flag that only affects internal implementation details.
-  MockStorageModule() : StorageModule(/*legacy_storage_enabled=*/true) {}
+  // call factory method - it is created directly by constructor.
+  MockStorageModule() = default;
 
   MOCK_METHOD(void,
               AddRecord,
@@ -68,8 +66,6 @@ class MockStorageModule : public StorageModule {
               UpdateEncryptionKey,
               (SignedEncryptionInfo signed_encryption_key),
               (override));
-
-  MOCK_METHOD(base::StringPiece, GetPipelineId, (), (const override));
 };
 
 class MissiveImplTest : public ::testing::Test {
