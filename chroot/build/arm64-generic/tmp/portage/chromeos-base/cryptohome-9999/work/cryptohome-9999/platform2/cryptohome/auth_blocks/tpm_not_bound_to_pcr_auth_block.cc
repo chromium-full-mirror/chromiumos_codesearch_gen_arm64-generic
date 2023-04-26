@@ -22,7 +22,6 @@
 #include <libhwsec-foundation/crypto/scrypt.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 
-#include "cryptohome/auth_blocks/sync_to_async_auth_block_adapter.h"
 #include "cryptohome/auth_blocks/tpm_auth_block_utils.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/crypto_error.h"
@@ -400,8 +399,9 @@ void TpmNotBoundToPcrAuthBlock::Create(const AuthInput& user_input,
   key_blobs->vkk_iv = vkk_iv;
   key_blobs->chaps_iv = vkk_iv;
 
-  *auth_block_state = AuthBlockState{.state = std::move(auth_state)};
+  auth_block_state->state = std::move(auth_state);
   std::move(callback).Run(OkStatus<CryptohomeCryptoError>(),
                           std::move(key_blobs), std::move(auth_block_state));
 }
+
 }  // namespace cryptohome

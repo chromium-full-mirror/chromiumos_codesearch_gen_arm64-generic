@@ -20,17 +20,16 @@
 #include <chromeos/constants/cryptohome.h>
 #include <libhwsec-foundation/status/status_chain_or.h>
 
-#include "cryptohome/auth_blocks/async_challenge_credential_auth_block.h"
 #include "cryptohome/auth_blocks/auth_block.h"
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_blocks/auth_block_utils.h"
+#include "cryptohome/auth_blocks/challenge_credential_auth_block.h"
 #include "cryptohome/auth_blocks/cryptohome_recovery_auth_block.h"
 #include "cryptohome/auth_blocks/double_wrapped_compat_auth_block.h"
 #include "cryptohome/auth_blocks/fingerprint_auth_block.h"
 #include "cryptohome/auth_blocks/generic.h"
 #include "cryptohome/auth_blocks/pin_weaver_auth_block.h"
 #include "cryptohome/auth_blocks/scrypt_auth_block.h"
-#include "cryptohome/auth_blocks/sync_to_async_auth_block_adapter.h"
 #include "cryptohome/auth_blocks/tpm_bound_to_pcr_auth_block.h"
 #include "cryptohome/auth_blocks/tpm_ecc_auth_block.h"
 #include "cryptohome/auth_blocks/tpm_not_bound_to_pcr_auth_block.h"
@@ -166,7 +165,7 @@ bool AuthBlockUtilityImpl::IsAuthFactorSupported(
     case AuthFactorType::kKiosk:
       return configured_factors.empty() || user_has_kiosk;
     case AuthFactorType::kSmartCard:
-      return AsyncChallengeCredentialAuthBlock::IsSupported(*crypto_).ok();
+      return ChallengeCredentialAuthBlock::IsSupported(*crypto_).ok();
     case AuthFactorType::kLegacyFingerprint:
       return false;
     case AuthFactorType::kFingerprint: {
@@ -175,49 +174,6 @@ bool AuthBlockUtilityImpl::IsAuthFactorSupported(
               AuthFactorStorageType::kUserSecretStash) &&
              FingerprintAuthBlock::IsSupported(*crypto_, getter_copy).ok();
     }
-    case AuthFactorType::kUnspecified:
-      return false;
-  }
-}
-
-bool AuthBlockUtilityImpl::IsPrepareAuthFactorRequired(
-    AuthFactorType auth_factor_type) const {
-  switch (auth_factor_type) {
-    case AuthFactorType::kLegacyFingerprint:
-    case AuthFactorType::kFingerprint:
-      return true;
-    case AuthFactorType::kPassword:
-    case AuthFactorType::kPin:
-    case AuthFactorType::kCryptohomeRecovery:
-    case AuthFactorType::kKiosk:
-    case AuthFactorType::kSmartCard:
-    case AuthFactorType::kUnspecified:
-      return false;
-  }
-}
-
-bool AuthBlockUtilityImpl::IsVerifyWithAuthFactorSupported(
-    AuthIntent auth_intent, AuthFactorType auth_factor_type) const {
-  // Legacy Fingerprint + WebAuthn is a special case that supports a lightweight
-  // verify.
-  if (auth_intent == AuthIntent::kWebAuthn &&
-      auth_factor_type == AuthFactorType::kLegacyFingerprint) {
-    return true;
-  }
-  // Verify can only be used with verify-only intents, other than the above
-  // special cases.
-  if (auth_intent != AuthIntent::kVerifyOnly) {
-    return false;
-  }
-  switch (auth_factor_type) {
-    case AuthFactorType::kPassword:
-    case AuthFactorType::kLegacyFingerprint:
-    case AuthFactorType::kSmartCard:
-      return true;
-    case AuthFactorType::kPin:
-    case AuthFactorType::kCryptohomeRecovery:
-    case AuthFactorType::kKiosk:
-    case AuthFactorType::kFingerprint:
     case AuthFactorType::kUnspecified:
       return false;
   }
@@ -515,7 +471,7 @@ AuthBlockUtilityImpl::GetAuthBlockWithType(AuthBlockType auth_block_type,
   if (auto status = IsAuthBlockSupported(auth_block_type); !status.ok()) {
     return MakeStatus<CryptohomeCryptoError>(
                CRYPTOHOME_ERR_LOC(
-                   kLocAuthBlockUtilNotSupportedInGetAsyncAuthBlockWithType))
+                   kLocAuthBlockUtilNotSupportedInGetAuthBlockWithType))
         .Wrap(std::move(status));
   }
   GenericAuthBlockFunctions generic(
@@ -525,7 +481,7 @@ AuthBlockUtilityImpl::GetAuthBlockWithType(AuthBlockType auth_block_type,
   if (!auth_block) {
     return MakeStatus<CryptohomeCryptoError>(
         CRYPTOHOME_ERR_LOC(
-            kLocAuthBlockUtilUnknownUnsupportedInGetAsyncAuthBlockWithType),
+            kLocAuthBlockUtilUnknownUnsupportedInGetAuthBlockWithType),
         ErrorActionSet(
             {PossibleAction::kDevCheckUnexpectedState, PossibleAction::kAuth}),
         CryptoError::CE_OTHER_CRYPTO);
@@ -691,7 +647,7 @@ CryptohomeStatus AuthBlockUtilityImpl::PrepareAuthBlockForRemoval(
     LOG(ERROR) << "Failed to retrieve auth block.";
     return MakeStatus<CryptohomeCryptoError>(
                CRYPTOHOME_ERR_LOC(
-                   kLocAuthBlockUtilNoAsyncAuthBlockInPrepareForRemoval))
+                   kLocAuthBlockUtilNoAuthBlockInPrepareForRemoval))
         .Wrap(std::move(auth_block).err_status());
   }
 

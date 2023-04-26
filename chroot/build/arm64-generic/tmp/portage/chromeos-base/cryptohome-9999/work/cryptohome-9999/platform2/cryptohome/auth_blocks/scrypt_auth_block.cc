@@ -14,7 +14,6 @@
 #include <libhwsec-foundation/crypto/scrypt.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 
-#include "cryptohome/auth_blocks/sync_to_async_auth_block_adapter.h"
 #include "cryptohome/cryptohome_metrics.h"
 #include "cryptohome/error/location_utils.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
@@ -123,7 +122,7 @@ void ScryptAuthBlock::Create(const AuthInput& auth_input,
   key_blobs->scrypt_chaps_key = std::move(derived_scrypt_chaps_key);
   key_blobs->scrypt_reset_seed_key = std::move(derived_scrypt_reset_seed_key);
 
-  *auth_block_state = AuthBlockState{.state = std::move(scrypt_state)};
+  auth_block_state->state = std::move(scrypt_state);
   std::move(callback).Run(OkStatus<CryptohomeCryptoError>(),
                           std::move(key_blobs), std::move(auth_block_state));
 }

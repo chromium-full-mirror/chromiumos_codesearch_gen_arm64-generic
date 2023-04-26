@@ -322,52 +322,6 @@ TEST_F(AuthBlockUtilityImplTest, GetSupportedAuthFactors) {
       {}));
 }
 
-TEST_F(AuthBlockUtilityImplTest, IsVerifyWithAuthFactorSupported) {
-  MakeAuthBlockUtilityImpl();
-
-  EXPECT_TRUE(auth_block_utility_impl_->IsVerifyWithAuthFactorSupported(
-      AuthIntent::kVerifyOnly, AuthFactorType::kPassword));
-  EXPECT_FALSE(auth_block_utility_impl_->IsVerifyWithAuthFactorSupported(
-      AuthIntent::kVerifyOnly, AuthFactorType::kPin));
-  EXPECT_FALSE(auth_block_utility_impl_->IsVerifyWithAuthFactorSupported(
-      AuthIntent::kVerifyOnly, AuthFactorType::kCryptohomeRecovery));
-  EXPECT_FALSE(auth_block_utility_impl_->IsVerifyWithAuthFactorSupported(
-      AuthIntent::kVerifyOnly, AuthFactorType::kKiosk));
-  EXPECT_TRUE(auth_block_utility_impl_->IsVerifyWithAuthFactorSupported(
-      AuthIntent::kVerifyOnly, AuthFactorType::kSmartCard));
-  EXPECT_TRUE(auth_block_utility_impl_->IsVerifyWithAuthFactorSupported(
-      AuthIntent::kVerifyOnly, AuthFactorType::kLegacyFingerprint));
-  EXPECT_TRUE(auth_block_utility_impl_->IsVerifyWithAuthFactorSupported(
-      AuthIntent::kWebAuthn, AuthFactorType::kLegacyFingerprint));
-  EXPECT_FALSE(auth_block_utility_impl_->IsVerifyWithAuthFactorSupported(
-      AuthIntent::kDecrypt, AuthFactorType::kLegacyFingerprint));
-  EXPECT_FALSE(auth_block_utility_impl_->IsVerifyWithAuthFactorSupported(
-      AuthIntent::kVerifyOnly, AuthFactorType::kFingerprint));
-  EXPECT_FALSE(auth_block_utility_impl_->IsVerifyWithAuthFactorSupported(
-      AuthIntent::kVerifyOnly, AuthFactorType::kUnspecified));
-}
-
-TEST_F(AuthBlockUtilityImplTest, IsPrepareAuthFactorRequired) {
-  MakeAuthBlockUtilityImpl();
-
-  EXPECT_FALSE(auth_block_utility_impl_->IsPrepareAuthFactorRequired(
-      AuthFactorType::kPassword));
-  EXPECT_FALSE(auth_block_utility_impl_->IsPrepareAuthFactorRequired(
-      AuthFactorType::kPin));
-  EXPECT_FALSE(auth_block_utility_impl_->IsPrepareAuthFactorRequired(
-      AuthFactorType::kCryptohomeRecovery));
-  EXPECT_FALSE(auth_block_utility_impl_->IsPrepareAuthFactorRequired(
-      AuthFactorType::kKiosk));
-  EXPECT_FALSE(auth_block_utility_impl_->IsPrepareAuthFactorRequired(
-      AuthFactorType::kSmartCard));
-  EXPECT_TRUE(auth_block_utility_impl_->IsPrepareAuthFactorRequired(
-      AuthFactorType::kLegacyFingerprint));
-  EXPECT_TRUE(auth_block_utility_impl_->IsPrepareAuthFactorRequired(
-      AuthFactorType::kFingerprint));
-  EXPECT_FALSE(auth_block_utility_impl_->IsPrepareAuthFactorRequired(
-      AuthFactorType::kUnspecified));
-}
-
 TEST_F(AuthBlockUtilityImplTest, PreparePasswordFailure) {
   MakeAuthBlockUtilityImpl();
   // password auth factor always fails the prepare.
@@ -1247,98 +1201,9 @@ TEST_F(AuthBlockUtilityImplTest, DeriveDoubleWrappedAuthBlock) {
 }
 
 // Test that CreateKeyBlobsWithAuthBlock creates AuthBlockState
-// and KeyBlobs, internally using a SyncToAsyncAuthBlockAdapter for
-// accessing the key material from TpmBoundToPcrAuthBlock.
-TEST_F(AuthBlockUtilityImplTest, SyncToAsyncAdapterCreate) {
-  // Setup test inputs and the mock expectations.
-  brillo::SecureBlob passkey(20, 'A');
-  Credentials credentials(kUser, passkey);
-
-  crypto_.Init();
-
-  brillo::SecureBlob auth_value(256, 'a');
-  EXPECT_CALL(hwsec_, GetAuthValue(_, _)).WillOnce(ReturnValue(auth_value));
-  EXPECT_CALL(hwsec_, SealWithCurrentUser(_, auth_value, _)).Times(Exactly(2));
-  ON_CALL(hwsec_, SealWithCurrentUser(_, _, _))
-      .WillByDefault(ReturnValue(brillo::Blob()));
-
-  MakeAuthBlockUtilityImpl();
-
-  AuthBlock::CreateCallback create_callback = base::BindLambdaForTesting(
-      [&](CryptohomeStatus error, std::unique_ptr<KeyBlobs> blobs,
-          std::unique_ptr<AuthBlockState> auth_state) {
-        // Evaluate results of KeyBlobs and AuthBlockState returned by callback.
-        EXPECT_TRUE(error.ok());
-        EXPECT_TRUE(std::holds_alternative<TpmBoundToPcrAuthBlockState>(
-            auth_state->state));
-        EXPECT_NE(blobs->vkk_key, std::nullopt);
-        EXPECT_NE(blobs->vkk_iv, std::nullopt);
-        EXPECT_NE(blobs->chaps_iv, std::nullopt);
-        // Verify that tpm backed pcr bound auth block is created.
-        auto& tpm_state =
-            std::get<TpmBoundToPcrAuthBlockState>(auth_state->state);
-        EXPECT_TRUE(tpm_state.salt.has_value());
-      });
-
-  AuthInput auth_input = {
-      credentials.passkey(),
-      /*locked_to_single_user*=*/std::nullopt, credentials.username(),
-      credentials.GetObfuscatedUsername(), /*reset_secret*/ std::nullopt};
-
-  // Test.
-  auth_block_utility_impl_->CreateKeyBlobsWithAuthBlock(
-      AuthBlockType::kTpmBoundToPcr, auth_input, std::move(create_callback));
-}
-
-// Test that DeriveKeyBlobsWithAuthBlock derives KeyBlobs,
-// internally using a SyncToAsyncAuthBlockAdapter for
-// accessing the key material from TpmBoundToPcrAuthBlock.
-TEST_F(AuthBlockUtilityImplTest, SyncToAsyncAdapterDerive) {
-  // Setup test inputs and the mock expectations.
-  brillo::SecureBlob passkey(20, 'A');
-  Credentials credentials(kUser, passkey);
-  brillo::SecureBlob tpm_key(20, 'B');
-  brillo::SecureBlob salt(system_salt_);
-  crypto_.Init();
-
-  // Make sure TpmAuthBlock calls DecryptTpmBoundToPcr in this case.
-  EXPECT_CALL(hwsec_, PreloadSealedData(_)).WillOnce(ReturnValue(std::nullopt));
-  EXPECT_CALL(hwsec_, GetAuthValue(_, _))
-      .WillOnce(ReturnValue(brillo::SecureBlob()));
-  EXPECT_CALL(hwsec_, UnsealWithCurrentUser(_, _, _))
-      .WillOnce(ReturnValue(brillo::SecureBlob()));
-
-  TpmBoundToPcrAuthBlockState tpm_state = {.scrypt_derived = true,
-                                           .salt = salt,
-                                           .tpm_key = tpm_key,
-                                           .extended_tpm_key = tpm_key};
-  AuthBlockState auth_state = {.state = tpm_state};
-  AuthInput auth_input = {credentials.passkey(),
-                          /*locked_to_single_user=*/std::nullopt};
-
-  MakeAuthBlockUtilityImpl();
-
-  // Test.
-  AuthBlock::DeriveCallback derive_callback = base::BindLambdaForTesting(
-      [&](CryptohomeStatus error, std::unique_ptr<KeyBlobs> blobs,
-          std::optional<AuthBlock::SuggestedAction> suggested_action) {
-        // Evaluate results of KeyBlobs returned by callback.
-        EXPECT_TRUE(error.ok());
-        EXPECT_NE(blobs->vkk_key, std::nullopt);
-        EXPECT_NE(blobs->vkk_iv, std::nullopt);
-        EXPECT_NE(blobs->chaps_iv, std::nullopt);
-        EXPECT_EQ(suggested_action, std::nullopt);
-      });
-
-  auth_block_utility_impl_->DeriveKeyBlobsWithAuthBlock(
-      AuthBlockType::kTpmBoundToPcr, auth_input, auth_state,
-      std::move(derive_callback));
-}
-
-// Test that CreateKeyBlobsWithAuthBlock creates AuthBlockState
 // and KeyBlobs, internally using a AsyncChallengeCredentialAuthBlock for
 // accessing the key material.
-TEST_F(AuthBlockUtilityImplTest, AsyncChallengeCredentialCreate) {
+TEST_F(AuthBlockUtilityImplTest, ChallengeCredentialCreate) {
   brillo::SecureBlob passkey("passkey");
   Credentials credentials(kUser, passkey);
   crypto_.Init();
@@ -1422,8 +1287,8 @@ TEST_F(AuthBlockUtilityImplTest, AsyncChallengeCredentialCreate) {
       std::move(create_callback));
 }
 
-// The AsyncChallengeCredentialAuthBlock::Derive should work correctly.
-TEST_F(AuthBlockUtilityImplTest, AsyncChallengeCredentialDerive) {
+// The ChallengeCredentialAuthBlock::Derive should work correctly.
+TEST_F(AuthBlockUtilityImplTest, ChallengeCredentialDerive) {
   brillo::SecureBlob passkey("passkey");
   Credentials credentials(kUser, passkey);
   crypto_.Init();
@@ -2045,7 +1910,7 @@ TEST_F(AuthBlockUtilityImplTest, GetAuthBlockWithTypeChallengeCredential) {
                        kRsassaPkcs1V15Sha256},
               .dbus_service_name = kKeyDelegateDBusService},
   };
-  // Test. All fields are valid to get an AsyncChallengeCredentialAuthBlock.
+  // Test. All fields are valid to get an ChallengeCredentialAuthBlock.
   CryptoStatusOr<std::unique_ptr<AuthBlock>> auth_block =
       auth_block_utility_impl_->GetAuthBlockWithType(
           AuthBlockType::kChallengeCredential, auth_input);

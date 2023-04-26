@@ -62,6 +62,10 @@ class StylusTouchEventDataView;
 
 class StylusConnectedEventDataView;
 
+class CrashUploadInfoDataView;
+
+class CrashEventInfoDataView;
+
 class TouchpadEventInfoDataView;
 class TouchscreenEventInfoDataView;
 class StylusEventInfoDataView;
@@ -92,6 +96,8 @@ enum class SdCardEventInfo_State : int32_t;
 enum class HdmiEventInfo_State : int32_t;
 
 enum class StylusGarageEventInfo_State : int32_t;
+
+enum class CrashEventInfo_CrashType : int32_t;
 class UsbEventInfo;
 using UsbEventInfoPtr = mojo::StructPtr<UsbEventInfo>;
 
@@ -148,6 +154,12 @@ using StylusTouchEventPtr = mojo::StructPtr<StylusTouchEvent>;
 
 class StylusConnectedEvent;
 using StylusConnectedEventPtr = mojo::InlinedStructPtr<StylusConnectedEvent>;
+
+class CrashUploadInfo;
+using CrashUploadInfoPtr = mojo::StructPtr<CrashUploadInfo>;
+
+class CrashEventInfo;
+using CrashEventInfoPtr = mojo::StructPtr<CrashEventInfo>;
 
 class TouchpadEventInfo;
 

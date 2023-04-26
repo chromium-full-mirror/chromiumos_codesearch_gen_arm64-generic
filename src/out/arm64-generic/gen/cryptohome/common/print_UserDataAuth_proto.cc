@@ -1280,6 +1280,25 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionRequest& value,
   return output;
 }
 
+std::string GetProtoDebugString(const StatusInfo& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const StatusInfo& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  time_available_in: ";
+  base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
+                      value.time_available_in(), value.time_available_in());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const AuthFactorWithStatus& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -1308,6 +1327,41 @@ std::string GetProtoDebugStringWithIndent(const AuthFactorWithStatus& value,
                             .c_str());
   }
   output += "}\n";
+  output += indent + "  status_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.status_info(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const AuthFactorStatusUpdate& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const AuthFactorStatusUpdate& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  broadcast_id: ";
+  base::StringAppendF(
+      &output, "%s",
+      base::HexEncode(value.broadcast_id().data(), value.broadcast_id().size())
+          .c_str());
+  output += "\n";
+
+  output += indent + "  auth_factor_with_status: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(
+                          value.auth_factor_with_status(), indent_size + 2)
+                          .c_str());
+  output += "\n";
+
   output += indent + "}\n";
   return output;
 }

@@ -40,6 +40,7 @@
 
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-import-headers.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-test-utils.h"
+#include "diagnostics/mojom/external/time_mojom_traits.h"
 
 
 
@@ -911,6 +912,122 @@ void StylusConnectedEvent::WriteIntoTrace(
 }
 
 bool StylusConnectedEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CrashUploadInfo::CrashUploadInfo()
+    : crash_report_id(),
+      creation_time(),
+      offset() {}
+
+CrashUploadInfo::CrashUploadInfo(
+    const std::string& crash_report_id_in,
+    base::Time creation_time_in,
+    uint64_t offset_in)
+    : crash_report_id(std::move(crash_report_id_in)),
+      creation_time(std::move(creation_time_in)),
+      offset(std::move(offset_in)) {}
+
+CrashUploadInfo::~CrashUploadInfo() = default;
+
+void CrashUploadInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "crash_report_id"), this->crash_report_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "creation_time"), this->creation_time,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type base::Time>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "offset"), this->offset,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CrashUploadInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CrashEventInfo::CrashEventInfo()
+    : crash_type(),
+      local_id(),
+      capture_time(),
+      upload_info() {}
+
+CrashEventInfo::CrashEventInfo(
+    CrashEventInfo::CrashType crash_type_in,
+    const std::string& local_id_in,
+    base::Time capture_time_in,
+    CrashUploadInfoPtr upload_info_in)
+    : crash_type(std::move(crash_type_in)),
+      local_id(std::move(local_id_in)),
+      capture_time(std::move(capture_time_in)),
+      upload_info(std::move(upload_info_in)) {}
+
+CrashEventInfo::~CrashEventInfo() = default;
+
+void CrashEventInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "crash_type"), this->crash_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CrashEventInfo::CrashType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "local_id"), this->local_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "capture_time"), this->capture_time,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type base::Time>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "upload_info"), this->upload_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CrashUploadInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CrashEventInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -4068,6 +4185,44 @@ bool StructTraits<::ash::cros_healthd::mojom::StylusConnectedEvent::DataView, ::
         result->max_y = input.max_y();
       if (success)
         result->max_pressure = input.max_pressure();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CrashUploadInfo::DataView, ::ash::cros_healthd::mojom::CrashUploadInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::CrashUploadInfo::DataView input,
+    ::ash::cros_healthd::mojom::CrashUploadInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CrashUploadInfoPtr result(::ash::cros_healthd::mojom::CrashUploadInfo::New());
+  
+      if (success && !input.ReadCrashReportId(&result->crash_report_id))
+        success = false;
+      if (success && !input.ReadCreationTime(&result->creation_time))
+        success = false;
+      if (success)
+        result->offset = input.offset();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CrashEventInfo::DataView, ::ash::cros_healthd::mojom::CrashEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::CrashEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::CrashEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CrashEventInfoPtr result(::ash::cros_healthd::mojom::CrashEventInfo::New());
+  
+      if (success && !input.ReadCrashType(&result->crash_type))
+        success = false;
+      if (success && !input.ReadLocalId(&result->local_id))
+        success = false;
+      if (success && !input.ReadCaptureTime(&result->capture_time))
+        success = false;
+      if (success && !input.ReadUploadInfo(&result->upload_info))
+        success = false;
   *output = std::move(result);
   return success;
 }

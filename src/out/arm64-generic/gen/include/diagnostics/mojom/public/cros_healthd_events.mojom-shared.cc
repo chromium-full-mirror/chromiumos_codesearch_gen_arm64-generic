@@ -18,6 +18,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-params-data.h"
+#include "diagnostics/mojom/external/time_mojom_traits.h"
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
@@ -402,6 +403,32 @@ std::string StylusGarageEventInfo_StateToString(StylusGarageEventInfo_State valu
 
 std::ostream& operator<<(std::ostream& os, StylusGarageEventInfo_State value) {
   return os << StylusGarageEventInfo_StateToString(value);
+}
+
+NOINLINE static const char* CrashEventInfo_CrashTypeToStringHelper(CrashEventInfo_CrashType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case CrashEventInfo_CrashType::kUnknown:
+      return "kUnknown";
+    case CrashEventInfo_CrashType::kKernel:
+      return "kKernel";
+    case CrashEventInfo_CrashType::kEmbeddedController:
+      return "kEmbeddedController";
+    default:
+      return nullptr;
+  }
+}
+
+std::string CrashEventInfo_CrashTypeToString(CrashEventInfo_CrashType value) {
+  const char *str = CrashEventInfo_CrashTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown CrashEventInfo_CrashType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, CrashEventInfo_CrashType value) {
+  return os << CrashEventInfo_CrashTypeToString(value);
 }
 
 namespace internal {
@@ -1368,6 +1395,96 @@ StylusConnectedEvent_Data::StylusConnectedEvent_Data()
 
 
 // static
+bool CrashUploadInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrashUploadInfo_Data* object =
+      static_cast<const CrashUploadInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->crash_report_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& crash_report_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->crash_report_id, validation_context,
+                                         &crash_report_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->creation_time, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->creation_time, validation_context))
+    return false;
+
+  return true;
+}
+
+CrashUploadInfo_Data::CrashUploadInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrashEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrashEventInfo_Data* object =
+      static_cast<const CrashEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::CrashEventInfo_CrashType_Data
+        ::Validate(object->crash_type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->local_id, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& local_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->local_id, validation_context,
+                                         &local_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->capture_time, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->capture_time, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->upload_info, validation_context))
+    return false;
+
+  return true;
+}
+
+CrashEventInfo_Data::CrashEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2047,6 +2164,16 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::StylusGarageEventInfo_State>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::StylusGarageEventInfo_State value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::StylusGarageEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::CrashEventInfo_CrashType>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::CrashEventInfo_CrashType value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::CrashEventInfo_CrashTypeToString(value));
 }
 
 } // namespace perfetto

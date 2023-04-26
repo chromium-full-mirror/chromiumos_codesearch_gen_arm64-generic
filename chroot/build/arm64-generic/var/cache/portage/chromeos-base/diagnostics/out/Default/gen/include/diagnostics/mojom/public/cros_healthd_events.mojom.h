@@ -26,6 +26,7 @@
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-forward.h"
 #include "diagnostics/mojom/external/input.mojom.h"
+#include "diagnostics/mojom/external/time.mojom.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"
 #include <string>
@@ -2578,6 +2579,8 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
 class  TouchpadEventInfo {
  public:
   using DataView = TouchpadEventInfoDataView;
@@ -4632,6 +4635,298 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
+
+
+
+class  CrashUploadInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CrashUploadInfo, T>::value>;
+  using DataView = CrashUploadInfoDataView;
+  using Data_ = internal::CrashUploadInfo_Data;
+
+  template <typename... Args>
+  static CrashUploadInfoPtr New(Args&&... args) {
+    return CrashUploadInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CrashUploadInfoPtr From(const U& u) {
+    return mojo::TypeConverter<CrashUploadInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CrashUploadInfo>::Convert(*this);
+  }
+
+
+  CrashUploadInfo();
+
+  CrashUploadInfo(
+      const std::string& crash_report_id,
+      base::Time creation_time,
+      uint64_t offset);
+
+
+  ~CrashUploadInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CrashUploadInfoPtr>
+  CrashUploadInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CrashUploadInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CrashUploadInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CrashUploadInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CrashUploadInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CrashUploadInfo_UnserializedMessageContext<
+            UserType, CrashUploadInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CrashUploadInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CrashUploadInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CrashUploadInfo_UnserializedMessageContext<
+            UserType, CrashUploadInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CrashUploadInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string crash_report_id;
+  
+  base::Time creation_time;
+  
+  uint64_t offset;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CrashUploadInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CrashUploadInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CrashUploadInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CrashUploadInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  CrashEventInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CrashEventInfo, T>::value>;
+  using DataView = CrashEventInfoDataView;
+  using Data_ = internal::CrashEventInfo_Data;
+  using CrashType = CrashEventInfo_CrashType;
+
+  template <typename... Args>
+  static CrashEventInfoPtr New(Args&&... args) {
+    return CrashEventInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CrashEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<CrashEventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CrashEventInfo>::Convert(*this);
+  }
+
+
+  CrashEventInfo();
+
+  CrashEventInfo(
+      CrashEventInfo::CrashType crash_type,
+      const std::string& local_id,
+      base::Time capture_time,
+      CrashUploadInfoPtr upload_info);
+
+CrashEventInfo(const CrashEventInfo&) = delete;
+CrashEventInfo& operator=(const CrashEventInfo&) = delete;
+
+  ~CrashEventInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CrashEventInfoPtr>
+  CrashEventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CrashEventInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CrashEventInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CrashEventInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CrashEventInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CrashEventInfo_UnserializedMessageContext<
+            UserType, CrashEventInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CrashEventInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CrashEventInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CrashEventInfo_UnserializedMessageContext<
+            UserType, CrashEventInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CrashEventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  CrashEventInfo::CrashType crash_type;
+  
+  std::string local_id;
+  
+  base::Time capture_time;
+  
+  CrashUploadInfoPtr upload_info;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CrashEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CrashEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CrashEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CrashEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename UnionPtrType>
 TouchpadEventInfoPtr TouchpadEventInfo::Clone() const {
   switch (tag_) {
@@ -5405,6 +5700,85 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+CrashUploadInfoPtr CrashUploadInfo::Clone() const {
+  return New(
+      mojo::Clone(crash_report_id),
+      mojo::Clone(creation_time),
+      mojo::Clone(offset)
+  );
+}
+
+template <typename T, CrashUploadInfo::EnableIfSame<T>*>
+bool CrashUploadInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->crash_report_id, other_struct.crash_report_id))
+    return false;
+  if (!mojo::Equals(this->creation_time, other_struct.creation_time))
+    return false;
+  if (!mojo::Equals(this->offset, other_struct.offset))
+    return false;
+  return true;
+}
+
+template <typename T, CrashUploadInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.crash_report_id < rhs.crash_report_id)
+    return true;
+  if (rhs.crash_report_id < lhs.crash_report_id)
+    return false;
+  if (lhs.creation_time < rhs.creation_time)
+    return true;
+  if (rhs.creation_time < lhs.creation_time)
+    return false;
+  if (lhs.offset < rhs.offset)
+    return true;
+  if (rhs.offset < lhs.offset)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+CrashEventInfoPtr CrashEventInfo::Clone() const {
+  return New(
+      mojo::Clone(crash_type),
+      mojo::Clone(local_id),
+      mojo::Clone(capture_time),
+      mojo::Clone(upload_info)
+  );
+}
+
+template <typename T, CrashEventInfo::EnableIfSame<T>*>
+bool CrashEventInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->crash_type, other_struct.crash_type))
+    return false;
+  if (!mojo::Equals(this->local_id, other_struct.local_id))
+    return false;
+  if (!mojo::Equals(this->capture_time, other_struct.capture_time))
+    return false;
+  if (!mojo::Equals(this->upload_info, other_struct.upload_info))
+    return false;
+  return true;
+}
+
+template <typename T, CrashEventInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.crash_type < rhs.crash_type)
+    return true;
+  if (rhs.crash_type < lhs.crash_type)
+    return false;
+  if (lhs.local_id < rhs.local_id)
+    return true;
+  if (rhs.local_id < lhs.local_id)
+    return false;
+  if (lhs.capture_time < rhs.capture_time)
+    return true;
+  if (rhs.capture_time < lhs.capture_time)
+    return false;
+  if (lhs.upload_info < rhs.upload_info)
+    return true;
+  if (rhs.upload_info < lhs.upload_info)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -5806,6 +6180,61 @@ struct  StructTraits<::ash::cros_healthd::mojom::StylusConnectedEvent::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::StylusConnectedEvent::DataView input, ::ash::cros_healthd::mojom::StylusConnectedEventPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::CrashUploadInfo::DataView,
+                                         ::ash::cros_healthd::mojom::CrashUploadInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CrashUploadInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CrashUploadInfoPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::CrashUploadInfo::crash_report_id)& crash_report_id(
+      const ::ash::cros_healthd::mojom::CrashUploadInfoPtr& input) {
+    return input->crash_report_id;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::CrashUploadInfo::creation_time)& creation_time(
+      const ::ash::cros_healthd::mojom::CrashUploadInfoPtr& input) {
+    return input->creation_time;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::CrashUploadInfo::offset) offset(
+      const ::ash::cros_healthd::mojom::CrashUploadInfoPtr& input) {
+    return input->offset;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::CrashUploadInfo::DataView input, ::ash::cros_healthd::mojom::CrashUploadInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::CrashEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::CrashEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CrashEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CrashEventInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::CrashEventInfo::crash_type) crash_type(
+      const ::ash::cros_healthd::mojom::CrashEventInfoPtr& input) {
+    return input->crash_type;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::CrashEventInfo::local_id)& local_id(
+      const ::ash::cros_healthd::mojom::CrashEventInfoPtr& input) {
+    return input->local_id;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::CrashEventInfo::capture_time)& capture_time(
+      const ::ash::cros_healthd::mojom::CrashEventInfoPtr& input) {
+    return input->capture_time;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::CrashEventInfo::upload_info)& upload_info(
+      const ::ash::cros_healthd::mojom::CrashEventInfoPtr& input) {
+    return input->upload_info;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::CrashEventInfo::DataView input, ::ash::cros_healthd::mojom::CrashEventInfoPtr* output);
 };
 
 
