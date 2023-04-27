@@ -6,6 +6,8 @@
 
 #ifndef CAMERA_MOJO_CAMERA3_MOJOM_IMPORT_HEADERS_H_
 #define CAMERA_MOJO_CAMERA3_MOJOM_IMPORT_HEADERS_H_
+#include "camera/mojo/camera_features.mojom.h"
+#include "camera/mojo/camera_features.mojom-import-headers.h"
 #include "camera/mojo/camera_metadata.mojom.h"
 #include "camera/mojo/camera_metadata.mojom-import-headers.h"
 

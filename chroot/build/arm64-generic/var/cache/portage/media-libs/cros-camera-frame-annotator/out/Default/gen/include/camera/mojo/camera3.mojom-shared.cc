@@ -443,6 +443,7 @@ bool Camera3Stream_Data::Validate(
     { 0, 48 },
     { 1, 56 },
     { 4, 64 },
+    { 6, 72 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -482,12 +483,21 @@ bool Camera3Stream_Data::Validate(
                                          &physical_camera_id_validate_params)) {
     return false;
   }
+  if (object->header_.version < 6)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& effects_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->effects, validation_context,
+                                         &effects_validate_params)) {
+    return false;
+  }
 
   return true;
 }
 
 Camera3Stream_Data::Camera3Stream_Data()
-    : header_({sizeof(*this), 4}) {}
+    : header_({sizeof(*this), 6}) {}
 
 
 // static

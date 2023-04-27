@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "camera/mojo/camera_features.mojom-shared-internal.h"
 #include "camera/mojo/camera_metadata.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
@@ -448,6 +449,7 @@ class  Camera3Stream_Data {
   int32_t rotation;
   mojo::internal::Pointer<internal::CropRotateScaleInfo_Data> crop_rotate_scale_info;
   mojo::internal::Pointer<mojo::internal::String_Data> physical_camera_id;
+  mojo::internal::Pointer<mojo::internal::Array_Data<::cros::mojom::internal::Camera3StreamEffect_Data>> effects;
 
  private:
   friend class mojo::internal::MessageFragment<Camera3Stream_Data>;
@@ -455,7 +457,7 @@ class  Camera3Stream_Data {
   Camera3Stream_Data();
   ~Camera3Stream_Data() = delete;
 };
-static_assert(sizeof(Camera3Stream_Data) == 64,
+static_assert(sizeof(Camera3Stream_Data) == 72,
               "Bad sizeof(Camera3Stream_Data)");
 // Used by Camera3Stream::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

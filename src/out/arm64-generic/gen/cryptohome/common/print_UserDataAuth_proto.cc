@@ -212,6 +212,9 @@ std::string GetProtoDebugStringWithIndent(CryptohomeErrorCode value,
   if (value == CRYPTOHOME_ERROR_BIOMETRICS_BUSY) {
     return "CRYPTOHOME_ERROR_BIOMETRICS_BUSY";
   }
+  if (value == CRYPTOHOME_ERROR_CREDENTIAL_LOCKED) {
+    return "CRYPTOHOME_ERROR_CREDENTIAL_LOCKED";
+  }
   return "<unknown>";
 }
 

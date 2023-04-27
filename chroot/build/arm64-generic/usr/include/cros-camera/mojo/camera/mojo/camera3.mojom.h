@@ -25,6 +25,7 @@
 
 #include "camera/mojo/camera3.mojom-shared.h"
 #include "camera/mojo/camera3.mojom-forward.h"
+#include "camera/mojo/camera_features.mojom.h"
 #include "camera/mojo/camera_metadata.mojom.h"
 #include <string>
 #include <vector>
@@ -1181,6 +1182,20 @@ class  Camera3Stream {
       CropRotateScaleInfoPtr crop_rotate_scale_info,
       const absl::optional<std::string>& physical_camera_id);
 
+  Camera3Stream(
+      uint64_t id,
+      Camera3StreamType stream_type,
+      uint32_t width,
+      uint32_t height,
+      HalPixelFormat format,
+      uint32_t usage,
+      uint32_t max_buffers,
+      uint32_t data_space,
+      Camera3StreamRotation rotation,
+      CropRotateScaleInfoPtr crop_rotate_scale_info,
+      const absl::optional<std::string>& physical_camera_id,
+      absl::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>> effects);
+
 Camera3Stream(const Camera3Stream&) = delete;
 Camera3Stream& operator=(const Camera3Stream&) = delete;
 
@@ -1277,6 +1292,8 @@ Camera3Stream& operator=(const Camera3Stream&) = delete;
   CropRotateScaleInfoPtr crop_rotate_scale_info;
   
   absl::optional<std::string> physical_camera_id;
+  
+  absl::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>> effects;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -2584,7 +2601,8 @@ Camera3StreamPtr Camera3Stream::Clone() const {
       mojo::Clone(data_space),
       mojo::Clone(rotation),
       mojo::Clone(crop_rotate_scale_info),
-      mojo::Clone(physical_camera_id)
+      mojo::Clone(physical_camera_id),
+      mojo::Clone(effects)
   );
 }
 
@@ -2611,6 +2629,8 @@ bool Camera3Stream::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->crop_rotate_scale_info, other_struct.crop_rotate_scale_info))
     return false;
   if (!mojo::Equals(this->physical_camera_id, other_struct.physical_camera_id))
+    return false;
+  if (!mojo::Equals(this->effects, other_struct.effects))
     return false;
   return true;
 }
@@ -2660,6 +2680,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.physical_camera_id < rhs.physical_camera_id)
     return true;
   if (rhs.physical_camera_id < lhs.physical_camera_id)
+    return false;
+  if (lhs.effects < rhs.effects)
+    return true;
+  if (rhs.effects < lhs.effects)
     return false;
   return false;
 }
@@ -3211,6 +3235,11 @@ struct  StructTraits<::cros::mojom::Camera3Stream::DataView,
   static const decltype(::cros::mojom::Camera3Stream::physical_camera_id)& physical_camera_id(
       const ::cros::mojom::Camera3StreamPtr& input) {
     return input->physical_camera_id;
+  }
+
+  static const decltype(::cros::mojom::Camera3Stream::effects)& effects(
+      const ::cros::mojom::Camera3StreamPtr& input) {
+    return input->effects;
   }
 
   static bool Read(::cros::mojom::Camera3Stream::DataView input, ::cros::mojom::Camera3StreamPtr* output);
