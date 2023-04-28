@@ -76,13 +76,13 @@ struct Debuggee {
 };
 
 // Target type.
-enum  TargetInfoType {
-  TARGET_INFO_TYPE_NONE = 0,
-  TARGET_INFO_TYPE_PAGE,
-  TARGET_INFO_TYPE_BACKGROUND_PAGE,
-  TARGET_INFO_TYPE_WORKER,
-  TARGET_INFO_TYPE_OTHER,
-  TARGET_INFO_TYPE_LAST = TARGET_INFO_TYPE_OTHER,
+enum class TargetInfoType {
+  kNone = 0,
+  kPage,
+  kBackgroundPage,
+  kWorker,
+  kOther,
+  kMaxValue = kOther,
 };
 
 
@@ -90,11 +90,11 @@ const char* ToString(TargetInfoType as_enum);
 TargetInfoType ParseTargetInfoType(base::StringPiece as_string);
 
 // Connection termination reason.
-enum  DetachReason {
-  DETACH_REASON_NONE = 0,
-  DETACH_REASON_TARGET_CLOSED,
-  DETACH_REASON_CANCELED_BY_USER,
-  DETACH_REASON_LAST = DETACH_REASON_CANCELED_BY_USER,
+enum class DetachReason {
+  kNone = 0,
+  kTargetClosed,
+  kCanceledByUser,
+  kMaxValue = kCanceledByUser,
 };
 
 

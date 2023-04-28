@@ -117,6 +117,7 @@ class HEADLESS_EXPORT Domain {
   static void HandleSetSharedStorageTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback, const base::Value& response);
   static void HandleSetStorageBucketTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetStorageBucketTrackingResult>)> callback, const base::Value& response);
   static void HandleDeleteStorageBucketResponse(base::OnceCallback<void(std::unique_ptr<DeleteStorageBucketResult>)> callback, const base::Value& response);
+  static void HandleRunBounceTrackingMitigationsResponse(base::OnceCallback<void(std::unique_ptr<RunBounceTrackingMitigationsResult>)> callback, const base::Value& response);
 
   void DispatchCacheStorageContentUpdatedEvent(const base::Value& params);
   void DispatchCacheStorageListUpdatedEvent(const base::Value& params);
@@ -240,6 +241,9 @@ class ExperimentalDomain : public Domain {
 
   // Deletes the Storage Bucket with the given storage key and bucket name.
   void DeleteStorageBucket(std::unique_ptr<DeleteStorageBucketParams> params, base::OnceCallback<void(std::unique_ptr<DeleteStorageBucketResult>)> callback = base::OnceCallback<void(std::unique_ptr<DeleteStorageBucketResult>)>());
+
+  // Deletes state for sites identified as potential bounce trackers, immediately.
+  void RunBounceTrackingMitigations(std::unique_ptr<RunBounceTrackingMitigationsParams> params, base::OnceCallback<void(std::unique_ptr<RunBounceTrackingMitigationsResult>)> callback = base::OnceCallback<void(std::unique_ptr<RunBounceTrackingMitigationsResult>)>());
 
 };
 

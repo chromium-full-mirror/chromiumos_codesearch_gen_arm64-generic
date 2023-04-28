@@ -411,6 +411,10 @@ class UserDataAuthInterfaceProxyInterface {
       const base::RepeatingCallback<void(const user_data_auth::DircryptoMigrationProgress&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
+  virtual void RegisterAuthFactorStatusUpdateSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthFactorStatusUpdate&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   virtual void RegisterLowDiskSpaceSignalHandler(
       const base::RepeatingCallback<void(const user_data_auth::LowDiskSpace&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -455,6 +459,17 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "DircryptoMigrationProgress",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterAuthFactorStatusUpdateSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthFactorStatusUpdate&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "AuthFactorStatusUpdate",
         signal_callback,
         std::move(on_connected_callback));
   }

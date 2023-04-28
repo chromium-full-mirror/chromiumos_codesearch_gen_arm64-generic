@@ -154,15 +154,15 @@ base::Value::Dict Debuggee::ToValue() const {
 
 const char* ToString(TargetInfoType enum_param) {
   switch (enum_param) {
-    case TARGET_INFO_TYPE_PAGE:
+    case TargetInfoType::kPage:
       return "page";
-    case TARGET_INFO_TYPE_BACKGROUND_PAGE:
+    case TargetInfoType::kBackgroundPage:
       return "background_page";
-    case TARGET_INFO_TYPE_WORKER:
+    case TargetInfoType::kWorker:
       return "worker";
-    case TARGET_INFO_TYPE_OTHER:
+    case TargetInfoType::kOther:
       return "other";
-    case TARGET_INFO_TYPE_NONE:
+    case TargetInfoType::kNone:
       return "";
   }
   NOTREACHED();
@@ -171,24 +171,24 @@ const char* ToString(TargetInfoType enum_param) {
 
 TargetInfoType ParseTargetInfoType(base::StringPiece enum_string) {
   if (enum_string == "page")
-    return TARGET_INFO_TYPE_PAGE;
+    return TargetInfoType::kPage;
   if (enum_string == "background_page")
-    return TARGET_INFO_TYPE_BACKGROUND_PAGE;
+    return TargetInfoType::kBackgroundPage;
   if (enum_string == "worker")
-    return TARGET_INFO_TYPE_WORKER;
+    return TargetInfoType::kWorker;
   if (enum_string == "other")
-    return TARGET_INFO_TYPE_OTHER;
-  return TARGET_INFO_TYPE_NONE;
+    return TargetInfoType::kOther;
+  return TargetInfoType::kNone;
 }
 
 
 const char* ToString(DetachReason enum_param) {
   switch (enum_param) {
-    case DETACH_REASON_TARGET_CLOSED:
+    case DetachReason::kTargetClosed:
       return "target_closed";
-    case DETACH_REASON_CANCELED_BY_USER:
+    case DetachReason::kCanceledByUser:
       return "canceled_by_user";
-    case DETACH_REASON_NONE:
+    case DetachReason::kNone:
       return "";
   }
   NOTREACHED();
@@ -197,10 +197,10 @@ const char* ToString(DetachReason enum_param) {
 
 DetachReason ParseDetachReason(base::StringPiece enum_string) {
   if (enum_string == "target_closed")
-    return DETACH_REASON_TARGET_CLOSED;
+    return DetachReason::kTargetClosed;
   if (enum_string == "canceled_by_user")
-    return DETACH_REASON_CANCELED_BY_USER;
-  return DETACH_REASON_NONE;
+    return DetachReason::kCanceledByUser;
+  return DetachReason::kNone;
 }
 
 

@@ -346,6 +346,14 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
   MOCK_METHOD2(DoRegisterDircryptoMigrationProgressSignalHandler,
                void(const base::RepeatingCallback<void(const user_data_auth::DircryptoMigrationProgress&)>& /*signal_callback*/,
                     dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+  void RegisterAuthFactorStatusUpdateSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::AuthFactorStatusUpdate&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    DoRegisterAuthFactorStatusUpdateSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD2(DoRegisterAuthFactorStatusUpdateSignalHandler,
+               void(const base::RepeatingCallback<void(const user_data_auth::AuthFactorStatusUpdate&)>& /*signal_callback*/,
+                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
   void RegisterLowDiskSpaceSignalHandler(
     const base::RepeatingCallback<void(const user_data_auth::LowDiskSpace&)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {

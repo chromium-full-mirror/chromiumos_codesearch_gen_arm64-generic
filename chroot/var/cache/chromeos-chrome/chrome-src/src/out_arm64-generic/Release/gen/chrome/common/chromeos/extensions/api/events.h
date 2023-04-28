@@ -33,7 +33,8 @@ enum class EventCategory {
   kNone = 0,
   kAudioJack,
   kLid,
-  kMaxValue = kLid,
+  kUsb,
+  kMaxValue = kUsb,
 };
 
 
@@ -123,6 +124,17 @@ enum class LidEvent {
 const char* ToString(LidEvent as_enum);
 LidEvent ParseLidEvent(base::StringPiece as_string);
 
+enum class UsbEvent {
+  kNone = 0,
+  kConnected,
+  kDisconnected,
+  kMaxValue = kDisconnected,
+};
+
+
+const char* ToString(UsbEvent as_enum);
+UsbEvent ParseUsbEvent(base::StringPiece as_string);
+
 struct AudioJackEventInfo {
   AudioJackEventInfo();
   ~AudioJackEventInfo();
@@ -197,6 +209,58 @@ struct LidEventInfo {
   base::Value::Dict ToValue() const;
 
   LidEvent event;
+
+};
+
+struct UsbEventInfo {
+  UsbEventInfo();
+  ~UsbEventInfo();
+  UsbEventInfo(const UsbEventInfo&) = delete;
+  UsbEventInfo& operator=(const UsbEventInfo&) = delete;
+  UsbEventInfo(UsbEventInfo&& rhs);
+  UsbEventInfo& operator=(UsbEventInfo&& rhs);
+
+  // Populates a UsbEventInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, UsbEventInfo& out);
+
+  // Populates a UsbEventInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, UsbEventInfo& out);
+
+  // Creates a deep copy of UsbEventInfo.
+  UsbEventInfo Clone() const;
+
+  // Creates a UsbEventInfo object from a base::Value, or NULL on failure.
+  static std::unique_ptr<UsbEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a UsbEventInfo object from a base::Value::Dict, or nullopt on
+  // failure.
+  static absl::optional<UsbEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a UsbEventInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<UsbEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisUsbEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  // Vendor name.
+  absl::optional<std::string> vendor;
+
+  // Name, model name, product name.
+  absl::optional<std::string> name;
+
+  // Vendor ID.
+  absl::optional<int> vid;
+
+  // Product ID.
+  absl::optional<int> pid;
+
+  // USB device categories. https://www.usb.org/defined-class-codes
+  std::vector<std::string> categories;
+
+  UsbEvent event;
 
 };
 
@@ -294,6 +358,13 @@ extern const char kEventName[];  // "os.events.onLidEvent"
 
 base::Value::List Create(const LidEventInfo& event_info);
 }  // namespace OnLidEvent
+
+namespace OnUsbEvent {
+
+extern const char kEventName[];  // "os.events.onUsbEvent"
+
+base::Value::List Create(const UsbEventInfo& event_info);
+}  // namespace OnUsbEvent
 
 }  // namespace os_events
 }  // namespace api

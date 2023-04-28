@@ -151,6 +151,9 @@ void ExperimentalDomain::SetStorageBucketTracking(std::unique_ptr<SetStorageBuck
 void ExperimentalDomain::DeleteStorageBucket(std::unique_ptr<DeleteStorageBucketParams> params, base::OnceCallback<void(std::unique_ptr<DeleteStorageBucketResult>)> callback) {
   dispatcher_->SendMessage("Storage.deleteStorageBucket", params->Serialize(), base::BindOnce(&Domain::HandleDeleteStorageBucketResponse, std::move(callback)));
 }
+void ExperimentalDomain::RunBounceTrackingMitigations(std::unique_ptr<RunBounceTrackingMitigationsParams> params, base::OnceCallback<void(std::unique_ptr<RunBounceTrackingMitigationsResult>)> callback) {
+  dispatcher_->SendMessage("Storage.runBounceTrackingMitigations", params->Serialize(), base::BindOnce(&Domain::HandleRunBounceTrackingMitigationsResponse, std::move(callback)));
+}
 
 
 // static
@@ -584,6 +587,21 @@ void Domain::HandleDeleteStorageBucketResponse(base::OnceCallback<void(std::uniq
   }
   ErrorReporter errors;
   std::unique_ptr<DeleteStorageBucketResult> result = DeleteStorageBucketResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleRunBounceTrackingMitigationsResponse(base::OnceCallback<void(std::unique_ptr<RunBounceTrackingMitigationsResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<RunBounceTrackingMitigationsResult> result = RunBounceTrackingMitigationsResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }

@@ -258,6 +258,7 @@ class UserDataAuthInterfaceAdaptor {
         &UserDataAuthInterfaceInterface::ResetApplicationContainer);
 
     signal_DircryptoMigrationProgress_ = itf->RegisterSignalOfType<SignalDircryptoMigrationProgressType>("DircryptoMigrationProgress");
+    signal_AuthFactorStatusUpdate_ = itf->RegisterSignalOfType<SignalAuthFactorStatusUpdateType>("AuthFactorStatusUpdate");
     signal_LowDiskSpace_ = itf->RegisterSignalOfType<SignalLowDiskSpaceType>("LowDiskSpace");
     signal_AuthScanResult_ = itf->RegisterSignalOfType<SignalAuthScanResultType>("AuthScanResult");
     signal_PrepareAuthFactorProgress_ = itf->RegisterSignalOfType<SignalPrepareAuthFactorProgressType>("PrepareAuthFactorProgress");
@@ -266,6 +267,12 @@ class UserDataAuthInterfaceAdaptor {
   void SendDircryptoMigrationProgressSignal(
       const user_data_auth::DircryptoMigrationProgress& in_status) {
     auto signal = signal_DircryptoMigrationProgress_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendAuthFactorStatusUpdateSignal(
+      const user_data_auth::AuthFactorStatusUpdate& in_status) {
+    auto signal = signal_AuthFactorStatusUpdate_.lock();
     if (signal)
       signal->Send(in_status);
   }
@@ -422,6 +429,9 @@ class UserDataAuthInterfaceAdaptor {
         "    <signal name=\"DircryptoMigrationProgress\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
+        "    <signal name=\"AuthFactorStatusUpdate\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
         "    <signal name=\"LowDiskSpace\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
@@ -438,6 +448,10 @@ class UserDataAuthInterfaceAdaptor {
   using SignalDircryptoMigrationProgressType = brillo::dbus_utils::DBusSignal<
       user_data_auth::DircryptoMigrationProgress /*status*/>;
   std::weak_ptr<SignalDircryptoMigrationProgressType> signal_DircryptoMigrationProgress_;
+
+  using SignalAuthFactorStatusUpdateType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::AuthFactorStatusUpdate /*status*/>;
+  std::weak_ptr<SignalAuthFactorStatusUpdateType> signal_AuthFactorStatusUpdate_;
 
   using SignalLowDiskSpaceType = brillo::dbus_utils::DBusSignal<
       user_data_auth::LowDiskSpace /*status*/>;
