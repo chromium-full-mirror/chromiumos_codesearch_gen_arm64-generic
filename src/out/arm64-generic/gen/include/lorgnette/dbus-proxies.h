@@ -112,6 +112,24 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Configure lorgnette debugging.  Lorgnette will exit automatically
+  // after returning from this call if the requested config can't be
+  // implemented without restarting the process.
+  virtual bool SetDebugConfig(
+      const ::lorgnette::SetDebugConfigRequest& in_request,
+      ::lorgnette::SetDebugConfigResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Configure lorgnette debugging.  Lorgnette will exit automatically
+  // after returning from this call if the requested config can't be
+  // implemented without restarting the process.
+  virtual void SetDebugConfigAsync(
+      const ::lorgnette::SetDebugConfigRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::SetDebugConfigResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterScanStatusChangedSignalHandler(
       const base::RepeatingCallback<void(const ::lorgnette::ScanStatusChangedSignal&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -342,6 +360,43 @@ class ManagerProxy final : public ManagerProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_cancel_scan_request);
+  }
+
+  // Configure lorgnette debugging.  Lorgnette will exit automatically
+  // after returning from this call if the requested config can't be
+  // implemented without restarting the process.
+  bool SetDebugConfig(
+      const ::lorgnette::SetDebugConfigRequest& in_request,
+      ::lorgnette::SetDebugConfigResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "SetDebugConfig",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  // Configure lorgnette debugging.  Lorgnette will exit automatically
+  // after returning from this call if the requested config can't be
+  // implemented without restarting the process.
+  void SetDebugConfigAsync(
+      const ::lorgnette::SetDebugConfigRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::SetDebugConfigResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "SetDebugConfig",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
   }
 
  private:

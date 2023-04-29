@@ -252,6 +252,9 @@ extern VirtualMachineSpecDefaultTypeInternal _VirtualMachineSpec_default_instanc
 class VmDiskInfo;
 struct VmDiskInfoDefaultTypeInternal;
 extern VmDiskInfoDefaultTypeInternal _VmDiskInfo_default_instance_;
+class VmGuestUserlandReadySignal;
+struct VmGuestUserlandReadySignalDefaultTypeInternal;
+extern VmGuestUserlandReadySignalDefaultTypeInternal _VmGuestUserlandReadySignal_default_instance_;
 class VmInfo;
 struct VmInfoDefaultTypeInternal;
 extern VmInfoDefaultTypeInternal _VmInfo_default_instance_;
@@ -339,6 +342,7 @@ template<> ::vm_tools::concierge::SyncVmTimesResponse* Arena::CreateMaybeMessage
 template<> ::vm_tools::concierge::UsbDeviceMessage* Arena::CreateMaybeMessage<::vm_tools::concierge::UsbDeviceMessage>(Arena*);
 template<> ::vm_tools::concierge::VirtualMachineSpec* Arena::CreateMaybeMessage<::vm_tools::concierge::VirtualMachineSpec>(Arena*);
 template<> ::vm_tools::concierge::VmDiskInfo* Arena::CreateMaybeMessage<::vm_tools::concierge::VmDiskInfo>(Arena*);
+template<> ::vm_tools::concierge::VmGuestUserlandReadySignal* Arena::CreateMaybeMessage<::vm_tools::concierge::VmGuestUserlandReadySignal>(Arena*);
 template<> ::vm_tools::concierge::VmInfo* Arena::CreateMaybeMessage<::vm_tools::concierge::VmInfo>(Arena*);
 template<> ::vm_tools::concierge::VmStartedSignal* Arena::CreateMaybeMessage<::vm_tools::concierge::VmStartedSignal>(Arena*);
 template<> ::vm_tools::concierge::VmStoppedSignal* Arena::CreateMaybeMessage<::vm_tools::concierge::VmStoppedSignal>(Arena*);
@@ -603,6 +607,27 @@ inline const std::string& VmStatus_Name(T enum_t_value) {
 }
 bool VmStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VmStatus* value);
+enum GuestUserlandReady : int {
+  USERLAND_UNKNOWN = 0,
+  ARC_BRIDGE_CONNECTED = 1,
+  GuestUserlandReady_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  GuestUserlandReady_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool GuestUserlandReady_IsValid(int value);
+constexpr GuestUserlandReady GuestUserlandReady_MIN = USERLAND_UNKNOWN;
+constexpr GuestUserlandReady GuestUserlandReady_MAX = ARC_BRIDGE_CONNECTED;
+constexpr int GuestUserlandReady_ARRAYSIZE = GuestUserlandReady_MAX + 1;
+
+const std::string& GuestUserlandReady_Name(GuestUserlandReady value);
+template<typename T>
+inline const std::string& GuestUserlandReady_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, GuestUserlandReady>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function GuestUserlandReady_Name.");
+  return GuestUserlandReady_Name(static_cast<GuestUserlandReady>(enum_t_value));
+}
+bool GuestUserlandReady_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GuestUserlandReady* value);
 enum VmStopReason : int {
   VM_EXITED = 0,
   STOP_VM_REQUESTED = 1,
@@ -3541,6 +3566,165 @@ class VmStartedSignal final :
 };
 // -------------------------------------------------------------------
 
+class VmGuestUserlandReadySignal final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.VmGuestUserlandReadySignal) */ {
+ public:
+  inline VmGuestUserlandReadySignal() : VmGuestUserlandReadySignal(nullptr) {}
+  ~VmGuestUserlandReadySignal() override;
+  explicit PROTOBUF_CONSTEXPR VmGuestUserlandReadySignal(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  VmGuestUserlandReadySignal(const VmGuestUserlandReadySignal& from);
+  VmGuestUserlandReadySignal(VmGuestUserlandReadySignal&& from) noexcept
+    : VmGuestUserlandReadySignal() {
+    *this = ::std::move(from);
+  }
+
+  inline VmGuestUserlandReadySignal& operator=(const VmGuestUserlandReadySignal& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline VmGuestUserlandReadySignal& operator=(VmGuestUserlandReadySignal&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const VmGuestUserlandReadySignal& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const VmGuestUserlandReadySignal* internal_default_instance() {
+    return reinterpret_cast<const VmGuestUserlandReadySignal*>(
+               &_VmGuestUserlandReadySignal_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(VmGuestUserlandReadySignal& a, VmGuestUserlandReadySignal& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(VmGuestUserlandReadySignal* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(VmGuestUserlandReadySignal* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  VmGuestUserlandReadySignal* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<VmGuestUserlandReadySignal>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const VmGuestUserlandReadySignal& from);
+  void MergeFrom(const VmGuestUserlandReadySignal& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(VmGuestUserlandReadySignal* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.VmGuestUserlandReadySignal";
+  }
+  protected:
+  explicit VmGuestUserlandReadySignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+    kReadyFieldNumber = 3,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // .vm_tools.concierge.GuestUserlandReady ready = 3;
+  void clear_ready();
+  ::vm_tools::concierge::GuestUserlandReady ready() const;
+  void set_ready(::vm_tools::concierge::GuestUserlandReady value);
+  private:
+  ::vm_tools::concierge::GuestUserlandReady _internal_ready() const;
+  void _internal_set_ready(::vm_tools::concierge::GuestUserlandReady value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.VmGuestUserlandReadySignal)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  int ready_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class StopVmRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.StopVmRequest) */ {
  public:
@@ -3580,7 +3764,7 @@ class StopVmRequest final :
                &_StopVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(StopVmRequest& a, StopVmRequest& b) {
     a.Swap(&b);
@@ -3728,7 +3912,7 @@ class StopVmResponse final :
                &_StopVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(StopVmResponse& a, StopVmResponse& b) {
     a.Swap(&b);
@@ -3871,7 +4055,7 @@ class VmStoppedSignal final :
                &_VmStoppedSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(VmStoppedSignal& a, VmStoppedSignal& b) {
     a.Swap(&b);
@@ -4041,7 +4225,7 @@ class VmStoppingSignal final :
                &_VmStoppingSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(VmStoppingSignal& a, VmStoppingSignal& b) {
     a.Swap(&b);
@@ -4200,7 +4384,7 @@ class SuspendVmRequest final :
                &_SuspendVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(SuspendVmRequest& a, SuspendVmRequest& b) {
     a.Swap(&b);
@@ -4348,7 +4532,7 @@ class SuspendVmResponse final :
                &_SuspendVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(SuspendVmResponse& a, SuspendVmResponse& b) {
     a.Swap(&b);
@@ -4491,7 +4675,7 @@ class ResumeVmRequest final :
                &_ResumeVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(ResumeVmRequest& a, ResumeVmRequest& b) {
     a.Swap(&b);
@@ -4639,7 +4823,7 @@ class ResumeVmResponse final :
                &_ResumeVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(ResumeVmResponse& a, ResumeVmResponse& b) {
     a.Swap(&b);
@@ -4782,7 +4966,7 @@ class SyncVmTimesResponse final :
                &_SyncVmTimesResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(SyncVmTimesResponse& a, SyncVmTimesResponse& b) {
     a.Swap(&b);
@@ -4946,7 +5130,7 @@ class GetVmInfoRequest final :
                &_GetVmInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   friend void swap(GetVmInfoRequest& a, GetVmInfoRequest& b) {
     a.Swap(&b);
@@ -5094,7 +5278,7 @@ class GetVmInfoResponse final :
                &_GetVmInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   friend void swap(GetVmInfoResponse& a, GetVmInfoResponse& b) {
     a.Swap(&b);
@@ -5241,7 +5425,7 @@ class GetVmEnterpriseReportingInfoRequest final :
                &_GetVmEnterpriseReportingInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    21;
 
   friend void swap(GetVmEnterpriseReportingInfoRequest& a, GetVmEnterpriseReportingInfoRequest& b) {
     a.Swap(&b);
@@ -5389,7 +5573,7 @@ class GetVmEnterpriseReportingInfoResponse final :
                &_GetVmEnterpriseReportingInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    22;
 
   friend void swap(GetVmEnterpriseReportingInfoResponse& a, GetVmEnterpriseReportingInfoResponse& b) {
     a.Swap(&b);
@@ -5548,7 +5732,7 @@ class ArcVmCompleteBootRequest final :
                &_ArcVmCompleteBootRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    23;
 
   friend void swap(ArcVmCompleteBootRequest& a, ArcVmCompleteBootRequest& b) {
     a.Swap(&b);
@@ -5680,7 +5864,7 @@ class ArcVmCompleteBootResponse final :
                &_ArcVmCompleteBootResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    24;
 
   friend void swap(ArcVmCompleteBootResponse& a, ArcVmCompleteBootResponse& b) {
     a.Swap(&b);
@@ -5807,7 +5991,7 @@ class SetBalloonTimerRequest final :
                &_SetBalloonTimerRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    25;
 
   friend void swap(SetBalloonTimerRequest& a, SetBalloonTimerRequest& b) {
     a.Swap(&b);
@@ -5934,7 +6118,7 @@ class SetBalloonTimerResponse final :
                &_SetBalloonTimerResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    26;
 
   friend void swap(SetBalloonTimerResponse& a, SetBalloonTimerResponse& b) {
     a.Swap(&b);
@@ -6077,7 +6261,7 @@ class CreateDiskImageRequest final :
                &_CreateDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    27;
 
   friend void swap(CreateDiskImageRequest& a, CreateDiskImageRequest& b) {
     a.Swap(&b);
@@ -6380,7 +6564,7 @@ class CreateDiskImageResponse final :
                &_CreateDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    28;
 
   friend void swap(CreateDiskImageResponse& a, CreateDiskImageResponse& b) {
     a.Swap(&b);
@@ -6555,7 +6739,7 @@ class DestroyDiskImageRequest final :
                &_DestroyDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    29;
 
   friend void swap(DestroyDiskImageRequest& a, DestroyDiskImageRequest& b) {
     a.Swap(&b);
@@ -6703,7 +6887,7 @@ class DestroyDiskImageResponse final :
                &_DestroyDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    30;
 
   friend void swap(DestroyDiskImageResponse& a, DestroyDiskImageResponse& b) {
     a.Swap(&b);
@@ -6846,7 +7030,7 @@ class ResizeDiskImageRequest final :
                &_ResizeDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    31;
 
   friend void swap(ResizeDiskImageRequest& a, ResizeDiskImageRequest& b) {
     a.Swap(&b);
@@ -7005,7 +7189,7 @@ class ResizeDiskImageResponse final :
                &_ResizeDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    32;
 
   friend void swap(ResizeDiskImageResponse& a, ResizeDiskImageResponse& b) {
     a.Swap(&b);
@@ -7164,7 +7348,7 @@ class ExportDiskImageRequest final :
                &_ExportDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    33;
 
   friend void swap(ExportDiskImageRequest& a, ExportDiskImageRequest& b) {
     a.Swap(&b);
@@ -7334,7 +7518,7 @@ class ExportDiskImageResponse final :
                &_ExportDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    34;
 
   friend void swap(ExportDiskImageResponse& a, ExportDiskImageResponse& b) {
     a.Swap(&b);
@@ -7493,7 +7677,7 @@ class ImportDiskImageRequest final :
                &_ImportDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    35;
 
   friend void swap(ImportDiskImageRequest& a, ImportDiskImageRequest& b) {
     a.Swap(&b);
@@ -7663,7 +7847,7 @@ class ImportDiskImageResponse final :
                &_ImportDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    36;
 
   friend void swap(ImportDiskImageResponse& a, ImportDiskImageResponse& b) {
     a.Swap(&b);
@@ -7822,7 +8006,7 @@ class DiskImageStatusRequest final :
                &_DiskImageStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    36;
+    37;
 
   friend void swap(DiskImageStatusRequest& a, DiskImageStatusRequest& b) {
     a.Swap(&b);
@@ -7954,7 +8138,7 @@ class DiskImageStatusResponse final :
                &_DiskImageStatusResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    37;
+    38;
 
   friend void swap(DiskImageStatusResponse& a, DiskImageStatusResponse& b) {
     a.Swap(&b);
@@ -8124,7 +8308,7 @@ class CancelDiskImageRequest final :
                &_CancelDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    38;
+    39;
 
   friend void swap(CancelDiskImageRequest& a, CancelDiskImageRequest& b) {
     a.Swap(&b);
@@ -8256,7 +8440,7 @@ class CancelDiskImageResponse final :
                &_CancelDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    39;
+    40;
 
   friend void swap(CancelDiskImageResponse& a, CancelDiskImageResponse& b) {
     a.Swap(&b);
@@ -8399,7 +8583,7 @@ class ListVmDisksRequest final :
                &_ListVmDisksRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    40;
+    41;
 
   friend void swap(ListVmDisksRequest& a, ListVmDisksRequest& b) {
     a.Swap(&b);
@@ -8569,7 +8753,7 @@ class VmDiskInfo final :
                &_VmDiskInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    41;
+    42;
 
   friend void swap(VmDiskInfo& a, VmDiskInfo& b) {
     a.Swap(&b);
@@ -8783,7 +8967,7 @@ class ListVmDisksResponse final :
                &_ListVmDisksResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    42;
+    43;
 
   friend void swap(ListVmDisksResponse& a, ListVmDisksResponse& b) {
     a.Swap(&b);
@@ -8957,7 +9141,7 @@ class ContainerSshKeysRequest final :
                &_ContainerSshKeysRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    44;
 
   friend void swap(ContainerSshKeysRequest& a, ContainerSshKeysRequest& b) {
     a.Swap(&b);
@@ -9121,7 +9305,7 @@ class ContainerSshKeysResponse final :
                &_ContainerSshKeysResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    45;
 
   friend void swap(ContainerSshKeysResponse& a, ContainerSshKeysResponse& b) {
     a.Swap(&b);
@@ -9317,7 +9501,7 @@ class AttachUsbDeviceRequest final :
                &_AttachUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    46;
 
   friend void swap(AttachUsbDeviceRequest& a, AttachUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -9509,7 +9693,7 @@ class AttachUsbDeviceResponse final :
                &_AttachUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    47;
 
   friend void swap(AttachUsbDeviceResponse& a, AttachUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -9663,7 +9847,7 @@ class DetachUsbDeviceRequest final :
                &_DetachUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    48;
 
   friend void swap(DetachUsbDeviceRequest& a, DetachUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -9822,7 +10006,7 @@ class DetachUsbDeviceResponse final :
                &_DetachUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    49;
 
   friend void swap(DetachUsbDeviceResponse& a, DetachUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -9965,7 +10149,7 @@ class ListUsbDeviceRequest final :
                &_ListUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    50;
 
   friend void swap(ListUsbDeviceRequest& a, ListUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -10113,7 +10297,7 @@ class UsbDeviceMessage final :
                &_UsbDeviceMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    51;
 
   friend void swap(UsbDeviceMessage& a, UsbDeviceMessage& b) {
     a.Swap(&b);
@@ -10278,7 +10462,7 @@ class ListUsbDeviceResponse final :
                &_ListUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    52;
 
   friend void swap(ListUsbDeviceResponse& a, ListUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -10425,7 +10609,7 @@ class DnsSettings final :
                &_DnsSettings_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    53;
 
   friend void swap(DnsSettings& a, DnsSettings& b) {
     a.Swap(&b);
@@ -10593,7 +10777,7 @@ class SetVmCpuRestrictionRequest final :
                &_SetVmCpuRestrictionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    54;
 
   friend void swap(SetVmCpuRestrictionRequest& a, SetVmCpuRestrictionRequest& b) {
     a.Swap(&b);
@@ -10731,7 +10915,7 @@ class SetVmCpuRestrictionResponse final :
                &_SetVmCpuRestrictionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    55;
 
   friend void swap(SetVmCpuRestrictionResponse& a, SetVmCpuRestrictionResponse& b) {
     a.Swap(&b);
@@ -10858,7 +11042,7 @@ class AdjustVmRequest final :
                &_AdjustVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    56;
 
   friend void swap(AdjustVmRequest& a, AdjustVmRequest& b) {
     a.Swap(&b);
@@ -11048,7 +11232,7 @@ class AdjustVmResponse final :
                &_AdjustVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    57;
 
   friend void swap(AdjustVmResponse& a, AdjustVmResponse& b) {
     a.Swap(&b);
@@ -11191,7 +11375,7 @@ class ReclaimVmMemoryRequest final :
                &_ReclaimVmMemoryRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    58;
 
   friend void swap(ReclaimVmMemoryRequest& a, ReclaimVmMemoryRequest& b) {
     a.Swap(&b);
@@ -11350,7 +11534,7 @@ class ReclaimVmMemoryResponse final :
                &_ReclaimVmMemoryResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    59;
 
   friend void swap(ReclaimVmMemoryResponse& a, ReclaimVmMemoryResponse& b) {
     a.Swap(&b);
@@ -11493,7 +11677,7 @@ class ListVmsRequest final :
                &_ListVmsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    60;
 
   friend void swap(ListVmsRequest& a, ListVmsRequest& b) {
     a.Swap(&b);
@@ -11625,7 +11809,7 @@ class ExtendedVmInfo final :
                &_ExtendedVmInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    61;
 
   friend void swap(ExtendedVmInfo& a, ExtendedVmInfo& b) {
     a.Swap(&b);
@@ -11804,7 +11988,7 @@ class ListVmsResponse final :
                &_ListVmsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    62;
 
   friend void swap(ListVmsResponse& a, ListVmsResponse& b) {
     a.Swap(&b);
@@ -11967,7 +12151,7 @@ class GetVmGpuCachePathRequest final :
                &_GetVmGpuCachePathRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    63;
 
   friend void swap(GetVmGpuCachePathRequest& a, GetVmGpuCachePathRequest& b) {
     a.Swap(&b);
@@ -12115,7 +12299,7 @@ class GetVmGpuCachePathResponse final :
                &_GetVmGpuCachePathResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    64;
 
   friend void swap(GetVmGpuCachePathResponse& a, GetVmGpuCachePathResponse& b) {
     a.Swap(&b);
@@ -12247,7 +12431,7 @@ class AddGroupPermissionMesaRequest final :
                &_AddGroupPermissionMesaRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    64;
+    65;
 
   friend void swap(AddGroupPermissionMesaRequest& a, AddGroupPermissionMesaRequest& b) {
     a.Swap(&b);
@@ -12395,7 +12579,7 @@ class GetVmLaunchAllowedRequest final :
                &_GetVmLaunchAllowedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    65;
+    66;
 
   friend void swap(GetVmLaunchAllowedRequest& a, GetVmLaunchAllowedRequest& b) {
     a.Swap(&b);
@@ -12544,7 +12728,7 @@ class GetVmLaunchAllowedResponse final :
                &_GetVmLaunchAllowedResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    66;
+    67;
 
   friend void swap(GetVmLaunchAllowedResponse& a, GetVmLaunchAllowedResponse& b) {
     a.Swap(&b);
@@ -12687,7 +12871,7 @@ class GetVmLogsRequest final :
                &_GetVmLogsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    67;
+    68;
 
   friend void swap(GetVmLogsRequest& a, GetVmLogsRequest& b) {
     a.Swap(&b);
@@ -12835,7 +13019,7 @@ class GetVmLogsResponse final :
                &_GetVmLogsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    68;
+    69;
 
   friend void swap(GetVmLogsResponse& a, GetVmLogsResponse& b) {
     a.Swap(&b);
@@ -12967,7 +13151,7 @@ class SwapVmRequest final :
                &_SwapVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    69;
+    70;
 
   friend void swap(SwapVmRequest& a, SwapVmRequest& b) {
     a.Swap(&b);
@@ -13126,7 +13310,7 @@ class SwapVmResponse final :
                &_SwapVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    70;
+    71;
 
   friend void swap(SwapVmResponse& a, SwapVmResponse& b) {
     a.Swap(&b);
@@ -13269,7 +13453,7 @@ class VmSwappingSignal final :
                &_VmSwappingSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    71;
+    72;
 
   friend void swap(VmSwappingSignal& a, VmSwappingSignal& b) {
     a.Swap(&b);
@@ -13417,7 +13601,7 @@ class InstallPflashRequest final :
                &_InstallPflashRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    72;
+    73;
 
   friend void swap(InstallPflashRequest& a, InstallPflashRequest& b) {
     a.Swap(&b);
@@ -13565,7 +13749,7 @@ class InstallPflashResponse final :
                &_InstallPflashResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    73;
+    74;
 
   friend void swap(InstallPflashResponse& a, InstallPflashResponse& b) {
     a.Swap(&b);
@@ -17339,6 +17523,130 @@ inline void VmStartedSignal::_internal_set_status(::vm_tools::concierge::VmStatu
 inline void VmStartedSignal::set_status(::vm_tools::concierge::VmStatus value) {
   _internal_set_status(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.VmStartedSignal.status)
+}
+
+// -------------------------------------------------------------------
+
+// VmGuestUserlandReadySignal
+
+// string name = 1;
+inline void VmGuestUserlandReadySignal::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& VmGuestUserlandReadySignal::name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmGuestUserlandReadySignal.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void VmGuestUserlandReadySignal::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmGuestUserlandReadySignal.name)
+}
+inline std::string* VmGuestUserlandReadySignal::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.VmGuestUserlandReadySignal.name)
+  return _s;
+}
+inline const std::string& VmGuestUserlandReadySignal::_internal_name() const {
+  return name_.Get();
+}
+inline void VmGuestUserlandReadySignal::_internal_set_name(const std::string& value) {
+  
+  name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* VmGuestUserlandReadySignal::_internal_mutable_name() {
+  
+  return name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* VmGuestUserlandReadySignal::release_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.VmGuestUserlandReadySignal.name)
+  return name_.Release();
+}
+inline void VmGuestUserlandReadySignal::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault()) {
+    name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VmGuestUserlandReadySignal.name)
+}
+
+// string owner_id = 2;
+inline void VmGuestUserlandReadySignal::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& VmGuestUserlandReadySignal::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmGuestUserlandReadySignal.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void VmGuestUserlandReadySignal::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmGuestUserlandReadySignal.owner_id)
+}
+inline std::string* VmGuestUserlandReadySignal::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.VmGuestUserlandReadySignal.owner_id)
+  return _s;
+}
+inline const std::string& VmGuestUserlandReadySignal::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void VmGuestUserlandReadySignal::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* VmGuestUserlandReadySignal::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* VmGuestUserlandReadySignal::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.VmGuestUserlandReadySignal.owner_id)
+  return owner_id_.Release();
+}
+inline void VmGuestUserlandReadySignal::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(owner_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault()) {
+    owner_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VmGuestUserlandReadySignal.owner_id)
+}
+
+// .vm_tools.concierge.GuestUserlandReady ready = 3;
+inline void VmGuestUserlandReadySignal::clear_ready() {
+  ready_ = 0;
+}
+inline ::vm_tools::concierge::GuestUserlandReady VmGuestUserlandReadySignal::_internal_ready() const {
+  return static_cast< ::vm_tools::concierge::GuestUserlandReady >(ready_);
+}
+inline ::vm_tools::concierge::GuestUserlandReady VmGuestUserlandReadySignal::ready() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmGuestUserlandReadySignal.ready)
+  return _internal_ready();
+}
+inline void VmGuestUserlandReadySignal::_internal_set_ready(::vm_tools::concierge::GuestUserlandReady value) {
+  
+  ready_ = value;
+}
+inline void VmGuestUserlandReadySignal::set_ready(::vm_tools::concierge::GuestUserlandReady value) {
+  _internal_set_ready(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmGuestUserlandReadySignal.ready)
 }
 
 // -------------------------------------------------------------------
@@ -24775,6 +25083,8 @@ inline void InstallPflashResponse::set_allocated_failure_reason(std::string* fai
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -24794,6 +25104,7 @@ template <> struct is_proto_enum< ::vm_tools::concierge::StartVmResponse_MountRe
 template <> struct is_proto_enum< ::vm_tools::concierge::DiskImageType> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::FilesystemType> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::VmStatus> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::concierge::GuestUserlandReady> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::VmStopReason> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::ArcVmCompleteBootResult> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::StorageLocation> : ::std::true_type {};

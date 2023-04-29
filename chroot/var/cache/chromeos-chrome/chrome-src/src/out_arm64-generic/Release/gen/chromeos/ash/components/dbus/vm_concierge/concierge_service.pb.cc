@@ -237,6 +237,21 @@ struct VmStartedSignalDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VmStartedSignalDefaultTypeInternal _VmStartedSignal_default_instance_;
+PROTOBUF_CONSTEXPR VmGuestUserlandReadySignal::VmGuestUserlandReadySignal(
+    ::_pbi::ConstantInitialized)
+  : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , owner_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , ready_(0)
+{}
+struct VmGuestUserlandReadySignalDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR VmGuestUserlandReadySignalDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~VmGuestUserlandReadySignalDefaultTypeInternal() {}
+  union {
+    VmGuestUserlandReadySignal _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VmGuestUserlandReadySignalDefaultTypeInternal _VmGuestUserlandReadySignal_default_instance_;
 PROTOBUF_CONSTEXPR StopVmRequest::StopVmRequest(
     ::_pbi::ConstantInitialized)
   : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -1882,6 +1897,57 @@ bool VmStatus_Parse(
       VmStatus_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<VmStatus>(int_value);
+  }
+  return success;
+}
+bool GuestUserlandReady_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> GuestUserlandReady_strings[2] = {};
+
+static const char GuestUserlandReady_names[] =
+  "ARC_BRIDGE_CONNECTED"
+  "USERLAND_UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GuestUserlandReady_entries[] = {
+  { {GuestUserlandReady_names + 0, 20}, 1 },
+  { {GuestUserlandReady_names + 20, 16}, 0 },
+};
+
+static const int GuestUserlandReady_entries_by_number[] = {
+  1, // 0 -> USERLAND_UNKNOWN
+  0, // 1 -> ARC_BRIDGE_CONNECTED
+};
+
+const std::string& GuestUserlandReady_Name(
+    GuestUserlandReady value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          GuestUserlandReady_entries,
+          GuestUserlandReady_entries_by_number,
+          2, GuestUserlandReady_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      GuestUserlandReady_entries,
+      GuestUserlandReady_entries_by_number,
+      2, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     GuestUserlandReady_strings[idx].get();
+}
+bool GuestUserlandReady_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GuestUserlandReady* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      GuestUserlandReady_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<GuestUserlandReady>(int_value);
   }
   return success;
 }
@@ -7069,6 +7135,275 @@ void VmStartedSignal::InternalSwap(VmStartedSignal* other) {
 
 std::string VmStartedSignal::GetTypeName() const {
   return "vm_tools.concierge.VmStartedSignal";
+}
+
+
+// ===================================================================
+
+class VmGuestUserlandReadySignal::_Internal {
+ public:
+};
+
+VmGuestUserlandReadySignal::VmGuestUserlandReadySignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.VmGuestUserlandReadySignal)
+}
+VmGuestUserlandReadySignal::VmGuestUserlandReadySignal(const VmGuestUserlandReadySignal& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_name().empty()) {
+    name_.Set(from._internal_name(), 
+      GetArenaForAllocation());
+  }
+  owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_owner_id().empty()) {
+    owner_id_.Set(from._internal_owner_id(), 
+      GetArenaForAllocation());
+  }
+  ready_ = from.ready_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.VmGuestUserlandReadySignal)
+}
+
+inline void VmGuestUserlandReadySignal::SharedCtor() {
+name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+owner_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  owner_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+ready_ = 0;
+}
+
+VmGuestUserlandReadySignal::~VmGuestUserlandReadySignal() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.VmGuestUserlandReadySignal)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void VmGuestUserlandReadySignal::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  name_.Destroy();
+  owner_id_.Destroy();
+}
+
+void VmGuestUserlandReadySignal::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void VmGuestUserlandReadySignal::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.VmGuestUserlandReadySignal)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  name_.ClearToEmpty();
+  owner_id_.ClearToEmpty();
+  ready_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* VmGuestUserlandReadySignal::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string owner_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_owner_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .vm_tools.concierge.GuestUserlandReady ready = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_ready(static_cast<::vm_tools::concierge::GuestUserlandReady>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* VmGuestUserlandReadySignal::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.VmGuestUserlandReadySignal)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.VmGuestUserlandReadySignal.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_owner_id().data(), static_cast<int>(this->_internal_owner_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.VmGuestUserlandReadySignal.owner_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_owner_id(), target);
+  }
+
+  // .vm_tools.concierge.GuestUserlandReady ready = 3;
+  if (this->_internal_ready() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_ready(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.VmGuestUserlandReadySignal)
+  return target;
+}
+
+size_t VmGuestUserlandReadySignal::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.VmGuestUserlandReadySignal)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_owner_id());
+  }
+
+  // .vm_tools.concierge.GuestUserlandReady ready = 3;
+  if (this->_internal_ready() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_ready());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void VmGuestUserlandReadySignal::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const VmGuestUserlandReadySignal*>(
+      &from));
+}
+
+void VmGuestUserlandReadySignal::MergeFrom(const VmGuestUserlandReadySignal& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.VmGuestUserlandReadySignal)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _internal_set_name(from._internal_name());
+  }
+  if (!from._internal_owner_id().empty()) {
+    _internal_set_owner_id(from._internal_owner_id());
+  }
+  if (from._internal_ready() != 0) {
+    _internal_set_ready(from._internal_ready());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void VmGuestUserlandReadySignal::CopyFrom(const VmGuestUserlandReadySignal& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.VmGuestUserlandReadySignal)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool VmGuestUserlandReadySignal::IsInitialized() const {
+  return true;
+}
+
+void VmGuestUserlandReadySignal::InternalSwap(VmGuestUserlandReadySignal* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &owner_id_, lhs_arena,
+      &other->owner_id_, rhs_arena
+  );
+  swap(ready_, other->ready_);
+}
+
+std::string VmGuestUserlandReadySignal::GetTypeName() const {
+  return "vm_tools.concierge.VmGuestUserlandReadySignal";
 }
 
 
@@ -23462,6 +23797,10 @@ Arena::CreateMaybeMessage< ::vm_tools::concierge::StartVmResponse >(Arena* arena
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::VmStartedSignal*
 Arena::CreateMaybeMessage< ::vm_tools::concierge::VmStartedSignal >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::concierge::VmStartedSignal >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::VmGuestUserlandReadySignal*
+Arena::CreateMaybeMessage< ::vm_tools::concierge::VmGuestUserlandReadySignal >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::VmGuestUserlandReadySignal >(arena);
 }
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::StopVmRequest*
 Arena::CreateMaybeMessage< ::vm_tools::concierge::StopVmRequest >(Arena* arena) {

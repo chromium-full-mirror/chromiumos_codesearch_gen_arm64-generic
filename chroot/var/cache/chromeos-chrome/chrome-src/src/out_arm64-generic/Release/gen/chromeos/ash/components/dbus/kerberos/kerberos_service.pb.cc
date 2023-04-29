@@ -423,13 +423,14 @@ bool ConfigErrorCode_IsValid(int value) {
     case 8:
     case 9:
     case 10:
+    case 11:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ConfigErrorCode_strings[11] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ConfigErrorCode_strings[12] = {};
 
 static const char ConfigErrorCode_names[] =
   "CONFIG_ERROR_COUNT"
@@ -437,6 +438,7 @@ static const char ConfigErrorCode_names[] =
   "CONFIG_ERROR_EXTRA_CURLY_BRACE"
   "CONFIG_ERROR_KEY_NOT_SUPPORTED"
   "CONFIG_ERROR_KRB5_FAILED_TO_PARSE"
+  "CONFIG_ERROR_LINE_TOO_LONG"
   "CONFIG_ERROR_NONE"
   "CONFIG_ERROR_RELATION_SYNTAX"
   "CONFIG_ERROR_SECTION_NESTED_IN_GROUP"
@@ -445,31 +447,33 @@ static const char ConfigErrorCode_names[] =
   "CONFIG_ERROR_TOO_MANY_NESTED_GROUPS";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ConfigErrorCode_entries[] = {
-  { {ConfigErrorCode_names + 0, 18}, 10 },
+  { {ConfigErrorCode_names + 0, 18}, 11 },
   { {ConfigErrorCode_names + 18, 41}, 3 },
   { {ConfigErrorCode_names + 59, 30}, 4 },
   { {ConfigErrorCode_names + 89, 30}, 6 },
   { {ConfigErrorCode_names + 119, 33}, 8 },
-  { {ConfigErrorCode_names + 152, 17}, 0 },
-  { {ConfigErrorCode_names + 169, 28}, 5 },
-  { {ConfigErrorCode_names + 197, 36}, 1 },
-  { {ConfigErrorCode_names + 233, 34}, 7 },
-  { {ConfigErrorCode_names + 267, 27}, 2 },
-  { {ConfigErrorCode_names + 294, 35}, 9 },
+  { {ConfigErrorCode_names + 152, 26}, 10 },
+  { {ConfigErrorCode_names + 178, 17}, 0 },
+  { {ConfigErrorCode_names + 195, 28}, 5 },
+  { {ConfigErrorCode_names + 223, 36}, 1 },
+  { {ConfigErrorCode_names + 259, 34}, 7 },
+  { {ConfigErrorCode_names + 293, 27}, 2 },
+  { {ConfigErrorCode_names + 320, 35}, 9 },
 };
 
 static const int ConfigErrorCode_entries_by_number[] = {
-  5, // 0 -> CONFIG_ERROR_NONE
-  7, // 1 -> CONFIG_ERROR_SECTION_NESTED_IN_GROUP
-  9, // 2 -> CONFIG_ERROR_SECTION_SYNTAX
+  6, // 0 -> CONFIG_ERROR_NONE
+  8, // 1 -> CONFIG_ERROR_SECTION_NESTED_IN_GROUP
+  10, // 2 -> CONFIG_ERROR_SECTION_SYNTAX
   1, // 3 -> CONFIG_ERROR_EXPECTED_OPENING_CURLY_BRACE
   2, // 4 -> CONFIG_ERROR_EXTRA_CURLY_BRACE
-  6, // 5 -> CONFIG_ERROR_RELATION_SYNTAX
+  7, // 5 -> CONFIG_ERROR_RELATION_SYNTAX
   3, // 6 -> CONFIG_ERROR_KEY_NOT_SUPPORTED
-  8, // 7 -> CONFIG_ERROR_SECTION_NOT_SUPPORTED
+  9, // 7 -> CONFIG_ERROR_SECTION_NOT_SUPPORTED
   4, // 8 -> CONFIG_ERROR_KRB5_FAILED_TO_PARSE
-  10, // 9 -> CONFIG_ERROR_TOO_MANY_NESTED_GROUPS
-  0, // 10 -> CONFIG_ERROR_COUNT
+  11, // 9 -> CONFIG_ERROR_TOO_MANY_NESTED_GROUPS
+  5, // 10 -> CONFIG_ERROR_LINE_TOO_LONG
+  0, // 11 -> CONFIG_ERROR_COUNT
 };
 
 const std::string& ConfigErrorCode_Name(
@@ -478,12 +482,12 @@ const std::string& ConfigErrorCode_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ConfigErrorCode_entries,
           ConfigErrorCode_entries_by_number,
-          11, ConfigErrorCode_strings);
+          12, ConfigErrorCode_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ConfigErrorCode_entries,
       ConfigErrorCode_entries_by_number,
-      11, value);
+      12, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ConfigErrorCode_strings[idx].get();
 }
@@ -491,7 +495,7 @@ bool ConfigErrorCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ConfigErrorCode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ConfigErrorCode_entries, 11, name, &int_value);
+      ConfigErrorCode_entries, 12, name, &int_value);
   if (success) {
     *value = static_cast<ConfigErrorCode>(int_value);
   }

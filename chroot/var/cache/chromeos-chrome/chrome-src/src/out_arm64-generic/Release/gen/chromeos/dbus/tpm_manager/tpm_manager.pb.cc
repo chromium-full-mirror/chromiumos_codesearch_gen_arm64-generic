@@ -891,38 +891,114 @@ bool RoVerificationStatus_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
+    case 7:
+    case 20:
+    case 21:
+    case 22:
+    case 23:
+    case 24:
+    case 25:
+    case 26:
+    case 27:
+    case 28:
+    case 29:
+    case 30:
+    case 31:
+    case 32:
+    case 33:
+    case 36:
+    case 37:
+    case 255:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RoVerificationStatus_strings[6] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RoVerificationStatus_strings[25] = {};
 
 static const char RoVerificationStatus_names[] =
   "RO_STATUS_FAIL"
+  "RO_STATUS_IN_PROGRESS"
   "RO_STATUS_NOT_TRIGGERED"
   "RO_STATUS_PASS"
+  "RO_STATUS_PASS_UNVERIFIED_GBB"
   "RO_STATUS_UNSUPPORTED"
   "RO_STATUS_UNSUPPORTED_NOT_TRIGGERED"
-  "RO_STATUS_UNSUPPORTED_TRIGGERED";
+  "RO_STATUS_UNSUPPORTED_TRIGGERED"
+  "RO_STATUS_V2_BOARD_ID_MISMATCH"
+  "RO_STATUS_V2_FAILED_VERIFICATION"
+  "RO_STATUS_V2_INCONSISTENT_GSCVD"
+  "RO_STATUS_V2_INCONSISTENT_KEY"
+  "RO_STATUS_V2_INCONSISTENT_KEYBLOCK"
+  "RO_STATUS_V2_INTERNAL"
+  "RO_STATUS_V2_MISSING_GSCVD"
+  "RO_STATUS_V2_NON_ZERO_GBB_FLAGS"
+  "RO_STATUS_V2_OUT_OF_MEMORY"
+  "RO_STATUS_V2_SETTING_NOT_PROVISIONED"
+  "RO_STATUS_V2_SPI_READ"
+  "RO_STATUS_V2_SUCCESS"
+  "RO_STATUS_V2_TOO_BIG"
+  "RO_STATUS_V2_UNKNOWN"
+  "RO_STATUS_V2_UNSUPPORTED_CRYPTO_ALGORITHM"
+  "RO_STATUS_V2_VERSION_MISMATCH"
+  "RO_STATUS_V2_WRONG_ROOT_KEY";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RoVerificationStatus_entries[] = {
   { {RoVerificationStatus_names + 0, 14}, 2 },
-  { {RoVerificationStatus_names + 14, 23}, 0 },
-  { {RoVerificationStatus_names + 37, 14}, 1 },
-  { {RoVerificationStatus_names + 51, 21}, 3 },
-  { {RoVerificationStatus_names + 72, 35}, 4 },
-  { {RoVerificationStatus_names + 107, 31}, 5 },
+  { {RoVerificationStatus_names + 14, 21}, 7 },
+  { {RoVerificationStatus_names + 35, 23}, 0 },
+  { {RoVerificationStatus_names + 58, 14}, 6 },
+  { {RoVerificationStatus_names + 72, 29}, 1 },
+  { {RoVerificationStatus_names + 101, 21}, 3 },
+  { {RoVerificationStatus_names + 122, 35}, 4 },
+  { {RoVerificationStatus_names + 157, 31}, 5 },
+  { {RoVerificationStatus_names + 188, 30}, 32 },
+  { {RoVerificationStatus_names + 218, 32}, 21 },
+  { {RoVerificationStatus_names + 250, 31}, 22 },
+  { {RoVerificationStatus_names + 281, 29}, 24 },
+  { {RoVerificationStatus_names + 310, 34}, 23 },
+  { {RoVerificationStatus_names + 344, 21}, 29 },
+  { {RoVerificationStatus_names + 365, 26}, 31 },
+  { {RoVerificationStatus_names + 391, 31}, 36 },
+  { {RoVerificationStatus_names + 422, 26}, 28 },
+  { {RoVerificationStatus_names + 448, 36}, 33 },
+  { {RoVerificationStatus_names + 484, 21}, 25 },
+  { {RoVerificationStatus_names + 505, 20}, 20 },
+  { {RoVerificationStatus_names + 525, 20}, 30 },
+  { {RoVerificationStatus_names + 545, 20}, 255 },
+  { {RoVerificationStatus_names + 565, 41}, 26 },
+  { {RoVerificationStatus_names + 606, 29}, 27 },
+  { {RoVerificationStatus_names + 635, 27}, 37 },
 };
 
 static const int RoVerificationStatus_entries_by_number[] = {
-  1, // 0 -> RO_STATUS_NOT_TRIGGERED
-  2, // 1 -> RO_STATUS_PASS
+  2, // 0 -> RO_STATUS_NOT_TRIGGERED
+  4, // 1 -> RO_STATUS_PASS_UNVERIFIED_GBB
   0, // 2 -> RO_STATUS_FAIL
-  3, // 3 -> RO_STATUS_UNSUPPORTED
-  4, // 4 -> RO_STATUS_UNSUPPORTED_NOT_TRIGGERED
-  5, // 5 -> RO_STATUS_UNSUPPORTED_TRIGGERED
+  5, // 3 -> RO_STATUS_UNSUPPORTED
+  6, // 4 -> RO_STATUS_UNSUPPORTED_NOT_TRIGGERED
+  7, // 5 -> RO_STATUS_UNSUPPORTED_TRIGGERED
+  3, // 6 -> RO_STATUS_PASS
+  1, // 7 -> RO_STATUS_IN_PROGRESS
+  19, // 20 -> RO_STATUS_V2_SUCCESS
+  9, // 21 -> RO_STATUS_V2_FAILED_VERIFICATION
+  10, // 22 -> RO_STATUS_V2_INCONSISTENT_GSCVD
+  12, // 23 -> RO_STATUS_V2_INCONSISTENT_KEYBLOCK
+  11, // 24 -> RO_STATUS_V2_INCONSISTENT_KEY
+  18, // 25 -> RO_STATUS_V2_SPI_READ
+  22, // 26 -> RO_STATUS_V2_UNSUPPORTED_CRYPTO_ALGORITHM
+  23, // 27 -> RO_STATUS_V2_VERSION_MISMATCH
+  16, // 28 -> RO_STATUS_V2_OUT_OF_MEMORY
+  13, // 29 -> RO_STATUS_V2_INTERNAL
+  20, // 30 -> RO_STATUS_V2_TOO_BIG
+  14, // 31 -> RO_STATUS_V2_MISSING_GSCVD
+  8, // 32 -> RO_STATUS_V2_BOARD_ID_MISMATCH
+  17, // 33 -> RO_STATUS_V2_SETTING_NOT_PROVISIONED
+  15, // 36 -> RO_STATUS_V2_NON_ZERO_GBB_FLAGS
+  24, // 37 -> RO_STATUS_V2_WRONG_ROOT_KEY
+  21, // 255 -> RO_STATUS_V2_UNKNOWN
 };
 
 const std::string& RoVerificationStatus_Name(
@@ -931,12 +1007,12 @@ const std::string& RoVerificationStatus_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           RoVerificationStatus_entries,
           RoVerificationStatus_entries_by_number,
-          6, RoVerificationStatus_strings);
+          25, RoVerificationStatus_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       RoVerificationStatus_entries,
       RoVerificationStatus_entries_by_number,
-      6, value);
+      25, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      RoVerificationStatus_strings[idx].get();
 }
@@ -944,7 +1020,7 @@ bool RoVerificationStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RoVerificationStatus* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      RoVerificationStatus_entries, 6, name, &int_value);
+      RoVerificationStatus_entries, 25, name, &int_value);
   if (success) {
     *value = static_cast<RoVerificationStatus>(int_value);
   }

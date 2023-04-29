@@ -6247,6 +6247,8 @@ class IPv4Configuration final :
 
   enum : int {
     kOptionsFieldNumber = 4,
+    kDnsServersFieldNumber = 7,
+    kDomainSearchesFieldNumber = 8,
     kGatewayAddrFieldNumber = 2,
     kDhcpStartAddrFieldNumber = 5,
     kDhcpEndAddrFieldNumber = 6,
@@ -6270,6 +6272,54 @@ class IPv4Configuration final :
   ::patchpanel::IPv4Configuration_DhcpOption* add_options();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::IPv4Configuration_DhcpOption >&
       options() const;
+
+  // repeated bytes dns_servers = 7;
+  int dns_servers_size() const;
+  private:
+  int _internal_dns_servers_size() const;
+  public:
+  void clear_dns_servers();
+  const std::string& dns_servers(int index) const;
+  std::string* mutable_dns_servers(int index);
+  void set_dns_servers(int index, const std::string& value);
+  void set_dns_servers(int index, std::string&& value);
+  void set_dns_servers(int index, const char* value);
+  void set_dns_servers(int index, const void* value, size_t size);
+  std::string* add_dns_servers();
+  void add_dns_servers(const std::string& value);
+  void add_dns_servers(std::string&& value);
+  void add_dns_servers(const char* value);
+  void add_dns_servers(const void* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& dns_servers() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_dns_servers();
+  private:
+  const std::string& _internal_dns_servers(int index) const;
+  std::string* _internal_add_dns_servers();
+  public:
+
+  // repeated string domain_searches = 8;
+  int domain_searches_size() const;
+  private:
+  int _internal_domain_searches_size() const;
+  public:
+  void clear_domain_searches();
+  const std::string& domain_searches(int index) const;
+  std::string* mutable_domain_searches(int index);
+  void set_domain_searches(int index, const std::string& value);
+  void set_domain_searches(int index, std::string&& value);
+  void set_domain_searches(int index, const char* value);
+  void set_domain_searches(int index, const char* value, size_t size);
+  std::string* add_domain_searches();
+  void add_domain_searches(const std::string& value);
+  void add_domain_searches(std::string&& value);
+  void add_domain_searches(const char* value);
+  void add_domain_searches(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& domain_searches() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_domain_searches();
+  private:
+  const std::string& _internal_domain_searches(int index) const;
+  std::string* _internal_add_domain_searches();
+  public:
 
   // optional bytes gateway_addr = 2;
   bool has_gateway_addr() const;
@@ -6362,6 +6412,8 @@ class IPv4Configuration final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::IPv4Configuration_DhcpOption > options_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> dns_servers_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> domain_searches_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr gateway_addr_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dhcp_start_addr_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dhcp_end_addr_;
@@ -6676,7 +6728,7 @@ class TetheredNetworkRequest final :
     kUpstreamIfnameFieldNumber = 2,
     kIpv4ConfigFieldNumber = 4,
     kUpstreamTechnologyFieldNumber = 3,
-    kDisableIpv6FieldNumber = 5,
+    kEnableIpv6FieldNumber = 5,
   };
   // string ifname = 1;
   void clear_ifname();
@@ -6733,13 +6785,13 @@ class TetheredNetworkRequest final :
   void _internal_set_upstream_technology(::patchpanel::TetheredNetworkRequest_UpstreamTechnology value);
   public:
 
-  // bool disable_ipv6 = 5;
-  void clear_disable_ipv6();
-  bool disable_ipv6() const;
-  void set_disable_ipv6(bool value);
+  // bool enable_ipv6 = 5;
+  void clear_enable_ipv6();
+  bool enable_ipv6() const;
+  void set_enable_ipv6(bool value);
   private:
-  bool _internal_disable_ipv6() const;
-  void _internal_set_disable_ipv6(bool value);
+  bool _internal_enable_ipv6() const;
+  void _internal_set_enable_ipv6(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:patchpanel.TetheredNetworkRequest)
@@ -6755,7 +6807,7 @@ class TetheredNetworkRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr upstream_ifname_;
   ::patchpanel::IPv4Configuration* ipv4_config_;
   int upstream_technology_;
-  bool disable_ipv6_;
+  bool enable_ipv6_;
   friend struct ::TableStruct_patchpanel_5fservice_2eproto;
 };
 // -------------------------------------------------------------------
@@ -10782,6 +10834,156 @@ inline void IPv4Configuration::set_allocated_dhcp_end_addr(std::string* dhcp_end
   // @@protoc_insertion_point(field_set_allocated:patchpanel.IPv4Configuration.dhcp_end_addr)
 }
 
+// repeated bytes dns_servers = 7;
+inline int IPv4Configuration::_internal_dns_servers_size() const {
+  return dns_servers_.size();
+}
+inline int IPv4Configuration::dns_servers_size() const {
+  return _internal_dns_servers_size();
+}
+inline void IPv4Configuration::clear_dns_servers() {
+  dns_servers_.Clear();
+}
+inline std::string* IPv4Configuration::add_dns_servers() {
+  std::string* _s = _internal_add_dns_servers();
+  // @@protoc_insertion_point(field_add_mutable:patchpanel.IPv4Configuration.dns_servers)
+  return _s;
+}
+inline const std::string& IPv4Configuration::_internal_dns_servers(int index) const {
+  return dns_servers_.Get(index);
+}
+inline const std::string& IPv4Configuration::dns_servers(int index) const {
+  // @@protoc_insertion_point(field_get:patchpanel.IPv4Configuration.dns_servers)
+  return _internal_dns_servers(index);
+}
+inline std::string* IPv4Configuration::mutable_dns_servers(int index) {
+  // @@protoc_insertion_point(field_mutable:patchpanel.IPv4Configuration.dns_servers)
+  return dns_servers_.Mutable(index);
+}
+inline void IPv4Configuration::set_dns_servers(int index, const std::string& value) {
+  dns_servers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:patchpanel.IPv4Configuration.dns_servers)
+}
+inline void IPv4Configuration::set_dns_servers(int index, std::string&& value) {
+  dns_servers_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:patchpanel.IPv4Configuration.dns_servers)
+}
+inline void IPv4Configuration::set_dns_servers(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  dns_servers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:patchpanel.IPv4Configuration.dns_servers)
+}
+inline void IPv4Configuration::set_dns_servers(int index, const void* value, size_t size) {
+  dns_servers_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:patchpanel.IPv4Configuration.dns_servers)
+}
+inline std::string* IPv4Configuration::_internal_add_dns_servers() {
+  return dns_servers_.Add();
+}
+inline void IPv4Configuration::add_dns_servers(const std::string& value) {
+  dns_servers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:patchpanel.IPv4Configuration.dns_servers)
+}
+inline void IPv4Configuration::add_dns_servers(std::string&& value) {
+  dns_servers_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:patchpanel.IPv4Configuration.dns_servers)
+}
+inline void IPv4Configuration::add_dns_servers(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  dns_servers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:patchpanel.IPv4Configuration.dns_servers)
+}
+inline void IPv4Configuration::add_dns_servers(const void* value, size_t size) {
+  dns_servers_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:patchpanel.IPv4Configuration.dns_servers)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+IPv4Configuration::dns_servers() const {
+  // @@protoc_insertion_point(field_list:patchpanel.IPv4Configuration.dns_servers)
+  return dns_servers_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+IPv4Configuration::mutable_dns_servers() {
+  // @@protoc_insertion_point(field_mutable_list:patchpanel.IPv4Configuration.dns_servers)
+  return &dns_servers_;
+}
+
+// repeated string domain_searches = 8;
+inline int IPv4Configuration::_internal_domain_searches_size() const {
+  return domain_searches_.size();
+}
+inline int IPv4Configuration::domain_searches_size() const {
+  return _internal_domain_searches_size();
+}
+inline void IPv4Configuration::clear_domain_searches() {
+  domain_searches_.Clear();
+}
+inline std::string* IPv4Configuration::add_domain_searches() {
+  std::string* _s = _internal_add_domain_searches();
+  // @@protoc_insertion_point(field_add_mutable:patchpanel.IPv4Configuration.domain_searches)
+  return _s;
+}
+inline const std::string& IPv4Configuration::_internal_domain_searches(int index) const {
+  return domain_searches_.Get(index);
+}
+inline const std::string& IPv4Configuration::domain_searches(int index) const {
+  // @@protoc_insertion_point(field_get:patchpanel.IPv4Configuration.domain_searches)
+  return _internal_domain_searches(index);
+}
+inline std::string* IPv4Configuration::mutable_domain_searches(int index) {
+  // @@protoc_insertion_point(field_mutable:patchpanel.IPv4Configuration.domain_searches)
+  return domain_searches_.Mutable(index);
+}
+inline void IPv4Configuration::set_domain_searches(int index, const std::string& value) {
+  domain_searches_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:patchpanel.IPv4Configuration.domain_searches)
+}
+inline void IPv4Configuration::set_domain_searches(int index, std::string&& value) {
+  domain_searches_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:patchpanel.IPv4Configuration.domain_searches)
+}
+inline void IPv4Configuration::set_domain_searches(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  domain_searches_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:patchpanel.IPv4Configuration.domain_searches)
+}
+inline void IPv4Configuration::set_domain_searches(int index, const char* value, size_t size) {
+  domain_searches_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:patchpanel.IPv4Configuration.domain_searches)
+}
+inline std::string* IPv4Configuration::_internal_add_domain_searches() {
+  return domain_searches_.Add();
+}
+inline void IPv4Configuration::add_domain_searches(const std::string& value) {
+  domain_searches_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:patchpanel.IPv4Configuration.domain_searches)
+}
+inline void IPv4Configuration::add_domain_searches(std::string&& value) {
+  domain_searches_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:patchpanel.IPv4Configuration.domain_searches)
+}
+inline void IPv4Configuration::add_domain_searches(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  domain_searches_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:patchpanel.IPv4Configuration.domain_searches)
+}
+inline void IPv4Configuration::add_domain_searches(const char* value, size_t size) {
+  domain_searches_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:patchpanel.IPv4Configuration.domain_searches)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+IPv4Configuration::domain_searches() const {
+  // @@protoc_insertion_point(field_list:patchpanel.IPv4Configuration.domain_searches)
+  return domain_searches_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+IPv4Configuration::mutable_domain_searches() {
+  // @@protoc_insertion_point(field_mutable_list:patchpanel.IPv4Configuration.domain_searches)
+  return &domain_searches_;
+}
+
 // -------------------------------------------------------------------
 
 // DownstreamNetwork
@@ -11190,24 +11392,24 @@ inline void TetheredNetworkRequest::set_allocated_ipv4_config(::patchpanel::IPv4
   // @@protoc_insertion_point(field_set_allocated:patchpanel.TetheredNetworkRequest.ipv4_config)
 }
 
-// bool disable_ipv6 = 5;
-inline void TetheredNetworkRequest::clear_disable_ipv6() {
-  disable_ipv6_ = false;
+// bool enable_ipv6 = 5;
+inline void TetheredNetworkRequest::clear_enable_ipv6() {
+  enable_ipv6_ = false;
 }
-inline bool TetheredNetworkRequest::_internal_disable_ipv6() const {
-  return disable_ipv6_;
+inline bool TetheredNetworkRequest::_internal_enable_ipv6() const {
+  return enable_ipv6_;
 }
-inline bool TetheredNetworkRequest::disable_ipv6() const {
-  // @@protoc_insertion_point(field_get:patchpanel.TetheredNetworkRequest.disable_ipv6)
-  return _internal_disable_ipv6();
+inline bool TetheredNetworkRequest::enable_ipv6() const {
+  // @@protoc_insertion_point(field_get:patchpanel.TetheredNetworkRequest.enable_ipv6)
+  return _internal_enable_ipv6();
 }
-inline void TetheredNetworkRequest::_internal_set_disable_ipv6(bool value) {
+inline void TetheredNetworkRequest::_internal_set_enable_ipv6(bool value) {
   
-  disable_ipv6_ = value;
+  enable_ipv6_ = value;
 }
-inline void TetheredNetworkRequest::set_disable_ipv6(bool value) {
-  _internal_set_disable_ipv6(value);
-  // @@protoc_insertion_point(field_set:patchpanel.TetheredNetworkRequest.disable_ipv6)
+inline void TetheredNetworkRequest::set_enable_ipv6(bool value) {
+  _internal_set_enable_ipv6(value);
+  // @@protoc_insertion_point(field_set:patchpanel.TetheredNetworkRequest.enable_ipv6)
 }
 
 // -------------------------------------------------------------------

@@ -512,6 +512,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR IPv4Configuration::IPv4Configuration(
     ::_pbi::ConstantInitialized)
   : options_()
+  , dns_servers_()
+  , domain_searches_()
   , gateway_addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , dhcp_start_addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , dhcp_end_addr_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -547,7 +549,7 @@ PROTOBUF_CONSTEXPR TetheredNetworkRequest::TetheredNetworkRequest(
   , ipv4_config_(nullptr)
   , upstream_technology_(0)
 
-  , disable_ipv6_(false){}
+  , enable_ipv6_(false){}
 struct TetheredNetworkRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TetheredNetworkRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -9259,14 +9261,18 @@ IPv4Configuration::_Internal::ipv4_subnet(const IPv4Configuration* msg) {
 IPv4Configuration::IPv4Configuration(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  options_(arena) {
+  options_(arena),
+  dns_servers_(arena),
+  domain_searches_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:patchpanel.IPv4Configuration)
 }
 IPv4Configuration::IPv4Configuration(const IPv4Configuration& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
-      options_(from.options_) {
+      options_(from.options_),
+      dns_servers_(from.dns_servers_),
+      domain_searches_(from.domain_searches_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   gateway_addr_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -9348,6 +9354,8 @@ void IPv4Configuration::Clear() {
   (void) cached_has_bits;
 
   options_.Clear();
+  dns_servers_.Clear();
+  domain_searches_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -9432,6 +9440,35 @@ const char* IPv4Configuration::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
+      // repeated bytes dns_servers = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_dns_servers();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string domain_searches = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_domain_searches();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -9501,6 +9538,22 @@ uint8_t* IPv4Configuration::_InternalSerialize(
         6, this->_internal_dhcp_end_addr(), target);
   }
 
+  // repeated bytes dns_servers = 7;
+  for (int i = 0, n = this->_internal_dns_servers_size(); i < n; i++) {
+    const auto& s = this->_internal_dns_servers(i);
+    target = stream->WriteBytes(7, s, target);
+  }
+
+  // repeated string domain_searches = 8;
+  for (int i = 0, n = this->_internal_domain_searches_size(); i < n; i++) {
+    const auto& s = this->_internal_domain_searches(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "patchpanel.IPv4Configuration.domain_searches");
+    target = stream->WriteString(8, s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -9522,6 +9575,22 @@ size_t IPv4Configuration::ByteSizeLong() const {
   for (const auto& msg : this->options_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated bytes dns_servers = 7;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(dns_servers_.size());
+  for (int i = 0, n = dns_servers_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+      dns_servers_.Get(i));
+  }
+
+  // repeated string domain_searches = 8;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(domain_searches_.size());
+  for (int i = 0, n = domain_searches_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      domain_searches_.Get(i));
   }
 
   cached_has_bits = _has_bits_[0];
@@ -9581,6 +9650,8 @@ void IPv4Configuration::MergeFrom(const IPv4Configuration& from) {
   (void) cached_has_bits;
 
   options_.MergeFrom(from.options_);
+  dns_servers_.MergeFrom(from.dns_servers_);
+  domain_searches_.MergeFrom(from.domain_searches_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -9620,6 +9691,8 @@ void IPv4Configuration::InternalSwap(IPv4Configuration* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   options_.InternalSwap(&other->options_);
+  dns_servers_.InternalSwap(&other->dns_servers_);
+  domain_searches_.InternalSwap(&other->domain_searches_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &gateway_addr_, lhs_arena,
       &other->gateway_addr_, rhs_arena
@@ -9969,8 +10042,8 @@ TetheredNetworkRequest::TetheredNetworkRequest(const TetheredNetworkRequest& fro
     ipv4_config_ = nullptr;
   }
   ::memcpy(&upstream_technology_, &from.upstream_technology_,
-    static_cast<size_t>(reinterpret_cast<char*>(&disable_ipv6_) -
-    reinterpret_cast<char*>(&upstream_technology_)) + sizeof(disable_ipv6_));
+    static_cast<size_t>(reinterpret_cast<char*>(&enable_ipv6_) -
+    reinterpret_cast<char*>(&upstream_technology_)) + sizeof(enable_ipv6_));
   // @@protoc_insertion_point(copy_constructor:patchpanel.TetheredNetworkRequest)
 }
 
@@ -9985,8 +10058,8 @@ upstream_ifname_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&ipv4_config_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&disable_ipv6_) -
-    reinterpret_cast<char*>(&ipv4_config_)) + sizeof(disable_ipv6_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&enable_ipv6_) -
+    reinterpret_cast<char*>(&ipv4_config_)) + sizeof(enable_ipv6_));
 }
 
 TetheredNetworkRequest::~TetheredNetworkRequest() {
@@ -10023,8 +10096,8 @@ void TetheredNetworkRequest::Clear() {
     ipv4_config_->Clear();
   }
   ::memset(&upstream_technology_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&disable_ipv6_) -
-      reinterpret_cast<char*>(&upstream_technology_)) + sizeof(disable_ipv6_));
+      reinterpret_cast<char*>(&enable_ipv6_) -
+      reinterpret_cast<char*>(&upstream_technology_)) + sizeof(enable_ipv6_));
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -10073,10 +10146,10 @@ const char* TetheredNetworkRequest::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
-      // bool disable_ipv6 = 5;
+      // bool enable_ipv6 = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          disable_ipv6_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          enable_ipv6_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -10145,10 +10218,10 @@ uint8_t* TetheredNetworkRequest::_InternalSerialize(
         _Internal::ipv4_config(this).GetCachedSize(), target, stream);
   }
 
-  // bool disable_ipv6 = 5;
-  if (this->_internal_disable_ipv6() != 0) {
+  // bool enable_ipv6 = 5;
+  if (this->_internal_enable_ipv6() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_disable_ipv6(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_enable_ipv6(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -10195,8 +10268,8 @@ size_t TetheredNetworkRequest::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_upstream_technology());
   }
 
-  // bool disable_ipv6 = 5;
-  if (this->_internal_disable_ipv6() != 0) {
+  // bool enable_ipv6 = 5;
+  if (this->_internal_enable_ipv6() != 0) {
     total_size += 1 + 1;
   }
 
@@ -10232,8 +10305,8 @@ void TetheredNetworkRequest::MergeFrom(const TetheredNetworkRequest& from) {
   if (from._internal_upstream_technology() != 0) {
     _internal_set_upstream_technology(from._internal_upstream_technology());
   }
-  if (from._internal_disable_ipv6() != 0) {
-    _internal_set_disable_ipv6(from._internal_disable_ipv6());
+  if (from._internal_enable_ipv6() != 0) {
+    _internal_set_enable_ipv6(from._internal_enable_ipv6());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -10264,8 +10337,8 @@ void TetheredNetworkRequest::InternalSwap(TetheredNetworkRequest* other) {
       &other->upstream_ifname_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(TetheredNetworkRequest, disable_ipv6_)
-      + sizeof(TetheredNetworkRequest::disable_ipv6_)
+      PROTOBUF_FIELD_OFFSET(TetheredNetworkRequest, enable_ipv6_)
+      + sizeof(TetheredNetworkRequest::enable_ipv6_)
       - PROTOBUF_FIELD_OFFSET(TetheredNetworkRequest, ipv4_config_)>(
           reinterpret_cast<char*>(&ipv4_config_),
           reinterpret_cast<char*>(&other->ipv4_config_));

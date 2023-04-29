@@ -34,7 +34,8 @@ enum class EventCategory {
   kAudioJack,
   kLid,
   kUsb,
-  kMaxValue = kUsb,
+  kSdCard,
+  kMaxValue = kSdCard,
 };
 
 
@@ -134,6 +135,17 @@ enum class UsbEvent {
 
 const char* ToString(UsbEvent as_enum);
 UsbEvent ParseUsbEvent(base::StringPiece as_string);
+
+enum class SdCardEvent {
+  kNone = 0,
+  kConnected,
+  kDisconnected,
+  kMaxValue = kDisconnected,
+};
+
+
+const char* ToString(SdCardEvent as_enum);
+SdCardEvent ParseSdCardEvent(base::StringPiece as_string);
 
 struct AudioJackEventInfo {
   AudioJackEventInfo();
@@ -264,6 +276,43 @@ struct UsbEventInfo {
 
 };
 
+struct SdCardEventInfo {
+  SdCardEventInfo();
+  ~SdCardEventInfo();
+  SdCardEventInfo(const SdCardEventInfo&) = delete;
+  SdCardEventInfo& operator=(const SdCardEventInfo&) = delete;
+  SdCardEventInfo(SdCardEventInfo&& rhs);
+  SdCardEventInfo& operator=(SdCardEventInfo&& rhs);
+
+  // Populates a SdCardEventInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, SdCardEventInfo& out);
+
+  // Populates a SdCardEventInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, SdCardEventInfo& out);
+
+  // Creates a deep copy of SdCardEventInfo.
+  SdCardEventInfo Clone() const;
+
+  // Creates a SdCardEventInfo object from a base::Value, or NULL on failure.
+  static std::unique_ptr<SdCardEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a SdCardEventInfo object from a base::Value::Dict, or nullopt on
+  // failure.
+  static absl::optional<SdCardEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a SdCardEventInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<SdCardEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisSdCardEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  SdCardEvent event;
+
+};
+
 
 //
 // Functions
@@ -365,6 +414,13 @@ extern const char kEventName[];  // "os.events.onUsbEvent"
 
 base::Value::List Create(const UsbEventInfo& event_info);
 }  // namespace OnUsbEvent
+
+namespace OnSdCardEvent {
+
+extern const char kEventName[];  // "os.events.onSdCardEvent"
+
+base::Value::List Create(const SdCardEventInfo& event_info);
+}  // namespace OnSdCardEvent
 
 }  // namespace os_events
 }  // namespace api

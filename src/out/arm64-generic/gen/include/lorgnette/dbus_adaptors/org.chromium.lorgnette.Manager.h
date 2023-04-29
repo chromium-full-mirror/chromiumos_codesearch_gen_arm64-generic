@@ -48,6 +48,11 @@ class ManagerInterface {
   // Attempts to cancel the scan job specified by the given UUID.
   virtual ::lorgnette::CancelScanResponse CancelScan(
       const ::lorgnette::CancelScanRequest& in_cancel_scan_request) = 0;
+  // Configure lorgnette debugging.  Lorgnette will exit automatically
+  // after returning from this call if the requested config can't be
+  // implemented without restarting the process.
+  virtual ::lorgnette::SetDebugConfigResponse SetDebugConfig(
+      const ::lorgnette::SetDebugConfigRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::lorgnette::Manager.
@@ -81,6 +86,10 @@ class ManagerAdaptor {
         "CancelScan",
         base::Unretained(interface_),
         &ManagerInterface::CancelScan);
+    itf->AddSimpleMethodHandler(
+        "SetDebugConfig",
+        base::Unretained(interface_),
+        &ManagerInterface::SetDebugConfig);
 
     signal_ScanStatusChanged_ = itf->RegisterSignalOfType<SignalScanStatusChangedType>("ScanStatusChanged");
   }
@@ -118,6 +127,10 @@ class ManagerAdaptor {
         "    <method name=\"CancelScan\">\n"
         "      <arg name=\"cancel_scan_request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"cancel_scan_response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"SetDebugConfig\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <signal name=\"ScanStatusChanged\">\n"
         "      <arg name=\"scan_status_changed_signal\" type=\"ay\"/>\n"

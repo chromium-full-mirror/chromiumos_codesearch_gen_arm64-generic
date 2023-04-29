@@ -175,7 +175,8 @@ enum ConfigErrorCode : int {
   CONFIG_ERROR_SECTION_NOT_SUPPORTED = 7,
   CONFIG_ERROR_KRB5_FAILED_TO_PARSE = 8,
   CONFIG_ERROR_TOO_MANY_NESTED_GROUPS = 9,
-  CONFIG_ERROR_COUNT = 10
+  CONFIG_ERROR_LINE_TOO_LONG = 10,
+  CONFIG_ERROR_COUNT = 11
 };
 bool ConfigErrorCode_IsValid(int value);
 constexpr ConfigErrorCode ConfigErrorCode_MIN = CONFIG_ERROR_NONE;
