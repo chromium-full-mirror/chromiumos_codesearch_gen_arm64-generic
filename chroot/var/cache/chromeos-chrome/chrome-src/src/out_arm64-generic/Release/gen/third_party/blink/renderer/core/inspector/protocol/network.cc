@@ -606,6 +606,41 @@ CRDTP_BEGIN_SERIALIZER(BlockedCookieWithReason)
 CRDTP_END_SERIALIZER();
 
 
+CRDTP_BEGIN_DESERIALIZER(CookieParam)
+    CRDTP_DESERIALIZE_FIELD_OPT("domain", m_domain),
+    CRDTP_DESERIALIZE_FIELD_OPT("expires", m_expires),
+    CRDTP_DESERIALIZE_FIELD_OPT("httpOnly", m_httpOnly),
+    CRDTP_DESERIALIZE_FIELD("name", m_name),
+    CRDTP_DESERIALIZE_FIELD_OPT("partitionKey", m_partitionKey),
+    CRDTP_DESERIALIZE_FIELD_OPT("path", m_path),
+    CRDTP_DESERIALIZE_FIELD_OPT("priority", m_priority),
+    CRDTP_DESERIALIZE_FIELD_OPT("sameParty", m_sameParty),
+    CRDTP_DESERIALIZE_FIELD_OPT("sameSite", m_sameSite),
+    CRDTP_DESERIALIZE_FIELD_OPT("secure", m_secure),
+    CRDTP_DESERIALIZE_FIELD_OPT("sourcePort", m_sourcePort),
+    CRDTP_DESERIALIZE_FIELD_OPT("sourceScheme", m_sourceScheme),
+    CRDTP_DESERIALIZE_FIELD_OPT("url", m_url),
+    CRDTP_DESERIALIZE_FIELD("value", m_value),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(CookieParam)
+    CRDTP_SERIALIZE_FIELD("name", m_name);
+    CRDTP_SERIALIZE_FIELD("value", m_value);
+    CRDTP_SERIALIZE_FIELD("url", m_url);
+    CRDTP_SERIALIZE_FIELD("domain", m_domain);
+    CRDTP_SERIALIZE_FIELD("path", m_path);
+    CRDTP_SERIALIZE_FIELD("secure", m_secure);
+    CRDTP_SERIALIZE_FIELD("httpOnly", m_httpOnly);
+    CRDTP_SERIALIZE_FIELD("sameSite", m_sameSite);
+    CRDTP_SERIALIZE_FIELD("expires", m_expires);
+    CRDTP_SERIALIZE_FIELD("priority", m_priority);
+    CRDTP_SERIALIZE_FIELD("sameParty", m_sameParty);
+    CRDTP_SERIALIZE_FIELD("sourceScheme", m_sourceScheme);
+    CRDTP_SERIALIZE_FIELD("sourcePort", m_sourcePort);
+    CRDTP_SERIALIZE_FIELD("partitionKey", m_partitionKey);
+CRDTP_END_SERIALIZER();
+
+
 
 const char* AuthChallenge::SourceEnum::Server = "Server";
 const char* AuthChallenge::SourceEnum::Proxy = "Proxy";

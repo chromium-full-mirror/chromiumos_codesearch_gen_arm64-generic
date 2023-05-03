@@ -40,6 +40,7 @@
 
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-import-headers.h"
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-test-utils.h"
+#include "diagnostics/mojom/external/time_mojom_traits.h"
 
 
 
@@ -87,6 +88,34 @@ void AudioDriverRoutineArgument::WriteIntoTrace(
 }
 
 bool AudioDriverRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CpuStressRoutineArgument::CpuStressRoutineArgument()
+    : exec_duration() {}
+
+CpuStressRoutineArgument::CpuStressRoutineArgument(
+    absl::optional<base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+CpuStressRoutineArgument::~CpuStressRoutineArgument() = default;
+
+void CpuStressRoutineArgument::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CpuStressRoutineArgument::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -335,6 +364,23 @@ bool AudioDriverRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+CpuStressRoutineDetail::CpuStressRoutineDetail() {}
+
+CpuStressRoutineDetail::~CpuStressRoutineDetail() = default;
+size_t CpuStressRoutineDetail::Hash(size_t seed) const {
+  return seed;
+}
+
+void CpuStressRoutineDetail::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool CpuStressRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 MemtesterResult::MemtesterResult()
     : passed_items(),
       failed_items() {}
@@ -414,6 +460,17 @@ void RoutineArgument::set_audio_driver(
         std::move(audio_driver));
   }
 }
+void RoutineArgument::set_cpu_stress(
+    CpuStressRoutineArgumentPtr cpu_stress) {
+  if (tag_ == Tag::kCpuStress) {
+    *(data_.cpu_stress) = std::move(cpu_stress);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCpuStress;
+    data_.cpu_stress = new CpuStressRoutineArgumentPtr(
+        std::move(cpu_stress));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -428,6 +485,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kAudioDriver:
 
       delete data_.audio_driver;
+      break;
+    case Tag::kCpuStress:
+
+      delete data_.cpu_stress;
       break;
   }
 }
@@ -549,6 +610,17 @@ void RoutineDetail::set_audio_driver(
         std::move(audio_driver));
   }
 }
+void RoutineDetail::set_cpu_stress(
+    CpuStressRoutineDetailPtr cpu_stress) {
+  if (tag_ == Tag::kCpuStress) {
+    *(data_.cpu_stress) = std::move(cpu_stress);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCpuStress;
+    data_.cpu_stress = new CpuStressRoutineDetailPtr(
+        std::move(cpu_stress));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -560,6 +632,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kAudioDriver:
 
       delete data_.audio_driver;
+      break;
+    case Tag::kCpuStress:
+
+      delete data_.cpu_stress;
       break;
   }
 }
@@ -1430,6 +1506,20 @@ bool StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgument::DataVi
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgument::DataView, ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuStressRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr result(::ash::cros_healthd::mojom::CpuStressRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -1534,6 +1624,18 @@ bool StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetail::DataView
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetail::DataView, ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuStressRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr result(::ash::cros_healthd::mojom::CpuStressRoutineDetail::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::cros_healthd::mojom::MemtesterResultPtr>::Read(
     ::ash::cros_healthd::mojom::MemtesterResult::DataView input,
     ::ash::cros_healthd::mojom::MemtesterResultPtr* output) {
@@ -1576,6 +1678,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewAudioDriver(
           std::move(result_audio_driver));
+      break;
+    }
+    case Tag::kCpuStress: {
+      ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr result_cpu_stress;
+      if (!input.ReadCpuStress(&result_cpu_stress))
+        return false;
+
+      *output = UnionType::NewCpuStress(
+          std::move(result_cpu_stress));
       break;
     }
     default:
@@ -1661,6 +1772,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewAudioDriver(
           std::move(result_audio_driver));
+      break;
+    }
+    case Tag::kCpuStress: {
+      ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr result_cpu_stress;
+      if (!input.ReadCpuStress(&result_cpu_stress))
+        return false;
+
+      *output = UnionType::NewCpuStress(
+          std::move(result_cpu_stress));
       break;
     }
     default:

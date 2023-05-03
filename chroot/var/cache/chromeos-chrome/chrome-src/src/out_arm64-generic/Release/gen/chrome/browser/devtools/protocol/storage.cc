@@ -104,22 +104,29 @@ const char Strict[] = "strict";
 } // namespace StorageBucketsDurabilityEnum
 
 
-CRDTP_BEGIN_DESERIALIZER(StorageBucketInfo)
-    CRDTP_DESERIALIZE_FIELD("durability", m_durability),
-    CRDTP_DESERIALIZE_FIELD("expiration", m_expiration),
-    CRDTP_DESERIALIZE_FIELD("id", m_id),
-    CRDTP_DESERIALIZE_FIELD("isDefault", m_isDefault),
-    CRDTP_DESERIALIZE_FIELD("name", m_name),
-    CRDTP_DESERIALIZE_FIELD("persistent", m_persistent),
-    CRDTP_DESERIALIZE_FIELD("quota", m_quota),
+CRDTP_BEGIN_DESERIALIZER(StorageBucket)
+    CRDTP_DESERIALIZE_FIELD_OPT("name", m_name),
     CRDTP_DESERIALIZE_FIELD("storageKey", m_storageKey),
 CRDTP_END_DESERIALIZER()
 
-CRDTP_BEGIN_SERIALIZER(StorageBucketInfo)
+CRDTP_BEGIN_SERIALIZER(StorageBucket)
     CRDTP_SERIALIZE_FIELD("storageKey", m_storageKey);
-    CRDTP_SERIALIZE_FIELD("id", m_id);
     CRDTP_SERIALIZE_FIELD("name", m_name);
-    CRDTP_SERIALIZE_FIELD("isDefault", m_isDefault);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(StorageBucketInfo)
+    CRDTP_DESERIALIZE_FIELD("bucket", m_bucket),
+    CRDTP_DESERIALIZE_FIELD("durability", m_durability),
+    CRDTP_DESERIALIZE_FIELD("expiration", m_expiration),
+    CRDTP_DESERIALIZE_FIELD("id", m_id),
+    CRDTP_DESERIALIZE_FIELD("persistent", m_persistent),
+    CRDTP_DESERIALIZE_FIELD("quota", m_quota),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(StorageBucketInfo)
+    CRDTP_SERIALIZE_FIELD("bucket", m_bucket);
+    CRDTP_SERIALIZE_FIELD("id", m_id);
     CRDTP_SERIALIZE_FIELD("expiration", m_expiration);
     CRDTP_SERIALIZE_FIELD("quota", m_quota);
     CRDTP_SERIALIZE_FIELD("persistent", m_persistent);
@@ -153,25 +160,27 @@ void Frontend::CacheStorageListUpdated(const String& origin, const String& stora
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.cacheStorageListUpdated", serializer.Finish()));
 }
 
-void Frontend::IndexedDBContentUpdated(const String& origin, const String& storageKey, const String& databaseName, const String& objectStoreName)
+void Frontend::IndexedDBContentUpdated(const String& origin, const String& storageKey, const String& bucketId, const String& databaseName, const String& objectStoreName)
 {
     if (!frontend_channel_)
         return;
     crdtp::ObjectSerializer serializer;
     serializer.AddField(crdtp::MakeSpan("origin"), origin);
     serializer.AddField(crdtp::MakeSpan("storageKey"), storageKey);
+    serializer.AddField(crdtp::MakeSpan("bucketId"), bucketId);
     serializer.AddField(crdtp::MakeSpan("databaseName"), databaseName);
     serializer.AddField(crdtp::MakeSpan("objectStoreName"), objectStoreName);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.indexedDBContentUpdated", serializer.Finish()));
 }
 
-void Frontend::IndexedDBListUpdated(const String& origin, const String& storageKey)
+void Frontend::IndexedDBListUpdated(const String& origin, const String& storageKey, const String& bucketId)
 {
     if (!frontend_channel_)
         return;
     crdtp::ObjectSerializer serializer;
     serializer.AddField(crdtp::MakeSpan("origin"), origin);
     serializer.AddField(crdtp::MakeSpan("storageKey"), storageKey);
+    serializer.AddField(crdtp::MakeSpan("bucketId"), bucketId);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.indexedDBListUpdated", serializer.Finish()));
 }
 
@@ -200,12 +209,12 @@ void Frontend::SharedStorageAccessed(double accessTime, const String& type, cons
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.sharedStorageAccessed", serializer.Finish()));
 }
 
-void Frontend::StorageBucketCreatedOrUpdated(std::unique_ptr<protocol::Storage::StorageBucketInfo> bucket)
+void Frontend::StorageBucketCreatedOrUpdated(std::unique_ptr<protocol::Storage::StorageBucketInfo> bucketInfo)
 {
     if (!frontend_channel_)
         return;
     crdtp::ObjectSerializer serializer;
-    serializer.AddField(crdtp::MakeSpan("bucket"), bucket);
+    serializer.AddField(crdtp::MakeSpan("bucketInfo"), bucketInfo);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.storageBucketCreatedOrUpdated", serializer.Finish()));
 }
 

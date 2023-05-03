@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-shared-internal.h"
+#include "diagnostics/mojom/external/time.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -39,6 +40,8 @@ class MemoryRoutineArgumentDataView;
 
 class AudioDriverRoutineArgumentDataView;
 
+class CpuStressRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -52,6 +55,8 @@ class RoutineStateFinishedDataView;
 class MemoryRoutineDetailDataView;
 
 class AudioDriverRoutineDetailDataView;
+
+class CpuStressRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
@@ -77,6 +82,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::AudioDriverRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuStressRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -126,6 +138,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView> 
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::AudioDriverRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuStressRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -343,6 +362,42 @@ class AudioDriverRoutineArgumentDataView {
 };
 
 
+class CpuStressRoutineArgumentDataView {
+ public:
+  CpuStressRoutineArgumentDataView() = default;
+
+  CpuStressRoutineArgumentDataView(
+      internal::CpuStressRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+    "Attempting to read the optional `exec_duration` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExecDuration` instead "
+    "of `ReadExecDuration if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CpuStressRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class RoutineStateDataView {
  public:
   RoutineStateDataView() = default;
@@ -527,6 +582,21 @@ class AudioDriverRoutineDetailDataView {
 };
 
 
+class CpuStressRoutineDetailDataView {
+ public:
+  CpuStressRoutineDetailDataView() = default;
+
+  CpuStressRoutineDetailDataView(
+      internal::CpuStressRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CpuStressRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class MemtesterResultDataView {
  public:
   MemtesterResultDataView() = default;
@@ -607,6 +677,17 @@ class RoutineArgumentDataView {
     CHECK(is_audio_driver());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView>(
         data_->data.f_audio_driver.Get(), output, message_);
+  }
+  bool is_cpu_stress() const { return data_->tag == Tag::kCpuStress; }
+  inline void GetCpuStressDataView(
+      CpuStressRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCpuStress(UserType* output) const {
+    
+    CHECK(is_cpu_stress());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView>(
+        data_->data.f_cpu_stress.Get(), output, message_);
   }
 
  private:
@@ -725,6 +806,17 @@ class RoutineDetailDataView {
     CHECK(is_audio_driver());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView>(
         data_->data.f_audio_driver.Get(), output, message_);
+  }
+  bool is_cpu_stress() const { return data_->tag == Tag::kCpuStress; }
+  inline void GetCpuStressDataView(
+      CpuStressRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCpuStress(UserType* output) const {
+    
+    CHECK(is_cpu_stress());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView>(
+        data_->data.f_cpu_stress.Get(), output, message_);
   }
 
  private:
@@ -872,6 +964,43 @@ struct Serializer<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuStressRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuStressRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1132,6 +1261,35 @@ struct Serializer<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuStressRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuStressRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::MemtesterResultDataView, UserType>;
@@ -1245,6 +1403,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null audio_driver in RoutineArgument union");
         fragment->data.f_audio_driver.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kCpuStress: {
+        decltype(Traits::cpu_stress(input))
+            in_cpu_stress = Traits::cpu_stress(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_cpu_stress)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView>(
+            in_cpu_stress, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null cpu_stress in RoutineArgument union");
+        fragment->data.f_cpu_stress.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -1426,6 +1600,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kCpuStress: {
+        decltype(Traits::cpu_stress(input))
+            in_cpu_stress = Traits::cpu_stress(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_cpu_stress)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView>(
+            in_cpu_stress, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null cpu_stress in RoutineDetail union");
+        fragment->data.f_cpu_stress.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1451,6 +1641,13 @@ namespace mojom {
 
 
 
+
+
+inline void CpuStressRoutineArgumentDataView::GetExecDurationDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
 
 
 inline void RoutineStateDataView::GetStateUnionDataView(
@@ -1487,6 +1684,8 @@ inline void MemoryRoutineDetailDataView::GetResultDataView(
 
 
 
+
+
 inline void MemtesterResultDataView::GetPassedItemsDataView(
     mojo::ArrayDataView<MemtesterTestItemEnum>* output) {
   auto pointer = data_->passed_items.Get();
@@ -1508,6 +1707,11 @@ inline void RoutineArgumentDataView::GetAudioDriverDataView(
     AudioDriverRoutineArgumentDataView* output) const {
   CHECK(is_audio_driver());
   *output = AudioDriverRoutineArgumentDataView(data_->data.f_audio_driver.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetCpuStressDataView(
+    CpuStressRoutineArgumentDataView* output) const {
+  CHECK(is_cpu_stress());
+  *output = CpuStressRoutineArgumentDataView(data_->data.f_cpu_stress.Get(), message_);
 }
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
@@ -1540,6 +1744,11 @@ inline void RoutineDetailDataView::GetAudioDriverDataView(
     AudioDriverRoutineDetailDataView* output) const {
   CHECK(is_audio_driver());
   *output = AudioDriverRoutineDetailDataView(data_->data.f_audio_driver.Get(), message_);
+}
+inline void RoutineDetailDataView::GetCpuStressDataView(
+    CpuStressRoutineDetailDataView* output) const {
+  CHECK(is_cpu_stress());
+  *output = CpuStressRoutineDetailDataView(data_->data.f_cpu_stress.Get(), message_);
 }
 
 

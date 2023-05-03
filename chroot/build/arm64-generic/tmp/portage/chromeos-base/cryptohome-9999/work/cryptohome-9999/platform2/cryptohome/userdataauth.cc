@@ -332,24 +332,27 @@ bool UserDataAuth::Initialize(scoped_refptr<::dbus::Bus> mount_thread_bus) {
     keyset_management_ = default_keyset_management_.get();
   }
 
+  fingerprint_service_ = std::make_unique<FingerprintAuthBlockService>(
+      AsyncInitPtr<FingerprintManager>(base::BindRepeating(
+          [](UserDataAuth* uda) {
+            uda->AssertOnMountThread();
+            return uda->fingerprint_manager_;
+          },
+          base::Unretained(this))),
+      base::BindRepeating(&UserDataAuth::OnFingerprintScanResult,
+                          base::Unretained(this)));
+
+  AsyncInitPtr<BiometricsAuthBlockService> async_biometrics_service(
+      base::BindRepeating(
+          [](UserDataAuth* uda) {
+            uda->AssertOnMountThread();
+            return uda->biometrics_service_;
+          },
+          base::Unretained(this)));
   if (!auth_block_utility_) {
     default_auth_block_utility_ = std::make_unique<AuthBlockUtilityImpl>(
         keyset_management_, crypto_, platform_, &async_init_features_,
-        std::make_unique<FingerprintAuthBlockService>(
-            AsyncInitPtr<FingerprintManager>(base::BindRepeating(
-                [](UserDataAuth* uda) {
-                  uda->AssertOnMountThread();
-                  return uda->fingerprint_manager_;
-                },
-                base::Unretained(this))),
-            base::BindRepeating(&UserDataAuth::OnFingerprintScanResult,
-                                base::Unretained(this))),
-        AsyncInitPtr<BiometricsAuthBlockService>(base::BindRepeating(
-            [](UserDataAuth* uda) {
-              uda->AssertOnMountThread();
-              return uda->biometrics_service_;
-            },
-            base::Unretained(this))));
+        fingerprint_service_.get(), async_biometrics_service);
     auth_block_utility_ = default_auth_block_utility_.get();
   }
 
@@ -357,6 +360,24 @@ bool UserDataAuth::Initialize(scoped_refptr<::dbus::Bus> mount_thread_bus) {
     default_auth_factor_manager_ =
         std::make_unique<AuthFactorManager>(platform_);
     auth_factor_manager_ = default_auth_factor_manager_.get();
+  }
+
+  if (!auth_factor_driver_manager_) {
+    default_auth_factor_driver_manager_ =
+        std::make_unique<AuthFactorDriverManager>(
+            crypto_,
+            AsyncInitPtr<ChallengeCredentialsHelper>(base::BindRepeating(
+                [](UserDataAuth* uda) -> ChallengeCredentialsHelper* {
+                  uda->AssertOnMountThread();
+                  if (uda->challenge_credentials_helper_initialized_) {
+                    return uda->challenge_credentials_helper_;
+                  }
+                  return nullptr;
+                },
+                base::Unretained(this))),
+            key_challenge_service_factory_, fingerprint_service_.get(),
+            async_biometrics_service);
+    auth_factor_driver_manager_ = default_auth_factor_driver_manager_.get();
   }
 
   if (!user_secret_stash_storage_) {
@@ -368,7 +389,7 @@ bool UserDataAuth::Initialize(scoped_refptr<::dbus::Bus> mount_thread_bus) {
   if (!auth_session_manager_) {
     default_auth_session_manager_ = std::make_unique<AuthSessionManager>(
         crypto_, platform_, sessions_, keyset_management_, auth_block_utility_,
-        &auth_factor_driver_manager_, auth_factor_manager_,
+        auth_factor_driver_manager_, auth_factor_manager_,
         user_secret_stash_storage_);
     auth_session_manager_ = default_auth_session_manager_.get();
   }
@@ -2096,7 +2117,7 @@ void UserDataAuth::StartAuthSession(
        auth_session->auth_factor_map()) {
     const AuthFactor& auth_factor = stored_auth_factor.auth_factor();
     const AuthFactorDriver& factor_driver =
-        auth_factor_driver_manager_.GetDriver(auth_factor.type());
+        auth_factor_driver_manager_->GetDriver(auth_factor.type());
 
     std::optional<user_data_auth::AuthFactor> proto_factor =
         factor_driver.ConvertToProto(auth_factor.label(),
@@ -2135,7 +2156,8 @@ void UserDataAuth::StartAuthSession(
       for (const CredentialVerifier* verifier :
            user_session->GetCredentialVerifiers()) {
         const AuthFactorDriver& factor_driver =
-            auth_factor_driver_manager_.GetDriver(verifier->auth_factor_type());
+            auth_factor_driver_manager_->GetDriver(
+                verifier->auth_factor_type());
         if (auto proto_factor = factor_driver.ConvertToProto(
                 verifier->auth_factor_label(),
                 verifier->auth_factor_metadata())) {
@@ -2889,7 +2911,7 @@ void UserDataAuth::ListAuthFactors(
     for (AuthFactorMap::ValueView item : auth_factor_map) {
       AuthFactor auth_factor = item.auth_factor();
       const AuthFactorDriver& factor_driver =
-          auth_factor_driver_manager_.GetDriver(auth_factor.type());
+          auth_factor_driver_manager_->GetDriver(auth_factor.type());
       auto auth_factor_proto = factor_driver.ConvertToProto(
           auth_factor.label(), auth_factor.metadata());
       if (auth_factor_proto) {
@@ -2939,8 +2961,9 @@ void UserDataAuth::ListAuthFactors(
       if (!type) {
         continue;
       }
-      if (auth_block_utility_->IsAuthFactorSupported(*type, storage_type,
-                                                     configured_types)) {
+      const AuthFactorDriver& factor_driver =
+          auth_factor_driver_manager_->GetDriver(*type);
+      if (factor_driver.IsSupported(storage_type, configured_types)) {
         reply.add_supported_auth_factors(proto_type);
       }
     }
@@ -2951,7 +2974,8 @@ void UserDataAuth::ListAuthFactors(
       for (const CredentialVerifier* verifier :
            user_session->GetCredentialVerifiers()) {
         const AuthFactorDriver& factor_driver =
-            auth_factor_driver_manager_.GetDriver(verifier->auth_factor_type());
+            auth_factor_driver_manager_->GetDriver(
+                verifier->auth_factor_type());
         if (auto proto_factor = factor_driver.ConvertToProto(
                 verifier->auth_factor_label(),
                 verifier->auth_factor_metadata())) {
@@ -2976,7 +3000,7 @@ void UserDataAuth::ListAuthFactors(
         continue;
       }
       const AuthFactorDriver& factor_driver =
-          auth_factor_driver_manager_.GetDriver(*type);
+          auth_factor_driver_manager_->GetDriver(*type);
       if (factor_driver.IsVerifySupported(AuthIntent::kVerifyOnly)) {
         reply.add_supported_auth_factors(proto_type);
       }
@@ -3009,7 +3033,7 @@ void UserDataAuth::GetAuthFactorExtendedInfo(
       SanitizeUserName(GetAccountId(request.account_id()));
   user_data_auth::AuthFactor auth_factor_proto;
   if (LoadUserAuthFactorByLabel(
-          &auth_factor_driver_manager_, auth_factor_manager_,
+          auth_factor_driver_manager_, auth_factor_manager_,
           *auth_block_utility_, obfuscated_username,
           request.auth_factor_label(), &auth_factor_proto)) {
     *reply.mutable_auth_factor() = std::move(auth_factor_proto);

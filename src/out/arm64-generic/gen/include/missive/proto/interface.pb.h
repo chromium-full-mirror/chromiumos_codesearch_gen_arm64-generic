@@ -993,6 +993,7 @@ class UploadEncryptedRecordResponse final :
 
   enum : int {
     kStatusFieldNumber = 1,
+    kDisableFieldNumber = 2,
   };
   // optional .reporting.StatusProto status = 1;
   bool has_status() const;
@@ -1012,6 +1013,19 @@ class UploadEncryptedRecordResponse final :
       ::reporting::StatusProto* status);
   ::reporting::StatusProto* unsafe_arena_release_status();
 
+  // optional bool disable = 2 [default = false];
+  bool has_disable() const;
+  private:
+  bool _internal_has_disable() const;
+  public:
+  void clear_disable();
+  bool disable() const;
+  void set_disable(bool value);
+  private:
+  bool _internal_disable() const;
+  void _internal_set_disable(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:reporting.UploadEncryptedRecordResponse)
  private:
   class _Internal;
@@ -1023,6 +1037,7 @@ class UploadEncryptedRecordResponse final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::reporting::StatusProto* status_;
+    bool disable_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_interface_2eproto;
@@ -2186,6 +2201,34 @@ inline void UploadEncryptedRecordResponse::set_allocated_status(::reporting::Sta
   }
   _impl_.status_ = status;
   // @@protoc_insertion_point(field_set_allocated:reporting.UploadEncryptedRecordResponse.status)
+}
+
+// optional bool disable = 2 [default = false];
+inline bool UploadEncryptedRecordResponse::_internal_has_disable() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool UploadEncryptedRecordResponse::has_disable() const {
+  return _internal_has_disable();
+}
+inline void UploadEncryptedRecordResponse::clear_disable() {
+  _impl_.disable_ = false;
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline bool UploadEncryptedRecordResponse::_internal_disable() const {
+  return _impl_.disable_;
+}
+inline bool UploadEncryptedRecordResponse::disable() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadEncryptedRecordResponse.disable)
+  return _internal_disable();
+}
+inline void UploadEncryptedRecordResponse::_internal_set_disable(bool value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.disable_ = value;
+}
+inline void UploadEncryptedRecordResponse::set_disable(bool value) {
+  _internal_set_disable(value);
+  // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordResponse.disable)
 }
 
 // -------------------------------------------------------------------

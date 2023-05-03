@@ -147,32 +147,6 @@ std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_EncoderT
   return os << VideoEncodeAcceleratorConfig_EncoderTypeToString(value);
 }
 
-NOINLINE static const char* VideoEncodeAccelerator_ErrorToStringHelper(VideoEncodeAccelerator_Error value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case VideoEncodeAccelerator_Error::ILLEGAL_STATE:
-      return "ILLEGAL_STATE";
-    case VideoEncodeAccelerator_Error::INVALID_ARGUMENT:
-      return "INVALID_ARGUMENT";
-    case VideoEncodeAccelerator_Error::PLATFORM_FAILURE:
-      return "PLATFORM_FAILURE";
-    default:
-      return nullptr;
-  }
-}
-
-std::string VideoEncodeAccelerator_ErrorToString(VideoEncodeAccelerator_Error value) {
-  const char *str = VideoEncodeAccelerator_ErrorToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown VideoEncodeAccelerator_Error value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, VideoEncodeAccelerator_Error value) {
-  return os << VideoEncodeAccelerator_ErrorToString(value);
-}
-
 namespace internal {
 // static
 bool Bitrate_Data::Validate(
@@ -1396,16 +1370,6 @@ namespace perfetto {
 void TraceFormatTraits<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType>::WriteIntoTrace(
    perfetto::TracedValue context, ::media::mojom::VideoEncodeAcceleratorConfig_EncoderType value) {
   return std::move(context).WriteString(::media::mojom::VideoEncodeAcceleratorConfig_EncoderTypeToString(value));
-}
-
-} // namespace perfetto
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::media::mojom::VideoEncodeAccelerator_Error>::WriteIntoTrace(
-   perfetto::TracedValue context, ::media::mojom::VideoEncodeAccelerator_Error value) {
-  return std::move(context).WriteString(::media::mojom::VideoEncodeAccelerator_ErrorToString(value));
 }
 
 } // namespace perfetto

@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "diagnostics/mojom/external/time.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -26,6 +27,7 @@ namespace mojom {
 namespace internal {
 class MemoryRoutineArgument_Data;
 class AudioDriverRoutineArgument_Data;
+class CpuStressRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
@@ -33,6 +35,7 @@ class RoutineStateWaiting_Data;
 class RoutineStateFinished_Data;
 class MemoryRoutineDetail_Data;
 class AudioDriverRoutineDetail_Data;
+class CpuStressRoutineDetail_Data;
 class MemtesterResult_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
@@ -167,6 +170,8 @@ class  RoutineArgument_Data {
     kMemory,
     
     kAudioDriver,
+    
+    kCpuStress,
   };
 
   // A note on layout:
@@ -177,6 +182,7 @@ class  RoutineArgument_Data {
     uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::MemoryRoutineArgument_Data> f_memory;
     mojo::internal::Pointer<internal::AudioDriverRoutineArgument_Data> f_audio_driver;
+    mojo::internal::Pointer<internal::CpuStressRoutineArgument_Data> f_cpu_stress;
     uint64_t unknown;
   };
 
@@ -278,6 +284,8 @@ class  RoutineDetail_Data {
     kMemory,
     
     kAudioDriver,
+    
+    kCpuStress,
   };
 
   // A note on layout:
@@ -287,6 +295,7 @@ class  RoutineDetail_Data {
     Union_() : unknown(0) {}
     mojo::internal::Pointer<internal::MemoryRoutineDetail_Data> f_memory;
     mojo::internal::Pointer<internal::AudioDriverRoutineDetail_Data> f_audio_driver;
+    mojo::internal::Pointer<internal::CpuStressRoutineDetail_Data> f_cpu_stress;
     uint64_t unknown;
   };
 
@@ -393,6 +402,54 @@ struct AudioDriverRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     AudioDriverRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CpuStressRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::external::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<CpuStressRoutineArgument_Data>;
+
+  CpuStressRoutineArgument_Data();
+  ~CpuStressRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(CpuStressRoutineArgument_Data) == 16,
+              "Bad sizeof(CpuStressRoutineArgument_Data)");
+// Used by CpuStressRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CpuStressRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CpuStressRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CpuStressRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CpuStressRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CpuStressRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -736,6 +793,53 @@ struct AudioDriverRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     AudioDriverRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CpuStressRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CpuStressRoutineDetail_Data>;
+
+  CpuStressRoutineDetail_Data();
+  ~CpuStressRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(CpuStressRoutineDetail_Data) == 8,
+              "Bad sizeof(CpuStressRoutineDetail_Data)");
+// Used by CpuStressRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CpuStressRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CpuStressRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CpuStressRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CpuStressRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CpuStressRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  MemtesterResult_Data {
  public:
   static bool Validate(const void* data,

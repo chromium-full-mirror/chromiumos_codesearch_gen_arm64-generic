@@ -2067,7 +2067,7 @@ void VideoEncodeClientProxy::RequireBitstreamBuffers(
 }
 
 void VideoEncodeClientProxy::NotifyError(
-    ::media::VideoEncodeAccelerator::Error in_error) {
+    VideoEncodeAccelerator::Error in_error) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoEncodeClient::NotifyError", "input_parameters",
@@ -2075,7 +2075,7 @@ void VideoEncodeClientProxy::NotifyError(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
-                        "<value of type ::media::VideoEncodeAccelerator::Error>");
+                        "<value of type VideoEncodeAccelerator::Error>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -2152,7 +2152,7 @@ std::move(p_output_buffer_size));
               message->mutable_payload());
       
       bool success = true;
-      ::media::VideoEncodeAccelerator::Error p_error{};
+      VideoEncodeAccelerator::Error p_error{};
       VideoEncodeClient_NotifyError_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadError(&p_error))
@@ -2482,7 +2482,7 @@ bool VideoEncodeAcceleratorAsyncWaiter::Flush(
 void VideoEncodeClientInterceptorForTesting::RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) {
   GetForwardingInterface()->RequireBitstreamBuffers(std::move(input_count), std::move(input_coded_size), std::move(output_buffer_size));
 }
-void VideoEncodeClientInterceptorForTesting::NotifyError(::media::VideoEncodeAccelerator::Error error) {
+void VideoEncodeClientInterceptorForTesting::NotifyError(VideoEncodeAccelerator::Error error) {
   GetForwardingInterface()->NotifyError(std::move(error));
 }
 VideoEncodeClientAsyncWaiter::VideoEncodeClientAsyncWaiter(

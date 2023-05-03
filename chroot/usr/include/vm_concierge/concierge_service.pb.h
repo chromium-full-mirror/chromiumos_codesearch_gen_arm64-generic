@@ -54,6 +54,12 @@ extern AdjustVmRequestDefaultTypeInternal _AdjustVmRequest_default_instance_;
 class AdjustVmResponse;
 struct AdjustVmResponseDefaultTypeInternal;
 extern AdjustVmResponseDefaultTypeInternal _AdjustVmResponse_default_instance_;
+class AggressiveBalloonRequest;
+struct AggressiveBalloonRequestDefaultTypeInternal;
+extern AggressiveBalloonRequestDefaultTypeInternal _AggressiveBalloonRequest_default_instance_;
+class AggressiveBalloonResponse;
+struct AggressiveBalloonResponseDefaultTypeInternal;
+extern AggressiveBalloonResponseDefaultTypeInternal _AggressiveBalloonResponse_default_instance_;
 class ArcVmCompleteBootRequest;
 struct ArcVmCompleteBootRequestDefaultTypeInternal;
 extern ArcVmCompleteBootRequestDefaultTypeInternal _ArcVmCompleteBootRequest_default_instance_;
@@ -270,6 +276,8 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::vm_tools::concierge::AddGroupPermissionMesaRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AddGroupPermissionMesaRequest>(Arena*);
 template<> ::vm_tools::concierge::AdjustVmRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AdjustVmRequest>(Arena*);
 template<> ::vm_tools::concierge::AdjustVmResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AdjustVmResponse>(Arena*);
+template<> ::vm_tools::concierge::AggressiveBalloonRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AggressiveBalloonRequest>(Arena*);
+template<> ::vm_tools::concierge::AggressiveBalloonResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AggressiveBalloonResponse>(Arena*);
 template<> ::vm_tools::concierge::ArcVmCompleteBootRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ArcVmCompleteBootRequest>(Arena*);
 template<> ::vm_tools::concierge::ArcVmCompleteBootResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ArcVmCompleteBootResponse>(Arena*);
 template<> ::vm_tools::concierge::AttachUsbDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachUsbDeviceRequest>(Arena*);
@@ -350,12 +358,13 @@ enum VmInfo_VmType : int {
   VmInfo_VmType_ARC_VM = 2,
   VmInfo_VmType_PLUGIN_VM = 3,
   VmInfo_VmType_BOREALIS = 4,
+  VmInfo_VmType_BRUSCHETTA = 5,
   VmInfo_VmType_VmInfo_VmType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   VmInfo_VmType_VmInfo_VmType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool VmInfo_VmType_IsValid(int value);
 constexpr VmInfo_VmType VmInfo_VmType_VmType_MIN = VmInfo_VmType_UNKNOWN;
-constexpr VmInfo_VmType VmInfo_VmType_VmType_MAX = VmInfo_VmType_BOREALIS;
+constexpr VmInfo_VmType VmInfo_VmType_VmType_MAX = VmInfo_VmType_BRUSCHETTA;
 constexpr int VmInfo_VmType_VmType_ARRAYSIZE = VmInfo_VmType_VmType_MAX + 1;
 
 const std::string& VmInfo_VmType_Name(VmInfo_VmType value);
@@ -787,12 +796,13 @@ enum SwapOperation : int {
   DISABLE = 0,
   ENABLE = 1,
   SWAPOUT = 2,
+  FORCE_ENABLE = 3,
   SwapOperation_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   SwapOperation_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool SwapOperation_IsValid(int value);
 constexpr SwapOperation SwapOperation_MIN = DISABLE;
-constexpr SwapOperation SwapOperation_MAX = SWAPOUT;
+constexpr SwapOperation SwapOperation_MAX = FORCE_ENABLE;
 constexpr int SwapOperation_ARRAYSIZE = SwapOperation_MAX + 1;
 
 const std::string& SwapOperation_Name(SwapOperation value);
@@ -1387,6 +1397,8 @@ class VmInfo final :
     VmInfo_VmType_PLUGIN_VM;
   static constexpr VmType BOREALIS =
     VmInfo_VmType_BOREALIS;
+  static constexpr VmType BRUSCHETTA =
+    VmInfo_VmType_BRUSCHETTA;
   static inline bool VmType_IsValid(int value) {
     return VmInfo_VmType_IsValid(value);
   }
@@ -13702,6 +13714,314 @@ class InstallPflashResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class AggressiveBalloonRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.AggressiveBalloonRequest) */ {
+ public:
+  inline AggressiveBalloonRequest() : AggressiveBalloonRequest(nullptr) {}
+  ~AggressiveBalloonRequest() override;
+  explicit PROTOBUF_CONSTEXPR AggressiveBalloonRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AggressiveBalloonRequest(const AggressiveBalloonRequest& from);
+  AggressiveBalloonRequest(AggressiveBalloonRequest&& from) noexcept
+    : AggressiveBalloonRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline AggressiveBalloonRequest& operator=(const AggressiveBalloonRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AggressiveBalloonRequest& operator=(AggressiveBalloonRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const AggressiveBalloonRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AggressiveBalloonRequest* internal_default_instance() {
+    return reinterpret_cast<const AggressiveBalloonRequest*>(
+               &_AggressiveBalloonRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    73;
+
+  friend void swap(AggressiveBalloonRequest& a, AggressiveBalloonRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AggressiveBalloonRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AggressiveBalloonRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AggressiveBalloonRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AggressiveBalloonRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AggressiveBalloonRequest& from);
+  void MergeFrom(const AggressiveBalloonRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AggressiveBalloonRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.AggressiveBalloonRequest";
+  }
+  protected:
+  explicit AggressiveBalloonRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+    kEnableFieldNumber = 3,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // bool enable = 3;
+  void clear_enable();
+  bool enable() const;
+  void set_enable(bool value);
+  private:
+  bool _internal_enable() const;
+  void _internal_set_enable(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.AggressiveBalloonRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+    bool enable_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AggressiveBalloonResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.AggressiveBalloonResponse) */ {
+ public:
+  inline AggressiveBalloonResponse() : AggressiveBalloonResponse(nullptr) {}
+  ~AggressiveBalloonResponse() override;
+  explicit PROTOBUF_CONSTEXPR AggressiveBalloonResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AggressiveBalloonResponse(const AggressiveBalloonResponse& from);
+  AggressiveBalloonResponse(AggressiveBalloonResponse&& from) noexcept
+    : AggressiveBalloonResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline AggressiveBalloonResponse& operator=(const AggressiveBalloonResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AggressiveBalloonResponse& operator=(AggressiveBalloonResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const AggressiveBalloonResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AggressiveBalloonResponse* internal_default_instance() {
+    return reinterpret_cast<const AggressiveBalloonResponse*>(
+               &_AggressiveBalloonResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    74;
+
+  friend void swap(AggressiveBalloonResponse& a, AggressiveBalloonResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AggressiveBalloonResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AggressiveBalloonResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AggressiveBalloonResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AggressiveBalloonResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AggressiveBalloonResponse& from);
+  void MergeFrom(const AggressiveBalloonResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AggressiveBalloonResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.AggressiveBalloonResponse";
+  }
+  protected:
+  explicit AggressiveBalloonResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFailureReasonFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string failure_reason = 2;
+  void clear_failure_reason();
+  const std::string& failure_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failure_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failure_reason();
+  PROTOBUF_NODISCARD std::string* release_failure_reason();
+  void set_allocated_failure_reason(std::string* failure_reason);
+  private:
+  const std::string& _internal_failure_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failure_reason(const std::string& value);
+  std::string* _internal_mutable_failure_reason();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.AggressiveBalloonResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failure_reason_;
+    bool success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -24377,9 +24697,211 @@ inline void InstallPflashResponse::set_allocated_failure_reason(std::string* fai
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.InstallPflashResponse.failure_reason)
 }
 
+// -------------------------------------------------------------------
+
+// AggressiveBalloonRequest
+
+// string name = 1;
+inline void AggressiveBalloonRequest::clear_name() {
+  _impl_.name_.ClearToEmpty();
+}
+inline const std::string& AggressiveBalloonRequest::name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AggressiveBalloonRequest.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AggressiveBalloonRequest::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AggressiveBalloonRequest.name)
+}
+inline std::string* AggressiveBalloonRequest::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AggressiveBalloonRequest.name)
+  return _s;
+}
+inline const std::string& AggressiveBalloonRequest::_internal_name() const {
+  return _impl_.name_.Get();
+}
+inline void AggressiveBalloonRequest::_internal_set_name(const std::string& value) {
+  
+  _impl_.name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonRequest::_internal_mutable_name() {
+  
+  return _impl_.name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonRequest::release_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AggressiveBalloonRequest.name)
+  return _impl_.name_.Release();
+}
+inline void AggressiveBalloonRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.name_.IsDefault()) {
+    _impl_.name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AggressiveBalloonRequest.name)
+}
+
+// string owner_id = 2;
+inline void AggressiveBalloonRequest::clear_owner_id() {
+  _impl_.owner_id_.ClearToEmpty();
+}
+inline const std::string& AggressiveBalloonRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AggressiveBalloonRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AggressiveBalloonRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.owner_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AggressiveBalloonRequest.owner_id)
+}
+inline std::string* AggressiveBalloonRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AggressiveBalloonRequest.owner_id)
+  return _s;
+}
+inline const std::string& AggressiveBalloonRequest::_internal_owner_id() const {
+  return _impl_.owner_id_.Get();
+}
+inline void AggressiveBalloonRequest::_internal_set_owner_id(const std::string& value) {
+  
+  _impl_.owner_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonRequest::_internal_mutable_owner_id() {
+  
+  return _impl_.owner_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AggressiveBalloonRequest.owner_id)
+  return _impl_.owner_id_.Release();
+}
+inline void AggressiveBalloonRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.owner_id_.SetAllocated(owner_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.owner_id_.IsDefault()) {
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AggressiveBalloonRequest.owner_id)
+}
+
+// bool enable = 3;
+inline void AggressiveBalloonRequest::clear_enable() {
+  _impl_.enable_ = false;
+}
+inline bool AggressiveBalloonRequest::_internal_enable() const {
+  return _impl_.enable_;
+}
+inline bool AggressiveBalloonRequest::enable() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AggressiveBalloonRequest.enable)
+  return _internal_enable();
+}
+inline void AggressiveBalloonRequest::_internal_set_enable(bool value) {
+  
+  _impl_.enable_ = value;
+}
+inline void AggressiveBalloonRequest::set_enable(bool value) {
+  _internal_set_enable(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AggressiveBalloonRequest.enable)
+}
+
+// -------------------------------------------------------------------
+
+// AggressiveBalloonResponse
+
+// bool success = 1;
+inline void AggressiveBalloonResponse::clear_success() {
+  _impl_.success_ = false;
+}
+inline bool AggressiveBalloonResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline bool AggressiveBalloonResponse::success() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AggressiveBalloonResponse.success)
+  return _internal_success();
+}
+inline void AggressiveBalloonResponse::_internal_set_success(bool value) {
+  
+  _impl_.success_ = value;
+}
+inline void AggressiveBalloonResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AggressiveBalloonResponse.success)
+}
+
+// string failure_reason = 2;
+inline void AggressiveBalloonResponse::clear_failure_reason() {
+  _impl_.failure_reason_.ClearToEmpty();
+}
+inline const std::string& AggressiveBalloonResponse::failure_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
+  return _internal_failure_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AggressiveBalloonResponse::set_failure_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.failure_reason_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
+}
+inline std::string* AggressiveBalloonResponse::mutable_failure_reason() {
+  std::string* _s = _internal_mutable_failure_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
+  return _s;
+}
+inline const std::string& AggressiveBalloonResponse::_internal_failure_reason() const {
+  return _impl_.failure_reason_.Get();
+}
+inline void AggressiveBalloonResponse::_internal_set_failure_reason(const std::string& value) {
+  
+  _impl_.failure_reason_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonResponse::_internal_mutable_failure_reason() {
+  
+  return _impl_.failure_reason_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonResponse::release_failure_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
+  return _impl_.failure_reason_.Release();
+}
+inline void AggressiveBalloonResponse::set_allocated_failure_reason(std::string* failure_reason) {
+  if (failure_reason != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.failure_reason_.SetAllocated(failure_reason, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.failure_reason_.IsDefault()) {
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -794,13 +794,14 @@ enum Priority : int32_t {
   HIGH_PRIORITY_CONTINUATION = 8,
   NORMAL_PRIORITY_CONTINUATION = 9,
   LOW_PRIORITY_CONTINUATION = 10,
+  EXTREMELY_HIGH_PRIORITY = 11,
 };
 } // namespace perfetto_pbzero_enum_SequenceManagerTask
 using SequenceManagerTask_Priority = perfetto_pbzero_enum_SequenceManagerTask::Priority;
 
 
 constexpr SequenceManagerTask_Priority SequenceManagerTask_Priority_MIN = SequenceManagerTask_Priority::UNKNOWN;
-constexpr SequenceManagerTask_Priority SequenceManagerTask_Priority_MAX = SequenceManagerTask_Priority::LOW_PRIORITY_CONTINUATION;
+constexpr SequenceManagerTask_Priority SequenceManagerTask_Priority_MAX = SequenceManagerTask_Priority::EXTREMELY_HIGH_PRIORITY;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -838,6 +839,9 @@ const char* SequenceManagerTask_Priority_Name(::perfetto::protos::pbzero::Sequen
 
   case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::LOW_PRIORITY_CONTINUATION:
     return "LOW_PRIORITY_CONTINUATION";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::EXTREMELY_HIGH_PRIORITY:
+    return "EXTREMELY_HIGH_PRIORITY";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -1397,13 +1401,14 @@ enum TaskType : int32_t {
   TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION = 80,
   TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION = 81,
   TASK_TYPE_STORAGE = 82,
+  TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING = 83,
 };
 } // namespace perfetto_pbzero_enum_RendererMainThreadTaskExecution
 using RendererMainThreadTaskExecution_TaskType = perfetto_pbzero_enum_RendererMainThreadTaskExecution::TaskType;
 
 
 constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MIN = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_UNKNOWN;
-constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MAX = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_STORAGE;
+constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MAX = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -1627,6 +1632,9 @@ const char* RendererMainThreadTaskExecution_TaskType_Name(::perfetto::protos::pb
 
   case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_STORAGE:
     return "TASK_TYPE_STORAGE";
+
+  case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING:
+    return "TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3754,6 +3762,7 @@ class SequenceManagerTask : public ::protozero::Message {
   static const Priority HIGH_PRIORITY_CONTINUATION = Priority::HIGH_PRIORITY_CONTINUATION;
   static const Priority NORMAL_PRIORITY_CONTINUATION = Priority::NORMAL_PRIORITY_CONTINUATION;
   static const Priority LOW_PRIORITY_CONTINUATION = Priority::LOW_PRIORITY_CONTINUATION;
+  static const Priority EXTREMELY_HIGH_PRIORITY = Priority::EXTREMELY_HIGH_PRIORITY;
   static const QueueName UNKNOWN_TQ = QueueName::UNKNOWN_TQ;
   static const QueueName DEFAULT_TQ = QueueName::DEFAULT_TQ;
   static const QueueName TASK_ENVIRONMENT_DEFAULT_TQ = QueueName::TASK_ENVIRONMENT_DEFAULT_TQ;
@@ -4359,6 +4368,7 @@ class RendererMainThreadTaskExecution : public ::protozero::Message {
   static const TaskType TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION = TaskType::TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION;
   static const TaskType TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION = TaskType::TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION;
   static const TaskType TASK_TYPE_STORAGE = TaskType::TASK_TYPE_STORAGE;
+  static const TaskType TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING = TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING;
   static const FrameType FRAME_TYPE_UNSPECIFIED = FrameType::FRAME_TYPE_UNSPECIFIED;
   static const FrameType FRAME_TYPE_MAIN_FRAME = FrameType::FRAME_TYPE_MAIN_FRAME;
   static const FrameType FRAME_TYPE_SAME_ORIGIN_SUBFRAME = FrameType::FRAME_TYPE_SAME_ORIGIN_SUBFRAME;

@@ -195,7 +195,7 @@ class VideoEncodeClient
   virtual void RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) = 0;
 
   
-  virtual void NotifyError(::media::VideoEncodeAccelerator::Error error) = 0;
+  virtual void NotifyError(VideoEncodeAccelerator::Error error) = 0;
 };
 
 
@@ -236,7 +236,7 @@ class  VideoEncodeClientProxy
   
   void RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) final;
   
-  void NotifyError(::media::VideoEncodeAccelerator::Error error) final;
+  void NotifyError(VideoEncodeAccelerator::Error error) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

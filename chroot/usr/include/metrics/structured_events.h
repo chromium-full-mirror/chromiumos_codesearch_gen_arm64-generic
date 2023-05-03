@@ -631,6 +631,10 @@ class BRILLO_EXPORT CellularConnectionAttempt final : public ::metrics::structur
   CellularConnectionAttempt& Setconnection_attempt_type(const int64_t value);
   int64_t Getconnection_attempt_typeForTest() const;
 
+  static constexpr uint64_t ksubscription_error_seenNameHash = UINT64_C(939310898319965974);
+  CellularConnectionAttempt& Setsubscription_error_seen(const int64_t value);
+  int64_t Getsubscription_error_seenForTest() const;
+
 };
 
 class BRILLO_EXPORT ModemFwdFwInstallResult final : public ::metrics::structured::EventBase {

@@ -225,6 +225,8 @@ class AuthSessionInterfaceTestBase : public ::testing::Test {
     userdataauth_.set_homedirs(&homedirs_);
     userdataauth_.set_user_session_factory(&user_session_factory_);
     userdataauth_.set_keyset_management(&keyset_management_);
+    userdataauth_.set_auth_factor_driver_manager_for_testing(
+        &auth_factor_driver_manager_);
     userdataauth_.set_auth_factor_manager_for_testing(&auth_factor_manager_);
     userdataauth_.set_user_secret_stash_storage_for_testing(
         &user_secret_stash_storage_);
@@ -284,7 +286,11 @@ class AuthSessionInterfaceTestBase : public ::testing::Test {
   NiceMock<hwsec::MockPinWeaverFrontend> pinweaver_;
   Crypto crypto_;
   NiceMock<MockUserSessionFactory> user_session_factory_;
-  AuthFactorDriverManager auth_factor_driver_manager_;
+  std::unique_ptr<FingerprintAuthBlockService> fp_service_{
+      FingerprintAuthBlockService::MakeNullService()};
+  AuthFactorDriverManager auth_factor_driver_manager_{
+      &crypto_, AsyncInitPtr<ChallengeCredentialsHelper>(nullptr), nullptr,
+      fp_service_.get(), AsyncInitPtr<BiometricsAuthBlockService>(nullptr)};
   AuthFactorManager auth_factor_manager_{&platform_};
   UserSecretStashStorage user_secret_stash_storage_{&platform_};
   NiceMock<MockKeysetManagement> keyset_management_;
@@ -346,8 +352,7 @@ class AuthSessionInterfaceTest : public AuthSessionInterfaceTestBase {
   AuthSessionInterfaceTest() {
     auth_block_utility_impl_ = std::make_unique<AuthBlockUtilityImpl>(
         &keyset_management_, &crypto_, &platform_, &features_.async,
-        FingerprintAuthBlockService::MakeNullService(),
-        AsyncInitPtr<BiometricsAuthBlockService>(nullptr));
+        fp_service_.get(), AsyncInitPtr<BiometricsAuthBlockService>(nullptr));
     CreateAuthSessionManager(auth_block_utility_impl_.get());
   }
 
@@ -683,17 +688,6 @@ TEST_F(AuthSessionInterfaceTest, GetHibernateSecretUnauthenticatedTest) {
 class AuthSessionInterfaceMockAuthTest : public AuthSessionInterfaceTestBase {
  protected:
   AuthSessionInterfaceMockAuthTest() {
-    EXPECT_CALL(mock_auth_block_utility_, CreateCredentialVerifier(_, _, _))
-        .WillRepeatedly(
-            [](AuthFactorType type, const std::string& label,
-               const AuthInput& input) -> std::unique_ptr<CredentialVerifier> {
-              if (type == AuthFactorType::kPassword) {
-                return ScryptVerifier::Create(
-                    label, brillo::SecureBlob(*input.user_input));
-              }
-              return nullptr;
-            });
-
     userdataauth_.set_auth_block_utility(&mock_auth_block_utility_);
     CreateAuthSessionManager(&mock_auth_block_utility_);
   }

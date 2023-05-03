@@ -26,6 +26,7 @@
 
 #include "cryptohome/auth_blocks/auth_block.h"
 #include "cryptohome/auth_blocks/auth_block_utility_impl.h"
+#include "cryptohome/auth_blocks/fp_service.h"
 #include "cryptohome/auth_blocks/mock_auth_block_utility.h"
 #include "cryptohome/auth_blocks/scrypt_auth_block.h"
 #include "cryptohome/auth_factor/auth_factor_manager.h"
@@ -144,6 +145,8 @@ class AuthSessionTestWithKeysetManagement : public ::testing::Test {
     userdataauth_.set_homedirs(&homedirs_);
     userdataauth_.set_user_session_factory(&user_session_factory_);
     userdataauth_.set_keyset_management(&keyset_management_);
+    userdataauth_.set_auth_factor_driver_manager_for_testing(
+        &auth_factor_driver_manager_);
     userdataauth_.set_auth_factor_manager_for_testing(&auth_factor_manager_);
     userdataauth_.set_user_secret_stash_storage_for_testing(
         &user_secret_stash_storage_);
@@ -461,15 +464,16 @@ class AuthSessionTestWithKeysetManagement : public ::testing::Test {
   KeysetManagement keyset_management_{&platform_, &crypto_,
                                       CreateMockVaultKeysetFactory()};
   FakeFeaturesForTesting features_;
+  std::unique_ptr<FingerprintAuthBlockService> fp_service_{
+      FingerprintAuthBlockService::MakeNullService()};
   AuthBlockUtilityImpl auth_block_utility_{
-      &keyset_management_,
-      &crypto_,
-      &platform_,
-      &features_.async,
-      FingerprintAuthBlockService::MakeNullService(),
-      AsyncInitPtr<BiometricsAuthBlockService>(nullptr)};
+      &keyset_management_, &crypto_,
+      &platform_,          &features_.async,
+      fp_service_.get(),   AsyncInitPtr<BiometricsAuthBlockService>(nullptr)};
   NiceMock<MockAuthBlockUtility> mock_auth_block_utility_;
-  AuthFactorDriverManager auth_factor_driver_manager_;
+  AuthFactorDriverManager auth_factor_driver_manager_{
+      &crypto_, AsyncInitPtr<ChallengeCredentialsHelper>(nullptr), nullptr,
+      fp_service_.get(), AsyncInitPtr<BiometricsAuthBlockService>(nullptr)};
   AuthFactorManager auth_factor_manager_{&platform_};
   UserSecretStashStorage user_secret_stash_storage_{&platform_};
   AuthSession::BackingApis backing_apis_{&crypto_,

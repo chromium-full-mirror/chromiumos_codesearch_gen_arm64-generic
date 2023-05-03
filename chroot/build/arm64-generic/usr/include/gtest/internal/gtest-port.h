@@ -693,7 +693,7 @@ typedef struct _RTL_CRITICAL_SECTION GTEST_CRITICAL_SECTION;
 #if defined(GTEST_OS_LINUX) || defined(GTEST_OS_GNU_KFREEBSD) || \
     defined(GTEST_OS_DRAGONFLY) || defined(GTEST_OS_FREEBSD) ||  \
     defined(GTEST_OS_NETBSD) || defined(GTEST_OS_OPENBSD) ||     \
-    defined(GTEST_OS_GNU_HURD)
+    defined(GTEST_OS_GNU_HURD) || defined(GTEST_OS_MAC)
 #define GTEST_CAN_STREAM_RESULTS_ 1
 #else
 #define GTEST_CAN_STREAM_RESULTS_ 0
@@ -861,7 +861,7 @@ typedef struct _RTL_CRITICAL_SECTION GTEST_CRITICAL_SECTION;
 // Ask the compiler not to perform tail call optimization inside
 // the marked function.
 #define GTEST_NO_TAIL_CALL_ __attribute__((disable_tail_calls))
-#elif __GNUC__
+#elif defined(__GNUC__) && !defined(__NVCOMPILER)
 #define GTEST_NO_TAIL_CALL_ \
   __attribute__((optimize("no-optimize-sibling-calls")))
 #else
@@ -960,6 +960,8 @@ class GTEST_API_ RE {
 };
 
 #elif defined(GTEST_USES_POSIX_RE) || defined(GTEST_USES_SIMPLE_RE)
+GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
+/* class A needs to have dll-interface to be used by clients of class B */)
 
 // A simple C++ wrapper for <regex.h>.  It uses the POSIX Extended
 // Regular Expression syntax.
@@ -1008,7 +1010,7 @@ class GTEST_API_ RE {
 
 #endif
 };
-
+GTEST_DISABLE_MSC_WARNINGS_POP_()  // 4251
 #endif  // ::testing::internal::RE implementation
 
 // Formats a source file path and a line number as they would appear
@@ -2167,8 +2169,8 @@ inline const char* StrError(int errnum) { return strerror(errnum); }
 
 inline const char* GetEnv(const char* name) {
 #if defined(GTEST_OS_WINDOWS_MOBILE) || defined(GTEST_OS_WINDOWS_PHONE) || \
-    defined(GTEST_OS_WINDOWS_RT) || defined(GTEST_OS_ESP8266) ||           \
-    defined(GTEST_OS_XTENSA) || defined(GTEST_OS_QURT)
+    defined(GTEST_OS_ESP8266) || defined(GTEST_OS_XTENSA) ||               \
+    defined(GTEST_OS_QURT)
   // We are on an embedded platform, which has no environment variables.
   static_cast<void>(name);  // To prevent 'unused argument' warning.
   return nullptr;

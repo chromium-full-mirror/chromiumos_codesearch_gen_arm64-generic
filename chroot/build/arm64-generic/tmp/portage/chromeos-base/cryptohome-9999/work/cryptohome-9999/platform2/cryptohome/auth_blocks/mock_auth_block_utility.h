@@ -32,16 +32,6 @@ class MockAuthBlockUtility : public AuthBlockUtility {
   MockAuthBlockUtility() = default;
 
   MOCK_METHOD(bool, GetLockedToSingleUser, (), (const, override));
-  MOCK_METHOD(bool,
-              IsAuthFactorSupported,
-              (AuthFactorType,
-               AuthFactorStorageType,
-               const std::set<AuthFactorType>&),
-              (const, override));
-  MOCK_METHOD(std::unique_ptr<CredentialVerifier>,
-              CreateCredentialVerifier,
-              (AuthFactorType, const std::string&, const AuthInput&),
-              (const, override));
   MOCK_METHOD(void,
               PrepareAuthFactorForAuth,
               (AuthFactorType,

@@ -31,6 +31,7 @@
 
 #include "cryptohome/auth_blocks/auth_block_utility.h"
 #include "cryptohome/auth_blocks/biometrics_auth_block_service.h"
+#include "cryptohome/auth_blocks/fp_service.h"
 #include "cryptohome/auth_factor/auth_factor_manager.h"
 #include "cryptohome/auth_factor/types/manager.h"
 #include "cryptohome/auth_session.h"
@@ -459,6 +460,12 @@ class UserDataAuth {
   // Override |keyset_management_| for testing purpose
   void set_auth_block_utility(AuthBlockUtility* value) {
     auth_block_utility_ = value;
+  }
+
+  // Override |auth_factor_driver_manager_| for testing purpose
+  void set_auth_factor_driver_manager_for_testing(
+      AuthFactorDriverManager* value) {
+    auth_factor_driver_manager_ = value;
   }
 
   // Override |auth_factor_manager_| for testing purpose
@@ -1011,6 +1018,10 @@ class UserDataAuth {
   // can be overridden for testing.
   FingerprintManager* fingerprint_manager_;
 
+  // The fingerprint service object that wraps the fingerprint manager for auth
+  // block usage.
+  std::unique_ptr<FingerprintAuthBlockService> fingerprint_service_;
+
   // The default Biometrics Service object for biometrics authentication.
   std::unique_ptr<BiometricsAuthBlockService> default_biometrics_service_;
 
@@ -1097,7 +1108,10 @@ class UserDataAuth {
   AuthBlockUtility* auth_block_utility_;
 
   // Manager of the auth factor drivers.
-  AuthFactorDriverManager auth_factor_driver_manager_;
+  std::unique_ptr<AuthFactorDriverManager> default_auth_factor_driver_manager_;
+  // Usually set to |default_auth_factor_manager_|, but can be overridden for
+  // tests.
+  AuthFactorDriverManager* auth_factor_driver_manager_ = nullptr;
 
   // Manager of auth factor files.
   std::unique_ptr<AuthFactorManager> default_auth_factor_manager_;

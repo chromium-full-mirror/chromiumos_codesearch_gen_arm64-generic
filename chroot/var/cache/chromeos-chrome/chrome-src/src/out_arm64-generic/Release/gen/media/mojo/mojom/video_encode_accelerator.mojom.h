@@ -219,8 +219,6 @@ class VideoEncodeAccelerator
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
-  
-  using Error = VideoEncodeAccelerator_Error;
   virtual ~VideoEncodeAccelerator() = default;
 
   // Sync method. This signature is used by the client side; the service side

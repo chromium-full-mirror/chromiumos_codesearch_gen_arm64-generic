@@ -56,7 +56,7 @@ class  VideoEncodeAcceleratorAsyncWaiter {
 class  VideoEncodeClientInterceptorForTesting : public VideoEncodeClient {
   virtual VideoEncodeClient* GetForwardingInterface() = 0;
   void RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) override;
-  void NotifyError(::media::VideoEncodeAccelerator::Error error) override;
+  void NotifyError(VideoEncodeAccelerator::Error error) override;
 };
 class  VideoEncodeClientAsyncWaiter {
  public:

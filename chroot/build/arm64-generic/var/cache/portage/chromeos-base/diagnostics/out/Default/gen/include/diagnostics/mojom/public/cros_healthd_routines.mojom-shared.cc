@@ -18,6 +18,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-params-data.h"
+#include "diagnostics/mojom/external/time_mojom_traits.h"
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
@@ -186,6 +187,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case RoutineArgument_Tag::kCpuStress: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_cpu_stress, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_cpu_stress, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       return true;
@@ -316,6 +327,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case RoutineDetail_Tag::kCpuStress: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_cpu_stress, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_cpu_stress, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(
@@ -371,6 +392,32 @@ bool AudioDriverRoutineArgument_Data::Validate(
 }
 
 AudioDriverRoutineArgument_Data::AudioDriverRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CpuStressRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CpuStressRoutineArgument_Data* object =
+      static_cast<const CpuStressRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+CpuStressRoutineArgument_Data::CpuStressRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -565,6 +612,29 @@ bool AudioDriverRoutineDetail_Data::Validate(
 }
 
 AudioDriverRoutineDetail_Data::AudioDriverRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CpuStressRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CpuStressRoutineDetail_Data* object =
+      static_cast<const CpuStressRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+CpuStressRoutineDetail_Data::CpuStressRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 

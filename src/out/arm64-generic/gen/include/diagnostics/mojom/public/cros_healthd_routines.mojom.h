@@ -25,6 +25,7 @@
 
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-forward.h"
+#include "diagnostics/mojom/external/time.mojom.h"
 #include <string>
 #include <vector>
 
@@ -655,6 +656,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  RoutineStateInitialized {
  public:
   template <typename T>
@@ -1206,6 +1208,139 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  CpuStressRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CpuStressRoutineDetail, T>::value>;
+  using DataView = CpuStressRoutineDetailDataView;
+  using Data_ = internal::CpuStressRoutineDetail_Data;
+
+  template <typename... Args>
+  static CpuStressRoutineDetailPtr New(Args&&... args) {
+    return CpuStressRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CpuStressRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<CpuStressRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CpuStressRoutineDetail>::Convert(*this);
+  }
+
+
+  CpuStressRoutineDetail();
+
+
+  ~CpuStressRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CpuStressRoutineDetailPtr>
+  CpuStressRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CpuStressRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CpuStressRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CpuStressRoutineDetail_UnserializedMessageContext<
+            UserType, CpuStressRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CpuStressRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CpuStressRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CpuStressRoutineDetail_UnserializedMessageContext<
+            UserType, CpuStressRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CpuStressRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CpuStressRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineArgument {
  public:
@@ -1245,6 +1380,14 @@ class  RoutineArgument {
       AudioDriverRoutineArgumentPtr audio_driver) {
     auto result = RoutineArgumentPtr(absl::in_place);
     result->set_audio_driver(std::move(audio_driver));
+    return result;
+  }
+  // Construct an instance holding |cpu_stress|.
+  static RoutineArgumentPtr
+  NewCpuStress(
+      CpuStressRoutineArgumentPtr cpu_stress) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_cpu_stress(std::move(cpu_stress));
     return result;
   }
 
@@ -1325,6 +1468,18 @@ class  RoutineArgument {
   
   void set_audio_driver(
       AudioDriverRoutineArgumentPtr audio_driver);
+  
+  bool is_cpu_stress() const { return tag_ == Tag::kCpuStress; }
+
+  
+  CpuStressRoutineArgumentPtr& get_cpu_stress() const {
+    CHECK(tag_ == Tag::kCpuStress);
+    return *(data_.cpu_stress);
+  }
+
+  
+  void set_cpu_stress(
+      CpuStressRoutineArgumentPtr cpu_stress);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1346,6 +1501,7 @@ class  RoutineArgument {
     bool unrecognizedArgument;
     MemoryRoutineArgumentPtr* memory;
     AudioDriverRoutineArgumentPtr* audio_driver;
+    CpuStressRoutineArgumentPtr* cpu_stress;
   };
 
   static bool Validate(const void* data,
@@ -1562,6 +1718,14 @@ class  RoutineDetail {
     result->set_audio_driver(std::move(audio_driver));
     return result;
   }
+  // Construct an instance holding |cpu_stress|.
+  static RoutineDetailPtr
+  NewCpuStress(
+      CpuStressRoutineDetailPtr cpu_stress) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_cpu_stress(std::move(cpu_stress));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -1628,6 +1792,18 @@ class  RoutineDetail {
   
   void set_audio_driver(
       AudioDriverRoutineDetailPtr audio_driver);
+  
+  bool is_cpu_stress() const { return tag_ == Tag::kCpuStress; }
+
+  
+  CpuStressRoutineDetailPtr& get_cpu_stress() const {
+    CHECK(tag_ == Tag::kCpuStress);
+    return *(data_.cpu_stress);
+  }
+
+  
+  void set_cpu_stress(
+      CpuStressRoutineDetailPtr cpu_stress);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1648,6 +1824,7 @@ class  RoutineDetail {
     ~Union_() = default;
     MemoryRoutineDetailPtr* memory;
     AudioDriverRoutineDetailPtr* audio_driver;
+    CpuStressRoutineDetailPtr* cpu_stress;
   };
 
   static bool Validate(const void* data,
@@ -1659,6 +1836,143 @@ class  RoutineDetail {
 };
 
 
+
+
+
+
+
+class  CpuStressRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CpuStressRoutineArgument, T>::value>;
+  using DataView = CpuStressRoutineArgumentDataView;
+  using Data_ = internal::CpuStressRoutineArgument_Data;
+
+  template <typename... Args>
+  static CpuStressRoutineArgumentPtr New(Args&&... args) {
+    return CpuStressRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CpuStressRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<CpuStressRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CpuStressRoutineArgument>::Convert(*this);
+  }
+
+
+  CpuStressRoutineArgument();
+
+  explicit CpuStressRoutineArgument(
+      absl::optional<base::TimeDelta> exec_duration);
+
+
+  ~CpuStressRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CpuStressRoutineArgumentPtr>
+  CpuStressRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CpuStressRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CpuStressRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CpuStressRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CpuStressRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CpuStressRoutineArgument_UnserializedMessageContext<
+            UserType, CpuStressRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CpuStressRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CpuStressRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CpuStressRoutineArgument_UnserializedMessageContext<
+            UserType, CpuStressRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CpuStressRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  absl::optional<base::TimeDelta> exec_duration;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CpuStressRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CpuStressRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CpuStressRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CpuStressRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -2094,6 +2408,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  MemtesterResult {
  public:
   template <typename T>
@@ -2242,6 +2557,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kAudioDriver:
       return NewAudioDriver(
           mojo::Clone(*data_.audio_driver));
+    case Tag::kCpuStress:
+      return NewCpuStress(
+          mojo::Clone(*data_.cpu_stress));
   }
   return nullptr;
 }
@@ -2260,6 +2578,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
     case Tag::kAudioDriver:
       return mojo::Equals(*(data_.audio_driver), *(other.data_.audio_driver));
+    case Tag::kCpuStress:
+      return mojo::Equals(*(data_.cpu_stress), *(other.data_.cpu_stress));
   }
 
   return false;
@@ -2312,6 +2632,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kAudioDriver:
       return NewAudioDriver(
           mojo::Clone(*data_.audio_driver));
+    case Tag::kCpuStress:
+      return NewCpuStress(
+          mojo::Clone(*data_.cpu_stress));
   }
   return nullptr;
 }
@@ -2328,6 +2651,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
     case Tag::kAudioDriver:
       return mojo::Equals(*(data_.audio_driver), *(other.data_.audio_driver));
+    case Tag::kCpuStress:
+      return mojo::Equals(*(data_.cpu_stress), *(other.data_.cpu_stress));
   }
 
   return false;
@@ -2367,6 +2692,28 @@ bool AudioDriverRoutineArgument::Equals(const T& other_struct) const {
 
 template <typename T, AudioDriverRoutineArgument::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
+CpuStressRoutineArgumentPtr CpuStressRoutineArgument::Clone() const {
+  return New(
+      mojo::Clone(exec_duration)
+  );
+}
+
+template <typename T, CpuStressRoutineArgument::EnableIfSame<T>*>
+bool CpuStressRoutineArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->exec_duration, other_struct.exec_duration))
+    return false;
+  return true;
+}
+
+template <typename T, CpuStressRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.exec_duration < rhs.exec_duration)
+    return true;
+  if (rhs.exec_duration < lhs.exec_duration)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -2545,6 +2892,21 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+CpuStressRoutineDetailPtr CpuStressRoutineDetail::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, CpuStressRoutineDetail::EnableIfSame<T>*>
+bool CpuStressRoutineDetail::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, CpuStressRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
 MemtesterResultPtr MemtesterResult::Clone() const {
   return New(
       mojo::Clone(passed_items),
@@ -2604,6 +2966,21 @@ struct  StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgument::Dat
   static void SetToNull(::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr* output) { output->reset(); }
 
   static bool Read(::ash::cros_healthd::mojom::AudioDriverRoutineArgument::DataView input, ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::CpuStressRoutineArgument::exec_duration)& exec_duration(
+      const ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr& input) {
+    return input->exec_duration;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::CpuStressRoutineArgument::DataView input, ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr* output);
 };
 
 
@@ -2728,6 +3105,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetail::DataV
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::CpuStressRoutineDetail::DataView input, ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
                                          ::ash::cros_healthd::mojom::MemtesterResultPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) { return !input; }
@@ -2767,6 +3154,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::AudioDriverRoutineArgumentPtr& audio_driver(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_audio_driver();
+  }
+
+  static const ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr& cpu_stress(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_cpu_stress();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -2819,6 +3210,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::AudioDriverRoutineDetailPtr& audio_driver(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_audio_driver();
+  }
+
+  static const ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr& cpu_stress(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_cpu_stress();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

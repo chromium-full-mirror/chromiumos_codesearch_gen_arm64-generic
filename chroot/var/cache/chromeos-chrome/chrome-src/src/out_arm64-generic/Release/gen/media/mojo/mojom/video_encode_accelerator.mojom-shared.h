@@ -286,24 +286,6 @@ inline bool IsKnownEnumValue(VideoEncodeAcceleratorConfig_EncoderType value) {
   return internal::VideoEncodeAcceleratorConfig_EncoderType_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
-
-
-enum class VideoEncodeAccelerator_Error : int32_t {
-  
-  ILLEGAL_STATE = 0,
-  
-  INVALID_ARGUMENT = 1,
-  
-  PLATFORM_FAILURE = 2,
-  kMinValue = 0,
-  kMaxValue = 2,
-};
-
- std::ostream& operator<<(std::ostream& os, VideoEncodeAccelerator_Error value);
-inline bool IsKnownEnumValue(VideoEncodeAccelerator_Error value) {
-  return internal::VideoEncodeAccelerator_Error_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
 // Interface base classes. They are used for type safety check.
 class VideoEncodeAcceleratorProviderInterfaceBase {};
 
@@ -1104,10 +1086,6 @@ template <>
 struct hash<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType>
     : public mojo::internal::EnumHashImpl<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType> {};
 
-template <>
-struct hash<::media::mojom::VideoEncodeAccelerator_Error>
-    : public mojo::internal::EnumHashImpl<::media::mojom::VideoEncodeAccelerator_Error> {};
-
 }  // namespace std
 
 namespace mojo {
@@ -1207,26 +1185,6 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType, Mayb
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType>(input)), output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::media::mojom::VideoEncodeAccelerator_Error, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::media::mojom::VideoEncodeAccelerator_Error, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::media::mojom::VideoEncodeAccelerator_Error>(input)), output);
   }
 };
 
@@ -2272,15 +2230,6 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::VideoEncodeAcceleratorConfig_EncoderType value);
-};
-
-} // namespace perfetto
-
-namespace perfetto {
-
-template <>
-struct  TraceFormatTraits<::media::mojom::VideoEncodeAccelerator_Error> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::VideoEncodeAccelerator_Error value);
 };
 
 } // namespace perfetto

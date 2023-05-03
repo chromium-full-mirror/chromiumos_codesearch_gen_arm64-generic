@@ -96,7 +96,8 @@ PROTOBUF_CONSTEXPR UploadEncryptedRecordResponse::UploadEncryptedRecordResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.status_)*/nullptr} {}
+  , /*decltype(_impl_.status_)*/nullptr
+  , /*decltype(_impl_.disable_)*/false} {}
 struct UploadEncryptedRecordResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR UploadEncryptedRecordResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1361,6 +1362,9 @@ class UploadEncryptedRecordResponse::_Internal {
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_disable(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 const ::reporting::StatusProto&
@@ -1383,12 +1387,14 @@ UploadEncryptedRecordResponse::UploadEncryptedRecordResponse(const UploadEncrypt
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.status_){nullptr}};
+    , decltype(_impl_.status_){nullptr}
+    , decltype(_impl_.disable_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_status()) {
     _this->_impl_.status_ = new ::reporting::StatusProto(*from._impl_.status_);
   }
+  _this->_impl_.disable_ = from._impl_.disable_;
   // @@protoc_insertion_point(copy_constructor:reporting.UploadEncryptedRecordResponse)
 }
 
@@ -1400,6 +1406,7 @@ inline void UploadEncryptedRecordResponse::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.status_){nullptr}
+    , decltype(_impl_.disable_){false}
   };
 }
 
@@ -1432,6 +1439,7 @@ void UploadEncryptedRecordResponse::Clear() {
     GOOGLE_DCHECK(_impl_.status_ != nullptr);
     _impl_.status_->Clear();
   }
+  _impl_.disable_ = false;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1447,6 +1455,15 @@ const char* UploadEncryptedRecordResponse::_InternalParse(const char* ptr, ::_pb
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_status(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool disable = 2 [default = false];
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_disable(&has_bits);
+          _impl_.disable_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1489,6 +1506,12 @@ uint8_t* UploadEncryptedRecordResponse::_InternalSerialize(
         _Internal::status(this).GetCachedSize(), target, stream);
   }
 
+  // optional bool disable = 2 [default = false];
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_disable(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1505,14 +1528,21 @@ size_t UploadEncryptedRecordResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .reporting.StatusProto status = 1;
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.status_);
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional .reporting.StatusProto status = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.status_);
+    }
 
+    // optional bool disable = 2 [default = false];
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1534,9 +1564,16 @@ void UploadEncryptedRecordResponse::MergeFrom(const UploadEncryptedRecordRespons
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_status()) {
-    _this->_internal_mutable_status()->::reporting::StatusProto::MergeFrom(
-        from._internal_status());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_status()->::reporting::StatusProto::MergeFrom(
+          from._internal_status());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.disable_ = from._impl_.disable_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1556,7 +1593,12 @@ void UploadEncryptedRecordResponse::InternalSwap(UploadEncryptedRecordResponse* 
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  swap(_impl_.status_, other->_impl_.status_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(UploadEncryptedRecordResponse, _impl_.disable_)
+      + sizeof(UploadEncryptedRecordResponse::_impl_.disable_)
+      - PROTOBUF_FIELD_OFFSET(UploadEncryptedRecordResponse, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 std::string UploadEncryptedRecordResponse::GetTypeName() const {

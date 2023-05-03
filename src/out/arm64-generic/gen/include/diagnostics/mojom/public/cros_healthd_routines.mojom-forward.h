@@ -28,6 +28,8 @@ class MemoryRoutineArgumentDataView;
 
 class AudioDriverRoutineArgumentDataView;
 
+class CpuStressRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -41,6 +43,8 @@ class RoutineStateFinishedDataView;
 class MemoryRoutineDetailDataView;
 
 class AudioDriverRoutineDetailDataView;
+
+class CpuStressRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
@@ -58,6 +62,9 @@ using MemoryRoutineArgumentPtr = mojo::InlinedStructPtr<MemoryRoutineArgument>;
 
 class AudioDriverRoutineArgument;
 using AudioDriverRoutineArgumentPtr = mojo::InlinedStructPtr<AudioDriverRoutineArgument>;
+
+class CpuStressRoutineArgument;
+using CpuStressRoutineArgumentPtr = mojo::StructPtr<CpuStressRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -79,6 +86,9 @@ using MemoryRoutineDetailPtr = mojo::StructPtr<MemoryRoutineDetail>;
 
 class AudioDriverRoutineDetail;
 using AudioDriverRoutineDetailPtr = mojo::InlinedStructPtr<AudioDriverRoutineDetail>;
+
+class CpuStressRoutineDetail;
+using CpuStressRoutineDetailPtr = mojo::InlinedStructPtr<CpuStressRoutineDetail>;
 
 class MemtesterResult;
 using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;

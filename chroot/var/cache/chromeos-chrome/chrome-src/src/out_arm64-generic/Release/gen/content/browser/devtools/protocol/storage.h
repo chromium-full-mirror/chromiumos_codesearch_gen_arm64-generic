@@ -31,6 +31,7 @@ class SharedStorageReportingMetadata;
 class SharedStorageUrlWithMetadata;
 class SharedStorageAccessParams;
 using StorageBucketsDurability = String;
+class StorageBucket;
 class StorageBucketInfo;
 
 // ------------- Forward and enum declarations.
@@ -893,21 +894,83 @@ private:
 };
 
 
-class CONTENT_EXPORT StorageBucketInfo : public ::crdtp::ProtocolObject<StorageBucketInfo> {
+class CONTENT_EXPORT StorageBucket : public ::crdtp::ProtocolObject<StorageBucket> {
 public:
-    ~StorageBucketInfo() override { }
+    ~StorageBucket() override { }
 
     String GetStorageKey() { return m_storageKey; }
     void SetStorageKey(const String& value) { m_storageKey = value; }
 
-    String GetId() { return m_id; }
-    void SetId(const String& value) { m_id = value; }
-
-    String GetName() { return m_name; }
+    bool HasName() { return m_name.isJust(); }
+    String GetName(const String& defaultValue) { return m_name.isJust() ? m_name.fromJust() : defaultValue; }
     void SetName(const String& value) { m_name = value; }
 
-    bool GetIsDefault() { return m_isDefault; }
-    void SetIsDefault(bool value) { m_isDefault = value; }
+    template<int STATE>
+    class StorageBucketBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            StorageKeySet = 1 << 1,
+            AllFieldsSet = (StorageKeySet | 0)};
+
+
+        StorageBucketBuilder<STATE | StorageKeySet>& SetStorageKey(const String& value)
+        {
+            static_assert(!(STATE & StorageKeySet), "property storageKey should not be set yet");
+            m_result->SetStorageKey(value);
+            return castState<StorageKeySet>();
+        }
+
+        StorageBucketBuilder<STATE>& SetName(const String& value)
+        {
+            m_result->SetName(value);
+            return *this;
+        }
+
+        std::unique_ptr<StorageBucket> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class StorageBucket;
+        StorageBucketBuilder() : m_result(new StorageBucket()) { }
+
+        template<int STEP> StorageBucketBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<StorageBucketBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::StorageBucket> m_result;
+    };
+
+    static StorageBucketBuilder<0> Create()
+    {
+        return StorageBucketBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    StorageBucket()
+    {
+    }
+
+    String m_storageKey;
+    Maybe<String> m_name;
+};
+
+
+class CONTENT_EXPORT StorageBucketInfo : public ::crdtp::ProtocolObject<StorageBucketInfo> {
+public:
+    ~StorageBucketInfo() override { }
+
+    protocol::Storage::StorageBucket* GetBucket() { return m_bucket.get(); }
+    void SetBucket(std::unique_ptr<protocol::Storage::StorageBucket> value) { m_bucket = std::move(value); }
+
+    String GetId() { return m_id; }
+    void SetId(const String& value) { m_id = value; }
 
     double GetExpiration() { return m_expiration; }
     void SetExpiration(double value) { m_expiration = value; }
@@ -926,22 +989,20 @@ public:
     public:
         enum {
             NoFieldsSet = 0,
-            StorageKeySet = 1 << 1,
+            BucketSet = 1 << 1,
             IdSet = 1 << 2,
-            NameSet = 1 << 3,
-            IsDefaultSet = 1 << 4,
-            ExpirationSet = 1 << 5,
-            QuotaSet = 1 << 6,
-            PersistentSet = 1 << 7,
-            DurabilitySet = 1 << 8,
-            AllFieldsSet = (StorageKeySet | IdSet | NameSet | IsDefaultSet | ExpirationSet | QuotaSet | PersistentSet | DurabilitySet | 0)};
+            ExpirationSet = 1 << 3,
+            QuotaSet = 1 << 4,
+            PersistentSet = 1 << 5,
+            DurabilitySet = 1 << 6,
+            AllFieldsSet = (BucketSet | IdSet | ExpirationSet | QuotaSet | PersistentSet | DurabilitySet | 0)};
 
 
-        StorageBucketInfoBuilder<STATE | StorageKeySet>& SetStorageKey(const String& value)
+        StorageBucketInfoBuilder<STATE | BucketSet>& SetBucket(std::unique_ptr<protocol::Storage::StorageBucket> value)
         {
-            static_assert(!(STATE & StorageKeySet), "property storageKey should not be set yet");
-            m_result->SetStorageKey(value);
-            return castState<StorageKeySet>();
+            static_assert(!(STATE & BucketSet), "property bucket should not be set yet");
+            m_result->SetBucket(std::move(value));
+            return castState<BucketSet>();
         }
 
         StorageBucketInfoBuilder<STATE | IdSet>& SetId(const String& value)
@@ -949,20 +1010,6 @@ public:
             static_assert(!(STATE & IdSet), "property id should not be set yet");
             m_result->SetId(value);
             return castState<IdSet>();
-        }
-
-        StorageBucketInfoBuilder<STATE | NameSet>& SetName(const String& value)
-        {
-            static_assert(!(STATE & NameSet), "property name should not be set yet");
-            m_result->SetName(value);
-            return castState<NameSet>();
-        }
-
-        StorageBucketInfoBuilder<STATE | IsDefaultSet>& SetIsDefault(bool value)
-        {
-            static_assert(!(STATE & IsDefaultSet), "property isDefault should not be set yet");
-            m_result->SetIsDefault(value);
-            return castState<IsDefaultSet>();
         }
 
         StorageBucketInfoBuilder<STATE | ExpirationSet>& SetExpiration(double value)
@@ -1021,16 +1068,13 @@ private:
 
     StorageBucketInfo()
     {
-          m_isDefault = false;
           m_expiration = 0;
           m_quota = 0;
           m_persistent = false;
     }
 
-    String m_storageKey;
+    std::unique_ptr<protocol::Storage::StorageBucket> m_bucket;
     String m_id;
-    String m_name;
-    bool m_isDefault;
     double m_expiration;
     double m_quota;
     bool m_persistent;
@@ -1184,7 +1228,7 @@ public:
     virtual void ResetSharedStorageBudget(const String& in_ownerOrigin, std::unique_ptr<ResetSharedStorageBudgetCallback> callback) = 0;
     virtual DispatchResponse SetSharedStorageTracking(bool in_enable) = 0;
     virtual DispatchResponse SetStorageBucketTracking(const String& in_storageKey, bool in_enable) = 0;
-    virtual DispatchResponse DeleteStorageBucket(const String& in_storageKey, const String& in_bucketName) = 0;
+    virtual DispatchResponse DeleteStorageBucket(std::unique_ptr<protocol::Storage::StorageBucket> in_bucket) = 0;
 
     virtual DispatchResponse Disable()
     {
@@ -1199,11 +1243,11 @@ public:
   explicit Frontend(FrontendChannel* frontend_channel) : frontend_channel_(frontend_channel) {}
     void CacheStorageContentUpdated(const String& origin, const String& storageKey, const String& cacheName);
     void CacheStorageListUpdated(const String& origin, const String& storageKey);
-    void IndexedDBContentUpdated(const String& origin, const String& storageKey, const String& databaseName, const String& objectStoreName);
-    void IndexedDBListUpdated(const String& origin, const String& storageKey);
+    void IndexedDBContentUpdated(const String& origin, const String& storageKey, const String& bucketId, const String& databaseName, const String& objectStoreName);
+    void IndexedDBListUpdated(const String& origin, const String& storageKey, const String& bucketId);
     void InterestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name);
     void SharedStorageAccessed(double accessTime, const String& type, const String& mainFrameId, const String& ownerOrigin, std::unique_ptr<protocol::Storage::SharedStorageAccessParams> params);
-    void StorageBucketCreatedOrUpdated(std::unique_ptr<protocol::Storage::StorageBucketInfo> bucket);
+    void StorageBucketCreatedOrUpdated(std::unique_ptr<protocol::Storage::StorageBucketInfo> bucketInfo);
     void StorageBucketDeleted(const String& bucketId);
 
   void flush();

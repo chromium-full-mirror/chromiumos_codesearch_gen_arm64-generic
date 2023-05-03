@@ -8,11 +8,18 @@
 #include "cryptohome/auth_factor/auth_factor_metadata.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
 #include "cryptohome/auth_intent.h"
+#include "cryptohome/scrypt_verifier.h"
 
 namespace cryptohome {
 
-PasswordAuthFactorDriver::PasswordAuthFactorDriver()
-    : TypedAuthFactorDriver(AuthFactorType::kPassword) {}
+bool PasswordAuthFactorDriver::IsSupported(
+    AuthFactorStorageType storage_type,
+    const std::set<AuthFactorType>& configured_factors) const {
+  if (configured_factors.count(AuthFactorType::kKiosk) > 0) {
+    return false;
+  }
+  return true;
+}
 
 bool PasswordAuthFactorDriver::IsPrepareRequired() const {
   return false;
@@ -20,6 +27,22 @@ bool PasswordAuthFactorDriver::IsPrepareRequired() const {
 
 bool PasswordAuthFactorDriver::IsVerifySupported(AuthIntent auth_intent) const {
   return auth_intent == AuthIntent::kVerifyOnly;
+}
+
+std::unique_ptr<CredentialVerifier>
+PasswordAuthFactorDriver::CreateCredentialVerifier(
+    const std::string& auth_factor_label, const AuthInput& auth_input) const {
+  if (!auth_input.user_input.has_value()) {
+    LOG(ERROR) << "Cannot construct a password verifier without a password";
+    return nullptr;
+  }
+  std::unique_ptr<CredentialVerifier> verifier =
+      ScryptVerifier::Create(auth_factor_label, *auth_input.user_input);
+  if (!verifier) {
+    LOG(ERROR) << "Credential verifier initialization failed.";
+    return nullptr;
+  }
+  return verifier;
 }
 
 bool PasswordAuthFactorDriver::NeedsResetSecret() const {

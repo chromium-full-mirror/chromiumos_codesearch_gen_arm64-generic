@@ -5,15 +5,20 @@
 #ifndef CRYPTOHOME_AUTH_FACTOR_TYPES_INTERFACE_H_
 #define CRYPTOHOME_AUTH_FACTOR_TYPES_INTERFACE_H_
 
+#include <memory>
 #include <optional>
+#include <set>
 #include <string>
 
 #include <cryptohome/proto_bindings/auth_factor.pb.h>
 
 #include "cryptohome/auth_factor/auth_factor_label_arity.h"
 #include "cryptohome/auth_factor/auth_factor_metadata.h"
+#include "cryptohome/auth_factor/auth_factor_storage_type.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
 #include "cryptohome/auth_intent.h"
+#include "cryptohome/credential_verifier.h"
+#include "cryptohome/key_objects.h"
 
 namespace cryptohome {
 
@@ -31,6 +36,13 @@ class AuthFactorDriver {
 
   AuthFactorType type() const { return type_; }
 
+  // Indicates if the factor is supported based on a combination of the type of
+  // auth factor storage being used, the currently configured factors, and the
+  // available underlying hardware.
+  virtual bool IsSupported(
+      AuthFactorStorageType storage_type,
+      const std::set<AuthFactorType>& configured_factors) const = 0;
+
   // Indicates if the factor requires the use of a Prepare operation before it
   // can be added or authenticated.
   virtual bool IsPrepareRequired() const = 0;
@@ -40,6 +52,12 @@ class AuthFactorDriver {
   // present; this does not indicate that underlying firmware or hardware
   // support (if required) is available.
   virtual bool IsVerifySupported(AuthIntent auth_intent) const = 0;
+
+  // Creates a credential verifier for the specified type and input. Returns
+  // null on failure or if verifiers are not supported by the driver.
+  virtual std::unique_ptr<CredentialVerifier> CreateCredentialVerifier(
+      const std::string& auth_factor_label,
+      const AuthInput& auth_input) const = 0;
 
   // This returns if a type is PinWeaver backed, and thus needs a reset secret.
   virtual bool NeedsResetSecret() const = 0;

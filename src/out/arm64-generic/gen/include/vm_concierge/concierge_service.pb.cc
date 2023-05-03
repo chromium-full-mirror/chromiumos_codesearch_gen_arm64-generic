@@ -1178,6 +1178,35 @@ struct InstallPflashResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallPflashResponseDefaultTypeInternal _InstallPflashResponse_default_instance_;
+PROTOBUF_CONSTEXPR AggressiveBalloonRequest::AggressiveBalloonRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.enable_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct AggressiveBalloonRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AggressiveBalloonRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AggressiveBalloonRequestDefaultTypeInternal() {}
+  union {
+    AggressiveBalloonRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AggressiveBalloonRequestDefaultTypeInternal _AggressiveBalloonRequest_default_instance_;
+PROTOBUF_CONSTEXPR AggressiveBalloonResponse::AggressiveBalloonResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.failure_reason_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.success_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct AggressiveBalloonResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AggressiveBalloonResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AggressiveBalloonResponseDefaultTypeInternal() {}
+  union {
+    AggressiveBalloonResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AggressiveBalloonResponseDefaultTypeInternal _AggressiveBalloonResponse_default_instance_;
 }  // namespace concierge
 }  // namespace vm_tools
 namespace vm_tools {
@@ -1189,17 +1218,19 @@ bool VmInfo_VmType_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VmInfo_VmType_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VmInfo_VmType_strings[6] = {};
 
 static const char VmInfo_VmType_names[] =
   "ARC_VM"
   "BOREALIS"
+  "BRUSCHETTA"
   "PLUGIN_VM"
   "TERMINA"
   "UNKNOWN";
@@ -1207,17 +1238,19 @@ static const char VmInfo_VmType_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry VmInfo_VmType_entries[] = {
   { {VmInfo_VmType_names + 0, 6}, 2 },
   { {VmInfo_VmType_names + 6, 8}, 4 },
-  { {VmInfo_VmType_names + 14, 9}, 3 },
-  { {VmInfo_VmType_names + 23, 7}, 1 },
-  { {VmInfo_VmType_names + 30, 7}, 0 },
+  { {VmInfo_VmType_names + 14, 10}, 5 },
+  { {VmInfo_VmType_names + 24, 9}, 3 },
+  { {VmInfo_VmType_names + 33, 7}, 1 },
+  { {VmInfo_VmType_names + 40, 7}, 0 },
 };
 
 static const int VmInfo_VmType_entries_by_number[] = {
-  4, // 0 -> UNKNOWN
-  3, // 1 -> TERMINA
+  5, // 0 -> UNKNOWN
+  4, // 1 -> TERMINA
   0, // 2 -> ARC_VM
-  2, // 3 -> PLUGIN_VM
+  3, // 3 -> PLUGIN_VM
   1, // 4 -> BOREALIS
+  2, // 5 -> BRUSCHETTA
 };
 
 const std::string& VmInfo_VmType_Name(
@@ -1226,12 +1259,12 @@ const std::string& VmInfo_VmType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           VmInfo_VmType_entries,
           VmInfo_VmType_entries_by_number,
-          5, VmInfo_VmType_strings);
+          6, VmInfo_VmType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       VmInfo_VmType_entries,
       VmInfo_VmType_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      VmInfo_VmType_strings[idx].get();
 }
@@ -1239,7 +1272,7 @@ bool VmInfo_VmType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VmInfo_VmType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      VmInfo_VmType_entries, 5, name, &int_value);
+      VmInfo_VmType_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<VmInfo_VmType>(int_value);
   }
@@ -1251,6 +1284,7 @@ constexpr VmInfo_VmType VmInfo::TERMINA;
 constexpr VmInfo_VmType VmInfo::ARC_VM;
 constexpr VmInfo_VmType VmInfo::PLUGIN_VM;
 constexpr VmInfo_VmType VmInfo::BOREALIS;
+constexpr VmInfo_VmType VmInfo::BRUSCHETTA;
 constexpr VmInfo_VmType VmInfo::VmType_MIN;
 constexpr VmInfo_VmType VmInfo::VmType_MAX;
 constexpr int VmInfo::VmType_ARRAYSIZE;
@@ -2390,29 +2424,33 @@ bool SwapOperation_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SwapOperation_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SwapOperation_strings[4] = {};
 
 static const char SwapOperation_names[] =
   "DISABLE"
   "ENABLE"
+  "FORCE_ENABLE"
   "SWAPOUT";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SwapOperation_entries[] = {
   { {SwapOperation_names + 0, 7}, 0 },
   { {SwapOperation_names + 7, 6}, 1 },
-  { {SwapOperation_names + 13, 7}, 2 },
+  { {SwapOperation_names + 13, 12}, 3 },
+  { {SwapOperation_names + 25, 7}, 2 },
 };
 
 static const int SwapOperation_entries_by_number[] = {
   0, // 0 -> DISABLE
   1, // 1 -> ENABLE
-  2, // 2 -> SWAPOUT
+  3, // 2 -> SWAPOUT
+  2, // 3 -> FORCE_ENABLE
 };
 
 const std::string& SwapOperation_Name(
@@ -2421,12 +2459,12 @@ const std::string& SwapOperation_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SwapOperation_entries,
           SwapOperation_entries_by_number,
-          3, SwapOperation_strings);
+          4, SwapOperation_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SwapOperation_entries,
       SwapOperation_entries_by_number,
-      3, value);
+      4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SwapOperation_strings[idx].get();
 }
@@ -2434,7 +2472,7 @@ bool SwapOperation_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SwapOperation* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SwapOperation_entries, 3, name, &int_value);
+      SwapOperation_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<SwapOperation>(int_value);
   }
@@ -24321,6 +24359,520 @@ std::string InstallPflashResponse::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class AggressiveBalloonRequest::_Internal {
+ public:
+};
+
+AggressiveBalloonRequest::AggressiveBalloonRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.AggressiveBalloonRequest)
+}
+AggressiveBalloonRequest::AggressiveBalloonRequest(const AggressiveBalloonRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AggressiveBalloonRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.owner_id_){}
+    , decltype(_impl_.enable_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_name().empty()) {
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_owner_id().empty()) {
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.enable_ = from._impl_.enable_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.AggressiveBalloonRequest)
+}
+
+inline void AggressiveBalloonRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.owner_id_){}
+    , decltype(_impl_.enable_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+AggressiveBalloonRequest::~AggressiveBalloonRequest() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.AggressiveBalloonRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AggressiveBalloonRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.name_.Destroy();
+  _impl_.owner_id_.Destroy();
+}
+
+void AggressiveBalloonRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void AggressiveBalloonRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.AggressiveBalloonRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.name_.ClearToEmpty();
+  _impl_.owner_id_.ClearToEmpty();
+  _impl_.enable_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AggressiveBalloonRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string owner_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_owner_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool enable = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.enable_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AggressiveBalloonRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.AggressiveBalloonRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AggressiveBalloonRequest.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_owner_id().data(), static_cast<int>(this->_internal_owner_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AggressiveBalloonRequest.owner_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_owner_id(), target);
+  }
+
+  // bool enable = 3;
+  if (this->_internal_enable() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_enable(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.AggressiveBalloonRequest)
+  return target;
+}
+
+size_t AggressiveBalloonRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.AggressiveBalloonRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_owner_id());
+  }
+
+  // bool enable = 3;
+  if (this->_internal_enable() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AggressiveBalloonRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AggressiveBalloonRequest*>(
+      &from));
+}
+
+void AggressiveBalloonRequest::MergeFrom(const AggressiveBalloonRequest& from) {
+  AggressiveBalloonRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.AggressiveBalloonRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _this->_internal_set_name(from._internal_name());
+  }
+  if (!from._internal_owner_id().empty()) {
+    _this->_internal_set_owner_id(from._internal_owner_id());
+  }
+  if (from._internal_enable() != 0) {
+    _this->_internal_set_enable(from._internal_enable());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AggressiveBalloonRequest::CopyFrom(const AggressiveBalloonRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.AggressiveBalloonRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AggressiveBalloonRequest::IsInitialized() const {
+  return true;
+}
+
+void AggressiveBalloonRequest::InternalSwap(AggressiveBalloonRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.owner_id_, lhs_arena,
+      &other->_impl_.owner_id_, rhs_arena
+  );
+  swap(_impl_.enable_, other->_impl_.enable_);
+}
+
+std::string AggressiveBalloonRequest::GetTypeName() const {
+  return "vm_tools.concierge.AggressiveBalloonRequest";
+}
+
+
+// ===================================================================
+
+class AggressiveBalloonResponse::_Internal {
+ public:
+};
+
+AggressiveBalloonResponse::AggressiveBalloonResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.AggressiveBalloonResponse)
+}
+AggressiveBalloonResponse::AggressiveBalloonResponse(const AggressiveBalloonResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AggressiveBalloonResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.success_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_failure_reason().empty()) {
+    _this->_impl_.failure_reason_.Set(from._internal_failure_reason(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.success_ = from._impl_.success_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.AggressiveBalloonResponse)
+}
+
+inline void AggressiveBalloonResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.success_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+AggressiveBalloonResponse::~AggressiveBalloonResponse() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.AggressiveBalloonResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AggressiveBalloonResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.failure_reason_.Destroy();
+}
+
+void AggressiveBalloonResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void AggressiveBalloonResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.AggressiveBalloonResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.failure_reason_.ClearToEmpty();
+  _impl_.success_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AggressiveBalloonResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string failure_reason = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_failure_reason();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AggressiveBalloonResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.AggressiveBalloonResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  // string failure_reason = 2;
+  if (!this->_internal_failure_reason().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_failure_reason().data(), static_cast<int>(this->_internal_failure_reason().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AggressiveBalloonResponse.failure_reason");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_failure_reason(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.AggressiveBalloonResponse)
+  return target;
+}
+
+size_t AggressiveBalloonResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.AggressiveBalloonResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string failure_reason = 2;
+  if (!this->_internal_failure_reason().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_failure_reason());
+  }
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AggressiveBalloonResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AggressiveBalloonResponse*>(
+      &from));
+}
+
+void AggressiveBalloonResponse::MergeFrom(const AggressiveBalloonResponse& from) {
+  AggressiveBalloonResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.AggressiveBalloonResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_failure_reason().empty()) {
+    _this->_internal_set_failure_reason(from._internal_failure_reason());
+  }
+  if (from._internal_success() != 0) {
+    _this->_internal_set_success(from._internal_success());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AggressiveBalloonResponse::CopyFrom(const AggressiveBalloonResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.AggressiveBalloonResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AggressiveBalloonResponse::IsInitialized() const {
+  return true;
+}
+
+void AggressiveBalloonResponse::InternalSwap(AggressiveBalloonResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.failure_reason_, lhs_arena,
+      &other->_impl_.failure_reason_, rhs_arena
+  );
+  swap(_impl_.success_, other->_impl_.success_);
+}
+
+std::string AggressiveBalloonResponse::GetTypeName() const {
+  return "vm_tools.concierge.AggressiveBalloonResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace concierge
 }  // namespace vm_tools
@@ -24616,6 +25168,14 @@ Arena::CreateMaybeMessage< ::vm_tools::concierge::InstallPflashRequest >(Arena* 
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::InstallPflashResponse*
 Arena::CreateMaybeMessage< ::vm_tools::concierge::InstallPflashResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::concierge::InstallPflashResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::AggressiveBalloonRequest*
+Arena::CreateMaybeMessage< ::vm_tools::concierge::AggressiveBalloonRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::AggressiveBalloonRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::AggressiveBalloonResponse*
+Arena::CreateMaybeMessage< ::vm_tools::concierge::AggressiveBalloonResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::AggressiveBalloonResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

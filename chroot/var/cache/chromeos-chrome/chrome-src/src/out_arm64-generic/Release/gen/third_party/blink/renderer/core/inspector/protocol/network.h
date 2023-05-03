@@ -54,6 +54,7 @@ using SetCookieBlockedReason = String;
 using CookieBlockedReason = String;
 class BlockedSetCookieWithReason;
 class BlockedCookieWithReason;
+class CookieParam;
 class AuthChallenge;
 class SignedExchangeSignature;
 class SignedExchangeHeader;
@@ -2467,6 +2468,207 @@ private:
 
     std::unique_ptr<protocol::Array<String>> m_blockedReasons;
     std::unique_ptr<protocol::Network::Cookie> m_cookie;
+};
+
+
+class CORE_EXPORT CookieParam : public ::crdtp::ProtocolObject<CookieParam> {
+public:
+    ~CookieParam() override { }
+
+    String getName() { return m_name; }
+    void setName(const String& value) { m_name = value; }
+
+    String getValue() { return m_value; }
+    void setValue(const String& value) { m_value = value; }
+
+    bool hasUrl() { return m_url.isJust(); }
+    String getUrl(const String& defaultValue) { return m_url.isJust() ? m_url.fromJust() : defaultValue; }
+    void setUrl(const String& value) { m_url = value; }
+
+    bool hasDomain() { return m_domain.isJust(); }
+    String getDomain(const String& defaultValue) { return m_domain.isJust() ? m_domain.fromJust() : defaultValue; }
+    void setDomain(const String& value) { m_domain = value; }
+
+    bool hasPath() { return m_path.isJust(); }
+    String getPath(const String& defaultValue) { return m_path.isJust() ? m_path.fromJust() : defaultValue; }
+    void setPath(const String& value) { m_path = value; }
+
+    bool hasSecure() { return m_secure.isJust(); }
+    bool getSecure(bool defaultValue) { return m_secure.isJust() ? m_secure.fromJust() : defaultValue; }
+    void setSecure(bool value) { m_secure = value; }
+
+    bool hasHttpOnly() { return m_httpOnly.isJust(); }
+    bool getHttpOnly(bool defaultValue) { return m_httpOnly.isJust() ? m_httpOnly.fromJust() : defaultValue; }
+    void setHttpOnly(bool value) { m_httpOnly = value; }
+
+    bool hasSameSite() { return m_sameSite.isJust(); }
+    String getSameSite(const String& defaultValue) { return m_sameSite.isJust() ? m_sameSite.fromJust() : defaultValue; }
+    void setSameSite(const String& value) { m_sameSite = value; }
+
+    bool hasExpires() { return m_expires.isJust(); }
+    double getExpires(double defaultValue) { return m_expires.isJust() ? m_expires.fromJust() : defaultValue; }
+    void setExpires(double value) { m_expires = value; }
+
+    bool hasPriority() { return m_priority.isJust(); }
+    String getPriority(const String& defaultValue) { return m_priority.isJust() ? m_priority.fromJust() : defaultValue; }
+    void setPriority(const String& value) { m_priority = value; }
+
+    bool hasSameParty() { return m_sameParty.isJust(); }
+    bool getSameParty(bool defaultValue) { return m_sameParty.isJust() ? m_sameParty.fromJust() : defaultValue; }
+    void setSameParty(bool value) { m_sameParty = value; }
+
+    bool hasSourceScheme() { return m_sourceScheme.isJust(); }
+    String getSourceScheme(const String& defaultValue) { return m_sourceScheme.isJust() ? m_sourceScheme.fromJust() : defaultValue; }
+    void setSourceScheme(const String& value) { m_sourceScheme = value; }
+
+    bool hasSourcePort() { return m_sourcePort.isJust(); }
+    int getSourcePort(int defaultValue) { return m_sourcePort.isJust() ? m_sourcePort.fromJust() : defaultValue; }
+    void setSourcePort(int value) { m_sourcePort = value; }
+
+    bool hasPartitionKey() { return m_partitionKey.isJust(); }
+    String getPartitionKey(const String& defaultValue) { return m_partitionKey.isJust() ? m_partitionKey.fromJust() : defaultValue; }
+    void setPartitionKey(const String& value) { m_partitionKey = value; }
+
+    template<int STATE>
+    class CookieParamBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            NameSet = 1 << 1,
+            ValueSet = 1 << 2,
+            AllFieldsSet = (NameSet | ValueSet | 0)};
+
+
+        CookieParamBuilder<STATE | NameSet>& setName(const String& value)
+        {
+            static_assert(!(STATE & NameSet), "property name should not be set yet");
+            m_result->setName(value);
+            return castState<NameSet>();
+        }
+
+        CookieParamBuilder<STATE | ValueSet>& setValue(const String& value)
+        {
+            static_assert(!(STATE & ValueSet), "property value should not be set yet");
+            m_result->setValue(value);
+            return castState<ValueSet>();
+        }
+
+        CookieParamBuilder<STATE>& setUrl(const String& value)
+        {
+            m_result->setUrl(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setDomain(const String& value)
+        {
+            m_result->setDomain(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setPath(const String& value)
+        {
+            m_result->setPath(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setSecure(bool value)
+        {
+            m_result->setSecure(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setHttpOnly(bool value)
+        {
+            m_result->setHttpOnly(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setSameSite(const String& value)
+        {
+            m_result->setSameSite(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setExpires(double value)
+        {
+            m_result->setExpires(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setPriority(const String& value)
+        {
+            m_result->setPriority(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setSameParty(bool value)
+        {
+            m_result->setSameParty(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setSourceScheme(const String& value)
+        {
+            m_result->setSourceScheme(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setSourcePort(int value)
+        {
+            m_result->setSourcePort(value);
+            return *this;
+        }
+
+        CookieParamBuilder<STATE>& setPartitionKey(const String& value)
+        {
+            m_result->setPartitionKey(value);
+            return *this;
+        }
+
+        std::unique_ptr<CookieParam> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class CookieParam;
+        CookieParamBuilder() : m_result(new CookieParam()) { }
+
+        template<int STEP> CookieParamBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<CookieParamBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Network::CookieParam> m_result;
+    };
+
+    static CookieParamBuilder<0> create()
+    {
+        return CookieParamBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    CookieParam()
+    {
+    }
+
+    String m_name;
+    String m_value;
+    Maybe<String> m_url;
+    Maybe<String> m_domain;
+    Maybe<String> m_path;
+    Maybe<bool> m_secure;
+    Maybe<bool> m_httpOnly;
+    Maybe<String> m_sameSite;
+    Maybe<double> m_expires;
+    Maybe<String> m_priority;
+    Maybe<bool> m_sameParty;
+    Maybe<String> m_sourceScheme;
+    Maybe<int> m_sourcePort;
+    Maybe<String> m_partitionKey;
 };
 
 
