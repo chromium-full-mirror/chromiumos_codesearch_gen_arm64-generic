@@ -114,6 +114,10 @@ NOINLINE static const char* SetEffectResultToStringHelper(SetEffectResult value)
       return "kOk";
     case SetEffectResult::kError:
       return "kError";
+    case SetEffectResult::kFeatureDisabled:
+      return "kFeatureDisabled";
+    case SetEffectResult::kDlcUnavailable:
+      return "kDlcUnavailable";
     default:
       return nullptr;
   }

@@ -123,8 +123,12 @@ enum class SetEffectResult : int32_t {
   kOk = 0,
   
   kError = 1,
+  
+  kFeatureDisabled = 2,
+  
+  kDlcUnavailable = 3,
   kMinValue = 0,
-  kMaxValue = 1,
+  kMaxValue = 3,
   kDefaultValue = 0
 };
 
