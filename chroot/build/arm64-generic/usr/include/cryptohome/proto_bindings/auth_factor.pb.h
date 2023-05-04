@@ -2409,6 +2409,7 @@ class CommonMetadata final :
   enum : int {
     kChromeosVersionLastUpdatedFieldNumber = 1,
     kChromeVersionLastUpdatedFieldNumber = 2,
+    kUserSpecifiedNameFieldNumber = 4,
     kLockoutPolicyFieldNumber = 3,
   };
   // string chromeos_version_last_updated = 1;
@@ -2439,6 +2440,20 @@ class CommonMetadata final :
   std::string* _internal_mutable_chrome_version_last_updated();
   public:
 
+  // string user_specified_name = 4;
+  void clear_user_specified_name();
+  const std::string& user_specified_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_specified_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_specified_name();
+  PROTOBUF_NODISCARD std::string* release_user_specified_name();
+  void set_allocated_user_specified_name(std::string* user_specified_name);
+  private:
+  const std::string& _internal_user_specified_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_specified_name(const std::string& value);
+  std::string* _internal_mutable_user_specified_name();
+  public:
+
   // .user_data_auth.LockoutPolicy lockout_policy = 3;
   void clear_lockout_policy();
   ::user_data_auth::LockoutPolicy lockout_policy() const;
@@ -2458,6 +2473,7 @@ class CommonMetadata final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr chromeos_version_last_updated_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr chrome_version_last_updated_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_specified_name_;
     int lockout_policy_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -4468,6 +4484,56 @@ inline void CommonMetadata::_internal_set_lockout_policy(::user_data_auth::Locko
 inline void CommonMetadata::set_lockout_policy(::user_data_auth::LockoutPolicy value) {
   _internal_set_lockout_policy(value);
   // @@protoc_insertion_point(field_set:user_data_auth.CommonMetadata.lockout_policy)
+}
+
+// string user_specified_name = 4;
+inline void CommonMetadata::clear_user_specified_name() {
+  _impl_.user_specified_name_.ClearToEmpty();
+}
+inline const std::string& CommonMetadata::user_specified_name() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CommonMetadata.user_specified_name)
+  return _internal_user_specified_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CommonMetadata::set_user_specified_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.user_specified_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.CommonMetadata.user_specified_name)
+}
+inline std::string* CommonMetadata::mutable_user_specified_name() {
+  std::string* _s = _internal_mutable_user_specified_name();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.CommonMetadata.user_specified_name)
+  return _s;
+}
+inline const std::string& CommonMetadata::_internal_user_specified_name() const {
+  return _impl_.user_specified_name_.Get();
+}
+inline void CommonMetadata::_internal_set_user_specified_name(const std::string& value) {
+  
+  _impl_.user_specified_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CommonMetadata::_internal_mutable_user_specified_name() {
+  
+  return _impl_.user_specified_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CommonMetadata::release_user_specified_name() {
+  // @@protoc_insertion_point(field_release:user_data_auth.CommonMetadata.user_specified_name)
+  return _impl_.user_specified_name_.Release();
+}
+inline void CommonMetadata::set_allocated_user_specified_name(std::string* user_specified_name) {
+  if (user_specified_name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.user_specified_name_.SetAllocated(user_specified_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.user_specified_name_.IsDefault()) {
+    _impl_.user_specified_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CommonMetadata.user_specified_name)
 }
 
 // -------------------------------------------------------------------

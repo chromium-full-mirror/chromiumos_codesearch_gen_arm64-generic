@@ -509,6 +509,10 @@ std::string GetProtoDebugStringWithIndent(const CommonMetadata& value,
           .c_str());
   output += "\n";
 
+  output += indent + "  user_specified_name: ";
+  base::StringAppendF(&output, "%s", value.user_specified_name().c_str());
+  output += "\n";
+
   output += indent + "}\n";
   return output;
 }

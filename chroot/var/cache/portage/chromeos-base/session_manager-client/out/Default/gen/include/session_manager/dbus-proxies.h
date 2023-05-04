@@ -201,19 +201,6 @@ class SessionManagerInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool StoreUnsignedPolicyEx(
-      const std::vector<uint8_t>& in_descriptor_blob,
-      const std::vector<uint8_t>& in_policy_blob,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void StoreUnsignedPolicyExAsync(
-      const std::vector<uint8_t>& in_descriptor_blob,
-      const std::vector<uint8_t>& in_policy_blob,
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool ListStoredComponentPolicies(
       const std::vector<uint8_t>& in_descriptor_blob,
       std::vector<std::string>* out_component_ids,
@@ -1178,40 +1165,6 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
         dbus_object_proxy_,
         "org.chromium.SessionManagerInterface",
         "StorePolicyEx",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_descriptor_blob,
-        in_policy_blob);
-  }
-
-  bool StoreUnsignedPolicyEx(
-      const std::vector<uint8_t>& in_descriptor_blob,
-      const std::vector<uint8_t>& in_policy_blob,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.SessionManagerInterface",
-        "StoreUnsignedPolicyEx",
-        error,
-        in_descriptor_blob,
-        in_policy_blob);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error);
-  }
-
-  void StoreUnsignedPolicyExAsync(
-      const std::vector<uint8_t>& in_descriptor_blob,
-      const std::vector<uint8_t>& in_policy_blob,
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.SessionManagerInterface",
-        "StoreUnsignedPolicyEx",
         std::move(success_callback),
         std::move(error_callback),
         in_descriptor_blob,

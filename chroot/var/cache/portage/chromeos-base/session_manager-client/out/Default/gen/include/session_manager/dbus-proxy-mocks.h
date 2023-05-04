@@ -166,17 +166,6 @@ class SessionManagerInterfaceProxyMock : public SessionManagerInterfaceProxyInte
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(StoreUnsignedPolicyEx,
-               bool(const std::vector<uint8_t>& /*in_descriptor_blob*/,
-                    const std::vector<uint8_t>& /*in_policy_blob*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(StoreUnsignedPolicyExAsync,
-               void(const std::vector<uint8_t>& /*in_descriptor_blob*/,
-                    const std::vector<uint8_t>& /*in_policy_blob*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD4(ListStoredComponentPolicies,
                bool(const std::vector<uint8_t>& /*in_descriptor_blob*/,
                     std::vector<std::string>* /*out_component_ids*/,
