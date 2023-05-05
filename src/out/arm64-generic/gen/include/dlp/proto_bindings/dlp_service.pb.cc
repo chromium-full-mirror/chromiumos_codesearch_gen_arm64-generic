@@ -264,7 +264,6 @@ PROTOBUF_CONSTEXPR IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedR
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.restricted_files_)*/{}
   , /*decltype(_impl_.files_restrictions_)*/{}
   , /*decltype(_impl_.error_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct IsFilesTransferRestrictedResponseDefaultTypeInternal {
@@ -4716,7 +4715,6 @@ IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(const IsFil
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.restricted_files_){from._impl_.restricted_files_}
     , decltype(_impl_.files_restrictions_){from._impl_.files_restrictions_}
     , decltype(_impl_.error_message_){}};
 
@@ -4739,7 +4737,6 @@ inline void IsFilesTransferRestrictedResponse::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.restricted_files_){arena}
     , decltype(_impl_.files_restrictions_){arena}
     , decltype(_impl_.error_message_){}
   };
@@ -4760,7 +4757,6 @@ IsFilesTransferRestrictedResponse::~IsFilesTransferRestrictedResponse() {
 
 inline void IsFilesTransferRestrictedResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.restricted_files_.~RepeatedPtrField();
   _impl_.files_restrictions_.~RepeatedPtrField();
   _impl_.error_message_.Destroy();
 }
@@ -4775,7 +4771,6 @@ void IsFilesTransferRestrictedResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.restricted_files_.Clear();
   _impl_.files_restrictions_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
@@ -4798,19 +4793,6 @@ const char* IsFilesTransferRestrictedResponse::_InternalParse(const char* ptr, :
           auto str = _internal_mutable_error_message();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .dlp.FileMetadata restricted_files = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_restricted_files(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -4864,14 +4846,6 @@ uint8_t* IsFilesTransferRestrictedResponse::_InternalSerialize(
         1, this->_internal_error_message(), target);
   }
 
-  // repeated .dlp.FileMetadata restricted_files = 3;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_restricted_files_size()); i < n; i++) {
-    const auto& repfield = this->_internal_restricted_files(i);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
-  }
-
   // repeated .dlp.FileRestriction files_restrictions = 4;
   for (unsigned i = 0,
       n = static_cast<unsigned>(this->_internal_files_restrictions_size()); i < n; i++) {
@@ -4895,13 +4869,6 @@ size_t IsFilesTransferRestrictedResponse::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // repeated .dlp.FileMetadata restricted_files = 3;
-  total_size += 1UL * this->_internal_restricted_files_size();
-  for (const auto& msg : this->_impl_.restricted_files_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
 
   // repeated .dlp.FileRestriction files_restrictions = 4;
   total_size += 1UL * this->_internal_files_restrictions_size();
@@ -4939,7 +4906,6 @@ void IsFilesTransferRestrictedResponse::MergeFrom(const IsFilesTransferRestricte
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.restricted_files_.MergeFrom(from._impl_.restricted_files_);
   _this->_impl_.files_restrictions_.MergeFrom(from._impl_.files_restrictions_);
   if (from._internal_has_error_message()) {
     _this->_internal_set_error_message(from._internal_error_message());
@@ -4964,7 +4930,6 @@ void IsFilesTransferRestrictedResponse::InternalSwap(IsFilesTransferRestrictedRe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.restricted_files_.InternalSwap(&other->_impl_.restricted_files_);
   _impl_.files_restrictions_.InternalSwap(&other->_impl_.files_restrictions_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.error_message_, lhs_arena,

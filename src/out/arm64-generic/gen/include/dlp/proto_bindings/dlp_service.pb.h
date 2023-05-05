@@ -3046,28 +3046,9 @@ class IsFilesTransferRestrictedResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kRestrictedFilesFieldNumber = 3,
     kFilesRestrictionsFieldNumber = 4,
     kErrorMessageFieldNumber = 1,
   };
-  // repeated .dlp.FileMetadata restricted_files = 3;
-  int restricted_files_size() const;
-  private:
-  int _internal_restricted_files_size() const;
-  public:
-  void clear_restricted_files();
-  ::dlp::FileMetadata* mutable_restricted_files(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >*
-      mutable_restricted_files();
-  private:
-  const ::dlp::FileMetadata& _internal_restricted_files(int index) const;
-  ::dlp::FileMetadata* _internal_add_restricted_files();
-  public:
-  const ::dlp::FileMetadata& restricted_files(int index) const;
-  ::dlp::FileMetadata* add_restricted_files();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >&
-      restricted_files() const;
-
   // repeated .dlp.FileRestriction files_restrictions = 4;
   int files_restrictions_size() const;
   private:
@@ -3114,7 +3095,6 @@ class IsFilesTransferRestrictedResponse final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata > restricted_files_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileRestriction > files_restrictions_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr error_message_;
   };
@@ -5228,46 +5208,6 @@ inline void IsFilesTransferRestrictedResponse::set_allocated_error_message(std::
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:dlp.IsFilesTransferRestrictedResponse.error_message)
-}
-
-// repeated .dlp.FileMetadata restricted_files = 3;
-inline int IsFilesTransferRestrictedResponse::_internal_restricted_files_size() const {
-  return _impl_.restricted_files_.size();
-}
-inline int IsFilesTransferRestrictedResponse::restricted_files_size() const {
-  return _internal_restricted_files_size();
-}
-inline void IsFilesTransferRestrictedResponse::clear_restricted_files() {
-  _impl_.restricted_files_.Clear();
-}
-inline ::dlp::FileMetadata* IsFilesTransferRestrictedResponse::mutable_restricted_files(int index) {
-  // @@protoc_insertion_point(field_mutable:dlp.IsFilesTransferRestrictedResponse.restricted_files)
-  return _impl_.restricted_files_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >*
-IsFilesTransferRestrictedResponse::mutable_restricted_files() {
-  // @@protoc_insertion_point(field_mutable_list:dlp.IsFilesTransferRestrictedResponse.restricted_files)
-  return &_impl_.restricted_files_;
-}
-inline const ::dlp::FileMetadata& IsFilesTransferRestrictedResponse::_internal_restricted_files(int index) const {
-  return _impl_.restricted_files_.Get(index);
-}
-inline const ::dlp::FileMetadata& IsFilesTransferRestrictedResponse::restricted_files(int index) const {
-  // @@protoc_insertion_point(field_get:dlp.IsFilesTransferRestrictedResponse.restricted_files)
-  return _internal_restricted_files(index);
-}
-inline ::dlp::FileMetadata* IsFilesTransferRestrictedResponse::_internal_add_restricted_files() {
-  return _impl_.restricted_files_.Add();
-}
-inline ::dlp::FileMetadata* IsFilesTransferRestrictedResponse::add_restricted_files() {
-  ::dlp::FileMetadata* _add = _internal_add_restricted_files();
-  // @@protoc_insertion_point(field_add:dlp.IsFilesTransferRestrictedResponse.restricted_files)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >&
-IsFilesTransferRestrictedResponse::restricted_files() const {
-  // @@protoc_insertion_point(field_list:dlp.IsFilesTransferRestrictedResponse.restricted_files)
-  return _impl_.restricted_files_;
 }
 
 // repeated .dlp.FileRestriction files_restrictions = 4;
