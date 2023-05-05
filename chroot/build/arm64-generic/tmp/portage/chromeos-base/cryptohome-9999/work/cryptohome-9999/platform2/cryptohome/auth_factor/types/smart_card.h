@@ -10,6 +10,7 @@
 #include <set>
 #include <string>
 
+#include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_factor/auth_factor_label_arity.h"
 #include "cryptohome/auth_factor/auth_factor_metadata.h"
 #include "cryptohome/auth_factor/auth_factor_storage_type.h"
@@ -27,14 +28,15 @@
 namespace cryptohome {
 
 class SmartCardAuthFactorDriver final
-    : public TypedAuthFactorDriver<SmartCardAuthFactorMetadata> {
+    : public AfDriverWithType<AuthFactorType::kSmartCard>,
+      public AfDriverWithBlockTypes<AuthBlockType::kChallengeCredential>,
+      public AfDriverWithMetadata<SmartCardAuthFactorMetadata> {
  public:
   SmartCardAuthFactorDriver(
       Crypto* crypto,
       AsyncInitPtr<ChallengeCredentialsHelper> challenge_credentials_helper,
       KeyChallengeServiceFactory* key_challenge_service_factory)
-      : TypedAuthFactorDriver(AuthFactorType::kSmartCard),
-        crypto_(crypto),
+      : crypto_(crypto),
         challenge_credentials_helper_(challenge_credentials_helper),
         key_challenge_service_factory_(key_challenge_service_factory) {}
 

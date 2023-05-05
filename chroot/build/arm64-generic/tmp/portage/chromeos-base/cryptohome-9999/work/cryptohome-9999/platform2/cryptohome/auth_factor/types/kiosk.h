@@ -16,6 +16,7 @@
 #include "cryptohome/auth_factor/auth_factor_type.h"
 #include "cryptohome/auth_factor/types/common.h"
 #include "cryptohome/auth_factor/types/interface.h"
+#include "cryptohome/auth_factor/types/password.h"
 #include "cryptohome/auth_intent.h"
 #include "cryptohome/credential_verifier.h"
 #include "cryptohome/key_objects.h"
@@ -23,19 +24,18 @@
 namespace cryptohome {
 
 class KioskAuthFactorDriver final
-    : public TypedAuthFactorDriver<KioskAuthFactorMetadata> {
+    : public AfDriverWithType<AuthFactorType::kKiosk>,
+      public AfDriverWithPasswordBlockTypes,
+      public AfDriverWithMetadata<KioskAuthFactorMetadata>,
+      public AfDriverNoCredentialVerifier {
  public:
-  KioskAuthFactorDriver() : TypedAuthFactorDriver(AuthFactorType::kKiosk) {}
+  KioskAuthFactorDriver() = default;
 
  private:
   bool IsSupported(
       AuthFactorStorageType storage_type,
       const std::set<AuthFactorType>& configured_factors) const override;
   bool IsPrepareRequired() const override;
-  bool IsVerifySupported(AuthIntent auth_intent) const override;
-  std::unique_ptr<CredentialVerifier> CreateCredentialVerifier(
-      const std::string& auth_factor_label,
-      const AuthInput& auth_input) const override;
   bool NeedsResetSecret() const override;
   bool NeedsRateLimiter() const override;
   AuthFactorLabelArity GetAuthFactorLabelArity() const override;

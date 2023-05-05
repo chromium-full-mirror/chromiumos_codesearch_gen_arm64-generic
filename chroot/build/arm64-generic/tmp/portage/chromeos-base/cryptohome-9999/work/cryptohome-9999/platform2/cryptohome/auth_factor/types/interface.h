@@ -12,6 +12,8 @@
 
 #include <cryptohome/proto_bindings/auth_factor.pb.h>
 
+#include "base/containers/span.h"
+#include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_factor/auth_factor_label_arity.h"
 #include "cryptohome/auth_factor/auth_factor_metadata.h"
 #include "cryptohome/auth_factor/auth_factor_storage_type.h"
@@ -27,14 +29,20 @@ namespace cryptohome {
 // implementation for each AuthFactorType.
 class AuthFactorDriver {
  public:
-  explicit AuthFactorDriver(AuthFactorType type) : type_(type) {}
+  AuthFactorDriver() = default;
 
   AuthFactorDriver(const AuthFactorDriver&) = delete;
   AuthFactorDriver& operator=(const AuthFactorDriver&) = delete;
 
   virtual ~AuthFactorDriver() = default;
 
-  AuthFactorType type() const { return type_; }
+  // The type of factor the driver implements.
+  virtual AuthFactorType type() const = 0;
+
+  // The underlying auth block types that the factor uses. The span lists them
+  // in priority order, with the first element being the most preferred block
+  // type to use.
+  virtual base::span<const AuthBlockType> block_types() const = 0;
 
   // Indicates if the factor is supported based on a combination of the type of
   // auth factor storage being used, the currently configured factors, and the
@@ -73,9 +81,6 @@ class AuthFactorDriver {
   // metadata and label. Returns null if the conversion fails.
   virtual std::optional<user_data_auth::AuthFactor> ConvertToProto(
       const std::string& label, const AuthFactorMetadata& metadata) const = 0;
-
- private:
-  const AuthFactorType type_;
 };
 
 }  // namespace cryptohome

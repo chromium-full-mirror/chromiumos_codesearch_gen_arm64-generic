@@ -25,14 +25,14 @@
 /* Define to 1 if you have the <linux/types.h> header file. */
 #define HAVE_LINUX_TYPES_H 1
 
-/* Define to 1 if you have the <memory.h> header file. */
-#define HAVE_MEMORY_H 1
-
 /* Define to 1 if you have the <readline/readline.h> header file. */
 #define HAVE_READLINE_READLINE_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
+
+/* Define to 1 if you have the <stdio.h> header file. */
+#define HAVE_STDIO_H 1
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #define HAVE_STDLIB_H 1
@@ -88,7 +88,9 @@
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "5.54"
 
-/* Define to 1 if you have the ANSI C header files. */
+/* Define to 1 if all of the C90 standard headers exist (not just the ones
+   required in a freestanding environment). This macro is provided for
+   backward compatibility; new code need not use it. */
 #define STDC_HEADERS 1
 
 /* Directory for the storage files */
@@ -99,14 +101,15 @@
 
 /* Define to the equivalent of the C99 'restrict' keyword, or to
    nothing if this is not supported.  Do not define if restrict is
-   supported directly.  */
-#define restrict __restrict
-/* Work around a bug in Sun C++: it does not support _Restrict or
-   __restrict__, even though the corresponding Sun C compiler ends up with
-   "#define restrict _Restrict" or "#define restrict __restrict__" in the
-   previous line.  Perhaps some future version of Sun C++ will work with
-   restrict; if so, hopefully it defines __RESTRICT like Sun C does.  */
-#if defined __SUNPRO_CC && !defined __RESTRICT
+   supported only directly.  */
+#define restrict __restrict__
+/* Work around a bug in older versions of Sun C++, which did not
+   #define __restrict__ or support _Restrict or __restrict__
+   even though the corresponding Sun C compiler ended up with
+   "#define restrict _Restrict" or "#define restrict __restrict__"
+   in the previous line.  This workaround can be removed once
+   we assume Oracle Developer Studio 12.5 (2016) or later.  */
+#if defined __SUNPRO_CC && !defined __RESTRICT && !defined __restrict__
 # define _Restrict
 # define __restrict__
 #endif
