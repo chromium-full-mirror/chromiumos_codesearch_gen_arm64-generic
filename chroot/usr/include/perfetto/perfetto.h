@@ -6386,6 +6386,7 @@ enum TraceConfig_TriggerConfig_TriggerMode : int {
   TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED = 0,
   TraceConfig_TriggerConfig_TriggerMode_START_TRACING = 1,
   TraceConfig_TriggerConfig_TriggerMode_STOP_TRACING = 2,
+  TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT = 3,
 };
 enum TraceConfig_BufferConfig_FillPolicy : int {
   TraceConfig_BufferConfig_FillPolicy_UNSPECIFIED = 0,
@@ -6889,10 +6890,12 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig : public ::protozero::
   static constexpr auto UNSPECIFIED = TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED;
   static constexpr auto START_TRACING = TraceConfig_TriggerConfig_TriggerMode_START_TRACING;
   static constexpr auto STOP_TRACING = TraceConfig_TriggerConfig_TriggerMode_STOP_TRACING;
+  static constexpr auto CLONE_SNAPSHOT = TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT;
   static constexpr auto TriggerMode_MIN = TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED;
-  static constexpr auto TriggerMode_MAX = TraceConfig_TriggerConfig_TriggerMode_STOP_TRACING;
+  static constexpr auto TriggerMode_MAX = TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT;
   enum FieldNumbers {
     kTriggerModeFieldNumber = 1,
+    kUseCloneSnapshotIfAvailableFieldNumber = 4,
     kTriggersFieldNumber = 2,
     kTriggerTimeoutMsFieldNumber = 3,
   };
@@ -6915,6 +6918,10 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig : public ::protozero::
   TraceConfig_TriggerConfig_TriggerMode trigger_mode() const { return trigger_mode_; }
   void set_trigger_mode(TraceConfig_TriggerConfig_TriggerMode value) { trigger_mode_ = value; _has_field_.set(1); }
 
+  bool has_use_clone_snapshot_if_available() const { return _has_field_[4]; }
+  bool use_clone_snapshot_if_available() const { return use_clone_snapshot_if_available_; }
+  void set_use_clone_snapshot_if_available(bool value) { use_clone_snapshot_if_available_ = value; _has_field_.set(4); }
+
   const std::vector<TraceConfig_TriggerConfig_Trigger>& triggers() const { return triggers_; }
   std::vector<TraceConfig_TriggerConfig_Trigger>* mutable_triggers() { return &triggers_; }
   int triggers_size() const;
@@ -6927,6 +6934,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig : public ::protozero::
 
  private:
   TraceConfig_TriggerConfig_TriggerMode trigger_mode_{};
+  bool use_clone_snapshot_if_available_{};
   std::vector<TraceConfig_TriggerConfig_Trigger> triggers_;
   uint32_t trigger_timeout_ms_{};
 
@@ -6934,7 +6942,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig : public ::protozero::
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<4> _has_field_{};
+  std::bitset<5> _has_field_{};
 };
 
 
@@ -7345,6 +7353,18 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BufferConfig : public ::protozero::C
 // gen_amalgamated expanded: #include "perfetto/tracing/core/forward_decls.h"
 
 // gen_amalgamated expanded: #include "protos/perfetto/config/trace_config.gen.h"
+
+namespace perfetto {
+
+inline TraceConfig::TriggerConfig::TriggerMode GetTriggerMode(
+    const TraceConfig& cfg) {
+  auto mode = cfg.trigger_config().trigger_mode();
+  if (cfg.trigger_config().use_clone_snapshot_if_available())
+    mode = TraceConfig::TriggerConfig::CLONE_SNAPSHOT;
+  return mode;
+}
+
+}  // namespace perfetto
 
 #endif  // INCLUDE_PERFETTO_TRACING_CORE_TRACE_CONFIG_H_
 // gen_amalgamated begin header: include/perfetto/tracing/data_source.h
@@ -21743,6 +21763,7 @@ namespace perfetto {
 namespace protos {
 namespace gen {
 class ObservableEvents;
+class ObservableEvents_CloneTriggerHit;
 class ObservableEvents_DataSourceInstanceStateChange;
 enum ObservableEvents_Type : int;
 enum ObservableEvents_DataSourceInstanceState : int;
@@ -21761,6 +21782,7 @@ enum ObservableEvents_Type : int {
   ObservableEvents_Type_TYPE_UNSPECIFIED = 0,
   ObservableEvents_Type_TYPE_DATA_SOURCES_INSTANCES = 1,
   ObservableEvents_Type_TYPE_ALL_DATA_SOURCES_STARTED = 2,
+  ObservableEvents_Type_TYPE_CLONE_TRIGGER_HIT = 4,
 };
 enum ObservableEvents_DataSourceInstanceState : int {
   ObservableEvents_DataSourceInstanceState_DATA_SOURCE_INSTANCE_STATE_STOPPED = 1,
@@ -21770,12 +21792,14 @@ enum ObservableEvents_DataSourceInstanceState : int {
 class PERFETTO_EXPORT_COMPONENT ObservableEvents : public ::protozero::CppMessageObj {
  public:
   using DataSourceInstanceStateChange = ObservableEvents_DataSourceInstanceStateChange;
+  using CloneTriggerHit = ObservableEvents_CloneTriggerHit;
   using Type = ObservableEvents_Type;
   static constexpr auto TYPE_UNSPECIFIED = ObservableEvents_Type_TYPE_UNSPECIFIED;
   static constexpr auto TYPE_DATA_SOURCES_INSTANCES = ObservableEvents_Type_TYPE_DATA_SOURCES_INSTANCES;
   static constexpr auto TYPE_ALL_DATA_SOURCES_STARTED = ObservableEvents_Type_TYPE_ALL_DATA_SOURCES_STARTED;
+  static constexpr auto TYPE_CLONE_TRIGGER_HIT = ObservableEvents_Type_TYPE_CLONE_TRIGGER_HIT;
   static constexpr auto Type_MIN = ObservableEvents_Type_TYPE_UNSPECIFIED;
-  static constexpr auto Type_MAX = ObservableEvents_Type_TYPE_ALL_DATA_SOURCES_STARTED;
+  static constexpr auto Type_MAX = ObservableEvents_Type_TYPE_CLONE_TRIGGER_HIT;
   using DataSourceInstanceState = ObservableEvents_DataSourceInstanceState;
   static constexpr auto DATA_SOURCE_INSTANCE_STATE_STOPPED = ObservableEvents_DataSourceInstanceState_DATA_SOURCE_INSTANCE_STATE_STOPPED;
   static constexpr auto DATA_SOURCE_INSTANCE_STATE_STARTED = ObservableEvents_DataSourceInstanceState_DATA_SOURCE_INSTANCE_STATE_STARTED;
@@ -21784,6 +21808,7 @@ class PERFETTO_EXPORT_COMPONENT ObservableEvents : public ::protozero::CppMessag
   enum FieldNumbers {
     kInstanceStateChangesFieldNumber = 1,
     kAllDataSourcesStartedFieldNumber = 2,
+    kCloneTriggerHitFieldNumber = 3,
   };
 
   ObservableEvents();
@@ -21810,15 +21835,55 @@ class PERFETTO_EXPORT_COMPONENT ObservableEvents : public ::protozero::CppMessag
   bool all_data_sources_started() const { return all_data_sources_started_; }
   void set_all_data_sources_started(bool value) { all_data_sources_started_ = value; _has_field_.set(2); }
 
+  bool has_clone_trigger_hit() const { return _has_field_[3]; }
+  const ObservableEvents_CloneTriggerHit& clone_trigger_hit() const { return *clone_trigger_hit_; }
+  ObservableEvents_CloneTriggerHit* mutable_clone_trigger_hit() { _has_field_.set(3); return clone_trigger_hit_.get(); }
+
  private:
   std::vector<ObservableEvents_DataSourceInstanceStateChange> instance_state_changes_;
   bool all_data_sources_started_{};
+  ::protozero::CopyablePtr<ObservableEvents_CloneTriggerHit> clone_trigger_hit_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<3> _has_field_{};
+  std::bitset<4> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT ObservableEvents_CloneTriggerHit : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kTracingSessionIdFieldNumber = 1,
+  };
+
+  ObservableEvents_CloneTriggerHit();
+  ~ObservableEvents_CloneTriggerHit() override;
+  ObservableEvents_CloneTriggerHit(ObservableEvents_CloneTriggerHit&&) noexcept;
+  ObservableEvents_CloneTriggerHit& operator=(ObservableEvents_CloneTriggerHit&&);
+  ObservableEvents_CloneTriggerHit(const ObservableEvents_CloneTriggerHit&);
+  ObservableEvents_CloneTriggerHit& operator=(const ObservableEvents_CloneTriggerHit&);
+  bool operator==(const ObservableEvents_CloneTriggerHit&) const;
+  bool operator!=(const ObservableEvents_CloneTriggerHit& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_tracing_session_id() const { return _has_field_[1]; }
+  int64_t tracing_session_id() const { return tracing_session_id_; }
+  void set_tracing_session_id(int64_t value) { tracing_session_id_ = value; _has_field_.set(1); }
+
+ private:
+  int64_t tracing_session_id_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
 };
 
 
@@ -22853,6 +22918,7 @@ class PERFETTO_EXPORT_COMPONENT TracingServiceCapabilities : public ::protozero:
     kHasQueryCapabilitiesFieldNumber = 1,
     kObservableEventsFieldNumber = 2,
     kHasTraceConfigOutputPathFieldNumber = 3,
+    kHasCloneSessionFieldNumber = 4,
   };
 
   TracingServiceCapabilities();
@@ -22884,16 +22950,21 @@ class PERFETTO_EXPORT_COMPONENT TracingServiceCapabilities : public ::protozero:
   bool has_trace_config_output_path() const { return has_trace_config_output_path_; }
   void set_has_trace_config_output_path(bool value) { has_trace_config_output_path_ = value; _has_field_.set(3); }
 
+  bool has_has_clone_session() const { return _has_field_[4]; }
+  bool has_clone_session() const { return has_clone_session_; }
+  void set_has_clone_session(bool value) { has_clone_session_ = value; _has_field_.set(4); }
+
  private:
   bool has_query_capabilities_{};
   std::vector<ObservableEvents_Type> observable_events_;
   bool has_trace_config_output_path_{};
+  bool has_clone_session_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<4> _has_field_{};
+  std::bitset<5> _has_field_{};
 };
 
 }  // namespace perfetto
@@ -26383,6 +26454,7 @@ namespace perfetto {
 namespace protos {
 namespace pbzero {
 
+class ObservableEvents_CloneTriggerHit;
 class ObservableEvents_DataSourceInstanceStateChange;
 namespace perfetto_pbzero_enum_ObservableEvents {
 enum DataSourceInstanceState : int32_t;
@@ -26394,13 +26466,14 @@ enum Type : int32_t {
   TYPE_UNSPECIFIED = 0,
   TYPE_DATA_SOURCES_INSTANCES = 1,
   TYPE_ALL_DATA_SOURCES_STARTED = 2,
+  TYPE_CLONE_TRIGGER_HIT = 4,
 };
 } // namespace perfetto_pbzero_enum_ObservableEvents
 using ObservableEvents_Type = perfetto_pbzero_enum_ObservableEvents::Type;
 
 
 constexpr ObservableEvents_Type ObservableEvents_Type_MIN = ObservableEvents_Type::TYPE_UNSPECIFIED;
-constexpr ObservableEvents_Type ObservableEvents_Type_MAX = ObservableEvents_Type::TYPE_ALL_DATA_SOURCES_STARTED;
+constexpr ObservableEvents_Type ObservableEvents_Type_MAX = ObservableEvents_Type::TYPE_CLONE_TRIGGER_HIT;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -26414,6 +26487,9 @@ const char* ObservableEvents_Type_Name(::perfetto::protos::pbzero::ObservableEve
 
   case ::perfetto::protos::pbzero::ObservableEvents_Type::TYPE_ALL_DATA_SOURCES_STARTED:
     return "TYPE_ALL_DATA_SOURCES_STARTED";
+
+  case ::perfetto::protos::pbzero::ObservableEvents_Type::TYPE_CLONE_TRIGGER_HIT:
+    return "TYPE_CLONE_TRIGGER_HIT";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -26443,7 +26519,7 @@ const char* ObservableEvents_DataSourceInstanceState_Name(::perfetto::protos::pb
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class ObservableEvents_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ObservableEvents_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ObservableEvents_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ObservableEvents_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -26452,6 +26528,8 @@ class ObservableEvents_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIE
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> instance_state_changes() const { return GetRepeated<::protozero::ConstBytes>(1); }
   bool has_all_data_sources_started() const { return at<2>().valid(); }
   bool all_data_sources_started() const { return at<2>().as_bool(); }
+  bool has_clone_trigger_hit() const { return at<3>().valid(); }
+  ::protozero::ConstBytes clone_trigger_hit() const { return at<3>().as_bytes(); }
 };
 
 class ObservableEvents : public ::protozero::Message {
@@ -26460,10 +26538,12 @@ class ObservableEvents : public ::protozero::Message {
   enum : int32_t {
     kInstanceStateChangesFieldNumber = 1,
     kAllDataSourcesStartedFieldNumber = 2,
+    kCloneTriggerHitFieldNumber = 3,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ObservableEvents"; }
 
   using DataSourceInstanceStateChange = ::perfetto::protos::pbzero::ObservableEvents_DataSourceInstanceStateChange;
+  using CloneTriggerHit = ::perfetto::protos::pbzero::ObservableEvents_CloneTriggerHit;
 
   using Type = ::perfetto::protos::pbzero::ObservableEvents_Type;
   static inline const char* Type_Name(Type value) {
@@ -26477,6 +26557,7 @@ class ObservableEvents : public ::protozero::Message {
   static const Type TYPE_UNSPECIFIED = Type::TYPE_UNSPECIFIED;
   static const Type TYPE_DATA_SOURCES_INSTANCES = Type::TYPE_DATA_SOURCES_INSTANCES;
   static const Type TYPE_ALL_DATA_SOURCES_STARTED = Type::TYPE_ALL_DATA_SOURCES_STARTED;
+  static const Type TYPE_CLONE_TRIGGER_HIT = Type::TYPE_CLONE_TRIGGER_HIT;
   static const DataSourceInstanceState DATA_SOURCE_INSTANCE_STATE_STOPPED = DataSourceInstanceState::DATA_SOURCE_INSTANCE_STATE_STOPPED;
   static const DataSourceInstanceState DATA_SOURCE_INSTANCE_STATE_STARTED = DataSourceInstanceState::DATA_SOURCE_INSTANCE_STATE_STARTED;
 
@@ -26509,6 +26590,57 @@ class ObservableEvents : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CloneTriggerHit =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ObservableEvents_CloneTriggerHit,
+      ObservableEvents>;
+
+  static constexpr FieldMetadata_CloneTriggerHit kCloneTriggerHit{};
+  template <typename T = ObservableEvents_CloneTriggerHit> T* set_clone_trigger_hit() {
+    return BeginNestedMessage<T>(3);
+  }
+
+};
+
+class ObservableEvents_CloneTriggerHit_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  ObservableEvents_CloneTriggerHit_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit ObservableEvents_CloneTriggerHit_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit ObservableEvents_CloneTriggerHit_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_tracing_session_id() const { return at<1>().valid(); }
+  int64_t tracing_session_id() const { return at<1>().as_int64(); }
+};
+
+class ObservableEvents_CloneTriggerHit : public ::protozero::Message {
+ public:
+  using Decoder = ObservableEvents_CloneTriggerHit_Decoder;
+  enum : int32_t {
+    kTracingSessionIdFieldNumber = 1,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.ObservableEvents.CloneTriggerHit"; }
+
+
+  using FieldMetadata_TracingSessionId =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ObservableEvents_CloneTriggerHit>;
+
+  static constexpr FieldMetadata_TracingSessionId kTracingSessionId{};
+  void set_tracing_session_id(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TracingSessionId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
         ::Append(*this, field_id, value);
   }
 };
@@ -28909,7 +29041,7 @@ enum Type : int32_t;
 }  // namespace perfetto_pbzero_enum_ObservableEvents
 using ObservableEvents_Type = perfetto_pbzero_enum_ObservableEvents::Type;
 
-class TracingServiceCapabilities_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class TracingServiceCapabilities_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TracingServiceCapabilities_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TracingServiceCapabilities_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -28920,6 +29052,8 @@ class TracingServiceCapabilities_Decoder : public ::protozero::TypedProtoDecoder
   ::protozero::RepeatedFieldIterator<int32_t> observable_events() const { return GetRepeated<int32_t>(2); }
   bool has_has_trace_config_output_path() const { return at<3>().valid(); }
   bool has_trace_config_output_path() const { return at<3>().as_bool(); }
+  bool has_has_clone_session() const { return at<4>().valid(); }
+  bool has_clone_session() const { return at<4>().as_bool(); }
 };
 
 class TracingServiceCapabilities : public ::protozero::Message {
@@ -28929,6 +29063,7 @@ class TracingServiceCapabilities : public ::protozero::Message {
     kHasQueryCapabilitiesFieldNumber = 1,
     kObservableEventsFieldNumber = 2,
     kHasTraceConfigOutputPathFieldNumber = 3,
+    kHasCloneSessionFieldNumber = 4,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TracingServiceCapabilities"; }
 
@@ -28980,6 +29115,24 @@ class TracingServiceCapabilities : public ::protozero::Message {
   static constexpr FieldMetadata_HasTraceConfigOutputPath kHasTraceConfigOutputPath{};
   void set_has_trace_config_output_path(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_HasTraceConfigOutputPath::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_HasCloneSession =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TracingServiceCapabilities>;
+
+  static constexpr FieldMetadata_HasCloneSession kHasCloneSession{};
+  void set_has_clone_session(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_HasCloneSession::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -39871,13 +40024,14 @@ enum TriggerMode : int32_t {
   UNSPECIFIED = 0,
   START_TRACING = 1,
   STOP_TRACING = 2,
+  CLONE_SNAPSHOT = 3,
 };
 } // namespace perfetto_pbzero_enum_TraceConfig_TriggerConfig
 using TraceConfig_TriggerConfig_TriggerMode = perfetto_pbzero_enum_TraceConfig_TriggerConfig::TriggerMode;
 
 
 constexpr TraceConfig_TriggerConfig_TriggerMode TraceConfig_TriggerConfig_TriggerMode_MIN = TraceConfig_TriggerConfig_TriggerMode::UNSPECIFIED;
-constexpr TraceConfig_TriggerConfig_TriggerMode TraceConfig_TriggerConfig_TriggerMode_MAX = TraceConfig_TriggerConfig_TriggerMode::STOP_TRACING;
+constexpr TraceConfig_TriggerConfig_TriggerMode TraceConfig_TriggerConfig_TriggerMode_MAX = TraceConfig_TriggerConfig_TriggerMode::CLONE_SNAPSHOT;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -39891,6 +40045,9 @@ const char* TraceConfig_TriggerConfig_TriggerMode_Name(::perfetto::protos::pbzer
 
   case ::perfetto::protos::pbzero::TraceConfig_TriggerConfig_TriggerMode::STOP_TRACING:
     return "STOP_TRACING";
+
+  case ::perfetto::protos::pbzero::TraceConfig_TriggerConfig_TriggerMode::CLONE_SNAPSHOT:
+    return "CLONE_SNAPSHOT";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -41021,13 +41178,15 @@ class TraceConfig_IncrementalStateConfig : public ::protozero::Message {
   }
 };
 
-class TraceConfig_TriggerConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class TraceConfig_TriggerConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TraceConfig_TriggerConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceConfig_TriggerConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit TraceConfig_TriggerConfig_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_trigger_mode() const { return at<1>().valid(); }
   int32_t trigger_mode() const { return at<1>().as_int32(); }
+  bool has_use_clone_snapshot_if_available() const { return at<4>().valid(); }
+  bool use_clone_snapshot_if_available() const { return at<4>().as_bool(); }
   bool has_triggers() const { return at<2>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> triggers() const { return GetRepeated<::protozero::ConstBytes>(2); }
   bool has_trigger_timeout_ms() const { return at<3>().valid(); }
@@ -41039,6 +41198,7 @@ class TraceConfig_TriggerConfig : public ::protozero::Message {
   using Decoder = TraceConfig_TriggerConfig_Decoder;
   enum : int32_t {
     kTriggerModeFieldNumber = 1,
+    kUseCloneSnapshotIfAvailableFieldNumber = 4,
     kTriggersFieldNumber = 2,
     kTriggerTimeoutMsFieldNumber = 3,
   };
@@ -41053,6 +41213,7 @@ class TraceConfig_TriggerConfig : public ::protozero::Message {
   static const TriggerMode UNSPECIFIED = TriggerMode::UNSPECIFIED;
   static const TriggerMode START_TRACING = TriggerMode::START_TRACING;
   static const TriggerMode STOP_TRACING = TriggerMode::STOP_TRACING;
+  static const TriggerMode CLONE_SNAPSHOT = TriggerMode::CLONE_SNAPSHOT;
 
   using FieldMetadata_TriggerMode =
     ::protozero::proto_utils::FieldMetadata<
@@ -41069,6 +41230,24 @@ class TraceConfig_TriggerConfig : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_UseCloneSnapshotIfAvailable =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TraceConfig_TriggerConfig>;
+
+  static constexpr FieldMetadata_UseCloneSnapshotIfAvailable kUseCloneSnapshotIfAvailable{};
+  void set_use_clone_snapshot_if_available(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_UseCloneSnapshotIfAvailable::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 
@@ -144716,6 +144895,7 @@ enum TraceConfig_TriggerConfig_TriggerMode : int {
   TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED = 0,
   TraceConfig_TriggerConfig_TriggerMode_START_TRACING = 1,
   TraceConfig_TriggerConfig_TriggerMode_STOP_TRACING = 2,
+  TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT = 3,
 };
 enum TraceConfig_BufferConfig_FillPolicy : int {
   TraceConfig_BufferConfig_FillPolicy_UNSPECIFIED = 0,
@@ -145219,10 +145399,12 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig : public ::protozero::
   static constexpr auto UNSPECIFIED = TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED;
   static constexpr auto START_TRACING = TraceConfig_TriggerConfig_TriggerMode_START_TRACING;
   static constexpr auto STOP_TRACING = TraceConfig_TriggerConfig_TriggerMode_STOP_TRACING;
+  static constexpr auto CLONE_SNAPSHOT = TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT;
   static constexpr auto TriggerMode_MIN = TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED;
-  static constexpr auto TriggerMode_MAX = TraceConfig_TriggerConfig_TriggerMode_STOP_TRACING;
+  static constexpr auto TriggerMode_MAX = TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT;
   enum FieldNumbers {
     kTriggerModeFieldNumber = 1,
+    kUseCloneSnapshotIfAvailableFieldNumber = 4,
     kTriggersFieldNumber = 2,
     kTriggerTimeoutMsFieldNumber = 3,
   };
@@ -145245,6 +145427,10 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig : public ::protozero::
   TraceConfig_TriggerConfig_TriggerMode trigger_mode() const { return trigger_mode_; }
   void set_trigger_mode(TraceConfig_TriggerConfig_TriggerMode value) { trigger_mode_ = value; _has_field_.set(1); }
 
+  bool has_use_clone_snapshot_if_available() const { return _has_field_[4]; }
+  bool use_clone_snapshot_if_available() const { return use_clone_snapshot_if_available_; }
+  void set_use_clone_snapshot_if_available(bool value) { use_clone_snapshot_if_available_ = value; _has_field_.set(4); }
+
   const std::vector<TraceConfig_TriggerConfig_Trigger>& triggers() const { return triggers_; }
   std::vector<TraceConfig_TriggerConfig_Trigger>* mutable_triggers() { return &triggers_; }
   int triggers_size() const;
@@ -145257,6 +145443,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig : public ::protozero::
 
  private:
   TraceConfig_TriggerConfig_TriggerMode trigger_mode_{};
+  bool use_clone_snapshot_if_available_{};
   std::vector<TraceConfig_TriggerConfig_Trigger> triggers_;
   uint32_t trigger_timeout_ms_{};
 
@@ -145264,7 +145451,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig : public ::protozero::
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<4> _has_field_{};
+  std::bitset<5> _has_field_{};
 };
 
 
@@ -145683,6 +145870,7 @@ class TracingServiceState_Producer;
 class QueryServiceStateRequest;
 class ObserveEventsResponse;
 class ObservableEvents;
+class ObservableEvents_CloneTriggerHit;
 class ObservableEvents_DataSourceInstanceStateChange;
 class ObserveEventsRequest;
 class GetTraceStatsResponse;
@@ -145758,6 +145946,8 @@ class PERFETTO_EXPORT_COMPONENT CloneSessionResponse : public ::protozero::CppMe
   enum FieldNumbers {
     kSuccessFieldNumber = 1,
     kErrorFieldNumber = 2,
+    kUuidMsbFieldNumber = 3,
+    kUuidLsbFieldNumber = 4,
   };
 
   CloneSessionResponse();
@@ -145782,15 +145972,25 @@ class PERFETTO_EXPORT_COMPONENT CloneSessionResponse : public ::protozero::CppMe
   const std::string& error() const { return error_; }
   void set_error(const std::string& value) { error_ = value; _has_field_.set(2); }
 
+  bool has_uuid_msb() const { return _has_field_[3]; }
+  int64_t uuid_msb() const { return uuid_msb_; }
+  void set_uuid_msb(int64_t value) { uuid_msb_ = value; _has_field_.set(3); }
+
+  bool has_uuid_lsb() const { return _has_field_[4]; }
+  int64_t uuid_lsb() const { return uuid_lsb_; }
+  void set_uuid_lsb(int64_t value) { uuid_lsb_ = value; _has_field_.set(4); }
+
  private:
   bool success_{};
   std::string error_{};
+  int64_t uuid_msb_{};
+  int64_t uuid_lsb_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<3> _has_field_{};
+  std::bitset<5> _has_field_{};
 };
 
 

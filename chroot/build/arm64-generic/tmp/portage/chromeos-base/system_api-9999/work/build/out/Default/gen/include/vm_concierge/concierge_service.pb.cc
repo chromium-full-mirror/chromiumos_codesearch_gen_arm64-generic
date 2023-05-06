@@ -119,6 +119,7 @@ PROTOBUF_CONSTEXPR StartVmRequest::StartVmRequest(
   , /*decltype(_impl_.storage_ballooning_)*/false
   , /*decltype(_impl_.enable_virtgpu_native_context_)*/false
   , /*decltype(_impl_.enable_dgpu_passthrough_)*/false
+  , /*decltype(_impl_.vm_type_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StartVmRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartVmRequestDefaultTypeInternal()
@@ -4065,6 +4066,7 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
     , decltype(_impl_.storage_ballooning_){}
     , decltype(_impl_.enable_virtgpu_native_context_){}
     , decltype(_impl_.enable_dgpu_passthrough_){}
+    , decltype(_impl_.vm_type_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -4104,8 +4106,8 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
     _this->_impl_.vm_ = new ::vm_tools::concierge::VirtualMachineSpec(*from._impl_.vm_);
   }
   ::memcpy(&_impl_.start_termina_, &from._impl_.start_termina_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.enable_dgpu_passthrough_) -
-    reinterpret_cast<char*>(&_impl_.start_termina_)) + sizeof(_impl_.enable_dgpu_passthrough_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.vm_type_) -
+    reinterpret_cast<char*>(&_impl_.start_termina_)) + sizeof(_impl_.vm_type_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartVmRequest)
 }
 
@@ -4140,6 +4142,7 @@ inline void StartVmRequest::SharedCtor(
     , decltype(_impl_.storage_ballooning_){false}
     , decltype(_impl_.enable_virtgpu_native_context_){false}
     , decltype(_impl_.enable_dgpu_passthrough_){false}
+    , decltype(_impl_.vm_type_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.shared_directory_.InitDefault();
@@ -4207,8 +4210,8 @@ void StartVmRequest::Clear() {
   }
   _impl_.vm_ = nullptr;
   ::memset(&_impl_.start_termina_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.enable_dgpu_passthrough_) -
-      reinterpret_cast<char*>(&_impl_.start_termina_)) + sizeof(_impl_.enable_dgpu_passthrough_));
+      reinterpret_cast<char*>(&_impl_.vm_type_) -
+      reinterpret_cast<char*>(&_impl_.start_termina_)) + sizeof(_impl_.vm_type_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4445,6 +4448,15 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
         } else
           goto handle_unusual;
         continue;
+      // .vm_tools.concierge.VmInfo.VmType vm_type = 28;
+      case 28:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_vm_type(static_cast<::vm_tools::concierge::VmInfo_VmType>(val));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -4651,6 +4663,13 @@ uint8_t* StartVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(27, this->_internal_enable_dgpu_passthrough(), target);
   }
 
+  // .vm_tools.concierge.VmInfo.VmType vm_type = 28;
+  if (this->_internal_vm_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      28, this->_internal_vm_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -4831,6 +4850,12 @@ size_t StartVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
+  // .vm_tools.concierge.VmInfo.VmType vm_type = 28;
+  if (this->_internal_vm_type() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_vm_type());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -4915,6 +4940,9 @@ void StartVmRequest::MergeFrom(const StartVmRequest& from) {
   if (from._internal_enable_dgpu_passthrough() != 0) {
     _this->_internal_set_enable_dgpu_passthrough(from._internal_enable_dgpu_passthrough());
   }
+  if (from._internal_vm_type() != 0) {
+    _this->_internal_set_vm_type(from._internal_vm_type());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -4956,8 +4984,8 @@ void StartVmRequest::InternalSwap(StartVmRequest* other) {
       &other->_impl_.vm_username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartVmRequest, _impl_.enable_dgpu_passthrough_)
-      + sizeof(StartVmRequest::_impl_.enable_dgpu_passthrough_)
+      PROTOBUF_FIELD_OFFSET(StartVmRequest, _impl_.vm_type_)
+      + sizeof(StartVmRequest::_impl_.vm_type_)
       - PROTOBUF_FIELD_OFFSET(StartVmRequest, _impl_.vm_)>(
           reinterpret_cast<char*>(&_impl_.vm_),
           reinterpret_cast<char*>(&other->_impl_.vm_));
