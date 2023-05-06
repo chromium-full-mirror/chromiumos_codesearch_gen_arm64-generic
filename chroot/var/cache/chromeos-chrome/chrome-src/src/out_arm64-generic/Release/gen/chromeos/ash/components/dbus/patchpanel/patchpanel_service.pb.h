@@ -6729,6 +6729,7 @@ class TetheredNetworkRequest final :
     kIpv4ConfigFieldNumber = 4,
     kUpstreamTechnologyFieldNumber = 3,
     kEnableIpv6FieldNumber = 5,
+    kMtuFieldNumber = 6,
   };
   // string ifname = 1;
   void clear_ifname();
@@ -6794,6 +6795,19 @@ class TetheredNetworkRequest final :
   void _internal_set_enable_ipv6(bool value);
   public:
 
+  // optional int32 mtu = 6;
+  bool has_mtu() const;
+  private:
+  bool _internal_has_mtu() const;
+  public:
+  void clear_mtu();
+  int32_t mtu() const;
+  void set_mtu(int32_t value);
+  private:
+  int32_t _internal_mtu() const;
+  void _internal_set_mtu(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:patchpanel.TetheredNetworkRequest)
  private:
   class _Internal;
@@ -6808,6 +6822,7 @@ class TetheredNetworkRequest final :
   ::patchpanel::IPv4Configuration* ipv4_config_;
   int upstream_technology_;
   bool enable_ipv6_;
+  int32_t mtu_;
   friend struct ::TableStruct_patchpanel_5fservice_2eproto;
 };
 // -------------------------------------------------------------------
@@ -11410,6 +11425,34 @@ inline void TetheredNetworkRequest::_internal_set_enable_ipv6(bool value) {
 inline void TetheredNetworkRequest::set_enable_ipv6(bool value) {
   _internal_set_enable_ipv6(value);
   // @@protoc_insertion_point(field_set:patchpanel.TetheredNetworkRequest.enable_ipv6)
+}
+
+// optional int32 mtu = 6;
+inline bool TetheredNetworkRequest::_internal_has_mtu() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool TetheredNetworkRequest::has_mtu() const {
+  return _internal_has_mtu();
+}
+inline void TetheredNetworkRequest::clear_mtu() {
+  mtu_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline int32_t TetheredNetworkRequest::_internal_mtu() const {
+  return mtu_;
+}
+inline int32_t TetheredNetworkRequest::mtu() const {
+  // @@protoc_insertion_point(field_get:patchpanel.TetheredNetworkRequest.mtu)
+  return _internal_mtu();
+}
+inline void TetheredNetworkRequest::_internal_set_mtu(int32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  mtu_ = value;
+}
+inline void TetheredNetworkRequest::set_mtu(int32_t value) {
+  _internal_set_mtu(value);
+  // @@protoc_insertion_point(field_set:patchpanel.TetheredNetworkRequest.mtu)
 }
 
 // -------------------------------------------------------------------

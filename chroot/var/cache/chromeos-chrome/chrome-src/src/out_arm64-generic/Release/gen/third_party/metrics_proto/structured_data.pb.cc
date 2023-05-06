@@ -67,7 +67,8 @@ struct StructuredEventProtoDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StructuredEventProtoDefaultTypeInternal _StructuredEventProto_default_instance_;
 PROTOBUF_CONSTEXPR StructuredDataProto::StructuredDataProto(
     ::_pbi::ConstantInitialized)
-  : events_(){}
+  : events_()
+  , is_device_enrolled_(false){}
 struct StructuredDataProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StructuredDataProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1158,6 +1159,10 @@ std::string StructuredEventProto::GetTypeName() const {
 
 class StructuredDataProto::_Internal {
  public:
+  using HasBits = decltype(std::declval<StructuredDataProto>()._has_bits_);
+  static void set_has_is_device_enrolled(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 StructuredDataProto::StructuredDataProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1169,12 +1174,15 @@ StructuredDataProto::StructuredDataProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 StructuredDataProto::StructuredDataProto(const StructuredDataProto& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
       events_(from.events_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  is_device_enrolled_ = from.is_device_enrolled_;
   // @@protoc_insertion_point(copy_constructor:metrics.StructuredDataProto)
 }
 
 inline void StructuredDataProto::SharedCtor() {
+is_device_enrolled_ = false;
 }
 
 StructuredDataProto::~StructuredDataProto() {
@@ -1201,11 +1209,14 @@ void StructuredDataProto::Clear() {
   (void) cached_has_bits;
 
   events_.Clear();
+  is_device_enrolled_ = false;
+  _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* StructuredDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
@@ -1220,6 +1231,15 @@ const char* StructuredDataProto::_InternalParse(const char* ptr, ::_pbi::ParseCo
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool is_device_enrolled = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_is_device_enrolled(&has_bits);
+          is_device_enrolled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1239,6 +1259,7 @@ const char* StructuredDataProto::_InternalParse(const char* ptr, ::_pbi::ParseCo
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1258,6 +1279,13 @@ uint8_t* StructuredDataProto::_InternalSerialize(
     const auto& repfield = this->_internal_events(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
         InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  // optional bool is_device_enrolled = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_is_device_enrolled(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1283,6 +1311,12 @@ size_t StructuredDataProto::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // optional bool is_device_enrolled = 2;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1304,6 +1338,9 @@ void StructuredDataProto::MergeFrom(const StructuredDataProto& from) {
   (void) cached_has_bits;
 
   events_.MergeFrom(from.events_);
+  if (from._internal_has_is_device_enrolled()) {
+    _internal_set_is_device_enrolled(from._internal_is_device_enrolled());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -1321,7 +1358,9 @@ bool StructuredDataProto::IsInitialized() const {
 void StructuredDataProto::InternalSwap(StructuredDataProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   events_.InternalSwap(&other->events_);
+  swap(is_device_enrolled_, other->is_device_enrolled_);
 }
 
 std::string StructuredDataProto::GetTypeName() const {

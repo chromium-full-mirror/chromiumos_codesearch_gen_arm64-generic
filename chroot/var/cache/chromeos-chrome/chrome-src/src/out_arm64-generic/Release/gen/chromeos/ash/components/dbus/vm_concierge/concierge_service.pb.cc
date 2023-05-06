@@ -742,36 +742,6 @@ struct ListVmDisksResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListVmDisksResponseDefaultTypeInternal _ListVmDisksResponse_default_instance_;
-PROTOBUF_CONSTEXPR ContainerSshKeysRequest::ContainerSshKeysRequest(
-    ::_pbi::ConstantInitialized)
-  : vm_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , container_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , cryptohome_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
-struct ContainerSshKeysRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ContainerSshKeysRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ContainerSshKeysRequestDefaultTypeInternal() {}
-  union {
-    ContainerSshKeysRequest _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ContainerSshKeysRequestDefaultTypeInternal _ContainerSshKeysRequest_default_instance_;
-PROTOBUF_CONSTEXPR ContainerSshKeysResponse::ContainerSshKeysResponse(
-    ::_pbi::ConstantInitialized)
-  : container_public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , host_private_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , hostname_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , host_public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , container_private_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
-struct ContainerSshKeysResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ContainerSshKeysResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ContainerSshKeysResponseDefaultTypeInternal() {}
-  union {
-    ContainerSshKeysResponse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ContainerSshKeysResponseDefaultTypeInternal _ContainerSshKeysResponse_default_instance_;
 PROTOBUF_CONSTEXPR AttachUsbDeviceRequest::AttachUsbDeviceRequest(
     ::_pbi::ConstantInitialized)
   : vm_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -1165,6 +1135,33 @@ struct InstallPflashResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallPflashResponseDefaultTypeInternal _InstallPflashResponse_default_instance_;
+PROTOBUF_CONSTEXPR AggressiveBalloonRequest::AggressiveBalloonRequest(
+    ::_pbi::ConstantInitialized)
+  : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , owner_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , enable_(false){}
+struct AggressiveBalloonRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AggressiveBalloonRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AggressiveBalloonRequestDefaultTypeInternal() {}
+  union {
+    AggressiveBalloonRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AggressiveBalloonRequestDefaultTypeInternal _AggressiveBalloonRequest_default_instance_;
+PROTOBUF_CONSTEXPR AggressiveBalloonResponse::AggressiveBalloonResponse(
+    ::_pbi::ConstantInitialized)
+  : failure_reason_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , success_(false){}
+struct AggressiveBalloonResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AggressiveBalloonResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AggressiveBalloonResponseDefaultTypeInternal() {}
+  union {
+    AggressiveBalloonResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AggressiveBalloonResponseDefaultTypeInternal _AggressiveBalloonResponse_default_instance_;
 }  // namespace concierge
 }  // namespace vm_tools
 namespace vm_tools {
@@ -1176,17 +1173,19 @@ bool VmInfo_VmType_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VmInfo_VmType_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VmInfo_VmType_strings[6] = {};
 
 static const char VmInfo_VmType_names[] =
   "ARC_VM"
   "BOREALIS"
+  "BRUSCHETTA"
   "PLUGIN_VM"
   "TERMINA"
   "UNKNOWN";
@@ -1194,17 +1193,19 @@ static const char VmInfo_VmType_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry VmInfo_VmType_entries[] = {
   { {VmInfo_VmType_names + 0, 6}, 2 },
   { {VmInfo_VmType_names + 6, 8}, 4 },
-  { {VmInfo_VmType_names + 14, 9}, 3 },
-  { {VmInfo_VmType_names + 23, 7}, 1 },
-  { {VmInfo_VmType_names + 30, 7}, 0 },
+  { {VmInfo_VmType_names + 14, 10}, 5 },
+  { {VmInfo_VmType_names + 24, 9}, 3 },
+  { {VmInfo_VmType_names + 33, 7}, 1 },
+  { {VmInfo_VmType_names + 40, 7}, 0 },
 };
 
 static const int VmInfo_VmType_entries_by_number[] = {
-  4, // 0 -> UNKNOWN
-  3, // 1 -> TERMINA
+  5, // 0 -> UNKNOWN
+  4, // 1 -> TERMINA
   0, // 2 -> ARC_VM
-  2, // 3 -> PLUGIN_VM
+  3, // 3 -> PLUGIN_VM
   1, // 4 -> BOREALIS
+  2, // 5 -> BRUSCHETTA
 };
 
 const std::string& VmInfo_VmType_Name(
@@ -1213,12 +1214,12 @@ const std::string& VmInfo_VmType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           VmInfo_VmType_entries,
           VmInfo_VmType_entries_by_number,
-          5, VmInfo_VmType_strings);
+          6, VmInfo_VmType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       VmInfo_VmType_entries,
       VmInfo_VmType_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      VmInfo_VmType_strings[idx].get();
 }
@@ -1226,7 +1227,7 @@ bool VmInfo_VmType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VmInfo_VmType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      VmInfo_VmType_entries, 5, name, &int_value);
+      VmInfo_VmType_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<VmInfo_VmType>(int_value);
   }
@@ -1238,6 +1239,7 @@ constexpr VmInfo_VmType VmInfo::TERMINA;
 constexpr VmInfo_VmType VmInfo::ARC_VM;
 constexpr VmInfo_VmType VmInfo::PLUGIN_VM;
 constexpr VmInfo_VmType VmInfo::BOREALIS;
+constexpr VmInfo_VmType VmInfo::BRUSCHETTA;
 constexpr VmInfo_VmType VmInfo::VmType_MIN;
 constexpr VmInfo_VmType VmInfo::VmType_MAX;
 constexpr int VmInfo::VmType_ARRAYSIZE;
@@ -2377,29 +2379,33 @@ bool SwapOperation_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SwapOperation_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SwapOperation_strings[4] = {};
 
 static const char SwapOperation_names[] =
   "DISABLE"
   "ENABLE"
+  "FORCE_ENABLE"
   "SWAPOUT";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SwapOperation_entries[] = {
   { {SwapOperation_names + 0, 7}, 0 },
   { {SwapOperation_names + 7, 6}, 1 },
-  { {SwapOperation_names + 13, 7}, 2 },
+  { {SwapOperation_names + 13, 12}, 3 },
+  { {SwapOperation_names + 25, 7}, 2 },
 };
 
 static const int SwapOperation_entries_by_number[] = {
   0, // 0 -> DISABLE
   1, // 1 -> ENABLE
-  2, // 2 -> SWAPOUT
+  3, // 2 -> SWAPOUT
+  2, // 3 -> FORCE_ENABLE
 };
 
 const std::string& SwapOperation_Name(
@@ -2408,12 +2414,12 @@ const std::string& SwapOperation_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SwapOperation_entries,
           SwapOperation_entries_by_number,
-          3, SwapOperation_strings);
+          4, SwapOperation_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SwapOperation_entries,
       SwapOperation_entries_by_number,
-      3, value);
+      4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SwapOperation_strings[idx].get();
 }
@@ -2421,7 +2427,7 @@ bool SwapOperation_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SwapOperation* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SwapOperation_entries, 3, name, &int_value);
+      SwapOperation_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<SwapOperation>(int_value);
   }
@@ -16180,678 +16186,6 @@ std::string ListVmDisksResponse::GetTypeName() const {
 
 // ===================================================================
 
-class ContainerSshKeysRequest::_Internal {
- public:
-};
-
-ContainerSshKeysRequest::ContainerSshKeysRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.ContainerSshKeysRequest)
-}
-ContainerSshKeysRequest::ContainerSshKeysRequest(const ContainerSshKeysRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  vm_name_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vm_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_vm_name().empty()) {
-    vm_name_.Set(from._internal_vm_name(), 
-      GetArenaForAllocation());
-  }
-  container_name_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    container_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_container_name().empty()) {
-    container_name_.Set(from._internal_container_name(), 
-      GetArenaForAllocation());
-  }
-  cryptohome_id_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    cryptohome_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_cryptohome_id().empty()) {
-    cryptohome_id_.Set(from._internal_cryptohome_id(), 
-      GetArenaForAllocation());
-  }
-  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.ContainerSshKeysRequest)
-}
-
-inline void ContainerSshKeysRequest::SharedCtor() {
-vm_name_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vm_name_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-container_name_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  container_name_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-cryptohome_id_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  cryptohome_id_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-}
-
-ContainerSshKeysRequest::~ContainerSshKeysRequest() {
-  // @@protoc_insertion_point(destructor:vm_tools.concierge.ContainerSshKeysRequest)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void ContainerSshKeysRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  vm_name_.Destroy();
-  container_name_.Destroy();
-  cryptohome_id_.Destroy();
-}
-
-void ContainerSshKeysRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void ContainerSshKeysRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.ContainerSshKeysRequest)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  vm_name_.ClearToEmpty();
-  container_name_.ClearToEmpty();
-  cryptohome_id_.ClearToEmpty();
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* ContainerSshKeysRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // string vm_name = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_vm_name();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // string container_name = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_container_name();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // string cryptohome_id = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_cryptohome_id();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* ContainerSshKeysRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.ContainerSshKeysRequest)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string vm_name = 1;
-  if (!this->_internal_vm_name().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_vm_name().data(), static_cast<int>(this->_internal_vm_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.concierge.ContainerSshKeysRequest.vm_name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_vm_name(), target);
-  }
-
-  // string container_name = 2;
-  if (!this->_internal_container_name().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_container_name().data(), static_cast<int>(this->_internal_container_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.concierge.ContainerSshKeysRequest.container_name");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_container_name(), target);
-  }
-
-  // string cryptohome_id = 3;
-  if (!this->_internal_cryptohome_id().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_cryptohome_id().data(), static_cast<int>(this->_internal_cryptohome_id().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.concierge.ContainerSshKeysRequest.cryptohome_id");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_cryptohome_id(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.ContainerSshKeysRequest)
-  return target;
-}
-
-size_t ContainerSshKeysRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.ContainerSshKeysRequest)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string vm_name = 1;
-  if (!this->_internal_vm_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_vm_name());
-  }
-
-  // string container_name = 2;
-  if (!this->_internal_container_name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_container_name());
-  }
-
-  // string cryptohome_id = 3;
-  if (!this->_internal_cryptohome_id().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_cryptohome_id());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void ContainerSshKeysRequest::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const ContainerSshKeysRequest*>(
-      &from));
-}
-
-void ContainerSshKeysRequest::MergeFrom(const ContainerSshKeysRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.ContainerSshKeysRequest)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (!from._internal_vm_name().empty()) {
-    _internal_set_vm_name(from._internal_vm_name());
-  }
-  if (!from._internal_container_name().empty()) {
-    _internal_set_container_name(from._internal_container_name());
-  }
-  if (!from._internal_cryptohome_id().empty()) {
-    _internal_set_cryptohome_id(from._internal_cryptohome_id());
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void ContainerSshKeysRequest::CopyFrom(const ContainerSshKeysRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.ContainerSshKeysRequest)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool ContainerSshKeysRequest::IsInitialized() const {
-  return true;
-}
-
-void ContainerSshKeysRequest::InternalSwap(ContainerSshKeysRequest* other) {
-  using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &vm_name_, lhs_arena,
-      &other->vm_name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &container_name_, lhs_arena,
-      &other->container_name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &cryptohome_id_, lhs_arena,
-      &other->cryptohome_id_, rhs_arena
-  );
-}
-
-std::string ContainerSshKeysRequest::GetTypeName() const {
-  return "vm_tools.concierge.ContainerSshKeysRequest";
-}
-
-
-// ===================================================================
-
-class ContainerSshKeysResponse::_Internal {
- public:
-};
-
-ContainerSshKeysResponse::ContainerSshKeysResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.ContainerSshKeysResponse)
-}
-ContainerSshKeysResponse::ContainerSshKeysResponse(const ContainerSshKeysResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  container_public_key_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    container_public_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_container_public_key().empty()) {
-    container_public_key_.Set(from._internal_container_public_key(), 
-      GetArenaForAllocation());
-  }
-  host_private_key_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    host_private_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_host_private_key().empty()) {
-    host_private_key_.Set(from._internal_host_private_key(), 
-      GetArenaForAllocation());
-  }
-  hostname_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    hostname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_hostname().empty()) {
-    hostname_.Set(from._internal_hostname(), 
-      GetArenaForAllocation());
-  }
-  host_public_key_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    host_public_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_host_public_key().empty()) {
-    host_public_key_.Set(from._internal_host_public_key(), 
-      GetArenaForAllocation());
-  }
-  container_private_key_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    container_private_key_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_container_private_key().empty()) {
-    container_private_key_.Set(from._internal_container_private_key(), 
-      GetArenaForAllocation());
-  }
-  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.ContainerSshKeysResponse)
-}
-
-inline void ContainerSshKeysResponse::SharedCtor() {
-container_public_key_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  container_public_key_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-host_private_key_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  host_private_key_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-hostname_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  hostname_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-host_public_key_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  host_public_key_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-container_private_key_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  container_private_key_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-}
-
-ContainerSshKeysResponse::~ContainerSshKeysResponse() {
-  // @@protoc_insertion_point(destructor:vm_tools.concierge.ContainerSshKeysResponse)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void ContainerSshKeysResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  container_public_key_.Destroy();
-  host_private_key_.Destroy();
-  hostname_.Destroy();
-  host_public_key_.Destroy();
-  container_private_key_.Destroy();
-}
-
-void ContainerSshKeysResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void ContainerSshKeysResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.ContainerSshKeysResponse)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  container_public_key_.ClearToEmpty();
-  host_private_key_.ClearToEmpty();
-  hostname_.ClearToEmpty();
-  host_public_key_.ClearToEmpty();
-  container_private_key_.ClearToEmpty();
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* ContainerSshKeysResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // string container_public_key = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_container_public_key();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // string host_private_key = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_host_private_key();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // string hostname = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_hostname();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // string host_public_key = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
-          auto str = _internal_mutable_host_public_key();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // string container_private_key = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
-          auto str = _internal_mutable_container_private_key();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* ContainerSshKeysResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.ContainerSshKeysResponse)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string container_public_key = 1;
-  if (!this->_internal_container_public_key().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_container_public_key().data(), static_cast<int>(this->_internal_container_public_key().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.concierge.ContainerSshKeysResponse.container_public_key");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_container_public_key(), target);
-  }
-
-  // string host_private_key = 2;
-  if (!this->_internal_host_private_key().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_host_private_key().data(), static_cast<int>(this->_internal_host_private_key().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.concierge.ContainerSshKeysResponse.host_private_key");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_host_private_key(), target);
-  }
-
-  // string hostname = 3;
-  if (!this->_internal_hostname().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_hostname().data(), static_cast<int>(this->_internal_hostname().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.concierge.ContainerSshKeysResponse.hostname");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_hostname(), target);
-  }
-
-  // string host_public_key = 4;
-  if (!this->_internal_host_public_key().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_host_public_key().data(), static_cast<int>(this->_internal_host_public_key().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.concierge.ContainerSshKeysResponse.host_public_key");
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_host_public_key(), target);
-  }
-
-  // string container_private_key = 5;
-  if (!this->_internal_container_private_key().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_container_private_key().data(), static_cast<int>(this->_internal_container_private_key().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.concierge.ContainerSshKeysResponse.container_private_key");
-    target = stream->WriteStringMaybeAliased(
-        5, this->_internal_container_private_key(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.ContainerSshKeysResponse)
-  return target;
-}
-
-size_t ContainerSshKeysResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.ContainerSshKeysResponse)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string container_public_key = 1;
-  if (!this->_internal_container_public_key().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_container_public_key());
-  }
-
-  // string host_private_key = 2;
-  if (!this->_internal_host_private_key().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_host_private_key());
-  }
-
-  // string hostname = 3;
-  if (!this->_internal_hostname().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_hostname());
-  }
-
-  // string host_public_key = 4;
-  if (!this->_internal_host_public_key().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_host_public_key());
-  }
-
-  // string container_private_key = 5;
-  if (!this->_internal_container_private_key().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_container_private_key());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void ContainerSshKeysResponse::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const ContainerSshKeysResponse*>(
-      &from));
-}
-
-void ContainerSshKeysResponse::MergeFrom(const ContainerSshKeysResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.ContainerSshKeysResponse)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (!from._internal_container_public_key().empty()) {
-    _internal_set_container_public_key(from._internal_container_public_key());
-  }
-  if (!from._internal_host_private_key().empty()) {
-    _internal_set_host_private_key(from._internal_host_private_key());
-  }
-  if (!from._internal_hostname().empty()) {
-    _internal_set_hostname(from._internal_hostname());
-  }
-  if (!from._internal_host_public_key().empty()) {
-    _internal_set_host_public_key(from._internal_host_public_key());
-  }
-  if (!from._internal_container_private_key().empty()) {
-    _internal_set_container_private_key(from._internal_container_private_key());
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void ContainerSshKeysResponse::CopyFrom(const ContainerSshKeysResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.ContainerSshKeysResponse)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool ContainerSshKeysResponse::IsInitialized() const {
-  return true;
-}
-
-void ContainerSshKeysResponse::InternalSwap(ContainerSshKeysResponse* other) {
-  using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &container_public_key_, lhs_arena,
-      &other->container_public_key_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &host_private_key_, lhs_arena,
-      &other->host_private_key_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &hostname_, lhs_arena,
-      &other->hostname_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &host_public_key_, lhs_arena,
-      &other->host_public_key_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &container_private_key_, lhs_arena,
-      &other->container_private_key_, rhs_arena
-  );
-}
-
-std::string ContainerSshKeysResponse::GetTypeName() const {
-  return "vm_tools.concierge.ContainerSshKeysResponse";
-}
-
-
-// ===================================================================
-
 class AttachUsbDeviceRequest::_Internal {
  public:
 };
@@ -23758,6 +23092,490 @@ std::string InstallPflashResponse::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class AggressiveBalloonRequest::_Internal {
+ public:
+};
+
+AggressiveBalloonRequest::AggressiveBalloonRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.AggressiveBalloonRequest)
+}
+AggressiveBalloonRequest::AggressiveBalloonRequest(const AggressiveBalloonRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_name().empty()) {
+    name_.Set(from._internal_name(), 
+      GetArenaForAllocation());
+  }
+  owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_owner_id().empty()) {
+    owner_id_.Set(from._internal_owner_id(), 
+      GetArenaForAllocation());
+  }
+  enable_ = from.enable_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.AggressiveBalloonRequest)
+}
+
+inline void AggressiveBalloonRequest::SharedCtor() {
+name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+owner_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  owner_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+enable_ = false;
+}
+
+AggressiveBalloonRequest::~AggressiveBalloonRequest() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.AggressiveBalloonRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AggressiveBalloonRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  name_.Destroy();
+  owner_id_.Destroy();
+}
+
+void AggressiveBalloonRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void AggressiveBalloonRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.AggressiveBalloonRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  name_.ClearToEmpty();
+  owner_id_.ClearToEmpty();
+  enable_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AggressiveBalloonRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string owner_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_owner_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool enable = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          enable_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AggressiveBalloonRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.AggressiveBalloonRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AggressiveBalloonRequest.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_owner_id().data(), static_cast<int>(this->_internal_owner_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AggressiveBalloonRequest.owner_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_owner_id(), target);
+  }
+
+  // bool enable = 3;
+  if (this->_internal_enable() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_enable(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.AggressiveBalloonRequest)
+  return target;
+}
+
+size_t AggressiveBalloonRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.AggressiveBalloonRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_owner_id());
+  }
+
+  // bool enable = 3;
+  if (this->_internal_enable() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AggressiveBalloonRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AggressiveBalloonRequest*>(
+      &from));
+}
+
+void AggressiveBalloonRequest::MergeFrom(const AggressiveBalloonRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.AggressiveBalloonRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _internal_set_name(from._internal_name());
+  }
+  if (!from._internal_owner_id().empty()) {
+    _internal_set_owner_id(from._internal_owner_id());
+  }
+  if (from._internal_enable() != 0) {
+    _internal_set_enable(from._internal_enable());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AggressiveBalloonRequest::CopyFrom(const AggressiveBalloonRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.AggressiveBalloonRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AggressiveBalloonRequest::IsInitialized() const {
+  return true;
+}
+
+void AggressiveBalloonRequest::InternalSwap(AggressiveBalloonRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &owner_id_, lhs_arena,
+      &other->owner_id_, rhs_arena
+  );
+  swap(enable_, other->enable_);
+}
+
+std::string AggressiveBalloonRequest::GetTypeName() const {
+  return "vm_tools.concierge.AggressiveBalloonRequest";
+}
+
+
+// ===================================================================
+
+class AggressiveBalloonResponse::_Internal {
+ public:
+};
+
+AggressiveBalloonResponse::AggressiveBalloonResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.AggressiveBalloonResponse)
+}
+AggressiveBalloonResponse::AggressiveBalloonResponse(const AggressiveBalloonResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_failure_reason().empty()) {
+    failure_reason_.Set(from._internal_failure_reason(), 
+      GetArenaForAllocation());
+  }
+  success_ = from.success_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.AggressiveBalloonResponse)
+}
+
+inline void AggressiveBalloonResponse::SharedCtor() {
+failure_reason_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  failure_reason_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+success_ = false;
+}
+
+AggressiveBalloonResponse::~AggressiveBalloonResponse() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.AggressiveBalloonResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AggressiveBalloonResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  failure_reason_.Destroy();
+}
+
+void AggressiveBalloonResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void AggressiveBalloonResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.AggressiveBalloonResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  failure_reason_.ClearToEmpty();
+  success_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AggressiveBalloonResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string failure_reason = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_failure_reason();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AggressiveBalloonResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.AggressiveBalloonResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  // string failure_reason = 2;
+  if (!this->_internal_failure_reason().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_failure_reason().data(), static_cast<int>(this->_internal_failure_reason().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AggressiveBalloonResponse.failure_reason");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_failure_reason(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.AggressiveBalloonResponse)
+  return target;
+}
+
+size_t AggressiveBalloonResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.AggressiveBalloonResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string failure_reason = 2;
+  if (!this->_internal_failure_reason().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_failure_reason());
+  }
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AggressiveBalloonResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AggressiveBalloonResponse*>(
+      &from));
+}
+
+void AggressiveBalloonResponse::MergeFrom(const AggressiveBalloonResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.AggressiveBalloonResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_failure_reason().empty()) {
+    _internal_set_failure_reason(from._internal_failure_reason());
+  }
+  if (from._internal_success() != 0) {
+    _internal_set_success(from._internal_success());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AggressiveBalloonResponse::CopyFrom(const AggressiveBalloonResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.AggressiveBalloonResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AggressiveBalloonResponse::IsInitialized() const {
+  return true;
+}
+
+void AggressiveBalloonResponse::InternalSwap(AggressiveBalloonResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &failure_reason_, lhs_arena,
+      &other->failure_reason_, rhs_arena
+  );
+  swap(success_, other->success_);
+}
+
+std::string AggressiveBalloonResponse::GetTypeName() const {
+  return "vm_tools.concierge.AggressiveBalloonResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace concierge
 }  // namespace vm_tools
@@ -23938,14 +23756,6 @@ template<> PROTOBUF_NOINLINE ::vm_tools::concierge::ListVmDisksResponse*
 Arena::CreateMaybeMessage< ::vm_tools::concierge::ListVmDisksResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::concierge::ListVmDisksResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::concierge::ContainerSshKeysRequest*
-Arena::CreateMaybeMessage< ::vm_tools::concierge::ContainerSshKeysRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::vm_tools::concierge::ContainerSshKeysRequest >(arena);
-}
-template<> PROTOBUF_NOINLINE ::vm_tools::concierge::ContainerSshKeysResponse*
-Arena::CreateMaybeMessage< ::vm_tools::concierge::ContainerSshKeysResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::vm_tools::concierge::ContainerSshKeysResponse >(arena);
-}
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::AttachUsbDeviceRequest*
 Arena::CreateMaybeMessage< ::vm_tools::concierge::AttachUsbDeviceRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::concierge::AttachUsbDeviceRequest >(arena);
@@ -24061,6 +23871,14 @@ Arena::CreateMaybeMessage< ::vm_tools::concierge::InstallPflashRequest >(Arena* 
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::InstallPflashResponse*
 Arena::CreateMaybeMessage< ::vm_tools::concierge::InstallPflashResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::concierge::InstallPflashResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::AggressiveBalloonRequest*
+Arena::CreateMaybeMessage< ::vm_tools::concierge::AggressiveBalloonRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::AggressiveBalloonRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::AggressiveBalloonResponse*
+Arena::CreateMaybeMessage< ::vm_tools::concierge::AggressiveBalloonResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::AggressiveBalloonResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -193,6 +193,7 @@ PROTOBUF_CONSTEXPR CommonMetadata::CommonMetadata(
     ::_pbi::ConstantInitialized)
   : chromeos_version_last_updated_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , chrome_version_last_updated_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , user_specified_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , lockout_policy_(0)
 {}
 struct CommonMetadataDefaultTypeInternal {
@@ -3613,6 +3614,14 @@ CommonMetadata::CommonMetadata(const CommonMetadata& from)
     chrome_version_last_updated_.Set(from._internal_chrome_version_last_updated(), 
       GetArenaForAllocation());
   }
+  user_specified_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_specified_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_user_specified_name().empty()) {
+    user_specified_name_.Set(from._internal_user_specified_name(), 
+      GetArenaForAllocation());
+  }
   lockout_policy_ = from.lockout_policy_;
   // @@protoc_insertion_point(copy_constructor:user_data_auth.CommonMetadata)
 }
@@ -3625,6 +3634,10 @@ chromeos_version_last_updated_.InitDefault();
 chrome_version_last_updated_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   chrome_version_last_updated_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+user_specified_name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_specified_name_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 lockout_policy_ = 0;
 }
@@ -3642,6 +3655,7 @@ inline void CommonMetadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   chromeos_version_last_updated_.Destroy();
   chrome_version_last_updated_.Destroy();
+  user_specified_name_.Destroy();
 }
 
 void CommonMetadata::SetCachedSize(int size) const {
@@ -3656,6 +3670,7 @@ void CommonMetadata::Clear() {
 
   chromeos_version_last_updated_.ClearToEmpty();
   chrome_version_last_updated_.ClearToEmpty();
+  user_specified_name_.ClearToEmpty();
   lockout_policy_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
@@ -3692,6 +3707,16 @@ const char* CommonMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_lockout_policy(static_cast<::user_data_auth::LockoutPolicy>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // string user_specified_name = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_user_specified_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -3751,6 +3776,16 @@ uint8_t* CommonMetadata::_InternalSerialize(
       3, this->_internal_lockout_policy(), target);
   }
 
+  // string user_specified_name = 4;
+  if (!this->_internal_user_specified_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_user_specified_name().data(), static_cast<int>(this->_internal_user_specified_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "user_data_auth.CommonMetadata.user_specified_name");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_user_specified_name(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3779,6 +3814,13 @@ size_t CommonMetadata::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_chrome_version_last_updated());
+  }
+
+  // string user_specified_name = 4;
+  if (!this->_internal_user_specified_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_user_specified_name());
   }
 
   // .user_data_auth.LockoutPolicy lockout_policy = 3;
@@ -3813,6 +3855,9 @@ void CommonMetadata::MergeFrom(const CommonMetadata& from) {
   if (!from._internal_chrome_version_last_updated().empty()) {
     _internal_set_chrome_version_last_updated(from._internal_chrome_version_last_updated());
   }
+  if (!from._internal_user_specified_name().empty()) {
+    _internal_set_user_specified_name(from._internal_user_specified_name());
+  }
   if (from._internal_lockout_policy() != 0) {
     _internal_set_lockout_policy(from._internal_lockout_policy());
   }
@@ -3842,6 +3887,10 @@ void CommonMetadata::InternalSwap(CommonMetadata* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &chrome_version_last_updated_, lhs_arena,
       &other->chrome_version_last_updated_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &user_specified_name_, lhs_arena,
+      &other->user_specified_name_, rhs_arena
   );
   swap(lockout_policy_, other->lockout_policy_);
 }

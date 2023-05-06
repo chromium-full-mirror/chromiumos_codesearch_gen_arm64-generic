@@ -54,6 +54,12 @@ extern AdjustVmRequestDefaultTypeInternal _AdjustVmRequest_default_instance_;
 class AdjustVmResponse;
 struct AdjustVmResponseDefaultTypeInternal;
 extern AdjustVmResponseDefaultTypeInternal _AdjustVmResponse_default_instance_;
+class AggressiveBalloonRequest;
+struct AggressiveBalloonRequestDefaultTypeInternal;
+extern AggressiveBalloonRequestDefaultTypeInternal _AggressiveBalloonRequest_default_instance_;
+class AggressiveBalloonResponse;
+struct AggressiveBalloonResponseDefaultTypeInternal;
+extern AggressiveBalloonResponseDefaultTypeInternal _AggressiveBalloonResponse_default_instance_;
 class ArcVmCompleteBootRequest;
 struct ArcVmCompleteBootRequestDefaultTypeInternal;
 extern ArcVmCompleteBootRequestDefaultTypeInternal _ArcVmCompleteBootRequest_default_instance_;
@@ -72,12 +78,6 @@ extern CancelDiskImageRequestDefaultTypeInternal _CancelDiskImageRequest_default
 class CancelDiskImageResponse;
 struct CancelDiskImageResponseDefaultTypeInternal;
 extern CancelDiskImageResponseDefaultTypeInternal _CancelDiskImageResponse_default_instance_;
-class ContainerSshKeysRequest;
-struct ContainerSshKeysRequestDefaultTypeInternal;
-extern ContainerSshKeysRequestDefaultTypeInternal _ContainerSshKeysRequest_default_instance_;
-class ContainerSshKeysResponse;
-struct ContainerSshKeysResponseDefaultTypeInternal;
-extern ContainerSshKeysResponseDefaultTypeInternal _ContainerSshKeysResponse_default_instance_;
 class CreateDiskImageRequest;
 struct CreateDiskImageRequestDefaultTypeInternal;
 extern CreateDiskImageRequestDefaultTypeInternal _CreateDiskImageRequest_default_instance_;
@@ -276,14 +276,14 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::vm_tools::concierge::AddGroupPermissionMesaRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AddGroupPermissionMesaRequest>(Arena*);
 template<> ::vm_tools::concierge::AdjustVmRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AdjustVmRequest>(Arena*);
 template<> ::vm_tools::concierge::AdjustVmResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AdjustVmResponse>(Arena*);
+template<> ::vm_tools::concierge::AggressiveBalloonRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AggressiveBalloonRequest>(Arena*);
+template<> ::vm_tools::concierge::AggressiveBalloonResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AggressiveBalloonResponse>(Arena*);
 template<> ::vm_tools::concierge::ArcVmCompleteBootRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ArcVmCompleteBootRequest>(Arena*);
 template<> ::vm_tools::concierge::ArcVmCompleteBootResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ArcVmCompleteBootResponse>(Arena*);
 template<> ::vm_tools::concierge::AttachUsbDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachUsbDeviceRequest>(Arena*);
 template<> ::vm_tools::concierge::AttachUsbDeviceResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachUsbDeviceResponse>(Arena*);
 template<> ::vm_tools::concierge::CancelDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::CancelDiskImageRequest>(Arena*);
 template<> ::vm_tools::concierge::CancelDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::CancelDiskImageResponse>(Arena*);
-template<> ::vm_tools::concierge::ContainerSshKeysRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ContainerSshKeysRequest>(Arena*);
-template<> ::vm_tools::concierge::ContainerSshKeysResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ContainerSshKeysResponse>(Arena*);
 template<> ::vm_tools::concierge::CreateDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::CreateDiskImageRequest>(Arena*);
 template<> ::vm_tools::concierge::CreateDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::CreateDiskImageResponse>(Arena*);
 template<> ::vm_tools::concierge::DestroyDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::DestroyDiskImageRequest>(Arena*);
@@ -358,12 +358,13 @@ enum VmInfo_VmType : int {
   VmInfo_VmType_ARC_VM = 2,
   VmInfo_VmType_PLUGIN_VM = 3,
   VmInfo_VmType_BOREALIS = 4,
+  VmInfo_VmType_BRUSCHETTA = 5,
   VmInfo_VmType_VmInfo_VmType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   VmInfo_VmType_VmInfo_VmType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool VmInfo_VmType_IsValid(int value);
 constexpr VmInfo_VmType VmInfo_VmType_VmType_MIN = VmInfo_VmType_UNKNOWN;
-constexpr VmInfo_VmType VmInfo_VmType_VmType_MAX = VmInfo_VmType_BOREALIS;
+constexpr VmInfo_VmType VmInfo_VmType_VmType_MAX = VmInfo_VmType_BRUSCHETTA;
 constexpr int VmInfo_VmType_VmType_ARRAYSIZE = VmInfo_VmType_VmType_MAX + 1;
 
 const std::string& VmInfo_VmType_Name(VmInfo_VmType value);
@@ -795,12 +796,13 @@ enum SwapOperation : int {
   DISABLE = 0,
   ENABLE = 1,
   SWAPOUT = 2,
+  FORCE_ENABLE = 3,
   SwapOperation_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   SwapOperation_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool SwapOperation_IsValid(int value);
 constexpr SwapOperation SwapOperation_MIN = DISABLE;
-constexpr SwapOperation SwapOperation_MAX = SWAPOUT;
+constexpr SwapOperation SwapOperation_MAX = FORCE_ENABLE;
 constexpr int SwapOperation_ARRAYSIZE = SwapOperation_MAX + 1;
 
 const std::string& SwapOperation_Name(SwapOperation value);
@@ -1389,6 +1391,8 @@ class VmInfo final :
     VmInfo_VmType_PLUGIN_VM;
   static constexpr VmType BOREALIS =
     VmInfo_VmType_BOREALIS;
+  static constexpr VmType BRUSCHETTA =
+    VmInfo_VmType_BRUSCHETTA;
   static inline bool VmType_IsValid(int value) {
     return VmInfo_VmType_IsValid(value);
   }
@@ -9102,366 +9106,6 @@ class ListVmDisksResponse final :
 };
 // -------------------------------------------------------------------
 
-class ContainerSshKeysRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.ContainerSshKeysRequest) */ {
- public:
-  inline ContainerSshKeysRequest() : ContainerSshKeysRequest(nullptr) {}
-  ~ContainerSshKeysRequest() override;
-  explicit PROTOBUF_CONSTEXPR ContainerSshKeysRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  ContainerSshKeysRequest(const ContainerSshKeysRequest& from);
-  ContainerSshKeysRequest(ContainerSshKeysRequest&& from) noexcept
-    : ContainerSshKeysRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline ContainerSshKeysRequest& operator=(const ContainerSshKeysRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline ContainerSshKeysRequest& operator=(ContainerSshKeysRequest&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ContainerSshKeysRequest& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const ContainerSshKeysRequest* internal_default_instance() {
-    return reinterpret_cast<const ContainerSshKeysRequest*>(
-               &_ContainerSshKeysRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    44;
-
-  friend void swap(ContainerSshKeysRequest& a, ContainerSshKeysRequest& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(ContainerSshKeysRequest* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(ContainerSshKeysRequest* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  ContainerSshKeysRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<ContainerSshKeysRequest>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const ContainerSshKeysRequest& from);
-  void MergeFrom(const ContainerSshKeysRequest& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(ContainerSshKeysRequest* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "vm_tools.concierge.ContainerSshKeysRequest";
-  }
-  protected:
-  explicit ContainerSshKeysRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kVmNameFieldNumber = 1,
-    kContainerNameFieldNumber = 2,
-    kCryptohomeIdFieldNumber = 3,
-  };
-  // string vm_name = 1;
-  void clear_vm_name();
-  const std::string& vm_name() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_vm_name(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_vm_name();
-  PROTOBUF_NODISCARD std::string* release_vm_name();
-  void set_allocated_vm_name(std::string* vm_name);
-  private:
-  const std::string& _internal_vm_name() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_name(const std::string& value);
-  std::string* _internal_mutable_vm_name();
-  public:
-
-  // string container_name = 2;
-  void clear_container_name();
-  const std::string& container_name() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_container_name(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_container_name();
-  PROTOBUF_NODISCARD std::string* release_container_name();
-  void set_allocated_container_name(std::string* container_name);
-  private:
-  const std::string& _internal_container_name() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_name(const std::string& value);
-  std::string* _internal_mutable_container_name();
-  public:
-
-  // string cryptohome_id = 3;
-  void clear_cryptohome_id();
-  const std::string& cryptohome_id() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_cryptohome_id(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_cryptohome_id();
-  PROTOBUF_NODISCARD std::string* release_cryptohome_id();
-  void set_allocated_cryptohome_id(std::string* cryptohome_id);
-  private:
-  const std::string& _internal_cryptohome_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_cryptohome_id(const std::string& value);
-  std::string* _internal_mutable_cryptohome_id();
-  public:
-
-  // @@protoc_insertion_point(class_scope:vm_tools.concierge.ContainerSshKeysRequest)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_name_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr cryptohome_id_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_concierge_5fservice_2eproto;
-};
-// -------------------------------------------------------------------
-
-class ContainerSshKeysResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.ContainerSshKeysResponse) */ {
- public:
-  inline ContainerSshKeysResponse() : ContainerSshKeysResponse(nullptr) {}
-  ~ContainerSshKeysResponse() override;
-  explicit PROTOBUF_CONSTEXPR ContainerSshKeysResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  ContainerSshKeysResponse(const ContainerSshKeysResponse& from);
-  ContainerSshKeysResponse(ContainerSshKeysResponse&& from) noexcept
-    : ContainerSshKeysResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline ContainerSshKeysResponse& operator=(const ContainerSshKeysResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline ContainerSshKeysResponse& operator=(ContainerSshKeysResponse&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ContainerSshKeysResponse& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const ContainerSshKeysResponse* internal_default_instance() {
-    return reinterpret_cast<const ContainerSshKeysResponse*>(
-               &_ContainerSshKeysResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    45;
-
-  friend void swap(ContainerSshKeysResponse& a, ContainerSshKeysResponse& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(ContainerSshKeysResponse* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(ContainerSshKeysResponse* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  ContainerSshKeysResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<ContainerSshKeysResponse>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const ContainerSshKeysResponse& from);
-  void MergeFrom(const ContainerSshKeysResponse& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(ContainerSshKeysResponse* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "vm_tools.concierge.ContainerSshKeysResponse";
-  }
-  protected:
-  explicit ContainerSshKeysResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kContainerPublicKeyFieldNumber = 1,
-    kHostPrivateKeyFieldNumber = 2,
-    kHostnameFieldNumber = 3,
-    kHostPublicKeyFieldNumber = 4,
-    kContainerPrivateKeyFieldNumber = 5,
-  };
-  // string container_public_key = 1;
-  void clear_container_public_key();
-  const std::string& container_public_key() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_container_public_key(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_container_public_key();
-  PROTOBUF_NODISCARD std::string* release_container_public_key();
-  void set_allocated_container_public_key(std::string* container_public_key);
-  private:
-  const std::string& _internal_container_public_key() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_public_key(const std::string& value);
-  std::string* _internal_mutable_container_public_key();
-  public:
-
-  // string host_private_key = 2;
-  void clear_host_private_key();
-  const std::string& host_private_key() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_host_private_key(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_host_private_key();
-  PROTOBUF_NODISCARD std::string* release_host_private_key();
-  void set_allocated_host_private_key(std::string* host_private_key);
-  private:
-  const std::string& _internal_host_private_key() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_host_private_key(const std::string& value);
-  std::string* _internal_mutable_host_private_key();
-  public:
-
-  // string hostname = 3;
-  void clear_hostname();
-  const std::string& hostname() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_hostname(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_hostname();
-  PROTOBUF_NODISCARD std::string* release_hostname();
-  void set_allocated_hostname(std::string* hostname);
-  private:
-  const std::string& _internal_hostname() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_hostname(const std::string& value);
-  std::string* _internal_mutable_hostname();
-  public:
-
-  // string host_public_key = 4;
-  void clear_host_public_key();
-  const std::string& host_public_key() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_host_public_key(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_host_public_key();
-  PROTOBUF_NODISCARD std::string* release_host_public_key();
-  void set_allocated_host_public_key(std::string* host_public_key);
-  private:
-  const std::string& _internal_host_public_key() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_host_public_key(const std::string& value);
-  std::string* _internal_mutable_host_public_key();
-  public:
-
-  // string container_private_key = 5;
-  void clear_container_private_key();
-  const std::string& container_private_key() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_container_private_key(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_container_private_key();
-  PROTOBUF_NODISCARD std::string* release_container_private_key();
-  void set_allocated_container_private_key(std::string* container_private_key);
-  private:
-  const std::string& _internal_container_private_key() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_private_key(const std::string& value);
-  std::string* _internal_mutable_container_private_key();
-  public:
-
-  // @@protoc_insertion_point(class_scope:vm_tools.concierge.ContainerSshKeysResponse)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_public_key_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr host_private_key_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr hostname_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr host_public_key_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_private_key_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_concierge_5fservice_2eproto;
-};
-// -------------------------------------------------------------------
-
 class AttachUsbDeviceRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.AttachUsbDeviceRequest) */ {
  public:
@@ -9501,7 +9145,7 @@ class AttachUsbDeviceRequest final :
                &_AttachUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    44;
 
   friend void swap(AttachUsbDeviceRequest& a, AttachUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -9693,7 +9337,7 @@ class AttachUsbDeviceResponse final :
                &_AttachUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    45;
 
   friend void swap(AttachUsbDeviceResponse& a, AttachUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -9847,7 +9491,7 @@ class DetachUsbDeviceRequest final :
                &_DetachUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    46;
 
   friend void swap(DetachUsbDeviceRequest& a, DetachUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -10006,7 +9650,7 @@ class DetachUsbDeviceResponse final :
                &_DetachUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    47;
 
   friend void swap(DetachUsbDeviceResponse& a, DetachUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -10149,7 +9793,7 @@ class ListUsbDeviceRequest final :
                &_ListUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    48;
 
   friend void swap(ListUsbDeviceRequest& a, ListUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -10297,7 +9941,7 @@ class UsbDeviceMessage final :
                &_UsbDeviceMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    49;
 
   friend void swap(UsbDeviceMessage& a, UsbDeviceMessage& b) {
     a.Swap(&b);
@@ -10462,7 +10106,7 @@ class ListUsbDeviceResponse final :
                &_ListUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    50;
 
   friend void swap(ListUsbDeviceResponse& a, ListUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -10609,7 +10253,7 @@ class DnsSettings final :
                &_DnsSettings_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    51;
 
   friend void swap(DnsSettings& a, DnsSettings& b) {
     a.Swap(&b);
@@ -10777,7 +10421,7 @@ class SetVmCpuRestrictionRequest final :
                &_SetVmCpuRestrictionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    52;
 
   friend void swap(SetVmCpuRestrictionRequest& a, SetVmCpuRestrictionRequest& b) {
     a.Swap(&b);
@@ -10915,7 +10559,7 @@ class SetVmCpuRestrictionResponse final :
                &_SetVmCpuRestrictionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    53;
 
   friend void swap(SetVmCpuRestrictionResponse& a, SetVmCpuRestrictionResponse& b) {
     a.Swap(&b);
@@ -11042,7 +10686,7 @@ class AdjustVmRequest final :
                &_AdjustVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    54;
 
   friend void swap(AdjustVmRequest& a, AdjustVmRequest& b) {
     a.Swap(&b);
@@ -11232,7 +10876,7 @@ class AdjustVmResponse final :
                &_AdjustVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    55;
 
   friend void swap(AdjustVmResponse& a, AdjustVmResponse& b) {
     a.Swap(&b);
@@ -11375,7 +11019,7 @@ class ReclaimVmMemoryRequest final :
                &_ReclaimVmMemoryRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    56;
 
   friend void swap(ReclaimVmMemoryRequest& a, ReclaimVmMemoryRequest& b) {
     a.Swap(&b);
@@ -11534,7 +11178,7 @@ class ReclaimVmMemoryResponse final :
                &_ReclaimVmMemoryResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    57;
 
   friend void swap(ReclaimVmMemoryResponse& a, ReclaimVmMemoryResponse& b) {
     a.Swap(&b);
@@ -11677,7 +11321,7 @@ class ListVmsRequest final :
                &_ListVmsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    58;
 
   friend void swap(ListVmsRequest& a, ListVmsRequest& b) {
     a.Swap(&b);
@@ -11809,7 +11453,7 @@ class ExtendedVmInfo final :
                &_ExtendedVmInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    59;
 
   friend void swap(ExtendedVmInfo& a, ExtendedVmInfo& b) {
     a.Swap(&b);
@@ -11988,7 +11632,7 @@ class ListVmsResponse final :
                &_ListVmsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    60;
 
   friend void swap(ListVmsResponse& a, ListVmsResponse& b) {
     a.Swap(&b);
@@ -12151,7 +11795,7 @@ class GetVmGpuCachePathRequest final :
                &_GetVmGpuCachePathRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    61;
 
   friend void swap(GetVmGpuCachePathRequest& a, GetVmGpuCachePathRequest& b) {
     a.Swap(&b);
@@ -12299,7 +11943,7 @@ class GetVmGpuCachePathResponse final :
                &_GetVmGpuCachePathResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    64;
+    62;
 
   friend void swap(GetVmGpuCachePathResponse& a, GetVmGpuCachePathResponse& b) {
     a.Swap(&b);
@@ -12431,7 +12075,7 @@ class AddGroupPermissionMesaRequest final :
                &_AddGroupPermissionMesaRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    65;
+    63;
 
   friend void swap(AddGroupPermissionMesaRequest& a, AddGroupPermissionMesaRequest& b) {
     a.Swap(&b);
@@ -12579,7 +12223,7 @@ class GetVmLaunchAllowedRequest final :
                &_GetVmLaunchAllowedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    66;
+    64;
 
   friend void swap(GetVmLaunchAllowedRequest& a, GetVmLaunchAllowedRequest& b) {
     a.Swap(&b);
@@ -12728,7 +12372,7 @@ class GetVmLaunchAllowedResponse final :
                &_GetVmLaunchAllowedResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    67;
+    65;
 
   friend void swap(GetVmLaunchAllowedResponse& a, GetVmLaunchAllowedResponse& b) {
     a.Swap(&b);
@@ -12871,7 +12515,7 @@ class GetVmLogsRequest final :
                &_GetVmLogsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    68;
+    66;
 
   friend void swap(GetVmLogsRequest& a, GetVmLogsRequest& b) {
     a.Swap(&b);
@@ -13019,7 +12663,7 @@ class GetVmLogsResponse final :
                &_GetVmLogsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    69;
+    67;
 
   friend void swap(GetVmLogsResponse& a, GetVmLogsResponse& b) {
     a.Swap(&b);
@@ -13151,7 +12795,7 @@ class SwapVmRequest final :
                &_SwapVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    70;
+    68;
 
   friend void swap(SwapVmRequest& a, SwapVmRequest& b) {
     a.Swap(&b);
@@ -13310,7 +12954,7 @@ class SwapVmResponse final :
                &_SwapVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    71;
+    69;
 
   friend void swap(SwapVmResponse& a, SwapVmResponse& b) {
     a.Swap(&b);
@@ -13453,7 +13097,7 @@ class VmSwappingSignal final :
                &_VmSwappingSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    72;
+    70;
 
   friend void swap(VmSwappingSignal& a, VmSwappingSignal& b) {
     a.Swap(&b);
@@ -13601,7 +13245,7 @@ class InstallPflashRequest final :
                &_InstallPflashRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    73;
+    71;
 
   friend void swap(InstallPflashRequest& a, InstallPflashRequest& b) {
     a.Swap(&b);
@@ -13749,7 +13393,7 @@ class InstallPflashResponse final :
                &_InstallPflashResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    74;
+    72;
 
   friend void swap(InstallPflashResponse& a, InstallPflashResponse& b) {
     a.Swap(&b);
@@ -13840,6 +13484,308 @@ class InstallPflashResponse final :
   public:
 
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.InstallPflashResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failure_reason_;
+  bool success_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AggressiveBalloonRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.AggressiveBalloonRequest) */ {
+ public:
+  inline AggressiveBalloonRequest() : AggressiveBalloonRequest(nullptr) {}
+  ~AggressiveBalloonRequest() override;
+  explicit PROTOBUF_CONSTEXPR AggressiveBalloonRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AggressiveBalloonRequest(const AggressiveBalloonRequest& from);
+  AggressiveBalloonRequest(AggressiveBalloonRequest&& from) noexcept
+    : AggressiveBalloonRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline AggressiveBalloonRequest& operator=(const AggressiveBalloonRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AggressiveBalloonRequest& operator=(AggressiveBalloonRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const AggressiveBalloonRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AggressiveBalloonRequest* internal_default_instance() {
+    return reinterpret_cast<const AggressiveBalloonRequest*>(
+               &_AggressiveBalloonRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    73;
+
+  friend void swap(AggressiveBalloonRequest& a, AggressiveBalloonRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(AggressiveBalloonRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AggressiveBalloonRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AggressiveBalloonRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AggressiveBalloonRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AggressiveBalloonRequest& from);
+  void MergeFrom(const AggressiveBalloonRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AggressiveBalloonRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.AggressiveBalloonRequest";
+  }
+  protected:
+  explicit AggressiveBalloonRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+    kEnableFieldNumber = 3,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // bool enable = 3;
+  void clear_enable();
+  bool enable() const;
+  void set_enable(bool value);
+  private:
+  bool _internal_enable() const;
+  void _internal_set_enable(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.AggressiveBalloonRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  bool enable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AggressiveBalloonResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.AggressiveBalloonResponse) */ {
+ public:
+  inline AggressiveBalloonResponse() : AggressiveBalloonResponse(nullptr) {}
+  ~AggressiveBalloonResponse() override;
+  explicit PROTOBUF_CONSTEXPR AggressiveBalloonResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AggressiveBalloonResponse(const AggressiveBalloonResponse& from);
+  AggressiveBalloonResponse(AggressiveBalloonResponse&& from) noexcept
+    : AggressiveBalloonResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline AggressiveBalloonResponse& operator=(const AggressiveBalloonResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AggressiveBalloonResponse& operator=(AggressiveBalloonResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const AggressiveBalloonResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AggressiveBalloonResponse* internal_default_instance() {
+    return reinterpret_cast<const AggressiveBalloonResponse*>(
+               &_AggressiveBalloonResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    74;
+
+  friend void swap(AggressiveBalloonResponse& a, AggressiveBalloonResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(AggressiveBalloonResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AggressiveBalloonResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AggressiveBalloonResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AggressiveBalloonResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AggressiveBalloonResponse& from);
+  void MergeFrom(const AggressiveBalloonResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AggressiveBalloonResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.AggressiveBalloonResponse";
+  }
+  protected:
+  explicit AggressiveBalloonResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFailureReasonFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string failure_reason = 2;
+  void clear_failure_reason();
+  const std::string& failure_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failure_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failure_reason();
+  PROTOBUF_NODISCARD std::string* release_failure_reason();
+  void set_allocated_failure_reason(std::string* failure_reason);
+  private:
+  const std::string& _internal_failure_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failure_reason(const std::string& value);
+  std::string* _internal_mutable_failure_reason();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.AggressiveBalloonResponse)
  private:
   class _Internal;
 
@@ -21627,414 +21573,6 @@ inline void ListVmDisksResponse::set_total_size(uint64_t value) {
 
 // -------------------------------------------------------------------
 
-// ContainerSshKeysRequest
-
-// string vm_name = 1;
-inline void ContainerSshKeysRequest::clear_vm_name() {
-  vm_name_.ClearToEmpty();
-}
-inline const std::string& ContainerSshKeysRequest::vm_name() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.ContainerSshKeysRequest.vm_name)
-  return _internal_vm_name();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void ContainerSshKeysRequest::set_vm_name(ArgT0&& arg0, ArgT... args) {
- 
- vm_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.ContainerSshKeysRequest.vm_name)
-}
-inline std::string* ContainerSshKeysRequest::mutable_vm_name() {
-  std::string* _s = _internal_mutable_vm_name();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.ContainerSshKeysRequest.vm_name)
-  return _s;
-}
-inline const std::string& ContainerSshKeysRequest::_internal_vm_name() const {
-  return vm_name_.Get();
-}
-inline void ContainerSshKeysRequest::_internal_set_vm_name(const std::string& value) {
-  
-  vm_name_.Set(value, GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysRequest::_internal_mutable_vm_name() {
-  
-  return vm_name_.Mutable(GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysRequest::release_vm_name() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.ContainerSshKeysRequest.vm_name)
-  return vm_name_.Release();
-}
-inline void ContainerSshKeysRequest::set_allocated_vm_name(std::string* vm_name) {
-  if (vm_name != nullptr) {
-    
-  } else {
-    
-  }
-  vm_name_.SetAllocated(vm_name, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (vm_name_.IsDefault()) {
-    vm_name_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.ContainerSshKeysRequest.vm_name)
-}
-
-// string container_name = 2;
-inline void ContainerSshKeysRequest::clear_container_name() {
-  container_name_.ClearToEmpty();
-}
-inline const std::string& ContainerSshKeysRequest::container_name() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.ContainerSshKeysRequest.container_name)
-  return _internal_container_name();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void ContainerSshKeysRequest::set_container_name(ArgT0&& arg0, ArgT... args) {
- 
- container_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.ContainerSshKeysRequest.container_name)
-}
-inline std::string* ContainerSshKeysRequest::mutable_container_name() {
-  std::string* _s = _internal_mutable_container_name();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.ContainerSshKeysRequest.container_name)
-  return _s;
-}
-inline const std::string& ContainerSshKeysRequest::_internal_container_name() const {
-  return container_name_.Get();
-}
-inline void ContainerSshKeysRequest::_internal_set_container_name(const std::string& value) {
-  
-  container_name_.Set(value, GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysRequest::_internal_mutable_container_name() {
-  
-  return container_name_.Mutable(GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysRequest::release_container_name() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.ContainerSshKeysRequest.container_name)
-  return container_name_.Release();
-}
-inline void ContainerSshKeysRequest::set_allocated_container_name(std::string* container_name) {
-  if (container_name != nullptr) {
-    
-  } else {
-    
-  }
-  container_name_.SetAllocated(container_name, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (container_name_.IsDefault()) {
-    container_name_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.ContainerSshKeysRequest.container_name)
-}
-
-// string cryptohome_id = 3;
-inline void ContainerSshKeysRequest::clear_cryptohome_id() {
-  cryptohome_id_.ClearToEmpty();
-}
-inline const std::string& ContainerSshKeysRequest::cryptohome_id() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.ContainerSshKeysRequest.cryptohome_id)
-  return _internal_cryptohome_id();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void ContainerSshKeysRequest::set_cryptohome_id(ArgT0&& arg0, ArgT... args) {
- 
- cryptohome_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.ContainerSshKeysRequest.cryptohome_id)
-}
-inline std::string* ContainerSshKeysRequest::mutable_cryptohome_id() {
-  std::string* _s = _internal_mutable_cryptohome_id();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.ContainerSshKeysRequest.cryptohome_id)
-  return _s;
-}
-inline const std::string& ContainerSshKeysRequest::_internal_cryptohome_id() const {
-  return cryptohome_id_.Get();
-}
-inline void ContainerSshKeysRequest::_internal_set_cryptohome_id(const std::string& value) {
-  
-  cryptohome_id_.Set(value, GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysRequest::_internal_mutable_cryptohome_id() {
-  
-  return cryptohome_id_.Mutable(GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysRequest::release_cryptohome_id() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.ContainerSshKeysRequest.cryptohome_id)
-  return cryptohome_id_.Release();
-}
-inline void ContainerSshKeysRequest::set_allocated_cryptohome_id(std::string* cryptohome_id) {
-  if (cryptohome_id != nullptr) {
-    
-  } else {
-    
-  }
-  cryptohome_id_.SetAllocated(cryptohome_id, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (cryptohome_id_.IsDefault()) {
-    cryptohome_id_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.ContainerSshKeysRequest.cryptohome_id)
-}
-
-// -------------------------------------------------------------------
-
-// ContainerSshKeysResponse
-
-// string container_public_key = 1;
-inline void ContainerSshKeysResponse::clear_container_public_key() {
-  container_public_key_.ClearToEmpty();
-}
-inline const std::string& ContainerSshKeysResponse::container_public_key() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.ContainerSshKeysResponse.container_public_key)
-  return _internal_container_public_key();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void ContainerSshKeysResponse::set_container_public_key(ArgT0&& arg0, ArgT... args) {
- 
- container_public_key_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.ContainerSshKeysResponse.container_public_key)
-}
-inline std::string* ContainerSshKeysResponse::mutable_container_public_key() {
-  std::string* _s = _internal_mutable_container_public_key();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.ContainerSshKeysResponse.container_public_key)
-  return _s;
-}
-inline const std::string& ContainerSshKeysResponse::_internal_container_public_key() const {
-  return container_public_key_.Get();
-}
-inline void ContainerSshKeysResponse::_internal_set_container_public_key(const std::string& value) {
-  
-  container_public_key_.Set(value, GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysResponse::_internal_mutable_container_public_key() {
-  
-  return container_public_key_.Mutable(GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysResponse::release_container_public_key() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.ContainerSshKeysResponse.container_public_key)
-  return container_public_key_.Release();
-}
-inline void ContainerSshKeysResponse::set_allocated_container_public_key(std::string* container_public_key) {
-  if (container_public_key != nullptr) {
-    
-  } else {
-    
-  }
-  container_public_key_.SetAllocated(container_public_key, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (container_public_key_.IsDefault()) {
-    container_public_key_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.ContainerSshKeysResponse.container_public_key)
-}
-
-// string host_private_key = 2;
-inline void ContainerSshKeysResponse::clear_host_private_key() {
-  host_private_key_.ClearToEmpty();
-}
-inline const std::string& ContainerSshKeysResponse::host_private_key() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.ContainerSshKeysResponse.host_private_key)
-  return _internal_host_private_key();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void ContainerSshKeysResponse::set_host_private_key(ArgT0&& arg0, ArgT... args) {
- 
- host_private_key_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.ContainerSshKeysResponse.host_private_key)
-}
-inline std::string* ContainerSshKeysResponse::mutable_host_private_key() {
-  std::string* _s = _internal_mutable_host_private_key();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.ContainerSshKeysResponse.host_private_key)
-  return _s;
-}
-inline const std::string& ContainerSshKeysResponse::_internal_host_private_key() const {
-  return host_private_key_.Get();
-}
-inline void ContainerSshKeysResponse::_internal_set_host_private_key(const std::string& value) {
-  
-  host_private_key_.Set(value, GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysResponse::_internal_mutable_host_private_key() {
-  
-  return host_private_key_.Mutable(GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysResponse::release_host_private_key() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.ContainerSshKeysResponse.host_private_key)
-  return host_private_key_.Release();
-}
-inline void ContainerSshKeysResponse::set_allocated_host_private_key(std::string* host_private_key) {
-  if (host_private_key != nullptr) {
-    
-  } else {
-    
-  }
-  host_private_key_.SetAllocated(host_private_key, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (host_private_key_.IsDefault()) {
-    host_private_key_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.ContainerSshKeysResponse.host_private_key)
-}
-
-// string hostname = 3;
-inline void ContainerSshKeysResponse::clear_hostname() {
-  hostname_.ClearToEmpty();
-}
-inline const std::string& ContainerSshKeysResponse::hostname() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.ContainerSshKeysResponse.hostname)
-  return _internal_hostname();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void ContainerSshKeysResponse::set_hostname(ArgT0&& arg0, ArgT... args) {
- 
- hostname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.ContainerSshKeysResponse.hostname)
-}
-inline std::string* ContainerSshKeysResponse::mutable_hostname() {
-  std::string* _s = _internal_mutable_hostname();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.ContainerSshKeysResponse.hostname)
-  return _s;
-}
-inline const std::string& ContainerSshKeysResponse::_internal_hostname() const {
-  return hostname_.Get();
-}
-inline void ContainerSshKeysResponse::_internal_set_hostname(const std::string& value) {
-  
-  hostname_.Set(value, GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysResponse::_internal_mutable_hostname() {
-  
-  return hostname_.Mutable(GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysResponse::release_hostname() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.ContainerSshKeysResponse.hostname)
-  return hostname_.Release();
-}
-inline void ContainerSshKeysResponse::set_allocated_hostname(std::string* hostname) {
-  if (hostname != nullptr) {
-    
-  } else {
-    
-  }
-  hostname_.SetAllocated(hostname, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (hostname_.IsDefault()) {
-    hostname_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.ContainerSshKeysResponse.hostname)
-}
-
-// string host_public_key = 4;
-inline void ContainerSshKeysResponse::clear_host_public_key() {
-  host_public_key_.ClearToEmpty();
-}
-inline const std::string& ContainerSshKeysResponse::host_public_key() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.ContainerSshKeysResponse.host_public_key)
-  return _internal_host_public_key();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void ContainerSshKeysResponse::set_host_public_key(ArgT0&& arg0, ArgT... args) {
- 
- host_public_key_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.ContainerSshKeysResponse.host_public_key)
-}
-inline std::string* ContainerSshKeysResponse::mutable_host_public_key() {
-  std::string* _s = _internal_mutable_host_public_key();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.ContainerSshKeysResponse.host_public_key)
-  return _s;
-}
-inline const std::string& ContainerSshKeysResponse::_internal_host_public_key() const {
-  return host_public_key_.Get();
-}
-inline void ContainerSshKeysResponse::_internal_set_host_public_key(const std::string& value) {
-  
-  host_public_key_.Set(value, GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysResponse::_internal_mutable_host_public_key() {
-  
-  return host_public_key_.Mutable(GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysResponse::release_host_public_key() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.ContainerSshKeysResponse.host_public_key)
-  return host_public_key_.Release();
-}
-inline void ContainerSshKeysResponse::set_allocated_host_public_key(std::string* host_public_key) {
-  if (host_public_key != nullptr) {
-    
-  } else {
-    
-  }
-  host_public_key_.SetAllocated(host_public_key, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (host_public_key_.IsDefault()) {
-    host_public_key_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.ContainerSshKeysResponse.host_public_key)
-}
-
-// string container_private_key = 5;
-inline void ContainerSshKeysResponse::clear_container_private_key() {
-  container_private_key_.ClearToEmpty();
-}
-inline const std::string& ContainerSshKeysResponse::container_private_key() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.ContainerSshKeysResponse.container_private_key)
-  return _internal_container_private_key();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void ContainerSshKeysResponse::set_container_private_key(ArgT0&& arg0, ArgT... args) {
- 
- container_private_key_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.ContainerSshKeysResponse.container_private_key)
-}
-inline std::string* ContainerSshKeysResponse::mutable_container_private_key() {
-  std::string* _s = _internal_mutable_container_private_key();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.ContainerSshKeysResponse.container_private_key)
-  return _s;
-}
-inline const std::string& ContainerSshKeysResponse::_internal_container_private_key() const {
-  return container_private_key_.Get();
-}
-inline void ContainerSshKeysResponse::_internal_set_container_private_key(const std::string& value) {
-  
-  container_private_key_.Set(value, GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysResponse::_internal_mutable_container_private_key() {
-  
-  return container_private_key_.Mutable(GetArenaForAllocation());
-}
-inline std::string* ContainerSshKeysResponse::release_container_private_key() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.ContainerSshKeysResponse.container_private_key)
-  return container_private_key_.Release();
-}
-inline void ContainerSshKeysResponse::set_allocated_container_private_key(std::string* container_private_key) {
-  if (container_private_key != nullptr) {
-    
-  } else {
-    
-  }
-  container_private_key_.SetAllocated(container_private_key, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (container_private_key_.IsDefault()) {
-    container_private_key_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.ContainerSshKeysResponse.container_private_key)
-}
-
-// -------------------------------------------------------------------
-
 // AttachUsbDeviceRequest
 
 // string vm_name = 1;
@@ -24932,6 +24470,204 @@ inline void InstallPflashResponse::set_allocated_failure_reason(std::string* fai
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.InstallPflashResponse.failure_reason)
+}
+
+// -------------------------------------------------------------------
+
+// AggressiveBalloonRequest
+
+// string name = 1;
+inline void AggressiveBalloonRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& AggressiveBalloonRequest::name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AggressiveBalloonRequest.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AggressiveBalloonRequest::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AggressiveBalloonRequest.name)
+}
+inline std::string* AggressiveBalloonRequest::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AggressiveBalloonRequest.name)
+  return _s;
+}
+inline const std::string& AggressiveBalloonRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void AggressiveBalloonRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonRequest::release_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AggressiveBalloonRequest.name)
+  return name_.Release();
+}
+inline void AggressiveBalloonRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault()) {
+    name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AggressiveBalloonRequest.name)
+}
+
+// string owner_id = 2;
+inline void AggressiveBalloonRequest::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& AggressiveBalloonRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AggressiveBalloonRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AggressiveBalloonRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AggressiveBalloonRequest.owner_id)
+}
+inline std::string* AggressiveBalloonRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AggressiveBalloonRequest.owner_id)
+  return _s;
+}
+inline const std::string& AggressiveBalloonRequest::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void AggressiveBalloonRequest::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonRequest::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AggressiveBalloonRequest.owner_id)
+  return owner_id_.Release();
+}
+inline void AggressiveBalloonRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(owner_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault()) {
+    owner_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AggressiveBalloonRequest.owner_id)
+}
+
+// bool enable = 3;
+inline void AggressiveBalloonRequest::clear_enable() {
+  enable_ = false;
+}
+inline bool AggressiveBalloonRequest::_internal_enable() const {
+  return enable_;
+}
+inline bool AggressiveBalloonRequest::enable() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AggressiveBalloonRequest.enable)
+  return _internal_enable();
+}
+inline void AggressiveBalloonRequest::_internal_set_enable(bool value) {
+  
+  enable_ = value;
+}
+inline void AggressiveBalloonRequest::set_enable(bool value) {
+  _internal_set_enable(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AggressiveBalloonRequest.enable)
+}
+
+// -------------------------------------------------------------------
+
+// AggressiveBalloonResponse
+
+// bool success = 1;
+inline void AggressiveBalloonResponse::clear_success() {
+  success_ = false;
+}
+inline bool AggressiveBalloonResponse::_internal_success() const {
+  return success_;
+}
+inline bool AggressiveBalloonResponse::success() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AggressiveBalloonResponse.success)
+  return _internal_success();
+}
+inline void AggressiveBalloonResponse::_internal_set_success(bool value) {
+  
+  success_ = value;
+}
+inline void AggressiveBalloonResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AggressiveBalloonResponse.success)
+}
+
+// string failure_reason = 2;
+inline void AggressiveBalloonResponse::clear_failure_reason() {
+  failure_reason_.ClearToEmpty();
+}
+inline const std::string& AggressiveBalloonResponse::failure_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
+  return _internal_failure_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AggressiveBalloonResponse::set_failure_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ failure_reason_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
+}
+inline std::string* AggressiveBalloonResponse::mutable_failure_reason() {
+  std::string* _s = _internal_mutable_failure_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
+  return _s;
+}
+inline const std::string& AggressiveBalloonResponse::_internal_failure_reason() const {
+  return failure_reason_.Get();
+}
+inline void AggressiveBalloonResponse::_internal_set_failure_reason(const std::string& value) {
+  
+  failure_reason_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonResponse::_internal_mutable_failure_reason() {
+  
+  return failure_reason_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AggressiveBalloonResponse::release_failure_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
+  return failure_reason_.Release();
+}
+inline void AggressiveBalloonResponse::set_allocated_failure_reason(std::string* failure_reason) {
+  if (failure_reason != nullptr) {
+    
+  } else {
+    
+  }
+  failure_reason_.SetAllocated(failure_reason, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (failure_reason_.IsDefault()) {
+    failure_reason_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AggressiveBalloonResponse.failure_reason)
 }
 
 #ifdef __GNUC__

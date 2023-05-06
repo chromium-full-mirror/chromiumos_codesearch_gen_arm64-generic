@@ -881,6 +881,7 @@ class StructuredDataProto final :
 
   enum : int {
     kEventsFieldNumber = 1,
+    kIsDeviceEnrolledFieldNumber = 2,
   };
   // repeated .metrics.StructuredEventProto events = 1;
   int events_size() const;
@@ -900,6 +901,19 @@ class StructuredDataProto final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto >&
       events() const;
 
+  // optional bool is_device_enrolled = 2;
+  bool has_is_device_enrolled() const;
+  private:
+  bool _internal_has_is_device_enrolled() const;
+  public:
+  void clear_is_device_enrolled();
+  bool is_device_enrolled() const;
+  void set_is_device_enrolled(bool value);
+  private:
+  bool _internal_is_device_enrolled() const;
+  void _internal_set_is_device_enrolled(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:metrics.StructuredDataProto)
  private:
   class _Internal;
@@ -907,8 +921,10 @@ class StructuredDataProto final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto > events_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto > events_;
+  bool is_device_enrolled_;
   friend struct ::TableStruct_structured_5fdata_2eproto;
 };
 // ===================================================================
@@ -1583,6 +1599,34 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEve
 StructuredDataProto::events() const {
   // @@protoc_insertion_point(field_list:metrics.StructuredDataProto.events)
   return events_;
+}
+
+// optional bool is_device_enrolled = 2;
+inline bool StructuredDataProto::_internal_has_is_device_enrolled() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool StructuredDataProto::has_is_device_enrolled() const {
+  return _internal_has_is_device_enrolled();
+}
+inline void StructuredDataProto::clear_is_device_enrolled() {
+  is_device_enrolled_ = false;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline bool StructuredDataProto::_internal_is_device_enrolled() const {
+  return is_device_enrolled_;
+}
+inline bool StructuredDataProto::is_device_enrolled() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredDataProto.is_device_enrolled)
+  return _internal_is_device_enrolled();
+}
+inline void StructuredDataProto::_internal_set_is_device_enrolled(bool value) {
+  _has_bits_[0] |= 0x00000001u;
+  is_device_enrolled_ = value;
+}
+inline void StructuredDataProto::set_is_device_enrolled(bool value) {
+  _internal_set_is_device_enrolled(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredDataProto.is_device_enrolled)
 }
 
 #ifdef __GNUC__

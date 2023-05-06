@@ -1143,34 +1143,11 @@ class RequestFileAccessRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kInodesFieldNumber = 1,
     kFilesPathsFieldNumber = 4,
     kDestinationUrlFieldNumber = 3,
     kProcessIdFieldNumber = 2,
     kDestinationComponentFieldNumber = 5,
   };
-  // repeated uint64 inodes = 1;
-  int inodes_size() const;
-  private:
-  int _internal_inodes_size() const;
-  public:
-  void clear_inodes();
-  private:
-  uint64_t _internal_inodes(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-      _internal_inodes() const;
-  void _internal_add_inodes(uint64_t value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-      _internal_mutable_inodes();
-  public:
-  uint64_t inodes(int index) const;
-  void set_inodes(int index, uint64_t value);
-  void add_inodes(uint64_t value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-      inodes() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-      mutable_inodes();
-
   // repeated string files_paths = 4;
   int files_paths_size() const;
   private:
@@ -1248,7 +1225,6 @@ class RequestFileAccessRequest final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t > inodes_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> files_paths_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr destination_url_;
   int32_t process_id_;
@@ -1864,27 +1840,8 @@ class IsDlpPolicyMatchedRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kSourceUrlFieldNumber = 1,
     kFileMetadataFieldNumber = 2,
   };
-  // optional string source_url = 1;
-  bool has_source_url() const;
-  private:
-  bool _internal_has_source_url() const;
-  public:
-  void clear_source_url();
-  const std::string& source_url() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_source_url(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_source_url();
-  PROTOBUF_NODISCARD std::string* release_source_url();
-  void set_allocated_source_url(std::string* source_url);
-  private:
-  const std::string& _internal_source_url() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_source_url(const std::string& value);
-  std::string* _internal_mutable_source_url();
-  public:
-
   // optional .dlp.FileMetadata file_metadata = 2;
   bool has_file_metadata() const;
   private:
@@ -1912,7 +1869,6 @@ class IsDlpPolicyMatchedRequest final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr source_url_;
   ::dlp::FileMetadata* file_metadata_;
   friend struct ::TableStruct_dlp_5fservice_2eproto;
 };
@@ -2848,36 +2804,11 @@ class IsFilesTransferRestrictedRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kFilesSourcesFieldNumber = 1,
     kTransferredFilesFieldNumber = 3,
     kDestinationUrlFieldNumber = 2,
     kDestinationComponentFieldNumber = 4,
     kFileActionFieldNumber = 5,
   };
-  // repeated string files_sources = 1;
-  int files_sources_size() const;
-  private:
-  int _internal_files_sources_size() const;
-  public:
-  void clear_files_sources();
-  const std::string& files_sources(int index) const;
-  std::string* mutable_files_sources(int index);
-  void set_files_sources(int index, const std::string& value);
-  void set_files_sources(int index, std::string&& value);
-  void set_files_sources(int index, const char* value);
-  void set_files_sources(int index, const char* value, size_t size);
-  std::string* add_files_sources();
-  void add_files_sources(const std::string& value);
-  void add_files_sources(std::string&& value);
-  void add_files_sources(const char* value);
-  void add_files_sources(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& files_sources() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_files_sources();
-  private:
-  const std::string& _internal_files_sources(int index) const;
-  std::string* _internal_add_files_sources();
-  public:
-
   // repeated .dlp.FileMetadata transferred_files = 3;
   int transferred_files_size() const;
   private:
@@ -2949,7 +2880,6 @@ class IsFilesTransferRestrictedRequest final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> files_sources_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata > transferred_files_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr destination_url_;
   int destination_component_;
@@ -3068,53 +2998,9 @@ class IsFilesTransferRestrictedResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kFilesSourcesFieldNumber = 2,
-    kRestrictedFilesFieldNumber = 3,
     kFilesRestrictionsFieldNumber = 4,
     kErrorMessageFieldNumber = 1,
   };
-  // repeated string files_sources = 2;
-  int files_sources_size() const;
-  private:
-  int _internal_files_sources_size() const;
-  public:
-  void clear_files_sources();
-  const std::string& files_sources(int index) const;
-  std::string* mutable_files_sources(int index);
-  void set_files_sources(int index, const std::string& value);
-  void set_files_sources(int index, std::string&& value);
-  void set_files_sources(int index, const char* value);
-  void set_files_sources(int index, const char* value, size_t size);
-  std::string* add_files_sources();
-  void add_files_sources(const std::string& value);
-  void add_files_sources(std::string&& value);
-  void add_files_sources(const char* value);
-  void add_files_sources(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& files_sources() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_files_sources();
-  private:
-  const std::string& _internal_files_sources(int index) const;
-  std::string* _internal_add_files_sources();
-  public:
-
-  // repeated .dlp.FileMetadata restricted_files = 3;
-  int restricted_files_size() const;
-  private:
-  int _internal_restricted_files_size() const;
-  public:
-  void clear_restricted_files();
-  ::dlp::FileMetadata* mutable_restricted_files(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >*
-      mutable_restricted_files();
-  private:
-  const ::dlp::FileMetadata& _internal_restricted_files(int index) const;
-  ::dlp::FileMetadata* _internal_add_restricted_files();
-  public:
-  const ::dlp::FileMetadata& restricted_files(int index) const;
-  ::dlp::FileMetadata* add_restricted_files();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >&
-      restricted_files() const;
-
   // repeated .dlp.FileRestriction files_restrictions = 4;
   int files_restrictions_size() const;
   private:
@@ -3160,8 +3046,6 @@ class IsFilesTransferRestrictedResponse final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> files_sources_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata > restricted_files_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileRestriction > files_restrictions_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr error_message_;
   friend struct ::TableStruct_dlp_5fservice_2eproto;
@@ -3801,53 +3685,6 @@ inline void AddFileResponse::set_allocated_error_message(std::string* error_mess
 
 // RequestFileAccessRequest
 
-// repeated uint64 inodes = 1;
-inline int RequestFileAccessRequest::_internal_inodes_size() const {
-  return inodes_.size();
-}
-inline int RequestFileAccessRequest::inodes_size() const {
-  return _internal_inodes_size();
-}
-inline void RequestFileAccessRequest::clear_inodes() {
-  inodes_.Clear();
-}
-inline uint64_t RequestFileAccessRequest::_internal_inodes(int index) const {
-  return inodes_.Get(index);
-}
-inline uint64_t RequestFileAccessRequest::inodes(int index) const {
-  // @@protoc_insertion_point(field_get:dlp.RequestFileAccessRequest.inodes)
-  return _internal_inodes(index);
-}
-inline void RequestFileAccessRequest::set_inodes(int index, uint64_t value) {
-  inodes_.Set(index, value);
-  // @@protoc_insertion_point(field_set:dlp.RequestFileAccessRequest.inodes)
-}
-inline void RequestFileAccessRequest::_internal_add_inodes(uint64_t value) {
-  inodes_.Add(value);
-}
-inline void RequestFileAccessRequest::add_inodes(uint64_t value) {
-  _internal_add_inodes(value);
-  // @@protoc_insertion_point(field_add:dlp.RequestFileAccessRequest.inodes)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-RequestFileAccessRequest::_internal_inodes() const {
-  return inodes_;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >&
-RequestFileAccessRequest::inodes() const {
-  // @@protoc_insertion_point(field_list:dlp.RequestFileAccessRequest.inodes)
-  return _internal_inodes();
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-RequestFileAccessRequest::_internal_mutable_inodes() {
-  return &inodes_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
-RequestFileAccessRequest::mutable_inodes() {
-  // @@protoc_insertion_point(field_mutable_list:dlp.RequestFileAccessRequest.inodes)
-  return _internal_mutable_inodes();
-}
-
 // optional int32 process_id = 2;
 inline bool RequestFileAccessRequest::_internal_has_process_id() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
@@ -4443,77 +4280,9 @@ inline void FileRestriction::set_restriction_level(::dlp::RestrictionLevel value
 
 // IsDlpPolicyMatchedRequest
 
-// optional string source_url = 1;
-inline bool IsDlpPolicyMatchedRequest::_internal_has_source_url() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool IsDlpPolicyMatchedRequest::has_source_url() const {
-  return _internal_has_source_url();
-}
-inline void IsDlpPolicyMatchedRequest::clear_source_url() {
-  source_url_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const std::string& IsDlpPolicyMatchedRequest::source_url() const {
-  // @@protoc_insertion_point(field_get:dlp.IsDlpPolicyMatchedRequest.source_url)
-  return _internal_source_url();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void IsDlpPolicyMatchedRequest::set_source_url(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000001u;
- source_url_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:dlp.IsDlpPolicyMatchedRequest.source_url)
-}
-inline std::string* IsDlpPolicyMatchedRequest::mutable_source_url() {
-  std::string* _s = _internal_mutable_source_url();
-  // @@protoc_insertion_point(field_mutable:dlp.IsDlpPolicyMatchedRequest.source_url)
-  return _s;
-}
-inline const std::string& IsDlpPolicyMatchedRequest::_internal_source_url() const {
-  return source_url_.Get();
-}
-inline void IsDlpPolicyMatchedRequest::_internal_set_source_url(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
-  source_url_.Set(value, GetArenaForAllocation());
-}
-inline std::string* IsDlpPolicyMatchedRequest::_internal_mutable_source_url() {
-  _has_bits_[0] |= 0x00000001u;
-  return source_url_.Mutable(GetArenaForAllocation());
-}
-inline std::string* IsDlpPolicyMatchedRequest::release_source_url() {
-  // @@protoc_insertion_point(field_release:dlp.IsDlpPolicyMatchedRequest.source_url)
-  if (!_internal_has_source_url()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  auto* p = source_url_.Release();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (source_url_.IsDefault()) {
-    source_url_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  return p;
-}
-inline void IsDlpPolicyMatchedRequest::set_allocated_source_url(std::string* source_url) {
-  if (source_url != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  source_url_.SetAllocated(source_url, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (source_url_.IsDefault()) {
-    source_url_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:dlp.IsDlpPolicyMatchedRequest.source_url)
-}
-
 // optional .dlp.FileMetadata file_metadata = 2;
 inline bool IsDlpPolicyMatchedRequest::_internal_has_file_metadata() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || file_metadata_ != nullptr);
   return value;
 }
@@ -4522,7 +4291,7 @@ inline bool IsDlpPolicyMatchedRequest::has_file_metadata() const {
 }
 inline void IsDlpPolicyMatchedRequest::clear_file_metadata() {
   if (file_metadata_ != nullptr) file_metadata_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::dlp::FileMetadata& IsDlpPolicyMatchedRequest::_internal_file_metadata() const {
   const ::dlp::FileMetadata* p = file_metadata_;
@@ -4540,14 +4309,14 @@ inline void IsDlpPolicyMatchedRequest::unsafe_arena_set_allocated_file_metadata(
   }
   file_metadata_ = file_metadata;
   if (file_metadata) {
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000001u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:dlp.IsDlpPolicyMatchedRequest.file_metadata)
 }
 inline ::dlp::FileMetadata* IsDlpPolicyMatchedRequest::release_file_metadata() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
   ::dlp::FileMetadata* temp = file_metadata_;
   file_metadata_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -4563,13 +4332,13 @@ inline ::dlp::FileMetadata* IsDlpPolicyMatchedRequest::release_file_metadata() {
 }
 inline ::dlp::FileMetadata* IsDlpPolicyMatchedRequest::unsafe_arena_release_file_metadata() {
   // @@protoc_insertion_point(field_release:dlp.IsDlpPolicyMatchedRequest.file_metadata)
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
   ::dlp::FileMetadata* temp = file_metadata_;
   file_metadata_ = nullptr;
   return temp;
 }
 inline ::dlp::FileMetadata* IsDlpPolicyMatchedRequest::_internal_mutable_file_metadata() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000001u;
   if (file_metadata_ == nullptr) {
     auto* p = CreateMaybeMessage<::dlp::FileMetadata>(GetArenaForAllocation());
     file_metadata_ = p;
@@ -4593,9 +4362,9 @@ inline void IsDlpPolicyMatchedRequest::set_allocated_file_metadata(::dlp::FileMe
       file_metadata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, file_metadata, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000001u;
   }
   file_metadata_ = file_metadata;
   // @@protoc_insertion_point(field_set_allocated:dlp.IsDlpPolicyMatchedRequest.file_metadata)
@@ -5152,81 +4921,6 @@ CheckFilesTransferResponse::mutable_files_paths() {
 
 // IsFilesTransferRestrictedRequest
 
-// repeated string files_sources = 1;
-inline int IsFilesTransferRestrictedRequest::_internal_files_sources_size() const {
-  return files_sources_.size();
-}
-inline int IsFilesTransferRestrictedRequest::files_sources_size() const {
-  return _internal_files_sources_size();
-}
-inline void IsFilesTransferRestrictedRequest::clear_files_sources() {
-  files_sources_.Clear();
-}
-inline std::string* IsFilesTransferRestrictedRequest::add_files_sources() {
-  std::string* _s = _internal_add_files_sources();
-  // @@protoc_insertion_point(field_add_mutable:dlp.IsFilesTransferRestrictedRequest.files_sources)
-  return _s;
-}
-inline const std::string& IsFilesTransferRestrictedRequest::_internal_files_sources(int index) const {
-  return files_sources_.Get(index);
-}
-inline const std::string& IsFilesTransferRestrictedRequest::files_sources(int index) const {
-  // @@protoc_insertion_point(field_get:dlp.IsFilesTransferRestrictedRequest.files_sources)
-  return _internal_files_sources(index);
-}
-inline std::string* IsFilesTransferRestrictedRequest::mutable_files_sources(int index) {
-  // @@protoc_insertion_point(field_mutable:dlp.IsFilesTransferRestrictedRequest.files_sources)
-  return files_sources_.Mutable(index);
-}
-inline void IsFilesTransferRestrictedRequest::set_files_sources(int index, const std::string& value) {
-  files_sources_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:dlp.IsFilesTransferRestrictedRequest.files_sources)
-}
-inline void IsFilesTransferRestrictedRequest::set_files_sources(int index, std::string&& value) {
-  files_sources_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:dlp.IsFilesTransferRestrictedRequest.files_sources)
-}
-inline void IsFilesTransferRestrictedRequest::set_files_sources(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  files_sources_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:dlp.IsFilesTransferRestrictedRequest.files_sources)
-}
-inline void IsFilesTransferRestrictedRequest::set_files_sources(int index, const char* value, size_t size) {
-  files_sources_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:dlp.IsFilesTransferRestrictedRequest.files_sources)
-}
-inline std::string* IsFilesTransferRestrictedRequest::_internal_add_files_sources() {
-  return files_sources_.Add();
-}
-inline void IsFilesTransferRestrictedRequest::add_files_sources(const std::string& value) {
-  files_sources_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:dlp.IsFilesTransferRestrictedRequest.files_sources)
-}
-inline void IsFilesTransferRestrictedRequest::add_files_sources(std::string&& value) {
-  files_sources_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:dlp.IsFilesTransferRestrictedRequest.files_sources)
-}
-inline void IsFilesTransferRestrictedRequest::add_files_sources(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  files_sources_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:dlp.IsFilesTransferRestrictedRequest.files_sources)
-}
-inline void IsFilesTransferRestrictedRequest::add_files_sources(const char* value, size_t size) {
-  files_sources_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:dlp.IsFilesTransferRestrictedRequest.files_sources)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-IsFilesTransferRestrictedRequest::files_sources() const {
-  // @@protoc_insertion_point(field_list:dlp.IsFilesTransferRestrictedRequest.files_sources)
-  return files_sources_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-IsFilesTransferRestrictedRequest::mutable_files_sources() {
-  // @@protoc_insertion_point(field_mutable_list:dlp.IsFilesTransferRestrictedRequest.files_sources)
-  return &files_sources_;
-}
-
 // optional string destination_url = 2;
 inline bool IsFilesTransferRestrictedRequest::_internal_has_destination_url() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
@@ -5463,121 +5157,6 @@ inline void IsFilesTransferRestrictedResponse::set_allocated_error_message(std::
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:dlp.IsFilesTransferRestrictedResponse.error_message)
-}
-
-// repeated string files_sources = 2;
-inline int IsFilesTransferRestrictedResponse::_internal_files_sources_size() const {
-  return files_sources_.size();
-}
-inline int IsFilesTransferRestrictedResponse::files_sources_size() const {
-  return _internal_files_sources_size();
-}
-inline void IsFilesTransferRestrictedResponse::clear_files_sources() {
-  files_sources_.Clear();
-}
-inline std::string* IsFilesTransferRestrictedResponse::add_files_sources() {
-  std::string* _s = _internal_add_files_sources();
-  // @@protoc_insertion_point(field_add_mutable:dlp.IsFilesTransferRestrictedResponse.files_sources)
-  return _s;
-}
-inline const std::string& IsFilesTransferRestrictedResponse::_internal_files_sources(int index) const {
-  return files_sources_.Get(index);
-}
-inline const std::string& IsFilesTransferRestrictedResponse::files_sources(int index) const {
-  // @@protoc_insertion_point(field_get:dlp.IsFilesTransferRestrictedResponse.files_sources)
-  return _internal_files_sources(index);
-}
-inline std::string* IsFilesTransferRestrictedResponse::mutable_files_sources(int index) {
-  // @@protoc_insertion_point(field_mutable:dlp.IsFilesTransferRestrictedResponse.files_sources)
-  return files_sources_.Mutable(index);
-}
-inline void IsFilesTransferRestrictedResponse::set_files_sources(int index, const std::string& value) {
-  files_sources_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:dlp.IsFilesTransferRestrictedResponse.files_sources)
-}
-inline void IsFilesTransferRestrictedResponse::set_files_sources(int index, std::string&& value) {
-  files_sources_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:dlp.IsFilesTransferRestrictedResponse.files_sources)
-}
-inline void IsFilesTransferRestrictedResponse::set_files_sources(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  files_sources_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:dlp.IsFilesTransferRestrictedResponse.files_sources)
-}
-inline void IsFilesTransferRestrictedResponse::set_files_sources(int index, const char* value, size_t size) {
-  files_sources_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:dlp.IsFilesTransferRestrictedResponse.files_sources)
-}
-inline std::string* IsFilesTransferRestrictedResponse::_internal_add_files_sources() {
-  return files_sources_.Add();
-}
-inline void IsFilesTransferRestrictedResponse::add_files_sources(const std::string& value) {
-  files_sources_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:dlp.IsFilesTransferRestrictedResponse.files_sources)
-}
-inline void IsFilesTransferRestrictedResponse::add_files_sources(std::string&& value) {
-  files_sources_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:dlp.IsFilesTransferRestrictedResponse.files_sources)
-}
-inline void IsFilesTransferRestrictedResponse::add_files_sources(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  files_sources_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:dlp.IsFilesTransferRestrictedResponse.files_sources)
-}
-inline void IsFilesTransferRestrictedResponse::add_files_sources(const char* value, size_t size) {
-  files_sources_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:dlp.IsFilesTransferRestrictedResponse.files_sources)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-IsFilesTransferRestrictedResponse::files_sources() const {
-  // @@protoc_insertion_point(field_list:dlp.IsFilesTransferRestrictedResponse.files_sources)
-  return files_sources_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-IsFilesTransferRestrictedResponse::mutable_files_sources() {
-  // @@protoc_insertion_point(field_mutable_list:dlp.IsFilesTransferRestrictedResponse.files_sources)
-  return &files_sources_;
-}
-
-// repeated .dlp.FileMetadata restricted_files = 3;
-inline int IsFilesTransferRestrictedResponse::_internal_restricted_files_size() const {
-  return restricted_files_.size();
-}
-inline int IsFilesTransferRestrictedResponse::restricted_files_size() const {
-  return _internal_restricted_files_size();
-}
-inline void IsFilesTransferRestrictedResponse::clear_restricted_files() {
-  restricted_files_.Clear();
-}
-inline ::dlp::FileMetadata* IsFilesTransferRestrictedResponse::mutable_restricted_files(int index) {
-  // @@protoc_insertion_point(field_mutable:dlp.IsFilesTransferRestrictedResponse.restricted_files)
-  return restricted_files_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >*
-IsFilesTransferRestrictedResponse::mutable_restricted_files() {
-  // @@protoc_insertion_point(field_mutable_list:dlp.IsFilesTransferRestrictedResponse.restricted_files)
-  return &restricted_files_;
-}
-inline const ::dlp::FileMetadata& IsFilesTransferRestrictedResponse::_internal_restricted_files(int index) const {
-  return restricted_files_.Get(index);
-}
-inline const ::dlp::FileMetadata& IsFilesTransferRestrictedResponse::restricted_files(int index) const {
-  // @@protoc_insertion_point(field_get:dlp.IsFilesTransferRestrictedResponse.restricted_files)
-  return _internal_restricted_files(index);
-}
-inline ::dlp::FileMetadata* IsFilesTransferRestrictedResponse::_internal_add_restricted_files() {
-  return restricted_files_.Add();
-}
-inline ::dlp::FileMetadata* IsFilesTransferRestrictedResponse::add_restricted_files() {
-  ::dlp::FileMetadata* _add = _internal_add_restricted_files();
-  // @@protoc_insertion_point(field_add:dlp.IsFilesTransferRestrictedResponse.restricted_files)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::FileMetadata >&
-IsFilesTransferRestrictedResponse::restricted_files() const {
-  // @@protoc_insertion_point(field_list:dlp.IsFilesTransferRestrictedResponse.restricted_files)
-  return restricted_files_;
 }
 
 // repeated .dlp.FileRestriction files_restrictions = 4;

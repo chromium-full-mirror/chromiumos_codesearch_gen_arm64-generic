@@ -79,6 +79,12 @@ extern ScannerCapabilitiesDefaultTypeInternal _ScannerCapabilities_default_insta
 class ScannerInfo;
 struct ScannerInfoDefaultTypeInternal;
 extern ScannerInfoDefaultTypeInternal _ScannerInfo_default_instance_;
+class SetDebugConfigRequest;
+struct SetDebugConfigRequestDefaultTypeInternal;
+extern SetDebugConfigRequestDefaultTypeInternal _SetDebugConfigRequest_default_instance_;
+class SetDebugConfigResponse;
+struct SetDebugConfigResponseDefaultTypeInternal;
+extern SetDebugConfigResponseDefaultTypeInternal _SetDebugConfigResponse_default_instance_;
 class StartScanRequest;
 struct StartScanRequestDefaultTypeInternal;
 extern StartScanRequestDefaultTypeInternal _StartScanRequest_default_instance_;
@@ -99,6 +105,8 @@ template<> ::lorgnette::ScanStatusChangedSignal* Arena::CreateMaybeMessage<::lor
 template<> ::lorgnette::ScannableArea* Arena::CreateMaybeMessage<::lorgnette::ScannableArea>(Arena*);
 template<> ::lorgnette::ScannerCapabilities* Arena::CreateMaybeMessage<::lorgnette::ScannerCapabilities>(Arena*);
 template<> ::lorgnette::ScannerInfo* Arena::CreateMaybeMessage<::lorgnette::ScannerInfo>(Arena*);
+template<> ::lorgnette::SetDebugConfigRequest* Arena::CreateMaybeMessage<::lorgnette::SetDebugConfigRequest>(Arena*);
+template<> ::lorgnette::SetDebugConfigResponse* Arena::CreateMaybeMessage<::lorgnette::SetDebugConfigResponse>(Arena*);
 template<> ::lorgnette::StartScanRequest* Arena::CreateMaybeMessage<::lorgnette::StartScanRequest>(Arena*);
 template<> ::lorgnette::StartScanResponse* Arena::CreateMaybeMessage<::lorgnette::StartScanResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -2497,6 +2505,271 @@ class ScanStatusChangedSignal final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_lorgnette_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class SetDebugConfigRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.SetDebugConfigRequest) */ {
+ public:
+  inline SetDebugConfigRequest() : SetDebugConfigRequest(nullptr) {}
+  ~SetDebugConfigRequest() override;
+  explicit PROTOBUF_CONSTEXPR SetDebugConfigRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SetDebugConfigRequest(const SetDebugConfigRequest& from);
+  SetDebugConfigRequest(SetDebugConfigRequest&& from) noexcept
+    : SetDebugConfigRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SetDebugConfigRequest& operator=(const SetDebugConfigRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetDebugConfigRequest& operator=(SetDebugConfigRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SetDebugConfigRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SetDebugConfigRequest* internal_default_instance() {
+    return reinterpret_cast<const SetDebugConfigRequest*>(
+               &_SetDebugConfigRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(SetDebugConfigRequest& a, SetDebugConfigRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(SetDebugConfigRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SetDebugConfigRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SetDebugConfigRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SetDebugConfigRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SetDebugConfigRequest& from);
+  void MergeFrom(const SetDebugConfigRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SetDebugConfigRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.SetDebugConfigRequest";
+  }
+  protected:
+  explicit SetDebugConfigRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEnabledFieldNumber = 1,
+  };
+  // bool enabled = 1;
+  void clear_enabled();
+  bool enabled() const;
+  void set_enabled(bool value);
+  private:
+  bool _internal_enabled() const;
+  void _internal_set_enabled(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:lorgnette.SetDebugConfigRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  bool enabled_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SetDebugConfigResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:lorgnette.SetDebugConfigResponse) */ {
+ public:
+  inline SetDebugConfigResponse() : SetDebugConfigResponse(nullptr) {}
+  ~SetDebugConfigResponse() override;
+  explicit PROTOBUF_CONSTEXPR SetDebugConfigResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SetDebugConfigResponse(const SetDebugConfigResponse& from);
+  SetDebugConfigResponse(SetDebugConfigResponse&& from) noexcept
+    : SetDebugConfigResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SetDebugConfigResponse& operator=(const SetDebugConfigResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetDebugConfigResponse& operator=(SetDebugConfigResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SetDebugConfigResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SetDebugConfigResponse* internal_default_instance() {
+    return reinterpret_cast<const SetDebugConfigResponse*>(
+               &_SetDebugConfigResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(SetDebugConfigResponse& a, SetDebugConfigResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(SetDebugConfigResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SetDebugConfigResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SetDebugConfigResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SetDebugConfigResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SetDebugConfigResponse& from);
+  void MergeFrom(const SetDebugConfigResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SetDebugConfigResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "lorgnette.SetDebugConfigResponse";
+  }
+  protected:
+  explicit SetDebugConfigResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSuccessFieldNumber = 1,
+    kOldEnabledFieldNumber = 2,
+  };
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // bool old_enabled = 2;
+  void clear_old_enabled();
+  bool old_enabled() const;
+  void set_old_enabled(bool value);
+  private:
+  bool _internal_old_enabled() const;
+  void _internal_set_old_enabled(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:lorgnette.SetDebugConfigResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  bool success_;
+  bool old_enabled_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_lorgnette_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -4240,9 +4513,81 @@ inline void ScanStatusChangedSignal::set_scan_failure_mode(::lorgnette::ScanFail
   // @@protoc_insertion_point(field_set:lorgnette.ScanStatusChangedSignal.scan_failure_mode)
 }
 
+// -------------------------------------------------------------------
+
+// SetDebugConfigRequest
+
+// bool enabled = 1;
+inline void SetDebugConfigRequest::clear_enabled() {
+  enabled_ = false;
+}
+inline bool SetDebugConfigRequest::_internal_enabled() const {
+  return enabled_;
+}
+inline bool SetDebugConfigRequest::enabled() const {
+  // @@protoc_insertion_point(field_get:lorgnette.SetDebugConfigRequest.enabled)
+  return _internal_enabled();
+}
+inline void SetDebugConfigRequest::_internal_set_enabled(bool value) {
+  
+  enabled_ = value;
+}
+inline void SetDebugConfigRequest::set_enabled(bool value) {
+  _internal_set_enabled(value);
+  // @@protoc_insertion_point(field_set:lorgnette.SetDebugConfigRequest.enabled)
+}
+
+// -------------------------------------------------------------------
+
+// SetDebugConfigResponse
+
+// bool success = 1;
+inline void SetDebugConfigResponse::clear_success() {
+  success_ = false;
+}
+inline bool SetDebugConfigResponse::_internal_success() const {
+  return success_;
+}
+inline bool SetDebugConfigResponse::success() const {
+  // @@protoc_insertion_point(field_get:lorgnette.SetDebugConfigResponse.success)
+  return _internal_success();
+}
+inline void SetDebugConfigResponse::_internal_set_success(bool value) {
+  
+  success_ = value;
+}
+inline void SetDebugConfigResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:lorgnette.SetDebugConfigResponse.success)
+}
+
+// bool old_enabled = 2;
+inline void SetDebugConfigResponse::clear_old_enabled() {
+  old_enabled_ = false;
+}
+inline bool SetDebugConfigResponse::_internal_old_enabled() const {
+  return old_enabled_;
+}
+inline bool SetDebugConfigResponse::old_enabled() const {
+  // @@protoc_insertion_point(field_get:lorgnette.SetDebugConfigResponse.old_enabled)
+  return _internal_old_enabled();
+}
+inline void SetDebugConfigResponse::_internal_set_old_enabled(bool value) {
+  
+  old_enabled_ = value;
+}
+inline void SetDebugConfigResponse::set_old_enabled(bool value) {
+  _internal_set_old_enabled(value);
+  // @@protoc_insertion_point(field_set:lorgnette.SetDebugConfigResponse.old_enabled)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
