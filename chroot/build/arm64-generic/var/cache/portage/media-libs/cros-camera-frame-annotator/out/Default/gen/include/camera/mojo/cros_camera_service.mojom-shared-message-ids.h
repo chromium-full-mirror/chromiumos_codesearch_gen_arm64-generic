@@ -21,6 +21,7 @@ constexpr uint32_t kCameraHalDispatcher_GetJpegEncodeAccelerator_Name = 3;
 constexpr uint32_t kCameraHalDispatcher_RegisterServerWithToken_Name = 4;
 constexpr uint32_t kCameraHalDispatcher_RegisterClientWithToken_Name = 5;
 constexpr uint32_t kCameraHalDispatcher_RegisterSensorClientWithToken_Name = 6;
+constexpr uint32_t kCameraHalDispatcher_BindServiceToMojoServiceManager_Name = 7;
 constexpr uint32_t kCameraHalServer_CreateChannel_Name = 0;
 constexpr uint32_t kCameraHalServer_SetTracingEnabled_Name = 1;
 constexpr uint32_t kCameraHalServer_SetAutoFramingState_Name = 2;

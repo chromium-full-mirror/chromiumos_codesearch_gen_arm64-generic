@@ -2952,7 +2952,7 @@ class PERFETTO_EXPORT_COMPONENT InterceptorBase {
   // To define your own state, subclass this with the same name in the
   // interceptor class. A reference to the state can then be looked up through
   // context.GetThreadLocalState() in the trace packet interceptor function.
-  class ThreadLocalState {
+  class PERFETTO_EXPORT_COMPONENT ThreadLocalState {
    public:
     virtual ~ThreadLocalState();
   };
@@ -6452,6 +6452,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
     kAllowUserBuildTracingFieldNumber = 19,
     kUniqueSessionNameFieldNumber = 22,
     kCompressionTypeFieldNumber = 24,
+    kCompressFromCliFieldNumber = 37,
     kIncidentReportConfigFieldNumber = 25,
     kStatsdLoggingFieldNumber = 31,
     kTraceUuidMsbFieldNumber = 27,
@@ -6588,6 +6589,10 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   TraceConfig_CompressionType compression_type() const { return compression_type_; }
   void set_compression_type(TraceConfig_CompressionType value) { compression_type_ = value; _has_field_.set(24); }
 
+  bool has_compress_from_cli() const { return _has_field_[37]; }
+  bool compress_from_cli() const { return compress_from_cli_; }
+  void set_compress_from_cli(bool value) { compress_from_cli_ = value; _has_field_.set(37); }
+
   bool has_incident_report_config() const { return _has_field_[25]; }
   const TraceConfig_IncidentReportConfig& incident_report_config() const { return *incident_report_config_; }
   TraceConfig_IncidentReportConfig* mutable_incident_report_config() { _has_field_.set(25); return incident_report_config_.get(); }
@@ -6643,6 +6648,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   bool allow_user_build_tracing_{};
   std::string unique_session_name_{};
   TraceConfig_CompressionType compression_type_{};
+  bool compress_from_cli_{};
   ::protozero::CopyablePtr<TraceConfig_IncidentReportConfig> incident_report_config_;
   TraceConfig_StatsdLogging statsd_logging_{};
   int64_t trace_uuid_msb_{};
@@ -6655,7 +6661,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<37> _has_field_{};
+  std::bitset<38> _has_field_{};
 };
 
 
@@ -10587,7 +10593,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceBase {
   };
   virtual void OnStart(const StartArgs&);
 
-  class StopArgs {
+  class PERFETTO_EXPORT_COMPONENT StopArgs {
    public:
     virtual ~StopArgs();
 
@@ -10672,6 +10678,22 @@ struct DefaultDataSourceTraits {
   }
 };
 
+// Holds the type for a DataSource. Accessed by the static Trace() method
+// fastpaths. This allows redefinitions under a component where a component
+// specific export macro is used.
+// Due to C2086 (redefinition) error on MSVC/clang-cl, internal::DataSourceType
+// can't be a static data member. To avoid explicit specialization after
+// instantiation error, type() needs to be in a template helper class that's
+// instantiated independently from DataSource. See b/280777748.
+template <typename DerivedDataSource,
+          typename DataSourceTraits = DefaultDataSourceTraits>
+struct DataSourceHelper {
+  static internal::DataSourceType& type() {
+    static perfetto::internal::DataSourceType type_;
+    return type_;
+  }
+};
+
 // Templated base class meant to be derived by embedders to create a custom data
 // source. DerivedDataSource must be the type of the derived class itself, e.g.:
 // class MyDataSource : public DataSource<MyDataSource> {...}.
@@ -10682,6 +10704,7 @@ template <typename DerivedDataSource,
           typename DataSourceTraits = DefaultDataSourceTraits>
 class DataSource : public DataSourceBase {
   struct DefaultTracePointTraits;
+  using Helper = DataSourceHelper<DerivedDataSource, DataSourceTraits>;
 
  public:
   // The BufferExhaustedPolicy to use for TraceWriters of this DataSource.
@@ -10768,7 +10791,8 @@ class DataSource : public DataSourceBase {
     // validity before using it. After checking, the handle is guaranteed to
     // remain valid until the handle goes out of scope.
     LockedHandle<DerivedDataSource> GetDataSourceLocked() const {
-      auto* internal_state = type_.static_state()->TryGet(instance_index_);
+      auto* internal_state =
+          Helper::type().static_state()->TryGet(instance_index_);
       if (!internal_state)
         return LockedHandle<DerivedDataSource>();
       std::unique_lock<std::recursive_mutex> lock(internal_state->lock);
@@ -10786,7 +10810,7 @@ class DataSource : public DataSourceBase {
 
     typename DataSourceTraits::IncrementalStateType* GetIncrementalState() {
       return static_cast<typename DataSourceTraits::IncrementalStateType*>(
-          type_.GetIncrementalState(tls_inst_, instance_index_));
+          Helper::type().GetIncrementalState(tls_inst_, instance_index_));
     }
 
    private:
@@ -10864,20 +10888,20 @@ class DataSource : public DataSourceBase {
       typename Traits::TracePointData trace_point_data = {}) {
     PERFETTO_DCHECK(cached_instances);
 
-    if (!type_.TracePrologue<DataSourceTraits, Traits>(
+    if (!Helper::type().template TracePrologue<DataSourceTraits, Traits>(
             &tls_state_, &cached_instances, trace_point_data)) {
       return;
     }
 
     for (internal::DataSourceType::InstancesIterator it =
-             type_.BeginIteration<Traits>(cached_instances, tls_state_,
-                                          trace_point_data);
-         it.instance;
-         type_.NextIteration<Traits>(&it, tls_state_, trace_point_data)) {
+             Helper::type().template BeginIteration<Traits>(
+                 cached_instances, tls_state_, trace_point_data);
+         it.instance; Helper::type().template NextIteration<Traits>(
+             &it, tls_state_, trace_point_data)) {
       tracing_fn(TraceContext(it.instance, it.i));
     }
 
-    type_.TraceEpilogue(tls_state_);
+    Helper::type().TraceEpilogue(tls_state_);
   }
 
   // Registers the data source on all tracing backends, including ones that
@@ -10895,7 +10919,6 @@ class DataSource : public DataSourceBase {
                        const Args&... constructor_args) {
     // Silences -Wunused-variable warning in case the trace method is not used
     // by the translation unit that declares the data source.
-    (void)type_;
     (void)tls_state_;
 
     auto factory = [constructor_args...]() {
@@ -10905,7 +10928,7 @@ class DataSource : public DataSourceBase {
     internal::DataSourceParams params{
         DerivedDataSource::kSupportsMultipleInstances,
         DerivedDataSource::kRequiresCallbacksUnderLock};
-    return type_.Register(
+    return Helper::type().Register(
         descriptor, factory, params, DerivedDataSource::kBufferExhaustedPolicy,
         GetCreateTlsFn(
             static_cast<typename DataSourceTraits::TlsStateType*>(nullptr)),
@@ -10917,7 +10940,7 @@ class DataSource : public DataSourceBase {
 
   // Updates the data source descriptor.
   static void UpdateDescriptor(const DataSourceDescriptor& descriptor) {
-    type_.UpdateDescriptor(descriptor);
+    Helper::type().UpdateDescriptor(descriptor);
   }
 
  private:
@@ -10938,7 +10961,7 @@ class DataSource : public DataSourceBase {
     // implement per-category enabled states.
     struct TracePointData {};
     static constexpr std::atomic<uint32_t>* GetActiveInstances(TracePointData) {
-      return type_.valid_instances();
+      return Helper::type().valid_instances();
     }
   };
 
@@ -10988,10 +11011,6 @@ class DataSource : public DataSourceBase {
     return nullptr;
   }
 
-  // The type of this data source. Accessed by the static Trace() method
-  // fastpaths.
-  static internal::DataSourceType type_;
-
   // This TLS object is a cached raw pointer and has deliberately no destructor.
   // The Platform implementation is supposed to create and manage the lifetime
   // of the Platform::ThreadLocalObject and take care of destroying it.
@@ -11002,9 +11021,6 @@ class DataSource : public DataSourceBase {
   static PERFETTO_THREAD_LOCAL internal::DataSourceThreadLocalState* tls_state_;
 };
 
-// static
-template <typename T, typename D>
-internal::DataSourceType DataSource<T, D>::type_;
 // static
 template <typename T, typename D>
 PERFETTO_THREAD_LOCAL internal::DataSourceThreadLocalState*
@@ -11029,16 +11045,11 @@ PERFETTO_THREAD_LOCAL internal::DataSourceThreadLocalState*
 // where a component specific export macro is used.
 #define PERFETTO_DECLARE_DATA_SOURCE_STATIC_MEMBERS_WITH_ATTRS(attrs, ...) \
   template <>                                                              \
-  attrs perfetto::internal::DataSourceType                                 \
-      perfetto::DataSource<__VA_ARGS__>::type_
+  attrs perfetto::internal::DataSourceType&                                \
+  perfetto::DataSourceHelper<__VA_ARGS__>::type()
 
 // This macro must be used once for each data source in one source file to
 // allocate static storage for the data source's static state.
-//
-// Note: if MSVC fails with a C2086 (redefinition) error here, use the
-// permissive- flag to enable standards-compliant mode. See
-// https://developercommunity.visualstudio.com/content/problem/319447/
-// explicit-specialization-of-static-data-member-inco.html.
 #define PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(...)  \
   PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS_WITH_ATTRS( \
       PERFETTO_COMPONENT_EXPORT, __VA_ARGS__)
@@ -11048,8 +11059,12 @@ PERFETTO_THREAD_LOCAL internal::DataSourceThreadLocalState*
 // where a component specific export macro is used.
 #define PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS_WITH_ATTRS(attrs, ...) \
   template <>                                                             \
-  attrs perfetto::internal::DataSourceType                                \
-      perfetto::DataSource<__VA_ARGS__>::type_ {}
+  perfetto::internal::DataSourceType&                                     \
+  perfetto::DataSourceHelper<__VA_ARGS__>::type() {                       \
+    static perfetto::internal::DataSourceType type_;                      \
+    return type_;                                                         \
+  }                                                                       \
+  PERFETTO_INTERNAL_SWALLOW_SEMICOLON()
 
 #endif  // INCLUDE_PERFETTO_TRACING_DATA_SOURCE_H_
 // gen_amalgamated begin header: include/perfetto/tracing/track_event.h
@@ -32122,7 +32137,7 @@ const char* ProcessStatsConfig_Quirks_Name(::perfetto::protos::pbzero::ProcessSt
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class ProcessStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ProcessStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/10, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ProcessStatsConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProcessStatsConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -32139,6 +32154,8 @@ class ProcessStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_F
   uint32_t proc_stats_cache_ttl_ms() const { return at<6>().as_uint32(); }
   bool has_resolve_process_fds() const { return at<9>().valid(); }
   bool resolve_process_fds() const { return at<9>().as_bool(); }
+  bool has_scan_smaps_rollup() const { return at<10>().valid(); }
+  bool scan_smaps_rollup() const { return at<10>().as_bool(); }
 };
 
 class ProcessStatsConfig : public ::protozero::Message {
@@ -32151,6 +32168,7 @@ class ProcessStatsConfig : public ::protozero::Message {
     kProcStatsPollMsFieldNumber = 4,
     kProcStatsCacheTtlMsFieldNumber = 6,
     kResolveProcessFdsFieldNumber = 9,
+    kScanSmapsRollupFieldNumber = 10,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProcessStatsConfig"; }
 
@@ -32264,6 +32282,24 @@ class ProcessStatsConfig : public ::protozero::Message {
   static constexpr FieldMetadata_ResolveProcessFds kResolveProcessFds{};
   void set_resolve_process_fds(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_ResolveProcessFds::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ScanSmapsRollup =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ProcessStatsConfig>;
+
+  static constexpr FieldMetadata_ScanSmapsRollup kScanSmapsRollup{};
+  void set_scan_smaps_rollup(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_ScanSmapsRollup::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -40081,7 +40117,7 @@ const char* TraceConfig_BufferConfig_FillPolicy_Name(::perfetto::protos::pbzero:
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class TraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/36, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class TraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/37, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TraceConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -40138,6 +40174,8 @@ class TraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstChars unique_session_name() const { return at<22>().as_string(); }
   bool has_compression_type() const { return at<24>().valid(); }
   int32_t compression_type() const { return at<24>().as_int32(); }
+  bool has_compress_from_cli() const { return at<37>().valid(); }
+  bool compress_from_cli() const { return at<37>().as_bool(); }
   bool has_incident_report_config() const { return at<25>().valid(); }
   ::protozero::ConstBytes incident_report_config() const { return at<25>().as_bytes(); }
   bool has_statsd_logging() const { return at<31>().valid(); }
@@ -40184,6 +40222,7 @@ class TraceConfig : public ::protozero::Message {
     kAllowUserBuildTracingFieldNumber = 19,
     kUniqueSessionNameFieldNumber = 22,
     kCompressionTypeFieldNumber = 24,
+    kCompressFromCliFieldNumber = 37,
     kIncidentReportConfigFieldNumber = 25,
     kStatsdLoggingFieldNumber = 31,
     kTraceUuidMsbFieldNumber = 27,
@@ -40681,6 +40720,24 @@ class TraceConfig : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CompressFromCli =
+    ::protozero::proto_utils::FieldMetadata<
+      37,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TraceConfig>;
+
+  static constexpr FieldMetadata_CompressFromCli kCompressFromCli{};
+  void set_compress_from_cli(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_CompressFromCli::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 
@@ -129816,7 +129873,7 @@ class ProcessStats : public ::protozero::Message {
   }
 };
 
-class ProcessStats_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/15, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ProcessStats_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/20, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ProcessStats_Process_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProcessStats_Process_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -129851,6 +129908,16 @@ class ProcessStats_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX
   uint32_t chrome_peak_resident_set_kb() const { return at<14>().as_uint32(); }
   bool has_fds() const { return at<15>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> fds() const { return GetRepeated<::protozero::ConstBytes>(15); }
+  bool has_smr_rss_kb() const { return at<16>().valid(); }
+  uint64_t smr_rss_kb() const { return at<16>().as_uint64(); }
+  bool has_smr_pss_kb() const { return at<17>().valid(); }
+  uint64_t smr_pss_kb() const { return at<17>().as_uint64(); }
+  bool has_smr_pss_anon_kb() const { return at<18>().valid(); }
+  uint64_t smr_pss_anon_kb() const { return at<18>().as_uint64(); }
+  bool has_smr_pss_file_kb() const { return at<19>().valid(); }
+  uint64_t smr_pss_file_kb() const { return at<19>().as_uint64(); }
+  bool has_smr_pss_shmem_kb() const { return at<20>().valid(); }
+  uint64_t smr_pss_shmem_kb() const { return at<20>().as_uint64(); }
 };
 
 class ProcessStats_Process : public ::protozero::Message {
@@ -129872,6 +129939,11 @@ class ProcessStats_Process : public ::protozero::Message {
     kChromePrivateFootprintKbFieldNumber = 13,
     kChromePeakResidentSetKbFieldNumber = 14,
     kFdsFieldNumber = 15,
+    kSmrRssKbFieldNumber = 16,
+    kSmrPssKbFieldNumber = 17,
+    kSmrPssAnonKbFieldNumber = 18,
+    kSmrPssFileKbFieldNumber = 19,
+    kSmrPssShmemKbFieldNumber = 20,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProcessStats.Process"; }
 
@@ -130137,6 +130209,96 @@ class ProcessStats_Process : public ::protozero::Message {
     return BeginNestedMessage<T>(15);
   }
 
+
+  using FieldMetadata_SmrRssKb =
+    ::protozero::proto_utils::FieldMetadata<
+      16,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ProcessStats_Process>;
+
+  static constexpr FieldMetadata_SmrRssKb kSmrRssKb{};
+  void set_smr_rss_kb(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SmrRssKb::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SmrPssKb =
+    ::protozero::proto_utils::FieldMetadata<
+      17,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ProcessStats_Process>;
+
+  static constexpr FieldMetadata_SmrPssKb kSmrPssKb{};
+  void set_smr_pss_kb(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SmrPssKb::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SmrPssAnonKb =
+    ::protozero::proto_utils::FieldMetadata<
+      18,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ProcessStats_Process>;
+
+  static constexpr FieldMetadata_SmrPssAnonKb kSmrPssAnonKb{};
+  void set_smr_pss_anon_kb(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SmrPssAnonKb::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SmrPssFileKb =
+    ::protozero::proto_utils::FieldMetadata<
+      19,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ProcessStats_Process>;
+
+  static constexpr FieldMetadata_SmrPssFileKb kSmrPssFileKb{};
+  void set_smr_pss_file_kb(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SmrPssFileKb::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SmrPssShmemKb =
+    ::protozero::proto_utils::FieldMetadata<
+      20,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ProcessStats_Process>;
+
+  static constexpr FieldMetadata_SmrPssShmemKb kSmrPssShmemKb{};
+  void set_smr_pss_shmem_kb(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SmrPssShmemKb::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
 };
 
 class ProcessStats_FDInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
@@ -141651,6 +141813,7 @@ class PERFETTO_EXPORT_COMPONENT ProcessStatsConfig : public ::protozero::CppMess
     kProcStatsPollMsFieldNumber = 4,
     kProcStatsCacheTtlMsFieldNumber = 6,
     kResolveProcessFdsFieldNumber = 9,
+    kScanSmapsRollupFieldNumber = 10,
   };
 
   ProcessStatsConfig();
@@ -141694,6 +141857,10 @@ class PERFETTO_EXPORT_COMPONENT ProcessStatsConfig : public ::protozero::CppMess
   bool resolve_process_fds() const { return resolve_process_fds_; }
   void set_resolve_process_fds(bool value) { resolve_process_fds_ = value; _has_field_.set(9); }
 
+  bool has_scan_smaps_rollup() const { return _has_field_[10]; }
+  bool scan_smaps_rollup() const { return scan_smaps_rollup_; }
+  void set_scan_smaps_rollup(bool value) { scan_smaps_rollup_ = value; _has_field_.set(10); }
+
  private:
   std::vector<ProcessStatsConfig_Quirks> quirks_;
   bool scan_all_processes_on_start_{};
@@ -141701,12 +141868,13 @@ class PERFETTO_EXPORT_COMPONENT ProcessStatsConfig : public ::protozero::CppMess
   uint32_t proc_stats_poll_ms_{};
   uint32_t proc_stats_cache_ttl_ms_{};
   bool resolve_process_fds_{};
+  bool scan_smaps_rollup_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<10> _has_field_{};
+  std::bitset<11> _has_field_{};
 };
 
 }  // namespace perfetto
@@ -144961,6 +145129,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
     kAllowUserBuildTracingFieldNumber = 19,
     kUniqueSessionNameFieldNumber = 22,
     kCompressionTypeFieldNumber = 24,
+    kCompressFromCliFieldNumber = 37,
     kIncidentReportConfigFieldNumber = 25,
     kStatsdLoggingFieldNumber = 31,
     kTraceUuidMsbFieldNumber = 27,
@@ -145097,6 +145266,10 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   TraceConfig_CompressionType compression_type() const { return compression_type_; }
   void set_compression_type(TraceConfig_CompressionType value) { compression_type_ = value; _has_field_.set(24); }
 
+  bool has_compress_from_cli() const { return _has_field_[37]; }
+  bool compress_from_cli() const { return compress_from_cli_; }
+  void set_compress_from_cli(bool value) { compress_from_cli_ = value; _has_field_.set(37); }
+
   bool has_incident_report_config() const { return _has_field_[25]; }
   const TraceConfig_IncidentReportConfig& incident_report_config() const { return *incident_report_config_; }
   TraceConfig_IncidentReportConfig* mutable_incident_report_config() { _has_field_.set(25); return incident_report_config_.get(); }
@@ -145152,6 +145325,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   bool allow_user_build_tracing_{};
   std::string unique_session_name_{};
   TraceConfig_CompressionType compression_type_{};
+  bool compress_from_cli_{};
   ::protozero::CopyablePtr<TraceConfig_IncidentReportConfig> incident_report_config_;
   TraceConfig_StatsdLogging statsd_logging_{};
   int64_t trace_uuid_msb_{};
@@ -145164,7 +145338,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<37> _has_field_{};
+  std::bitset<38> _has_field_{};
 };
 
 
