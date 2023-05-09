@@ -341,18 +341,20 @@ bool DlpComponent_IsValid(int value) {
     case 4:
     case 5:
     case 6:
+    case 7:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DlpComponent_strings[7] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DlpComponent_strings[8] = {};
 
 static const char DlpComponent_names[] =
   "ARC"
   "CROSTINI"
   "GOOGLE_DRIVE"
+  "MICROSOFT_ONEDRIVE"
   "PLUGIN_VM"
   "SYSTEM"
   "UNKNOWN_COMPONENT"
@@ -362,20 +364,22 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DlpComponent_entries[]
   { {DlpComponent_names + 0, 3}, 2 },
   { {DlpComponent_names + 3, 8}, 3 },
   { {DlpComponent_names + 11, 12}, 6 },
-  { {DlpComponent_names + 23, 9}, 4 },
-  { {DlpComponent_names + 32, 6}, 1 },
-  { {DlpComponent_names + 38, 17}, 0 },
-  { {DlpComponent_names + 55, 3}, 5 },
+  { {DlpComponent_names + 23, 18}, 7 },
+  { {DlpComponent_names + 41, 9}, 4 },
+  { {DlpComponent_names + 50, 6}, 1 },
+  { {DlpComponent_names + 56, 17}, 0 },
+  { {DlpComponent_names + 73, 3}, 5 },
 };
 
 static const int DlpComponent_entries_by_number[] = {
-  5, // 0 -> UNKNOWN_COMPONENT
-  4, // 1 -> SYSTEM
+  6, // 0 -> UNKNOWN_COMPONENT
+  5, // 1 -> SYSTEM
   0, // 2 -> ARC
   1, // 3 -> CROSTINI
-  3, // 4 -> PLUGIN_VM
-  6, // 5 -> USB
+  4, // 4 -> PLUGIN_VM
+  7, // 5 -> USB
   2, // 6 -> GOOGLE_DRIVE
+  3, // 7 -> MICROSOFT_ONEDRIVE
 };
 
 const std::string& DlpComponent_Name(
@@ -384,12 +388,12 @@ const std::string& DlpComponent_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           DlpComponent_entries,
           DlpComponent_entries_by_number,
-          7, DlpComponent_strings);
+          8, DlpComponent_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       DlpComponent_entries,
       DlpComponent_entries_by_number,
-      7, value);
+      8, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      DlpComponent_strings[idx].get();
 }
@@ -397,7 +401,7 @@ bool DlpComponent_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DlpComponent* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      DlpComponent_entries, 7, name, &int_value);
+      DlpComponent_entries, 8, name, &int_value);
   if (success) {
     *value = static_cast<DlpComponent>(int_value);
   }
