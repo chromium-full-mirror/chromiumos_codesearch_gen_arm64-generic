@@ -656,6 +656,139 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  UfsLifetimeRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<UfsLifetimeRoutineArgument, T>::value>;
+  using DataView = UfsLifetimeRoutineArgumentDataView;
+  using Data_ = internal::UfsLifetimeRoutineArgument_Data;
+
+  template <typename... Args>
+  static UfsLifetimeRoutineArgumentPtr New(Args&&... args) {
+    return UfsLifetimeRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static UfsLifetimeRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<UfsLifetimeRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, UfsLifetimeRoutineArgument>::Convert(*this);
+  }
+
+
+  UfsLifetimeRoutineArgument();
+
+
+  ~UfsLifetimeRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = UfsLifetimeRoutineArgumentPtr>
+  UfsLifetimeRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        UfsLifetimeRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        UfsLifetimeRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::UfsLifetimeRoutineArgument_UnserializedMessageContext<
+            UserType, UfsLifetimeRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<UfsLifetimeRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return UfsLifetimeRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::UfsLifetimeRoutineArgument_UnserializedMessageContext<
+            UserType, UfsLifetimeRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<UfsLifetimeRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineStateInitialized {
  public:
@@ -1341,6 +1474,150 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  UfsLifetimeRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<UfsLifetimeRoutineDetail, T>::value>;
+  using DataView = UfsLifetimeRoutineDetailDataView;
+  using Data_ = internal::UfsLifetimeRoutineDetail_Data;
+
+  template <typename... Args>
+  static UfsLifetimeRoutineDetailPtr New(Args&&... args) {
+    return UfsLifetimeRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static UfsLifetimeRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<UfsLifetimeRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, UfsLifetimeRoutineDetail>::Convert(*this);
+  }
+
+
+  UfsLifetimeRoutineDetail();
+
+  UfsLifetimeRoutineDetail(
+      uint8_t pre_eol_info,
+      uint8_t device_life_time_est_a,
+      uint8_t device_life_time_est_b);
+
+
+  ~UfsLifetimeRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = UfsLifetimeRoutineDetailPtr>
+  UfsLifetimeRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, UfsLifetimeRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, UfsLifetimeRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        UfsLifetimeRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        UfsLifetimeRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::UfsLifetimeRoutineDetail_UnserializedMessageContext<
+            UserType, UfsLifetimeRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<UfsLifetimeRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return UfsLifetimeRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::UfsLifetimeRoutineDetail_UnserializedMessageContext<
+            UserType, UfsLifetimeRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<UfsLifetimeRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint8_t pre_eol_info;
+  
+  uint8_t device_life_time_est_a;
+  
+  uint8_t device_life_time_est_b;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, UfsLifetimeRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, UfsLifetimeRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, UfsLifetimeRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, UfsLifetimeRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineArgument {
  public:
@@ -1388,6 +1665,14 @@ class  RoutineArgument {
       CpuStressRoutineArgumentPtr cpu_stress) {
     auto result = RoutineArgumentPtr(absl::in_place);
     result->set_cpu_stress(std::move(cpu_stress));
+    return result;
+  }
+  // Construct an instance holding |ufs_lifetime|.
+  static RoutineArgumentPtr
+  NewUfsLifetime(
+      UfsLifetimeRoutineArgumentPtr ufs_lifetime) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_ufs_lifetime(std::move(ufs_lifetime));
     return result;
   }
 
@@ -1480,6 +1765,18 @@ class  RoutineArgument {
   
   void set_cpu_stress(
       CpuStressRoutineArgumentPtr cpu_stress);
+  
+  bool is_ufs_lifetime() const { return tag_ == Tag::kUfsLifetime; }
+
+  
+  UfsLifetimeRoutineArgumentPtr& get_ufs_lifetime() const {
+    CHECK(tag_ == Tag::kUfsLifetime);
+    return *(data_.ufs_lifetime);
+  }
+
+  
+  void set_ufs_lifetime(
+      UfsLifetimeRoutineArgumentPtr ufs_lifetime);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1502,6 +1799,7 @@ class  RoutineArgument {
     MemoryRoutineArgumentPtr* memory;
     AudioDriverRoutineArgumentPtr* audio_driver;
     CpuStressRoutineArgumentPtr* cpu_stress;
+    UfsLifetimeRoutineArgumentPtr* ufs_lifetime;
   };
 
   static bool Validate(const void* data,
@@ -1726,6 +2024,14 @@ class  RoutineDetail {
     result->set_cpu_stress(std::move(cpu_stress));
     return result;
   }
+  // Construct an instance holding |ufs_lifetime|.
+  static RoutineDetailPtr
+  NewUfsLifetime(
+      UfsLifetimeRoutineDetailPtr ufs_lifetime) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_ufs_lifetime(std::move(ufs_lifetime));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -1804,6 +2110,18 @@ class  RoutineDetail {
   
   void set_cpu_stress(
       CpuStressRoutineDetailPtr cpu_stress);
+  
+  bool is_ufs_lifetime() const { return tag_ == Tag::kUfsLifetime; }
+
+  
+  UfsLifetimeRoutineDetailPtr& get_ufs_lifetime() const {
+    CHECK(tag_ == Tag::kUfsLifetime);
+    return *(data_.ufs_lifetime);
+  }
+
+  
+  void set_ufs_lifetime(
+      UfsLifetimeRoutineDetailPtr ufs_lifetime);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1825,6 +2143,7 @@ class  RoutineDetail {
     MemoryRoutineDetailPtr* memory;
     AudioDriverRoutineDetailPtr* audio_driver;
     CpuStressRoutineDetailPtr* cpu_stress;
+    UfsLifetimeRoutineDetailPtr* ufs_lifetime;
   };
 
   static bool Validate(const void* data,
@@ -1973,6 +2292,7 @@ template <typename T, CpuStressRoutineArgument::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 
 
@@ -2409,6 +2729,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  MemtesterResult {
  public:
   template <typename T>
@@ -2560,6 +2881,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kCpuStress:
       return NewCpuStress(
           mojo::Clone(*data_.cpu_stress));
+    case Tag::kUfsLifetime:
+      return NewUfsLifetime(
+          mojo::Clone(*data_.ufs_lifetime));
   }
   return nullptr;
 }
@@ -2580,6 +2904,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.audio_driver), *(other.data_.audio_driver));
     case Tag::kCpuStress:
       return mojo::Equals(*(data_.cpu_stress), *(other.data_.cpu_stress));
+    case Tag::kUfsLifetime:
+      return mojo::Equals(*(data_.ufs_lifetime), *(other.data_.ufs_lifetime));
   }
 
   return false;
@@ -2635,6 +2961,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kCpuStress:
       return NewCpuStress(
           mojo::Clone(*data_.cpu_stress));
+    case Tag::kUfsLifetime:
+      return NewUfsLifetime(
+          mojo::Clone(*data_.ufs_lifetime));
   }
   return nullptr;
 }
@@ -2653,6 +2982,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.audio_driver), *(other.data_.audio_driver));
     case Tag::kCpuStress:
       return mojo::Equals(*(data_.cpu_stress), *(other.data_.cpu_stress));
+    case Tag::kUfsLifetime:
+      return mojo::Equals(*(data_.ufs_lifetime), *(other.data_.ufs_lifetime));
   }
 
   return false;
@@ -2714,6 +3045,21 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.exec_duration < lhs.exec_duration)
     return false;
+  return false;
+}
+template <typename StructPtrType>
+UfsLifetimeRoutineArgumentPtr UfsLifetimeRoutineArgument::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>*>
+bool UfsLifetimeRoutineArgument::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
@@ -2907,6 +3253,42 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+UfsLifetimeRoutineDetailPtr UfsLifetimeRoutineDetail::Clone() const {
+  return New(
+      mojo::Clone(pre_eol_info),
+      mojo::Clone(device_life_time_est_a),
+      mojo::Clone(device_life_time_est_b)
+  );
+}
+
+template <typename T, UfsLifetimeRoutineDetail::EnableIfSame<T>*>
+bool UfsLifetimeRoutineDetail::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->pre_eol_info, other_struct.pre_eol_info))
+    return false;
+  if (!mojo::Equals(this->device_life_time_est_a, other_struct.device_life_time_est_a))
+    return false;
+  if (!mojo::Equals(this->device_life_time_est_b, other_struct.device_life_time_est_b))
+    return false;
+  return true;
+}
+
+template <typename T, UfsLifetimeRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.pre_eol_info < rhs.pre_eol_info)
+    return true;
+  if (rhs.pre_eol_info < lhs.pre_eol_info)
+    return false;
+  if (lhs.device_life_time_est_a < rhs.device_life_time_est_a)
+    return true;
+  if (rhs.device_life_time_est_a < lhs.device_life_time_est_a)
+    return false;
+  if (lhs.device_life_time_est_b < rhs.device_life_time_est_b)
+    return true;
+  if (rhs.device_life_time_est_b < lhs.device_life_time_est_b)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 MemtesterResultPtr MemtesterResult::Clone() const {
   return New(
       mojo::Clone(passed_items),
@@ -2981,6 +3363,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgument::DataV
   }
 
   static bool Read(::ash::cros_healthd::mojom::CpuStressRoutineArgument::DataView input, ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::DataView input, ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr* output);
 };
 
 
@@ -3115,6 +3507,31 @@ struct  StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetail::DataVie
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::pre_eol_info) pre_eol_info(
+      const ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr& input) {
+    return input->pre_eol_info;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::device_life_time_est_a) device_life_time_est_a(
+      const ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr& input) {
+    return input->device_life_time_est_a;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::device_life_time_est_b) device_life_time_est_b(
+      const ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr& input) {
+    return input->device_life_time_est_b;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView input, ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
                                          ::ash::cros_healthd::mojom::MemtesterResultPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) { return !input; }
@@ -3158,6 +3575,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::CpuStressRoutineArgumentPtr& cpu_stress(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_cpu_stress();
+  }
+
+  static const ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr& ufs_lifetime(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_ufs_lifetime();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -3214,6 +3635,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::CpuStressRoutineDetailPtr& cpu_stress(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_cpu_stress();
+  }
+
+  static const ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr& ufs_lifetime(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_ufs_lifetime();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

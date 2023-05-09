@@ -42,6 +42,8 @@ class AudioDriverRoutineArgumentDataView;
 
 class CpuStressRoutineArgumentDataView;
 
+class UfsLifetimeRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -57,6 +59,8 @@ class MemoryRoutineDetailDataView;
 class AudioDriverRoutineDetailDataView;
 
 class CpuStressRoutineDetailDataView;
+
+class UfsLifetimeRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
@@ -89,6 +93,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioDriverRoutineArgumentDat
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::CpuStressRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -145,6 +156,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioDriverRoutineDetailDataV
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::CpuStressRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -398,6 +416,21 @@ static_assert(
 };
 
 
+class UfsLifetimeRoutineArgumentDataView {
+ public:
+  UfsLifetimeRoutineArgumentDataView() = default;
+
+  UfsLifetimeRoutineArgumentDataView(
+      internal::UfsLifetimeRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::UfsLifetimeRoutineArgument_Data* data_ = nullptr;
+};
+
+
 class RoutineStateDataView {
  public:
   RoutineStateDataView() = default;
@@ -597,6 +630,30 @@ class CpuStressRoutineDetailDataView {
 };
 
 
+class UfsLifetimeRoutineDetailDataView {
+ public:
+  UfsLifetimeRoutineDetailDataView() = default;
+
+  UfsLifetimeRoutineDetailDataView(
+      internal::UfsLifetimeRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint8_t pre_eol_info() const {
+    return data_->pre_eol_info;
+  }
+  uint8_t device_life_time_est_a() const {
+    return data_->device_life_time_est_a;
+  }
+  uint8_t device_life_time_est_b() const {
+    return data_->device_life_time_est_b;
+  }
+ private:
+  internal::UfsLifetimeRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class MemtesterResultDataView {
  public:
   MemtesterResultDataView() = default;
@@ -688,6 +745,17 @@ class RoutineArgumentDataView {
     CHECK(is_cpu_stress());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView>(
         data_->data.f_cpu_stress.Get(), output, message_);
+  }
+  bool is_ufs_lifetime() const { return data_->tag == Tag::kUfsLifetime; }
+  inline void GetUfsLifetimeDataView(
+      UfsLifetimeRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUfsLifetime(UserType* output) const {
+    
+    CHECK(is_ufs_lifetime());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView>(
+        data_->data.f_ufs_lifetime.Get(), output, message_);
   }
 
  private:
@@ -817,6 +885,17 @@ class RoutineDetailDataView {
     CHECK(is_cpu_stress());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView>(
         data_->data.f_cpu_stress.Get(), output, message_);
+  }
+  bool is_ufs_lifetime() const { return data_->tag == Tag::kUfsLifetime; }
+  inline void GetUfsLifetimeDataView(
+      UfsLifetimeRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUfsLifetime(UserType* output) const {
+    
+    CHECK(is_ufs_lifetime());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView>(
+        data_->data.f_ufs_lifetime.Get(), output, message_);
   }
 
  private:
@@ -1001,6 +1080,35 @@ struct Serializer<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView, 
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1290,6 +1398,38 @@ struct Serializer<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->pre_eol_info = Traits::pre_eol_info(input);
+    fragment->device_life_time_est_a = Traits::device_life_time_est_a(input);
+    fragment->device_life_time_est_b = Traits::device_life_time_est_b(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::MemtesterResultDataView, UserType>;
@@ -1419,6 +1559,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null cpu_stress in RoutineArgument union");
         fragment->data.f_cpu_stress.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kUfsLifetime: {
+        decltype(Traits::ufs_lifetime(input))
+            in_ufs_lifetime = Traits::ufs_lifetime(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_ufs_lifetime)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView>(
+            in_ufs_lifetime, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null ufs_lifetime in RoutineArgument union");
+        fragment->data.f_ufs_lifetime.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -1616,6 +1772,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kUfsLifetime: {
+        decltype(Traits::ufs_lifetime(input))
+            in_ufs_lifetime = Traits::ufs_lifetime(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_ufs_lifetime)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView>(
+            in_ufs_lifetime, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null ufs_lifetime in RoutineDetail union");
+        fragment->data.f_ufs_lifetime.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1648,6 +1820,8 @@ inline void CpuStressRoutineArgumentDataView::GetExecDurationDataView(
   auto pointer = data_->exec_duration.Get();
   *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
+
+
 
 
 inline void RoutineStateDataView::GetStateUnionDataView(
@@ -1686,6 +1860,8 @@ inline void MemoryRoutineDetailDataView::GetResultDataView(
 
 
 
+
+
 inline void MemtesterResultDataView::GetPassedItemsDataView(
     mojo::ArrayDataView<MemtesterTestItemEnum>* output) {
   auto pointer = data_->passed_items.Get();
@@ -1712,6 +1888,11 @@ inline void RoutineArgumentDataView::GetCpuStressDataView(
     CpuStressRoutineArgumentDataView* output) const {
   CHECK(is_cpu_stress());
   *output = CpuStressRoutineArgumentDataView(data_->data.f_cpu_stress.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetUfsLifetimeDataView(
+    UfsLifetimeRoutineArgumentDataView* output) const {
+  CHECK(is_ufs_lifetime());
+  *output = UfsLifetimeRoutineArgumentDataView(data_->data.f_ufs_lifetime.Get(), message_);
 }
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
@@ -1749,6 +1930,11 @@ inline void RoutineDetailDataView::GetCpuStressDataView(
     CpuStressRoutineDetailDataView* output) const {
   CHECK(is_cpu_stress());
   *output = CpuStressRoutineDetailDataView(data_->data.f_cpu_stress.Get(), message_);
+}
+inline void RoutineDetailDataView::GetUfsLifetimeDataView(
+    UfsLifetimeRoutineDetailDataView* output) const {
+  CHECK(is_ufs_lifetime());
+  *output = UfsLifetimeRoutineDetailDataView(data_->data.f_ufs_lifetime.Get(), message_);
 }
 
 

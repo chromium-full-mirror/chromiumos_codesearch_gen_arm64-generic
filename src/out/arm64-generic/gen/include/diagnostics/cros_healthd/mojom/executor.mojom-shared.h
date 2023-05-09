@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "diagnostics/cros_healthd/mojom/executor.mojom-shared-internal.h"
+#include "diagnostics/mojom/external/time.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"
@@ -44,6 +45,8 @@ class ExecutedProcessResultDataView;
 class FingerprintInfoResultDataView;
 
 class FingerprintFrameResultDataView;
+
+class FileInfoDataView;
 
 
 
@@ -71,6 +74,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::FingerprintInfoResultDataView
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::FingerprintFrameResultDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::FingerprintFrameResult_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::FileInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::FileInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -316,6 +326,32 @@ class FingerprintFrameResultDataView {
 };
 
 
+class FileInfoDataView {
+ public:
+  FileInfoDataView() = default;
+
+  FileInfoDataView(
+      internal::FileInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetCreationTimeDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCreationTime(UserType* output) {
+    
+    auto* pointer = data_->creation_time.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::FileInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
@@ -551,6 +587,47 @@ struct Serializer<::ash::cros_healthd::mojom::FingerprintFrameResultDataView, Ma
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::FileInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::FileInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::FileInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::creation_time(input)) in_creation_time = Traits::creation_time(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->creation_time)::BaseType> creation_time_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDataView>(
+        in_creation_time, creation_time_fragment);
+    fragment->creation_time.Set(
+        creation_time_fragment.is_null() ? nullptr : creation_time_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->creation_time.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null creation_time in FileInfo struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::FileInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::FileInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -576,6 +653,13 @@ inline void FingerprintFrameResultDataView::GetFrameDataView(
     mojo::ArrayDataView<uint8_t>* output) {
   auto pointer = data_->frame.Get();
   *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
+}
+
+
+inline void FileInfoDataView::GetCreationTimeDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDataView* output) {
+  auto pointer = data_->creation_time.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDataView(pointer, message_);
 }
 
 

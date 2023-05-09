@@ -197,6 +197,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case RoutineArgument_Tag::kUfsLifetime: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_ufs_lifetime, 5, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       return true;
@@ -337,6 +347,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case RoutineDetail_Tag::kUfsLifetime: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_ufs_lifetime, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(
@@ -418,6 +438,29 @@ bool CpuStressRoutineArgument_Data::Validate(
 }
 
 CpuStressRoutineArgument_Data::CpuStressRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UfsLifetimeRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UfsLifetimeRoutineArgument_Data* object =
+      static_cast<const UfsLifetimeRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+UfsLifetimeRoutineArgument_Data::UfsLifetimeRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -635,6 +678,29 @@ bool CpuStressRoutineDetail_Data::Validate(
 }
 
 CpuStressRoutineDetail_Data::CpuStressRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UfsLifetimeRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UfsLifetimeRoutineDetail_Data* object =
+      static_cast<const UfsLifetimeRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+UfsLifetimeRoutineDetail_Data::UfsLifetimeRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 

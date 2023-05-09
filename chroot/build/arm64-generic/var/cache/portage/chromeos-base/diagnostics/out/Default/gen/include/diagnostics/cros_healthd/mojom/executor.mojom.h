@@ -25,6 +25,7 @@
 
 #include "diagnostics/cros_healthd/mojom/executor.mojom-shared.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom-forward.h"
+#include "diagnostics/mojom/external/time.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
@@ -415,6 +416,7 @@ class Executor
   using ResponseValidator_ = ExecutorResponseValidator;
   enum MethodMinVersions : uint32_t {
     kReadFileMinVersion = 0,
+    kGetFileInfoMinVersion = 0,
     kGetFanSpeedMinVersion = 0,
     kRunIwMinVersion = 0,
     kRunMemtesterMinVersion = 0,
@@ -442,6 +444,9 @@ class Executor
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct ReadFile_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetFileInfo_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetFanSpeed_Sym {
@@ -518,6 +523,11 @@ class Executor
   using ReadFileCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
   
   virtual void ReadFile(Executor::File file_enum, ReadFileCallback callback) = 0;
+
+
+  using GetFileInfoCallback = base::OnceCallback<void(FileInfoPtr)>;
+  
+  virtual void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) = 0;
 
 
   using GetFanSpeedCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
@@ -727,6 +737,8 @@ class  ExecutorProxy
   explicit ExecutorProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) final;
+  
+  void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) final;
   
   void GetFanSpeed(GetFanSpeedCallback callback) final;
   
@@ -1388,6 +1400,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  FingerprintFrameResult {
  public:
   template <typename T>
@@ -1527,6 +1540,143 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+class  FileInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FileInfo, T>::value>;
+  using DataView = FileInfoDataView;
+  using Data_ = internal::FileInfo_Data;
+
+  template <typename... Args>
+  static FileInfoPtr New(Args&&... args) {
+    return FileInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FileInfoPtr From(const U& u) {
+    return mojo::TypeConverter<FileInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FileInfo>::Convert(*this);
+  }
+
+
+  FileInfo();
+
+  explicit FileInfo(
+      base::Time creation_time);
+
+
+  ~FileInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FileInfoPtr>
+  FileInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FileInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FileInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FileInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FileInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FileInfo_UnserializedMessageContext<
+            UserType, FileInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FileInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FileInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FileInfo_UnserializedMessageContext<
+            UserType, FileInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FileInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  base::Time creation_time;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FileInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FileInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FileInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FileInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename StructPtrType>
 ExecutedProcessResultPtr ExecutedProcessResult::Clone() const {
   return New(
@@ -1621,6 +1771,28 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+FileInfoPtr FileInfo::Clone() const {
+  return New(
+      mojo::Clone(creation_time)
+  );
+}
+
+template <typename T, FileInfo::EnableIfSame<T>*>
+bool FileInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->creation_time, other_struct.creation_time))
+    return false;
+  return true;
+}
+
+template <typename T, FileInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.creation_time < rhs.creation_time)
+    return true;
+  if (rhs.creation_time < lhs.creation_time)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -1692,6 +1864,21 @@ struct  StructTraits<::ash::cros_healthd::mojom::FingerprintFrameResult::DataVie
   }
 
   static bool Read(::ash::cros_healthd::mojom::FingerprintFrameResult::DataView input, ::ash::cros_healthd::mojom::FingerprintFrameResultPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::FileInfo::DataView,
+                                         ::ash::cros_healthd::mojom::FileInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::FileInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::FileInfoPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::FileInfo::creation_time)& creation_time(
+      const ::ash::cros_healthd::mojom::FileInfoPtr& input) {
+    return input->creation_time;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::FileInfo::DataView input, ::ash::cros_healthd::mojom::FileInfoPtr* output);
 };
 
 }  // namespace mojo

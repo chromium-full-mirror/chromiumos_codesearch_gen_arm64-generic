@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "diagnostics/mojom/external/time.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared-internal.h"
@@ -31,6 +32,7 @@ namespace internal {
 class ExecutedProcessResult_Data;
 class FingerprintInfoResult_Data;
 class FingerprintFrameResult_Data;
+class FileInfo_Data;
 
 struct FingerprintCaptureType_Data {
  public:
@@ -283,6 +285,54 @@ struct FingerprintFrameResult_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     FingerprintFrameResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  FileInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::external::mojo_base::mojom::internal::Time_Data> creation_time;
+
+ private:
+  friend class mojo::internal::MessageFragment<FileInfo_Data>;
+
+  FileInfo_Data();
+  ~FileInfo_Data() = delete;
+};
+static_assert(sizeof(FileInfo_Data) == 16,
+              "Bad sizeof(FileInfo_Data)");
+// Used by FileInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FileInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FileInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FileInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FileInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FileInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

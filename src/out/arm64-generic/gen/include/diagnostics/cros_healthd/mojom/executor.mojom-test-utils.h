@@ -144,6 +144,7 @@ class  StylusObserverAsyncWaiter {
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) override;
+  void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) override;
   void GetFanSpeed(GetFanSpeedCallback callback) override;
   void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) override;
   void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) override;
@@ -177,6 +178,9 @@ class  ExecutorAsyncWaiter {
   void ReadFile(
       Executor::File file_enum, absl::optional<std::string>* out_content);
   absl::optional<std::string> ReadFile(Executor::File file_enum);
+  void GetFileInfo(
+      Executor::File file_enum, FileInfoPtr* out_info);
+  FileInfoPtr GetFileInfo(Executor::File file_enum);
   void GetFanSpeed(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr GetFanSpeed();

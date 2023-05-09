@@ -342,6 +342,39 @@ class  Executor_ReadFile_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_ReadFile_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_ReadFile_ResponseParams_Data)");
+class  Executor_GetFileInfo_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t file_enum;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetFileInfo_Params_Data>;
+
+  Executor_GetFileInfo_Params_Data();
+  ~Executor_GetFileInfo_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_GetFileInfo_Params_Data) == 16,
+              "Bad sizeof(Executor_GetFileInfo_Params_Data)");
+class  Executor_GetFileInfo_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::FileInfo_Data> info;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetFileInfo_ResponseParams_Data>;
+
+  Executor_GetFileInfo_ResponseParams_Data();
+  ~Executor_GetFileInfo_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_GetFileInfo_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_GetFileInfo_ResponseParams_Data)");
 class  Executor_GetFanSpeed_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1355,6 +1388,67 @@ static_assert(
   }
  private:
   internal::Executor_ReadFile_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_GetFileInfo_ParamsDataView {
+ public:
+  Executor_GetFileInfo_ParamsDataView() = default;
+
+  Executor_GetFileInfo_ParamsDataView(
+      internal::Executor_GetFileInfo_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadFileEnum(UserType* output) const {
+    auto data_value = data_->file_enum;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::Executor_File>(
+        data_value, output);
+  }
+  Executor_File file_enum() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::Executor_File>(data_->file_enum));
+  }
+ private:
+  internal::Executor_GetFileInfo_Params_Data* data_ = nullptr;
+};
+
+
+class Executor_GetFileInfo_ResponseParamsDataView {
+ public:
+  Executor_GetFileInfo_ResponseParamsDataView() = default;
+
+  Executor_GetFileInfo_ResponseParamsDataView(
+      internal::Executor_GetFileInfo_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetInfoDataView(
+      FileInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::FileInfoDataView, UserType>(),
+    "Attempting to read the optional `info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadInfo` instead "
+    "of `ReadInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->info.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FileInfoDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_GetFileInfo_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -2388,6 +2482,15 @@ inline void Executor_ReadFile_ResponseParamsDataView::GetContentDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->content.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_GetFileInfo_ResponseParamsDataView::GetInfoDataView(
+    FileInfoDataView* output) {
+  auto pointer = data_->info.Get();
+  *output = FileInfoDataView(pointer, message_);
 }
 
 

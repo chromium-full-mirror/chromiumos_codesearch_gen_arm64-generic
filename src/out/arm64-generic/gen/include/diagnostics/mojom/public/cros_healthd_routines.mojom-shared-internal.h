@@ -28,6 +28,7 @@ namespace internal {
 class MemoryRoutineArgument_Data;
 class AudioDriverRoutineArgument_Data;
 class CpuStressRoutineArgument_Data;
+class UfsLifetimeRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
@@ -36,6 +37,7 @@ class RoutineStateFinished_Data;
 class MemoryRoutineDetail_Data;
 class AudioDriverRoutineDetail_Data;
 class CpuStressRoutineDetail_Data;
+class UfsLifetimeRoutineDetail_Data;
 class MemtesterResult_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
@@ -172,6 +174,8 @@ class  RoutineArgument_Data {
     kAudioDriver,
     
     kCpuStress,
+    
+    kUfsLifetime,
   };
 
   // A note on layout:
@@ -183,6 +187,7 @@ class  RoutineArgument_Data {
     mojo::internal::Pointer<internal::MemoryRoutineArgument_Data> f_memory;
     mojo::internal::Pointer<internal::AudioDriverRoutineArgument_Data> f_audio_driver;
     mojo::internal::Pointer<internal::CpuStressRoutineArgument_Data> f_cpu_stress;
+    mojo::internal::Pointer<internal::UfsLifetimeRoutineArgument_Data> f_ufs_lifetime;
     uint64_t unknown;
   };
 
@@ -286,6 +291,8 @@ class  RoutineDetail_Data {
     kAudioDriver,
     
     kCpuStress,
+    
+    kUfsLifetime,
   };
 
   // A note on layout:
@@ -296,6 +303,7 @@ class  RoutineDetail_Data {
     mojo::internal::Pointer<internal::MemoryRoutineDetail_Data> f_memory;
     mojo::internal::Pointer<internal::AudioDriverRoutineDetail_Data> f_audio_driver;
     mojo::internal::Pointer<internal::CpuStressRoutineDetail_Data> f_cpu_stress;
+    mojo::internal::Pointer<internal::UfsLifetimeRoutineDetail_Data> f_ufs_lifetime;
     uint64_t unknown;
   };
 
@@ -450,6 +458,53 @@ struct CpuStressRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     CpuStressRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  UfsLifetimeRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<UfsLifetimeRoutineArgument_Data>;
+
+  UfsLifetimeRoutineArgument_Data();
+  ~UfsLifetimeRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(UfsLifetimeRoutineArgument_Data) == 8,
+              "Bad sizeof(UfsLifetimeRoutineArgument_Data)");
+// Used by UfsLifetimeRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct UfsLifetimeRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  UfsLifetimeRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~UfsLifetimeRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<UfsLifetimeRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    UfsLifetimeRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -840,6 +895,57 @@ struct CpuStressRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     CpuStressRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  UfsLifetimeRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t pre_eol_info;
+  uint8_t device_life_time_est_a;
+  uint8_t device_life_time_est_b;
+  uint8_t padfinal_[5];
+
+ private:
+  friend class mojo::internal::MessageFragment<UfsLifetimeRoutineDetail_Data>;
+
+  UfsLifetimeRoutineDetail_Data();
+  ~UfsLifetimeRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(UfsLifetimeRoutineDetail_Data) == 16,
+              "Bad sizeof(UfsLifetimeRoutineDetail_Data)");
+// Used by UfsLifetimeRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct UfsLifetimeRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  UfsLifetimeRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~UfsLifetimeRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<UfsLifetimeRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    UfsLifetimeRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  MemtesterResult_Data {
  public:
   static bool Validate(const void* data,

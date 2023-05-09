@@ -120,6 +120,23 @@ bool CpuStressRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+UfsLifetimeRoutineArgument::UfsLifetimeRoutineArgument() {}
+
+UfsLifetimeRoutineArgument::~UfsLifetimeRoutineArgument() = default;
+size_t UfsLifetimeRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void UfsLifetimeRoutineArgument::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool UfsLifetimeRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -381,6 +398,64 @@ bool CpuStressRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+UfsLifetimeRoutineDetail::UfsLifetimeRoutineDetail()
+    : pre_eol_info(),
+      device_life_time_est_a(),
+      device_life_time_est_b() {}
+
+UfsLifetimeRoutineDetail::UfsLifetimeRoutineDetail(
+    uint8_t pre_eol_info_in,
+    uint8_t device_life_time_est_a_in,
+    uint8_t device_life_time_est_b_in)
+    : pre_eol_info(std::move(pre_eol_info_in)),
+      device_life_time_est_a(std::move(device_life_time_est_a_in)),
+      device_life_time_est_b(std::move(device_life_time_est_b_in)) {}
+
+UfsLifetimeRoutineDetail::~UfsLifetimeRoutineDetail() = default;
+size_t UfsLifetimeRoutineDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->pre_eol_info);
+  seed = mojo::internal::Hash(seed, this->device_life_time_est_a);
+  seed = mojo::internal::Hash(seed, this->device_life_time_est_b);
+  return seed;
+}
+
+void UfsLifetimeRoutineDetail::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pre_eol_info"), this->pre_eol_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_life_time_est_a"), this->device_life_time_est_a,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_life_time_est_b"), this->device_life_time_est_b,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool UfsLifetimeRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 MemtesterResult::MemtesterResult()
     : passed_items(),
       failed_items() {}
@@ -471,6 +546,17 @@ void RoutineArgument::set_cpu_stress(
         std::move(cpu_stress));
   }
 }
+void RoutineArgument::set_ufs_lifetime(
+    UfsLifetimeRoutineArgumentPtr ufs_lifetime) {
+  if (tag_ == Tag::kUfsLifetime) {
+    *(data_.ufs_lifetime) = std::move(ufs_lifetime);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kUfsLifetime;
+    data_.ufs_lifetime = new UfsLifetimeRoutineArgumentPtr(
+        std::move(ufs_lifetime));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -489,6 +575,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kCpuStress:
 
       delete data_.cpu_stress;
+      break;
+    case Tag::kUfsLifetime:
+
+      delete data_.ufs_lifetime;
       break;
   }
 }
@@ -621,6 +711,17 @@ void RoutineDetail::set_cpu_stress(
         std::move(cpu_stress));
   }
 }
+void RoutineDetail::set_ufs_lifetime(
+    UfsLifetimeRoutineDetailPtr ufs_lifetime) {
+  if (tag_ == Tag::kUfsLifetime) {
+    *(data_.ufs_lifetime) = std::move(ufs_lifetime);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kUfsLifetime;
+    data_.ufs_lifetime = new UfsLifetimeRoutineDetailPtr(
+        std::move(ufs_lifetime));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -636,6 +737,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kCpuStress:
 
       delete data_.cpu_stress;
+      break;
+    case Tag::kUfsLifetime:
+
+      delete data_.ufs_lifetime;
       break;
   }
 }
@@ -1520,6 +1625,18 @@ bool StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgument::DataView
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::DataView, ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr result(::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -1636,6 +1753,24 @@ bool StructTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetail::DataView, 
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView, ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr result(::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::New());
+  
+      if (success)
+        result->pre_eol_info = input.pre_eol_info();
+      if (success)
+        result->device_life_time_est_a = input.device_life_time_est_a();
+      if (success)
+        result->device_life_time_est_b = input.device_life_time_est_b();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::cros_healthd::mojom::MemtesterResultPtr>::Read(
     ::ash::cros_healthd::mojom::MemtesterResult::DataView input,
     ::ash::cros_healthd::mojom::MemtesterResultPtr* output) {
@@ -1687,6 +1822,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewCpuStress(
           std::move(result_cpu_stress));
+      break;
+    }
+    case Tag::kUfsLifetime: {
+      ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr result_ufs_lifetime;
+      if (!input.ReadUfsLifetime(&result_ufs_lifetime))
+        return false;
+
+      *output = UnionType::NewUfsLifetime(
+          std::move(result_ufs_lifetime));
       break;
     }
     default:
@@ -1781,6 +1925,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewCpuStress(
           std::move(result_cpu_stress));
+      break;
+    }
+    case Tag::kUfsLifetime: {
+      ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr result_ufs_lifetime;
+      if (!input.ReadUfsLifetime(&result_ufs_lifetime))
+        return false;
+
+      *output = UnionType::NewUfsLifetime(
+          std::move(result_ufs_lifetime));
       break;
     }
     default:

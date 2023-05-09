@@ -30,6 +30,8 @@ class FingerprintInfoResultDataView;
 
 class FingerprintFrameResultDataView;
 
+class FileInfoDataView;
+
 
 enum class FingerprintCaptureType : int32_t;
 
@@ -46,6 +48,9 @@ using FingerprintInfoResultPtr = mojo::InlinedStructPtr<FingerprintInfoResult>;
 
 class FingerprintFrameResult;
 using FingerprintFrameResultPtr = mojo::StructPtr<FingerprintFrameResult>;
+
+class FileInfo;
+using FileInfoPtr = mojo::StructPtr<FileInfo>;
 
 class ProcessControl;
 
