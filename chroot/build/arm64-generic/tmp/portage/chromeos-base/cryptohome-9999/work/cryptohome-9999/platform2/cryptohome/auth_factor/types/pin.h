@@ -10,6 +10,8 @@
 #include <set>
 #include <string>
 
+#include <base/time/time.h>
+
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_factor/auth_factor_label_arity.h"
 #include "cryptohome/auth_factor/auth_factor_metadata.h"
@@ -35,10 +37,13 @@ class PinAuthFactorDriver final
 
  private:
   bool IsSupported(
-      AuthFactorStorageType storage_type,
+      const std::set<AuthFactorStorageType>& configured_storage_types,
       const std::set<AuthFactorType>& configured_factors) const override;
   bool NeedsResetSecret() const override;
   bool NeedsRateLimiter() const override;
+  bool IsDelaySupported() const override;
+  CryptohomeStatusOr<base::TimeDelta> GetFactorDelay(
+      const AuthFactor& factor) override;
   AuthFactorLabelArity GetAuthFactorLabelArity() const override;
 
   std::optional<user_data_auth::AuthFactor> TypedConvertToProto(

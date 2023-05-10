@@ -29,14 +29,15 @@ class CryptohomeRecoveryAuthFactorDriver final
       public AfDriverWithBlockTypes<AuthBlockType::kCryptohomeRecovery>,
       public AfDriverWithMetadata<CryptohomeRecoveryAuthFactorMetadata>,
       public AfDriverNoPrepare,
-      public AfDriverNoCredentialVerifier {
+      public AfDriverNoCredentialVerifier,
+      public AfDriverNoDelay {
  public:
   explicit CryptohomeRecoveryAuthFactorDriver(Crypto* crypto)
       : crypto_(crypto) {}
 
  private:
   bool IsSupported(
-      AuthFactorStorageType storage_type,
+      const std::set<AuthFactorStorageType>& configured_storage_types,
       const std::set<AuthFactorType>& configured_factors) const override;
   bool NeedsResetSecret() const override;
   bool NeedsRateLimiter() const override;

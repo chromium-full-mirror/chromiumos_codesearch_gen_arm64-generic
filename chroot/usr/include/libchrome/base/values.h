@@ -791,11 +791,11 @@ class BASE_EXPORT GSL_OWNER Value {
   // ambiguities in the value type.
   //
   // DEPRECATED: Prefer `Value::Dict::Set()`.
+  Value* SetDoubleKey(StringPiece key, double val);
+  // DEPRECATED: Prefer `Value::Dict::Set()`.
   Value* SetBoolKey(StringPiece key, bool val);
   // DEPRECATED: Prefer `Value::Dict::Set()`.
   Value* SetIntKey(StringPiece key, int val);
-  // DEPRECATED: Prefer `Value::Dict::Set()`.
-  Value* SetDoubleKey(StringPiece key, double val);
   // DEPRECATED: Prefer `Value::Dict::Set()`.
   Value* SetStringKey(StringPiece key, StringPiece val);
   // DEPRECATED: Prefer `Value::Dict::Set()`.

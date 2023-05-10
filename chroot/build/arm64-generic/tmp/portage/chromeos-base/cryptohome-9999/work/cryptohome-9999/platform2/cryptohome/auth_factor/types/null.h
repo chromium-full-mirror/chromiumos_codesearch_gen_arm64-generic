@@ -29,14 +29,15 @@ class NullAuthFactorDriver final
     : public AfDriverWithType<AuthFactorType::kUnspecified>,
       public AfDriverWithBlockTypes<>,
       public AfDriverNoPrepare,
-      public AfDriverNoCredentialVerifier {
+      public AfDriverNoCredentialVerifier,
+      public AfDriverNoDelay {
  public:
   NullAuthFactorDriver() = default;
 
  private:
   bool IsSupported(
-      AuthFactorStorageType storage_type,
-      const std::set<AuthFactorType>& configured_factors) const override {
+      const std::set<AuthFactorStorageType>& /*configured_storage_types*/,
+      const std::set<AuthFactorType>& /*configured_factors*/) const override {
     return false;
   }
   bool NeedsResetSecret() const override { return false; }

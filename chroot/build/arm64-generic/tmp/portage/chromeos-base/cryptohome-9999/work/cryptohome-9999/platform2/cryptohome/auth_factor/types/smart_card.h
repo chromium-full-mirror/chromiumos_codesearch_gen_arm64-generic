@@ -31,7 +31,8 @@ class SmartCardAuthFactorDriver final
     : public AfDriverWithType<AuthFactorType::kSmartCard>,
       public AfDriverWithBlockTypes<AuthBlockType::kChallengeCredential>,
       public AfDriverWithMetadata<SmartCardAuthFactorMetadata>,
-      public AfDriverNoPrepare {
+      public AfDriverNoPrepare,
+      public AfDriverNoDelay {
  public:
   SmartCardAuthFactorDriver(
       Crypto* crypto,
@@ -43,7 +44,7 @@ class SmartCardAuthFactorDriver final
 
  private:
   bool IsSupported(
-      AuthFactorStorageType storage_type,
+      const std::set<AuthFactorStorageType>& configured_storage_types,
       const std::set<AuthFactorType>& configured_factors) const override;
   bool IsVerifySupported(AuthIntent auth_intent) const override;
   std::unique_ptr<CredentialVerifier> CreateCredentialVerifier(

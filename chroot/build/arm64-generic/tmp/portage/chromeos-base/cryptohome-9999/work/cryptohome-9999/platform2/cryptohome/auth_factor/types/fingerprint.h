@@ -33,7 +33,8 @@ class FingerprintAuthFactorDriver final
     : public AfDriverWithType<AuthFactorType::kFingerprint>,
       public AfDriverWithBlockTypes<AuthBlockType::kFingerprint>,
       public AfDriverWithMetadata<FingerprintAuthFactorMetadata>,
-      public AfDriverNoCredentialVerifier {
+      public AfDriverNoCredentialVerifier,
+      public AfDriverNoDelay {
  public:
   FingerprintAuthFactorDriver(
       Crypto* crypto, AsyncInitPtr<BiometricsAuthBlockService> bio_service)
@@ -41,7 +42,7 @@ class FingerprintAuthFactorDriver final
 
  private:
   bool IsSupported(
-      AuthFactorStorageType storage_type,
+      const std::set<AuthFactorStorageType>& configured_storage_types,
       const std::set<AuthFactorType>& configured_factors) const override;
   bool IsPrepareRequired() const override;
   void PrepareForAdd(const ObfuscatedUsername& username,

@@ -7,15 +7,19 @@
 #include <base/test/test_future.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+#include <libhwsec-foundation/error/testing_helper.h>
 
+#include "cryptohome/auth_factor/auth_factor_metadata.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
 #include "cryptohome/auth_factor/types/interface.h"
 #include "cryptohome/auth_factor/types/test_utils.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 
 namespace cryptohome {
 namespace {
 
 using ::base::test::TestFuture;
+using ::hwsec_foundation::error::testing::NotOk;
 using ::testing::_;
 using ::testing::Eq;
 using ::testing::IsFalse;
@@ -69,14 +73,14 @@ TEST_F(KioskDriverTest, SupportedWithNoOtherFactors) {
   AuthFactorDriver& driver = kiosk_driver;
 
   // Test, Verify
-  EXPECT_THAT(driver.IsSupported(AuthFactorStorageType::kVaultKeyset, {}),
+  EXPECT_THAT(driver.IsSupported({AuthFactorStorageType::kVaultKeyset}, {}),
               IsTrue());
-  EXPECT_THAT(driver.IsSupported(AuthFactorStorageType::kVaultKeyset,
+  EXPECT_THAT(driver.IsSupported({AuthFactorStorageType::kVaultKeyset},
                                  {AuthFactorType::kKiosk}),
               IsTrue());
-  EXPECT_THAT(driver.IsSupported(AuthFactorStorageType::kUserSecretStash, {}),
+  EXPECT_THAT(driver.IsSupported({AuthFactorStorageType::kUserSecretStash}, {}),
               IsTrue());
-  EXPECT_THAT(driver.IsSupported(AuthFactorStorageType::kUserSecretStash,
+  EXPECT_THAT(driver.IsSupported({AuthFactorStorageType::kUserSecretStash},
                                  {AuthFactorType::kKiosk}),
               IsTrue());
 }
@@ -87,10 +91,10 @@ TEST_F(KioskDriverTest, UnsupportedWithOtherFactors) {
   AuthFactorDriver& driver = kiosk_driver;
 
   // Test, Verify
-  EXPECT_THAT(driver.IsSupported(AuthFactorStorageType::kVaultKeyset,
+  EXPECT_THAT(driver.IsSupported({AuthFactorStorageType::kVaultKeyset},
                                  {AuthFactorType::kPassword}),
               IsFalse());
-  EXPECT_THAT(driver.IsSupported(AuthFactorStorageType::kUserSecretStash,
+  EXPECT_THAT(driver.IsSupported({AuthFactorStorageType::kUserSecretStash},
                                  {AuthFactorType::kPassword}),
               IsFalse());
 }
@@ -114,6 +118,20 @@ TEST_F(KioskDriverTest, PrepareForAuthFails) {
       prepare_result;
   driver.PrepareForAuthenticate(kObfuscatedUser, prepare_result.GetCallback());
   EXPECT_THAT(prepare_result.Get().status()->local_legacy_error(),
+              Eq(user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT));
+}
+
+TEST_F(KioskDriverTest, GetDelayFails) {
+  KioskAuthFactorDriver kiosk_driver;
+  AuthFactorDriver& driver = kiosk_driver;
+
+  AuthFactor factor(AuthFactorType::kKiosk, kLabel,
+                    CreateMetadataWithType<KioskAuthFactorMetadata>(),
+                    {.state = TpmEccAuthBlockState()});
+
+  auto delay_in_ms = driver.GetFactorDelay(factor);
+  ASSERT_THAT(delay_in_ms, NotOk());
+  EXPECT_THAT(delay_in_ms.status()->local_legacy_error(),
               Eq(user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT));
 }
 

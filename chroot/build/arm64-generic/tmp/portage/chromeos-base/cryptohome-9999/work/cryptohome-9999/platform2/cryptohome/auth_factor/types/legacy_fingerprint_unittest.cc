@@ -81,7 +81,7 @@ TEST_F(LegacyFingerprintDriverTest, UnsupportedWithVk) {
   AuthFactorDriver& driver = legacy_fp_driver;
 
   // Test, Verify.
-  EXPECT_THAT(driver.IsSupported(AuthFactorStorageType::kVaultKeyset, {}),
+  EXPECT_THAT(driver.IsSupported({AuthFactorStorageType::kVaultKeyset}, {}),
               IsFalse());
 }
 
@@ -91,7 +91,7 @@ TEST_F(LegacyFingerprintDriverTest, UnsupportedWithUss) {
   AuthFactorDriver& driver = legacy_fp_driver;
 
   // Test, Verify.
-  EXPECT_THAT(driver.IsSupported(AuthFactorStorageType::kUserSecretStash, {}),
+  EXPECT_THAT(driver.IsSupported({AuthFactorStorageType::kUserSecretStash}, {}),
               IsFalse());
 }
 
@@ -167,6 +167,20 @@ TEST_F(LegacyFingerprintDriverTest, PrepareForAuthSuccess) {
   EXPECT_THAT(prepare_result.Get(), IsOk());
   EXPECT_THAT(signal_results_,
               ElementsAre(user_data_auth::FINGERPRINT_SCAN_RESULT_SUCCESS));
+}
+
+TEST_F(LegacyFingerprintDriverTest, GetDelayFails) {
+  LegacyFingerprintAuthFactorDriver legacy_fp_driver(&fp_service_);
+  AuthFactorDriver& driver = legacy_fp_driver;
+
+  AuthFactor factor(AuthFactorType::kLegacyFingerprint, "",
+                    CreateMetadataWithType<std::monostate>(),
+                    {.state = std::monostate()});
+
+  auto delay_in_ms = driver.GetFactorDelay(factor);
+  ASSERT_THAT(delay_in_ms, NotOk());
+  EXPECT_THAT(delay_in_ms.status()->local_legacy_error(),
+              Eq(user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT));
 }
 
 // Verify that the legacy fingerprint verifier cannot be created with a label.

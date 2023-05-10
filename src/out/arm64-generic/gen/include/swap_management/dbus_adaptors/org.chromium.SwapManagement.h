@@ -35,6 +35,10 @@ class SwapManagementInterface {
   virtual bool SwapSetSize(
       brillo::ErrorPtr* error,
       uint32_t in_size) = 0;
+  // Set the /proc/sys/vm/swappiness to the provided |swappiness|.
+  virtual bool SwapSetSwappiness(
+      brillo::ErrorPtr* error,
+      uint32_t in_swappiness) = 0;
   // Show current swap status.
   virtual std::string SwapStatus() = 0;
   // Enable/Disable the MGLRU feature.
@@ -86,6 +90,10 @@ class SwapManagementAdaptor {
         "SwapSetSize",
         base::Unretained(interface_),
         &SwapManagementInterface::SwapSetSize);
+    itf->AddSimpleMethodHandlerWithError(
+        "SwapSetSwappiness",
+        base::Unretained(interface_),
+        &SwapManagementInterface::SwapSetSwappiness);
     itf->AddSimpleMethodHandler(
         "SwapStatus",
         base::Unretained(interface_),
@@ -127,6 +135,9 @@ class SwapManagementAdaptor {
         "    </method>\n"
         "    <method name=\"SwapSetSize\">\n"
         "      <arg name=\"size\" type=\"u\" direction=\"in\"/>\n"
+        "    </method>\n"
+        "    <method name=\"SwapSetSwappiness\">\n"
+        "      <arg name=\"swappiness\" type=\"u\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"SwapStatus\">\n"
         "      <arg name=\"status\" type=\"s\" direction=\"out\"/>\n"

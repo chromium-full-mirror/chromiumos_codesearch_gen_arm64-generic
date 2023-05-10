@@ -1197,15 +1197,15 @@ Value* Value::SetKey(StringPiece key, Value&& value) {
   return GetDict().Set(key, std::move(value));
 }
 
+Value* Value::SetDoubleKey(StringPiece key, double value) {
+  return GetDict().Set(key, value);
+}
+
 Value* Value::SetBoolKey(StringPiece key, bool value) {
   return GetDict().Set(key, value);
 }
 
 Value* Value::SetIntKey(StringPiece key, int value) {
-  return GetDict().Set(key, value);
-}
-
-Value* Value::SetDoubleKey(StringPiece key, double value) {
   return GetDict().Set(key, value);
 }
 
