@@ -16,7 +16,7 @@
 #include "base/memory/weak_ptr.h"
 #include "google/protobuf/message_lite.h"
 #include "missive/proto/record_constants.pb.h"
-#include "secagentd/bpf/process.h"
+#include "secagentd/bpf/bpf_types.h"
 #include "secagentd/device_user.h"
 #include "secagentd/message_sender.h"
 #include "secagentd/metrics_sender.h"
@@ -153,6 +153,11 @@ void ProcessPlugin::HandleBpfRingBufferReadReady() const {
 }
 
 absl::Status ProcessPlugin::Activate() {
+  // If already called do nothing and report Ok.
+  if (skeleton_wrapper_) {
+    return absl::OkStatus();
+  }
+
   struct BpfCallbacks callbacks;
   callbacks.ring_buffer_event_callback = base::BindRepeating(
       &ProcessPlugin::HandleRingBufferEvent, weak_ptr_factory_.GetWeakPtr());
@@ -166,6 +171,11 @@ absl::Status ProcessPlugin::Activate() {
   }
   batch_sender_->Start();
   return absl::OkStatus();
+}
+
+absl::Status ProcessPlugin::Deactivate() {
+  return absl::UnimplementedError(
+      "Deactivate not implemented for ProcessPlugin.");
 }
 
 void ProcessPlugin::DeprecatedSendImmediate(
@@ -200,6 +210,10 @@ void ProcessPlugin::EnqueueBatchedEvent(
     }
   }
   batch_sender_->Enqueue(std::move(atomic_event));
+}
+
+bool ProcessPlugin::IsActive() const {
+  return skeleton_wrapper_ != nullptr;
 }
 
 std::unique_ptr<pb::ProcessExecEvent> ProcessPlugin::MakeExecEvent(

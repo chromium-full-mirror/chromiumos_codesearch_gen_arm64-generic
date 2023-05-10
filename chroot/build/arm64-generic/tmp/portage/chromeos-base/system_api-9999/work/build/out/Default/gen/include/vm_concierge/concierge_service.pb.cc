@@ -193,6 +193,7 @@ PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
   , /*decltype(_impl_.native_bridge_experiment_)*/0
   , /*decltype(_impl_.ureadahead_mode_)*/0
   , /*decltype(_impl_.enable_web_view_zygote_lazy_init_)*/false
+  , /*decltype(_impl_.enable_vmm_swap_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StartArcVmRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartArcVmRequestDefaultTypeInternal()
@@ -5533,6 +5534,7 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     , decltype(_impl_.native_bridge_experiment_){}
     , decltype(_impl_.ureadahead_mode_){}
     , decltype(_impl_.enable_web_view_zygote_lazy_init_){}
+    , decltype(_impl_.enable_vmm_swap_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -5567,8 +5569,8 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     _this->_impl_.mini_instance_request_ = new ::arc::StartArcMiniInstanceRequest(*from._impl_.mini_instance_request_);
   }
   ::memcpy(&_impl_.cpus_, &from._impl_.cpus_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.enable_web_view_zygote_lazy_init_) -
-    reinterpret_cast<char*>(&_impl_.cpus_)) + sizeof(_impl_.enable_web_view_zygote_lazy_init_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.enable_vmm_swap_) -
+    reinterpret_cast<char*>(&_impl_.cpus_)) + sizeof(_impl_.enable_vmm_swap_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartArcVmRequest)
 }
 
@@ -5618,6 +5620,7 @@ inline void StartArcVmRequest::SharedCtor(
     , decltype(_impl_.native_bridge_experiment_){0}
     , decltype(_impl_.ureadahead_mode_){0}
     , decltype(_impl_.enable_web_view_zygote_lazy_init_){false}
+    , decltype(_impl_.enable_vmm_swap_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
@@ -5678,8 +5681,8 @@ void StartArcVmRequest::Clear() {
   }
   _impl_.mini_instance_request_ = nullptr;
   ::memset(&_impl_.cpus_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.enable_web_view_zygote_lazy_init_) -
-      reinterpret_cast<char*>(&_impl_.cpus_)) + sizeof(_impl_.enable_web_view_zygote_lazy_init_));
+      reinterpret_cast<char*>(&_impl_.enable_vmm_swap_) -
+      reinterpret_cast<char*>(&_impl_.cpus_)) + sizeof(_impl_.enable_vmm_swap_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5988,7 +5991,7 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // bool update_o4c_list_via_a2c2 = 37;
+      // bool update_o4c_list_via_a2c2 = 37 [deprecated = true];
       case 37:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _impl_.update_o4c_list_via_a2c2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -6035,6 +6038,14 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 42:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           _impl_.enable_web_view_zygote_lazy_init_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool enable_vmm_swap = 43;
+      case 43:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          _impl_.enable_vmm_swap_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6299,7 +6310,7 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(36, this->_internal_mglru_reclaim_swappiness(), target);
   }
 
-  // bool update_o4c_list_via_a2c2 = 37;
+  // bool update_o4c_list_via_a2c2 = 37 [deprecated = true];
   if (this->_internal_update_o4c_list_via_a2c2() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(37, this->_internal_update_o4c_list_via_a2c2(), target);
@@ -6336,6 +6347,12 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
   if (this->_internal_enable_web_view_zygote_lazy_init() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(42, this->_internal_enable_web_view_zygote_lazy_init(), target);
+  }
+
+  // bool enable_vmm_swap = 43;
+  if (this->_internal_enable_vmm_swap() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(43, this->_internal_enable_vmm_swap(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6543,7 +6560,7 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // bool update_o4c_list_via_a2c2 = 37;
+  // bool update_o4c_list_via_a2c2 = 37 [deprecated = true];
   if (this->_internal_update_o4c_list_via_a2c2() != 0) {
     total_size += 2 + 1;
   }
@@ -6587,6 +6604,11 @@ size_t StartArcVmRequest::ByteSizeLong() const {
 
   // bool enable_web_view_zygote_lazy_init = 42;
   if (this->_internal_enable_web_view_zygote_lazy_init() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool enable_vmm_swap = 43;
+  if (this->_internal_enable_vmm_swap() != 0) {
     total_size += 2 + 1;
   }
 
@@ -6732,6 +6754,9 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_enable_web_view_zygote_lazy_init() != 0) {
     _this->_internal_set_enable_web_view_zygote_lazy_init(from._internal_enable_web_view_zygote_lazy_init());
   }
+  if (from._internal_enable_vmm_swap() != 0) {
+    _this->_internal_set_enable_vmm_swap(from._internal_enable_vmm_swap());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -6766,8 +6791,8 @@ void StartArcVmRequest::InternalSwap(StartArcVmRequest* other) {
       &other->_impl_.fstab_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, _impl_.enable_web_view_zygote_lazy_init_)
-      + sizeof(StartArcVmRequest::_impl_.enable_web_view_zygote_lazy_init_)
+      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, _impl_.enable_vmm_swap_)
+      + sizeof(StartArcVmRequest::_impl_.enable_vmm_swap_)
       - PROTOBUF_FIELD_OFFSET(StartArcVmRequest, _impl_.vm_)>(
           reinterpret_cast<char*>(&_impl_.vm_),
           reinterpret_cast<char*>(&other->_impl_.vm_));
