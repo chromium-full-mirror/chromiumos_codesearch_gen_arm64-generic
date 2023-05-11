@@ -143,11 +143,12 @@ enum DlpComponent : int {
   CROSTINI = 3,
   PLUGIN_VM = 4,
   USB = 5,
-  GOOGLE_DRIVE = 6
+  GOOGLE_DRIVE = 6,
+  MICROSOFT_ONEDRIVE = 7
 };
 bool DlpComponent_IsValid(int value);
 constexpr DlpComponent DlpComponent_MIN = UNKNOWN_COMPONENT;
-constexpr DlpComponent DlpComponent_MAX = GOOGLE_DRIVE;
+constexpr DlpComponent DlpComponent_MAX = MICROSOFT_ONEDRIVE;
 constexpr int DlpComponent_ARRAYSIZE = DlpComponent_MAX + 1;
 
 const std::string& DlpComponent_Name(DlpComponent value);

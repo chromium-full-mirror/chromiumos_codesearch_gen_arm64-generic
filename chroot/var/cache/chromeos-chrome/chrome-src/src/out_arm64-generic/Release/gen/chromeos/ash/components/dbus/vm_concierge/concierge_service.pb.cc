@@ -116,7 +116,9 @@ PROTOBUF_CONSTEXPR StartVmRequest::StartVmRequest(
   , vtpm_proxy_(false)
   , storage_ballooning_(false)
   , enable_virtgpu_native_context_(false)
-  , enable_dgpu_passthrough_(false){}
+  , enable_dgpu_passthrough_(false)
+  , vm_type_(0)
+{}
 struct StartVmRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartVmRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3958,8 +3960,8 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
     vm_ = nullptr;
   }
   ::memcpy(&start_termina_, &from.start_termina_,
-    static_cast<size_t>(reinterpret_cast<char*>(&enable_dgpu_passthrough_) -
-    reinterpret_cast<char*>(&start_termina_)) + sizeof(enable_dgpu_passthrough_));
+    static_cast<size_t>(reinterpret_cast<char*>(&vm_type_) -
+    reinterpret_cast<char*>(&start_termina_)) + sizeof(vm_type_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartVmRequest)
 }
 
@@ -3982,8 +3984,8 @@ vm_username_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&enable_dgpu_passthrough_) -
-    reinterpret_cast<char*>(&vm_)) + sizeof(enable_dgpu_passthrough_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&vm_type_) -
+    reinterpret_cast<char*>(&vm_)) + sizeof(vm_type_));
 }
 
 StartVmRequest::~StartVmRequest() {
@@ -4028,8 +4030,8 @@ void StartVmRequest::Clear() {
   }
   vm_ = nullptr;
   ::memset(&start_termina_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&enable_dgpu_passthrough_) -
-      reinterpret_cast<char*>(&start_termina_)) + sizeof(enable_dgpu_passthrough_));
+      reinterpret_cast<char*>(&vm_type_) -
+      reinterpret_cast<char*>(&start_termina_)) + sizeof(vm_type_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4266,6 +4268,15 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
         } else
           goto handle_unusual;
         continue;
+      // .vm_tools.concierge.VmInfo.VmType vm_type = 28;
+      case 28:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_vm_type(static_cast<::vm_tools::concierge::VmInfo_VmType>(val));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -4472,6 +4483,13 @@ uint8_t* StartVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(27, this->_internal_enable_dgpu_passthrough(), target);
   }
 
+  // .vm_tools.concierge.VmInfo.VmType vm_type = 28;
+  if (this->_internal_vm_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      28, this->_internal_vm_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -4652,6 +4670,12 @@ size_t StartVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
+  // .vm_tools.concierge.VmInfo.VmType vm_type = 28;
+  if (this->_internal_vm_type() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_vm_type());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -4734,6 +4758,9 @@ void StartVmRequest::MergeFrom(const StartVmRequest& from) {
   if (from._internal_enable_dgpu_passthrough() != 0) {
     _internal_set_enable_dgpu_passthrough(from._internal_enable_dgpu_passthrough());
   }
+  if (from._internal_vm_type() != 0) {
+    _internal_set_vm_type(from._internal_vm_type());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -4775,8 +4802,8 @@ void StartVmRequest::InternalSwap(StartVmRequest* other) {
       &other->vm_username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartVmRequest, enable_dgpu_passthrough_)
-      + sizeof(StartVmRequest::enable_dgpu_passthrough_)
+      PROTOBUF_FIELD_OFFSET(StartVmRequest, vm_type_)
+      + sizeof(StartVmRequest::vm_type_)
       - PROTOBUF_FIELD_OFFSET(StartVmRequest, vm_)>(
           reinterpret_cast<char*>(&vm_),
           reinterpret_cast<char*>(&other->vm_));

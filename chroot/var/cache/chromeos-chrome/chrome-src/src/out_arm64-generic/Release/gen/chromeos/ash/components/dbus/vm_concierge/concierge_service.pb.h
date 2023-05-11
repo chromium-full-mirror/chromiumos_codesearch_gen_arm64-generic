@@ -1832,6 +1832,7 @@ class StartVmRequest final :
     kStorageBallooningFieldNumber = 23,
     kEnableVirtgpuNativeContextFieldNumber = 25,
     kEnableDgpuPassthroughFieldNumber = 27,
+    kVmTypeFieldNumber = 28,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -2133,6 +2134,15 @@ class StartVmRequest final :
   void _internal_set_enable_dgpu_passthrough(bool value);
   public:
 
+  // .vm_tools.concierge.VmInfo.VmType vm_type = 28;
+  void clear_vm_type();
+  ::vm_tools::concierge::VmInfo_VmType vm_type() const;
+  void set_vm_type(::vm_tools::concierge::VmInfo_VmType value);
+  private:
+  ::vm_tools::concierge::VmInfo_VmType _internal_vm_type() const;
+  void _internal_set_vm_type(::vm_tools::concierge::VmInfo_VmType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartVmRequest)
  private:
   class _Internal;
@@ -2166,6 +2176,7 @@ class StartVmRequest final :
   bool storage_ballooning_;
   bool enable_virtgpu_native_context_;
   bool enable_dgpu_passthrough_;
+  int vm_type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -15508,6 +15519,26 @@ inline void StartVmRequest::_internal_set_enable_dgpu_passthrough(bool value) {
 inline void StartVmRequest::set_enable_dgpu_passthrough(bool value) {
   _internal_set_enable_dgpu_passthrough(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.enable_dgpu_passthrough)
+}
+
+// .vm_tools.concierge.VmInfo.VmType vm_type = 28;
+inline void StartVmRequest::clear_vm_type() {
+  vm_type_ = 0;
+}
+inline ::vm_tools::concierge::VmInfo_VmType StartVmRequest::_internal_vm_type() const {
+  return static_cast< ::vm_tools::concierge::VmInfo_VmType >(vm_type_);
+}
+inline ::vm_tools::concierge::VmInfo_VmType StartVmRequest::vm_type() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.vm_type)
+  return _internal_vm_type();
+}
+inline void StartVmRequest::_internal_set_vm_type(::vm_tools::concierge::VmInfo_VmType value) {
+  
+  vm_type_ = value;
+}
+inline void StartVmRequest::set_vm_type(::vm_tools::concierge::VmInfo_VmType value) {
+  _internal_set_vm_type(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.vm_type)
 }
 
 // -------------------------------------------------------------------

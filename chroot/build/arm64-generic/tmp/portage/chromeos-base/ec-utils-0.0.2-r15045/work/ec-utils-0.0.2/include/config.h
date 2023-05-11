@@ -1636,6 +1636,10 @@
 #undef CONFIG_CMD_CHARGEN
 #endif
 #define CONFIG_CMD_CHARGER
+
+/* Extra debugging info for the charger */
+#define CONFIG_CHARGE_DEBUG
+
 #undef CONFIG_CMD_CHARGER_ADC_AMON_BMON
 #undef CONFIG_CMD_CHARGER_DUMP
 #undef CONFIG_CMD_CHARGER_PROFILE_OVERRIDE
@@ -6308,6 +6312,7 @@
 #define CONFIG_USBC_OCP
 #endif
 
+#ifndef CONFIG_ZEPHYR
 /*****************************************************************************/
 /*
  * Define CONFIG_USB_PD_VBUS_MEASURE_CHARGER if the charger on the board
@@ -6318,13 +6323,17 @@
 	defined(CONFIG_CHARGER_MT6370) || defined(CONFIG_CHARGER_BQ25710) ||  \
 	defined(CONFIG_CHARGER_BQ25720) || defined(CONFIG_CHARGER_ISL9241) || \
 	defined(CONFIG_CHARGER_RAA489110)
+#if !defined(CONFIG_USB_PD_VBUS_MEASURE_TCPC) &&              \
+	!defined(CONFIG_USB_PD_VBUS_MEASURE_ADC_EACH_PORT) && \
+	!defined(CONFIG_USB_PD_VBUS_MEASURE_BY_BOARD)
 #define CONFIG_USB_PD_VBUS_MEASURE_CHARGER
+#endif /* VBUS_MEASURE options */
 
 #ifdef CONFIG_USB_PD_VBUS_MEASURE_NOT_PRESENT
 #error CONFIG_USB_PD_VBUS_MEASURE_NOT_PRESENT defined, but charger can measure
-#endif
-#endif
-
+#endif /* VBUS_NOT_PRESENT */
+#endif /* Charger chips */
+#endif /* CONFIG_ZEPHYR */
 /*****************************************************************************/
 /*
  * Define CONFIG_USB_PD_VBUS_MEASURE_TCPC if the tcpc on the board supports

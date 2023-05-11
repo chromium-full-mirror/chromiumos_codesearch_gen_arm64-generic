@@ -43,11 +43,19 @@ struct TableStruct_minios_2eproto {
   static const uint32_t offsets[];
 };
 namespace minios {
+class LogManifest;
+struct LogManifestDefaultTypeInternal;
+extern LogManifestDefaultTypeInternal _LogManifest_default_instance_;
+class LogManifest_Entry;
+struct LogManifest_EntryDefaultTypeInternal;
+extern LogManifest_EntryDefaultTypeInternal _LogManifest_Entry_default_instance_;
 class State;
 struct StateDefaultTypeInternal;
 extern StateDefaultTypeInternal _State_default_instance_;
 }  // namespace minios
 PROTOBUF_NAMESPACE_OPEN
+template<> ::minios::LogManifest* Arena::CreateMaybeMessage<::minios::LogManifest>(Arena*);
+template<> ::minios::LogManifest_Entry* Arena::CreateMaybeMessage<::minios::LogManifest_Entry>(Arena*);
 template<> ::minios::State* Arena::CreateMaybeMessage<::minios::State>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace minios {
@@ -262,6 +270,288 @@ class State final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_minios_2eproto;
 };
+// -------------------------------------------------------------------
+
+class LogManifest_Entry final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:minios.LogManifest.Entry) */ {
+ public:
+  inline LogManifest_Entry() : LogManifest_Entry(nullptr) {}
+  ~LogManifest_Entry() override;
+  explicit PROTOBUF_CONSTEXPR LogManifest_Entry(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  LogManifest_Entry(const LogManifest_Entry& from);
+  LogManifest_Entry(LogManifest_Entry&& from) noexcept
+    : LogManifest_Entry() {
+    *this = ::std::move(from);
+  }
+
+  inline LogManifest_Entry& operator=(const LogManifest_Entry& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LogManifest_Entry& operator=(LogManifest_Entry&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const LogManifest_Entry& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LogManifest_Entry* internal_default_instance() {
+    return reinterpret_cast<const LogManifest_Entry*>(
+               &_LogManifest_Entry_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(LogManifest_Entry& a, LogManifest_Entry& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(LogManifest_Entry* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LogManifest_Entry* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LogManifest_Entry* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<LogManifest_Entry>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const LogManifest_Entry& from);
+  void MergeFrom(const LogManifest_Entry& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(LogManifest_Entry* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "minios.LogManifest.Entry";
+  }
+  protected:
+  explicit LogManifest_Entry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kOffsetFieldNumber = 1,
+    kCountFieldNumber = 2,
+  };
+  // int32 offset = 1;
+  void clear_offset();
+  int32_t offset() const;
+  void set_offset(int32_t value);
+  private:
+  int32_t _internal_offset() const;
+  void _internal_set_offset(int32_t value);
+  public:
+
+  // int32 count = 2;
+  void clear_count();
+  int32_t count() const;
+  void set_count(int32_t value);
+  private:
+  int32_t _internal_count() const;
+  void _internal_set_count(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:minios.LogManifest.Entry)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t offset_;
+    int32_t count_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_minios_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LogManifest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:minios.LogManifest) */ {
+ public:
+  inline LogManifest() : LogManifest(nullptr) {}
+  ~LogManifest() override;
+  explicit PROTOBUF_CONSTEXPR LogManifest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  LogManifest(const LogManifest& from);
+  LogManifest(LogManifest&& from) noexcept
+    : LogManifest() {
+    *this = ::std::move(from);
+  }
+
+  inline LogManifest& operator=(const LogManifest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LogManifest& operator=(LogManifest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const LogManifest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LogManifest* internal_default_instance() {
+    return reinterpret_cast<const LogManifest*>(
+               &_LogManifest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(LogManifest& a, LogManifest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(LogManifest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LogManifest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LogManifest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<LogManifest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const LogManifest& from);
+  void MergeFrom(const LogManifest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(LogManifest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "minios.LogManifest";
+  }
+  protected:
+  explicit LogManifest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef LogManifest_Entry Entry;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEntryFieldNumber = 1,
+  };
+  // .minios.LogManifest.Entry entry = 1;
+  bool has_entry() const;
+  private:
+  bool _internal_has_entry() const;
+  public:
+  void clear_entry();
+  const ::minios::LogManifest_Entry& entry() const;
+  PROTOBUF_NODISCARD ::minios::LogManifest_Entry* release_entry();
+  ::minios::LogManifest_Entry* mutable_entry();
+  void set_allocated_entry(::minios::LogManifest_Entry* entry);
+  private:
+  const ::minios::LogManifest_Entry& _internal_entry() const;
+  ::minios::LogManifest_Entry* _internal_mutable_entry();
+  public:
+  void unsafe_arena_set_allocated_entry(
+      ::minios::LogManifest_Entry* entry);
+  ::minios::LogManifest_Entry* unsafe_arena_release_entry();
+
+  // @@protoc_insertion_point(class_scope:minios.LogManifest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::minios::LogManifest_Entry* entry_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_minios_2eproto;
+};
 // ===================================================================
 
 
@@ -293,9 +583,151 @@ inline void State::set_state(::minios::State_States value) {
   // @@protoc_insertion_point(field_set:minios.State.state)
 }
 
+// -------------------------------------------------------------------
+
+// LogManifest_Entry
+
+// int32 offset = 1;
+inline void LogManifest_Entry::clear_offset() {
+  _impl_.offset_ = 0;
+}
+inline int32_t LogManifest_Entry::_internal_offset() const {
+  return _impl_.offset_;
+}
+inline int32_t LogManifest_Entry::offset() const {
+  // @@protoc_insertion_point(field_get:minios.LogManifest.Entry.offset)
+  return _internal_offset();
+}
+inline void LogManifest_Entry::_internal_set_offset(int32_t value) {
+  
+  _impl_.offset_ = value;
+}
+inline void LogManifest_Entry::set_offset(int32_t value) {
+  _internal_set_offset(value);
+  // @@protoc_insertion_point(field_set:minios.LogManifest.Entry.offset)
+}
+
+// int32 count = 2;
+inline void LogManifest_Entry::clear_count() {
+  _impl_.count_ = 0;
+}
+inline int32_t LogManifest_Entry::_internal_count() const {
+  return _impl_.count_;
+}
+inline int32_t LogManifest_Entry::count() const {
+  // @@protoc_insertion_point(field_get:minios.LogManifest.Entry.count)
+  return _internal_count();
+}
+inline void LogManifest_Entry::_internal_set_count(int32_t value) {
+  
+  _impl_.count_ = value;
+}
+inline void LogManifest_Entry::set_count(int32_t value) {
+  _internal_set_count(value);
+  // @@protoc_insertion_point(field_set:minios.LogManifest.Entry.count)
+}
+
+// -------------------------------------------------------------------
+
+// LogManifest
+
+// .minios.LogManifest.Entry entry = 1;
+inline bool LogManifest::_internal_has_entry() const {
+  return this != internal_default_instance() && _impl_.entry_ != nullptr;
+}
+inline bool LogManifest::has_entry() const {
+  return _internal_has_entry();
+}
+inline void LogManifest::clear_entry() {
+  if (GetArenaForAllocation() == nullptr && _impl_.entry_ != nullptr) {
+    delete _impl_.entry_;
+  }
+  _impl_.entry_ = nullptr;
+}
+inline const ::minios::LogManifest_Entry& LogManifest::_internal_entry() const {
+  const ::minios::LogManifest_Entry* p = _impl_.entry_;
+  return p != nullptr ? *p : reinterpret_cast<const ::minios::LogManifest_Entry&>(
+      ::minios::_LogManifest_Entry_default_instance_);
+}
+inline const ::minios::LogManifest_Entry& LogManifest::entry() const {
+  // @@protoc_insertion_point(field_get:minios.LogManifest.entry)
+  return _internal_entry();
+}
+inline void LogManifest::unsafe_arena_set_allocated_entry(
+    ::minios::LogManifest_Entry* entry) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.entry_);
+  }
+  _impl_.entry_ = entry;
+  if (entry) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:minios.LogManifest.entry)
+}
+inline ::minios::LogManifest_Entry* LogManifest::release_entry() {
+  
+  ::minios::LogManifest_Entry* temp = _impl_.entry_;
+  _impl_.entry_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::minios::LogManifest_Entry* LogManifest::unsafe_arena_release_entry() {
+  // @@protoc_insertion_point(field_release:minios.LogManifest.entry)
+  
+  ::minios::LogManifest_Entry* temp = _impl_.entry_;
+  _impl_.entry_ = nullptr;
+  return temp;
+}
+inline ::minios::LogManifest_Entry* LogManifest::_internal_mutable_entry() {
+  
+  if (_impl_.entry_ == nullptr) {
+    auto* p = CreateMaybeMessage<::minios::LogManifest_Entry>(GetArenaForAllocation());
+    _impl_.entry_ = p;
+  }
+  return _impl_.entry_;
+}
+inline ::minios::LogManifest_Entry* LogManifest::mutable_entry() {
+  ::minios::LogManifest_Entry* _msg = _internal_mutable_entry();
+  // @@protoc_insertion_point(field_mutable:minios.LogManifest.entry)
+  return _msg;
+}
+inline void LogManifest::set_allocated_entry(::minios::LogManifest_Entry* entry) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.entry_;
+  }
+  if (entry) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(entry);
+    if (message_arena != submessage_arena) {
+      entry = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, entry, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.entry_ = entry;
+  // @@protoc_insertion_point(field_set_allocated:minios.LogManifest.entry)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
