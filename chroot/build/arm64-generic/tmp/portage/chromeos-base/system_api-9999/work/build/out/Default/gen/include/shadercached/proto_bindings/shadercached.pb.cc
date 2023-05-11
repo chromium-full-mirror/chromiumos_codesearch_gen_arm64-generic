@@ -106,6 +106,20 @@ struct PrepareShaderCacheResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrepareShaderCacheResponseDefaultTypeInternal _PrepareShaderCacheResponse_default_instance_;
+PROTOBUF_CONSTEXPR PurgeRequest::PurgeRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.vm_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.vm_owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct PurgeRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PurgeRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PurgeRequestDefaultTypeInternal() {}
+  union {
+    PurgeRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PurgeRequestDefaultTypeInternal _PurgeRequest_default_instance_;
 }  // namespace shadercached
 namespace shadercached {
 
@@ -1711,6 +1725,261 @@ std::string PrepareShaderCacheResponse::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class PurgeRequest::_Internal {
+ public:
+};
+
+PurgeRequest::PurgeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:shadercached.PurgeRequest)
+}
+PurgeRequest::PurgeRequest(const PurgeRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PurgeRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.vm_owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_name().empty()) {
+    _this->_impl_.vm_name_.Set(from._internal_vm_name(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.vm_owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_owner_id().empty()) {
+    _this->_impl_.vm_owner_id_.Set(from._internal_vm_owner_id(), 
+      _this->GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:shadercached.PurgeRequest)
+}
+
+inline void PurgeRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.vm_owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.vm_owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+PurgeRequest::~PurgeRequest() {
+  // @@protoc_insertion_point(destructor:shadercached.PurgeRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void PurgeRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.vm_name_.Destroy();
+  _impl_.vm_owner_id_.Destroy();
+}
+
+void PurgeRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void PurgeRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:shadercached.PurgeRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.vm_name_.ClearToEmpty();
+  _impl_.vm_owner_id_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* PurgeRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string vm_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_vm_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string vm_owner_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_vm_owner_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* PurgeRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:shadercached.PurgeRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string vm_name = 1;
+  if (!this->_internal_vm_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_name().data(), static_cast<int>(this->_internal_vm_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "shadercached.PurgeRequest.vm_name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_vm_name(), target);
+  }
+
+  // string vm_owner_id = 2;
+  if (!this->_internal_vm_owner_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_owner_id().data(), static_cast<int>(this->_internal_vm_owner_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "shadercached.PurgeRequest.vm_owner_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_vm_owner_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:shadercached.PurgeRequest)
+  return target;
+}
+
+size_t PurgeRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:shadercached.PurgeRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string vm_name = 1;
+  if (!this->_internal_vm_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_name());
+  }
+
+  // string vm_owner_id = 2;
+  if (!this->_internal_vm_owner_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_owner_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PurgeRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const PurgeRequest*>(
+      &from));
+}
+
+void PurgeRequest::MergeFrom(const PurgeRequest& from) {
+  PurgeRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:shadercached.PurgeRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_vm_name().empty()) {
+    _this->_internal_set_vm_name(from._internal_vm_name());
+  }
+  if (!from._internal_vm_owner_id().empty()) {
+    _this->_internal_set_vm_owner_id(from._internal_vm_owner_id());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void PurgeRequest::CopyFrom(const PurgeRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:shadercached.PurgeRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PurgeRequest::IsInitialized() const {
+  return true;
+}
+
+void PurgeRequest::InternalSwap(PurgeRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.vm_name_, lhs_arena,
+      &other->_impl_.vm_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.vm_owner_id_, lhs_arena,
+      &other->_impl_.vm_owner_id_, rhs_arena
+  );
+}
+
+std::string PurgeRequest::GetTypeName() const {
+  return "shadercached.PurgeRequest";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace shadercached
 PROTOBUF_NAMESPACE_OPEN
@@ -1737,6 +2006,10 @@ Arena::CreateMaybeMessage< ::shadercached::PrepareShaderCacheRequest >(Arena* ar
 template<> PROTOBUF_NOINLINE ::shadercached::PrepareShaderCacheResponse*
 Arena::CreateMaybeMessage< ::shadercached::PrepareShaderCacheResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::shadercached::PrepareShaderCacheResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::shadercached::PurgeRequest*
+Arena::CreateMaybeMessage< ::shadercached::PurgeRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::shadercached::PurgeRequest >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

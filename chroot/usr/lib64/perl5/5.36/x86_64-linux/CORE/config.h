@@ -9,9 +9,9 @@
 
 /* Package name      : perl5
  * Source directory  : .
- * Configuration time: Thu May  4 07:39:56 PDT 2023
+ * Configuration time: Tue May  9 21:48:27 PDT 2023
  * Configured by     : Gentoo
- * Target system     : linux chromeos-ci-legacy-us-central1-b-x32-13-as2z 5.4.0-147-generic #164~18.04.1-ubuntu smp tue apr 4 00:20:20 utc 2023 x86_64 intel(r) xeon(r) cpu @ 2.20ghz genuineintel gnulinux 
+ * Target system     : linux chromeos-ci-legacy-us-central1-b-x32-7-9cau 5.4.0-148-generic #165~18.04.1-ubuntu smp thu apr 20 01:14:06 utc 2023 x86_64 intel(r) xeon(r) cpu @ 2.20ghz genuineintel gnulinux 
  */
 
 #ifndef _config_h_
@@ -1374,7 +1374,7 @@
  *	feature tests from Configure are generally more reliable.
  */
 #define OSNAME "linux"		/**/
-#define OSVERS "5.4.0-147-generic"		/**/
+#define OSVERS "5.4.0-148-generic"		/**/
 
 /* CAT2:
  *	This macro concatenates 2 tokens together.

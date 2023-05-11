@@ -51,6 +51,9 @@ extern PrepareShaderCacheRequestDefaultTypeInternal _PrepareShaderCacheRequest_d
 class PrepareShaderCacheResponse;
 struct PrepareShaderCacheResponseDefaultTypeInternal;
 extern PrepareShaderCacheResponseDefaultTypeInternal _PrepareShaderCacheResponse_default_instance_;
+class PurgeRequest;
+struct PurgeRequestDefaultTypeInternal;
+extern PurgeRequestDefaultTypeInternal _PurgeRequest_default_instance_;
 class ShaderCacheMountStatus;
 struct ShaderCacheMountStatusDefaultTypeInternal;
 extern ShaderCacheMountStatusDefaultTypeInternal _ShaderCacheMountStatus_default_instance_;
@@ -65,6 +68,7 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::shadercached::InstallRequest* Arena::CreateMaybeMessage<::shadercached::InstallRequest>(Arena*);
 template<> ::shadercached::PrepareShaderCacheRequest* Arena::CreateMaybeMessage<::shadercached::PrepareShaderCacheRequest>(Arena*);
 template<> ::shadercached::PrepareShaderCacheResponse* Arena::CreateMaybeMessage<::shadercached::PrepareShaderCacheResponse>(Arena*);
+template<> ::shadercached::PurgeRequest* Arena::CreateMaybeMessage<::shadercached::PurgeRequest>(Arena*);
 template<> ::shadercached::ShaderCacheMountStatus* Arena::CreateMaybeMessage<::shadercached::ShaderCacheMountStatus>(Arena*);
 template<> ::shadercached::UninstallRequest* Arena::CreateMaybeMessage<::shadercached::UninstallRequest>(Arena*);
 template<> ::shadercached::UnmountRequest* Arena::CreateMaybeMessage<::shadercached::UnmountRequest>(Arena*);
@@ -1011,6 +1015,157 @@ class PrepareShaderCacheResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_shadercached_2eproto;
 };
+// -------------------------------------------------------------------
+
+class PurgeRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:shadercached.PurgeRequest) */ {
+ public:
+  inline PurgeRequest() : PurgeRequest(nullptr) {}
+  ~PurgeRequest() override;
+  explicit PROTOBUF_CONSTEXPR PurgeRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PurgeRequest(const PurgeRequest& from);
+  PurgeRequest(PurgeRequest&& from) noexcept
+    : PurgeRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline PurgeRequest& operator=(const PurgeRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PurgeRequest& operator=(PurgeRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const PurgeRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PurgeRequest* internal_default_instance() {
+    return reinterpret_cast<const PurgeRequest*>(
+               &_PurgeRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(PurgeRequest& a, PurgeRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PurgeRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PurgeRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PurgeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PurgeRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PurgeRequest& from);
+  void MergeFrom(const PurgeRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PurgeRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "shadercached.PurgeRequest";
+  }
+  protected:
+  explicit PurgeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kVmNameFieldNumber = 1,
+    kVmOwnerIdFieldNumber = 2,
+  };
+  // string vm_name = 1;
+  void clear_vm_name();
+  const std::string& vm_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_name();
+  PROTOBUF_NODISCARD std::string* release_vm_name();
+  void set_allocated_vm_name(std::string* vm_name);
+  private:
+  const std::string& _internal_vm_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_name(const std::string& value);
+  std::string* _internal_mutable_vm_name();
+  public:
+
+  // string vm_owner_id = 2;
+  void clear_vm_owner_id();
+  const std::string& vm_owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_owner_id();
+  PROTOBUF_NODISCARD std::string* release_vm_owner_id();
+  void set_allocated_vm_owner_id(std::string* vm_owner_id);
+  private:
+  const std::string& _internal_vm_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_owner_id(const std::string& value);
+  std::string* _internal_mutable_vm_owner_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:shadercached.PurgeRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_owner_id_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_shadercached_2eproto;
+};
 // ===================================================================
 
 
@@ -1662,9 +1817,115 @@ inline void PrepareShaderCacheResponse::set_allocated_precompiled_cache_path(std
   // @@protoc_insertion_point(field_set_allocated:shadercached.PrepareShaderCacheResponse.precompiled_cache_path)
 }
 
+// -------------------------------------------------------------------
+
+// PurgeRequest
+
+// string vm_name = 1;
+inline void PurgeRequest::clear_vm_name() {
+  _impl_.vm_name_.ClearToEmpty();
+}
+inline const std::string& PurgeRequest::vm_name() const {
+  // @@protoc_insertion_point(field_get:shadercached.PurgeRequest.vm_name)
+  return _internal_vm_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PurgeRequest::set_vm_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.vm_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:shadercached.PurgeRequest.vm_name)
+}
+inline std::string* PurgeRequest::mutable_vm_name() {
+  std::string* _s = _internal_mutable_vm_name();
+  // @@protoc_insertion_point(field_mutable:shadercached.PurgeRequest.vm_name)
+  return _s;
+}
+inline const std::string& PurgeRequest::_internal_vm_name() const {
+  return _impl_.vm_name_.Get();
+}
+inline void PurgeRequest::_internal_set_vm_name(const std::string& value) {
+  
+  _impl_.vm_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PurgeRequest::_internal_mutable_vm_name() {
+  
+  return _impl_.vm_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PurgeRequest::release_vm_name() {
+  // @@protoc_insertion_point(field_release:shadercached.PurgeRequest.vm_name)
+  return _impl_.vm_name_.Release();
+}
+inline void PurgeRequest::set_allocated_vm_name(std::string* vm_name) {
+  if (vm_name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.vm_name_.SetAllocated(vm_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.vm_name_.IsDefault()) {
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:shadercached.PurgeRequest.vm_name)
+}
+
+// string vm_owner_id = 2;
+inline void PurgeRequest::clear_vm_owner_id() {
+  _impl_.vm_owner_id_.ClearToEmpty();
+}
+inline const std::string& PurgeRequest::vm_owner_id() const {
+  // @@protoc_insertion_point(field_get:shadercached.PurgeRequest.vm_owner_id)
+  return _internal_vm_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PurgeRequest::set_vm_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.vm_owner_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:shadercached.PurgeRequest.vm_owner_id)
+}
+inline std::string* PurgeRequest::mutable_vm_owner_id() {
+  std::string* _s = _internal_mutable_vm_owner_id();
+  // @@protoc_insertion_point(field_mutable:shadercached.PurgeRequest.vm_owner_id)
+  return _s;
+}
+inline const std::string& PurgeRequest::_internal_vm_owner_id() const {
+  return _impl_.vm_owner_id_.Get();
+}
+inline void PurgeRequest::_internal_set_vm_owner_id(const std::string& value) {
+  
+  _impl_.vm_owner_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PurgeRequest::_internal_mutable_vm_owner_id() {
+  
+  return _impl_.vm_owner_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PurgeRequest::release_vm_owner_id() {
+  // @@protoc_insertion_point(field_release:shadercached.PurgeRequest.vm_owner_id)
+  return _impl_.vm_owner_id_.Release();
+}
+inline void PurgeRequest::set_allocated_vm_owner_id(std::string* vm_owner_id) {
+  if (vm_owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.vm_owner_id_.SetAllocated(vm_owner_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.vm_owner_id_.IsDefault()) {
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:shadercached.PurgeRequest.vm_owner_id)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
