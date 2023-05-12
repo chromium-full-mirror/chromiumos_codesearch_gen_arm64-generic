@@ -36,6 +36,8 @@ PROTOBUF_CONSTEXPR FeatureOverride::FeatureOverride(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.params_)*/{}
   , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.trial_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.group_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.enabled_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FeatureOverrideDefaultTypeInternal {
@@ -372,6 +374,8 @@ FeatureOverride::FeatureOverride(const FeatureOverride& from)
   new (&_impl_) Impl_{
       decltype(_impl_.params_){from._impl_.params_}
     , decltype(_impl_.name_){}
+    , decltype(_impl_.trial_name_){}
+    , decltype(_impl_.group_name_){}
     , decltype(_impl_.enabled_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -382,6 +386,22 @@ FeatureOverride::FeatureOverride(const FeatureOverride& from)
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
     _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.trial_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.trial_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_trial_name().empty()) {
+    _this->_impl_.trial_name_.Set(from._internal_trial_name(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.group_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.group_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_group_name().empty()) {
+    _this->_impl_.group_name_.Set(from._internal_group_name(), 
       _this->GetArenaForAllocation());
   }
   _this->_impl_.enabled_ = from._impl_.enabled_;
@@ -395,12 +415,22 @@ inline void FeatureOverride::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.params_){arena}
     , decltype(_impl_.name_){}
+    , decltype(_impl_.trial_name_){}
+    , decltype(_impl_.group_name_){}
     , decltype(_impl_.enabled_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.trial_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.trial_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.group_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.group_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -417,6 +447,8 @@ inline void FeatureOverride::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.params_.~RepeatedPtrField();
   _impl_.name_.Destroy();
+  _impl_.trial_name_.Destroy();
+  _impl_.group_name_.Destroy();
 }
 
 void FeatureOverride::SetCachedSize(int size) const {
@@ -431,6 +463,8 @@ void FeatureOverride::Clear() {
 
   _impl_.params_.Clear();
   _impl_.name_.ClearToEmpty();
+  _impl_.trial_name_.ClearToEmpty();
+  _impl_.group_name_.ClearToEmpty();
   _impl_.enabled_ = false;
   _internal_metadata_.Clear<std::string>();
 }
@@ -469,6 +503,26 @@ const char* FeatureOverride::_InternalParse(const char* ptr, ::_pbi::ParseContex
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string trial_name = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_trial_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string group_name = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_group_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -525,6 +579,26 @@ uint8_t* FeatureOverride::_InternalSerialize(
         InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // string trial_name = 4;
+  if (!this->_internal_trial_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_trial_name().data(), static_cast<int>(this->_internal_trial_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "featured.FeatureOverride.trial_name");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_trial_name(), target);
+  }
+
+  // string group_name = 5;
+  if (!this->_internal_group_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_group_name().data(), static_cast<int>(this->_internal_group_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "featured.FeatureOverride.group_name");
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_group_name(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -553,6 +627,20 @@ size_t FeatureOverride::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
+  }
+
+  // string trial_name = 4;
+  if (!this->_internal_trial_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_trial_name());
+  }
+
+  // string group_name = 5;
+  if (!this->_internal_group_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_group_name());
   }
 
   // bool enabled = 2;
@@ -585,6 +673,12 @@ void FeatureOverride::MergeFrom(const FeatureOverride& from) {
   if (!from._internal_name().empty()) {
     _this->_internal_set_name(from._internal_name());
   }
+  if (!from._internal_trial_name().empty()) {
+    _this->_internal_set_trial_name(from._internal_trial_name());
+  }
+  if (!from._internal_group_name().empty()) {
+    _this->_internal_set_group_name(from._internal_group_name());
+  }
   if (from._internal_enabled() != 0) {
     _this->_internal_set_enabled(from._internal_enabled());
   }
@@ -611,6 +705,14 @@ void FeatureOverride::InternalSwap(FeatureOverride* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.name_, lhs_arena,
       &other->_impl_.name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.trial_name_, lhs_arena,
+      &other->_impl_.trial_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.group_name_, lhs_arena,
+      &other->_impl_.group_name_, rhs_arena
   );
   swap(_impl_.enabled_, other->_impl_.enabled_);
 }

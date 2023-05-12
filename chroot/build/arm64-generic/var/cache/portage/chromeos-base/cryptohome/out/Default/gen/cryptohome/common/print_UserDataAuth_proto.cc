@@ -3067,6 +3067,13 @@ std::string GetProtoDebugStringWithIndent(const AddAuthFactorReply& value,
           .c_str());
   output += "\n";
 
+  output += indent + "  added_auth_factor: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.added_auth_factor(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
   output += indent + "}\n";
   return output;
 }
@@ -3221,6 +3228,13 @@ std::string GetProtoDebugStringWithIndent(const UpdateAuthFactorReply& value,
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
           .c_str());
+  output += "\n";
+
+  output += indent + "  updated_auth_factor: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(value.updated_auth_factor(),
+                                                    indent_size + 2)
+                          .c_str());
   output += "\n";
 
   output += indent + "}\n";

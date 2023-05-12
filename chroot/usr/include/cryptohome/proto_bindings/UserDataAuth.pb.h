@@ -16368,6 +16368,7 @@ class AddAuthFactorReply final :
 
   enum : int {
     kErrorInfoFieldNumber = 2,
+    kAddedAuthFactorFieldNumber = 3,
     kErrorFieldNumber = 1,
   };
   // .user_data_auth.CryptohomeErrorInfo error_info = 2;
@@ -16388,6 +16389,24 @@ class AddAuthFactorReply final :
       ::user_data_auth::CryptohomeErrorInfo* error_info);
   ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
 
+  // .user_data_auth.AuthFactorWithStatus added_auth_factor = 3;
+  bool has_added_auth_factor() const;
+  private:
+  bool _internal_has_added_auth_factor() const;
+  public:
+  void clear_added_auth_factor();
+  const ::user_data_auth::AuthFactorWithStatus& added_auth_factor() const;
+  PROTOBUF_NODISCARD ::user_data_auth::AuthFactorWithStatus* release_added_auth_factor();
+  ::user_data_auth::AuthFactorWithStatus* mutable_added_auth_factor();
+  void set_allocated_added_auth_factor(::user_data_auth::AuthFactorWithStatus* added_auth_factor);
+  private:
+  const ::user_data_auth::AuthFactorWithStatus& _internal_added_auth_factor() const;
+  ::user_data_auth::AuthFactorWithStatus* _internal_mutable_added_auth_factor();
+  public:
+  void unsafe_arena_set_allocated_added_auth_factor(
+      ::user_data_auth::AuthFactorWithStatus* added_auth_factor);
+  ::user_data_auth::AuthFactorWithStatus* unsafe_arena_release_added_auth_factor();
+
   // .user_data_auth.CryptohomeErrorCode error = 1;
   void clear_error();
   ::user_data_auth::CryptohomeErrorCode error() const;
@@ -16406,6 +16425,7 @@ class AddAuthFactorReply final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::user_data_auth::CryptohomeErrorInfo* error_info_;
+    ::user_data_auth::AuthFactorWithStatus* added_auth_factor_;
     int error_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -17103,6 +17123,7 @@ class UpdateAuthFactorReply final :
 
   enum : int {
     kErrorInfoFieldNumber = 2,
+    kUpdatedAuthFactorFieldNumber = 3,
     kErrorFieldNumber = 1,
   };
   // .user_data_auth.CryptohomeErrorInfo error_info = 2;
@@ -17123,6 +17144,24 @@ class UpdateAuthFactorReply final :
       ::user_data_auth::CryptohomeErrorInfo* error_info);
   ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
 
+  // .user_data_auth.AuthFactorWithStatus updated_auth_factor = 3;
+  bool has_updated_auth_factor() const;
+  private:
+  bool _internal_has_updated_auth_factor() const;
+  public:
+  void clear_updated_auth_factor();
+  const ::user_data_auth::AuthFactorWithStatus& updated_auth_factor() const;
+  PROTOBUF_NODISCARD ::user_data_auth::AuthFactorWithStatus* release_updated_auth_factor();
+  ::user_data_auth::AuthFactorWithStatus* mutable_updated_auth_factor();
+  void set_allocated_updated_auth_factor(::user_data_auth::AuthFactorWithStatus* updated_auth_factor);
+  private:
+  const ::user_data_auth::AuthFactorWithStatus& _internal_updated_auth_factor() const;
+  ::user_data_auth::AuthFactorWithStatus* _internal_mutable_updated_auth_factor();
+  public:
+  void unsafe_arena_set_allocated_updated_auth_factor(
+      ::user_data_auth::AuthFactorWithStatus* updated_auth_factor);
+  ::user_data_auth::AuthFactorWithStatus* unsafe_arena_release_updated_auth_factor();
+
   // .user_data_auth.CryptohomeErrorCode error = 1;
   void clear_error();
   ::user_data_auth::CryptohomeErrorCode error() const;
@@ -17141,6 +17180,7 @@ class UpdateAuthFactorReply final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::user_data_auth::CryptohomeErrorInfo* error_info_;
+    ::user_data_auth::AuthFactorWithStatus* updated_auth_factor_;
     int error_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -28824,6 +28864,96 @@ inline void AddAuthFactorReply::set_allocated_error_info(::user_data_auth::Crypt
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.AddAuthFactorReply.error_info)
 }
 
+// .user_data_auth.AuthFactorWithStatus added_auth_factor = 3;
+inline bool AddAuthFactorReply::_internal_has_added_auth_factor() const {
+  return this != internal_default_instance() && _impl_.added_auth_factor_ != nullptr;
+}
+inline bool AddAuthFactorReply::has_added_auth_factor() const {
+  return _internal_has_added_auth_factor();
+}
+inline void AddAuthFactorReply::clear_added_auth_factor() {
+  if (GetArenaForAllocation() == nullptr && _impl_.added_auth_factor_ != nullptr) {
+    delete _impl_.added_auth_factor_;
+  }
+  _impl_.added_auth_factor_ = nullptr;
+}
+inline const ::user_data_auth::AuthFactorWithStatus& AddAuthFactorReply::_internal_added_auth_factor() const {
+  const ::user_data_auth::AuthFactorWithStatus* p = _impl_.added_auth_factor_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::AuthFactorWithStatus&>(
+      ::user_data_auth::_AuthFactorWithStatus_default_instance_);
+}
+inline const ::user_data_auth::AuthFactorWithStatus& AddAuthFactorReply::added_auth_factor() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AddAuthFactorReply.added_auth_factor)
+  return _internal_added_auth_factor();
+}
+inline void AddAuthFactorReply::unsafe_arena_set_allocated_added_auth_factor(
+    ::user_data_auth::AuthFactorWithStatus* added_auth_factor) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.added_auth_factor_);
+  }
+  _impl_.added_auth_factor_ = added_auth_factor;
+  if (added_auth_factor) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.AddAuthFactorReply.added_auth_factor)
+}
+inline ::user_data_auth::AuthFactorWithStatus* AddAuthFactorReply::release_added_auth_factor() {
+  
+  ::user_data_auth::AuthFactorWithStatus* temp = _impl_.added_auth_factor_;
+  _impl_.added_auth_factor_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::AuthFactorWithStatus* AddAuthFactorReply::unsafe_arena_release_added_auth_factor() {
+  // @@protoc_insertion_point(field_release:user_data_auth.AddAuthFactorReply.added_auth_factor)
+  
+  ::user_data_auth::AuthFactorWithStatus* temp = _impl_.added_auth_factor_;
+  _impl_.added_auth_factor_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::AuthFactorWithStatus* AddAuthFactorReply::_internal_mutable_added_auth_factor() {
+  
+  if (_impl_.added_auth_factor_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::AuthFactorWithStatus>(GetArenaForAllocation());
+    _impl_.added_auth_factor_ = p;
+  }
+  return _impl_.added_auth_factor_;
+}
+inline ::user_data_auth::AuthFactorWithStatus* AddAuthFactorReply::mutable_added_auth_factor() {
+  ::user_data_auth::AuthFactorWithStatus* _msg = _internal_mutable_added_auth_factor();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.AddAuthFactorReply.added_auth_factor)
+  return _msg;
+}
+inline void AddAuthFactorReply::set_allocated_added_auth_factor(::user_data_auth::AuthFactorWithStatus* added_auth_factor) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.added_auth_factor_;
+  }
+  if (added_auth_factor) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(added_auth_factor);
+    if (message_arena != submessage_arena) {
+      added_auth_factor = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, added_auth_factor, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.added_auth_factor_ = added_auth_factor;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.AddAuthFactorReply.added_auth_factor)
+}
+
 // -------------------------------------------------------------------
 
 // AuthenticateAuthFactorRequest
@@ -29679,6 +29809,96 @@ inline void UpdateAuthFactorReply::set_allocated_error_info(::user_data_auth::Cr
   }
   _impl_.error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.UpdateAuthFactorReply.error_info)
+}
+
+// .user_data_auth.AuthFactorWithStatus updated_auth_factor = 3;
+inline bool UpdateAuthFactorReply::_internal_has_updated_auth_factor() const {
+  return this != internal_default_instance() && _impl_.updated_auth_factor_ != nullptr;
+}
+inline bool UpdateAuthFactorReply::has_updated_auth_factor() const {
+  return _internal_has_updated_auth_factor();
+}
+inline void UpdateAuthFactorReply::clear_updated_auth_factor() {
+  if (GetArenaForAllocation() == nullptr && _impl_.updated_auth_factor_ != nullptr) {
+    delete _impl_.updated_auth_factor_;
+  }
+  _impl_.updated_auth_factor_ = nullptr;
+}
+inline const ::user_data_auth::AuthFactorWithStatus& UpdateAuthFactorReply::_internal_updated_auth_factor() const {
+  const ::user_data_auth::AuthFactorWithStatus* p = _impl_.updated_auth_factor_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::AuthFactorWithStatus&>(
+      ::user_data_auth::_AuthFactorWithStatus_default_instance_);
+}
+inline const ::user_data_auth::AuthFactorWithStatus& UpdateAuthFactorReply::updated_auth_factor() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.UpdateAuthFactorReply.updated_auth_factor)
+  return _internal_updated_auth_factor();
+}
+inline void UpdateAuthFactorReply::unsafe_arena_set_allocated_updated_auth_factor(
+    ::user_data_auth::AuthFactorWithStatus* updated_auth_factor) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.updated_auth_factor_);
+  }
+  _impl_.updated_auth_factor_ = updated_auth_factor;
+  if (updated_auth_factor) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.UpdateAuthFactorReply.updated_auth_factor)
+}
+inline ::user_data_auth::AuthFactorWithStatus* UpdateAuthFactorReply::release_updated_auth_factor() {
+  
+  ::user_data_auth::AuthFactorWithStatus* temp = _impl_.updated_auth_factor_;
+  _impl_.updated_auth_factor_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::AuthFactorWithStatus* UpdateAuthFactorReply::unsafe_arena_release_updated_auth_factor() {
+  // @@protoc_insertion_point(field_release:user_data_auth.UpdateAuthFactorReply.updated_auth_factor)
+  
+  ::user_data_auth::AuthFactorWithStatus* temp = _impl_.updated_auth_factor_;
+  _impl_.updated_auth_factor_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::AuthFactorWithStatus* UpdateAuthFactorReply::_internal_mutable_updated_auth_factor() {
+  
+  if (_impl_.updated_auth_factor_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::AuthFactorWithStatus>(GetArenaForAllocation());
+    _impl_.updated_auth_factor_ = p;
+  }
+  return _impl_.updated_auth_factor_;
+}
+inline ::user_data_auth::AuthFactorWithStatus* UpdateAuthFactorReply::mutable_updated_auth_factor() {
+  ::user_data_auth::AuthFactorWithStatus* _msg = _internal_mutable_updated_auth_factor();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.UpdateAuthFactorReply.updated_auth_factor)
+  return _msg;
+}
+inline void UpdateAuthFactorReply::set_allocated_updated_auth_factor(::user_data_auth::AuthFactorWithStatus* updated_auth_factor) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.updated_auth_factor_;
+  }
+  if (updated_auth_factor) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(updated_auth_factor);
+    if (message_arena != submessage_arena) {
+      updated_auth_factor = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, updated_auth_factor, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.updated_auth_factor_ = updated_auth_factor;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.UpdateAuthFactorReply.updated_auth_factor)
 }
 
 // -------------------------------------------------------------------

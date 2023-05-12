@@ -325,6 +325,8 @@ class FeatureOverride final :
   enum : int {
     kParamsFieldNumber = 3,
     kNameFieldNumber = 1,
+    kTrialNameFieldNumber = 4,
+    kGroupNameFieldNumber = 5,
     kEnabledFieldNumber = 2,
   };
   // repeated .featured.Param params = 3;
@@ -359,6 +361,34 @@ class FeatureOverride final :
   std::string* _internal_mutable_name();
   public:
 
+  // string trial_name = 4;
+  void clear_trial_name();
+  const std::string& trial_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_trial_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_trial_name();
+  PROTOBUF_NODISCARD std::string* release_trial_name();
+  void set_allocated_trial_name(std::string* trial_name);
+  private:
+  const std::string& _internal_trial_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_trial_name(const std::string& value);
+  std::string* _internal_mutable_trial_name();
+  public:
+
+  // string group_name = 5;
+  void clear_group_name();
+  const std::string& group_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_group_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_group_name();
+  PROTOBUF_NODISCARD std::string* release_group_name();
+  void set_allocated_group_name(std::string* group_name);
+  private:
+  const std::string& _internal_group_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_group_name(const std::string& value);
+  std::string* _internal_mutable_group_name();
+  public:
+
   // bool enabled = 2;
   void clear_enabled();
   bool enabled() const;
@@ -378,6 +408,8 @@ class FeatureOverride final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::Param > params_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr trial_name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr group_name_;
     bool enabled_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -1168,6 +1200,106 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::Param >&
 FeatureOverride::params() const {
   // @@protoc_insertion_point(field_list:featured.FeatureOverride.params)
   return _impl_.params_;
+}
+
+// string trial_name = 4;
+inline void FeatureOverride::clear_trial_name() {
+  _impl_.trial_name_.ClearToEmpty();
+}
+inline const std::string& FeatureOverride::trial_name() const {
+  // @@protoc_insertion_point(field_get:featured.FeatureOverride.trial_name)
+  return _internal_trial_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void FeatureOverride::set_trial_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.trial_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:featured.FeatureOverride.trial_name)
+}
+inline std::string* FeatureOverride::mutable_trial_name() {
+  std::string* _s = _internal_mutable_trial_name();
+  // @@protoc_insertion_point(field_mutable:featured.FeatureOverride.trial_name)
+  return _s;
+}
+inline const std::string& FeatureOverride::_internal_trial_name() const {
+  return _impl_.trial_name_.Get();
+}
+inline void FeatureOverride::_internal_set_trial_name(const std::string& value) {
+  
+  _impl_.trial_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* FeatureOverride::_internal_mutable_trial_name() {
+  
+  return _impl_.trial_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* FeatureOverride::release_trial_name() {
+  // @@protoc_insertion_point(field_release:featured.FeatureOverride.trial_name)
+  return _impl_.trial_name_.Release();
+}
+inline void FeatureOverride::set_allocated_trial_name(std::string* trial_name) {
+  if (trial_name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.trial_name_.SetAllocated(trial_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.trial_name_.IsDefault()) {
+    _impl_.trial_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:featured.FeatureOverride.trial_name)
+}
+
+// string group_name = 5;
+inline void FeatureOverride::clear_group_name() {
+  _impl_.group_name_.ClearToEmpty();
+}
+inline const std::string& FeatureOverride::group_name() const {
+  // @@protoc_insertion_point(field_get:featured.FeatureOverride.group_name)
+  return _internal_group_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void FeatureOverride::set_group_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.group_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:featured.FeatureOverride.group_name)
+}
+inline std::string* FeatureOverride::mutable_group_name() {
+  std::string* _s = _internal_mutable_group_name();
+  // @@protoc_insertion_point(field_mutable:featured.FeatureOverride.group_name)
+  return _s;
+}
+inline const std::string& FeatureOverride::_internal_group_name() const {
+  return _impl_.group_name_.Get();
+}
+inline void FeatureOverride::_internal_set_group_name(const std::string& value) {
+  
+  _impl_.group_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* FeatureOverride::_internal_mutable_group_name() {
+  
+  return _impl_.group_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* FeatureOverride::release_group_name() {
+  // @@protoc_insertion_point(field_release:featured.FeatureOverride.group_name)
+  return _impl_.group_name_.Release();
+}
+inline void FeatureOverride::set_allocated_group_name(std::string* group_name) {
+  if (group_name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.group_name_.SetAllocated(group_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.group_name_.IsDefault()) {
+    _impl_.group_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:featured.FeatureOverride.group_name)
 }
 
 // -------------------------------------------------------------------
