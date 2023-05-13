@@ -125,6 +125,16 @@ class MockExecutor final : public ash::cros_healthd::mojom::Executor {
                mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>
                    receiver),
               (override));
+  MOCK_METHOD(void,
+              RunFio,
+              (ash::cros_healthd::mojom::FioJobArgumentPtr,
+               mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>),
+              (override));
+  MOCK_METHOD(void, RemoveFioTestFile, (RemoveFioTestFileCallback), (override));
+  MOCK_METHOD(void,
+              GetFioTestDirectoryFreeSpace,
+              (GetFioTestDirectoryFreeSpaceCallback),
+              (override));
 };
 
 }  // namespace diagnostics

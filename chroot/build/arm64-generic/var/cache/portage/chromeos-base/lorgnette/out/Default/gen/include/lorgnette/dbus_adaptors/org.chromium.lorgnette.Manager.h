@@ -53,6 +53,15 @@ class ManagerInterface {
   // implemented without restarting the process.
   virtual ::lorgnette::SetDebugConfigResponse SetDebugConfig(
       const ::lorgnette::SetDebugConfigRequest& in_request) = 0;
+  // Start monitoring for scanners and send ScannerListChanged signals
+  // when devices that match the request are found.
+  virtual ::lorgnette::StartScannerDiscoveryResponse StartScannerDiscovery(
+      const ::lorgnette::StartScannerDiscoveryRequest& in_request) = 0;
+  // Stop a previously started discovery session. Note that
+  // ScannerListChanged signals may continue to be sent if other
+  // discovery sessions are still active.
+  virtual ::lorgnette::StopScannerDiscoveryResponse StopScannerDiscovery(
+      const ::lorgnette::StopScannerDiscoveryRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::lorgnette::Manager.
@@ -90,10 +99,25 @@ class ManagerAdaptor {
         "SetDebugConfig",
         base::Unretained(interface_),
         &ManagerInterface::SetDebugConfig);
+    itf->AddSimpleMethodHandler(
+        "StartScannerDiscovery",
+        base::Unretained(interface_),
+        &ManagerInterface::StartScannerDiscovery);
+    itf->AddSimpleMethodHandler(
+        "StopScannerDiscovery",
+        base::Unretained(interface_),
+        &ManagerInterface::StopScannerDiscovery);
 
+    signal_ScannerListChanged_ = itf->RegisterSignalOfType<SignalScannerListChangedType>("ScannerListChanged");
     signal_ScanStatusChanged_ = itf->RegisterSignalOfType<SignalScanStatusChangedType>("ScanStatusChanged");
   }
 
+  void SendScannerListChangedSignal(
+      const ::lorgnette::ScannerListChangedSignal& in_signal) {
+    auto signal = signal_ScannerListChanged_.lock();
+    if (signal)
+      signal->Send(in_signal);
+  }
   void SendScanStatusChangedSignal(
       const ::lorgnette::ScanStatusChangedSignal& in_scan_status_changed_signal) {
     auto signal = signal_ScanStatusChanged_.lock();
@@ -132,6 +156,17 @@ class ManagerAdaptor {
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
+        "    <method name=\"StartScannerDiscovery\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"StopScannerDiscovery\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <signal name=\"ScannerListChanged\">\n"
+        "      <arg name=\"signal\" type=\"ay\"/>\n"
+        "    </signal>\n"
         "    <signal name=\"ScanStatusChanged\">\n"
         "      <arg name=\"scan_status_changed_signal\" type=\"ay\"/>\n"
         "    </signal>\n"
@@ -139,6 +174,10 @@ class ManagerAdaptor {
   }
 
  private:
+  using SignalScannerListChangedType = brillo::dbus_utils::DBusSignal<
+      ::lorgnette::ScannerListChangedSignal /*signal*/>;
+  std::weak_ptr<SignalScannerListChangedType> signal_ScannerListChanged_;
+
   using SignalScanStatusChangedType = brillo::dbus_utils::DBusSignal<
       ::lorgnette::ScanStatusChangedSignal /*scan_status_changed_signal*/>;
   std::weak_ptr<SignalScanStatusChangedType> signal_ScanStatusChanged_;

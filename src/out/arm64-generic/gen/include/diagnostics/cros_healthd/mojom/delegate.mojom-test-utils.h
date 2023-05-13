@@ -29,6 +29,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) override;
   void GetLidAngle(GetLidAngleCallback callback) override;
   void GetPsr(GetPsrCallback callback) override;
+  void GetAmountOfFreeDiskSpace(const std::string& path, GetAmountOfFreeDiskSpaceCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -59,6 +60,9 @@ class  DelegateAsyncWaiter {
   void GetPsr(
       ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, absl::optional<std::string>* out_err);
   
+  void GetAmountOfFreeDiskSpace(
+      const std::string& path, absl::optional<uint64_t>* out_free_space_byte);
+  absl::optional<uint64_t> GetAmountOfFreeDiskSpace(const std::string& path);
 
  private:
   Delegate* const proxy_;

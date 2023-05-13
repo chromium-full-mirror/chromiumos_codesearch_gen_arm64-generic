@@ -32,6 +32,11 @@ class FingerprintFrameResultDataView;
 
 class FileInfoDataView;
 
+class PrepareJobArgumentDataView;
+
+class ReadJobArgumentDataView;
+
+class FioJobArgumentDataView;
 
 enum class FingerprintCaptureType : int32_t;
 
@@ -51,6 +56,16 @@ using FingerprintFrameResultPtr = mojo::StructPtr<FingerprintFrameResult>;
 
 class FileInfo;
 using FileInfoPtr = mojo::StructPtr<FileInfo>;
+
+class PrepareJobArgument;
+using PrepareJobArgumentPtr = mojo::InlinedStructPtr<PrepareJobArgument>;
+
+class ReadJobArgument;
+using ReadJobArgumentPtr = mojo::StructPtr<ReadJobArgument>;
+
+class FioJobArgument;
+
+using FioJobArgumentPtr = mojo::StructPtr<FioJobArgument>;
 
 class ProcessControl;
 

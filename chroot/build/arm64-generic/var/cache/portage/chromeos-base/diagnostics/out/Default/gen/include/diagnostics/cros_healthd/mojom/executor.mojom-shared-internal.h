@@ -33,6 +33,9 @@ class ExecutedProcessResult_Data;
 class FingerprintInfoResult_Data;
 class FingerprintFrameResult_Data;
 class FileInfo_Data;
+class PrepareJobArgument_Data;
+class ReadJobArgument_Data;
+class FioJobArgument_Data;
 
 struct FingerprintCaptureType_Data {
  public:
@@ -135,6 +138,58 @@ struct Executor_IwCommand_Data {
 };
 
 #pragma pack(push, 1)
+
+
+class  FioJobArgument_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  FioJobArgument_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~FioJobArgument_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<FioJobArgument_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class FioJobArgument_Tag : uint32_t {
+
+    
+    kPrepare,
+    
+    kRead,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::PrepareJobArgument_Data> f_prepare;
+    mojo::internal::Pointer<internal::ReadJobArgument_Data> f_read;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  FioJobArgument_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(FioJobArgument_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(FioJobArgument_Data)");
 class  ExecutedProcessResult_Data {
  public:
   static bool Validate(const void* data,
@@ -333,6 +388,103 @@ struct FileInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     FileInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  PrepareJobArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t file_size_mb;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<PrepareJobArgument_Data>;
+
+  PrepareJobArgument_Data();
+  ~PrepareJobArgument_Data() = delete;
+};
+static_assert(sizeof(PrepareJobArgument_Data) == 16,
+              "Bad sizeof(PrepareJobArgument_Data)");
+// Used by PrepareJobArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PrepareJobArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PrepareJobArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PrepareJobArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PrepareJobArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PrepareJobArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ReadJobArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::external::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<ReadJobArgument_Data>;
+
+  ReadJobArgument_Data();
+  ~ReadJobArgument_Data() = delete;
+};
+static_assert(sizeof(ReadJobArgument_Data) == 16,
+              "Bad sizeof(ReadJobArgument_Data)");
+// Used by ReadJobArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ReadJobArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ReadJobArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ReadJobArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ReadJobArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ReadJobArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

@@ -217,6 +217,117 @@ bool FileInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+PrepareJobArgument::PrepareJobArgument()
+    : file_size_mb() {}
+
+PrepareJobArgument::PrepareJobArgument(
+    uint32_t file_size_mb_in)
+    : file_size_mb(std::move(file_size_mb_in)) {}
+
+PrepareJobArgument::~PrepareJobArgument() = default;
+size_t PrepareJobArgument::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->file_size_mb);
+  return seed;
+}
+
+void PrepareJobArgument::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "file_size_mb"), this->file_size_mb,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool PrepareJobArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ReadJobArgument::ReadJobArgument()
+    : exec_duration() {}
+
+ReadJobArgument::ReadJobArgument(
+    base::TimeDelta exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+ReadJobArgument::~ReadJobArgument() = default;
+
+void ReadJobArgument::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type base::TimeDelta>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ReadJobArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+FioJobArgument::FioJobArgument() : tag_(Tag::kPrepare) {
+  data_.prepare = new PrepareJobArgumentPtr;
+}
+
+FioJobArgument::~FioJobArgument() {
+  DestroyActive();
+}
+
+
+void FioJobArgument::set_prepare(
+    PrepareJobArgumentPtr prepare) {
+  if (tag_ == Tag::kPrepare) {
+    *(data_.prepare) = std::move(prepare);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kPrepare;
+    data_.prepare = new PrepareJobArgumentPtr(
+        std::move(prepare));
+  }
+}
+void FioJobArgument::set_read(
+    ReadJobArgumentPtr read) {
+  if (tag_ == Tag::kRead) {
+    *(data_.read) = std::move(read);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kRead;
+    data_.read = new ReadJobArgumentPtr(
+        std::move(read));
+  }
+}
+
+void FioJobArgument::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kPrepare:
+
+      delete data_.prepare;
+      break;
+    case Tag::kRead:
+
+      delete data_.read;
+      break;
+  }
+}
+
+bool FioJobArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 const char ProcessControl::Name_[] = "ash.cros_healthd.mojom.ProcessControl";
 
 ProcessControl::IPCStableHashFunction ProcessControl::MessageToMethodInfo_(mojo::Message& message) {
@@ -2474,6 +2585,15 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_GetPsr_Name: {
       return &Executor::GetPsr_Sym::IPCStableHash;
     }
+    case internal::kExecutor_RunFio_Name: {
+      return &Executor::RunFio_Sym::IPCStableHash;
+    }
+    case internal::kExecutor_RemoveFioTestFile_Name: {
+      return &Executor::RemoveFioTestFile_Sym::IPCStableHash;
+    }
+    case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name: {
+      return &Executor::GetFioTestDirectoryFreeSpace_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2531,6 +2651,12 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::MonitorStylus";
       case internal::kExecutor_GetPsr_Name:
             return "Receive ash::cros_healthd::mojom::Executor::GetPsr";
+      case internal::kExecutor_RunFio_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::RunFio";
+      case internal::kExecutor_RemoveFioTestFile_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::RemoveFioTestFile";
+      case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace";
     }
   } else {
     switch (message.name()) {
@@ -2580,6 +2706,12 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorStylus";
       case internal::kExecutor_GetPsr_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetPsr";
+      case internal::kExecutor_RunFio_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::RunFio";
+      case internal::kExecutor_RemoveFioTestFile_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::RemoveFioTestFile";
+      case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace";
     }
   }
   return "Receive unknown mojo message";
@@ -2893,6 +3025,45 @@ uint32_t Executor::GetPsr_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Executor::RunFio_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::RunFio");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::RemoveFioTestFile_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::RemoveFioTestFile");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetFioTestDirectoryFreeSpace_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Executor_ReadFile_ForwardToCallback
@@ -3133,6 +3304,38 @@ class Executor_GetPsr_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Executor::GetPsrCallback callback_;
+};
+
+class Executor_RemoveFioTestFile_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_RemoveFioTestFile_ForwardToCallback(
+      Executor::RemoveFioTestFileCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_RemoveFioTestFile_ForwardToCallback(const Executor_RemoveFioTestFile_ForwardToCallback&) = delete;
+  Executor_RemoveFioTestFile_ForwardToCallback& operator=(const Executor_RemoveFioTestFile_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::RemoveFioTestFileCallback callback_;
+};
+
+class Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback(
+      Executor::GetFioTestDirectoryFreeSpaceCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback(const Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback&) = delete;
+  Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback& operator=(const Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::GetFioTestDirectoryFreeSpaceCallback callback_;
 };
 
 ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -4106,6 +4309,123 @@ void ExecutorProxy::GetPsr(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetPsr_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::RunFio(
+    FioJobArgumentPtr in_argument, ::mojo::PendingReceiver<ProcessControl> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Executor::RunFio", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("argument"), in_argument,
+                        "<value of type FioJobArgumentPtr>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<ProcessControl>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_RunFio_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_RunFio_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->argument)>
+      argument_fragment(params.message());
+  argument_fragment.Claim(&params->argument);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::FioJobArgumentDataView>(
+      in_argument, argument_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->argument.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null argument in Executor.RunFio request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Executor.RunFio request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("RunFio");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void ExecutorProxy::RemoveFioTestFile(
+    RemoveFioTestFileCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::RemoveFioTestFile");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_RemoveFioTestFile_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_RemoveFioTestFile_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("RemoveFioTestFile");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_RemoveFioTestFile_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::GetFioTestDirectoryFreeSpace(
+    GetFioTestDirectoryFreeSpaceCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetFioTestDirectoryFreeSpace_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetFioTestDirectoryFreeSpace");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -6045,6 +6365,256 @@ void Executor_GetPsr_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Executor_RemoveFioTestFile_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::RemoveFioTestFileCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_RemoveFioTestFile_ProxyToResponder> proxy(
+        new Executor_RemoveFioTestFile_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_RemoveFioTestFile_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_RemoveFioTestFile_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_RemoveFioTestFile_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::RemoveFioTestFileCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ExecutedProcessResultPtr in_result);
+};
+
+bool Executor_RemoveFioTestFile_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_RemoveFioTestFile_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_RemoveFioTestFile_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ExecutedProcessResultPtr p_result{};
+  Executor_RemoveFioTestFile_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 24, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void Executor_RemoveFioTestFile_ProxyToResponder::Run(
+    ExecutedProcessResultPtr in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::RemoveFioTestFile", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ExecutedProcessResultPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_RemoveFioTestFile_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_RemoveFioTestFile_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result)::BaseType> result_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
+      in_result, result_fragment);
+  params->result.Set(
+      result_fragment.is_null() ? nullptr : result_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("RemoveFioTestFile");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::GetFioTestDirectoryFreeSpaceCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder> proxy(
+        new Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::GetFioTestDirectoryFreeSpaceCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      absl::optional<uint64_t> in_free_space_byte);
+};
+
+bool Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  absl::optional<uint64_t> p_free_space_byte{};
+  Executor_GetFioTestDirectoryFreeSpace_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success) {
+    p_free_space_byte = input_data_view.free_space_byte();
+  }
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 25, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_free_space_byte));
+  return true;
+}
+
+void Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder::Run(
+    absl::optional<uint64_t> in_free_space_byte) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("free_space_byte"), in_free_space_byte,
+                        "<value of type absl::optional<uint64_t>>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetFioTestDirectoryFreeSpace_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->free_space_byte_$flag = in_free_space_byte.has_value();
+  if (in_free_space_byte.has_value()) {
+    params->free_space_byte_$value = in_free_space_byte.value();
+  }
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetFioTestDirectoryFreeSpace");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool ExecutorStubDispatch::Accept(
@@ -6358,6 +6928,44 @@ std::move(p_process_control));
       return true;
     }
     case internal::kExecutor_GetPsr_Name: {
+      break;
+    }
+    case internal::kExecutor_RunFio_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Executor_RunFio_Params_Data* params =
+          reinterpret_cast<internal::Executor_RunFio_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      FioJobArgumentPtr p_argument{};
+      ::mojo::PendingReceiver<ProcessControl> p_receiver{};
+      Executor_RunFio_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadArgument(&p_argument))
+        success = false;
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 23, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunFio(
+std::move(p_argument), 
+std::move(p_receiver));
+      return true;
+    }
+    case internal::kExecutor_RemoveFioTestFile_Name: {
+      break;
+    }
+    case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name: {
       break;
     }
   }
@@ -6820,6 +7428,59 @@ std::move(p_name), std::move(callback));
       impl->GetPsr(std::move(callback));
       return true;
     }
+    case internal::kExecutor_RunFio_Name: {
+      break;
+    }
+    case internal::kExecutor_RemoveFioTestFile_Name: {
+
+      internal::Executor_RemoveFioTestFile_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_RemoveFioTestFile_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Executor_RemoveFioTestFile_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 24, false);
+        return false;
+      }
+      Executor::RemoveFioTestFileCallback callback =
+          Executor_RemoveFioTestFile_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RemoveFioTestFile(std::move(callback));
+      return true;
+    }
+    case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name: {
+
+      internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Executor_GetFioTestDirectoryFreeSpace_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 25, false);
+        return false;
+      }
+      Executor::GetFioTestDirectoryFreeSpaceCallback callback =
+          Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetFioTestDirectoryFreeSpace(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -6872,6 +7533,12 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      nullptr /* no response */},
     {&internal::Executor_GetPsr_Params_Data::Validate,
      &internal::Executor_GetPsr_ResponseParams_Data::Validate},
+    {&internal::Executor_RunFio_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::Executor_RemoveFioTestFile_Params_Data::Validate,
+     &internal::Executor_RemoveFioTestFile_ResponseParams_Data::Validate},
+    {&internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data::Validate,
+     &internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data::Validate},
 };
 
 bool ExecutorRequestValidator::Accept(mojo::Message* message) {
@@ -6954,6 +7621,67 @@ bool StructTraits<::ash::cros_healthd::mojom::FileInfo::DataView, ::ash::cros_he
         success = false;
   *output = std::move(result);
   return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::PrepareJobArgument::DataView, ::ash::cros_healthd::mojom::PrepareJobArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::PrepareJobArgument::DataView input,
+    ::ash::cros_healthd::mojom::PrepareJobArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::PrepareJobArgumentPtr result(::ash::cros_healthd::mojom::PrepareJobArgument::New());
+  
+      if (success)
+        result->file_size_mb = input.file_size_mb();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::ReadJobArgument::DataView, ::ash::cros_healthd::mojom::ReadJobArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::ReadJobArgument::DataView input,
+    ::ash::cros_healthd::mojom::ReadJobArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::ReadJobArgumentPtr result(::ash::cros_healthd::mojom::ReadJobArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::FioJobArgument::DataView, ::ash::cros_healthd::mojom::FioJobArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::FioJobArgument::DataView input,
+    ::ash::cros_healthd::mojom::FioJobArgumentPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::FioJobArgument;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kPrepare: {
+      ::ash::cros_healthd::mojom::PrepareJobArgumentPtr result_prepare;
+      if (!input.ReadPrepare(&result_prepare))
+        return false;
+
+      *output = UnionType::NewPrepare(
+          std::move(result_prepare));
+      break;
+    }
+    case Tag::kRead: {
+      ::ash::cros_healthd::mojom::ReadJobArgumentPtr result_read;
+      if (!input.ReadRead(&result_read))
+        return false;
+
+      *output = UnionType::NewRead(
+          std::move(result_read));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
 }
 
 }  // namespace mojo
@@ -7198,6 +7926,15 @@ void ExecutorInterceptorForTesting::MonitorStylus(::mojo::PendingRemote<StylusOb
 }
 void ExecutorInterceptorForTesting::GetPsr(GetPsrCallback callback) {
   GetForwardingInterface()->GetPsr(std::move(callback));
+}
+void ExecutorInterceptorForTesting::RunFio(FioJobArgumentPtr argument, ::mojo::PendingReceiver<ProcessControl> receiver) {
+  GetForwardingInterface()->RunFio(std::move(argument), std::move(receiver));
+}
+void ExecutorInterceptorForTesting::RemoveFioTestFile(RemoveFioTestFileCallback callback) {
+  GetForwardingInterface()->RemoveFioTestFile(std::move(callback));
+}
+void ExecutorInterceptorForTesting::GetFioTestDirectoryFreeSpace(GetFioTestDirectoryFreeSpaceCallback callback) {
+  GetForwardingInterface()->GetFioTestDirectoryFreeSpace(std::move(callback));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}
@@ -7545,6 +8282,52 @@ void ExecutorAsyncWaiter::GetPsr(
 }
 
 
+
+void ExecutorAsyncWaiter::RemoveFioTestFile(
+    ExecutedProcessResultPtr* out_result) {
+  base::RunLoop loop;
+  proxy_->RemoveFioTestFile(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ExecutedProcessResultPtr* out_result
+,
+             ExecutedProcessResultPtr result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+ExecutedProcessResultPtr ExecutorAsyncWaiter::RemoveFioTestFile(
+    ) {
+  ExecutedProcessResultPtr async_wait_result;
+  RemoveFioTestFile(&async_wait_result);
+  return async_wait_result;
+}
+
+void ExecutorAsyncWaiter::GetFioTestDirectoryFreeSpace(
+    absl::optional<uint64_t>* out_free_space_byte) {
+  base::RunLoop loop;
+  proxy_->GetFioTestDirectoryFreeSpace(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             absl::optional<uint64_t>* out_free_space_byte
+,
+             absl::optional<uint64_t> free_space_byte) {*out_free_space_byte = std::move(free_space_byte);
+            loop->Quit();
+          },
+          &loop,
+          out_free_space_byte));
+  loop.Run();
+}
+
+absl::optional<uint64_t> ExecutorAsyncWaiter::GetFioTestDirectoryFreeSpace(
+    ) {
+  absl::optional<uint64_t> async_wait_result;
+  GetFioTestDirectoryFreeSpace(&async_wait_result);
+  return async_wait_result;
+}
 
 
 

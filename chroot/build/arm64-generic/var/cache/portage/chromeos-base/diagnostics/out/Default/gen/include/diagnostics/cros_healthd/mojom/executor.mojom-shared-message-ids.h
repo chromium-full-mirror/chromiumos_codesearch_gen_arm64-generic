@@ -53,6 +53,9 @@ constexpr uint32_t kExecutor_MonitorTouchscreen_Name = 19;
 constexpr uint32_t kExecutor_MonitorStylusGarage_Name = 20;
 constexpr uint32_t kExecutor_MonitorStylus_Name = 21;
 constexpr uint32_t kExecutor_GetPsr_Name = 22;
+constexpr uint32_t kExecutor_RunFio_Name = 23;
+constexpr uint32_t kExecutor_RemoveFioTestFile_Name = 24;
+constexpr uint32_t kExecutor_GetFioTestDirectoryFreeSpace_Name = 25;
 
 }  // namespace internal
 }  // namespace mojom

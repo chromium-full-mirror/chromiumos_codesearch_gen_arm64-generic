@@ -438,6 +438,9 @@ class Executor
     kMonitorStylusGarageMinVersion = 0,
     kMonitorStylusMinVersion = 0,
     kGetPsrMinVersion = 0,
+    kRunFioMinVersion = 0,
+    kRemoveFioTestFileMinVersion = 0,
+    kGetFioTestDirectoryFreeSpaceMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -510,6 +513,15 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetPsr_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunFio_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RemoveFioTestFile_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetFioTestDirectoryFreeSpace_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -617,6 +629,19 @@ class Executor
   using GetPsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::PsrInfoPtr, const absl::optional<std::string>&)>;
   
   virtual void GetPsr(GetPsrCallback callback) = 0;
+
+  
+  virtual void RunFio(FioJobArgumentPtr argument, ::mojo::PendingReceiver<ProcessControl> receiver) = 0;
+
+
+  using RemoveFioTestFileCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
+  
+  virtual void RemoveFioTestFile(RemoveFioTestFileCallback callback) = 0;
+
+
+  using GetFioTestDirectoryFreeSpaceCallback = base::OnceCallback<void(absl::optional<uint64_t>)>;
+  
+  virtual void GetFioTestDirectoryFreeSpace(GetFioTestDirectoryFreeSpaceCallback callback) = 0;
 };
 
 
@@ -781,6 +806,12 @@ class  ExecutorProxy
   void MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
   
   void GetPsr(GetPsrCallback callback) final;
+  
+  void RunFio(FioJobArgumentPtr argument, ::mojo::PendingReceiver<ProcessControl> receiver) final;
+  
+  void RemoveFioTestFile(RemoveFioTestFileCallback callback) final;
+  
+  void GetFioTestDirectoryFreeSpace(GetFioTestDirectoryFreeSpaceCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1397,6 +1428,275 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  PrepareJobArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PrepareJobArgument, T>::value>;
+  using DataView = PrepareJobArgumentDataView;
+  using Data_ = internal::PrepareJobArgument_Data;
+
+  template <typename... Args>
+  static PrepareJobArgumentPtr New(Args&&... args) {
+    return PrepareJobArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PrepareJobArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<PrepareJobArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PrepareJobArgument>::Convert(*this);
+  }
+
+
+  PrepareJobArgument();
+
+  explicit PrepareJobArgument(
+      uint32_t file_size_mb);
+
+
+  ~PrepareJobArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PrepareJobArgumentPtr>
+  PrepareJobArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PrepareJobArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PrepareJobArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PrepareJobArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PrepareJobArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PrepareJobArgument_UnserializedMessageContext<
+            UserType, PrepareJobArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PrepareJobArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PrepareJobArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PrepareJobArgument_UnserializedMessageContext<
+            UserType, PrepareJobArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PrepareJobArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint32_t file_size_mb;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PrepareJobArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PrepareJobArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PrepareJobArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PrepareJobArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  FioJobArgument {
+ public:
+  using DataView = FioJobArgumentDataView;
+  using Data_ = internal::FioJobArgument_Data;
+  using Tag = Data_::FioJobArgument_Tag;
+
+  template <typename... Args>
+  static FioJobArgumentPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |prepare|.
+  static FioJobArgumentPtr
+  NewPrepare(
+      PrepareJobArgumentPtr prepare) {
+    auto result = FioJobArgumentPtr(absl::in_place);
+    result->set_prepare(std::move(prepare));
+    return result;
+  }
+  // Construct an instance holding |read|.
+  static FioJobArgumentPtr
+  NewRead(
+      ReadJobArgumentPtr read) {
+    auto result = FioJobArgumentPtr(absl::in_place);
+    result->set_read(std::move(read));
+    return result;
+  }
+
+  template <typename U>
+  static FioJobArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<FioJobArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FioJobArgument>::Convert(*this);
+  }
+
+  FioJobArgument();
+  ~FioJobArgument();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  FioJobArgument(const FioJobArgument& other) = delete;
+  FioJobArgument& operator=(const FioJobArgument& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = FioJobArgumentPtr>
+  FioJobArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, FioJobArgument>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, FioJobArgument>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_prepare() const { return tag_ == Tag::kPrepare; }
+
+  
+  PrepareJobArgumentPtr& get_prepare() const {
+    CHECK(tag_ == Tag::kPrepare);
+    return *(data_.prepare);
+  }
+
+  
+  void set_prepare(
+      PrepareJobArgumentPtr prepare);
+  
+  bool is_read() const { return tag_ == Tag::kRead; }
+
+  
+  ReadJobArgumentPtr& get_read() const {
+    CHECK(tag_ == Tag::kRead);
+    return *(data_.read);
+  }
+
+  
+  void set_read(
+      ReadJobArgumentPtr read);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FioJobArgument::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<FioJobArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    PrepareJobArgumentPtr* prepare;
+    ReadJobArgumentPtr* read;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
 
 
 
@@ -1677,6 +1977,173 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+
+class  ReadJobArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ReadJobArgument, T>::value>;
+  using DataView = ReadJobArgumentDataView;
+  using Data_ = internal::ReadJobArgument_Data;
+
+  template <typename... Args>
+  static ReadJobArgumentPtr New(Args&&... args) {
+    return ReadJobArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ReadJobArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<ReadJobArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ReadJobArgument>::Convert(*this);
+  }
+
+
+  ReadJobArgument();
+
+  explicit ReadJobArgument(
+      base::TimeDelta exec_duration);
+
+
+  ~ReadJobArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ReadJobArgumentPtr>
+  ReadJobArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ReadJobArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ReadJobArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ReadJobArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ReadJobArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ReadJobArgument_UnserializedMessageContext<
+            UserType, ReadJobArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ReadJobArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ReadJobArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ReadJobArgument_UnserializedMessageContext<
+            UserType, ReadJobArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ReadJobArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  base::TimeDelta exec_duration;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ReadJobArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ReadJobArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ReadJobArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ReadJobArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+template <typename UnionPtrType>
+FioJobArgumentPtr FioJobArgument::Clone() const {
+  switch (tag_) {
+    case Tag::kPrepare:
+      return NewPrepare(
+          mojo::Clone(*data_.prepare));
+    case Tag::kRead:
+      return NewRead(
+          mojo::Clone(*data_.read));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, FioJobArgument>::value>::type*>
+bool FioJobArgument::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kPrepare:
+      return mojo::Equals(*(data_.prepare), *(other.data_.prepare));
+    case Tag::kRead:
+      return mojo::Equals(*(data_.read), *(other.data_.read));
+  }
+
+  return false;
+}
 template <typename StructPtrType>
 ExecutedProcessResultPtr ExecutedProcessResult::Clone() const {
   return New(
@@ -1793,6 +2260,50 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+PrepareJobArgumentPtr PrepareJobArgument::Clone() const {
+  return New(
+      mojo::Clone(file_size_mb)
+  );
+}
+
+template <typename T, PrepareJobArgument::EnableIfSame<T>*>
+bool PrepareJobArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->file_size_mb, other_struct.file_size_mb))
+    return false;
+  return true;
+}
+
+template <typename T, PrepareJobArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.file_size_mb < rhs.file_size_mb)
+    return true;
+  if (rhs.file_size_mb < lhs.file_size_mb)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ReadJobArgumentPtr ReadJobArgument::Clone() const {
+  return New(
+      mojo::Clone(exec_duration)
+  );
+}
+
+template <typename T, ReadJobArgument::EnableIfSame<T>*>
+bool ReadJobArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->exec_duration, other_struct.exec_duration))
+    return false;
+  return true;
+}
+
+template <typename T, ReadJobArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.exec_duration < rhs.exec_duration)
+    return true;
+  if (rhs.exec_duration < lhs.exec_duration)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -1879,6 +2390,58 @@ struct  StructTraits<::ash::cros_healthd::mojom::FileInfo::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::FileInfo::DataView input, ::ash::cros_healthd::mojom::FileInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::PrepareJobArgument::DataView,
+                                         ::ash::cros_healthd::mojom::PrepareJobArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::PrepareJobArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::PrepareJobArgumentPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::PrepareJobArgument::file_size_mb) file_size_mb(
+      const ::ash::cros_healthd::mojom::PrepareJobArgumentPtr& input) {
+    return input->file_size_mb;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::PrepareJobArgument::DataView input, ::ash::cros_healthd::mojom::PrepareJobArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::ReadJobArgument::DataView,
+                                         ::ash::cros_healthd::mojom::ReadJobArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ReadJobArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ReadJobArgumentPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::ReadJobArgument::exec_duration)& exec_duration(
+      const ::ash::cros_healthd::mojom::ReadJobArgumentPtr& input) {
+    return input->exec_duration;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::ReadJobArgument::DataView input, ::ash::cros_healthd::mojom::ReadJobArgumentPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::FioJobArgument::DataView,
+                                        ::ash::cros_healthd::mojom::FioJobArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::FioJobArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::FioJobArgumentPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::FioJobArgument::Tag GetTag(const ::ash::cros_healthd::mojom::FioJobArgumentPtr& input) {
+    return input->which();
+  }
+
+  static const ::ash::cros_healthd::mojom::PrepareJobArgumentPtr& prepare(const ::ash::cros_healthd::mojom::FioJobArgumentPtr& input) {
+    return input->get_prepare();
+  }
+
+  static const ::ash::cros_healthd::mojom::ReadJobArgumentPtr& read(const ::ash::cros_healthd::mojom::FioJobArgumentPtr& input) {
+    return input->get_read();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::FioJobArgument::DataView input, ::ash::cros_healthd::mojom::FioJobArgumentPtr* output);
 };
 
 }  // namespace mojo

@@ -128,6 +128,63 @@ std::ostream& operator<<(std::ostream& os, Executor_IwCommand value) {
 }
 
 namespace internal {
+// static
+bool FioJobArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const FioJobArgument_Data* object = static_cast<const FioJobArgument_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case FioJobArgument_Tag::kPrepare: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_prepare, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_prepare, validation_context))
+        return false;
+      return true;
+    }
+    case FioJobArgument_Tag::kRead: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_read, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_read, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in FioJobArgument");
+      return false;
+    }
+  }
+}
 
 
 // static
@@ -259,6 +316,59 @@ bool FileInfo_Data::Validate(
 }
 
 FileInfo_Data::FileInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PrepareJobArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PrepareJobArgument_Data* object =
+      static_cast<const PrepareJobArgument_Data*>(data);
+
+  return true;
+}
+
+PrepareJobArgument_Data::PrepareJobArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ReadJobArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ReadJobArgument_Data* object =
+      static_cast<const ReadJobArgument_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->exec_duration, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+ReadJobArgument_Data::ReadJobArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1909,6 +2019,144 @@ bool Executor_GetPsr_ResponseParams_Data::Validate(
 }
 
 Executor_GetPsr_ResponseParams_Data::Executor_GetPsr_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_RunFio_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RunFio_Params_Data* object =
+      static_cast<const Executor_RunFio_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->argument, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->argument, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_RunFio_Params_Data::Executor_RunFio_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_RemoveFioTestFile_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RemoveFioTestFile_Params_Data* object =
+      static_cast<const Executor_RemoveFioTestFile_Params_Data*>(data);
+
+  return true;
+}
+
+Executor_RemoveFioTestFile_Params_Data::Executor_RemoveFioTestFile_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_RemoveFioTestFile_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RemoveFioTestFile_ResponseParams_Data* object =
+      static_cast<const Executor_RemoveFioTestFile_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+Executor_RemoveFioTestFile_ResponseParams_Data::Executor_RemoveFioTestFile_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetFioTestDirectoryFreeSpace_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetFioTestDirectoryFreeSpace_Params_Data* object =
+      static_cast<const Executor_GetFioTestDirectoryFreeSpace_Params_Data*>(data);
+
+  return true;
+}
+
+Executor_GetFioTestDirectoryFreeSpace_Params_Data::Executor_GetFioTestDirectoryFreeSpace_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data* object =
+      static_cast<const Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

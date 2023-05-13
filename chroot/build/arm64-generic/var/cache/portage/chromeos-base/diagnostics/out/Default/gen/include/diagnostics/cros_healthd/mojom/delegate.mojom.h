@@ -85,6 +85,7 @@ class Delegate
     kMonitorStylusMinVersion = 0,
     kGetLidAngleMinVersion = 0,
     kGetPsrMinVersion = 0,
+    kGetAmountOfFreeDiskSpaceMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -124,6 +125,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetPsr_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetAmountOfFreeDiskSpace_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -178,6 +182,11 @@ class Delegate
   using GetPsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::PsrInfoPtr, const absl::optional<std::string>&)>;
   
   virtual void GetPsr(GetPsrCallback callback) = 0;
+
+
+  using GetAmountOfFreeDiskSpaceCallback = base::OnceCallback<void(absl::optional<uint64_t>)>;
+  
+  virtual void GetAmountOfFreeDiskSpace(const std::string& path, GetAmountOfFreeDiskSpaceCallback callback) = 0;
 };
 
 
@@ -212,6 +221,8 @@ class  DelegateProxy
   void GetLidAngle(GetLidAngleCallback callback) final;
   
   void GetPsr(GetPsrCallback callback) final;
+  
+  void GetAmountOfFreeDiskSpace(const std::string& path, GetAmountOfFreeDiskSpaceCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

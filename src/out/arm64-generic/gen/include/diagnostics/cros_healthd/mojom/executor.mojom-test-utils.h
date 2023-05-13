@@ -166,6 +166,9 @@ class  ExecutorInterceptorForTesting : public Executor {
   void MonitorStylusGarage(::mojo::PendingRemote<StylusGarageObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void GetPsr(GetPsrCallback callback) override;
+  void RunFio(FioJobArgumentPtr argument, ::mojo::PendingReceiver<ProcessControl> receiver) override;
+  void RemoveFioTestFile(RemoveFioTestFileCallback callback) override;
+  void GetFioTestDirectoryFreeSpace(GetFioTestDirectoryFreeSpaceCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -220,6 +223,12 @@ class  ExecutorAsyncWaiter {
   void GetPsr(
       ::ash::cros_healthd::mojom::PsrInfoPtr* out_result, absl::optional<std::string>* out_err);
   
+  void RemoveFioTestFile(
+      ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr RemoveFioTestFile();
+  void GetFioTestDirectoryFreeSpace(
+      absl::optional<uint64_t>* out_free_space_byte);
+  absl::optional<uint64_t> GetFioTestDirectoryFreeSpace();
 
  private:
   Executor* const proxy_;

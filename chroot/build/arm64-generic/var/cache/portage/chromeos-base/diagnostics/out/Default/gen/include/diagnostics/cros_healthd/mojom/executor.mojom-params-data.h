@@ -939,6 +939,88 @@ class  Executor_GetPsr_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_GetPsr_ResponseParams_Data) == 24,
               "Bad sizeof(Executor_GetPsr_ResponseParams_Data)");
+class  Executor_RunFio_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  internal::FioJobArgument_Data argument;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RunFio_Params_Data>;
+
+  Executor_RunFio_Params_Data();
+  ~Executor_RunFio_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_RunFio_Params_Data) == 32,
+              "Bad sizeof(Executor_RunFio_Params_Data)");
+class  Executor_RemoveFioTestFile_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RemoveFioTestFile_Params_Data>;
+
+  Executor_RemoveFioTestFile_Params_Data();
+  ~Executor_RemoveFioTestFile_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_RemoveFioTestFile_Params_Data) == 8,
+              "Bad sizeof(Executor_RemoveFioTestFile_Params_Data)");
+class  Executor_RemoveFioTestFile_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RemoveFioTestFile_ResponseParams_Data>;
+
+  Executor_RemoveFioTestFile_ResponseParams_Data();
+  ~Executor_RemoveFioTestFile_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_RemoveFioTestFile_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_RemoveFioTestFile_ResponseParams_Data)");
+class  Executor_GetFioTestDirectoryFreeSpace_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetFioTestDirectoryFreeSpace_Params_Data>;
+
+  Executor_GetFioTestDirectoryFreeSpace_Params_Data();
+  ~Executor_GetFioTestDirectoryFreeSpace_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_GetFioTestDirectoryFreeSpace_Params_Data) == 8,
+              "Bad sizeof(Executor_GetFioTestDirectoryFreeSpace_Params_Data)");
+class  Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t free_space_byte_$flag : 1;
+  uint8_t pad0_[7];
+  uint64_t free_space_byte_$value;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data>;
+
+  Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data();
+  ~Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data) == 24,
+              "Bad sizeof(Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -2406,6 +2488,118 @@ static_assert(
 };
 
 
+class Executor_RunFio_ParamsDataView {
+ public:
+  Executor_RunFio_ParamsDataView() = default;
+
+  Executor_RunFio_ParamsDataView(
+      internal::Executor_RunFio_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetArgumentDataView(
+      FioJobArgumentDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadArgument(UserType* output) {
+    
+    auto* pointer = !data_->argument.is_null() ? &data_->argument : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FioJobArgumentDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_RunFio_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_RemoveFioTestFile_ParamsDataView {
+ public:
+  Executor_RemoveFioTestFile_ParamsDataView() = default;
+
+  Executor_RemoveFioTestFile_ParamsDataView(
+      internal::Executor_RemoveFioTestFile_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_RemoveFioTestFile_Params_Data* data_ = nullptr;
+};
+
+
+class Executor_RemoveFioTestFile_ResponseParamsDataView {
+ public:
+  Executor_RemoveFioTestFile_ResponseParamsDataView() = default;
+
+  Executor_RemoveFioTestFile_ResponseParamsDataView(
+      internal::Executor_RemoveFioTestFile_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ExecutedProcessResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_RemoveFioTestFile_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_GetFioTestDirectoryFreeSpace_ParamsDataView {
+ public:
+  Executor_GetFioTestDirectoryFreeSpace_ParamsDataView() = default;
+
+  Executor_GetFioTestDirectoryFreeSpace_ParamsDataView(
+      internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data* data_ = nullptr;
+};
+
+
+class Executor_GetFioTestDirectoryFreeSpace_ResponseParamsDataView {
+ public:
+  Executor_GetFioTestDirectoryFreeSpace_ResponseParamsDataView() = default;
+
+  Executor_GetFioTestDirectoryFreeSpace_ResponseParamsDataView(
+      internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  absl::optional<uint64_t> free_space_byte() const {
+
+    return data_->free_space_byte_$flag
+        ? absl::make_optional(data_->free_space_byte_$value)
+        : absl::nullopt;
+  }
+ private:
+  internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data* data_ = nullptr;
+};
+
+
 
 
 
@@ -2645,6 +2839,26 @@ inline void Executor_GetPsr_ResponseParamsDataView::GetErrDataView(
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+inline void Executor_RunFio_ParamsDataView::GetArgumentDataView(
+    FioJobArgumentDataView* output) {
+  auto pointer = &data_->argument;
+  *output = FioJobArgumentDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_RemoveFioTestFile_ResponseParamsDataView::GetResultDataView(
+    ExecutedProcessResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = ExecutedProcessResultDataView(pointer, message_);
+}
+
+
+
+
 
 }  // namespace mojom
 }  // namespace cros_healthd

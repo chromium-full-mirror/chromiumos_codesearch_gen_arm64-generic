@@ -48,6 +48,11 @@ class FingerprintFrameResultDataView;
 
 class FileInfoDataView;
 
+class PrepareJobArgumentDataView;
+
+class ReadJobArgumentDataView;
+
+class FioJobArgumentDataView;
 
 
 }  // namespace mojom
@@ -83,6 +88,27 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::FileInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::FileInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::PrepareJobArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::PrepareJobArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ReadJobArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ReadJobArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::FioJobArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::FioJobArgument_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 }  // namespace internal
@@ -350,6 +376,98 @@ class FileInfoDataView {
   internal::FileInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
+class PrepareJobArgumentDataView {
+ public:
+  PrepareJobArgumentDataView() = default;
+
+  PrepareJobArgumentDataView(
+      internal::PrepareJobArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t file_size_mb() const {
+    return data_->file_size_mb;
+  }
+ private:
+  internal::PrepareJobArgument_Data* data_ = nullptr;
+};
+
+
+class ReadJobArgumentDataView {
+ public:
+  ReadJobArgumentDataView() = default;
+
+  ReadJobArgumentDataView(
+      internal::ReadJobArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ReadJobArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class FioJobArgumentDataView {
+ public:
+  using Tag = internal::FioJobArgument_Data::FioJobArgument_Tag;
+
+  FioJobArgumentDataView() = default;
+
+  FioJobArgumentDataView(
+      internal::FioJobArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_prepare() const { return data_->tag == Tag::kPrepare; }
+  inline void GetPrepareDataView(
+      PrepareJobArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrepare(UserType* output) const {
+    
+    CHECK(is_prepare());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PrepareJobArgumentDataView>(
+        data_->data.f_prepare.Get(), output, message_);
+  }
+  bool is_read() const { return data_->tag == Tag::kRead; }
+  inline void GetReadDataView(
+      ReadJobArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRead(UserType* output) const {
+    
+    CHECK(is_read());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ReadJobArgumentDataView>(
+        data_->data.f_read.Get(), output, message_);
+  }
+
+ private:
+  internal::FioJobArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 
 
 }  // namespace mojom
@@ -628,6 +746,150 @@ struct Serializer<::ash::cros_healthd::mojom::FileInfoDataView, MaybeConstUserTy
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PrepareJobArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::PrepareJobArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::PrepareJobArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->file_size_mb = Traits::file_size_mb(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::PrepareJobArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::PrepareJobArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::ReadJobArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ReadJobArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ReadJobArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->exec_duration.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null exec_duration in ReadJobArgument struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ReadJobArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::ReadJobArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::FioJobArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::FioJobArgumentDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::FioJobArgument_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::FioJobArgumentDataView::Tag::kPrepare: {
+        decltype(Traits::prepare(input))
+            in_prepare = Traits::prepare(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_prepare)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::PrepareJobArgumentDataView>(
+            in_prepare, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null prepare in FioJobArgument union");
+        fragment->data.f_prepare.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::FioJobArgumentDataView::Tag::kRead: {
+        decltype(Traits::read(input))
+            in_read = Traits::read(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_read)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ReadJobArgumentDataView>(
+            in_read, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null read in FioJobArgument union");
+        fragment->data.f_read.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::FioJobArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::FioJobArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -662,6 +924,26 @@ inline void FileInfoDataView::GetCreationTimeDataView(
   *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDataView(pointer, message_);
 }
 
+
+
+
+inline void ReadJobArgumentDataView::GetExecDurationDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
+inline void FioJobArgumentDataView::GetPrepareDataView(
+    PrepareJobArgumentDataView* output) const {
+  CHECK(is_prepare());
+  *output = PrepareJobArgumentDataView(data_->data.f_prepare.Get(), message_);
+}
+inline void FioJobArgumentDataView::GetReadDataView(
+    ReadJobArgumentDataView* output) const {
+  CHECK(is_read());
+  *output = ReadJobArgumentDataView(data_->data.f_read.Get(), message_);
+}
 
 
 }  // namespace mojom

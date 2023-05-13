@@ -331,6 +331,40 @@ class  Delegate_GetPsr_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_GetPsr_ResponseParams_Data) == 24,
               "Bad sizeof(Delegate_GetPsr_ResponseParams_Data)");
+class  Delegate_GetAmountOfFreeDiskSpace_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> path;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetAmountOfFreeDiskSpace_Params_Data>;
+
+  Delegate_GetAmountOfFreeDiskSpace_Params_Data();
+  ~Delegate_GetAmountOfFreeDiskSpace_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetAmountOfFreeDiskSpace_Params_Data) == 16,
+              "Bad sizeof(Delegate_GetAmountOfFreeDiskSpace_Params_Data)");
+class  Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t free_space_byte_$flag : 1;
+  uint8_t pad0_[7];
+  uint64_t free_space_byte_$value;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data>;
+
+  Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data();
+  ~Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -862,6 +896,53 @@ static_assert(
 };
 
 
+class Delegate_GetAmountOfFreeDiskSpace_ParamsDataView {
+ public:
+  Delegate_GetAmountOfFreeDiskSpace_ParamsDataView() = default;
+
+  Delegate_GetAmountOfFreeDiskSpace_ParamsDataView(
+      internal::Delegate_GetAmountOfFreeDiskSpace_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPathDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPath(UserType* output) {
+    
+    auto* pointer = data_->path.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_GetAmountOfFreeDiskSpace_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_GetAmountOfFreeDiskSpace_ResponseParamsDataView {
+ public:
+  Delegate_GetAmountOfFreeDiskSpace_ResponseParamsDataView() = default;
+
+  Delegate_GetAmountOfFreeDiskSpace_ResponseParamsDataView(
+      internal::Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  absl::optional<uint64_t> free_space_byte() const {
+
+    return data_->free_space_byte_$flag
+        ? absl::make_optional(data_->free_space_byte_$value)
+        : absl::nullopt;
+  }
+ private:
+  internal::Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data* data_ = nullptr;
+};
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -942,6 +1023,15 @@ inline void Delegate_GetPsr_ResponseParamsDataView::GetErrDataView(
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+inline void Delegate_GetAmountOfFreeDiskSpace_ParamsDataView::GetPathDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->path.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 
 }  // namespace mojom
 }  // namespace cros_healthd

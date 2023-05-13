@@ -27,6 +27,7 @@ constexpr uint32_t kDelegate_MonitorStylusGarage_Name = 8;
 constexpr uint32_t kDelegate_MonitorStylus_Name = 9;
 constexpr uint32_t kDelegate_GetLidAngle_Name = 10;
 constexpr uint32_t kDelegate_GetPsr_Name = 11;
+constexpr uint32_t kDelegate_GetAmountOfFreeDiskSpace_Name = 12;
 
 }  // namespace internal
 }  // namespace mojom

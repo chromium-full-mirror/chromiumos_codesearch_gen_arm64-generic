@@ -130,6 +130,44 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Start monitoring for scanners and send ScannerListChanged signals
+  // when devices that match the request are found.
+  virtual bool StartScannerDiscovery(
+      const ::lorgnette::StartScannerDiscoveryRequest& in_request,
+      ::lorgnette::StartScannerDiscoveryResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Start monitoring for scanners and send ScannerListChanged signals
+  // when devices that match the request are found.
+  virtual void StartScannerDiscoveryAsync(
+      const ::lorgnette::StartScannerDiscoveryRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::StartScannerDiscoveryResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Stop a previously started discovery session. Note that
+  // ScannerListChanged signals may continue to be sent if other
+  // discovery sessions are still active.
+  virtual bool StopScannerDiscovery(
+      const ::lorgnette::StopScannerDiscoveryRequest& in_request,
+      ::lorgnette::StopScannerDiscoveryResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Stop a previously started discovery session. Note that
+  // ScannerListChanged signals may continue to be sent if other
+  // discovery sessions are still active.
+  virtual void StopScannerDiscoveryAsync(
+      const ::lorgnette::StopScannerDiscoveryRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::StopScannerDiscoveryResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void RegisterScannerListChangedSignalHandler(
+      const base::RepeatingCallback<void(const ::lorgnette::ScannerListChangedSignal&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   virtual void RegisterScanStatusChangedSignalHandler(
       const base::RepeatingCallback<void(const ::lorgnette::ScanStatusChangedSignal&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -162,6 +200,17 @@ class ManagerProxy final : public ManagerProxyInterface {
   ManagerProxy& operator=(const ManagerProxy&) = delete;
 
   ~ManagerProxy() override {
+  }
+
+  void RegisterScannerListChangedSignalHandler(
+      const base::RepeatingCallback<void(const ::lorgnette::ScannerListChangedSignal&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "ScannerListChanged",
+        signal_callback,
+        std::move(on_connected_callback));
   }
 
   void RegisterScanStatusChangedSignalHandler(
@@ -394,6 +443,78 @@ class ManagerProxy final : public ManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.lorgnette.Manager",
         "SetDebugConfig",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  // Start monitoring for scanners and send ScannerListChanged signals
+  // when devices that match the request are found.
+  bool StartScannerDiscovery(
+      const ::lorgnette::StartScannerDiscoveryRequest& in_request,
+      ::lorgnette::StartScannerDiscoveryResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "StartScannerDiscovery",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  // Start monitoring for scanners and send ScannerListChanged signals
+  // when devices that match the request are found.
+  void StartScannerDiscoveryAsync(
+      const ::lorgnette::StartScannerDiscoveryRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::StartScannerDiscoveryResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "StartScannerDiscovery",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  // Stop a previously started discovery session. Note that
+  // ScannerListChanged signals may continue to be sent if other
+  // discovery sessions are still active.
+  bool StopScannerDiscovery(
+      const ::lorgnette::StopScannerDiscoveryRequest& in_request,
+      ::lorgnette::StopScannerDiscoveryResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "StopScannerDiscovery",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  // Stop a previously started discovery session. Note that
+  // ScannerListChanged signals may continue to be sent if other
+  // discovery sessions are still active.
+  void StopScannerDiscoveryAsync(
+      const ::lorgnette::StopScannerDiscoveryRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::StopScannerDiscoveryResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "StopScannerDiscovery",
         std::move(success_callback),
         std::move(error_callback),
         in_request);
