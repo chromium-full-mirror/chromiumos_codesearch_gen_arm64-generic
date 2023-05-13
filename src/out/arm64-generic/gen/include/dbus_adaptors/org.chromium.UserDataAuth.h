@@ -98,6 +98,9 @@ class UserDataAuthInterfaceInterface {
   virtual void UpdateAuthFactor(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::UpdateAuthFactorReply>> response,
       const user_data_auth::UpdateAuthFactorRequest& in_request) = 0;
+  virtual void UpdateAuthFactorMetadata(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::UpdateAuthFactorMetadataReply>> response,
+      const user_data_auth::UpdateAuthFactorMetadataRequest& in_request) = 0;
   virtual void RemoveAuthFactor(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::RemoveAuthFactorReply>> response,
       const user_data_auth::RemoveAuthFactorRequest& in_request) = 0;
@@ -228,6 +231,10 @@ class UserDataAuthInterfaceAdaptor {
         "UpdateAuthFactor",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::UpdateAuthFactor);
+    itf->AddMethodHandler(
+        "UpdateAuthFactorMetadata",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::UpdateAuthFactorMetadata);
     itf->AddMethodHandler(
         "RemoveAuthFactor",
         base::Unretained(interface_),
@@ -395,6 +402,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"UpdateAuthFactor\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"UpdateAuthFactorMetadata\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

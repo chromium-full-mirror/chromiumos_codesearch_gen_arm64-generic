@@ -6,6 +6,8 @@
 
 #ifndef MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA3_MOJOM_IMPORT_HEADERS_H_
 #define MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CAMERA3_MOJOM_IMPORT_HEADERS_H_
+#include "media/capture/video/chromeos/mojom/camera_features.mojom.h"
+#include "media/capture/video/chromeos/mojom/camera_features.mojom-import-headers.h"
 #include "media/capture/video/chromeos/mojom/camera_metadata.mojom.h"
 #include "media/capture/video/chromeos/mojom/camera_metadata.mojom-import-headers.h"
 

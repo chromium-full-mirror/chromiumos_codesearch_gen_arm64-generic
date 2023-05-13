@@ -2685,6 +2685,7 @@ class StartArcVmRequest final :
     kNativeBridgeExperimentFieldNumber = 39,
     kUreadaheadModeFieldNumber = 40,
     kEnableWebViewZygoteLazyInitFieldNumber = 42,
+    kEnableVmmSwapFieldNumber = 43,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -3040,10 +3041,10 @@ class StartArcVmRequest final :
   void _internal_set_disable_download_provider(bool value);
   public:
 
-  // bool update_o4c_list_via_a2c2 = 37;
-  void clear_update_o4c_list_via_a2c2();
-  bool update_o4c_list_via_a2c2() const;
-  void set_update_o4c_list_via_a2c2(bool value);
+  // bool update_o4c_list_via_a2c2 = 37 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_update_o4c_list_via_a2c2();
+  PROTOBUF_DEPRECATED bool update_o4c_list_via_a2c2() const;
+  PROTOBUF_DEPRECATED void set_update_o4c_list_via_a2c2(bool value);
   private:
   bool _internal_update_o4c_list_via_a2c2() const;
   void _internal_set_update_o4c_list_via_a2c2(bool value);
@@ -3112,6 +3113,15 @@ class StartArcVmRequest final :
   void _internal_set_enable_web_view_zygote_lazy_init(bool value);
   public:
 
+  // bool enable_vmm_swap = 43;
+  void clear_enable_vmm_swap();
+  bool enable_vmm_swap() const;
+  void set_enable_vmm_swap(bool value);
+  private:
+  bool _internal_enable_vmm_swap() const;
+  void _internal_set_enable_vmm_swap(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
  private:
   class _Internal;
@@ -3160,6 +3170,7 @@ class StartArcVmRequest final :
   int native_bridge_experiment_;
   int ureadahead_mode_;
   bool enable_web_view_zygote_lazy_init_;
+  bool enable_vmm_swap_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -16924,7 +16935,7 @@ inline void StartArcVmRequest::set_mglru_reclaim_swappiness(int32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_swappiness)
 }
 
-// bool update_o4c_list_via_a2c2 = 37;
+// bool update_o4c_list_via_a2c2 = 37 [deprecated = true];
 inline void StartArcVmRequest::clear_update_o4c_list_via_a2c2() {
   update_o4c_list_via_a2c2_ = false;
 }
@@ -17042,6 +17053,26 @@ inline void StartArcVmRequest::_internal_set_enable_web_view_zygote_lazy_init(bo
 inline void StartArcVmRequest::set_enable_web_view_zygote_lazy_init(bool value) {
   _internal_set_enable_web_view_zygote_lazy_init(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_web_view_zygote_lazy_init)
+}
+
+// bool enable_vmm_swap = 43;
+inline void StartArcVmRequest::clear_enable_vmm_swap() {
+  enable_vmm_swap_ = false;
+}
+inline bool StartArcVmRequest::_internal_enable_vmm_swap() const {
+  return enable_vmm_swap_;
+}
+inline bool StartArcVmRequest::enable_vmm_swap() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_vmm_swap)
+  return _internal_enable_vmm_swap();
+}
+inline void StartArcVmRequest::_internal_set_enable_vmm_swap(bool value) {
+  
+  enable_vmm_swap_ = value;
+}
+inline void StartArcVmRequest::set_enable_vmm_swap(bool value) {
+  _internal_set_enable_vmm_swap(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_vmm_swap)
 }
 
 // -------------------------------------------------------------------

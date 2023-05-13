@@ -4980,6 +4980,8 @@ class BrowsingContextState_Decoder : public ::protozero::TypedProtoDecoder</*MAX
   int32_t browsing_instance_id() const { return at<1>().as_int32(); }
   bool has_coop_related_group_id() const { return at<2>().valid(); }
   int32_t coop_related_group_id() const { return at<2>().as_int32(); }
+  bool has_coop_related_group_token() const { return at<3>().valid(); }
+  ::protozero::ConstChars coop_related_group_token() const { return at<3>().as_string(); }
   bool has_debug_annotations() const { return at<99>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> debug_annotations() const { return GetRepeated<::protozero::ConstBytes>(99); }
 };
@@ -4990,6 +4992,7 @@ class BrowsingContextState : public ::protozero::Message {
   enum : int32_t {
     kBrowsingInstanceIdFieldNumber = 1,
     kCoopRelatedGroupIdFieldNumber = 2,
+    kCoopRelatedGroupTokenFieldNumber = 3,
     kDebugAnnotationsFieldNumber = 99,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.BrowsingContextState"; }
@@ -5028,6 +5031,30 @@ class BrowsingContextState : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CoopRelatedGroupToken =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      BrowsingContextState>;
+
+  static constexpr FieldMetadata_CoopRelatedGroupToken kCoopRelatedGroupToken{};
+  void set_coop_related_group_token(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_CoopRelatedGroupToken::kFieldId, data, size);
+  }
+  void set_coop_related_group_token(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_CoopRelatedGroupToken::kFieldId, chars.data, chars.size);
+  }
+  void set_coop_related_group_token(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_CoopRelatedGroupToken::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
         ::Append(*this, field_id, value);
   }
 

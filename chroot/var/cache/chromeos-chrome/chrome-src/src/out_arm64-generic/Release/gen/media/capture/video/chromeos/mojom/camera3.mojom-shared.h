@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "media/capture/video/chromeos/mojom/camera3.mojom-shared-internal.h"
+#include "media/capture/video/chromeos/mojom/camera_features.mojom-shared.h"
 #include "media/capture/video/chromeos/mojom/camera_metadata.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
@@ -544,6 +545,27 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetEffectsDataView(
+      mojo::ArrayDataView<::cros::mojom::Camera3StreamEffectDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEffects(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::cros::mojom::Camera3StreamEffectDataView>, UserType>(),
+    "Attempting to read the optional `effects` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadEffects` instead "
+    "of `ReadEffects if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 6
+                    ? data_->effects.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::cros::mojom::Camera3StreamEffectDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::Camera3Stream_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -691,12 +713,12 @@ static_assert(
         pointer, output, message_);
   }
   bool has_modifier() const {
-    if (data_->header_.version < 5)
+    if (data_->header_.version < 7)
       return bool{};
     return data_->has_modifier;
   }
   uint64_t modifier() const {
-    if (data_->header_.version < 5)
+    if (data_->header_.version < 7)
       return uint64_t{};
     return data_->modifier;
   }
@@ -1540,6 +1562,16 @@ struct Serializer<::cros::mojom::Camera3StreamDataView, MaybeConstUserType> {
         in_physical_camera_id, physical_camera_id_fragment);
     fragment->physical_camera_id.Set(
         physical_camera_id_fragment.is_null() ? nullptr : physical_camera_id_fragment.data());
+    decltype(Traits::effects(input)) in_effects = Traits::effects(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->effects)::BaseType>
+        effects_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& effects_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::cros::mojom::Camera3StreamEffectDataView>>(
+        in_effects, effects_fragment, &effects_validate_params);
+    fragment->effects.Set(
+        effects_fragment.is_null() ? nullptr : effects_fragment.data());
   }
 
   static bool Deserialize(::cros::mojom::internal::Camera3Stream_Data* input,
@@ -2219,6 +2251,12 @@ inline void Camera3StreamDataView::GetPhysicalCameraIdDataView(
   auto pointer = data_->header_.version >= 4
                  ? data_->physical_camera_id.Get() : nullptr;
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void Camera3StreamDataView::GetEffectsDataView(
+    mojo::ArrayDataView<::cros::mojom::Camera3StreamEffectDataView>* output) {
+  auto pointer = data_->header_.version >= 6
+                 ? data_->effects.Get() : nullptr;
+  *output = mojo::ArrayDataView<::cros::mojom::Camera3StreamEffectDataView>(pointer, message_);
 }
 
 

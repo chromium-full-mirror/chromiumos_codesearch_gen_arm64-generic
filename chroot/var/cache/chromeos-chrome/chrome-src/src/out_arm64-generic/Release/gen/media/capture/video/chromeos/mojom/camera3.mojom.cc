@@ -88,7 +88,8 @@ Camera3Stream::Camera3Stream()
       data_space(),
       rotation(),
       crop_rotate_scale_info(),
-      physical_camera_id() {}
+      physical_camera_id(),
+      effects() {}
 
 Camera3Stream::Camera3Stream(
     uint64_t id_in,
@@ -110,7 +111,8 @@ Camera3Stream::Camera3Stream(
       data_space(std::move(data_space_in)),
       rotation(std::move(rotation_in)),
       crop_rotate_scale_info(),
-      physical_camera_id() {}
+      physical_camera_id(),
+      effects() {}
 
 Camera3Stream::Camera3Stream(
     uint64_t id_in,
@@ -133,7 +135,8 @@ Camera3Stream::Camera3Stream(
       data_space(std::move(data_space_in)),
       rotation(std::move(rotation_in)),
       crop_rotate_scale_info(std::move(crop_rotate_scale_info_in)),
-      physical_camera_id() {}
+      physical_camera_id(),
+      effects() {}
 
 Camera3Stream::Camera3Stream(
     uint64_t id_in,
@@ -157,7 +160,34 @@ Camera3Stream::Camera3Stream(
       data_space(std::move(data_space_in)),
       rotation(std::move(rotation_in)),
       crop_rotate_scale_info(std::move(crop_rotate_scale_info_in)),
-      physical_camera_id(std::move(physical_camera_id_in)) {}
+      physical_camera_id(std::move(physical_camera_id_in)),
+      effects() {}
+
+Camera3Stream::Camera3Stream(
+    uint64_t id_in,
+    Camera3StreamType stream_type_in,
+    uint32_t width_in,
+    uint32_t height_in,
+    HalPixelFormat format_in,
+    uint32_t usage_in,
+    uint32_t max_buffers_in,
+    uint32_t data_space_in,
+    Camera3StreamRotation rotation_in,
+    CropRotateScaleInfoPtr crop_rotate_scale_info_in,
+    const absl::optional<std::string>& physical_camera_id_in,
+    absl::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>> effects_in)
+    : id(std::move(id_in)),
+      stream_type(std::move(stream_type_in)),
+      width(std::move(width_in)),
+      height(std::move(height_in)),
+      format(std::move(format_in)),
+      usage(std::move(usage_in)),
+      max_buffers(std::move(max_buffers_in)),
+      data_space(std::move(data_space_in)),
+      rotation(std::move(rotation_in)),
+      crop_rotate_scale_info(std::move(crop_rotate_scale_info_in)),
+      physical_camera_id(std::move(physical_camera_id_in)),
+      effects(std::move(effects_in)) {}
 
 Camera3Stream::~Camera3Stream() = default;
 
@@ -259,6 +289,15 @@ void Camera3Stream::WriteIntoTrace(
       "physical_camera_id"), this->physical_camera_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const absl::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "effects"), this->effects,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<std::vector<::cros::mojom::Camera3StreamEffectPtr>>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4090,6 +4129,8 @@ bool StructTraits<::cros::mojom::Camera3Stream::DataView, ::cros::mojom::Camera3
       if (success && !input.ReadCropRotateScaleInfo(&result->crop_rotate_scale_info))
         success = false;
       if (success && !input.ReadPhysicalCameraId(&result->physical_camera_id))
+        success = false;
+      if (success && !input.ReadEffects(&result->effects))
         success = false;
   *output = std::move(result);
   return success;
