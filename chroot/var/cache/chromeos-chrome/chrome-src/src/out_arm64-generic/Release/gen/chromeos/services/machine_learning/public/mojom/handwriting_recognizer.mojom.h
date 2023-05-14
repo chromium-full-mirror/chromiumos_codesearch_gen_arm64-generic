@@ -207,6 +207,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) WritingGuide {
 
   template <typename T, WritingGuide::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, WritingGuide::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -352,6 +355,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerInkRange {
 
   template <typename T, HandwritingRecognizerInkRange::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, HandwritingRecognizerInkRange::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -509,6 +515,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerSpec {
 
   template <typename T, HandwritingRecognizerSpec::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, HandwritingRecognizerSpec::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -654,6 +663,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) InkPoint {
 
   template <typename T, InkPoint::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, InkPoint::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -797,6 +809,9 @@ InkStroke& operator=(const InkStroke&) = delete;
 
   template <typename T, InkStroke::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, InkStroke::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -938,6 +953,9 @@ RecognitionContext& operator=(const RecognitionContext&) = delete;
 
   template <typename T, RecognitionContext::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RecognitionContext::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -1082,6 +1100,9 @@ HandwritingRecognitionQuery& operator=(const HandwritingRecognitionQuery&) = del
 
   template <typename T, HandwritingRecognitionQuery::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, HandwritingRecognitionQuery::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -1229,6 +1250,9 @@ HandwritingRecognizerSegment& operator=(const HandwritingRecognizerSegment&) = d
 
   template <typename T, HandwritingRecognizerSegment::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, HandwritingRecognizerSegment::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -1370,6 +1394,9 @@ HandwritingRecognizerSegmentation& operator=(const HandwritingRecognizerSegmenta
 
   template <typename T, HandwritingRecognizerSegmentation::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, HandwritingRecognizerSegmentation::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -1511,6 +1538,9 @@ HandwritingRecognizerCandidate& operator=(const HandwritingRecognizerCandidate&)
 
   template <typename T, HandwritingRecognizerCandidate::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, HandwritingRecognizerCandidate::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -1656,6 +1686,9 @@ HandwritingRecognizerResult& operator=(const HandwritingRecognizerResult&) = del
 
   template <typename T, HandwritingRecognizerResult::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, HandwritingRecognizerResult::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<

@@ -97,6 +97,9 @@ class  CameraMetadataEntry {
 
   template <typename T, CameraMetadataEntry::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CameraMetadataEntry::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -249,6 +252,9 @@ CameraMetadata& operator=(const CameraMetadata&) = delete;
 
   template <typename T, CameraMetadata::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CameraMetadata::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<

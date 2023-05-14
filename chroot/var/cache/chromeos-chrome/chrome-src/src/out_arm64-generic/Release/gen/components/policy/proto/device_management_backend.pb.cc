@@ -71,6 +71,7 @@ PROTOBUF_CONSTEXPR DeviceRegisterRequest::DeviceRegisterRequest(
   , expected_enrollment_domain_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , license_type_(nullptr)
   , device_register_identification_(nullptr)
+  , demo_mode_dimensions_(nullptr)
   , reregister_(false)
   , type_(0)
 
@@ -1002,6 +1003,21 @@ struct LaCrOsBrowserReportDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LaCrOsBrowserReportDefaultTypeInternal _LaCrOsBrowserReport_default_instance_;
+PROTOBUF_CONSTEXPR DemoModeDimensions::DemoModeDimensions(
+    ::_pbi::ConstantInitialized)
+  : customization_facets_()
+  , country_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , retailer_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , store_number_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct DemoModeDimensionsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DemoModeDimensionsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DemoModeDimensionsDefaultTypeInternal() {}
+  union {
+    DemoModeDimensions _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DemoModeDimensionsDefaultTypeInternal _DemoModeDimensions_default_instance_;
 PROTOBUF_CONSTEXPR DeviceStatusReportRequest::DeviceStatusReportRequest(
     ::_pbi::ConstantInitialized)
   : active_periods_()
@@ -1042,6 +1058,7 @@ PROTOBUF_CONSTEXPR DeviceStatusReportRequest::DeviceStatusReportRequest(
   , kernel_parameters_(nullptr)
   , efi_vars_(nullptr)
   , boot_info_(nullptr)
+  , demo_mode_dimensions_(nullptr)
   , system_ram_total_(int64_t{0})
   , sound_volume_(0)
   , channel_(0)
@@ -4587,6 +4604,69 @@ constexpr BootInfo_BootMethod BootInfo::CROS_EFI_SECURE;
 constexpr BootInfo_BootMethod BootInfo::BootMethod_MIN;
 constexpr BootInfo_BootMethod BootInfo::BootMethod_MAX;
 constexpr int BootInfo::BootMethod_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool DemoModeDimensions_CustomizationFacet_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DemoModeDimensions_CustomizationFacet_strings[3] = {};
+
+static const char DemoModeDimensions_CustomizationFacet_names[] =
+  "CLOUD_GAMING_DEVICE"
+  "FEATURE_AWARE_DEVICE"
+  "UNDEFINED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DemoModeDimensions_CustomizationFacet_entries[] = {
+  { {DemoModeDimensions_CustomizationFacet_names + 0, 19}, 1 },
+  { {DemoModeDimensions_CustomizationFacet_names + 19, 20}, 2 },
+  { {DemoModeDimensions_CustomizationFacet_names + 39, 9}, 0 },
+};
+
+static const int DemoModeDimensions_CustomizationFacet_entries_by_number[] = {
+  2, // 0 -> UNDEFINED
+  0, // 1 -> CLOUD_GAMING_DEVICE
+  1, // 2 -> FEATURE_AWARE_DEVICE
+};
+
+const std::string& DemoModeDimensions_CustomizationFacet_Name(
+    DemoModeDimensions_CustomizationFacet value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DemoModeDimensions_CustomizationFacet_entries,
+          DemoModeDimensions_CustomizationFacet_entries_by_number,
+          3, DemoModeDimensions_CustomizationFacet_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DemoModeDimensions_CustomizationFacet_entries,
+      DemoModeDimensions_CustomizationFacet_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DemoModeDimensions_CustomizationFacet_strings[idx].get();
+}
+bool DemoModeDimensions_CustomizationFacet_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DemoModeDimensions_CustomizationFacet* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DemoModeDimensions_CustomizationFacet_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<DemoModeDimensions_CustomizationFacet>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr DemoModeDimensions_CustomizationFacet DemoModeDimensions::UNDEFINED;
+constexpr DemoModeDimensions_CustomizationFacet DemoModeDimensions::CLOUD_GAMING_DEVICE;
+constexpr DemoModeDimensions_CustomizationFacet DemoModeDimensions::FEATURE_AWARE_DEVICE;
+constexpr DemoModeDimensions_CustomizationFacet DemoModeDimensions::CustomizationFacet_MIN;
+constexpr DemoModeDimensions_CustomizationFacet DemoModeDimensions::CustomizationFacet_MAX;
+constexpr int DemoModeDimensions::CustomizationFacet_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool OsUpdateStatus_UpdateStatus_IsValid(int value) {
   switch (value) {
@@ -10248,10 +10328,10 @@ class DeviceRegisterRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceRegisterRequest>()._has_bits_);
   static void set_has_reregister(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
+    (*has_bits)[0] |= 8192u;
   }
   static void set_has_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 8192u;
+    (*has_bits)[0] |= 16384u;
   }
   static void set_has_machine_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -10266,14 +10346,14 @@ class DeviceRegisterRequest::_Internal {
     (*has_bits)[0] |= 8u;
   }
   static void set_has_flavor(HasBits* has_bits) {
-    (*has_bits)[0] |= 16384u;
+    (*has_bits)[0] |= 32768u;
   }
   static const ::enterprise_management::LicenseType& license_type(const DeviceRegisterRequest* msg);
   static void set_has_license_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1024u;
   }
   static void set_has_lifetime(HasBits* has_bits) {
-    (*has_bits)[0] |= 131072u;
+    (*has_bits)[0] |= 262144u;
   }
   static void set_has_brand_code(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
@@ -10298,10 +10378,14 @@ class DeviceRegisterRequest::_Internal {
     (*has_bits)[0] |= 2048u;
   }
   static void set_has_psm_execution_result(HasBits* has_bits) {
-    (*has_bits)[0] |= 32768u;
+    (*has_bits)[0] |= 65536u;
   }
   static void set_has_psm_determination_timestamp_ms(HasBits* has_bits) {
-    (*has_bits)[0] |= 65536u;
+    (*has_bits)[0] |= 131072u;
+  }
+  static const ::enterprise_management::DemoModeDimensions& demo_mode_dimensions(const DeviceRegisterRequest* msg);
+  static void set_has_demo_mode_dimensions(HasBits* has_bits) {
+    (*has_bits)[0] |= 4096u;
   }
 };
 
@@ -10312,6 +10396,10 @@ DeviceRegisterRequest::_Internal::license_type(const DeviceRegisterRequest* msg)
 const ::enterprise_management::DeviceRegisterIdentification&
 DeviceRegisterRequest::_Internal::device_register_identification(const DeviceRegisterRequest* msg) {
   return *msg->device_register_identification_;
+}
+const ::enterprise_management::DemoModeDimensions&
+DeviceRegisterRequest::_Internal::demo_mode_dimensions(const DeviceRegisterRequest* msg) {
+  return *msg->demo_mode_dimensions_;
 }
 DeviceRegisterRequest::DeviceRegisterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -10413,6 +10501,11 @@ DeviceRegisterRequest::DeviceRegisterRequest(const DeviceRegisterRequest& from)
   } else {
     device_register_identification_ = nullptr;
   }
+  if (from._internal_has_demo_mode_dimensions()) {
+    demo_mode_dimensions_ = new ::enterprise_management::DemoModeDimensions(*from.demo_mode_dimensions_);
+  } else {
+    demo_mode_dimensions_ = nullptr;
+  }
   ::memcpy(&reregister_, &from.reregister_,
     static_cast<size_t>(reinterpret_cast<char*>(&lifetime_) -
     reinterpret_cast<char*>(&reregister_)) + sizeof(lifetime_));
@@ -10490,6 +10583,7 @@ inline void DeviceRegisterRequest::SharedDtor() {
   expected_enrollment_domain_.Destroy();
   if (this != internal_default_instance()) delete license_type_;
   if (this != internal_default_instance()) delete device_register_identification_;
+  if (this != internal_default_instance()) delete demo_mode_dimensions_;
 }
 
 void DeviceRegisterRequest::SetCachedSize(int size) const {
@@ -10529,7 +10623,7 @@ void DeviceRegisterRequest::Clear() {
       dock_mac_address_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x00000f00u) {
+  if (cached_has_bits & 0x00001f00u) {
     if (cached_has_bits & 0x00000100u) {
       manufacture_date_.ClearNonDefaultToEmpty();
     }
@@ -10544,14 +10638,20 @@ void DeviceRegisterRequest::Clear() {
       GOOGLE_DCHECK(device_register_identification_ != nullptr);
       device_register_identification_->Clear();
     }
+    if (cached_has_bits & 0x00001000u) {
+      GOOGLE_DCHECK(demo_mode_dimensions_ != nullptr);
+      demo_mode_dimensions_->Clear();
+    }
   }
-  if (cached_has_bits & 0x0000f000u) {
+  if (cached_has_bits & 0x0000e000u) {
     ::memset(&reregister_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&psm_execution_result_) -
-        reinterpret_cast<char*>(&reregister_)) + sizeof(psm_execution_result_));
+        reinterpret_cast<char*>(&flavor_) -
+        reinterpret_cast<char*>(&reregister_)) + sizeof(flavor_));
   }
-  if (cached_has_bits & 0x00030000u) {
-    psm_determination_timestamp_ms_ = int64_t{0};
+  if (cached_has_bits & 0x00070000u) {
+    ::memset(&psm_execution_result_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&psm_determination_timestamp_ms_) -
+        reinterpret_cast<char*>(&psm_execution_result_)) + sizeof(psm_determination_timestamp_ms_));
     lifetime_ = 1;
   }
   _has_bits_.Clear();
@@ -10741,6 +10841,14 @@ const char* DeviceRegisterRequest::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.DemoModeDimensions demo_mode_dimensions = 21;
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
+          ptr = ctx->ParseMessage(_internal_mutable_demo_mode_dimensions(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -10773,13 +10881,13 @@ uint8_t* DeviceRegisterRequest::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional bool reregister = 1;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_reregister(), target);
   }
 
   // optional .enterprise_management.DeviceRegisterRequest.Type type = 2 [default = TT];
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_type(), target);
@@ -10810,7 +10918,7 @@ uint8_t* DeviceRegisterRequest::_InternalSerialize(
   }
 
   // optional .enterprise_management.DeviceRegisterRequest.Flavor flavor = 8;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       8, this->_internal_flavor(), target);
@@ -10824,7 +10932,7 @@ uint8_t* DeviceRegisterRequest::_InternalSerialize(
   }
 
   // optional .enterprise_management.DeviceRegisterRequest.Lifetime lifetime = 11 [default = LIFETIME_INDEFINITE];
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       11, this->_internal_lifetime(), target);
@@ -10874,16 +10982,23 @@ uint8_t* DeviceRegisterRequest::_InternalSerialize(
   }
 
   // optional .enterprise_management.DeviceRegisterRequest.PsmExecutionResult psm_execution_result = 19;
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       19, this->_internal_psm_execution_result(), target);
   }
 
   // optional int64 psm_determination_timestamp_ms = 20;
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(20, this->_internal_psm_determination_timestamp_ms(), target);
+  }
+
+  // optional .enterprise_management.DemoModeDimensions demo_mode_dimensions = 21;
+  if (cached_has_bits & 0x00001000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(21, _Internal::demo_mode_dimensions(this),
+        _Internal::demo_mode_dimensions(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -10990,40 +11105,47 @@ size_t DeviceRegisterRequest::ByteSizeLong() const {
           *device_register_identification_);
     }
 
-    // optional bool reregister = 1;
+    // optional .enterprise_management.DemoModeDimensions demo_mode_dimensions = 21;
     if (cached_has_bits & 0x00001000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *demo_mode_dimensions_);
+    }
+
+    // optional bool reregister = 1;
+    if (cached_has_bits & 0x00002000u) {
       total_size += 1 + 1;
     }
 
     // optional .enterprise_management.DeviceRegisterRequest.Type type = 2 [default = TT];
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00004000u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
 
     // optional .enterprise_management.DeviceRegisterRequest.Flavor flavor = 8;
-    if (cached_has_bits & 0x00004000u) {
+    if (cached_has_bits & 0x00008000u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_flavor());
     }
 
+  }
+  if (cached_has_bits & 0x00070000u) {
     // optional .enterprise_management.DeviceRegisterRequest.PsmExecutionResult psm_execution_result = 19;
-    if (cached_has_bits & 0x00008000u) {
+    if (cached_has_bits & 0x00010000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_psm_execution_result());
     }
 
-  }
-  if (cached_has_bits & 0x00030000u) {
     // optional int64 psm_determination_timestamp_ms = 20;
-    if (cached_has_bits & 0x00010000u) {
+    if (cached_has_bits & 0x00020000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_psm_determination_timestamp_ms());
     }
 
     // optional .enterprise_management.DeviceRegisterRequest.Lifetime lifetime = 11 [default = LIFETIME_INDEFINITE];
-    if (cached_has_bits & 0x00020000u) {
+    if (cached_has_bits & 0x00040000u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_lifetime());
     }
@@ -11090,24 +11212,27 @@ void DeviceRegisterRequest::MergeFrom(const DeviceRegisterRequest& from) {
       _internal_mutable_device_register_identification()->::enterprise_management::DeviceRegisterIdentification::MergeFrom(from._internal_device_register_identification());
     }
     if (cached_has_bits & 0x00001000u) {
-      reregister_ = from.reregister_;
+      _internal_mutable_demo_mode_dimensions()->::enterprise_management::DemoModeDimensions::MergeFrom(from._internal_demo_mode_dimensions());
     }
     if (cached_has_bits & 0x00002000u) {
-      type_ = from.type_;
+      reregister_ = from.reregister_;
     }
     if (cached_has_bits & 0x00004000u) {
-      flavor_ = from.flavor_;
+      type_ = from.type_;
     }
     if (cached_has_bits & 0x00008000u) {
-      psm_execution_result_ = from.psm_execution_result_;
+      flavor_ = from.flavor_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00030000u) {
+  if (cached_has_bits & 0x00070000u) {
     if (cached_has_bits & 0x00010000u) {
-      psm_determination_timestamp_ms_ = from.psm_determination_timestamp_ms_;
+      psm_execution_result_ = from.psm_execution_result_;
     }
     if (cached_has_bits & 0x00020000u) {
+      psm_determination_timestamp_ms_ = from.psm_determination_timestamp_ms_;
+    }
+    if (cached_has_bits & 0x00040000u) {
       lifetime_ = from.lifetime_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -30418,6 +30543,353 @@ std::string LaCrOsBrowserReport::GetTypeName() const {
 
 // ===================================================================
 
+class DemoModeDimensions::_Internal {
+ public:
+  using HasBits = decltype(std::declval<DemoModeDimensions>()._has_bits_);
+  static void set_has_country(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_retailer_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_store_number(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+};
+
+DemoModeDimensions::DemoModeDimensions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  customization_facets_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.DemoModeDimensions)
+}
+DemoModeDimensions::DemoModeDimensions(const DemoModeDimensions& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      customization_facets_(from.customization_facets_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  country_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    country_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_country()) {
+    country_.Set(from._internal_country(), 
+      GetArenaForAllocation());
+  }
+  retailer_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    retailer_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_retailer_name()) {
+    retailer_name_.Set(from._internal_retailer_name(), 
+      GetArenaForAllocation());
+  }
+  store_number_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    store_number_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_store_number()) {
+    store_number_.Set(from._internal_store_number(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.DemoModeDimensions)
+}
+
+inline void DemoModeDimensions::SharedCtor() {
+country_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  country_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+retailer_name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  retailer_name_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+store_number_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  store_number_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+DemoModeDimensions::~DemoModeDimensions() {
+  // @@protoc_insertion_point(destructor:enterprise_management.DemoModeDimensions)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DemoModeDimensions::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  country_.Destroy();
+  retailer_name_.Destroy();
+  store_number_.Destroy();
+}
+
+void DemoModeDimensions::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DemoModeDimensions::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.DemoModeDimensions)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  customization_facets_.Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      country_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      retailer_name_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      store_number_.ClearNonDefaultToEmpty();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DemoModeDimensions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string country = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_country();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string retailer_name = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_retailer_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string store_number = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_store_number();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .enterprise_management.DemoModeDimensions.CustomizationFacet customization_facets = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+            CHK_(ptr);
+            if (PROTOBUF_PREDICT_TRUE(::enterprise_management::DemoModeDimensions_CustomizationFacet_IsValid(val))) {
+              _internal_add_customization_facets(static_cast<::enterprise_management::DemoModeDimensions_CustomizationFacet>(val));
+            } else {
+              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
+            }
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<32>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 34) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_customization_facets(), ptr, ctx, ::enterprise_management::DemoModeDimensions_CustomizationFacet_IsValid, &_internal_metadata_, 4);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DemoModeDimensions::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DemoModeDimensions)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string country = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_country(), target);
+  }
+
+  // optional string retailer_name = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_retailer_name(), target);
+  }
+
+  // optional string store_number = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_store_number(), target);
+  }
+
+  // repeated .enterprise_management.DemoModeDimensions.CustomizationFacet customization_facets = 4;
+  for (int i = 0, n = this->_internal_customization_facets_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        4, this->_internal_customization_facets(i), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DemoModeDimensions)
+  return target;
+}
+
+size_t DemoModeDimensions::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DemoModeDimensions)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .enterprise_management.DemoModeDimensions.CustomizationFacet customization_facets = 4;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_customization_facets_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_customization_facets(static_cast<int>(i)));
+    }
+    total_size += (1UL * count) + data_size;
+  }
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional string country = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_country());
+    }
+
+    // optional string retailer_name = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_retailer_name());
+    }
+
+    // optional string store_number = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_store_number());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DemoModeDimensions::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DemoModeDimensions*>(
+      &from));
+}
+
+void DemoModeDimensions::MergeFrom(const DemoModeDimensions& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DemoModeDimensions)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  customization_facets_.MergeFrom(from.customization_facets_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_country(from._internal_country());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_retailer_name(from._internal_retailer_name());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_store_number(from._internal_store_number());
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DemoModeDimensions::CopyFrom(const DemoModeDimensions& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DemoModeDimensions)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DemoModeDimensions::IsInitialized() const {
+  return true;
+}
+
+void DemoModeDimensions::InternalSwap(DemoModeDimensions* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  customization_facets_.InternalSwap(&other->customization_facets_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &country_, lhs_arena,
+      &other->country_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &retailer_name_, lhs_arena,
+      &other->retailer_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &store_number_, lhs_arena,
+      &other->store_number_, rhs_arena
+  );
+}
+
+std::string DemoModeDimensions::GetTypeName() const {
+  return "enterprise_management.DemoModeDimensions";
+}
+
+
+// ===================================================================
+
 class DeviceStatusReportRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceStatusReportRequest>()._has_bits_);
@@ -30434,7 +30906,7 @@ class DeviceStatusReportRequest::_Internal {
     (*has_bits)[0] |= 8u;
   }
   static void set_has_system_ram_total(HasBits* has_bits) {
-    (*has_bits)[0] |= 2097152u;
+    (*has_bits)[0] |= 4194304u;
   }
   static const ::enterprise_management::OsUpdateStatus& os_update_status(const DeviceStatusReportRequest* msg);
   static void set_has_os_update_status(HasBits* has_bits) {
@@ -30445,21 +30917,21 @@ class DeviceStatusReportRequest::_Internal {
     (*has_bits)[0] |= 32u;
   }
   static void set_has_sound_volume(HasBits* has_bits) {
-    (*has_bits)[0] |= 4194304u;
+    (*has_bits)[0] |= 8388608u;
   }
   static const ::enterprise_management::TpmVersionInfo& tpm_version_info(const DeviceStatusReportRequest* msg);
   static void set_has_tpm_version_info(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
   static void set_has_channel(HasBits* has_bits) {
-    (*has_bits)[0] |= 8388608u;
+    (*has_bits)[0] |= 16777216u;
   }
   static const ::enterprise_management::TpmStatusInfo& tpm_status_info(const DeviceStatusReportRequest* msg);
   static void set_has_tpm_status_info(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
   }
   static void set_has_write_protect_switch(HasBits* has_bits) {
-    (*has_bits)[0] |= 33554432u;
+    (*has_bits)[0] |= 67108864u;
   }
   static const ::enterprise_management::PowerStatus& power_status(const DeviceStatusReportRequest* msg);
   static void set_has_power_status(HasBits* has_bits) {
@@ -30514,10 +30986,14 @@ class DeviceStatusReportRequest::_Internal {
     (*has_bits)[0] |= 1048576u;
   }
   static void set_has_root_device_total_storage_bytes(HasBits* has_bits) {
-    (*has_bits)[0] |= 16777216u;
+    (*has_bits)[0] |= 33554432u;
   }
   static void set_has_is_lacros_primary_browser(HasBits* has_bits) {
-    (*has_bits)[0] |= 67108864u;
+    (*has_bits)[0] |= 134217728u;
+  }
+  static const ::enterprise_management::DemoModeDimensions& demo_mode_dimensions(const DeviceStatusReportRequest* msg);
+  static void set_has_demo_mode_dimensions(HasBits* has_bits) {
+    (*has_bits)[0] |= 2097152u;
   }
 };
 
@@ -30588,6 +31064,10 @@ DeviceStatusReportRequest::_Internal::efi_vars(const DeviceStatusReportRequest* 
 const ::enterprise_management::BootInfo&
 DeviceStatusReportRequest::_Internal::boot_info(const DeviceStatusReportRequest* msg) {
   return *msg->boot_info_;
+}
+const ::enterprise_management::DemoModeDimensions&
+DeviceStatusReportRequest::_Internal::demo_mode_dimensions(const DeviceStatusReportRequest* msg) {
+  return *msg->demo_mode_dimensions_;
 }
 DeviceStatusReportRequest::DeviceStatusReportRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -30750,6 +31230,11 @@ DeviceStatusReportRequest::DeviceStatusReportRequest(const DeviceStatusReportReq
   } else {
     boot_info_ = nullptr;
   }
+  if (from._internal_has_demo_mode_dimensions()) {
+    demo_mode_dimensions_ = new ::enterprise_management::DemoModeDimensions(*from.demo_mode_dimensions_);
+  } else {
+    demo_mode_dimensions_ = nullptr;
+  }
   ::memcpy(&system_ram_total_, &from.system_ram_total_,
     static_cast<size_t>(reinterpret_cast<char*>(&is_lacros_primary_browser_) -
     reinterpret_cast<char*>(&system_ram_total_)) + sizeof(is_lacros_primary_browser_));
@@ -30811,6 +31296,7 @@ inline void DeviceStatusReportRequest::SharedDtor() {
   if (this != internal_default_instance()) delete kernel_parameters_;
   if (this != internal_default_instance()) delete efi_vars_;
   if (this != internal_default_instance()) delete boot_info_;
+  if (this != internal_default_instance()) delete demo_mode_dimensions_;
 }
 
 void DeviceStatusReportRequest::SetCachedSize(int size) const {
@@ -30905,7 +31391,7 @@ void DeviceStatusReportRequest::Clear() {
       memory_info_->Clear();
     }
   }
-  if (cached_has_bits & 0x001f0000u) {
+  if (cached_has_bits & 0x003f0000u) {
     if (cached_has_bits & 0x00010000u) {
       GOOGLE_DCHECK(global_cpu_info_ != nullptr);
       global_cpu_info_->Clear();
@@ -30926,16 +31412,20 @@ void DeviceStatusReportRequest::Clear() {
       GOOGLE_DCHECK(boot_info_ != nullptr);
       boot_info_->Clear();
     }
+    if (cached_has_bits & 0x00200000u) {
+      GOOGLE_DCHECK(demo_mode_dimensions_ != nullptr);
+      demo_mode_dimensions_->Clear();
+    }
   }
-  if (cached_has_bits & 0x00e00000u) {
+  if (cached_has_bits & 0x00c00000u) {
     ::memset(&system_ram_total_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&channel_) -
-        reinterpret_cast<char*>(&system_ram_total_)) + sizeof(channel_));
+        reinterpret_cast<char*>(&sound_volume_) -
+        reinterpret_cast<char*>(&system_ram_total_)) + sizeof(sound_volume_));
   }
-  if (cached_has_bits & 0x07000000u) {
-    ::memset(&root_device_total_storage_bytes_, 0, static_cast<size_t>(
+  if (cached_has_bits & 0x0f000000u) {
+    ::memset(&channel_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&is_lacros_primary_browser_) -
-        reinterpret_cast<char*>(&root_device_total_storage_bytes_)) + sizeof(is_lacros_primary_browser_));
+        reinterpret_cast<char*>(&channel_)) + sizeof(is_lacros_primary_browser_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -31405,6 +31895,14 @@ const char* DeviceStatusReportRequest::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.DemoModeDimensions demo_mode_dimensions = 49;
+      case 49:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
+          ptr = ctx->ParseMessage(_internal_mutable_demo_mode_dimensions(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -31507,7 +32005,7 @@ uint8_t* DeviceStatusReportRequest::_InternalSerialize(
   }
 
   // optional int64 system_ram_total = 14;
-  if (cached_has_bits & 0x00200000u) {
+  if (cached_has_bits & 0x00400000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(14, this->_internal_system_ram_total(), target);
   }
@@ -31541,7 +32039,7 @@ uint8_t* DeviceStatusReportRequest::_InternalSerialize(
   }
 
   // optional int32 sound_volume = 19;
-  if (cached_has_bits & 0x00400000u) {
+  if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(19, this->_internal_sound_volume(), target);
   }
@@ -31554,7 +32052,7 @@ uint8_t* DeviceStatusReportRequest::_InternalSerialize(
   }
 
   // optional .enterprise_management.Channel channel = 22;
-  if (cached_has_bits & 0x00800000u) {
+  if (cached_has_bits & 0x01000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       22, this->_internal_channel(), target);
@@ -31568,7 +32066,7 @@ uint8_t* DeviceStatusReportRequest::_InternalSerialize(
   }
 
   // optional bool write_protect_switch = 24;
-  if (cached_has_bits & 0x02000000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(24, this->_internal_write_protect_switch(), target);
   }
@@ -31737,15 +32235,22 @@ uint8_t* DeviceStatusReportRequest::_InternalSerialize(
   }
 
   // optional int64 root_device_total_storage_bytes = 47;
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(47, this->_internal_root_device_total_storage_bytes(), target);
   }
 
   // optional bool is_lacros_primary_browser = 48;
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x08000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(48, this->_internal_is_lacros_primary_browser(), target);
+  }
+
+  // optional .enterprise_management.DemoModeDimensions demo_mode_dimensions = 49;
+  if (cached_has_bits & 0x00200000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(49, _Internal::demo_mode_dimensions(this),
+        _Internal::demo_mode_dimensions(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -32040,40 +32545,47 @@ size_t DeviceStatusReportRequest::ByteSizeLong() const {
           *boot_info_);
     }
 
-    // optional int64 system_ram_total = 14;
+    // optional .enterprise_management.DemoModeDimensions demo_mode_dimensions = 49;
     if (cached_has_bits & 0x00200000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *demo_mode_dimensions_);
+    }
+
+    // optional int64 system_ram_total = 14;
+    if (cached_has_bits & 0x00400000u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_system_ram_total());
     }
 
     // optional int32 sound_volume = 19;
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00800000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int32Size(
           this->_internal_sound_volume());
     }
 
+  }
+  if (cached_has_bits & 0x0f000000u) {
     // optional .enterprise_management.Channel channel = 22;
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_channel());
     }
 
-  }
-  if (cached_has_bits & 0x07000000u) {
     // optional int64 root_device_total_storage_bytes = 47;
-    if (cached_has_bits & 0x01000000u) {
+    if (cached_has_bits & 0x02000000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_root_device_total_storage_bytes());
     }
 
     // optional bool write_protect_switch = 24;
-    if (cached_has_bits & 0x02000000u) {
+    if (cached_has_bits & 0x04000000u) {
       total_size += 2 + 1;
     }
 
     // optional bool is_lacros_primary_browser = 48;
-    if (cached_has_bits & 0x04000000u) {
+    if (cached_has_bits & 0x08000000u) {
       total_size += 2 + 1;
     }
 
@@ -32185,24 +32697,27 @@ void DeviceStatusReportRequest::MergeFrom(const DeviceStatusReportRequest& from)
       _internal_mutable_boot_info()->::enterprise_management::BootInfo::MergeFrom(from._internal_boot_info());
     }
     if (cached_has_bits & 0x00200000u) {
-      system_ram_total_ = from.system_ram_total_;
+      _internal_mutable_demo_mode_dimensions()->::enterprise_management::DemoModeDimensions::MergeFrom(from._internal_demo_mode_dimensions());
     }
     if (cached_has_bits & 0x00400000u) {
-      sound_volume_ = from.sound_volume_;
+      system_ram_total_ = from.system_ram_total_;
     }
     if (cached_has_bits & 0x00800000u) {
-      channel_ = from.channel_;
+      sound_volume_ = from.sound_volume_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x07000000u) {
+  if (cached_has_bits & 0x0f000000u) {
     if (cached_has_bits & 0x01000000u) {
-      root_device_total_storage_bytes_ = from.root_device_total_storage_bytes_;
+      channel_ = from.channel_;
     }
     if (cached_has_bits & 0x02000000u) {
-      write_protect_switch_ = from.write_protect_switch_;
+      root_device_total_storage_bytes_ = from.root_device_total_storage_bytes_;
     }
     if (cached_has_bits & 0x04000000u) {
+      write_protect_switch_ = from.write_protect_switch_;
+    }
+    if (cached_has_bits & 0x08000000u) {
       is_lacros_primary_browser_ = from.is_lacros_primary_browser_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -69666,6 +70181,10 @@ Arena::CreateMaybeMessage< ::enterprise_management::NetworkAdapterInfo >(Arena* 
 template<> PROTOBUF_NOINLINE ::enterprise_management::LaCrOsBrowserReport*
 Arena::CreateMaybeMessage< ::enterprise_management::LaCrOsBrowserReport >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::LaCrOsBrowserReport >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::DemoModeDimensions*
+Arena::CreateMaybeMessage< ::enterprise_management::DemoModeDimensions >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::DemoModeDimensions >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceStatusReportRequest*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceStatusReportRequest >(Arena* arena) {

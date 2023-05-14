@@ -252,6 +252,9 @@ BitstreamBuffer& operator=(const BitstreamBuffer&) = delete;
   template <typename T, BitstreamBuffer::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, BitstreamBuffer::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<

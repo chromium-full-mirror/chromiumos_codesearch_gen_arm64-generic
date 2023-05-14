@@ -203,6 +203,9 @@ class  RunRoutineResponse {
 
   template <typename T, RunRoutineResponse::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RunRoutineResponse::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -343,6 +346,9 @@ class  InteractiveRoutineUpdate {
 
   template <typename T, InteractiveRoutineUpdate::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, InteractiveRoutineUpdate::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -482,6 +488,9 @@ class  NonInteractiveRoutineUpdate {
 
   template <typename T, NonInteractiveRoutineUpdate::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, NonInteractiveRoutineUpdate::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -763,6 +772,9 @@ RoutineUpdate& operator=(const RoutineUpdate&) = delete;
 
   template <typename T, RoutineUpdate::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RoutineUpdate::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {

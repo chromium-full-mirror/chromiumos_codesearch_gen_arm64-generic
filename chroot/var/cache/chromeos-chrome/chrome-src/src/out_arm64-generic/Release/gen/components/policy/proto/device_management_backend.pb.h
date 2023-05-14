@@ -252,6 +252,9 @@ POLICY_PROTO_EXPORT extern CustomerLogoDefaultTypeInternal _CustomerLogo_default
 class DEPRECATEDPolicyPublicKeyAndDomain;
 struct DEPRECATEDPolicyPublicKeyAndDomainDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern DEPRECATEDPolicyPublicKeyAndDomainDefaultTypeInternal _DEPRECATEDPolicyPublicKeyAndDomain_default_instance_;
+class DemoModeDimensions;
+struct DemoModeDimensionsDefaultTypeInternal;
+POLICY_PROTO_EXPORT extern DemoModeDimensionsDefaultTypeInternal _DemoModeDimensions_default_instance_;
 class DeviceAttributeUpdatePermissionRequest;
 struct DeviceAttributeUpdatePermissionRequestDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern DeviceAttributeUpdatePermissionRequestDefaultTypeInternal _DeviceAttributeUpdatePermissionRequest_default_instance_;
@@ -677,6 +680,7 @@ template<> POLICY_PROTO_EXPORT ::enterprise_management::CrostiniApp* Arena::Crea
 template<> POLICY_PROTO_EXPORT ::enterprise_management::CrostiniStatus* Arena::CreateMaybeMessage<::enterprise_management::CrostiniStatus>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::CustomerLogo* Arena::CreateMaybeMessage<::enterprise_management::CustomerLogo>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DEPRECATEDPolicyPublicKeyAndDomain* Arena::CreateMaybeMessage<::enterprise_management::DEPRECATEDPolicyPublicKeyAndDomain>(Arena*);
+template<> POLICY_PROTO_EXPORT ::enterprise_management::DemoModeDimensions* Arena::CreateMaybeMessage<::enterprise_management::DemoModeDimensions>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceAttributeUpdatePermissionRequest* Arena::CreateMaybeMessage<::enterprise_management::DeviceAttributeUpdatePermissionRequest>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceAttributeUpdatePermissionResponse* Arena::CreateMaybeMessage<::enterprise_management::DeviceAttributeUpdatePermissionResponse>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceAttributeUpdateRequest* Arena::CreateMaybeMessage<::enterprise_management::DeviceAttributeUpdateRequest>(Arena*);
@@ -1316,6 +1320,26 @@ return BootInfo_BootMethod_Name(static_cast<BootInfo_BootMethod>(enum_t_value));
 }
 bool BootInfo_BootMethod_Parse(
 ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BootInfo_BootMethod* value);
+enum DemoModeDimensions_CustomizationFacet : int {
+DemoModeDimensions_CustomizationFacet_UNDEFINED = 0,
+DemoModeDimensions_CustomizationFacet_CLOUD_GAMING_DEVICE = 1,
+DemoModeDimensions_CustomizationFacet_FEATURE_AWARE_DEVICE = 2
+};
+POLICY_PROTO_EXPORT bool DemoModeDimensions_CustomizationFacet_IsValid(int value);
+constexpr DemoModeDimensions_CustomizationFacet DemoModeDimensions_CustomizationFacet_CustomizationFacet_MIN = DemoModeDimensions_CustomizationFacet_UNDEFINED;
+constexpr DemoModeDimensions_CustomizationFacet DemoModeDimensions_CustomizationFacet_CustomizationFacet_MAX = DemoModeDimensions_CustomizationFacet_FEATURE_AWARE_DEVICE;
+constexpr int DemoModeDimensions_CustomizationFacet_CustomizationFacet_ARRAYSIZE = DemoModeDimensions_CustomizationFacet_CustomizationFacet_MAX + 1;
+
+const std::string& DemoModeDimensions_CustomizationFacet_Name(DemoModeDimensions_CustomizationFacet value);
+template<typename T>
+inline const std::string& DemoModeDimensions_CustomizationFacet_Name(T enum_t_value) {
+static_assert(::std::is_same<T, DemoModeDimensions_CustomizationFacet>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function DemoModeDimensions_CustomizationFacet_Name.");
+return DemoModeDimensions_CustomizationFacet_Name(static_cast<DemoModeDimensions_CustomizationFacet>(enum_t_value));
+}
+bool DemoModeDimensions_CustomizationFacet_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DemoModeDimensions_CustomizationFacet* value);
 enum OsUpdateStatus_UpdateStatus : int {
 OsUpdateStatus_UpdateStatus_OS_UP_TO_DATE = 0,
 OsUpdateStatus_UpdateStatus_OS_IMAGE_DOWNLOAD_NOT_STARTED = 1,
@@ -3549,6 +3573,7 @@ kManufactureDateFieldNumber = 16,
 kExpectedEnrollmentDomainFieldNumber = 17,
 kLicenseTypeFieldNumber = 9,
 kDeviceRegisterIdentificationFieldNumber = 18,
+kDemoModeDimensionsFieldNumber = 21,
 kReregisterFieldNumber = 1,
 kTypeFieldNumber = 2,
 kFlavorFieldNumber = 8,
@@ -3772,6 +3797,24 @@ void unsafe_arena_set_allocated_device_register_identification(
 ::enterprise_management::DeviceRegisterIdentification* device_register_identification);
 ::enterprise_management::DeviceRegisterIdentification* unsafe_arena_release_device_register_identification();
 
+// optional .enterprise_management.DemoModeDimensions demo_mode_dimensions = 21;
+bool has_demo_mode_dimensions() const;
+private:
+bool _internal_has_demo_mode_dimensions() const;
+public:
+void clear_demo_mode_dimensions();
+const ::enterprise_management::DemoModeDimensions& demo_mode_dimensions() const;
+PROTOBUF_NODISCARD ::enterprise_management::DemoModeDimensions* release_demo_mode_dimensions();
+::enterprise_management::DemoModeDimensions* mutable_demo_mode_dimensions();
+void set_allocated_demo_mode_dimensions(::enterprise_management::DemoModeDimensions* demo_mode_dimensions);
+private:
+const ::enterprise_management::DemoModeDimensions& _internal_demo_mode_dimensions() const;
+::enterprise_management::DemoModeDimensions* _internal_mutable_demo_mode_dimensions();
+public:
+void unsafe_arena_set_allocated_demo_mode_dimensions(
+::enterprise_management::DemoModeDimensions* demo_mode_dimensions);
+::enterprise_management::DemoModeDimensions* unsafe_arena_release_demo_mode_dimensions();
+
 // optional bool reregister = 1;
 bool has_reregister() const;
 private:
@@ -3871,6 +3914,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr expected_enrollment_domain_;
 ::enterprise_management::LicenseType* license_type_;
 ::enterprise_management::DeviceRegisterIdentification* device_register_identification_;
+::enterprise_management::DemoModeDimensions* demo_mode_dimensions_;
 bool reregister_;
 int type_;
 int flavor_;
@@ -16306,6 +16350,237 @@ friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
 
+class POLICY_PROTO_EXPORT DemoModeDimensions final :
+public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DemoModeDimensions) */ {
+public:
+inline DemoModeDimensions() : DemoModeDimensions(nullptr) {}
+~DemoModeDimensions() override;
+explicit PROTOBUF_CONSTEXPR DemoModeDimensions(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+DemoModeDimensions(const DemoModeDimensions& from);
+DemoModeDimensions(DemoModeDimensions&& from) noexcept
+: DemoModeDimensions() {
+*this = ::std::move(from);
+}
+
+inline DemoModeDimensions& operator=(const DemoModeDimensions& from) {
+CopyFrom(from);
+return *this;
+}
+inline DemoModeDimensions& operator=(DemoModeDimensions&& from) noexcept {
+if (this == &from) return *this;
+if (GetOwningArena() == from.GetOwningArena()
+#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+&& GetOwningArena() != nullptr
+#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+) {
+InternalSwap(&from);
+} else {
+CopyFrom(from);
+}
+return *this;
+}
+
+inline const std::string& unknown_fields() const {
+return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+}
+inline std::string* mutable_unknown_fields() {
+return _internal_metadata_.mutable_unknown_fields<std::string>();
+}
+
+static const DemoModeDimensions& default_instance() {
+return *internal_default_instance();
+}
+static inline const DemoModeDimensions* internal_default_instance() {
+return reinterpret_cast<const DemoModeDimensions*>(
+&_DemoModeDimensions_default_instance_);
+}
+static constexpr int kIndexInFileMessages =
+64;
+
+friend void swap(DemoModeDimensions& a, DemoModeDimensions& b) {
+a.Swap(&b);
+}
+PROTOBUF_NOINLINE void Swap(DemoModeDimensions* other) {
+if (other == this) return;
+#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+if (GetOwningArena() != nullptr &&
+GetOwningArena() == other->GetOwningArena()) {
+#else  // PROTOBUF_FORCE_COPY_IN_SWAP
+if (GetOwningArena() == other->GetOwningArena()) {
+#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+InternalSwap(other);
+} else {
+::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+}
+}
+void UnsafeArenaSwap(DemoModeDimensions* other) {
+if (other == this) return;
+GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+InternalSwap(other);
+}
+
+// implements Message ----------------------------------------------
+
+DemoModeDimensions* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+return CreateMaybeMessage<DemoModeDimensions>(arena);
+}
+void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+void CopyFrom(const DemoModeDimensions& from);
+void MergeFrom(const DemoModeDimensions& from);
+PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+bool IsInitialized() const final;
+
+size_t ByteSizeLong() const final;
+const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+uint8_t* _InternalSerialize(
+uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+int GetCachedSize() const final { return _cached_size_.Get(); }
+
+private:
+void SharedCtor();
+void SharedDtor();
+void SetCachedSize(int size) const;
+void InternalSwap(DemoModeDimensions* other);
+
+private:
+friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+return "enterprise_management.DemoModeDimensions";
+}
+protected:
+explicit DemoModeDimensions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+bool is_message_owned = false);
+public:
+
+std::string GetTypeName() const final;
+
+// nested types ----------------------------------------------------
+
+typedef DemoModeDimensions_CustomizationFacet CustomizationFacet;
+static constexpr CustomizationFacet UNDEFINED =
+DemoModeDimensions_CustomizationFacet_UNDEFINED;
+static constexpr CustomizationFacet CLOUD_GAMING_DEVICE =
+DemoModeDimensions_CustomizationFacet_CLOUD_GAMING_DEVICE;
+static constexpr CustomizationFacet FEATURE_AWARE_DEVICE =
+DemoModeDimensions_CustomizationFacet_FEATURE_AWARE_DEVICE;
+static inline bool CustomizationFacet_IsValid(int value) {
+return DemoModeDimensions_CustomizationFacet_IsValid(value);
+}
+static constexpr CustomizationFacet CustomizationFacet_MIN =
+DemoModeDimensions_CustomizationFacet_CustomizationFacet_MIN;
+static constexpr CustomizationFacet CustomizationFacet_MAX =
+DemoModeDimensions_CustomizationFacet_CustomizationFacet_MAX;
+static constexpr int CustomizationFacet_ARRAYSIZE =
+DemoModeDimensions_CustomizationFacet_CustomizationFacet_ARRAYSIZE;
+template<typename T>
+static inline const std::string& CustomizationFacet_Name(T enum_t_value) {
+static_assert(::std::is_same<T, CustomizationFacet>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function CustomizationFacet_Name.");
+return DemoModeDimensions_CustomizationFacet_Name(enum_t_value);
+}
+static inline bool CustomizationFacet_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+CustomizationFacet* value) {
+return DemoModeDimensions_CustomizationFacet_Parse(name, value);
+}
+
+// accessors -------------------------------------------------------
+
+enum : int {
+kCustomizationFacetsFieldNumber = 4,
+kCountryFieldNumber = 1,
+kRetailerNameFieldNumber = 2,
+kStoreNumberFieldNumber = 3,
+};
+// repeated .enterprise_management.DemoModeDimensions.CustomizationFacet customization_facets = 4;
+int customization_facets_size() const;
+private:
+int _internal_customization_facets_size() const;
+public:
+void clear_customization_facets();
+private:
+::enterprise_management::DemoModeDimensions_CustomizationFacet _internal_customization_facets(int index) const;
+void _internal_add_customization_facets(::enterprise_management::DemoModeDimensions_CustomizationFacet value);
+::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_customization_facets();
+public:
+::enterprise_management::DemoModeDimensions_CustomizationFacet customization_facets(int index) const;
+void set_customization_facets(int index, ::enterprise_management::DemoModeDimensions_CustomizationFacet value);
+void add_customization_facets(::enterprise_management::DemoModeDimensions_CustomizationFacet value);
+const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& customization_facets() const;
+::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_customization_facets();
+
+// optional string country = 1;
+bool has_country() const;
+private:
+bool _internal_has_country() const;
+public:
+void clear_country();
+const std::string& country() const;
+template <typename ArgT0 = const std::string&, typename... ArgT>
+void set_country(ArgT0&& arg0, ArgT... args);
+std::string* mutable_country();
+PROTOBUF_NODISCARD std::string* release_country();
+void set_allocated_country(std::string* country);
+private:
+const std::string& _internal_country() const;
+inline PROTOBUF_ALWAYS_INLINE void _internal_set_country(const std::string& value);
+std::string* _internal_mutable_country();
+public:
+
+// optional string retailer_name = 2;
+bool has_retailer_name() const;
+private:
+bool _internal_has_retailer_name() const;
+public:
+void clear_retailer_name();
+const std::string& retailer_name() const;
+template <typename ArgT0 = const std::string&, typename... ArgT>
+void set_retailer_name(ArgT0&& arg0, ArgT... args);
+std::string* mutable_retailer_name();
+PROTOBUF_NODISCARD std::string* release_retailer_name();
+void set_allocated_retailer_name(std::string* retailer_name);
+private:
+const std::string& _internal_retailer_name() const;
+inline PROTOBUF_ALWAYS_INLINE void _internal_set_retailer_name(const std::string& value);
+std::string* _internal_mutable_retailer_name();
+public:
+
+// optional string store_number = 3;
+bool has_store_number() const;
+private:
+bool _internal_has_store_number() const;
+public:
+void clear_store_number();
+const std::string& store_number() const;
+template <typename ArgT0 = const std::string&, typename... ArgT>
+void set_store_number(ArgT0&& arg0, ArgT... args);
+std::string* mutable_store_number();
+PROTOBUF_NODISCARD std::string* release_store_number();
+void set_allocated_store_number(std::string* store_number);
+private:
+const std::string& _internal_store_number() const;
+inline PROTOBUF_ALWAYS_INLINE void _internal_set_store_number(const std::string& value);
+std::string* _internal_mutable_store_number();
+public:
+
+// @@protoc_insertion_point(class_scope:enterprise_management.DemoModeDimensions)
+private:
+class _Internal;
+
+template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+typedef void InternalArenaConstructable_;
+typedef void DestructorSkippable_;
+::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+::PROTOBUF_NAMESPACE_ID::RepeatedField<int> customization_facets_;
+::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr country_;
+::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr retailer_name_;
+::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr store_number_;
+friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
+};
+// -------------------------------------------------------------------
+
 class POLICY_PROTO_EXPORT DeviceStatusReportRequest final :
 public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceStatusReportRequest) */ {
 public:
@@ -16352,7 +16627,7 @@ return reinterpret_cast<const DeviceStatusReportRequest*>(
 &_DeviceStatusReportRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-64;
+65;
 
 friend void swap(DeviceStatusReportRequest& a, DeviceStatusReportRequest& b) {
 a.Swap(&b);
@@ -16454,6 +16729,7 @@ kSmbiosInfoFieldNumber = 41,
 kKernelParametersFieldNumber = 42,
 kEfiVarsFieldNumber = 43,
 kBootInfoFieldNumber = 44,
+kDemoModeDimensionsFieldNumber = 49,
 kSystemRamTotalFieldNumber = 14,
 kSoundVolumeFieldNumber = 19,
 kChannelFieldNumber = 22,
@@ -17153,6 +17429,24 @@ void unsafe_arena_set_allocated_boot_info(
 ::enterprise_management::BootInfo* boot_info);
 ::enterprise_management::BootInfo* unsafe_arena_release_boot_info();
 
+// optional .enterprise_management.DemoModeDimensions demo_mode_dimensions = 49;
+bool has_demo_mode_dimensions() const;
+private:
+bool _internal_has_demo_mode_dimensions() const;
+public:
+void clear_demo_mode_dimensions();
+const ::enterprise_management::DemoModeDimensions& demo_mode_dimensions() const;
+PROTOBUF_NODISCARD ::enterprise_management::DemoModeDimensions* release_demo_mode_dimensions();
+::enterprise_management::DemoModeDimensions* mutable_demo_mode_dimensions();
+void set_allocated_demo_mode_dimensions(::enterprise_management::DemoModeDimensions* demo_mode_dimensions);
+private:
+const ::enterprise_management::DemoModeDimensions& _internal_demo_mode_dimensions() const;
+::enterprise_management::DemoModeDimensions* _internal_mutable_demo_mode_dimensions();
+public:
+void unsafe_arena_set_allocated_demo_mode_dimensions(
+::enterprise_management::DemoModeDimensions* demo_mode_dimensions);
+::enterprise_management::DemoModeDimensions* unsafe_arena_release_demo_mode_dimensions();
+
 // optional int64 system_ram_total = 14;
 bool has_system_ram_total() const;
 private:
@@ -17278,6 +17572,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::KernelParameters* kernel_parameters_;
 ::enterprise_management::EFIVars* efi_vars_;
 ::enterprise_management::BootInfo* boot_info_;
+::enterprise_management::DemoModeDimensions* demo_mode_dimensions_;
 int64_t system_ram_total_;
 int32_t sound_volume_;
 int channel_;
@@ -17334,7 +17629,7 @@ return reinterpret_cast<const OsUpdateStatus*>(
 &_OsUpdateStatus_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-65;
+66;
 
 friend void swap(OsUpdateStatus& a, OsUpdateStatus& b) {
 a.Swap(&b);
@@ -17573,7 +17868,7 @@ return reinterpret_cast<const AppStatus*>(
 &_AppStatus_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-66;
+67;
 
 friend void swap(AppStatus& a, AppStatus& b) {
 a.Swap(&b);
@@ -17792,7 +18087,7 @@ return reinterpret_cast<const AppInfo*>(
 &_AppInfo_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-67;
+68;
 
 friend void swap(AppInfo& a, AppInfo& b) {
 a.Swap(&b);
@@ -18111,7 +18406,7 @@ return reinterpret_cast<const AndroidAppPermission*>(
 &_AndroidAppPermission_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-68;
+69;
 
 friend void swap(AndroidAppPermission& a, AndroidAppPermission& b) {
 a.Swap(&b);
@@ -18285,7 +18580,7 @@ return reinterpret_cast<const AndroidAppInfo*>(
 &_AndroidAppInfo_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-69;
+70;
 
 friend void swap(AndroidAppInfo& a, AndroidAppInfo& b) {
 a.Swap(&b);
@@ -18594,7 +18889,7 @@ return reinterpret_cast<const ChromeUserProfileReport*>(
 &_ChromeUserProfileReport_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-70;
+71;
 
 friend void swap(ChromeUserProfileReport& a, ChromeUserProfileReport& b) {
 a.Swap(&b);
@@ -18903,7 +19198,7 @@ return reinterpret_cast<const ChromeSignedInUser*>(
 &_ChromeSignedInUser_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-71;
+72;
 
 friend void swap(ChromeSignedInUser& a, ChromeSignedInUser& b) {
 a.Swap(&b);
@@ -19067,7 +19362,7 @@ return reinterpret_cast<const ExtensionRequest*>(
 &_ExtensionRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-72;
+73;
 
 friend void swap(ExtensionRequest& a, ExtensionRequest& b) {
 a.Swap(&b);
@@ -19246,7 +19541,7 @@ return reinterpret_cast<const Extension*>(
 &_Extension_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-73;
+74;
 
 friend void swap(Extension& a, Extension& b) {
 a.Swap(&b);
@@ -19671,7 +19966,7 @@ return reinterpret_cast<const Policy*>(
 &_Policy_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-74;
+75;
 
 friend void swap(Policy& a, Policy& b) {
 a.Swap(&b);
@@ -20000,7 +20295,7 @@ return reinterpret_cast<const ExtensionPolicy*>(
 &_ExtensionPolicy_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-75;
+76;
 
 friend void swap(ExtensionPolicy& a, ExtensionPolicy& b) {
 a.Swap(&b);
@@ -20164,7 +20459,7 @@ return reinterpret_cast<const PolicyFetchTimestamp*>(
 &_PolicyFetchTimestamp_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-76;
+77;
 
 friend void swap(PolicyFetchTimestamp& a, PolicyFetchTimestamp& b) {
 a.Swap(&b);
@@ -20323,7 +20618,7 @@ return reinterpret_cast<const ChromeUserProfileInfo*>(
 &_ChromeUserProfileInfo_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-77;
+78;
 
 friend void swap(ChromeUserProfileInfo& a, ChromeUserProfileInfo& b) {
 a.Swap(&b);
@@ -20622,7 +20917,7 @@ return reinterpret_cast<const BrowserReport*>(
 &_BrowserReport_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-78;
+79;
 
 friend void swap(BrowserReport& a, BrowserReport& b) {
 a.Swap(&b);
@@ -20876,7 +21171,7 @@ return reinterpret_cast<const OSReport*>(
 &_OSReport_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-79;
+80;
 
 friend void swap(OSReport& a, OSReport& b) {
 a.Swap(&b);
@@ -21111,7 +21406,7 @@ return reinterpret_cast<const ChromeDesktopReportRequest*>(
 &_ChromeDesktopReportRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-80;
+81;
 
 friend void swap(ChromeDesktopReportRequest& a, ChromeDesktopReportRequest& b) {
 a.Swap(&b);
@@ -21494,7 +21789,7 @@ return reinterpret_cast<const ChromeOsUserReportRequest*>(
 &_ChromeOsUserReportRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-81;
+82;
 
 friend void swap(ChromeOsUserReportRequest& a, ChromeOsUserReportRequest& b) {
 a.Swap(&b);
@@ -21677,7 +21972,7 @@ return reinterpret_cast<const ChromeProfileReportRequest*>(
 &_ChromeProfileReportRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-82;
+83;
 
 friend void swap(ChromeProfileReportRequest& a, ChromeProfileReportRequest& b) {
 a.Swap(&b);
@@ -21841,7 +22136,7 @@ return reinterpret_cast<const PolicyValueValidationIssue*>(
 &_PolicyValueValidationIssue_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-83;
+84;
 
 friend void swap(PolicyValueValidationIssue& a, PolicyValueValidationIssue& b) {
 a.Swap(&b);
@@ -22048,7 +22343,7 @@ return reinterpret_cast<const PolicyValidationReportRequest*>(
 &_PolicyValidationReportRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-84;
+85;
 
 friend void swap(PolicyValidationReportRequest& a, PolicyValidationReportRequest& b) {
 a.Swap(&b);
@@ -22301,7 +22596,7 @@ return reinterpret_cast<const PolicyValidationReportResponse*>(
 &_PolicyValidationReportResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-85;
+86;
 
 friend void swap(PolicyValidationReportResponse& a, PolicyValidationReportResponse& b) {
 a.Swap(&b);
@@ -22422,7 +22717,7 @@ return reinterpret_cast<const AndroidStatus*>(
 &_AndroidStatus_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-86;
+87;
 
 friend void swap(AndroidStatus& a, AndroidStatus& b) {
 a.Swap(&b);
@@ -22586,7 +22881,7 @@ return reinterpret_cast<const CrostiniApp*>(
 &_CrostiniApp_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-87;
+88;
 
 friend void swap(CrostiniApp& a, CrostiniApp& b) {
 a.Swap(&b);
@@ -22820,7 +23115,7 @@ return reinterpret_cast<const CrostiniStatus*>(
 &_CrostiniStatus_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-88;
+89;
 
 friend void swap(CrostiniStatus& a, CrostiniStatus& b) {
 a.Swap(&b);
@@ -23019,7 +23314,7 @@ return reinterpret_cast<const SessionStatusReportRequest*>(
 &_SessionStatusReportRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-89;
+90;
 
 friend void swap(SessionStatusReportRequest& a, SessionStatusReportRequest& b) {
 a.Swap(&b);
@@ -23283,7 +23578,7 @@ return reinterpret_cast<const DeviceStatusReportResponse*>(
 &_DeviceStatusReportResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-90;
+91;
 
 friend void swap(DeviceStatusReportResponse& a, DeviceStatusReportResponse& b) {
 a.Swap(&b);
@@ -23442,7 +23737,7 @@ return reinterpret_cast<const ChromeDesktopReportResponse*>(
 &_ChromeDesktopReportResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-91;
+92;
 
 friend void swap(ChromeDesktopReportResponse& a, ChromeDesktopReportResponse& b) {
 a.Swap(&b);
@@ -23563,7 +23858,7 @@ return reinterpret_cast<const ChromeOsUserReportResponse*>(
 &_ChromeOsUserReportResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-92;
+93;
 
 friend void swap(ChromeOsUserReportResponse& a, ChromeOsUserReportResponse& b) {
 a.Swap(&b);
@@ -23684,7 +23979,7 @@ return reinterpret_cast<const ChromeProfileReportResponse*>(
 &_ChromeProfileReportResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-93;
+94;
 
 friend void swap(ChromeProfileReportResponse& a, ChromeProfileReportResponse& b) {
 a.Swap(&b);
@@ -23805,7 +24100,7 @@ return reinterpret_cast<const SessionStatusReportResponse*>(
 &_SessionStatusReportResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-94;
+95;
 
 friend void swap(SessionStatusReportResponse& a, SessionStatusReportResponse& b) {
 a.Swap(&b);
@@ -23964,7 +24259,7 @@ return reinterpret_cast<const PrivateSetMembershipRequest*>(
 &_PrivateSetMembershipRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-95;
+96;
 
 friend void swap(PrivateSetMembershipRequest& a, PrivateSetMembershipRequest& b) {
 a.Swap(&b);
@@ -24108,7 +24403,7 @@ return reinterpret_cast<const PrivateSetMembershipResponse*>(
 &_PrivateSetMembershipResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-96;
+97;
 
 friend void swap(PrivateSetMembershipResponse& a, PrivateSetMembershipResponse& b) {
 a.Swap(&b);
@@ -24252,7 +24547,7 @@ return reinterpret_cast<const PrivateSetMembershipRlweRequest*>(
 &_PrivateSetMembershipRlweRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-97;
+98;
 
 friend void swap(PrivateSetMembershipRlweRequest& a, PrivateSetMembershipRlweRequest& b) {
 a.Swap(&b);
@@ -24416,7 +24711,7 @@ return reinterpret_cast<const PrivateSetMembershipRlweResponse*>(
 &_PrivateSetMembershipRlweResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-98;
+99;
 
 friend void swap(PrivateSetMembershipRlweResponse& a, PrivateSetMembershipRlweResponse& b) {
 a.Swap(&b);
@@ -24580,7 +24875,7 @@ return reinterpret_cast<const DeviceAutoEnrollmentRequest*>(
 &_DeviceAutoEnrollmentRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-99;
+100;
 
 friend void swap(DeviceAutoEnrollmentRequest& a, DeviceAutoEnrollmentRequest& b) {
 a.Swap(&b);
@@ -24777,7 +25072,7 @@ return reinterpret_cast<const DeviceAutoEnrollmentResponse*>(
 &_DeviceAutoEnrollmentResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-100;
+101;
 
 friend void swap(DeviceAutoEnrollmentResponse& a, DeviceAutoEnrollmentResponse& b) {
 a.Swap(&b);
@@ -24942,7 +25237,7 @@ return reinterpret_cast<const DeviceStateRetrievalRequest*>(
 &_DeviceStateRetrievalRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-101;
+102;
 
 friend void swap(DeviceStateRetrievalRequest& a, DeviceStateRetrievalRequest& b) {
 a.Swap(&b);
@@ -25126,7 +25421,7 @@ return reinterpret_cast<const DeviceStateKeyUpdateRequest*>(
 &_DeviceStateKeyUpdateRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-102;
+103;
 
 friend void swap(DeviceStateKeyUpdateRequest& a, DeviceStateKeyUpdateRequest& b) {
 a.Swap(&b);
@@ -25275,7 +25570,7 @@ return reinterpret_cast<const DeviceStateRetrievalResponse*>(
 &_DeviceStateRetrievalResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-103;
+104;
 
 friend void swap(DeviceStateRetrievalResponse& a, DeviceStateRetrievalResponse& b) {
 a.Swap(&b);
@@ -25526,7 +25821,7 @@ return reinterpret_cast<const DeviceInitialEnrollmentStateRequest*>(
 &_DeviceInitialEnrollmentStateRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-104;
+105;
 
 friend void swap(DeviceInitialEnrollmentStateRequest& a, DeviceInitialEnrollmentStateRequest& b) {
 a.Swap(&b);
@@ -25690,7 +25985,7 @@ return reinterpret_cast<const DeviceInitialEnrollmentStateResponse*>(
 &_DeviceInitialEnrollmentStateResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-105;
+106;
 
 friend void swap(DeviceInitialEnrollmentStateResponse& a, DeviceInitialEnrollmentStateResponse& b) {
 a.Swap(&b);
@@ -26002,7 +26297,7 @@ return reinterpret_cast<const DevicePairingRequest*>(
 &_DevicePairingRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-106;
+107;
 
 friend void swap(DevicePairingRequest& a, DevicePairingRequest& b) {
 a.Swap(&b);
@@ -26166,7 +26461,7 @@ return reinterpret_cast<const DevicePairingResponse*>(
 &_DevicePairingResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-107;
+108;
 
 friend void swap(DevicePairingResponse& a, DevicePairingResponse& b) {
 a.Swap(&b);
@@ -26339,7 +26634,7 @@ return reinterpret_cast<const CheckDevicePairingRequest*>(
 &_CheckDevicePairingRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-108;
+109;
 
 friend void swap(CheckDevicePairingRequest& a, CheckDevicePairingRequest& b) {
 a.Swap(&b);
@@ -26503,7 +26798,7 @@ return reinterpret_cast<const CheckDevicePairingResponse*>(
 &_CheckDevicePairingResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-109;
+110;
 
 friend void swap(CheckDevicePairingResponse& a, CheckDevicePairingResponse& b) {
 a.Swap(&b);
@@ -26678,7 +26973,7 @@ return reinterpret_cast<const RemoteCommand*>(
 &_RemoteCommand_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-110;
+111;
 
 friend void swap(RemoteCommand& a, RemoteCommand& b) {
 a.Swap(&b);
@@ -26945,7 +27240,7 @@ return reinterpret_cast<const RemoteCommandResult*>(
 &_RemoteCommandResult_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-111;
+112;
 
 friend void swap(RemoteCommandResult& a, RemoteCommandResult& b) {
 a.Swap(&b);
@@ -27162,7 +27457,7 @@ return reinterpret_cast<const DeviceRemoteCommandRequest*>(
 &_DeviceRemoteCommandRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-112;
+113;
 
 friend void swap(DeviceRemoteCommandRequest& a, DeviceRemoteCommandRequest& b) {
 a.Swap(&b);
@@ -27351,7 +27646,7 @@ return reinterpret_cast<const DeviceRemoteCommandResponse*>(
 &_DeviceRemoteCommandResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-113;
+114;
 
 friend void swap(DeviceRemoteCommandResponse& a, DeviceRemoteCommandResponse& b) {
 a.Swap(&b);
@@ -27514,7 +27809,7 @@ return reinterpret_cast<const DeviceAttributeUpdatePermissionRequest*>(
 &_DeviceAttributeUpdatePermissionRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-114;
+115;
 
 friend void swap(DeviceAttributeUpdatePermissionRequest& a, DeviceAttributeUpdatePermissionRequest& b) {
 a.Swap(&b);
@@ -27635,7 +27930,7 @@ return reinterpret_cast<const DeviceAttributeUpdatePermissionResponse*>(
 &_DeviceAttributeUpdatePermissionResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-115;
+116;
 
 friend void swap(DeviceAttributeUpdatePermissionResponse& a, DeviceAttributeUpdatePermissionResponse& b) {
 a.Swap(&b);
@@ -27800,7 +28095,7 @@ return reinterpret_cast<const DeviceAttributeUpdateRequest*>(
 &_DeviceAttributeUpdateRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-116;
+117;
 
 friend void swap(DeviceAttributeUpdateRequest& a, DeviceAttributeUpdateRequest& b) {
 a.Swap(&b);
@@ -27964,7 +28259,7 @@ return reinterpret_cast<const DeviceAttributeUpdateResponse*>(
 &_DeviceAttributeUpdateResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-117;
+118;
 
 friend void swap(DeviceAttributeUpdateResponse& a, DeviceAttributeUpdateResponse& b) {
 a.Swap(&b);
@@ -28129,7 +28424,7 @@ return reinterpret_cast<const GcmIdUpdateRequest*>(
 &_GcmIdUpdateRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-118;
+119;
 
 friend void swap(GcmIdUpdateRequest& a, GcmIdUpdateRequest& b) {
 a.Swap(&b);
@@ -28273,7 +28568,7 @@ return reinterpret_cast<const GcmIdUpdateResponse*>(
 &_GcmIdUpdateResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-119;
+120;
 
 friend void swap(GcmIdUpdateResponse& a, GcmIdUpdateResponse& b) {
 a.Swap(&b);
@@ -28394,7 +28689,7 @@ return reinterpret_cast<const CheckAndroidManagementRequest*>(
 &_CheckAndroidManagementRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-120;
+121;
 
 friend void swap(CheckAndroidManagementRequest& a, CheckAndroidManagementRequest& b) {
 a.Swap(&b);
@@ -28515,7 +28810,7 @@ return reinterpret_cast<const CheckAndroidManagementResponse*>(
 &_CheckAndroidManagementResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-121;
+122;
 
 friend void swap(CheckAndroidManagementResponse& a, CheckAndroidManagementResponse& b) {
 a.Swap(&b);
@@ -28636,7 +28931,7 @@ return reinterpret_cast<const CertificateBasedDeviceRegisterRequest*>(
 &_CertificateBasedDeviceRegisterRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-122;
+123;
 
 friend void swap(CertificateBasedDeviceRegisterRequest& a, CertificateBasedDeviceRegisterRequest& b) {
 a.Swap(&b);
@@ -28780,7 +29075,7 @@ return reinterpret_cast<const DeviceRegisterConfiguration*>(
 &_DeviceRegisterConfiguration_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-123;
+124;
 
 friend void swap(DeviceRegisterConfiguration& a, DeviceRegisterConfiguration& b) {
 a.Swap(&b);
@@ -28924,7 +29219,7 @@ return reinterpret_cast<const CertificateBasedDeviceRegistrationData*>(
 &_CertificateBasedDeviceRegistrationData_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-124;
+125;
 
 friend void swap(CertificateBasedDeviceRegistrationData& a, CertificateBasedDeviceRegistrationData& b) {
 a.Swap(&b);
@@ -29149,7 +29444,7 @@ return reinterpret_cast<const RegisterBrowserRequest*>(
 &_RegisterBrowserRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-125;
+126;
 
 friend void swap(RegisterBrowserRequest& a, RegisterBrowserRequest& b) {
 a.Swap(&b);
@@ -29393,7 +29688,7 @@ return reinterpret_cast<const ActiveDirectoryEnrollPlayUserRequest*>(
 &_ActiveDirectoryEnrollPlayUserRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-126;
+127;
 
 friend void swap(ActiveDirectoryEnrollPlayUserRequest& a, ActiveDirectoryEnrollPlayUserRequest& b) {
 a.Swap(&b);
@@ -29537,7 +29832,7 @@ return reinterpret_cast<const ActiveDirectoryEnrollPlayUserResponse*>(
 &_ActiveDirectoryEnrollPlayUserResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-127;
+128;
 
 friend void swap(ActiveDirectoryEnrollPlayUserResponse& a, ActiveDirectoryEnrollPlayUserResponse& b) {
 a.Swap(&b);
@@ -29721,7 +30016,7 @@ return reinterpret_cast<const SamlParametersProto*>(
 &_SamlParametersProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-128;
+129;
 
 friend void swap(SamlParametersProto& a, SamlParametersProto& b) {
 a.Swap(&b);
@@ -29885,7 +30180,7 @@ return reinterpret_cast<const PublicSamlUserRequest*>(
 &_PublicSamlUserRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-129;
+130;
 
 friend void swap(PublicSamlUserRequest& a, PublicSamlUserRequest& b) {
 a.Swap(&b);
@@ -30029,7 +30324,7 @@ return reinterpret_cast<const PublicSamlUserResponse*>(
 &_PublicSamlUserResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-130;
+131;
 
 friend void swap(PublicSamlUserResponse& a, PublicSamlUserResponse& b) {
 a.Swap(&b);
@@ -30173,7 +30468,7 @@ return reinterpret_cast<const ActiveDirectoryPlayActivityRequest*>(
 &_ActiveDirectoryPlayActivityRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-131;
+132;
 
 friend void swap(ActiveDirectoryPlayActivityRequest& a, ActiveDirectoryPlayActivityRequest& b) {
 a.Swap(&b);
@@ -30317,7 +30612,7 @@ return reinterpret_cast<const ActiveDirectoryPlayActivityResponse*>(
 &_ActiveDirectoryPlayActivityResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-132;
+133;
 
 friend void swap(ActiveDirectoryPlayActivityResponse& a, ActiveDirectoryPlayActivityResponse& b) {
 a.Swap(&b);
@@ -30438,7 +30733,7 @@ return reinterpret_cast<const CheckDeviceLicenseRequest*>(
 &_CheckDeviceLicenseRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-133;
+134;
 
 friend void swap(CheckDeviceLicenseRequest& a, CheckDeviceLicenseRequest& b) {
 a.Swap(&b);
@@ -30559,7 +30854,7 @@ return reinterpret_cast<const LicenseAvailability*>(
 &_LicenseAvailability_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-134;
+135;
 
 friend void swap(LicenseAvailability& a, LicenseAvailability& b) {
 a.Swap(&b);
@@ -30718,7 +31013,7 @@ return reinterpret_cast<const CheckDeviceLicenseResponse*>(
 &_CheckDeviceLicenseResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-135;
+136;
 
 friend void swap(CheckDeviceLicenseResponse& a, CheckDeviceLicenseResponse& b) {
 a.Swap(&b);
@@ -30905,7 +31200,7 @@ return reinterpret_cast<const ActiveDirectoryUserSigninRequest*>(
 &_ActiveDirectoryUserSigninRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-136;
+137;
 
 friend void swap(ActiveDirectoryUserSigninRequest& a, ActiveDirectoryUserSigninRequest& b) {
 a.Swap(&b);
@@ -31026,7 +31321,7 @@ return reinterpret_cast<const ActiveDirectoryUserSigninResponse*>(
 &_ActiveDirectoryUserSigninResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-137;
+138;
 
 friend void swap(ActiveDirectoryUserSigninResponse& a, ActiveDirectoryUserSigninResponse& b) {
 a.Swap(&b);
@@ -31170,7 +31465,7 @@ return reinterpret_cast<const TpmVersionInfo*>(
 &_TpmVersionInfo_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-138;
+139;
 
 friend void swap(TpmVersionInfo& a, TpmVersionInfo& b) {
 a.Swap(&b);
@@ -31454,7 +31749,7 @@ return reinterpret_cast<const TpmStatusInfo*>(
 &_TpmStatusInfo_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-139;
+140;
 
 friend void swap(TpmStatusInfo& a, TpmStatusInfo& b) {
 a.Swap(&b);
@@ -31763,7 +32058,7 @@ return reinterpret_cast<const TpmSupportedFeatures*>(
 &_TpmSupportedFeatures_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-140;
+141;
 
 friend void swap(TpmSupportedFeatures& a, TpmSupportedFeatures& b) {
 a.Swap(&b);
@@ -31947,7 +32242,7 @@ return reinterpret_cast<const SystemState*>(
 &_SystemState_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-141;
+142;
 
 friend void swap(SystemState& a, SystemState& b) {
 a.Swap(&b);
@@ -32090,7 +32385,7 @@ return reinterpret_cast<const ExtensionInstallReportLogEvent*>(
 &_ExtensionInstallReportLogEvent_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-142;
+143;
 
 friend void swap(ExtensionInstallReportLogEvent& a, ExtensionInstallReportLogEvent& b) {
 a.Swap(&b);
@@ -33094,7 +33389,7 @@ return reinterpret_cast<const AppInstallReportLogEvent*>(
 &_AppInstallReportLogEvent_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-143;
+144;
 
 friend void swap(AppInstallReportLogEvent& a, AppInstallReportLogEvent& b) {
 a.Swap(&b);
@@ -33444,7 +33739,7 @@ return reinterpret_cast<const ExtensionInstallReport*>(
 &_ExtensionInstallReport_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-144;
+145;
 
 friend void swap(ExtensionInstallReport& a, ExtensionInstallReport& b) {
 a.Swap(&b);
@@ -33623,7 +33918,7 @@ return reinterpret_cast<const AppInstallReport*>(
 &_AppInstallReport_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-145;
+146;
 
 friend void swap(AppInstallReport& a, AppInstallReport& b) {
 a.Swap(&b);
@@ -33802,7 +34097,7 @@ return reinterpret_cast<const AppInstallReportRequest*>(
 &_AppInstallReportRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-146;
+147;
 
 friend void swap(AppInstallReportRequest& a, AppInstallReportRequest& b) {
 a.Swap(&b);
@@ -33945,7 +34240,7 @@ return reinterpret_cast<const ExtensionInstallReportRequest*>(
 &_ExtensionInstallReportRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-147;
+148;
 
 friend void swap(ExtensionInstallReportRequest& a, ExtensionInstallReportRequest& b) {
 a.Swap(&b);
@@ -34088,7 +34383,7 @@ return reinterpret_cast<const AppInstallReportResponse*>(
 &_AppInstallReportResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-148;
+149;
 
 friend void swap(AppInstallReportResponse& a, AppInstallReportResponse& b) {
 a.Swap(&b);
@@ -34209,7 +34504,7 @@ return reinterpret_cast<const RefreshAccountRequest*>(
 &_RefreshAccountRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-149;
+150;
 
 friend void swap(RefreshAccountRequest& a, RefreshAccountRequest& b) {
 a.Swap(&b);
@@ -34374,7 +34669,7 @@ return reinterpret_cast<const RefreshAccountResponse*>(
 &_RefreshAccountResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-150;
+151;
 
 friend void swap(RefreshAccountResponse& a, RefreshAccountResponse& b) {
 a.Swap(&b);
@@ -34495,7 +34790,7 @@ return reinterpret_cast<const RsuLookupKeyUploadRequest*>(
 &_RsuLookupKeyUploadRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-151;
+152;
 
 friend void swap(RsuLookupKeyUploadRequest& a, RsuLookupKeyUploadRequest& b) {
 a.Swap(&b);
@@ -34659,7 +34954,7 @@ return reinterpret_cast<const RsuLookupKeyUploadResponse*>(
 &_RsuLookupKeyUploadResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-152;
+153;
 
 friend void swap(RsuLookupKeyUploadResponse& a, RsuLookupKeyUploadResponse& b) {
 a.Swap(&b);
@@ -34798,7 +35093,7 @@ return reinterpret_cast<const ESimProfileInfo*>(
 &_ESimProfileInfo_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-153;
+154;
 
 friend void swap(ESimProfileInfo& a, ESimProfileInfo& b) {
 a.Swap(&b);
@@ -34962,7 +35257,7 @@ return reinterpret_cast<const UploadEuiccInfoRequest*>(
 &_UploadEuiccInfoRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-154;
+155;
 
 friend void swap(UploadEuiccInfoRequest& a, UploadEuiccInfoRequest& b) {
 a.Swap(&b);
@@ -35136,7 +35431,7 @@ return reinterpret_cast<const UploadEuiccInfoResponse*>(
 &_UploadEuiccInfoResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-155;
+156;
 
 friend void swap(UploadEuiccInfoResponse& a, UploadEuiccInfoResponse& b) {
 a.Swap(&b);
@@ -35257,7 +35552,7 @@ return reinterpret_cast<const PrintJobEvent_PrintJobConfiguration*>(
 &_PrintJobEvent_PrintJobConfiguration_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-156;
+157;
 
 friend void swap(PrintJobEvent_PrintJobConfiguration& a, PrintJobEvent_PrintJobConfiguration& b) {
 a.Swap(&b);
@@ -35501,7 +35796,7 @@ return reinterpret_cast<const PrintJobEvent_Printer*>(
 &_PrintJobEvent_Printer_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-157;
+158;
 
 friend void swap(PrintJobEvent_Printer& a, PrintJobEvent_Printer& b) {
 a.Swap(&b);
@@ -35685,7 +35980,7 @@ return reinterpret_cast<const PrintJobEvent_PrintSettings_MediaSize*>(
 &_PrintJobEvent_PrintSettings_MediaSize_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-158;
+159;
 
 friend void swap(PrintJobEvent_PrintSettings_MediaSize& a, PrintJobEvent_PrintSettings_MediaSize& b) {
 a.Swap(&b);
@@ -35859,7 +36154,7 @@ return reinterpret_cast<const PrintJobEvent_PrintSettings*>(
 &_PrintJobEvent_PrintSettings_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-159;
+160;
 
 friend void swap(PrintJobEvent_PrintSettings& a, PrintJobEvent_PrintSettings& b) {
 a.Swap(&b);
@@ -36108,7 +36403,7 @@ return reinterpret_cast<const PrintJobEvent*>(
 &_PrintJobEvent_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-160;
+161;
 
 friend void swap(PrintJobEvent& a, PrintJobEvent& b) {
 a.Swap(&b);
@@ -36321,7 +36616,7 @@ return reinterpret_cast<const App*>(
 &_App_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-161;
+162;
 
 friend void swap(App& a, App& b) {
 a.Swap(&b);
@@ -36546,7 +36841,7 @@ return reinterpret_cast<const AppActivity*>(
 &_AppActivity_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-162;
+163;
 
 friend void swap(AppActivity& a, AppActivity& b) {
 a.Swap(&b);
@@ -36774,7 +37069,7 @@ return reinterpret_cast<const ScreenTimeSpan*>(
 &_ScreenTimeSpan_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-163;
+164;
 
 friend void swap(ScreenTimeSpan& a, ScreenTimeSpan& b) {
 a.Swap(&b);
@@ -36933,7 +37228,7 @@ return reinterpret_cast<const ChildStatusReportRequest*>(
 &_ChildStatusReportRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-164;
+165;
 
 friend void swap(ChildStatusReportRequest& a, ChildStatusReportRequest& b) {
 a.Swap(&b);
@@ -37232,7 +37527,7 @@ return reinterpret_cast<const ChildStatusReportResponse*>(
 &_ChildStatusReportResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-165;
+166;
 
 friend void swap(ChildStatusReportResponse& a, ChildStatusReportResponse& b) {
 a.Swap(&b);
@@ -37391,7 +37686,7 @@ return reinterpret_cast<const StartCsrRequest*>(
 &_StartCsrRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-166;
+167;
 
 friend void swap(StartCsrRequest& a, StartCsrRequest& b) {
 a.Swap(&b);
@@ -37512,7 +37807,7 @@ return reinterpret_cast<const StartCsrResponse*>(
 &_StartCsrResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-167;
+168;
 
 friend void swap(StartCsrResponse& a, StartCsrResponse& b) {
 a.Swap(&b);
@@ -37726,7 +38021,7 @@ return reinterpret_cast<const FinishCsrRequest*>(
 &_FinishCsrRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-168;
+169;
 
 friend void swap(FinishCsrRequest& a, FinishCsrRequest& b) {
 a.Swap(&b);
@@ -37890,7 +38185,7 @@ return reinterpret_cast<const FinishCsrResponse*>(
 &_FinishCsrResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-169;
+170;
 
 friend void swap(FinishCsrResponse& a, FinishCsrResponse& b) {
 a.Swap(&b);
@@ -38011,7 +38306,7 @@ return reinterpret_cast<const DownloadCertRequest*>(
 &_DownloadCertRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-170;
+171;
 
 friend void swap(DownloadCertRequest& a, DownloadCertRequest& b) {
 a.Swap(&b);
@@ -38132,7 +38427,7 @@ return reinterpret_cast<const DownloadCertResponse*>(
 &_DownloadCertResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-171;
+172;
 
 friend void swap(DownloadCertResponse& a, DownloadCertResponse& b) {
 a.Swap(&b);
@@ -38276,7 +38571,7 @@ return reinterpret_cast<const CertProvStartOrContinueRequest*>(
 &_CertProvStartOrContinueRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-172;
+173;
 
 friend void swap(CertProvStartOrContinueRequest& a, CertProvStartOrContinueRequest& b) {
 a.Swap(&b);
@@ -38397,7 +38692,7 @@ return reinterpret_cast<const CertProvAuthorizeRequest*>(
 &_CertProvAuthorizeRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-173;
+174;
 
 friend void swap(CertProvAuthorizeRequest& a, CertProvAuthorizeRequest& b) {
 a.Swap(&b);
@@ -38541,7 +38836,7 @@ return reinterpret_cast<const CertProvUploadProofOfPossessionRequest*>(
 &_CertProvUploadProofOfPossessionRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-174;
+175;
 
 friend void swap(CertProvUploadProofOfPossessionRequest& a, CertProvUploadProofOfPossessionRequest& b) {
 a.Swap(&b);
@@ -38685,7 +38980,7 @@ return reinterpret_cast<const CertProvTryLaterInstruction*>(
 &_CertProvTryLaterInstruction_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-175;
+176;
 
 friend void swap(CertProvTryLaterInstruction& a, CertProvTryLaterInstruction& b) {
 a.Swap(&b);
@@ -38824,7 +39119,7 @@ return reinterpret_cast<const CertProvAuthorizeInstruction*>(
 &_CertProvAuthorizeInstruction_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-176;
+177;
 
 friend void swap(CertProvAuthorizeInstruction& a, CertProvAuthorizeInstruction& b) {
 a.Swap(&b);
@@ -38968,7 +39263,7 @@ return reinterpret_cast<const CertProvProofOfPossessionInstruction*>(
 &_CertProvProofOfPossessionInstruction_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-177;
+178;
 
 friend void swap(CertProvProofOfPossessionInstruction& a, CertProvProofOfPossessionInstruction& b) {
 a.Swap(&b);
@@ -39112,7 +39407,7 @@ return reinterpret_cast<const CertProvImportCertificateInstruction*>(
 &_CertProvImportCertificateInstruction_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-178;
+179;
 
 friend void swap(CertProvImportCertificateInstruction& a, CertProvImportCertificateInstruction& b) {
 a.Swap(&b);
@@ -39264,7 +39559,7 @@ return reinterpret_cast<const CertProvNextActionResponse*>(
 &_CertProvNextActionResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-179;
+180;
 
 friend void swap(CertProvNextActionResponse& a, CertProvNextActionResponse& b) {
 a.Swap(&b);
@@ -39513,7 +39808,7 @@ return reinterpret_cast<const ClientCertificateProvisioningRequest*>(
 &_ClientCertificateProvisioningRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-180;
+181;
 
 friend void swap(ClientCertificateProvisioningRequest& a, ClientCertificateProvisioningRequest& b) {
 a.Swap(&b);
@@ -39883,7 +40178,7 @@ return reinterpret_cast<const ClientCertificateProvisioningResponse*>(
 &_ClientCertificateProvisioningResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-181;
+182;
 
 friend void swap(ClientCertificateProvisioningResponse& a, ClientCertificateProvisioningResponse& b) {
 a.Swap(&b);
@@ -40175,7 +40470,7 @@ return reinterpret_cast<const BrowserPublicKeyUploadRequest*>(
 &_BrowserPublicKeyUploadRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-182;
+183;
 
 friend void swap(BrowserPublicKeyUploadRequest& a, BrowserPublicKeyUploadRequest& b) {
 a.Swap(&b);
@@ -40425,7 +40720,7 @@ return reinterpret_cast<const BrowserPublicKeyUploadResponse*>(
 &_BrowserPublicKeyUploadResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-183;
+184;
 
 friend void swap(BrowserPublicKeyUploadResponse& a, BrowserPublicKeyUploadResponse& b) {
 a.Swap(&b);
@@ -40592,7 +40887,7 @@ return reinterpret_cast<const DeviceManagementRequest*>(
 &_DeviceManagementRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-184;
+185;
 
 friend void swap(DeviceManagementRequest& a, DeviceManagementRequest& b) {
 a.Swap(&b);
@@ -41496,7 +41791,7 @@ return reinterpret_cast<const DeviceManagementResponse*>(
 &_DeviceManagementResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-185;
+186;
 
 friend void swap(DeviceManagementResponse& a, DeviceManagementResponse& b) {
 a.Swap(&b);
@@ -42359,7 +42654,7 @@ return reinterpret_cast<const DeviceStateRetrievalInfo*>(
 &_DeviceStateRetrievalInfo_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-186;
+187;
 
 friend void swap(DeviceStateRetrievalInfo& a, DeviceStateRetrievalInfo& b) {
 a.Swap(&b);
@@ -42736,7 +43031,7 @@ user_email_.Set("", GetArenaForAllocation());
 
 // optional bool reregister = 1;
 inline bool DeviceRegisterRequest::_internal_has_reregister() const {
-bool value = (_has_bits_[0] & 0x00001000u) != 0;
+bool value = (_has_bits_[0] & 0x00002000u) != 0;
 return value;
 }
 inline bool DeviceRegisterRequest::has_reregister() const {
@@ -42744,7 +43039,7 @@ return _internal_has_reregister();
 }
 inline void DeviceRegisterRequest::clear_reregister() {
 reregister_ = false;
-_has_bits_[0] &= ~0x00001000u;
+_has_bits_[0] &= ~0x00002000u;
 }
 inline bool DeviceRegisterRequest::_internal_reregister() const {
 return reregister_;
@@ -42754,7 +43049,7 @@ inline bool DeviceRegisterRequest::reregister() const {
 return _internal_reregister();
 }
 inline void DeviceRegisterRequest::_internal_set_reregister(bool value) {
-_has_bits_[0] |= 0x00001000u;
+_has_bits_[0] |= 0x00002000u;
 reregister_ = value;
 }
 inline void DeviceRegisterRequest::set_reregister(bool value) {
@@ -42764,7 +43059,7 @@ _internal_set_reregister(value);
 
 // optional .enterprise_management.DeviceRegisterRequest.Type type = 2 [default = TT];
 inline bool DeviceRegisterRequest::_internal_has_type() const {
-bool value = (_has_bits_[0] & 0x00002000u) != 0;
+bool value = (_has_bits_[0] & 0x00004000u) != 0;
 return value;
 }
 inline bool DeviceRegisterRequest::has_type() const {
@@ -42772,7 +43067,7 @@ return _internal_has_type();
 }
 inline void DeviceRegisterRequest::clear_type() {
 type_ = 0;
-_has_bits_[0] &= ~0x00002000u;
+_has_bits_[0] &= ~0x00004000u;
 }
 inline ::enterprise_management::DeviceRegisterRequest_Type DeviceRegisterRequest::_internal_type() const {
 return static_cast< ::enterprise_management::DeviceRegisterRequest_Type >(type_);
@@ -42783,7 +43078,7 @@ return _internal_type();
 }
 inline void DeviceRegisterRequest::_internal_set_type(::enterprise_management::DeviceRegisterRequest_Type value) {
 assert(::enterprise_management::DeviceRegisterRequest_Type_IsValid(value));
-_has_bits_[0] |= 0x00002000u;
+_has_bits_[0] |= 0x00004000u;
 type_ = value;
 }
 inline void DeviceRegisterRequest::set_type(::enterprise_management::DeviceRegisterRequest_Type value) {
@@ -43065,7 +43360,7 @@ server_backed_state_key_.Set("", GetArenaForAllocation());
 
 // optional .enterprise_management.DeviceRegisterRequest.Flavor flavor = 8;
 inline bool DeviceRegisterRequest::_internal_has_flavor() const {
-bool value = (_has_bits_[0] & 0x00004000u) != 0;
+bool value = (_has_bits_[0] & 0x00008000u) != 0;
 return value;
 }
 inline bool DeviceRegisterRequest::has_flavor() const {
@@ -43073,7 +43368,7 @@ return _internal_has_flavor();
 }
 inline void DeviceRegisterRequest::clear_flavor() {
 flavor_ = 0;
-_has_bits_[0] &= ~0x00004000u;
+_has_bits_[0] &= ~0x00008000u;
 }
 inline ::enterprise_management::DeviceRegisterRequest_Flavor DeviceRegisterRequest::_internal_flavor() const {
 return static_cast< ::enterprise_management::DeviceRegisterRequest_Flavor >(flavor_);
@@ -43084,7 +43379,7 @@ return _internal_flavor();
 }
 inline void DeviceRegisterRequest::_internal_set_flavor(::enterprise_management::DeviceRegisterRequest_Flavor value) {
 assert(::enterprise_management::DeviceRegisterRequest_Flavor_IsValid(value));
-_has_bits_[0] |= 0x00004000u;
+_has_bits_[0] |= 0x00008000u;
 flavor_ = value;
 }
 inline void DeviceRegisterRequest::set_flavor(::enterprise_management::DeviceRegisterRequest_Flavor value) {
@@ -43184,7 +43479,7 @@ license_type_ = license_type;
 
 // optional .enterprise_management.DeviceRegisterRequest.Lifetime lifetime = 11 [default = LIFETIME_INDEFINITE];
 inline bool DeviceRegisterRequest::_internal_has_lifetime() const {
-bool value = (_has_bits_[0] & 0x00020000u) != 0;
+bool value = (_has_bits_[0] & 0x00040000u) != 0;
 return value;
 }
 inline bool DeviceRegisterRequest::has_lifetime() const {
@@ -43192,7 +43487,7 @@ return _internal_has_lifetime();
 }
 inline void DeviceRegisterRequest::clear_lifetime() {
 lifetime_ = 1;
-_has_bits_[0] &= ~0x00020000u;
+_has_bits_[0] &= ~0x00040000u;
 }
 inline ::enterprise_management::DeviceRegisterRequest_Lifetime DeviceRegisterRequest::_internal_lifetime() const {
 return static_cast< ::enterprise_management::DeviceRegisterRequest_Lifetime >(lifetime_);
@@ -43203,7 +43498,7 @@ return _internal_lifetime();
 }
 inline void DeviceRegisterRequest::_internal_set_lifetime(::enterprise_management::DeviceRegisterRequest_Lifetime value) {
 assert(::enterprise_management::DeviceRegisterRequest_Lifetime_IsValid(value));
-_has_bits_[0] |= 0x00020000u;
+_has_bits_[0] |= 0x00040000u;
 lifetime_ = value;
 }
 inline void DeviceRegisterRequest::set_lifetime(::enterprise_management::DeviceRegisterRequest_Lifetime value) {
@@ -43711,7 +44006,7 @@ device_register_identification_ = device_register_identification;
 
 // optional .enterprise_management.DeviceRegisterRequest.PsmExecutionResult psm_execution_result = 19;
 inline bool DeviceRegisterRequest::_internal_has_psm_execution_result() const {
-bool value = (_has_bits_[0] & 0x00008000u) != 0;
+bool value = (_has_bits_[0] & 0x00010000u) != 0;
 return value;
 }
 inline bool DeviceRegisterRequest::has_psm_execution_result() const {
@@ -43719,7 +44014,7 @@ return _internal_has_psm_execution_result();
 }
 inline void DeviceRegisterRequest::clear_psm_execution_result() {
 psm_execution_result_ = 0;
-_has_bits_[0] &= ~0x00008000u;
+_has_bits_[0] &= ~0x00010000u;
 }
 inline ::enterprise_management::DeviceRegisterRequest_PsmExecutionResult DeviceRegisterRequest::_internal_psm_execution_result() const {
 return static_cast< ::enterprise_management::DeviceRegisterRequest_PsmExecutionResult >(psm_execution_result_);
@@ -43730,7 +44025,7 @@ return _internal_psm_execution_result();
 }
 inline void DeviceRegisterRequest::_internal_set_psm_execution_result(::enterprise_management::DeviceRegisterRequest_PsmExecutionResult value) {
 assert(::enterprise_management::DeviceRegisterRequest_PsmExecutionResult_IsValid(value));
-_has_bits_[0] |= 0x00008000u;
+_has_bits_[0] |= 0x00010000u;
 psm_execution_result_ = value;
 }
 inline void DeviceRegisterRequest::set_psm_execution_result(::enterprise_management::DeviceRegisterRequest_PsmExecutionResult value) {
@@ -43740,7 +44035,7 @@ _internal_set_psm_execution_result(value);
 
 // optional int64 psm_determination_timestamp_ms = 20;
 inline bool DeviceRegisterRequest::_internal_has_psm_determination_timestamp_ms() const {
-bool value = (_has_bits_[0] & 0x00010000u) != 0;
+bool value = (_has_bits_[0] & 0x00020000u) != 0;
 return value;
 }
 inline bool DeviceRegisterRequest::has_psm_determination_timestamp_ms() const {
@@ -43748,7 +44043,7 @@ return _internal_has_psm_determination_timestamp_ms();
 }
 inline void DeviceRegisterRequest::clear_psm_determination_timestamp_ms() {
 psm_determination_timestamp_ms_ = int64_t{0};
-_has_bits_[0] &= ~0x00010000u;
+_has_bits_[0] &= ~0x00020000u;
 }
 inline int64_t DeviceRegisterRequest::_internal_psm_determination_timestamp_ms() const {
 return psm_determination_timestamp_ms_;
@@ -43758,12 +44053,102 @@ inline int64_t DeviceRegisterRequest::psm_determination_timestamp_ms() const {
 return _internal_psm_determination_timestamp_ms();
 }
 inline void DeviceRegisterRequest::_internal_set_psm_determination_timestamp_ms(int64_t value) {
-_has_bits_[0] |= 0x00010000u;
+_has_bits_[0] |= 0x00020000u;
 psm_determination_timestamp_ms_ = value;
 }
 inline void DeviceRegisterRequest::set_psm_determination_timestamp_ms(int64_t value) {
 _internal_set_psm_determination_timestamp_ms(value);
 // @@protoc_insertion_point(field_set:enterprise_management.DeviceRegisterRequest.psm_determination_timestamp_ms)
+}
+
+// optional .enterprise_management.DemoModeDimensions demo_mode_dimensions = 21;
+inline bool DeviceRegisterRequest::_internal_has_demo_mode_dimensions() const {
+bool value = (_has_bits_[0] & 0x00001000u) != 0;
+PROTOBUF_ASSUME(!value || demo_mode_dimensions_ != nullptr);
+return value;
+}
+inline bool DeviceRegisterRequest::has_demo_mode_dimensions() const {
+return _internal_has_demo_mode_dimensions();
+}
+inline void DeviceRegisterRequest::clear_demo_mode_dimensions() {
+if (demo_mode_dimensions_ != nullptr) demo_mode_dimensions_->Clear();
+_has_bits_[0] &= ~0x00001000u;
+}
+inline const ::enterprise_management::DemoModeDimensions& DeviceRegisterRequest::_internal_demo_mode_dimensions() const {
+const ::enterprise_management::DemoModeDimensions* p = demo_mode_dimensions_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DemoModeDimensions&>(
+::enterprise_management::_DemoModeDimensions_default_instance_);
+}
+inline const ::enterprise_management::DemoModeDimensions& DeviceRegisterRequest::demo_mode_dimensions() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceRegisterRequest.demo_mode_dimensions)
+return _internal_demo_mode_dimensions();
+}
+inline void DeviceRegisterRequest::unsafe_arena_set_allocated_demo_mode_dimensions(
+::enterprise_management::DemoModeDimensions* demo_mode_dimensions) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(demo_mode_dimensions_);
+}
+demo_mode_dimensions_ = demo_mode_dimensions;
+if (demo_mode_dimensions) {
+_has_bits_[0] |= 0x00001000u;
+} else {
+_has_bits_[0] &= ~0x00001000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.DeviceRegisterRequest.demo_mode_dimensions)
+}
+inline ::enterprise_management::DemoModeDimensions* DeviceRegisterRequest::release_demo_mode_dimensions() {
+_has_bits_[0] &= ~0x00001000u;
+::enterprise_management::DemoModeDimensions* temp = demo_mode_dimensions_;
+demo_mode_dimensions_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::DemoModeDimensions* DeviceRegisterRequest::unsafe_arena_release_demo_mode_dimensions() {
+// @@protoc_insertion_point(field_release:enterprise_management.DeviceRegisterRequest.demo_mode_dimensions)
+_has_bits_[0] &= ~0x00001000u;
+::enterprise_management::DemoModeDimensions* temp = demo_mode_dimensions_;
+demo_mode_dimensions_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::DemoModeDimensions* DeviceRegisterRequest::_internal_mutable_demo_mode_dimensions() {
+_has_bits_[0] |= 0x00001000u;
+if (demo_mode_dimensions_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::DemoModeDimensions>(GetArenaForAllocation());
+demo_mode_dimensions_ = p;
+}
+return demo_mode_dimensions_;
+}
+inline ::enterprise_management::DemoModeDimensions* DeviceRegisterRequest::mutable_demo_mode_dimensions() {
+::enterprise_management::DemoModeDimensions* _msg = _internal_mutable_demo_mode_dimensions();
+// @@protoc_insertion_point(field_mutable:enterprise_management.DeviceRegisterRequest.demo_mode_dimensions)
+return _msg;
+}
+inline void DeviceRegisterRequest::set_allocated_demo_mode_dimensions(::enterprise_management::DemoModeDimensions* demo_mode_dimensions) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete demo_mode_dimensions_;
+}
+if (demo_mode_dimensions) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(demo_mode_dimensions);
+if (message_arena != submessage_arena) {
+demo_mode_dimensions = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, demo_mode_dimensions, submessage_arena);
+}
+_has_bits_[0] |= 0x00001000u;
+} else {
+_has_bits_[0] &= ~0x00001000u;
+}
+demo_mode_dimensions_ = demo_mode_dimensions;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceRegisterRequest.demo_mode_dimensions)
 }
 
 // -------------------------------------------------------------------
@@ -56279,6 +56664,259 @@ browser_report_ = browser_report;
 
 // -------------------------------------------------------------------
 
+// DemoModeDimensions
+
+// optional string country = 1;
+inline bool DemoModeDimensions::_internal_has_country() const {
+bool value = (_has_bits_[0] & 0x00000001u) != 0;
+return value;
+}
+inline bool DemoModeDimensions::has_country() const {
+return _internal_has_country();
+}
+inline void DemoModeDimensions::clear_country() {
+country_.ClearToEmpty();
+_has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& DemoModeDimensions::country() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DemoModeDimensions.country)
+return _internal_country();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DemoModeDimensions::set_country(ArgT0&& arg0, ArgT... args) {
+_has_bits_[0] |= 0x00000001u;
+country_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+// @@protoc_insertion_point(field_set:enterprise_management.DemoModeDimensions.country)
+}
+inline std::string* DemoModeDimensions::mutable_country() {
+std::string* _s = _internal_mutable_country();
+// @@protoc_insertion_point(field_mutable:enterprise_management.DemoModeDimensions.country)
+return _s;
+}
+inline const std::string& DemoModeDimensions::_internal_country() const {
+return country_.Get();
+}
+inline void DemoModeDimensions::_internal_set_country(const std::string& value) {
+_has_bits_[0] |= 0x00000001u;
+country_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DemoModeDimensions::_internal_mutable_country() {
+_has_bits_[0] |= 0x00000001u;
+return country_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DemoModeDimensions::release_country() {
+// @@protoc_insertion_point(field_release:enterprise_management.DemoModeDimensions.country)
+if (!_internal_has_country()) {
+return nullptr;
+}
+_has_bits_[0] &= ~0x00000001u;
+auto* p = country_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (country_.IsDefault()) {
+country_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+return p;
+}
+inline void DemoModeDimensions::set_allocated_country(std::string* country) {
+if (country != nullptr) {
+_has_bits_[0] |= 0x00000001u;
+} else {
+_has_bits_[0] &= ~0x00000001u;
+}
+country_.SetAllocated(country, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (country_.IsDefault()) {
+country_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.DemoModeDimensions.country)
+}
+
+// optional string retailer_name = 2;
+inline bool DemoModeDimensions::_internal_has_retailer_name() const {
+bool value = (_has_bits_[0] & 0x00000002u) != 0;
+return value;
+}
+inline bool DemoModeDimensions::has_retailer_name() const {
+return _internal_has_retailer_name();
+}
+inline void DemoModeDimensions::clear_retailer_name() {
+retailer_name_.ClearToEmpty();
+_has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& DemoModeDimensions::retailer_name() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DemoModeDimensions.retailer_name)
+return _internal_retailer_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DemoModeDimensions::set_retailer_name(ArgT0&& arg0, ArgT... args) {
+_has_bits_[0] |= 0x00000002u;
+retailer_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+// @@protoc_insertion_point(field_set:enterprise_management.DemoModeDimensions.retailer_name)
+}
+inline std::string* DemoModeDimensions::mutable_retailer_name() {
+std::string* _s = _internal_mutable_retailer_name();
+// @@protoc_insertion_point(field_mutable:enterprise_management.DemoModeDimensions.retailer_name)
+return _s;
+}
+inline const std::string& DemoModeDimensions::_internal_retailer_name() const {
+return retailer_name_.Get();
+}
+inline void DemoModeDimensions::_internal_set_retailer_name(const std::string& value) {
+_has_bits_[0] |= 0x00000002u;
+retailer_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DemoModeDimensions::_internal_mutable_retailer_name() {
+_has_bits_[0] |= 0x00000002u;
+return retailer_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DemoModeDimensions::release_retailer_name() {
+// @@protoc_insertion_point(field_release:enterprise_management.DemoModeDimensions.retailer_name)
+if (!_internal_has_retailer_name()) {
+return nullptr;
+}
+_has_bits_[0] &= ~0x00000002u;
+auto* p = retailer_name_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (retailer_name_.IsDefault()) {
+retailer_name_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+return p;
+}
+inline void DemoModeDimensions::set_allocated_retailer_name(std::string* retailer_name) {
+if (retailer_name != nullptr) {
+_has_bits_[0] |= 0x00000002u;
+} else {
+_has_bits_[0] &= ~0x00000002u;
+}
+retailer_name_.SetAllocated(retailer_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (retailer_name_.IsDefault()) {
+retailer_name_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.DemoModeDimensions.retailer_name)
+}
+
+// optional string store_number = 3;
+inline bool DemoModeDimensions::_internal_has_store_number() const {
+bool value = (_has_bits_[0] & 0x00000004u) != 0;
+return value;
+}
+inline bool DemoModeDimensions::has_store_number() const {
+return _internal_has_store_number();
+}
+inline void DemoModeDimensions::clear_store_number() {
+store_number_.ClearToEmpty();
+_has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& DemoModeDimensions::store_number() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DemoModeDimensions.store_number)
+return _internal_store_number();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DemoModeDimensions::set_store_number(ArgT0&& arg0, ArgT... args) {
+_has_bits_[0] |= 0x00000004u;
+store_number_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+// @@protoc_insertion_point(field_set:enterprise_management.DemoModeDimensions.store_number)
+}
+inline std::string* DemoModeDimensions::mutable_store_number() {
+std::string* _s = _internal_mutable_store_number();
+// @@protoc_insertion_point(field_mutable:enterprise_management.DemoModeDimensions.store_number)
+return _s;
+}
+inline const std::string& DemoModeDimensions::_internal_store_number() const {
+return store_number_.Get();
+}
+inline void DemoModeDimensions::_internal_set_store_number(const std::string& value) {
+_has_bits_[0] |= 0x00000004u;
+store_number_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DemoModeDimensions::_internal_mutable_store_number() {
+_has_bits_[0] |= 0x00000004u;
+return store_number_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DemoModeDimensions::release_store_number() {
+// @@protoc_insertion_point(field_release:enterprise_management.DemoModeDimensions.store_number)
+if (!_internal_has_store_number()) {
+return nullptr;
+}
+_has_bits_[0] &= ~0x00000004u;
+auto* p = store_number_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (store_number_.IsDefault()) {
+store_number_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+return p;
+}
+inline void DemoModeDimensions::set_allocated_store_number(std::string* store_number) {
+if (store_number != nullptr) {
+_has_bits_[0] |= 0x00000004u;
+} else {
+_has_bits_[0] &= ~0x00000004u;
+}
+store_number_.SetAllocated(store_number, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (store_number_.IsDefault()) {
+store_number_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.DemoModeDimensions.store_number)
+}
+
+// repeated .enterprise_management.DemoModeDimensions.CustomizationFacet customization_facets = 4;
+inline int DemoModeDimensions::_internal_customization_facets_size() const {
+return customization_facets_.size();
+}
+inline int DemoModeDimensions::customization_facets_size() const {
+return _internal_customization_facets_size();
+}
+inline void DemoModeDimensions::clear_customization_facets() {
+customization_facets_.Clear();
+}
+inline ::enterprise_management::DemoModeDimensions_CustomizationFacet DemoModeDimensions::_internal_customization_facets(int index) const {
+return static_cast< ::enterprise_management::DemoModeDimensions_CustomizationFacet >(customization_facets_.Get(index));
+}
+inline ::enterprise_management::DemoModeDimensions_CustomizationFacet DemoModeDimensions::customization_facets(int index) const {
+// @@protoc_insertion_point(field_get:enterprise_management.DemoModeDimensions.customization_facets)
+return _internal_customization_facets(index);
+}
+inline void DemoModeDimensions::set_customization_facets(int index, ::enterprise_management::DemoModeDimensions_CustomizationFacet value) {
+assert(::enterprise_management::DemoModeDimensions_CustomizationFacet_IsValid(value));
+customization_facets_.Set(index, value);
+// @@protoc_insertion_point(field_set:enterprise_management.DemoModeDimensions.customization_facets)
+}
+inline void DemoModeDimensions::_internal_add_customization_facets(::enterprise_management::DemoModeDimensions_CustomizationFacet value) {
+assert(::enterprise_management::DemoModeDimensions_CustomizationFacet_IsValid(value));
+customization_facets_.Add(value);
+}
+inline void DemoModeDimensions::add_customization_facets(::enterprise_management::DemoModeDimensions_CustomizationFacet value) {
+_internal_add_customization_facets(value);
+// @@protoc_insertion_point(field_add:enterprise_management.DemoModeDimensions.customization_facets)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+DemoModeDimensions::customization_facets() const {
+// @@protoc_insertion_point(field_list:enterprise_management.DemoModeDimensions.customization_facets)
+return customization_facets_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+DemoModeDimensions::_internal_mutable_customization_facets() {
+return &customization_facets_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+DemoModeDimensions::mutable_customization_facets() {
+// @@protoc_insertion_point(field_mutable_list:enterprise_management.DemoModeDimensions.customization_facets)
+return _internal_mutable_customization_facets();
+}
+
+// -------------------------------------------------------------------
+
 // DeviceStatusReportRequest
 
 // optional string os_version = 1;
@@ -56802,7 +57440,7 @@ return _internal_mutable_cpu_utilization_pct_samples();
 
 // optional int64 system_ram_total = 14;
 inline bool DeviceStatusReportRequest::_internal_has_system_ram_total() const {
-bool value = (_has_bits_[0] & 0x00200000u) != 0;
+bool value = (_has_bits_[0] & 0x00400000u) != 0;
 return value;
 }
 inline bool DeviceStatusReportRequest::has_system_ram_total() const {
@@ -56810,7 +57448,7 @@ return _internal_has_system_ram_total();
 }
 inline void DeviceStatusReportRequest::clear_system_ram_total() {
 system_ram_total_ = int64_t{0};
-_has_bits_[0] &= ~0x00200000u;
+_has_bits_[0] &= ~0x00400000u;
 }
 inline int64_t DeviceStatusReportRequest::_internal_system_ram_total() const {
 return system_ram_total_;
@@ -56820,7 +57458,7 @@ inline int64_t DeviceStatusReportRequest::system_ram_total() const {
 return _internal_system_ram_total();
 }
 inline void DeviceStatusReportRequest::_internal_set_system_ram_total(int64_t value) {
-_has_bits_[0] |= 0x00200000u;
+_has_bits_[0] |= 0x00400000u;
 system_ram_total_ = value;
 }
 inline void DeviceStatusReportRequest::set_system_ram_total(int64_t value) {
@@ -57097,7 +57735,7 @@ running_kiosk_app_ = running_kiosk_app;
 
 // optional int32 sound_volume = 19;
 inline bool DeviceStatusReportRequest::_internal_has_sound_volume() const {
-bool value = (_has_bits_[0] & 0x00400000u) != 0;
+bool value = (_has_bits_[0] & 0x00800000u) != 0;
 return value;
 }
 inline bool DeviceStatusReportRequest::has_sound_volume() const {
@@ -57105,7 +57743,7 @@ return _internal_has_sound_volume();
 }
 inline void DeviceStatusReportRequest::clear_sound_volume() {
 sound_volume_ = 0;
-_has_bits_[0] &= ~0x00400000u;
+_has_bits_[0] &= ~0x00800000u;
 }
 inline int32_t DeviceStatusReportRequest::_internal_sound_volume() const {
 return sound_volume_;
@@ -57115,7 +57753,7 @@ inline int32_t DeviceStatusReportRequest::sound_volume() const {
 return _internal_sound_volume();
 }
 inline void DeviceStatusReportRequest::_internal_set_sound_volume(int32_t value) {
-_has_bits_[0] |= 0x00400000u;
+_has_bits_[0] |= 0x00800000u;
 sound_volume_ = value;
 }
 inline void DeviceStatusReportRequest::set_sound_volume(int32_t value) {
@@ -57215,7 +57853,7 @@ tpm_version_info_ = tpm_version_info;
 
 // optional .enterprise_management.Channel channel = 22;
 inline bool DeviceStatusReportRequest::_internal_has_channel() const {
-bool value = (_has_bits_[0] & 0x00800000u) != 0;
+bool value = (_has_bits_[0] & 0x01000000u) != 0;
 return value;
 }
 inline bool DeviceStatusReportRequest::has_channel() const {
@@ -57223,7 +57861,7 @@ return _internal_has_channel();
 }
 inline void DeviceStatusReportRequest::clear_channel() {
 channel_ = 0;
-_has_bits_[0] &= ~0x00800000u;
+_has_bits_[0] &= ~0x01000000u;
 }
 inline ::enterprise_management::Channel DeviceStatusReportRequest::_internal_channel() const {
 return static_cast< ::enterprise_management::Channel >(channel_);
@@ -57234,7 +57872,7 @@ return _internal_channel();
 }
 inline void DeviceStatusReportRequest::_internal_set_channel(::enterprise_management::Channel value) {
 assert(::enterprise_management::Channel_IsValid(value));
-_has_bits_[0] |= 0x00800000u;
+_has_bits_[0] |= 0x01000000u;
 channel_ = value;
 }
 inline void DeviceStatusReportRequest::set_channel(::enterprise_management::Channel value) {
@@ -57334,7 +57972,7 @@ tpm_status_info_ = tpm_status_info;
 
 // optional bool write_protect_switch = 24;
 inline bool DeviceStatusReportRequest::_internal_has_write_protect_switch() const {
-bool value = (_has_bits_[0] & 0x02000000u) != 0;
+bool value = (_has_bits_[0] & 0x04000000u) != 0;
 return value;
 }
 inline bool DeviceStatusReportRequest::has_write_protect_switch() const {
@@ -57342,7 +57980,7 @@ return _internal_has_write_protect_switch();
 }
 inline void DeviceStatusReportRequest::clear_write_protect_switch() {
 write_protect_switch_ = false;
-_has_bits_[0] &= ~0x02000000u;
+_has_bits_[0] &= ~0x04000000u;
 }
 inline bool DeviceStatusReportRequest::_internal_write_protect_switch() const {
 return write_protect_switch_;
@@ -57352,7 +57990,7 @@ inline bool DeviceStatusReportRequest::write_protect_switch() const {
 return _internal_write_protect_switch();
 }
 inline void DeviceStatusReportRequest::_internal_set_write_protect_switch(bool value) {
-_has_bits_[0] |= 0x02000000u;
+_has_bits_[0] |= 0x04000000u;
 write_protect_switch_ = value;
 }
 inline void DeviceStatusReportRequest::set_write_protect_switch(bool value) {
@@ -58892,7 +59530,7 @@ return lacros_browser_report_;
 
 // optional int64 root_device_total_storage_bytes = 47;
 inline bool DeviceStatusReportRequest::_internal_has_root_device_total_storage_bytes() const {
-bool value = (_has_bits_[0] & 0x01000000u) != 0;
+bool value = (_has_bits_[0] & 0x02000000u) != 0;
 return value;
 }
 inline bool DeviceStatusReportRequest::has_root_device_total_storage_bytes() const {
@@ -58900,7 +59538,7 @@ return _internal_has_root_device_total_storage_bytes();
 }
 inline void DeviceStatusReportRequest::clear_root_device_total_storage_bytes() {
 root_device_total_storage_bytes_ = int64_t{0};
-_has_bits_[0] &= ~0x01000000u;
+_has_bits_[0] &= ~0x02000000u;
 }
 inline int64_t DeviceStatusReportRequest::_internal_root_device_total_storage_bytes() const {
 return root_device_total_storage_bytes_;
@@ -58910,7 +59548,7 @@ inline int64_t DeviceStatusReportRequest::root_device_total_storage_bytes() cons
 return _internal_root_device_total_storage_bytes();
 }
 inline void DeviceStatusReportRequest::_internal_set_root_device_total_storage_bytes(int64_t value) {
-_has_bits_[0] |= 0x01000000u;
+_has_bits_[0] |= 0x02000000u;
 root_device_total_storage_bytes_ = value;
 }
 inline void DeviceStatusReportRequest::set_root_device_total_storage_bytes(int64_t value) {
@@ -58920,7 +59558,7 @@ _internal_set_root_device_total_storage_bytes(value);
 
 // optional bool is_lacros_primary_browser = 48;
 inline bool DeviceStatusReportRequest::_internal_has_is_lacros_primary_browser() const {
-bool value = (_has_bits_[0] & 0x04000000u) != 0;
+bool value = (_has_bits_[0] & 0x08000000u) != 0;
 return value;
 }
 inline bool DeviceStatusReportRequest::has_is_lacros_primary_browser() const {
@@ -58928,7 +59566,7 @@ return _internal_has_is_lacros_primary_browser();
 }
 inline void DeviceStatusReportRequest::clear_is_lacros_primary_browser() {
 is_lacros_primary_browser_ = false;
-_has_bits_[0] &= ~0x04000000u;
+_has_bits_[0] &= ~0x08000000u;
 }
 inline bool DeviceStatusReportRequest::_internal_is_lacros_primary_browser() const {
 return is_lacros_primary_browser_;
@@ -58938,12 +59576,102 @@ inline bool DeviceStatusReportRequest::is_lacros_primary_browser() const {
 return _internal_is_lacros_primary_browser();
 }
 inline void DeviceStatusReportRequest::_internal_set_is_lacros_primary_browser(bool value) {
-_has_bits_[0] |= 0x04000000u;
+_has_bits_[0] |= 0x08000000u;
 is_lacros_primary_browser_ = value;
 }
 inline void DeviceStatusReportRequest::set_is_lacros_primary_browser(bool value) {
 _internal_set_is_lacros_primary_browser(value);
 // @@protoc_insertion_point(field_set:enterprise_management.DeviceStatusReportRequest.is_lacros_primary_browser)
+}
+
+// optional .enterprise_management.DemoModeDimensions demo_mode_dimensions = 49;
+inline bool DeviceStatusReportRequest::_internal_has_demo_mode_dimensions() const {
+bool value = (_has_bits_[0] & 0x00200000u) != 0;
+PROTOBUF_ASSUME(!value || demo_mode_dimensions_ != nullptr);
+return value;
+}
+inline bool DeviceStatusReportRequest::has_demo_mode_dimensions() const {
+return _internal_has_demo_mode_dimensions();
+}
+inline void DeviceStatusReportRequest::clear_demo_mode_dimensions() {
+if (demo_mode_dimensions_ != nullptr) demo_mode_dimensions_->Clear();
+_has_bits_[0] &= ~0x00200000u;
+}
+inline const ::enterprise_management::DemoModeDimensions& DeviceStatusReportRequest::_internal_demo_mode_dimensions() const {
+const ::enterprise_management::DemoModeDimensions* p = demo_mode_dimensions_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DemoModeDimensions&>(
+::enterprise_management::_DemoModeDimensions_default_instance_);
+}
+inline const ::enterprise_management::DemoModeDimensions& DeviceStatusReportRequest::demo_mode_dimensions() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceStatusReportRequest.demo_mode_dimensions)
+return _internal_demo_mode_dimensions();
+}
+inline void DeviceStatusReportRequest::unsafe_arena_set_allocated_demo_mode_dimensions(
+::enterprise_management::DemoModeDimensions* demo_mode_dimensions) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(demo_mode_dimensions_);
+}
+demo_mode_dimensions_ = demo_mode_dimensions;
+if (demo_mode_dimensions) {
+_has_bits_[0] |= 0x00200000u;
+} else {
+_has_bits_[0] &= ~0x00200000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.DeviceStatusReportRequest.demo_mode_dimensions)
+}
+inline ::enterprise_management::DemoModeDimensions* DeviceStatusReportRequest::release_demo_mode_dimensions() {
+_has_bits_[0] &= ~0x00200000u;
+::enterprise_management::DemoModeDimensions* temp = demo_mode_dimensions_;
+demo_mode_dimensions_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::DemoModeDimensions* DeviceStatusReportRequest::unsafe_arena_release_demo_mode_dimensions() {
+// @@protoc_insertion_point(field_release:enterprise_management.DeviceStatusReportRequest.demo_mode_dimensions)
+_has_bits_[0] &= ~0x00200000u;
+::enterprise_management::DemoModeDimensions* temp = demo_mode_dimensions_;
+demo_mode_dimensions_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::DemoModeDimensions* DeviceStatusReportRequest::_internal_mutable_demo_mode_dimensions() {
+_has_bits_[0] |= 0x00200000u;
+if (demo_mode_dimensions_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::DemoModeDimensions>(GetArenaForAllocation());
+demo_mode_dimensions_ = p;
+}
+return demo_mode_dimensions_;
+}
+inline ::enterprise_management::DemoModeDimensions* DeviceStatusReportRequest::mutable_demo_mode_dimensions() {
+::enterprise_management::DemoModeDimensions* _msg = _internal_mutable_demo_mode_dimensions();
+// @@protoc_insertion_point(field_mutable:enterprise_management.DeviceStatusReportRequest.demo_mode_dimensions)
+return _msg;
+}
+inline void DeviceStatusReportRequest::set_allocated_demo_mode_dimensions(::enterprise_management::DemoModeDimensions* demo_mode_dimensions) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete demo_mode_dimensions_;
+}
+if (demo_mode_dimensions) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(demo_mode_dimensions);
+if (message_arena != submessage_arena) {
+demo_mode_dimensions = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, demo_mode_dimensions, submessage_arena);
+}
+_has_bits_[0] |= 0x00200000u;
+} else {
+_has_bits_[0] &= ~0x00200000u;
+}
+demo_mode_dimensions_ = demo_mode_dimensions;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceStatusReportRequest.demo_mode_dimensions)
 }
 
 // -------------------------------------------------------------------
@@ -85824,6 +86552,8 @@ _internal_set_has_initial_state(value);
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -85855,6 +86585,7 @@ template <> struct is_proto_enum< ::enterprise_management::DiskInfo_DevicePurpos
 template <> struct is_proto_enum< ::enterprise_management::CpuInfo_Architecture> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::CrashReportInfo_CrashReportUploadStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BootInfo_BootMethod> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::DemoModeDimensions_CustomizationFacet> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::OsUpdateStatus_UpdateStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::AppInfo_AppType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::AppInfo_Status> : ::std::true_type {};

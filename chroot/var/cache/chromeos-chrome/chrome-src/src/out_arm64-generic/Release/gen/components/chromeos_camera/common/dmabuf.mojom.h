@@ -102,6 +102,9 @@ DmaBufPlane& operator=(const DmaBufPlane&) = delete;
   template <typename T, DmaBufPlane::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, DmaBufPlane::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
@@ -252,6 +255,9 @@ DmaBufVideoFrame& operator=(const DmaBufVideoFrame&) = delete;
 
   template <typename T, DmaBufVideoFrame::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, DmaBufVideoFrame::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {

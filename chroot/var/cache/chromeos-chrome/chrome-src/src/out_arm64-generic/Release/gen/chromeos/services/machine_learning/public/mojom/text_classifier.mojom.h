@@ -230,6 +230,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) CodepointSpan {
 
   template <typename T, CodepointSpan::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CodepointSpan::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -371,6 +374,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextLanguage {
 
   template <typename T, TextLanguage::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TextLanguage::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -649,6 +655,9 @@ TextEntity& operator=(const TextEntity&) = delete;
 
   template <typename T, TextEntity::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TextEntity::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -795,6 +804,9 @@ TextAnnotation& operator=(const TextAnnotation&) = delete;
 
   template <typename T, TextAnnotation::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TextAnnotation::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -952,6 +964,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextAnnotationRequest {
 
   template <typename T, TextAnnotationRequest::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TextAnnotationRequest::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -1111,6 +1126,9 @@ REMOVED_TextSuggestSelectionRequest& operator=(const REMOVED_TextSuggestSelectio
 
   template <typename T, REMOVED_TextSuggestSelectionRequest::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, REMOVED_TextSuggestSelectionRequest::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<

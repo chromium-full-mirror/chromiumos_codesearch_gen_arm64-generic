@@ -99,6 +99,9 @@ ReadOnlySharedMemoryRegion& operator=(const ReadOnlySharedMemoryRegion&) = delet
   template <typename T, ReadOnlySharedMemoryRegion::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, ReadOnlySharedMemoryRegion::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
@@ -233,6 +236,9 @@ WritableSharedMemoryRegion& operator=(const WritableSharedMemoryRegion&) = delet
   template <typename T, WritableSharedMemoryRegion::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, WritableSharedMemoryRegion::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
@@ -366,6 +372,9 @@ UnsafeSharedMemoryRegion& operator=(const UnsafeSharedMemoryRegion&) = delete;
 
   template <typename T, UnsafeSharedMemoryRegion::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, UnsafeSharedMemoryRegion::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {

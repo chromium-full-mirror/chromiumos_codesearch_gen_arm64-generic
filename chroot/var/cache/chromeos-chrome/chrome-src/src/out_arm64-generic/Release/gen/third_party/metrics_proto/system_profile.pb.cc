@@ -1803,26 +1803,30 @@ bool SystemProfileProto_DemoModeDimensions_CustomizationFacet_IsValid(int value)
   switch (value) {
     case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_DemoModeDimensions_CustomizationFacet_strings[2] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_DemoModeDimensions_CustomizationFacet_strings[3] = {};
 
 static const char SystemProfileProto_DemoModeDimensions_CustomizationFacet_names[] =
   "CLOUD_GAMING_DEVICE"
+  "FEATURE_AWARE_DEVICE"
   "UNDEFINED";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemProfileProto_DemoModeDimensions_CustomizationFacet_entries[] = {
   { {SystemProfileProto_DemoModeDimensions_CustomizationFacet_names + 0, 19}, 1 },
-  { {SystemProfileProto_DemoModeDimensions_CustomizationFacet_names + 19, 9}, 0 },
+  { {SystemProfileProto_DemoModeDimensions_CustomizationFacet_names + 19, 20}, 2 },
+  { {SystemProfileProto_DemoModeDimensions_CustomizationFacet_names + 39, 9}, 0 },
 };
 
 static const int SystemProfileProto_DemoModeDimensions_CustomizationFacet_entries_by_number[] = {
-  1, // 0 -> UNDEFINED
+  2, // 0 -> UNDEFINED
   0, // 1 -> CLOUD_GAMING_DEVICE
+  1, // 2 -> FEATURE_AWARE_DEVICE
 };
 
 const std::string& SystemProfileProto_DemoModeDimensions_CustomizationFacet_Name(
@@ -1831,12 +1835,12 @@ const std::string& SystemProfileProto_DemoModeDimensions_CustomizationFacet_Name
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SystemProfileProto_DemoModeDimensions_CustomizationFacet_entries,
           SystemProfileProto_DemoModeDimensions_CustomizationFacet_entries_by_number,
-          2, SystemProfileProto_DemoModeDimensions_CustomizationFacet_strings);
+          3, SystemProfileProto_DemoModeDimensions_CustomizationFacet_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SystemProfileProto_DemoModeDimensions_CustomizationFacet_entries,
       SystemProfileProto_DemoModeDimensions_CustomizationFacet_entries_by_number,
-      2, value);
+      3, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SystemProfileProto_DemoModeDimensions_CustomizationFacet_strings[idx].get();
 }
@@ -1844,7 +1848,7 @@ bool SystemProfileProto_DemoModeDimensions_CustomizationFacet_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_DemoModeDimensions_CustomizationFacet* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SystemProfileProto_DemoModeDimensions_CustomizationFacet_entries, 2, name, &int_value);
+      SystemProfileProto_DemoModeDimensions_CustomizationFacet_entries, 3, name, &int_value);
   if (success) {
     *value = static_cast<SystemProfileProto_DemoModeDimensions_CustomizationFacet>(int_value);
   }
@@ -1853,6 +1857,7 @@ bool SystemProfileProto_DemoModeDimensions_CustomizationFacet_Parse(
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr SystemProfileProto_DemoModeDimensions_CustomizationFacet SystemProfileProto_DemoModeDimensions::UNDEFINED;
 constexpr SystemProfileProto_DemoModeDimensions_CustomizationFacet SystemProfileProto_DemoModeDimensions::CLOUD_GAMING_DEVICE;
+constexpr SystemProfileProto_DemoModeDimensions_CustomizationFacet SystemProfileProto_DemoModeDimensions::FEATURE_AWARE_DEVICE;
 constexpr SystemProfileProto_DemoModeDimensions_CustomizationFacet SystemProfileProto_DemoModeDimensions::CustomizationFacet_MIN;
 constexpr SystemProfileProto_DemoModeDimensions_CustomizationFacet SystemProfileProto_DemoModeDimensions::CustomizationFacet_MAX;
 constexpr int SystemProfileProto_DemoModeDimensions::CustomizationFacet_ARRAYSIZE;
