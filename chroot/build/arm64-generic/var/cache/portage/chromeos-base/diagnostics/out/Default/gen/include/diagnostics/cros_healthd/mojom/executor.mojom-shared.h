@@ -28,6 +28,7 @@
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"
+#include "diagnostics/mojom/public/cros_healthd_routines.mojom-shared.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
@@ -416,6 +417,16 @@ class ReadJobArgumentDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadDiskReadType(UserType* output) const {
+    auto data_value = data_->disk_read_type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiskReadTypeEnum>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::DiskReadTypeEnum disk_read_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::DiskReadTypeEnum>(data_->disk_read_type));
+  }
  private:
   internal::ReadJobArgument_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -802,6 +813,8 @@ struct Serializer<::ash::cros_healthd::mojom::ReadJobArgumentDataView, MaybeCons
         fragment->exec_duration.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null exec_duration in ReadJobArgument struct");
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DiskReadTypeEnum>(
+        Traits::disk_read_type(input), &fragment->disk_read_type);
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::ReadJobArgument_Data* input,

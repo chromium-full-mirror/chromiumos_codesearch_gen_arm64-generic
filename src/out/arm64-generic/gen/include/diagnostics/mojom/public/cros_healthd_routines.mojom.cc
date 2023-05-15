@@ -137,6 +137,58 @@ bool UfsLifetimeRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+DiskReadRoutineArgument::DiskReadRoutineArgument()
+    : type(),
+      disk_read_duration(),
+      file_size_mib() {}
+
+DiskReadRoutineArgument::DiskReadRoutineArgument(
+    DiskReadTypeEnum type_in,
+    base::TimeDelta disk_read_duration_in,
+    uint32_t file_size_mib_in)
+    : type(std::move(type_in)),
+      disk_read_duration(std::move(disk_read_duration_in)),
+      file_size_mib(std::move(file_size_mib_in)) {}
+
+DiskReadRoutineArgument::~DiskReadRoutineArgument() = default;
+
+void DiskReadRoutineArgument::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type DiskReadTypeEnum>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "disk_read_duration"), this->disk_read_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type base::TimeDelta>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "file_size_mib"), this->file_size_mib,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool DiskReadRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -456,6 +508,23 @@ bool UfsLifetimeRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+DiskReadRoutineDetail::DiskReadRoutineDetail() {}
+
+DiskReadRoutineDetail::~DiskReadRoutineDetail() = default;
+size_t DiskReadRoutineDetail::Hash(size_t seed) const {
+  return seed;
+}
+
+void DiskReadRoutineDetail::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool DiskReadRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 MemtesterResult::MemtesterResult()
     : passed_items(),
       failed_items() {}
@@ -557,6 +626,17 @@ void RoutineArgument::set_ufs_lifetime(
         std::move(ufs_lifetime));
   }
 }
+void RoutineArgument::set_disk_read(
+    DiskReadRoutineArgumentPtr disk_read) {
+  if (tag_ == Tag::kDiskRead) {
+    *(data_.disk_read) = std::move(disk_read);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kDiskRead;
+    data_.disk_read = new DiskReadRoutineArgumentPtr(
+        std::move(disk_read));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -579,6 +659,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kUfsLifetime:
 
       delete data_.ufs_lifetime;
+      break;
+    case Tag::kDiskRead:
+
+      delete data_.disk_read;
       break;
   }
 }
@@ -722,6 +806,17 @@ void RoutineDetail::set_ufs_lifetime(
         std::move(ufs_lifetime));
   }
 }
+void RoutineDetail::set_disk_read(
+    DiskReadRoutineDetailPtr disk_read) {
+  if (tag_ == Tag::kDiskRead) {
+    *(data_.disk_read) = std::move(disk_read);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kDiskRead;
+    data_.disk_read = new DiskReadRoutineDetailPtr(
+        std::move(disk_read));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -741,6 +836,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kUfsLifetime:
 
       delete data_.ufs_lifetime;
+      break;
+    case Tag::kDiskRead:
+
+      delete data_.disk_read;
       break;
   }
 }
@@ -1637,6 +1736,24 @@ bool StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::DataVi
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgument::DataView, ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::DiskReadRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr result(::ash::cros_healthd::mojom::DiskReadRoutineArgument::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadDiskReadDuration(&result->disk_read_duration))
+        success = false;
+      if (success)
+        result->file_size_mib = input.file_size_mib();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -1771,6 +1888,18 @@ bool StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataView
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetail::DataView, ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::DiskReadRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr result(::ash::cros_healthd::mojom::DiskReadRoutineDetail::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::cros_healthd::mojom::MemtesterResultPtr>::Read(
     ::ash::cros_healthd::mojom::MemtesterResult::DataView input,
     ::ash::cros_healthd::mojom::MemtesterResultPtr* output) {
@@ -1831,6 +1960,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewUfsLifetime(
           std::move(result_ufs_lifetime));
+      break;
+    }
+    case Tag::kDiskRead: {
+      ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr result_disk_read;
+      if (!input.ReadDiskRead(&result_disk_read))
+        return false;
+
+      *output = UnionType::NewDiskRead(
+          std::move(result_disk_read));
       break;
     }
     default:
@@ -1934,6 +2072,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewUfsLifetime(
           std::move(result_ufs_lifetime));
+      break;
+    }
+    case Tag::kDiskRead: {
+      ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr result_disk_read;
+      if (!input.ReadDiskRead(&result_disk_read))
+        return false;
+
+      *output = UnionType::NewDiskRead(
+          std::move(result_disk_read));
       break;
     }
     default:

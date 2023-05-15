@@ -250,11 +250,14 @@ bool PrepareJobArgument::Validate(
   return Data_::Validate(data, validation_context);
 }
 ReadJobArgument::ReadJobArgument()
-    : exec_duration() {}
+    : exec_duration(),
+      disk_read_type() {}
 
 ReadJobArgument::ReadJobArgument(
-    base::TimeDelta exec_duration_in)
-    : exec_duration(std::move(exec_duration_in)) {}
+    base::TimeDelta exec_duration_in,
+    ::ash::cros_healthd::mojom::DiskReadTypeEnum disk_read_type_in)
+    : exec_duration(std::move(exec_duration_in)),
+      disk_read_type(std::move(disk_read_type_in)) {}
 
 ReadJobArgument::~ReadJobArgument() = default;
 
@@ -266,6 +269,15 @@ void ReadJobArgument::WriteIntoTrace(
       "exec_duration"), this->exec_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type base::TimeDelta>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "disk_read_type"), this->disk_read_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::DiskReadTypeEnum>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -7646,6 +7658,8 @@ bool StructTraits<::ash::cros_healthd::mojom::ReadJobArgument::DataView, ::ash::
   ::ash::cros_healthd::mojom::ReadJobArgumentPtr result(::ash::cros_healthd::mojom::ReadJobArgument::New());
   
       if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+      if (success && !input.ReadDiskReadType(&result->disk_read_type))
         success = false;
   *output = std::move(result);
   return success;

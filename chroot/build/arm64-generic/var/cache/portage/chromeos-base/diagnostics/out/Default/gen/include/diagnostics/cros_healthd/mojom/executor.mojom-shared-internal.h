@@ -14,6 +14,7 @@
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared-internal.h"
+#include "diagnostics/mojom/public/cros_healthd_routines.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
@@ -444,6 +445,8 @@ class  ReadJobArgument_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::ash::cros_healthd::external::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+  int32_t disk_read_type;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<ReadJobArgument_Data>;
@@ -451,7 +454,7 @@ class  ReadJobArgument_Data {
   ReadJobArgument_Data();
   ~ReadJobArgument_Data() = delete;
 };
-static_assert(sizeof(ReadJobArgument_Data) == 16,
+static_assert(sizeof(ReadJobArgument_Data) == 24,
               "Bad sizeof(ReadJobArgument_Data)");
 // Used by ReadJobArgument::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

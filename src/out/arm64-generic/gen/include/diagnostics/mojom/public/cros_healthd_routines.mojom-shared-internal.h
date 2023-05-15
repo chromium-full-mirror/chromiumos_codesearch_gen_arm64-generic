@@ -29,6 +29,7 @@ class MemoryRoutineArgument_Data;
 class AudioDriverRoutineArgument_Data;
 class CpuStressRoutineArgument_Data;
 class UfsLifetimeRoutineArgument_Data;
+class DiskReadRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
@@ -38,6 +39,7 @@ class MemoryRoutineDetail_Data;
 class AudioDriverRoutineDetail_Data;
 class CpuStressRoutineDetail_Data;
 class UfsLifetimeRoutineDetail_Data;
+class DiskReadRoutineDetail_Data;
 class MemtesterResult_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
@@ -95,6 +97,31 @@ struct RoutineControlExceptionEnum_Data {
       case 1:
       case 2:
       case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct DiskReadTypeEnum_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
         return true;
     }
     return false;
@@ -176,6 +203,8 @@ class  RoutineArgument_Data {
     kCpuStress,
     
     kUfsLifetime,
+    
+    kDiskRead,
   };
 
   // A note on layout:
@@ -188,6 +217,7 @@ class  RoutineArgument_Data {
     mojo::internal::Pointer<internal::AudioDriverRoutineArgument_Data> f_audio_driver;
     mojo::internal::Pointer<internal::CpuStressRoutineArgument_Data> f_cpu_stress;
     mojo::internal::Pointer<internal::UfsLifetimeRoutineArgument_Data> f_ufs_lifetime;
+    mojo::internal::Pointer<internal::DiskReadRoutineArgument_Data> f_disk_read;
     uint64_t unknown;
   };
 
@@ -293,6 +323,8 @@ class  RoutineDetail_Data {
     kCpuStress,
     
     kUfsLifetime,
+    
+    kDiskRead,
   };
 
   // A note on layout:
@@ -304,6 +336,7 @@ class  RoutineDetail_Data {
     mojo::internal::Pointer<internal::AudioDriverRoutineDetail_Data> f_audio_driver;
     mojo::internal::Pointer<internal::CpuStressRoutineDetail_Data> f_cpu_stress;
     mojo::internal::Pointer<internal::UfsLifetimeRoutineDetail_Data> f_ufs_lifetime;
+    mojo::internal::Pointer<internal::DiskReadRoutineDetail_Data> f_disk_read;
     uint64_t unknown;
   };
 
@@ -505,6 +538,56 @@ struct UfsLifetimeRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     UfsLifetimeRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  DiskReadRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  uint32_t file_size_mib;
+  mojo::internal::Pointer<::ash::cros_healthd::external::mojo_base::mojom::internal::TimeDelta_Data> disk_read_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<DiskReadRoutineArgument_Data>;
+
+  DiskReadRoutineArgument_Data();
+  ~DiskReadRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(DiskReadRoutineArgument_Data) == 24,
+              "Bad sizeof(DiskReadRoutineArgument_Data)");
+// Used by DiskReadRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DiskReadRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DiskReadRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DiskReadRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DiskReadRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DiskReadRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -946,6 +1029,53 @@ struct UfsLifetimeRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     UfsLifetimeRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  DiskReadRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<DiskReadRoutineDetail_Data>;
+
+  DiskReadRoutineDetail_Data();
+  ~DiskReadRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(DiskReadRoutineDetail_Data) == 8,
+              "Bad sizeof(DiskReadRoutineDetail_Data)");
+// Used by DiskReadRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct DiskReadRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  DiskReadRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~DiskReadRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<DiskReadRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    DiskReadRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  MemtesterResult_Data {
  public:
   static bool Validate(const void* data,

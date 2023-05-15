@@ -111,6 +111,32 @@ std::ostream& operator<<(std::ostream& os, RoutineControlExceptionEnum value) {
   return os << RoutineControlExceptionEnumToString(value);
 }
 
+NOINLINE static const char* DiskReadTypeEnumToStringHelper(DiskReadTypeEnum value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DiskReadTypeEnum::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case DiskReadTypeEnum::kLinearRead:
+      return "kLinearRead";
+    case DiskReadTypeEnum::kRandomRead:
+      return "kRandomRead";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DiskReadTypeEnumToString(DiskReadTypeEnum value) {
+  const char *str = DiskReadTypeEnumToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DiskReadTypeEnum value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DiskReadTypeEnum value) {
+  return os << DiskReadTypeEnumToString(value);
+}
+
 NOINLINE static const char* RoutineStateWaiting_ReasonToStringHelper(RoutineStateWaiting_Reason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -204,6 +230,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kDiskRead: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_disk_read, 6, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_disk_read, validation_context))
         return false;
       return true;
     }
@@ -357,6 +393,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case RoutineDetail_Tag::kDiskRead: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_disk_read, 5, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_disk_read, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(
@@ -461,6 +507,41 @@ bool UfsLifetimeRoutineArgument_Data::Validate(
 }
 
 UfsLifetimeRoutineArgument_Data::UfsLifetimeRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DiskReadRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DiskReadRoutineArgument_Data* object =
+      static_cast<const DiskReadRoutineArgument_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::DiskReadTypeEnum_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->disk_read_duration, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->disk_read_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+DiskReadRoutineArgument_Data::DiskReadRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -701,6 +782,29 @@ bool UfsLifetimeRoutineDetail_Data::Validate(
 }
 
 UfsLifetimeRoutineDetail_Data::UfsLifetimeRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DiskReadRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DiskReadRoutineDetail_Data* object =
+      static_cast<const DiskReadRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+DiskReadRoutineDetail_Data::DiskReadRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -946,6 +1050,16 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::RoutineControlExceptionEnum>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::RoutineControlExceptionEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::RoutineControlExceptionEnumToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::DiskReadTypeEnumToString(value));
 }
 
 } // namespace perfetto

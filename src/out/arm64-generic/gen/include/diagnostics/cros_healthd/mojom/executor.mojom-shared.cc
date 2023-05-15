@@ -349,7 +349,7 @@ bool ReadJobArgument_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -363,6 +363,11 @@ bool ReadJobArgument_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::DiskReadTypeEnum_Data
+        ::Validate(object->disk_read_type, validation_context))
     return false;
 
   return true;

@@ -790,6 +790,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  RoutineStateInitialized {
  public:
   template <typename T>
@@ -1618,6 +1619,139 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  DiskReadRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<DiskReadRoutineDetail, T>::value>;
+  using DataView = DiskReadRoutineDetailDataView;
+  using Data_ = internal::DiskReadRoutineDetail_Data;
+
+  template <typename... Args>
+  static DiskReadRoutineDetailPtr New(Args&&... args) {
+    return DiskReadRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static DiskReadRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<DiskReadRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, DiskReadRoutineDetail>::Convert(*this);
+  }
+
+
+  DiskReadRoutineDetail();
+
+
+  ~DiskReadRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = DiskReadRoutineDetailPtr>
+  DiskReadRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        DiskReadRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        DiskReadRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::DiskReadRoutineDetail_UnserializedMessageContext<
+            UserType, DiskReadRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<DiskReadRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return DiskReadRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::DiskReadRoutineDetail_UnserializedMessageContext<
+            UserType, DiskReadRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<DiskReadRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, DiskReadRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineArgument {
  public:
@@ -1673,6 +1807,14 @@ class  RoutineArgument {
       UfsLifetimeRoutineArgumentPtr ufs_lifetime) {
     auto result = RoutineArgumentPtr(absl::in_place);
     result->set_ufs_lifetime(std::move(ufs_lifetime));
+    return result;
+  }
+  // Construct an instance holding |disk_read|.
+  static RoutineArgumentPtr
+  NewDiskRead(
+      DiskReadRoutineArgumentPtr disk_read) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_disk_read(std::move(disk_read));
     return result;
   }
 
@@ -1777,6 +1919,18 @@ class  RoutineArgument {
   
   void set_ufs_lifetime(
       UfsLifetimeRoutineArgumentPtr ufs_lifetime);
+  
+  bool is_disk_read() const { return tag_ == Tag::kDiskRead; }
+
+  
+  DiskReadRoutineArgumentPtr& get_disk_read() const {
+    CHECK(tag_ == Tag::kDiskRead);
+    return *(data_.disk_read);
+  }
+
+  
+  void set_disk_read(
+      DiskReadRoutineArgumentPtr disk_read);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1800,6 +1954,7 @@ class  RoutineArgument {
     AudioDriverRoutineArgumentPtr* audio_driver;
     CpuStressRoutineArgumentPtr* cpu_stress;
     UfsLifetimeRoutineArgumentPtr* ufs_lifetime;
+    DiskReadRoutineArgumentPtr* disk_read;
   };
 
   static bool Validate(const void* data,
@@ -2032,6 +2187,14 @@ class  RoutineDetail {
     result->set_ufs_lifetime(std::move(ufs_lifetime));
     return result;
   }
+  // Construct an instance holding |disk_read|.
+  static RoutineDetailPtr
+  NewDiskRead(
+      DiskReadRoutineDetailPtr disk_read) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_disk_read(std::move(disk_read));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -2122,6 +2285,18 @@ class  RoutineDetail {
   
   void set_ufs_lifetime(
       UfsLifetimeRoutineDetailPtr ufs_lifetime);
+  
+  bool is_disk_read() const { return tag_ == Tag::kDiskRead; }
+
+  
+  DiskReadRoutineDetailPtr& get_disk_read() const {
+    CHECK(tag_ == Tag::kDiskRead);
+    return *(data_.disk_read);
+  }
+
+  
+  void set_disk_read(
+      DiskReadRoutineDetailPtr disk_read);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2144,6 +2319,7 @@ class  RoutineDetail {
     AudioDriverRoutineDetailPtr* audio_driver;
     CpuStressRoutineDetailPtr* cpu_stress;
     UfsLifetimeRoutineDetailPtr* ufs_lifetime;
+    DiskReadRoutineDetailPtr* disk_read;
   };
 
   static bool Validate(const void* data,
@@ -2293,6 +2469,149 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+
+class  DiskReadRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<DiskReadRoutineArgument, T>::value>;
+  using DataView = DiskReadRoutineArgumentDataView;
+  using Data_ = internal::DiskReadRoutineArgument_Data;
+
+  template <typename... Args>
+  static DiskReadRoutineArgumentPtr New(Args&&... args) {
+    return DiskReadRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static DiskReadRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<DiskReadRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, DiskReadRoutineArgument>::Convert(*this);
+  }
+
+
+  DiskReadRoutineArgument();
+
+  DiskReadRoutineArgument(
+      DiskReadTypeEnum type,
+      base::TimeDelta disk_read_duration,
+      uint32_t file_size_mib);
+
+
+  ~DiskReadRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = DiskReadRoutineArgumentPtr>
+  DiskReadRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, DiskReadRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, DiskReadRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        DiskReadRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        DiskReadRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::DiskReadRoutineArgument_UnserializedMessageContext<
+            UserType, DiskReadRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<DiskReadRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return DiskReadRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::DiskReadRoutineArgument_UnserializedMessageContext<
+            UserType, DiskReadRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<DiskReadRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  DiskReadTypeEnum type;
+  
+  base::TimeDelta disk_read_duration;
+  
+  uint32_t file_size_mib;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, DiskReadRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, DiskReadRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, DiskReadRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, DiskReadRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -2730,6 +3049,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  MemtesterResult {
  public:
   template <typename T>
@@ -2884,6 +3204,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kUfsLifetime:
       return NewUfsLifetime(
           mojo::Clone(*data_.ufs_lifetime));
+    case Tag::kDiskRead:
+      return NewDiskRead(
+          mojo::Clone(*data_.disk_read));
   }
   return nullptr;
 }
@@ -2906,6 +3229,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.cpu_stress), *(other.data_.cpu_stress));
     case Tag::kUfsLifetime:
       return mojo::Equals(*(data_.ufs_lifetime), *(other.data_.ufs_lifetime));
+    case Tag::kDiskRead:
+      return mojo::Equals(*(data_.disk_read), *(other.data_.disk_read));
   }
 
   return false;
@@ -2964,6 +3289,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kUfsLifetime:
       return NewUfsLifetime(
           mojo::Clone(*data_.ufs_lifetime));
+    case Tag::kDiskRead:
+      return NewDiskRead(
+          mojo::Clone(*data_.disk_read));
   }
   return nullptr;
 }
@@ -2984,6 +3312,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.cpu_stress), *(other.data_.cpu_stress));
     case Tag::kUfsLifetime:
       return mojo::Equals(*(data_.ufs_lifetime), *(other.data_.ufs_lifetime));
+    case Tag::kDiskRead:
+      return mojo::Equals(*(data_.disk_read), *(other.data_.disk_read));
   }
 
   return false;
@@ -3060,6 +3390,42 @@ bool UfsLifetimeRoutineArgument::Equals(const T& other_struct) const {
 
 template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
+DiskReadRoutineArgumentPtr DiskReadRoutineArgument::Clone() const {
+  return New(
+      mojo::Clone(type),
+      mojo::Clone(disk_read_duration),
+      mojo::Clone(file_size_mib)
+  );
+}
+
+template <typename T, DiskReadRoutineArgument::EnableIfSame<T>*>
+bool DiskReadRoutineArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->type, other_struct.type))
+    return false;
+  if (!mojo::Equals(this->disk_read_duration, other_struct.disk_read_duration))
+    return false;
+  if (!mojo::Equals(this->file_size_mib, other_struct.file_size_mib))
+    return false;
+  return true;
+}
+
+template <typename T, DiskReadRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
+    return false;
+  if (lhs.disk_read_duration < rhs.disk_read_duration)
+    return true;
+  if (rhs.disk_read_duration < lhs.disk_read_duration)
+    return false;
+  if (lhs.file_size_mib < rhs.file_size_mib)
+    return true;
+  if (rhs.file_size_mib < lhs.file_size_mib)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -3289,6 +3655,21 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+DiskReadRoutineDetailPtr DiskReadRoutineDetail::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, DiskReadRoutineDetail::EnableIfSame<T>*>
+bool DiskReadRoutineDetail::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, DiskReadRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
 MemtesterResultPtr MemtesterResult::Clone() const {
   return New(
       mojo::Clone(passed_items),
@@ -3373,6 +3754,31 @@ struct  StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::Dat
   static void SetToNull(::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr* output) { output->reset(); }
 
   static bool Read(::ash::cros_healthd::mojom::UfsLifetimeRoutineArgument::DataView input, ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::DiskReadRoutineArgument::type) type(
+      const ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr& input) {
+    return input->type;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::DiskReadRoutineArgument::disk_read_duration)& disk_read_duration(
+      const ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr& input) {
+    return input->disk_read_duration;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::DiskReadRoutineArgument::file_size_mib) file_size_mib(
+      const ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr& input) {
+    return input->file_size_mib;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::DiskReadRoutineArgument::DataView input, ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr* output);
 };
 
 
@@ -3532,6 +3938,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetail::DataV
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::DiskReadRoutineDetail::DataView input, ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
                                          ::ash::cros_healthd::mojom::MemtesterResultPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) { return !input; }
@@ -3579,6 +3995,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentPtr& ufs_lifetime(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_ufs_lifetime();
+  }
+
+  static const ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr& disk_read(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_disk_read();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -3639,6 +4059,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailPtr& ufs_lifetime(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_ufs_lifetime();
+  }
+
+  static const ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr& disk_read(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_disk_read();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

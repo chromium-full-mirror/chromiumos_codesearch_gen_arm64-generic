@@ -44,6 +44,8 @@ class CpuStressRoutineArgumentDataView;
 
 class UfsLifetimeRoutineArgumentDataView;
 
+class DiskReadRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -61,6 +63,8 @@ class AudioDriverRoutineDetailDataView;
 class CpuStressRoutineDetailDataView;
 
 class UfsLifetimeRoutineDetailDataView;
+
+class DiskReadRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
@@ -100,6 +104,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuStressRoutineArgumentDataV
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::DiskReadRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -163,6 +174,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuStressRoutineDetailDataVie
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::UfsLifetimeRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::DiskReadRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -287,6 +305,31 @@ inline RoutineControlExceptionEnum ToKnownEnumValue(RoutineControlExceptionEnum 
     return value;
   }
   return RoutineControlExceptionEnum::kDefaultValue;
+}
+
+
+enum class DiskReadTypeEnum : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kLinearRead = 1,
+  
+  kRandomRead = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, DiskReadTypeEnum value);
+inline bool IsKnownEnumValue(DiskReadTypeEnum value) {
+  return internal::DiskReadTypeEnum_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline DiskReadTypeEnum ToKnownEnumValue(DiskReadTypeEnum value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return DiskReadTypeEnum::kDefaultValue;
 }
 
 
@@ -428,6 +471,45 @@ class UfsLifetimeRoutineArgumentDataView {
   bool is_null() const { return !data_; }
  private:
   internal::UfsLifetimeRoutineArgument_Data* data_ = nullptr;
+};
+
+
+class DiskReadRoutineArgumentDataView {
+ public:
+  DiskReadRoutineArgumentDataView() = default;
+
+  DiskReadRoutineArgumentDataView(
+      internal::DiskReadRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiskReadTypeEnum>(
+        data_value, output);
+  }
+  DiskReadTypeEnum type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::DiskReadTypeEnum>(data_->type));
+  }
+  inline void GetDiskReadDurationDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDiskReadDuration(UserType* output) {
+    
+    auto* pointer = data_->disk_read_duration.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+  uint32_t file_size_mib() const {
+    return data_->file_size_mib;
+  }
+ private:
+  internal::DiskReadRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -654,6 +736,21 @@ class UfsLifetimeRoutineDetailDataView {
 };
 
 
+class DiskReadRoutineDetailDataView {
+ public:
+  DiskReadRoutineDetailDataView() = default;
+
+  DiskReadRoutineDetailDataView(
+      internal::DiskReadRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::DiskReadRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class MemtesterResultDataView {
  public:
   MemtesterResultDataView() = default;
@@ -756,6 +853,17 @@ class RoutineArgumentDataView {
     CHECK(is_ufs_lifetime());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView>(
         data_->data.f_ufs_lifetime.Get(), output, message_);
+  }
+  bool is_disk_read() const { return data_->tag == Tag::kDiskRead; }
+  inline void GetDiskReadDataView(
+      DiskReadRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDiskRead(UserType* output) const {
+    
+    CHECK(is_disk_read());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView>(
+        data_->data.f_disk_read.Get(), output, message_);
   }
 
  private:
@@ -897,6 +1005,17 @@ class RoutineDetailDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView>(
         data_->data.f_ufs_lifetime.Get(), output, message_);
   }
+  bool is_disk_read() const { return data_->tag == Tag::kDiskRead; }
+  inline void GetDiskReadDataView(
+      DiskReadRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDiskRead(UserType* output) const {
+    
+    CHECK(is_disk_read());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView>(
+        data_->data.f_disk_read.Get(), output, message_);
+  }
 
  private:
   internal::RoutineDetail_Data* data_ = nullptr;
@@ -918,6 +1037,10 @@ struct hash<::ash::cros_healthd::mojom::MemtesterTestItemEnum>
 template <>
 struct hash<::ash::cros_healthd::mojom::RoutineControlExceptionEnum>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::RoutineControlExceptionEnum> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::DiskReadTypeEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DiskReadTypeEnum> {};
 
 template <>
 struct hash<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>
@@ -962,6 +1085,26 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineControlExceptionEnum, Maybe
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::RoutineControlExceptionEnum>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::DiskReadTypeEnum, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::DiskReadTypeEnum>(input)), output);
   }
 };
 
@@ -1109,6 +1252,50 @@ struct Serializer<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::DiskReadRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DiskReadTypeEnum>(
+        Traits::type(input), &fragment->type);
+    decltype(Traits::disk_read_duration(input)) in_disk_read_duration = Traits::disk_read_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->disk_read_duration)::BaseType> disk_read_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        in_disk_read_duration, disk_read_duration_fragment);
+    fragment->disk_read_duration.Set(
+        disk_read_duration_fragment.is_null() ? nullptr : disk_read_duration_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->disk_read_duration.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null disk_read_duration in DiskReadRoutineArgument struct");
+    fragment->file_size_mib = Traits::file_size_mib(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::DiskReadRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1430,6 +1617,35 @@ struct Serializer<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::DiskReadRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::DiskReadRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::MemtesterResultDataView, UserType>;
@@ -1575,6 +1791,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null ufs_lifetime in RoutineArgument union");
         fragment->data.f_ufs_lifetime.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kDiskRead: {
+        decltype(Traits::disk_read(input))
+            in_disk_read = Traits::disk_read(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_disk_read)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView>(
+            in_disk_read, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null disk_read in RoutineArgument union");
+        fragment->data.f_disk_read.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -1788,6 +2020,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kDiskRead: {
+        decltype(Traits::disk_read(input))
+            in_disk_read = Traits::disk_read(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_disk_read)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView>(
+            in_disk_read, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null disk_read in RoutineDetail union");
+        fragment->data.f_disk_read.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1822,6 +2070,13 @@ inline void CpuStressRoutineArgumentDataView::GetExecDurationDataView(
 }
 
 
+
+
+inline void DiskReadRoutineArgumentDataView::GetDiskReadDurationDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->disk_read_duration.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
 
 
 inline void RoutineStateDataView::GetStateUnionDataView(
@@ -1862,6 +2117,8 @@ inline void MemoryRoutineDetailDataView::GetResultDataView(
 
 
 
+
+
 inline void MemtesterResultDataView::GetPassedItemsDataView(
     mojo::ArrayDataView<MemtesterTestItemEnum>* output) {
   auto pointer = data_->passed_items.Get();
@@ -1893,6 +2150,11 @@ inline void RoutineArgumentDataView::GetUfsLifetimeDataView(
     UfsLifetimeRoutineArgumentDataView* output) const {
   CHECK(is_ufs_lifetime());
   *output = UfsLifetimeRoutineArgumentDataView(data_->data.f_ufs_lifetime.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetDiskReadDataView(
+    DiskReadRoutineArgumentDataView* output) const {
+  CHECK(is_disk_read());
+  *output = DiskReadRoutineArgumentDataView(data_->data.f_disk_read.Get(), message_);
 }
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
@@ -1936,6 +2198,11 @@ inline void RoutineDetailDataView::GetUfsLifetimeDataView(
   CHECK(is_ufs_lifetime());
   *output = UfsLifetimeRoutineDetailDataView(data_->data.f_ufs_lifetime.Get(), message_);
 }
+inline void RoutineDetailDataView::GetDiskReadDataView(
+    DiskReadRoutineDetailDataView* output) const {
+  CHECK(is_disk_read());
+  *output = DiskReadRoutineDetailDataView(data_->data.f_disk_read.Get(), message_);
+}
 
 
 }  // namespace mojom
@@ -1959,6 +2226,15 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::RoutineControlExceptionEnum> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::RoutineControlExceptionEnum value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value);
 };
 
 } // namespace perfetto

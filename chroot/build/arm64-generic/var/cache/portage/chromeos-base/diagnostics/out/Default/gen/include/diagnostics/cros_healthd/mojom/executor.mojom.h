@@ -29,6 +29,7 @@
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd_routines.mojom-forward.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-forward.h"
 #include <string>
 #include <vector>
@@ -2008,8 +2009,9 @@ class  ReadJobArgument {
 
   ReadJobArgument();
 
-  explicit ReadJobArgument(
-      base::TimeDelta exec_duration);
+  ReadJobArgument(
+      base::TimeDelta exec_duration,
+      ::ash::cros_healthd::mojom::DiskReadTypeEnum disk_read_type);
 
 
   ~ReadJobArgument();
@@ -2085,6 +2087,8 @@ class  ReadJobArgument {
 
   
   base::TimeDelta exec_duration;
+  
+  ::ash::cros_healthd::mojom::DiskReadTypeEnum disk_read_type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -2285,13 +2289,16 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 ReadJobArgumentPtr ReadJobArgument::Clone() const {
   return New(
-      mojo::Clone(exec_duration)
+      mojo::Clone(exec_duration),
+      mojo::Clone(disk_read_type)
   );
 }
 
 template <typename T, ReadJobArgument::EnableIfSame<T>*>
 bool ReadJobArgument::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->exec_duration, other_struct.exec_duration))
+    return false;
+  if (!mojo::Equals(this->disk_read_type, other_struct.disk_read_type))
     return false;
   return true;
 }
@@ -2301,6 +2308,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.exec_duration < rhs.exec_duration)
     return true;
   if (rhs.exec_duration < lhs.exec_duration)
+    return false;
+  if (lhs.disk_read_type < rhs.disk_read_type)
+    return true;
+  if (rhs.disk_read_type < lhs.disk_read_type)
     return false;
   return false;
 }
@@ -2417,6 +2428,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::ReadJobArgument::DataView,
   static const decltype(::ash::cros_healthd::mojom::ReadJobArgument::exec_duration)& exec_duration(
       const ::ash::cros_healthd::mojom::ReadJobArgumentPtr& input) {
     return input->exec_duration;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::ReadJobArgument::disk_read_type) disk_read_type(
+      const ::ash::cros_healthd::mojom::ReadJobArgumentPtr& input) {
+    return input->disk_read_type;
   }
 
   static bool Read(::ash::cros_healthd::mojom::ReadJobArgument::DataView input, ::ash::cros_healthd::mojom::ReadJobArgumentPtr* output);

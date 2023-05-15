@@ -32,6 +32,8 @@ class CpuStressRoutineArgumentDataView;
 
 class UfsLifetimeRoutineArgumentDataView;
 
+class DiskReadRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -50,6 +52,8 @@ class CpuStressRoutineDetailDataView;
 
 class UfsLifetimeRoutineDetailDataView;
 
+class DiskReadRoutineDetailDataView;
+
 class MemtesterResultDataView;
 
 class RoutineArgumentDataView;
@@ -59,6 +63,8 @@ class RoutineDetailDataView;
 enum class MemtesterTestItemEnum : int32_t;
 
 enum class RoutineControlExceptionEnum : int32_t;
+
+enum class DiskReadTypeEnum : int32_t;
 
 enum class RoutineStateWaiting_Reason : int32_t;
 class MemoryRoutineArgument;
@@ -72,6 +78,9 @@ using CpuStressRoutineArgumentPtr = mojo::StructPtr<CpuStressRoutineArgument>;
 
 class UfsLifetimeRoutineArgument;
 using UfsLifetimeRoutineArgumentPtr = mojo::InlinedStructPtr<UfsLifetimeRoutineArgument>;
+
+class DiskReadRoutineArgument;
+using DiskReadRoutineArgumentPtr = mojo::StructPtr<DiskReadRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -99,6 +108,9 @@ using CpuStressRoutineDetailPtr = mojo::InlinedStructPtr<CpuStressRoutineDetail>
 
 class UfsLifetimeRoutineDetail;
 using UfsLifetimeRoutineDetailPtr = mojo::InlinedStructPtr<UfsLifetimeRoutineDetail>;
+
+class DiskReadRoutineDetail;
+using DiskReadRoutineDetailPtr = mojo::InlinedStructPtr<DiskReadRoutineDetail>;
 
 class MemtesterResult;
 using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;
