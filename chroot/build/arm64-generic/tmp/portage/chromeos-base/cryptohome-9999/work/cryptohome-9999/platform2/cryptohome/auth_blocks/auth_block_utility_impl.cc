@@ -35,7 +35,6 @@
 #include "cryptohome/auth_blocks/tpm_not_bound_to_pcr_auth_block.h"
 #include "cryptohome/auth_factor/auth_factor_storage_type.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
-#include "cryptohome/credentials.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/crypto_error.h"
 #include "cryptohome/cryptohome_metrics.h"
@@ -49,8 +48,6 @@
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/keyset_management.h"
-#include "cryptohome/scrypt_verifier.h"
-#include "cryptohome/smart_card_verifier.h"
 #include "cryptohome/vault_keyset.h"
 
 using cryptohome::error::CryptohomeCryptoError;

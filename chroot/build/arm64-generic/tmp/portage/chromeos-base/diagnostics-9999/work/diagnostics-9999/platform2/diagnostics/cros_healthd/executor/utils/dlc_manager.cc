@@ -20,9 +20,8 @@ DlcManager::DlcManager(
     org::chromium::DlcServiceInterfaceProxyInterface* dlcservice_proxy)
     : dlcservice_proxy_(dlcservice_proxy) {}
 
-void DlcManager::GetBinaryRootPath(
-    const std::string& dlc_id,
-    base::OnceCallback<void(std::optional<std::string>)> root_path_cb) const {
+void DlcManager::GetBinaryRootPath(const std::string& dlc_id,
+                                   DlcRootPathCallback root_path_cb) const {
   dlcservice_proxy_->GetObjectProxy()->WaitForServiceToBeAvailable(
       base::BindOnce(&DlcManager::HandleDlcServiceAvailableResponse,
                      weak_factory_.GetWeakPtr(), dlc_id,
@@ -31,7 +30,7 @@ void DlcManager::GetBinaryRootPath(
 
 void DlcManager::HandleDlcServiceAvailableResponse(
     const std::string& dlc_id,
-    base::OnceCallback<void(std::optional<std::string>)> root_path_cb,
+    DlcRootPathCallback root_path_cb,
     bool service_is_available) const {
   if (!service_is_available) {
     LOG(ERROR) << "DLC service is not available";
@@ -39,19 +38,20 @@ void DlcManager::HandleDlcServiceAvailableResponse(
     return;
   }
 
+  dlcservice::InstallRequest install_request;
+  install_request.set_id(dlc_id);
   auto [on_success, on_error] = SplitDbusCallback(base::BindOnce(
       &DlcManager::HandleDlcInstallResponse, weak_factory_.GetWeakPtr(), dlc_id,
       std::move(root_path_cb)));
 
   // The installation will complete immediately if the DLC is already installed.
-  dlcservice_proxy_->InstallDlcAsync(dlc_id, std::move(on_success),
-                                     std::move(on_error));
+  dlcservice_proxy_->InstallAsync(install_request, std::move(on_success),
+                                  std::move(on_error));
 }
 
-void DlcManager::HandleDlcInstallResponse(
-    const std::string& dlc_id,
-    base::OnceCallback<void(std::optional<std::string>)> root_path_cb,
-    brillo::Error* err) const {
+void DlcManager::HandleDlcInstallResponse(const std::string& dlc_id,
+                                          DlcRootPathCallback root_path_cb,
+                                          brillo::Error* err) const {
   if (err) {
     LOG(ERROR) << dlc_id << " install error: " << err->GetCode() + ", message: "
                << err->GetMessage();
@@ -68,7 +68,7 @@ void DlcManager::HandleDlcInstallResponse(
 
 void DlcManager::HandleDlcStateResponse(
     const std::string& dlc_id,
-    base::OnceCallback<void(std::optional<std::string>)> root_path_cb,
+    DlcRootPathCallback root_path_cb,
     brillo::Error* err,
     const dlcservice::DlcState& state) const {
   if (err) {
@@ -83,7 +83,7 @@ void DlcManager::HandleDlcStateResponse(
     std::move(root_path_cb).Run(std::nullopt);
     return;
   }
-  std::move(root_path_cb).Run(state.root_path());
+  std::move(root_path_cb).Run(base::FilePath(state.root_path()));
 }
 
 }  // namespace diagnostics

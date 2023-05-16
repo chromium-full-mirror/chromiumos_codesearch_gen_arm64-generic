@@ -18,7 +18,6 @@
 #include <libhwsec-foundation/crypto/sha.h>
 
 #include "cryptohome/cleanup/user_oldest_activity_timestamp_manager.h"
-#include "cryptohome/credentials.h"
 #include "cryptohome/error/cryptohome_mount_error.h"
 #include "cryptohome/error/location_utils.h"
 #include "cryptohome/error/locations.h"
@@ -26,7 +25,6 @@
 #include "cryptohome/keyset_management.h"
 #include "cryptohome/pkcs11/pkcs11_token.h"
 #include "cryptohome/pkcs11/pkcs11_token_factory.h"
-#include "cryptohome/scrypt_verifier.h"
 #include "cryptohome/storage/cryptohome_vault.h"
 #include "cryptohome/storage/error.h"
 #include "cryptohome/storage/mount.h"

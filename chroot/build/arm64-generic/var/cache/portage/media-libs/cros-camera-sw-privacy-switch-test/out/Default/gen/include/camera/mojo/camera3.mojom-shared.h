@@ -712,6 +712,16 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
         pointer, output, message_);
   }
+  bool has_modifier() const {
+    if (data_->header_.version < 7)
+      return bool{};
+    return data_->has_modifier;
+  }
+  uint64_t modifier() const {
+    if (data_->header_.version < 7)
+      return uint64_t{};
+    return data_->modifier;
+  }
  private:
   internal::CameraBufferHandle_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1702,6 +1712,8 @@ struct Serializer<::cros::mojom::CameraBufferHandleDataView, MaybeConstUserType>
         in_sizes, sizes_fragment, &sizes_validate_params);
     fragment->sizes.Set(
         sizes_fragment.is_null() ? nullptr : sizes_fragment.data());
+    fragment->has_modifier = Traits::has_modifier(input);
+    fragment->modifier = Traits::modifier(input);
   }
 
   static bool Deserialize(::cros::mojom::internal::CameraBufferHandle_Data* input,

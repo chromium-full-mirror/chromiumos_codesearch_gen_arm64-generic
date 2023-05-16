@@ -41,8 +41,9 @@ class DlcManagerTest : public testing::Test {
         .WillByDefault(Return(dlc_service_object_proxy_.get()));
   }
 
-  std::optional<std::string> GetBinaryRootPathSync(const std::string& dlc_id) {
-    base::test::TestFuture<std::optional<std::string>> future;
+  std::optional<base::FilePath> GetBinaryRootPathSync(
+      const std::string& dlc_id) {
+    base::test::TestFuture<std::optional<base::FilePath>> future;
     dlc_manager_.GetBinaryRootPath(dlc_id, future.GetCallback());
     return future.Get();
   }
@@ -56,12 +57,12 @@ class DlcManagerTest : public testing::Test {
   }
 
   void SetInstallDlcCall(bool is_success) {
-    EXPECT_CALL(mock_dlc_service_, InstallDlcAsync(_, _, _, _))
+    EXPECT_CALL(mock_dlc_service_, InstallAsync(_, _, _, _))
         .WillOnce(WithArgs<0, 1, 2>(Invoke(
-            [=](const std::string& in_id,
+            [=](const dlcservice::InstallRequest& in_install_request,
                 base::OnceCallback<void()> success_callback,
                 base::OnceCallback<void(brillo::Error*)> error_callback) {
-              last_install_dlc_id = in_id;
+              last_install_dlc_id = in_install_request.id();
               if (is_success) {
                 std::move(success_callback).Run();
               } else {
@@ -107,7 +108,8 @@ TEST_F(DlcManagerTest, GetRootPathSuccess) {
   state.set_root_path("/run/imageloader/test-dlc/package/root");
   SetGetDlcStateCall(state, /*is_success=*/true);
 
-  EXPECT_EQ(GetBinaryRootPathSync("test-dlc"), state.root_path());
+  EXPECT_EQ(GetBinaryRootPathSync("test-dlc"),
+            base::FilePath(state.root_path()));
   EXPECT_EQ(last_install_dlc_id, "test-dlc");
   EXPECT_EQ(last_get_dlc_state_id, "test-dlc");
 }

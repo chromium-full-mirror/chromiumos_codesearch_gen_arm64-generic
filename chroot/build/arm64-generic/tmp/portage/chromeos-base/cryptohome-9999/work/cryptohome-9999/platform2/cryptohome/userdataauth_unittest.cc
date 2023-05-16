@@ -52,7 +52,6 @@
 #include "cryptohome/cleanup/mock_low_disk_space_handler.h"
 #include "cryptohome/cleanup/mock_user_oldest_activity_timestamp_manager.h"
 #include "cryptohome/common/print_UserDataAuth_proto.h"
-#include "cryptohome/credentials_test_util.h"
 #include "cryptohome/cryptohome_common.h"
 #include "cryptohome/error/cryptohome_mount_error.h"
 #include "cryptohome/features.h"
@@ -71,7 +70,6 @@
 #include "cryptohome/pkcs11/fake_pkcs11_token.h"
 #include "cryptohome/pkcs11/mock_pkcs11_token_factory.h"
 #include "cryptohome/protobuf_test_utils.h"
-#include "cryptohome/scrypt_verifier.h"
 #include "cryptohome/storage/file_system_keyset.h"
 #include "cryptohome/storage/homedirs.h"
 #include "cryptohome/storage/mock_arc_disk_quota.h"
@@ -4538,6 +4536,7 @@ TEST_F(UserDataAuthApiTest, ChalCredBadSRKROCA) {
   ASSERT_TRUE(add_factor_reply.has_value());
   EXPECT_EQ(add_factor_reply->error_info().primary_action(),
             user_data_auth::PrimaryAction::PRIMARY_TPM_UDPATE_REQUIRED);
+  EXPECT_FALSE(add_factor_reply->has_added_auth_factor());
 }
 
 TEST_F(UserDataAuthApiTest, MountFailed) {

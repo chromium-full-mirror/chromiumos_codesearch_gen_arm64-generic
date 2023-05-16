@@ -58,8 +58,6 @@
 #include "cryptohome/mock_le_credential_manager.h"
 #include "cryptohome/mock_platform.h"
 #include "cryptohome/pkcs11/mock_pkcs11_token_factory.h"
-#include "cryptohome/scrypt_verifier.h"
-#include "cryptohome/smart_card_verifier.h"
 #include "cryptohome/storage/homedirs.h"
 #include "cryptohome/storage/mock_mount.h"
 #include "cryptohome/user_secret_stash.h"
@@ -2007,7 +2005,7 @@ class AuthSessionWithUssExperimentTest : public AuthSessionTest {
     request.set_auth_factor_label(auth_factor_proto.label());
     *request.mutable_auth_factor() = std::move(auth_factor_proto);
 
-    TestFuture<CryptohomeStatusOr<std::unique_ptr<AuthFactor>>> update_future;
+    TestFuture<CryptohomeStatus> update_future;
     auth_session.UpdateAuthFactorMetadata(request, update_future.GetCallback());
 
     if (update_future.Get().ok() ||
