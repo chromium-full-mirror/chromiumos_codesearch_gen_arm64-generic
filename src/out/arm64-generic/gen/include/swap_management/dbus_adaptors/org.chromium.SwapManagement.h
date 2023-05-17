@@ -44,7 +44,7 @@ class SwapManagementInterface {
   // Enable/Disable the MGLRU feature.
   virtual bool MGLRUSetEnable(
       brillo::ErrorPtr* error,
-      bool in_enable) = 0;
+      uint8_t in_value) = 0;
   // Enable writeback of zram swapped pages.
   virtual bool SwapZramEnableWriteback(
       brillo::ErrorPtr* error,
@@ -143,7 +143,7 @@ class SwapManagementAdaptor {
         "      <arg name=\"status\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"MGLRUSetEnable\">\n"
-        "      <arg name=\"enable\" type=\"b\" direction=\"in\"/>\n"
+        "      <arg name=\"value\" type=\"y\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"SwapZramEnableWriteback\">\n"
         "      <arg name=\"size\" type=\"u\" direction=\"in\"/>\n"

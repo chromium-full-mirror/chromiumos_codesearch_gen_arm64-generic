@@ -64,6 +64,12 @@ std::string GetProtoDebugStringWithIndent(CertificateProfile value,
   if (value == DEVICE_SETUP_CERTIFICATE) {
     return "DEVICE_SETUP_CERTIFICATE";
   }
+  if (value == ARC_TPM_CERTIFYING_KEY_CERTIFICATE) {
+    return "ARC_TPM_CERTIFYING_KEY_CERTIFICATE";
+  }
+  if (value == ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE) {
+    return "ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE";
+  }
   return "<unknown>";
 }
 

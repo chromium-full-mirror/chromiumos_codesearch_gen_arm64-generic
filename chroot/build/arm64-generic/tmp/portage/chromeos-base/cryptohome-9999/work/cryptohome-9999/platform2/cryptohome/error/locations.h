@@ -1715,9 +1715,9 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocAuthSessionInvalidPurposeInPrepareAuthFactor = 3502,
   /* ./auth_session.cc */
   kLocAuthSessionPrepareBadAuthFactorType = 3503,
-  /* ./auth_blocks/pin_weaver_auth_block.cc */
+  /* =Obsolete= */
   kLocPinWeaverAuthBlockFailedToGetStateFailedInPrepareForRemoval = 3504,
-  /* ./auth_blocks/pin_weaver_auth_block.cc */
+  /* =Obsolete= */
   kLocPinWeaverAuthBlockNoLabelInPrepareForRemoval = 3505,
   /* ./auth_blocks/cryptohome_recovery_auth_block.cc */
   kLocCryptohomeRecoveryAuthBlockNoRecoveryIdInCreate = 3506,
@@ -1763,11 +1763,11 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocUSSGetUserMetadataFailedInFromEncContainer = 3526,
   /* ./user_secret_stash/user_secret_stash.cc */
   kLocUSSGetUserMetadataFailedInFromEncContainerWrappingKey = 3527,
-  /* ./auth_blocks/fingerprint_auth_block.cc */
+  /* =Obsolete= */
   kLocFingerprintAuthBlockFailedToGetStateFailedInPrepareForRemoval = 3528,
-  /* ./auth_blocks/fingerprint_auth_block.cc */
+  /* =Obsolete= */
   kLocFingerprintAuthBlockNoTemplateIdInPrepareForRemoval = 3529,
-  /* ./auth_blocks/fingerprint_auth_block.cc */
+  /* =Obsolete= */
   kLocFingerprintAuthBlockNoLabelInPrepareForRemoval = 3530,
   /* ./userdataauth.cc */
   kLocUserDataAuthNoAuthSessionInUpdateAuthFactorMetadata = 3531,

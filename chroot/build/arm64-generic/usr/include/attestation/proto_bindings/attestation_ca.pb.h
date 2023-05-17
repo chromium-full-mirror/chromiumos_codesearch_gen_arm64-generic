@@ -127,11 +127,13 @@ enum CertificateProfile : int {
   XTS_CERTIFICATE = 8,
   ENTERPRISE_VTPM_EK_CERTIFICATE = 9,
   SOFT_BIND_CERTIFICATE = 10,
-  DEVICE_SETUP_CERTIFICATE = 11
+  DEVICE_SETUP_CERTIFICATE = 11,
+  ARC_TPM_CERTIFYING_KEY_CERTIFICATE = 12,
+  ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE = 13
 };
 bool CertificateProfile_IsValid(int value);
 constexpr CertificateProfile CertificateProfile_MIN = ENTERPRISE_MACHINE_CERTIFICATE;
-constexpr CertificateProfile CertificateProfile_MAX = DEVICE_SETUP_CERTIFICATE;
+constexpr CertificateProfile CertificateProfile_MAX = ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE;
 constexpr int CertificateProfile_ARRAYSIZE = CertificateProfile_MAX + 1;
 
 const std::string& CertificateProfile_Name(CertificateProfile value);

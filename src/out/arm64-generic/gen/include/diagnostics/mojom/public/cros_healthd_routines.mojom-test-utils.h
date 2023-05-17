@@ -18,6 +18,7 @@ namespace mojom {
 class  CrosHealthdRoutinesServiceInterceptorForTesting : public CrosHealthdRoutinesService {
   virtual CrosHealthdRoutinesService* GetForwardingInterface() = 0;
   void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver) override;
+  void IsRoutineSupported(RoutineArgumentPtr routine_argument, IsRoutineSupportedCallback callback) override;
 };
 class  CrosHealthdRoutinesServiceAsyncWaiter {
  public:
@@ -27,6 +28,9 @@ class  CrosHealthdRoutinesServiceAsyncWaiter {
   CrosHealthdRoutinesServiceAsyncWaiter& operator=(const CrosHealthdRoutinesServiceAsyncWaiter&) = delete;
 
   ~CrosHealthdRoutinesServiceAsyncWaiter();
+  void IsRoutineSupported(
+      RoutineArgumentPtr routine_argument, ::ash::cros_healthd::mojom::SupportStatusPtr* out_status);
+  ::ash::cros_healthd::mojom::SupportStatusPtr IsRoutineSupported(RoutineArgumentPtr routine_argument);
 
  private:
   CrosHealthdRoutinesService* const proxy_;

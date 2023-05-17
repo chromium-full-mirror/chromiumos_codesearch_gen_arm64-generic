@@ -8,5 +8,7 @@
 #define DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_ROUTINES_MOJOM_IMPORT_HEADERS_H_
 #include "diagnostics/mojom/external/time.mojom.h"
 #include "diagnostics/mojom/external/time.mojom-import-headers.h"
+#include "diagnostics/mojom/public/cros_healthd_exception.mojom.h"
+#include "diagnostics/mojom/public/cros_healthd_exception.mojom-import-headers.h"
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_ROUTINES_MOJOM_IMPORT_HEADERS_H_

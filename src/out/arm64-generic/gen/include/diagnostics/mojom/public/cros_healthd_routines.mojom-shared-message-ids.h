@@ -16,6 +16,7 @@ namespace internal {
 
 
 constexpr uint32_t kCrosHealthdRoutinesService_CreateRoutine_Name = 0;
+constexpr uint32_t kCrosHealthdRoutinesService_IsRoutineSupported_Name = 1;
 constexpr uint32_t kRoutineControl_GetState_Name = 0;
 constexpr uint32_t kRoutineControl_AddObserver_Name = 1;
 constexpr uint32_t kRoutineControl_Start_Name = 2;
