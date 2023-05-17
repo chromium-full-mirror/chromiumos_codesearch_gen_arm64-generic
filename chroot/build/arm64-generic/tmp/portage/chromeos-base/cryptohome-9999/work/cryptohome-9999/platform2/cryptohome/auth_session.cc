@@ -64,11 +64,11 @@
 #include "cryptohome/platform.h"
 #include "cryptohome/signature_sealing/structures_proto.h"
 #include "cryptohome/storage/file_system_keyset.h"
-#include "cryptohome/user_secret_stash.h"
-#include "cryptohome/user_secret_stash_storage.h"
+#include "cryptohome/user_secret_stash/migrator.h"
+#include "cryptohome/user_secret_stash/storage.h"
+#include "cryptohome/user_secret_stash/user_secret_stash.h"
 #include "cryptohome/user_session/user_session_map.h"
 #include "cryptohome/username.h"
-#include "cryptohome/uss_migrator.h"
 #include "cryptohome/vault_keyset.h"
 
 namespace cryptohome {
@@ -99,6 +99,8 @@ constexpr int kNumberOfSerializedValuesInToken = 2;
 constexpr int kHighTokenOffset = 0;
 // Offset where the low value is used in Serialized string.
 constexpr int kLowTokenOffset = kSizeOfSerializedValueInToken;
+// Upper limit of the Size of user specified name.
+constexpr int kUserSpecifiedNameSizeLimit = 256;
 // AuthSession will time out if it is active after this time interval.
 constexpr base::TimeDelta kAuthSessionTimeout = base::Minutes(5);
 // Message to use when generating a secret for hibernate.
@@ -1967,6 +1969,16 @@ void AuthSession::UpdateAuthFactorMetadata(
     std::move(on_done).Run(MakeStatus<CryptohomeError>(
         CRYPTOHOME_ERR_LOC(
             kLocAuthSessionDifferentTypeInUpdateAuthFactorMetadata),
+        ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
+        user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT));
+    return;
+  }
+
+  if (auth_factor_metadata.common.user_specified_name.size() >
+      kUserSpecifiedNameSizeLimit) {
+    std::move(on_done).Run(MakeStatus<CryptohomeError>(
+        CRYPTOHOME_ERR_LOC(
+            kLocAuthSessionNameTooLongInUpdateAuthFactorMetadata),
         ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
         user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT));
     return;

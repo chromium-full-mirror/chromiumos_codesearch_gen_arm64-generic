@@ -3770,7 +3770,8 @@ class PERFETTO_EXPORT_COMPONENT TypedProtoDecoderBase : public ProtoDecoder {
       uint32_t field_id,
       bool* parse_error_location) const {
     const Field& field = Get(field_id);
-    if (field.valid()) {
+    if (field.valid() &&
+        field.type() == proto_utils::ProtoWireType::kLengthDelimited) {
       return PackedRepeatedFieldIterator<wire_type, cpp_type>(
           field.data(), field.size(), parse_error_location);
     }
@@ -150403,7 +150404,8 @@ class PERFETTO_EXPORT_COMPONENT TypedProtoDecoderBase : public ProtoDecoder {
       uint32_t field_id,
       bool* parse_error_location) const {
     const Field& field = Get(field_id);
-    if (field.valid()) {
+    if (field.valid() &&
+        field.type() == proto_utils::ProtoWireType::kLengthDelimited) {
       return PackedRepeatedFieldIterator<wire_type, cpp_type>(
           field.data(), field.size(), parse_error_location);
     }

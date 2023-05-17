@@ -671,6 +671,13 @@ std::string GetProtoDebugStringWithIndent(const ListKeysReply& value,
       GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
   output += "\n";
 
+  output += indent + "  error_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
   output += indent + "  labels: {";
   for (int i = 0; i < value.labels_size(); ++i) {
     if (i > 0) {
@@ -679,13 +686,6 @@ std::string GetProtoDebugStringWithIndent(const ListKeysReply& value,
     base::StringAppendF(&output, "%s", value.labels(i).c_str());
   }
   output += "}\n";
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
   output += indent + "}\n";
   return output;
 }
@@ -1385,6 +1385,13 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionReply& value,
       GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
   output += "\n";
 
+  output += indent + "  error_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
   output += indent + "  auth_session_id: ";
   base::StringAppendF(&output, "%s",
                       base::HexEncode(value.auth_session_id().data(),
@@ -1414,13 +1421,6 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionReply& value,
             .c_str());
   }
   output += "}\n";
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
   output += indent + "}\n";
   return output;
 }
@@ -1573,15 +1573,15 @@ std::string GetProtoDebugStringWithIndent(
       GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
   output += "\n";
 
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
   output += indent + "  error_info: ";
   base::StringAppendF(
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
           .c_str());
+  output += "\n";
+
+  output += indent + "  sanitized_username: ";
+  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
   output += "\n";
 
   output += indent + "}\n";
@@ -1618,15 +1618,15 @@ std::string GetProtoDebugStringWithIndent(const PrepareGuestVaultReply& value,
       GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
   output += "\n";
 
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
   output += indent + "  error_info: ";
   base::StringAppendF(
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
           .c_str());
+  output += "\n";
+
+  output += indent + "  sanitized_username: ";
+  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
   output += "\n";
 
   output += indent + "}\n";
@@ -1672,15 +1672,15 @@ std::string GetProtoDebugStringWithIndent(
       GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
   output += "\n";
 
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
   output += indent + "  error_info: ";
   base::StringAppendF(
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
           .c_str());
+  output += "\n";
+
+  output += indent + "  sanitized_username: ";
+  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
   output += "\n";
 
   output += indent + "}\n";
@@ -1802,15 +1802,15 @@ std::string GetProtoDebugStringWithIndent(
       GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
   output += "\n";
 
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
   output += indent + "  error_info: ";
   base::StringAppendF(
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
           .c_str());
+  output += "\n";
+
+  output += indent + "  sanitized_username: ";
+  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
   output += "\n";
 
   output += indent + "}\n";
@@ -1856,15 +1856,15 @@ std::string GetProtoDebugStringWithIndent(
       GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
   output += "\n";
 
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
-  output += "\n";
-
   output += indent + "  error_info: ";
   base::StringAppendF(
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
           .c_str());
+  output += "\n";
+
+  output += indent + "  sanitized_username: ";
+  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
   output += "\n";
 
   output += indent + "}\n";

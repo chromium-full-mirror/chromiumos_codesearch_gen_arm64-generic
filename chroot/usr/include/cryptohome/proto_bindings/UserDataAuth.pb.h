@@ -21844,81 +21844,6 @@ inline void ListKeysReply::set_error(::user_data_auth::CryptohomeErrorCode value
   // @@protoc_insertion_point(field_set:user_data_auth.ListKeysReply.error)
 }
 
-// repeated string labels = 2;
-inline int ListKeysReply::_internal_labels_size() const {
-  return _impl_.labels_.size();
-}
-inline int ListKeysReply::labels_size() const {
-  return _internal_labels_size();
-}
-inline void ListKeysReply::clear_labels() {
-  _impl_.labels_.Clear();
-}
-inline std::string* ListKeysReply::add_labels() {
-  std::string* _s = _internal_add_labels();
-  // @@protoc_insertion_point(field_add_mutable:user_data_auth.ListKeysReply.labels)
-  return _s;
-}
-inline const std::string& ListKeysReply::_internal_labels(int index) const {
-  return _impl_.labels_.Get(index);
-}
-inline const std::string& ListKeysReply::labels(int index) const {
-  // @@protoc_insertion_point(field_get:user_data_auth.ListKeysReply.labels)
-  return _internal_labels(index);
-}
-inline std::string* ListKeysReply::mutable_labels(int index) {
-  // @@protoc_insertion_point(field_mutable:user_data_auth.ListKeysReply.labels)
-  return _impl_.labels_.Mutable(index);
-}
-inline void ListKeysReply::set_labels(int index, const std::string& value) {
-  _impl_.labels_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.ListKeysReply.labels)
-}
-inline void ListKeysReply::set_labels(int index, std::string&& value) {
-  _impl_.labels_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:user_data_auth.ListKeysReply.labels)
-}
-inline void ListKeysReply::set_labels(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _impl_.labels_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:user_data_auth.ListKeysReply.labels)
-}
-inline void ListKeysReply::set_labels(int index, const char* value, size_t size) {
-  _impl_.labels_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:user_data_auth.ListKeysReply.labels)
-}
-inline std::string* ListKeysReply::_internal_add_labels() {
-  return _impl_.labels_.Add();
-}
-inline void ListKeysReply::add_labels(const std::string& value) {
-  _impl_.labels_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:user_data_auth.ListKeysReply.labels)
-}
-inline void ListKeysReply::add_labels(std::string&& value) {
-  _impl_.labels_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:user_data_auth.ListKeysReply.labels)
-}
-inline void ListKeysReply::add_labels(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _impl_.labels_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:user_data_auth.ListKeysReply.labels)
-}
-inline void ListKeysReply::add_labels(const char* value, size_t size) {
-  _impl_.labels_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:user_data_auth.ListKeysReply.labels)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-ListKeysReply::labels() const {
-  // @@protoc_insertion_point(field_list:user_data_auth.ListKeysReply.labels)
-  return _impl_.labels_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-ListKeysReply::mutable_labels() {
-  // @@protoc_insertion_point(field_mutable_list:user_data_auth.ListKeysReply.labels)
-  return &_impl_.labels_;
-}
-
 // .user_data_auth.CryptohomeErrorInfo error_info = 3;
 inline bool ListKeysReply::_internal_has_error_info() const {
   return this != internal_default_instance() && _impl_.error_info_ != nullptr;
@@ -22007,6 +21932,81 @@ inline void ListKeysReply::set_allocated_error_info(::user_data_auth::Cryptohome
   }
   _impl_.error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.ListKeysReply.error_info)
+}
+
+// repeated string labels = 2;
+inline int ListKeysReply::_internal_labels_size() const {
+  return _impl_.labels_.size();
+}
+inline int ListKeysReply::labels_size() const {
+  return _internal_labels_size();
+}
+inline void ListKeysReply::clear_labels() {
+  _impl_.labels_.Clear();
+}
+inline std::string* ListKeysReply::add_labels() {
+  std::string* _s = _internal_add_labels();
+  // @@protoc_insertion_point(field_add_mutable:user_data_auth.ListKeysReply.labels)
+  return _s;
+}
+inline const std::string& ListKeysReply::_internal_labels(int index) const {
+  return _impl_.labels_.Get(index);
+}
+inline const std::string& ListKeysReply::labels(int index) const {
+  // @@protoc_insertion_point(field_get:user_data_auth.ListKeysReply.labels)
+  return _internal_labels(index);
+}
+inline std::string* ListKeysReply::mutable_labels(int index) {
+  // @@protoc_insertion_point(field_mutable:user_data_auth.ListKeysReply.labels)
+  return _impl_.labels_.Mutable(index);
+}
+inline void ListKeysReply::set_labels(int index, const std::string& value) {
+  _impl_.labels_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.ListKeysReply.labels)
+}
+inline void ListKeysReply::set_labels(int index, std::string&& value) {
+  _impl_.labels_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:user_data_auth.ListKeysReply.labels)
+}
+inline void ListKeysReply::set_labels(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.labels_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:user_data_auth.ListKeysReply.labels)
+}
+inline void ListKeysReply::set_labels(int index, const char* value, size_t size) {
+  _impl_.labels_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:user_data_auth.ListKeysReply.labels)
+}
+inline std::string* ListKeysReply::_internal_add_labels() {
+  return _impl_.labels_.Add();
+}
+inline void ListKeysReply::add_labels(const std::string& value) {
+  _impl_.labels_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:user_data_auth.ListKeysReply.labels)
+}
+inline void ListKeysReply::add_labels(std::string&& value) {
+  _impl_.labels_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:user_data_auth.ListKeysReply.labels)
+}
+inline void ListKeysReply::add_labels(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.labels_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:user_data_auth.ListKeysReply.labels)
+}
+inline void ListKeysReply::add_labels(const char* value, size_t size) {
+  _impl_.labels_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:user_data_auth.ListKeysReply.labels)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+ListKeysReply::labels() const {
+  // @@protoc_insertion_point(field_list:user_data_auth.ListKeysReply.labels)
+  return _impl_.labels_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+ListKeysReply::mutable_labels() {
+  // @@protoc_insertion_point(field_mutable_list:user_data_auth.ListKeysReply.labels)
+  return &_impl_.labels_;
 }
 
 // -------------------------------------------------------------------
@@ -24063,6 +24063,96 @@ inline void StartAuthSessionReply::set_error(::user_data_auth::CryptohomeErrorCo
   // @@protoc_insertion_point(field_set:user_data_auth.StartAuthSessionReply.error)
 }
 
+// .user_data_auth.CryptohomeErrorInfo error_info = 6;
+inline bool StartAuthSessionReply::_internal_has_error_info() const {
+  return this != internal_default_instance() && _impl_.error_info_ != nullptr;
+}
+inline bool StartAuthSessionReply::has_error_info() const {
+  return _internal_has_error_info();
+}
+inline void StartAuthSessionReply::clear_error_info() {
+  if (GetArenaForAllocation() == nullptr && _impl_.error_info_ != nullptr) {
+    delete _impl_.error_info_;
+  }
+  _impl_.error_info_ = nullptr;
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& StartAuthSessionReply::_internal_error_info() const {
+  const ::user_data_auth::CryptohomeErrorInfo* p = _impl_.error_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
+      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& StartAuthSessionReply::error_info() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.StartAuthSessionReply.error_info)
+  return _internal_error_info();
+}
+inline void StartAuthSessionReply::unsafe_arena_set_allocated_error_info(
+    ::user_data_auth::CryptohomeErrorInfo* error_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.error_info_);
+  }
+  _impl_.error_info_ = error_info;
+  if (error_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.StartAuthSessionReply.error_info)
+}
+inline ::user_data_auth::CryptohomeErrorInfo* StartAuthSessionReply::release_error_info() {
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = _impl_.error_info_;
+  _impl_.error_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* StartAuthSessionReply::unsafe_arena_release_error_info() {
+  // @@protoc_insertion_point(field_release:user_data_auth.StartAuthSessionReply.error_info)
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = _impl_.error_info_;
+  _impl_.error_info_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* StartAuthSessionReply::_internal_mutable_error_info() {
+  
+  if (_impl_.error_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
+    _impl_.error_info_ = p;
+  }
+  return _impl_.error_info_;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* StartAuthSessionReply::mutable_error_info() {
+  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.StartAuthSessionReply.error_info)
+  return _msg;
+}
+inline void StartAuthSessionReply::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.error_info_;
+  }
+  if (error_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(error_info);
+    if (message_arena != submessage_arena) {
+      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, error_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.error_info_ = error_info;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.StartAuthSessionReply.error_info)
+}
+
 // bytes auth_session_id = 2;
 inline void StartAuthSessionReply::clear_auth_session_id() {
   _impl_.auth_session_id_.ClearToEmpty();
@@ -24218,96 +24308,6 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFa
 StartAuthSessionReply::auth_factors() const {
   // @@protoc_insertion_point(field_list:user_data_auth.StartAuthSessionReply.auth_factors)
   return _impl_.auth_factors_;
-}
-
-// .user_data_auth.CryptohomeErrorInfo error_info = 6;
-inline bool StartAuthSessionReply::_internal_has_error_info() const {
-  return this != internal_default_instance() && _impl_.error_info_ != nullptr;
-}
-inline bool StartAuthSessionReply::has_error_info() const {
-  return _internal_has_error_info();
-}
-inline void StartAuthSessionReply::clear_error_info() {
-  if (GetArenaForAllocation() == nullptr && _impl_.error_info_ != nullptr) {
-    delete _impl_.error_info_;
-  }
-  _impl_.error_info_ = nullptr;
-}
-inline const ::user_data_auth::CryptohomeErrorInfo& StartAuthSessionReply::_internal_error_info() const {
-  const ::user_data_auth::CryptohomeErrorInfo* p = _impl_.error_info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
-      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
-}
-inline const ::user_data_auth::CryptohomeErrorInfo& StartAuthSessionReply::error_info() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.StartAuthSessionReply.error_info)
-  return _internal_error_info();
-}
-inline void StartAuthSessionReply::unsafe_arena_set_allocated_error_info(
-    ::user_data_auth::CryptohomeErrorInfo* error_info) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.error_info_);
-  }
-  _impl_.error_info_ = error_info;
-  if (error_info) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.StartAuthSessionReply.error_info)
-}
-inline ::user_data_auth::CryptohomeErrorInfo* StartAuthSessionReply::release_error_info() {
-  
-  ::user_data_auth::CryptohomeErrorInfo* temp = _impl_.error_info_;
-  _impl_.error_info_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* StartAuthSessionReply::unsafe_arena_release_error_info() {
-  // @@protoc_insertion_point(field_release:user_data_auth.StartAuthSessionReply.error_info)
-  
-  ::user_data_auth::CryptohomeErrorInfo* temp = _impl_.error_info_;
-  _impl_.error_info_ = nullptr;
-  return temp;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* StartAuthSessionReply::_internal_mutable_error_info() {
-  
-  if (_impl_.error_info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
-    _impl_.error_info_ = p;
-  }
-  return _impl_.error_info_;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* StartAuthSessionReply::mutable_error_info() {
-  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.StartAuthSessionReply.error_info)
-  return _msg;
-}
-inline void StartAuthSessionReply::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.error_info_;
-  }
-  if (error_info) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(error_info);
-    if (message_arena != submessage_arena) {
-      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, error_info, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.error_info_ = error_info;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.StartAuthSessionReply.error_info)
 }
 
 // -------------------------------------------------------------------
@@ -24772,56 +24772,6 @@ inline void CreatePersistentUserReply::set_error(::user_data_auth::CryptohomeErr
   // @@protoc_insertion_point(field_set:user_data_auth.CreatePersistentUserReply.error)
 }
 
-// string sanitized_username = 2;
-inline void CreatePersistentUserReply::clear_sanitized_username() {
-  _impl_.sanitized_username_.ClearToEmpty();
-}
-inline const std::string& CreatePersistentUserReply::sanitized_username() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.CreatePersistentUserReply.sanitized_username)
-  return _internal_sanitized_username();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void CreatePersistentUserReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.CreatePersistentUserReply.sanitized_username)
-}
-inline std::string* CreatePersistentUserReply::mutable_sanitized_username() {
-  std::string* _s = _internal_mutable_sanitized_username();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.CreatePersistentUserReply.sanitized_username)
-  return _s;
-}
-inline const std::string& CreatePersistentUserReply::_internal_sanitized_username() const {
-  return _impl_.sanitized_username_.Get();
-}
-inline void CreatePersistentUserReply::_internal_set_sanitized_username(const std::string& value) {
-  
-  _impl_.sanitized_username_.Set(value, GetArenaForAllocation());
-}
-inline std::string* CreatePersistentUserReply::_internal_mutable_sanitized_username() {
-  
-  return _impl_.sanitized_username_.Mutable(GetArenaForAllocation());
-}
-inline std::string* CreatePersistentUserReply::release_sanitized_username() {
-  // @@protoc_insertion_point(field_release:user_data_auth.CreatePersistentUserReply.sanitized_username)
-  return _impl_.sanitized_username_.Release();
-}
-inline void CreatePersistentUserReply::set_allocated_sanitized_username(std::string* sanitized_username) {
-  if (sanitized_username != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.sanitized_username_.IsDefault()) {
-    _impl_.sanitized_username_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CreatePersistentUserReply.sanitized_username)
-}
-
 // .user_data_auth.CryptohomeErrorInfo error_info = 3;
 inline bool CreatePersistentUserReply::_internal_has_error_info() const {
   return this != internal_default_instance() && _impl_.error_info_ != nullptr;
@@ -24912,6 +24862,56 @@ inline void CreatePersistentUserReply::set_allocated_error_info(::user_data_auth
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.CreatePersistentUserReply.error_info)
 }
 
+// string sanitized_username = 2;
+inline void CreatePersistentUserReply::clear_sanitized_username() {
+  _impl_.sanitized_username_.ClearToEmpty();
+}
+inline const std::string& CreatePersistentUserReply::sanitized_username() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CreatePersistentUserReply.sanitized_username)
+  return _internal_sanitized_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CreatePersistentUserReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.CreatePersistentUserReply.sanitized_username)
+}
+inline std::string* CreatePersistentUserReply::mutable_sanitized_username() {
+  std::string* _s = _internal_mutable_sanitized_username();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.CreatePersistentUserReply.sanitized_username)
+  return _s;
+}
+inline const std::string& CreatePersistentUserReply::_internal_sanitized_username() const {
+  return _impl_.sanitized_username_.Get();
+}
+inline void CreatePersistentUserReply::_internal_set_sanitized_username(const std::string& value) {
+  
+  _impl_.sanitized_username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CreatePersistentUserReply::_internal_mutable_sanitized_username() {
+  
+  return _impl_.sanitized_username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CreatePersistentUserReply::release_sanitized_username() {
+  // @@protoc_insertion_point(field_release:user_data_auth.CreatePersistentUserReply.sanitized_username)
+  return _impl_.sanitized_username_.Release();
+}
+inline void CreatePersistentUserReply::set_allocated_sanitized_username(std::string* sanitized_username) {
+  if (sanitized_username != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.sanitized_username_.IsDefault()) {
+    _impl_.sanitized_username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CreatePersistentUserReply.sanitized_username)
+}
+
 // -------------------------------------------------------------------
 
 // PrepareGuestVaultRequest
@@ -24938,56 +24938,6 @@ inline void PrepareGuestVaultReply::_internal_set_error(::user_data_auth::Crypto
 inline void PrepareGuestVaultReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
   _internal_set_error(value);
   // @@protoc_insertion_point(field_set:user_data_auth.PrepareGuestVaultReply.error)
-}
-
-// string sanitized_username = 2;
-inline void PrepareGuestVaultReply::clear_sanitized_username() {
-  _impl_.sanitized_username_.ClearToEmpty();
-}
-inline const std::string& PrepareGuestVaultReply::sanitized_username() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.PrepareGuestVaultReply.sanitized_username)
-  return _internal_sanitized_username();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void PrepareGuestVaultReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.PrepareGuestVaultReply.sanitized_username)
-}
-inline std::string* PrepareGuestVaultReply::mutable_sanitized_username() {
-  std::string* _s = _internal_mutable_sanitized_username();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareGuestVaultReply.sanitized_username)
-  return _s;
-}
-inline const std::string& PrepareGuestVaultReply::_internal_sanitized_username() const {
-  return _impl_.sanitized_username_.Get();
-}
-inline void PrepareGuestVaultReply::_internal_set_sanitized_username(const std::string& value) {
-  
-  _impl_.sanitized_username_.Set(value, GetArenaForAllocation());
-}
-inline std::string* PrepareGuestVaultReply::_internal_mutable_sanitized_username() {
-  
-  return _impl_.sanitized_username_.Mutable(GetArenaForAllocation());
-}
-inline std::string* PrepareGuestVaultReply::release_sanitized_username() {
-  // @@protoc_insertion_point(field_release:user_data_auth.PrepareGuestVaultReply.sanitized_username)
-  return _impl_.sanitized_username_.Release();
-}
-inline void PrepareGuestVaultReply::set_allocated_sanitized_username(std::string* sanitized_username) {
-  if (sanitized_username != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.sanitized_username_.IsDefault()) {
-    _impl_.sanitized_username_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareGuestVaultReply.sanitized_username)
 }
 
 // .user_data_auth.CryptohomeErrorInfo error_info = 3;
@@ -25080,6 +25030,56 @@ inline void PrepareGuestVaultReply::set_allocated_error_info(::user_data_auth::C
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareGuestVaultReply.error_info)
 }
 
+// string sanitized_username = 2;
+inline void PrepareGuestVaultReply::clear_sanitized_username() {
+  _impl_.sanitized_username_.ClearToEmpty();
+}
+inline const std::string& PrepareGuestVaultReply::sanitized_username() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareGuestVaultReply.sanitized_username)
+  return _internal_sanitized_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PrepareGuestVaultReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.PrepareGuestVaultReply.sanitized_username)
+}
+inline std::string* PrepareGuestVaultReply::mutable_sanitized_username() {
+  std::string* _s = _internal_mutable_sanitized_username();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareGuestVaultReply.sanitized_username)
+  return _s;
+}
+inline const std::string& PrepareGuestVaultReply::_internal_sanitized_username() const {
+  return _impl_.sanitized_username_.Get();
+}
+inline void PrepareGuestVaultReply::_internal_set_sanitized_username(const std::string& value) {
+  
+  _impl_.sanitized_username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PrepareGuestVaultReply::_internal_mutable_sanitized_username() {
+  
+  return _impl_.sanitized_username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PrepareGuestVaultReply::release_sanitized_username() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PrepareGuestVaultReply.sanitized_username)
+  return _impl_.sanitized_username_.Release();
+}
+inline void PrepareGuestVaultReply::set_allocated_sanitized_username(std::string* sanitized_username) {
+  if (sanitized_username != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.sanitized_username_.IsDefault()) {
+    _impl_.sanitized_username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareGuestVaultReply.sanitized_username)
+}
+
 // -------------------------------------------------------------------
 
 // PrepareEphemeralVaultRequest
@@ -25156,56 +25156,6 @@ inline void PrepareEphemeralVaultReply::_internal_set_error(::user_data_auth::Cr
 inline void PrepareEphemeralVaultReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
   _internal_set_error(value);
   // @@protoc_insertion_point(field_set:user_data_auth.PrepareEphemeralVaultReply.error)
-}
-
-// string sanitized_username = 2;
-inline void PrepareEphemeralVaultReply::clear_sanitized_username() {
-  _impl_.sanitized_username_.ClearToEmpty();
-}
-inline const std::string& PrepareEphemeralVaultReply::sanitized_username() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.PrepareEphemeralVaultReply.sanitized_username)
-  return _internal_sanitized_username();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void PrepareEphemeralVaultReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.PrepareEphemeralVaultReply.sanitized_username)
-}
-inline std::string* PrepareEphemeralVaultReply::mutable_sanitized_username() {
-  std::string* _s = _internal_mutable_sanitized_username();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareEphemeralVaultReply.sanitized_username)
-  return _s;
-}
-inline const std::string& PrepareEphemeralVaultReply::_internal_sanitized_username() const {
-  return _impl_.sanitized_username_.Get();
-}
-inline void PrepareEphemeralVaultReply::_internal_set_sanitized_username(const std::string& value) {
-  
-  _impl_.sanitized_username_.Set(value, GetArenaForAllocation());
-}
-inline std::string* PrepareEphemeralVaultReply::_internal_mutable_sanitized_username() {
-  
-  return _impl_.sanitized_username_.Mutable(GetArenaForAllocation());
-}
-inline std::string* PrepareEphemeralVaultReply::release_sanitized_username() {
-  // @@protoc_insertion_point(field_release:user_data_auth.PrepareEphemeralVaultReply.sanitized_username)
-  return _impl_.sanitized_username_.Release();
-}
-inline void PrepareEphemeralVaultReply::set_allocated_sanitized_username(std::string* sanitized_username) {
-  if (sanitized_username != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.sanitized_username_.IsDefault()) {
-    _impl_.sanitized_username_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareEphemeralVaultReply.sanitized_username)
 }
 
 // .user_data_auth.CryptohomeErrorInfo error_info = 3;
@@ -25296,6 +25246,56 @@ inline void PrepareEphemeralVaultReply::set_allocated_error_info(::user_data_aut
   }
   _impl_.error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareEphemeralVaultReply.error_info)
+}
+
+// string sanitized_username = 2;
+inline void PrepareEphemeralVaultReply::clear_sanitized_username() {
+  _impl_.sanitized_username_.ClearToEmpty();
+}
+inline const std::string& PrepareEphemeralVaultReply::sanitized_username() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareEphemeralVaultReply.sanitized_username)
+  return _internal_sanitized_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PrepareEphemeralVaultReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.PrepareEphemeralVaultReply.sanitized_username)
+}
+inline std::string* PrepareEphemeralVaultReply::mutable_sanitized_username() {
+  std::string* _s = _internal_mutable_sanitized_username();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareEphemeralVaultReply.sanitized_username)
+  return _s;
+}
+inline const std::string& PrepareEphemeralVaultReply::_internal_sanitized_username() const {
+  return _impl_.sanitized_username_.Get();
+}
+inline void PrepareEphemeralVaultReply::_internal_set_sanitized_username(const std::string& value) {
+  
+  _impl_.sanitized_username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PrepareEphemeralVaultReply::_internal_mutable_sanitized_username() {
+  
+  return _impl_.sanitized_username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PrepareEphemeralVaultReply::release_sanitized_username() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PrepareEphemeralVaultReply.sanitized_username)
+  return _impl_.sanitized_username_.Release();
+}
+inline void PrepareEphemeralVaultReply::set_allocated_sanitized_username(std::string* sanitized_username) {
+  if (sanitized_username != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.sanitized_username_.IsDefault()) {
+    _impl_.sanitized_username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareEphemeralVaultReply.sanitized_username)
 }
 
 // -------------------------------------------------------------------
@@ -25577,56 +25577,6 @@ inline void PreparePersistentVaultReply::set_error(::user_data_auth::CryptohomeE
   // @@protoc_insertion_point(field_set:user_data_auth.PreparePersistentVaultReply.error)
 }
 
-// string sanitized_username = 2;
-inline void PreparePersistentVaultReply::clear_sanitized_username() {
-  _impl_.sanitized_username_.ClearToEmpty();
-}
-inline const std::string& PreparePersistentVaultReply::sanitized_username() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.PreparePersistentVaultReply.sanitized_username)
-  return _internal_sanitized_username();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void PreparePersistentVaultReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.PreparePersistentVaultReply.sanitized_username)
-}
-inline std::string* PreparePersistentVaultReply::mutable_sanitized_username() {
-  std::string* _s = _internal_mutable_sanitized_username();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.PreparePersistentVaultReply.sanitized_username)
-  return _s;
-}
-inline const std::string& PreparePersistentVaultReply::_internal_sanitized_username() const {
-  return _impl_.sanitized_username_.Get();
-}
-inline void PreparePersistentVaultReply::_internal_set_sanitized_username(const std::string& value) {
-  
-  _impl_.sanitized_username_.Set(value, GetArenaForAllocation());
-}
-inline std::string* PreparePersistentVaultReply::_internal_mutable_sanitized_username() {
-  
-  return _impl_.sanitized_username_.Mutable(GetArenaForAllocation());
-}
-inline std::string* PreparePersistentVaultReply::release_sanitized_username() {
-  // @@protoc_insertion_point(field_release:user_data_auth.PreparePersistentVaultReply.sanitized_username)
-  return _impl_.sanitized_username_.Release();
-}
-inline void PreparePersistentVaultReply::set_allocated_sanitized_username(std::string* sanitized_username) {
-  if (sanitized_username != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.sanitized_username_.IsDefault()) {
-    _impl_.sanitized_username_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PreparePersistentVaultReply.sanitized_username)
-}
-
 // .user_data_auth.CryptohomeErrorInfo error_info = 3;
 inline bool PreparePersistentVaultReply::_internal_has_error_info() const {
   return this != internal_default_instance() && _impl_.error_info_ != nullptr;
@@ -25717,6 +25667,56 @@ inline void PreparePersistentVaultReply::set_allocated_error_info(::user_data_au
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.PreparePersistentVaultReply.error_info)
 }
 
+// string sanitized_username = 2;
+inline void PreparePersistentVaultReply::clear_sanitized_username() {
+  _impl_.sanitized_username_.ClearToEmpty();
+}
+inline const std::string& PreparePersistentVaultReply::sanitized_username() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PreparePersistentVaultReply.sanitized_username)
+  return _internal_sanitized_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PreparePersistentVaultReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.PreparePersistentVaultReply.sanitized_username)
+}
+inline std::string* PreparePersistentVaultReply::mutable_sanitized_username() {
+  std::string* _s = _internal_mutable_sanitized_username();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PreparePersistentVaultReply.sanitized_username)
+  return _s;
+}
+inline const std::string& PreparePersistentVaultReply::_internal_sanitized_username() const {
+  return _impl_.sanitized_username_.Get();
+}
+inline void PreparePersistentVaultReply::_internal_set_sanitized_username(const std::string& value) {
+  
+  _impl_.sanitized_username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PreparePersistentVaultReply::_internal_mutable_sanitized_username() {
+  
+  return _impl_.sanitized_username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PreparePersistentVaultReply::release_sanitized_username() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PreparePersistentVaultReply.sanitized_username)
+  return _impl_.sanitized_username_.Release();
+}
+inline void PreparePersistentVaultReply::set_allocated_sanitized_username(std::string* sanitized_username) {
+  if (sanitized_username != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.sanitized_username_.IsDefault()) {
+    _impl_.sanitized_username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PreparePersistentVaultReply.sanitized_username)
+}
+
 // -------------------------------------------------------------------
 
 // PrepareVaultForMigrationRequest
@@ -25793,56 +25793,6 @@ inline void PrepareVaultForMigrationReply::_internal_set_error(::user_data_auth:
 inline void PrepareVaultForMigrationReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
   _internal_set_error(value);
   // @@protoc_insertion_point(field_set:user_data_auth.PrepareVaultForMigrationReply.error)
-}
-
-// string sanitized_username = 2;
-inline void PrepareVaultForMigrationReply::clear_sanitized_username() {
-  _impl_.sanitized_username_.ClearToEmpty();
-}
-inline const std::string& PrepareVaultForMigrationReply::sanitized_username() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.PrepareVaultForMigrationReply.sanitized_username)
-  return _internal_sanitized_username();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void PrepareVaultForMigrationReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.PrepareVaultForMigrationReply.sanitized_username)
-}
-inline std::string* PrepareVaultForMigrationReply::mutable_sanitized_username() {
-  std::string* _s = _internal_mutable_sanitized_username();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareVaultForMigrationReply.sanitized_username)
-  return _s;
-}
-inline const std::string& PrepareVaultForMigrationReply::_internal_sanitized_username() const {
-  return _impl_.sanitized_username_.Get();
-}
-inline void PrepareVaultForMigrationReply::_internal_set_sanitized_username(const std::string& value) {
-  
-  _impl_.sanitized_username_.Set(value, GetArenaForAllocation());
-}
-inline std::string* PrepareVaultForMigrationReply::_internal_mutable_sanitized_username() {
-  
-  return _impl_.sanitized_username_.Mutable(GetArenaForAllocation());
-}
-inline std::string* PrepareVaultForMigrationReply::release_sanitized_username() {
-  // @@protoc_insertion_point(field_release:user_data_auth.PrepareVaultForMigrationReply.sanitized_username)
-  return _impl_.sanitized_username_.Release();
-}
-inline void PrepareVaultForMigrationReply::set_allocated_sanitized_username(std::string* sanitized_username) {
-  if (sanitized_username != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.sanitized_username_.IsDefault()) {
-    _impl_.sanitized_username_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareVaultForMigrationReply.sanitized_username)
 }
 
 // .user_data_auth.CryptohomeErrorInfo error_info = 3;
@@ -25933,6 +25883,56 @@ inline void PrepareVaultForMigrationReply::set_allocated_error_info(::user_data_
   }
   _impl_.error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareVaultForMigrationReply.error_info)
+}
+
+// string sanitized_username = 2;
+inline void PrepareVaultForMigrationReply::clear_sanitized_username() {
+  _impl_.sanitized_username_.ClearToEmpty();
+}
+inline const std::string& PrepareVaultForMigrationReply::sanitized_username() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareVaultForMigrationReply.sanitized_username)
+  return _internal_sanitized_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PrepareVaultForMigrationReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.sanitized_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.PrepareVaultForMigrationReply.sanitized_username)
+}
+inline std::string* PrepareVaultForMigrationReply::mutable_sanitized_username() {
+  std::string* _s = _internal_mutable_sanitized_username();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareVaultForMigrationReply.sanitized_username)
+  return _s;
+}
+inline const std::string& PrepareVaultForMigrationReply::_internal_sanitized_username() const {
+  return _impl_.sanitized_username_.Get();
+}
+inline void PrepareVaultForMigrationReply::_internal_set_sanitized_username(const std::string& value) {
+  
+  _impl_.sanitized_username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PrepareVaultForMigrationReply::_internal_mutable_sanitized_username() {
+  
+  return _impl_.sanitized_username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* PrepareVaultForMigrationReply::release_sanitized_username() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PrepareVaultForMigrationReply.sanitized_username)
+  return _impl_.sanitized_username_.Release();
+}
+inline void PrepareVaultForMigrationReply::set_allocated_sanitized_username(std::string* sanitized_username) {
+  if (sanitized_username != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.sanitized_username_.SetAllocated(sanitized_username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.sanitized_username_.IsDefault()) {
+    _impl_.sanitized_username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareVaultForMigrationReply.sanitized_username)
 }
 
 // -------------------------------------------------------------------

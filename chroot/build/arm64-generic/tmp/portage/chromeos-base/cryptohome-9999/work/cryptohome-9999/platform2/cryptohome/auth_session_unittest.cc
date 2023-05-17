@@ -60,8 +60,8 @@
 #include "cryptohome/pkcs11/mock_pkcs11_token_factory.h"
 #include "cryptohome/storage/homedirs.h"
 #include "cryptohome/storage/mock_mount.h"
-#include "cryptohome/user_secret_stash.h"
-#include "cryptohome/user_secret_stash_storage.h"
+#include "cryptohome/user_secret_stash/storage.h"
+#include "cryptohome/user_secret_stash/user_secret_stash.h"
 #include "cryptohome/user_session/mock_user_session.h"
 #include "cryptohome/user_session/real_user_session.h"
 #include "cryptohome/user_session/user_session_map.h"
@@ -127,6 +127,8 @@ constexpr char kFakeResetSecret[] = "fake_reset_secret";
 
 // Set to match the 5 minute timer and a 1 minute extension in AuthSession.
 constexpr int kAuthSessionExtensionDuration = 60;
+// Upper limit of the Size of user specified name.
+constexpr int kUserSpecifiedNameSizeLimit = 256;
 constexpr auto kAuthSessionTimeout = base::Minutes(5);
 constexpr base::TimeDelta kAuthFactorStatusUpdateDelay = base::Seconds(30);
 constexpr auto kAuthSessionExtension =
@@ -4578,12 +4580,15 @@ TEST_F(AuthSessionWithUssExperimentTest, UpdateAuthFactorMetadataSuccess) {
   // Test.
   user_data_auth::AuthFactor new_auth_factor;
   std::string kFakeChromeVersion = "fake chrome version";
+  std::string kUserSpecifiedName = "password";
 
   new_auth_factor.set_type(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
   new_auth_factor.set_label(kFakeLabel);
   new_auth_factor.mutable_password_metadata();
   new_auth_factor.mutable_common_metadata()->set_chrome_version_last_updated(
       kFakeChromeVersion);
+  new_auth_factor.mutable_common_metadata()->set_user_specified_name(
+      kUserSpecifiedName);
 
   error = UpdateAuthFactorMetadata(new_auth_factor, auth_session);
   EXPECT_EQ(error, user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
@@ -4595,6 +4600,8 @@ TEST_F(AuthSessionWithUssExperimentTest, UpdateAuthFactorMetadataSuccess) {
   EXPECT_EQ(
       loaded_auth_factor.value()->metadata().common.chrome_version_last_updated,
       kFakeChromeVersion);
+  EXPECT_EQ(loaded_auth_factor.value()->metadata().common.user_specified_name,
+            kUserSpecifiedName);
 
   // Calling AuthenticateAuthFactor with the password succeeds.
   error = AuthenticatePasswordAuthFactor(kFakePass, auth_session);
@@ -4672,6 +4679,47 @@ TEST_F(AuthSessionWithUssExperimentTest,
   new_auth_factor.set_type(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
   new_auth_factor.set_label(kFakeOtherLabel);
   new_auth_factor.mutable_password_metadata();
+
+  error = UpdateAuthFactorMetadata(new_auth_factor, auth_session);
+  EXPECT_EQ(error, user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+}
+
+TEST_F(AuthSessionWithUssExperimentTest,
+       UpdateAuthFactorMetadataLongNameFailure) {
+  // Setup.
+  AuthSession auth_session(
+      {.username = kFakeUsername,
+       .is_ephemeral_user = false,
+       .intent = AuthIntent::kDecrypt,
+       .timeout_timer = std::make_unique<base::WallClockTimer>(),
+       .auth_factor_status_update_timer =
+           std::make_unique<base::WallClockTimer>(),
+       .user_exists = false,
+       .auth_factor_map = AuthFactorMap(),
+       .migrate_to_user_secret_stash = false},
+      backing_apis_);
+
+  // Creating the user.
+  EXPECT_THAT(auth_session.OnUserCreated(), IsOk());
+  EXPECT_TRUE(auth_session.has_user_secret_stash());
+
+  user_data_auth::CryptohomeErrorCode error =
+      user_data_auth::CRYPTOHOME_ERROR_NOT_SET;
+
+  // Calling AddAuthFactor.
+  error = AddPasswordAuthFactor(kFakeLabel, kFakePass, /*first_factor=*/true,
+                                auth_session);
+  EXPECT_EQ(error, user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+
+  // Test.
+  user_data_auth::AuthFactor new_auth_factor;
+  std::string extra_long_name(kUserSpecifiedNameSizeLimit + 1, 'x');
+
+  new_auth_factor.set_type(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
+  new_auth_factor.set_label(kFakeLabel);
+  new_auth_factor.mutable_password_metadata();
+  new_auth_factor.mutable_common_metadata()->set_user_specified_name(
+      extra_long_name);
 
   error = UpdateAuthFactorMetadata(new_auth_factor, auth_session);
   EXPECT_EQ(error, user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
