@@ -2478,6 +2478,7 @@ class CheckFilesTransferRequest final :
     kDestinationUrlFieldNumber = 2,
     kDestinationComponentFieldNumber = 3,
     kFileActionFieldNumber = 4,
+    kIoTaskIdFieldNumber = 5,
   };
   // repeated string files_paths = 1;
   int files_paths_size() const;
@@ -2547,6 +2548,19 @@ class CheckFilesTransferRequest final :
   void _internal_set_file_action(::dlp::FileAction value);
   public:
 
+  // optional uint64 io_task_id = 5;
+  bool has_io_task_id() const;
+  private:
+  bool _internal_has_io_task_id() const;
+  public:
+  void clear_io_task_id();
+  uint64_t io_task_id() const;
+  void set_io_task_id(uint64_t value);
+  private:
+  uint64_t _internal_io_task_id() const;
+  void _internal_set_io_task_id(uint64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:dlp.CheckFilesTransferRequest)
  private:
   class _Internal;
@@ -2561,6 +2575,7 @@ class CheckFilesTransferRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr destination_url_;
     int destination_component_;
     int file_action_;
+    uint64_t io_task_id_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_dlp_5fservice_2eproto;
@@ -2854,6 +2869,7 @@ class IsFilesTransferRestrictedRequest final :
     kDestinationUrlFieldNumber = 2,
     kDestinationComponentFieldNumber = 4,
     kFileActionFieldNumber = 5,
+    kIoTaskIdFieldNumber = 6,
   };
   // repeated .dlp.FileMetadata transferred_files = 3;
   int transferred_files_size() const;
@@ -2917,6 +2933,19 @@ class IsFilesTransferRestrictedRequest final :
   void _internal_set_file_action(::dlp::FileAction value);
   public:
 
+  // optional uint64 io_task_id = 6;
+  bool has_io_task_id() const;
+  private:
+  bool _internal_has_io_task_id() const;
+  public:
+  void clear_io_task_id();
+  uint64_t io_task_id() const;
+  void set_io_task_id(uint64_t value);
+  private:
+  uint64_t _internal_io_task_id() const;
+  void _internal_set_io_task_id(uint64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:dlp.IsFilesTransferRestrictedRequest)
  private:
   class _Internal;
@@ -2931,6 +2960,7 @@ class IsFilesTransferRestrictedRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr destination_url_;
     int destination_component_;
     int file_action_;
+    uint64_t io_task_id_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_dlp_5fservice_2eproto;
@@ -4822,6 +4852,34 @@ inline void CheckFilesTransferRequest::set_file_action(::dlp::FileAction value) 
   // @@protoc_insertion_point(field_set:dlp.CheckFilesTransferRequest.file_action)
 }
 
+// optional uint64 io_task_id = 5;
+inline bool CheckFilesTransferRequest::_internal_has_io_task_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool CheckFilesTransferRequest::has_io_task_id() const {
+  return _internal_has_io_task_id();
+}
+inline void CheckFilesTransferRequest::clear_io_task_id() {
+  _impl_.io_task_id_ = uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000008u;
+}
+inline uint64_t CheckFilesTransferRequest::_internal_io_task_id() const {
+  return _impl_.io_task_id_;
+}
+inline uint64_t CheckFilesTransferRequest::io_task_id() const {
+  // @@protoc_insertion_point(field_get:dlp.CheckFilesTransferRequest.io_task_id)
+  return _internal_io_task_id();
+}
+inline void CheckFilesTransferRequest::_internal_set_io_task_id(uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_.io_task_id_ = value;
+}
+inline void CheckFilesTransferRequest::set_io_task_id(uint64_t value) {
+  _internal_set_io_task_id(value);
+  // @@protoc_insertion_point(field_set:dlp.CheckFilesTransferRequest.io_task_id)
+}
+
 // -------------------------------------------------------------------
 
 // CheckFilesTransferResponse
@@ -5137,6 +5195,34 @@ inline void IsFilesTransferRestrictedRequest::_internal_set_file_action(::dlp::F
 inline void IsFilesTransferRestrictedRequest::set_file_action(::dlp::FileAction value) {
   _internal_set_file_action(value);
   // @@protoc_insertion_point(field_set:dlp.IsFilesTransferRestrictedRequest.file_action)
+}
+
+// optional uint64 io_task_id = 6;
+inline bool IsFilesTransferRestrictedRequest::_internal_has_io_task_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool IsFilesTransferRestrictedRequest::has_io_task_id() const {
+  return _internal_has_io_task_id();
+}
+inline void IsFilesTransferRestrictedRequest::clear_io_task_id() {
+  _impl_.io_task_id_ = uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000008u;
+}
+inline uint64_t IsFilesTransferRestrictedRequest::_internal_io_task_id() const {
+  return _impl_.io_task_id_;
+}
+inline uint64_t IsFilesTransferRestrictedRequest::io_task_id() const {
+  // @@protoc_insertion_point(field_get:dlp.IsFilesTransferRestrictedRequest.io_task_id)
+  return _internal_io_task_id();
+}
+inline void IsFilesTransferRestrictedRequest::_internal_set_io_task_id(uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_.io_task_id_ = value;
+}
+inline void IsFilesTransferRestrictedRequest::set_io_task_id(uint64_t value) {
+  _internal_set_io_task_id(value);
+  // @@protoc_insertion_point(field_set:dlp.IsFilesTransferRestrictedRequest.io_task_id)
 }
 
 // -------------------------------------------------------------------

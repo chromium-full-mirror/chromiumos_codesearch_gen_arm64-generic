@@ -139,6 +139,7 @@ enum RlweUseCase : int {
   CROS_FRESNEL_28DAY_ACTIVE = 17,
   CROS_FRESNEL_CHURN_MONTHLY_COHORT = 19,
   CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION = 20,
+  CROS_SIM_LOCK = 18,
   RlweUseCase_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RlweUseCase_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };

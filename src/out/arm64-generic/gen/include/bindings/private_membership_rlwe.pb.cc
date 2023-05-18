@@ -294,6 +294,7 @@ bool RlweUseCase_IsValid(int value) {
     case 15:
     case 16:
     case 17:
+    case 18:
     case 19:
     case 20:
       return true;
@@ -302,7 +303,7 @@ bool RlweUseCase_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RlweUseCase_strings[13] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RlweUseCase_strings[14] = {};
 
 static const char RlweUseCase_names[] =
   "CROS_DEVICE_SECONDARY_STATE"
@@ -314,6 +315,7 @@ static const char RlweUseCase_names[] =
   "CROS_FRESNEL_DAILY"
   "CROS_FRESNEL_FIRST_ACTIVE"
   "CROS_FRESNEL_MONTHLY"
+  "CROS_SIM_LOCK"
   "RLWE_USE_CASE_UNDEFINED"
   "TEST_USE_CASE"
   "TEST_USE_CASE2"
@@ -329,17 +331,18 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RlweUseCase_entries[] 
   { {RlweUseCase_names + 164, 18}, 13 },
   { {RlweUseCase_names + 182, 25}, 15 },
   { {RlweUseCase_names + 207, 20}, 14 },
-  { {RlweUseCase_names + 227, 23}, 0 },
-  { {RlweUseCase_names + 250, 13}, 1 },
-  { {RlweUseCase_names + 263, 14}, 2 },
-  { {RlweUseCase_names + 277, 14}, 3 },
+  { {RlweUseCase_names + 227, 13}, 18 },
+  { {RlweUseCase_names + 240, 23}, 0 },
+  { {RlweUseCase_names + 263, 13}, 1 },
+  { {RlweUseCase_names + 276, 14}, 2 },
+  { {RlweUseCase_names + 290, 14}, 3 },
 };
 
 static const int RlweUseCase_entries_by_number[] = {
-  9, // 0 -> RLWE_USE_CASE_UNDEFINED
-  10, // 1 -> TEST_USE_CASE
-  11, // 2 -> TEST_USE_CASE2
-  12, // 3 -> TEST_USE_CASE3
+  10, // 0 -> RLWE_USE_CASE_UNDEFINED
+  11, // 1 -> TEST_USE_CASE
+  12, // 2 -> TEST_USE_CASE2
+  13, // 3 -> TEST_USE_CASE3
   1, // 5 -> CROS_DEVICE_STATE
   0, // 12 -> CROS_DEVICE_SECONDARY_STATE
   6, // 13 -> CROS_FRESNEL_DAILY
@@ -347,6 +350,7 @@ static const int RlweUseCase_entries_by_number[] = {
   7, // 15 -> CROS_FRESNEL_FIRST_ACTIVE
   3, // 16 -> CROS_FRESNEL_7DAY_ACTIVE
   2, // 17 -> CROS_FRESNEL_28DAY_ACTIVE
+  9, // 18 -> CROS_SIM_LOCK
   4, // 19 -> CROS_FRESNEL_CHURN_MONTHLY_COHORT
   5, // 20 -> CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION
 };
@@ -357,12 +361,12 @@ const std::string& RlweUseCase_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           RlweUseCase_entries,
           RlweUseCase_entries_by_number,
-          13, RlweUseCase_strings);
+          14, RlweUseCase_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       RlweUseCase_entries,
       RlweUseCase_entries_by_number,
-      13, value);
+      14, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      RlweUseCase_strings[idx].get();
 }
@@ -370,7 +374,7 @@ bool RlweUseCase_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RlweUseCase* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      RlweUseCase_entries, 13, name, &int_value);
+      RlweUseCase_entries, 14, name, &int_value);
   if (success) {
     *value = static_cast<RlweUseCase>(int_value);
   }
