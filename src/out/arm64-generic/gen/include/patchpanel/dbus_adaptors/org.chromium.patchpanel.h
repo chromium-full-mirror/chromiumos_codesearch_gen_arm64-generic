@@ -47,10 +47,10 @@ class PatchPanelInterface {
       const patchpanel::TrafficCountersRequest& in_request) const = 0;
   virtual patchpanel::ModifyPortRuleResponse ModifyPortRule(
       const patchpanel::ModifyPortRuleRequest& in_request) = 0;
-  virtual patchpanel::PluginVmShutdownResponse PluginVmShutdown(
-      const patchpanel::PluginVmShutdownRequest& in_request) = 0;
-  virtual patchpanel::PluginVmStartupResponse PluginVmStartup(
-      const patchpanel::PluginVmStartupRequest& in_request) = 0;
+  virtual patchpanel::ParallelsVmShutdownResponse ParallelsVmShutdown(
+      const patchpanel::ParallelsVmShutdownRequest& in_request) = 0;
+  virtual patchpanel::ParallelsVmStartupResponse ParallelsVmStartup(
+      const patchpanel::ParallelsVmStartupRequest& in_request) = 0;
   virtual patchpanel::SetDnsRedirectionRuleResponse SetDnsRedirectionRule(
       const patchpanel::SetDnsRedirectionRuleRequest& in_request,
       const base::ScopedFD& in_client_fd) = 0;
@@ -121,13 +121,13 @@ class PatchPanelAdaptor {
         base::Unretained(interface_),
         &PatchPanelInterface::ModifyPortRule);
     itf->AddSimpleMethodHandler(
-        "PluginVmShutdown",
+        "ParallelsVmShutdown",
         base::Unretained(interface_),
-        &PatchPanelInterface::PluginVmShutdown);
+        &PatchPanelInterface::ParallelsVmShutdown);
     itf->AddSimpleMethodHandler(
-        "PluginVmStartup",
+        "ParallelsVmStartup",
         base::Unretained(interface_),
-        &PatchPanelInterface::PluginVmStartup);
+        &PatchPanelInterface::ParallelsVmStartup);
     itf->AddSimpleMethodHandler(
         "SetDnsRedirectionRule",
         base::Unretained(interface_),
@@ -227,11 +227,11 @@ class PatchPanelAdaptor {
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
-        "    <method name=\"PluginVmShutdown\">\n"
+        "    <method name=\"ParallelsVmShutdown\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
-        "    <method name=\"PluginVmStartup\">\n"
+        "    <method name=\"ParallelsVmStartup\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

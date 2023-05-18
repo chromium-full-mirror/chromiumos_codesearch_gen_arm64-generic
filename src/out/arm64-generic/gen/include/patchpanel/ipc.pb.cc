@@ -175,16 +175,16 @@ static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Gue
 static const char GuestMessage_GuestType_names[] =
   "ARC"
   "ARC_VM"
-  "PLUGIN_VM"
+  "PARALLELS_VM"
   "TERMINA_VM"
   "UNKNOWN_GUEST";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry GuestMessage_GuestType_entries[] = {
   { {GuestMessage_GuestType_names + 0, 3}, 1 },
   { {GuestMessage_GuestType_names + 3, 6}, 2 },
-  { {GuestMessage_GuestType_names + 9, 9}, 4 },
-  { {GuestMessage_GuestType_names + 18, 10}, 3 },
-  { {GuestMessage_GuestType_names + 28, 13}, 0 },
+  { {GuestMessage_GuestType_names + 9, 12}, 4 },
+  { {GuestMessage_GuestType_names + 21, 10}, 3 },
+  { {GuestMessage_GuestType_names + 31, 13}, 0 },
 };
 
 static const int GuestMessage_GuestType_entries_by_number[] = {
@@ -192,7 +192,7 @@ static const int GuestMessage_GuestType_entries_by_number[] = {
   0, // 1 -> ARC
   1, // 2 -> ARC_VM
   3, // 3 -> TERMINA_VM
-  2, // 4 -> PLUGIN_VM
+  2, // 4 -> PARALLELS_VM
 };
 
 const std::string& GuestMessage_GuestType_Name(
@@ -225,7 +225,7 @@ constexpr GuestMessage_GuestType GuestMessage::UNKNOWN_GUEST;
 constexpr GuestMessage_GuestType GuestMessage::ARC;
 constexpr GuestMessage_GuestType GuestMessage::ARC_VM;
 constexpr GuestMessage_GuestType GuestMessage::TERMINA_VM;
-constexpr GuestMessage_GuestType GuestMessage::PLUGIN_VM;
+constexpr GuestMessage_GuestType GuestMessage::PARALLELS_VM;
 constexpr GuestMessage_GuestType GuestMessage::GuestType_MIN;
 constexpr GuestMessage_GuestType GuestMessage::GuestType_MAX;
 constexpr int GuestMessage::GuestType_ARRAYSIZE;

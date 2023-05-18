@@ -232,58 +232,58 @@ struct TerminaVmShutdownResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TerminaVmShutdownResponseDefaultTypeInternal _TerminaVmShutdownResponse_default_instance_;
-PROTOBUF_CONSTEXPR PluginVmStartupRequest::PluginVmStartupRequest(
+PROTOBUF_CONSTEXPR ParallelsVmStartupRequest::ParallelsVmStartupRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.id_)*/uint64_t{0u}
   , /*decltype(_impl_.subnet_index_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct PluginVmStartupRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PluginVmStartupRequestDefaultTypeInternal()
+struct ParallelsVmStartupRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ParallelsVmStartupRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~PluginVmStartupRequestDefaultTypeInternal() {}
+  ~ParallelsVmStartupRequestDefaultTypeInternal() {}
   union {
-    PluginVmStartupRequest _instance;
+    ParallelsVmStartupRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PluginVmStartupRequestDefaultTypeInternal _PluginVmStartupRequest_default_instance_;
-PROTOBUF_CONSTEXPR PluginVmStartupResponse::PluginVmStartupResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ParallelsVmStartupRequestDefaultTypeInternal _ParallelsVmStartupRequest_default_instance_;
+PROTOBUF_CONSTEXPR ParallelsVmStartupResponse::ParallelsVmStartupResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.device_)*/nullptr
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct PluginVmStartupResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PluginVmStartupResponseDefaultTypeInternal()
+struct ParallelsVmStartupResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ParallelsVmStartupResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~PluginVmStartupResponseDefaultTypeInternal() {}
+  ~ParallelsVmStartupResponseDefaultTypeInternal() {}
   union {
-    PluginVmStartupResponse _instance;
+    ParallelsVmStartupResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PluginVmStartupResponseDefaultTypeInternal _PluginVmStartupResponse_default_instance_;
-PROTOBUF_CONSTEXPR PluginVmShutdownRequest::PluginVmShutdownRequest(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ParallelsVmStartupResponseDefaultTypeInternal _ParallelsVmStartupResponse_default_instance_;
+PROTOBUF_CONSTEXPR ParallelsVmShutdownRequest::ParallelsVmShutdownRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.id_)*/uint64_t{0u}
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct PluginVmShutdownRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PluginVmShutdownRequestDefaultTypeInternal()
+struct ParallelsVmShutdownRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ParallelsVmShutdownRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~PluginVmShutdownRequestDefaultTypeInternal() {}
+  ~ParallelsVmShutdownRequestDefaultTypeInternal() {}
   union {
-    PluginVmShutdownRequest _instance;
+    ParallelsVmShutdownRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PluginVmShutdownRequestDefaultTypeInternal _PluginVmShutdownRequest_default_instance_;
-PROTOBUF_CONSTEXPR PluginVmShutdownResponse::PluginVmShutdownResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ParallelsVmShutdownRequestDefaultTypeInternal _ParallelsVmShutdownRequest_default_instance_;
+PROTOBUF_CONSTEXPR ParallelsVmShutdownResponse::ParallelsVmShutdownResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._cached_size_)*/{}} {}
-struct PluginVmShutdownResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PluginVmShutdownResponseDefaultTypeInternal()
+struct ParallelsVmShutdownResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ParallelsVmShutdownResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~PluginVmShutdownResponseDefaultTypeInternal() {}
+  ~ParallelsVmShutdownResponseDefaultTypeInternal() {}
   union {
-    PluginVmShutdownResponse _instance;
+    ParallelsVmShutdownResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PluginVmShutdownResponseDefaultTypeInternal _PluginVmShutdownResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ParallelsVmShutdownResponseDefaultTypeInternal _ParallelsVmShutdownResponse_default_instance_;
 PROTOBUF_CONSTEXPR SetVpnIntentRequest::SetVpnIntentRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.policy_)*/0
@@ -694,16 +694,16 @@ static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Net
 static const char NetworkDevice_GuestType_names[] =
   "ARC"
   "ARCVM"
-  "PLUGIN_VM"
+  "PARALLELS_VM"
   "TERMINA_VM"
   "UNKNOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NetworkDevice_GuestType_entries[] = {
   { {NetworkDevice_GuestType_names + 0, 3}, 1 },
   { {NetworkDevice_GuestType_names + 3, 5}, 2 },
-  { {NetworkDevice_GuestType_names + 8, 9}, 4 },
-  { {NetworkDevice_GuestType_names + 17, 10}, 3 },
-  { {NetworkDevice_GuestType_names + 27, 7}, 0 },
+  { {NetworkDevice_GuestType_names + 8, 12}, 4 },
+  { {NetworkDevice_GuestType_names + 20, 10}, 3 },
+  { {NetworkDevice_GuestType_names + 30, 7}, 0 },
 };
 
 static const int NetworkDevice_GuestType_entries_by_number[] = {
@@ -711,7 +711,7 @@ static const int NetworkDevice_GuestType_entries_by_number[] = {
   0, // 1 -> ARC
   1, // 2 -> ARCVM
   3, // 3 -> TERMINA_VM
-  2, // 4 -> PLUGIN_VM
+  2, // 4 -> PARALLELS_VM
 };
 
 const std::string& NetworkDevice_GuestType_Name(
@@ -744,7 +744,7 @@ constexpr NetworkDevice_GuestType NetworkDevice::UNKNOWN;
 constexpr NetworkDevice_GuestType NetworkDevice::ARC;
 constexpr NetworkDevice_GuestType NetworkDevice::ARCVM;
 constexpr NetworkDevice_GuestType NetworkDevice::TERMINA_VM;
-constexpr NetworkDevice_GuestType NetworkDevice::PLUGIN_VM;
+constexpr NetworkDevice_GuestType NetworkDevice::PARALLELS_VM;
 constexpr NetworkDevice_GuestType NetworkDevice::GuestType_MIN;
 constexpr NetworkDevice_GuestType NetworkDevice::GuestType_MAX;
 constexpr int NetworkDevice::GuestType_ARRAYSIZE;
@@ -835,7 +835,7 @@ static const char TrafficCounter_Source_names[] =
   "ARC"
   "CHROME"
   "CROSVM"
-  "PLUGINVM"
+  "PARALLELS_VM"
   "SYSTEM"
   "UNKNOWN"
   "UPDATE_ENGINE"
@@ -846,12 +846,12 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry TrafficCounter_Source_
   { {TrafficCounter_Source_names + 0, 3}, 3 },
   { {TrafficCounter_Source_names + 3, 6}, 1 },
   { {TrafficCounter_Source_names + 9, 6}, 4 },
-  { {TrafficCounter_Source_names + 15, 8}, 5 },
-  { {TrafficCounter_Source_names + 23, 6}, 8 },
-  { {TrafficCounter_Source_names + 29, 7}, 0 },
-  { {TrafficCounter_Source_names + 36, 13}, 6 },
-  { {TrafficCounter_Source_names + 49, 4}, 2 },
-  { {TrafficCounter_Source_names + 53, 3}, 7 },
+  { {TrafficCounter_Source_names + 15, 12}, 5 },
+  { {TrafficCounter_Source_names + 27, 6}, 8 },
+  { {TrafficCounter_Source_names + 33, 7}, 0 },
+  { {TrafficCounter_Source_names + 40, 13}, 6 },
+  { {TrafficCounter_Source_names + 53, 4}, 2 },
+  { {TrafficCounter_Source_names + 57, 3}, 7 },
 };
 
 static const int TrafficCounter_Source_entries_by_number[] = {
@@ -860,7 +860,7 @@ static const int TrafficCounter_Source_entries_by_number[] = {
   7, // 2 -> USER
   0, // 3 -> ARC
   2, // 4 -> CROSVM
-  3, // 5 -> PLUGINVM
+  3, // 5 -> PARALLELS_VM
   6, // 6 -> UPDATE_ENGINE
   8, // 7 -> VPN
   4, // 8 -> SYSTEM
@@ -897,7 +897,7 @@ constexpr TrafficCounter_Source TrafficCounter::CHROME;
 constexpr TrafficCounter_Source TrafficCounter::USER;
 constexpr TrafficCounter_Source TrafficCounter::ARC;
 constexpr TrafficCounter_Source TrafficCounter::CROSVM;
-constexpr TrafficCounter_Source TrafficCounter::PLUGINVM;
+constexpr TrafficCounter_Source TrafficCounter::PARALLELS_VM;
 constexpr TrafficCounter_Source TrafficCounter::UPDATE_ENGINE;
 constexpr TrafficCounter_Source TrafficCounter::VPN;
 constexpr TrafficCounter_Source TrafficCounter::SYSTEM;
@@ -4781,19 +4781,19 @@ std::string TerminaVmShutdownResponse::GetTypeName() const {
 
 // ===================================================================
 
-class PluginVmStartupRequest::_Internal {
+class ParallelsVmStartupRequest::_Internal {
  public:
 };
 
-PluginVmStartupRequest::PluginVmStartupRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ParallelsVmStartupRequest::ParallelsVmStartupRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:patchpanel.PluginVmStartupRequest)
+  // @@protoc_insertion_point(arena_constructor:patchpanel.ParallelsVmStartupRequest)
 }
-PluginVmStartupRequest::PluginVmStartupRequest(const PluginVmStartupRequest& from)
+ParallelsVmStartupRequest::ParallelsVmStartupRequest(const ParallelsVmStartupRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  PluginVmStartupRequest* const _this = this; (void)_this;
+  ParallelsVmStartupRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.id_){}
     , decltype(_impl_.subnet_index_){}
@@ -4803,10 +4803,10 @@ PluginVmStartupRequest::PluginVmStartupRequest(const PluginVmStartupRequest& fro
   ::memcpy(&_impl_.id_, &from._impl_.id_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.subnet_index_) -
     reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.subnet_index_));
-  // @@protoc_insertion_point(copy_constructor:patchpanel.PluginVmStartupRequest)
+  // @@protoc_insertion_point(copy_constructor:patchpanel.ParallelsVmStartupRequest)
 }
 
-inline void PluginVmStartupRequest::SharedCtor(
+inline void ParallelsVmStartupRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -4817,8 +4817,8 @@ inline void PluginVmStartupRequest::SharedCtor(
   };
 }
 
-PluginVmStartupRequest::~PluginVmStartupRequest() {
-  // @@protoc_insertion_point(destructor:patchpanel.PluginVmStartupRequest)
+ParallelsVmStartupRequest::~ParallelsVmStartupRequest() {
+  // @@protoc_insertion_point(destructor:patchpanel.ParallelsVmStartupRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -4826,16 +4826,16 @@ PluginVmStartupRequest::~PluginVmStartupRequest() {
   SharedDtor();
 }
 
-inline void PluginVmStartupRequest::SharedDtor() {
+inline void ParallelsVmStartupRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void PluginVmStartupRequest::SetCachedSize(int size) const {
+void ParallelsVmStartupRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void PluginVmStartupRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:patchpanel.PluginVmStartupRequest)
+void ParallelsVmStartupRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.ParallelsVmStartupRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -4846,7 +4846,7 @@ void PluginVmStartupRequest::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PluginVmStartupRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* ParallelsVmStartupRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -4891,9 +4891,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PluginVmStartupRequest::_InternalSerialize(
+uint8_t* ParallelsVmStartupRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.PluginVmStartupRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.ParallelsVmStartupRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -4913,12 +4913,12 @@ uint8_t* PluginVmStartupRequest::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.PluginVmStartupRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.ParallelsVmStartupRequest)
   return target;
 }
 
-size_t PluginVmStartupRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:patchpanel.PluginVmStartupRequest)
+size_t ParallelsVmStartupRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.ParallelsVmStartupRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -4943,15 +4943,15 @@ size_t PluginVmStartupRequest::ByteSizeLong() const {
   return total_size;
 }
 
-void PluginVmStartupRequest::CheckTypeAndMergeFrom(
+void ParallelsVmStartupRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const PluginVmStartupRequest*>(
+  MergeFrom(*::_pbi::DownCast<const ParallelsVmStartupRequest*>(
       &from));
 }
 
-void PluginVmStartupRequest::MergeFrom(const PluginVmStartupRequest& from) {
-  PluginVmStartupRequest* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.PluginVmStartupRequest)
+void ParallelsVmStartupRequest::MergeFrom(const ParallelsVmStartupRequest& from) {
+  ParallelsVmStartupRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.ParallelsVmStartupRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -4965,53 +4965,53 @@ void PluginVmStartupRequest::MergeFrom(const PluginVmStartupRequest& from) {
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void PluginVmStartupRequest::CopyFrom(const PluginVmStartupRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.PluginVmStartupRequest)
+void ParallelsVmStartupRequest::CopyFrom(const ParallelsVmStartupRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.ParallelsVmStartupRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool PluginVmStartupRequest::IsInitialized() const {
+bool ParallelsVmStartupRequest::IsInitialized() const {
   return true;
 }
 
-void PluginVmStartupRequest::InternalSwap(PluginVmStartupRequest* other) {
+void ParallelsVmStartupRequest::InternalSwap(ParallelsVmStartupRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PluginVmStartupRequest, _impl_.subnet_index_)
-      + sizeof(PluginVmStartupRequest::_impl_.subnet_index_)
-      - PROTOBUF_FIELD_OFFSET(PluginVmStartupRequest, _impl_.id_)>(
+      PROTOBUF_FIELD_OFFSET(ParallelsVmStartupRequest, _impl_.subnet_index_)
+      + sizeof(ParallelsVmStartupRequest::_impl_.subnet_index_)
+      - PROTOBUF_FIELD_OFFSET(ParallelsVmStartupRequest, _impl_.id_)>(
           reinterpret_cast<char*>(&_impl_.id_),
           reinterpret_cast<char*>(&other->_impl_.id_));
 }
 
-std::string PluginVmStartupRequest::GetTypeName() const {
-  return "patchpanel.PluginVmStartupRequest";
+std::string ParallelsVmStartupRequest::GetTypeName() const {
+  return "patchpanel.ParallelsVmStartupRequest";
 }
 
 
 // ===================================================================
 
-class PluginVmStartupResponse::_Internal {
+class ParallelsVmStartupResponse::_Internal {
  public:
-  static const ::patchpanel::NetworkDevice& device(const PluginVmStartupResponse* msg);
+  static const ::patchpanel::NetworkDevice& device(const ParallelsVmStartupResponse* msg);
 };
 
 const ::patchpanel::NetworkDevice&
-PluginVmStartupResponse::_Internal::device(const PluginVmStartupResponse* msg) {
+ParallelsVmStartupResponse::_Internal::device(const ParallelsVmStartupResponse* msg) {
   return *msg->_impl_.device_;
 }
-PluginVmStartupResponse::PluginVmStartupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ParallelsVmStartupResponse::ParallelsVmStartupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:patchpanel.PluginVmStartupResponse)
+  // @@protoc_insertion_point(arena_constructor:patchpanel.ParallelsVmStartupResponse)
 }
-PluginVmStartupResponse::PluginVmStartupResponse(const PluginVmStartupResponse& from)
+ParallelsVmStartupResponse::ParallelsVmStartupResponse(const ParallelsVmStartupResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  PluginVmStartupResponse* const _this = this; (void)_this;
+  ParallelsVmStartupResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.device_){nullptr}
     , /*decltype(_impl_._cached_size_)*/{}};
@@ -5020,10 +5020,10 @@ PluginVmStartupResponse::PluginVmStartupResponse(const PluginVmStartupResponse& 
   if (from._internal_has_device()) {
     _this->_impl_.device_ = new ::patchpanel::NetworkDevice(*from._impl_.device_);
   }
-  // @@protoc_insertion_point(copy_constructor:patchpanel.PluginVmStartupResponse)
+  // @@protoc_insertion_point(copy_constructor:patchpanel.ParallelsVmStartupResponse)
 }
 
-inline void PluginVmStartupResponse::SharedCtor(
+inline void ParallelsVmStartupResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -5033,8 +5033,8 @@ inline void PluginVmStartupResponse::SharedCtor(
   };
 }
 
-PluginVmStartupResponse::~PluginVmStartupResponse() {
-  // @@protoc_insertion_point(destructor:patchpanel.PluginVmStartupResponse)
+ParallelsVmStartupResponse::~ParallelsVmStartupResponse() {
+  // @@protoc_insertion_point(destructor:patchpanel.ParallelsVmStartupResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -5042,17 +5042,17 @@ PluginVmStartupResponse::~PluginVmStartupResponse() {
   SharedDtor();
 }
 
-inline void PluginVmStartupResponse::SharedDtor() {
+inline void ParallelsVmStartupResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.device_;
 }
 
-void PluginVmStartupResponse::SetCachedSize(int size) const {
+void ParallelsVmStartupResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void PluginVmStartupResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:patchpanel.PluginVmStartupResponse)
+void ParallelsVmStartupResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.ParallelsVmStartupResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -5064,7 +5064,7 @@ void PluginVmStartupResponse::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PluginVmStartupResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* ParallelsVmStartupResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -5101,9 +5101,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PluginVmStartupResponse::_InternalSerialize(
+uint8_t* ParallelsVmStartupResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.PluginVmStartupResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.ParallelsVmStartupResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -5118,12 +5118,12 @@ uint8_t* PluginVmStartupResponse::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.PluginVmStartupResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.ParallelsVmStartupResponse)
   return target;
 }
 
-size_t PluginVmStartupResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:patchpanel.PluginVmStartupResponse)
+size_t ParallelsVmStartupResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.ParallelsVmStartupResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -5145,15 +5145,15 @@ size_t PluginVmStartupResponse::ByteSizeLong() const {
   return total_size;
 }
 
-void PluginVmStartupResponse::CheckTypeAndMergeFrom(
+void ParallelsVmStartupResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const PluginVmStartupResponse*>(
+  MergeFrom(*::_pbi::DownCast<const ParallelsVmStartupResponse*>(
       &from));
 }
 
-void PluginVmStartupResponse::MergeFrom(const PluginVmStartupResponse& from) {
-  PluginVmStartupResponse* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.PluginVmStartupResponse)
+void ParallelsVmStartupResponse::MergeFrom(const ParallelsVmStartupResponse& from) {
+  ParallelsVmStartupResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.ParallelsVmStartupResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -5165,53 +5165,53 @@ void PluginVmStartupResponse::MergeFrom(const PluginVmStartupResponse& from) {
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void PluginVmStartupResponse::CopyFrom(const PluginVmStartupResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.PluginVmStartupResponse)
+void ParallelsVmStartupResponse::CopyFrom(const ParallelsVmStartupResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.ParallelsVmStartupResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool PluginVmStartupResponse::IsInitialized() const {
+bool ParallelsVmStartupResponse::IsInitialized() const {
   return true;
 }
 
-void PluginVmStartupResponse::InternalSwap(PluginVmStartupResponse* other) {
+void ParallelsVmStartupResponse::InternalSwap(ParallelsVmStartupResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.device_, other->_impl_.device_);
 }
 
-std::string PluginVmStartupResponse::GetTypeName() const {
-  return "patchpanel.PluginVmStartupResponse";
+std::string ParallelsVmStartupResponse::GetTypeName() const {
+  return "patchpanel.ParallelsVmStartupResponse";
 }
 
 
 // ===================================================================
 
-class PluginVmShutdownRequest::_Internal {
+class ParallelsVmShutdownRequest::_Internal {
  public:
 };
 
-PluginVmShutdownRequest::PluginVmShutdownRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ParallelsVmShutdownRequest::ParallelsVmShutdownRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:patchpanel.PluginVmShutdownRequest)
+  // @@protoc_insertion_point(arena_constructor:patchpanel.ParallelsVmShutdownRequest)
 }
-PluginVmShutdownRequest::PluginVmShutdownRequest(const PluginVmShutdownRequest& from)
+ParallelsVmShutdownRequest::ParallelsVmShutdownRequest(const ParallelsVmShutdownRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  PluginVmShutdownRequest* const _this = this; (void)_this;
+  ParallelsVmShutdownRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.id_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _this->_impl_.id_ = from._impl_.id_;
-  // @@protoc_insertion_point(copy_constructor:patchpanel.PluginVmShutdownRequest)
+  // @@protoc_insertion_point(copy_constructor:patchpanel.ParallelsVmShutdownRequest)
 }
 
-inline void PluginVmShutdownRequest::SharedCtor(
+inline void ParallelsVmShutdownRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -5221,8 +5221,8 @@ inline void PluginVmShutdownRequest::SharedCtor(
   };
 }
 
-PluginVmShutdownRequest::~PluginVmShutdownRequest() {
-  // @@protoc_insertion_point(destructor:patchpanel.PluginVmShutdownRequest)
+ParallelsVmShutdownRequest::~ParallelsVmShutdownRequest() {
+  // @@protoc_insertion_point(destructor:patchpanel.ParallelsVmShutdownRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -5230,16 +5230,16 @@ PluginVmShutdownRequest::~PluginVmShutdownRequest() {
   SharedDtor();
 }
 
-inline void PluginVmShutdownRequest::SharedDtor() {
+inline void ParallelsVmShutdownRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void PluginVmShutdownRequest::SetCachedSize(int size) const {
+void ParallelsVmShutdownRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void PluginVmShutdownRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:patchpanel.PluginVmShutdownRequest)
+void ParallelsVmShutdownRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.ParallelsVmShutdownRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -5248,7 +5248,7 @@ void PluginVmShutdownRequest::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PluginVmShutdownRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* ParallelsVmShutdownRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -5285,9 +5285,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PluginVmShutdownRequest::_InternalSerialize(
+uint8_t* ParallelsVmShutdownRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.PluginVmShutdownRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.ParallelsVmShutdownRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -5301,12 +5301,12 @@ uint8_t* PluginVmShutdownRequest::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.PluginVmShutdownRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.ParallelsVmShutdownRequest)
   return target;
 }
 
-size_t PluginVmShutdownRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:patchpanel.PluginVmShutdownRequest)
+size_t ParallelsVmShutdownRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.ParallelsVmShutdownRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -5326,15 +5326,15 @@ size_t PluginVmShutdownRequest::ByteSizeLong() const {
   return total_size;
 }
 
-void PluginVmShutdownRequest::CheckTypeAndMergeFrom(
+void ParallelsVmShutdownRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const PluginVmShutdownRequest*>(
+  MergeFrom(*::_pbi::DownCast<const ParallelsVmShutdownRequest*>(
       &from));
 }
 
-void PluginVmShutdownRequest::MergeFrom(const PluginVmShutdownRequest& from) {
-  PluginVmShutdownRequest* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.PluginVmShutdownRequest)
+void ParallelsVmShutdownRequest::MergeFrom(const ParallelsVmShutdownRequest& from) {
+  ParallelsVmShutdownRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.ParallelsVmShutdownRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -5345,51 +5345,51 @@ void PluginVmShutdownRequest::MergeFrom(const PluginVmShutdownRequest& from) {
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void PluginVmShutdownRequest::CopyFrom(const PluginVmShutdownRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.PluginVmShutdownRequest)
+void ParallelsVmShutdownRequest::CopyFrom(const ParallelsVmShutdownRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.ParallelsVmShutdownRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool PluginVmShutdownRequest::IsInitialized() const {
+bool ParallelsVmShutdownRequest::IsInitialized() const {
   return true;
 }
 
-void PluginVmShutdownRequest::InternalSwap(PluginVmShutdownRequest* other) {
+void ParallelsVmShutdownRequest::InternalSwap(ParallelsVmShutdownRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.id_, other->_impl_.id_);
 }
 
-std::string PluginVmShutdownRequest::GetTypeName() const {
-  return "patchpanel.PluginVmShutdownRequest";
+std::string ParallelsVmShutdownRequest::GetTypeName() const {
+  return "patchpanel.ParallelsVmShutdownRequest";
 }
 
 
 // ===================================================================
 
-class PluginVmShutdownResponse::_Internal {
+class ParallelsVmShutdownResponse::_Internal {
  public:
 };
 
-PluginVmShutdownResponse::PluginVmShutdownResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ParallelsVmShutdownResponse::ParallelsVmShutdownResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:patchpanel.PluginVmShutdownResponse)
+  // @@protoc_insertion_point(arena_constructor:patchpanel.ParallelsVmShutdownResponse)
 }
-PluginVmShutdownResponse::PluginVmShutdownResponse(const PluginVmShutdownResponse& from)
+ParallelsVmShutdownResponse::ParallelsVmShutdownResponse(const ParallelsVmShutdownResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  PluginVmShutdownResponse* const _this = this; (void)_this;
+  ParallelsVmShutdownResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:patchpanel.PluginVmShutdownResponse)
+  // @@protoc_insertion_point(copy_constructor:patchpanel.ParallelsVmShutdownResponse)
 }
 
-inline void PluginVmShutdownResponse::SharedCtor(
+inline void ParallelsVmShutdownResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -5398,8 +5398,8 @@ inline void PluginVmShutdownResponse::SharedCtor(
   };
 }
 
-PluginVmShutdownResponse::~PluginVmShutdownResponse() {
-  // @@protoc_insertion_point(destructor:patchpanel.PluginVmShutdownResponse)
+ParallelsVmShutdownResponse::~ParallelsVmShutdownResponse() {
+  // @@protoc_insertion_point(destructor:patchpanel.ParallelsVmShutdownResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -5407,16 +5407,16 @@ PluginVmShutdownResponse::~PluginVmShutdownResponse() {
   SharedDtor();
 }
 
-inline void PluginVmShutdownResponse::SharedDtor() {
+inline void ParallelsVmShutdownResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void PluginVmShutdownResponse::SetCachedSize(int size) const {
+void ParallelsVmShutdownResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void PluginVmShutdownResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:patchpanel.PluginVmShutdownResponse)
+void ParallelsVmShutdownResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.ParallelsVmShutdownResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -5424,7 +5424,7 @@ void PluginVmShutdownResponse::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PluginVmShutdownResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* ParallelsVmShutdownResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -5448,9 +5448,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* PluginVmShutdownResponse::_InternalSerialize(
+uint8_t* ParallelsVmShutdownResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.PluginVmShutdownResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.ParallelsVmShutdownResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -5458,12 +5458,12 @@ uint8_t* PluginVmShutdownResponse::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.PluginVmShutdownResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.ParallelsVmShutdownResponse)
   return target;
 }
 
-size_t PluginVmShutdownResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:patchpanel.PluginVmShutdownResponse)
+size_t ParallelsVmShutdownResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.ParallelsVmShutdownResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -5478,15 +5478,15 @@ size_t PluginVmShutdownResponse::ByteSizeLong() const {
   return total_size;
 }
 
-void PluginVmShutdownResponse::CheckTypeAndMergeFrom(
+void ParallelsVmShutdownResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const PluginVmShutdownResponse*>(
+  MergeFrom(*::_pbi::DownCast<const ParallelsVmShutdownResponse*>(
       &from));
 }
 
-void PluginVmShutdownResponse::MergeFrom(const PluginVmShutdownResponse& from) {
-  PluginVmShutdownResponse* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.PluginVmShutdownResponse)
+void ParallelsVmShutdownResponse::MergeFrom(const ParallelsVmShutdownResponse& from) {
+  ParallelsVmShutdownResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.ParallelsVmShutdownResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -5494,24 +5494,24 @@ void PluginVmShutdownResponse::MergeFrom(const PluginVmShutdownResponse& from) {
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void PluginVmShutdownResponse::CopyFrom(const PluginVmShutdownResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.PluginVmShutdownResponse)
+void ParallelsVmShutdownResponse::CopyFrom(const ParallelsVmShutdownResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.ParallelsVmShutdownResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool PluginVmShutdownResponse::IsInitialized() const {
+bool ParallelsVmShutdownResponse::IsInitialized() const {
   return true;
 }
 
-void PluginVmShutdownResponse::InternalSwap(PluginVmShutdownResponse* other) {
+void ParallelsVmShutdownResponse::InternalSwap(ParallelsVmShutdownResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
 }
 
-std::string PluginVmShutdownResponse::GetTypeName() const {
-  return "patchpanel.PluginVmShutdownResponse";
+std::string ParallelsVmShutdownResponse::GetTypeName() const {
+  return "patchpanel.ParallelsVmShutdownResponse";
 }
 
 
@@ -12473,21 +12473,21 @@ template<> PROTOBUF_NOINLINE ::patchpanel::TerminaVmShutdownResponse*
 Arena::CreateMaybeMessage< ::patchpanel::TerminaVmShutdownResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::TerminaVmShutdownResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::PluginVmStartupRequest*
-Arena::CreateMaybeMessage< ::patchpanel::PluginVmStartupRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::patchpanel::PluginVmStartupRequest >(arena);
+template<> PROTOBUF_NOINLINE ::patchpanel::ParallelsVmStartupRequest*
+Arena::CreateMaybeMessage< ::patchpanel::ParallelsVmStartupRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::ParallelsVmStartupRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::PluginVmStartupResponse*
-Arena::CreateMaybeMessage< ::patchpanel::PluginVmStartupResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::patchpanel::PluginVmStartupResponse >(arena);
+template<> PROTOBUF_NOINLINE ::patchpanel::ParallelsVmStartupResponse*
+Arena::CreateMaybeMessage< ::patchpanel::ParallelsVmStartupResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::ParallelsVmStartupResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::PluginVmShutdownRequest*
-Arena::CreateMaybeMessage< ::patchpanel::PluginVmShutdownRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::patchpanel::PluginVmShutdownRequest >(arena);
+template<> PROTOBUF_NOINLINE ::patchpanel::ParallelsVmShutdownRequest*
+Arena::CreateMaybeMessage< ::patchpanel::ParallelsVmShutdownRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::ParallelsVmShutdownRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::PluginVmShutdownResponse*
-Arena::CreateMaybeMessage< ::patchpanel::PluginVmShutdownResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::patchpanel::PluginVmShutdownResponse >(arena);
+template<> PROTOBUF_NOINLINE ::patchpanel::ParallelsVmShutdownResponse*
+Arena::CreateMaybeMessage< ::patchpanel::ParallelsVmShutdownResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::ParallelsVmShutdownResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::patchpanel::SetVpnIntentRequest*
 Arena::CreateMaybeMessage< ::patchpanel::SetVpnIntentRequest >(Arena* arena) {
