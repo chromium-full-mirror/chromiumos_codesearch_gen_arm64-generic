@@ -808,6 +808,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  RoutineStateInitialized {
  public:
   template <typename T>
@@ -1769,6 +1770,139 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  CpuCacheRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CpuCacheRoutineDetail, T>::value>;
+  using DataView = CpuCacheRoutineDetailDataView;
+  using Data_ = internal::CpuCacheRoutineDetail_Data;
+
+  template <typename... Args>
+  static CpuCacheRoutineDetailPtr New(Args&&... args) {
+    return CpuCacheRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CpuCacheRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<CpuCacheRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CpuCacheRoutineDetail>::Convert(*this);
+  }
+
+
+  CpuCacheRoutineDetail();
+
+
+  ~CpuCacheRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CpuCacheRoutineDetailPtr>
+  CpuCacheRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CpuCacheRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CpuCacheRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CpuCacheRoutineDetail_UnserializedMessageContext<
+            UserType, CpuCacheRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CpuCacheRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CpuCacheRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CpuCacheRoutineDetail_UnserializedMessageContext<
+            UserType, CpuCacheRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CpuCacheRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineArgument {
  public:
@@ -1832,6 +1966,14 @@ class  RoutineArgument {
       DiskReadRoutineArgumentPtr disk_read) {
     auto result = RoutineArgumentPtr(absl::in_place);
     result->set_disk_read(std::move(disk_read));
+    return result;
+  }
+  // Construct an instance holding |cpu_cache|.
+  static RoutineArgumentPtr
+  NewCpuCache(
+      CpuCacheRoutineArgumentPtr cpu_cache) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_cpu_cache(std::move(cpu_cache));
     return result;
   }
 
@@ -1948,6 +2090,18 @@ class  RoutineArgument {
   
   void set_disk_read(
       DiskReadRoutineArgumentPtr disk_read);
+  
+  bool is_cpu_cache() const { return tag_ == Tag::kCpuCache; }
+
+  
+  CpuCacheRoutineArgumentPtr& get_cpu_cache() const {
+    CHECK(tag_ == Tag::kCpuCache);
+    return *(data_.cpu_cache);
+  }
+
+  
+  void set_cpu_cache(
+      CpuCacheRoutineArgumentPtr cpu_cache);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1972,6 +2126,7 @@ class  RoutineArgument {
     CpuStressRoutineArgumentPtr* cpu_stress;
     UfsLifetimeRoutineArgumentPtr* ufs_lifetime;
     DiskReadRoutineArgumentPtr* disk_read;
+    CpuCacheRoutineArgumentPtr* cpu_cache;
   };
 
   static bool Validate(const void* data,
@@ -2212,6 +2367,14 @@ class  RoutineDetail {
     result->set_disk_read(std::move(disk_read));
     return result;
   }
+  // Construct an instance holding |cpu_cache|.
+  static RoutineDetailPtr
+  NewCpuCache(
+      CpuCacheRoutineDetailPtr cpu_cache) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_cpu_cache(std::move(cpu_cache));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -2314,6 +2477,18 @@ class  RoutineDetail {
   
   void set_disk_read(
       DiskReadRoutineDetailPtr disk_read);
+  
+  bool is_cpu_cache() const { return tag_ == Tag::kCpuCache; }
+
+  
+  CpuCacheRoutineDetailPtr& get_cpu_cache() const {
+    CHECK(tag_ == Tag::kCpuCache);
+    return *(data_.cpu_cache);
+  }
+
+  
+  void set_cpu_cache(
+      CpuCacheRoutineDetailPtr cpu_cache);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2337,6 +2512,7 @@ class  RoutineDetail {
     CpuStressRoutineDetailPtr* cpu_stress;
     UfsLifetimeRoutineDetailPtr* ufs_lifetime;
     DiskReadRoutineDetailPtr* disk_read;
+    CpuCacheRoutineDetailPtr* cpu_cache;
   };
 
   static bool Validate(const void* data,
@@ -2626,6 +2802,143 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, DiskReadRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  CpuCacheRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CpuCacheRoutineArgument, T>::value>;
+  using DataView = CpuCacheRoutineArgumentDataView;
+  using Data_ = internal::CpuCacheRoutineArgument_Data;
+
+  template <typename... Args>
+  static CpuCacheRoutineArgumentPtr New(Args&&... args) {
+    return CpuCacheRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CpuCacheRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<CpuCacheRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CpuCacheRoutineArgument>::Convert(*this);
+  }
+
+
+  CpuCacheRoutineArgument();
+
+  explicit CpuCacheRoutineArgument(
+      absl::optional<base::TimeDelta> exec_duration);
+
+
+  ~CpuCacheRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CpuCacheRoutineArgumentPtr>
+  CpuCacheRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CpuCacheRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CpuCacheRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CpuCacheRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CpuCacheRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CpuCacheRoutineArgument_UnserializedMessageContext<
+            UserType, CpuCacheRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CpuCacheRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CpuCacheRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CpuCacheRoutineArgument_UnserializedMessageContext<
+            UserType, CpuCacheRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CpuCacheRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  absl::optional<base::TimeDelta> exec_duration;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CpuCacheRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CpuCacheRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CpuCacheRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CpuCacheRoutineArgument::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -3067,6 +3380,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  MemtesterResult {
  public:
   template <typename T>
@@ -3224,6 +3538,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kDiskRead:
       return NewDiskRead(
           mojo::Clone(*data_.disk_read));
+    case Tag::kCpuCache:
+      return NewCpuCache(
+          mojo::Clone(*data_.cpu_cache));
   }
   return nullptr;
 }
@@ -3248,6 +3565,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.ufs_lifetime), *(other.data_.ufs_lifetime));
     case Tag::kDiskRead:
       return mojo::Equals(*(data_.disk_read), *(other.data_.disk_read));
+    case Tag::kCpuCache:
+      return mojo::Equals(*(data_.cpu_cache), *(other.data_.cpu_cache));
   }
 
   return false;
@@ -3309,6 +3628,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kDiskRead:
       return NewDiskRead(
           mojo::Clone(*data_.disk_read));
+    case Tag::kCpuCache:
+      return NewCpuCache(
+          mojo::Clone(*data_.cpu_cache));
   }
   return nullptr;
 }
@@ -3331,6 +3653,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.ufs_lifetime), *(other.data_.ufs_lifetime));
     case Tag::kDiskRead:
       return mojo::Equals(*(data_.disk_read), *(other.data_.disk_read));
+    case Tag::kCpuCache:
+      return mojo::Equals(*(data_.cpu_cache), *(other.data_.cpu_cache));
   }
 
   return false;
@@ -3442,6 +3766,28 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.file_size_mib < rhs.file_size_mib)
     return true;
   if (rhs.file_size_mib < lhs.file_size_mib)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+CpuCacheRoutineArgumentPtr CpuCacheRoutineArgument::Clone() const {
+  return New(
+      mojo::Clone(exec_duration)
+  );
+}
+
+template <typename T, CpuCacheRoutineArgument::EnableIfSame<T>*>
+bool CpuCacheRoutineArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->exec_duration, other_struct.exec_duration))
+    return false;
+  return true;
+}
+
+template <typename T, CpuCacheRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.exec_duration < rhs.exec_duration)
+    return true;
+  if (rhs.exec_duration < lhs.exec_duration)
     return false;
   return false;
 }
@@ -3687,6 +4033,21 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+CpuCacheRoutineDetailPtr CpuCacheRoutineDetail::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>*>
+bool CpuCacheRoutineDetail::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, CpuCacheRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
 MemtesterResultPtr MemtesterResult::Clone() const {
   return New(
       mojo::Clone(passed_items),
@@ -3796,6 +4157,21 @@ struct  StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgument::DataVi
   }
 
   static bool Read(::ash::cros_healthd::mojom::DiskReadRoutineArgument::DataView input, ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::CpuCacheRoutineArgument::exec_duration)& exec_duration(
+      const ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr& input) {
+    return input->exec_duration;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::CpuCacheRoutineArgument::DataView input, ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr* output);
 };
 
 
@@ -3965,6 +4341,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetail::DataView
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::CpuCacheRoutineDetail::DataView input, ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
                                          ::ash::cros_healthd::mojom::MemtesterResultPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) { return !input; }
@@ -4016,6 +4402,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::DiskReadRoutineArgumentPtr& disk_read(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_disk_read();
+  }
+
+  static const ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr& cpu_cache(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_cpu_cache();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -4080,6 +4470,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::DiskReadRoutineDetailPtr& disk_read(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_disk_read();
+  }
+
+  static const ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr& cpu_cache(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_cpu_cache();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

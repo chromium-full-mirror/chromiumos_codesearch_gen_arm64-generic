@@ -189,6 +189,34 @@ bool DiskReadRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+CpuCacheRoutineArgument::CpuCacheRoutineArgument()
+    : exec_duration() {}
+
+CpuCacheRoutineArgument::CpuCacheRoutineArgument(
+    absl::optional<base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+CpuCacheRoutineArgument::~CpuCacheRoutineArgument() = default;
+
+void CpuCacheRoutineArgument::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CpuCacheRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -525,6 +553,23 @@ bool DiskReadRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+CpuCacheRoutineDetail::CpuCacheRoutineDetail() {}
+
+CpuCacheRoutineDetail::~CpuCacheRoutineDetail() = default;
+size_t CpuCacheRoutineDetail::Hash(size_t seed) const {
+  return seed;
+}
+
+void CpuCacheRoutineDetail::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool CpuCacheRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 MemtesterResult::MemtesterResult()
     : passed_items(),
       failed_items() {}
@@ -637,6 +682,17 @@ void RoutineArgument::set_disk_read(
         std::move(disk_read));
   }
 }
+void RoutineArgument::set_cpu_cache(
+    CpuCacheRoutineArgumentPtr cpu_cache) {
+  if (tag_ == Tag::kCpuCache) {
+    *(data_.cpu_cache) = std::move(cpu_cache);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCpuCache;
+    data_.cpu_cache = new CpuCacheRoutineArgumentPtr(
+        std::move(cpu_cache));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -663,6 +719,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kDiskRead:
 
       delete data_.disk_read;
+      break;
+    case Tag::kCpuCache:
+
+      delete data_.cpu_cache;
       break;
   }
 }
@@ -817,6 +877,17 @@ void RoutineDetail::set_disk_read(
         std::move(disk_read));
   }
 }
+void RoutineDetail::set_cpu_cache(
+    CpuCacheRoutineDetailPtr cpu_cache) {
+  if (tag_ == Tag::kCpuCache) {
+    *(data_.cpu_cache) = std::move(cpu_cache);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCpuCache;
+    data_.cpu_cache = new CpuCacheRoutineDetailPtr(
+        std::move(cpu_cache));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -840,6 +911,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kDiskRead:
 
       delete data_.disk_read;
+      break;
+    case Tag::kCpuCache:
+
+      delete data_.cpu_cache;
       break;
   }
 }
@@ -2001,6 +2076,20 @@ bool StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgument::DataView,
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgument::DataView, ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuCacheRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr result(::ash::cros_healthd::mojom::CpuCacheRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -2147,6 +2236,18 @@ bool StructTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetail::DataView, :
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetail::DataView, ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuCacheRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr result(::ash::cros_healthd::mojom::CpuCacheRoutineDetail::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::cros_healthd::mojom::MemtesterResultPtr>::Read(
     ::ash::cros_healthd::mojom::MemtesterResult::DataView input,
     ::ash::cros_healthd::mojom::MemtesterResultPtr* output) {
@@ -2216,6 +2317,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewDiskRead(
           std::move(result_disk_read));
+      break;
+    }
+    case Tag::kCpuCache: {
+      ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr result_cpu_cache;
+      if (!input.ReadCpuCache(&result_cpu_cache))
+        return false;
+
+      *output = UnionType::NewCpuCache(
+          std::move(result_cpu_cache));
       break;
     }
     default:
@@ -2328,6 +2438,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewDiskRead(
           std::move(result_disk_read));
+      break;
+    }
+    case Tag::kCpuCache: {
+      ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr result_cpu_cache;
+      if (!input.ReadCpuCache(&result_cpu_cache))
+        return false;
+
+      *output = UnionType::NewCpuCache(
+          std::move(result_cpu_cache));
       break;
     }
     default:

@@ -422,6 +422,14 @@ class StartupListener final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>> PrepareAsyncVmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>>(PrepareAsyncVmReadyRaw(context, request, cq));
     }
+    // Called by VM installers to indicate installation status
+    virtual ::grpc::Status VmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::vm_tools::EmptyMessage* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>> AsyncVmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>>(AsyncVmInstallStatusRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>> PrepareAsyncVmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>>(PrepareAsyncVmInstallStatusRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -429,6 +437,9 @@ class StartupListener final {
       // incoming requests.
       virtual void VmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
       virtual void VmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Called by VM installers to indicate installation status
+      virtual void VmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void VmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -436,6 +447,8 @@ class StartupListener final {
    private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* AsyncVmReadyRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* PrepareAsyncVmReadyRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* AsyncVmInstallStatusRaw(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* PrepareAsyncVmInstallStatusRaw(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -447,11 +460,20 @@ class StartupListener final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> PrepareAsyncVmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(PrepareAsyncVmReadyRaw(context, request, cq));
     }
+    ::grpc::Status VmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::vm_tools::EmptyMessage* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> AsyncVmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(AsyncVmInstallStatusRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> PrepareAsyncVmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(PrepareAsyncVmInstallStatusRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
       void VmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
       void VmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void VmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void VmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -465,7 +487,10 @@ class StartupListener final {
     class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* AsyncVmReadyRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* PrepareAsyncVmReadyRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* AsyncVmInstallStatusRaw(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* PrepareAsyncVmInstallStatusRaw(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_VmReady_;
+    const ::grpc::internal::RpcMethod rpcmethod_VmInstallStatus_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -476,6 +501,8 @@ class StartupListener final {
     // Called by each VM when it starts up to indicate that it is ready to handle
     // incoming requests.
     virtual ::grpc::Status VmReady(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response);
+    // Called by VM installers to indicate installation status
+    virtual ::grpc::Status VmInstallStatus(::grpc::ServerContext* context, const ::vm_tools::VmInstallState* request, ::vm_tools::EmptyMessage* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_VmReady : public BaseClass {
@@ -497,7 +524,27 @@ class StartupListener final {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_VmReady<Service > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_VmInstallStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_VmInstallStatus() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_VmInstallStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status VmInstallStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::VmInstallState* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestVmInstallStatus(::grpc::ServerContext* context, ::vm_tools::VmInstallState* request, ::grpc::ServerAsyncResponseWriter< ::vm_tools::EmptyMessage>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_VmReady<WithAsyncMethod_VmInstallStatus<Service > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_VmReady : public BaseClass {
    private:
@@ -525,7 +572,34 @@ class StartupListener final {
     virtual ::grpc::ServerUnaryReactor* VmReady(
       ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_VmReady<Service > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_VmInstallStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_VmInstallStatus() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::VmInstallState, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::VmInstallState* request, ::vm_tools::EmptyMessage* response) { return this->VmInstallStatus(context, request, response); }));}
+    void SetMessageAllocatorFor_VmInstallStatus(
+        ::grpc::MessageAllocator< ::vm_tools::VmInstallState, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::VmInstallState, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_VmInstallStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status VmInstallStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::VmInstallState* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* VmInstallStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::VmInstallState* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_VmReady<WithCallbackMethod_VmInstallStatus<Service > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_VmReady : public BaseClass {
@@ -540,6 +614,23 @@ class StartupListener final {
     }
     // disable synchronous version of this method
     ::grpc::Status VmReady(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_VmInstallStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_VmInstallStatus() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_VmInstallStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status VmInstallStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::VmInstallState* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -565,6 +656,26 @@ class StartupListener final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_VmInstallStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_VmInstallStatus() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_VmInstallStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status VmInstallStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::VmInstallState* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestVmInstallStatus(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_VmReady : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -584,6 +695,28 @@ class StartupListener final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* VmReady(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_VmInstallStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_VmInstallStatus() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->VmInstallStatus(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_VmInstallStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status VmInstallStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::VmInstallState* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* VmInstallStatus(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -613,9 +746,36 @@ class StartupListener final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedVmReady(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::EmptyMessage,::vm_tools::EmptyMessage>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_VmReady<Service > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_VmInstallStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_VmInstallStatus() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::VmInstallState, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::VmInstallState, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedVmInstallStatus(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_VmInstallStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status VmInstallStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::VmInstallState* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedVmInstallStatus(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::VmInstallState,::vm_tools::EmptyMessage>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_VmReady<WithStreamedUnaryMethod_VmInstallStatus<Service > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_VmReady<Service > StreamedService;
+  typedef WithStreamedUnaryMethod_VmReady<WithStreamedUnaryMethod_VmInstallStatus<Service > > StreamedService;
 };
 
 }  // namespace vm_tools

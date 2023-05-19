@@ -56,6 +56,9 @@ extern LogRequestDefaultTypeInternal _LogRequest_default_instance_;
 class Timestamp;
 struct TimestampDefaultTypeInternal;
 extern TimestampDefaultTypeInternal _Timestamp_default_instance_;
+class VmInstallState;
+struct VmInstallStateDefaultTypeInternal;
+extern VmInstallStateDefaultTypeInternal _VmInstallState_default_instance_;
 class VmKernelLogRequest;
 struct VmKernelLogRequestDefaultTypeInternal;
 extern VmKernelLogRequestDefaultTypeInternal _VmKernelLogRequest_default_instance_;
@@ -64,10 +67,69 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::vm_tools::LogRecord* Arena::CreateMaybeMessage<::vm_tools::LogRecord>(Arena*);
 template<> ::vm_tools::LogRequest* Arena::CreateMaybeMessage<::vm_tools::LogRequest>(Arena*);
 template<> ::vm_tools::Timestamp* Arena::CreateMaybeMessage<::vm_tools::Timestamp>(Arena*);
+template<> ::vm_tools::VmInstallState* Arena::CreateMaybeMessage<::vm_tools::VmInstallState>(Arena*);
 template<> ::vm_tools::VmKernelLogRequest* Arena::CreateMaybeMessage<::vm_tools::VmKernelLogRequest>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace vm_tools {
 
+enum VmInstallState_State : int {
+  VmInstallState_State_UNKNOWN = 0,
+  VmInstallState_State_IN_PROGRESS = 1,
+  VmInstallState_State_FAILED = 2,
+  VmInstallState_State_SUCCEEDED = 3,
+  VmInstallState_State_VmInstallState_State_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  VmInstallState_State_VmInstallState_State_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool VmInstallState_State_IsValid(int value);
+constexpr VmInstallState_State VmInstallState_State_State_MIN = VmInstallState_State_UNKNOWN;
+constexpr VmInstallState_State VmInstallState_State_State_MAX = VmInstallState_State_SUCCEEDED;
+constexpr int VmInstallState_State_State_ARRAYSIZE = VmInstallState_State_State_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* VmInstallState_State_descriptor();
+template<typename T>
+inline const std::string& VmInstallState_State_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, VmInstallState_State>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function VmInstallState_State_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    VmInstallState_State_descriptor(), enum_t_value);
+}
+inline bool VmInstallState_State_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VmInstallState_State* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<VmInstallState_State>(
+    VmInstallState_State_descriptor(), name, value);
+}
+enum VmInstallState_Step : int {
+  VmInstallState_Step_unknown = 0,
+  VmInstallState_Step_launcher_start = 1,
+  VmInstallState_Step_core_start = 2,
+  VmInstallState_Step_install_fetch_image = 3,
+  VmInstallState_Step_install_configure = 4,
+  VmInstallState_Step_install_done = 5,
+  VmInstallState_Step_install_success = 6,
+  VmInstallState_Step_install_failure = 7,
+  VmInstallState_Step_VmInstallState_Step_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  VmInstallState_Step_VmInstallState_Step_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool VmInstallState_Step_IsValid(int value);
+constexpr VmInstallState_Step VmInstallState_Step_Step_MIN = VmInstallState_Step_unknown;
+constexpr VmInstallState_Step VmInstallState_Step_Step_MAX = VmInstallState_Step_install_failure;
+constexpr int VmInstallState_Step_Step_ARRAYSIZE = VmInstallState_Step_Step_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* VmInstallState_Step_descriptor();
+template<typename T>
+inline const std::string& VmInstallState_Step_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, VmInstallState_Step>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function VmInstallState_Step_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    VmInstallState_Step_descriptor(), enum_t_value);
+}
+inline bool VmInstallState_Step_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VmInstallState_Step* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<VmInstallState_Step>(
+    VmInstallState_Step_descriptor(), name, value);
+}
 enum VmKernelLogRequest_VmType : int {
   VmKernelLogRequest_VmType_UNKNOWN = 0,
   VmKernelLogRequest_VmType_TERMINA = 1,
@@ -629,6 +691,268 @@ class LogRequest final :
 };
 // -------------------------------------------------------------------
 
+class VmInstallState final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.VmInstallState) */ {
+ public:
+  inline VmInstallState() : VmInstallState(nullptr) {}
+  ~VmInstallState() override;
+  explicit PROTOBUF_CONSTEXPR VmInstallState(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  VmInstallState(const VmInstallState& from);
+  VmInstallState(VmInstallState&& from) noexcept
+    : VmInstallState() {
+    *this = ::std::move(from);
+  }
+
+  inline VmInstallState& operator=(const VmInstallState& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline VmInstallState& operator=(VmInstallState&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const VmInstallState& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const VmInstallState* internal_default_instance() {
+    return reinterpret_cast<const VmInstallState*>(
+               &_VmInstallState_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(VmInstallState& a, VmInstallState& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(VmInstallState* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(VmInstallState* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  VmInstallState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<VmInstallState>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const VmInstallState& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const VmInstallState& from) {
+    VmInstallState::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(VmInstallState* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.VmInstallState";
+  }
+  protected:
+  explicit VmInstallState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef VmInstallState_State State;
+  static constexpr State UNKNOWN =
+    VmInstallState_State_UNKNOWN;
+  static constexpr State IN_PROGRESS =
+    VmInstallState_State_IN_PROGRESS;
+  static constexpr State FAILED =
+    VmInstallState_State_FAILED;
+  static constexpr State SUCCEEDED =
+    VmInstallState_State_SUCCEEDED;
+  static inline bool State_IsValid(int value) {
+    return VmInstallState_State_IsValid(value);
+  }
+  static constexpr State State_MIN =
+    VmInstallState_State_State_MIN;
+  static constexpr State State_MAX =
+    VmInstallState_State_State_MAX;
+  static constexpr int State_ARRAYSIZE =
+    VmInstallState_State_State_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  State_descriptor() {
+    return VmInstallState_State_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& State_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, State>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function State_Name.");
+    return VmInstallState_State_Name(enum_t_value);
+  }
+  static inline bool State_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      State* value) {
+    return VmInstallState_State_Parse(name, value);
+  }
+
+  typedef VmInstallState_Step Step;
+  static constexpr Step unknown =
+    VmInstallState_Step_unknown;
+  static constexpr Step launcher_start =
+    VmInstallState_Step_launcher_start;
+  static constexpr Step core_start =
+    VmInstallState_Step_core_start;
+  static constexpr Step install_fetch_image =
+    VmInstallState_Step_install_fetch_image;
+  static constexpr Step install_configure =
+    VmInstallState_Step_install_configure;
+  static constexpr Step install_done =
+    VmInstallState_Step_install_done;
+  static constexpr Step install_success =
+    VmInstallState_Step_install_success;
+  static constexpr Step install_failure =
+    VmInstallState_Step_install_failure;
+  static inline bool Step_IsValid(int value) {
+    return VmInstallState_Step_IsValid(value);
+  }
+  static constexpr Step Step_MIN =
+    VmInstallState_Step_Step_MIN;
+  static constexpr Step Step_MAX =
+    VmInstallState_Step_Step_MAX;
+  static constexpr int Step_ARRAYSIZE =
+    VmInstallState_Step_Step_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  Step_descriptor() {
+    return VmInstallState_Step_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& Step_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, Step>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function Step_Name.");
+    return VmInstallState_Step_Name(enum_t_value);
+  }
+  static inline bool Step_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      Step* value) {
+    return VmInstallState_Step_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFailedReasonFieldNumber = 4,
+    kStateFieldNumber = 1,
+    kInProgressStepFieldNumber = 2,
+    kInProgressPercentFieldNumber = 3,
+  };
+  // string failed_reason = 4;
+  void clear_failed_reason();
+  const std::string& failed_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failed_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failed_reason();
+  PROTOBUF_NODISCARD std::string* release_failed_reason();
+  void set_allocated_failed_reason(std::string* failed_reason);
+  private:
+  const std::string& _internal_failed_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failed_reason(const std::string& value);
+  std::string* _internal_mutable_failed_reason();
+  public:
+
+  // .vm_tools.VmInstallState.State state = 1;
+  void clear_state();
+  ::vm_tools::VmInstallState_State state() const;
+  void set_state(::vm_tools::VmInstallState_State value);
+  private:
+  ::vm_tools::VmInstallState_State _internal_state() const;
+  void _internal_set_state(::vm_tools::VmInstallState_State value);
+  public:
+
+  // .vm_tools.VmInstallState.Step in_progress_step = 2;
+  void clear_in_progress_step();
+  ::vm_tools::VmInstallState_Step in_progress_step() const;
+  void set_in_progress_step(::vm_tools::VmInstallState_Step value);
+  private:
+  ::vm_tools::VmInstallState_Step _internal_in_progress_step() const;
+  void _internal_set_in_progress_step(::vm_tools::VmInstallState_Step value);
+  public:
+
+  // int64 in_progress_percent = 3;
+  void clear_in_progress_percent();
+  int64_t in_progress_percent() const;
+  void set_in_progress_percent(int64_t value);
+  private:
+  int64_t _internal_in_progress_percent() const;
+  void _internal_set_in_progress_percent(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.VmInstallState)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failed_reason_;
+    int state_;
+    int in_progress_step_;
+    int64_t in_progress_percent_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fhost_2eproto;
+};
+// -------------------------------------------------------------------
+
 class VmKernelLogRequest final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.VmKernelLogRequest) */ {
  public:
@@ -677,7 +1001,7 @@ class VmKernelLogRequest final :
                &_VmKernelLogRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(VmKernelLogRequest& a, VmKernelLogRequest& b) {
     a.Swap(&b);
@@ -1101,6 +1425,120 @@ LogRequest::records() const {
 
 // -------------------------------------------------------------------
 
+// VmInstallState
+
+// .vm_tools.VmInstallState.State state = 1;
+inline void VmInstallState::clear_state() {
+  _impl_.state_ = 0;
+}
+inline ::vm_tools::VmInstallState_State VmInstallState::_internal_state() const {
+  return static_cast< ::vm_tools::VmInstallState_State >(_impl_.state_);
+}
+inline ::vm_tools::VmInstallState_State VmInstallState::state() const {
+  // @@protoc_insertion_point(field_get:vm_tools.VmInstallState.state)
+  return _internal_state();
+}
+inline void VmInstallState::_internal_set_state(::vm_tools::VmInstallState_State value) {
+  
+  _impl_.state_ = value;
+}
+inline void VmInstallState::set_state(::vm_tools::VmInstallState_State value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:vm_tools.VmInstallState.state)
+}
+
+// .vm_tools.VmInstallState.Step in_progress_step = 2;
+inline void VmInstallState::clear_in_progress_step() {
+  _impl_.in_progress_step_ = 0;
+}
+inline ::vm_tools::VmInstallState_Step VmInstallState::_internal_in_progress_step() const {
+  return static_cast< ::vm_tools::VmInstallState_Step >(_impl_.in_progress_step_);
+}
+inline ::vm_tools::VmInstallState_Step VmInstallState::in_progress_step() const {
+  // @@protoc_insertion_point(field_get:vm_tools.VmInstallState.in_progress_step)
+  return _internal_in_progress_step();
+}
+inline void VmInstallState::_internal_set_in_progress_step(::vm_tools::VmInstallState_Step value) {
+  
+  _impl_.in_progress_step_ = value;
+}
+inline void VmInstallState::set_in_progress_step(::vm_tools::VmInstallState_Step value) {
+  _internal_set_in_progress_step(value);
+  // @@protoc_insertion_point(field_set:vm_tools.VmInstallState.in_progress_step)
+}
+
+// int64 in_progress_percent = 3;
+inline void VmInstallState::clear_in_progress_percent() {
+  _impl_.in_progress_percent_ = int64_t{0};
+}
+inline int64_t VmInstallState::_internal_in_progress_percent() const {
+  return _impl_.in_progress_percent_;
+}
+inline int64_t VmInstallState::in_progress_percent() const {
+  // @@protoc_insertion_point(field_get:vm_tools.VmInstallState.in_progress_percent)
+  return _internal_in_progress_percent();
+}
+inline void VmInstallState::_internal_set_in_progress_percent(int64_t value) {
+  
+  _impl_.in_progress_percent_ = value;
+}
+inline void VmInstallState::set_in_progress_percent(int64_t value) {
+  _internal_set_in_progress_percent(value);
+  // @@protoc_insertion_point(field_set:vm_tools.VmInstallState.in_progress_percent)
+}
+
+// string failed_reason = 4;
+inline void VmInstallState::clear_failed_reason() {
+  _impl_.failed_reason_.ClearToEmpty();
+}
+inline const std::string& VmInstallState::failed_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.VmInstallState.failed_reason)
+  return _internal_failed_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void VmInstallState::set_failed_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.failed_reason_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.VmInstallState.failed_reason)
+}
+inline std::string* VmInstallState::mutable_failed_reason() {
+  std::string* _s = _internal_mutable_failed_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.VmInstallState.failed_reason)
+  return _s;
+}
+inline const std::string& VmInstallState::_internal_failed_reason() const {
+  return _impl_.failed_reason_.Get();
+}
+inline void VmInstallState::_internal_set_failed_reason(const std::string& value) {
+  
+  _impl_.failed_reason_.Set(value, GetArenaForAllocation());
+}
+inline std::string* VmInstallState::_internal_mutable_failed_reason() {
+  
+  return _impl_.failed_reason_.Mutable(GetArenaForAllocation());
+}
+inline std::string* VmInstallState::release_failed_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.VmInstallState.failed_reason)
+  return _impl_.failed_reason_.Release();
+}
+inline void VmInstallState::set_allocated_failed_reason(std::string* failed_reason) {
+  if (failed_reason != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.failed_reason_.SetAllocated(failed_reason, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.failed_reason_.IsDefault()) {
+    _impl_.failed_reason_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.VmInstallState.failed_reason)
+}
+
+// -------------------------------------------------------------------
+
 // VmKernelLogRequest
 
 // .vm_tools.VmKernelLogRequest.VmType vm_type = 1;
@@ -1192,6 +1630,8 @@ VmKernelLogRequest::records() const {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -1199,6 +1639,16 @@ VmKernelLogRequest::records() const {
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::vm_tools::VmInstallState_State> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::VmInstallState_State>() {
+  return ::vm_tools::VmInstallState_State_descriptor();
+}
+template <> struct is_proto_enum< ::vm_tools::VmInstallState_Step> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::VmInstallState_Step>() {
+  return ::vm_tools::VmInstallState_Step_descriptor();
+}
 template <> struct is_proto_enum< ::vm_tools::VmKernelLogRequest_VmType> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::VmKernelLogRequest_VmType>() {

@@ -112,7 +112,9 @@ class  JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data {
   int32_t coded_size_width;
   int32_t coded_size_height;
   int32_t quality;
-  uint8_t padfinal_[4];
+  uint8_t has_input_modifier : 1;
+  uint8_t pad9_[3];
+  uint64_t input_modifier;
 
  private:
   friend class mojo::internal::MessageFragment<JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data>;
@@ -120,7 +122,7 @@ class  JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data {
   JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data();
   ~JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data() = delete;
 };
-static_assert(sizeof(JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data) == 56,
+static_assert(sizeof(JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data) == 64,
               "Bad sizeof(JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data)");
 class  JpegEncodeAccelerator_EncodeWithDmaBuf_ResponseParams_Data {
  public:
@@ -320,6 +322,16 @@ class JpegEncodeAccelerator_EncodeWithDmaBuf_ParamsDataView {
   }
   int32_t quality() const {
     return data_->quality;
+  }
+  bool has_input_modifier() const {
+    if (data_->header_.version < 1)
+      return bool{};
+    return data_->has_input_modifier;
+  }
+  uint64_t input_modifier() const {
+    if (data_->header_.version < 1)
+      return uint64_t{};
+    return data_->input_modifier;
   }
  private:
   internal::JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data* data_ = nullptr;

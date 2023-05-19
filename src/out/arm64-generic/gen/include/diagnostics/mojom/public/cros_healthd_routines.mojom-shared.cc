@@ -243,6 +243,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case RoutineArgument_Tag::kCpuCache: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_cpu_cache, 7, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_cpu_cache, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       return true;
@@ -403,6 +413,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case RoutineDetail_Tag::kCpuCache: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_cpu_cache, 6, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_cpu_cache, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(
@@ -542,6 +562,32 @@ bool DiskReadRoutineArgument_Data::Validate(
 }
 
 DiskReadRoutineArgument_Data::DiskReadRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CpuCacheRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CpuCacheRoutineArgument_Data* object =
+      static_cast<const CpuCacheRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+CpuCacheRoutineArgument_Data::CpuCacheRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -805,6 +851,29 @@ bool DiskReadRoutineDetail_Data::Validate(
 }
 
 DiskReadRoutineDetail_Data::DiskReadRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CpuCacheRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CpuCacheRoutineDetail_Data* object =
+      static_cast<const CpuCacheRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+CpuCacheRoutineDetail_Data::CpuCacheRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 

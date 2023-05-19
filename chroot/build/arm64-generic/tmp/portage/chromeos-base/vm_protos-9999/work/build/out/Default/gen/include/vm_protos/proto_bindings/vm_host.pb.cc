@@ -63,6 +63,22 @@ struct LogRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LogRequestDefaultTypeInternal _LogRequest_default_instance_;
+PROTOBUF_CONSTEXPR VmInstallState::VmInstallState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.failed_reason_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.state_)*/0
+  , /*decltype(_impl_.in_progress_step_)*/0
+  , /*decltype(_impl_.in_progress_percent_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct VmInstallStateDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR VmInstallStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~VmInstallStateDefaultTypeInternal() {}
+  union {
+    VmInstallState _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VmInstallStateDefaultTypeInternal _VmInstallState_default_instance_;
 PROTOBUF_CONSTEXPR VmKernelLogRequest::VmKernelLogRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.records_)*/{}
@@ -79,8 +95,8 @@ struct VmKernelLogRequestDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VmKernelLogRequestDefaultTypeInternal _VmKernelLogRequest_default_instance_;
 }  // namespace vm_tools
-static ::_pb::Metadata file_level_metadata_vm_5fhost_2eproto[4];
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_vm_5fhost_2eproto[2];
+static ::_pb::Metadata file_level_metadata_vm_5fhost_2eproto[5];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_vm_5fhost_2eproto[4];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_vm_5fhost_2eproto = nullptr;
 
 const uint32_t TableStruct_vm_5fhost_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -109,6 +125,16 @@ const uint32_t TableStruct_vm_5fhost_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vm_tools::LogRequest, _impl_.records_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::vm_tools::VmInstallState, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::vm_tools::VmInstallState, _impl_.state_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::VmInstallState, _impl_.in_progress_step_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::VmInstallState, _impl_.in_progress_percent_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::VmInstallState, _impl_.failed_reason_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::VmKernelLogRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -122,13 +148,15 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 0, -1, -1, sizeof(::vm_tools::Timestamp)},
   { 8, -1, -1, sizeof(::vm_tools::LogRecord)},
   { 17, -1, -1, sizeof(::vm_tools::LogRequest)},
-  { 24, -1, -1, sizeof(::vm_tools::VmKernelLogRequest)},
+  { 24, -1, -1, sizeof(::vm_tools::VmInstallState)},
+  { 34, -1, -1, sizeof(::vm_tools::VmKernelLogRequest)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::vm_tools::_Timestamp_default_instance_._instance,
   &::vm_tools::_LogRecord_default_instance_._instance,
   &::vm_tools::_LogRequest_default_instance_._instance,
+  &::vm_tools::_VmInstallState_default_instance_._instance,
   &::vm_tools::_VmKernelLogRequest_default_instance_._instance,
 };
 
@@ -139,30 +167,42 @@ const char descriptor_table_protodef_vm_5fhost_2eproto[] PROTOBUF_SECTION_VARIAB
   "_tools.LogSeverity\022&\n\ttimestamp\030\002 \001(\0132\023."
   "vm_tools.Timestamp\022\017\n\007content\030\005 \001(\014\"2\n\nL"
   "ogRequest\022$\n\007records\030\001 \003(\0132\023.vm_tools.Lo"
-  "gRecord\"\274\001\n\022VmKernelLogRequest\0224\n\007vm_typ"
-  "e\030\001 \001(\0162#.vm_tools.VmKernelLogRequest.Vm"
-  "Type\022\013\n\003cid\030\002 \001(\005\022$\n\007records\030\003 \003(\0132\023.vm_"
-  "tools.LogRecord\"=\n\006VmType\022\013\n\007UNKNOWN\020\000\022\013"
-  "\n\007TERMINA\020\001\022\n\n\006ARC_VM\020\002\022\r\n\tPLUGIN_VM\020\003*{"
-  "\n\013LogSeverity\022\013\n\007MISSING\020\000\022\r\n\tEMERGENCY\020"
-  "\001\022\t\n\005ALERT\020\002\022\014\n\010CRITICAL\020\003\022\t\n\005ERROR\020\004\022\013\n"
-  "\007WARNING\020\005\022\n\n\006NOTICE\020\006\022\010\n\004INFO\020\007\022\t\n\005DEBU"
-  "G\020\0102\222\001\n\014LogCollector\022A\n\021CollectKernelLog"
-  "s\022\024.vm_tools.LogRequest\032\026.vm_tools.Empty"
-  "Message\022\?\n\017CollectUserLogs\022\024.vm_tools.Lo"
-  "gRequest\032\026.vm_tools.EmptyMessage2L\n\017Star"
-  "tupListener\0229\n\007VmReady\022\026.vm_tools.EmptyM"
-  "essage\032\026.vm_tools.EmptyMessageB\037Z\032chromi"
-  "umos/vm_tools/vm_rpc\370\001\001b\006proto3"
+  "gRecord\"\224\003\n\016VmInstallState\022-\n\005state\030\001 \001("
+  "\0162\036.vm_tools.VmInstallState.State\0227\n\020in_"
+  "progress_step\030\002 \001(\0162\035.vm_tools.VmInstall"
+  "State.Step\022\033\n\023in_progress_percent\030\003 \001(\003\022"
+  "\025\n\rfailed_reason\030\004 \001(\t\"@\n\005State\022\013\n\007UNKNO"
+  "WN\020\000\022\017\n\013IN_PROGRESS\020\001\022\n\n\006FAILED\020\002\022\r\n\tSUC"
+  "CEEDED\020\003\"\243\001\n\004Step\022\013\n\007unknown\020\000\022\022\n\016launch"
+  "er_start\020\001\022\016\n\ncore_start\020\002\022\027\n\023install_fe"
+  "tch_image\020\003\022\025\n\021install_configure\020\004\022\020\n\014in"
+  "stall_done\020\005\022\023\n\017install_success\020\006\022\023\n\017ins"
+  "tall_failure\020\007\"\274\001\n\022VmKernelLogRequest\0224\n"
+  "\007vm_type\030\001 \001(\0162#.vm_tools.VmKernelLogReq"
+  "uest.VmType\022\013\n\003cid\030\002 \001(\005\022$\n\007records\030\003 \003("
+  "\0132\023.vm_tools.LogRecord\"=\n\006VmType\022\013\n\007UNKN"
+  "OWN\020\000\022\013\n\007TERMINA\020\001\022\n\n\006ARC_VM\020\002\022\r\n\tPLUGIN"
+  "_VM\020\003*{\n\013LogSeverity\022\013\n\007MISSING\020\000\022\r\n\tEME"
+  "RGENCY\020\001\022\t\n\005ALERT\020\002\022\014\n\010CRITICAL\020\003\022\t\n\005ERR"
+  "OR\020\004\022\013\n\007WARNING\020\005\022\n\n\006NOTICE\020\006\022\010\n\004INFO\020\007\022"
+  "\t\n\005DEBUG\020\0102\222\001\n\014LogCollector\022A\n\021CollectKe"
+  "rnelLogs\022\024.vm_tools.LogRequest\032\026.vm_tool"
+  "s.EmptyMessage\022\?\n\017CollectUserLogs\022\024.vm_t"
+  "ools.LogRequest\032\026.vm_tools.EmptyMessage2"
+  "\221\001\n\017StartupListener\0229\n\007VmReady\022\026.vm_tool"
+  "s.EmptyMessage\032\026.vm_tools.EmptyMessage\022C"
+  "\n\017VmInstallStatus\022\030.vm_tools.VmInstallSt"
+  "ate\032\026.vm_tools.EmptyMessageB\037Z\032chromiumo"
+  "s/vm_tools/vm_rpc\370\001\001b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_vm_5fhost_2eproto_deps[1] = {
   &::descriptor_table_common_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_vm_5fhost_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_vm_5fhost_2eproto = {
-    false, false, 831, descriptor_table_protodef_vm_5fhost_2eproto,
+    false, false, 1308, descriptor_table_protodef_vm_5fhost_2eproto,
     "vm_host.proto",
-    &descriptor_table_vm_5fhost_2eproto_once, descriptor_table_vm_5fhost_2eproto_deps, 1, 4,
+    &descriptor_table_vm_5fhost_2eproto_once, descriptor_table_vm_5fhost_2eproto_deps, 1, 5,
     schemas, file_default_instances, TableStruct_vm_5fhost_2eproto::offsets,
     file_level_metadata_vm_5fhost_2eproto, file_level_enum_descriptors_vm_5fhost_2eproto,
     file_level_service_descriptors_vm_5fhost_2eproto,
@@ -174,9 +214,67 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_vm_5fhos
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_vm_5fhost_2eproto(&descriptor_table_vm_5fhost_2eproto);
 namespace vm_tools {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* VmKernelLogRequest_VmType_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* VmInstallState_State_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_vm_5fhost_2eproto);
   return file_level_enum_descriptors_vm_5fhost_2eproto[0];
+}
+bool VmInstallState_State_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr VmInstallState_State VmInstallState::UNKNOWN;
+constexpr VmInstallState_State VmInstallState::IN_PROGRESS;
+constexpr VmInstallState_State VmInstallState::FAILED;
+constexpr VmInstallState_State VmInstallState::SUCCEEDED;
+constexpr VmInstallState_State VmInstallState::State_MIN;
+constexpr VmInstallState_State VmInstallState::State_MAX;
+constexpr int VmInstallState::State_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* VmInstallState_Step_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_vm_5fhost_2eproto);
+  return file_level_enum_descriptors_vm_5fhost_2eproto[1];
+}
+bool VmInstallState_Step_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr VmInstallState_Step VmInstallState::unknown;
+constexpr VmInstallState_Step VmInstallState::launcher_start;
+constexpr VmInstallState_Step VmInstallState::core_start;
+constexpr VmInstallState_Step VmInstallState::install_fetch_image;
+constexpr VmInstallState_Step VmInstallState::install_configure;
+constexpr VmInstallState_Step VmInstallState::install_done;
+constexpr VmInstallState_Step VmInstallState::install_success;
+constexpr VmInstallState_Step VmInstallState::install_failure;
+constexpr VmInstallState_Step VmInstallState::Step_MIN;
+constexpr VmInstallState_Step VmInstallState::Step_MAX;
+constexpr int VmInstallState::Step_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* VmKernelLogRequest_VmType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_vm_5fhost_2eproto);
+  return file_level_enum_descriptors_vm_5fhost_2eproto[2];
 }
 bool VmKernelLogRequest_VmType_IsValid(int value) {
   switch (value) {
@@ -201,7 +299,7 @@ constexpr int VmKernelLogRequest::VmType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LogSeverity_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_vm_5fhost_2eproto);
-  return file_level_enum_descriptors_vm_5fhost_2eproto[1];
+  return file_level_enum_descriptors_vm_5fhost_2eproto[3];
 }
 bool LogSeverity_IsValid(int value) {
   switch (value) {
@@ -893,6 +991,299 @@ void LogRequest::InternalSwap(LogRequest* other) {
 
 // ===================================================================
 
+class VmInstallState::_Internal {
+ public:
+};
+
+VmInstallState::VmInstallState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:vm_tools.VmInstallState)
+}
+VmInstallState::VmInstallState(const VmInstallState& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  VmInstallState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failed_reason_){}
+    , decltype(_impl_.state_){}
+    , decltype(_impl_.in_progress_step_){}
+    , decltype(_impl_.in_progress_percent_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.failed_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failed_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_failed_reason().empty()) {
+    _this->_impl_.failed_reason_.Set(from._internal_failed_reason(), 
+      _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.state_, &from._impl_.state_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.in_progress_percent_) -
+    reinterpret_cast<char*>(&_impl_.state_)) + sizeof(_impl_.in_progress_percent_));
+  // @@protoc_insertion_point(copy_constructor:vm_tools.VmInstallState)
+}
+
+inline void VmInstallState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failed_reason_){}
+    , decltype(_impl_.state_){0}
+    , decltype(_impl_.in_progress_step_){0}
+    , decltype(_impl_.in_progress_percent_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.failed_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failed_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+VmInstallState::~VmInstallState() {
+  // @@protoc_insertion_point(destructor:vm_tools.VmInstallState)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void VmInstallState::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.failed_reason_.Destroy();
+}
+
+void VmInstallState::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void VmInstallState::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.VmInstallState)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.failed_reason_.ClearToEmpty();
+  ::memset(&_impl_.state_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.in_progress_percent_) -
+      reinterpret_cast<char*>(&_impl_.state_)) + sizeof(_impl_.in_progress_percent_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* VmInstallState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .vm_tools.VmInstallState.State state = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_state(static_cast<::vm_tools::VmInstallState_State>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .vm_tools.VmInstallState.Step in_progress_step = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_in_progress_step(static_cast<::vm_tools::VmInstallState_Step>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 in_progress_percent = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.in_progress_percent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string failed_reason = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_failed_reason();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.VmInstallState.failed_reason"));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* VmInstallState::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.VmInstallState)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .vm_tools.VmInstallState.State state = 1;
+  if (this->_internal_state() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_state(), target);
+  }
+
+  // .vm_tools.VmInstallState.Step in_progress_step = 2;
+  if (this->_internal_in_progress_step() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_in_progress_step(), target);
+  }
+
+  // int64 in_progress_percent = 3;
+  if (this->_internal_in_progress_percent() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_in_progress_percent(), target);
+  }
+
+  // string failed_reason = 4;
+  if (!this->_internal_failed_reason().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_failed_reason().data(), static_cast<int>(this->_internal_failed_reason().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.VmInstallState.failed_reason");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_failed_reason(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.VmInstallState)
+  return target;
+}
+
+size_t VmInstallState::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.VmInstallState)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string failed_reason = 4;
+  if (!this->_internal_failed_reason().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_failed_reason());
+  }
+
+  // .vm_tools.VmInstallState.State state = 1;
+  if (this->_internal_state() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_state());
+  }
+
+  // .vm_tools.VmInstallState.Step in_progress_step = 2;
+  if (this->_internal_in_progress_step() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_in_progress_step());
+  }
+
+  // int64 in_progress_percent = 3;
+  if (this->_internal_in_progress_percent() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_in_progress_percent());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData VmInstallState::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    VmInstallState::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*VmInstallState::GetClassData() const { return &_class_data_; }
+
+
+void VmInstallState::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<VmInstallState*>(&to_msg);
+  auto& from = static_cast<const VmInstallState&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.VmInstallState)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_failed_reason().empty()) {
+    _this->_internal_set_failed_reason(from._internal_failed_reason());
+  }
+  if (from._internal_state() != 0) {
+    _this->_internal_set_state(from._internal_state());
+  }
+  if (from._internal_in_progress_step() != 0) {
+    _this->_internal_set_in_progress_step(from._internal_in_progress_step());
+  }
+  if (from._internal_in_progress_percent() != 0) {
+    _this->_internal_set_in_progress_percent(from._internal_in_progress_percent());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void VmInstallState::CopyFrom(const VmInstallState& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.VmInstallState)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool VmInstallState::IsInitialized() const {
+  return true;
+}
+
+void VmInstallState::InternalSwap(VmInstallState* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.failed_reason_, lhs_arena,
+      &other->_impl_.failed_reason_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(VmInstallState, _impl_.in_progress_percent_)
+      + sizeof(VmInstallState::_impl_.in_progress_percent_)
+      - PROTOBUF_FIELD_OFFSET(VmInstallState, _impl_.state_)>(
+          reinterpret_cast<char*>(&_impl_.state_),
+          reinterpret_cast<char*>(&other->_impl_.state_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata VmInstallState::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_vm_5fhost_2eproto_getter, &descriptor_table_vm_5fhost_2eproto_once,
+      file_level_metadata_vm_5fhost_2eproto[3]);
+}
+
+// ===================================================================
+
 class VmKernelLogRequest::_Internal {
  public:
 };
@@ -1136,7 +1527,7 @@ void VmKernelLogRequest::InternalSwap(VmKernelLogRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata VmKernelLogRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_vm_5fhost_2eproto_getter, &descriptor_table_vm_5fhost_2eproto_once,
-      file_level_metadata_vm_5fhost_2eproto[3]);
+      file_level_metadata_vm_5fhost_2eproto[4]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -1153,6 +1544,10 @@ Arena::CreateMaybeMessage< ::vm_tools::LogRecord >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::vm_tools::LogRequest*
 Arena::CreateMaybeMessage< ::vm_tools::LogRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::LogRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::VmInstallState*
+Arena::CreateMaybeMessage< ::vm_tools::VmInstallState >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::VmInstallState >(arena);
 }
 template<> PROTOBUF_NOINLINE ::vm_tools::VmKernelLogRequest*
 Arena::CreateMaybeMessage< ::vm_tools::VmKernelLogRequest >(Arena* arena) {

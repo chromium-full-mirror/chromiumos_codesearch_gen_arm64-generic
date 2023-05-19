@@ -188,8 +188,12 @@ bool JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 56 },
+    { 1, 64 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -233,7 +237,7 @@ bool JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data::Validate(
 }
 
 JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data::JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static

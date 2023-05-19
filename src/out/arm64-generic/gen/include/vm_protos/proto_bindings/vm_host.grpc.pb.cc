@@ -126,6 +126,7 @@ LogCollector::Service::~Service() {
 
 static const char* StartupListener_method_names[] = {
   "/vm_tools.StartupListener/VmReady",
+  "/vm_tools.StartupListener/VmInstallStatus",
 };
 
 std::unique_ptr< StartupListener::Stub> StartupListener::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -136,6 +137,7 @@ std::unique_ptr< StartupListener::Stub> StartupListener::NewStub(const std::shar
 
 StartupListener::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
   : channel_(channel), rpcmethod_VmReady_(StartupListener_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_VmInstallStatus_(StartupListener_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status StartupListener::Stub::VmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::EmptyMessage* response) {
@@ -161,6 +163,29 @@ void StartupListener::Stub::async::VmReady(::grpc::ClientContext* context, const
   return result;
 }
 
+::grpc::Status StartupListener::Stub::VmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::vm_tools::EmptyMessage* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::VmInstallState, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_VmInstallStatus_, context, request, response);
+}
+
+void StartupListener::Stub::async::VmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::VmInstallState, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_VmInstallStatus_, context, request, response, std::move(f));
+}
+
+void StartupListener::Stub::async::VmInstallStatus(::grpc::ClientContext* context, const ::vm_tools::VmInstallState* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_VmInstallStatus_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* StartupListener::Stub::PrepareAsyncVmInstallStatusRaw(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::VmInstallState, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_VmInstallStatus_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* StartupListener::Stub::AsyncVmInstallStatusRaw(::grpc::ClientContext* context, const ::vm_tools::VmInstallState& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncVmInstallStatusRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 StartupListener::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       StartupListener_method_names[0],
@@ -172,12 +197,29 @@ StartupListener::Service::Service() {
              ::vm_tools::EmptyMessage* resp) {
                return service->VmReady(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      StartupListener_method_names[1],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< StartupListener::Service, ::vm_tools::VmInstallState, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](StartupListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::VmInstallState* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->VmInstallStatus(ctx, req, resp);
+             }, this)));
 }
 
 StartupListener::Service::~Service() {
 }
 
 ::grpc::Status StartupListener::Service::VmReady(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status StartupListener::Service::VmInstallStatus(::grpc::ServerContext* context, const ::vm_tools::VmInstallState* request, ::vm_tools::EmptyMessage* response) {
   (void) context;
   (void) request;
   (void) response;

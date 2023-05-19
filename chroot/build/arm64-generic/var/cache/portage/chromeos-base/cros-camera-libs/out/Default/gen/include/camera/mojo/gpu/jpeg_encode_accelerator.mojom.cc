@@ -310,7 +310,7 @@ void JpegEncodeAcceleratorProxy::EncodeWithFD(
 }
 
 void JpegEncodeAcceleratorProxy::EncodeWithDmaBuf(
-    int32_t in_task_id, uint32_t in_input_format, std::vector<::cros::mojom::DmaBufPlanePtr> in_input_planes, std::vector<::cros::mojom::DmaBufPlanePtr> in_output_planes, ::mojo::ScopedHandle in_exif_handle, uint32_t in_exif_buffer_size, int32_t in_coded_size_width, int32_t in_coded_size_height, int32_t in_quality, EncodeWithDmaBufCallback callback) {
+    int32_t in_task_id, uint32_t in_input_format, std::vector<::cros::mojom::DmaBufPlanePtr> in_input_planes, std::vector<::cros::mojom::DmaBufPlanePtr> in_output_planes, ::mojo::ScopedHandle in_exif_handle, uint32_t in_exif_buffer_size, int32_t in_coded_size_width, int32_t in_coded_size_height, int32_t in_quality, bool in_has_input_modifier, uint64_t in_input_modifier, EncodeWithDmaBufCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::JpegEncodeAccelerator::EncodeWithDmaBuf", "input_parameters",
@@ -343,6 +343,12 @@ void JpegEncodeAcceleratorProxy::EncodeWithDmaBuf(
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("quality"), in_quality,
                         "<value of type int32_t>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("has_input_modifier"), in_has_input_modifier,
+                        "<value of type bool>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("input_modifier"), in_input_modifier,
+                        "<value of type uint64_t>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -398,6 +404,8 @@ void JpegEncodeAcceleratorProxy::EncodeWithDmaBuf(
   params->coded_size_width = in_coded_size_width;
   params->coded_size_height = in_coded_size_height;
   params->quality = in_quality;
+  params->has_input_modifier = in_has_input_modifier;
+  params->input_modifier = in_input_modifier;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(JpegEncodeAccelerator::Name_);
@@ -919,6 +927,8 @@ std::move(p_output_buffer_size), std::move(callback));
       int32_t p_coded_size_width{};
       int32_t p_coded_size_height{};
       int32_t p_quality{};
+      bool p_has_input_modifier{};
+      uint64_t p_input_modifier{};
       JpegEncodeAccelerator_EncodeWithDmaBuf_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -939,6 +949,10 @@ std::move(p_output_buffer_size), std::move(callback));
         p_coded_size_height = input_data_view.coded_size_height();
       if (success)
         p_quality = input_data_view.quality();
+      if (success)
+        p_has_input_modifier = input_data_view.has_input_modifier();
+      if (success)
+        p_input_modifier = input_data_view.input_modifier();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -960,7 +974,9 @@ std::move(p_exif_handle),
 std::move(p_exif_buffer_size), 
 std::move(p_coded_size_width), 
 std::move(p_coded_size_height), 
-std::move(p_quality), std::move(callback));
+std::move(p_quality), 
+std::move(p_has_input_modifier), 
+std::move(p_input_modifier), std::move(callback));
       return true;
     }
   }
@@ -1011,8 +1027,8 @@ void JpegEncodeAcceleratorInterceptorForTesting::Initialize(InitializeCallback c
 void JpegEncodeAcceleratorInterceptorForTesting::EncodeWithFD(int32_t task_id, ::mojo::ScopedHandle input_fd, uint32_t input_buffer_size, int32_t coded_size_width, int32_t coded_size_height, ::mojo::ScopedHandle exif_fd, uint32_t exif_buffer_size, ::mojo::ScopedHandle output_fd, uint32_t output_buffer_size, EncodeWithFDCallback callback) {
   GetForwardingInterface()->EncodeWithFD(std::move(task_id), std::move(input_fd), std::move(input_buffer_size), std::move(coded_size_width), std::move(coded_size_height), std::move(exif_fd), std::move(exif_buffer_size), std::move(output_fd), std::move(output_buffer_size), std::move(callback));
 }
-void JpegEncodeAcceleratorInterceptorForTesting::EncodeWithDmaBuf(int32_t task_id, uint32_t input_format, std::vector<::cros::mojom::DmaBufPlanePtr> input_planes, std::vector<::cros::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, EncodeWithDmaBufCallback callback) {
-  GetForwardingInterface()->EncodeWithDmaBuf(std::move(task_id), std::move(input_format), std::move(input_planes), std::move(output_planes), std::move(exif_handle), std::move(exif_buffer_size), std::move(coded_size_width), std::move(coded_size_height), std::move(quality), std::move(callback));
+void JpegEncodeAcceleratorInterceptorForTesting::EncodeWithDmaBuf(int32_t task_id, uint32_t input_format, std::vector<::cros::mojom::DmaBufPlanePtr> input_planes, std::vector<::cros::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, bool has_input_modifier, uint64_t input_modifier, EncodeWithDmaBufCallback callback) {
+  GetForwardingInterface()->EncodeWithDmaBuf(std::move(task_id), std::move(input_format), std::move(input_planes), std::move(output_planes), std::move(exif_handle), std::move(exif_buffer_size), std::move(coded_size_width), std::move(coded_size_height), std::move(quality), std::move(has_input_modifier), std::move(input_modifier), std::move(callback));
 }
 JpegEncodeAcceleratorAsyncWaiter::JpegEncodeAcceleratorAsyncWaiter(
     JpegEncodeAccelerator* proxy) : proxy_(proxy) {}
@@ -1069,9 +1085,9 @@ void JpegEncodeAcceleratorAsyncWaiter::EncodeWithFD(
 
 
 void JpegEncodeAcceleratorAsyncWaiter::EncodeWithDmaBuf(
-    int32_t task_id, uint32_t input_format, std::vector<::cros::mojom::DmaBufPlanePtr> input_planes, std::vector<::cros::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, uint32_t* out_encoded_buffer_size, EncodeStatus* out_status) {
+    int32_t task_id, uint32_t input_format, std::vector<::cros::mojom::DmaBufPlanePtr> input_planes, std::vector<::cros::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, bool has_input_modifier, uint64_t input_modifier, uint32_t* out_encoded_buffer_size, EncodeStatus* out_status) {
   base::RunLoop loop;
-  proxy_->EncodeWithDmaBuf(std::move(task_id),std::move(input_format),std::move(input_planes),std::move(output_planes),std::move(exif_handle),std::move(exif_buffer_size),std::move(coded_size_width),std::move(coded_size_height),std::move(quality),
+  proxy_->EncodeWithDmaBuf(std::move(task_id),std::move(input_format),std::move(input_planes),std::move(output_planes),std::move(exif_handle),std::move(exif_buffer_size),std::move(coded_size_width),std::move(coded_size_height),std::move(quality),std::move(has_input_modifier),std::move(input_modifier),
       base::BindOnce(
           [](base::RunLoop* loop,
              uint32_t* out_encoded_buffer_size

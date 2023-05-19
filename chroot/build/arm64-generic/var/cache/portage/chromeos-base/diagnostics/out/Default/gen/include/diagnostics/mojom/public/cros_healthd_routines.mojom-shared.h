@@ -47,6 +47,8 @@ class UfsLifetimeRoutineArgumentDataView;
 
 class DiskReadRoutineArgumentDataView;
 
+class CpuCacheRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -66,6 +68,8 @@ class CpuStressRoutineDetailDataView;
 class UfsLifetimeRoutineDetailDataView;
 
 class DiskReadRoutineDetailDataView;
+
+class CpuCacheRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
@@ -112,6 +116,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineArgumentDat
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::DiskReadRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuCacheRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -182,6 +193,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsLifetimeRoutineDetailDataV
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::DiskReadRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuCacheRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -514,6 +532,42 @@ class DiskReadRoutineArgumentDataView {
 };
 
 
+class CpuCacheRoutineArgumentDataView {
+ public:
+  CpuCacheRoutineArgumentDataView() = default;
+
+  CpuCacheRoutineArgumentDataView(
+      internal::CpuCacheRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+    "Attempting to read the optional `exec_duration` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExecDuration` instead "
+    "of `ReadExecDuration if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CpuCacheRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class RoutineStateDataView {
  public:
   RoutineStateDataView() = default;
@@ -752,6 +806,21 @@ class DiskReadRoutineDetailDataView {
 };
 
 
+class CpuCacheRoutineDetailDataView {
+ public:
+  CpuCacheRoutineDetailDataView() = default;
+
+  CpuCacheRoutineDetailDataView(
+      internal::CpuCacheRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CpuCacheRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class MemtesterResultDataView {
  public:
   MemtesterResultDataView() = default;
@@ -865,6 +934,17 @@ class RoutineArgumentDataView {
     CHECK(is_disk_read());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView>(
         data_->data.f_disk_read.Get(), output, message_);
+  }
+  bool is_cpu_cache() const { return data_->tag == Tag::kCpuCache; }
+  inline void GetCpuCacheDataView(
+      CpuCacheRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCpuCache(UserType* output) const {
+    
+    CHECK(is_cpu_cache());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView>(
+        data_->data.f_cpu_cache.Get(), output, message_);
   }
 
  private:
@@ -1016,6 +1096,17 @@ class RoutineDetailDataView {
     CHECK(is_disk_read());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView>(
         data_->data.f_disk_read.Get(), output, message_);
+  }
+  bool is_cpu_cache() const { return data_->tag == Tag::kCpuCache; }
+  inline void GetCpuCacheDataView(
+      CpuCacheRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCpuCache(UserType* output) const {
+    
+    CHECK(is_cpu_cache());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView>(
+        data_->data.f_cpu_cache.Get(), output, message_);
   }
 
  private:
@@ -1297,6 +1388,43 @@ struct Serializer<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView, M
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuCacheRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuCacheRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1647,6 +1775,35 @@ struct Serializer<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView, May
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuCacheRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuCacheRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::MemtesterResultDataView, UserType>;
@@ -1808,6 +1965,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null disk_read in RoutineArgument union");
         fragment->data.f_disk_read.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kCpuCache: {
+        decltype(Traits::cpu_cache(input))
+            in_cpu_cache = Traits::cpu_cache(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_cpu_cache)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView>(
+            in_cpu_cache, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null cpu_cache in RoutineArgument union");
+        fragment->data.f_cpu_cache.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -2037,6 +2210,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kCpuCache: {
+        decltype(Traits::cpu_cache(input))
+            in_cpu_cache = Traits::cpu_cache(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_cpu_cache)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView>(
+            in_cpu_cache, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null cpu_cache in RoutineDetail union");
+        fragment->data.f_cpu_cache.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -2080,6 +2269,13 @@ inline void DiskReadRoutineArgumentDataView::GetDiskReadDurationDataView(
 }
 
 
+inline void CpuCacheRoutineArgumentDataView::GetExecDurationDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
 inline void RoutineStateDataView::GetStateUnionDataView(
     RoutineStateUnionDataView* output) {
   auto pointer = &data_->state_union;
@@ -2110,6 +2306,8 @@ inline void MemoryRoutineDetailDataView::GetResultDataView(
   auto pointer = data_->result.Get();
   *output = MemtesterResultDataView(pointer, message_);
 }
+
+
 
 
 
@@ -2157,6 +2355,11 @@ inline void RoutineArgumentDataView::GetDiskReadDataView(
   CHECK(is_disk_read());
   *output = DiskReadRoutineArgumentDataView(data_->data.f_disk_read.Get(), message_);
 }
+inline void RoutineArgumentDataView::GetCpuCacheDataView(
+    CpuCacheRoutineArgumentDataView* output) const {
+  CHECK(is_cpu_cache());
+  *output = CpuCacheRoutineArgumentDataView(data_->data.f_cpu_cache.Get(), message_);
+}
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
     RoutineStateInitializedDataView* output) const {
@@ -2203,6 +2406,11 @@ inline void RoutineDetailDataView::GetDiskReadDataView(
     DiskReadRoutineDetailDataView* output) const {
   CHECK(is_disk_read());
   *output = DiskReadRoutineDetailDataView(data_->data.f_disk_read.Get(), message_);
+}
+inline void RoutineDetailDataView::GetCpuCacheDataView(
+    CpuCacheRoutineDetailDataView* output) const {
+  CHECK(is_cpu_cache());
+  *output = CpuCacheRoutineDetailDataView(data_->data.f_cpu_cache.Get(), message_);
 }
 
 
