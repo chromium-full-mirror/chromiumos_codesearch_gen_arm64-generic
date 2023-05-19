@@ -1430,6 +1430,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR AddAuthFactorReply::AddAuthFactorReply(
     ::_pbi::ConstantInitialized)
   : error_info_(nullptr)
+  , added_auth_factor_(nullptr)
   , error_(0)
 {}
 struct AddAuthFactorReplyDefaultTypeInternal {
@@ -1492,6 +1493,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR UpdateAuthFactorReply::UpdateAuthFactorReply(
     ::_pbi::ConstantInitialized)
   : error_info_(nullptr)
+  , updated_auth_factor_(nullptr)
   , error_(0)
 {}
 struct UpdateAuthFactorReplyDefaultTypeInternal {
@@ -24398,11 +24400,16 @@ std::string AddAuthFactorRequest::GetTypeName() const {
 class AddAuthFactorReply::_Internal {
  public:
   static const ::user_data_auth::CryptohomeErrorInfo& error_info(const AddAuthFactorReply* msg);
+  static const ::user_data_auth::AuthFactorWithStatus& added_auth_factor(const AddAuthFactorReply* msg);
 };
 
 const ::user_data_auth::CryptohomeErrorInfo&
 AddAuthFactorReply::_Internal::error_info(const AddAuthFactorReply* msg) {
   return *msg->error_info_;
+}
+const ::user_data_auth::AuthFactorWithStatus&
+AddAuthFactorReply::_Internal::added_auth_factor(const AddAuthFactorReply* msg) {
+  return *msg->added_auth_factor_;
 }
 AddAuthFactorReply::AddAuthFactorReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -24417,6 +24424,11 @@ AddAuthFactorReply::AddAuthFactorReply(const AddAuthFactorReply& from)
     error_info_ = new ::user_data_auth::CryptohomeErrorInfo(*from.error_info_);
   } else {
     error_info_ = nullptr;
+  }
+  if (from._internal_has_added_auth_factor()) {
+    added_auth_factor_ = new ::user_data_auth::AuthFactorWithStatus(*from.added_auth_factor_);
+  } else {
+    added_auth_factor_ = nullptr;
   }
   error_ = from.error_;
   // @@protoc_insertion_point(copy_constructor:user_data_auth.AddAuthFactorReply)
@@ -24441,6 +24453,7 @@ AddAuthFactorReply::~AddAuthFactorReply() {
 inline void AddAuthFactorReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete error_info_;
+  if (this != internal_default_instance()) delete added_auth_factor_;
 }
 
 void AddAuthFactorReply::SetCachedSize(int size) const {
@@ -24457,6 +24470,10 @@ void AddAuthFactorReply::Clear() {
     delete error_info_;
   }
   error_info_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && added_auth_factor_ != nullptr) {
+    delete added_auth_factor_;
+  }
+  added_auth_factor_ = nullptr;
   error_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
@@ -24480,6 +24497,14 @@ const char* AddAuthFactorReply::_InternalParse(const char* ptr, ::_pbi::ParseCon
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthFactorWithStatus added_auth_factor = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_added_auth_factor(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -24527,6 +24552,13 @@ uint8_t* AddAuthFactorReply::_InternalSerialize(
         _Internal::error_info(this).GetCachedSize(), target, stream);
   }
 
+  // .user_data_auth.AuthFactorWithStatus added_auth_factor = 3;
+  if (this->_internal_has_added_auth_factor()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::added_auth_factor(this),
+        _Internal::added_auth_factor(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -24548,6 +24580,13 @@ size_t AddAuthFactorReply::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *error_info_);
+  }
+
+  // .user_data_auth.AuthFactorWithStatus added_auth_factor = 3;
+  if (this->_internal_has_added_auth_factor()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *added_auth_factor_);
   }
 
   // .user_data_auth.CryptohomeErrorCode error = 1;
@@ -24578,6 +24617,9 @@ void AddAuthFactorReply::MergeFrom(const AddAuthFactorReply& from) {
 
   if (from._internal_has_error_info()) {
     _internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(from._internal_error_info());
+  }
+  if (from._internal_has_added_auth_factor()) {
+    _internal_mutable_added_auth_factor()->::user_data_auth::AuthFactorWithStatus::MergeFrom(from._internal_added_auth_factor());
   }
   if (from._internal_error() != 0) {
     _internal_set_error(from._internal_error());
@@ -25597,11 +25639,16 @@ std::string UpdateAuthFactorRequest::GetTypeName() const {
 class UpdateAuthFactorReply::_Internal {
  public:
   static const ::user_data_auth::CryptohomeErrorInfo& error_info(const UpdateAuthFactorReply* msg);
+  static const ::user_data_auth::AuthFactorWithStatus& updated_auth_factor(const UpdateAuthFactorReply* msg);
 };
 
 const ::user_data_auth::CryptohomeErrorInfo&
 UpdateAuthFactorReply::_Internal::error_info(const UpdateAuthFactorReply* msg) {
   return *msg->error_info_;
+}
+const ::user_data_auth::AuthFactorWithStatus&
+UpdateAuthFactorReply::_Internal::updated_auth_factor(const UpdateAuthFactorReply* msg) {
+  return *msg->updated_auth_factor_;
 }
 UpdateAuthFactorReply::UpdateAuthFactorReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -25616,6 +25663,11 @@ UpdateAuthFactorReply::UpdateAuthFactorReply(const UpdateAuthFactorReply& from)
     error_info_ = new ::user_data_auth::CryptohomeErrorInfo(*from.error_info_);
   } else {
     error_info_ = nullptr;
+  }
+  if (from._internal_has_updated_auth_factor()) {
+    updated_auth_factor_ = new ::user_data_auth::AuthFactorWithStatus(*from.updated_auth_factor_);
+  } else {
+    updated_auth_factor_ = nullptr;
   }
   error_ = from.error_;
   // @@protoc_insertion_point(copy_constructor:user_data_auth.UpdateAuthFactorReply)
@@ -25640,6 +25692,7 @@ UpdateAuthFactorReply::~UpdateAuthFactorReply() {
 inline void UpdateAuthFactorReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete error_info_;
+  if (this != internal_default_instance()) delete updated_auth_factor_;
 }
 
 void UpdateAuthFactorReply::SetCachedSize(int size) const {
@@ -25656,6 +25709,10 @@ void UpdateAuthFactorReply::Clear() {
     delete error_info_;
   }
   error_info_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && updated_auth_factor_ != nullptr) {
+    delete updated_auth_factor_;
+  }
+  updated_auth_factor_ = nullptr;
   error_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
@@ -25679,6 +25736,14 @@ const char* UpdateAuthFactorReply::_InternalParse(const char* ptr, ::_pbi::Parse
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthFactorWithStatus updated_auth_factor = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_updated_auth_factor(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -25726,6 +25791,13 @@ uint8_t* UpdateAuthFactorReply::_InternalSerialize(
         _Internal::error_info(this).GetCachedSize(), target, stream);
   }
 
+  // .user_data_auth.AuthFactorWithStatus updated_auth_factor = 3;
+  if (this->_internal_has_updated_auth_factor()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::updated_auth_factor(this),
+        _Internal::updated_auth_factor(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -25747,6 +25819,13 @@ size_t UpdateAuthFactorReply::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *error_info_);
+  }
+
+  // .user_data_auth.AuthFactorWithStatus updated_auth_factor = 3;
+  if (this->_internal_has_updated_auth_factor()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *updated_auth_factor_);
   }
 
   // .user_data_auth.CryptohomeErrorCode error = 1;
@@ -25777,6 +25856,9 @@ void UpdateAuthFactorReply::MergeFrom(const UpdateAuthFactorReply& from) {
 
   if (from._internal_has_error_info()) {
     _internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(from._internal_error_info());
+  }
+  if (from._internal_has_updated_auth_factor()) {
+    _internal_mutable_updated_auth_factor()->::user_data_auth::AuthFactorWithStatus::MergeFrom(from._internal_updated_auth_factor());
   }
   if (from._internal_error() != 0) {
     _internal_set_error(from._internal_error());

@@ -18,6 +18,19 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace metrics {
+PROTOBUF_CONSTEXPR StructuredEventProto_Metric_RepeatedInt64::StructuredEventProto_Metric_RepeatedInt64(
+    ::_pbi::ConstantInitialized)
+  : values_()
+  , _values_cached_byte_size_(0){}
+struct StructuredEventProto_Metric_RepeatedInt64DefaultTypeInternal {
+  PROTOBUF_CONSTEXPR StructuredEventProto_Metric_RepeatedInt64DefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~StructuredEventProto_Metric_RepeatedInt64DefaultTypeInternal() {}
+  union {
+    StructuredEventProto_Metric_RepeatedInt64 _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StructuredEventProto_Metric_RepeatedInt64DefaultTypeInternal _StructuredEventProto_Metric_RepeatedInt64_default_instance_;
 PROTOBUF_CONSTEXPR StructuredEventProto_Metric::StructuredEventProto_Metric(
     ::_pbi::ConstantInitialized)
   : name_hash_(uint64_t{0u})
@@ -151,14 +164,215 @@ constexpr int StructuredEventProto::EventType_ARRAYSIZE;
 
 // ===================================================================
 
+class StructuredEventProto_Metric_RepeatedInt64::_Internal {
+ public:
+};
+
+StructuredEventProto_Metric_RepeatedInt64::StructuredEventProto_Metric_RepeatedInt64(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  values_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:metrics.StructuredEventProto.Metric.RepeatedInt64)
+}
+StructuredEventProto_Metric_RepeatedInt64::StructuredEventProto_Metric_RepeatedInt64(const StructuredEventProto_Metric_RepeatedInt64& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      values_(from.values_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:metrics.StructuredEventProto.Metric.RepeatedInt64)
+}
+
+inline void StructuredEventProto_Metric_RepeatedInt64::SharedCtor() {
+}
+
+StructuredEventProto_Metric_RepeatedInt64::~StructuredEventProto_Metric_RepeatedInt64() {
+  // @@protoc_insertion_point(destructor:metrics.StructuredEventProto.Metric.RepeatedInt64)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void StructuredEventProto_Metric_RepeatedInt64::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void StructuredEventProto_Metric_RepeatedInt64::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void StructuredEventProto_Metric_RepeatedInt64::Clear() {
+// @@protoc_insertion_point(message_clear_start:metrics.StructuredEventProto.Metric.RepeatedInt64)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  values_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* StructuredEventProto_Metric_RepeatedInt64::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated int64 values = 1 [packed = true];
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt64Parser(_internal_mutable_values(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 8) {
+          _internal_add_values(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* StructuredEventProto_Metric_RepeatedInt64::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:metrics.StructuredEventProto.Metric.RepeatedInt64)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated int64 values = 1 [packed = true];
+  {
+    int byte_size = _values_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteInt64Packed(
+          1, _internal_values(), byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:metrics.StructuredEventProto.Metric.RepeatedInt64)
+  return target;
+}
+
+size_t StructuredEventProto_Metric_RepeatedInt64::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:metrics.StructuredEventProto.Metric.RepeatedInt64)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated int64 values = 1 [packed = true];
+  {
+    size_t data_size = ::_pbi::WireFormatLite::
+      Int64Size(this->values_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _values_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void StructuredEventProto_Metric_RepeatedInt64::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const StructuredEventProto_Metric_RepeatedInt64*>(
+      &from));
+}
+
+void StructuredEventProto_Metric_RepeatedInt64::MergeFrom(const StructuredEventProto_Metric_RepeatedInt64& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:metrics.StructuredEventProto.Metric.RepeatedInt64)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  values_.MergeFrom(from.values_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void StructuredEventProto_Metric_RepeatedInt64::CopyFrom(const StructuredEventProto_Metric_RepeatedInt64& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:metrics.StructuredEventProto.Metric.RepeatedInt64)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StructuredEventProto_Metric_RepeatedInt64::IsInitialized() const {
+  return true;
+}
+
+void StructuredEventProto_Metric_RepeatedInt64::InternalSwap(StructuredEventProto_Metric_RepeatedInt64* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  values_.InternalSwap(&other->values_);
+}
+
+std::string StructuredEventProto_Metric_RepeatedInt64::GetTypeName() const {
+  return "metrics.StructuredEventProto.Metric.RepeatedInt64";
+}
+
+
+// ===================================================================
+
 class StructuredEventProto_Metric::_Internal {
  public:
   using HasBits = decltype(std::declval<StructuredEventProto_Metric>()._has_bits_);
   static void set_has_name_hash(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static const ::metrics::StructuredEventProto_Metric_RepeatedInt64& value_repeated_int64(const StructuredEventProto_Metric* msg);
 };
 
+const ::metrics::StructuredEventProto_Metric_RepeatedInt64&
+StructuredEventProto_Metric::_Internal::value_repeated_int64(const StructuredEventProto_Metric* msg) {
+  return *msg->value_.value_repeated_int64_;
+}
+void StructuredEventProto_Metric::set_allocated_value_repeated_int64(::metrics::StructuredEventProto_Metric_RepeatedInt64* value_repeated_int64) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_value();
+  if (value_repeated_int64) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(value_repeated_int64);
+    if (message_arena != submessage_arena) {
+      value_repeated_int64 = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, value_repeated_int64, submessage_arena);
+    }
+    set_has_value_repeated_int64();
+    value_.value_repeated_int64_ = value_repeated_int64;
+  }
+  // @@protoc_insertion_point(field_set_allocated:metrics.StructuredEventProto.Metric.value_repeated_int64)
+}
 StructuredEventProto_Metric::StructuredEventProto_Metric(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -186,6 +400,10 @@ StructuredEventProto_Metric::StructuredEventProto_Metric(const StructuredEventPr
     }
     case kValueDouble: {
       _internal_set_value_double(from._internal_value_double());
+      break;
+    }
+    case kValueRepeatedInt64: {
+      _internal_mutable_value_repeated_int64()->::metrics::StructuredEventProto_Metric_RepeatedInt64::MergeFrom(from._internal_value_repeated_int64());
       break;
     }
     case VALUE_NOT_SET: {
@@ -237,6 +455,12 @@ void StructuredEventProto_Metric::clear_value() {
     }
     case kValueDouble: {
       // No need to clear
+      break;
+    }
+    case kValueRepeatedInt64: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete value_.value_repeated_int64_;
+      }
       break;
     }
     case VALUE_NOT_SET: {
@@ -308,6 +532,14 @@ const char* StructuredEventProto_Metric::_InternalParse(const char* ptr, ::_pbi:
         } else
           goto handle_unusual;
         continue;
+      // .metrics.StructuredEventProto.Metric.RepeatedInt64 value_repeated_int64 = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_value_repeated_int64(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -366,6 +598,12 @@ uint8_t* StructuredEventProto_Metric::_InternalSerialize(
       target = ::_pbi::WireFormatLite::WriteDoubleToArray(5, this->_internal_value_double(), target);
       break;
     }
+    case kValueRepeatedInt64: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(6, _Internal::value_repeated_int64(this),
+          _Internal::value_repeated_int64(this).GetCachedSize(), target, stream);
+      break;
+    }
     default: ;
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -413,6 +651,13 @@ size_t StructuredEventProto_Metric::ByteSizeLong() const {
       total_size += 1 + 8;
       break;
     }
+    // .metrics.StructuredEventProto.Metric.RepeatedInt64 value_repeated_int64 = 6;
+    case kValueRepeatedInt64: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *value_.value_repeated_int64_);
+      break;
+    }
     case VALUE_NOT_SET: {
       break;
     }
@@ -455,6 +700,10 @@ void StructuredEventProto_Metric::MergeFrom(const StructuredEventProto_Metric& f
     }
     case kValueDouble: {
       _internal_set_value_double(from._internal_value_double());
+      break;
+    }
+    case kValueRepeatedInt64: {
+      _internal_mutable_value_repeated_int64()->::metrics::StructuredEventProto_Metric_RepeatedInt64::MergeFrom(from._internal_value_repeated_int64());
       break;
     }
     case VALUE_NOT_SET: {
@@ -1371,6 +1620,10 @@ std::string StructuredDataProto::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace metrics
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::metrics::StructuredEventProto_Metric_RepeatedInt64*
+Arena::CreateMaybeMessage< ::metrics::StructuredEventProto_Metric_RepeatedInt64 >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::metrics::StructuredEventProto_Metric_RepeatedInt64 >(arena);
+}
 template<> PROTOBUF_NOINLINE ::metrics::StructuredEventProto_Metric*
 Arena::CreateMaybeMessage< ::metrics::StructuredEventProto_Metric >(Arena* arena) {
   return Arena::CreateMessageInternal< ::metrics::StructuredEventProto_Metric >(arena);

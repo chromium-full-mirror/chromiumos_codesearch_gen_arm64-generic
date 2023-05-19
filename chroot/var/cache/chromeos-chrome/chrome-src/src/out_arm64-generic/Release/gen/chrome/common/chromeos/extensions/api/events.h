@@ -35,7 +35,8 @@ enum class EventCategory {
   kLid,
   kUsb,
   kSdCard,
-  kMaxValue = kSdCard,
+  kPower,
+  kMaxValue = kPower,
 };
 
 
@@ -146,6 +147,19 @@ enum class SdCardEvent {
 
 const char* ToString(SdCardEvent as_enum);
 SdCardEvent ParseSdCardEvent(base::StringPiece as_string);
+
+enum class PowerEvent {
+  kNone = 0,
+  kAcInserted,
+  kAcRemoved,
+  kOsSuspend,
+  kOsResume,
+  kMaxValue = kOsResume,
+};
+
+
+const char* ToString(PowerEvent as_enum);
+PowerEvent ParsePowerEvent(base::StringPiece as_string);
 
 struct AudioJackEventInfo {
   AudioJackEventInfo();
@@ -313,6 +327,43 @@ struct SdCardEventInfo {
 
 };
 
+struct PowerEventInfo {
+  PowerEventInfo();
+  ~PowerEventInfo();
+  PowerEventInfo(const PowerEventInfo&) = delete;
+  PowerEventInfo& operator=(const PowerEventInfo&) = delete;
+  PowerEventInfo(PowerEventInfo&& rhs);
+  PowerEventInfo& operator=(PowerEventInfo&& rhs);
+
+  // Populates a PowerEventInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, PowerEventInfo& out);
+
+  // Populates a PowerEventInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, PowerEventInfo& out);
+
+  // Creates a deep copy of PowerEventInfo.
+  PowerEventInfo Clone() const;
+
+  // Creates a PowerEventInfo object from a base::Value, or NULL on failure.
+  static std::unique_ptr<PowerEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a PowerEventInfo object from a base::Value::Dict, or nullopt on
+  // failure.
+  static absl::optional<PowerEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a PowerEventInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<PowerEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisPowerEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  PowerEvent event;
+
+};
+
 
 //
 // Functions
@@ -421,6 +472,13 @@ extern const char kEventName[];  // "os.events.onSdCardEvent"
 
 base::Value::List Create(const SdCardEventInfo& event_info);
 }  // namespace OnSdCardEvent
+
+namespace OnPowerEvent {
+
+extern const char kEventName[];  // "os.events.onPowerEvent"
+
+base::Value::List Create(const PowerEventInfo& event_info);
+}  // namespace OnPowerEvent
 
 }  // namespace os_events
 }  // namespace api

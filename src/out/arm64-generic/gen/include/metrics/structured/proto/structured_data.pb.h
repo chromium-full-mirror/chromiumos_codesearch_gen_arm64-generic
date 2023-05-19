@@ -52,11 +52,15 @@ extern StructuredEventProtoDefaultTypeInternal _StructuredEventProto_default_ins
 class StructuredEventProto_Metric;
 struct StructuredEventProto_MetricDefaultTypeInternal;
 extern StructuredEventProto_MetricDefaultTypeInternal _StructuredEventProto_Metric_default_instance_;
+class StructuredEventProto_Metric_RepeatedInt64;
+struct StructuredEventProto_Metric_RepeatedInt64DefaultTypeInternal;
+extern StructuredEventProto_Metric_RepeatedInt64DefaultTypeInternal _StructuredEventProto_Metric_RepeatedInt64_default_instance_;
 }  // namespace metrics
 PROTOBUF_NAMESPACE_OPEN
 template<> ::metrics::StructuredDataProto* Arena::CreateMaybeMessage<::metrics::StructuredDataProto>(Arena*);
 template<> ::metrics::StructuredEventProto* Arena::CreateMaybeMessage<::metrics::StructuredEventProto>(Arena*);
 template<> ::metrics::StructuredEventProto_Metric* Arena::CreateMaybeMessage<::metrics::StructuredEventProto_Metric>(Arena*);
+template<> ::metrics::StructuredEventProto_Metric_RepeatedInt64* Arena::CreateMaybeMessage<::metrics::StructuredEventProto_Metric_RepeatedInt64>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace metrics {
 
@@ -81,6 +85,157 @@ inline const std::string& StructuredEventProto_EventType_Name(T enum_t_value) {
 bool StructuredEventProto_EventType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StructuredEventProto_EventType* value);
 // ===================================================================
+
+class StructuredEventProto_Metric_RepeatedInt64 final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:metrics.StructuredEventProto.Metric.RepeatedInt64) */ {
+ public:
+  inline StructuredEventProto_Metric_RepeatedInt64() : StructuredEventProto_Metric_RepeatedInt64(nullptr) {}
+  ~StructuredEventProto_Metric_RepeatedInt64() override;
+  explicit PROTOBUF_CONSTEXPR StructuredEventProto_Metric_RepeatedInt64(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StructuredEventProto_Metric_RepeatedInt64(const StructuredEventProto_Metric_RepeatedInt64& from);
+  StructuredEventProto_Metric_RepeatedInt64(StructuredEventProto_Metric_RepeatedInt64&& from) noexcept
+    : StructuredEventProto_Metric_RepeatedInt64() {
+    *this = ::std::move(from);
+  }
+
+  inline StructuredEventProto_Metric_RepeatedInt64& operator=(const StructuredEventProto_Metric_RepeatedInt64& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StructuredEventProto_Metric_RepeatedInt64& operator=(StructuredEventProto_Metric_RepeatedInt64&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const StructuredEventProto_Metric_RepeatedInt64& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StructuredEventProto_Metric_RepeatedInt64* internal_default_instance() {
+    return reinterpret_cast<const StructuredEventProto_Metric_RepeatedInt64*>(
+               &_StructuredEventProto_Metric_RepeatedInt64_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(StructuredEventProto_Metric_RepeatedInt64& a, StructuredEventProto_Metric_RepeatedInt64& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StructuredEventProto_Metric_RepeatedInt64* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StructuredEventProto_Metric_RepeatedInt64* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StructuredEventProto_Metric_RepeatedInt64* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StructuredEventProto_Metric_RepeatedInt64>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const StructuredEventProto_Metric_RepeatedInt64& from);
+  void MergeFrom(const StructuredEventProto_Metric_RepeatedInt64& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StructuredEventProto_Metric_RepeatedInt64* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "metrics.StructuredEventProto.Metric.RepeatedInt64";
+  }
+  protected:
+  explicit StructuredEventProto_Metric_RepeatedInt64(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kValuesFieldNumber = 1,
+  };
+  // repeated int64 values = 1 [packed = true];
+  int values_size() const;
+  private:
+  int _internal_values_size() const;
+  public:
+  void clear_values();
+  private:
+  int64_t _internal_values(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+      _internal_values() const;
+  void _internal_add_values(int64_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+      _internal_mutable_values();
+  public:
+  int64_t values(int index) const;
+  void set_values(int index, int64_t value);
+  void add_values(int64_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+      values() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+      mutable_values();
+
+  // @@protoc_insertion_point(class_scope:metrics.StructuredEventProto.Metric.RepeatedInt64)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t > values_;
+    mutable std::atomic<int> _values_cached_byte_size_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_structured_5fdata_2eproto;
+};
+// -------------------------------------------------------------------
 
 class StructuredEventProto_Metric final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:metrics.StructuredEventProto.Metric) */ {
@@ -128,6 +283,7 @@ class StructuredEventProto_Metric final :
     kValueInt64 = 3,
     kValueString = 4,
     kValueDouble = 5,
+    kValueRepeatedInt64 = 6,
     VALUE_NOT_SET = 0,
   };
 
@@ -136,7 +292,7 @@ class StructuredEventProto_Metric final :
                &_StructuredEventProto_Metric_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(StructuredEventProto_Metric& a, StructuredEventProto_Metric& b) {
     a.Swap(&b);
@@ -197,6 +353,8 @@ class StructuredEventProto_Metric final :
 
   // nested types ----------------------------------------------------
 
+  typedef StructuredEventProto_Metric_RepeatedInt64 RepeatedInt64;
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -205,6 +363,7 @@ class StructuredEventProto_Metric final :
     kValueInt64FieldNumber = 3,
     kValueStringFieldNumber = 4,
     kValueDoubleFieldNumber = 5,
+    kValueRepeatedInt64FieldNumber = 6,
   };
   // optional fixed64 name_hash = 1;
   bool has_name_hash() const;
@@ -276,6 +435,24 @@ class StructuredEventProto_Metric final :
   void _internal_set_value_double(double value);
   public:
 
+  // .metrics.StructuredEventProto.Metric.RepeatedInt64 value_repeated_int64 = 6;
+  bool has_value_repeated_int64() const;
+  private:
+  bool _internal_has_value_repeated_int64() const;
+  public:
+  void clear_value_repeated_int64();
+  const ::metrics::StructuredEventProto_Metric_RepeatedInt64& value_repeated_int64() const;
+  PROTOBUF_NODISCARD ::metrics::StructuredEventProto_Metric_RepeatedInt64* release_value_repeated_int64();
+  ::metrics::StructuredEventProto_Metric_RepeatedInt64* mutable_value_repeated_int64();
+  void set_allocated_value_repeated_int64(::metrics::StructuredEventProto_Metric_RepeatedInt64* value_repeated_int64);
+  private:
+  const ::metrics::StructuredEventProto_Metric_RepeatedInt64& _internal_value_repeated_int64() const;
+  ::metrics::StructuredEventProto_Metric_RepeatedInt64* _internal_mutable_value_repeated_int64();
+  public:
+  void unsafe_arena_set_allocated_value_repeated_int64(
+      ::metrics::StructuredEventProto_Metric_RepeatedInt64* value_repeated_int64);
+  ::metrics::StructuredEventProto_Metric_RepeatedInt64* unsafe_arena_release_value_repeated_int64();
+
   void clear_value();
   ValueCase value_case() const;
   // @@protoc_insertion_point(class_scope:metrics.StructuredEventProto.Metric)
@@ -285,6 +462,7 @@ class StructuredEventProto_Metric final :
   void set_has_value_int64();
   void set_has_value_string();
   void set_has_value_double();
+  void set_has_value_repeated_int64();
 
   inline bool has_value() const;
   inline void clear_has_value();
@@ -303,6 +481,7 @@ class StructuredEventProto_Metric final :
       int64_t value_int64_;
       ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr value_string_;
       double value_double_;
+      ::metrics::StructuredEventProto_Metric_RepeatedInt64* value_repeated_int64_;
     } value_;
     uint32_t _oneof_case_[1];
 
@@ -358,7 +537,7 @@ class StructuredEventProto final :
                &_StructuredEventProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(StructuredEventProto& a, StructuredEventProto& b) {
     a.Swap(&b);
@@ -595,7 +774,7 @@ class StructuredDataProto final :
                &_StructuredDataProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(StructuredDataProto& a, StructuredDataProto& b) {
     a.Swap(&b);
@@ -702,6 +881,57 @@ class StructuredDataProto final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// StructuredEventProto_Metric_RepeatedInt64
+
+// repeated int64 values = 1 [packed = true];
+inline int StructuredEventProto_Metric_RepeatedInt64::_internal_values_size() const {
+  return _impl_.values_.size();
+}
+inline int StructuredEventProto_Metric_RepeatedInt64::values_size() const {
+  return _internal_values_size();
+}
+inline void StructuredEventProto_Metric_RepeatedInt64::clear_values() {
+  _impl_.values_.Clear();
+}
+inline int64_t StructuredEventProto_Metric_RepeatedInt64::_internal_values(int index) const {
+  return _impl_.values_.Get(index);
+}
+inline int64_t StructuredEventProto_Metric_RepeatedInt64::values(int index) const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.Metric.RepeatedInt64.values)
+  return _internal_values(index);
+}
+inline void StructuredEventProto_Metric_RepeatedInt64::set_values(int index, int64_t value) {
+  _impl_.values_.Set(index, value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.Metric.RepeatedInt64.values)
+}
+inline void StructuredEventProto_Metric_RepeatedInt64::_internal_add_values(int64_t value) {
+  _impl_.values_.Add(value);
+}
+inline void StructuredEventProto_Metric_RepeatedInt64::add_values(int64_t value) {
+  _internal_add_values(value);
+  // @@protoc_insertion_point(field_add:metrics.StructuredEventProto.Metric.RepeatedInt64.values)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+StructuredEventProto_Metric_RepeatedInt64::_internal_values() const {
+  return _impl_.values_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >&
+StructuredEventProto_Metric_RepeatedInt64::values() const {
+  // @@protoc_insertion_point(field_list:metrics.StructuredEventProto.Metric.RepeatedInt64.values)
+  return _internal_values();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+StructuredEventProto_Metric_RepeatedInt64::_internal_mutable_values() {
+  return &_impl_.values_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
+StructuredEventProto_Metric_RepeatedInt64::mutable_values() {
+  // @@protoc_insertion_point(field_mutable_list:metrics.StructuredEventProto.Metric.RepeatedInt64.values)
+  return _internal_mutable_values();
+}
+
+// -------------------------------------------------------------------
+
 // StructuredEventProto_Metric
 
 // optional fixed64 name_hash = 1;
@@ -923,6 +1153,80 @@ inline void StructuredEventProto_Metric::set_value_double(double value) {
   // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.Metric.value_double)
 }
 
+// .metrics.StructuredEventProto.Metric.RepeatedInt64 value_repeated_int64 = 6;
+inline bool StructuredEventProto_Metric::_internal_has_value_repeated_int64() const {
+  return value_case() == kValueRepeatedInt64;
+}
+inline bool StructuredEventProto_Metric::has_value_repeated_int64() const {
+  return _internal_has_value_repeated_int64();
+}
+inline void StructuredEventProto_Metric::set_has_value_repeated_int64() {
+  _impl_._oneof_case_[0] = kValueRepeatedInt64;
+}
+inline void StructuredEventProto_Metric::clear_value_repeated_int64() {
+  if (_internal_has_value_repeated_int64()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.value_.value_repeated_int64_;
+    }
+    clear_has_value();
+  }
+}
+inline ::metrics::StructuredEventProto_Metric_RepeatedInt64* StructuredEventProto_Metric::release_value_repeated_int64() {
+  // @@protoc_insertion_point(field_release:metrics.StructuredEventProto.Metric.value_repeated_int64)
+  if (_internal_has_value_repeated_int64()) {
+    clear_has_value();
+    ::metrics::StructuredEventProto_Metric_RepeatedInt64* temp = _impl_.value_.value_repeated_int64_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.value_.value_repeated_int64_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::metrics::StructuredEventProto_Metric_RepeatedInt64& StructuredEventProto_Metric::_internal_value_repeated_int64() const {
+  return _internal_has_value_repeated_int64()
+      ? *_impl_.value_.value_repeated_int64_
+      : reinterpret_cast< ::metrics::StructuredEventProto_Metric_RepeatedInt64&>(::metrics::_StructuredEventProto_Metric_RepeatedInt64_default_instance_);
+}
+inline const ::metrics::StructuredEventProto_Metric_RepeatedInt64& StructuredEventProto_Metric::value_repeated_int64() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.Metric.value_repeated_int64)
+  return _internal_value_repeated_int64();
+}
+inline ::metrics::StructuredEventProto_Metric_RepeatedInt64* StructuredEventProto_Metric::unsafe_arena_release_value_repeated_int64() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:metrics.StructuredEventProto.Metric.value_repeated_int64)
+  if (_internal_has_value_repeated_int64()) {
+    clear_has_value();
+    ::metrics::StructuredEventProto_Metric_RepeatedInt64* temp = _impl_.value_.value_repeated_int64_;
+    _impl_.value_.value_repeated_int64_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void StructuredEventProto_Metric::unsafe_arena_set_allocated_value_repeated_int64(::metrics::StructuredEventProto_Metric_RepeatedInt64* value_repeated_int64) {
+  clear_value();
+  if (value_repeated_int64) {
+    set_has_value_repeated_int64();
+    _impl_.value_.value_repeated_int64_ = value_repeated_int64;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:metrics.StructuredEventProto.Metric.value_repeated_int64)
+}
+inline ::metrics::StructuredEventProto_Metric_RepeatedInt64* StructuredEventProto_Metric::_internal_mutable_value_repeated_int64() {
+  if (!_internal_has_value_repeated_int64()) {
+    clear_value();
+    set_has_value_repeated_int64();
+    _impl_.value_.value_repeated_int64_ = CreateMaybeMessage< ::metrics::StructuredEventProto_Metric_RepeatedInt64 >(GetArenaForAllocation());
+  }
+  return _impl_.value_.value_repeated_int64_;
+}
+inline ::metrics::StructuredEventProto_Metric_RepeatedInt64* StructuredEventProto_Metric::mutable_value_repeated_int64() {
+  ::metrics::StructuredEventProto_Metric_RepeatedInt64* _msg = _internal_mutable_value_repeated_int64();
+  // @@protoc_insertion_point(field_mutable:metrics.StructuredEventProto.Metric.value_repeated_int64)
+  return _msg;
+}
+
 inline bool StructuredEventProto_Metric::has_value() const {
   return value_case() != VALUE_NOT_SET;
 }
@@ -1136,6 +1440,8 @@ StructuredDataProto::events() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

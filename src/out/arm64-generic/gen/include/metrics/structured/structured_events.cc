@@ -2383,6 +2383,22 @@ std::string TestEventThree::GetTestMetricFourForTest() const {
 
 }  // namespace test_project_two
 
+namespace test_project_three {
+
+TestEventFour::TestEventFour() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+TestEventFour::~TestEventFour() = default;
+TestEventFour& TestEventFour::SetTestMetricFive(const std::vector<int64_t>& value) {
+  AddIntArrayMetric(kTestMetricFiveNameHash, value, TestEventFour::GetTestMetricFiveMaxLength());
+  return *this;
+}
+
+std::vector<int64_t> TestEventFour::GetTestMetricFiveForTest() const {
+  return GetIntArrayMetricForTest(kTestMetricFiveNameHash);
+}
+
+}  // namespace test_project_three
+
 
 }  // namespace events
 }  // namespace structured

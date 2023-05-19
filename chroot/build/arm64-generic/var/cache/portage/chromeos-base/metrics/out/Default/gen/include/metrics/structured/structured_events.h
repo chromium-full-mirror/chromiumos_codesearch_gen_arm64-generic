@@ -15,7 +15,7 @@ namespace metrics {
 namespace structured {
 namespace events {
 
-constexpr uint64_t kProjectNameHashes[] = {UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(16881314472396226433), UINT64_C(5876808001962504629), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
+constexpr uint64_t kProjectNameHashes[] = {UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
 
 namespace bluetooth {
 
@@ -1533,6 +1533,28 @@ class BRILLO_EXPORT TestEventThree final : public ::metrics::structured::EventBa
 };
 
 }  // namespace test_project_two
+
+namespace test_project_three {
+
+class BRILLO_EXPORT TestEventFour final : public ::metrics::structured::EventBase {
+ public:
+  TestEventFour();
+  ~TestEventFour() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(17925971916030281540);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(10860358748803291132);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kTestMetricFiveNameHash = UINT64_C(8665976921794972190);
+  TestEventFour& SetTestMetricFive(const std::vector<int64_t>& value);
+  std::vector<int64_t> GetTestMetricFiveForTest() const;
+
+  static constexpr size_t GetTestMetricFiveMaxLength() { return 10; }
+};
+
+}  // namespace test_project_three
 
 
 
