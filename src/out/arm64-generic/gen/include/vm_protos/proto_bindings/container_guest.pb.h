@@ -399,12 +399,13 @@ enum ContainerFeature : int {
   UNKNOWN = 0,
   ENABLE_GTK3_IME_SUPPORT = 1,
   ENABLE_VIRTUAL_KEYBOARD_SUPPORT = 2,
+  ENABLE_QT_IME_SUPPORT = 3,
   ContainerFeature_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   ContainerFeature_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool ContainerFeature_IsValid(int value);
 constexpr ContainerFeature ContainerFeature_MIN = UNKNOWN;
-constexpr ContainerFeature ContainerFeature_MAX = ENABLE_VIRTUAL_KEYBOARD_SUPPORT;
+constexpr ContainerFeature ContainerFeature_MAX = ENABLE_QT_IME_SUPPORT;
 constexpr int ContainerFeature_ARRAYSIZE = ContainerFeature_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ContainerFeature_descriptor();

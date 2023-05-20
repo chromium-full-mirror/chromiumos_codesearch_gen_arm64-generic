@@ -9,6 +9,7 @@
 
 #include <base/files/file.h>
 #include <base/time/time.h>
+#include <cryptohome/proto_bindings/UserDataAuth.pb.h>
 #include <metrics/metrics_library.h>
 
 #include "cryptohome/auth_blocks/auth_block_type.h"
@@ -323,6 +324,14 @@ inline constexpr char kCryptohomeErrorUssMigrationErrorBucket[] =
     "UssMigrationError";
 inline constexpr char kCryptohomeErrorRecreateAuthFactorErrorBucket[] =
     "RecreateAuthFactorError";
+inline constexpr char kCryptohomeErrorPrepareAuthFactorErrorBucket[] =
+    "PrepareAuthFactorError";
+inline constexpr char kCryptohomeErrorAddAuthFactorErrorBucket[] =
+    "AddAuthFactorError";
+inline constexpr char kCryptohomeErrorAuthenticateAuthFactorErrorBucket[] =
+    "AuthenticateAuthFactorError";
+inline constexpr char kCryptohomeErrorRemoveAuthFactorErrorBucket[] =
+    "RemoveAuthFactorError";
 
 // List of possible results of fetching the USS experiment config. If fetching
 // failed, the status is kFetchError. If parsing failed, the status is
@@ -668,6 +677,14 @@ void ReportBackupKeysetCleanupResult(BackupKeysetCleanupResult status);
 void ReportBackupKeysetCleanupSucessWithType(AuthFactorType auth_factor_type);
 void ReportBackupKeysetCleanupFileFailureWithType(
     AuthFactorType auth_factor_type);
+
+// Reports the emitted fingerprint enroll signal.
+void ReportFingerprintEnrollSignal(
+    user_data_auth::FingerprintScanResult scan_result);
+
+// Reports the emitted fingerprint auth signal.
+void ReportFingerprintAuthSignal(
+    user_data_auth::FingerprintScanResult scan_result);
 
 // Initialization helper.
 class ScopedMetricsInitializer {

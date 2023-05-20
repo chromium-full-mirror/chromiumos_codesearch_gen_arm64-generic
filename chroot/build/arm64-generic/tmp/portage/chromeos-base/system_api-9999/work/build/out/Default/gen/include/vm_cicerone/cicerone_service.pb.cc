@@ -4277,29 +4277,33 @@ bool ContainerFeature_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ContainerFeature_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ContainerFeature_strings[4] = {};
 
 static const char ContainerFeature_names[] =
   "ENABLE_GTK3_IME_SUPPORT"
+  "ENABLE_QT_IME_SUPPORT"
   "ENABLE_VIRTUAL_KEYBOARD_SUPPORT"
   "UNKNOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ContainerFeature_entries[] = {
   { {ContainerFeature_names + 0, 23}, 1 },
-  { {ContainerFeature_names + 23, 31}, 2 },
-  { {ContainerFeature_names + 54, 7}, 0 },
+  { {ContainerFeature_names + 23, 21}, 3 },
+  { {ContainerFeature_names + 44, 31}, 2 },
+  { {ContainerFeature_names + 75, 7}, 0 },
 };
 
 static const int ContainerFeature_entries_by_number[] = {
-  2, // 0 -> UNKNOWN
+  3, // 0 -> UNKNOWN
   0, // 1 -> ENABLE_GTK3_IME_SUPPORT
-  1, // 2 -> ENABLE_VIRTUAL_KEYBOARD_SUPPORT
+  2, // 2 -> ENABLE_VIRTUAL_KEYBOARD_SUPPORT
+  1, // 3 -> ENABLE_QT_IME_SUPPORT
 };
 
 const std::string& ContainerFeature_Name(
@@ -4308,12 +4312,12 @@ const std::string& ContainerFeature_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           ContainerFeature_entries,
           ContainerFeature_entries_by_number,
-          3, ContainerFeature_strings);
+          4, ContainerFeature_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       ContainerFeature_entries,
       ContainerFeature_entries_by_number,
-      3, value);
+      4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      ContainerFeature_strings[idx].get();
 }
@@ -4321,7 +4325,7 @@ bool ContainerFeature_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ContainerFeature* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      ContainerFeature_entries, 3, name, &int_value);
+      ContainerFeature_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<ContainerFeature>(int_value);
   }
