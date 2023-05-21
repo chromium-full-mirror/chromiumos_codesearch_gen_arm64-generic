@@ -246,24 +246,26 @@ CRDTP_END_SERIALIZER();
 
 // ------------- Frontend notifications.
 
-void Frontend::cacheStorageContentUpdated(const String& origin, const String& storageKey, const String& cacheName)
+void Frontend::cacheStorageContentUpdated(const String& origin, const String& storageKey, const String& bucketId, const String& cacheName)
 {
     if (!frontend_channel_)
         return;
     crdtp::ObjectSerializer serializer;
     serializer.AddField(crdtp::MakeSpan("origin"), origin);
     serializer.AddField(crdtp::MakeSpan("storageKey"), storageKey);
+    serializer.AddField(crdtp::MakeSpan("bucketId"), bucketId);
     serializer.AddField(crdtp::MakeSpan("cacheName"), cacheName);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.cacheStorageContentUpdated", serializer.Finish()));
 }
 
-void Frontend::cacheStorageListUpdated(const String& origin, const String& storageKey)
+void Frontend::cacheStorageListUpdated(const String& origin, const String& storageKey, const String& bucketId)
 {
     if (!frontend_channel_)
         return;
     crdtp::ObjectSerializer serializer;
     serializer.AddField(crdtp::MakeSpan("origin"), origin);
     serializer.AddField(crdtp::MakeSpan("storageKey"), storageKey);
+    serializer.AddField(crdtp::MakeSpan("bucketId"), bucketId);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.cacheStorageListUpdated", serializer.Finish()));
 }
 

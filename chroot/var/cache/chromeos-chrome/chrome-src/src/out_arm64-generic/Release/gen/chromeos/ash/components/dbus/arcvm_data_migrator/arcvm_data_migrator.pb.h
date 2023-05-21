@@ -47,6 +47,12 @@ namespace data_migrator {
 class DataMigrationProgress;
 struct DataMigrationProgressDefaultTypeInternal;
 extern DataMigrationProgressDefaultTypeInternal _DataMigrationProgress_default_instance_;
+class GetAndroidDataInfoRequest;
+struct GetAndroidDataInfoRequestDefaultTypeInternal;
+extern GetAndroidDataInfoRequestDefaultTypeInternal _GetAndroidDataInfoRequest_default_instance_;
+class GetAndroidDataInfoResponse;
+struct GetAndroidDataInfoResponseDefaultTypeInternal;
+extern GetAndroidDataInfoResponseDefaultTypeInternal _GetAndroidDataInfoResponse_default_instance_;
 class GetAndroidDataSizeRequest;
 struct GetAndroidDataSizeRequestDefaultTypeInternal;
 extern GetAndroidDataSizeRequestDefaultTypeInternal _GetAndroidDataSizeRequest_default_instance_;
@@ -60,6 +66,8 @@ extern StartMigrationRequestDefaultTypeInternal _StartMigrationRequest_default_i
 }  // namespace arc
 PROTOBUF_NAMESPACE_OPEN
 template<> ::arc::data_migrator::DataMigrationProgress* Arena::CreateMaybeMessage<::arc::data_migrator::DataMigrationProgress>(Arena*);
+template<> ::arc::data_migrator::GetAndroidDataInfoRequest* Arena::CreateMaybeMessage<::arc::data_migrator::GetAndroidDataInfoRequest>(Arena*);
+template<> ::arc::data_migrator::GetAndroidDataInfoResponse* Arena::CreateMaybeMessage<::arc::data_migrator::GetAndroidDataInfoResponse>(Arena*);
 template<> ::arc::data_migrator::GetAndroidDataSizeRequest* Arena::CreateMaybeMessage<::arc::data_migrator::GetAndroidDataSizeRequest>(Arena*);
 template<> ::arc::data_migrator::HasDataToMigrateRequest* Arena::CreateMaybeMessage<::arc::data_migrator::HasDataToMigrateRequest>(Arena*);
 template<> ::arc::data_migrator::StartMigrationRequest* Arena::CreateMaybeMessage<::arc::data_migrator::StartMigrationRequest>(Arena*);
@@ -376,6 +384,276 @@ class GetAndroidDataSizeRequest final :
 };
 // -------------------------------------------------------------------
 
+class GetAndroidDataInfoRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:arc.data_migrator.GetAndroidDataInfoRequest) */ {
+ public:
+  inline GetAndroidDataInfoRequest() : GetAndroidDataInfoRequest(nullptr) {}
+  ~GetAndroidDataInfoRequest() override;
+  explicit PROTOBUF_CONSTEXPR GetAndroidDataInfoRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetAndroidDataInfoRequest(const GetAndroidDataInfoRequest& from);
+  GetAndroidDataInfoRequest(GetAndroidDataInfoRequest&& from) noexcept
+    : GetAndroidDataInfoRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetAndroidDataInfoRequest& operator=(const GetAndroidDataInfoRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetAndroidDataInfoRequest& operator=(GetAndroidDataInfoRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetAndroidDataInfoRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetAndroidDataInfoRequest* internal_default_instance() {
+    return reinterpret_cast<const GetAndroidDataInfoRequest*>(
+               &_GetAndroidDataInfoRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(GetAndroidDataInfoRequest& a, GetAndroidDataInfoRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(GetAndroidDataInfoRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetAndroidDataInfoRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetAndroidDataInfoRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetAndroidDataInfoRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetAndroidDataInfoRequest& from);
+  void MergeFrom(const GetAndroidDataInfoRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetAndroidDataInfoRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "arc.data_migrator.GetAndroidDataInfoRequest";
+  }
+  protected:
+  explicit GetAndroidDataInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUsernameFieldNumber = 1,
+  };
+  // string username = 1;
+  void clear_username();
+  const std::string& username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_username();
+  PROTOBUF_NODISCARD std::string* release_username();
+  void set_allocated_username(std::string* username);
+  private:
+  const std::string& _internal_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
+  public:
+
+  // @@protoc_insertion_point(class_scope:arc.data_migrator.GetAndroidDataInfoRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arcvm_5fdata_5fmigrator_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetAndroidDataInfoResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:arc.data_migrator.GetAndroidDataInfoResponse) */ {
+ public:
+  inline GetAndroidDataInfoResponse() : GetAndroidDataInfoResponse(nullptr) {}
+  ~GetAndroidDataInfoResponse() override;
+  explicit PROTOBUF_CONSTEXPR GetAndroidDataInfoResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetAndroidDataInfoResponse(const GetAndroidDataInfoResponse& from);
+  GetAndroidDataInfoResponse(GetAndroidDataInfoResponse&& from) noexcept
+    : GetAndroidDataInfoResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetAndroidDataInfoResponse& operator=(const GetAndroidDataInfoResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetAndroidDataInfoResponse& operator=(GetAndroidDataInfoResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetAndroidDataInfoResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetAndroidDataInfoResponse* internal_default_instance() {
+    return reinterpret_cast<const GetAndroidDataInfoResponse*>(
+               &_GetAndroidDataInfoResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(GetAndroidDataInfoResponse& a, GetAndroidDataInfoResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(GetAndroidDataInfoResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetAndroidDataInfoResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetAndroidDataInfoResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetAndroidDataInfoResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetAndroidDataInfoResponse& from);
+  void MergeFrom(const GetAndroidDataInfoResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetAndroidDataInfoResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "arc.data_migrator.GetAndroidDataInfoResponse";
+  }
+  protected:
+  explicit GetAndroidDataInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTotalAllocatedSpaceSrcFieldNumber = 1,
+    kTotalAllocatedSpaceDestFieldNumber = 2,
+  };
+  // int64 total_allocated_space_src = 1;
+  void clear_total_allocated_space_src();
+  int64_t total_allocated_space_src() const;
+  void set_total_allocated_space_src(int64_t value);
+  private:
+  int64_t _internal_total_allocated_space_src() const;
+  void _internal_set_total_allocated_space_src(int64_t value);
+  public:
+
+  // int64 total_allocated_space_dest = 2;
+  void clear_total_allocated_space_dest();
+  int64_t total_allocated_space_dest() const;
+  void set_total_allocated_space_dest(int64_t value);
+  private:
+  int64_t _internal_total_allocated_space_dest() const;
+  void _internal_set_total_allocated_space_dest(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:arc.data_migrator.GetAndroidDataInfoResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int64_t total_allocated_space_src_;
+  int64_t total_allocated_space_dest_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_arcvm_5fdata_5fmigrator_2eproto;
+};
+// -------------------------------------------------------------------
+
 class StartMigrationRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:arc.data_migrator.StartMigrationRequest) */ {
  public:
@@ -415,7 +693,7 @@ class StartMigrationRequest final :
                &_StartMigrationRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(StartMigrationRequest& a, StartMigrationRequest& b) {
     a.Swap(&b);
@@ -558,7 +836,7 @@ class DataMigrationProgress final :
                &_DataMigrationProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(DataMigrationProgress& a, DataMigrationProgress& b) {
     a.Swap(&b);
@@ -783,6 +1061,104 @@ inline void GetAndroidDataSizeRequest::set_allocated_username(std::string* usern
 
 // -------------------------------------------------------------------
 
+// GetAndroidDataInfoRequest
+
+// string username = 1;
+inline void GetAndroidDataInfoRequest::clear_username() {
+  username_.ClearToEmpty();
+}
+inline const std::string& GetAndroidDataInfoRequest::username() const {
+  // @@protoc_insertion_point(field_get:arc.data_migrator.GetAndroidDataInfoRequest.username)
+  return _internal_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetAndroidDataInfoRequest::set_username(ArgT0&& arg0, ArgT... args) {
+ 
+ username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:arc.data_migrator.GetAndroidDataInfoRequest.username)
+}
+inline std::string* GetAndroidDataInfoRequest::mutable_username() {
+  std::string* _s = _internal_mutable_username();
+  // @@protoc_insertion_point(field_mutable:arc.data_migrator.GetAndroidDataInfoRequest.username)
+  return _s;
+}
+inline const std::string& GetAndroidDataInfoRequest::_internal_username() const {
+  return username_.Get();
+}
+inline void GetAndroidDataInfoRequest::_internal_set_username(const std::string& value) {
+  
+  username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetAndroidDataInfoRequest::_internal_mutable_username() {
+  
+  return username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetAndroidDataInfoRequest::release_username() {
+  // @@protoc_insertion_point(field_release:arc.data_migrator.GetAndroidDataInfoRequest.username)
+  return username_.Release();
+}
+inline void GetAndroidDataInfoRequest::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  username_.SetAllocated(username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (username_.IsDefault()) {
+    username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:arc.data_migrator.GetAndroidDataInfoRequest.username)
+}
+
+// -------------------------------------------------------------------
+
+// GetAndroidDataInfoResponse
+
+// int64 total_allocated_space_src = 1;
+inline void GetAndroidDataInfoResponse::clear_total_allocated_space_src() {
+  total_allocated_space_src_ = int64_t{0};
+}
+inline int64_t GetAndroidDataInfoResponse::_internal_total_allocated_space_src() const {
+  return total_allocated_space_src_;
+}
+inline int64_t GetAndroidDataInfoResponse::total_allocated_space_src() const {
+  // @@protoc_insertion_point(field_get:arc.data_migrator.GetAndroidDataInfoResponse.total_allocated_space_src)
+  return _internal_total_allocated_space_src();
+}
+inline void GetAndroidDataInfoResponse::_internal_set_total_allocated_space_src(int64_t value) {
+  
+  total_allocated_space_src_ = value;
+}
+inline void GetAndroidDataInfoResponse::set_total_allocated_space_src(int64_t value) {
+  _internal_set_total_allocated_space_src(value);
+  // @@protoc_insertion_point(field_set:arc.data_migrator.GetAndroidDataInfoResponse.total_allocated_space_src)
+}
+
+// int64 total_allocated_space_dest = 2;
+inline void GetAndroidDataInfoResponse::clear_total_allocated_space_dest() {
+  total_allocated_space_dest_ = int64_t{0};
+}
+inline int64_t GetAndroidDataInfoResponse::_internal_total_allocated_space_dest() const {
+  return total_allocated_space_dest_;
+}
+inline int64_t GetAndroidDataInfoResponse::total_allocated_space_dest() const {
+  // @@protoc_insertion_point(field_get:arc.data_migrator.GetAndroidDataInfoResponse.total_allocated_space_dest)
+  return _internal_total_allocated_space_dest();
+}
+inline void GetAndroidDataInfoResponse::_internal_set_total_allocated_space_dest(int64_t value) {
+  
+  total_allocated_space_dest_ = value;
+}
+inline void GetAndroidDataInfoResponse::set_total_allocated_space_dest(int64_t value) {
+  _internal_set_total_allocated_space_dest(value);
+  // @@protoc_insertion_point(field_set:arc.data_migrator.GetAndroidDataInfoResponse.total_allocated_space_dest)
+}
+
+// -------------------------------------------------------------------
+
 // StartMigrationRequest
 
 // string username = 1;
@@ -922,6 +1298,10 @@ inline void DataMigrationProgress::set_total_bytes(uint64_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

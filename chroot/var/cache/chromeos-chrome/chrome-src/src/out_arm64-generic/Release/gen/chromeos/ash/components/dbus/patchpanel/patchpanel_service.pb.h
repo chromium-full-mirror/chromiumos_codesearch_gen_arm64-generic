@@ -124,18 +124,18 @@ extern NetworkDeviceDefaultTypeInternal _NetworkDevice_default_instance_;
 class NetworkDeviceChangedSignal;
 struct NetworkDeviceChangedSignalDefaultTypeInternal;
 extern NetworkDeviceChangedSignalDefaultTypeInternal _NetworkDeviceChangedSignal_default_instance_;
-class PluginVmShutdownRequest;
-struct PluginVmShutdownRequestDefaultTypeInternal;
-extern PluginVmShutdownRequestDefaultTypeInternal _PluginVmShutdownRequest_default_instance_;
-class PluginVmShutdownResponse;
-struct PluginVmShutdownResponseDefaultTypeInternal;
-extern PluginVmShutdownResponseDefaultTypeInternal _PluginVmShutdownResponse_default_instance_;
-class PluginVmStartupRequest;
-struct PluginVmStartupRequestDefaultTypeInternal;
-extern PluginVmStartupRequestDefaultTypeInternal _PluginVmStartupRequest_default_instance_;
-class PluginVmStartupResponse;
-struct PluginVmStartupResponseDefaultTypeInternal;
-extern PluginVmStartupResponseDefaultTypeInternal _PluginVmStartupResponse_default_instance_;
+class ParallelsVmShutdownRequest;
+struct ParallelsVmShutdownRequestDefaultTypeInternal;
+extern ParallelsVmShutdownRequestDefaultTypeInternal _ParallelsVmShutdownRequest_default_instance_;
+class ParallelsVmShutdownResponse;
+struct ParallelsVmShutdownResponseDefaultTypeInternal;
+extern ParallelsVmShutdownResponseDefaultTypeInternal _ParallelsVmShutdownResponse_default_instance_;
+class ParallelsVmStartupRequest;
+struct ParallelsVmStartupRequestDefaultTypeInternal;
+extern ParallelsVmStartupRequestDefaultTypeInternal _ParallelsVmStartupRequest_default_instance_;
+class ParallelsVmStartupResponse;
+struct ParallelsVmStartupResponseDefaultTypeInternal;
+extern ParallelsVmStartupResponseDefaultTypeInternal _ParallelsVmStartupResponse_default_instance_;
 class SetDnsRedirectionRuleRequest;
 struct SetDnsRedirectionRuleRequestDefaultTypeInternal;
 extern SetDnsRedirectionRuleRequestDefaultTypeInternal _SetDnsRedirectionRuleRequest_default_instance_;
@@ -210,10 +210,10 @@ template<> ::patchpanel::NetworkClientInfo* Arena::CreateMaybeMessage<::patchpan
 template<> ::patchpanel::NetworkConfigurationChangedSignal* Arena::CreateMaybeMessage<::patchpanel::NetworkConfigurationChangedSignal>(Arena*);
 template<> ::patchpanel::NetworkDevice* Arena::CreateMaybeMessage<::patchpanel::NetworkDevice>(Arena*);
 template<> ::patchpanel::NetworkDeviceChangedSignal* Arena::CreateMaybeMessage<::patchpanel::NetworkDeviceChangedSignal>(Arena*);
-template<> ::patchpanel::PluginVmShutdownRequest* Arena::CreateMaybeMessage<::patchpanel::PluginVmShutdownRequest>(Arena*);
-template<> ::patchpanel::PluginVmShutdownResponse* Arena::CreateMaybeMessage<::patchpanel::PluginVmShutdownResponse>(Arena*);
-template<> ::patchpanel::PluginVmStartupRequest* Arena::CreateMaybeMessage<::patchpanel::PluginVmStartupRequest>(Arena*);
-template<> ::patchpanel::PluginVmStartupResponse* Arena::CreateMaybeMessage<::patchpanel::PluginVmStartupResponse>(Arena*);
+template<> ::patchpanel::ParallelsVmShutdownRequest* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmShutdownRequest>(Arena*);
+template<> ::patchpanel::ParallelsVmShutdownResponse* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmShutdownResponse>(Arena*);
+template<> ::patchpanel::ParallelsVmStartupRequest* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmStartupRequest>(Arena*);
+template<> ::patchpanel::ParallelsVmStartupResponse* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmStartupResponse>(Arena*);
 template<> ::patchpanel::SetDnsRedirectionRuleRequest* Arena::CreateMaybeMessage<::patchpanel::SetDnsRedirectionRuleRequest>(Arena*);
 template<> ::patchpanel::SetDnsRedirectionRuleResponse* Arena::CreateMaybeMessage<::patchpanel::SetDnsRedirectionRuleResponse>(Arena*);
 template<> ::patchpanel::SetVpnIntentRequest* Arena::CreateMaybeMessage<::patchpanel::SetVpnIntentRequest>(Arena*);
@@ -237,13 +237,13 @@ enum NetworkDevice_GuestType : int {
   NetworkDevice_GuestType_ARC = 1,
   NetworkDevice_GuestType_ARCVM = 2,
   NetworkDevice_GuestType_TERMINA_VM = 3,
-  NetworkDevice_GuestType_PLUGIN_VM = 4,
+  NetworkDevice_GuestType_PARALLELS_VM = 4,
   NetworkDevice_GuestType_NetworkDevice_GuestType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   NetworkDevice_GuestType_NetworkDevice_GuestType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool NetworkDevice_GuestType_IsValid(int value);
 constexpr NetworkDevice_GuestType NetworkDevice_GuestType_GuestType_MIN = NetworkDevice_GuestType_UNKNOWN;
-constexpr NetworkDevice_GuestType NetworkDevice_GuestType_GuestType_MAX = NetworkDevice_GuestType_PLUGIN_VM;
+constexpr NetworkDevice_GuestType NetworkDevice_GuestType_GuestType_MAX = NetworkDevice_GuestType_PARALLELS_VM;
 constexpr int NetworkDevice_GuestType_GuestType_ARRAYSIZE = NetworkDevice_GuestType_GuestType_MAX + 1;
 
 const std::string& NetworkDevice_GuestType_Name(NetworkDevice_GuestType value);
@@ -284,7 +284,7 @@ enum TrafficCounter_Source : int {
   TrafficCounter_Source_USER = 2,
   TrafficCounter_Source_ARC = 3,
   TrafficCounter_Source_CROSVM = 4,
-  TrafficCounter_Source_PLUGINVM = 5,
+  TrafficCounter_Source_PARALLELS_VM = 5,
   TrafficCounter_Source_UPDATE_ENGINE = 6,
   TrafficCounter_Source_VPN = 7,
   TrafficCounter_Source_SYSTEM = 8,
@@ -1407,8 +1407,8 @@ class NetworkDevice final :
     NetworkDevice_GuestType_ARCVM;
   static constexpr GuestType TERMINA_VM =
     NetworkDevice_GuestType_TERMINA_VM;
-  static constexpr GuestType PLUGIN_VM =
-    NetworkDevice_GuestType_PLUGIN_VM;
+  static constexpr GuestType PARALLELS_VM =
+    NetworkDevice_GuestType_PARALLELS_VM;
   static inline bool GuestType_IsValid(int value) {
     return NetworkDevice_GuestType_IsValid(value);
   }
@@ -2730,24 +2730,24 @@ class TerminaVmShutdownResponse final :
 };
 // -------------------------------------------------------------------
 
-class PluginVmStartupRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.PluginVmStartupRequest) */ {
+class ParallelsVmStartupRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.ParallelsVmStartupRequest) */ {
  public:
-  inline PluginVmStartupRequest() : PluginVmStartupRequest(nullptr) {}
-  ~PluginVmStartupRequest() override;
-  explicit PROTOBUF_CONSTEXPR PluginVmStartupRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ParallelsVmStartupRequest() : ParallelsVmStartupRequest(nullptr) {}
+  ~ParallelsVmStartupRequest() override;
+  explicit PROTOBUF_CONSTEXPR ParallelsVmStartupRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  PluginVmStartupRequest(const PluginVmStartupRequest& from);
-  PluginVmStartupRequest(PluginVmStartupRequest&& from) noexcept
-    : PluginVmStartupRequest() {
+  ParallelsVmStartupRequest(const ParallelsVmStartupRequest& from);
+  ParallelsVmStartupRequest(ParallelsVmStartupRequest&& from) noexcept
+    : ParallelsVmStartupRequest() {
     *this = ::std::move(from);
   }
 
-  inline PluginVmStartupRequest& operator=(const PluginVmStartupRequest& from) {
+  inline ParallelsVmStartupRequest& operator=(const ParallelsVmStartupRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline PluginVmStartupRequest& operator=(PluginVmStartupRequest&& from) noexcept {
+  inline ParallelsVmStartupRequest& operator=(ParallelsVmStartupRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2761,20 +2761,20 @@ class PluginVmStartupRequest final :
     return *this;
   }
 
-  static const PluginVmStartupRequest& default_instance() {
+  static const ParallelsVmStartupRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const PluginVmStartupRequest* internal_default_instance() {
-    return reinterpret_cast<const PluginVmStartupRequest*>(
-               &_PluginVmStartupRequest_default_instance_);
+  static inline const ParallelsVmStartupRequest* internal_default_instance() {
+    return reinterpret_cast<const ParallelsVmStartupRequest*>(
+               &_ParallelsVmStartupRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     16;
 
-  friend void swap(PluginVmStartupRequest& a, PluginVmStartupRequest& b) {
+  friend void swap(ParallelsVmStartupRequest& a, ParallelsVmStartupRequest& b) {
     a.Swap(&b);
   }
-  PROTOBUF_NOINLINE void Swap(PluginVmStartupRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ParallelsVmStartupRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2787,7 +2787,7 @@ class PluginVmStartupRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(PluginVmStartupRequest* other) {
+  void UnsafeArenaSwap(ParallelsVmStartupRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2795,12 +2795,12 @@ class PluginVmStartupRequest final :
 
   // implements Message ----------------------------------------------
 
-  PluginVmStartupRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<PluginVmStartupRequest>(arena);
+  ParallelsVmStartupRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ParallelsVmStartupRequest>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const PluginVmStartupRequest& from);
-  void MergeFrom(const PluginVmStartupRequest& from);
+  void CopyFrom(const ParallelsVmStartupRequest& from);
+  void MergeFrom(const ParallelsVmStartupRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -2814,15 +2814,15 @@ class PluginVmStartupRequest final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(PluginVmStartupRequest* other);
+  void InternalSwap(ParallelsVmStartupRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "patchpanel.PluginVmStartupRequest";
+    return "patchpanel.ParallelsVmStartupRequest";
   }
   protected:
-  explicit PluginVmStartupRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ParallelsVmStartupRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -2854,7 +2854,7 @@ class PluginVmStartupRequest final :
   void _internal_set_subnet_index(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:patchpanel.PluginVmStartupRequest)
+  // @@protoc_insertion_point(class_scope:patchpanel.ParallelsVmStartupRequest)
  private:
   class _Internal;
 
@@ -2868,24 +2868,24 @@ class PluginVmStartupRequest final :
 };
 // -------------------------------------------------------------------
 
-class PluginVmStartupResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.PluginVmStartupResponse) */ {
+class ParallelsVmStartupResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.ParallelsVmStartupResponse) */ {
  public:
-  inline PluginVmStartupResponse() : PluginVmStartupResponse(nullptr) {}
-  ~PluginVmStartupResponse() override;
-  explicit PROTOBUF_CONSTEXPR PluginVmStartupResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ParallelsVmStartupResponse() : ParallelsVmStartupResponse(nullptr) {}
+  ~ParallelsVmStartupResponse() override;
+  explicit PROTOBUF_CONSTEXPR ParallelsVmStartupResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  PluginVmStartupResponse(const PluginVmStartupResponse& from);
-  PluginVmStartupResponse(PluginVmStartupResponse&& from) noexcept
-    : PluginVmStartupResponse() {
+  ParallelsVmStartupResponse(const ParallelsVmStartupResponse& from);
+  ParallelsVmStartupResponse(ParallelsVmStartupResponse&& from) noexcept
+    : ParallelsVmStartupResponse() {
     *this = ::std::move(from);
   }
 
-  inline PluginVmStartupResponse& operator=(const PluginVmStartupResponse& from) {
+  inline ParallelsVmStartupResponse& operator=(const ParallelsVmStartupResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline PluginVmStartupResponse& operator=(PluginVmStartupResponse&& from) noexcept {
+  inline ParallelsVmStartupResponse& operator=(ParallelsVmStartupResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2899,20 +2899,20 @@ class PluginVmStartupResponse final :
     return *this;
   }
 
-  static const PluginVmStartupResponse& default_instance() {
+  static const ParallelsVmStartupResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const PluginVmStartupResponse* internal_default_instance() {
-    return reinterpret_cast<const PluginVmStartupResponse*>(
-               &_PluginVmStartupResponse_default_instance_);
+  static inline const ParallelsVmStartupResponse* internal_default_instance() {
+    return reinterpret_cast<const ParallelsVmStartupResponse*>(
+               &_ParallelsVmStartupResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     17;
 
-  friend void swap(PluginVmStartupResponse& a, PluginVmStartupResponse& b) {
+  friend void swap(ParallelsVmStartupResponse& a, ParallelsVmStartupResponse& b) {
     a.Swap(&b);
   }
-  PROTOBUF_NOINLINE void Swap(PluginVmStartupResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ParallelsVmStartupResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2925,7 +2925,7 @@ class PluginVmStartupResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(PluginVmStartupResponse* other) {
+  void UnsafeArenaSwap(ParallelsVmStartupResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2933,12 +2933,12 @@ class PluginVmStartupResponse final :
 
   // implements Message ----------------------------------------------
 
-  PluginVmStartupResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<PluginVmStartupResponse>(arena);
+  ParallelsVmStartupResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ParallelsVmStartupResponse>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const PluginVmStartupResponse& from);
-  void MergeFrom(const PluginVmStartupResponse& from);
+  void CopyFrom(const ParallelsVmStartupResponse& from);
+  void MergeFrom(const ParallelsVmStartupResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -2952,15 +2952,15 @@ class PluginVmStartupResponse final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(PluginVmStartupResponse* other);
+  void InternalSwap(ParallelsVmStartupResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "patchpanel.PluginVmStartupResponse";
+    return "patchpanel.ParallelsVmStartupResponse";
   }
   protected:
-  explicit PluginVmStartupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ParallelsVmStartupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -2991,7 +2991,7 @@ class PluginVmStartupResponse final :
       ::patchpanel::NetworkDevice* device);
   ::patchpanel::NetworkDevice* unsafe_arena_release_device();
 
-  // @@protoc_insertion_point(class_scope:patchpanel.PluginVmStartupResponse)
+  // @@protoc_insertion_point(class_scope:patchpanel.ParallelsVmStartupResponse)
  private:
   class _Internal;
 
@@ -3004,24 +3004,24 @@ class PluginVmStartupResponse final :
 };
 // -------------------------------------------------------------------
 
-class PluginVmShutdownRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.PluginVmShutdownRequest) */ {
+class ParallelsVmShutdownRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.ParallelsVmShutdownRequest) */ {
  public:
-  inline PluginVmShutdownRequest() : PluginVmShutdownRequest(nullptr) {}
-  ~PluginVmShutdownRequest() override;
-  explicit PROTOBUF_CONSTEXPR PluginVmShutdownRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ParallelsVmShutdownRequest() : ParallelsVmShutdownRequest(nullptr) {}
+  ~ParallelsVmShutdownRequest() override;
+  explicit PROTOBUF_CONSTEXPR ParallelsVmShutdownRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  PluginVmShutdownRequest(const PluginVmShutdownRequest& from);
-  PluginVmShutdownRequest(PluginVmShutdownRequest&& from) noexcept
-    : PluginVmShutdownRequest() {
+  ParallelsVmShutdownRequest(const ParallelsVmShutdownRequest& from);
+  ParallelsVmShutdownRequest(ParallelsVmShutdownRequest&& from) noexcept
+    : ParallelsVmShutdownRequest() {
     *this = ::std::move(from);
   }
 
-  inline PluginVmShutdownRequest& operator=(const PluginVmShutdownRequest& from) {
+  inline ParallelsVmShutdownRequest& operator=(const ParallelsVmShutdownRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline PluginVmShutdownRequest& operator=(PluginVmShutdownRequest&& from) noexcept {
+  inline ParallelsVmShutdownRequest& operator=(ParallelsVmShutdownRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -3035,20 +3035,20 @@ class PluginVmShutdownRequest final :
     return *this;
   }
 
-  static const PluginVmShutdownRequest& default_instance() {
+  static const ParallelsVmShutdownRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const PluginVmShutdownRequest* internal_default_instance() {
-    return reinterpret_cast<const PluginVmShutdownRequest*>(
-               &_PluginVmShutdownRequest_default_instance_);
+  static inline const ParallelsVmShutdownRequest* internal_default_instance() {
+    return reinterpret_cast<const ParallelsVmShutdownRequest*>(
+               &_ParallelsVmShutdownRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     18;
 
-  friend void swap(PluginVmShutdownRequest& a, PluginVmShutdownRequest& b) {
+  friend void swap(ParallelsVmShutdownRequest& a, ParallelsVmShutdownRequest& b) {
     a.Swap(&b);
   }
-  PROTOBUF_NOINLINE void Swap(PluginVmShutdownRequest* other) {
+  PROTOBUF_NOINLINE void Swap(ParallelsVmShutdownRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3061,7 +3061,7 @@ class PluginVmShutdownRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(PluginVmShutdownRequest* other) {
+  void UnsafeArenaSwap(ParallelsVmShutdownRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -3069,12 +3069,12 @@ class PluginVmShutdownRequest final :
 
   // implements Message ----------------------------------------------
 
-  PluginVmShutdownRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<PluginVmShutdownRequest>(arena);
+  ParallelsVmShutdownRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ParallelsVmShutdownRequest>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const PluginVmShutdownRequest& from);
-  void MergeFrom(const PluginVmShutdownRequest& from);
+  void CopyFrom(const ParallelsVmShutdownRequest& from);
+  void MergeFrom(const ParallelsVmShutdownRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -3088,15 +3088,15 @@ class PluginVmShutdownRequest final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(PluginVmShutdownRequest* other);
+  void InternalSwap(ParallelsVmShutdownRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "patchpanel.PluginVmShutdownRequest";
+    return "patchpanel.ParallelsVmShutdownRequest";
   }
   protected:
-  explicit PluginVmShutdownRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ParallelsVmShutdownRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -3118,7 +3118,7 @@ class PluginVmShutdownRequest final :
   void _internal_set_id(uint64_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:patchpanel.PluginVmShutdownRequest)
+  // @@protoc_insertion_point(class_scope:patchpanel.ParallelsVmShutdownRequest)
  private:
   class _Internal;
 
@@ -3131,24 +3131,24 @@ class PluginVmShutdownRequest final :
 };
 // -------------------------------------------------------------------
 
-class PluginVmShutdownResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.PluginVmShutdownResponse) */ {
+class ParallelsVmShutdownResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.ParallelsVmShutdownResponse) */ {
  public:
-  inline PluginVmShutdownResponse() : PluginVmShutdownResponse(nullptr) {}
-  ~PluginVmShutdownResponse() override;
-  explicit PROTOBUF_CONSTEXPR PluginVmShutdownResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ParallelsVmShutdownResponse() : ParallelsVmShutdownResponse(nullptr) {}
+  ~ParallelsVmShutdownResponse() override;
+  explicit PROTOBUF_CONSTEXPR ParallelsVmShutdownResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  PluginVmShutdownResponse(const PluginVmShutdownResponse& from);
-  PluginVmShutdownResponse(PluginVmShutdownResponse&& from) noexcept
-    : PluginVmShutdownResponse() {
+  ParallelsVmShutdownResponse(const ParallelsVmShutdownResponse& from);
+  ParallelsVmShutdownResponse(ParallelsVmShutdownResponse&& from) noexcept
+    : ParallelsVmShutdownResponse() {
     *this = ::std::move(from);
   }
 
-  inline PluginVmShutdownResponse& operator=(const PluginVmShutdownResponse& from) {
+  inline ParallelsVmShutdownResponse& operator=(const ParallelsVmShutdownResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline PluginVmShutdownResponse& operator=(PluginVmShutdownResponse&& from) noexcept {
+  inline ParallelsVmShutdownResponse& operator=(ParallelsVmShutdownResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -3162,20 +3162,20 @@ class PluginVmShutdownResponse final :
     return *this;
   }
 
-  static const PluginVmShutdownResponse& default_instance() {
+  static const ParallelsVmShutdownResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const PluginVmShutdownResponse* internal_default_instance() {
-    return reinterpret_cast<const PluginVmShutdownResponse*>(
-               &_PluginVmShutdownResponse_default_instance_);
+  static inline const ParallelsVmShutdownResponse* internal_default_instance() {
+    return reinterpret_cast<const ParallelsVmShutdownResponse*>(
+               &_ParallelsVmShutdownResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     19;
 
-  friend void swap(PluginVmShutdownResponse& a, PluginVmShutdownResponse& b) {
+  friend void swap(ParallelsVmShutdownResponse& a, ParallelsVmShutdownResponse& b) {
     a.Swap(&b);
   }
-  PROTOBUF_NOINLINE void Swap(PluginVmShutdownResponse* other) {
+  PROTOBUF_NOINLINE void Swap(ParallelsVmShutdownResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -3188,7 +3188,7 @@ class PluginVmShutdownResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(PluginVmShutdownResponse* other) {
+  void UnsafeArenaSwap(ParallelsVmShutdownResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -3196,12 +3196,12 @@ class PluginVmShutdownResponse final :
 
   // implements Message ----------------------------------------------
 
-  PluginVmShutdownResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<PluginVmShutdownResponse>(arena);
+  ParallelsVmShutdownResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ParallelsVmShutdownResponse>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const PluginVmShutdownResponse& from);
-  void MergeFrom(const PluginVmShutdownResponse& from);
+  void CopyFrom(const ParallelsVmShutdownResponse& from);
+  void MergeFrom(const ParallelsVmShutdownResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -3215,15 +3215,15 @@ class PluginVmShutdownResponse final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(PluginVmShutdownResponse* other);
+  void InternalSwap(ParallelsVmShutdownResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "patchpanel.PluginVmShutdownResponse";
+    return "patchpanel.ParallelsVmShutdownResponse";
   }
   protected:
-  explicit PluginVmShutdownResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ParallelsVmShutdownResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -3233,7 +3233,7 @@ class PluginVmShutdownResponse final :
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:patchpanel.PluginVmShutdownResponse)
+  // @@protoc_insertion_point(class_scope:patchpanel.ParallelsVmShutdownResponse)
  private:
   class _Internal;
 
@@ -4020,8 +4020,8 @@ class TrafficCounter final :
     TrafficCounter_Source_ARC;
   static constexpr Source CROSVM =
     TrafficCounter_Source_CROSVM;
-  static constexpr Source PLUGINVM =
-    TrafficCounter_Source_PLUGINVM;
+  static constexpr Source PARALLELS_VM =
+    TrafficCounter_Source_PARALLELS_VM;
   static constexpr Source UPDATE_ENGINE =
     TrafficCounter_Source_UPDATE_ENGINE;
   static constexpr Source VPN =
@@ -8679,75 +8679,75 @@ inline void TerminaVmShutdownRequest::set_cid(uint32_t value) {
 
 // -------------------------------------------------------------------
 
-// PluginVmStartupRequest
+// ParallelsVmStartupRequest
 
 // uint64 id = 1;
-inline void PluginVmStartupRequest::clear_id() {
+inline void ParallelsVmStartupRequest::clear_id() {
   id_ = uint64_t{0u};
 }
-inline uint64_t PluginVmStartupRequest::_internal_id() const {
+inline uint64_t ParallelsVmStartupRequest::_internal_id() const {
   return id_;
 }
-inline uint64_t PluginVmStartupRequest::id() const {
-  // @@protoc_insertion_point(field_get:patchpanel.PluginVmStartupRequest.id)
+inline uint64_t ParallelsVmStartupRequest::id() const {
+  // @@protoc_insertion_point(field_get:patchpanel.ParallelsVmStartupRequest.id)
   return _internal_id();
 }
-inline void PluginVmStartupRequest::_internal_set_id(uint64_t value) {
+inline void ParallelsVmStartupRequest::_internal_set_id(uint64_t value) {
   
   id_ = value;
 }
-inline void PluginVmStartupRequest::set_id(uint64_t value) {
+inline void ParallelsVmStartupRequest::set_id(uint64_t value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:patchpanel.PluginVmStartupRequest.id)
+  // @@protoc_insertion_point(field_set:patchpanel.ParallelsVmStartupRequest.id)
 }
 
 // int32 subnet_index = 2;
-inline void PluginVmStartupRequest::clear_subnet_index() {
+inline void ParallelsVmStartupRequest::clear_subnet_index() {
   subnet_index_ = 0;
 }
-inline int32_t PluginVmStartupRequest::_internal_subnet_index() const {
+inline int32_t ParallelsVmStartupRequest::_internal_subnet_index() const {
   return subnet_index_;
 }
-inline int32_t PluginVmStartupRequest::subnet_index() const {
-  // @@protoc_insertion_point(field_get:patchpanel.PluginVmStartupRequest.subnet_index)
+inline int32_t ParallelsVmStartupRequest::subnet_index() const {
+  // @@protoc_insertion_point(field_get:patchpanel.ParallelsVmStartupRequest.subnet_index)
   return _internal_subnet_index();
 }
-inline void PluginVmStartupRequest::_internal_set_subnet_index(int32_t value) {
+inline void ParallelsVmStartupRequest::_internal_set_subnet_index(int32_t value) {
   
   subnet_index_ = value;
 }
-inline void PluginVmStartupRequest::set_subnet_index(int32_t value) {
+inline void ParallelsVmStartupRequest::set_subnet_index(int32_t value) {
   _internal_set_subnet_index(value);
-  // @@protoc_insertion_point(field_set:patchpanel.PluginVmStartupRequest.subnet_index)
+  // @@protoc_insertion_point(field_set:patchpanel.ParallelsVmStartupRequest.subnet_index)
 }
 
 // -------------------------------------------------------------------
 
-// PluginVmStartupResponse
+// ParallelsVmStartupResponse
 
 // .patchpanel.NetworkDevice device = 1;
-inline bool PluginVmStartupResponse::_internal_has_device() const {
+inline bool ParallelsVmStartupResponse::_internal_has_device() const {
   return this != internal_default_instance() && device_ != nullptr;
 }
-inline bool PluginVmStartupResponse::has_device() const {
+inline bool ParallelsVmStartupResponse::has_device() const {
   return _internal_has_device();
 }
-inline void PluginVmStartupResponse::clear_device() {
+inline void ParallelsVmStartupResponse::clear_device() {
   if (GetArenaForAllocation() == nullptr && device_ != nullptr) {
     delete device_;
   }
   device_ = nullptr;
 }
-inline const ::patchpanel::NetworkDevice& PluginVmStartupResponse::_internal_device() const {
+inline const ::patchpanel::NetworkDevice& ParallelsVmStartupResponse::_internal_device() const {
   const ::patchpanel::NetworkDevice* p = device_;
   return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::NetworkDevice&>(
       ::patchpanel::_NetworkDevice_default_instance_);
 }
-inline const ::patchpanel::NetworkDevice& PluginVmStartupResponse::device() const {
-  // @@protoc_insertion_point(field_get:patchpanel.PluginVmStartupResponse.device)
+inline const ::patchpanel::NetworkDevice& ParallelsVmStartupResponse::device() const {
+  // @@protoc_insertion_point(field_get:patchpanel.ParallelsVmStartupResponse.device)
   return _internal_device();
 }
-inline void PluginVmStartupResponse::unsafe_arena_set_allocated_device(
+inline void ParallelsVmStartupResponse::unsafe_arena_set_allocated_device(
     ::patchpanel::NetworkDevice* device) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_);
@@ -8758,9 +8758,9 @@ inline void PluginVmStartupResponse::unsafe_arena_set_allocated_device(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.PluginVmStartupResponse.device)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.ParallelsVmStartupResponse.device)
 }
-inline ::patchpanel::NetworkDevice* PluginVmStartupResponse::release_device() {
+inline ::patchpanel::NetworkDevice* ParallelsVmStartupResponse::release_device() {
   
   ::patchpanel::NetworkDevice* temp = device_;
   device_ = nullptr;
@@ -8775,14 +8775,14 @@ inline ::patchpanel::NetworkDevice* PluginVmStartupResponse::release_device() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::patchpanel::NetworkDevice* PluginVmStartupResponse::unsafe_arena_release_device() {
-  // @@protoc_insertion_point(field_release:patchpanel.PluginVmStartupResponse.device)
+inline ::patchpanel::NetworkDevice* ParallelsVmStartupResponse::unsafe_arena_release_device() {
+  // @@protoc_insertion_point(field_release:patchpanel.ParallelsVmStartupResponse.device)
   
   ::patchpanel::NetworkDevice* temp = device_;
   device_ = nullptr;
   return temp;
 }
-inline ::patchpanel::NetworkDevice* PluginVmStartupResponse::_internal_mutable_device() {
+inline ::patchpanel::NetworkDevice* ParallelsVmStartupResponse::_internal_mutable_device() {
   
   if (device_ == nullptr) {
     auto* p = CreateMaybeMessage<::patchpanel::NetworkDevice>(GetArenaForAllocation());
@@ -8790,12 +8790,12 @@ inline ::patchpanel::NetworkDevice* PluginVmStartupResponse::_internal_mutable_d
   }
   return device_;
 }
-inline ::patchpanel::NetworkDevice* PluginVmStartupResponse::mutable_device() {
+inline ::patchpanel::NetworkDevice* ParallelsVmStartupResponse::mutable_device() {
   ::patchpanel::NetworkDevice* _msg = _internal_mutable_device();
-  // @@protoc_insertion_point(field_mutable:patchpanel.PluginVmStartupResponse.device)
+  // @@protoc_insertion_point(field_mutable:patchpanel.ParallelsVmStartupResponse.device)
   return _msg;
 }
-inline void PluginVmStartupResponse::set_allocated_device(::patchpanel::NetworkDevice* device) {
+inline void ParallelsVmStartupResponse::set_allocated_device(::patchpanel::NetworkDevice* device) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete device_;
@@ -8812,36 +8812,36 @@ inline void PluginVmStartupResponse::set_allocated_device(::patchpanel::NetworkD
     
   }
   device_ = device;
-  // @@protoc_insertion_point(field_set_allocated:patchpanel.PluginVmStartupResponse.device)
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.ParallelsVmStartupResponse.device)
 }
 
 // -------------------------------------------------------------------
 
-// PluginVmShutdownRequest
+// ParallelsVmShutdownRequest
 
 // uint64 id = 1;
-inline void PluginVmShutdownRequest::clear_id() {
+inline void ParallelsVmShutdownRequest::clear_id() {
   id_ = uint64_t{0u};
 }
-inline uint64_t PluginVmShutdownRequest::_internal_id() const {
+inline uint64_t ParallelsVmShutdownRequest::_internal_id() const {
   return id_;
 }
-inline uint64_t PluginVmShutdownRequest::id() const {
-  // @@protoc_insertion_point(field_get:patchpanel.PluginVmShutdownRequest.id)
+inline uint64_t ParallelsVmShutdownRequest::id() const {
+  // @@protoc_insertion_point(field_get:patchpanel.ParallelsVmShutdownRequest.id)
   return _internal_id();
 }
-inline void PluginVmShutdownRequest::_internal_set_id(uint64_t value) {
+inline void ParallelsVmShutdownRequest::_internal_set_id(uint64_t value) {
   
   id_ = value;
 }
-inline void PluginVmShutdownRequest::set_id(uint64_t value) {
+inline void ParallelsVmShutdownRequest::set_id(uint64_t value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:patchpanel.PluginVmShutdownRequest.id)
+  // @@protoc_insertion_point(field_set:patchpanel.ParallelsVmShutdownRequest.id)
 }
 
 // -------------------------------------------------------------------
 
-// PluginVmShutdownResponse
+// ParallelsVmShutdownResponse
 
 // -------------------------------------------------------------------
 

@@ -1129,8 +1129,8 @@ public:
 class CORE_EXPORT Frontend {
 public:
   explicit Frontend(FrontendChannel* frontend_channel) : frontend_channel_(frontend_channel) {}
-    void cacheStorageContentUpdated(const String& origin, const String& storageKey, const String& cacheName);
-    void cacheStorageListUpdated(const String& origin, const String& storageKey);
+    void cacheStorageContentUpdated(const String& origin, const String& storageKey, const String& bucketId, const String& cacheName);
+    void cacheStorageListUpdated(const String& origin, const String& storageKey, const String& bucketId);
     void indexedDBContentUpdated(const String& origin, const String& storageKey, const String& bucketId, const String& databaseName, const String& objectStoreName);
     void indexedDBListUpdated(const String& origin, const String& storageKey, const String& bucketId);
     void interestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name);

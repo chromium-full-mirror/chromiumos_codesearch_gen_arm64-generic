@@ -1241,8 +1241,8 @@ public:
 class CONTENT_EXPORT Frontend {
 public:
   explicit Frontend(FrontendChannel* frontend_channel) : frontend_channel_(frontend_channel) {}
-    void CacheStorageContentUpdated(const String& origin, const String& storageKey, const String& cacheName);
-    void CacheStorageListUpdated(const String& origin, const String& storageKey);
+    void CacheStorageContentUpdated(const String& origin, const String& storageKey, const String& bucketId, const String& cacheName);
+    void CacheStorageListUpdated(const String& origin, const String& storageKey, const String& bucketId);
     void IndexedDBContentUpdated(const String& origin, const String& storageKey, const String& bucketId, const String& databaseName, const String& objectStoreName);
     void IndexedDBListUpdated(const String& origin, const String& storageKey, const String& bucketId);
     void InterestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name);
