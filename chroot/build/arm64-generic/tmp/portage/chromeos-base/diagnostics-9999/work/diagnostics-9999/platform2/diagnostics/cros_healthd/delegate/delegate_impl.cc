@@ -27,8 +27,11 @@
 #include <libec/mkbp_event.h>
 #include <libec/motion_sense_command_lid_angle.h>
 
+#include "base/notreached.h"
 #include "diagnostics/cros_healthd/delegate/constants.h"
 #include "diagnostics/cros_healthd/delegate/fetchers/boot_performance.h"
+#include "diagnostics/cros_healthd/delegate/fetchers/display_fetcher.h"
+#include "diagnostics/cros_healthd/delegate/utils/display_utils.h"
 #include "diagnostics/cros_healthd/delegate/utils/evdev_utils.h"
 #include "diagnostics/cros_healthd/delegate/utils/psr_cmd.h"
 #include "diagnostics/cros_healthd/executor/constants.h"
@@ -423,6 +426,35 @@ void DelegateImpl::GetAmountOfFreeDiskSpace(
     return;
   }
   std::move(callback).Run(free_space);
+}
+
+void DelegateImpl::GetConnectedHdmiConnectors(
+    GetConnectedHdmiConnectorsCallback callback) {
+  NOTIMPLEMENTED();
+}
+
+void DelegateImpl::GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) {
+  DisplayUtil display_util;
+  if (!display_util.Initialize()) {
+    std::move(callback).Run(false, false, "Failed to initialize DisplayUtil");
+    return;
+  }
+
+  std::optional<uint32_t> connector_id =
+      display_util.GetEmbeddedDisplayConnectorID();
+  if (!connector_id.has_value()) {
+    std::move(callback).Run(false, false, "Failed to find valid display");
+    return;
+  }
+  bool supported, enabled;
+  display_util.FillPrivacyScreenInfo(connector_id.value(), &supported,
+                                     &enabled);
+
+  std::move(callback).Run(supported, enabled, std::nullopt);
+}
+
+void DelegateImpl::FetchDisplayInfo(FetchDisplayInfoCallback callback) {
+  std::move(callback).Run(GetDisplayInfo());
 }
 
 }  // namespace diagnostics

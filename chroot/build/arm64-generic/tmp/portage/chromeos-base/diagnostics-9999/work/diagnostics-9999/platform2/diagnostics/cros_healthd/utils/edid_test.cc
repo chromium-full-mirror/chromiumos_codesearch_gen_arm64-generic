@@ -6,7 +6,7 @@
 
 #include "diagnostics/cros_healthd/utils/edid.h"
 
-namespace diagnostics {
+namespace diagnostics::deprecated {
 namespace {
 
 class EdidTest : public ::testing::Test {
@@ -79,4 +79,4 @@ TEST_F(EdidTest, ParseDpEdid) {
 }
 
 }  // namespace
-}  // namespace diagnostics
+}  // namespace diagnostics::deprecated

@@ -13,7 +13,7 @@
 
 #include <base/strings/stringprintf.h>
 
-namespace diagnostics {
+namespace diagnostics::deprecated {
 
 namespace {
 
@@ -146,4 +146,4 @@ Edid::Edid(const EdidRaw& edid_raw) {
   }
 }
 
-}  // namespace diagnostics
+}  // namespace diagnostics::deprecated

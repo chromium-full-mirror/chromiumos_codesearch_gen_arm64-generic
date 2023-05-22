@@ -646,6 +646,176 @@ bool Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data::Validate(
 Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data::Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Delegate_GetConnectedHdmiConnectors_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_GetConnectedHdmiConnectors_Params_Data* object =
+      static_cast<const Delegate_GetConnectedHdmiConnectors_Params_Data*>(data);
+
+  return true;
+}
+
+Delegate_GetConnectedHdmiConnectors_Params_Data::Delegate_GetConnectedHdmiConnectors_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_GetConnectedHdmiConnectors_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_GetConnectedHdmiConnectors_ResponseParams_Data* object =
+      static_cast<const Delegate_GetConnectedHdmiConnectors_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->connectors, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& connectors_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->connectors, validation_context,
+                                         &connectors_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Delegate_GetConnectedHdmiConnectors_ResponseParams_Data::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_GetPrivacyScreenInfo_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_GetPrivacyScreenInfo_Params_Data* object =
+      static_cast<const Delegate_GetPrivacyScreenInfo_Params_Data*>(data);
+
+  return true;
+}
+
+Delegate_GetPrivacyScreenInfo_Params_Data::Delegate_GetPrivacyScreenInfo_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_GetPrivacyScreenInfo_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_GetPrivacyScreenInfo_ResponseParams_Data* object =
+      static_cast<const Delegate_GetPrivacyScreenInfo_ResponseParams_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Delegate_GetPrivacyScreenInfo_ResponseParams_Data::Delegate_GetPrivacyScreenInfo_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_FetchDisplayInfo_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_FetchDisplayInfo_Params_Data* object =
+      static_cast<const Delegate_FetchDisplayInfo_Params_Data*>(data);
+
+  return true;
+}
+
+Delegate_FetchDisplayInfo_Params_Data::Delegate_FetchDisplayInfo_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_FetchDisplayInfo_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_FetchDisplayInfo_ResponseParams_Data* object =
+      static_cast<const Delegate_FetchDisplayInfo_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+Delegate_FetchDisplayInfo_ResponseParams_Data::Delegate_FetchDisplayInfo_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd

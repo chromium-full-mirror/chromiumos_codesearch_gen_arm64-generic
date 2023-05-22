@@ -30,6 +30,9 @@ class  DelegateInterceptorForTesting : public Delegate {
   void GetLidAngle(GetLidAngleCallback callback) override;
   void GetPsr(GetPsrCallback callback) override;
   void GetAmountOfFreeDiskSpace(const std::string& path, GetAmountOfFreeDiskSpaceCallback callback) override;
+  void GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) override;
+  void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
+  void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -63,6 +66,15 @@ class  DelegateAsyncWaiter {
   void GetAmountOfFreeDiskSpace(
       const std::string& path, absl::optional<uint64_t>* out_free_space_byte);
   absl::optional<uint64_t> GetAmountOfFreeDiskSpace(const std::string& path);
+  void GetConnectedHdmiConnectors(
+      base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err);
+  
+  void GetPrivacyScreenInfo(
+      bool* out_privacy_screen_supported, bool* out_privacy_screen_enabled, absl::optional<std::string>* out_err);
+  
+  void FetchDisplayInfo(
+      ::ash::cros_healthd::mojom::DisplayResultPtr* out_result);
+  ::ash::cros_healthd::mojom::DisplayResultPtr FetchDisplayInfo();
 
  private:
   Delegate* const proxy_;

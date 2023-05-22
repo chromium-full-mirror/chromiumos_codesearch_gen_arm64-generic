@@ -365,6 +365,103 @@ class  Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data) == 24,
               "Bad sizeof(Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data)");
+class  Delegate_GetConnectedHdmiConnectors_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetConnectedHdmiConnectors_Params_Data>;
+
+  Delegate_GetConnectedHdmiConnectors_Params_Data();
+  ~Delegate_GetConnectedHdmiConnectors_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetConnectedHdmiConnectors_Params_Data) == 8,
+              "Bad sizeof(Delegate_GetConnectedHdmiConnectors_Params_Data)");
+class  Delegate_GetConnectedHdmiConnectors_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Map_Data<uint32_t, mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::ExternalDisplayInfo_Data>>> connectors;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetConnectedHdmiConnectors_ResponseParams_Data>;
+
+  Delegate_GetConnectedHdmiConnectors_ResponseParams_Data();
+  ~Delegate_GetConnectedHdmiConnectors_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetConnectedHdmiConnectors_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_GetConnectedHdmiConnectors_ResponseParams_Data)");
+class  Delegate_GetPrivacyScreenInfo_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetPrivacyScreenInfo_Params_Data>;
+
+  Delegate_GetPrivacyScreenInfo_Params_Data();
+  ~Delegate_GetPrivacyScreenInfo_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetPrivacyScreenInfo_Params_Data) == 8,
+              "Bad sizeof(Delegate_GetPrivacyScreenInfo_Params_Data)");
+class  Delegate_GetPrivacyScreenInfo_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t privacy_screen_supported : 1;
+  uint8_t privacy_screen_enabled : 1;
+  uint8_t pad1_[7];
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetPrivacyScreenInfo_ResponseParams_Data>;
+
+  Delegate_GetPrivacyScreenInfo_ResponseParams_Data();
+  ~Delegate_GetPrivacyScreenInfo_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetPrivacyScreenInfo_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_GetPrivacyScreenInfo_ResponseParams_Data)");
+class  Delegate_FetchDisplayInfo_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_FetchDisplayInfo_Params_Data>;
+
+  Delegate_FetchDisplayInfo_Params_Data();
+  ~Delegate_FetchDisplayInfo_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_FetchDisplayInfo_Params_Data) == 8,
+              "Bad sizeof(Delegate_FetchDisplayInfo_Params_Data)");
+class  Delegate_FetchDisplayInfo_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  ::ash::cros_healthd::mojom::internal::DisplayResult_Data result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_FetchDisplayInfo_ResponseParams_Data>;
+
+  Delegate_FetchDisplayInfo_ResponseParams_Data();
+  ~Delegate_FetchDisplayInfo_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_FetchDisplayInfo_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_FetchDisplayInfo_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -943,6 +1040,165 @@ class Delegate_GetAmountOfFreeDiskSpace_ResponseParamsDataView {
 };
 
 
+class Delegate_GetConnectedHdmiConnectors_ParamsDataView {
+ public:
+  Delegate_GetConnectedHdmiConnectors_ParamsDataView() = default;
+
+  Delegate_GetConnectedHdmiConnectors_ParamsDataView(
+      internal::Delegate_GetConnectedHdmiConnectors_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_GetConnectedHdmiConnectors_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView {
+ public:
+  Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView() = default;
+
+  Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView(
+      internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConnectorsDataView(
+      mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConnectors(UserType* output) {
+    
+    auto* pointer = data_->connectors.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_GetPrivacyScreenInfo_ParamsDataView {
+ public:
+  Delegate_GetPrivacyScreenInfo_ParamsDataView() = default;
+
+  Delegate_GetPrivacyScreenInfo_ParamsDataView(
+      internal::Delegate_GetPrivacyScreenInfo_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_GetPrivacyScreenInfo_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_GetPrivacyScreenInfo_ResponseParamsDataView {
+ public:
+  Delegate_GetPrivacyScreenInfo_ResponseParamsDataView() = default;
+
+  Delegate_GetPrivacyScreenInfo_ResponseParamsDataView(
+      internal::Delegate_GetPrivacyScreenInfo_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  bool privacy_screen_supported() const {
+    return data_->privacy_screen_supported;
+  }
+  bool privacy_screen_enabled() const {
+    return data_->privacy_screen_enabled;
+  }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_GetPrivacyScreenInfo_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_FetchDisplayInfo_ParamsDataView {
+ public:
+  Delegate_FetchDisplayInfo_ParamsDataView() = default;
+
+  Delegate_FetchDisplayInfo_ParamsDataView(
+      internal::Delegate_FetchDisplayInfo_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_FetchDisplayInfo_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_FetchDisplayInfo_ResponseParamsDataView {
+ public:
+  Delegate_FetchDisplayInfo_ResponseParamsDataView() = default;
+
+  Delegate_FetchDisplayInfo_ResponseParamsDataView(
+      internal::Delegate_FetchDisplayInfo_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ::ash::cros_healthd::mojom::DisplayResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DisplayResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_FetchDisplayInfo_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -1032,6 +1288,38 @@ inline void Delegate_GetAmountOfFreeDiskSpace_ParamsDataView::GetPathDataView(
 }
 
 
+
+
+
+
+inline void Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView::GetConnectorsDataView(
+    mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>* output) {
+  auto pointer = data_->connectors.Get();
+  *output = mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>(pointer, message_);
+}
+inline void Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Delegate_GetPrivacyScreenInfo_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Delegate_FetchDisplayInfo_ResponseParamsDataView::GetResultDataView(
+    ::ash::cros_healthd::mojom::DisplayResultDataView* output) {
+  auto pointer = &data_->result;
+  *output = ::ash::cros_healthd::mojom::DisplayResultDataView(pointer, message_);
+}
 
 }  // namespace mojom
 }  // namespace cros_healthd

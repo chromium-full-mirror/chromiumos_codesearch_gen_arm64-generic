@@ -90,6 +90,15 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_GetAmountOfFreeDiskSpace_Name: {
       return &Delegate::GetAmountOfFreeDiskSpace_Sym::IPCStableHash;
     }
+    case internal::kDelegate_GetConnectedHdmiConnectors_Name: {
+      return &Delegate::GetConnectedHdmiConnectors_Sym::IPCStableHash;
+    }
+    case internal::kDelegate_GetPrivacyScreenInfo_Name: {
+      return &Delegate::GetPrivacyScreenInfo_Sym::IPCStableHash;
+    }
+    case internal::kDelegate_FetchDisplayInfo_Name: {
+      return &Delegate::FetchDisplayInfo_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -127,6 +136,12 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::GetPsr";
       case internal::kDelegate_GetAmountOfFreeDiskSpace_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::GetAmountOfFreeDiskSpace";
+      case internal::kDelegate_GetConnectedHdmiConnectors_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors";
+      case internal::kDelegate_GetPrivacyScreenInfo_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo";
+      case internal::kDelegate_FetchDisplayInfo_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::FetchDisplayInfo";
     }
   } else {
     switch (message.name()) {
@@ -156,6 +171,12 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetPsr";
       case internal::kDelegate_GetAmountOfFreeDiskSpace_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetAmountOfFreeDiskSpace";
+      case internal::kDelegate_GetConnectedHdmiConnectors_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors";
+      case internal::kDelegate_GetPrivacyScreenInfo_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo";
+      case internal::kDelegate_FetchDisplayInfo_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::FetchDisplayInfo";
     }
   }
   return "Receive unknown mojo message";
@@ -339,6 +360,45 @@ uint32_t Delegate::GetAmountOfFreeDiskSpace_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Delegate::GetConnectedHdmiConnectors_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::GetPrivacyScreenInfo_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::FetchDisplayInfo_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::FetchDisplayInfo");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Delegate_GetFingerprintFrame_ForwardToCallback
@@ -467,6 +527,54 @@ class Delegate_GetAmountOfFreeDiskSpace_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Delegate::GetAmountOfFreeDiskSpaceCallback callback_;
+};
+
+class Delegate_GetConnectedHdmiConnectors_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_GetConnectedHdmiConnectors_ForwardToCallback(
+      Delegate::GetConnectedHdmiConnectorsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_GetConnectedHdmiConnectors_ForwardToCallback(const Delegate_GetConnectedHdmiConnectors_ForwardToCallback&) = delete;
+  Delegate_GetConnectedHdmiConnectors_ForwardToCallback& operator=(const Delegate_GetConnectedHdmiConnectors_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::GetConnectedHdmiConnectorsCallback callback_;
+};
+
+class Delegate_GetPrivacyScreenInfo_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_GetPrivacyScreenInfo_ForwardToCallback(
+      Delegate::GetPrivacyScreenInfoCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_GetPrivacyScreenInfo_ForwardToCallback(const Delegate_GetPrivacyScreenInfo_ForwardToCallback&) = delete;
+  Delegate_GetPrivacyScreenInfo_ForwardToCallback& operator=(const Delegate_GetPrivacyScreenInfo_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::GetPrivacyScreenInfoCallback callback_;
+};
+
+class Delegate_FetchDisplayInfo_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_FetchDisplayInfo_ForwardToCallback(
+      Delegate::FetchDisplayInfoCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_FetchDisplayInfo_ForwardToCallback(const Delegate_FetchDisplayInfo_ForwardToCallback&) = delete;
+  Delegate_FetchDisplayInfo_ForwardToCallback& operator=(const Delegate_FetchDisplayInfo_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::FetchDisplayInfoCallback callback_;
 };
 
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -982,6 +1090,99 @@ void DelegateProxy::GetAmountOfFreeDiskSpace(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Delegate_GetAmountOfFreeDiskSpace_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::GetConnectedHdmiConnectors(
+    GetConnectedHdmiConnectorsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_GetConnectedHdmiConnectors_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedHdmiConnectors_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetConnectedHdmiConnectors");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_GetConnectedHdmiConnectors_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::GetPrivacyScreenInfo(
+    GetPrivacyScreenInfoCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetPrivacyScreenInfo_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetPrivacyScreenInfo");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_GetPrivacyScreenInfo_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::FetchDisplayInfo(
+    FetchDisplayInfoCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::FetchDisplayInfo");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_FetchDisplayInfo_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("FetchDisplayInfo");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_FetchDisplayInfo_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -2029,6 +2230,416 @@ void Delegate_GetAmountOfFreeDiskSpace_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Delegate_GetConnectedHdmiConnectors_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::GetConnectedHdmiConnectorsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_GetConnectedHdmiConnectors_ProxyToResponder> proxy(
+        new Delegate_GetConnectedHdmiConnectors_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_GetConnectedHdmiConnectors_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_GetConnectedHdmiConnectors_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_GetConnectedHdmiConnectors_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::GetConnectedHdmiConnectorsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> in_connectors, const absl::optional<std::string>& in_err);
+};
+
+bool Delegate_GetConnectedHdmiConnectors_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> p_connectors{};
+  absl::optional<std::string> p_err{};
+  Delegate_GetConnectedHdmiConnectors_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadConnectors(&p_connectors))
+    success = false;
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 13, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_connectors), 
+std::move(p_err));
+  return true;
+}
+
+void Delegate_GetConnectedHdmiConnectors_ProxyToResponder::Run(
+    base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> in_connectors, const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("connectors"), in_connectors,
+                        "<value of type base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_GetConnectedHdmiConnectors_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->connectors)::BaseType>
+      connectors_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& connectors_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  mojo::internal::Serialize<mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>>(
+      in_connectors, connectors_fragment, &connectors_validate_params);
+  params->connectors.Set(
+      connectors_fragment.is_null() ? nullptr : connectors_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->connectors.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null connectors in ");
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetConnectedHdmiConnectors");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Delegate_GetPrivacyScreenInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::GetPrivacyScreenInfoCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_GetPrivacyScreenInfo_ProxyToResponder> proxy(
+        new Delegate_GetPrivacyScreenInfo_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_GetPrivacyScreenInfo_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_GetPrivacyScreenInfo_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_GetPrivacyScreenInfo_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::GetPrivacyScreenInfoCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_privacy_screen_supported, bool in_privacy_screen_enabled, const absl::optional<std::string>& in_err);
+};
+
+bool Delegate_GetPrivacyScreenInfo_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_GetPrivacyScreenInfo_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_GetPrivacyScreenInfo_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_privacy_screen_supported{};
+  bool p_privacy_screen_enabled{};
+  absl::optional<std::string> p_err{};
+  Delegate_GetPrivacyScreenInfo_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_privacy_screen_supported = input_data_view.privacy_screen_supported();
+  if (success)
+    p_privacy_screen_enabled = input_data_view.privacy_screen_enabled();
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 14, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_privacy_screen_supported), 
+std::move(p_privacy_screen_enabled), 
+std::move(p_err));
+  return true;
+}
+
+void Delegate_GetPrivacyScreenInfo_ProxyToResponder::Run(
+    bool in_privacy_screen_supported, bool in_privacy_screen_enabled, const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("privacy_screen_supported"), in_privacy_screen_supported,
+                        "<value of type bool>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("privacy_screen_enabled"), in_privacy_screen_enabled,
+                        "<value of type bool>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetPrivacyScreenInfo_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->privacy_screen_supported = in_privacy_screen_supported;
+  params->privacy_screen_enabled = in_privacy_screen_enabled;
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetPrivacyScreenInfo");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Delegate_FetchDisplayInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::FetchDisplayInfoCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_FetchDisplayInfo_ProxyToResponder> proxy(
+        new Delegate_FetchDisplayInfo_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_FetchDisplayInfo_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_FetchDisplayInfo_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_FetchDisplayInfo_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::FetchDisplayInfoCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::DisplayResultPtr in_result);
+};
+
+bool Delegate_FetchDisplayInfo_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_FetchDisplayInfo_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_FetchDisplayInfo_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::DisplayResultPtr p_result{};
+  Delegate_FetchDisplayInfo_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 15, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void Delegate_FetchDisplayInfo_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::DisplayResultPtr in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::FetchDisplayInfo", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ::ash::cros_healthd::mojom::DisplayResultPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_FetchDisplayInfo_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->result)>
+      result_fragment(params.message());
+  result_fragment.Claim(&params->result);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::DisplayResultDataView>(
+      in_result, result_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("FetchDisplayInfo");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool DelegateStubDispatch::Accept(
@@ -2197,6 +2808,15 @@ std::move(p_observer));
       break;
     }
     case internal::kDelegate_GetAmountOfFreeDiskSpace_Name: {
+      break;
+    }
+    case internal::kDelegate_GetConnectedHdmiConnectors_Name: {
+      break;
+    }
+    case internal::kDelegate_GetPrivacyScreenInfo_Name: {
+      break;
+    }
+    case internal::kDelegate_FetchDisplayInfo_Name: {
       break;
     }
   }
@@ -2447,6 +3067,81 @@ std::move(p_name), std::move(callback));
 std::move(p_path), std::move(callback));
       return true;
     }
+    case internal::kDelegate_GetConnectedHdmiConnectors_Name: {
+
+      internal::Delegate_GetConnectedHdmiConnectors_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_GetConnectedHdmiConnectors_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Delegate_GetConnectedHdmiConnectors_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 13, false);
+        return false;
+      }
+      Delegate::GetConnectedHdmiConnectorsCallback callback =
+          Delegate_GetConnectedHdmiConnectors_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetConnectedHdmiConnectors(std::move(callback));
+      return true;
+    }
+    case internal::kDelegate_GetPrivacyScreenInfo_Name: {
+
+      internal::Delegate_GetPrivacyScreenInfo_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_GetPrivacyScreenInfo_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Delegate_GetPrivacyScreenInfo_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 14, false);
+        return false;
+      }
+      Delegate::GetPrivacyScreenInfoCallback callback =
+          Delegate_GetPrivacyScreenInfo_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetPrivacyScreenInfo(std::move(callback));
+      return true;
+    }
+    case internal::kDelegate_FetchDisplayInfo_Name: {
+
+      internal::Delegate_FetchDisplayInfo_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_FetchDisplayInfo_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Delegate_FetchDisplayInfo_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 15, false);
+        return false;
+      }
+      Delegate::FetchDisplayInfoCallback callback =
+          Delegate_FetchDisplayInfo_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->FetchDisplayInfo(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -2479,6 +3174,12 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      &internal::Delegate_GetPsr_ResponseParams_Data::Validate},
     {&internal::Delegate_GetAmountOfFreeDiskSpace_Params_Data::Validate,
      &internal::Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data::Validate},
+    {&internal::Delegate_GetConnectedHdmiConnectors_Params_Data::Validate,
+     &internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data::Validate},
+    {&internal::Delegate_GetPrivacyScreenInfo_Params_Data::Validate,
+     &internal::Delegate_GetPrivacyScreenInfo_ResponseParams_Data::Validate},
+    {&internal::Delegate_FetchDisplayInfo_Params_Data::Validate,
+     &internal::Delegate_FetchDisplayInfo_ResponseParams_Data::Validate},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -2549,6 +3250,15 @@ void DelegateInterceptorForTesting::GetPsr(GetPsrCallback callback) {
 }
 void DelegateInterceptorForTesting::GetAmountOfFreeDiskSpace(const std::string& path, GetAmountOfFreeDiskSpaceCallback callback) {
   GetForwardingInterface()->GetAmountOfFreeDiskSpace(std::move(path), std::move(callback));
+}
+void DelegateInterceptorForTesting::GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) {
+  GetForwardingInterface()->GetConnectedHdmiConnectors(std::move(callback));
+}
+void DelegateInterceptorForTesting::GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) {
+  GetForwardingInterface()->GetPrivacyScreenInfo(std::move(callback));
+}
+void DelegateInterceptorForTesting::FetchDisplayInfo(FetchDisplayInfoCallback callback) {
+  GetForwardingInterface()->FetchDisplayInfo(std::move(callback));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
@@ -2733,6 +3443,77 @@ absl::optional<uint64_t> DelegateAsyncWaiter::GetAmountOfFreeDiskSpace(
     const std::string& path) {
   absl::optional<uint64_t> async_wait_result;
   GetAmountOfFreeDiskSpace(std::move(path),&async_wait_result);
+  return async_wait_result;
+}
+
+void DelegateAsyncWaiter::GetConnectedHdmiConnectors(
+    base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->GetConnectedHdmiConnectors(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors
+,
+             absl::optional<std::string>* out_err
+,
+             base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> connectors,
+             const absl::optional<std::string>& err) {*out_connectors = std::move(connectors);*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_connectors,
+          out_err));
+  loop.Run();
+}
+
+
+
+void DelegateAsyncWaiter::GetPrivacyScreenInfo(
+    bool* out_privacy_screen_supported, bool* out_privacy_screen_enabled, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->GetPrivacyScreenInfo(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_privacy_screen_supported
+,
+             bool* out_privacy_screen_enabled
+,
+             absl::optional<std::string>* out_err
+,
+             bool privacy_screen_supported,
+             bool privacy_screen_enabled,
+             const absl::optional<std::string>& err) {*out_privacy_screen_supported = std::move(privacy_screen_supported);*out_privacy_screen_enabled = std::move(privacy_screen_enabled);*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_privacy_screen_supported,
+          out_privacy_screen_enabled,
+          out_err));
+  loop.Run();
+}
+
+
+
+void DelegateAsyncWaiter::FetchDisplayInfo(
+    ::ash::cros_healthd::mojom::DisplayResultPtr* out_result) {
+  base::RunLoop loop;
+  proxy_->FetchDisplayInfo(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::DisplayResultPtr* out_result
+,
+             ::ash::cros_healthd::mojom::DisplayResultPtr result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::DisplayResultPtr DelegateAsyncWaiter::FetchDisplayInfo(
+    ) {
+  ::ash::cros_healthd::mojom::DisplayResultPtr async_wait_result;
+  FetchDisplayInfo(&async_wait_result);
   return async_wait_result;
 }
 

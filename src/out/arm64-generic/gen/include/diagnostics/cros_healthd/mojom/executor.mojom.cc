@@ -2606,6 +2606,15 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name: {
       return &Executor::GetFioTestDirectoryFreeSpace_Sym::IPCStableHash;
     }
+    case internal::kExecutor_GetConnectedHdmiConnectors_Name: {
+      return &Executor::GetConnectedHdmiConnectors_Sym::IPCStableHash;
+    }
+    case internal::kExecutor_GetPrivacyScreenInfo_Name: {
+      return &Executor::GetPrivacyScreenInfo_Sym::IPCStableHash;
+    }
+    case internal::kExecutor_FetchDisplayInfo_Name: {
+      return &Executor::FetchDisplayInfo_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2669,6 +2678,12 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::RemoveFioTestFile";
       case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name:
             return "Receive ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace";
+      case internal::kExecutor_GetConnectedHdmiConnectors_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::GetConnectedHdmiConnectors";
+      case internal::kExecutor_GetPrivacyScreenInfo_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::GetPrivacyScreenInfo";
+      case internal::kExecutor_FetchDisplayInfo_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::FetchDisplayInfo";
     }
   } else {
     switch (message.name()) {
@@ -2724,6 +2739,12 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::RemoveFioTestFile";
       case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace";
+      case internal::kExecutor_GetConnectedHdmiConnectors_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetConnectedHdmiConnectors";
+      case internal::kExecutor_GetPrivacyScreenInfo_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetPrivacyScreenInfo";
+      case internal::kExecutor_FetchDisplayInfo_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::FetchDisplayInfo";
     }
   }
   return "Receive unknown mojo message";
@@ -3076,6 +3097,45 @@ uint32_t Executor::GetFioTestDirectoryFreeSpace_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Executor::GetConnectedHdmiConnectors_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetConnectedHdmiConnectors");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetPrivacyScreenInfo_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetPrivacyScreenInfo");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::FetchDisplayInfo_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::FetchDisplayInfo");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Executor_ReadFile_ForwardToCallback
@@ -3348,6 +3408,54 @@ class Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Executor::GetFioTestDirectoryFreeSpaceCallback callback_;
+};
+
+class Executor_GetConnectedHdmiConnectors_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_GetConnectedHdmiConnectors_ForwardToCallback(
+      Executor::GetConnectedHdmiConnectorsCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_GetConnectedHdmiConnectors_ForwardToCallback(const Executor_GetConnectedHdmiConnectors_ForwardToCallback&) = delete;
+  Executor_GetConnectedHdmiConnectors_ForwardToCallback& operator=(const Executor_GetConnectedHdmiConnectors_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::GetConnectedHdmiConnectorsCallback callback_;
+};
+
+class Executor_GetPrivacyScreenInfo_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_GetPrivacyScreenInfo_ForwardToCallback(
+      Executor::GetPrivacyScreenInfoCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_GetPrivacyScreenInfo_ForwardToCallback(const Executor_GetPrivacyScreenInfo_ForwardToCallback&) = delete;
+  Executor_GetPrivacyScreenInfo_ForwardToCallback& operator=(const Executor_GetPrivacyScreenInfo_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::GetPrivacyScreenInfoCallback callback_;
+};
+
+class Executor_FetchDisplayInfo_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_FetchDisplayInfo_ForwardToCallback(
+      Executor::FetchDisplayInfoCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_FetchDisplayInfo_ForwardToCallback(const Executor_FetchDisplayInfo_ForwardToCallback&) = delete;
+  Executor_FetchDisplayInfo_ForwardToCallback& operator=(const Executor_FetchDisplayInfo_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::FetchDisplayInfoCallback callback_;
 };
 
 ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -4438,6 +4546,99 @@ void ExecutorProxy::GetFioTestDirectoryFreeSpace(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::GetConnectedHdmiConnectors(
+    GetConnectedHdmiConnectorsCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetConnectedHdmiConnectors");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetConnectedHdmiConnectors_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetConnectedHdmiConnectors_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetConnectedHdmiConnectors");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_GetConnectedHdmiConnectors_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::GetPrivacyScreenInfo(
+    GetPrivacyScreenInfoCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetPrivacyScreenInfo");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetPrivacyScreenInfo_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetPrivacyScreenInfo");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_GetPrivacyScreenInfo_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::FetchDisplayInfo(
+    FetchDisplayInfoCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::FetchDisplayInfo");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_FetchDisplayInfo_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("FetchDisplayInfo");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_FetchDisplayInfo_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -6627,6 +6828,416 @@ void Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Executor_GetConnectedHdmiConnectors_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::GetConnectedHdmiConnectorsCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_GetConnectedHdmiConnectors_ProxyToResponder> proxy(
+        new Executor_GetConnectedHdmiConnectors_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_GetConnectedHdmiConnectors_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_GetConnectedHdmiConnectors_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_GetConnectedHdmiConnectors_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::GetConnectedHdmiConnectorsCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> in_connectors, const absl::optional<std::string>& in_err);
+};
+
+bool Executor_GetConnectedHdmiConnectors_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_GetConnectedHdmiConnectors_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_GetConnectedHdmiConnectors_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> p_connectors{};
+  absl::optional<std::string> p_err{};
+  Executor_GetConnectedHdmiConnectors_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadConnectors(&p_connectors))
+    success = false;
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 26, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_connectors), 
+std::move(p_err));
+  return true;
+}
+
+void Executor_GetConnectedHdmiConnectors_ProxyToResponder::Run(
+    base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> in_connectors, const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetConnectedHdmiConnectors", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("connectors"), in_connectors,
+                        "<value of type base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetConnectedHdmiConnectors_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetConnectedHdmiConnectors_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->connectors)::BaseType>
+      connectors_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& connectors_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  mojo::internal::Serialize<mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>>(
+      in_connectors, connectors_fragment, &connectors_validate_params);
+  params->connectors.Set(
+      connectors_fragment.is_null() ? nullptr : connectors_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->connectors.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null connectors in ");
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetConnectedHdmiConnectors");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Executor_GetPrivacyScreenInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::GetPrivacyScreenInfoCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_GetPrivacyScreenInfo_ProxyToResponder> proxy(
+        new Executor_GetPrivacyScreenInfo_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_GetPrivacyScreenInfo_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_GetPrivacyScreenInfo_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_GetPrivacyScreenInfo_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::GetPrivacyScreenInfoCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_privacy_screen_supported, bool in_privacy_screen_enabled, const absl::optional<std::string>& in_err);
+};
+
+bool Executor_GetPrivacyScreenInfo_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_GetPrivacyScreenInfo_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_GetPrivacyScreenInfo_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_privacy_screen_supported{};
+  bool p_privacy_screen_enabled{};
+  absl::optional<std::string> p_err{};
+  Executor_GetPrivacyScreenInfo_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_privacy_screen_supported = input_data_view.privacy_screen_supported();
+  if (success)
+    p_privacy_screen_enabled = input_data_view.privacy_screen_enabled();
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 27, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_privacy_screen_supported), 
+std::move(p_privacy_screen_enabled), 
+std::move(p_err));
+  return true;
+}
+
+void Executor_GetPrivacyScreenInfo_ProxyToResponder::Run(
+    bool in_privacy_screen_supported, bool in_privacy_screen_enabled, const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetPrivacyScreenInfo", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("privacy_screen_supported"), in_privacy_screen_supported,
+                        "<value of type bool>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("privacy_screen_enabled"), in_privacy_screen_enabled,
+                        "<value of type bool>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetPrivacyScreenInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetPrivacyScreenInfo_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->privacy_screen_supported = in_privacy_screen_supported;
+  params->privacy_screen_enabled = in_privacy_screen_enabled;
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetPrivacyScreenInfo");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Executor_FetchDisplayInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::FetchDisplayInfoCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_FetchDisplayInfo_ProxyToResponder> proxy(
+        new Executor_FetchDisplayInfo_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_FetchDisplayInfo_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_FetchDisplayInfo_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_FetchDisplayInfo_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::FetchDisplayInfoCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::DisplayResultPtr in_result);
+};
+
+bool Executor_FetchDisplayInfo_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_FetchDisplayInfo_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_FetchDisplayInfo_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::DisplayResultPtr p_result{};
+  Executor_FetchDisplayInfo_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 28, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void Executor_FetchDisplayInfo_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::DisplayResultPtr in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::FetchDisplayInfo", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ::ash::cros_healthd::mojom::DisplayResultPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_FetchDisplayInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_FetchDisplayInfo_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->result)>
+      result_fragment(params.message());
+  result_fragment.Claim(&params->result);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::DisplayResultDataView>(
+      in_result, result_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("FetchDisplayInfo");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool ExecutorStubDispatch::Accept(
@@ -6978,6 +7589,15 @@ std::move(p_receiver));
       break;
     }
     case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name: {
+      break;
+    }
+    case internal::kExecutor_GetConnectedHdmiConnectors_Name: {
+      break;
+    }
+    case internal::kExecutor_GetPrivacyScreenInfo_Name: {
+      break;
+    }
+    case internal::kExecutor_FetchDisplayInfo_Name: {
       break;
     }
   }
@@ -7493,6 +8113,81 @@ std::move(p_name), std::move(callback));
       impl->GetFioTestDirectoryFreeSpace(std::move(callback));
       return true;
     }
+    case internal::kExecutor_GetConnectedHdmiConnectors_Name: {
+
+      internal::Executor_GetConnectedHdmiConnectors_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_GetConnectedHdmiConnectors_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Executor_GetConnectedHdmiConnectors_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 26, false);
+        return false;
+      }
+      Executor::GetConnectedHdmiConnectorsCallback callback =
+          Executor_GetConnectedHdmiConnectors_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetConnectedHdmiConnectors(std::move(callback));
+      return true;
+    }
+    case internal::kExecutor_GetPrivacyScreenInfo_Name: {
+
+      internal::Executor_GetPrivacyScreenInfo_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_GetPrivacyScreenInfo_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Executor_GetPrivacyScreenInfo_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 27, false);
+        return false;
+      }
+      Executor::GetPrivacyScreenInfoCallback callback =
+          Executor_GetPrivacyScreenInfo_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetPrivacyScreenInfo(std::move(callback));
+      return true;
+    }
+    case internal::kExecutor_FetchDisplayInfo_Name: {
+
+      internal::Executor_FetchDisplayInfo_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_FetchDisplayInfo_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Executor_FetchDisplayInfo_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 28, false);
+        return false;
+      }
+      Executor::FetchDisplayInfoCallback callback =
+          Executor_FetchDisplayInfo_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->FetchDisplayInfo(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -7551,6 +8246,12 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      &internal::Executor_RemoveFioTestFile_ResponseParams_Data::Validate},
     {&internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data::Validate,
      &internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data::Validate},
+    {&internal::Executor_GetConnectedHdmiConnectors_Params_Data::Validate,
+     &internal::Executor_GetConnectedHdmiConnectors_ResponseParams_Data::Validate},
+    {&internal::Executor_GetPrivacyScreenInfo_Params_Data::Validate,
+     &internal::Executor_GetPrivacyScreenInfo_ResponseParams_Data::Validate},
+    {&internal::Executor_FetchDisplayInfo_Params_Data::Validate,
+     &internal::Executor_FetchDisplayInfo_ResponseParams_Data::Validate},
 };
 
 bool ExecutorRequestValidator::Accept(mojo::Message* message) {
@@ -7950,6 +8651,15 @@ void ExecutorInterceptorForTesting::RemoveFioTestFile(RemoveFioTestFileCallback 
 void ExecutorInterceptorForTesting::GetFioTestDirectoryFreeSpace(GetFioTestDirectoryFreeSpaceCallback callback) {
   GetForwardingInterface()->GetFioTestDirectoryFreeSpace(std::move(callback));
 }
+void ExecutorInterceptorForTesting::GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) {
+  GetForwardingInterface()->GetConnectedHdmiConnectors(std::move(callback));
+}
+void ExecutorInterceptorForTesting::GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) {
+  GetForwardingInterface()->GetPrivacyScreenInfo(std::move(callback));
+}
+void ExecutorInterceptorForTesting::FetchDisplayInfo(FetchDisplayInfoCallback callback) {
+  GetForwardingInterface()->FetchDisplayInfo(std::move(callback));
+}
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}
 
@@ -8340,6 +9050,77 @@ absl::optional<uint64_t> ExecutorAsyncWaiter::GetFioTestDirectoryFreeSpace(
     ) {
   absl::optional<uint64_t> async_wait_result;
   GetFioTestDirectoryFreeSpace(&async_wait_result);
+  return async_wait_result;
+}
+
+void ExecutorAsyncWaiter::GetConnectedHdmiConnectors(
+    base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->GetConnectedHdmiConnectors(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors
+,
+             absl::optional<std::string>* out_err
+,
+             base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> connectors,
+             const absl::optional<std::string>& err) {*out_connectors = std::move(connectors);*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_connectors,
+          out_err));
+  loop.Run();
+}
+
+
+
+void ExecutorAsyncWaiter::GetPrivacyScreenInfo(
+    bool* out_privacy_screen_supported, bool* out_privacy_screen_enabled, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->GetPrivacyScreenInfo(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_privacy_screen_supported
+,
+             bool* out_privacy_screen_enabled
+,
+             absl::optional<std::string>* out_err
+,
+             bool privacy_screen_supported,
+             bool privacy_screen_enabled,
+             const absl::optional<std::string>& err) {*out_privacy_screen_supported = std::move(privacy_screen_supported);*out_privacy_screen_enabled = std::move(privacy_screen_enabled);*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_privacy_screen_supported,
+          out_privacy_screen_enabled,
+          out_err));
+  loop.Run();
+}
+
+
+
+void ExecutorAsyncWaiter::FetchDisplayInfo(
+    ::ash::cros_healthd::mojom::DisplayResultPtr* out_result) {
+  base::RunLoop loop;
+  proxy_->FetchDisplayInfo(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::DisplayResultPtr* out_result
+,
+             ::ash::cros_healthd::mojom::DisplayResultPtr result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::DisplayResultPtr ExecutorAsyncWaiter::FetchDisplayInfo(
+    ) {
+  ::ash::cros_healthd::mojom::DisplayResultPtr async_wait_result;
+  FetchDisplayInfo(&async_wait_result);
   return async_wait_result;
 }
 

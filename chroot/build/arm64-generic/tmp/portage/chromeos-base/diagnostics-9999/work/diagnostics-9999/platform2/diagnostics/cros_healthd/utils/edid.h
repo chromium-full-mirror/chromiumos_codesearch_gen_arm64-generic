@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 
-namespace diagnostics {
+namespace diagnostics::deprecated {
 
 struct EdidInfo {
   std::string manufacturer;
@@ -63,6 +63,6 @@ class Edid : public EdidInfo {
   explicit Edid(const EdidRaw& edid_raw);
 };
 
-}  // namespace diagnostics
+}  // namespace diagnostics::deprecated
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_UTILS_EDID_H_
