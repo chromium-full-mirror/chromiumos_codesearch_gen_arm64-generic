@@ -278,6 +278,47 @@ class AppDiscovery_AppLauncherResultOpened final : public ::metrics::structured:
   AppDiscovery_AppLauncherResultOpened& SetResultCategory(const int64_t value);
 };
 
+class AppDiscovery_Browser_OmniboxInstallIconClicked final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_Browser_OmniboxInstallIconClicked();
+  ~AppDiscovery_Browser_OmniboxInstallIconClicked() override;
+
+    AppDiscovery_Browser_OmniboxInstallIconClicked& SetIPHShown(const int64_t value);
+};
+
+class AppDiscovery_Browser_AppInstallDialogShown final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_Browser_AppInstallDialogShown();
+  ~AppDiscovery_Browser_AppInstallDialogShown() override;
+
+    AppDiscovery_Browser_AppInstallDialogShown& SetAppId(const std::string& value);
+};
+
+class AppDiscovery_Browser_AppInstallDialogResult final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_Browser_AppInstallDialogResult();
+  ~AppDiscovery_Browser_AppInstallDialogResult() override;
+
+    AppDiscovery_Browser_AppInstallDialogResult& SetWebAppInstallStatus(const int64_t value);
+  AppDiscovery_Browser_AppInstallDialogResult& SetAppId(const std::string& value);
+};
+
+class AppDiscovery_Browser_ClickInstallAppFromMenu final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_Browser_ClickInstallAppFromMenu();
+  ~AppDiscovery_Browser_ClickInstallAppFromMenu() override;
+
+    AppDiscovery_Browser_ClickInstallAppFromMenu& SetAppId(const std::string& value);
+};
+
+class AppDiscovery_Browser_CreateShortcut final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_Browser_CreateShortcut();
+  ~AppDiscovery_Browser_CreateShortcut() override;
+
+    AppDiscovery_Browser_CreateShortcut& SetAppId(const std::string& value);
+};
+
 class UserLogin final : public ::metrics::structured::Event {
  public:
   UserLogin();

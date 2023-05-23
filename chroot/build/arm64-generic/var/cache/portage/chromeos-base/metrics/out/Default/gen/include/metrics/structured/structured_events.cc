@@ -1279,6 +1279,85 @@ int64_t UsbDeviceInfo::GetDeviceClassForTest() const {
 
 }  // namespace usb_device
 
+namespace usb_session {
+
+UsbSessionEvent::UsbSessionEvent() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+UsbSessionEvent::~UsbSessionEvent() = default;
+UsbSessionEvent& UsbSessionEvent::SetBootId(const std::string& value) {
+  AddHmacMetric(kBootIdNameHash, value);
+  return *this;
+}
+
+std::string UsbSessionEvent::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
+UsbSessionEvent& UsbSessionEvent::SetSystemTime(const int64_t value) {
+  AddIntMetric(kSystemTimeNameHash, value);
+  return *this;
+}
+
+int64_t UsbSessionEvent::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
+}
+
+UsbSessionEvent& UsbSessionEvent::SetAction(const int64_t value) {
+  AddIntMetric(kActionNameHash, value);
+  return *this;
+}
+
+int64_t UsbSessionEvent::GetActionForTest() const {
+  return GetIntMetricForTest(kActionNameHash);
+}
+
+UsbSessionEvent& UsbSessionEvent::SetDeviceNum(const int64_t value) {
+  AddIntMetric(kDeviceNumNameHash, value);
+  return *this;
+}
+
+int64_t UsbSessionEvent::GetDeviceNumForTest() const {
+  return GetIntMetricForTest(kDeviceNumNameHash);
+}
+
+UsbSessionEvent& UsbSessionEvent::SetBusNum(const int64_t value) {
+  AddIntMetric(kBusNumNameHash, value);
+  return *this;
+}
+
+int64_t UsbSessionEvent::GetBusNumForTest() const {
+  return GetIntMetricForTest(kBusNumNameHash);
+}
+
+UsbSessionEvent& UsbSessionEvent::SetDepth(const int64_t value) {
+  AddIntMetric(kDepthNameHash, value);
+  return *this;
+}
+
+int64_t UsbSessionEvent::GetDepthForTest() const {
+  return GetIntMetricForTest(kDepthNameHash);
+}
+
+UsbSessionEvent& UsbSessionEvent::SetVendorId(const int64_t value) {
+  AddIntMetric(kVendorIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbSessionEvent::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
+UsbSessionEvent& UsbSessionEvent::SetProductId(const int64_t value) {
+  AddIntMetric(kProductIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbSessionEvent::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
+}  // namespace usb_session
+
 namespace usb_error {
 
 HubError::HubError() :

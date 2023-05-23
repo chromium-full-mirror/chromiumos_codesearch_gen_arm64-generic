@@ -100,7 +100,6 @@ PROTOBUF_CONSTEXPR StartVmRequest::StartVmRequest(
   , /*decltype(_impl_.features_)*/{}
   , /*decltype(_impl_._features_cached_byte_size_)*/{0}
   , /*decltype(_impl_.oem_strings_)*/{}
-  , /*decltype(_impl_.shared_directory_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.vm_username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -153,7 +152,6 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.disks_)*/{}
-  , /*decltype(_impl_.params_)*/{}
   , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.fstab_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -166,33 +164,24 @@ PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
   , /*decltype(_impl_.use_hugepages_)*/false
   , /*decltype(_impl_.memory_mib_)*/0u
   , /*decltype(_impl_.rootfs_block_size_)*/0u
-  , /*decltype(_impl_.use_per_vm_core_scheduling_)*/false
-  , /*decltype(_impl_.enable_consumer_auto_update_toggle_)*/false
-  , /*decltype(_impl_.lock_guest_memory_)*/false
-  , /*decltype(_impl_.enable_arc_file_picker_experiment_)*/false
   , /*decltype(_impl_.panel_orientation_)*/0
-  , /*decltype(_impl_.enable_custom_tabs_experiment_)*/false
+  , /*decltype(_impl_.use_per_vm_core_scheduling_)*/false
+  , /*decltype(_impl_.lock_guest_memory_)*/false
   , /*decltype(_impl_.enable_keyboard_shortcut_helper_integration_)*/false
-  , /*decltype(_impl_.enable_notifications_refresh_)*/false
-  , /*decltype(_impl_.enable_tts_caching_)*/false
-  , /*decltype(_impl_.logd_config_size_)*/0
-  , /*decltype(_impl_.enable_gmscore_lmk_protection_)*/false
   , /*decltype(_impl_.enable_broadcast_anr_prenotify_)*/false
-  , /*decltype(_impl_.enable_virtio_blk_data_)*/false
-  , /*decltype(_impl_.disable_media_store_maintenance_)*/false
+  , /*decltype(_impl_.logd_config_size_)*/0
   , /*decltype(_impl_.vm_memory_psi_period_)*/0
   , /*decltype(_impl_.guest_zram_size_)*/0
   , /*decltype(_impl_.guest_swappiness_)*/0
-  , /*decltype(_impl_.arc_generate_play_auto_install_)*/false
-  , /*decltype(_impl_.disable_download_provider_)*/false
-  , /*decltype(_impl_.update_o4c_list_via_a2c2_)*/false
-  , /*decltype(_impl_.enable_rw_)*/false
   , /*decltype(_impl_.mglru_reclaim_interval_)*/0
   , /*decltype(_impl_.mglru_reclaim_swappiness_)*/0
+  , /*decltype(_impl_.enable_virtio_blk_data_)*/false
+  , /*decltype(_impl_.update_o4c_list_via_a2c2_)*/false
+  , /*decltype(_impl_.enable_rw_)*/false
+  , /*decltype(_impl_.enable_web_view_zygote_lazy_init_)*/false
   , /*decltype(_impl_.usap_profile_)*/0
   , /*decltype(_impl_.native_bridge_experiment_)*/0
   , /*decltype(_impl_.ureadahead_mode_)*/0
-  , /*decltype(_impl_.enable_web_view_zygote_lazy_init_)*/false
   , /*decltype(_impl_.enable_vmm_swap_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StartArcVmRequestDefaultTypeInternal {
@@ -4048,7 +4037,6 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
     , decltype(_impl_.features_){from._impl_.features_}
     , /*decltype(_impl_._features_cached_byte_size_)*/{0}
     , decltype(_impl_.oem_strings_){from._impl_.oem_strings_}
-    , decltype(_impl_.shared_directory_){}
     , decltype(_impl_.name_){}
     , decltype(_impl_.owner_id_){}
     , decltype(_impl_.vm_username_){}
@@ -4071,14 +4059,6 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _impl_.shared_directory_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.shared_directory_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_shared_directory().empty()) {
-    _this->_impl_.shared_directory_.Set(from._internal_shared_directory(), 
-      _this->GetArenaForAllocation());
-  }
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.name_.Set("", GetArenaForAllocation());
@@ -4124,7 +4104,6 @@ inline void StartVmRequest::SharedCtor(
     , decltype(_impl_.features_){arena}
     , /*decltype(_impl_._features_cached_byte_size_)*/{0}
     , decltype(_impl_.oem_strings_){arena}
-    , decltype(_impl_.shared_directory_){}
     , decltype(_impl_.name_){}
     , decltype(_impl_.owner_id_){}
     , decltype(_impl_.vm_username_){}
@@ -4146,10 +4125,6 @@ inline void StartVmRequest::SharedCtor(
     , decltype(_impl_.vm_type_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
-  _impl_.shared_directory_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.shared_directory_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.name_.Set("", GetArenaForAllocation());
@@ -4180,7 +4155,6 @@ inline void StartVmRequest::SharedDtor() {
   _impl_.kernel_params_.~RepeatedPtrField();
   _impl_.features_.~RepeatedField();
   _impl_.oem_strings_.~RepeatedPtrField();
-  _impl_.shared_directory_.Destroy();
   _impl_.name_.Destroy();
   _impl_.owner_id_.Destroy();
   _impl_.vm_username_.Destroy();
@@ -4202,7 +4176,6 @@ void StartVmRequest::Clear() {
   _impl_.kernel_params_.Clear();
   _impl_.features_.Clear();
   _impl_.oem_strings_.Clear();
-  _impl_.shared_directory_.ClearToEmpty();
   _impl_.name_.ClearToEmpty();
   _impl_.owner_id_.ClearToEmpty();
   _impl_.vm_username_.ClearToEmpty();
@@ -4240,16 +4213,6 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // string shared_directory = 3 [deprecated = true];
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_shared_directory();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -4502,16 +4465,6 @@ uint8_t* StartVmRequest::_InternalSerialize(
         InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // string shared_directory = 3 [deprecated = true];
-  if (!this->_internal_shared_directory().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_shared_directory().data(), static_cast<int>(this->_internal_shared_directory().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.concierge.StartVmRequest.shared_directory");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_shared_directory(), target);
-  }
-
   // string name = 4;
   if (!this->_internal_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
@@ -4744,13 +4697,6 @@ size_t StartVmRequest::ByteSizeLong() const {
       _impl_.oem_strings_.Get(i));
   }
 
-  // string shared_directory = 3 [deprecated = true];
-  if (!this->_internal_shared_directory().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_shared_directory());
-  }
-
   // string name = 4;
   if (!this->_internal_name().empty()) {
     total_size += 1 +
@@ -4883,9 +4829,6 @@ void StartVmRequest::MergeFrom(const StartVmRequest& from) {
   _this->_impl_.kernel_params_.MergeFrom(from._impl_.kernel_params_);
   _this->_impl_.features_.MergeFrom(from._impl_.features_);
   _this->_impl_.oem_strings_.MergeFrom(from._impl_.oem_strings_);
-  if (!from._internal_shared_directory().empty()) {
-    _this->_internal_set_shared_directory(from._internal_shared_directory());
-  }
   if (!from._internal_name().empty()) {
     _this->_internal_set_name(from._internal_name());
   }
@@ -4968,10 +4911,6 @@ void StartVmRequest::InternalSwap(StartVmRequest* other) {
   _impl_.kernel_params_.InternalSwap(&other->_impl_.kernel_params_);
   _impl_.features_.InternalSwap(&other->_impl_.features_);
   _impl_.oem_strings_.InternalSwap(&other->_impl_.oem_strings_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.shared_directory_, lhs_arena,
-      &other->_impl_.shared_directory_, rhs_arena
-  );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.name_, lhs_arena,
       &other->_impl_.name_, rhs_arena
@@ -5494,7 +5433,6 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
   StartArcVmRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.disks_){from._impl_.disks_}
-    , decltype(_impl_.params_){from._impl_.params_}
     , decltype(_impl_.name_){}
     , decltype(_impl_.owner_id_){}
     , decltype(_impl_.fstab_){}
@@ -5507,33 +5445,24 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     , decltype(_impl_.use_hugepages_){}
     , decltype(_impl_.memory_mib_){}
     , decltype(_impl_.rootfs_block_size_){}
-    , decltype(_impl_.use_per_vm_core_scheduling_){}
-    , decltype(_impl_.enable_consumer_auto_update_toggle_){}
-    , decltype(_impl_.lock_guest_memory_){}
-    , decltype(_impl_.enable_arc_file_picker_experiment_){}
     , decltype(_impl_.panel_orientation_){}
-    , decltype(_impl_.enable_custom_tabs_experiment_){}
+    , decltype(_impl_.use_per_vm_core_scheduling_){}
+    , decltype(_impl_.lock_guest_memory_){}
     , decltype(_impl_.enable_keyboard_shortcut_helper_integration_){}
-    , decltype(_impl_.enable_notifications_refresh_){}
-    , decltype(_impl_.enable_tts_caching_){}
-    , decltype(_impl_.logd_config_size_){}
-    , decltype(_impl_.enable_gmscore_lmk_protection_){}
     , decltype(_impl_.enable_broadcast_anr_prenotify_){}
-    , decltype(_impl_.enable_virtio_blk_data_){}
-    , decltype(_impl_.disable_media_store_maintenance_){}
+    , decltype(_impl_.logd_config_size_){}
     , decltype(_impl_.vm_memory_psi_period_){}
     , decltype(_impl_.guest_zram_size_){}
     , decltype(_impl_.guest_swappiness_){}
-    , decltype(_impl_.arc_generate_play_auto_install_){}
-    , decltype(_impl_.disable_download_provider_){}
-    , decltype(_impl_.update_o4c_list_via_a2c2_){}
-    , decltype(_impl_.enable_rw_){}
     , decltype(_impl_.mglru_reclaim_interval_){}
     , decltype(_impl_.mglru_reclaim_swappiness_){}
+    , decltype(_impl_.enable_virtio_blk_data_){}
+    , decltype(_impl_.update_o4c_list_via_a2c2_){}
+    , decltype(_impl_.enable_rw_){}
+    , decltype(_impl_.enable_web_view_zygote_lazy_init_){}
     , decltype(_impl_.usap_profile_){}
     , decltype(_impl_.native_bridge_experiment_){}
     , decltype(_impl_.ureadahead_mode_){}
-    , decltype(_impl_.enable_web_view_zygote_lazy_init_){}
     , decltype(_impl_.enable_vmm_swap_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -5580,7 +5509,6 @@ inline void StartArcVmRequest::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.disks_){arena}
-    , decltype(_impl_.params_){arena}
     , decltype(_impl_.name_){}
     , decltype(_impl_.owner_id_){}
     , decltype(_impl_.fstab_){}
@@ -5593,33 +5521,24 @@ inline void StartArcVmRequest::SharedCtor(
     , decltype(_impl_.use_hugepages_){false}
     , decltype(_impl_.memory_mib_){0u}
     , decltype(_impl_.rootfs_block_size_){0u}
-    , decltype(_impl_.use_per_vm_core_scheduling_){false}
-    , decltype(_impl_.enable_consumer_auto_update_toggle_){false}
-    , decltype(_impl_.lock_guest_memory_){false}
-    , decltype(_impl_.enable_arc_file_picker_experiment_){false}
     , decltype(_impl_.panel_orientation_){0}
-    , decltype(_impl_.enable_custom_tabs_experiment_){false}
+    , decltype(_impl_.use_per_vm_core_scheduling_){false}
+    , decltype(_impl_.lock_guest_memory_){false}
     , decltype(_impl_.enable_keyboard_shortcut_helper_integration_){false}
-    , decltype(_impl_.enable_notifications_refresh_){false}
-    , decltype(_impl_.enable_tts_caching_){false}
-    , decltype(_impl_.logd_config_size_){0}
-    , decltype(_impl_.enable_gmscore_lmk_protection_){false}
     , decltype(_impl_.enable_broadcast_anr_prenotify_){false}
-    , decltype(_impl_.enable_virtio_blk_data_){false}
-    , decltype(_impl_.disable_media_store_maintenance_){false}
+    , decltype(_impl_.logd_config_size_){0}
     , decltype(_impl_.vm_memory_psi_period_){0}
     , decltype(_impl_.guest_zram_size_){0}
     , decltype(_impl_.guest_swappiness_){0}
-    , decltype(_impl_.arc_generate_play_auto_install_){false}
-    , decltype(_impl_.disable_download_provider_){false}
-    , decltype(_impl_.update_o4c_list_via_a2c2_){false}
-    , decltype(_impl_.enable_rw_){false}
     , decltype(_impl_.mglru_reclaim_interval_){0}
     , decltype(_impl_.mglru_reclaim_swappiness_){0}
+    , decltype(_impl_.enable_virtio_blk_data_){false}
+    , decltype(_impl_.update_o4c_list_via_a2c2_){false}
+    , decltype(_impl_.enable_rw_){false}
+    , decltype(_impl_.enable_web_view_zygote_lazy_init_){false}
     , decltype(_impl_.usap_profile_){0}
     , decltype(_impl_.native_bridge_experiment_){0}
     , decltype(_impl_.ureadahead_mode_){0}
-    , decltype(_impl_.enable_web_view_zygote_lazy_init_){false}
     , decltype(_impl_.enable_vmm_swap_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -5649,7 +5568,6 @@ StartArcVmRequest::~StartArcVmRequest() {
 inline void StartArcVmRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.disks_.~RepeatedPtrField();
-  _impl_.params_.~RepeatedPtrField();
   _impl_.name_.Destroy();
   _impl_.owner_id_.Destroy();
   _impl_.fstab_.Destroy();
@@ -5668,7 +5586,6 @@ void StartArcVmRequest::Clear() {
   (void) cached_has_bits;
 
   _impl_.disks_.Clear();
-  _impl_.params_.Clear();
   _impl_.name_.ClearToEmpty();
   _impl_.owner_id_.ClearToEmpty();
   _impl_.fstab_.ClearToEmpty();
@@ -5730,21 +5647,6 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated string params = 5 [deprecated = true];
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            auto str = _internal_add_params();
-            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(ptr);
-            CHK_(::_pbi::VerifyUTF8(str, nullptr));
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -5822,14 +5724,6 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // bool enable_consumer_auto_update_toggle = 16 [deprecated = true];
-      case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
-          _impl_.enable_consumer_auto_update_toggle_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // .vm_tools.concierge.StartArcVmRequest.DisplayOrientation panel_orientation = 17;
       case 17:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
@@ -5847,50 +5741,10 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // bool enable_arc_file_picker_experiment = 19 [deprecated = true];
-      case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 152)) {
-          _impl_.enable_arc_file_picker_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool enable_custom_tabs_experiment = 20 [deprecated = true];
-      case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
-          _impl_.enable_custom_tabs_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // bool enable_keyboard_shortcut_helper_integration = 21;
       case 21:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
           _impl_.enable_keyboard_shortcut_helper_integration_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool enable_notifications_refresh = 22 [deprecated = true];
-      case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
-          _impl_.enable_notifications_refresh_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool enable_tts_caching = 23 [deprecated = true];
-      case 23:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
-          _impl_.enable_tts_caching_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool enable_gmscore_lmk_protection = 24 [deprecated = true];
-      case 24:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 192)) {
-          _impl_.enable_gmscore_lmk_protection_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5923,30 +5777,6 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 28:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
           _impl_.vm_memory_psi_period_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool disable_media_store_maintenance = 29 [deprecated = true];
-      case 29:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 232)) {
-          _impl_.disable_media_store_maintenance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool arc_generate_play_auto_install = 30 [deprecated = true];
-      case 30:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 240)) {
-          _impl_.arc_generate_play_auto_install_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool disable_download_provider = 31 [deprecated = true];
-      case 31:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 248)) {
-          _impl_.disable_download_provider_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6114,16 +5944,6 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
         4, this->_internal_owner_id(), target);
   }
 
-  // repeated string params = 5 [deprecated = true];
-  for (int i = 0, n = this->_internal_params_size(); i < n; i++) {
-    const auto& s = this->_internal_params(i);
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      s.data(), static_cast<int>(s.length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "vm_tools.concierge.StartArcVmRequest.params");
-    target = stream->WriteString(5, s, target);
-  }
-
   // string fstab = 6;
   if (!this->_internal_fstab().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
@@ -6182,12 +6002,6 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(15, this->_internal_rootfs_block_size(), target);
   }
 
-  // bool enable_consumer_auto_update_toggle = 16 [deprecated = true];
-  if (this->_internal_enable_consumer_auto_update_toggle() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(16, this->_internal_enable_consumer_auto_update_toggle(), target);
-  }
-
   // .vm_tools.concierge.StartArcVmRequest.DisplayOrientation panel_orientation = 17;
   if (this->_internal_panel_orientation() != 0) {
     target = stream->EnsureSpace(target);
@@ -6201,40 +6015,10 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(18, this->_internal_lock_guest_memory(), target);
   }
 
-  // bool enable_arc_file_picker_experiment = 19 [deprecated = true];
-  if (this->_internal_enable_arc_file_picker_experiment() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(19, this->_internal_enable_arc_file_picker_experiment(), target);
-  }
-
-  // bool enable_custom_tabs_experiment = 20 [deprecated = true];
-  if (this->_internal_enable_custom_tabs_experiment() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(20, this->_internal_enable_custom_tabs_experiment(), target);
-  }
-
   // bool enable_keyboard_shortcut_helper_integration = 21;
   if (this->_internal_enable_keyboard_shortcut_helper_integration() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(21, this->_internal_enable_keyboard_shortcut_helper_integration(), target);
-  }
-
-  // bool enable_notifications_refresh = 22 [deprecated = true];
-  if (this->_internal_enable_notifications_refresh() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(22, this->_internal_enable_notifications_refresh(), target);
-  }
-
-  // bool enable_tts_caching = 23 [deprecated = true];
-  if (this->_internal_enable_tts_caching() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(23, this->_internal_enable_tts_caching(), target);
-  }
-
-  // bool enable_gmscore_lmk_protection = 24 [deprecated = true];
-  if (this->_internal_enable_gmscore_lmk_protection() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(24, this->_internal_enable_gmscore_lmk_protection(), target);
   }
 
   // bool enable_broadcast_anr_prenotify = 25;
@@ -6259,24 +6043,6 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
   if (this->_internal_vm_memory_psi_period() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(28, this->_internal_vm_memory_psi_period(), target);
-  }
-
-  // bool disable_media_store_maintenance = 29 [deprecated = true];
-  if (this->_internal_disable_media_store_maintenance() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(29, this->_internal_disable_media_store_maintenance(), target);
-  }
-
-  // bool arc_generate_play_auto_install = 30 [deprecated = true];
-  if (this->_internal_arc_generate_play_auto_install() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(30, this->_internal_arc_generate_play_auto_install(), target);
-  }
-
-  // bool disable_download_provider = 31 [deprecated = true];
-  if (this->_internal_disable_download_provider() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(31, this->_internal_disable_download_provider(), target);
   }
 
   // int32 guest_zram_size = 32;
@@ -6378,14 +6144,6 @@ size_t StartArcVmRequest::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated string params = 5 [deprecated = true];
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.params_.size());
-  for (int i = 0, n = _impl_.params_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      _impl_.params_.Get(i));
-  }
-
   // string name = 3;
   if (!this->_internal_name().empty()) {
     total_size += 1 +
@@ -6456,34 +6214,19 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_rootfs_block_size());
   }
 
-  // bool use_per_vm_core_scheduling = 14;
-  if (this->_internal_use_per_vm_core_scheduling() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // bool enable_consumer_auto_update_toggle = 16 [deprecated = true];
-  if (this->_internal_enable_consumer_auto_update_toggle() != 0) {
-    total_size += 2 + 1;
-  }
-
-  // bool lock_guest_memory = 18;
-  if (this->_internal_lock_guest_memory() != 0) {
-    total_size += 2 + 1;
-  }
-
-  // bool enable_arc_file_picker_experiment = 19 [deprecated = true];
-  if (this->_internal_enable_arc_file_picker_experiment() != 0) {
-    total_size += 2 + 1;
-  }
-
   // .vm_tools.concierge.StartArcVmRequest.DisplayOrientation panel_orientation = 17;
   if (this->_internal_panel_orientation() != 0) {
     total_size += 2 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_panel_orientation());
   }
 
-  // bool enable_custom_tabs_experiment = 20 [deprecated = true];
-  if (this->_internal_enable_custom_tabs_experiment() != 0) {
+  // bool use_per_vm_core_scheduling = 14;
+  if (this->_internal_use_per_vm_core_scheduling() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool lock_guest_memory = 18;
+  if (this->_internal_lock_guest_memory() != 0) {
     total_size += 2 + 1;
   }
 
@@ -6492,13 +6235,8 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // bool enable_notifications_refresh = 22 [deprecated = true];
-  if (this->_internal_enable_notifications_refresh() != 0) {
-    total_size += 2 + 1;
-  }
-
-  // bool enable_tts_caching = 23 [deprecated = true];
-  if (this->_internal_enable_tts_caching() != 0) {
+  // bool enable_broadcast_anr_prenotify = 25;
+  if (this->_internal_enable_broadcast_anr_prenotify() != 0) {
     total_size += 2 + 1;
   }
 
@@ -6507,26 +6245,6 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 +
       ::_pbi::WireFormatLite::Int32Size(
         this->_internal_logd_config_size());
-  }
-
-  // bool enable_gmscore_lmk_protection = 24 [deprecated = true];
-  if (this->_internal_enable_gmscore_lmk_protection() != 0) {
-    total_size += 2 + 1;
-  }
-
-  // bool enable_broadcast_anr_prenotify = 25;
-  if (this->_internal_enable_broadcast_anr_prenotify() != 0) {
-    total_size += 2 + 1;
-  }
-
-  // bool enable_virtio_blk_data = 27;
-  if (this->_internal_enable_virtio_blk_data() != 0) {
-    total_size += 2 + 1;
-  }
-
-  // bool disable_media_store_maintenance = 29 [deprecated = true];
-  if (this->_internal_disable_media_store_maintenance() != 0) {
-    total_size += 2 + 1;
   }
 
   // int32 vm_memory_psi_period = 28;
@@ -6550,13 +6268,22 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         this->_internal_guest_swappiness());
   }
 
-  // bool arc_generate_play_auto_install = 30 [deprecated = true];
-  if (this->_internal_arc_generate_play_auto_install() != 0) {
-    total_size += 2 + 1;
+  // int32 mglru_reclaim_interval = 35;
+  if (this->_internal_mglru_reclaim_interval() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_mglru_reclaim_interval());
   }
 
-  // bool disable_download_provider = 31 [deprecated = true];
-  if (this->_internal_disable_download_provider() != 0) {
+  // int32 mglru_reclaim_swappiness = 36;
+  if (this->_internal_mglru_reclaim_swappiness() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_mglru_reclaim_swappiness());
+  }
+
+  // bool enable_virtio_blk_data = 27;
+  if (this->_internal_enable_virtio_blk_data() != 0) {
     total_size += 2 + 1;
   }
 
@@ -6570,18 +6297,9 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // int32 mglru_reclaim_interval = 35;
-  if (this->_internal_mglru_reclaim_interval() != 0) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::Int32Size(
-        this->_internal_mglru_reclaim_interval());
-  }
-
-  // int32 mglru_reclaim_swappiness = 36;
-  if (this->_internal_mglru_reclaim_swappiness() != 0) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::Int32Size(
-        this->_internal_mglru_reclaim_swappiness());
+  // bool enable_web_view_zygote_lazy_init = 42;
+  if (this->_internal_enable_web_view_zygote_lazy_init() != 0) {
+    total_size += 2 + 1;
   }
 
   // .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
@@ -6600,11 +6318,6 @@ size_t StartArcVmRequest::ByteSizeLong() const {
   if (this->_internal_ureadahead_mode() != 0) {
     total_size += 2 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_ureadahead_mode());
-  }
-
-  // bool enable_web_view_zygote_lazy_init = 42;
-  if (this->_internal_enable_web_view_zygote_lazy_init() != 0) {
-    total_size += 2 + 1;
   }
 
   // bool enable_vmm_swap = 43;
@@ -6634,7 +6347,6 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   (void) cached_has_bits;
 
   _this->_impl_.disks_.MergeFrom(from._impl_.disks_);
-  _this->_impl_.params_.MergeFrom(from._impl_.params_);
   if (!from._internal_name().empty()) {
     _this->_internal_set_name(from._internal_name());
   }
@@ -6673,47 +6385,23 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_rootfs_block_size() != 0) {
     _this->_internal_set_rootfs_block_size(from._internal_rootfs_block_size());
   }
+  if (from._internal_panel_orientation() != 0) {
+    _this->_internal_set_panel_orientation(from._internal_panel_orientation());
+  }
   if (from._internal_use_per_vm_core_scheduling() != 0) {
     _this->_internal_set_use_per_vm_core_scheduling(from._internal_use_per_vm_core_scheduling());
-  }
-  if (from._internal_enable_consumer_auto_update_toggle() != 0) {
-    _this->_internal_set_enable_consumer_auto_update_toggle(from._internal_enable_consumer_auto_update_toggle());
   }
   if (from._internal_lock_guest_memory() != 0) {
     _this->_internal_set_lock_guest_memory(from._internal_lock_guest_memory());
   }
-  if (from._internal_enable_arc_file_picker_experiment() != 0) {
-    _this->_internal_set_enable_arc_file_picker_experiment(from._internal_enable_arc_file_picker_experiment());
-  }
-  if (from._internal_panel_orientation() != 0) {
-    _this->_internal_set_panel_orientation(from._internal_panel_orientation());
-  }
-  if (from._internal_enable_custom_tabs_experiment() != 0) {
-    _this->_internal_set_enable_custom_tabs_experiment(from._internal_enable_custom_tabs_experiment());
-  }
   if (from._internal_enable_keyboard_shortcut_helper_integration() != 0) {
     _this->_internal_set_enable_keyboard_shortcut_helper_integration(from._internal_enable_keyboard_shortcut_helper_integration());
-  }
-  if (from._internal_enable_notifications_refresh() != 0) {
-    _this->_internal_set_enable_notifications_refresh(from._internal_enable_notifications_refresh());
-  }
-  if (from._internal_enable_tts_caching() != 0) {
-    _this->_internal_set_enable_tts_caching(from._internal_enable_tts_caching());
-  }
-  if (from._internal_logd_config_size() != 0) {
-    _this->_internal_set_logd_config_size(from._internal_logd_config_size());
-  }
-  if (from._internal_enable_gmscore_lmk_protection() != 0) {
-    _this->_internal_set_enable_gmscore_lmk_protection(from._internal_enable_gmscore_lmk_protection());
   }
   if (from._internal_enable_broadcast_anr_prenotify() != 0) {
     _this->_internal_set_enable_broadcast_anr_prenotify(from._internal_enable_broadcast_anr_prenotify());
   }
-  if (from._internal_enable_virtio_blk_data() != 0) {
-    _this->_internal_set_enable_virtio_blk_data(from._internal_enable_virtio_blk_data());
-  }
-  if (from._internal_disable_media_store_maintenance() != 0) {
-    _this->_internal_set_disable_media_store_maintenance(from._internal_disable_media_store_maintenance());
+  if (from._internal_logd_config_size() != 0) {
+    _this->_internal_set_logd_config_size(from._internal_logd_config_size());
   }
   if (from._internal_vm_memory_psi_period() != 0) {
     _this->_internal_set_vm_memory_psi_period(from._internal_vm_memory_psi_period());
@@ -6724,11 +6412,14 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_guest_swappiness() != 0) {
     _this->_internal_set_guest_swappiness(from._internal_guest_swappiness());
   }
-  if (from._internal_arc_generate_play_auto_install() != 0) {
-    _this->_internal_set_arc_generate_play_auto_install(from._internal_arc_generate_play_auto_install());
+  if (from._internal_mglru_reclaim_interval() != 0) {
+    _this->_internal_set_mglru_reclaim_interval(from._internal_mglru_reclaim_interval());
   }
-  if (from._internal_disable_download_provider() != 0) {
-    _this->_internal_set_disable_download_provider(from._internal_disable_download_provider());
+  if (from._internal_mglru_reclaim_swappiness() != 0) {
+    _this->_internal_set_mglru_reclaim_swappiness(from._internal_mglru_reclaim_swappiness());
+  }
+  if (from._internal_enable_virtio_blk_data() != 0) {
+    _this->_internal_set_enable_virtio_blk_data(from._internal_enable_virtio_blk_data());
   }
   if (from._internal_update_o4c_list_via_a2c2() != 0) {
     _this->_internal_set_update_o4c_list_via_a2c2(from._internal_update_o4c_list_via_a2c2());
@@ -6736,11 +6427,8 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_enable_rw() != 0) {
     _this->_internal_set_enable_rw(from._internal_enable_rw());
   }
-  if (from._internal_mglru_reclaim_interval() != 0) {
-    _this->_internal_set_mglru_reclaim_interval(from._internal_mglru_reclaim_interval());
-  }
-  if (from._internal_mglru_reclaim_swappiness() != 0) {
-    _this->_internal_set_mglru_reclaim_swappiness(from._internal_mglru_reclaim_swappiness());
+  if (from._internal_enable_web_view_zygote_lazy_init() != 0) {
+    _this->_internal_set_enable_web_view_zygote_lazy_init(from._internal_enable_web_view_zygote_lazy_init());
   }
   if (from._internal_usap_profile() != 0) {
     _this->_internal_set_usap_profile(from._internal_usap_profile());
@@ -6750,9 +6438,6 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   }
   if (from._internal_ureadahead_mode() != 0) {
     _this->_internal_set_ureadahead_mode(from._internal_ureadahead_mode());
-  }
-  if (from._internal_enable_web_view_zygote_lazy_init() != 0) {
-    _this->_internal_set_enable_web_view_zygote_lazy_init(from._internal_enable_web_view_zygote_lazy_init());
   }
   if (from._internal_enable_vmm_swap() != 0) {
     _this->_internal_set_enable_vmm_swap(from._internal_enable_vmm_swap());
@@ -6777,7 +6462,6 @@ void StartArcVmRequest::InternalSwap(StartArcVmRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.disks_.InternalSwap(&other->_impl_.disks_);
-  _impl_.params_.InternalSwap(&other->_impl_.params_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.name_, lhs_arena,
       &other->_impl_.name_, rhs_arena

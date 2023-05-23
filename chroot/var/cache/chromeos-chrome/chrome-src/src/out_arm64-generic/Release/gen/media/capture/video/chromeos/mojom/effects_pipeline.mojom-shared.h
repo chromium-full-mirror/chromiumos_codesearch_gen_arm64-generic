@@ -278,6 +278,15 @@ static_assert(
     return mojo::internal::Deserialize<::mojo_base::mojom::RelativeFilePathDataView>(
         pointer, output, message_);
   }
+  absl::optional<float> light_intensity() const {
+    if (data_->header_.version < 4) {
+      return absl::nullopt;
+    }
+
+    return data_->light_intensity_$flag
+        ? absl::make_optional(data_->light_intensity_$value)
+        : absl::nullopt;
+  }
  private:
   internal::EffectsConfig_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -447,6 +456,10 @@ struct Serializer<::cros::mojom::EffectsConfigDataView, MaybeConstUserType> {
         in_background_filepath, background_filepath_fragment);
     fragment->background_filepath.Set(
         background_filepath_fragment.is_null() ? nullptr : background_filepath_fragment.data());
+    fragment->light_intensity_$flag = Traits::light_intensity(input).has_value();
+    if (Traits::light_intensity(input).has_value()) {
+      fragment->light_intensity_$value = Traits::light_intensity(input).value();
+    }
   }
 
   static bool Deserialize(::cros::mojom::internal::EffectsConfig_Data* input,

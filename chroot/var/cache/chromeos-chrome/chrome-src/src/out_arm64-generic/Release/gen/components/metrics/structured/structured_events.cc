@@ -687,6 +687,72 @@ AppDiscovery_AppLauncherResultOpened& AppDiscovery_AppLauncherResultOpened::SetR
   return *this;
 }
 
+AppDiscovery_Browser_OmniboxInstallIconClicked::AppDiscovery_Browser_OmniboxInstallIconClicked() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_Browser_OmniboxInstallIconClicked",
+                               true) {}
+AppDiscovery_Browser_OmniboxInstallIconClicked::~AppDiscovery_Browser_OmniboxInstallIconClicked() = default;
+
+AppDiscovery_Browser_OmniboxInstallIconClicked& AppDiscovery_Browser_OmniboxInstallIconClicked::SetIPHShown(const int64_t value) {
+  AddMetric("IPHShown", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+AppDiscovery_Browser_AppInstallDialogShown::AppDiscovery_Browser_AppInstallDialogShown() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_Browser_AppInstallDialogShown",
+                               true) {}
+AppDiscovery_Browser_AppInstallDialogShown::~AppDiscovery_Browser_AppInstallDialogShown() = default;
+
+AppDiscovery_Browser_AppInstallDialogShown& AppDiscovery_Browser_AppInstallDialogShown::SetAppId(const std::string& value) {
+  AddMetric("AppId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+AppDiscovery_Browser_AppInstallDialogResult::AppDiscovery_Browser_AppInstallDialogResult() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_Browser_AppInstallDialogResult",
+                               true) {}
+AppDiscovery_Browser_AppInstallDialogResult::~AppDiscovery_Browser_AppInstallDialogResult() = default;
+
+AppDiscovery_Browser_AppInstallDialogResult& AppDiscovery_Browser_AppInstallDialogResult::SetWebAppInstallStatus(const int64_t value) {
+  AddMetric("WebAppInstallStatus", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+AppDiscovery_Browser_AppInstallDialogResult& AppDiscovery_Browser_AppInstallDialogResult::SetAppId(const std::string& value) {
+  AddMetric("AppId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+AppDiscovery_Browser_ClickInstallAppFromMenu::AppDiscovery_Browser_ClickInstallAppFromMenu() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_Browser_ClickInstallAppFromMenu",
+                               true) {}
+AppDiscovery_Browser_ClickInstallAppFromMenu::~AppDiscovery_Browser_ClickInstallAppFromMenu() = default;
+
+AppDiscovery_Browser_ClickInstallAppFromMenu& AppDiscovery_Browser_ClickInstallAppFromMenu::SetAppId(const std::string& value) {
+  AddMetric("AppId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+AppDiscovery_Browser_CreateShortcut::AppDiscovery_Browser_CreateShortcut() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_Browser_CreateShortcut",
+                               true) {}
+AppDiscovery_Browser_CreateShortcut::~AppDiscovery_Browser_CreateShortcut() = default;
+
+AppDiscovery_Browser_CreateShortcut& AppDiscovery_Browser_CreateShortcut::SetAppId(const std::string& value) {
+  AddMetric("AppId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
 UserLogin::UserLogin() :
   ::metrics::structured::Event("CrOSEvents",
                                "UserLogin",

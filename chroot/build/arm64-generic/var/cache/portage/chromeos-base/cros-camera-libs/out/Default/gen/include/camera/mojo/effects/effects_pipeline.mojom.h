@@ -108,6 +108,18 @@ class  EffectsConfig {
       SegmentationModel segmentation_model,
       ::mojo_base::mojom::RelativeFilePathPtr background_filepath);
 
+  EffectsConfig(
+      CameraEffect effect,
+      BlurLevel blur_level,
+      GpuApi segmentation_gpu_api,
+      uint16_t graph_max_frames_in_flight,
+      bool blur_enabled,
+      bool replace_enabled,
+      bool relight_enabled,
+      SegmentationModel segmentation_model,
+      ::mojo_base::mojom::RelativeFilePathPtr background_filepath,
+      absl::optional<float> light_intensity);
+
 EffectsConfig(const EffectsConfig&) = delete;
 EffectsConfig& operator=(const EffectsConfig&) = delete;
 
@@ -200,6 +212,8 @@ EffectsConfig& operator=(const EffectsConfig&) = delete;
   SegmentationModel segmentation_model;
   
   ::mojo_base::mojom::RelativeFilePathPtr background_filepath;
+  
+  absl::optional<float> light_intensity;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -241,7 +255,8 @@ EffectsConfigPtr EffectsConfig::Clone() const {
       mojo::Clone(replace_enabled),
       mojo::Clone(relight_enabled),
       mojo::Clone(segmentation_model),
-      mojo::Clone(background_filepath)
+      mojo::Clone(background_filepath),
+      mojo::Clone(light_intensity)
   );
 }
 
@@ -264,6 +279,8 @@ bool EffectsConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->segmentation_model, other_struct.segmentation_model))
     return false;
   if (!mojo::Equals(this->background_filepath, other_struct.background_filepath))
+    return false;
+  if (!mojo::Equals(this->light_intensity, other_struct.light_intensity))
     return false;
   return true;
 }
@@ -305,6 +322,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.background_filepath < rhs.background_filepath)
     return true;
   if (rhs.background_filepath < lhs.background_filepath)
+    return false;
+  if (lhs.light_intensity < rhs.light_intensity)
+    return true;
+  if (rhs.light_intensity < lhs.light_intensity)
     return false;
   return false;
 }
@@ -365,6 +386,11 @@ struct  StructTraits<::cros::mojom::EffectsConfig::DataView,
   static const decltype(::cros::mojom::EffectsConfig::background_filepath)& background_filepath(
       const ::cros::mojom::EffectsConfigPtr& input) {
     return input->background_filepath;
+  }
+
+  static decltype(::cros::mojom::EffectsConfig::light_intensity) light_intensity(
+      const ::cros::mojom::EffectsConfigPtr& input) {
+    return input->light_intensity;
   }
 
   static bool Read(::cros::mojom::EffectsConfig::DataView input, ::cros::mojom::EffectsConfigPtr* output);

@@ -167,6 +167,7 @@ bool EffectsConfig_Data::Validate(
     { 1, 24 },
     { 2, 32 },
     { 3, 40 },
+    { 4, 40 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -209,7 +210,7 @@ bool EffectsConfig_Data::Validate(
 }
 
 EffectsConfig_Data::EffectsConfig_Data()
-    : header_({sizeof(*this), 3}) {}
+    : header_({sizeof(*this), 4}) {}
 
 }  // namespace internal
 }  // namespace mojom

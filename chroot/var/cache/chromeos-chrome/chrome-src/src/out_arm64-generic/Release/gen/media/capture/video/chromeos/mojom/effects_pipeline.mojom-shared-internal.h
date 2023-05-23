@@ -166,9 +166,10 @@ class  EffectsConfig_Data {
   uint8_t blur_enabled : 1;
   uint8_t replace_enabled : 1;
   uint8_t relight_enabled : 1;
-  uint8_t pad6_[1];
+  uint8_t light_intensity_$flag : 1;
+  uint8_t pad7_[1];
   int32_t segmentation_model;
-  uint8_t pad7_[4];
+  float light_intensity_$value;
   mojo::internal::Pointer<::mojo_base::mojom::internal::RelativeFilePath_Data> background_filepath;
 
  private:

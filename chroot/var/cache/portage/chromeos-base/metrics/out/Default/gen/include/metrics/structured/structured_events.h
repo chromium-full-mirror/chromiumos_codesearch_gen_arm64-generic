@@ -15,7 +15,7 @@ namespace metrics {
 namespace structured {
 namespace events {
 
-constexpr uint64_t kProjectNameHashes[] = {UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
+constexpr uint64_t kProjectNameHashes[] = {UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(6962789877417678651), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
 
 namespace bluetooth {
 
@@ -854,6 +854,55 @@ class BRILLO_EXPORT UsbDeviceInfo final : public ::metrics::structured::EventBas
 };
 
 }  // namespace usb_device
+
+namespace usb_session {
+
+class BRILLO_EXPORT UsbSessionEvent final : public ::metrics::structured::EventBase {
+ public:
+  UsbSessionEvent();
+  ~UsbSessionEvent() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(16939735174067274714);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(6962789877417678651);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  UsbSessionEvent& SetBootId(const std::string& value);
+  std::string GetBootIdForTest() const;
+
+  static constexpr uint64_t kSystemTimeNameHash = UINT64_C(5430963162341175395);
+  UsbSessionEvent& SetSystemTime(const int64_t value);
+  int64_t GetSystemTimeForTest() const;
+
+  static constexpr uint64_t kActionNameHash = UINT64_C(21381969153622804);
+  UsbSessionEvent& SetAction(const int64_t value);
+  int64_t GetActionForTest() const;
+
+  static constexpr uint64_t kDeviceNumNameHash = UINT64_C(4313316212571108991);
+  UsbSessionEvent& SetDeviceNum(const int64_t value);
+  int64_t GetDeviceNumForTest() const;
+
+  static constexpr uint64_t kBusNumNameHash = UINT64_C(17302990436816966546);
+  UsbSessionEvent& SetBusNum(const int64_t value);
+  int64_t GetBusNumForTest() const;
+
+  static constexpr uint64_t kDepthNameHash = UINT64_C(7444545485412611639);
+  UsbSessionEvent& SetDepth(const int64_t value);
+  int64_t GetDepthForTest() const;
+
+  static constexpr uint64_t kVendorIdNameHash = UINT64_C(7982341394845147735);
+  UsbSessionEvent& SetVendorId(const int64_t value);
+  int64_t GetVendorIdForTest() const;
+
+  static constexpr uint64_t kProductIdNameHash = UINT64_C(3765840483194334735);
+  UsbSessionEvent& SetProductId(const int64_t value);
+  int64_t GetProductIdForTest() const;
+
+};
+
+}  // namespace usb_session
 
 namespace usb_error {
 
