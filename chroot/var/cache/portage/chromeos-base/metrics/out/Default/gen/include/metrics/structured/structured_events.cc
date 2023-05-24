@@ -1277,6 +1277,15 @@ int64_t UsbDeviceInfo::GetDeviceClassForTest() const {
   return GetIntMetricForTest(kDeviceClassNameHash);
 }
 
+UsbDeviceInfo& UsbDeviceInfo::SetInterfaceClass(const std::vector<int64_t>& value) {
+  AddIntArrayMetric(kInterfaceClassNameHash, value, UsbDeviceInfo::GetInterfaceClassMaxLength());
+  return *this;
+}
+
+std::vector<int64_t> UsbDeviceInfo::GetInterfaceClassForTest() const {
+  return GetIntArrayMetricForTest(kInterfaceClassNameHash);
+}
+
 }  // namespace usb_device
 
 namespace usb_session {
@@ -1439,6 +1448,103 @@ int64_t XhciError::GetDeviceClassForTest() const {
 }
 
 }  // namespace usb_error
+
+namespace usb_pd_device {
+
+UsbPdDeviceInfo::UsbPdDeviceInfo() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+UsbPdDeviceInfo::~UsbPdDeviceInfo() = default;
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetVendorId(const int64_t value) {
+  AddIntMetric(kVendorIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetProductId(const int64_t value) {
+  AddIntMetric(kProductIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetExitId(const int64_t value) {
+  AddIntMetric(kExitIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetExitIdForTest() const {
+  return GetIntMetricForTest(kExitIdNameHash);
+}
+
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetSupportsPd(const int64_t value) {
+  AddIntMetric(kSupportsPdNameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetSupportsPdForTest() const {
+  return GetIntMetricForTest(kSupportsPdNameHash);
+}
+
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetSupportsUsb(const int64_t value) {
+  AddIntMetric(kSupportsUsbNameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetSupportsUsbForTest() const {
+  return GetIntMetricForTest(kSupportsUsbNameHash);
+}
+
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetSupportsDp(const int64_t value) {
+  AddIntMetric(kSupportsDpNameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetSupportsDpForTest() const {
+  return GetIntMetricForTest(kSupportsDpNameHash);
+}
+
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetSupportsTbt(const int64_t value) {
+  AddIntMetric(kSupportsTbtNameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetSupportsTbtForTest() const {
+  return GetIntMetricForTest(kSupportsTbtNameHash);
+}
+
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetSupportsUsb4(const int64_t value) {
+  AddIntMetric(kSupportsUsb4NameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetSupportsUsb4ForTest() const {
+  return GetIntMetricForTest(kSupportsUsb4NameHash);
+}
+
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetDataRole(const int64_t value) {
+  AddIntMetric(kDataRoleNameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetDataRoleForTest() const {
+  return GetIntMetricForTest(kDataRoleNameHash);
+}
+
+UsbPdDeviceInfo& UsbPdDeviceInfo::SetPowerRole(const int64_t value) {
+  AddIntMetric(kPowerRoleNameHash, value);
+  return *this;
+}
+
+int64_t UsbPdDeviceInfo::GetPowerRoleForTest() const {
+  return GetIntMetricForTest(kPowerRoleNameHash);
+}
+
+}  // namespace usb_pd_device
 
 namespace wi_fi_chipset {
 

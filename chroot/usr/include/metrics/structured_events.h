@@ -15,7 +15,7 @@ namespace metrics {
 namespace structured {
 namespace events {
 
-constexpr uint64_t kProjectNameHashes[] = {UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(6962789877417678651), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
+constexpr uint64_t kProjectNameHashes[] = {UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(17319042894491683836), UINT64_C(6962789877417678651), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
 
 namespace bluetooth {
 
@@ -851,6 +851,11 @@ class BRILLO_EXPORT UsbDeviceInfo final : public ::metrics::structured::EventBas
   UsbDeviceInfo& SetDeviceClass(const int64_t value);
   int64_t GetDeviceClassForTest() const;
 
+  static constexpr uint64_t kInterfaceClassNameHash = UINT64_C(12001184715823272983);
+  UsbDeviceInfo& SetInterfaceClass(const std::vector<int64_t>& value);
+  std::vector<int64_t> GetInterfaceClassForTest() const;
+
+  static constexpr size_t GetInterfaceClassMaxLength() { return 20; }
 };
 
 }  // namespace usb_device
@@ -965,6 +970,63 @@ class BRILLO_EXPORT XhciError final : public ::metrics::structured::EventBase {
 };
 
 }  // namespace usb_error
+
+namespace usb_pd_device {
+
+class BRILLO_EXPORT UsbPdDeviceInfo final : public ::metrics::structured::EventBase {
+ public:
+  UsbPdDeviceInfo();
+  ~UsbPdDeviceInfo() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(6610304177916699452);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(17319042894491683836);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kVendorIdNameHash = UINT64_C(7982341394845147735);
+  UsbPdDeviceInfo& SetVendorId(const int64_t value);
+  int64_t GetVendorIdForTest() const;
+
+  static constexpr uint64_t kProductIdNameHash = UINT64_C(3765840483194334735);
+  UsbPdDeviceInfo& SetProductId(const int64_t value);
+  int64_t GetProductIdForTest() const;
+
+  static constexpr uint64_t kExitIdNameHash = UINT64_C(11655379151010180882);
+  UsbPdDeviceInfo& SetExitId(const int64_t value);
+  int64_t GetExitIdForTest() const;
+
+  static constexpr uint64_t kSupportsPdNameHash = UINT64_C(17289848008288868687);
+  UsbPdDeviceInfo& SetSupportsPd(const int64_t value);
+  int64_t GetSupportsPdForTest() const;
+
+  static constexpr uint64_t kSupportsUsbNameHash = UINT64_C(13399760579315956805);
+  UsbPdDeviceInfo& SetSupportsUsb(const int64_t value);
+  int64_t GetSupportsUsbForTest() const;
+
+  static constexpr uint64_t kSupportsDpNameHash = UINT64_C(13798410061272910073);
+  UsbPdDeviceInfo& SetSupportsDp(const int64_t value);
+  int64_t GetSupportsDpForTest() const;
+
+  static constexpr uint64_t kSupportsTbtNameHash = UINT64_C(12528891935362087128);
+  UsbPdDeviceInfo& SetSupportsTbt(const int64_t value);
+  int64_t GetSupportsTbtForTest() const;
+
+  static constexpr uint64_t kSupportsUsb4NameHash = UINT64_C(7126536801300421572);
+  UsbPdDeviceInfo& SetSupportsUsb4(const int64_t value);
+  int64_t GetSupportsUsb4ForTest() const;
+
+  static constexpr uint64_t kDataRoleNameHash = UINT64_C(15743573882883865695);
+  UsbPdDeviceInfo& SetDataRole(const int64_t value);
+  int64_t GetDataRoleForTest() const;
+
+  static constexpr uint64_t kPowerRoleNameHash = UINT64_C(13356246975574791150);
+  UsbPdDeviceInfo& SetPowerRole(const int64_t value);
+  int64_t GetPowerRoleForTest() const;
+
+};
+
+}  // namespace usb_pd_device
 
 namespace wi_fi_chipset {
 
