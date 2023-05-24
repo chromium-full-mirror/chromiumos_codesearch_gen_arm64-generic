@@ -235,5 +235,71 @@ TEST_F(GroundTruthTest, KeyboardDiagnosticEvent) {
   }
 }
 
+TEST_F(GroundTruthTest, HdmiEvent) {
+  std::vector<std::pair</*has-hdmi=*/std::string, /*supported=*/bool>>
+      test_combinations = {
+          {"true", true},
+          {"false", false},
+          {"Others", false},
+      };
+
+  // Test not set the cros_config first to simulate file not found.
+  ExpectEventUnsupported(mojom::EventCategoryEnum::kHdmi);
+
+  for (const auto& [has_hdmi, supported] : test_combinations) {
+    SetCrosConfig(cros_config_path::kHardwareProperties,
+                  cros_config_property::kHasHdmi, has_hdmi);
+    if (supported) {
+      ExpectEventSupported(mojom::EventCategoryEnum::kHdmi);
+    } else {
+      ExpectEventUnsupported(mojom::EventCategoryEnum::kHdmi);
+    }
+  }
+}
+
+TEST_F(GroundTruthTest, AudioJackEvent) {
+  std::vector<std::pair</*has-audio-jack=*/std::string, /*supported=*/bool>>
+      test_combinations = {
+          {"true", true},
+          {"false", false},
+          {"Others", false},
+      };
+
+  // Test not set the cros_config first to simulate file not found.
+  ExpectEventUnsupported(mojom::EventCategoryEnum::kAudioJack);
+
+  for (const auto& [has_audio_jack, supported] : test_combinations) {
+    SetCrosConfig(cros_config_path::kHardwareProperties,
+                  cros_config_property::kHasAudioJack, has_audio_jack);
+    if (supported) {
+      ExpectEventSupported(mojom::EventCategoryEnum::kAudioJack);
+    } else {
+      ExpectEventUnsupported(mojom::EventCategoryEnum::kAudioJack);
+    }
+  }
+}
+
+TEST_F(GroundTruthTest, SdCardEvent) {
+  std::vector<std::pair</*has-sd-reader=*/std::string, /*supported=*/bool>>
+      test_combinations = {
+          {"true", true},
+          {"false", false},
+          {"Others", false},
+      };
+
+  // Test not set the cros_config first to simulate file not found.
+  ExpectEventUnsupported(mojom::EventCategoryEnum::kSdCard);
+
+  for (const auto& [has_sd_reader, supported] : test_combinations) {
+    SetCrosConfig(cros_config_path::kHardwareProperties,
+                  cros_config_property::kHasSdReader, has_sd_reader);
+    if (supported) {
+      ExpectEventSupported(mojom::EventCategoryEnum::kSdCard);
+    } else {
+      ExpectEventUnsupported(mojom::EventCategoryEnum::kSdCard);
+    }
+  }
+}
+
 }  // namespace
 }  // namespace diagnostics

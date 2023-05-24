@@ -63,6 +63,10 @@ class PatchPanelInterface {
       const patchpanel::TerminaVmShutdownRequest& in_request) = 0;
   virtual patchpanel::TerminaVmStartupResponse TerminaVmStartup(
       const patchpanel::TerminaVmStartupRequest& in_request) = 0;
+  virtual patchpanel::NotifyAndroidWifiMulticastLockChangeResponse NotifyAndroidWifiMulticastLockChange(
+      const patchpanel::NotifyAndroidWifiMulticastLockChangeRequest& in_request) = 0;
+  virtual patchpanel::NotifyAndroidInteractiveStateResponse NotifyAndroidInteractiveState(
+      const patchpanel::NotifyAndroidInteractiveStateRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::PatchPanel.
@@ -148,6 +152,14 @@ class PatchPanelAdaptor {
         "TerminaVmStartup",
         base::Unretained(interface_),
         &PatchPanelInterface::TerminaVmStartup);
+    itf->AddSimpleMethodHandler(
+        "NotifyAndroidWifiMulticastLockChange",
+        base::Unretained(interface_),
+        &PatchPanelInterface::NotifyAndroidWifiMulticastLockChange);
+    itf->AddSimpleMethodHandler(
+        "NotifyAndroidInteractiveState",
+        base::Unretained(interface_),
+        &PatchPanelInterface::NotifyAndroidInteractiveState);
 
     signal_NetworkDeviceChanged_ = itf->RegisterSignalOfType<SignalNetworkDeviceChangedType>("NetworkDeviceChanged");
     signal_NetworkConfigurationChanged_ = itf->RegisterSignalOfType<SignalNetworkConfigurationChangedType>("NetworkConfigurationChanged");
@@ -254,6 +266,14 @@ class PatchPanelAdaptor {
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"TerminaVmStartup\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"NotifyAndroidWifiMulticastLockChange\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"NotifyAndroidInteractiveState\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

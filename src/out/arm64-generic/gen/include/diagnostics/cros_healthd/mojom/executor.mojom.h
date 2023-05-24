@@ -445,6 +445,7 @@ class Executor
     kGetConnectedHdmiConnectorsMinVersion = 0,
     kGetPrivacyScreenInfoMinVersion = 0,
     kFetchDisplayInfoMinVersion = 0,
+    kFetchCrashFromCrashSenderMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -535,6 +536,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct FetchDisplayInfo_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct FetchCrashFromCrashSender_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -670,6 +674,11 @@ class Executor
   using FetchDisplayInfoCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::DisplayResultPtr)>;
   
   virtual void FetchDisplayInfo(FetchDisplayInfoCallback callback) = 0;
+
+
+  using FetchCrashFromCrashSenderCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
+  
+  virtual void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) = 0;
 };
 
 
@@ -846,6 +855,8 @@ class  ExecutorProxy
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) final;
   
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) final;
+  
+  void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

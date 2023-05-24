@@ -124,6 +124,18 @@ extern NetworkDeviceDefaultTypeInternal _NetworkDevice_default_instance_;
 class NetworkDeviceChangedSignal;
 struct NetworkDeviceChangedSignalDefaultTypeInternal;
 extern NetworkDeviceChangedSignalDefaultTypeInternal _NetworkDeviceChangedSignal_default_instance_;
+class NotifyAndroidInteractiveStateRequest;
+struct NotifyAndroidInteractiveStateRequestDefaultTypeInternal;
+extern NotifyAndroidInteractiveStateRequestDefaultTypeInternal _NotifyAndroidInteractiveStateRequest_default_instance_;
+class NotifyAndroidInteractiveStateResponse;
+struct NotifyAndroidInteractiveStateResponseDefaultTypeInternal;
+extern NotifyAndroidInteractiveStateResponseDefaultTypeInternal _NotifyAndroidInteractiveStateResponse_default_instance_;
+class NotifyAndroidWifiMulticastLockChangeRequest;
+struct NotifyAndroidWifiMulticastLockChangeRequestDefaultTypeInternal;
+extern NotifyAndroidWifiMulticastLockChangeRequestDefaultTypeInternal _NotifyAndroidWifiMulticastLockChangeRequest_default_instance_;
+class NotifyAndroidWifiMulticastLockChangeResponse;
+struct NotifyAndroidWifiMulticastLockChangeResponseDefaultTypeInternal;
+extern NotifyAndroidWifiMulticastLockChangeResponseDefaultTypeInternal _NotifyAndroidWifiMulticastLockChangeResponse_default_instance_;
 class ParallelsVmShutdownRequest;
 struct ParallelsVmShutdownRequestDefaultTypeInternal;
 extern ParallelsVmShutdownRequestDefaultTypeInternal _ParallelsVmShutdownRequest_default_instance_;
@@ -210,6 +222,10 @@ template<> ::patchpanel::NetworkClientInfo* Arena::CreateMaybeMessage<::patchpan
 template<> ::patchpanel::NetworkConfigurationChangedSignal* Arena::CreateMaybeMessage<::patchpanel::NetworkConfigurationChangedSignal>(Arena*);
 template<> ::patchpanel::NetworkDevice* Arena::CreateMaybeMessage<::patchpanel::NetworkDevice>(Arena*);
 template<> ::patchpanel::NetworkDeviceChangedSignal* Arena::CreateMaybeMessage<::patchpanel::NetworkDeviceChangedSignal>(Arena*);
+template<> ::patchpanel::NotifyAndroidInteractiveStateRequest* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidInteractiveStateRequest>(Arena*);
+template<> ::patchpanel::NotifyAndroidInteractiveStateResponse* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidInteractiveStateResponse>(Arena*);
+template<> ::patchpanel::NotifyAndroidWifiMulticastLockChangeRequest* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidWifiMulticastLockChangeRequest>(Arena*);
+template<> ::patchpanel::NotifyAndroidWifiMulticastLockChangeResponse* Arena::CreateMaybeMessage<::patchpanel::NotifyAndroidWifiMulticastLockChangeResponse>(Arena*);
 template<> ::patchpanel::ParallelsVmShutdownRequest* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmShutdownRequest>(Arena*);
 template<> ::patchpanel::ParallelsVmShutdownResponse* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmShutdownResponse>(Arena*);
 template<> ::patchpanel::ParallelsVmStartupRequest* Arena::CreateMaybeMessage<::patchpanel::ParallelsVmStartupRequest>(Arena*);
@@ -7874,6 +7890,500 @@ class DownstreamNetworkInfoResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_patchpanel_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class NotifyAndroidInteractiveStateRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NotifyAndroidInteractiveStateRequest) */ {
+ public:
+  inline NotifyAndroidInteractiveStateRequest() : NotifyAndroidInteractiveStateRequest(nullptr) {}
+  ~NotifyAndroidInteractiveStateRequest() override;
+  explicit PROTOBUF_CONSTEXPR NotifyAndroidInteractiveStateRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifyAndroidInteractiveStateRequest(const NotifyAndroidInteractiveStateRequest& from);
+  NotifyAndroidInteractiveStateRequest(NotifyAndroidInteractiveStateRequest&& from) noexcept
+    : NotifyAndroidInteractiveStateRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifyAndroidInteractiveStateRequest& operator=(const NotifyAndroidInteractiveStateRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifyAndroidInteractiveStateRequest& operator=(NotifyAndroidInteractiveStateRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const NotifyAndroidInteractiveStateRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifyAndroidInteractiveStateRequest* internal_default_instance() {
+    return reinterpret_cast<const NotifyAndroidInteractiveStateRequest*>(
+               &_NotifyAndroidInteractiveStateRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    46;
+
+  friend void swap(NotifyAndroidInteractiveStateRequest& a, NotifyAndroidInteractiveStateRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NotifyAndroidInteractiveStateRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifyAndroidInteractiveStateRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NotifyAndroidInteractiveStateRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NotifyAndroidInteractiveStateRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NotifyAndroidInteractiveStateRequest& from);
+  void MergeFrom(const NotifyAndroidInteractiveStateRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NotifyAndroidInteractiveStateRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.NotifyAndroidInteractiveStateRequest";
+  }
+  protected:
+  explicit NotifyAndroidInteractiveStateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kInteractiveFieldNumber = 1,
+  };
+  // bool interactive = 1;
+  void clear_interactive();
+  bool interactive() const;
+  void set_interactive(bool value);
+  private:
+  bool _internal_interactive() const;
+  void _internal_set_interactive(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:patchpanel.NotifyAndroidInteractiveStateRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    bool interactive_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NotifyAndroidInteractiveStateResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NotifyAndroidInteractiveStateResponse) */ {
+ public:
+  inline NotifyAndroidInteractiveStateResponse() : NotifyAndroidInteractiveStateResponse(nullptr) {}
+  ~NotifyAndroidInteractiveStateResponse() override;
+  explicit PROTOBUF_CONSTEXPR NotifyAndroidInteractiveStateResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifyAndroidInteractiveStateResponse(const NotifyAndroidInteractiveStateResponse& from);
+  NotifyAndroidInteractiveStateResponse(NotifyAndroidInteractiveStateResponse&& from) noexcept
+    : NotifyAndroidInteractiveStateResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifyAndroidInteractiveStateResponse& operator=(const NotifyAndroidInteractiveStateResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifyAndroidInteractiveStateResponse& operator=(NotifyAndroidInteractiveStateResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const NotifyAndroidInteractiveStateResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifyAndroidInteractiveStateResponse* internal_default_instance() {
+    return reinterpret_cast<const NotifyAndroidInteractiveStateResponse*>(
+               &_NotifyAndroidInteractiveStateResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    47;
+
+  friend void swap(NotifyAndroidInteractiveStateResponse& a, NotifyAndroidInteractiveStateResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NotifyAndroidInteractiveStateResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifyAndroidInteractiveStateResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NotifyAndroidInteractiveStateResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NotifyAndroidInteractiveStateResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NotifyAndroidInteractiveStateResponse& from);
+  void MergeFrom(const NotifyAndroidInteractiveStateResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NotifyAndroidInteractiveStateResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.NotifyAndroidInteractiveStateResponse";
+  }
+  protected:
+  explicit NotifyAndroidInteractiveStateResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:patchpanel.NotifyAndroidInteractiveStateResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NotifyAndroidWifiMulticastLockChangeRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NotifyAndroidWifiMulticastLockChangeRequest) */ {
+ public:
+  inline NotifyAndroidWifiMulticastLockChangeRequest() : NotifyAndroidWifiMulticastLockChangeRequest(nullptr) {}
+  ~NotifyAndroidWifiMulticastLockChangeRequest() override;
+  explicit PROTOBUF_CONSTEXPR NotifyAndroidWifiMulticastLockChangeRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifyAndroidWifiMulticastLockChangeRequest(const NotifyAndroidWifiMulticastLockChangeRequest& from);
+  NotifyAndroidWifiMulticastLockChangeRequest(NotifyAndroidWifiMulticastLockChangeRequest&& from) noexcept
+    : NotifyAndroidWifiMulticastLockChangeRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifyAndroidWifiMulticastLockChangeRequest& operator=(const NotifyAndroidWifiMulticastLockChangeRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifyAndroidWifiMulticastLockChangeRequest& operator=(NotifyAndroidWifiMulticastLockChangeRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const NotifyAndroidWifiMulticastLockChangeRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifyAndroidWifiMulticastLockChangeRequest* internal_default_instance() {
+    return reinterpret_cast<const NotifyAndroidWifiMulticastLockChangeRequest*>(
+               &_NotifyAndroidWifiMulticastLockChangeRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    48;
+
+  friend void swap(NotifyAndroidWifiMulticastLockChangeRequest& a, NotifyAndroidWifiMulticastLockChangeRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NotifyAndroidWifiMulticastLockChangeRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifyAndroidWifiMulticastLockChangeRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NotifyAndroidWifiMulticastLockChangeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NotifyAndroidWifiMulticastLockChangeRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NotifyAndroidWifiMulticastLockChangeRequest& from);
+  void MergeFrom(const NotifyAndroidWifiMulticastLockChangeRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NotifyAndroidWifiMulticastLockChangeRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.NotifyAndroidWifiMulticastLockChangeRequest";
+  }
+  protected:
+  explicit NotifyAndroidWifiMulticastLockChangeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kHeldFieldNumber = 1,
+  };
+  // bool held = 1;
+  void clear_held();
+  bool held() const;
+  void set_held(bool value);
+  private:
+  bool _internal_held() const;
+  void _internal_set_held(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:patchpanel.NotifyAndroidWifiMulticastLockChangeRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    bool held_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NotifyAndroidWifiMulticastLockChangeResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NotifyAndroidWifiMulticastLockChangeResponse) */ {
+ public:
+  inline NotifyAndroidWifiMulticastLockChangeResponse() : NotifyAndroidWifiMulticastLockChangeResponse(nullptr) {}
+  ~NotifyAndroidWifiMulticastLockChangeResponse() override;
+  explicit PROTOBUF_CONSTEXPR NotifyAndroidWifiMulticastLockChangeResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NotifyAndroidWifiMulticastLockChangeResponse(const NotifyAndroidWifiMulticastLockChangeResponse& from);
+  NotifyAndroidWifiMulticastLockChangeResponse(NotifyAndroidWifiMulticastLockChangeResponse&& from) noexcept
+    : NotifyAndroidWifiMulticastLockChangeResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline NotifyAndroidWifiMulticastLockChangeResponse& operator=(const NotifyAndroidWifiMulticastLockChangeResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NotifyAndroidWifiMulticastLockChangeResponse& operator=(NotifyAndroidWifiMulticastLockChangeResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const NotifyAndroidWifiMulticastLockChangeResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NotifyAndroidWifiMulticastLockChangeResponse* internal_default_instance() {
+    return reinterpret_cast<const NotifyAndroidWifiMulticastLockChangeResponse*>(
+               &_NotifyAndroidWifiMulticastLockChangeResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    49;
+
+  friend void swap(NotifyAndroidWifiMulticastLockChangeResponse& a, NotifyAndroidWifiMulticastLockChangeResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NotifyAndroidWifiMulticastLockChangeResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NotifyAndroidWifiMulticastLockChangeResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NotifyAndroidWifiMulticastLockChangeResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NotifyAndroidWifiMulticastLockChangeResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NotifyAndroidWifiMulticastLockChangeResponse& from);
+  void MergeFrom(const NotifyAndroidWifiMulticastLockChangeResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NotifyAndroidWifiMulticastLockChangeResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.NotifyAndroidWifiMulticastLockChangeResponse";
+  }
+  protected:
+  explicit NotifyAndroidWifiMulticastLockChangeResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:patchpanel.NotifyAndroidWifiMulticastLockChangeResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_patchpanel_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -12272,9 +12782,73 @@ DownstreamNetworkInfoResponse::clients_info() const {
   return _impl_.clients_info_;
 }
 
+// -------------------------------------------------------------------
+
+// NotifyAndroidInteractiveStateRequest
+
+// bool interactive = 1;
+inline void NotifyAndroidInteractiveStateRequest::clear_interactive() {
+  _impl_.interactive_ = false;
+}
+inline bool NotifyAndroidInteractiveStateRequest::_internal_interactive() const {
+  return _impl_.interactive_;
+}
+inline bool NotifyAndroidInteractiveStateRequest::interactive() const {
+  // @@protoc_insertion_point(field_get:patchpanel.NotifyAndroidInteractiveStateRequest.interactive)
+  return _internal_interactive();
+}
+inline void NotifyAndroidInteractiveStateRequest::_internal_set_interactive(bool value) {
+  
+  _impl_.interactive_ = value;
+}
+inline void NotifyAndroidInteractiveStateRequest::set_interactive(bool value) {
+  _internal_set_interactive(value);
+  // @@protoc_insertion_point(field_set:patchpanel.NotifyAndroidInteractiveStateRequest.interactive)
+}
+
+// -------------------------------------------------------------------
+
+// NotifyAndroidInteractiveStateResponse
+
+// -------------------------------------------------------------------
+
+// NotifyAndroidWifiMulticastLockChangeRequest
+
+// bool held = 1;
+inline void NotifyAndroidWifiMulticastLockChangeRequest::clear_held() {
+  _impl_.held_ = false;
+}
+inline bool NotifyAndroidWifiMulticastLockChangeRequest::_internal_held() const {
+  return _impl_.held_;
+}
+inline bool NotifyAndroidWifiMulticastLockChangeRequest::held() const {
+  // @@protoc_insertion_point(field_get:patchpanel.NotifyAndroidWifiMulticastLockChangeRequest.held)
+  return _internal_held();
+}
+inline void NotifyAndroidWifiMulticastLockChangeRequest::_internal_set_held(bool value) {
+  
+  _impl_.held_ = value;
+}
+inline void NotifyAndroidWifiMulticastLockChangeRequest::set_held(bool value) {
+  _internal_set_held(value);
+  // @@protoc_insertion_point(field_set:patchpanel.NotifyAndroidWifiMulticastLockChangeRequest.held)
+}
+
+// -------------------------------------------------------------------
+
+// NotifyAndroidWifiMulticastLockChangeResponse
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

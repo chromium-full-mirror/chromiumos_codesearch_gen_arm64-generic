@@ -59,6 +59,7 @@ constexpr uint32_t kExecutor_GetFioTestDirectoryFreeSpace_Name = 25;
 constexpr uint32_t kExecutor_GetConnectedHdmiConnectors_Name = 26;
 constexpr uint32_t kExecutor_GetPrivacyScreenInfo_Name = 27;
 constexpr uint32_t kExecutor_FetchDisplayInfo_Name = 28;
+constexpr uint32_t kExecutor_FetchCrashFromCrashSender_Name = 29;
 
 }  // namespace internal
 }  // namespace mojom

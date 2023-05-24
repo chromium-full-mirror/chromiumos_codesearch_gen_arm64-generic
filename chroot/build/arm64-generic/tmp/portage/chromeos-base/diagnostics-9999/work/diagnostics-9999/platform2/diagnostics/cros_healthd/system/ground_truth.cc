@@ -78,12 +78,38 @@ mojom::SupportStatusPtr GroundTruth::GetEventSupportStatus(
           WrapUnsupportedString(cros_config_property::kFormFactor, form_factor),
           nullptr));
     }
-    case mojom::EventCategoryEnum::kAudioJack:
-      return mojom::SupportStatus::NewSupported(mojom::Supported::New());
-    case mojom::EventCategoryEnum::kSdCard:
-      return mojom::SupportStatus::NewSupported(mojom::Supported::New());
-    case mojom::EventCategoryEnum::kHdmi:
-      return mojom::SupportStatus::NewSupported(mojom::Supported::New());
+    case mojom::EventCategoryEnum::kAudioJack: {
+      auto has_audio_jack = HasAudioJack();
+      if (has_audio_jack == "true") {
+        return mojom::SupportStatus::NewSupported(mojom::Supported::New());
+      }
+
+      return mojom::SupportStatus::NewUnsupported(mojom::Unsupported::New(
+          WrapUnsupportedString(cros_config_property::kHasAudioJack,
+                                has_audio_jack),
+          nullptr));
+    }
+    case mojom::EventCategoryEnum::kSdCard: {
+      auto has_sd_reader = HasSdReader();
+      if (has_sd_reader == "true") {
+        return mojom::SupportStatus::NewSupported(mojom::Supported::New());
+      }
+
+      return mojom::SupportStatus::NewUnsupported(mojom::Unsupported::New(
+          WrapUnsupportedString(cros_config_property::kHasSdReader,
+                                has_sd_reader),
+          nullptr));
+    }
+    case mojom::EventCategoryEnum::kHdmi: {
+      auto has_hdmi = HasHdmi();
+      if (has_hdmi == "true") {
+        return mojom::SupportStatus::NewSupported(mojom::Supported::New());
+      }
+
+      return mojom::SupportStatus::NewUnsupported(mojom::Unsupported::New(
+          WrapUnsupportedString(cros_config_property::kHasHdmi, has_hdmi),
+          nullptr));
+    }
     case mojom::EventCategoryEnum::kTouchscreen: {
       auto has_touchscreen = HasTouchscreen();
       if (has_touchscreen == "true") {
@@ -141,6 +167,21 @@ std::string GroundTruth::StylusCategory() {
 std::string GroundTruth::HasTouchscreen() {
   return ReadCrosConfig(cros_config_path::kHardwareProperties,
                         cros_config_property::kHasTouchscreen);
+}
+
+std::string GroundTruth::HasHdmi() {
+  return ReadCrosConfig(cros_config_path::kHardwareProperties,
+                        cros_config_property::kHasHdmi);
+}
+
+std::string GroundTruth::HasAudioJack() {
+  return ReadCrosConfig(cros_config_path::kHardwareProperties,
+                        cros_config_property::kHasAudioJack);
+}
+
+std::string GroundTruth::HasSdReader() {
+  return ReadCrosConfig(cros_config_path::kHardwareProperties,
+                        cros_config_property::kHasSdReader);
 }
 
 std::string GroundTruth::ReadCrosConfig(const std::string& path,

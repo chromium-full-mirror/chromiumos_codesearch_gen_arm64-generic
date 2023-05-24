@@ -172,6 +172,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) override;
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
+  void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -241,6 +242,9 @@ class  ExecutorAsyncWaiter {
   void FetchDisplayInfo(
       ::ash::cros_healthd::mojom::DisplayResultPtr* out_result);
   ::ash::cros_healthd::mojom::DisplayResultPtr FetchDisplayInfo();
+  void FetchCrashFromCrashSender(
+      ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr FetchCrashFromCrashSender();
 
  private:
   Executor* const proxy_;

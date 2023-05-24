@@ -1118,6 +1118,37 @@ class  Executor_FetchDisplayInfo_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_FetchDisplayInfo_ResponseParams_Data) == 24,
               "Bad sizeof(Executor_FetchDisplayInfo_ResponseParams_Data)");
+class  Executor_FetchCrashFromCrashSender_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_FetchCrashFromCrashSender_Params_Data>;
+
+  Executor_FetchCrashFromCrashSender_Params_Data();
+  ~Executor_FetchCrashFromCrashSender_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_FetchCrashFromCrashSender_Params_Data) == 8,
+              "Bad sizeof(Executor_FetchCrashFromCrashSender_Params_Data)");
+class  Executor_FetchCrashFromCrashSender_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_FetchCrashFromCrashSender_ResponseParams_Data>;
+
+  Executor_FetchCrashFromCrashSender_ResponseParams_Data();
+  ~Executor_FetchCrashFromCrashSender_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_FetchCrashFromCrashSender_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_FetchCrashFromCrashSender_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -2856,6 +2887,47 @@ class Executor_FetchDisplayInfo_ResponseParamsDataView {
 };
 
 
+class Executor_FetchCrashFromCrashSender_ParamsDataView {
+ public:
+  Executor_FetchCrashFromCrashSender_ParamsDataView() = default;
+
+  Executor_FetchCrashFromCrashSender_ParamsDataView(
+      internal::Executor_FetchCrashFromCrashSender_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_FetchCrashFromCrashSender_Params_Data* data_ = nullptr;
+};
+
+
+class Executor_FetchCrashFromCrashSender_ResponseParamsDataView {
+ public:
+  Executor_FetchCrashFromCrashSender_ResponseParamsDataView() = default;
+
+  Executor_FetchCrashFromCrashSender_ResponseParamsDataView(
+      internal::Executor_FetchCrashFromCrashSender_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ExecutedProcessResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_FetchCrashFromCrashSender_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -3146,6 +3218,15 @@ inline void Executor_FetchDisplayInfo_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::DisplayResultDataView* output) {
   auto pointer = &data_->result;
   *output = ::ash::cros_healthd::mojom::DisplayResultDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_FetchCrashFromCrashSender_ResponseParamsDataView::GetResultDataView(
+    ExecutedProcessResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = ExecutedProcessResultDataView(pointer, message_);
 }
 
 }  // namespace mojom
