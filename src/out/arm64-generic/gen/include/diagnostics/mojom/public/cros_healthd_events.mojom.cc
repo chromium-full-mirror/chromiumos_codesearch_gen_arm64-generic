@@ -1404,6 +1404,17 @@ void EventInfo::set_stylus_event_info(
         std::move(stylus_event_info));
   }
 }
+void EventInfo::set_crash_event_info(
+    CrashEventInfoPtr crash_event_info) {
+  if (tag_ == Tag::kCrashEventInfo) {
+    *(data_.crash_event_info) = std::move(crash_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCrashEventInfo;
+    data_.crash_event_info = new CrashEventInfoPtr(
+        std::move(crash_event_info));
+  }
+}
 
 void EventInfo::DestroyActive() {
   switch (tag_) {
@@ -1466,6 +1477,10 @@ void EventInfo::DestroyActive() {
     case Tag::kStylusEventInfo:
 
       delete data_.stylus_event_info;
+      break;
+    case Tag::kCrashEventInfo:
+
+      delete data_.crash_event_info;
       break;
   }
 }
@@ -4486,6 +4501,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
 
       *output = UnionType::NewStylusEventInfo(
           std::move(result_stylus_event_info));
+      break;
+    }
+    case Tag::kCrashEventInfo: {
+      ::ash::cros_healthd::mojom::CrashEventInfoPtr result_crash_event_info;
+      if (!input.ReadCrashEventInfo(&result_crash_event_info))
+        return false;
+
+      *output = UnionType::NewCrashEventInfo(
+          std::move(result_crash_event_info));
       break;
     }
     default:

@@ -157,13 +157,15 @@ inline bool IsKnownEnumValue(StressAppTestType value) {
 
 enum class Executor_File : int32_t {
   
-  kUEFISecureBootVariable = 0,
+  kCrashLog = 0,
   
-  kUEFIPlatformSize = 1,
+  kUEFISecureBootVariable = 1,
   
-  kWirelessPowerScheme = 2,
+  kUEFIPlatformSize = 2,
+  
+  kWirelessPowerScheme = 3,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
 };
 
  std::ostream& operator<<(std::ostream& os, Executor_File value);

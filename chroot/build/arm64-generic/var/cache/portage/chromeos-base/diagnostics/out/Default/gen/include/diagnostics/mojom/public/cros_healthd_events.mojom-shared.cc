@@ -86,6 +86,8 @@ NOINLINE static const char* EventCategoryEnumToStringHelper(EventCategoryEnum va
       return "kStylusGarage";
     case EventCategoryEnum::kStylus:
       return "kStylus";
+    case EventCategoryEnum::kCrash:
+      return "kCrash";
     default:
       return nullptr;
   }
@@ -784,6 +786,16 @@ bool EventInfo_Data::Validate(
       }
       if (!mojo::internal::ValidateNonInlinedUnion(object->data.f_stylus_event_info,
                                                    validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kCrashEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_crash_event_info, 16, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_crash_event_info, validation_context))
         return false;
       return true;
     }

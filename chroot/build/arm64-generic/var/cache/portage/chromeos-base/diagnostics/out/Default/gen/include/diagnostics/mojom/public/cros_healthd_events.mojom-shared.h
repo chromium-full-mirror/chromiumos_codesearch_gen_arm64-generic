@@ -338,8 +338,10 @@ enum class EventCategoryEnum : int32_t {
   kStylusGarage = 14,
   
   kStylus = 15,
+  
+  kCrash = 16,
   kMinValue = 0,
-  kMaxValue = 15,
+  kMaxValue = 16,
   kDefaultValue = 0
 };
 
@@ -1855,6 +1857,17 @@ class EventInfoDataView {
     CHECK(is_stylus_event_info());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusEventInfoDataView>(
         data_->data.f_stylus_event_info.Get(), output, message_);
+  }
+  bool is_crash_event_info() const { return data_->tag == Tag::kCrashEventInfo; }
+  inline void GetCrashEventInfoDataView(
+      CrashEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCrashEventInfo(UserType* output) const {
+    
+    CHECK(is_crash_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CrashEventInfoDataView>(
+        data_->data.f_crash_event_info.Get(), output, message_);
   }
 
  private:
@@ -3555,6 +3568,22 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kCrashEventInfo: {
+        decltype(Traits::crash_event_info(input))
+            in_crash_event_info = Traits::crash_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_crash_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CrashEventInfoDataView>(
+            in_crash_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null crash_event_info in EventInfo union");
+        fragment->data.f_crash_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -3813,6 +3842,11 @@ inline void EventInfoDataView::GetStylusEventInfoDataView(
     StylusEventInfoDataView* output) const {
   CHECK(is_stylus_event_info());
   *output = StylusEventInfoDataView(data_->data.f_stylus_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetCrashEventInfoDataView(
+    CrashEventInfoDataView* output) const {
+  CHECK(is_crash_event_info());
+  *output = CrashEventInfoDataView(data_->data.f_crash_event_info.Get(), message_);
 }
 
 

@@ -76,6 +76,8 @@ std::ostream& operator<<(std::ostream& os, StressAppTestType value) {
 NOINLINE static const char* Executor_FileToStringHelper(Executor_File value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
+    case Executor_File::kCrashLog:
+      return "kCrashLog";
     case Executor_File::kUEFISecureBootVariable:
       return "kUEFISecureBootVariable";
     case Executor_File::kUEFIPlatformSize:

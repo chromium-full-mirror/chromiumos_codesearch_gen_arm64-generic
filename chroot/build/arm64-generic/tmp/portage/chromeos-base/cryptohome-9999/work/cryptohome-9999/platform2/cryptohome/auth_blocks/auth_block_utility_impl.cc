@@ -66,19 +66,21 @@ AuthBlockUtilityImpl::AuthBlockUtilityImpl(
     Crypto* crypto,
     Platform* platform,
     AsyncInitFeatures* features,
+    AsyncInitPtr<ChallengeCredentialsHelper> challenge_credentials_helper,
+    KeyChallengeServiceFactory* key_challenge_service_factory,
     AsyncInitPtr<BiometricsAuthBlockService> bio_service)
     : keyset_management_(keyset_management),
       crypto_(crypto),
       platform_(platform),
       features_(features),
+      challenge_credentials_helper_(challenge_credentials_helper),
+      key_challenge_service_factory_(key_challenge_service_factory),
       bio_service_(bio_service) {
-  DCHECK(keyset_management);
+  DCHECK(keyset_management_);
   DCHECK(crypto_);
   DCHECK(platform_);
   DCHECK(features_);
 }
-
-AuthBlockUtilityImpl::~AuthBlockUtilityImpl() = default;
 
 bool AuthBlockUtilityImpl::GetLockedToSingleUser() const {
   return platform_->FileExists(base::FilePath(kLockedToSingleUserFile));
@@ -242,32 +244,6 @@ AuthBlockUtilityImpl::GetAuthBlockWithType(AuthBlockType auth_block_type,
         CryptoError::CE_OTHER_CRYPTO);
   }
   return auth_block;
-}
-
-void AuthBlockUtilityImpl::InitializeChallengeCredentialsHelper(
-    ChallengeCredentialsHelper* challenge_credentials_helper,
-    KeyChallengeServiceFactory* key_challenge_service_factory) {
-  if (!challenge_credentials_helper_) {
-    challenge_credentials_helper_ = challenge_credentials_helper;
-  } else {
-    LOG(WARNING) << "ChallengeCredentialsHelper already initialized in "
-                    "AuthBlockUtility.";
-  }
-  if (!key_challenge_service_factory_) {
-    key_challenge_service_factory_ = key_challenge_service_factory;
-  } else {
-    LOG(WARNING) << "KeyChallengeServiceFactory already initialized in "
-                    "AuthBlockUtility.";
-  }
-}
-
-bool AuthBlockUtilityImpl::IsChallengeCredentialReady(
-    const AuthInput& auth_input) const {
-  return (
-      challenge_credentials_helper_ != nullptr &&
-      key_challenge_service_factory_ != nullptr &&
-      auth_input.challenge_credential_auth_input &&
-      !auth_input.challenge_credential_auth_input->dbus_service_name.empty());
 }
 
 bool AuthBlockUtilityImpl::GetAuthBlockStateFromVaultKeyset(

@@ -102,6 +102,7 @@ struct EventCategoryEnum_Data {
       case 13:
       case 14:
       case 15:
+      case 16:
         return true;
     }
     return false;
@@ -655,6 +656,8 @@ class  EventInfo_Data {
     kStylusGarageEventInfo,
     
     kStylusEventInfo,
+    
+    kCrashEventInfo,
   };
 
   // A note on layout:
@@ -677,6 +680,7 @@ class  EventInfo_Data {
     mojo::internal::Pointer<internal::TouchscreenEventInfo_Data> f_touchscreen_event_info;
     mojo::internal::Pointer<internal::StylusGarageEventInfo_Data> f_stylus_garage_event_info;
     mojo::internal::Pointer<internal::StylusEventInfo_Data> f_stylus_event_info;
+    mojo::internal::Pointer<internal::CrashEventInfo_Data> f_crash_event_info;
     uint64_t unknown;
   };
 

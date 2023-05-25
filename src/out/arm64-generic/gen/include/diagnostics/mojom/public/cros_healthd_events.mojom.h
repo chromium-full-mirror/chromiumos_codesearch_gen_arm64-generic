@@ -3224,6 +3224,14 @@ class  EventInfo {
     result->set_stylus_event_info(std::move(stylus_event_info));
     return result;
   }
+  // Construct an instance holding |crash_event_info|.
+  static EventInfoPtr
+  NewCrashEventInfo(
+      CrashEventInfoPtr crash_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_crash_event_info(std::move(crash_event_info));
+    return result;
+  }
 
   template <typename U>
   static EventInfoPtr From(const U& u) {
@@ -3446,6 +3454,18 @@ class  EventInfo {
   
   void set_stylus_event_info(
       StylusEventInfoPtr stylus_event_info);
+  
+  bool is_crash_event_info() const { return tag_ == Tag::kCrashEventInfo; }
+
+  
+  CrashEventInfoPtr& get_crash_event_info() const {
+    CHECK(tag_ == Tag::kCrashEventInfo);
+    return *(data_.crash_event_info);
+  }
+
+  
+  void set_crash_event_info(
+      CrashEventInfoPtr crash_event_info);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -3479,6 +3499,7 @@ class  EventInfo {
     TouchscreenEventInfoPtr* touchscreen_event_info;
     StylusGarageEventInfoPtr* stylus_garage_event_info;
     StylusEventInfoPtr* stylus_event_info;
+    CrashEventInfoPtr* crash_event_info;
   };
 
   static bool Validate(const void* data,
@@ -5145,6 +5166,9 @@ EventInfoPtr EventInfo::Clone() const {
     case Tag::kStylusEventInfo:
       return NewStylusEventInfo(
           mojo::Clone(*data_.stylus_event_info));
+    case Tag::kCrashEventInfo:
+      return NewCrashEventInfo(
+          mojo::Clone(*data_.crash_event_info));
   }
   return nullptr;
 }
@@ -5187,6 +5211,8 @@ bool EventInfo::Equals(const T& other) const {
       return mojo::Equals(*(data_.stylus_garage_event_info), *(other.data_.stylus_garage_event_info));
     case Tag::kStylusEventInfo:
       return mojo::Equals(*(data_.stylus_event_info), *(other.data_.stylus_event_info));
+    case Tag::kCrashEventInfo:
+      return mojo::Equals(*(data_.crash_event_info), *(other.data_.crash_event_info));
   }
 
   return false;
@@ -6451,6 +6477,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView,
 
   static const ::ash::cros_healthd::mojom::StylusEventInfoPtr& stylus_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
     return input->get_stylus_event_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::CrashEventInfoPtr& crash_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_crash_event_info();
   }
 
   static bool Read(::ash::cros_healthd::mojom::EventInfo::DataView input, ::ash::cros_healthd::mojom::EventInfoPtr* output);
