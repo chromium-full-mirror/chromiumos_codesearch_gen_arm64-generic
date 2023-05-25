@@ -1365,16 +1365,18 @@ bool StartVmRequest_TerminaFeature_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> StartVmRequest_TerminaFeature_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> StartVmRequest_TerminaFeature_strings[6] = {};
 
 static const char StartVmRequest_TerminaFeature_names[] =
   "LXD_4_LTS"
+  "LXD_5_LTS"
   "RESET_LXD_ON_LAUNCH"
   "START_LXD"
   "UNKNOWN"
@@ -1382,18 +1384,20 @@ static const char StartVmRequest_TerminaFeature_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry StartVmRequest_TerminaFeature_entries[] = {
   { {StartVmRequest_TerminaFeature_names + 0, 9}, 4 },
-  { {StartVmRequest_TerminaFeature_names + 9, 19}, 3 },
-  { {StartVmRequest_TerminaFeature_names + 28, 9}, 2 },
-  { {StartVmRequest_TerminaFeature_names + 37, 7}, 0 },
-  { {StartVmRequest_TerminaFeature_names + 44, 13}, 1 },
+  { {StartVmRequest_TerminaFeature_names + 9, 9}, 5 },
+  { {StartVmRequest_TerminaFeature_names + 18, 19}, 3 },
+  { {StartVmRequest_TerminaFeature_names + 37, 9}, 2 },
+  { {StartVmRequest_TerminaFeature_names + 46, 7}, 0 },
+  { {StartVmRequest_TerminaFeature_names + 53, 13}, 1 },
 };
 
 static const int StartVmRequest_TerminaFeature_entries_by_number[] = {
-  3, // 0 -> UNKNOWN
-  4, // 1 -> USED_BY_TESTS
-  2, // 2 -> START_LXD
-  1, // 3 -> RESET_LXD_ON_LAUNCH
+  4, // 0 -> UNKNOWN
+  5, // 1 -> USED_BY_TESTS
+  3, // 2 -> START_LXD
+  2, // 3 -> RESET_LXD_ON_LAUNCH
   0, // 4 -> LXD_4_LTS
+  1, // 5 -> LXD_5_LTS
 };
 
 const std::string& StartVmRequest_TerminaFeature_Name(
@@ -1402,12 +1406,12 @@ const std::string& StartVmRequest_TerminaFeature_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           StartVmRequest_TerminaFeature_entries,
           StartVmRequest_TerminaFeature_entries_by_number,
-          5, StartVmRequest_TerminaFeature_strings);
+          6, StartVmRequest_TerminaFeature_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       StartVmRequest_TerminaFeature_entries,
       StartVmRequest_TerminaFeature_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      StartVmRequest_TerminaFeature_strings[idx].get();
 }
@@ -1415,7 +1419,7 @@ bool StartVmRequest_TerminaFeature_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartVmRequest_TerminaFeature* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      StartVmRequest_TerminaFeature_entries, 5, name, &int_value);
+      StartVmRequest_TerminaFeature_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<StartVmRequest_TerminaFeature>(int_value);
   }
@@ -1427,6 +1431,7 @@ constexpr StartVmRequest_TerminaFeature StartVmRequest::USED_BY_TESTS;
 constexpr StartVmRequest_TerminaFeature StartVmRequest::START_LXD;
 constexpr StartVmRequest_TerminaFeature StartVmRequest::RESET_LXD_ON_LAUNCH;
 constexpr StartVmRequest_TerminaFeature StartVmRequest::LXD_4_LTS;
+constexpr StartVmRequest_TerminaFeature StartVmRequest::LXD_5_LTS;
 constexpr StartVmRequest_TerminaFeature StartVmRequest::TerminaFeature_MIN;
 constexpr StartVmRequest_TerminaFeature StartVmRequest::TerminaFeature_MAX;
 constexpr int StartVmRequest::TerminaFeature_ARRAYSIZE;

@@ -97,6 +97,9 @@ SerializedHandle& operator=(const SerializedHandle&) = delete;
   template <typename T, SerializedHandle::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, SerializedHandle::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
@@ -233,6 +236,9 @@ NativeStruct& operator=(const NativeStruct&) = delete;
 
   template <typename T, NativeStruct::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, NativeStruct::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {

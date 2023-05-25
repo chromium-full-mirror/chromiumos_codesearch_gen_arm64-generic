@@ -407,13 +407,14 @@ enum StartVmRequest_TerminaFeature : int {
   StartVmRequest_TerminaFeature_USED_BY_TESTS = 1,
   StartVmRequest_TerminaFeature_START_LXD PROTOBUF_DEPRECATED_ENUM = 2,
   StartVmRequest_TerminaFeature_RESET_LXD_ON_LAUNCH PROTOBUF_DEPRECATED_ENUM = 3,
-  StartVmRequest_TerminaFeature_LXD_4_LTS = 4,
+  StartVmRequest_TerminaFeature_LXD_4_LTS PROTOBUF_DEPRECATED_ENUM = 4,
+  StartVmRequest_TerminaFeature_LXD_5_LTS = 5,
   StartVmRequest_TerminaFeature_StartVmRequest_TerminaFeature_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   StartVmRequest_TerminaFeature_StartVmRequest_TerminaFeature_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool StartVmRequest_TerminaFeature_IsValid(int value);
 constexpr StartVmRequest_TerminaFeature StartVmRequest_TerminaFeature_TerminaFeature_MIN = StartVmRequest_TerminaFeature_UNKNOWN;
-constexpr StartVmRequest_TerminaFeature StartVmRequest_TerminaFeature_TerminaFeature_MAX = StartVmRequest_TerminaFeature_LXD_4_LTS;
+constexpr StartVmRequest_TerminaFeature StartVmRequest_TerminaFeature_TerminaFeature_MAX = StartVmRequest_TerminaFeature_LXD_5_LTS;
 constexpr int StartVmRequest_TerminaFeature_TerminaFeature_ARRAYSIZE = StartVmRequest_TerminaFeature_TerminaFeature_MAX + 1;
 
 const std::string& StartVmRequest_TerminaFeature_Name(StartVmRequest_TerminaFeature value);
@@ -1794,8 +1795,10 @@ class StartVmRequest final :
     StartVmRequest_TerminaFeature_START_LXD;
   PROTOBUF_DEPRECATED_ENUM static constexpr TerminaFeature RESET_LXD_ON_LAUNCH =
     StartVmRequest_TerminaFeature_RESET_LXD_ON_LAUNCH;
-  static constexpr TerminaFeature LXD_4_LTS =
+  PROTOBUF_DEPRECATED_ENUM static constexpr TerminaFeature LXD_4_LTS =
     StartVmRequest_TerminaFeature_LXD_4_LTS;
+  static constexpr TerminaFeature LXD_5_LTS =
+    StartVmRequest_TerminaFeature_LXD_5_LTS;
   static inline bool TerminaFeature_IsValid(int value) {
     return StartVmRequest_TerminaFeature_IsValid(value);
   }

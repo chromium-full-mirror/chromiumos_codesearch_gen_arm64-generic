@@ -439,6 +439,9 @@ class  CropRotateScaleInfo {
 
   template <typename T, CropRotateScaleInfo::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CropRotateScaleInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -583,6 +586,9 @@ class  Camera3ErrorMsg {
 
   template <typename T, Camera3ErrorMsg::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Camera3ErrorMsg::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -726,6 +732,9 @@ class  Camera3ShutterMsg {
 
   template <typename T, Camera3ShutterMsg::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Camera3ShutterMsg::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -868,6 +877,9 @@ class  Camera3BufferRequest {
 
   template <typename T, Camera3BufferRequest::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Camera3BufferRequest::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -1215,6 +1227,9 @@ Camera3Stream& operator=(const Camera3Stream&) = delete;
 
   template <typename T, Camera3Stream::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Camera3Stream::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -1382,6 +1397,9 @@ Camera3StreamConfiguration& operator=(const Camera3StreamConfiguration&) = delet
 
   template <typename T, Camera3StreamConfiguration::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Camera3StreamConfiguration::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -1557,6 +1575,9 @@ CameraBufferHandle& operator=(const CameraBufferHandle&) = delete;
   template <typename T, CameraBufferHandle::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, CameraBufferHandle::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
@@ -1723,6 +1744,9 @@ Camera3StreamBuffer& operator=(const Camera3StreamBuffer&) = delete;
   template <typename T, Camera3StreamBuffer::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, Camera3StreamBuffer::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
@@ -1869,6 +1893,9 @@ Camera3NotifyMsg& operator=(const Camera3NotifyMsg&) = delete;
 
   template <typename T, Camera3NotifyMsg::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Camera3NotifyMsg::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -2014,6 +2041,9 @@ Camera3StreamBufferRet& operator=(const Camera3StreamBufferRet&) = delete;
   template <typename T, Camera3StreamBufferRet::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, Camera3StreamBufferRet::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
@@ -2152,6 +2182,9 @@ Camera3PhyscamMetadata& operator=(const Camera3PhyscamMetadata&) = delete;
 
   template <typename T, Camera3PhyscamMetadata::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Camera3PhyscamMetadata::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -2303,6 +2336,9 @@ Camera3CaptureRequest& operator=(const Camera3CaptureRequest&) = delete;
 
   template <typename T, Camera3CaptureRequest::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Camera3CaptureRequest::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2457,6 +2493,9 @@ Camera3CaptureResult& operator=(const Camera3CaptureResult&) = delete;
 
   template <typename T, Camera3CaptureResult::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, Camera3CaptureResult::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {

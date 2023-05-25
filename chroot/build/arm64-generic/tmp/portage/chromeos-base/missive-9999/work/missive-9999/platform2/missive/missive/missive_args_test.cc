@@ -6,33 +6,64 @@
 
 #include <utility>
 
-#include <base/task/bind_post_task.h>
+#include <base/functional/bind.h>
+#include <base/functional/callback_forward.h>
 #include <base/time/time.h>
 #include <base/time/time_delta_from_string.h>
-#include <base/test/repeating_test_future.h>
 #include <base/test/task_environment.h>
-#include <base/test/test_future.h>
 #include <featured/fake_platform_features.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-#include "base/functional/bind.h"
-#include "base/functional/callback_forward.h"
+#include "missive/analytics/metrics_test_util.h"
+#include "missive/analytics/resource_collector_cpu.h"
+#include "missive/analytics/resource_collector_memory.h"
+#include "missive/analytics/resource_collector_storage.h"
 #include "missive/dbus/dbus_test_environment.h"
 #include "missive/util/status.h"
 #include "missive/util/statusor.h"
 #include "missive/util/test_support_callbacks.h"
 
+using ::testing::_;
 using ::testing::Eq;
+using ::testing::Return;
+using ::testing::StrEq;
 
 namespace reporting {
-namespace {
 
 class MissiveArgsTest : public ::testing::Test {
  protected:
+  void SetUp() override {
+    // Ignore collector UMA
+    ON_CALL(analytics::Metrics::TestEnvironment::GetMockMetricsLibrary(),
+            SendToUMA(
+                /*name=*/analytics::ResourceCollectorStorage::kUmaName,
+                /*sample=*/_,
+                /*min=*/analytics::ResourceCollectorStorage::kMin,
+                /*max=*/analytics::ResourceCollectorStorage::kMax,
+                /*nbuckets=*/
+                analytics::ResourceCollectorStorage::kUmaNumberOfBuckets))
+        .WillByDefault(Return(true));
+    ON_CALL(analytics::Metrics::TestEnvironment::GetMockMetricsLibrary(),
+            SendPercentageToUMA(
+                /*name=*/analytics::ResourceCollectorCpu::kUmaName,
+                /*sample=*/_))
+        .WillByDefault(Return(true));
+    ON_CALL(analytics::Metrics::TestEnvironment::GetMockMetricsLibrary(),
+            SendLinearToUMA(
+                /*name=*/analytics::ResourceCollectorMemory::kUmaName,
+                /*sample=*/_,
+                /*max=*/analytics::ResourceCollectorMemory::kUmaMax))
+        .WillByDefault(Return(true));
+  }
+
   base::test::TaskEnvironment task_environment_;
   test::DBusTestEnvironment dbus_test_environment_;
   feature::FakePlatformFeatures* fake_platform_features_;
+
+  // Use the metrics test environment to prevent the real metrics from
+  // initializing.
+  analytics::Metrics::TestEnvironment metrics_test_environment_;
 };
 
 TEST_F(MissiveArgsTest, DefaultCollectionValues) {
@@ -45,12 +76,10 @@ TEST_F(MissiveArgsTest, DefaultCollectionValues) {
       dbus_test_environment_.mock_bus()->GetDBusTaskRunner(),
       std::move(fake_platform_features));
 
-  base::test::TestFuture<StatusOr<MissiveArgs::CollectionParameters>>
-      get_collection;
+  test::TestEvent<StatusOr<MissiveArgs::CollectionParameters>> get_collection;
   args.AsyncCall(&MissiveArgs::GetCollectionParameters)
-      .WithArgs(
-          base::BindPostTaskToCurrentDefault(get_collection.GetCallback()));
-  const auto& collection = get_collection.Take();
+      .WithArgs(get_collection.cb());
+  const auto& collection = get_collection.result();
   ASSERT_OK(collection) << collection.status();
   ASSERT_THAT(
       collection.ValueOrDie().enqueuing_record_tallier,
@@ -91,12 +120,10 @@ TEST_F(MissiveArgsTest, ExplicitCollectionValues) {
       dbus_test_environment_.mock_bus()->GetDBusTaskRunner(),
       std::move(fake_platform_features));
 
-  base::test::TestFuture<StatusOr<MissiveArgs::CollectionParameters>>
-      get_collection;
+  test::TestEvent<StatusOr<MissiveArgs::CollectionParameters>> get_collection;
   args.AsyncCall(&MissiveArgs::GetCollectionParameters)
-      .WithArgs(
-          base::BindPostTaskToCurrentDefault(get_collection.GetCallback()));
-  const auto& collection = get_collection.Take();
+      .WithArgs(get_collection.cb());
+  const auto& collection = get_collection.result();
   ASSERT_OK(collection) << collection.status();
   ASSERT_THAT(collection.ValueOrDie().enqueuing_record_tallier,
               Eq(base::Milliseconds(10)));
@@ -129,12 +156,10 @@ TEST_F(MissiveArgsTest, BadCollectionValues) {
       dbus_test_environment_.mock_bus()->GetDBusTaskRunner(),
       std::move(fake_platform_features));
 
-  base::test::TestFuture<StatusOr<MissiveArgs::CollectionParameters>>
-      get_collection;
+  test::TestEvent<StatusOr<MissiveArgs::CollectionParameters>> get_collection;
   args.AsyncCall(&MissiveArgs::GetCollectionParameters)
-      .WithArgs(
-          base::BindPostTaskToCurrentDefault(get_collection.GetCallback()));
-  const auto& collection = get_collection.Take();
+      .WithArgs(get_collection.cb());
+  const auto& collection = get_collection.result();
   ASSERT_OK(collection) << collection.status();
   ASSERT_THAT(
       collection.ValueOrDie().enqueuing_record_tallier,
@@ -165,13 +190,11 @@ TEST_F(MissiveArgsTest, ListeningForCollectionValuesUpdate) {
       std::move(fake_platform_features));
 
   // Get initial results
-  base::test::TestFuture<StatusOr<MissiveArgs::CollectionParameters>>
-      get_collection;
+  test::TestEvent<StatusOr<MissiveArgs::CollectionParameters>> get_collection;
   args.AsyncCall(&MissiveArgs::GetCollectionParameters)
-      .WithArgs(
-          base::BindPostTaskToCurrentDefault(get_collection.GetCallback()));
+      .WithArgs(get_collection.cb());
   {
-    const auto& collection = get_collection.Take();
+    const auto& collection = get_collection.result();
     ASSERT_OK(collection) << collection.status();
     ASSERT_THAT(collection.ValueOrDie().enqueuing_record_tallier,
                 Eq(base::TimeDeltaFromString(
@@ -192,15 +215,13 @@ TEST_F(MissiveArgsTest, ListeningForCollectionValuesUpdate) {
   }
 
   // Register update callback.
-  base::test::RepeatingTestFuture<MissiveArgs::CollectionParameters>
-      update_collection;
+  test::TestEvent<MissiveArgs::CollectionParameters> update_collection;
   {
     test::TestCallbackAutoWaiter waiter;
     args.AsyncCall(&MissiveArgs::OnCollectionParametersUpdate)
-        .WithArgs(
-            base::BindPostTaskToCurrentDefault(update_collection.GetCallback()),
-            base::BindOnce(&test::TestCallbackAutoWaiter::Signal,
-                           base::Unretained(&waiter)));
+        .WithArgs(update_collection.repeating_cb(),
+                  base::BindOnce(&test::TestCallbackAutoWaiter::Signal,
+                                 base::Unretained(&waiter)));
   }
 
   // Change parameters and refresh.
@@ -219,7 +240,7 @@ TEST_F(MissiveArgsTest, ListeningForCollectionValuesUpdate) {
   fake_platform_features_ptr->TriggerRefetchSignal();
 
   {
-    const auto& collection = update_collection.Take();
+    const auto& collection = update_collection.result();
     ASSERT_THAT(collection.enqueuing_record_tallier,
                 Eq(base::Milliseconds(10)));
     ASSERT_THAT(collection.cpu_collector_interval, Eq(base::Seconds(20)));
@@ -238,10 +259,9 @@ TEST_F(MissiveArgsTest, DefaultStorageValues) {
       dbus_test_environment_.mock_bus()->GetDBusTaskRunner(),
       std::move(fake_platform_features));
 
-  base::test::TestFuture<StatusOr<MissiveArgs::StorageParameters>> get_storage;
-  args.AsyncCall(&MissiveArgs::GetStorageParameters)
-      .WithArgs(base::BindPostTaskToCurrentDefault(get_storage.GetCallback()));
-  const auto& storage = get_storage.Take();
+  test::TestEvent<StatusOr<MissiveArgs::StorageParameters>> get_storage;
+  args.AsyncCall(&MissiveArgs::GetStorageParameters).WithArgs(get_storage.cb());
+  const auto& storage = get_storage.result();
   ASSERT_OK(storage) << storage.status();
   ASSERT_THAT(storage.ValueOrDie().compression_enabled,
               Eq(MissiveArgs::kCompressionEnabledDefault));
@@ -275,10 +295,9 @@ TEST_F(MissiveArgsTest, ExplicitStorageValues) {
       dbus_test_environment_.mock_bus()->GetDBusTaskRunner(),
       std::move(fake_platform_features));
 
-  base::test::TestFuture<StatusOr<MissiveArgs::StorageParameters>> get_storage;
-  args.AsyncCall(&MissiveArgs::GetStorageParameters)
-      .WithArgs(base::BindPostTaskToCurrentDefault(get_storage.GetCallback()));
-  const auto& storage = get_storage.Take();
+  test::TestEvent<StatusOr<MissiveArgs::StorageParameters>> get_storage;
+  args.AsyncCall(&MissiveArgs::GetStorageParameters).WithArgs(get_storage.cb());
+  const auto& storage = get_storage.result();
   ASSERT_OK(storage) << storage.status();
   ASSERT_FALSE(storage.ValueOrDie().compression_enabled);
   ASSERT_FALSE(storage.ValueOrDie().encryption_enabled);
@@ -307,10 +326,9 @@ TEST_F(MissiveArgsTest, BadStorageValues) {
       dbus_test_environment_.mock_bus()->GetDBusTaskRunner(),
       std::move(fake_platform_features));
 
-  base::test::TestFuture<StatusOr<MissiveArgs::StorageParameters>> get_storage;
-  args.AsyncCall(&MissiveArgs::GetStorageParameters)
-      .WithArgs(base::BindPostTaskToCurrentDefault(get_storage.GetCallback()));
-  const auto& storage = get_storage.Take();
+  test::TestEvent<StatusOr<MissiveArgs::StorageParameters>> get_storage;
+  args.AsyncCall(&MissiveArgs::GetStorageParameters).WithArgs(get_storage.cb());
+  const auto& storage = get_storage.result();
   ASSERT_OK(storage) << storage.status();
   ASSERT_THAT(storage.ValueOrDie().compression_enabled,
               Eq(MissiveArgs::kCompressionEnabledDefault));
@@ -334,11 +352,10 @@ TEST_F(MissiveArgsTest, ListeningForStorageValuesUpdate) {
       std::move(fake_platform_features));
 
   // Get initial results
-  base::test::TestFuture<StatusOr<MissiveArgs::StorageParameters>> get_storage;
-  args.AsyncCall(&MissiveArgs::GetStorageParameters)
-      .WithArgs(base::BindPostTaskToCurrentDefault(get_storage.GetCallback()));
+  test::TestEvent<StatusOr<MissiveArgs::StorageParameters>> get_storage;
+  args.AsyncCall(&MissiveArgs::GetStorageParameters).WithArgs(get_storage.cb());
   {
-    const auto& storage = get_storage.Take();
+    const auto& storage = get_storage.result();
     ASSERT_OK(storage) << storage.status();
     ASSERT_THAT(storage.ValueOrDie().compression_enabled,
                 Eq(MissiveArgs::kCompressionEnabledDefault));
@@ -351,15 +368,13 @@ TEST_F(MissiveArgsTest, ListeningForStorageValuesUpdate) {
   }
 
   // Register update callback.
-  base::test::RepeatingTestFuture<MissiveArgs::StorageParameters>
-      update_storage;
+  test::TestEvent<MissiveArgs::StorageParameters> update_storage;
   {
     test::TestCallbackAutoWaiter waiter;
     args.AsyncCall(&MissiveArgs::OnStorageParametersUpdate)
-        .WithArgs(
-            base::BindPostTaskToCurrentDefault(update_storage.GetCallback()),
-            base::BindOnce(&test::TestCallbackAutoWaiter::Signal,
-                           base::Unretained(&waiter)));
+        .WithArgs(update_storage.repeating_cb(),
+                  base::BindOnce(&test::TestCallbackAutoWaiter::Signal,
+                                 base::Unretained(&waiter)));
   }
 
   // Change parameters.
@@ -380,12 +395,11 @@ TEST_F(MissiveArgsTest, ListeningForStorageValuesUpdate) {
   fake_platform_features_ptr->TriggerRefetchSignal();
 
   {
-    const auto& storage = update_storage.Take();
+    const auto& storage = update_storage.result();
     ASSERT_FALSE(storage.compression_enabled);
     ASSERT_FALSE(storage.encryption_enabled);
     ASSERT_TRUE(storage.controlled_degradation);
     ASSERT_FALSE(storage.legacy_storage_enabled);
   }
 }
-}  // namespace
 }  // namespace reporting

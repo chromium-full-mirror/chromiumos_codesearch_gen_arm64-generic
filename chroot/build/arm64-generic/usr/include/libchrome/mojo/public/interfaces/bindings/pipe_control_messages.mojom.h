@@ -91,6 +91,9 @@ class  DisconnectReason {
 
   template <typename T, DisconnectReason::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, DisconnectReason::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
@@ -390,6 +393,9 @@ RunOrClosePipeMessageParams& operator=(const RunOrClosePipeMessageParams&) = del
   template <typename T, RunOrClosePipeMessageParams::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, RunOrClosePipeMessageParams::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
@@ -525,6 +531,9 @@ PeerAssociatedEndpointClosedEvent& operator=(const PeerAssociatedEndpointClosedE
 
   template <typename T, PeerAssociatedEndpointClosedEvent::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, PeerAssociatedEndpointClosedEvent::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -667,6 +676,9 @@ PauseUntilFlushCompletes& operator=(const PauseUntilFlushCompletes&) = delete;
   template <typename T, PauseUntilFlushCompletes::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, PauseUntilFlushCompletes::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
@@ -800,6 +812,9 @@ FlushAsync& operator=(const FlushAsync&) = delete;
 
   template <typename T, FlushAsync::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, FlushAsync::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {

@@ -241,6 +241,9 @@ CameraDiagnosticsFrame& operator=(const CameraDiagnosticsFrame&) = delete;
   template <typename T, CameraDiagnosticsFrame::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
+  template <typename T, CameraDiagnosticsFrame::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<

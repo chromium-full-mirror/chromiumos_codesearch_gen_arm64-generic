@@ -779,18 +779,16 @@ class BASE_EXPORT GSL_OWNER Value {
   //
   // DEPRECATED: Prefer `Value::Dict::Set()`.
   Value* SetKey(StringPiece key, Value&& value);
+  // DEPRECATED: Prefer `Value::Dict::Set()`.
+  Value* SetBoolKey(StringPiece key, bool val);
+  // DEPRECATED: Prefer `Value::Dict::Set()`.
+  Value* SetIntKey(StringPiece key, int val);
 
   // `Set<Type>Key` looks up `key` in the underlying dictionary and associates a
   // corresponding Value() constructed from the second parameter. Compared to
   // `SetKey()`, this avoids un-necessary temporary `Value()` creation, as well
   // ambiguities in the value type.
   //
-  // DEPRECATED: Prefer `Value::Dict::Set()`.
-  Value* SetDoubleKey(StringPiece key, double val);
-  // DEPRECATED: Prefer `Value::Dict::Set()`.
-  Value* SetBoolKey(StringPiece key, bool val);
-  // DEPRECATED: Prefer `Value::Dict::Set()`.
-  Value* SetIntKey(StringPiece key, int val);
   // DEPRECATED: Prefer `Value::Dict::Set()`.
   Value* SetStringKey(StringPiece key, StringPiece val);
   // DEPRECATED: Prefer `Value::Dict::Set()`.
@@ -818,6 +816,8 @@ class BASE_EXPORT GSL_OWNER Value {
   // DEPRECATED: Prefer `Value::Dict::FindByDottedPath()`.
   Value* FindPath(StringPiece path);
   const Value* FindPath(StringPiece path) const;
+  // DEPRECATED: Prefer `Value::Dict::Set()`.
+  Value* SetDoubleKey(StringPiece key, double val);
 
   // Convenience accessors used when the expected type of a value is known.
   // Similar to Find<Type>Key() but accepts paths instead of keys.
@@ -850,10 +850,10 @@ class BASE_EXPORT GSL_OWNER Value {
   Value* FindListPath(StringPiece path);
   const Value* FindListPath(StringPiece path) const;
 
+  // Note: Do not add more types. See the file-level comment above for why.
+
   // DEPRECATED: prefer `Value::Dict::size()`.
   size_t DictSize() const;
-
-  // Note: Do not add more types. See the file-level comment above for why.
 
   // Comparison operators so that Values can easily be used with standard
   // library algorithms and associative containers.

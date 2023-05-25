@@ -153,13 +153,14 @@ enum StartTerminaRequest_Feature : int {
   StartTerminaRequest_Feature_USED_BY_TESTS = 1,
   StartTerminaRequest_Feature_START_LXD PROTOBUF_DEPRECATED_ENUM = 2,
   StartTerminaRequest_Feature_RESET_LXD_ON_LAUNCH PROTOBUF_DEPRECATED_ENUM = 3,
-  StartTerminaRequest_Feature_LXD_4_LTS = 4,
+  StartTerminaRequest_Feature_LXD_4_LTS PROTOBUF_DEPRECATED_ENUM = 4,
+  StartTerminaRequest_Feature_LXD_5_LTS = 5,
   StartTerminaRequest_Feature_StartTerminaRequest_Feature_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   StartTerminaRequest_Feature_StartTerminaRequest_Feature_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool StartTerminaRequest_Feature_IsValid(int value);
 constexpr StartTerminaRequest_Feature StartTerminaRequest_Feature_Feature_MIN = StartTerminaRequest_Feature_UNKNOWN;
-constexpr StartTerminaRequest_Feature StartTerminaRequest_Feature_Feature_MAX = StartTerminaRequest_Feature_LXD_4_LTS;
+constexpr StartTerminaRequest_Feature StartTerminaRequest_Feature_Feature_MAX = StartTerminaRequest_Feature_LXD_5_LTS;
 constexpr int StartTerminaRequest_Feature_Feature_ARRAYSIZE = StartTerminaRequest_Feature_Feature_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* StartTerminaRequest_Feature_descriptor();
@@ -2416,8 +2417,10 @@ class StartTerminaRequest final :
     StartTerminaRequest_Feature_START_LXD;
   PROTOBUF_DEPRECATED_ENUM static constexpr Feature RESET_LXD_ON_LAUNCH =
     StartTerminaRequest_Feature_RESET_LXD_ON_LAUNCH;
-  static constexpr Feature LXD_4_LTS =
+  PROTOBUF_DEPRECATED_ENUM static constexpr Feature LXD_4_LTS =
     StartTerminaRequest_Feature_LXD_4_LTS;
+  static constexpr Feature LXD_5_LTS =
+    StartTerminaRequest_Feature_LXD_5_LTS;
   static inline bool Feature_IsValid(int value) {
     return StartTerminaRequest_Feature_IsValid(value);
   }
