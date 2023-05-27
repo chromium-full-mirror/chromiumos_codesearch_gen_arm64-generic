@@ -67,10 +67,10 @@ struct Rule {
   absl::optional<std::vector<std::string>> tags;
 
   // List of conditions that can trigger the actions.
-  std::vector<base::Value> conditions;
+  base::Value::List conditions;
 
   // List of actions that are triggered if one of the conditions is fulfilled.
-  std::vector<base::Value> actions;
+  base::Value::List actions;
 
   // Optional priority of this rule. Defaults to 100.
   absl::optional<int> priority;

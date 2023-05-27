@@ -200,7 +200,7 @@ ChooseEntryOptions ChooseEntryOptions::Clone() const {
     out.accepts.emplace();
     out.accepts->reserve(accepts->size());
     for (const auto& element : *accepts) {
-      out.accepts->push_back(element.Clone());
+      json_schema_compiler::util::AppendToContainer(*out.accepts, element.Clone());
     }
   }
   out.accepts_all_types = accepts_all_types;
@@ -557,7 +557,7 @@ VolumeListChangedEvent VolumeListChangedEvent::Clone() const {
   VolumeListChangedEvent out;
   out.volumes.reserve(volumes.size());
   for (const auto& element : volumes) {
-    out.volumes.push_back(element.Clone());
+    json_schema_compiler::util::AppendToContainer(out.volumes, element.Clone());
   }
   return out;
 }

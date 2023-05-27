@@ -2545,14 +2545,14 @@ class TabSwitchMeasurement : public ::protozero::Message {
   static inline const char* TabState_Name(TabState value) {
     return ::perfetto::protos::pbzero::TabSwitchMeasurement_TabState_Name(value);
   }
-  static const Result RESULT_UNSPECIFIED = Result::RESULT_UNSPECIFIED;
-  static const Result RESULT_SUCCESS = Result::RESULT_SUCCESS;
-  static const Result RESULT_INCOMPLETE = Result::RESULT_INCOMPLETE;
-  static const Result RESULT_MISSED_TAB_HIDE = Result::RESULT_MISSED_TAB_HIDE;
-  static const TabState STATE_UNSPECIFIED = TabState::STATE_UNSPECIFIED;
-  static const TabState STATE_WITH_SAVED_FRAMES = TabState::STATE_WITH_SAVED_FRAMES;
-  static const TabState STATE_LOADED_NO_SAVED_FRAMES = TabState::STATE_LOADED_NO_SAVED_FRAMES;
-  static const TabState STATE_NOT_LOADED_NO_SAVED_FRAMES = TabState::STATE_NOT_LOADED_NO_SAVED_FRAMES;
+  static inline const Result RESULT_UNSPECIFIED = Result::RESULT_UNSPECIFIED;
+  static inline const Result RESULT_SUCCESS = Result::RESULT_SUCCESS;
+  static inline const Result RESULT_INCOMPLETE = Result::RESULT_INCOMPLETE;
+  static inline const Result RESULT_MISSED_TAB_HIDE = Result::RESULT_MISSED_TAB_HIDE;
+  static inline const TabState STATE_UNSPECIFIED = TabState::STATE_UNSPECIFIED;
+  static inline const TabState STATE_WITH_SAVED_FRAMES = TabState::STATE_WITH_SAVED_FRAMES;
+  static inline const TabState STATE_LOADED_NO_SAVED_FRAMES = TabState::STATE_LOADED_NO_SAVED_FRAMES;
+  static inline const TabState STATE_NOT_LOADED_NO_SAVED_FRAMES = TabState::STATE_NOT_LOADED_NO_SAVED_FRAMES;
 
   using FieldMetadata_Result =
     ::protozero::proto_utils::FieldMetadata<
@@ -2712,9 +2712,9 @@ class BlinkHighEntropyAPI_FontLookup : public ::protozero::Message {
   static inline const char* FontLookupType_Name(FontLookupType value) {
     return ::perfetto::protos::pbzero::BlinkHighEntropyAPI_FontLookup_FontLookupType_Name(value);
   }
-  static const FontLookupType FONT_LOOKUP_UNKNOWN_TYPE = FontLookupType::FONT_LOOKUP_UNKNOWN_TYPE;
-  static const FontLookupType FONT_LOOKUP_UNIQUE_OR_FAMILY_NAME = FontLookupType::FONT_LOOKUP_UNIQUE_OR_FAMILY_NAME;
-  static const FontLookupType FONT_LOOKUP_UNIQUE_NAME_ONLY = FontLookupType::FONT_LOOKUP_UNIQUE_NAME_ONLY;
+  static inline const FontLookupType FONT_LOOKUP_UNKNOWN_TYPE = FontLookupType::FONT_LOOKUP_UNKNOWN_TYPE;
+  static inline const FontLookupType FONT_LOOKUP_UNIQUE_OR_FAMILY_NAME = FontLookupType::FONT_LOOKUP_UNIQUE_OR_FAMILY_NAME;
+  static inline const FontLookupType FONT_LOOKUP_UNIQUE_NAME_ONLY = FontLookupType::FONT_LOOKUP_UNIQUE_NAME_ONLY;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<
@@ -2915,16 +2915,16 @@ class BlinkHighEntropyAPI_JSFunctionArgument : public ::protozero::Message {
   static inline const char* ArgumentType_Name(ArgumentType value) {
     return ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType_Name(value);
   }
-  static const ArgumentType UNKNOWN_TYPE = ArgumentType::UNKNOWN_TYPE;
-  static const ArgumentType NULL_TYPE = ArgumentType::NULL_TYPE;
-  static const ArgumentType UNDEFINED = ArgumentType::UNDEFINED;
-  static const ArgumentType BIGINT = ArgumentType::BIGINT;
-  static const ArgumentType BOOLEAN = ArgumentType::BOOLEAN;
-  static const ArgumentType FUNCTION = ArgumentType::FUNCTION;
-  static const ArgumentType NUMBER = ArgumentType::NUMBER;
-  static const ArgumentType STRING = ArgumentType::STRING;
-  static const ArgumentType SYMBOL = ArgumentType::SYMBOL;
-  static const ArgumentType OBJECT = ArgumentType::OBJECT;
+  static inline const ArgumentType UNKNOWN_TYPE = ArgumentType::UNKNOWN_TYPE;
+  static inline const ArgumentType NULL_TYPE = ArgumentType::NULL_TYPE;
+  static inline const ArgumentType UNDEFINED = ArgumentType::UNDEFINED;
+  static inline const ArgumentType BIGINT = ArgumentType::BIGINT;
+  static inline const ArgumentType BOOLEAN = ArgumentType::BOOLEAN;
+  static inline const ArgumentType FUNCTION = ArgumentType::FUNCTION;
+  static inline const ArgumentType NUMBER = ArgumentType::NUMBER;
+  static inline const ArgumentType STRING = ArgumentType::STRING;
+  static inline const ArgumentType SYMBOL = ArgumentType::SYMBOL;
+  static inline const ArgumentType OBJECT = ArgumentType::OBJECT;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<
@@ -3182,20 +3182,20 @@ class BlinkExecutionContext : public ::protozero::Message {
   static inline const char* WorldType_Name(WorldType value) {
     return ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType_Name(value);
   }
-  static const ContextType UNKNOWN_CONTEXT = ContextType::UNKNOWN_CONTEXT;
-  static const ContextType WINDOW = ContextType::WINDOW;
-  static const ContextType WORKLET = ContextType::WORKLET;
-  static const ContextType DEDICATED_WORKER = ContextType::DEDICATED_WORKER;
-  static const ContextType SHARED_WORKER = ContextType::SHARED_WORKER;
-  static const ContextType SERVICE_WORKER = ContextType::SERVICE_WORKER;
-  static const WorldType WORLD_UNKNOWN = WorldType::WORLD_UNKNOWN;
-  static const WorldType WORLD_MAIN = WorldType::WORLD_MAIN;
-  static const WorldType WORLD_ISOLATED = WorldType::WORLD_ISOLATED;
-  static const WorldType WORLD_INSPECTOR_ISOLATED = WorldType::WORLD_INSPECTOR_ISOLATED;
-  static const WorldType WORLD_REG_EXP = WorldType::WORLD_REG_EXP;
-  static const WorldType WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN = WorldType::WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN;
-  static const WorldType WORLD_WORKER = WorldType::WORLD_WORKER;
-  static const WorldType WORLD_SHADOW_REALM = WorldType::WORLD_SHADOW_REALM;
+  static inline const ContextType UNKNOWN_CONTEXT = ContextType::UNKNOWN_CONTEXT;
+  static inline const ContextType WINDOW = ContextType::WINDOW;
+  static inline const ContextType WORKLET = ContextType::WORKLET;
+  static inline const ContextType DEDICATED_WORKER = ContextType::DEDICATED_WORKER;
+  static inline const ContextType SHARED_WORKER = ContextType::SHARED_WORKER;
+  static inline const ContextType SERVICE_WORKER = ContextType::SERVICE_WORKER;
+  static inline const WorldType WORLD_UNKNOWN = WorldType::WORLD_UNKNOWN;
+  static inline const WorldType WORLD_MAIN = WorldType::WORLD_MAIN;
+  static inline const WorldType WORLD_ISOLATED = WorldType::WORLD_ISOLATED;
+  static inline const WorldType WORLD_INSPECTOR_ISOLATED = WorldType::WORLD_INSPECTOR_ISOLATED;
+  static inline const WorldType WORLD_REG_EXP = WorldType::WORLD_REG_EXP;
+  static inline const WorldType WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN = WorldType::WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN;
+  static inline const WorldType WORLD_WORKER = WorldType::WORLD_WORKER;
+  static inline const WorldType WORLD_SHADOW_REALM = WorldType::WORLD_SHADOW_REALM;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<
@@ -3630,41 +3630,41 @@ class AndroidToolbar : public ::protozero::Message {
   static inline const char* SnapshotDifference_Name(SnapshotDifference value) {
     return ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference_Name(value);
   }
-  static const BlockCaptureReason BLOCKED_UNKNOWN = BlockCaptureReason::BLOCKED_UNKNOWN;
-  static const BlockCaptureReason BLOCKED_TOOLBAR_OR_RESULT_NULL = BlockCaptureReason::BLOCKED_TOOLBAR_OR_RESULT_NULL;
-  static const BlockCaptureReason BLOCKED_VIEW_NOT_DIRTY = BlockCaptureReason::BLOCKED_VIEW_NOT_DIRTY;
-  static const BlockCaptureReason BLOCKED_SNAPSHOT_SAME = BlockCaptureReason::BLOCKED_SNAPSHOT_SAME;
-  static const BlockCaptureReason BLOCKED_URL_BAR_HAS_FOCUS = BlockCaptureReason::BLOCKED_URL_BAR_HAS_FOCUS;
-  static const BlockCaptureReason BLOCKED_URL_BAR_FOCUS_IN_PROGRESS = BlockCaptureReason::BLOCKED_URL_BAR_FOCUS_IN_PROGRESS;
-  static const BlockCaptureReason BLOCKED_OPTIONAL_BUTTON_ANIMATION_IN_PROGRESS = BlockCaptureReason::BLOCKED_OPTIONAL_BUTTON_ANIMATION_IN_PROGRESS;
-  static const BlockCaptureReason BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS = BlockCaptureReason::BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS;
-  static const BlockCaptureReason BLOCKED_SCROLL_ABLATION = BlockCaptureReason::BLOCKED_SCROLL_ABLATION;
-  static const BlockCaptureReason BLOCKED_BROWSER_CONTROLS_LOCKED = BlockCaptureReason::BLOCKED_BROWSER_CONTROLS_LOCKED;
-  static const BlockCaptureReason BLOCKED_TAB_SWITCHER_MODE = BlockCaptureReason::BLOCKED_TAB_SWITCHER_MODE;
-  static const BlockCaptureReason BLOCKED_COMPOSITOR_IN_MOTION = BlockCaptureReason::BLOCKED_COMPOSITOR_IN_MOTION;
-  static const BlockCaptureReason BLOCKED_NTP_Y_TRANSLATION = BlockCaptureReason::BLOCKED_NTP_Y_TRANSLATION;
-  static const AllowCaptureReason ALLOWED_UNKNOWN = AllowCaptureReason::ALLOWED_UNKNOWN;
-  static const AllowCaptureReason ALLOWED_FORCE_CAPTURE = AllowCaptureReason::ALLOWED_FORCE_CAPTURE;
-  static const AllowCaptureReason ALLOWED_SNAPSHOT_DIFFERENCE = AllowCaptureReason::ALLOWED_SNAPSHOT_DIFFERENCE;
-  static const SnapshotDifference DIFF_NONE = SnapshotDifference::DIFF_NONE;
-  static const SnapshotDifference DIFF_NULL = SnapshotDifference::DIFF_NULL;
-  static const SnapshotDifference DIFF_TINT = SnapshotDifference::DIFF_TINT;
-  static const SnapshotDifference DIFF_TAB_COUNT = SnapshotDifference::DIFF_TAB_COUNT;
-  static const SnapshotDifference DIFF_OPTIONAL_BUTTON = SnapshotDifference::DIFF_OPTIONAL_BUTTON;
-  static const SnapshotDifference DIFF_VISUAL_STATE = SnapshotDifference::DIFF_VISUAL_STATE;
-  static const SnapshotDifference DIFF_SECURITY_ICON = SnapshotDifference::DIFF_SECURITY_ICON;
-  static const SnapshotDifference DIFF_SHOWING_UPDATE_BADGE = SnapshotDifference::DIFF_SHOWING_UPDATE_BADGE;
-  static const SnapshotDifference DIFF_PAINT_PREVIEW = SnapshotDifference::DIFF_PAINT_PREVIEW;
-  static const SnapshotDifference DIFF_PROGRESS = SnapshotDifference::DIFF_PROGRESS;
-  static const SnapshotDifference DIFF_LOCATION_BAR_WIDTH = SnapshotDifference::DIFF_LOCATION_BAR_WIDTH;
-  static const SnapshotDifference DIFF_URL_TEXT = SnapshotDifference::DIFF_URL_TEXT;
-  static const SnapshotDifference DIFF_HOME_BUTTON = SnapshotDifference::DIFF_HOME_BUTTON;
-  static const SnapshotDifference DIFF_TITLE_TEXT = SnapshotDifference::DIFF_TITLE_TEXT;
-  static const SnapshotDifference DIFF_CCT_ANIMATION = SnapshotDifference::DIFF_CCT_ANIMATION;
-  static const SnapshotDifference DIFF_BOOKMARK_BUTTON = SnapshotDifference::DIFF_BOOKMARK_BUTTON;
-  static const SnapshotDifference DIFF_BACK_BUTTON = SnapshotDifference::DIFF_BACK_BUTTON;
-  static const SnapshotDifference DIFF_FORWARD_BUTTON = SnapshotDifference::DIFF_FORWARD_BUTTON;
-  static const SnapshotDifference DIFF_RELOAD_BUTTON = SnapshotDifference::DIFF_RELOAD_BUTTON;
+  static inline const BlockCaptureReason BLOCKED_UNKNOWN = BlockCaptureReason::BLOCKED_UNKNOWN;
+  static inline const BlockCaptureReason BLOCKED_TOOLBAR_OR_RESULT_NULL = BlockCaptureReason::BLOCKED_TOOLBAR_OR_RESULT_NULL;
+  static inline const BlockCaptureReason BLOCKED_VIEW_NOT_DIRTY = BlockCaptureReason::BLOCKED_VIEW_NOT_DIRTY;
+  static inline const BlockCaptureReason BLOCKED_SNAPSHOT_SAME = BlockCaptureReason::BLOCKED_SNAPSHOT_SAME;
+  static inline const BlockCaptureReason BLOCKED_URL_BAR_HAS_FOCUS = BlockCaptureReason::BLOCKED_URL_BAR_HAS_FOCUS;
+  static inline const BlockCaptureReason BLOCKED_URL_BAR_FOCUS_IN_PROGRESS = BlockCaptureReason::BLOCKED_URL_BAR_FOCUS_IN_PROGRESS;
+  static inline const BlockCaptureReason BLOCKED_OPTIONAL_BUTTON_ANIMATION_IN_PROGRESS = BlockCaptureReason::BLOCKED_OPTIONAL_BUTTON_ANIMATION_IN_PROGRESS;
+  static inline const BlockCaptureReason BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS = BlockCaptureReason::BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS;
+  static inline const BlockCaptureReason BLOCKED_SCROLL_ABLATION = BlockCaptureReason::BLOCKED_SCROLL_ABLATION;
+  static inline const BlockCaptureReason BLOCKED_BROWSER_CONTROLS_LOCKED = BlockCaptureReason::BLOCKED_BROWSER_CONTROLS_LOCKED;
+  static inline const BlockCaptureReason BLOCKED_TAB_SWITCHER_MODE = BlockCaptureReason::BLOCKED_TAB_SWITCHER_MODE;
+  static inline const BlockCaptureReason BLOCKED_COMPOSITOR_IN_MOTION = BlockCaptureReason::BLOCKED_COMPOSITOR_IN_MOTION;
+  static inline const BlockCaptureReason BLOCKED_NTP_Y_TRANSLATION = BlockCaptureReason::BLOCKED_NTP_Y_TRANSLATION;
+  static inline const AllowCaptureReason ALLOWED_UNKNOWN = AllowCaptureReason::ALLOWED_UNKNOWN;
+  static inline const AllowCaptureReason ALLOWED_FORCE_CAPTURE = AllowCaptureReason::ALLOWED_FORCE_CAPTURE;
+  static inline const AllowCaptureReason ALLOWED_SNAPSHOT_DIFFERENCE = AllowCaptureReason::ALLOWED_SNAPSHOT_DIFFERENCE;
+  static inline const SnapshotDifference DIFF_NONE = SnapshotDifference::DIFF_NONE;
+  static inline const SnapshotDifference DIFF_NULL = SnapshotDifference::DIFF_NULL;
+  static inline const SnapshotDifference DIFF_TINT = SnapshotDifference::DIFF_TINT;
+  static inline const SnapshotDifference DIFF_TAB_COUNT = SnapshotDifference::DIFF_TAB_COUNT;
+  static inline const SnapshotDifference DIFF_OPTIONAL_BUTTON = SnapshotDifference::DIFF_OPTIONAL_BUTTON;
+  static inline const SnapshotDifference DIFF_VISUAL_STATE = SnapshotDifference::DIFF_VISUAL_STATE;
+  static inline const SnapshotDifference DIFF_SECURITY_ICON = SnapshotDifference::DIFF_SECURITY_ICON;
+  static inline const SnapshotDifference DIFF_SHOWING_UPDATE_BADGE = SnapshotDifference::DIFF_SHOWING_UPDATE_BADGE;
+  static inline const SnapshotDifference DIFF_PAINT_PREVIEW = SnapshotDifference::DIFF_PAINT_PREVIEW;
+  static inline const SnapshotDifference DIFF_PROGRESS = SnapshotDifference::DIFF_PROGRESS;
+  static inline const SnapshotDifference DIFF_LOCATION_BAR_WIDTH = SnapshotDifference::DIFF_LOCATION_BAR_WIDTH;
+  static inline const SnapshotDifference DIFF_URL_TEXT = SnapshotDifference::DIFF_URL_TEXT;
+  static inline const SnapshotDifference DIFF_HOME_BUTTON = SnapshotDifference::DIFF_HOME_BUTTON;
+  static inline const SnapshotDifference DIFF_TITLE_TEXT = SnapshotDifference::DIFF_TITLE_TEXT;
+  static inline const SnapshotDifference DIFF_CCT_ANIMATION = SnapshotDifference::DIFF_CCT_ANIMATION;
+  static inline const SnapshotDifference DIFF_BOOKMARK_BUTTON = SnapshotDifference::DIFF_BOOKMARK_BUTTON;
+  static inline const SnapshotDifference DIFF_BACK_BUTTON = SnapshotDifference::DIFF_BACK_BUTTON;
+  static inline const SnapshotDifference DIFF_FORWARD_BUTTON = SnapshotDifference::DIFF_FORWARD_BUTTON;
+  static inline const SnapshotDifference DIFF_RELOAD_BUTTON = SnapshotDifference::DIFF_RELOAD_BUTTON;
 
   using FieldMetadata_BlockCaptureReason =
     ::protozero::proto_utils::FieldMetadata<
@@ -3751,72 +3751,72 @@ class SequenceManagerTask : public ::protozero::Message {
   static inline const char* QueueName_Name(QueueName value) {
     return ::perfetto::protos::pbzero::SequenceManagerTask_QueueName_Name(value);
   }
-  static const Priority UNKNOWN = Priority::UNKNOWN;
-  static const Priority CONTROL_PRIORITY = Priority::CONTROL_PRIORITY;
-  static const Priority HIGHEST_PRIORITY = Priority::HIGHEST_PRIORITY;
-  static const Priority VERY_HIGH_PRIORITY = Priority::VERY_HIGH_PRIORITY;
-  static const Priority HIGH_PRIORITY = Priority::HIGH_PRIORITY;
-  static const Priority NORMAL_PRIORITY = Priority::NORMAL_PRIORITY;
-  static const Priority LOW_PRIORITY = Priority::LOW_PRIORITY;
-  static const Priority BEST_EFFORT_PRIORITY = Priority::BEST_EFFORT_PRIORITY;
-  static const Priority HIGH_PRIORITY_CONTINUATION = Priority::HIGH_PRIORITY_CONTINUATION;
-  static const Priority NORMAL_PRIORITY_CONTINUATION = Priority::NORMAL_PRIORITY_CONTINUATION;
-  static const Priority LOW_PRIORITY_CONTINUATION = Priority::LOW_PRIORITY_CONTINUATION;
-  static const Priority EXTREMELY_HIGH_PRIORITY = Priority::EXTREMELY_HIGH_PRIORITY;
-  static const QueueName UNKNOWN_TQ = QueueName::UNKNOWN_TQ;
-  static const QueueName DEFAULT_TQ = QueueName::DEFAULT_TQ;
-  static const QueueName TASK_ENVIRONMENT_DEFAULT_TQ = QueueName::TASK_ENVIRONMENT_DEFAULT_TQ;
-  static const QueueName TEST2_TQ = QueueName::TEST2_TQ;
-  static const QueueName TEST_TQ = QueueName::TEST_TQ;
-  static const QueueName CONTROL_TQ = QueueName::CONTROL_TQ;
-  static const QueueName SUBTHREAD_CONTROL_TQ = QueueName::SUBTHREAD_CONTROL_TQ;
-  static const QueueName SUBTHREAD_DEFAULT_TQ = QueueName::SUBTHREAD_DEFAULT_TQ;
-  static const QueueName SUBTHREAD_INPUT_TQ = QueueName::SUBTHREAD_INPUT_TQ;
-  static const QueueName UI_BEST_EFFORT_TQ = QueueName::UI_BEST_EFFORT_TQ;
-  static const QueueName UI_BOOTSTRAP_TQ = QueueName::UI_BOOTSTRAP_TQ;
-  static const QueueName UI_CONTROL_TQ = QueueName::UI_CONTROL_TQ;
-  static const QueueName UI_DEFAULT_TQ = QueueName::UI_DEFAULT_TQ;
-  static const QueueName UI_NAVIGATION_NETWORK_RESPONSE_TQ = QueueName::UI_NAVIGATION_NETWORK_RESPONSE_TQ;
-  static const QueueName UI_RUN_ALL_PENDING_TQ = QueueName::UI_RUN_ALL_PENDING_TQ;
-  static const QueueName UI_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ = QueueName::UI_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ;
-  static const QueueName UI_THREAD_TQ = QueueName::UI_THREAD_TQ;
-  static const QueueName UI_USER_BLOCKING_TQ = QueueName::UI_USER_BLOCKING_TQ;
-  static const QueueName UI_USER_INPUT_TQ = QueueName::UI_USER_INPUT_TQ;
-  static const QueueName UI_USER_VISIBLE_TQ = QueueName::UI_USER_VISIBLE_TQ;
-  static const QueueName IO_BEST_EFFORT_TQ = QueueName::IO_BEST_EFFORT_TQ;
-  static const QueueName IO_BOOTSTRAP_TQ = QueueName::IO_BOOTSTRAP_TQ;
-  static const QueueName IO_CONTROL_TQ = QueueName::IO_CONTROL_TQ;
-  static const QueueName IO_DEFAULT_TQ = QueueName::IO_DEFAULT_TQ;
-  static const QueueName IO_NAVIGATION_NETWORK_RESPONSE_TQ = QueueName::IO_NAVIGATION_NETWORK_RESPONSE_TQ;
-  static const QueueName IO_RUN_ALL_PENDING_TQ = QueueName::IO_RUN_ALL_PENDING_TQ;
-  static const QueueName IO_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ = QueueName::IO_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ;
-  static const QueueName IO_THREAD_TQ = QueueName::IO_THREAD_TQ;
-  static const QueueName IO_USER_BLOCKING_TQ = QueueName::IO_USER_BLOCKING_TQ;
-  static const QueueName IO_USER_INPUT_TQ = QueueName::IO_USER_INPUT_TQ;
-  static const QueueName IO_USER_VISIBLE_TQ = QueueName::IO_USER_VISIBLE_TQ;
-  static const QueueName COMPOSITOR_TQ = QueueName::COMPOSITOR_TQ;
-  static const QueueName DETACHED_TQ = QueueName::DETACHED_TQ;
-  static const QueueName FRAME_DEFERRABLE_TQ = QueueName::FRAME_DEFERRABLE_TQ;
-  static const QueueName FRAME_LOADING_CONTROL_TQ = QueueName::FRAME_LOADING_CONTROL_TQ;
-  static const QueueName FRAME_LOADING_TQ = QueueName::FRAME_LOADING_TQ;
-  static const QueueName FRAME_PAUSABLE_TQ = QueueName::FRAME_PAUSABLE_TQ;
-  static const QueueName FRAME_THROTTLEABLE_TQ = QueueName::FRAME_THROTTLEABLE_TQ;
-  static const QueueName FRAME_UNPAUSABLE_TQ = QueueName::FRAME_UNPAUSABLE_TQ;
-  static const QueueName IDLE_TQ = QueueName::IDLE_TQ;
-  static const QueueName INPUT_TQ = QueueName::INPUT_TQ;
-  static const QueueName IPC_TRACKING_FOR_CACHED_PAGES_TQ = QueueName::IPC_TRACKING_FOR_CACHED_PAGES_TQ;
-  static const QueueName NON_WAKING_TQ = QueueName::NON_WAKING_TQ;
-  static const QueueName OTHER_TQ = QueueName::OTHER_TQ;
-  static const QueueName V8_TQ = QueueName::V8_TQ;
-  static const QueueName WEB_SCHEDULING_TQ = QueueName::WEB_SCHEDULING_TQ;
-  static const QueueName WORKER_IDLE_TQ = QueueName::WORKER_IDLE_TQ;
-  static const QueueName WORKER_PAUSABLE_TQ = QueueName::WORKER_PAUSABLE_TQ;
-  static const QueueName WORKER_THREAD_INTERNAL_TQ = QueueName::WORKER_THREAD_INTERNAL_TQ;
-  static const QueueName WORKER_THROTTLEABLE_TQ = QueueName::WORKER_THROTTLEABLE_TQ;
-  static const QueueName WORKER_UNPAUSABLE_TQ = QueueName::WORKER_UNPAUSABLE_TQ;
-  static const QueueName WORKER_WEB_SCHEDULING_TQ = QueueName::WORKER_WEB_SCHEDULING_TQ;
-  static const QueueName UI_USER_BLOCKING_DEFERRABLE_TQ = QueueName::UI_USER_BLOCKING_DEFERRABLE_TQ;
-  static const QueueName IO_USER_BLOCKING_DEFERRABLE_TQ = QueueName::IO_USER_BLOCKING_DEFERRABLE_TQ;
+  static inline const Priority UNKNOWN = Priority::UNKNOWN;
+  static inline const Priority CONTROL_PRIORITY = Priority::CONTROL_PRIORITY;
+  static inline const Priority HIGHEST_PRIORITY = Priority::HIGHEST_PRIORITY;
+  static inline const Priority VERY_HIGH_PRIORITY = Priority::VERY_HIGH_PRIORITY;
+  static inline const Priority HIGH_PRIORITY = Priority::HIGH_PRIORITY;
+  static inline const Priority NORMAL_PRIORITY = Priority::NORMAL_PRIORITY;
+  static inline const Priority LOW_PRIORITY = Priority::LOW_PRIORITY;
+  static inline const Priority BEST_EFFORT_PRIORITY = Priority::BEST_EFFORT_PRIORITY;
+  static inline const Priority HIGH_PRIORITY_CONTINUATION = Priority::HIGH_PRIORITY_CONTINUATION;
+  static inline const Priority NORMAL_PRIORITY_CONTINUATION = Priority::NORMAL_PRIORITY_CONTINUATION;
+  static inline const Priority LOW_PRIORITY_CONTINUATION = Priority::LOW_PRIORITY_CONTINUATION;
+  static inline const Priority EXTREMELY_HIGH_PRIORITY = Priority::EXTREMELY_HIGH_PRIORITY;
+  static inline const QueueName UNKNOWN_TQ = QueueName::UNKNOWN_TQ;
+  static inline const QueueName DEFAULT_TQ = QueueName::DEFAULT_TQ;
+  static inline const QueueName TASK_ENVIRONMENT_DEFAULT_TQ = QueueName::TASK_ENVIRONMENT_DEFAULT_TQ;
+  static inline const QueueName TEST2_TQ = QueueName::TEST2_TQ;
+  static inline const QueueName TEST_TQ = QueueName::TEST_TQ;
+  static inline const QueueName CONTROL_TQ = QueueName::CONTROL_TQ;
+  static inline const QueueName SUBTHREAD_CONTROL_TQ = QueueName::SUBTHREAD_CONTROL_TQ;
+  static inline const QueueName SUBTHREAD_DEFAULT_TQ = QueueName::SUBTHREAD_DEFAULT_TQ;
+  static inline const QueueName SUBTHREAD_INPUT_TQ = QueueName::SUBTHREAD_INPUT_TQ;
+  static inline const QueueName UI_BEST_EFFORT_TQ = QueueName::UI_BEST_EFFORT_TQ;
+  static inline const QueueName UI_BOOTSTRAP_TQ = QueueName::UI_BOOTSTRAP_TQ;
+  static inline const QueueName UI_CONTROL_TQ = QueueName::UI_CONTROL_TQ;
+  static inline const QueueName UI_DEFAULT_TQ = QueueName::UI_DEFAULT_TQ;
+  static inline const QueueName UI_NAVIGATION_NETWORK_RESPONSE_TQ = QueueName::UI_NAVIGATION_NETWORK_RESPONSE_TQ;
+  static inline const QueueName UI_RUN_ALL_PENDING_TQ = QueueName::UI_RUN_ALL_PENDING_TQ;
+  static inline const QueueName UI_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ = QueueName::UI_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ;
+  static inline const QueueName UI_THREAD_TQ = QueueName::UI_THREAD_TQ;
+  static inline const QueueName UI_USER_BLOCKING_TQ = QueueName::UI_USER_BLOCKING_TQ;
+  static inline const QueueName UI_USER_INPUT_TQ = QueueName::UI_USER_INPUT_TQ;
+  static inline const QueueName UI_USER_VISIBLE_TQ = QueueName::UI_USER_VISIBLE_TQ;
+  static inline const QueueName IO_BEST_EFFORT_TQ = QueueName::IO_BEST_EFFORT_TQ;
+  static inline const QueueName IO_BOOTSTRAP_TQ = QueueName::IO_BOOTSTRAP_TQ;
+  static inline const QueueName IO_CONTROL_TQ = QueueName::IO_CONTROL_TQ;
+  static inline const QueueName IO_DEFAULT_TQ = QueueName::IO_DEFAULT_TQ;
+  static inline const QueueName IO_NAVIGATION_NETWORK_RESPONSE_TQ = QueueName::IO_NAVIGATION_NETWORK_RESPONSE_TQ;
+  static inline const QueueName IO_RUN_ALL_PENDING_TQ = QueueName::IO_RUN_ALL_PENDING_TQ;
+  static inline const QueueName IO_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ = QueueName::IO_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ;
+  static inline const QueueName IO_THREAD_TQ = QueueName::IO_THREAD_TQ;
+  static inline const QueueName IO_USER_BLOCKING_TQ = QueueName::IO_USER_BLOCKING_TQ;
+  static inline const QueueName IO_USER_INPUT_TQ = QueueName::IO_USER_INPUT_TQ;
+  static inline const QueueName IO_USER_VISIBLE_TQ = QueueName::IO_USER_VISIBLE_TQ;
+  static inline const QueueName COMPOSITOR_TQ = QueueName::COMPOSITOR_TQ;
+  static inline const QueueName DETACHED_TQ = QueueName::DETACHED_TQ;
+  static inline const QueueName FRAME_DEFERRABLE_TQ = QueueName::FRAME_DEFERRABLE_TQ;
+  static inline const QueueName FRAME_LOADING_CONTROL_TQ = QueueName::FRAME_LOADING_CONTROL_TQ;
+  static inline const QueueName FRAME_LOADING_TQ = QueueName::FRAME_LOADING_TQ;
+  static inline const QueueName FRAME_PAUSABLE_TQ = QueueName::FRAME_PAUSABLE_TQ;
+  static inline const QueueName FRAME_THROTTLEABLE_TQ = QueueName::FRAME_THROTTLEABLE_TQ;
+  static inline const QueueName FRAME_UNPAUSABLE_TQ = QueueName::FRAME_UNPAUSABLE_TQ;
+  static inline const QueueName IDLE_TQ = QueueName::IDLE_TQ;
+  static inline const QueueName INPUT_TQ = QueueName::INPUT_TQ;
+  static inline const QueueName IPC_TRACKING_FOR_CACHED_PAGES_TQ = QueueName::IPC_TRACKING_FOR_CACHED_PAGES_TQ;
+  static inline const QueueName NON_WAKING_TQ = QueueName::NON_WAKING_TQ;
+  static inline const QueueName OTHER_TQ = QueueName::OTHER_TQ;
+  static inline const QueueName V8_TQ = QueueName::V8_TQ;
+  static inline const QueueName WEB_SCHEDULING_TQ = QueueName::WEB_SCHEDULING_TQ;
+  static inline const QueueName WORKER_IDLE_TQ = QueueName::WORKER_IDLE_TQ;
+  static inline const QueueName WORKER_PAUSABLE_TQ = QueueName::WORKER_PAUSABLE_TQ;
+  static inline const QueueName WORKER_THREAD_INTERNAL_TQ = QueueName::WORKER_THREAD_INTERNAL_TQ;
+  static inline const QueueName WORKER_THROTTLEABLE_TQ = QueueName::WORKER_THROTTLEABLE_TQ;
+  static inline const QueueName WORKER_UNPAUSABLE_TQ = QueueName::WORKER_UNPAUSABLE_TQ;
+  static inline const QueueName WORKER_WEB_SCHEDULING_TQ = QueueName::WORKER_WEB_SCHEDULING_TQ;
+  static inline const QueueName UI_USER_BLOCKING_DEFERRABLE_TQ = QueueName::UI_USER_BLOCKING_DEFERRABLE_TQ;
+  static inline const QueueName IO_USER_BLOCKING_DEFERRABLE_TQ = QueueName::IO_USER_BLOCKING_DEFERRABLE_TQ;
 
   using FieldMetadata_Priority =
     ::protozero::proto_utils::FieldMetadata<
@@ -4079,28 +4079,28 @@ class ProcessSingleton : public ::protozero::Message {
   static inline const char* RemoteHungProcessTerminateReason_Name(RemoteHungProcessTerminateReason value) {
     return ::perfetto::protos::pbzero::ProcessSingleton_RemoteHungProcessTerminateReason_Name(value);
   }
-  static const RemoteProcessInteractionResult INTERACTION_RESULT_UNSPECIFIED = RemoteProcessInteractionResult::INTERACTION_RESULT_UNSPECIFIED;
-  static const RemoteProcessInteractionResult TERMINATE_FAILED = RemoteProcessInteractionResult::TERMINATE_FAILED;
-  static const RemoteProcessInteractionResult REMOTE_PROCESS_NOT_FOUND = RemoteProcessInteractionResult::REMOTE_PROCESS_NOT_FOUND;
-  static const RemoteProcessInteractionResult TERMINATE_WAIT_TIMEOUT = RemoteProcessInteractionResult::TERMINATE_WAIT_TIMEOUT;
-  static const RemoteProcessInteractionResult RUNNING_PROCESS_NOTIFY_ERROR = RemoteProcessInteractionResult::RUNNING_PROCESS_NOTIFY_ERROR;
-  static const RemoteProcessInteractionResult TERMINATE_NOT_ENOUGH_PERMISSIONS = RemoteProcessInteractionResult::TERMINATE_NOT_ENOUGH_PERMISSIONS;
-  static const RemoteProcessInteractionResult REMOTE_PROCESS_SHUTTING_DOWN = RemoteProcessInteractionResult::REMOTE_PROCESS_SHUTTING_DOWN;
-  static const RemoteProcessInteractionResult PROFILE_UNLOCKED = RemoteProcessInteractionResult::PROFILE_UNLOCKED;
-  static const RemoteProcessInteractionResult PROFILE_UNLOCKED_BEFORE_KILL = RemoteProcessInteractionResult::PROFILE_UNLOCKED_BEFORE_KILL;
-  static const RemoteProcessInteractionResult SAME_BROWSER_INSTANCE = RemoteProcessInteractionResult::SAME_BROWSER_INSTANCE;
-  static const RemoteProcessInteractionResult SAME_BROWSER_INSTANCE_BEFORE_KILL = RemoteProcessInteractionResult::SAME_BROWSER_INSTANCE_BEFORE_KILL;
-  static const RemoteProcessInteractionResult FAILED_TO_EXTRACT_PID = RemoteProcessInteractionResult::FAILED_TO_EXTRACT_PID;
-  static const RemoteProcessInteractionResult INVALID_LOCK_FILE = RemoteProcessInteractionResult::INVALID_LOCK_FILE;
-  static const RemoteProcessInteractionResult ORPHANED_LOCK_FILE = RemoteProcessInteractionResult::ORPHANED_LOCK_FILE;
-  static const RemoteProcessInteractionResult USER_REFUSED_TERMINATION = RemoteProcessInteractionResult::USER_REFUSED_TERMINATION;
-  static const RemoteProcessInteractionResult TERMINATE_SUCCEEDED = RemoteProcessInteractionResult::TERMINATE_SUCCEEDED;
-  static const RemoteHungProcessTerminateReason TERMINATE_REASON_UNSPECIFIED = RemoteHungProcessTerminateReason::TERMINATE_REASON_UNSPECIFIED;
-  static const RemoteHungProcessTerminateReason USER_ACCEPTED_TERMINATION = RemoteHungProcessTerminateReason::USER_ACCEPTED_TERMINATION;
-  static const RemoteHungProcessTerminateReason NO_VISIBLE_WINDOW_FOUND = RemoteHungProcessTerminateReason::NO_VISIBLE_WINDOW_FOUND;
-  static const RemoteHungProcessTerminateReason NOTIFY_ATTEMPTS_EXCEEDED = RemoteHungProcessTerminateReason::NOTIFY_ATTEMPTS_EXCEEDED;
-  static const RemoteHungProcessTerminateReason SOCKET_WRITE_FAILED = RemoteHungProcessTerminateReason::SOCKET_WRITE_FAILED;
-  static const RemoteHungProcessTerminateReason SOCKET_READ_FAILED = RemoteHungProcessTerminateReason::SOCKET_READ_FAILED;
+  static inline const RemoteProcessInteractionResult INTERACTION_RESULT_UNSPECIFIED = RemoteProcessInteractionResult::INTERACTION_RESULT_UNSPECIFIED;
+  static inline const RemoteProcessInteractionResult TERMINATE_FAILED = RemoteProcessInteractionResult::TERMINATE_FAILED;
+  static inline const RemoteProcessInteractionResult REMOTE_PROCESS_NOT_FOUND = RemoteProcessInteractionResult::REMOTE_PROCESS_NOT_FOUND;
+  static inline const RemoteProcessInteractionResult TERMINATE_WAIT_TIMEOUT = RemoteProcessInteractionResult::TERMINATE_WAIT_TIMEOUT;
+  static inline const RemoteProcessInteractionResult RUNNING_PROCESS_NOTIFY_ERROR = RemoteProcessInteractionResult::RUNNING_PROCESS_NOTIFY_ERROR;
+  static inline const RemoteProcessInteractionResult TERMINATE_NOT_ENOUGH_PERMISSIONS = RemoteProcessInteractionResult::TERMINATE_NOT_ENOUGH_PERMISSIONS;
+  static inline const RemoteProcessInteractionResult REMOTE_PROCESS_SHUTTING_DOWN = RemoteProcessInteractionResult::REMOTE_PROCESS_SHUTTING_DOWN;
+  static inline const RemoteProcessInteractionResult PROFILE_UNLOCKED = RemoteProcessInteractionResult::PROFILE_UNLOCKED;
+  static inline const RemoteProcessInteractionResult PROFILE_UNLOCKED_BEFORE_KILL = RemoteProcessInteractionResult::PROFILE_UNLOCKED_BEFORE_KILL;
+  static inline const RemoteProcessInteractionResult SAME_BROWSER_INSTANCE = RemoteProcessInteractionResult::SAME_BROWSER_INSTANCE;
+  static inline const RemoteProcessInteractionResult SAME_BROWSER_INSTANCE_BEFORE_KILL = RemoteProcessInteractionResult::SAME_BROWSER_INSTANCE_BEFORE_KILL;
+  static inline const RemoteProcessInteractionResult FAILED_TO_EXTRACT_PID = RemoteProcessInteractionResult::FAILED_TO_EXTRACT_PID;
+  static inline const RemoteProcessInteractionResult INVALID_LOCK_FILE = RemoteProcessInteractionResult::INVALID_LOCK_FILE;
+  static inline const RemoteProcessInteractionResult ORPHANED_LOCK_FILE = RemoteProcessInteractionResult::ORPHANED_LOCK_FILE;
+  static inline const RemoteProcessInteractionResult USER_REFUSED_TERMINATION = RemoteProcessInteractionResult::USER_REFUSED_TERMINATION;
+  static inline const RemoteProcessInteractionResult TERMINATE_SUCCEEDED = RemoteProcessInteractionResult::TERMINATE_SUCCEEDED;
+  static inline const RemoteHungProcessTerminateReason TERMINATE_REASON_UNSPECIFIED = RemoteHungProcessTerminateReason::TERMINATE_REASON_UNSPECIFIED;
+  static inline const RemoteHungProcessTerminateReason USER_ACCEPTED_TERMINATION = RemoteHungProcessTerminateReason::USER_ACCEPTED_TERMINATION;
+  static inline const RemoteHungProcessTerminateReason NO_VISIBLE_WINDOW_FOUND = RemoteHungProcessTerminateReason::NO_VISIBLE_WINDOW_FOUND;
+  static inline const RemoteHungProcessTerminateReason NOTIFY_ATTEMPTS_EXCEEDED = RemoteHungProcessTerminateReason::NOTIFY_ATTEMPTS_EXCEEDED;
+  static inline const RemoteHungProcessTerminateReason SOCKET_WRITE_FAILED = RemoteHungProcessTerminateReason::SOCKET_WRITE_FAILED;
+  static inline const RemoteHungProcessTerminateReason SOCKET_READ_FAILED = RemoteHungProcessTerminateReason::SOCKET_READ_FAILED;
 
   using FieldMetadata_RemoteProcessInteractionResult =
     ::protozero::proto_utils::FieldMetadata<
@@ -4167,33 +4167,33 @@ class EventLatency : public ::protozero::Message {
   static inline const char* EventType_Name(EventType value) {
     return ::perfetto::protos::pbzero::EventLatency_EventType_Name(value);
   }
-  static const EventType EVENT_TYPE_UNSPECIFIED = EventType::EVENT_TYPE_UNSPECIFIED;
-  static const EventType MOUSE_PRESSED = EventType::MOUSE_PRESSED;
-  static const EventType MOUSE_RELEASED = EventType::MOUSE_RELEASED;
-  static const EventType MOUSE_WHEEL = EventType::MOUSE_WHEEL;
-  static const EventType KEY_PRESSED = EventType::KEY_PRESSED;
-  static const EventType KEY_RELEASED = EventType::KEY_RELEASED;
-  static const EventType TOUCH_PRESSED = EventType::TOUCH_PRESSED;
-  static const EventType TOUCH_RELEASED = EventType::TOUCH_RELEASED;
-  static const EventType TOUCH_MOVED = EventType::TOUCH_MOVED;
-  static const EventType GESTURE_SCROLL_BEGIN = EventType::GESTURE_SCROLL_BEGIN;
-  static const EventType GESTURE_SCROLL_UPDATE = EventType::GESTURE_SCROLL_UPDATE;
-  static const EventType GESTURE_SCROLL_END = EventType::GESTURE_SCROLL_END;
-  static const EventType GESTURE_DOUBLE_TAP = EventType::GESTURE_DOUBLE_TAP;
-  static const EventType GESTURE_LONG_PRESS = EventType::GESTURE_LONG_PRESS;
-  static const EventType GESTURE_LONG_TAP = EventType::GESTURE_LONG_TAP;
-  static const EventType GESTURE_SHOW_PRESS = EventType::GESTURE_SHOW_PRESS;
-  static const EventType GESTURE_TAP = EventType::GESTURE_TAP;
-  static const EventType GESTURE_TAP_CANCEL = EventType::GESTURE_TAP_CANCEL;
-  static const EventType GESTURE_TAP_DOWN = EventType::GESTURE_TAP_DOWN;
-  static const EventType GESTURE_TAP_UNCONFIRMED = EventType::GESTURE_TAP_UNCONFIRMED;
-  static const EventType GESTURE_TWO_FINGER_TAP = EventType::GESTURE_TWO_FINGER_TAP;
-  static const EventType FIRST_GESTURE_SCROLL_UPDATE = EventType::FIRST_GESTURE_SCROLL_UPDATE;
-  static const EventType MOUSE_DRAGGED = EventType::MOUSE_DRAGGED;
-  static const EventType GESTURE_PINCH_BEGIN = EventType::GESTURE_PINCH_BEGIN;
-  static const EventType GESTURE_PINCH_END = EventType::GESTURE_PINCH_END;
-  static const EventType GESTURE_PINCH_UPDATE = EventType::GESTURE_PINCH_UPDATE;
-  static const EventType INERTIAL_GESTURE_SCROLL_UPDATE = EventType::INERTIAL_GESTURE_SCROLL_UPDATE;
+  static inline const EventType EVENT_TYPE_UNSPECIFIED = EventType::EVENT_TYPE_UNSPECIFIED;
+  static inline const EventType MOUSE_PRESSED = EventType::MOUSE_PRESSED;
+  static inline const EventType MOUSE_RELEASED = EventType::MOUSE_RELEASED;
+  static inline const EventType MOUSE_WHEEL = EventType::MOUSE_WHEEL;
+  static inline const EventType KEY_PRESSED = EventType::KEY_PRESSED;
+  static inline const EventType KEY_RELEASED = EventType::KEY_RELEASED;
+  static inline const EventType TOUCH_PRESSED = EventType::TOUCH_PRESSED;
+  static inline const EventType TOUCH_RELEASED = EventType::TOUCH_RELEASED;
+  static inline const EventType TOUCH_MOVED = EventType::TOUCH_MOVED;
+  static inline const EventType GESTURE_SCROLL_BEGIN = EventType::GESTURE_SCROLL_BEGIN;
+  static inline const EventType GESTURE_SCROLL_UPDATE = EventType::GESTURE_SCROLL_UPDATE;
+  static inline const EventType GESTURE_SCROLL_END = EventType::GESTURE_SCROLL_END;
+  static inline const EventType GESTURE_DOUBLE_TAP = EventType::GESTURE_DOUBLE_TAP;
+  static inline const EventType GESTURE_LONG_PRESS = EventType::GESTURE_LONG_PRESS;
+  static inline const EventType GESTURE_LONG_TAP = EventType::GESTURE_LONG_TAP;
+  static inline const EventType GESTURE_SHOW_PRESS = EventType::GESTURE_SHOW_PRESS;
+  static inline const EventType GESTURE_TAP = EventType::GESTURE_TAP;
+  static inline const EventType GESTURE_TAP_CANCEL = EventType::GESTURE_TAP_CANCEL;
+  static inline const EventType GESTURE_TAP_DOWN = EventType::GESTURE_TAP_DOWN;
+  static inline const EventType GESTURE_TAP_UNCONFIRMED = EventType::GESTURE_TAP_UNCONFIRMED;
+  static inline const EventType GESTURE_TWO_FINGER_TAP = EventType::GESTURE_TWO_FINGER_TAP;
+  static inline const EventType FIRST_GESTURE_SCROLL_UPDATE = EventType::FIRST_GESTURE_SCROLL_UPDATE;
+  static inline const EventType MOUSE_DRAGGED = EventType::MOUSE_DRAGGED;
+  static inline const EventType GESTURE_PINCH_BEGIN = EventType::GESTURE_PINCH_BEGIN;
+  static inline const EventType GESTURE_PINCH_END = EventType::GESTURE_PINCH_END;
+  static inline const EventType GESTURE_PINCH_UPDATE = EventType::GESTURE_PINCH_UPDATE;
+  static inline const EventType INERTIAL_GESTURE_SCROLL_UPDATE = EventType::INERTIAL_GESTURE_SCROLL_UPDATE;
 
   using FieldMetadata_EventType =
     ::protozero::proto_utils::FieldMetadata<
@@ -4295,84 +4295,84 @@ class RendererMainThreadTaskExecution : public ::protozero::Message {
   static inline const char* FrameType_Name(FrameType value) {
     return ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_FrameType_Name(value);
   }
-  static const TaskType TASK_TYPE_UNKNOWN = TaskType::TASK_TYPE_UNKNOWN;
-  static const TaskType TASK_TYPE_DOM_MANIPULATION = TaskType::TASK_TYPE_DOM_MANIPULATION;
-  static const TaskType TASK_TYPE_USER_INTERACTION = TaskType::TASK_TYPE_USER_INTERACTION;
-  static const TaskType TASK_TYPE_NETWORKING = TaskType::TASK_TYPE_NETWORKING;
-  static const TaskType TASK_TYPE_NETWORKING_CONTROL = TaskType::TASK_TYPE_NETWORKING_CONTROL;
-  static const TaskType TASK_TYPE_HISTORY_TRAVERSAL = TaskType::TASK_TYPE_HISTORY_TRAVERSAL;
-  static const TaskType TASK_TYPE_EMBED = TaskType::TASK_TYPE_EMBED;
-  static const TaskType TASK_TYPE_MEDIA_ELEMENT_EVENT = TaskType::TASK_TYPE_MEDIA_ELEMENT_EVENT;
-  static const TaskType TASK_TYPE_CANVAS_BLOB_SERIALIZATION = TaskType::TASK_TYPE_CANVAS_BLOB_SERIALIZATION;
-  static const TaskType TASK_TYPE_MICROTASK = TaskType::TASK_TYPE_MICROTASK;
-  static const TaskType TASK_TYPE_JAVASCRIPT_TIMER_DELAYED_HIGH_NESTING = TaskType::TASK_TYPE_JAVASCRIPT_TIMER_DELAYED_HIGH_NESTING;
-  static const TaskType TASK_TYPE_REMOTE_EVENT = TaskType::TASK_TYPE_REMOTE_EVENT;
-  static const TaskType TASK_TYPE_WEB_SOCKET = TaskType::TASK_TYPE_WEB_SOCKET;
-  static const TaskType TASK_TYPE_POSTED_MESSAGE = TaskType::TASK_TYPE_POSTED_MESSAGE;
-  static const TaskType TASK_TYPE_UNSHIPPED_PORT_MESSAGE = TaskType::TASK_TYPE_UNSHIPPED_PORT_MESSAGE;
-  static const TaskType TASK_TYPE_FILE_READING = TaskType::TASK_TYPE_FILE_READING;
-  static const TaskType TASK_TYPE_DATABASE_ACCESS = TaskType::TASK_TYPE_DATABASE_ACCESS;
-  static const TaskType TASK_TYPE_PRESENTATION = TaskType::TASK_TYPE_PRESENTATION;
-  static const TaskType TASK_TYPE_SENSOR = TaskType::TASK_TYPE_SENSOR;
-  static const TaskType TASK_TYPE_PERFORMANCE_TIMELINE = TaskType::TASK_TYPE_PERFORMANCE_TIMELINE;
-  static const TaskType TASK_TYPE_WEB_GL = TaskType::TASK_TYPE_WEB_GL;
-  static const TaskType TASK_TYPE_IDLE_TASK = TaskType::TASK_TYPE_IDLE_TASK;
-  static const TaskType TASK_TYPE_MISC_PLATFORM_API = TaskType::TASK_TYPE_MISC_PLATFORM_API;
-  static const TaskType TASK_TYPE_INTERNAL_DEFAULT = TaskType::TASK_TYPE_INTERNAL_DEFAULT;
-  static const TaskType TASK_TYPE_INTERNAL_LOADING = TaskType::TASK_TYPE_INTERNAL_LOADING;
-  static const TaskType TASK_TYPE_INTERNAL_TEST = TaskType::TASK_TYPE_INTERNAL_TEST;
-  static const TaskType TASK_TYPE_INTERNAL_WEB_CRYPTO = TaskType::TASK_TYPE_INTERNAL_WEB_CRYPTO;
-  static const TaskType TASK_TYPE_INTERNAL_MEDIA = TaskType::TASK_TYPE_INTERNAL_MEDIA;
-  static const TaskType TASK_TYPE_INTERNAL_MEDIA_REALTIME = TaskType::TASK_TYPE_INTERNAL_MEDIA_REALTIME;
-  static const TaskType TASK_TYPE_INTERNAL_USER_INTERACTION = TaskType::TASK_TYPE_INTERNAL_USER_INTERACTION;
-  static const TaskType TASK_TYPE_INTERNAL_INSPECTOR = TaskType::TASK_TYPE_INTERNAL_INSPECTOR;
-  static const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8 = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8;
-  static const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_COMPOSITOR = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_COMPOSITOR;
-  static const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_DEFAULT = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_DEFAULT;
-  static const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_INPUT = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_INPUT;
-  static const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_IDLE = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_IDLE;
-  static const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_CONTROL = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_CONTROL;
-  static const TaskType TASK_TYPE_INTERNAL_INTERSECTION_OBSERVER = TaskType::TASK_TYPE_INTERNAL_INTERSECTION_OBSERVER;
-  static const TaskType TASK_TYPE_COMPOSITOR_THREAD_TASK_QUEUE_DEFAULT = TaskType::TASK_TYPE_COMPOSITOR_THREAD_TASK_QUEUE_DEFAULT;
-  static const TaskType TASK_TYPE_WORKER_THREAD_TASK_QUEUE_DEFAULT = TaskType::TASK_TYPE_WORKER_THREAD_TASK_QUEUE_DEFAULT;
-  static const TaskType TASK_TYPE_WORKER_THREAD_TASK_QUEUE_V8 = TaskType::TASK_TYPE_WORKER_THREAD_TASK_QUEUE_V8;
-  static const TaskType TASK_TYPE_WORKER_THREAD_TASK_QUEUE_COMPOSITOR = TaskType::TASK_TYPE_WORKER_THREAD_TASK_QUEUE_COMPOSITOR;
-  static const TaskType TASK_TYPE_COMPOSITOR_THREAD_TASK_QUEUE_INPUT = TaskType::TASK_TYPE_COMPOSITOR_THREAD_TASK_QUEUE_INPUT;
-  static const TaskType TASK_TYPE_NETWORKING_WITH_URL_LOADER_ANNOTATION = TaskType::TASK_TYPE_NETWORKING_WITH_URL_LOADER_ANNOTATION;
-  static const TaskType TASK_TYPE_WORKER_ANIMATION = TaskType::TASK_TYPE_WORKER_ANIMATION;
-  static const TaskType TASK_TYPE_INTERNAL_TRANSLATION = TaskType::TASK_TYPE_INTERNAL_TRANSLATION;
-  static const TaskType TASK_TYPE_FONT_LOADING = TaskType::TASK_TYPE_FONT_LOADING;
-  static const TaskType TASK_TYPE_APPLICATION_LIFECYCLE = TaskType::TASK_TYPE_APPLICATION_LIFECYCLE;
-  static const TaskType TASK_TYPE_BACKGROUND_FETCH = TaskType::TASK_TYPE_BACKGROUND_FETCH;
-  static const TaskType TASK_TYPE_PERMISSION = TaskType::TASK_TYPE_PERMISSION;
-  static const TaskType TASK_TYPE_SERVICE_WORKER_CLIENT_MESSAGE = TaskType::TASK_TYPE_SERVICE_WORKER_CLIENT_MESSAGE;
-  static const TaskType TASK_TYPE_INTERNAL_CONTENT_CAPTURE = TaskType::TASK_TYPE_INTERNAL_CONTENT_CAPTURE;
-  static const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_MEMORY_PURGE = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_MEMORY_PURGE;
-  static const TaskType TASK_TYPE_INTERNAL_NAVIGATION_ASSOCIATED = TaskType::TASK_TYPE_INTERNAL_NAVIGATION_ASSOCIATED;
-  static const TaskType TASK_TYPE_INTERNAL_NAVIGATION_ASSOCIATED_UNFREEZABLE = TaskType::TASK_TYPE_INTERNAL_NAVIGATION_ASSOCIATED_UNFREEZABLE;
-  static const TaskType TASK_TYPE_INTERNAL_CONTINUE_SCRIPT_LOADING = TaskType::TASK_TYPE_INTERNAL_CONTINUE_SCRIPT_LOADING;
-  static const TaskType TASK_TYPE_WEB_LOCKS = TaskType::TASK_TYPE_WEB_LOCKS;
-  static const TaskType TASK_TYPE_WEB_SCHEDULING_POSTED_TASK = TaskType::TASK_TYPE_WEB_SCHEDULING_POSTED_TASK;
-  static const TaskType TASK_TYPE_INTERNAL_FRAME_LIFE_CYCLE_CONTROL = TaskType::TASK_TYPE_INTERNAL_FRAME_LIFE_CYCLE_CONTROL;
-  static const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_NON_WAKING = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_NON_WAKING;
-  static const TaskType TASK_TYPE_INTERNAL_FIND_IN_PAGE = TaskType::TASK_TYPE_INTERNAL_FIND_IN_PAGE;
-  static const TaskType TASK_TYPE_INTERNAL_HIGH_PRIORITY_LOCAL_FRAME = TaskType::TASK_TYPE_INTERNAL_HIGH_PRIORITY_LOCAL_FRAME;
-  static const TaskType TASK_TYPE_JAVASCRIPT_TIMER_IMMEDIATE = TaskType::TASK_TYPE_JAVASCRIPT_TIMER_IMMEDIATE;
-  static const TaskType TASK_TYPE_JAVASCRIPT_TIMER_DELAYED_LOW_NESTING = TaskType::TASK_TYPE_JAVASCRIPT_TIMER_DELAYED_LOW_NESTING;
-  static const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_IPC_TRACKING = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_IPC_TRACKING;
-  static const TaskType TASK_TYPE_NETWORKING_UNFREEZABLE = TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE;
-  static const TaskType TASK_TYPE_WAKE_LOCK = TaskType::TASK_TYPE_WAKE_LOCK;
-  static const TaskType TASK_TYPE_INTERNAL_INPUT_BLOCKING = TaskType::TASK_TYPE_INTERNAL_INPUT_BLOCKING;
-  static const TaskType TASK_TYPE_WEB_GPU = TaskType::TASK_TYPE_WEB_GPU;
-  static const TaskType TASK_TYPE_INTERNAL_POST_MESSAGE_FORWARDING = TaskType::TASK_TYPE_INTERNAL_POST_MESSAGE_FORWARDING;
-  static const TaskType TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION = TaskType::TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION;
-  static const TaskType TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION = TaskType::TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION;
-  static const TaskType TASK_TYPE_STORAGE = TaskType::TASK_TYPE_STORAGE;
-  static const TaskType TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING = TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING;
-  static const FrameType FRAME_TYPE_UNSPECIFIED = FrameType::FRAME_TYPE_UNSPECIFIED;
-  static const FrameType FRAME_TYPE_MAIN_FRAME = FrameType::FRAME_TYPE_MAIN_FRAME;
-  static const FrameType FRAME_TYPE_SAME_ORIGIN_SUBFRAME = FrameType::FRAME_TYPE_SAME_ORIGIN_SUBFRAME;
-  static const FrameType FRAME_TYPE_CROSS_ORIGIN_SUBFRAME = FrameType::FRAME_TYPE_CROSS_ORIGIN_SUBFRAME;
+  static inline const TaskType TASK_TYPE_UNKNOWN = TaskType::TASK_TYPE_UNKNOWN;
+  static inline const TaskType TASK_TYPE_DOM_MANIPULATION = TaskType::TASK_TYPE_DOM_MANIPULATION;
+  static inline const TaskType TASK_TYPE_USER_INTERACTION = TaskType::TASK_TYPE_USER_INTERACTION;
+  static inline const TaskType TASK_TYPE_NETWORKING = TaskType::TASK_TYPE_NETWORKING;
+  static inline const TaskType TASK_TYPE_NETWORKING_CONTROL = TaskType::TASK_TYPE_NETWORKING_CONTROL;
+  static inline const TaskType TASK_TYPE_HISTORY_TRAVERSAL = TaskType::TASK_TYPE_HISTORY_TRAVERSAL;
+  static inline const TaskType TASK_TYPE_EMBED = TaskType::TASK_TYPE_EMBED;
+  static inline const TaskType TASK_TYPE_MEDIA_ELEMENT_EVENT = TaskType::TASK_TYPE_MEDIA_ELEMENT_EVENT;
+  static inline const TaskType TASK_TYPE_CANVAS_BLOB_SERIALIZATION = TaskType::TASK_TYPE_CANVAS_BLOB_SERIALIZATION;
+  static inline const TaskType TASK_TYPE_MICROTASK = TaskType::TASK_TYPE_MICROTASK;
+  static inline const TaskType TASK_TYPE_JAVASCRIPT_TIMER_DELAYED_HIGH_NESTING = TaskType::TASK_TYPE_JAVASCRIPT_TIMER_DELAYED_HIGH_NESTING;
+  static inline const TaskType TASK_TYPE_REMOTE_EVENT = TaskType::TASK_TYPE_REMOTE_EVENT;
+  static inline const TaskType TASK_TYPE_WEB_SOCKET = TaskType::TASK_TYPE_WEB_SOCKET;
+  static inline const TaskType TASK_TYPE_POSTED_MESSAGE = TaskType::TASK_TYPE_POSTED_MESSAGE;
+  static inline const TaskType TASK_TYPE_UNSHIPPED_PORT_MESSAGE = TaskType::TASK_TYPE_UNSHIPPED_PORT_MESSAGE;
+  static inline const TaskType TASK_TYPE_FILE_READING = TaskType::TASK_TYPE_FILE_READING;
+  static inline const TaskType TASK_TYPE_DATABASE_ACCESS = TaskType::TASK_TYPE_DATABASE_ACCESS;
+  static inline const TaskType TASK_TYPE_PRESENTATION = TaskType::TASK_TYPE_PRESENTATION;
+  static inline const TaskType TASK_TYPE_SENSOR = TaskType::TASK_TYPE_SENSOR;
+  static inline const TaskType TASK_TYPE_PERFORMANCE_TIMELINE = TaskType::TASK_TYPE_PERFORMANCE_TIMELINE;
+  static inline const TaskType TASK_TYPE_WEB_GL = TaskType::TASK_TYPE_WEB_GL;
+  static inline const TaskType TASK_TYPE_IDLE_TASK = TaskType::TASK_TYPE_IDLE_TASK;
+  static inline const TaskType TASK_TYPE_MISC_PLATFORM_API = TaskType::TASK_TYPE_MISC_PLATFORM_API;
+  static inline const TaskType TASK_TYPE_INTERNAL_DEFAULT = TaskType::TASK_TYPE_INTERNAL_DEFAULT;
+  static inline const TaskType TASK_TYPE_INTERNAL_LOADING = TaskType::TASK_TYPE_INTERNAL_LOADING;
+  static inline const TaskType TASK_TYPE_INTERNAL_TEST = TaskType::TASK_TYPE_INTERNAL_TEST;
+  static inline const TaskType TASK_TYPE_INTERNAL_WEB_CRYPTO = TaskType::TASK_TYPE_INTERNAL_WEB_CRYPTO;
+  static inline const TaskType TASK_TYPE_INTERNAL_MEDIA = TaskType::TASK_TYPE_INTERNAL_MEDIA;
+  static inline const TaskType TASK_TYPE_INTERNAL_MEDIA_REALTIME = TaskType::TASK_TYPE_INTERNAL_MEDIA_REALTIME;
+  static inline const TaskType TASK_TYPE_INTERNAL_USER_INTERACTION = TaskType::TASK_TYPE_INTERNAL_USER_INTERACTION;
+  static inline const TaskType TASK_TYPE_INTERNAL_INSPECTOR = TaskType::TASK_TYPE_INTERNAL_INSPECTOR;
+  static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8 = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8;
+  static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_COMPOSITOR = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_COMPOSITOR;
+  static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_DEFAULT = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_DEFAULT;
+  static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_INPUT = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_INPUT;
+  static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_IDLE = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_IDLE;
+  static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_CONTROL = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_CONTROL;
+  static inline const TaskType TASK_TYPE_INTERNAL_INTERSECTION_OBSERVER = TaskType::TASK_TYPE_INTERNAL_INTERSECTION_OBSERVER;
+  static inline const TaskType TASK_TYPE_COMPOSITOR_THREAD_TASK_QUEUE_DEFAULT = TaskType::TASK_TYPE_COMPOSITOR_THREAD_TASK_QUEUE_DEFAULT;
+  static inline const TaskType TASK_TYPE_WORKER_THREAD_TASK_QUEUE_DEFAULT = TaskType::TASK_TYPE_WORKER_THREAD_TASK_QUEUE_DEFAULT;
+  static inline const TaskType TASK_TYPE_WORKER_THREAD_TASK_QUEUE_V8 = TaskType::TASK_TYPE_WORKER_THREAD_TASK_QUEUE_V8;
+  static inline const TaskType TASK_TYPE_WORKER_THREAD_TASK_QUEUE_COMPOSITOR = TaskType::TASK_TYPE_WORKER_THREAD_TASK_QUEUE_COMPOSITOR;
+  static inline const TaskType TASK_TYPE_COMPOSITOR_THREAD_TASK_QUEUE_INPUT = TaskType::TASK_TYPE_COMPOSITOR_THREAD_TASK_QUEUE_INPUT;
+  static inline const TaskType TASK_TYPE_NETWORKING_WITH_URL_LOADER_ANNOTATION = TaskType::TASK_TYPE_NETWORKING_WITH_URL_LOADER_ANNOTATION;
+  static inline const TaskType TASK_TYPE_WORKER_ANIMATION = TaskType::TASK_TYPE_WORKER_ANIMATION;
+  static inline const TaskType TASK_TYPE_INTERNAL_TRANSLATION = TaskType::TASK_TYPE_INTERNAL_TRANSLATION;
+  static inline const TaskType TASK_TYPE_FONT_LOADING = TaskType::TASK_TYPE_FONT_LOADING;
+  static inline const TaskType TASK_TYPE_APPLICATION_LIFECYCLE = TaskType::TASK_TYPE_APPLICATION_LIFECYCLE;
+  static inline const TaskType TASK_TYPE_BACKGROUND_FETCH = TaskType::TASK_TYPE_BACKGROUND_FETCH;
+  static inline const TaskType TASK_TYPE_PERMISSION = TaskType::TASK_TYPE_PERMISSION;
+  static inline const TaskType TASK_TYPE_SERVICE_WORKER_CLIENT_MESSAGE = TaskType::TASK_TYPE_SERVICE_WORKER_CLIENT_MESSAGE;
+  static inline const TaskType TASK_TYPE_INTERNAL_CONTENT_CAPTURE = TaskType::TASK_TYPE_INTERNAL_CONTENT_CAPTURE;
+  static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_MEMORY_PURGE = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_MEMORY_PURGE;
+  static inline const TaskType TASK_TYPE_INTERNAL_NAVIGATION_ASSOCIATED = TaskType::TASK_TYPE_INTERNAL_NAVIGATION_ASSOCIATED;
+  static inline const TaskType TASK_TYPE_INTERNAL_NAVIGATION_ASSOCIATED_UNFREEZABLE = TaskType::TASK_TYPE_INTERNAL_NAVIGATION_ASSOCIATED_UNFREEZABLE;
+  static inline const TaskType TASK_TYPE_INTERNAL_CONTINUE_SCRIPT_LOADING = TaskType::TASK_TYPE_INTERNAL_CONTINUE_SCRIPT_LOADING;
+  static inline const TaskType TASK_TYPE_WEB_LOCKS = TaskType::TASK_TYPE_WEB_LOCKS;
+  static inline const TaskType TASK_TYPE_WEB_SCHEDULING_POSTED_TASK = TaskType::TASK_TYPE_WEB_SCHEDULING_POSTED_TASK;
+  static inline const TaskType TASK_TYPE_INTERNAL_FRAME_LIFE_CYCLE_CONTROL = TaskType::TASK_TYPE_INTERNAL_FRAME_LIFE_CYCLE_CONTROL;
+  static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_NON_WAKING = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_NON_WAKING;
+  static inline const TaskType TASK_TYPE_INTERNAL_FIND_IN_PAGE = TaskType::TASK_TYPE_INTERNAL_FIND_IN_PAGE;
+  static inline const TaskType TASK_TYPE_INTERNAL_HIGH_PRIORITY_LOCAL_FRAME = TaskType::TASK_TYPE_INTERNAL_HIGH_PRIORITY_LOCAL_FRAME;
+  static inline const TaskType TASK_TYPE_JAVASCRIPT_TIMER_IMMEDIATE = TaskType::TASK_TYPE_JAVASCRIPT_TIMER_IMMEDIATE;
+  static inline const TaskType TASK_TYPE_JAVASCRIPT_TIMER_DELAYED_LOW_NESTING = TaskType::TASK_TYPE_JAVASCRIPT_TIMER_DELAYED_LOW_NESTING;
+  static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_IPC_TRACKING = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_IPC_TRACKING;
+  static inline const TaskType TASK_TYPE_NETWORKING_UNFREEZABLE = TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE;
+  static inline const TaskType TASK_TYPE_WAKE_LOCK = TaskType::TASK_TYPE_WAKE_LOCK;
+  static inline const TaskType TASK_TYPE_INTERNAL_INPUT_BLOCKING = TaskType::TASK_TYPE_INTERNAL_INPUT_BLOCKING;
+  static inline const TaskType TASK_TYPE_WEB_GPU = TaskType::TASK_TYPE_WEB_GPU;
+  static inline const TaskType TASK_TYPE_INTERNAL_POST_MESSAGE_FORWARDING = TaskType::TASK_TYPE_INTERNAL_POST_MESSAGE_FORWARDING;
+  static inline const TaskType TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION = TaskType::TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION;
+  static inline const TaskType TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION = TaskType::TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION;
+  static inline const TaskType TASK_TYPE_STORAGE = TaskType::TASK_TYPE_STORAGE;
+  static inline const TaskType TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING = TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING;
+  static inline const FrameType FRAME_TYPE_UNSPECIFIED = FrameType::FRAME_TYPE_UNSPECIFIED;
+  static inline const FrameType FRAME_TYPE_MAIN_FRAME = FrameType::FRAME_TYPE_MAIN_FRAME;
+  static inline const FrameType FRAME_TYPE_SAME_ORIGIN_SUBFRAME = FrameType::FRAME_TYPE_SAME_ORIGIN_SUBFRAME;
+  static inline const FrameType FRAME_TYPE_CROSS_ORIGIN_SUBFRAME = FrameType::FRAME_TYPE_CROSS_ORIGIN_SUBFRAME;
 
   using FieldMetadata_TaskType =
     ::protozero::proto_utils::FieldMetadata<
@@ -4487,60 +4487,60 @@ class BackForwardCacheCanStoreDocumentResult : public ::protozero::Message {
   static inline const char* BackForwardCacheNotRestoredReason_Name(BackForwardCacheNotRestoredReason value) {
     return ::perfetto::protos::pbzero::BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason_Name(value);
   }
-  static const BackForwardCacheNotRestoredReason NOT_MAIN_FRAME = BackForwardCacheNotRestoredReason::NOT_MAIN_FRAME;
-  static const BackForwardCacheNotRestoredReason BACK_FORWARD_CACHE_DISABLED = BackForwardCacheNotRestoredReason::BACK_FORWARD_CACHE_DISABLED;
-  static const BackForwardCacheNotRestoredReason RELATED_ACTIVE_CONTENTS_EXIST = BackForwardCacheNotRestoredReason::RELATED_ACTIVE_CONTENTS_EXIST;
-  static const BackForwardCacheNotRestoredReason HTTP_STATUS_NOT_OK = BackForwardCacheNotRestoredReason::HTTP_STATUS_NOT_OK;
-  static const BackForwardCacheNotRestoredReason SCHEME_NOT_HTTP_OR_HTTPS = BackForwardCacheNotRestoredReason::SCHEME_NOT_HTTP_OR_HTTPS;
-  static const BackForwardCacheNotRestoredReason LOADING = BackForwardCacheNotRestoredReason::LOADING;
-  static const BackForwardCacheNotRestoredReason WAS_GRANTED_MEDIA_ACCESS = BackForwardCacheNotRestoredReason::WAS_GRANTED_MEDIA_ACCESS;
-  static const BackForwardCacheNotRestoredReason BLOCKLISTED_FEATURES = BackForwardCacheNotRestoredReason::BLOCKLISTED_FEATURES;
-  static const BackForwardCacheNotRestoredReason DISABLE_FOR_RENDER_FRAME_HOST_CALLED = BackForwardCacheNotRestoredReason::DISABLE_FOR_RENDER_FRAME_HOST_CALLED;
-  static const BackForwardCacheNotRestoredReason DOMAIN_NOT_ALLOWED = BackForwardCacheNotRestoredReason::DOMAIN_NOT_ALLOWED;
-  static const BackForwardCacheNotRestoredReason HTTP_METHOD_NOT_GET = BackForwardCacheNotRestoredReason::HTTP_METHOD_NOT_GET;
-  static const BackForwardCacheNotRestoredReason SUBFRAME_IS_NAVIGATING = BackForwardCacheNotRestoredReason::SUBFRAME_IS_NAVIGATING;
-  static const BackForwardCacheNotRestoredReason TIMEOUT = BackForwardCacheNotRestoredReason::TIMEOUT;
-  static const BackForwardCacheNotRestoredReason CACHE_LIMIT = BackForwardCacheNotRestoredReason::CACHE_LIMIT;
-  static const BackForwardCacheNotRestoredReason JAVASCRIPT_EXECUTION = BackForwardCacheNotRestoredReason::JAVASCRIPT_EXECUTION;
-  static const BackForwardCacheNotRestoredReason RENDERER_PROCESS_KILLED = BackForwardCacheNotRestoredReason::RENDERER_PROCESS_KILLED;
-  static const BackForwardCacheNotRestoredReason RENDERER_PROCESS_CRASHED = BackForwardCacheNotRestoredReason::RENDERER_PROCESS_CRASHED;
-  static const BackForwardCacheNotRestoredReason GRANTED_MEDIA_STREAM_ACCESS = BackForwardCacheNotRestoredReason::GRANTED_MEDIA_STREAM_ACCESS;
-  static const BackForwardCacheNotRestoredReason SCHEDULER_TRACKED_FEATURE_USED = BackForwardCacheNotRestoredReason::SCHEDULER_TRACKED_FEATURE_USED;
-  static const BackForwardCacheNotRestoredReason CONFLICTING_BROWSING_INSTANCE = BackForwardCacheNotRestoredReason::CONFLICTING_BROWSING_INSTANCE;
-  static const BackForwardCacheNotRestoredReason CACHE_FLUSHED = BackForwardCacheNotRestoredReason::CACHE_FLUSHED;
-  static const BackForwardCacheNotRestoredReason SERVICE_WORKER_VERSION_ACTIVATION = BackForwardCacheNotRestoredReason::SERVICE_WORKER_VERSION_ACTIVATION;
-  static const BackForwardCacheNotRestoredReason SESSION_RESTORED = BackForwardCacheNotRestoredReason::SESSION_RESTORED;
-  static const BackForwardCacheNotRestoredReason UNKNOWN = BackForwardCacheNotRestoredReason::UNKNOWN;
-  static const BackForwardCacheNotRestoredReason SERVICE_WORKER_POST_MESSAGE = BackForwardCacheNotRestoredReason::SERVICE_WORKER_POST_MESSAGE;
-  static const BackForwardCacheNotRestoredReason ENTERED_BACK_FORWARD_CACHE_BEFORE_SERVICE_WORKER_HOST_ADDED = BackForwardCacheNotRestoredReason::ENTERED_BACK_FORWARD_CACHE_BEFORE_SERVICE_WORKER_HOST_ADDED;
-  static const BackForwardCacheNotRestoredReason NOT_MOST_RECENT_NAVIGATION_ENTRY = BackForwardCacheNotRestoredReason::NOT_MOST_RECENT_NAVIGATION_ENTRY;
-  static const BackForwardCacheNotRestoredReason SERVICE_WORKER_CLAIM = BackForwardCacheNotRestoredReason::SERVICE_WORKER_CLAIM;
-  static const BackForwardCacheNotRestoredReason IGNORE_EVENT_AND_EVICT = BackForwardCacheNotRestoredReason::IGNORE_EVENT_AND_EVICT;
-  static const BackForwardCacheNotRestoredReason HAVE_INNER_CONTENTS = BackForwardCacheNotRestoredReason::HAVE_INNER_CONTENTS;
-  static const BackForwardCacheNotRestoredReason TIMEOUT_PUTTING_IN_CACHE = BackForwardCacheNotRestoredReason::TIMEOUT_PUTTING_IN_CACHE;
-  static const BackForwardCacheNotRestoredReason BACK_FORWARD_CACHE_DISABLED_BY_LOW_MEMORY = BackForwardCacheNotRestoredReason::BACK_FORWARD_CACHE_DISABLED_BY_LOW_MEMORY;
-  static const BackForwardCacheNotRestoredReason BACK_FORWARD_CACHE_DISABLED_BY_COMMAND_LINE = BackForwardCacheNotRestoredReason::BACK_FORWARD_CACHE_DISABLED_BY_COMMAND_LINE;
-  static const BackForwardCacheNotRestoredReason NETWORK_REQUEST_REDIRECTED = BackForwardCacheNotRestoredReason::NETWORK_REQUEST_REDIRECTED;
-  static const BackForwardCacheNotRestoredReason NETWORK_REQUEST_TIMEOUT = BackForwardCacheNotRestoredReason::NETWORK_REQUEST_TIMEOUT;
-  static const BackForwardCacheNotRestoredReason NETWORK_EXCEEDS_BUFFER_LIMIT = BackForwardCacheNotRestoredReason::NETWORK_EXCEEDS_BUFFER_LIMIT;
-  static const BackForwardCacheNotRestoredReason NAVIGATION_CANCELLED_WHILE_RESTORING = BackForwardCacheNotRestoredReason::NAVIGATION_CANCELLED_WHILE_RESTORING;
-  static const BackForwardCacheNotRestoredReason BACK_FORWARD_CACHE_DISABLED_FOR_PRERENDER = BackForwardCacheNotRestoredReason::BACK_FORWARD_CACHE_DISABLED_FOR_PRERENDER;
-  static const BackForwardCacheNotRestoredReason USER_AGENT_OVERRIDE_DIFFERS = BackForwardCacheNotRestoredReason::USER_AGENT_OVERRIDE_DIFFERS;
-  static const BackForwardCacheNotRestoredReason NETWORK_REQUEST_DATAPIPE_DRAINED_AS_BYTES_CONSUMER = BackForwardCacheNotRestoredReason::NETWORK_REQUEST_DATAPIPE_DRAINED_AS_BYTES_CONSUMER;
-  static const BackForwardCacheNotRestoredReason FOREGROUND_CACHE_LIMIT = BackForwardCacheNotRestoredReason::FOREGROUND_CACHE_LIMIT;
-  static const BackForwardCacheNotRestoredReason BROWSING_INSTANCE_NOT_SWAPPED = BackForwardCacheNotRestoredReason::BROWSING_INSTANCE_NOT_SWAPPED;
-  static const BackForwardCacheNotRestoredReason BACK_FORWARD_CACHE_DISABLED_FOR_DELEGATE = BackForwardCacheNotRestoredReason::BACK_FORWARD_CACHE_DISABLED_FOR_DELEGATE;
-  static const BackForwardCacheNotRestoredReason OPT_IN_UNLOAD_HEADER_NOT_PRESENT = BackForwardCacheNotRestoredReason::OPT_IN_UNLOAD_HEADER_NOT_PRESENT;
-  static const BackForwardCacheNotRestoredReason UNLOAD_HANDLER_EXISTS_IN_MAIN_FRAME = BackForwardCacheNotRestoredReason::UNLOAD_HANDLER_EXISTS_IN_MAIN_FRAME;
-  static const BackForwardCacheNotRestoredReason UNLOAD_HANDLER_EXISTS_IN_SUBFRAME = BackForwardCacheNotRestoredReason::UNLOAD_HANDLER_EXISTS_IN_SUBFRAME;
-  static const BackForwardCacheNotRestoredReason SERVICE_WORKER_UNREGISTRATION = BackForwardCacheNotRestoredReason::SERVICE_WORKER_UNREGISTRATION;
-  static const BackForwardCacheNotRestoredReason CACHE_CONTROL_NO_STORE = BackForwardCacheNotRestoredReason::CACHE_CONTROL_NO_STORE;
-  static const BackForwardCacheNotRestoredReason CACHE_CONTROL_NO_STORE_COOKIE_MODIFIED = BackForwardCacheNotRestoredReason::CACHE_CONTROL_NO_STORE_COOKIE_MODIFIED;
-  static const BackForwardCacheNotRestoredReason CACHE_CONTROL_NO_STORE_HTTP_ONLY_COOKIE_MODIFIED = BackForwardCacheNotRestoredReason::CACHE_CONTROL_NO_STORE_HTTP_ONLY_COOKIE_MODIFIED;
-  static const BackForwardCacheNotRestoredReason NO_RESPONSE_HEAD = BackForwardCacheNotRestoredReason::NO_RESPONSE_HEAD;
-  static const BackForwardCacheNotRestoredReason ACTIVATION_NAVIGATION_DISALLOWED_FOR_BUG_1234857 = BackForwardCacheNotRestoredReason::ACTIVATION_NAVIGATION_DISALLOWED_FOR_BUG_1234857;
-  static const BackForwardCacheNotRestoredReason ERROR_DOCUMENT = BackForwardCacheNotRestoredReason::ERROR_DOCUMENT;
-  static const BackForwardCacheNotRestoredReason FENCED_FRAMES_EMBEDDER = BackForwardCacheNotRestoredReason::FENCED_FRAMES_EMBEDDER;
+  static inline const BackForwardCacheNotRestoredReason NOT_MAIN_FRAME = BackForwardCacheNotRestoredReason::NOT_MAIN_FRAME;
+  static inline const BackForwardCacheNotRestoredReason BACK_FORWARD_CACHE_DISABLED = BackForwardCacheNotRestoredReason::BACK_FORWARD_CACHE_DISABLED;
+  static inline const BackForwardCacheNotRestoredReason RELATED_ACTIVE_CONTENTS_EXIST = BackForwardCacheNotRestoredReason::RELATED_ACTIVE_CONTENTS_EXIST;
+  static inline const BackForwardCacheNotRestoredReason HTTP_STATUS_NOT_OK = BackForwardCacheNotRestoredReason::HTTP_STATUS_NOT_OK;
+  static inline const BackForwardCacheNotRestoredReason SCHEME_NOT_HTTP_OR_HTTPS = BackForwardCacheNotRestoredReason::SCHEME_NOT_HTTP_OR_HTTPS;
+  static inline const BackForwardCacheNotRestoredReason LOADING = BackForwardCacheNotRestoredReason::LOADING;
+  static inline const BackForwardCacheNotRestoredReason WAS_GRANTED_MEDIA_ACCESS = BackForwardCacheNotRestoredReason::WAS_GRANTED_MEDIA_ACCESS;
+  static inline const BackForwardCacheNotRestoredReason BLOCKLISTED_FEATURES = BackForwardCacheNotRestoredReason::BLOCKLISTED_FEATURES;
+  static inline const BackForwardCacheNotRestoredReason DISABLE_FOR_RENDER_FRAME_HOST_CALLED = BackForwardCacheNotRestoredReason::DISABLE_FOR_RENDER_FRAME_HOST_CALLED;
+  static inline const BackForwardCacheNotRestoredReason DOMAIN_NOT_ALLOWED = BackForwardCacheNotRestoredReason::DOMAIN_NOT_ALLOWED;
+  static inline const BackForwardCacheNotRestoredReason HTTP_METHOD_NOT_GET = BackForwardCacheNotRestoredReason::HTTP_METHOD_NOT_GET;
+  static inline const BackForwardCacheNotRestoredReason SUBFRAME_IS_NAVIGATING = BackForwardCacheNotRestoredReason::SUBFRAME_IS_NAVIGATING;
+  static inline const BackForwardCacheNotRestoredReason TIMEOUT = BackForwardCacheNotRestoredReason::TIMEOUT;
+  static inline const BackForwardCacheNotRestoredReason CACHE_LIMIT = BackForwardCacheNotRestoredReason::CACHE_LIMIT;
+  static inline const BackForwardCacheNotRestoredReason JAVASCRIPT_EXECUTION = BackForwardCacheNotRestoredReason::JAVASCRIPT_EXECUTION;
+  static inline const BackForwardCacheNotRestoredReason RENDERER_PROCESS_KILLED = BackForwardCacheNotRestoredReason::RENDERER_PROCESS_KILLED;
+  static inline const BackForwardCacheNotRestoredReason RENDERER_PROCESS_CRASHED = BackForwardCacheNotRestoredReason::RENDERER_PROCESS_CRASHED;
+  static inline const BackForwardCacheNotRestoredReason GRANTED_MEDIA_STREAM_ACCESS = BackForwardCacheNotRestoredReason::GRANTED_MEDIA_STREAM_ACCESS;
+  static inline const BackForwardCacheNotRestoredReason SCHEDULER_TRACKED_FEATURE_USED = BackForwardCacheNotRestoredReason::SCHEDULER_TRACKED_FEATURE_USED;
+  static inline const BackForwardCacheNotRestoredReason CONFLICTING_BROWSING_INSTANCE = BackForwardCacheNotRestoredReason::CONFLICTING_BROWSING_INSTANCE;
+  static inline const BackForwardCacheNotRestoredReason CACHE_FLUSHED = BackForwardCacheNotRestoredReason::CACHE_FLUSHED;
+  static inline const BackForwardCacheNotRestoredReason SERVICE_WORKER_VERSION_ACTIVATION = BackForwardCacheNotRestoredReason::SERVICE_WORKER_VERSION_ACTIVATION;
+  static inline const BackForwardCacheNotRestoredReason SESSION_RESTORED = BackForwardCacheNotRestoredReason::SESSION_RESTORED;
+  static inline const BackForwardCacheNotRestoredReason UNKNOWN = BackForwardCacheNotRestoredReason::UNKNOWN;
+  static inline const BackForwardCacheNotRestoredReason SERVICE_WORKER_POST_MESSAGE = BackForwardCacheNotRestoredReason::SERVICE_WORKER_POST_MESSAGE;
+  static inline const BackForwardCacheNotRestoredReason ENTERED_BACK_FORWARD_CACHE_BEFORE_SERVICE_WORKER_HOST_ADDED = BackForwardCacheNotRestoredReason::ENTERED_BACK_FORWARD_CACHE_BEFORE_SERVICE_WORKER_HOST_ADDED;
+  static inline const BackForwardCacheNotRestoredReason NOT_MOST_RECENT_NAVIGATION_ENTRY = BackForwardCacheNotRestoredReason::NOT_MOST_RECENT_NAVIGATION_ENTRY;
+  static inline const BackForwardCacheNotRestoredReason SERVICE_WORKER_CLAIM = BackForwardCacheNotRestoredReason::SERVICE_WORKER_CLAIM;
+  static inline const BackForwardCacheNotRestoredReason IGNORE_EVENT_AND_EVICT = BackForwardCacheNotRestoredReason::IGNORE_EVENT_AND_EVICT;
+  static inline const BackForwardCacheNotRestoredReason HAVE_INNER_CONTENTS = BackForwardCacheNotRestoredReason::HAVE_INNER_CONTENTS;
+  static inline const BackForwardCacheNotRestoredReason TIMEOUT_PUTTING_IN_CACHE = BackForwardCacheNotRestoredReason::TIMEOUT_PUTTING_IN_CACHE;
+  static inline const BackForwardCacheNotRestoredReason BACK_FORWARD_CACHE_DISABLED_BY_LOW_MEMORY = BackForwardCacheNotRestoredReason::BACK_FORWARD_CACHE_DISABLED_BY_LOW_MEMORY;
+  static inline const BackForwardCacheNotRestoredReason BACK_FORWARD_CACHE_DISABLED_BY_COMMAND_LINE = BackForwardCacheNotRestoredReason::BACK_FORWARD_CACHE_DISABLED_BY_COMMAND_LINE;
+  static inline const BackForwardCacheNotRestoredReason NETWORK_REQUEST_REDIRECTED = BackForwardCacheNotRestoredReason::NETWORK_REQUEST_REDIRECTED;
+  static inline const BackForwardCacheNotRestoredReason NETWORK_REQUEST_TIMEOUT = BackForwardCacheNotRestoredReason::NETWORK_REQUEST_TIMEOUT;
+  static inline const BackForwardCacheNotRestoredReason NETWORK_EXCEEDS_BUFFER_LIMIT = BackForwardCacheNotRestoredReason::NETWORK_EXCEEDS_BUFFER_LIMIT;
+  static inline const BackForwardCacheNotRestoredReason NAVIGATION_CANCELLED_WHILE_RESTORING = BackForwardCacheNotRestoredReason::NAVIGATION_CANCELLED_WHILE_RESTORING;
+  static inline const BackForwardCacheNotRestoredReason BACK_FORWARD_CACHE_DISABLED_FOR_PRERENDER = BackForwardCacheNotRestoredReason::BACK_FORWARD_CACHE_DISABLED_FOR_PRERENDER;
+  static inline const BackForwardCacheNotRestoredReason USER_AGENT_OVERRIDE_DIFFERS = BackForwardCacheNotRestoredReason::USER_AGENT_OVERRIDE_DIFFERS;
+  static inline const BackForwardCacheNotRestoredReason NETWORK_REQUEST_DATAPIPE_DRAINED_AS_BYTES_CONSUMER = BackForwardCacheNotRestoredReason::NETWORK_REQUEST_DATAPIPE_DRAINED_AS_BYTES_CONSUMER;
+  static inline const BackForwardCacheNotRestoredReason FOREGROUND_CACHE_LIMIT = BackForwardCacheNotRestoredReason::FOREGROUND_CACHE_LIMIT;
+  static inline const BackForwardCacheNotRestoredReason BROWSING_INSTANCE_NOT_SWAPPED = BackForwardCacheNotRestoredReason::BROWSING_INSTANCE_NOT_SWAPPED;
+  static inline const BackForwardCacheNotRestoredReason BACK_FORWARD_CACHE_DISABLED_FOR_DELEGATE = BackForwardCacheNotRestoredReason::BACK_FORWARD_CACHE_DISABLED_FOR_DELEGATE;
+  static inline const BackForwardCacheNotRestoredReason OPT_IN_UNLOAD_HEADER_NOT_PRESENT = BackForwardCacheNotRestoredReason::OPT_IN_UNLOAD_HEADER_NOT_PRESENT;
+  static inline const BackForwardCacheNotRestoredReason UNLOAD_HANDLER_EXISTS_IN_MAIN_FRAME = BackForwardCacheNotRestoredReason::UNLOAD_HANDLER_EXISTS_IN_MAIN_FRAME;
+  static inline const BackForwardCacheNotRestoredReason UNLOAD_HANDLER_EXISTS_IN_SUBFRAME = BackForwardCacheNotRestoredReason::UNLOAD_HANDLER_EXISTS_IN_SUBFRAME;
+  static inline const BackForwardCacheNotRestoredReason SERVICE_WORKER_UNREGISTRATION = BackForwardCacheNotRestoredReason::SERVICE_WORKER_UNREGISTRATION;
+  static inline const BackForwardCacheNotRestoredReason CACHE_CONTROL_NO_STORE = BackForwardCacheNotRestoredReason::CACHE_CONTROL_NO_STORE;
+  static inline const BackForwardCacheNotRestoredReason CACHE_CONTROL_NO_STORE_COOKIE_MODIFIED = BackForwardCacheNotRestoredReason::CACHE_CONTROL_NO_STORE_COOKIE_MODIFIED;
+  static inline const BackForwardCacheNotRestoredReason CACHE_CONTROL_NO_STORE_HTTP_ONLY_COOKIE_MODIFIED = BackForwardCacheNotRestoredReason::CACHE_CONTROL_NO_STORE_HTTP_ONLY_COOKIE_MODIFIED;
+  static inline const BackForwardCacheNotRestoredReason NO_RESPONSE_HEAD = BackForwardCacheNotRestoredReason::NO_RESPONSE_HEAD;
+  static inline const BackForwardCacheNotRestoredReason ACTIVATION_NAVIGATION_DISALLOWED_FOR_BUG_1234857 = BackForwardCacheNotRestoredReason::ACTIVATION_NAVIGATION_DISALLOWED_FOR_BUG_1234857;
+  static inline const BackForwardCacheNotRestoredReason ERROR_DOCUMENT = BackForwardCacheNotRestoredReason::ERROR_DOCUMENT;
+  static inline const BackForwardCacheNotRestoredReason FENCED_FRAMES_EMBEDDER = BackForwardCacheNotRestoredReason::FENCED_FRAMES_EMBEDDER;
 
   using FieldMetadata_BackForwardCacheNotRestoredReason =
     ::protozero::proto_utils::FieldMetadata<
@@ -4602,19 +4602,19 @@ class ChromeThreadPoolTask : public ::protozero::Message {
   static inline const char* ShutdownBehavior_Name(ShutdownBehavior value) {
     return ::perfetto::protos::pbzero::ChromeThreadPoolTask_ShutdownBehavior_Name(value);
   }
-  static const Priority PRIORITY_UNSPECIFIED = Priority::PRIORITY_UNSPECIFIED;
-  static const Priority PRIORITY_BEST_EFFORT = Priority::PRIORITY_BEST_EFFORT;
-  static const Priority PRIORITY_USER_VISIBLE = Priority::PRIORITY_USER_VISIBLE;
-  static const Priority PRIORITY_USER_BLOCKING = Priority::PRIORITY_USER_BLOCKING;
-  static const ExecutionMode EXECTUION_MODE_UNSPECIFIED = ExecutionMode::EXECTUION_MODE_UNSPECIFIED;
-  static const ExecutionMode EXECUTION_MODE_PARALLEL = ExecutionMode::EXECUTION_MODE_PARALLEL;
-  static const ExecutionMode EXECUTION_MODE_SEQUENCED = ExecutionMode::EXECUTION_MODE_SEQUENCED;
-  static const ExecutionMode EXECUTION_MODE_SINGLE_THREAD = ExecutionMode::EXECUTION_MODE_SINGLE_THREAD;
-  static const ExecutionMode EXECUTION_MODE_JOB = ExecutionMode::EXECUTION_MODE_JOB;
-  static const ShutdownBehavior SHUTDOWN_BEHAVIOR_UNSPECIFIED = ShutdownBehavior::SHUTDOWN_BEHAVIOR_UNSPECIFIED;
-  static const ShutdownBehavior SHUTDOWN_BEHAVIOR_CONTINUE_ON_SHUTDOWN = ShutdownBehavior::SHUTDOWN_BEHAVIOR_CONTINUE_ON_SHUTDOWN;
-  static const ShutdownBehavior SHUTDOWN_BEHAVIOR_SKIP_ON_SHUTDOWN = ShutdownBehavior::SHUTDOWN_BEHAVIOR_SKIP_ON_SHUTDOWN;
-  static const ShutdownBehavior SHUTDOWN_BEHAVIOR_BLOCK_SHUTDOWN = ShutdownBehavior::SHUTDOWN_BEHAVIOR_BLOCK_SHUTDOWN;
+  static inline const Priority PRIORITY_UNSPECIFIED = Priority::PRIORITY_UNSPECIFIED;
+  static inline const Priority PRIORITY_BEST_EFFORT = Priority::PRIORITY_BEST_EFFORT;
+  static inline const Priority PRIORITY_USER_VISIBLE = Priority::PRIORITY_USER_VISIBLE;
+  static inline const Priority PRIORITY_USER_BLOCKING = Priority::PRIORITY_USER_BLOCKING;
+  static inline const ExecutionMode EXECTUION_MODE_UNSPECIFIED = ExecutionMode::EXECTUION_MODE_UNSPECIFIED;
+  static inline const ExecutionMode EXECUTION_MODE_PARALLEL = ExecutionMode::EXECUTION_MODE_PARALLEL;
+  static inline const ExecutionMode EXECUTION_MODE_SEQUENCED = ExecutionMode::EXECUTION_MODE_SEQUENCED;
+  static inline const ExecutionMode EXECUTION_MODE_SINGLE_THREAD = ExecutionMode::EXECUTION_MODE_SINGLE_THREAD;
+  static inline const ExecutionMode EXECUTION_MODE_JOB = ExecutionMode::EXECUTION_MODE_JOB;
+  static inline const ShutdownBehavior SHUTDOWN_BEHAVIOR_UNSPECIFIED = ShutdownBehavior::SHUTDOWN_BEHAVIOR_UNSPECIFIED;
+  static inline const ShutdownBehavior SHUTDOWN_BEHAVIOR_CONTINUE_ON_SHUTDOWN = ShutdownBehavior::SHUTDOWN_BEHAVIOR_CONTINUE_ON_SHUTDOWN;
+  static inline const ShutdownBehavior SHUTDOWN_BEHAVIOR_SKIP_ON_SHUTDOWN = ShutdownBehavior::SHUTDOWN_BEHAVIOR_SKIP_ON_SHUTDOWN;
+  static inline const ShutdownBehavior SHUTDOWN_BEHAVIOR_BLOCK_SHUTDOWN = ShutdownBehavior::SHUTDOWN_BEHAVIOR_BLOCK_SHUTDOWN;
 
   using FieldMetadata_TaskPriority =
     ::protozero::proto_utils::FieldMetadata<
@@ -4747,14 +4747,14 @@ class RenderFrameHost : public ::protozero::Message {
   static inline const char* LifecycleState_Name(LifecycleState value) {
     return ::perfetto::protos::pbzero::RenderFrameHost_LifecycleState_Name(value);
   }
-  static const LifecycleState UNSPECIFIED = LifecycleState::UNSPECIFIED;
-  static const LifecycleState SPECULATIVE = LifecycleState::SPECULATIVE;
-  static const LifecycleState PENDING_COMMIT = LifecycleState::PENDING_COMMIT;
-  static const LifecycleState PRERENDERING = LifecycleState::PRERENDERING;
-  static const LifecycleState ACTIVE = LifecycleState::ACTIVE;
-  static const LifecycleState IN_BACK_FORWARD_CACHE = LifecycleState::IN_BACK_FORWARD_CACHE;
-  static const LifecycleState RUNNING_UNLOAD_HANDLERS = LifecycleState::RUNNING_UNLOAD_HANDLERS;
-  static const LifecycleState READY_TO_BE_DELETED = LifecycleState::READY_TO_BE_DELETED;
+  static inline const LifecycleState UNSPECIFIED = LifecycleState::UNSPECIFIED;
+  static inline const LifecycleState SPECULATIVE = LifecycleState::SPECULATIVE;
+  static inline const LifecycleState PENDING_COMMIT = LifecycleState::PENDING_COMMIT;
+  static inline const LifecycleState PRERENDERING = LifecycleState::PRERENDERING;
+  static inline const LifecycleState ACTIVE = LifecycleState::ACTIVE;
+  static inline const LifecycleState IN_BACK_FORWARD_CACHE = LifecycleState::IN_BACK_FORWARD_CACHE;
+  static inline const LifecycleState RUNNING_UNLOAD_HANDLERS = LifecycleState::RUNNING_UNLOAD_HANDLERS;
+  static inline const LifecycleState READY_TO_BE_DELETED = LifecycleState::READY_TO_BE_DELETED;
 
   using FieldMetadata_Process =
     ::protozero::proto_utils::FieldMetadata<
@@ -5427,10 +5427,10 @@ class ChromeSamplingProfilerSampleCollected : public ::protozero::Message {
   static inline const char* WriteStatus_Name(WriteStatus value) {
     return ::perfetto::protos::pbzero::ChromeSamplingProfilerSampleCollected_WriteStatus_Name(value);
   }
-  static const WriteStatus WRITE_STATUS_NONE = WriteStatus::WRITE_STATUS_NONE;
-  static const WriteStatus WRITE_STATUS_BUFFERING_SAMPLE = WriteStatus::WRITE_STATUS_BUFFERING_SAMPLE;
-  static const WriteStatus WRITE_STATUS_WRITING_BUFFERED = WriteStatus::WRITE_STATUS_WRITING_BUFFERED;
-  static const WriteStatus WRITE_STATUS_WRITING_TO_TRACE = WriteStatus::WRITE_STATUS_WRITING_TO_TRACE;
+  static inline const WriteStatus WRITE_STATUS_NONE = WriteStatus::WRITE_STATUS_NONE;
+  static inline const WriteStatus WRITE_STATUS_BUFFERING_SAMPLE = WriteStatus::WRITE_STATUS_BUFFERING_SAMPLE;
+  static inline const WriteStatus WRITE_STATUS_WRITING_BUFFERED = WriteStatus::WRITE_STATUS_WRITING_BUFFERED;
+  static inline const WriteStatus WRITE_STATUS_WRITING_TO_TRACE = WriteStatus::WRITE_STATUS_WRITING_TO_TRACE;
 
   using FieldMetadata_FrameCount =
     ::protozero::proto_utils::FieldMetadata<
@@ -6503,9 +6503,9 @@ class ChildProcessLauncherPriority : public ::protozero::Message {
   static inline const char* Importance_Name(Importance value) {
     return ::perfetto::protos::pbzero::ChildProcessLauncherPriority_Importance_Name(value);
   }
-  static const Importance IMPORTANCE_NORMAL = Importance::IMPORTANCE_NORMAL;
-  static const Importance IMPORTANCE_MODERATE = Importance::IMPORTANCE_MODERATE;
-  static const Importance IMPORTANCE_IMPORTANT = Importance::IMPORTANCE_IMPORTANT;
+  static inline const Importance IMPORTANCE_NORMAL = Importance::IMPORTANCE_NORMAL;
+  static inline const Importance IMPORTANCE_MODERATE = Importance::IMPORTANCE_MODERATE;
+  static inline const Importance IMPORTANCE_IMPORTANT = Importance::IMPORTANCE_IMPORTANT;
 
   using FieldMetadata_IsBackgrounded =
     ::protozero::proto_utils::FieldMetadata<
@@ -7468,11 +7468,11 @@ class FrameTreeNodeInfo : public ::protozero::Message {
   static inline const char* FrameType_Name(FrameType value) {
     return ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType_Name(value);
   }
-  static const FrameType UNSPECIFIED_FRAME_TYPE = FrameType::UNSPECIFIED_FRAME_TYPE;
-  static const FrameType SUBFRAME = FrameType::SUBFRAME;
-  static const FrameType PRIMARY_MAIN_FRAME = FrameType::PRIMARY_MAIN_FRAME;
-  static const FrameType PRERENDER_MAIN_FRAME = FrameType::PRERENDER_MAIN_FRAME;
-  static const FrameType FENCED_FRAME_ROOT = FrameType::FENCED_FRAME_ROOT;
+  static inline const FrameType UNSPECIFIED_FRAME_TYPE = FrameType::UNSPECIFIED_FRAME_TYPE;
+  static inline const FrameType SUBFRAME = FrameType::SUBFRAME;
+  static inline const FrameType PRIMARY_MAIN_FRAME = FrameType::PRIMARY_MAIN_FRAME;
+  static inline const FrameType PRERENDER_MAIN_FRAME = FrameType::PRERENDER_MAIN_FRAME;
+  static inline const FrameType FENCED_FRAME_ROOT = FrameType::FENCED_FRAME_ROOT;
 
   using FieldMetadata_FrameTreeNodeId =
     ::protozero::proto_utils::FieldMetadata<
@@ -8210,14 +8210,14 @@ class BlinkTaskScope : public ::protozero::Message {
   static inline const char* TaskScopeType_Name(TaskScopeType value) {
     return ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType_Name(value);
   }
-  static const TaskScopeType TASK_SCOPE_UNKNOWN = TaskScopeType::TASK_SCOPE_UNKNOWN;
-  static const TaskScopeType TASK_SCOPE_CALLBACK = TaskScopeType::TASK_SCOPE_CALLBACK;
-  static const TaskScopeType TASK_SCOPE_SCHEDULED_ACTION = TaskScopeType::TASK_SCOPE_SCHEDULED_ACTION;
-  static const TaskScopeType TASK_SCOPE_SCRIPT_EXECUTION = TaskScopeType::TASK_SCOPE_SCRIPT_EXECUTION;
-  static const TaskScopeType TASK_SCOPE_POST_MESSAGE = TaskScopeType::TASK_SCOPE_POST_MESSAGE;
-  static const TaskScopeType TASK_SCOPE_POP_STATE = TaskScopeType::TASK_SCOPE_POP_STATE;
-  static const TaskScopeType TASK_SCOPE_SCHEDULER_POST_TASK = TaskScopeType::TASK_SCOPE_SCHEDULER_POST_TASK;
-  static const TaskScopeType TASK_SCOPE_REQUEST_IDLE_CALLBACK = TaskScopeType::TASK_SCOPE_REQUEST_IDLE_CALLBACK;
+  static inline const TaskScopeType TASK_SCOPE_UNKNOWN = TaskScopeType::TASK_SCOPE_UNKNOWN;
+  static inline const TaskScopeType TASK_SCOPE_CALLBACK = TaskScopeType::TASK_SCOPE_CALLBACK;
+  static inline const TaskScopeType TASK_SCOPE_SCHEDULED_ACTION = TaskScopeType::TASK_SCOPE_SCHEDULED_ACTION;
+  static inline const TaskScopeType TASK_SCOPE_SCRIPT_EXECUTION = TaskScopeType::TASK_SCOPE_SCRIPT_EXECUTION;
+  static inline const TaskScopeType TASK_SCOPE_POST_MESSAGE = TaskScopeType::TASK_SCOPE_POST_MESSAGE;
+  static inline const TaskScopeType TASK_SCOPE_POP_STATE = TaskScopeType::TASK_SCOPE_POP_STATE;
+  static inline const TaskScopeType TASK_SCOPE_SCHEDULER_POST_TASK = TaskScopeType::TASK_SCOPE_SCHEDULER_POST_TASK;
+  static inline const TaskScopeType TASK_SCOPE_REQUEST_IDLE_CALLBACK = TaskScopeType::TASK_SCOPE_REQUEST_IDLE_CALLBACK;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<

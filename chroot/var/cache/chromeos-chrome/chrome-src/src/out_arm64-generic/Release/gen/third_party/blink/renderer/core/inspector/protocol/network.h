@@ -377,6 +377,9 @@ public:
     double getPushEnd() { return m_pushEnd; }
     void setPushEnd(double value) { m_pushEnd = value; }
 
+    double getReceiveHeadersStart() { return m_receiveHeadersStart; }
+    void setReceiveHeadersStart(double value) { m_receiveHeadersStart = value; }
+
     double getReceiveHeadersEnd() { return m_receiveHeadersEnd; }
     void setReceiveHeadersEnd(double value) { m_receiveHeadersEnd = value; }
 
@@ -402,8 +405,9 @@ public:
             SendEndSet = 1 << 15,
             PushStartSet = 1 << 16,
             PushEndSet = 1 << 17,
-            ReceiveHeadersEndSet = 1 << 18,
-            AllFieldsSet = (RequestTimeSet | ProxyStartSet | ProxyEndSet | DnsStartSet | DnsEndSet | ConnectStartSet | ConnectEndSet | SslStartSet | SslEndSet | WorkerStartSet | WorkerReadySet | WorkerFetchStartSet | WorkerRespondWithSettledSet | SendStartSet | SendEndSet | PushStartSet | PushEndSet | ReceiveHeadersEndSet | 0)};
+            ReceiveHeadersStartSet = 1 << 18,
+            ReceiveHeadersEndSet = 1 << 19,
+            AllFieldsSet = (RequestTimeSet | ProxyStartSet | ProxyEndSet | DnsStartSet | DnsEndSet | ConnectStartSet | ConnectEndSet | SslStartSet | SslEndSet | WorkerStartSet | WorkerReadySet | WorkerFetchStartSet | WorkerRespondWithSettledSet | SendStartSet | SendEndSet | PushStartSet | PushEndSet | ReceiveHeadersStartSet | ReceiveHeadersEndSet | 0)};
 
 
         ResourceTimingBuilder<STATE | RequestTimeSet>& setRequestTime(double value)
@@ -525,6 +529,13 @@ public:
             return castState<PushEndSet>();
         }
 
+        ResourceTimingBuilder<STATE | ReceiveHeadersStartSet>& setReceiveHeadersStart(double value)
+        {
+            static_assert(!(STATE & ReceiveHeadersStartSet), "property receiveHeadersStart should not be set yet");
+            m_result->setReceiveHeadersStart(value);
+            return castState<ReceiveHeadersStartSet>();
+        }
+
         ResourceTimingBuilder<STATE | ReceiveHeadersEndSet>& setReceiveHeadersEnd(double value)
         {
             static_assert(!(STATE & ReceiveHeadersEndSet), "property receiveHeadersEnd should not be set yet");
@@ -577,6 +588,7 @@ private:
           m_sendEnd = 0;
           m_pushStart = 0;
           m_pushEnd = 0;
+          m_receiveHeadersStart = 0;
           m_receiveHeadersEnd = 0;
     }
 
@@ -597,6 +609,7 @@ private:
     double m_sendEnd;
     double m_pushStart;
     double m_pushEnd;
+    double m_receiveHeadersStart;
     double m_receiveHeadersEnd;
 };
 

@@ -307,7 +307,7 @@ Process Process::Clone() const {
   out.nacl_debug_port = nacl_debug_port;
   out.tasks.reserve(tasks.size());
   for (const auto& element : tasks) {
-    out.tasks.push_back(element.Clone());
+    json_schema_compiler::util::AppendToContainer(out.tasks, element.Clone());
   }
   out.cpu = cpu;
   out.network = network;

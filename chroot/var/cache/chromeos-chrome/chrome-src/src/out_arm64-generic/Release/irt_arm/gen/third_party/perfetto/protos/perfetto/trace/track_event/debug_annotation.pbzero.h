@@ -594,9 +594,9 @@ class DebugAnnotation_NestedValue : public ::protozero::Message {
   static inline const char* NestedType_Name(NestedType value) {
     return ::perfetto::protos::pbzero::DebugAnnotation_NestedValue_NestedType_Name(value);
   }
-  static const NestedType UNSPECIFIED = NestedType::UNSPECIFIED;
-  static const NestedType DICT = NestedType::DICT;
-  static const NestedType ARRAY = NestedType::ARRAY;
+  static inline const NestedType UNSPECIFIED = NestedType::UNSPECIFIED;
+  static inline const NestedType DICT = NestedType::DICT;
+  static inline const NestedType ARRAY = NestedType::ARRAY;
 
   using FieldMetadata_NestedType =
     ::protozero::proto_utils::FieldMetadata<

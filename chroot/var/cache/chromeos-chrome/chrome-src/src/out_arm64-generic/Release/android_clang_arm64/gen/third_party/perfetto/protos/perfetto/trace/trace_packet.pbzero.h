@@ -346,9 +346,9 @@ class TracePacket : public ::protozero::Message {
   static inline const char* SequenceFlags_Name(SequenceFlags value) {
     return ::perfetto::protos::pbzero::TracePacket_SequenceFlags_Name(value);
   }
-  static const SequenceFlags SEQ_UNSPECIFIED = SequenceFlags::SEQ_UNSPECIFIED;
-  static const SequenceFlags SEQ_INCREMENTAL_STATE_CLEARED = SequenceFlags::SEQ_INCREMENTAL_STATE_CLEARED;
-  static const SequenceFlags SEQ_NEEDS_INCREMENTAL_STATE = SequenceFlags::SEQ_NEEDS_INCREMENTAL_STATE;
+  static inline const SequenceFlags SEQ_UNSPECIFIED = SequenceFlags::SEQ_UNSPECIFIED;
+  static inline const SequenceFlags SEQ_INCREMENTAL_STATE_CLEARED = SequenceFlags::SEQ_INCREMENTAL_STATE_CLEARED;
+  static inline const SequenceFlags SEQ_NEEDS_INCREMENTAL_STATE = SequenceFlags::SEQ_NEEDS_INCREMENTAL_STATE;
 
   using FieldMetadata_Timestamp =
     ::protozero::proto_utils::FieldMetadata<

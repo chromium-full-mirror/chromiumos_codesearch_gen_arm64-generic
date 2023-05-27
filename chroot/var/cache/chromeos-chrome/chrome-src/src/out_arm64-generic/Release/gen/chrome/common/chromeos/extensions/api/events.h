@@ -36,7 +36,8 @@ enum class EventCategory {
   kUsb,
   kSdCard,
   kPower,
-  kMaxValue = kPower,
+  kKeyboardDiagnostic,
+  kMaxValue = kKeyboardDiagnostic,
 };
 
 
@@ -114,6 +115,216 @@ enum class AudioJackDeviceType {
 
 const char* ToString(AudioJackDeviceType as_enum);
 AudioJackDeviceType ParseAudioJackDeviceType(base::StringPiece as_string);
+
+enum class KeyboardConnectionType {
+  kNone = 0,
+  kInternal,
+  kUsb,
+  kBluetooth,
+  kUnknown,
+  kMaxValue = kUnknown,
+};
+
+
+const char* ToString(KeyboardConnectionType as_enum);
+KeyboardConnectionType ParseKeyboardConnectionType(base::StringPiece as_string);
+
+enum class PhysicalKeyboardLayout {
+  kNone = 0,
+  kUnknown,
+  kChromeOs,
+  kMaxValue = kChromeOs,
+};
+
+
+const char* ToString(PhysicalKeyboardLayout as_enum);
+PhysicalKeyboardLayout ParsePhysicalKeyboardLayout(base::StringPiece as_string);
+
+// The international standard that the layout follows.
+enum class MechanicalKeyboardLayout {
+  kNone = 0,
+  kUnknown,
+  kAnsi,
+  kIso,
+  kJis,
+  kMaxValue = kJis,
+};
+
+
+const char* ToString(MechanicalKeyboardLayout as_enum);
+MechanicalKeyboardLayout ParseMechanicalKeyboardLayout(base::StringPiece as_string);
+
+enum class KeyboardNumberPadPresence {
+  kNone = 0,
+  kUnknown,
+  kPresent,
+  kNotPresent,
+  kMaxValue = kNotPresent,
+};
+
+
+const char* ToString(KeyboardNumberPadPresence as_enum);
+KeyboardNumberPadPresence ParseKeyboardNumberPadPresence(base::StringPiece as_string);
+
+enum class KeyboardTopRowKey {
+  kNone = 0,
+  kNoKey,
+  kUnknown,
+  kBack,
+  kForward,
+  kRefresh,
+  kFullscreen,
+  kOverview,
+  kScreenshot,
+  kScreenBrightnessDown,
+  kScreenBrightnessUp,
+  kPrivacyScreenToggle,
+  kMicrophoneMute,
+  kVolumeMute,
+  kVolumeDown,
+  kVolumeUp,
+  kKeyboardBacklightToggle,
+  kKeyboardBacklightDown,
+  kKeyboardBacklightUp,
+  kNextTrack,
+  kPreviousTrack,
+  kPlayPause,
+  kScreenMirror,
+  kDelete,
+  kMaxValue = kDelete,
+};
+
+
+const char* ToString(KeyboardTopRowKey as_enum);
+KeyboardTopRowKey ParseKeyboardTopRowKey(base::StringPiece as_string);
+
+enum class KeyboardTopRightKey {
+  kNone = 0,
+  kUnknown,
+  kPower,
+  kLock,
+  kControlPanel,
+  kMaxValue = kControlPanel,
+};
+
+
+const char* ToString(KeyboardTopRightKey as_enum);
+KeyboardTopRightKey ParseKeyboardTopRightKey(base::StringPiece as_string);
+
+struct KeyboardInfo {
+  KeyboardInfo();
+  ~KeyboardInfo();
+  KeyboardInfo(const KeyboardInfo&) = delete;
+  KeyboardInfo& operator=(const KeyboardInfo&) = delete;
+  KeyboardInfo(KeyboardInfo&& rhs);
+  KeyboardInfo& operator=(KeyboardInfo&& rhs);
+
+  // Populates a KeyboardInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, KeyboardInfo& out);
+
+  // Populates a KeyboardInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, KeyboardInfo& out);
+
+  // Creates a deep copy of KeyboardInfo.
+  KeyboardInfo Clone() const;
+
+  // Creates a KeyboardInfo object from a base::Value, or NULL on failure.
+  static std::unique_ptr<KeyboardInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a KeyboardInfo object from a base::Value::Dict, or nullopt on
+  // failure.
+  static absl::optional<KeyboardInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a KeyboardInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<KeyboardInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisKeyboardInfo object.
+  base::Value::Dict ToValue() const;
+
+  // The number of the keyboard's /dev/input/event* node.
+  absl::optional<int> id;
+
+  KeyboardConnectionType connection_type;
+
+  absl::optional<std::string> name;
+
+  PhysicalKeyboardLayout physical_layout;
+
+  MechanicalKeyboardLayout mechanical_layout;
+
+  // For internal keyboards, the region code of the device (from which the visual
+  // layout can be determined).
+  absl::optional<std::string> region_code;
+
+  KeyboardNumberPadPresence number_pad_present;
+
+  // List of ChromeOS specific action keys in the top row. This list excludes the
+  // left-most Escape key, and right-most key (usually Power/Lock). If a keyboard
+  // has F11-F15 keys beyond the rightmost action key, they may not be included in
+  // this list (even as "none").
+  std::vector<KeyboardTopRowKey> top_row_keys;
+
+  // For CrOS keyboards, the glyph shown on the key at the far right end of the
+  // top row. This data may not be completely reliable.
+  KeyboardTopRightKey top_right_key;
+
+  // Only applicable to CrOS keyboards.
+  absl::optional<bool> has_assistant_key;
+
+};
+
+struct KeyboardDiagnosticEventInfo {
+  KeyboardDiagnosticEventInfo();
+  ~KeyboardDiagnosticEventInfo();
+  KeyboardDiagnosticEventInfo(const KeyboardDiagnosticEventInfo&) = delete;
+  KeyboardDiagnosticEventInfo& operator=(const KeyboardDiagnosticEventInfo&) = delete;
+  KeyboardDiagnosticEventInfo(KeyboardDiagnosticEventInfo&& rhs);
+  KeyboardDiagnosticEventInfo& operator=(KeyboardDiagnosticEventInfo&& rhs);
+
+  // Populates a KeyboardDiagnosticEventInfo object from a base::Value&
+  // instance. Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, KeyboardDiagnosticEventInfo& out);
+
+  // Populates a KeyboardDiagnosticEventInfo object from a Dict& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, KeyboardDiagnosticEventInfo& out);
+
+  // Creates a deep copy of KeyboardDiagnosticEventInfo.
+  KeyboardDiagnosticEventInfo Clone() const;
+
+  // Creates a KeyboardDiagnosticEventInfo object from a base::Value, or NULL on
+  // failure.
+  static std::unique_ptr<KeyboardDiagnosticEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a KeyboardDiagnosticEventInfo object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<KeyboardDiagnosticEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a KeyboardDiagnosticEventInfo object from a base::Value, or nullopt
+  // on failure.
+  static absl::optional<KeyboardDiagnosticEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisKeyboardDiagnosticEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  // The keyboard which has been tested.
+  absl::optional<KeyboardInfo> keyboard_info;
+
+  // Keys which have been tested. It is an array of the evdev key code.
+  std::vector<int> tested_keys;
+
+  // Top row keys which have been tested. They are positions of the key on the top
+  // row after escape (0 is leftmost, 1 is next to the right, etc.). Generally, 0
+  // is F1, in some fashion. NOTE: This position may exceed the length of
+  // keyboard_info->top_row_keys, for external keyboards with keys in the F11-F15
+  // range.
+  std::vector<int> tested_top_row_keys;
+
+};
 
 enum class LidEvent {
   kNone = 0,

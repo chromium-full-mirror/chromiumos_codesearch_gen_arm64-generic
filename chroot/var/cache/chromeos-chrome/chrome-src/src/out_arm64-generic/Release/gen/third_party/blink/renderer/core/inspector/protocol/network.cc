@@ -115,6 +115,7 @@ CRDTP_BEGIN_DESERIALIZER(ResourceTiming)
     CRDTP_DESERIALIZE_FIELD("pushEnd", m_pushEnd),
     CRDTP_DESERIALIZE_FIELD("pushStart", m_pushStart),
     CRDTP_DESERIALIZE_FIELD("receiveHeadersEnd", m_receiveHeadersEnd),
+    CRDTP_DESERIALIZE_FIELD("receiveHeadersStart", m_receiveHeadersStart),
     CRDTP_DESERIALIZE_FIELD("requestTime", m_requestTime),
     CRDTP_DESERIALIZE_FIELD("sendEnd", m_sendEnd),
     CRDTP_DESERIALIZE_FIELD("sendStart", m_sendStart),
@@ -144,6 +145,7 @@ CRDTP_BEGIN_SERIALIZER(ResourceTiming)
     CRDTP_SERIALIZE_FIELD("sendEnd", m_sendEnd);
     CRDTP_SERIALIZE_FIELD("pushStart", m_pushStart);
     CRDTP_SERIALIZE_FIELD("pushEnd", m_pushEnd);
+    CRDTP_SERIALIZE_FIELD("receiveHeadersStart", m_receiveHeadersStart);
     CRDTP_SERIALIZE_FIELD("receiveHeadersEnd", m_receiveHeadersEnd);
 CRDTP_END_SERIALIZER();
 

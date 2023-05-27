@@ -116,9 +116,9 @@ class MemoryTrackerSnapshot : public ::protozero::Message {
   static inline const char* LevelOfDetail_Name(LevelOfDetail value) {
     return ::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail_Name(value);
   }
-  static const LevelOfDetail DETAIL_FULL = LevelOfDetail::DETAIL_FULL;
-  static const LevelOfDetail DETAIL_LIGHT = LevelOfDetail::DETAIL_LIGHT;
-  static const LevelOfDetail DETAIL_BACKGROUND = LevelOfDetail::DETAIL_BACKGROUND;
+  static inline const LevelOfDetail DETAIL_FULL = LevelOfDetail::DETAIL_FULL;
+  static inline const LevelOfDetail DETAIL_LIGHT = LevelOfDetail::DETAIL_LIGHT;
+  static inline const LevelOfDetail DETAIL_BACKGROUND = LevelOfDetail::DETAIL_BACKGROUND;
 
   using FieldMetadata_GlobalDumpId =
     ::protozero::proto_utils::FieldMetadata<
@@ -499,9 +499,9 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
   static inline const char* Units_Name(Units value) {
     return ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_Name(value);
   }
-  static const Units UNSPECIFIED = Units::UNSPECIFIED;
-  static const Units BYTES = Units::BYTES;
-  static const Units COUNT = Units::COUNT;
+  static inline const Units UNSPECIFIED = Units::UNSPECIFIED;
+  static inline const Units BYTES = Units::BYTES;
+  static inline const Units COUNT = Units::COUNT;
 
   using FieldMetadata_Name =
     ::protozero::proto_utils::FieldMetadata<

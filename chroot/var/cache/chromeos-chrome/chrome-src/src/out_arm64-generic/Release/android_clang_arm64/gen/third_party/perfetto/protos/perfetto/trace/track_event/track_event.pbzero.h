@@ -504,11 +504,11 @@ class TrackEvent : public ::protozero::Message {
   static inline const char* Type_Name(Type value) {
     return ::perfetto::protos::pbzero::TrackEvent_Type_Name(value);
   }
-  static const Type TYPE_UNSPECIFIED = Type::TYPE_UNSPECIFIED;
-  static const Type TYPE_SLICE_BEGIN = Type::TYPE_SLICE_BEGIN;
-  static const Type TYPE_SLICE_END = Type::TYPE_SLICE_END;
-  static const Type TYPE_INSTANT = Type::TYPE_INSTANT;
-  static const Type TYPE_COUNTER = Type::TYPE_COUNTER;
+  static inline const Type TYPE_UNSPECIFIED = Type::TYPE_UNSPECIFIED;
+  static inline const Type TYPE_SLICE_BEGIN = Type::TYPE_SLICE_BEGIN;
+  static inline const Type TYPE_SLICE_END = Type::TYPE_SLICE_END;
+  static inline const Type TYPE_INSTANT = Type::TYPE_INSTANT;
+  static inline const Type TYPE_COUNTER = Type::TYPE_COUNTER;
 
   using FieldMetadata_CategoryIids =
     ::protozero::proto_utils::FieldMetadata<
@@ -1275,14 +1275,14 @@ class TrackEvent_LegacyEvent : public ::protozero::Message {
   static inline const char* InstantEventScope_Name(InstantEventScope value) {
     return ::perfetto::protos::pbzero::TrackEvent_LegacyEvent_InstantEventScope_Name(value);
   }
-  static const FlowDirection FLOW_UNSPECIFIED = FlowDirection::FLOW_UNSPECIFIED;
-  static const FlowDirection FLOW_IN = FlowDirection::FLOW_IN;
-  static const FlowDirection FLOW_OUT = FlowDirection::FLOW_OUT;
-  static const FlowDirection FLOW_INOUT = FlowDirection::FLOW_INOUT;
-  static const InstantEventScope SCOPE_UNSPECIFIED = InstantEventScope::SCOPE_UNSPECIFIED;
-  static const InstantEventScope SCOPE_GLOBAL = InstantEventScope::SCOPE_GLOBAL;
-  static const InstantEventScope SCOPE_PROCESS = InstantEventScope::SCOPE_PROCESS;
-  static const InstantEventScope SCOPE_THREAD = InstantEventScope::SCOPE_THREAD;
+  static inline const FlowDirection FLOW_UNSPECIFIED = FlowDirection::FLOW_UNSPECIFIED;
+  static inline const FlowDirection FLOW_IN = FlowDirection::FLOW_IN;
+  static inline const FlowDirection FLOW_OUT = FlowDirection::FLOW_OUT;
+  static inline const FlowDirection FLOW_INOUT = FlowDirection::FLOW_INOUT;
+  static inline const InstantEventScope SCOPE_UNSPECIFIED = InstantEventScope::SCOPE_UNSPECIFIED;
+  static inline const InstantEventScope SCOPE_GLOBAL = InstantEventScope::SCOPE_GLOBAL;
+  static inline const InstantEventScope SCOPE_PROCESS = InstantEventScope::SCOPE_PROCESS;
+  static inline const InstantEventScope SCOPE_THREAD = InstantEventScope::SCOPE_THREAD;
 
   using FieldMetadata_NameIid =
     ::protozero::proto_utils::FieldMetadata<
