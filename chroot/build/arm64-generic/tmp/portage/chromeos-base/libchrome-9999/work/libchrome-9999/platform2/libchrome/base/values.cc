@@ -1204,14 +1204,6 @@ Value* Value::SetKey(StringPiece key, Value&& value) {
   return GetDict().Set(key, std::move(value));
 }
 
-Value* Value::SetBoolKey(StringPiece key, bool value) {
-  return GetDict().Set(key, value);
-}
-
-Value* Value::SetIntKey(StringPiece key, int value) {
-  return GetDict().Set(key, value);
-}
-
 Value* Value::SetStringKey(StringPiece key, StringPiece value) {
   return GetDict().Set(key, value);
 }
@@ -1238,14 +1230,6 @@ Value* Value::FindPath(StringPiece path) {
 
 const Value* Value::FindPath(StringPiece path) const {
   return GetDict().FindByDottedPath(path);
-}
-
-Value* Value::SetDoubleKey(StringPiece key, double value) {
-  return GetDict().Set(key, value);
-}
-
-size_t Value::DictSize() const {
-  return GetDict().size();
 }
 
 absl::optional<bool> Value::FindBoolPath(StringPiece path) const {

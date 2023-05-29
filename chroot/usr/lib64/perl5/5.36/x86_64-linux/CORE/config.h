@@ -9,9 +9,9 @@
 
 /* Package name      : perl5
  * Source directory  : .
- * Configuration time: Sat May 27 02:15:25 PDT 2023
+ * Configuration time: Sun May 28 07:10:49 PDT 2023
  * Configured by     : Gentoo
- * Target system     : linux chromeos-ci-legacy-us-central1-b-x32-5-8vzh 5.4.0-149-generic #166~18.04.1-ubuntu smp fri apr 21 16:42:44 utc 2023 x86_64 intel(r) xeon(r) cpu @ 2.20ghz genuineintel gnulinux 
+ * Target system     : linux chromeos-ci-legacy-us-central1-b-x32-10-3uhq 5.4.0-149-generic #166~18.04.1-ubuntu smp fri apr 21 16:42:44 utc 2023 x86_64 intel(r) xeon(r) cpu @ 2.20ghz genuineintel gnulinux 
  */
 
 #ifndef _config_h_
