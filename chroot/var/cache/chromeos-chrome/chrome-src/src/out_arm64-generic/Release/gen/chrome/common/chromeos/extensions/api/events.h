@@ -663,6 +663,13 @@ extern const char kEventName[];  // "os.events.onAudioJackEvent"
 base::Value::List Create(const AudioJackEventInfo& event_info);
 }  // namespace OnAudioJackEvent
 
+namespace OnKeyboardDiagnosticEvent {
+
+extern const char kEventName[];  // "os.events.onKeyboardDiagnosticEvent"
+
+base::Value::List Create(const KeyboardDiagnosticEventInfo& event_info);
+}  // namespace OnKeyboardDiagnosticEvent
+
 namespace OnLidEvent {
 
 extern const char kEventName[];  // "os.events.onLidEvent"
