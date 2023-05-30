@@ -215,6 +215,9 @@ std::string GetProtoDebugStringWithIndent(CryptohomeErrorCode value,
   if (value == CRYPTOHOME_ERROR_CREDENTIAL_LOCKED) {
     return "CRYPTOHOME_ERROR_CREDENTIAL_LOCKED";
   }
+  if (value == CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED) {
+    return "CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED";
+  }
   return "<unknown>";
 }
 
@@ -253,6 +256,9 @@ std::string GetProtoDebugStringWithIndent(PrimaryAction value,
   }
   if (value == PRIMARY_LE_LOCKED_OUT) {
     return "PRIMARY_LE_LOCKED_OUT";
+  }
+  if (value == PRIMARY_LE_EXPIRED) {
+    return "PRIMARY_LE_EXPIRED";
   }
   return "<unknown>";
 }

@@ -87,6 +87,7 @@ PROTOBUF_CONSTEXPR App::App(
   , /*decltype(_impl_.keywords_)*/nullptr
   , /*decltype(_impl_.no_display_)*/false
   , /*decltype(_impl_.startup_notify_)*/false
+  , /*decltype(_impl_.terminal_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct AppDefaultTypeInternal {
   PROTOBUF_CONSTEXPR AppDefaultTypeInternal()
@@ -1166,6 +1167,7 @@ App::App(const App& from)
     , decltype(_impl_.keywords_){nullptr}
     , decltype(_impl_.no_display_){}
     , decltype(_impl_.startup_notify_){}
+    , decltype(_impl_.terminal_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1219,8 +1221,8 @@ App::App(const App& from)
     _this->_impl_.keywords_ = new ::vm_tools::apps::App_LocaleStrings(*from._impl_.keywords_);
   }
   ::memcpy(&_impl_.no_display_, &from._impl_.no_display_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.startup_notify_) -
-    reinterpret_cast<char*>(&_impl_.no_display_)) + sizeof(_impl_.startup_notify_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.terminal_) -
+    reinterpret_cast<char*>(&_impl_.no_display_)) + sizeof(_impl_.terminal_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.apps.App)
 }
 
@@ -1241,6 +1243,7 @@ inline void App::SharedCtor(
     , decltype(_impl_.keywords_){nullptr}
     , decltype(_impl_.no_display_){false}
     , decltype(_impl_.startup_notify_){false}
+    , decltype(_impl_.terminal_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.desktop_file_id_.InitDefault();
@@ -1318,8 +1321,8 @@ void App::Clear() {
   }
   _impl_.keywords_ = nullptr;
   ::memset(&_impl_.no_display_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.startup_notify_) -
-      reinterpret_cast<char*>(&_impl_.no_display_)) + sizeof(_impl_.startup_notify_));
+      reinterpret_cast<char*>(&_impl_.terminal_) -
+      reinterpret_cast<char*>(&_impl_.no_display_)) + sizeof(_impl_.terminal_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1446,6 +1449,14 @@ const char* App::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool terminal = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+          _impl_.terminal_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1581,6 +1592,12 @@ uint8_t* App::_InternalSerialize(
         12, this->_internal_exec(), target);
   }
 
+  // bool terminal = 13;
+  if (this->_internal_terminal() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(13, this->_internal_terminal(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1679,6 +1696,11 @@ size_t App::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool terminal = 13;
+  if (this->_internal_terminal() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1735,6 +1757,9 @@ void App::MergeFrom(const App& from) {
   if (from._internal_startup_notify() != 0) {
     _this->_internal_set_startup_notify(from._internal_startup_notify());
   }
+  if (from._internal_terminal() != 0) {
+    _this->_internal_set_terminal(from._internal_terminal());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -1777,8 +1802,8 @@ void App::InternalSwap(App* other) {
       &other->_impl_.exec_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(App, _impl_.startup_notify_)
-      + sizeof(App::_impl_.startup_notify_)
+      PROTOBUF_FIELD_OFFSET(App, _impl_.terminal_)
+      + sizeof(App::_impl_.terminal_)
       - PROTOBUF_FIELD_OFFSET(App, _impl_.name_)>(
           reinterpret_cast<char*>(&_impl_.name_),
           reinterpret_cast<char*>(&other->_impl_.name_));

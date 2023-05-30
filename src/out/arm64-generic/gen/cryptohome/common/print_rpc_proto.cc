@@ -213,6 +213,9 @@ std::string GetProtoDebugStringWithIndent(CryptohomeErrorCode value,
   if (value == CRYPTOHOME_ERROR_CREDENTIAL_LOCKED) {
     return "CRYPTOHOME_ERROR_CREDENTIAL_LOCKED";
   }
+  if (value == CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED) {
+    return "CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED";
+  }
   return "<unknown>";
 }
 

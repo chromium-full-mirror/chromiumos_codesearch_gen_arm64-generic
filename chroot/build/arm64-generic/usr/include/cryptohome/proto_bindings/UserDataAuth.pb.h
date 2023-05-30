@@ -681,12 +681,13 @@ enum CryptohomeErrorCode : int {
   CRYPTOHOME_ERROR_RECOVERY_FATAL = 57,
   CRYPTOHOME_ERROR_BIOMETRICS_BUSY = 58,
   CRYPTOHOME_ERROR_CREDENTIAL_LOCKED = 59,
+  CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED = 60,
   CryptohomeErrorCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   CryptohomeErrorCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool CryptohomeErrorCode_IsValid(int value);
 constexpr CryptohomeErrorCode CryptohomeErrorCode_MIN = CRYPTOHOME_ERROR_NOT_SET;
-constexpr CryptohomeErrorCode CryptohomeErrorCode_MAX = CRYPTOHOME_ERROR_CREDENTIAL_LOCKED;
+constexpr CryptohomeErrorCode CryptohomeErrorCode_MAX = CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED;
 constexpr int CryptohomeErrorCode_ARRAYSIZE = CryptohomeErrorCode_MAX + 1;
 
 const std::string& CryptohomeErrorCode_Name(CryptohomeErrorCode value);
@@ -710,12 +711,13 @@ enum PrimaryAction : int {
   PRIMARY_TPM_LOCKOUT = 7,
   PRIMARY_INCORRECT_AUTH = 8,
   PRIMARY_LE_LOCKED_OUT = 9,
+  PRIMARY_LE_EXPIRED = 10,
   PrimaryAction_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   PrimaryAction_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool PrimaryAction_IsValid(int value);
 constexpr PrimaryAction PrimaryAction_MIN = PRIMARY_NO_ERROR;
-constexpr PrimaryAction PrimaryAction_MAX = PRIMARY_LE_LOCKED_OUT;
+constexpr PrimaryAction PrimaryAction_MAX = PRIMARY_LE_EXPIRED;
 constexpr int PrimaryAction_ARRAYSIZE = PrimaryAction_MAX + 1;
 
 const std::string& PrimaryAction_Name(PrimaryAction value);

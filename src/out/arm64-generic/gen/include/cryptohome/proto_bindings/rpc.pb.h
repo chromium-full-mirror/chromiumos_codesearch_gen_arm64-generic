@@ -155,11 +155,12 @@ enum CryptohomeErrorCode : int {
   CRYPTOHOME_ERROR_RECOVERY_TRANSIENT = 56,
   CRYPTOHOME_ERROR_RECOVERY_FATAL = 57,
   CRYPTOHOME_ERROR_BIOMETRICS_BUSY = 58,
-  CRYPTOHOME_ERROR_CREDENTIAL_LOCKED = 59
+  CRYPTOHOME_ERROR_CREDENTIAL_LOCKED = 59,
+  CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED = 60
 };
 bool CryptohomeErrorCode_IsValid(int value);
 constexpr CryptohomeErrorCode CryptohomeErrorCode_MIN = CRYPTOHOME_ERROR_NOT_SET;
-constexpr CryptohomeErrorCode CryptohomeErrorCode_MAX = CRYPTOHOME_ERROR_CREDENTIAL_LOCKED;
+constexpr CryptohomeErrorCode CryptohomeErrorCode_MAX = CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED;
 constexpr int CryptohomeErrorCode_ARRAYSIZE = CryptohomeErrorCode_MAX + 1;
 
 const std::string& CryptohomeErrorCode_Name(CryptohomeErrorCode value);

@@ -118,6 +118,7 @@ PROTOBUF_CONSTEXPR Application::Application(
   , /*decltype(_impl_.keywords_)*/nullptr
   , /*decltype(_impl_.no_display_)*/false
   , /*decltype(_impl_.startup_notify_)*/false
+  , /*decltype(_impl_.terminal_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ApplicationDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ApplicationDefaultTypeInternal()
@@ -612,6 +613,7 @@ const uint32_t TableStruct_container_5fhost_2eproto::offsets[] PROTOBUF_SECTION_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.keywords_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.executable_file_name_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.exec_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.terminal_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.package_id_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.extensions_),
   ~0u,  // no _has_bits_
@@ -869,35 +871,35 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 31, -1, -1, sizeof(::vm_tools::container::Application_LocaleStrings_StringsWithLocale)},
   { 39, -1, -1, sizeof(::vm_tools::container::Application_LocaleStrings)},
   { 46, -1, -1, sizeof(::vm_tools::container::Application)},
-  { 64, -1, -1, sizeof(::vm_tools::container::UpdateApplicationListRequest)},
-  { 72, -1, -1, sizeof(::vm_tools::container::OpenUrlRequest)},
-  { 80, -1, -1, sizeof(::vm_tools::container::PendingAppListUpdateCount)},
-  { 88, -1, -1, sizeof(::vm_tools::container::InstallLinuxPackageProgressInfo)},
-  { 99, -1, -1, sizeof(::vm_tools::container::UninstallPackageProgressInfo)},
-  { 109, -1, -1, sizeof(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo)},
-  { 119, -1, -1, sizeof(::vm_tools::container::OpenTerminalRequest)},
-  { 127, -1, -1, sizeof(::vm_tools::container::SelectFileRequest)},
-  { 138, -1, -1, sizeof(::vm_tools::container::SelectFileResponse)},
-  { 145, 153, -1, sizeof(::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse)},
-  { 155, -1, -1, sizeof(::vm_tools::container::UpdateMimeTypesRequest)},
-  { 163, -1, -1, sizeof(::vm_tools::container::FileWatchTriggeredInfo)},
-  { 171, -1, -1, sizeof(::vm_tools::container::LowDiskSpaceTriggeredInfo)},
-  { 179, -1, -1, sizeof(::vm_tools::container::ForwardSecurityKeyMessageRequest)},
-  { 186, -1, -1, sizeof(::vm_tools::container::ForwardSecurityKeyMessageResponse)},
-  { 193, -1, -1, sizeof(::vm_tools::container::GetDiskInfoRequest)},
-  { 200, -1, -1, sizeof(::vm_tools::container::GetDiskInfoResponse)},
-  { 210, -1, -1, sizeof(::vm_tools::container::RequestSpaceRequest)},
-  { 218, -1, -1, sizeof(::vm_tools::container::RequestSpaceResponse)},
-  { 226, -1, -1, sizeof(::vm_tools::container::ReleaseSpaceRequest)},
-  { 234, -1, -1, sizeof(::vm_tools::container::ReleaseSpaceResponse)},
-  { 242, -1, -1, sizeof(::vm_tools::container::Metric)},
-  { 250, -1, -1, sizeof(::vm_tools::container::ReportMetricsRequest)},
-  { 258, -1, -1, sizeof(::vm_tools::container::ReportMetricsResponse)},
-  { 265, -1, -1, sizeof(::vm_tools::container::InstallShaderCacheRequest)},
-  { 275, -1, -1, sizeof(::vm_tools::container::UninstallShaderCacheRequest)},
-  { 283, -1, -1, sizeof(::vm_tools::container::UnmountShaderCacheRequest)},
-  { 292, -1, -1, sizeof(::vm_tools::container::InhibitScreensaverInfo)},
-  { 302, -1, -1, sizeof(::vm_tools::container::UninhibitScreensaverInfo)},
+  { 65, -1, -1, sizeof(::vm_tools::container::UpdateApplicationListRequest)},
+  { 73, -1, -1, sizeof(::vm_tools::container::OpenUrlRequest)},
+  { 81, -1, -1, sizeof(::vm_tools::container::PendingAppListUpdateCount)},
+  { 89, -1, -1, sizeof(::vm_tools::container::InstallLinuxPackageProgressInfo)},
+  { 100, -1, -1, sizeof(::vm_tools::container::UninstallPackageProgressInfo)},
+  { 110, -1, -1, sizeof(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo)},
+  { 120, -1, -1, sizeof(::vm_tools::container::OpenTerminalRequest)},
+  { 128, -1, -1, sizeof(::vm_tools::container::SelectFileRequest)},
+  { 139, -1, -1, sizeof(::vm_tools::container::SelectFileResponse)},
+  { 146, 154, -1, sizeof(::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse)},
+  { 156, -1, -1, sizeof(::vm_tools::container::UpdateMimeTypesRequest)},
+  { 164, -1, -1, sizeof(::vm_tools::container::FileWatchTriggeredInfo)},
+  { 172, -1, -1, sizeof(::vm_tools::container::LowDiskSpaceTriggeredInfo)},
+  { 180, -1, -1, sizeof(::vm_tools::container::ForwardSecurityKeyMessageRequest)},
+  { 187, -1, -1, sizeof(::vm_tools::container::ForwardSecurityKeyMessageResponse)},
+  { 194, -1, -1, sizeof(::vm_tools::container::GetDiskInfoRequest)},
+  { 201, -1, -1, sizeof(::vm_tools::container::GetDiskInfoResponse)},
+  { 211, -1, -1, sizeof(::vm_tools::container::RequestSpaceRequest)},
+  { 219, -1, -1, sizeof(::vm_tools::container::RequestSpaceResponse)},
+  { 227, -1, -1, sizeof(::vm_tools::container::ReleaseSpaceRequest)},
+  { 235, -1, -1, sizeof(::vm_tools::container::ReleaseSpaceResponse)},
+  { 243, -1, -1, sizeof(::vm_tools::container::Metric)},
+  { 251, -1, -1, sizeof(::vm_tools::container::ReportMetricsRequest)},
+  { 259, -1, -1, sizeof(::vm_tools::container::ReportMetricsResponse)},
+  { 266, -1, -1, sizeof(::vm_tools::container::InstallShaderCacheRequest)},
+  { 276, -1, -1, sizeof(::vm_tools::container::UninstallShaderCacheRequest)},
+  { 284, -1, -1, sizeof(::vm_tools::container::UnmountShaderCacheRequest)},
+  { 293, -1, -1, sizeof(::vm_tools::container::InhibitScreensaverInfo)},
+  { 303, -1, -1, sizeof(::vm_tools::container::UninhibitScreensaverInfo)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -944,7 +946,7 @@ const char descriptor_table_protodef_container_5fhost_2eproto[] PROTOBUF_SECTION
   "er\032\014common.proto\"M\n\024ContainerStartupInfo"
   "\022\r\n\005token\030\001 \001(\t\022\023\n\013garcon_port\030\002 \001(\r\022\021\n\t"
   "sftp_port\030\003 \001(\r\"&\n\025ContainerShutdownInfo"
-  "\022\r\n\005token\030\001 \001(\t\"\306\005\n\013Application\022\027\n\017deskt"
+  "\022\r\n\005token\030\001 \001(\t\"\330\005\n\013Application\022\027\n\017deskt"
   "op_file_id\030\001 \001(\t\022=\n\004name\030\002 \001(\0132/.vm_tool"
   "s.container.Application.LocalizedString\022"
   "@\n\007comment\030\003 \001(\0132/.vm_tools.container.Ap"
@@ -953,143 +955,143 @@ const char descriptor_table_protodef_container_5fhost_2eproto[] PROTOBUF_SECTION
   "class\030\006 \001(\t\022\026\n\016startup_notify\030\007 \001(\010\022\?\n\010k"
   "eywords\030\t \001(\0132-.vm_tools.container.Appli"
   "cation.LocaleStrings\022\034\n\024executable_file_"
-  "name\030\n \001(\t\022\014\n\004exec\030\014 \001(\t\022\022\n\npackage_id\030\010"
-  " \001(\t\022\022\n\nextensions\030\013 \003(\t\032\226\001\n\017LocalizedSt"
-  "ring\022P\n\006values\030\001 \003(\0132@.vm_tools.containe"
-  "r.Application.LocalizedString.StringWith"
-  "Locale\0321\n\020StringWithLocale\022\016\n\006locale\030\001 \001"
-  "(\t\022\r\n\005value\030\002 \001(\t\032\224\001\n\rLocaleStrings\022O\n\006v"
-  "alues\030\001 \003(\0132\?.vm_tools.container.Applica"
-  "tion.LocaleStrings.StringsWithLocale\0322\n\021"
-  "StringsWithLocale\022\016\n\006locale\030\001 \001(\t\022\r\n\005val"
-  "ue\030\002 \003(\t\"c\n\034UpdateApplicationListRequest"
-  "\022\r\n\005token\030\001 \001(\t\0224\n\013application\030\002 \003(\0132\037.v"
-  "m_tools.container.Application\",\n\016OpenUrl"
-  "Request\022\013\n\003url\030\001 \001(\t\022\r\n\005token\030\002 \001(\t\"9\n\031P"
-  "endingAppListUpdateCount\022\r\n\005token\030\001 \001(\t\022"
-  "\r\n\005count\030\002 \001(\r\"\213\002\n\037InstallLinuxPackagePr"
-  "ogressInfo\022\r\n\005token\030\001 \001(\t\022J\n\006status\030\002 \001("
-  "\0162:.vm_tools.container.InstallLinuxPacka"
-  "geProgressInfo.Status\022\030\n\020progress_percen"
-  "t\030\003 \001(\r\022\027\n\017failure_details\030\004 \001(\t\022\024\n\014comm"
-  "and_uuid\030\005 \001(\t\"D\n\006Status\022\r\n\tSUCCEEDED\020\000\022"
-  "\n\n\006FAILED\020\001\022\017\n\013DOWNLOADING\020\002\022\016\n\nINSTALLI"
-  "NG\020\003\"\340\001\n\034UninstallPackageProgressInfo\022\r\n"
-  "\005token\030\001 \001(\t\022G\n\006status\030\002 \001(\01627.vm_tools."
-  "container.UninstallPackageProgressInfo.S"
-  "tatus\022\030\n\020progress_percent\030\003 \001(\r\022\027\n\017failu"
-  "re_details\030\004 \001(\t\"5\n\006Status\022\r\n\tSUCCEEDED\020"
-  "\000\022\n\n\006FAILED\020\001\022\020\n\014UNINSTALLING\020\002\"\361\001\n Appl"
-  "yAnsiblePlaybookProgressInfo\022\r\n\005token\030\001 "
-  "\001(\t\022K\n\006status\030\002 \001(\0162;.vm_tools.container"
-  ".ApplyAnsiblePlaybookProgressInfo.Status"
-  "\022\027\n\017failure_details\030\003 \001(\t\022\025\n\rstatus_stri"
-  "ng\030\004 \003(\t\"A\n\006Status\022\013\n\007UNKNOWN\020\000\022\r\n\tSUCCE"
-  "EDED\020\001\022\n\n\006FAILED\020\002\022\017\n\013IN_PROGRESS\020\003\"4\n\023O"
-  "penTerminalRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006par"
-  "ams\030\002 \003(\t\"q\n\021SelectFileRequest\022\r\n\005token\030"
-  "\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\r\n\005title\030\003 \001(\t\022\024\n\014de"
-  "fault_path\030\004 \001(\t\022\032\n\022allowed_extensions\030\005"
-  " \001(\t\"#\n\022SelectFileResponse\022\r\n\005files\030\001 \003("
-  "\t\"\276\001\n\026UpdateMimeTypesRequest\022\r\n\005token\030\001 "
-  "\001(\t\022\\\n\022mime_type_mappings\030\002 \003(\0132@.vm_too"
-  "ls.container.UpdateMimeTypesRequest.Mime"
-  "TypeMappingsEntry\0327\n\025MimeTypeMappingsEnt"
-  "ry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"5\n\026Fi"
-  "leWatchTriggeredInfo\022\r\n\005token\030\001 \001(\t\022\014\n\004p"
-  "ath\030\002 \001(\t\">\n\031LowDiskSpaceTriggeredInfo\022\r"
-  "\n\005token\030\001 \001(\t\022\022\n\nfree_bytes\030\002 \001(\004\"3\n For"
-  "wardSecurityKeyMessageRequest\022\017\n\007message"
-  "\030\001 \001(\t\"4\n!ForwardSecurityKeyMessageRespo"
-  "nse\022\017\n\007message\030\001 \001(\t\"#\n\022GetDiskInfoReque"
-  "st\022\r\n\005token\030\001 \001(\t\"j\n\023GetDiskInfoResponse"
-  "\022\r\n\005error\030\001 \001(\003\022\027\n\017available_space\030\002 \001(\004"
-  "\022\030\n\020expandable_space\030\003 \001(\004\022\021\n\tdisk_size\030"
-  "\004 \001(\004\"=\n\023RequestSpaceRequest\022\r\n\005token\030\001 "
-  "\001(\t\022\027\n\017space_requested\030\002 \001(\004\"<\n\024RequestS"
-  "paceResponse\022\025\n\rspace_granted\030\001 \001(\004\022\r\n\005e"
-  "rror\030\002 \001(\003\">\n\023ReleaseSpaceRequest\022\r\n\005tok"
-  "en\030\001 \001(\t\022\030\n\020space_to_release\030\002 \001(\004\"=\n\024Re"
-  "leaseSpaceResponse\022\026\n\016space_released\030\001 \001"
-  "(\004\022\r\n\005error\030\002 \001(\003\"%\n\006Metric\022\014\n\004name\030\001 \001("
-  "\t\022\r\n\005value\030\002 \001(\003\"Q\n\024ReportMetricsRequest"
-  "\022\r\n\005token\030\001 \001(\t\022*\n\006metric\030\002 \003(\0132\032.vm_too"
-  "ls.container.Metric\"&\n\025ReportMetricsResp"
-  "onse\022\r\n\005error\030\001 \001(\003\"]\n\031InstallShaderCach"
-  "eRequest\022\r\n\005token\030\001 \001(\t\022\024\n\014steam_app_id\030"
-  "\002 \001(\004\022\r\n\005mount\030\003 \001(\010\022\014\n\004wait\030\004 \001(\010\"B\n\033Un"
-  "installShaderCacheRequest\022\r\n\005token\030\001 \001(\t"
-  "\022\024\n\014steam_app_id\030\002 \001(\004\"N\n\031UnmountShaderC"
-  "acheRequest\022\r\n\005token\030\001 \001(\t\022\024\n\014steam_app_"
-  "id\030\002 \001(\004\022\014\n\004wait\030\003 \001(\010\"W\n\026InhibitScreens"
-  "averInfo\022\r\n\005token\030\001 \001(\t\022\016\n\006cookie\030\002 \001(\005\022"
-  "\016\n\006client\030\003 \001(\t\022\016\n\006reason\030\004 \001(\t\"9\n\030Uninh"
-  "ibitScreensaverInfo\022\r\n\005token\030\001 \001(\t\022\016\n\006co"
-  "okie\030\002 \001(\0052\276\021\n\021ContainerListener\022R\n\016Cont"
-  "ainerReady\022(.vm_tools.container.Containe"
-  "rStartupInfo\032\026.vm_tools.EmptyMessage\022V\n\021"
-  "ContainerShutdown\022).vm_tools.container.C"
-  "ontainerShutdownInfo\032\026.vm_tools.EmptyMes"
-  "sage\022a\n\025UpdateApplicationList\0220.vm_tools"
-  ".container.UpdateApplicationListRequest\032"
-  "\026.vm_tools.EmptyMessage\022j\n!PendingUpdate"
-  "ApplicationListCalls\022-.vm_tools.containe"
-  "r.PendingAppListUpdateCount\032\026.vm_tools.E"
-  "mptyMessage\022E\n\007OpenUrl\022\".vm_tools.contai"
-  "ner.OpenUrlRequest\032\026.vm_tools.EmptyMessa"
-  "ge\022j\n\033InstallLinuxPackageProgress\0223.vm_t"
-  "ools.container.InstallLinuxPackageProgre"
-  "ssInfo\032\026.vm_tools.EmptyMessage\022d\n\030Uninst"
-  "allPackageProgress\0220.vm_tools.container."
-  "UninstallPackageProgressInfo\032\026.vm_tools."
-  "EmptyMessage\022l\n\034ApplyAnsiblePlaybookProg"
-  "ress\0224.vm_tools.container.ApplyAnsiblePl"
-  "aybookProgressInfo\032\026.vm_tools.EmptyMessa"
-  "ge\022O\n\014OpenTerminal\022\'.vm_tools.container."
-  "OpenTerminalRequest\032\026.vm_tools.EmptyMess"
-  "age\022U\n\017UpdateMimeTypes\022*.vm_tools.contai"
-  "ner.UpdateMimeTypesRequest\032\026.vm_tools.Em"
-  "ptyMessage\022X\n\022FileWatchTriggered\022*.vm_to"
-  "ols.container.FileWatchTriggeredInfo\032\026.v"
-  "m_tools.EmptyMessage\022^\n\025LowDiskSpaceTrig"
-  "gered\022-.vm_tools.container.LowDiskSpaceT"
-  "riggeredInfo\032\026.vm_tools.EmptyMessage\022\210\001\n"
-  "\031ForwardSecurityKeyMessage\0224.vm_tools.co"
-  "ntainer.ForwardSecurityKeyMessageRequest"
-  "\0325.vm_tools.container.ForwardSecurityKey"
-  "MessageResponse\022[\n\nSelectFile\022%.vm_tools"
-  ".container.SelectFileRequest\032&.vm_tools."
-  "container.SelectFileResponse\022^\n\013GetDiskI"
-  "nfo\022&.vm_tools.container.GetDiskInfoRequ"
-  "est\032\'.vm_tools.container.GetDiskInfoResp"
-  "onse\022a\n\014RequestSpace\022\'.vm_tools.containe"
-  "r.RequestSpaceRequest\032(.vm_tools.contain"
-  "er.RequestSpaceResponse\022a\n\014ReleaseSpace\022"
-  "\'.vm_tools.container.ReleaseSpaceRequest"
-  "\032(.vm_tools.container.ReleaseSpaceRespon"
-  "se\022d\n\rReportMetrics\022(.vm_tools.container"
-  ".ReportMetricsRequest\032).vm_tools.contain"
-  "er.ReportMetricsResponse\022[\n\022InstallShade"
-  "rCache\022-.vm_tools.container.InstallShade"
-  "rCacheRequest\032\026.vm_tools.EmptyMessage\022_\n"
-  "\024UninstallShaderCache\022/.vm_tools.contain"
-  "er.UninstallShaderCacheRequest\032\026.vm_tool"
-  "s.EmptyMessage\022[\n\022UnmountShaderCache\022-.v"
-  "m_tools.container.UnmountShaderCacheRequ"
-  "est\032\026.vm_tools.EmptyMessage\022X\n\022InhibitSc"
-  "reensaver\022*.vm_tools.container.InhibitSc"
-  "reensaverInfo\032\026.vm_tools.EmptyMessage\022\\\n"
-  "\024UninhibitScreensaver\022,.vm_tools.contain"
-  "er.UninhibitScreensaverInfo\032\026.vm_tools.E"
-  "mptyMessageB(Z#chromiumos/vm_tools/conta"
-  "iner_proto\370\001\001b\006proto3"
+  "name\030\n \001(\t\022\014\n\004exec\030\014 \001(\t\022\020\n\010terminal\030\r \001"
+  "(\010\022\022\n\npackage_id\030\010 \001(\t\022\022\n\nextensions\030\013 \003"
+  "(\t\032\226\001\n\017LocalizedString\022P\n\006values\030\001 \003(\0132@"
+  ".vm_tools.container.Application.Localize"
+  "dString.StringWithLocale\0321\n\020StringWithLo"
+  "cale\022\016\n\006locale\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\032\224\001\n\r"
+  "LocaleStrings\022O\n\006values\030\001 \003(\0132\?.vm_tools"
+  ".container.Application.LocaleStrings.Str"
+  "ingsWithLocale\0322\n\021StringsWithLocale\022\016\n\006l"
+  "ocale\030\001 \001(\t\022\r\n\005value\030\002 \003(\t\"c\n\034UpdateAppl"
+  "icationListRequest\022\r\n\005token\030\001 \001(\t\0224\n\013app"
+  "lication\030\002 \003(\0132\037.vm_tools.container.Appl"
+  "ication\",\n\016OpenUrlRequest\022\013\n\003url\030\001 \001(\t\022\r"
+  "\n\005token\030\002 \001(\t\"9\n\031PendingAppListUpdateCou"
+  "nt\022\r\n\005token\030\001 \001(\t\022\r\n\005count\030\002 \001(\r\"\213\002\n\037Ins"
+  "tallLinuxPackageProgressInfo\022\r\n\005token\030\001 "
+  "\001(\t\022J\n\006status\030\002 \001(\0162:.vm_tools.container"
+  ".InstallLinuxPackageProgressInfo.Status\022"
+  "\030\n\020progress_percent\030\003 \001(\r\022\027\n\017failure_det"
+  "ails\030\004 \001(\t\022\024\n\014command_uuid\030\005 \001(\t\"D\n\006Stat"
+  "us\022\r\n\tSUCCEEDED\020\000\022\n\n\006FAILED\020\001\022\017\n\013DOWNLOA"
+  "DING\020\002\022\016\n\nINSTALLING\020\003\"\340\001\n\034UninstallPack"
+  "ageProgressInfo\022\r\n\005token\030\001 \001(\t\022G\n\006status"
+  "\030\002 \001(\01627.vm_tools.container.UninstallPac"
+  "kageProgressInfo.Status\022\030\n\020progress_perc"
+  "ent\030\003 \001(\r\022\027\n\017failure_details\030\004 \001(\t\"5\n\006St"
+  "atus\022\r\n\tSUCCEEDED\020\000\022\n\n\006FAILED\020\001\022\020\n\014UNINS"
+  "TALLING\020\002\"\361\001\n ApplyAnsiblePlaybookProgre"
+  "ssInfo\022\r\n\005token\030\001 \001(\t\022K\n\006status\030\002 \001(\0162;."
+  "vm_tools.container.ApplyAnsiblePlaybookP"
+  "rogressInfo.Status\022\027\n\017failure_details\030\003 "
+  "\001(\t\022\025\n\rstatus_string\030\004 \003(\t\"A\n\006Status\022\013\n\007"
+  "UNKNOWN\020\000\022\r\n\tSUCCEEDED\020\001\022\n\n\006FAILED\020\002\022\017\n\013"
+  "IN_PROGRESS\020\003\"4\n\023OpenTerminalRequest\022\r\n\005"
+  "token\030\001 \001(\t\022\016\n\006params\030\002 \003(\t\"q\n\021SelectFil"
+  "eRequest\022\r\n\005token\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\r\n"
+  "\005title\030\003 \001(\t\022\024\n\014default_path\030\004 \001(\t\022\032\n\022al"
+  "lowed_extensions\030\005 \001(\t\"#\n\022SelectFileResp"
+  "onse\022\r\n\005files\030\001 \003(\t\"\276\001\n\026UpdateMimeTypesR"
+  "equest\022\r\n\005token\030\001 \001(\t\022\\\n\022mime_type_mappi"
+  "ngs\030\002 \003(\0132@.vm_tools.container.UpdateMim"
+  "eTypesRequest.MimeTypeMappingsEntry\0327\n\025M"
+  "imeTypeMappingsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005val"
+  "ue\030\002 \001(\t:\0028\001\"5\n\026FileWatchTriggeredInfo\022\r"
+  "\n\005token\030\001 \001(\t\022\014\n\004path\030\002 \001(\t\">\n\031LowDiskSp"
+  "aceTriggeredInfo\022\r\n\005token\030\001 \001(\t\022\022\n\nfree_"
+  "bytes\030\002 \001(\004\"3\n ForwardSecurityKeyMessage"
+  "Request\022\017\n\007message\030\001 \001(\t\"4\n!ForwardSecur"
+  "ityKeyMessageResponse\022\017\n\007message\030\001 \001(\t\"#"
+  "\n\022GetDiskInfoRequest\022\r\n\005token\030\001 \001(\t\"j\n\023G"
+  "etDiskInfoResponse\022\r\n\005error\030\001 \001(\003\022\027\n\017ava"
+  "ilable_space\030\002 \001(\004\022\030\n\020expandable_space\030\003"
+  " \001(\004\022\021\n\tdisk_size\030\004 \001(\004\"=\n\023RequestSpaceR"
+  "equest\022\r\n\005token\030\001 \001(\t\022\027\n\017space_requested"
+  "\030\002 \001(\004\"<\n\024RequestSpaceResponse\022\025\n\rspace_"
+  "granted\030\001 \001(\004\022\r\n\005error\030\002 \001(\003\">\n\023ReleaseS"
+  "paceRequest\022\r\n\005token\030\001 \001(\t\022\030\n\020space_to_r"
+  "elease\030\002 \001(\004\"=\n\024ReleaseSpaceResponse\022\026\n\016"
+  "space_released\030\001 \001(\004\022\r\n\005error\030\002 \001(\003\"%\n\006M"
+  "etric\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 \001(\003\"Q\n\024Re"
+  "portMetricsRequest\022\r\n\005token\030\001 \001(\t\022*\n\006met"
+  "ric\030\002 \003(\0132\032.vm_tools.container.Metric\"&\n"
+  "\025ReportMetricsResponse\022\r\n\005error\030\001 \001(\003\"]\n"
+  "\031InstallShaderCacheRequest\022\r\n\005token\030\001 \001("
+  "\t\022\024\n\014steam_app_id\030\002 \001(\004\022\r\n\005mount\030\003 \001(\010\022\014"
+  "\n\004wait\030\004 \001(\010\"B\n\033UninstallShaderCacheRequ"
+  "est\022\r\n\005token\030\001 \001(\t\022\024\n\014steam_app_id\030\002 \001(\004"
+  "\"N\n\031UnmountShaderCacheRequest\022\r\n\005token\030\001"
+  " \001(\t\022\024\n\014steam_app_id\030\002 \001(\004\022\014\n\004wait\030\003 \001(\010"
+  "\"W\n\026InhibitScreensaverInfo\022\r\n\005token\030\001 \001("
+  "\t\022\016\n\006cookie\030\002 \001(\005\022\016\n\006client\030\003 \001(\t\022\016\n\006rea"
+  "son\030\004 \001(\t\"9\n\030UninhibitScreensaverInfo\022\r\n"
+  "\005token\030\001 \001(\t\022\016\n\006cookie\030\002 \001(\0052\276\021\n\021Contain"
+  "erListener\022R\n\016ContainerReady\022(.vm_tools."
+  "container.ContainerStartupInfo\032\026.vm_tool"
+  "s.EmptyMessage\022V\n\021ContainerShutdown\022).vm"
+  "_tools.container.ContainerShutdownInfo\032\026"
+  ".vm_tools.EmptyMessage\022a\n\025UpdateApplicat"
+  "ionList\0220.vm_tools.container.UpdateAppli"
+  "cationListRequest\032\026.vm_tools.EmptyMessag"
+  "e\022j\n!PendingUpdateApplicationListCalls\022-"
+  ".vm_tools.container.PendingAppListUpdate"
+  "Count\032\026.vm_tools.EmptyMessage\022E\n\007OpenUrl"
+  "\022\".vm_tools.container.OpenUrlRequest\032\026.v"
+  "m_tools.EmptyMessage\022j\n\033InstallLinuxPack"
+  "ageProgress\0223.vm_tools.container.Install"
+  "LinuxPackageProgressInfo\032\026.vm_tools.Empt"
+  "yMessage\022d\n\030UninstallPackageProgress\0220.v"
+  "m_tools.container.UninstallPackageProgre"
+  "ssInfo\032\026.vm_tools.EmptyMessage\022l\n\034ApplyA"
+  "nsiblePlaybookProgress\0224.vm_tools.contai"
+  "ner.ApplyAnsiblePlaybookProgressInfo\032\026.v"
+  "m_tools.EmptyMessage\022O\n\014OpenTerminal\022\'.v"
+  "m_tools.container.OpenTerminalRequest\032\026."
+  "vm_tools.EmptyMessage\022U\n\017UpdateMimeTypes"
+  "\022*.vm_tools.container.UpdateMimeTypesReq"
+  "uest\032\026.vm_tools.EmptyMessage\022X\n\022FileWatc"
+  "hTriggered\022*.vm_tools.container.FileWatc"
+  "hTriggeredInfo\032\026.vm_tools.EmptyMessage\022^"
+  "\n\025LowDiskSpaceTriggered\022-.vm_tools.conta"
+  "iner.LowDiskSpaceTriggeredInfo\032\026.vm_tool"
+  "s.EmptyMessage\022\210\001\n\031ForwardSecurityKeyMes"
+  "sage\0224.vm_tools.container.ForwardSecurit"
+  "yKeyMessageRequest\0325.vm_tools.container."
+  "ForwardSecurityKeyMessageResponse\022[\n\nSel"
+  "ectFile\022%.vm_tools.container.SelectFileR"
+  "equest\032&.vm_tools.container.SelectFileRe"
+  "sponse\022^\n\013GetDiskInfo\022&.vm_tools.contain"
+  "er.GetDiskInfoRequest\032\'.vm_tools.contain"
+  "er.GetDiskInfoResponse\022a\n\014RequestSpace\022\'"
+  ".vm_tools.container.RequestSpaceRequest\032"
+  "(.vm_tools.container.RequestSpaceRespons"
+  "e\022a\n\014ReleaseSpace\022\'.vm_tools.container.R"
+  "eleaseSpaceRequest\032(.vm_tools.container."
+  "ReleaseSpaceResponse\022d\n\rReportMetrics\022(."
+  "vm_tools.container.ReportMetricsRequest\032"
+  ").vm_tools.container.ReportMetricsRespon"
+  "se\022[\n\022InstallShaderCache\022-.vm_tools.cont"
+  "ainer.InstallShaderCacheRequest\032\026.vm_too"
+  "ls.EmptyMessage\022_\n\024UninstallShaderCache\022"
+  "/.vm_tools.container.UninstallShaderCach"
+  "eRequest\032\026.vm_tools.EmptyMessage\022[\n\022Unmo"
+  "untShaderCache\022-.vm_tools.container.Unmo"
+  "untShaderCacheRequest\032\026.vm_tools.EmptyMe"
+  "ssage\022X\n\022InhibitScreensaver\022*.vm_tools.c"
+  "ontainer.InhibitScreensaverInfo\032\026.vm_too"
+  "ls.EmptyMessage\022\\\n\024UninhibitScreensaver\022"
+  ",.vm_tools.container.UninhibitScreensave"
+  "rInfo\032\026.vm_tools.EmptyMessageB(Z#chromiu"
+  "mos/vm_tools/container_proto\370\001\001b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_container_5fhost_2eproto_deps[1] = {
   &::descriptor_table_common_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_container_5fhost_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_container_5fhost_2eproto = {
-    false, false, 5701, descriptor_table_protodef_container_5fhost_2eproto,
+    false, false, 5719, descriptor_table_protodef_container_5fhost_2eproto,
     "container_host.proto",
     &descriptor_table_container_5fhost_2eproto_once, descriptor_table_container_5fhost_2eproto_deps, 1, 36,
     schemas, file_default_instances, TableStruct_container_5fhost_2eproto::offsets,
@@ -2552,6 +2554,7 @@ Application::Application(const Application& from)
     , decltype(_impl_.keywords_){nullptr}
     , decltype(_impl_.no_display_){}
     , decltype(_impl_.startup_notify_){}
+    , decltype(_impl_.terminal_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -2605,8 +2608,8 @@ Application::Application(const Application& from)
     _this->_impl_.keywords_ = new ::vm_tools::container::Application_LocaleStrings(*from._impl_.keywords_);
   }
   ::memcpy(&_impl_.no_display_, &from._impl_.no_display_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.startup_notify_) -
-    reinterpret_cast<char*>(&_impl_.no_display_)) + sizeof(_impl_.startup_notify_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.terminal_) -
+    reinterpret_cast<char*>(&_impl_.no_display_)) + sizeof(_impl_.terminal_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.Application)
 }
 
@@ -2627,6 +2630,7 @@ inline void Application::SharedCtor(
     , decltype(_impl_.keywords_){nullptr}
     , decltype(_impl_.no_display_){false}
     , decltype(_impl_.startup_notify_){false}
+    , decltype(_impl_.terminal_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.desktop_file_id_.InitDefault();
@@ -2704,8 +2708,8 @@ void Application::Clear() {
   }
   _impl_.keywords_ = nullptr;
   ::memset(&_impl_.no_display_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.startup_notify_) -
-      reinterpret_cast<char*>(&_impl_.no_display_)) + sizeof(_impl_.startup_notify_));
+      reinterpret_cast<char*>(&_impl_.terminal_) -
+      reinterpret_cast<char*>(&_impl_.no_display_)) + sizeof(_impl_.terminal_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2832,6 +2836,14 @@ const char* Application::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.exec"));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool terminal = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+          _impl_.terminal_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -2967,6 +2979,12 @@ uint8_t* Application::_InternalSerialize(
         12, this->_internal_exec(), target);
   }
 
+  // bool terminal = 13;
+  if (this->_internal_terminal() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(13, this->_internal_terminal(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -3065,6 +3083,11 @@ size_t Application::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool terminal = 13;
+  if (this->_internal_terminal() != 0) {
+    total_size += 1 + 1;
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -3118,6 +3141,9 @@ void Application::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   if (from._internal_startup_notify() != 0) {
     _this->_internal_set_startup_notify(from._internal_startup_notify());
   }
+  if (from._internal_terminal() != 0) {
+    _this->_internal_set_terminal(from._internal_terminal());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -3160,8 +3186,8 @@ void Application::InternalSwap(Application* other) {
       &other->_impl_.exec_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Application, _impl_.startup_notify_)
-      + sizeof(Application::_impl_.startup_notify_)
+      PROTOBUF_FIELD_OFFSET(Application, _impl_.terminal_)
+      + sizeof(Application::_impl_.terminal_)
       - PROTOBUF_FIELD_OFFSET(Application, _impl_.name_)>(
           reinterpret_cast<char*>(&_impl_.name_),
           reinterpret_cast<char*>(&other->_impl_.name_));

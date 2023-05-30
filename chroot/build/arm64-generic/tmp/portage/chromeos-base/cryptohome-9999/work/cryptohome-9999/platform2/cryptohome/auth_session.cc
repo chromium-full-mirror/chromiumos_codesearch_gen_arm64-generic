@@ -490,7 +490,7 @@ void AuthSession::SetTimeoutTimer(const base::TimeDelta& delay) {
                                        base::Unretained(this)));
 }
 
-void AuthSession::AuthFactorStatusUpdateTimer() {
+void AuthSession::SendAuthFactorStatusUpdateSignal() {
   // If the auth session is timed out we won't need to send another signal.
   if (status_ == AuthStatus::kAuthStatusTimedOut) {
     return;
@@ -543,7 +543,7 @@ void AuthSession::AuthFactorStatusUpdateTimer() {
           std::min(*delay, kAuthFactorStatusUpdateDelay);
       auth_factor_status_update_timer_->Start(
           FROM_HERE, base::Time::Now() + next_signal_delay,
-          base::BindOnce(&AuthSession::AuthFactorStatusUpdateTimer,
+          base::BindOnce(&AuthSession::SendAuthFactorStatusUpdateSignal,
                          base::Unretained(this)));
     }
   }
@@ -1599,7 +1599,9 @@ void AuthSession::RemoveAuthFactor(
   std::move(on_done).Run(OkStatus<CryptohomeError>());
 }
 
-void AuthSession::PrepareAllAuthFactorsForRemoval() {
+void AuthSession::PrepareUserForRemoval() {
+  // All auth factors of the user are being removed when we remove the user, so
+  // we should PrepareForRemoval() all auth factors.
   for (AuthFactorMap::ValueView stored_auth_factor : auth_factor_map_) {
     const AuthFactor& auth_factor = stored_auth_factor.auth_factor();
     CryptohomeStatus remove_status =
@@ -1609,6 +1611,29 @@ void AuthSession::PrepareAllAuthFactorsForRemoval() {
       LOG(WARNING) << "Failed to prepare auth factor " << auth_factor.label()
                    << " for removal: " << remove_status;
     }
+  }
+
+  // Remove rate-limiter here, as it won't be removed by any auth factor's
+  // removal.
+  RemoveRateLimiters();
+}
+
+void AuthSession::RemoveRateLimiters() {
+  // Currently fingerprint is the only auth factor type using rate
+  // limiter, so the field name isn't generic. We'll make it generic to any
+  // auth factor types in the future.
+  CryptohomeStatusOr<UserMetadata> user_metadata =
+      user_metadata_reader_->Load(obfuscated_username_);
+  if (!user_metadata.ok()) {
+    LOG(WARNING) << "Failed to load the user metadata.";
+    return;
+  }
+  if (!user_metadata->fingerprint_rate_limiter_id.has_value()) {
+    return;
+  }
+  if (!crypto_->RemoveLECredential(
+          user_metadata->fingerprint_rate_limiter_id.value())) {
+    LOG(WARNING) << "Failed to remove rate-limiter leaf.";
   }
 }
 
@@ -3214,7 +3239,7 @@ void AuthSession::LoadUSSMainKeyAndFsKeyset(
     // auth session is timed out.
     if (callback_error->local_legacy_error() ==
         user_data_auth::CRYPTOHOME_ERROR_CREDENTIAL_LOCKED) {
-      AuthFactorStatusUpdateTimer();
+      SendAuthFactorStatusUpdateSignal();
     }
     LOG(ERROR) << "KeyBlob derivation failed before loading USS";
     std::move(on_done).Run(

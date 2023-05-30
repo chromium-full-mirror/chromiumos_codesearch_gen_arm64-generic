@@ -4404,11 +4404,11 @@ class TrackEvent : public ::protozero::Message {
   static inline const char* Type_Name(Type value) {
     return ::perfetto::protos::pbzero::TrackEvent_Type_Name(value);
   }
-  static const Type TYPE_UNSPECIFIED = Type::TYPE_UNSPECIFIED;
-  static const Type TYPE_SLICE_BEGIN = Type::TYPE_SLICE_BEGIN;
-  static const Type TYPE_SLICE_END = Type::TYPE_SLICE_END;
-  static const Type TYPE_INSTANT = Type::TYPE_INSTANT;
-  static const Type TYPE_COUNTER = Type::TYPE_COUNTER;
+  static inline const Type TYPE_UNSPECIFIED = Type::TYPE_UNSPECIFIED;
+  static inline const Type TYPE_SLICE_BEGIN = Type::TYPE_SLICE_BEGIN;
+  static inline const Type TYPE_SLICE_END = Type::TYPE_SLICE_END;
+  static inline const Type TYPE_INSTANT = Type::TYPE_INSTANT;
+  static inline const Type TYPE_COUNTER = Type::TYPE_COUNTER;
 
   using FieldMetadata_CategoryIids =
     ::protozero::proto_utils::FieldMetadata<
@@ -5175,14 +5175,14 @@ class TrackEvent_LegacyEvent : public ::protozero::Message {
   static inline const char* InstantEventScope_Name(InstantEventScope value) {
     return ::perfetto::protos::pbzero::TrackEvent_LegacyEvent_InstantEventScope_Name(value);
   }
-  static const FlowDirection FLOW_UNSPECIFIED = FlowDirection::FLOW_UNSPECIFIED;
-  static const FlowDirection FLOW_IN = FlowDirection::FLOW_IN;
-  static const FlowDirection FLOW_OUT = FlowDirection::FLOW_OUT;
-  static const FlowDirection FLOW_INOUT = FlowDirection::FLOW_INOUT;
-  static const InstantEventScope SCOPE_UNSPECIFIED = InstantEventScope::SCOPE_UNSPECIFIED;
-  static const InstantEventScope SCOPE_GLOBAL = InstantEventScope::SCOPE_GLOBAL;
-  static const InstantEventScope SCOPE_PROCESS = InstantEventScope::SCOPE_PROCESS;
-  static const InstantEventScope SCOPE_THREAD = InstantEventScope::SCOPE_THREAD;
+  static inline const FlowDirection FLOW_UNSPECIFIED = FlowDirection::FLOW_UNSPECIFIED;
+  static inline const FlowDirection FLOW_IN = FlowDirection::FLOW_IN;
+  static inline const FlowDirection FLOW_OUT = FlowDirection::FLOW_OUT;
+  static inline const FlowDirection FLOW_INOUT = FlowDirection::FLOW_INOUT;
+  static inline const InstantEventScope SCOPE_UNSPECIFIED = InstantEventScope::SCOPE_UNSPECIFIED;
+  static inline const InstantEventScope SCOPE_GLOBAL = InstantEventScope::SCOPE_GLOBAL;
+  static inline const InstantEventScope SCOPE_PROCESS = InstantEventScope::SCOPE_PROCESS;
+  static inline const InstantEventScope SCOPE_THREAD = InstantEventScope::SCOPE_THREAD;
 
   using FieldMetadata_NameIid =
     ::protozero::proto_utils::FieldMetadata<
@@ -8903,8 +8903,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceType {
   InstancesIterator BeginIteration(
       uint32_t cached_instances,
       DataSourceThreadLocalState* tls_state,
-      typename TracePointTraits::TracePointData trace_point_data)
-      PERFETTO_ALWAYS_INLINE {
+      typename TracePointTraits::TracePointData trace_point_data) {
     InstancesIterator it{};
     it.cached_instances = cached_instances;
     FirstActiveInstance<TracePointTraits>(&it, tls_state, trace_point_data);
@@ -8921,8 +8920,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceType {
   template <typename TracePointTraits>
   void NextIteration(InstancesIterator* iterator,
                      DataSourceThreadLocalState* tls_state,
-                     typename TracePointTraits::TracePointData trace_point_data)
-      PERFETTO_ALWAYS_INLINE {
+                     typename TracePointTraits::TracePointData trace_point_data) {
     iterator->i++;
     FirstActiveInstance<TracePointTraits>(iterator, tls_state,
                                           trace_point_data);
@@ -9400,9 +9398,9 @@ class TracePacket : public ::protozero::Message {
   static inline const char* SequenceFlags_Name(SequenceFlags value) {
     return ::perfetto::protos::pbzero::TracePacket_SequenceFlags_Name(value);
   }
-  static const SequenceFlags SEQ_UNSPECIFIED = SequenceFlags::SEQ_UNSPECIFIED;
-  static const SequenceFlags SEQ_INCREMENTAL_STATE_CLEARED = SequenceFlags::SEQ_INCREMENTAL_STATE_CLEARED;
-  static const SequenceFlags SEQ_NEEDS_INCREMENTAL_STATE = SequenceFlags::SEQ_NEEDS_INCREMENTAL_STATE;
+  static inline const SequenceFlags SEQ_UNSPECIFIED = SequenceFlags::SEQ_UNSPECIFIED;
+  static inline const SequenceFlags SEQ_INCREMENTAL_STATE_CLEARED = SequenceFlags::SEQ_INCREMENTAL_STATE_CLEARED;
+  static inline const SequenceFlags SEQ_NEEDS_INCREMENTAL_STATE = SequenceFlags::SEQ_NEEDS_INCREMENTAL_STATE;
 
   using FieldMetadata_Timestamp =
     ::protozero::proto_utils::FieldMetadata<
@@ -12258,9 +12256,9 @@ class DebugAnnotation_NestedValue : public ::protozero::Message {
   static inline const char* NestedType_Name(NestedType value) {
     return ::perfetto::protos::pbzero::DebugAnnotation_NestedValue_NestedType_Name(value);
   }
-  static const NestedType UNSPECIFIED = NestedType::UNSPECIFIED;
-  static const NestedType DICT = NestedType::DICT;
-  static const NestedType ARRAY = NestedType::ARRAY;
+  static inline const NestedType UNSPECIFIED = NestedType::UNSPECIFIED;
+  static inline const NestedType DICT = NestedType::DICT;
+  static inline const NestedType ARRAY = NestedType::ARRAY;
 
   using FieldMetadata_NestedType =
     ::protozero::proto_utils::FieldMetadata<
@@ -13671,13 +13669,13 @@ class CounterDescriptor : public ::protozero::Message {
   static inline const char* Unit_Name(Unit value) {
     return ::perfetto::protos::pbzero::CounterDescriptor_Unit_Name(value);
   }
-  static const BuiltinCounterType COUNTER_UNSPECIFIED = BuiltinCounterType::COUNTER_UNSPECIFIED;
-  static const BuiltinCounterType COUNTER_THREAD_TIME_NS = BuiltinCounterType::COUNTER_THREAD_TIME_NS;
-  static const BuiltinCounterType COUNTER_THREAD_INSTRUCTION_COUNT = BuiltinCounterType::COUNTER_THREAD_INSTRUCTION_COUNT;
-  static const Unit UNIT_UNSPECIFIED = Unit::UNIT_UNSPECIFIED;
-  static const Unit UNIT_TIME_NS = Unit::UNIT_TIME_NS;
-  static const Unit UNIT_COUNT = Unit::UNIT_COUNT;
-  static const Unit UNIT_SIZE_BYTES = Unit::UNIT_SIZE_BYTES;
+  static inline const BuiltinCounterType COUNTER_UNSPECIFIED = BuiltinCounterType::COUNTER_UNSPECIFIED;
+  static inline const BuiltinCounterType COUNTER_THREAD_TIME_NS = BuiltinCounterType::COUNTER_THREAD_TIME_NS;
+  static inline const BuiltinCounterType COUNTER_THREAD_INSTRUCTION_COUNT = BuiltinCounterType::COUNTER_THREAD_INSTRUCTION_COUNT;
+  static inline const Unit UNIT_UNSPECIFIED = Unit::UNIT_UNSPECIFIED;
+  static inline const Unit UNIT_TIME_NS = Unit::UNIT_TIME_NS;
+  static inline const Unit UNIT_COUNT = Unit::UNIT_COUNT;
+  static inline const Unit UNIT_SIZE_BYTES = Unit::UNIT_SIZE_BYTES;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<
@@ -17465,275 +17463,24 @@ class TrackEventDataSource
         {category_index});
   }
 
-  // Once we've determined tracing to be enabled for this category, actually
-  // write a trace event onto this thread's default track. Outlined to avoid
-  // bloating code (mostly stack depth) at the actual trace point.
-  //
-  // The following combination of parameters is supported (in the given order):
-  // - Zero or one track,
-  // - Zero or one custom timestamp,
-  // - Arbitrary number of debug annotations.
-  // - Zero or one lambda.
-
-  // Trace point which does not take a track or timestamp.
-  template <typename CategoryType,
-            typename EventNameType,
-            typename... Arguments>
-  static void TraceForCategory(uint32_t instances,
-                               const CategoryType& category,
-                               const EventNameType& event_name,
-                               perfetto::protos::pbzero::TrackEvent::Type type,
-                               Arguments&&... args) PERFETTO_NO_INLINE {
-    TraceForCategoryImpl(instances, category, event_name, type,
-                         TrackEventInternal::kDefaultTrack,
-                         TrackEventInternal::GetTraceTime(),
-                         std::forward<Arguments>(args)...);
+  // The following methods forward all arguments to TraceForCategoryBody
+  // while casting string constants to const char*.
+  template <typename... Arguments>
+  static void TraceForCategory(Arguments&&... args) PERFETTO_ALWAYS_INLINE {
+    TraceForCategoryBody(DecayStrType(args)...);
   }
 
-  // Trace point which takes a track, but not timestamp.
-  // NOTE: Here track should be captured using universal reference (TrackType&&)
-  // instead of const TrackType& to ensure that the proper overload is selected
-  // (otherwise the compiler will fail to disambiguate between adding const& and
-  // parsing track as a part of Arguments...).
-  template <typename TrackType,
-            typename CategoryType,
-            typename EventNameType,
-            typename... Arguments,
-            typename TrackTypeCheck = typename std::enable_if<
-                std::is_convertible<TrackType, Track>::value>::type>
-  static void TraceForCategory(uint32_t instances,
-                               const CategoryType& category,
-                               const EventNameType& event_name,
-                               perfetto::protos::pbzero::TrackEvent::Type type,
-                               TrackType&& track,
-                               Arguments&&... args) PERFETTO_NO_INLINE {
-    TraceForCategoryImpl(
-        instances, category, event_name, type, std::forward<TrackType>(track),
-        TrackEventInternal::GetTraceTime(), std::forward<Arguments>(args)...);
+  template <typename... Arguments>
+  static void TraceForCategoryLegacy(Arguments&&... args)
+      PERFETTO_ALWAYS_INLINE {
+    TraceForCategoryLegacyBody(DecayStrType(args)...);
   }
 
-  // Trace point which takes a timestamp, but not track.
-  template <typename CategoryType,
-            typename EventNameType,
-            typename TimestampType = uint64_t,
-            typename... Arguments,
-            typename TimestampTypeCheck = typename std::enable_if<
-                IsValidTimestamp<TimestampType>()>::type>
-  static void TraceForCategory(uint32_t instances,
-                               const CategoryType& category,
-                               const EventNameType& event_name,
-                               perfetto::protos::pbzero::TrackEvent::Type type,
-                               TimestampType&& timestamp,
-                               Arguments&&... args) PERFETTO_NO_INLINE {
-    TraceForCategoryImpl(instances, category, event_name, type,
-                         TrackEventInternal::kDefaultTrack,
-                         std::forward<TimestampType>(timestamp),
-                         std::forward<Arguments>(args)...);
+  template <typename... Arguments>
+  static void TraceForCategoryLegacyWithId(Arguments&&... args)
+      PERFETTO_ALWAYS_INLINE {
+    TraceForCategoryLegacyWithIdBody(DecayStrType(args)...);
   }
-
-  // Trace point which takes a timestamp and a track.
-  template <typename TrackType,
-            typename CategoryType,
-            typename EventNameType,
-            typename TimestampType = uint64_t,
-            typename... Arguments,
-            typename TrackTypeCheck = typename std::enable_if<
-                std::is_convertible<TrackType, Track>::value>::type,
-            typename TimestampTypeCheck = typename std::enable_if<
-                IsValidTimestamp<TimestampType>()>::type>
-  static void TraceForCategory(uint32_t instances,
-                               const CategoryType& category,
-                               const EventNameType& event_name,
-                               perfetto::protos::pbzero::TrackEvent::Type type,
-                               TrackType&& track,
-                               TimestampType&& timestamp,
-                               Arguments&&... args) PERFETTO_NO_INLINE {
-    TraceForCategoryImpl(instances, category, event_name, type,
-                         std::forward<TrackType>(track),
-                         std::forward<TimestampType>(timestamp),
-                         std::forward<Arguments>(args)...);
-  }
-
-  // Trace point with with a counter sample.
-  template <typename CategoryType, typename EventNameType, typename ValueType>
-  static void TraceForCategory(uint32_t instances,
-                               const CategoryType& category,
-                               const EventNameType&,
-                               perfetto::protos::pbzero::TrackEvent::Type type,
-                               CounterTrack track,
-                               ValueType value) PERFETTO_ALWAYS_INLINE {
-    PERFETTO_DCHECK(type == perfetto::protos::pbzero::TrackEvent::TYPE_COUNTER);
-    TraceForCategory(instances, category, /*name=*/nullptr, type, track,
-                     TrackEventInternal::GetTraceTime(), value);
-  }
-
-  // Trace point with with a timestamp and a counter sample.
-  template <typename CategoryType,
-            typename EventNameType,
-            typename TimestampType = uint64_t,
-            typename TimestampTypeCheck = typename std::enable_if<
-                IsValidTimestamp<TimestampType>()>::type,
-            typename ValueType>
-  static void TraceForCategory(uint32_t instances,
-                               const CategoryType& category,
-                               const EventNameType&,
-                               perfetto::protos::pbzero::TrackEvent::Type type,
-                               CounterTrack track,
-                               TimestampType timestamp,
-                               ValueType value) PERFETTO_ALWAYS_INLINE {
-    PERFETTO_DCHECK(type == perfetto::protos::pbzero::TrackEvent::TYPE_COUNTER);
-    TraceForCategoryImpl(
-        instances, category, /*name=*/nullptr, type, track, timestamp,
-        [&](EventContext event_ctx) {
-          if (std::is_integral<ValueType>::value) {
-            int64_t value_int64 = static_cast<int64_t>(value);
-            if (track.is_incremental()) {
-              TrackEventIncrementalState* incr_state =
-                  event_ctx.GetIncrementalState();
-              PERFETTO_DCHECK(incr_state != nullptr);
-              auto prv_value =
-                  incr_state->last_counter_value_per_track[track.uuid];
-              event_ctx.event()->set_counter_value(value_int64 - prv_value);
-              prv_value = value_int64;
-              incr_state->last_counter_value_per_track[track.uuid] = prv_value;
-            } else {
-              event_ctx.event()->set_counter_value(value_int64);
-            }
-          } else {
-            event_ctx.event()->set_double_counter_value(
-                static_cast<double>(value));
-          }
-        });
-  }
-
-// Additional trace points used in legacy macros.
-// It's possible to implement legacy macros using a common TraceForCategory,
-// by supplying a lambda that sets all necessary legacy fields. But this
-// results in a binary size bloat because every trace point generates its own
-// template instantiation with its own lambda. ICF can't eliminate those as
-// each lambda captures different variables and so the code is not completely
-// identical.
-// What we do instead is define additional TraceForCategoryLegacy templates
-// that take legacy arguments directly. Their instantiations can have the same
-// binary code for at least some macro invocations and so can be successfully
-// folded by the linker.
-#if PERFETTO_ENABLE_LEGACY_TRACE_EVENTS
-  template <typename TrackType,
-            typename CategoryType,
-            typename EventNameType,
-            typename... Arguments,
-            typename TrackTypeCheck = typename std::enable_if<
-                std::is_convertible<TrackType, Track>::value>::type>
-  static void TraceForCategoryLegacy(
-      uint32_t instances,
-      const CategoryType& category,
-      const EventNameType& event_name,
-      perfetto::protos::pbzero::TrackEvent::Type type,
-      TrackType&& track,
-      char phase,
-      uint32_t flags,
-      Arguments&&... args) PERFETTO_NO_INLINE {
-    TraceForCategoryImpl(instances, category, event_name, type, track,
-                         TrackEventInternal::GetTraceTime(),
-                         [&](perfetto::EventContext ctx)
-                             PERFETTO_NO_THREAD_SAFETY_ANALYSIS {
-                               using ::perfetto::internal::TrackEventLegacy;
-                               TrackEventLegacy::WriteLegacyEvent(
-                                   std::move(ctx), phase, flags, args...);
-                             });
-  }
-
-  template <typename TrackType,
-            typename CategoryType,
-            typename EventNameType,
-            typename TimestampType = uint64_t,
-            typename... Arguments,
-            typename TrackTypeCheck = typename std::enable_if<
-                std::is_convertible<TrackType, Track>::value>::type,
-            typename TimestampTypeCheck = typename std::enable_if<
-                IsValidTimestamp<TimestampType>()>::type>
-  static void TraceForCategoryLegacy(
-      uint32_t instances,
-      const CategoryType& category,
-      const EventNameType& event_name,
-      perfetto::protos::pbzero::TrackEvent::Type type,
-      TrackType&& track,
-      char phase,
-      uint32_t flags,
-      TimestampType&& timestamp,
-      Arguments&&... args) PERFETTO_NO_INLINE {
-    TraceForCategoryImpl(
-        instances, category, event_name, type, track, timestamp,
-        [&](perfetto::EventContext ctx) PERFETTO_NO_THREAD_SAFETY_ANALYSIS {
-          using ::perfetto::internal::TrackEventLegacy;
-          TrackEventLegacy::WriteLegacyEvent(std::move(ctx), phase, flags,
-                                             args...);
-        });
-  }
-
-  template <typename TrackType,
-            typename CategoryType,
-            typename EventNameType,
-            typename ThreadIdType,
-            typename LegacyIdType,
-            typename... Arguments,
-            typename TrackTypeCheck = typename std::enable_if<
-                std::is_convertible<TrackType, Track>::value>::type>
-  static void TraceForCategoryLegacyWithId(
-      uint32_t instances,
-      const CategoryType& category,
-      const EventNameType& event_name,
-      perfetto::protos::pbzero::TrackEvent::Type type,
-      TrackType&& track,
-      char phase,
-      uint32_t flags,
-      ThreadIdType thread_id,
-      LegacyIdType legacy_id,
-      Arguments&&... args) PERFETTO_NO_INLINE {
-    TraceForCategoryImpl(
-        instances, category, event_name, type, track,
-        TrackEventInternal::GetTraceTime(),
-        [&](perfetto::EventContext ctx) PERFETTO_NO_THREAD_SAFETY_ANALYSIS {
-          using ::perfetto::internal::TrackEventLegacy;
-          ::perfetto::internal::LegacyTraceId trace_id{legacy_id};
-          TrackEventLegacy::WriteLegacyEventWithIdAndTid(
-              std::move(ctx), phase, flags, trace_id, thread_id, args...);
-        });
-  }
-
-  template <typename TrackType,
-            typename CategoryType,
-            typename EventNameType,
-            typename ThreadIdType,
-            typename LegacyIdType,
-            typename TimestampType = uint64_t,
-            typename... Arguments,
-            typename TrackTypeCheck = typename std::enable_if<
-                std::is_convertible<TrackType, Track>::value>::type,
-            typename TimestampTypeCheck = typename std::enable_if<
-                IsValidTimestamp<TimestampType>()>::type>
-  static void TraceForCategoryLegacyWithId(
-      uint32_t instances,
-      const CategoryType& category,
-      const EventNameType& event_name,
-      perfetto::protos::pbzero::TrackEvent::Type type,
-      TrackType&& track,
-      char phase,
-      uint32_t flags,
-      ThreadIdType thread_id,
-      LegacyIdType legacy_id,
-      TimestampType&& timestamp,
-      Arguments&&... args) PERFETTO_NO_INLINE {
-    TraceForCategoryImpl(
-        instances, category, event_name, type, track, timestamp,
-        [&](perfetto::EventContext ctx) PERFETTO_NO_THREAD_SAFETY_ANALYSIS {
-          using ::perfetto::internal::TrackEventLegacy;
-          ::perfetto::internal::LegacyTraceId trace_id{legacy_id};
-          TrackEventLegacy::WriteLegacyEventWithIdAndTid(
-              std::move(ctx), phase, flags, trace_id, thread_id, args...);
-        });
-  }
-#endif  // PERFETTO_ENABLE_LEGACY_TRACE_EVENTS
 
   // Initialize the track event library. Should be called before tracing is
   // enabled.
@@ -17795,6 +17542,295 @@ class TrackEventDataSource
   const protos::gen::TrackEventConfig& GetConfig() const { return config_; }
 
  private:
+  // The DecayStrType method is used to avoid unnecessary instantiations of
+  // templates on string constants of different sizes. Without it, strings
+  // of different lengths have different types: char[10], char[15] etc.
+  // DecayStrType forwards all types of arguments as is, with the exception
+  // of string constants which are all cast to const char*. This allows to
+  // avoid extra instantiations of TraceForCategory templates.
+  template <typename T>
+  static T&& DecayStrType(T&& t) {
+    return std::forward<T>(t);
+  }
+
+  static const char* DecayStrType(const char* t) { return t; }
+
+  // Once we've determined tracing to be enabled for this category, actually
+  // write a trace event onto this thread's default track. Outlined to avoid
+  // bloating code (mostly stack depth) at the actual trace point.
+  //
+  // The following combination of parameters is supported (in the given order):
+  // - Zero or one track,
+  // - Zero or one custom timestamp,
+  // - Arbitrary number of debug annotations.
+  // - Zero or one lambda.
+
+  // Trace point which does not take a track or timestamp.
+  template <typename CategoryType,
+            typename EventNameType,
+            typename... Arguments>
+  static void TraceForCategoryBody(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      Arguments&&... args) PERFETTO_NO_INLINE {
+    TraceForCategoryImpl(instances, category, event_name, type,
+                         TrackEventInternal::kDefaultTrack,
+                         TrackEventInternal::GetTraceTime(),
+                         std::forward<Arguments>(args)...);
+  }
+
+  // Trace point which takes a track, but not timestamp.
+  // NOTE: Here track should be captured using universal reference (TrackType&&)
+  // instead of const TrackType& to ensure that the proper overload is selected
+  // (otherwise the compiler will fail to disambiguate between adding const& and
+  // parsing track as a part of Arguments...).
+  template <typename TrackType,
+            typename CategoryType,
+            typename EventNameType,
+            typename... Arguments,
+            typename TrackTypeCheck = typename std::enable_if<
+                std::is_convertible<TrackType, Track>::value>::type>
+  static void TraceForCategoryBody(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TrackType&& track,
+      Arguments&&... args) PERFETTO_NO_INLINE {
+    TraceForCategoryImpl(
+        instances, category, event_name, type, std::forward<TrackType>(track),
+        TrackEventInternal::GetTraceTime(), std::forward<Arguments>(args)...);
+  }
+
+  // Trace point which takes a timestamp, but not track.
+  template <typename CategoryType,
+            typename EventNameType,
+            typename TimestampType = uint64_t,
+            typename... Arguments,
+            typename TimestampTypeCheck = typename std::enable_if<
+                IsValidTimestamp<TimestampType>()>::type>
+  static void TraceForCategoryBody(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TimestampType&& timestamp,
+      Arguments&&... args) PERFETTO_NO_INLINE {
+    TraceForCategoryImpl(instances, category, event_name, type,
+                         TrackEventInternal::kDefaultTrack,
+                         std::forward<TimestampType>(timestamp),
+                         std::forward<Arguments>(args)...);
+  }
+
+  // Trace point which takes a timestamp and a track.
+  template <typename TrackType,
+            typename CategoryType,
+            typename EventNameType,
+            typename TimestampType = uint64_t,
+            typename... Arguments,
+            typename TrackTypeCheck = typename std::enable_if<
+                std::is_convertible<TrackType, Track>::value>::type,
+            typename TimestampTypeCheck = typename std::enable_if<
+                IsValidTimestamp<TimestampType>()>::type>
+  static void TraceForCategoryBody(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TrackType&& track,
+      TimestampType&& timestamp,
+      Arguments&&... args) PERFETTO_NO_INLINE {
+    TraceForCategoryImpl(instances, category, event_name, type,
+                         std::forward<TrackType>(track),
+                         std::forward<TimestampType>(timestamp),
+                         std::forward<Arguments>(args)...);
+  }
+
+  // Trace point with with a counter sample.
+  template <typename CategoryType, typename EventNameType, typename ValueType>
+  static void TraceForCategoryBody(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType&,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      CounterTrack track,
+      ValueType value) PERFETTO_ALWAYS_INLINE {
+    PERFETTO_DCHECK(type == perfetto::protos::pbzero::TrackEvent::TYPE_COUNTER);
+    TraceForCategory(instances, category, /*name=*/nullptr, type, track,
+                     TrackEventInternal::GetTraceTime(), value);
+  }
+
+  // Trace point with with a timestamp and a counter sample.
+  template <typename CategoryType,
+            typename EventNameType,
+            typename TimestampType = uint64_t,
+            typename TimestampTypeCheck = typename std::enable_if<
+                IsValidTimestamp<TimestampType>()>::type,
+            typename ValueType>
+  static void TraceForCategoryBody(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType&,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      CounterTrack track,
+      TimestampType timestamp,
+      ValueType value) PERFETTO_ALWAYS_INLINE {
+    PERFETTO_DCHECK(type == perfetto::protos::pbzero::TrackEvent::TYPE_COUNTER);
+    TraceForCategoryImpl(
+        instances, category, /*name=*/nullptr, type, track, timestamp,
+        [&](EventContext event_ctx) {
+          if (std::is_integral<ValueType>::value) {
+            int64_t value_int64 = static_cast<int64_t>(value);
+            if (track.is_incremental()) {
+              TrackEventIncrementalState* incr_state =
+                  event_ctx.GetIncrementalState();
+              PERFETTO_DCHECK(incr_state != nullptr);
+              auto prv_value =
+                  incr_state->last_counter_value_per_track[track.uuid];
+              event_ctx.event()->set_counter_value(value_int64 - prv_value);
+              prv_value = value_int64;
+              incr_state->last_counter_value_per_track[track.uuid] = prv_value;
+            } else {
+              event_ctx.event()->set_counter_value(value_int64);
+            }
+          } else {
+            event_ctx.event()->set_double_counter_value(
+                static_cast<double>(value));
+          }
+        });
+  }
+
+// Additional trace points used in legacy macros.
+// It's possible to implement legacy macros using a common TraceForCategory,
+// by supplying a lambda that sets all necessary legacy fields. But this
+// results in a binary size bloat because every trace point generates its own
+// template instantiation with its own lambda. ICF can't eliminate those as
+// each lambda captures different variables and so the code is not completely
+// identical.
+// What we do instead is define additional TraceForCategoryLegacy templates
+// that take legacy arguments directly. Their instantiations can have the same
+// binary code for at least some macro invocations and so can be successfully
+// folded by the linker.
+#if PERFETTO_ENABLE_LEGACY_TRACE_EVENTS
+  template <typename TrackType,
+            typename CategoryType,
+            typename EventNameType,
+            typename... Arguments,
+            typename TrackTypeCheck = typename std::enable_if<
+                std::is_convertible<TrackType, Track>::value>::type>
+  static void TraceForCategoryLegacyBody(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TrackType&& track,
+      char phase,
+      uint32_t flags,
+      Arguments&&... args) PERFETTO_NO_INLINE {
+    TraceForCategoryImpl(instances, category, event_name, type, track,
+                         TrackEventInternal::GetTraceTime(),
+                         [&](perfetto::EventContext ctx)
+                             PERFETTO_NO_THREAD_SAFETY_ANALYSIS {
+                               using ::perfetto::internal::TrackEventLegacy;
+                               TrackEventLegacy::WriteLegacyEvent(
+                                   std::move(ctx), phase, flags, args...);
+                             });
+  }
+
+  template <typename TrackType,
+            typename CategoryType,
+            typename EventNameType,
+            typename TimestampType = uint64_t,
+            typename... Arguments,
+            typename TrackTypeCheck = typename std::enable_if<
+                std::is_convertible<TrackType, Track>::value>::type,
+            typename TimestampTypeCheck = typename std::enable_if<
+                IsValidTimestamp<TimestampType>()>::type>
+  static void TraceForCategoryLegacyBody(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TrackType&& track,
+      char phase,
+      uint32_t flags,
+      TimestampType&& timestamp,
+      Arguments&&... args) PERFETTO_NO_INLINE {
+    TraceForCategoryImpl(
+        instances, category, event_name, type, track, timestamp,
+        [&](perfetto::EventContext ctx) PERFETTO_NO_THREAD_SAFETY_ANALYSIS {
+          using ::perfetto::internal::TrackEventLegacy;
+          TrackEventLegacy::WriteLegacyEvent(std::move(ctx), phase, flags,
+                                             args...);
+        });
+  }
+
+  template <typename TrackType,
+            typename CategoryType,
+            typename EventNameType,
+            typename ThreadIdType,
+            typename LegacyIdType,
+            typename... Arguments,
+            typename TrackTypeCheck = typename std::enable_if<
+                std::is_convertible<TrackType, Track>::value>::type>
+  static void TraceForCategoryLegacyWithIdBody(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TrackType&& track,
+      char phase,
+      uint32_t flags,
+      ThreadIdType thread_id,
+      LegacyIdType legacy_id,
+      Arguments&&... args) PERFETTO_NO_INLINE {
+    TraceForCategoryImpl(
+        instances, category, event_name, type, track,
+        TrackEventInternal::GetTraceTime(),
+        [&](perfetto::EventContext ctx) PERFETTO_NO_THREAD_SAFETY_ANALYSIS {
+          using ::perfetto::internal::TrackEventLegacy;
+          ::perfetto::internal::LegacyTraceId trace_id{legacy_id};
+          TrackEventLegacy::WriteLegacyEventWithIdAndTid(
+              std::move(ctx), phase, flags, trace_id, thread_id, args...);
+        });
+  }
+
+  template <typename TrackType,
+            typename CategoryType,
+            typename EventNameType,
+            typename ThreadIdType,
+            typename LegacyIdType,
+            typename TimestampType = uint64_t,
+            typename... Arguments,
+            typename TrackTypeCheck = typename std::enable_if<
+                std::is_convertible<TrackType, Track>::value>::type,
+            typename TimestampTypeCheck = typename std::enable_if<
+                IsValidTimestamp<TimestampType>()>::type>
+  static void TraceForCategoryLegacyWithIdBody(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TrackType&& track,
+      char phase,
+      uint32_t flags,
+      ThreadIdType thread_id,
+      LegacyIdType legacy_id,
+      TimestampType&& timestamp,
+      Arguments&&... args) PERFETTO_NO_INLINE {
+    TraceForCategoryImpl(
+        instances, category, event_name, type, track, timestamp,
+        [&](perfetto::EventContext ctx) PERFETTO_NO_THREAD_SAFETY_ANALYSIS {
+          using ::perfetto::internal::TrackEventLegacy;
+          ::perfetto::internal::LegacyTraceId trace_id{legacy_id};
+          TrackEventLegacy::WriteLegacyEventWithIdAndTid(
+              std::move(ctx), phase, flags, trace_id, thread_id, args...);
+        });
+  }
+#endif  // PERFETTO_ENABLE_LEGACY_TRACE_EVENTS
+
   // Each category has its own enabled/disabled state, stored in the category
   // registry.
   struct CategoryTracePointTraits {
@@ -24772,27 +24808,27 @@ class FieldDescriptorProto : public ::protozero::Message {
   static inline const char* Label_Name(Label value) {
     return ::perfetto::protos::pbzero::FieldDescriptorProto_Label_Name(value);
   }
-  static const Type TYPE_DOUBLE = Type::TYPE_DOUBLE;
-  static const Type TYPE_FLOAT = Type::TYPE_FLOAT;
-  static const Type TYPE_INT64 = Type::TYPE_INT64;
-  static const Type TYPE_UINT64 = Type::TYPE_UINT64;
-  static const Type TYPE_INT32 = Type::TYPE_INT32;
-  static const Type TYPE_FIXED64 = Type::TYPE_FIXED64;
-  static const Type TYPE_FIXED32 = Type::TYPE_FIXED32;
-  static const Type TYPE_BOOL = Type::TYPE_BOOL;
-  static const Type TYPE_STRING = Type::TYPE_STRING;
-  static const Type TYPE_GROUP = Type::TYPE_GROUP;
-  static const Type TYPE_MESSAGE = Type::TYPE_MESSAGE;
-  static const Type TYPE_BYTES = Type::TYPE_BYTES;
-  static const Type TYPE_UINT32 = Type::TYPE_UINT32;
-  static const Type TYPE_ENUM = Type::TYPE_ENUM;
-  static const Type TYPE_SFIXED32 = Type::TYPE_SFIXED32;
-  static const Type TYPE_SFIXED64 = Type::TYPE_SFIXED64;
-  static const Type TYPE_SINT32 = Type::TYPE_SINT32;
-  static const Type TYPE_SINT64 = Type::TYPE_SINT64;
-  static const Label LABEL_OPTIONAL = Label::LABEL_OPTIONAL;
-  static const Label LABEL_REQUIRED = Label::LABEL_REQUIRED;
-  static const Label LABEL_REPEATED = Label::LABEL_REPEATED;
+  static inline const Type TYPE_DOUBLE = Type::TYPE_DOUBLE;
+  static inline const Type TYPE_FLOAT = Type::TYPE_FLOAT;
+  static inline const Type TYPE_INT64 = Type::TYPE_INT64;
+  static inline const Type TYPE_UINT64 = Type::TYPE_UINT64;
+  static inline const Type TYPE_INT32 = Type::TYPE_INT32;
+  static inline const Type TYPE_FIXED64 = Type::TYPE_FIXED64;
+  static inline const Type TYPE_FIXED32 = Type::TYPE_FIXED32;
+  static inline const Type TYPE_BOOL = Type::TYPE_BOOL;
+  static inline const Type TYPE_STRING = Type::TYPE_STRING;
+  static inline const Type TYPE_GROUP = Type::TYPE_GROUP;
+  static inline const Type TYPE_MESSAGE = Type::TYPE_MESSAGE;
+  static inline const Type TYPE_BYTES = Type::TYPE_BYTES;
+  static inline const Type TYPE_UINT32 = Type::TYPE_UINT32;
+  static inline const Type TYPE_ENUM = Type::TYPE_ENUM;
+  static inline const Type TYPE_SFIXED32 = Type::TYPE_SFIXED32;
+  static inline const Type TYPE_SFIXED64 = Type::TYPE_SFIXED64;
+  static inline const Type TYPE_SINT32 = Type::TYPE_SINT32;
+  static inline const Type TYPE_SINT64 = Type::TYPE_SINT64;
+  static inline const Label LABEL_OPTIONAL = Label::LABEL_OPTIONAL;
+  static inline const Label LABEL_REQUIRED = Label::LABEL_REQUIRED;
+  static inline const Label LABEL_REPEATED = Label::LABEL_REPEATED;
 
   using FieldMetadata_Name =
     ::protozero::proto_utils::FieldMetadata<
@@ -25898,54 +25934,54 @@ class GpuCounterDescriptor : public ::protozero::Message {
   static inline const char* MeasureUnit_Name(MeasureUnit value) {
     return ::perfetto::protos::pbzero::GpuCounterDescriptor_MeasureUnit_Name(value);
   }
-  static const GpuCounterGroup UNCLASSIFIED = GpuCounterGroup::UNCLASSIFIED;
-  static const GpuCounterGroup SYSTEM = GpuCounterGroup::SYSTEM;
-  static const GpuCounterGroup VERTICES = GpuCounterGroup::VERTICES;
-  static const GpuCounterGroup FRAGMENTS = GpuCounterGroup::FRAGMENTS;
-  static const GpuCounterGroup PRIMITIVES = GpuCounterGroup::PRIMITIVES;
-  static const GpuCounterGroup MEMORY = GpuCounterGroup::MEMORY;
-  static const GpuCounterGroup COMPUTE = GpuCounterGroup::COMPUTE;
-  static const MeasureUnit NONE = MeasureUnit::NONE;
-  static const MeasureUnit BIT = MeasureUnit::BIT;
-  static const MeasureUnit KILOBIT = MeasureUnit::KILOBIT;
-  static const MeasureUnit MEGABIT = MeasureUnit::MEGABIT;
-  static const MeasureUnit GIGABIT = MeasureUnit::GIGABIT;
-  static const MeasureUnit TERABIT = MeasureUnit::TERABIT;
-  static const MeasureUnit PETABIT = MeasureUnit::PETABIT;
-  static const MeasureUnit BYTE = MeasureUnit::BYTE;
-  static const MeasureUnit KILOBYTE = MeasureUnit::KILOBYTE;
-  static const MeasureUnit MEGABYTE = MeasureUnit::MEGABYTE;
-  static const MeasureUnit GIGABYTE = MeasureUnit::GIGABYTE;
-  static const MeasureUnit TERABYTE = MeasureUnit::TERABYTE;
-  static const MeasureUnit PETABYTE = MeasureUnit::PETABYTE;
-  static const MeasureUnit HERTZ = MeasureUnit::HERTZ;
-  static const MeasureUnit KILOHERTZ = MeasureUnit::KILOHERTZ;
-  static const MeasureUnit MEGAHERTZ = MeasureUnit::MEGAHERTZ;
-  static const MeasureUnit GIGAHERTZ = MeasureUnit::GIGAHERTZ;
-  static const MeasureUnit TERAHERTZ = MeasureUnit::TERAHERTZ;
-  static const MeasureUnit PETAHERTZ = MeasureUnit::PETAHERTZ;
-  static const MeasureUnit NANOSECOND = MeasureUnit::NANOSECOND;
-  static const MeasureUnit MICROSECOND = MeasureUnit::MICROSECOND;
-  static const MeasureUnit MILLISECOND = MeasureUnit::MILLISECOND;
-  static const MeasureUnit SECOND = MeasureUnit::SECOND;
-  static const MeasureUnit MINUTE = MeasureUnit::MINUTE;
-  static const MeasureUnit HOUR = MeasureUnit::HOUR;
-  static const MeasureUnit VERTEX = MeasureUnit::VERTEX;
-  static const MeasureUnit PIXEL = MeasureUnit::PIXEL;
-  static const MeasureUnit TRIANGLE = MeasureUnit::TRIANGLE;
-  static const MeasureUnit PRIMITIVE = MeasureUnit::PRIMITIVE;
-  static const MeasureUnit FRAGMENT = MeasureUnit::FRAGMENT;
-  static const MeasureUnit MILLIWATT = MeasureUnit::MILLIWATT;
-  static const MeasureUnit WATT = MeasureUnit::WATT;
-  static const MeasureUnit KILOWATT = MeasureUnit::KILOWATT;
-  static const MeasureUnit JOULE = MeasureUnit::JOULE;
-  static const MeasureUnit VOLT = MeasureUnit::VOLT;
-  static const MeasureUnit AMPERE = MeasureUnit::AMPERE;
-  static const MeasureUnit CELSIUS = MeasureUnit::CELSIUS;
-  static const MeasureUnit FAHRENHEIT = MeasureUnit::FAHRENHEIT;
-  static const MeasureUnit KELVIN = MeasureUnit::KELVIN;
-  static const MeasureUnit PERCENT = MeasureUnit::PERCENT;
-  static const MeasureUnit INSTRUCTION = MeasureUnit::INSTRUCTION;
+  static inline const GpuCounterGroup UNCLASSIFIED = GpuCounterGroup::UNCLASSIFIED;
+  static inline const GpuCounterGroup SYSTEM = GpuCounterGroup::SYSTEM;
+  static inline const GpuCounterGroup VERTICES = GpuCounterGroup::VERTICES;
+  static inline const GpuCounterGroup FRAGMENTS = GpuCounterGroup::FRAGMENTS;
+  static inline const GpuCounterGroup PRIMITIVES = GpuCounterGroup::PRIMITIVES;
+  static inline const GpuCounterGroup MEMORY = GpuCounterGroup::MEMORY;
+  static inline const GpuCounterGroup COMPUTE = GpuCounterGroup::COMPUTE;
+  static inline const MeasureUnit NONE = MeasureUnit::NONE;
+  static inline const MeasureUnit BIT = MeasureUnit::BIT;
+  static inline const MeasureUnit KILOBIT = MeasureUnit::KILOBIT;
+  static inline const MeasureUnit MEGABIT = MeasureUnit::MEGABIT;
+  static inline const MeasureUnit GIGABIT = MeasureUnit::GIGABIT;
+  static inline const MeasureUnit TERABIT = MeasureUnit::TERABIT;
+  static inline const MeasureUnit PETABIT = MeasureUnit::PETABIT;
+  static inline const MeasureUnit BYTE = MeasureUnit::BYTE;
+  static inline const MeasureUnit KILOBYTE = MeasureUnit::KILOBYTE;
+  static inline const MeasureUnit MEGABYTE = MeasureUnit::MEGABYTE;
+  static inline const MeasureUnit GIGABYTE = MeasureUnit::GIGABYTE;
+  static inline const MeasureUnit TERABYTE = MeasureUnit::TERABYTE;
+  static inline const MeasureUnit PETABYTE = MeasureUnit::PETABYTE;
+  static inline const MeasureUnit HERTZ = MeasureUnit::HERTZ;
+  static inline const MeasureUnit KILOHERTZ = MeasureUnit::KILOHERTZ;
+  static inline const MeasureUnit MEGAHERTZ = MeasureUnit::MEGAHERTZ;
+  static inline const MeasureUnit GIGAHERTZ = MeasureUnit::GIGAHERTZ;
+  static inline const MeasureUnit TERAHERTZ = MeasureUnit::TERAHERTZ;
+  static inline const MeasureUnit PETAHERTZ = MeasureUnit::PETAHERTZ;
+  static inline const MeasureUnit NANOSECOND = MeasureUnit::NANOSECOND;
+  static inline const MeasureUnit MICROSECOND = MeasureUnit::MICROSECOND;
+  static inline const MeasureUnit MILLISECOND = MeasureUnit::MILLISECOND;
+  static inline const MeasureUnit SECOND = MeasureUnit::SECOND;
+  static inline const MeasureUnit MINUTE = MeasureUnit::MINUTE;
+  static inline const MeasureUnit HOUR = MeasureUnit::HOUR;
+  static inline const MeasureUnit VERTEX = MeasureUnit::VERTEX;
+  static inline const MeasureUnit PIXEL = MeasureUnit::PIXEL;
+  static inline const MeasureUnit TRIANGLE = MeasureUnit::TRIANGLE;
+  static inline const MeasureUnit PRIMITIVE = MeasureUnit::PRIMITIVE;
+  static inline const MeasureUnit FRAGMENT = MeasureUnit::FRAGMENT;
+  static inline const MeasureUnit MILLIWATT = MeasureUnit::MILLIWATT;
+  static inline const MeasureUnit WATT = MeasureUnit::WATT;
+  static inline const MeasureUnit KILOWATT = MeasureUnit::KILOWATT;
+  static inline const MeasureUnit JOULE = MeasureUnit::JOULE;
+  static inline const MeasureUnit VOLT = MeasureUnit::VOLT;
+  static inline const MeasureUnit AMPERE = MeasureUnit::AMPERE;
+  static inline const MeasureUnit CELSIUS = MeasureUnit::CELSIUS;
+  static inline const MeasureUnit FAHRENHEIT = MeasureUnit::FAHRENHEIT;
+  static inline const MeasureUnit KELVIN = MeasureUnit::KELVIN;
+  static inline const MeasureUnit PERCENT = MeasureUnit::PERCENT;
+  static inline const MeasureUnit INSTRUCTION = MeasureUnit::INSTRUCTION;
 
   using FieldMetadata_Specs =
     ::protozero::proto_utils::FieldMetadata<
@@ -26570,12 +26606,12 @@ class ObservableEvents : public ::protozero::Message {
   static inline const char* DataSourceInstanceState_Name(DataSourceInstanceState value) {
     return ::perfetto::protos::pbzero::ObservableEvents_DataSourceInstanceState_Name(value);
   }
-  static const Type TYPE_UNSPECIFIED = Type::TYPE_UNSPECIFIED;
-  static const Type TYPE_DATA_SOURCES_INSTANCES = Type::TYPE_DATA_SOURCES_INSTANCES;
-  static const Type TYPE_ALL_DATA_SOURCES_STARTED = Type::TYPE_ALL_DATA_SOURCES_STARTED;
-  static const Type TYPE_CLONE_TRIGGER_HIT = Type::TYPE_CLONE_TRIGGER_HIT;
-  static const DataSourceInstanceState DATA_SOURCE_INSTANCE_STATE_STOPPED = DataSourceInstanceState::DATA_SOURCE_INSTANCE_STATE_STOPPED;
-  static const DataSourceInstanceState DATA_SOURCE_INSTANCE_STATE_STARTED = DataSourceInstanceState::DATA_SOURCE_INSTANCE_STATE_STARTED;
+  static inline const Type TYPE_UNSPECIFIED = Type::TYPE_UNSPECIFIED;
+  static inline const Type TYPE_DATA_SOURCES_INSTANCES = Type::TYPE_DATA_SOURCES_INSTANCES;
+  static inline const Type TYPE_ALL_DATA_SOURCES_STARTED = Type::TYPE_ALL_DATA_SOURCES_STARTED;
+  static inline const Type TYPE_CLONE_TRIGGER_HIT = Type::TYPE_CLONE_TRIGGER_HIT;
+  static inline const DataSourceInstanceState DATA_SOURCE_INSTANCE_STATE_STOPPED = DataSourceInstanceState::DATA_SOURCE_INSTANCE_STATE_STOPPED;
+  static inline const DataSourceInstanceState DATA_SOURCE_INSTANCE_STATE_STARTED = DataSourceInstanceState::DATA_SOURCE_INSTANCE_STATE_STARTED;
 
   using FieldMetadata_InstanceStateChanges =
     ::protozero::proto_utils::FieldMetadata<
@@ -26950,32 +26986,32 @@ class PerfEvents : public ::protozero::Message {
   static inline const char* PerfClock_Name(PerfClock value) {
     return ::perfetto::protos::pbzero::PerfEvents_PerfClock_Name(value);
   }
-  static const Counter UNKNOWN_COUNTER = Counter::UNKNOWN_COUNTER;
-  static const Counter SW_CPU_CLOCK = Counter::SW_CPU_CLOCK;
-  static const Counter SW_PAGE_FAULTS = Counter::SW_PAGE_FAULTS;
-  static const Counter SW_TASK_CLOCK = Counter::SW_TASK_CLOCK;
-  static const Counter SW_CONTEXT_SWITCHES = Counter::SW_CONTEXT_SWITCHES;
-  static const Counter SW_CPU_MIGRATIONS = Counter::SW_CPU_MIGRATIONS;
-  static const Counter SW_PAGE_FAULTS_MIN = Counter::SW_PAGE_FAULTS_MIN;
-  static const Counter SW_PAGE_FAULTS_MAJ = Counter::SW_PAGE_FAULTS_MAJ;
-  static const Counter SW_ALIGNMENT_FAULTS = Counter::SW_ALIGNMENT_FAULTS;
-  static const Counter SW_EMULATION_FAULTS = Counter::SW_EMULATION_FAULTS;
-  static const Counter SW_DUMMY = Counter::SW_DUMMY;
-  static const Counter HW_CPU_CYCLES = Counter::HW_CPU_CYCLES;
-  static const Counter HW_INSTRUCTIONS = Counter::HW_INSTRUCTIONS;
-  static const Counter HW_CACHE_REFERENCES = Counter::HW_CACHE_REFERENCES;
-  static const Counter HW_CACHE_MISSES = Counter::HW_CACHE_MISSES;
-  static const Counter HW_BRANCH_INSTRUCTIONS = Counter::HW_BRANCH_INSTRUCTIONS;
-  static const Counter HW_BRANCH_MISSES = Counter::HW_BRANCH_MISSES;
-  static const Counter HW_BUS_CYCLES = Counter::HW_BUS_CYCLES;
-  static const Counter HW_STALLED_CYCLES_FRONTEND = Counter::HW_STALLED_CYCLES_FRONTEND;
-  static const Counter HW_STALLED_CYCLES_BACKEND = Counter::HW_STALLED_CYCLES_BACKEND;
-  static const Counter HW_REF_CPU_CYCLES = Counter::HW_REF_CPU_CYCLES;
-  static const PerfClock UNKNOWN_PERF_CLOCK = PerfClock::UNKNOWN_PERF_CLOCK;
-  static const PerfClock PERF_CLOCK_REALTIME = PerfClock::PERF_CLOCK_REALTIME;
-  static const PerfClock PERF_CLOCK_MONOTONIC = PerfClock::PERF_CLOCK_MONOTONIC;
-  static const PerfClock PERF_CLOCK_MONOTONIC_RAW = PerfClock::PERF_CLOCK_MONOTONIC_RAW;
-  static const PerfClock PERF_CLOCK_BOOTTIME = PerfClock::PERF_CLOCK_BOOTTIME;
+  static inline const Counter UNKNOWN_COUNTER = Counter::UNKNOWN_COUNTER;
+  static inline const Counter SW_CPU_CLOCK = Counter::SW_CPU_CLOCK;
+  static inline const Counter SW_PAGE_FAULTS = Counter::SW_PAGE_FAULTS;
+  static inline const Counter SW_TASK_CLOCK = Counter::SW_TASK_CLOCK;
+  static inline const Counter SW_CONTEXT_SWITCHES = Counter::SW_CONTEXT_SWITCHES;
+  static inline const Counter SW_CPU_MIGRATIONS = Counter::SW_CPU_MIGRATIONS;
+  static inline const Counter SW_PAGE_FAULTS_MIN = Counter::SW_PAGE_FAULTS_MIN;
+  static inline const Counter SW_PAGE_FAULTS_MAJ = Counter::SW_PAGE_FAULTS_MAJ;
+  static inline const Counter SW_ALIGNMENT_FAULTS = Counter::SW_ALIGNMENT_FAULTS;
+  static inline const Counter SW_EMULATION_FAULTS = Counter::SW_EMULATION_FAULTS;
+  static inline const Counter SW_DUMMY = Counter::SW_DUMMY;
+  static inline const Counter HW_CPU_CYCLES = Counter::HW_CPU_CYCLES;
+  static inline const Counter HW_INSTRUCTIONS = Counter::HW_INSTRUCTIONS;
+  static inline const Counter HW_CACHE_REFERENCES = Counter::HW_CACHE_REFERENCES;
+  static inline const Counter HW_CACHE_MISSES = Counter::HW_CACHE_MISSES;
+  static inline const Counter HW_BRANCH_INSTRUCTIONS = Counter::HW_BRANCH_INSTRUCTIONS;
+  static inline const Counter HW_BRANCH_MISSES = Counter::HW_BRANCH_MISSES;
+  static inline const Counter HW_BUS_CYCLES = Counter::HW_BUS_CYCLES;
+  static inline const Counter HW_STALLED_CYCLES_FRONTEND = Counter::HW_STALLED_CYCLES_FRONTEND;
+  static inline const Counter HW_STALLED_CYCLES_BACKEND = Counter::HW_STALLED_CYCLES_BACKEND;
+  static inline const Counter HW_REF_CPU_CYCLES = Counter::HW_REF_CPU_CYCLES;
+  static inline const PerfClock UNKNOWN_PERF_CLOCK = PerfClock::UNKNOWN_PERF_CLOCK;
+  static inline const PerfClock PERF_CLOCK_REALTIME = PerfClock::PERF_CLOCK_REALTIME;
+  static inline const PerfClock PERF_CLOCK_MONOTONIC = PerfClock::PERF_CLOCK_MONOTONIC;
+  static inline const PerfClock PERF_CLOCK_MONOTONIC_RAW = PerfClock::PERF_CLOCK_MONOTONIC_RAW;
+  static inline const PerfClock PERF_CLOCK_BOOTTIME = PerfClock::PERF_CLOCK_BOOTTIME;
 };
 
 class PerfEvents_RawEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
@@ -28144,9 +28180,9 @@ class TraceStats : public ::protozero::Message {
   static inline const char* FinalFlushOutcome_Name(FinalFlushOutcome value) {
     return ::perfetto::protos::pbzero::TraceStats_FinalFlushOutcome_Name(value);
   }
-  static const FinalFlushOutcome FINAL_FLUSH_UNSPECIFIED = FinalFlushOutcome::FINAL_FLUSH_UNSPECIFIED;
-  static const FinalFlushOutcome FINAL_FLUSH_SUCCEEDED = FinalFlushOutcome::FINAL_FLUSH_SUCCEEDED;
-  static const FinalFlushOutcome FINAL_FLUSH_FAILED = FinalFlushOutcome::FINAL_FLUSH_FAILED;
+  static inline const FinalFlushOutcome FINAL_FLUSH_UNSPECIFIED = FinalFlushOutcome::FINAL_FLUSH_UNSPECIFIED;
+  static inline const FinalFlushOutcome FINAL_FLUSH_SUCCEEDED = FinalFlushOutcome::FINAL_FLUSH_SUCCEEDED;
+  static inline const FinalFlushOutcome FINAL_FLUSH_FAILED = FinalFlushOutcome::FINAL_FLUSH_FAILED;
 
   using FieldMetadata_BufferStats =
     ::protozero::proto_utils::FieldMetadata<
@@ -30712,9 +30748,9 @@ class FtraceConfig : public ::protozero::Message {
   static inline const char* KsymsMemPolicy_Name(KsymsMemPolicy value) {
     return ::perfetto::protos::pbzero::FtraceConfig_KsymsMemPolicy_Name(value);
   }
-  static const KsymsMemPolicy KSYMS_UNSPECIFIED = KsymsMemPolicy::KSYMS_UNSPECIFIED;
-  static const KsymsMemPolicy KSYMS_CLEANUP_ON_STOP = KsymsMemPolicy::KSYMS_CLEANUP_ON_STOP;
-  static const KsymsMemPolicy KSYMS_RETAIN = KsymsMemPolicy::KSYMS_RETAIN;
+  static inline const KsymsMemPolicy KSYMS_UNSPECIFIED = KsymsMemPolicy::KSYMS_UNSPECIFIED;
+  static inline const KsymsMemPolicy KSYMS_CLEANUP_ON_STOP = KsymsMemPolicy::KSYMS_CLEANUP_ON_STOP;
+  static inline const KsymsMemPolicy KSYMS_RETAIN = KsymsMemPolicy::KSYMS_RETAIN;
 
   using FieldMetadata_FtraceEvents =
     ::protozero::proto_utils::FieldMetadata<
@@ -31844,9 +31880,9 @@ class ConsoleConfig : public ::protozero::Message {
   static inline const char* Output_Name(Output value) {
     return ::perfetto::protos::pbzero::ConsoleConfig_Output_Name(value);
   }
-  static const Output OUTPUT_UNSPECIFIED = Output::OUTPUT_UNSPECIFIED;
-  static const Output OUTPUT_STDOUT = Output::OUTPUT_STDOUT;
-  static const Output OUTPUT_STDERR = Output::OUTPUT_STDERR;
+  static inline const Output OUTPUT_UNSPECIFIED = Output::OUTPUT_UNSPECIFIED;
+  static inline const Output OUTPUT_STDOUT = Output::OUTPUT_STDOUT;
+  static inline const Output OUTPUT_STDERR = Output::OUTPUT_STDERR;
 
   using FieldMetadata_Output =
     ::protozero::proto_utils::FieldMetadata<
@@ -31984,11 +32020,11 @@ class AndroidPowerConfig : public ::protozero::Message {
   static inline const char* BatteryCounters_Name(BatteryCounters value) {
     return ::perfetto::protos::pbzero::AndroidPowerConfig_BatteryCounters_Name(value);
   }
-  static const BatteryCounters BATTERY_COUNTER_UNSPECIFIED = BatteryCounters::BATTERY_COUNTER_UNSPECIFIED;
-  static const BatteryCounters BATTERY_COUNTER_CHARGE = BatteryCounters::BATTERY_COUNTER_CHARGE;
-  static const BatteryCounters BATTERY_COUNTER_CAPACITY_PERCENT = BatteryCounters::BATTERY_COUNTER_CAPACITY_PERCENT;
-  static const BatteryCounters BATTERY_COUNTER_CURRENT = BatteryCounters::BATTERY_COUNTER_CURRENT;
-  static const BatteryCounters BATTERY_COUNTER_CURRENT_AVG = BatteryCounters::BATTERY_COUNTER_CURRENT_AVG;
+  static inline const BatteryCounters BATTERY_COUNTER_UNSPECIFIED = BatteryCounters::BATTERY_COUNTER_UNSPECIFIED;
+  static inline const BatteryCounters BATTERY_COUNTER_CHARGE = BatteryCounters::BATTERY_COUNTER_CHARGE;
+  static inline const BatteryCounters BATTERY_COUNTER_CAPACITY_PERCENT = BatteryCounters::BATTERY_COUNTER_CAPACITY_PERCENT;
+  static inline const BatteryCounters BATTERY_COUNTER_CURRENT = BatteryCounters::BATTERY_COUNTER_CURRENT;
+  static inline const BatteryCounters BATTERY_COUNTER_CURRENT_AVG = BatteryCounters::BATTERY_COUNTER_CURRENT_AVG;
 
   using FieldMetadata_BatteryPollMs =
     ::protozero::proto_utils::FieldMetadata<
@@ -32178,9 +32214,9 @@ class ProcessStatsConfig : public ::protozero::Message {
   static inline const char* Quirks_Name(Quirks value) {
     return ::perfetto::protos::pbzero::ProcessStatsConfig_Quirks_Name(value);
   }
-  static const Quirks QUIRKS_UNSPECIFIED = Quirks::QUIRKS_UNSPECIFIED;
-  static const Quirks DISABLE_INITIAL_DUMP = Quirks::DISABLE_INITIAL_DUMP;
-  static const Quirks DISABLE_ON_DEMAND = Quirks::DISABLE_ON_DEMAND;
+  static inline const Quirks QUIRKS_UNSPECIFIED = Quirks::QUIRKS_UNSPECIFIED;
+  static inline const Quirks DISABLE_INITIAL_DUMP = Quirks::DISABLE_INITIAL_DUMP;
+  static inline const Quirks DISABLE_ON_DEMAND = Quirks::DISABLE_ON_DEMAND;
 
   using FieldMetadata_Quirks =
     ::protozero::proto_utils::FieldMetadata<
@@ -33374,9 +33410,9 @@ class PerfEventConfig : public ::protozero::Message {
   static inline const char* UnwindMode_Name(UnwindMode value) {
     return ::perfetto::protos::pbzero::PerfEventConfig_UnwindMode_Name(value);
   }
-  static const UnwindMode UNWIND_UNKNOWN = UnwindMode::UNWIND_UNKNOWN;
-  static const UnwindMode UNWIND_SKIP = UnwindMode::UNWIND_SKIP;
-  static const UnwindMode UNWIND_DWARF = UnwindMode::UNWIND_DWARF;
+  static inline const UnwindMode UNWIND_UNKNOWN = UnwindMode::UNWIND_UNKNOWN;
+  static inline const UnwindMode UNWIND_SKIP = UnwindMode::UNWIND_SKIP;
+  static inline const UnwindMode UNWIND_DWARF = UnwindMode::UNWIND_DWARF;
 
   using FieldMetadata_Timebase =
     ::protozero::proto_utils::FieldMetadata<
@@ -36944,11 +36980,11 @@ class SysStatsConfig : public ::protozero::Message {
   static inline const char* StatCounters_Name(StatCounters value) {
     return ::perfetto::protos::pbzero::SysStatsConfig_StatCounters_Name(value);
   }
-  static const StatCounters STAT_UNSPECIFIED = StatCounters::STAT_UNSPECIFIED;
-  static const StatCounters STAT_CPU_TIMES = StatCounters::STAT_CPU_TIMES;
-  static const StatCounters STAT_IRQ_COUNTS = StatCounters::STAT_IRQ_COUNTS;
-  static const StatCounters STAT_SOFTIRQ_COUNTS = StatCounters::STAT_SOFTIRQ_COUNTS;
-  static const StatCounters STAT_FORK_COUNT = StatCounters::STAT_FORK_COUNT;
+  static inline const StatCounters STAT_UNSPECIFIED = StatCounters::STAT_UNSPECIFIED;
+  static inline const StatCounters STAT_CPU_TIMES = StatCounters::STAT_CPU_TIMES;
+  static inline const StatCounters STAT_IRQ_COUNTS = StatCounters::STAT_IRQ_COUNTS;
+  static inline const StatCounters STAT_SOFTIRQ_COUNTS = StatCounters::STAT_SOFTIRQ_COUNTS;
+  static inline const StatCounters STAT_FORK_COUNT = StatCounters::STAT_FORK_COUNT;
 
   using FieldMetadata_MeminfoPeriodMs =
     ::protozero::proto_utils::FieldMetadata<
@@ -37513,9 +37549,9 @@ class ChromeConfig : public ::protozero::Message {
   static inline const char* ClientPriority_Name(ClientPriority value) {
     return ::perfetto::protos::pbzero::ChromeConfig_ClientPriority_Name(value);
   }
-  static const ClientPriority UNKNOWN = ClientPriority::UNKNOWN;
-  static const ClientPriority BACKGROUND = ClientPriority::BACKGROUND;
-  static const ClientPriority USER_INITIATED = ClientPriority::USER_INITIATED;
+  static inline const ClientPriority UNKNOWN = ClientPriority::UNKNOWN;
+  static inline const ClientPriority BACKGROUND = ClientPriority::BACKGROUND;
+  static inline const ClientPriority USER_INITIATED = ClientPriority::USER_INITIATED;
 
   using FieldMetadata_TraceConfig =
     ::protozero::proto_utils::FieldMetadata<
@@ -38398,8 +38434,8 @@ class DataSourceConfig : public ::protozero::Message {
   static inline const char* SessionInitiator_Name(SessionInitiator value) {
     return ::perfetto::protos::pbzero::DataSourceConfig_SessionInitiator_Name(value);
   }
-  static const SessionInitiator SESSION_INITIATOR_UNSPECIFIED = SessionInitiator::SESSION_INITIATOR_UNSPECIFIED;
-  static const SessionInitiator SESSION_INITIATOR_TRUSTED_SYSTEM = SessionInitiator::SESSION_INITIATOR_TRUSTED_SYSTEM;
+  static inline const SessionInitiator SESSION_INITIATOR_UNSPECIFIED = SessionInitiator::SESSION_INITIATOR_UNSPECIFIED;
+  static inline const SessionInitiator SESSION_INITIATOR_TRUSTED_SYSTEM = SessionInitiator::SESSION_INITIATOR_TRUSTED_SYSTEM;
 
   using FieldMetadata_Name =
     ::protozero::proto_utils::FieldMetadata<
@@ -40261,14 +40297,14 @@ class TraceConfig : public ::protozero::Message {
   static inline const char* StatsdLogging_Name(StatsdLogging value) {
     return ::perfetto::protos::pbzero::TraceConfig_StatsdLogging_Name(value);
   }
-  static const LockdownModeOperation LOCKDOWN_UNCHANGED = LockdownModeOperation::LOCKDOWN_UNCHANGED;
-  static const LockdownModeOperation LOCKDOWN_CLEAR = LockdownModeOperation::LOCKDOWN_CLEAR;
-  static const LockdownModeOperation LOCKDOWN_SET = LockdownModeOperation::LOCKDOWN_SET;
-  static const CompressionType COMPRESSION_TYPE_UNSPECIFIED = CompressionType::COMPRESSION_TYPE_UNSPECIFIED;
-  static const CompressionType COMPRESSION_TYPE_DEFLATE = CompressionType::COMPRESSION_TYPE_DEFLATE;
-  static const StatsdLogging STATSD_LOGGING_UNSPECIFIED = StatsdLogging::STATSD_LOGGING_UNSPECIFIED;
-  static const StatsdLogging STATSD_LOGGING_ENABLED = StatsdLogging::STATSD_LOGGING_ENABLED;
-  static const StatsdLogging STATSD_LOGGING_DISABLED = StatsdLogging::STATSD_LOGGING_DISABLED;
+  static inline const LockdownModeOperation LOCKDOWN_UNCHANGED = LockdownModeOperation::LOCKDOWN_UNCHANGED;
+  static inline const LockdownModeOperation LOCKDOWN_CLEAR = LockdownModeOperation::LOCKDOWN_CLEAR;
+  static inline const LockdownModeOperation LOCKDOWN_SET = LockdownModeOperation::LOCKDOWN_SET;
+  static inline const CompressionType COMPRESSION_TYPE_UNSPECIFIED = CompressionType::COMPRESSION_TYPE_UNSPECIFIED;
+  static inline const CompressionType COMPRESSION_TYPE_DEFLATE = CompressionType::COMPRESSION_TYPE_DEFLATE;
+  static inline const StatsdLogging STATSD_LOGGING_UNSPECIFIED = StatsdLogging::STATSD_LOGGING_UNSPECIFIED;
+  static inline const StatsdLogging STATSD_LOGGING_ENABLED = StatsdLogging::STATSD_LOGGING_ENABLED;
+  static inline const StatsdLogging STATSD_LOGGING_DISABLED = StatsdLogging::STATSD_LOGGING_DISABLED;
 
   using FieldMetadata_Buffers =
     ::protozero::proto_utils::FieldMetadata<
@@ -41268,10 +41304,10 @@ class TraceConfig_TriggerConfig : public ::protozero::Message {
   static inline const char* TriggerMode_Name(TriggerMode value) {
     return ::perfetto::protos::pbzero::TraceConfig_TriggerConfig_TriggerMode_Name(value);
   }
-  static const TriggerMode UNSPECIFIED = TriggerMode::UNSPECIFIED;
-  static const TriggerMode START_TRACING = TriggerMode::START_TRACING;
-  static const TriggerMode STOP_TRACING = TriggerMode::STOP_TRACING;
-  static const TriggerMode CLONE_SNAPSHOT = TriggerMode::CLONE_SNAPSHOT;
+  static inline const TriggerMode UNSPECIFIED = TriggerMode::UNSPECIFIED;
+  static inline const TriggerMode START_TRACING = TriggerMode::START_TRACING;
+  static inline const TriggerMode STOP_TRACING = TriggerMode::STOP_TRACING;
+  static inline const TriggerMode CLONE_SNAPSHOT = TriggerMode::CLONE_SNAPSHOT;
 
   using FieldMetadata_TriggerMode =
     ::protozero::proto_utils::FieldMetadata<
@@ -42014,9 +42050,9 @@ class TraceConfig_BufferConfig : public ::protozero::Message {
   static inline const char* FillPolicy_Name(FillPolicy value) {
     return ::perfetto::protos::pbzero::TraceConfig_BufferConfig_FillPolicy_Name(value);
   }
-  static const FillPolicy UNSPECIFIED = FillPolicy::UNSPECIFIED;
-  static const FillPolicy RING_BUFFER = FillPolicy::RING_BUFFER;
-  static const FillPolicy DISCARD = FillPolicy::DISCARD;
+  static inline const FillPolicy UNSPECIFIED = FillPolicy::UNSPECIFIED;
+  static inline const FillPolicy RING_BUFFER = FillPolicy::RING_BUFFER;
+  static inline const FillPolicy DISCARD = FillPolicy::DISCARD;
 
   using FieldMetadata_SizeKb =
     ::protozero::proto_utils::FieldMetadata<
@@ -42216,14 +42252,14 @@ class ClockSnapshot_Clock : public ::protozero::Message {
   static inline const char* BuiltinClocks_Name(BuiltinClocks value) {
     return ::perfetto::protos::pbzero::ClockSnapshot_Clock_BuiltinClocks_Name(value);
   }
-  static const BuiltinClocks UNKNOWN = BuiltinClocks::UNKNOWN;
-  static const BuiltinClocks REALTIME = BuiltinClocks::REALTIME;
-  static const BuiltinClocks REALTIME_COARSE = BuiltinClocks::REALTIME_COARSE;
-  static const BuiltinClocks MONOTONIC = BuiltinClocks::MONOTONIC;
-  static const BuiltinClocks MONOTONIC_COARSE = BuiltinClocks::MONOTONIC_COARSE;
-  static const BuiltinClocks MONOTONIC_RAW = BuiltinClocks::MONOTONIC_RAW;
-  static const BuiltinClocks BOOTTIME = BuiltinClocks::BOOTTIME;
-  static const BuiltinClocks BUILTIN_CLOCK_MAX_ID = BuiltinClocks::BUILTIN_CLOCK_MAX_ID;
+  static inline const BuiltinClocks UNKNOWN = BuiltinClocks::UNKNOWN;
+  static inline const BuiltinClocks REALTIME = BuiltinClocks::REALTIME;
+  static inline const BuiltinClocks REALTIME_COARSE = BuiltinClocks::REALTIME_COARSE;
+  static inline const BuiltinClocks MONOTONIC = BuiltinClocks::MONOTONIC;
+  static inline const BuiltinClocks MONOTONIC_COARSE = BuiltinClocks::MONOTONIC_COARSE;
+  static inline const BuiltinClocks MONOTONIC_RAW = BuiltinClocks::MONOTONIC_RAW;
+  static inline const BuiltinClocks BOOTTIME = BuiltinClocks::BOOTTIME;
+  static inline const BuiltinClocks BUILTIN_CLOCK_MAX_ID = BuiltinClocks::BUILTIN_CLOCK_MAX_ID;
 
   using FieldMetadata_ClockId =
     ::protozero::proto_utils::FieldMetadata<
@@ -44237,12 +44273,12 @@ class AndroidCameraFrameEvent : public ::protozero::Message {
   static inline const char* CaptureResultStatus_Name(CaptureResultStatus value) {
     return ::perfetto::protos::pbzero::AndroidCameraFrameEvent_CaptureResultStatus_Name(value);
   }
-  static const CaptureResultStatus STATUS_UNSPECIFIED = CaptureResultStatus::STATUS_UNSPECIFIED;
-  static const CaptureResultStatus STATUS_OK = CaptureResultStatus::STATUS_OK;
-  static const CaptureResultStatus STATUS_EARLY_METADATA_ERROR = CaptureResultStatus::STATUS_EARLY_METADATA_ERROR;
-  static const CaptureResultStatus STATUS_FINAL_METADATA_ERROR = CaptureResultStatus::STATUS_FINAL_METADATA_ERROR;
-  static const CaptureResultStatus STATUS_BUFFER_ERROR = CaptureResultStatus::STATUS_BUFFER_ERROR;
-  static const CaptureResultStatus STATUS_FLUSH_ERROR = CaptureResultStatus::STATUS_FLUSH_ERROR;
+  static inline const CaptureResultStatus STATUS_UNSPECIFIED = CaptureResultStatus::STATUS_UNSPECIFIED;
+  static inline const CaptureResultStatus STATUS_OK = CaptureResultStatus::STATUS_OK;
+  static inline const CaptureResultStatus STATUS_EARLY_METADATA_ERROR = CaptureResultStatus::STATUS_EARLY_METADATA_ERROR;
+  static inline const CaptureResultStatus STATUS_FINAL_METADATA_ERROR = CaptureResultStatus::STATUS_FINAL_METADATA_ERROR;
+  static inline const CaptureResultStatus STATUS_BUFFER_ERROR = CaptureResultStatus::STATUS_BUFFER_ERROR;
+  static inline const CaptureResultStatus STATUS_FLUSH_ERROR = CaptureResultStatus::STATUS_FLUSH_ERROR;
 
   using FieldMetadata_SessionId =
     ::protozero::proto_utils::FieldMetadata<
@@ -44860,28 +44896,28 @@ class FrameTimelineEvent : public ::protozero::Message {
   static inline const char* PredictionType_Name(PredictionType value) {
     return ::perfetto::protos::pbzero::FrameTimelineEvent_PredictionType_Name(value);
   }
-  static const JankType JANK_UNSPECIFIED = JankType::JANK_UNSPECIFIED;
-  static const JankType JANK_NONE = JankType::JANK_NONE;
-  static const JankType JANK_SF_SCHEDULING = JankType::JANK_SF_SCHEDULING;
-  static const JankType JANK_PREDICTION_ERROR = JankType::JANK_PREDICTION_ERROR;
-  static const JankType JANK_DISPLAY_HAL = JankType::JANK_DISPLAY_HAL;
-  static const JankType JANK_SF_CPU_DEADLINE_MISSED = JankType::JANK_SF_CPU_DEADLINE_MISSED;
-  static const JankType JANK_SF_GPU_DEADLINE_MISSED = JankType::JANK_SF_GPU_DEADLINE_MISSED;
-  static const JankType JANK_APP_DEADLINE_MISSED = JankType::JANK_APP_DEADLINE_MISSED;
-  static const JankType JANK_BUFFER_STUFFING = JankType::JANK_BUFFER_STUFFING;
-  static const JankType JANK_UNKNOWN = JankType::JANK_UNKNOWN;
-  static const JankType JANK_SF_STUFFING = JankType::JANK_SF_STUFFING;
-  static const JankType JANK_DROPPED = JankType::JANK_DROPPED;
-  static const PresentType PRESENT_UNSPECIFIED = PresentType::PRESENT_UNSPECIFIED;
-  static const PresentType PRESENT_ON_TIME = PresentType::PRESENT_ON_TIME;
-  static const PresentType PRESENT_LATE = PresentType::PRESENT_LATE;
-  static const PresentType PRESENT_EARLY = PresentType::PRESENT_EARLY;
-  static const PresentType PRESENT_DROPPED = PresentType::PRESENT_DROPPED;
-  static const PresentType PRESENT_UNKNOWN = PresentType::PRESENT_UNKNOWN;
-  static const PredictionType PREDICTION_UNSPECIFIED = PredictionType::PREDICTION_UNSPECIFIED;
-  static const PredictionType PREDICTION_VALID = PredictionType::PREDICTION_VALID;
-  static const PredictionType PREDICTION_EXPIRED = PredictionType::PREDICTION_EXPIRED;
-  static const PredictionType PREDICTION_UNKNOWN = PredictionType::PREDICTION_UNKNOWN;
+  static inline const JankType JANK_UNSPECIFIED = JankType::JANK_UNSPECIFIED;
+  static inline const JankType JANK_NONE = JankType::JANK_NONE;
+  static inline const JankType JANK_SF_SCHEDULING = JankType::JANK_SF_SCHEDULING;
+  static inline const JankType JANK_PREDICTION_ERROR = JankType::JANK_PREDICTION_ERROR;
+  static inline const JankType JANK_DISPLAY_HAL = JankType::JANK_DISPLAY_HAL;
+  static inline const JankType JANK_SF_CPU_DEADLINE_MISSED = JankType::JANK_SF_CPU_DEADLINE_MISSED;
+  static inline const JankType JANK_SF_GPU_DEADLINE_MISSED = JankType::JANK_SF_GPU_DEADLINE_MISSED;
+  static inline const JankType JANK_APP_DEADLINE_MISSED = JankType::JANK_APP_DEADLINE_MISSED;
+  static inline const JankType JANK_BUFFER_STUFFING = JankType::JANK_BUFFER_STUFFING;
+  static inline const JankType JANK_UNKNOWN = JankType::JANK_UNKNOWN;
+  static inline const JankType JANK_SF_STUFFING = JankType::JANK_SF_STUFFING;
+  static inline const JankType JANK_DROPPED = JankType::JANK_DROPPED;
+  static inline const PresentType PRESENT_UNSPECIFIED = PresentType::PRESENT_UNSPECIFIED;
+  static inline const PresentType PRESENT_ON_TIME = PresentType::PRESENT_ON_TIME;
+  static inline const PresentType PRESENT_LATE = PresentType::PRESENT_LATE;
+  static inline const PresentType PRESENT_EARLY = PresentType::PRESENT_EARLY;
+  static inline const PresentType PRESENT_DROPPED = PresentType::PRESENT_DROPPED;
+  static inline const PresentType PRESENT_UNKNOWN = PresentType::PRESENT_UNKNOWN;
+  static inline const PredictionType PREDICTION_UNSPECIFIED = PredictionType::PREDICTION_UNSPECIFIED;
+  static inline const PredictionType PREDICTION_VALID = PredictionType::PREDICTION_VALID;
+  static inline const PredictionType PREDICTION_EXPIRED = PredictionType::PREDICTION_EXPIRED;
+  static inline const PredictionType PREDICTION_UNKNOWN = PredictionType::PREDICTION_UNKNOWN;
 
   using FieldMetadata_ExpectedDisplayFrameStart =
     ::protozero::proto_utils::FieldMetadata<
@@ -45862,20 +45898,20 @@ class GraphicsFrameEvent : public ::protozero::Message {
   static inline const char* BufferEventType_Name(BufferEventType value) {
     return ::perfetto::protos::pbzero::GraphicsFrameEvent_BufferEventType_Name(value);
   }
-  static const BufferEventType UNSPECIFIED = BufferEventType::UNSPECIFIED;
-  static const BufferEventType DEQUEUE = BufferEventType::DEQUEUE;
-  static const BufferEventType QUEUE = BufferEventType::QUEUE;
-  static const BufferEventType POST = BufferEventType::POST;
-  static const BufferEventType ACQUIRE_FENCE = BufferEventType::ACQUIRE_FENCE;
-  static const BufferEventType LATCH = BufferEventType::LATCH;
-  static const BufferEventType HWC_COMPOSITION_QUEUED = BufferEventType::HWC_COMPOSITION_QUEUED;
-  static const BufferEventType FALLBACK_COMPOSITION = BufferEventType::FALLBACK_COMPOSITION;
-  static const BufferEventType PRESENT_FENCE = BufferEventType::PRESENT_FENCE;
-  static const BufferEventType RELEASE_FENCE = BufferEventType::RELEASE_FENCE;
-  static const BufferEventType MODIFY = BufferEventType::MODIFY;
-  static const BufferEventType DETACH = BufferEventType::DETACH;
-  static const BufferEventType ATTACH = BufferEventType::ATTACH;
-  static const BufferEventType CANCEL = BufferEventType::CANCEL;
+  static inline const BufferEventType UNSPECIFIED = BufferEventType::UNSPECIFIED;
+  static inline const BufferEventType DEQUEUE = BufferEventType::DEQUEUE;
+  static inline const BufferEventType QUEUE = BufferEventType::QUEUE;
+  static inline const BufferEventType POST = BufferEventType::POST;
+  static inline const BufferEventType ACQUIRE_FENCE = BufferEventType::ACQUIRE_FENCE;
+  static inline const BufferEventType LATCH = BufferEventType::LATCH;
+  static inline const BufferEventType HWC_COMPOSITION_QUEUED = BufferEventType::HWC_COMPOSITION_QUEUED;
+  static inline const BufferEventType FALLBACK_COMPOSITION = BufferEventType::FALLBACK_COMPOSITION;
+  static inline const BufferEventType PRESENT_FENCE = BufferEventType::PRESENT_FENCE;
+  static inline const BufferEventType RELEASE_FENCE = BufferEventType::RELEASE_FENCE;
+  static inline const BufferEventType MODIFY = BufferEventType::MODIFY;
+  static inline const BufferEventType DETACH = BufferEventType::DETACH;
+  static inline const BufferEventType ATTACH = BufferEventType::ATTACH;
+  static inline const BufferEventType CANCEL = BufferEventType::CANCEL;
 
   using FieldMetadata_BufferEvent =
     ::protozero::proto_utils::FieldMetadata<
@@ -47270,9 +47306,9 @@ class BackgroundTracingMetadata_TriggerRule : public ::protozero::Message {
   static inline const char* TriggerType_Name(TriggerType value) {
     return ::perfetto::protos::pbzero::BackgroundTracingMetadata_TriggerRule_TriggerType_Name(value);
   }
-  static const TriggerType TRIGGER_UNSPECIFIED = TriggerType::TRIGGER_UNSPECIFIED;
-  static const TriggerType MONITOR_AND_DUMP_WHEN_SPECIFIC_HISTOGRAM_AND_VALUE = TriggerType::MONITOR_AND_DUMP_WHEN_SPECIFIC_HISTOGRAM_AND_VALUE;
-  static const TriggerType MONITOR_AND_DUMP_WHEN_TRIGGER_NAMED = TriggerType::MONITOR_AND_DUMP_WHEN_TRIGGER_NAMED;
+  static inline const TriggerType TRIGGER_UNSPECIFIED = TriggerType::TRIGGER_UNSPECIFIED;
+  static inline const TriggerType MONITOR_AND_DUMP_WHEN_SPECIFIC_HISTOGRAM_AND_VALUE = TriggerType::MONITOR_AND_DUMP_WHEN_SPECIFIC_HISTOGRAM_AND_VALUE;
+  static inline const TriggerType MONITOR_AND_DUMP_WHEN_TRIGGER_NAMED = TriggerType::MONITOR_AND_DUMP_WHEN_TRIGGER_NAMED;
 
   using FieldMetadata_TriggerType =
     ::protozero::proto_utils::FieldMetadata<
@@ -47364,13 +47400,13 @@ class BackgroundTracingMetadata_TriggerRule_NamedRule : public ::protozero::Mess
   static inline const char* EventType_Name(EventType value) {
     return ::perfetto::protos::pbzero::BackgroundTracingMetadata_TriggerRule_NamedRule_EventType_Name(value);
   }
-  static const EventType UNSPECIFIED = EventType::UNSPECIFIED;
-  static const EventType SESSION_RESTORE = EventType::SESSION_RESTORE;
-  static const EventType NAVIGATION = EventType::NAVIGATION;
-  static const EventType STARTUP = EventType::STARTUP;
-  static const EventType REACHED_CODE = EventType::REACHED_CODE;
-  static const EventType CONTENT_TRIGGER = EventType::CONTENT_TRIGGER;
-  static const EventType TEST_RULE = EventType::TEST_RULE;
+  static inline const EventType UNSPECIFIED = EventType::UNSPECIFIED;
+  static inline const EventType SESSION_RESTORE = EventType::SESSION_RESTORE;
+  static inline const EventType NAVIGATION = EventType::NAVIGATION;
+  static inline const EventType STARTUP = EventType::STARTUP;
+  static inline const EventType REACHED_CODE = EventType::REACHED_CODE;
+  static inline const EventType CONTENT_TRIGGER = EventType::CONTENT_TRIGGER;
+  static inline const EventType TEST_RULE = EventType::TEST_RULE;
 
   using FieldMetadata_EventType =
     ::protozero::proto_utils::FieldMetadata<
@@ -47793,8 +47829,8 @@ class ChromeLegacyJsonTrace : public ::protozero::Message {
   static inline const char* TraceType_Name(TraceType value) {
     return ::perfetto::protos::pbzero::ChromeLegacyJsonTrace_TraceType_Name(value);
   }
-  static const TraceType USER_TRACE = TraceType::USER_TRACE;
-  static const TraceType SYSTEM_TRACE = TraceType::SYSTEM_TRACE;
+  static inline const TraceType USER_TRACE = TraceType::USER_TRACE;
+  static inline const TraceType SYSTEM_TRACE = TraceType::SYSTEM_TRACE;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<
@@ -48692,8 +48728,8 @@ class ChromeTracedValue : public ::protozero::Message {
   static inline const char* NestedType_Name(NestedType value) {
     return ::perfetto::protos::pbzero::ChromeTracedValue_NestedType_Name(value);
   }
-  static const NestedType DICT = NestedType::DICT;
-  static const NestedType ARRAY = NestedType::ARRAY;
+  static inline const NestedType DICT = NestedType::DICT;
+  static inline const NestedType ARRAY = NestedType::ARRAY;
 
   using FieldMetadata_NestedType =
     ::protozero::proto_utils::FieldMetadata<
@@ -49012,9 +49048,9 @@ class InodeFileMap_Entry : public ::protozero::Message {
   static inline const char* Type_Name(Type value) {
     return ::perfetto::protos::pbzero::InodeFileMap_Entry_Type_Name(value);
   }
-  static const Type UNKNOWN = Type::UNKNOWN;
-  static const Type FILE = Type::FILE;
-  static const Type DIRECTORY = Type::DIRECTORY;
+  static inline const Type UNKNOWN = Type::UNKNOWN;
+  static inline const Type FILE = Type::FILE;
+  static inline const Type DIRECTORY = Type::DIRECTORY;
 
   using FieldMetadata_InodeNumber =
     ::protozero::proto_utils::FieldMetadata<
@@ -58043,9 +58079,9 @@ class FtraceStats : public ::protozero::Message {
   static inline const char* Phase_Name(Phase value) {
     return ::perfetto::protos::pbzero::FtraceStats_Phase_Name(value);
   }
-  static const Phase UNSPECIFIED = Phase::UNSPECIFIED;
-  static const Phase START_OF_TRACE = Phase::START_OF_TRACE;
-  static const Phase END_OF_TRACE = Phase::END_OF_TRACE;
+  static inline const Phase UNSPECIFIED = Phase::UNSPECIFIED;
+  static inline const Phase START_OF_TRACE = Phase::START_OF_TRACE;
+  static inline const Phase END_OF_TRACE = Phase::END_OF_TRACE;
 
   using FieldMetadata_Phase =
     ::protozero::proto_utils::FieldMetadata<
@@ -111641,12 +111677,12 @@ class GpuLog : public ::protozero::Message {
   static inline const char* Severity_Name(Severity value) {
     return ::perfetto::protos::pbzero::GpuLog_Severity_Name(value);
   }
-  static const Severity LOG_SEVERITY_UNSPECIFIED = Severity::LOG_SEVERITY_UNSPECIFIED;
-  static const Severity LOG_SEVERITY_VERBOSE = Severity::LOG_SEVERITY_VERBOSE;
-  static const Severity LOG_SEVERITY_DEBUG = Severity::LOG_SEVERITY_DEBUG;
-  static const Severity LOG_SEVERITY_INFO = Severity::LOG_SEVERITY_INFO;
-  static const Severity LOG_SEVERITY_WARNING = Severity::LOG_SEVERITY_WARNING;
-  static const Severity LOG_SEVERITY_ERROR = Severity::LOG_SEVERITY_ERROR;
+  static inline const Severity LOG_SEVERITY_UNSPECIFIED = Severity::LOG_SEVERITY_UNSPECIFIED;
+  static inline const Severity LOG_SEVERITY_VERBOSE = Severity::LOG_SEVERITY_VERBOSE;
+  static inline const Severity LOG_SEVERITY_DEBUG = Severity::LOG_SEVERITY_DEBUG;
+  static inline const Severity LOG_SEVERITY_INFO = Severity::LOG_SEVERITY_INFO;
+  static inline const Severity LOG_SEVERITY_WARNING = Severity::LOG_SEVERITY_WARNING;
+  static inline const Severity LOG_SEVERITY_ERROR = Severity::LOG_SEVERITY_ERROR;
 
   using FieldMetadata_Severity =
     ::protozero::proto_utils::FieldMetadata<
@@ -111844,9 +111880,9 @@ class InternedGpuRenderStageSpecification : public ::protozero::Message {
   static inline const char* RenderStageCategory_Name(RenderStageCategory value) {
     return ::perfetto::protos::pbzero::InternedGpuRenderStageSpecification_RenderStageCategory_Name(value);
   }
-  static const RenderStageCategory OTHER = RenderStageCategory::OTHER;
-  static const RenderStageCategory GRAPHICS = RenderStageCategory::GRAPHICS;
-  static const RenderStageCategory COMPUTE = RenderStageCategory::COMPUTE;
+  static inline const RenderStageCategory OTHER = RenderStageCategory::OTHER;
+  static inline const RenderStageCategory GRAPHICS = RenderStageCategory::GRAPHICS;
+  static inline const RenderStageCategory COMPUTE = RenderStageCategory::COMPUTE;
 
   using FieldMetadata_Iid =
     ::protozero::proto_utils::FieldMetadata<
@@ -111961,10 +111997,10 @@ class InternedGraphicsContext : public ::protozero::Message {
   static inline const char* Api_Name(Api value) {
     return ::perfetto::protos::pbzero::InternedGraphicsContext_Api_Name(value);
   }
-  static const Api UNDEFINED = Api::UNDEFINED;
-  static const Api OPEN_GL = Api::OPEN_GL;
-  static const Api VULKAN = Api::VULKAN;
-  static const Api OPEN_CL = Api::OPEN_CL;
+  static inline const Api UNDEFINED = Api::UNDEFINED;
+  static inline const Api OPEN_GL = Api::OPEN_GL;
+  static inline const Api VULKAN = Api::VULKAN;
+  static inline const Api OPEN_CL = Api::OPEN_CL;
 
   using FieldMetadata_Iid =
     ::protozero::proto_utils::FieldMetadata<
@@ -113191,24 +113227,24 @@ class VulkanMemoryEvent : public ::protozero::Message {
   static inline const char* AllocationScope_Name(AllocationScope value) {
     return ::perfetto::protos::pbzero::VulkanMemoryEvent_AllocationScope_Name(value);
   }
-  static const Source SOURCE_UNSPECIFIED = Source::SOURCE_UNSPECIFIED;
-  static const Source SOURCE_DRIVER = Source::SOURCE_DRIVER;
-  static const Source SOURCE_DEVICE = Source::SOURCE_DEVICE;
-  static const Source SOURCE_DEVICE_MEMORY = Source::SOURCE_DEVICE_MEMORY;
-  static const Source SOURCE_BUFFER = Source::SOURCE_BUFFER;
-  static const Source SOURCE_IMAGE = Source::SOURCE_IMAGE;
-  static const Operation OP_UNSPECIFIED = Operation::OP_UNSPECIFIED;
-  static const Operation OP_CREATE = Operation::OP_CREATE;
-  static const Operation OP_DESTROY = Operation::OP_DESTROY;
-  static const Operation OP_BIND = Operation::OP_BIND;
-  static const Operation OP_DESTROY_BOUND = Operation::OP_DESTROY_BOUND;
-  static const Operation OP_ANNOTATIONS = Operation::OP_ANNOTATIONS;
-  static const AllocationScope SCOPE_UNSPECIFIED = AllocationScope::SCOPE_UNSPECIFIED;
-  static const AllocationScope SCOPE_COMMAND = AllocationScope::SCOPE_COMMAND;
-  static const AllocationScope SCOPE_OBJECT = AllocationScope::SCOPE_OBJECT;
-  static const AllocationScope SCOPE_CACHE = AllocationScope::SCOPE_CACHE;
-  static const AllocationScope SCOPE_DEVICE = AllocationScope::SCOPE_DEVICE;
-  static const AllocationScope SCOPE_INSTANCE = AllocationScope::SCOPE_INSTANCE;
+  static inline const Source SOURCE_UNSPECIFIED = Source::SOURCE_UNSPECIFIED;
+  static inline const Source SOURCE_DRIVER = Source::SOURCE_DRIVER;
+  static inline const Source SOURCE_DEVICE = Source::SOURCE_DEVICE;
+  static inline const Source SOURCE_DEVICE_MEMORY = Source::SOURCE_DEVICE_MEMORY;
+  static inline const Source SOURCE_BUFFER = Source::SOURCE_BUFFER;
+  static inline const Source SOURCE_IMAGE = Source::SOURCE_IMAGE;
+  static inline const Operation OP_UNSPECIFIED = Operation::OP_UNSPECIFIED;
+  static inline const Operation OP_CREATE = Operation::OP_CREATE;
+  static inline const Operation OP_DESTROY = Operation::OP_DESTROY;
+  static inline const Operation OP_BIND = Operation::OP_BIND;
+  static inline const Operation OP_DESTROY_BOUND = Operation::OP_DESTROY_BOUND;
+  static inline const Operation OP_ANNOTATIONS = Operation::OP_ANNOTATIONS;
+  static inline const AllocationScope SCOPE_UNSPECIFIED = AllocationScope::SCOPE_UNSPECIFIED;
+  static inline const AllocationScope SCOPE_COMMAND = AllocationScope::SCOPE_COMMAND;
+  static inline const AllocationScope SCOPE_OBJECT = AllocationScope::SCOPE_OBJECT;
+  static inline const AllocationScope SCOPE_CACHE = AllocationScope::SCOPE_CACHE;
+  static inline const AllocationScope SCOPE_DEVICE = AllocationScope::SCOPE_DEVICE;
+  static inline const AllocationScope SCOPE_INSTANCE = AllocationScope::SCOPE_INSTANCE;
 
   using FieldMetadata_Source =
     ::protozero::proto_utils::FieldMetadata<
@@ -114683,18 +114719,18 @@ class HeapGraphType : public ::protozero::Message {
   static inline const char* Kind_Name(Kind value) {
     return ::perfetto::protos::pbzero::HeapGraphType_Kind_Name(value);
   }
-  static const Kind KIND_UNKNOWN = Kind::KIND_UNKNOWN;
-  static const Kind KIND_NORMAL = Kind::KIND_NORMAL;
-  static const Kind KIND_NOREFERENCES = Kind::KIND_NOREFERENCES;
-  static const Kind KIND_STRING = Kind::KIND_STRING;
-  static const Kind KIND_ARRAY = Kind::KIND_ARRAY;
-  static const Kind KIND_CLASS = Kind::KIND_CLASS;
-  static const Kind KIND_CLASSLOADER = Kind::KIND_CLASSLOADER;
-  static const Kind KIND_DEXCACHE = Kind::KIND_DEXCACHE;
-  static const Kind KIND_SOFT_REFERENCE = Kind::KIND_SOFT_REFERENCE;
-  static const Kind KIND_WEAK_REFERENCE = Kind::KIND_WEAK_REFERENCE;
-  static const Kind KIND_FINALIZER_REFERENCE = Kind::KIND_FINALIZER_REFERENCE;
-  static const Kind KIND_PHANTOM_REFERENCE = Kind::KIND_PHANTOM_REFERENCE;
+  static inline const Kind KIND_UNKNOWN = Kind::KIND_UNKNOWN;
+  static inline const Kind KIND_NORMAL = Kind::KIND_NORMAL;
+  static inline const Kind KIND_NOREFERENCES = Kind::KIND_NOREFERENCES;
+  static inline const Kind KIND_STRING = Kind::KIND_STRING;
+  static inline const Kind KIND_ARRAY = Kind::KIND_ARRAY;
+  static inline const Kind KIND_CLASS = Kind::KIND_CLASS;
+  static inline const Kind KIND_CLASSLOADER = Kind::KIND_CLASSLOADER;
+  static inline const Kind KIND_DEXCACHE = Kind::KIND_DEXCACHE;
+  static inline const Kind KIND_SOFT_REFERENCE = Kind::KIND_SOFT_REFERENCE;
+  static inline const Kind KIND_WEAK_REFERENCE = Kind::KIND_WEAK_REFERENCE;
+  static inline const Kind KIND_FINALIZER_REFERENCE = Kind::KIND_FINALIZER_REFERENCE;
+  static inline const Kind KIND_PHANTOM_REFERENCE = Kind::KIND_PHANTOM_REFERENCE;
 
   using FieldMetadata_Id =
     ::protozero::proto_utils::FieldMetadata<
@@ -114868,21 +114904,21 @@ class HeapGraphRoot : public ::protozero::Message {
   static inline const char* Type_Name(Type value) {
     return ::perfetto::protos::pbzero::HeapGraphRoot_Type_Name(value);
   }
-  static const Type ROOT_UNKNOWN = Type::ROOT_UNKNOWN;
-  static const Type ROOT_JNI_GLOBAL = Type::ROOT_JNI_GLOBAL;
-  static const Type ROOT_JNI_LOCAL = Type::ROOT_JNI_LOCAL;
-  static const Type ROOT_JAVA_FRAME = Type::ROOT_JAVA_FRAME;
-  static const Type ROOT_NATIVE_STACK = Type::ROOT_NATIVE_STACK;
-  static const Type ROOT_STICKY_CLASS = Type::ROOT_STICKY_CLASS;
-  static const Type ROOT_THREAD_BLOCK = Type::ROOT_THREAD_BLOCK;
-  static const Type ROOT_MONITOR_USED = Type::ROOT_MONITOR_USED;
-  static const Type ROOT_THREAD_OBJECT = Type::ROOT_THREAD_OBJECT;
-  static const Type ROOT_INTERNED_STRING = Type::ROOT_INTERNED_STRING;
-  static const Type ROOT_FINALIZING = Type::ROOT_FINALIZING;
-  static const Type ROOT_DEBUGGER = Type::ROOT_DEBUGGER;
-  static const Type ROOT_REFERENCE_CLEANUP = Type::ROOT_REFERENCE_CLEANUP;
-  static const Type ROOT_VM_INTERNAL = Type::ROOT_VM_INTERNAL;
-  static const Type ROOT_JNI_MONITOR = Type::ROOT_JNI_MONITOR;
+  static inline const Type ROOT_UNKNOWN = Type::ROOT_UNKNOWN;
+  static inline const Type ROOT_JNI_GLOBAL = Type::ROOT_JNI_GLOBAL;
+  static inline const Type ROOT_JNI_LOCAL = Type::ROOT_JNI_LOCAL;
+  static inline const Type ROOT_JAVA_FRAME = Type::ROOT_JAVA_FRAME;
+  static inline const Type ROOT_NATIVE_STACK = Type::ROOT_NATIVE_STACK;
+  static inline const Type ROOT_STICKY_CLASS = Type::ROOT_STICKY_CLASS;
+  static inline const Type ROOT_THREAD_BLOCK = Type::ROOT_THREAD_BLOCK;
+  static inline const Type ROOT_MONITOR_USED = Type::ROOT_MONITOR_USED;
+  static inline const Type ROOT_THREAD_OBJECT = Type::ROOT_THREAD_OBJECT;
+  static inline const Type ROOT_INTERNED_STRING = Type::ROOT_INTERNED_STRING;
+  static inline const Type ROOT_FINALIZING = Type::ROOT_FINALIZING;
+  static inline const Type ROOT_DEBUGGER = Type::ROOT_DEBUGGER;
+  static inline const Type ROOT_REFERENCE_CLEANUP = Type::ROOT_REFERENCE_CLEANUP;
+  static inline const Type ROOT_VM_INTERNAL = Type::ROOT_VM_INTERNAL;
+  static inline const Type ROOT_JNI_MONITOR = Type::ROOT_JNI_MONITOR;
 
   using FieldMetadata_ObjectIds =
     ::protozero::proto_utils::FieldMetadata<
@@ -116070,10 +116106,10 @@ class PerfSample : public ::protozero::Message {
   static inline const char* SampleSkipReason_Name(SampleSkipReason value) {
     return ::perfetto::protos::pbzero::PerfSample_SampleSkipReason_Name(value);
   }
-  static const SampleSkipReason PROFILER_SKIP_UNKNOWN = SampleSkipReason::PROFILER_SKIP_UNKNOWN;
-  static const SampleSkipReason PROFILER_SKIP_READ_STAGE = SampleSkipReason::PROFILER_SKIP_READ_STAGE;
-  static const SampleSkipReason PROFILER_SKIP_UNWIND_STAGE = SampleSkipReason::PROFILER_SKIP_UNWIND_STAGE;
-  static const SampleSkipReason PROFILER_SKIP_UNWIND_ENQUEUE = SampleSkipReason::PROFILER_SKIP_UNWIND_ENQUEUE;
+  static inline const SampleSkipReason PROFILER_SKIP_UNKNOWN = SampleSkipReason::PROFILER_SKIP_UNKNOWN;
+  static inline const SampleSkipReason PROFILER_SKIP_READ_STAGE = SampleSkipReason::PROFILER_SKIP_READ_STAGE;
+  static inline const SampleSkipReason PROFILER_SKIP_UNWIND_STAGE = SampleSkipReason::PROFILER_SKIP_UNWIND_STAGE;
+  static inline const SampleSkipReason PROFILER_SKIP_UNWIND_ENQUEUE = SampleSkipReason::PROFILER_SKIP_UNWIND_ENQUEUE;
 
   using FieldMetadata_Cpu =
     ::protozero::proto_utils::FieldMetadata<
@@ -116274,8 +116310,8 @@ class PerfSample_ProducerEvent : public ::protozero::Message {
   static inline const char* DataSourceStopReason_Name(DataSourceStopReason value) {
     return ::perfetto::protos::pbzero::PerfSample_ProducerEvent_DataSourceStopReason_Name(value);
   }
-  static const DataSourceStopReason PROFILER_STOP_UNKNOWN = DataSourceStopReason::PROFILER_STOP_UNKNOWN;
-  static const DataSourceStopReason PROFILER_STOP_GUARDRAIL = DataSourceStopReason::PROFILER_STOP_GUARDRAIL;
+  static inline const DataSourceStopReason PROFILER_STOP_UNKNOWN = DataSourceStopReason::PROFILER_STOP_UNKNOWN;
+  static inline const DataSourceStopReason PROFILER_STOP_GUARDRAIL = DataSourceStopReason::PROFILER_STOP_GUARDRAIL;
 
   using FieldMetadata_SourceStopReason =
     ::protozero::proto_utils::FieldMetadata<
@@ -116318,28 +116354,28 @@ class Profiling : public ::protozero::Message {
   static inline const char* StackUnwindError_Name(StackUnwindError value) {
     return ::perfetto::protos::pbzero::Profiling_StackUnwindError_Name(value);
   }
-  static const CpuMode MODE_UNKNOWN = CpuMode::MODE_UNKNOWN;
-  static const CpuMode MODE_KERNEL = CpuMode::MODE_KERNEL;
-  static const CpuMode MODE_USER = CpuMode::MODE_USER;
-  static const CpuMode MODE_HYPERVISOR = CpuMode::MODE_HYPERVISOR;
-  static const CpuMode MODE_GUEST_KERNEL = CpuMode::MODE_GUEST_KERNEL;
-  static const CpuMode MODE_GUEST_USER = CpuMode::MODE_GUEST_USER;
-  static const StackUnwindError UNWIND_ERROR_UNKNOWN = StackUnwindError::UNWIND_ERROR_UNKNOWN;
-  static const StackUnwindError UNWIND_ERROR_NONE = StackUnwindError::UNWIND_ERROR_NONE;
-  static const StackUnwindError UNWIND_ERROR_MEMORY_INVALID = StackUnwindError::UNWIND_ERROR_MEMORY_INVALID;
-  static const StackUnwindError UNWIND_ERROR_UNWIND_INFO = StackUnwindError::UNWIND_ERROR_UNWIND_INFO;
-  static const StackUnwindError UNWIND_ERROR_UNSUPPORTED = StackUnwindError::UNWIND_ERROR_UNSUPPORTED;
-  static const StackUnwindError UNWIND_ERROR_INVALID_MAP = StackUnwindError::UNWIND_ERROR_INVALID_MAP;
-  static const StackUnwindError UNWIND_ERROR_MAX_FRAMES_EXCEEDED = StackUnwindError::UNWIND_ERROR_MAX_FRAMES_EXCEEDED;
-  static const StackUnwindError UNWIND_ERROR_REPEATED_FRAME = StackUnwindError::UNWIND_ERROR_REPEATED_FRAME;
-  static const StackUnwindError UNWIND_ERROR_INVALID_ELF = StackUnwindError::UNWIND_ERROR_INVALID_ELF;
-  static const StackUnwindError UNWIND_ERROR_SYSTEM_CALL = StackUnwindError::UNWIND_ERROR_SYSTEM_CALL;
-  static const StackUnwindError UNWIND_ERROR_THREAD_TIMEOUT = StackUnwindError::UNWIND_ERROR_THREAD_TIMEOUT;
-  static const StackUnwindError UNWIND_ERROR_THREAD_DOES_NOT_EXIST = StackUnwindError::UNWIND_ERROR_THREAD_DOES_NOT_EXIST;
-  static const StackUnwindError UNWIND_ERROR_BAD_ARCH = StackUnwindError::UNWIND_ERROR_BAD_ARCH;
-  static const StackUnwindError UNWIND_ERROR_MAPS_PARSE = StackUnwindError::UNWIND_ERROR_MAPS_PARSE;
-  static const StackUnwindError UNWIND_ERROR_INVALID_PARAMETER = StackUnwindError::UNWIND_ERROR_INVALID_PARAMETER;
-  static const StackUnwindError UNWIND_ERROR_PTRACE_CALL = StackUnwindError::UNWIND_ERROR_PTRACE_CALL;
+  static inline const CpuMode MODE_UNKNOWN = CpuMode::MODE_UNKNOWN;
+  static inline const CpuMode MODE_KERNEL = CpuMode::MODE_KERNEL;
+  static inline const CpuMode MODE_USER = CpuMode::MODE_USER;
+  static inline const CpuMode MODE_HYPERVISOR = CpuMode::MODE_HYPERVISOR;
+  static inline const CpuMode MODE_GUEST_KERNEL = CpuMode::MODE_GUEST_KERNEL;
+  static inline const CpuMode MODE_GUEST_USER = CpuMode::MODE_GUEST_USER;
+  static inline const StackUnwindError UNWIND_ERROR_UNKNOWN = StackUnwindError::UNWIND_ERROR_UNKNOWN;
+  static inline const StackUnwindError UNWIND_ERROR_NONE = StackUnwindError::UNWIND_ERROR_NONE;
+  static inline const StackUnwindError UNWIND_ERROR_MEMORY_INVALID = StackUnwindError::UNWIND_ERROR_MEMORY_INVALID;
+  static inline const StackUnwindError UNWIND_ERROR_UNWIND_INFO = StackUnwindError::UNWIND_ERROR_UNWIND_INFO;
+  static inline const StackUnwindError UNWIND_ERROR_UNSUPPORTED = StackUnwindError::UNWIND_ERROR_UNSUPPORTED;
+  static inline const StackUnwindError UNWIND_ERROR_INVALID_MAP = StackUnwindError::UNWIND_ERROR_INVALID_MAP;
+  static inline const StackUnwindError UNWIND_ERROR_MAX_FRAMES_EXCEEDED = StackUnwindError::UNWIND_ERROR_MAX_FRAMES_EXCEEDED;
+  static inline const StackUnwindError UNWIND_ERROR_REPEATED_FRAME = StackUnwindError::UNWIND_ERROR_REPEATED_FRAME;
+  static inline const StackUnwindError UNWIND_ERROR_INVALID_ELF = StackUnwindError::UNWIND_ERROR_INVALID_ELF;
+  static inline const StackUnwindError UNWIND_ERROR_SYSTEM_CALL = StackUnwindError::UNWIND_ERROR_SYSTEM_CALL;
+  static inline const StackUnwindError UNWIND_ERROR_THREAD_TIMEOUT = StackUnwindError::UNWIND_ERROR_THREAD_TIMEOUT;
+  static inline const StackUnwindError UNWIND_ERROR_THREAD_DOES_NOT_EXIST = StackUnwindError::UNWIND_ERROR_THREAD_DOES_NOT_EXIST;
+  static inline const StackUnwindError UNWIND_ERROR_BAD_ARCH = StackUnwindError::UNWIND_ERROR_BAD_ARCH;
+  static inline const StackUnwindError UNWIND_ERROR_MAPS_PARSE = StackUnwindError::UNWIND_ERROR_MAPS_PARSE;
+  static inline const StackUnwindError UNWIND_ERROR_INVALID_PARAMETER = StackUnwindError::UNWIND_ERROR_INVALID_PARAMETER;
+  static inline const StackUnwindError UNWIND_ERROR_PTRACE_CALL = StackUnwindError::UNWIND_ERROR_PTRACE_CALL;
 };
 
 class StreamingProfilePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
@@ -116850,9 +116886,9 @@ class ProfilePacket_ProcessHeapSamples : public ::protozero::Message {
   static inline const char* ClientError_Name(ClientError value) {
     return ::perfetto::protos::pbzero::ProfilePacket_ProcessHeapSamples_ClientError_Name(value);
   }
-  static const ClientError CLIENT_ERROR_NONE = ClientError::CLIENT_ERROR_NONE;
-  static const ClientError CLIENT_ERROR_HIT_TIMEOUT = ClientError::CLIENT_ERROR_HIT_TIMEOUT;
-  static const ClientError CLIENT_ERROR_INVALID_STACK_BOUNDS = ClientError::CLIENT_ERROR_INVALID_STACK_BOUNDS;
+  static inline const ClientError CLIENT_ERROR_NONE = ClientError::CLIENT_ERROR_NONE;
+  static inline const ClientError CLIENT_ERROR_HIT_TIMEOUT = ClientError::CLIENT_ERROR_HIT_TIMEOUT;
+  static inline const ClientError CLIENT_ERROR_INVALID_STACK_BOUNDS = ClientError::CLIENT_ERROR_INVALID_STACK_BOUNDS;
 
   using FieldMetadata_Pid =
     ::protozero::proto_utils::FieldMetadata<
@@ -118122,11 +118158,11 @@ class ChromeApplicationStateInfo : public ::protozero::Message {
   static inline const char* ChromeApplicationState_Name(ChromeApplicationState value) {
     return ::perfetto::protos::pbzero::ChromeApplicationStateInfo_ChromeApplicationState_Name(value);
   }
-  static const ChromeApplicationState APPLICATION_STATE_UNKNOWN = ChromeApplicationState::APPLICATION_STATE_UNKNOWN;
-  static const ChromeApplicationState APPLICATION_STATE_HAS_RUNNING_ACTIVITIES = ChromeApplicationState::APPLICATION_STATE_HAS_RUNNING_ACTIVITIES;
-  static const ChromeApplicationState APPLICATION_STATE_HAS_PAUSED_ACTIVITIES = ChromeApplicationState::APPLICATION_STATE_HAS_PAUSED_ACTIVITIES;
-  static const ChromeApplicationState APPLICATION_STATE_HAS_STOPPED_ACTIVITIES = ChromeApplicationState::APPLICATION_STATE_HAS_STOPPED_ACTIVITIES;
-  static const ChromeApplicationState APPLICATION_STATE_HAS_DESTROYED_ACTIVITIES = ChromeApplicationState::APPLICATION_STATE_HAS_DESTROYED_ACTIVITIES;
+  static inline const ChromeApplicationState APPLICATION_STATE_UNKNOWN = ChromeApplicationState::APPLICATION_STATE_UNKNOWN;
+  static inline const ChromeApplicationState APPLICATION_STATE_HAS_RUNNING_ACTIVITIES = ChromeApplicationState::APPLICATION_STATE_HAS_RUNNING_ACTIVITIES;
+  static inline const ChromeApplicationState APPLICATION_STATE_HAS_PAUSED_ACTIVITIES = ChromeApplicationState::APPLICATION_STATE_HAS_PAUSED_ACTIVITIES;
+  static inline const ChromeApplicationState APPLICATION_STATE_HAS_STOPPED_ACTIVITIES = ChromeApplicationState::APPLICATION_STATE_HAS_STOPPED_ACTIVITIES;
+  static inline const ChromeApplicationState APPLICATION_STATE_HAS_DESTROYED_ACTIVITIES = ChromeApplicationState::APPLICATION_STATE_HAS_DESTROYED_ACTIVITIES;
 
   using FieldMetadata_ApplicationState =
     ::protozero::proto_utils::FieldMetadata<
@@ -118943,8 +118979,8 @@ class BeginImplFrameArgs : public ::protozero::Message {
   static inline const char* State_Name(State value) {
     return ::perfetto::protos::pbzero::BeginImplFrameArgs_State_Name(value);
   }
-  static const State BEGIN_FRAME_FINISHED = State::BEGIN_FRAME_FINISHED;
-  static const State BEGIN_FRAME_USING = State::BEGIN_FRAME_USING;
+  static inline const State BEGIN_FRAME_FINISHED = State::BEGIN_FRAME_FINISHED;
+  static inline const State BEGIN_FRAME_USING = State::BEGIN_FRAME_USING;
 
   using FieldMetadata_UpdatedAtUs =
     ::protozero::proto_utils::FieldMetadata<
@@ -119258,10 +119294,10 @@ class BeginFrameArgs : public ::protozero::Message {
   static inline const char* BeginFrameArgsType_Name(BeginFrameArgsType value) {
     return ::perfetto::protos::pbzero::BeginFrameArgs_BeginFrameArgsType_Name(value);
   }
-  static const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_UNSPECIFIED = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_UNSPECIFIED;
-  static const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_INVALID = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_INVALID;
-  static const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_NORMAL = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_NORMAL;
-  static const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_MISSED = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_MISSED;
+  static inline const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_UNSPECIFIED = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_UNSPECIFIED;
+  static inline const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_INVALID = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_INVALID;
+  static inline const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_NORMAL = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_NORMAL;
+  static inline const BeginFrameArgsType BEGIN_FRAME_ARGS_TYPE_MISSED = BeginFrameArgsType::BEGIN_FRAME_ARGS_TYPE_MISSED;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<
@@ -119669,13 +119705,13 @@ class ChromeCompositorStateMachine_MinorState : public ::protozero::Message {
   static inline const char* ScrollHandlerState_Name(ScrollHandlerState value) {
     return ::perfetto::protos::pbzero::ChromeCompositorStateMachine_MinorState_ScrollHandlerState_Name(value);
   }
-  static const TreePriority TREE_PRIORITY_UNSPECIFIED = TreePriority::TREE_PRIORITY_UNSPECIFIED;
-  static const TreePriority TREE_PRIORITY_SAME_PRIORITY_FOR_BOTH_TREES = TreePriority::TREE_PRIORITY_SAME_PRIORITY_FOR_BOTH_TREES;
-  static const TreePriority TREE_PRIORITY_SMOOTHNESS_TAKES_PRIORITY = TreePriority::TREE_PRIORITY_SMOOTHNESS_TAKES_PRIORITY;
-  static const TreePriority TREE_PRIORITY_NEW_CONTENT_TAKES_PRIORITY = TreePriority::TREE_PRIORITY_NEW_CONTENT_TAKES_PRIORITY;
-  static const ScrollHandlerState SCROLL_HANDLER_UNSPECIFIED = ScrollHandlerState::SCROLL_HANDLER_UNSPECIFIED;
-  static const ScrollHandlerState SCROLL_AFFECTS_SCROLL_HANDLER = ScrollHandlerState::SCROLL_AFFECTS_SCROLL_HANDLER;
-  static const ScrollHandlerState SCROLL_DOES_NOT_AFFECT_SCROLL_HANDLER = ScrollHandlerState::SCROLL_DOES_NOT_AFFECT_SCROLL_HANDLER;
+  static inline const TreePriority TREE_PRIORITY_UNSPECIFIED = TreePriority::TREE_PRIORITY_UNSPECIFIED;
+  static inline const TreePriority TREE_PRIORITY_SAME_PRIORITY_FOR_BOTH_TREES = TreePriority::TREE_PRIORITY_SAME_PRIORITY_FOR_BOTH_TREES;
+  static inline const TreePriority TREE_PRIORITY_SMOOTHNESS_TAKES_PRIORITY = TreePriority::TREE_PRIORITY_SMOOTHNESS_TAKES_PRIORITY;
+  static inline const TreePriority TREE_PRIORITY_NEW_CONTENT_TAKES_PRIORITY = TreePriority::TREE_PRIORITY_NEW_CONTENT_TAKES_PRIORITY;
+  static inline const ScrollHandlerState SCROLL_HANDLER_UNSPECIFIED = ScrollHandlerState::SCROLL_HANDLER_UNSPECIFIED;
+  static inline const ScrollHandlerState SCROLL_AFFECTS_SCROLL_HANDLER = ScrollHandlerState::SCROLL_AFFECTS_SCROLL_HANDLER;
+  static inline const ScrollHandlerState SCROLL_DOES_NOT_AFFECT_SCROLL_HANDLER = ScrollHandlerState::SCROLL_DOES_NOT_AFFECT_SCROLL_HANDLER;
 
   using FieldMetadata_CommitCount =
     ::protozero::proto_utils::FieldMetadata<
@@ -120537,25 +120573,25 @@ class ChromeCompositorStateMachine_MajorState : public ::protozero::Message {
   static inline const char* ForcedRedrawOnTimeoutState_Name(ForcedRedrawOnTimeoutState value) {
     return ::perfetto::protos::pbzero::ChromeCompositorStateMachine_MajorState_ForcedRedrawOnTimeoutState_Name(value);
   }
-  static const BeginImplFrameState BEGIN_IMPL_FRAME_UNSPECIFIED = BeginImplFrameState::BEGIN_IMPL_FRAME_UNSPECIFIED;
-  static const BeginImplFrameState BEGIN_IMPL_FRAME_IDLE = BeginImplFrameState::BEGIN_IMPL_FRAME_IDLE;
-  static const BeginImplFrameState BEGIN_IMPL_FRAME_INSIDE_BEGIN_FRAME = BeginImplFrameState::BEGIN_IMPL_FRAME_INSIDE_BEGIN_FRAME;
-  static const BeginImplFrameState BEGIN_IMPL_FRAME_INSIDE_DEADLINE = BeginImplFrameState::BEGIN_IMPL_FRAME_INSIDE_DEADLINE;
-  static const BeginMainFrameState BEGIN_MAIN_FRAME_UNSPECIFIED = BeginMainFrameState::BEGIN_MAIN_FRAME_UNSPECIFIED;
-  static const BeginMainFrameState BEGIN_MAIN_FRAME_IDLE = BeginMainFrameState::BEGIN_MAIN_FRAME_IDLE;
-  static const BeginMainFrameState BEGIN_MAIN_FRAME_SENT = BeginMainFrameState::BEGIN_MAIN_FRAME_SENT;
-  static const BeginMainFrameState BEGIN_MAIN_FRAME_READY_TO_COMMIT = BeginMainFrameState::BEGIN_MAIN_FRAME_READY_TO_COMMIT;
-  static const LayerTreeFrameSinkState LAYER_TREE_FRAME_UNSPECIFIED = LayerTreeFrameSinkState::LAYER_TREE_FRAME_UNSPECIFIED;
-  static const LayerTreeFrameSinkState LAYER_TREE_FRAME_NONE = LayerTreeFrameSinkState::LAYER_TREE_FRAME_NONE;
-  static const LayerTreeFrameSinkState LAYER_TREE_FRAME_ACTIVE = LayerTreeFrameSinkState::LAYER_TREE_FRAME_ACTIVE;
-  static const LayerTreeFrameSinkState LAYER_TREE_FRAME_CREATING = LayerTreeFrameSinkState::LAYER_TREE_FRAME_CREATING;
-  static const LayerTreeFrameSinkState LAYER_TREE_FRAME_WAITING_FOR_FIRST_COMMIT = LayerTreeFrameSinkState::LAYER_TREE_FRAME_WAITING_FOR_FIRST_COMMIT;
-  static const LayerTreeFrameSinkState LAYER_TREE_FRAME_WAITING_FOR_FIRST_ACTIVATION = LayerTreeFrameSinkState::LAYER_TREE_FRAME_WAITING_FOR_FIRST_ACTIVATION;
-  static const ForcedRedrawOnTimeoutState FORCED_REDRAW_UNSPECIFIED = ForcedRedrawOnTimeoutState::FORCED_REDRAW_UNSPECIFIED;
-  static const ForcedRedrawOnTimeoutState FORCED_REDRAW_IDLE = ForcedRedrawOnTimeoutState::FORCED_REDRAW_IDLE;
-  static const ForcedRedrawOnTimeoutState FORCED_REDRAW_WAITING_FOR_COMMIT = ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_COMMIT;
-  static const ForcedRedrawOnTimeoutState FORCED_REDRAW_WAITING_FOR_ACTIVATION = ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_ACTIVATION;
-  static const ForcedRedrawOnTimeoutState FORCED_REDRAW_WAITING_FOR_DRAW = ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_DRAW;
+  static inline const BeginImplFrameState BEGIN_IMPL_FRAME_UNSPECIFIED = BeginImplFrameState::BEGIN_IMPL_FRAME_UNSPECIFIED;
+  static inline const BeginImplFrameState BEGIN_IMPL_FRAME_IDLE = BeginImplFrameState::BEGIN_IMPL_FRAME_IDLE;
+  static inline const BeginImplFrameState BEGIN_IMPL_FRAME_INSIDE_BEGIN_FRAME = BeginImplFrameState::BEGIN_IMPL_FRAME_INSIDE_BEGIN_FRAME;
+  static inline const BeginImplFrameState BEGIN_IMPL_FRAME_INSIDE_DEADLINE = BeginImplFrameState::BEGIN_IMPL_FRAME_INSIDE_DEADLINE;
+  static inline const BeginMainFrameState BEGIN_MAIN_FRAME_UNSPECIFIED = BeginMainFrameState::BEGIN_MAIN_FRAME_UNSPECIFIED;
+  static inline const BeginMainFrameState BEGIN_MAIN_FRAME_IDLE = BeginMainFrameState::BEGIN_MAIN_FRAME_IDLE;
+  static inline const BeginMainFrameState BEGIN_MAIN_FRAME_SENT = BeginMainFrameState::BEGIN_MAIN_FRAME_SENT;
+  static inline const BeginMainFrameState BEGIN_MAIN_FRAME_READY_TO_COMMIT = BeginMainFrameState::BEGIN_MAIN_FRAME_READY_TO_COMMIT;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_UNSPECIFIED = LayerTreeFrameSinkState::LAYER_TREE_FRAME_UNSPECIFIED;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_NONE = LayerTreeFrameSinkState::LAYER_TREE_FRAME_NONE;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_ACTIVE = LayerTreeFrameSinkState::LAYER_TREE_FRAME_ACTIVE;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_CREATING = LayerTreeFrameSinkState::LAYER_TREE_FRAME_CREATING;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_WAITING_FOR_FIRST_COMMIT = LayerTreeFrameSinkState::LAYER_TREE_FRAME_WAITING_FOR_FIRST_COMMIT;
+  static inline const LayerTreeFrameSinkState LAYER_TREE_FRAME_WAITING_FOR_FIRST_ACTIVATION = LayerTreeFrameSinkState::LAYER_TREE_FRAME_WAITING_FOR_FIRST_ACTIVATION;
+  static inline const ForcedRedrawOnTimeoutState FORCED_REDRAW_UNSPECIFIED = ForcedRedrawOnTimeoutState::FORCED_REDRAW_UNSPECIFIED;
+  static inline const ForcedRedrawOnTimeoutState FORCED_REDRAW_IDLE = ForcedRedrawOnTimeoutState::FORCED_REDRAW_IDLE;
+  static inline const ForcedRedrawOnTimeoutState FORCED_REDRAW_WAITING_FOR_COMMIT = ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_COMMIT;
+  static inline const ForcedRedrawOnTimeoutState FORCED_REDRAW_WAITING_FOR_ACTIVATION = ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_ACTIVATION;
+  static inline const ForcedRedrawOnTimeoutState FORCED_REDRAW_WAITING_FOR_DRAW = ForcedRedrawOnTimeoutState::FORCED_REDRAW_WAITING_FOR_DRAW;
 
   using FieldMetadata_NextAction =
     ::protozero::proto_utils::FieldMetadata<
@@ -120715,12 +120751,12 @@ class ChromeCompositorSchedulerState : public ::protozero::Message {
   static inline const char* BeginImplFrameDeadlineMode_Name(BeginImplFrameDeadlineMode value) {
     return ::perfetto::protos::pbzero::ChromeCompositorSchedulerState_BeginImplFrameDeadlineMode_Name(value);
   }
-  static const BeginImplFrameDeadlineMode DEADLINE_MODE_UNSPECIFIED = BeginImplFrameDeadlineMode::DEADLINE_MODE_UNSPECIFIED;
-  static const BeginImplFrameDeadlineMode DEADLINE_MODE_NONE = BeginImplFrameDeadlineMode::DEADLINE_MODE_NONE;
-  static const BeginImplFrameDeadlineMode DEADLINE_MODE_IMMEDIATE = BeginImplFrameDeadlineMode::DEADLINE_MODE_IMMEDIATE;
-  static const BeginImplFrameDeadlineMode DEADLINE_MODE_REGULAR = BeginImplFrameDeadlineMode::DEADLINE_MODE_REGULAR;
-  static const BeginImplFrameDeadlineMode DEADLINE_MODE_LATE = BeginImplFrameDeadlineMode::DEADLINE_MODE_LATE;
-  static const BeginImplFrameDeadlineMode DEADLINE_MODE_BLOCKED = BeginImplFrameDeadlineMode::DEADLINE_MODE_BLOCKED;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_UNSPECIFIED = BeginImplFrameDeadlineMode::DEADLINE_MODE_UNSPECIFIED;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_NONE = BeginImplFrameDeadlineMode::DEADLINE_MODE_NONE;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_IMMEDIATE = BeginImplFrameDeadlineMode::DEADLINE_MODE_IMMEDIATE;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_REGULAR = BeginImplFrameDeadlineMode::DEADLINE_MODE_REGULAR;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_LATE = BeginImplFrameDeadlineMode::DEADLINE_MODE_LATE;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_BLOCKED = BeginImplFrameDeadlineMode::DEADLINE_MODE_BLOCKED;
 
   using FieldMetadata_StateMachine =
     ::protozero::proto_utils::FieldMetadata<
@@ -121292,20 +121328,20 @@ class ChromeFrameReporter : public ::protozero::Message {
   static inline const char* FrameType_Name(FrameType value) {
     return ::perfetto::protos::pbzero::ChromeFrameReporter_FrameType_Name(value);
   }
-  static const State STATE_NO_UPDATE_DESIRED = State::STATE_NO_UPDATE_DESIRED;
-  static const State STATE_PRESENTED_ALL = State::STATE_PRESENTED_ALL;
-  static const State STATE_PRESENTED_PARTIAL = State::STATE_PRESENTED_PARTIAL;
-  static const State STATE_DROPPED = State::STATE_DROPPED;
-  static const FrameDropReason REASON_UNSPECIFIED = FrameDropReason::REASON_UNSPECIFIED;
-  static const FrameDropReason REASON_DISPLAY_COMPOSITOR = FrameDropReason::REASON_DISPLAY_COMPOSITOR;
-  static const FrameDropReason REASON_MAIN_THREAD = FrameDropReason::REASON_MAIN_THREAD;
-  static const FrameDropReason REASON_CLIENT_COMPOSITOR = FrameDropReason::REASON_CLIENT_COMPOSITOR;
-  static const ScrollState SCROLL_NONE = ScrollState::SCROLL_NONE;
-  static const ScrollState SCROLL_MAIN_THREAD = ScrollState::SCROLL_MAIN_THREAD;
-  static const ScrollState SCROLL_COMPOSITOR_THREAD = ScrollState::SCROLL_COMPOSITOR_THREAD;
-  static const ScrollState SCROLL_UNKNOWN = ScrollState::SCROLL_UNKNOWN;
-  static const FrameType FORKED = FrameType::FORKED;
-  static const FrameType BACKFILL = FrameType::BACKFILL;
+  static inline const State STATE_NO_UPDATE_DESIRED = State::STATE_NO_UPDATE_DESIRED;
+  static inline const State STATE_PRESENTED_ALL = State::STATE_PRESENTED_ALL;
+  static inline const State STATE_PRESENTED_PARTIAL = State::STATE_PRESENTED_PARTIAL;
+  static inline const State STATE_DROPPED = State::STATE_DROPPED;
+  static inline const FrameDropReason REASON_UNSPECIFIED = FrameDropReason::REASON_UNSPECIFIED;
+  static inline const FrameDropReason REASON_DISPLAY_COMPOSITOR = FrameDropReason::REASON_DISPLAY_COMPOSITOR;
+  static inline const FrameDropReason REASON_MAIN_THREAD = FrameDropReason::REASON_MAIN_THREAD;
+  static inline const FrameDropReason REASON_CLIENT_COMPOSITOR = FrameDropReason::REASON_CLIENT_COMPOSITOR;
+  static inline const ScrollState SCROLL_NONE = ScrollState::SCROLL_NONE;
+  static inline const ScrollState SCROLL_MAIN_THREAD = ScrollState::SCROLL_MAIN_THREAD;
+  static inline const ScrollState SCROLL_COMPOSITOR_THREAD = ScrollState::SCROLL_COMPOSITOR_THREAD;
+  static inline const ScrollState SCROLL_UNKNOWN = ScrollState::SCROLL_UNKNOWN;
+  static inline const FrameType FORKED = FrameType::FORKED;
+  static inline const FrameType BACKFILL = FrameType::BACKFILL;
 
   using FieldMetadata_State =
     ::protozero::proto_utils::FieldMetadata<
@@ -122048,33 +122084,33 @@ class ChromeLatencyInfo : public ::protozero::Message {
   static inline const char* LatencyComponentType_Name(LatencyComponentType value) {
     return ::perfetto::protos::pbzero::ChromeLatencyInfo_LatencyComponentType_Name(value);
   }
-  static const Step STEP_UNSPECIFIED = Step::STEP_UNSPECIFIED;
-  static const Step STEP_SEND_INPUT_EVENT_UI = Step::STEP_SEND_INPUT_EVENT_UI;
-  static const Step STEP_HANDLE_INPUT_EVENT_IMPL = Step::STEP_HANDLE_INPUT_EVENT_IMPL;
-  static const Step STEP_DID_HANDLE_INPUT_AND_OVERSCROLL = Step::STEP_DID_HANDLE_INPUT_AND_OVERSCROLL;
-  static const Step STEP_HANDLE_INPUT_EVENT_MAIN = Step::STEP_HANDLE_INPUT_EVENT_MAIN;
-  static const Step STEP_MAIN_THREAD_SCROLL_UPDATE = Step::STEP_MAIN_THREAD_SCROLL_UPDATE;
-  static const Step STEP_HANDLE_INPUT_EVENT_MAIN_COMMIT = Step::STEP_HANDLE_INPUT_EVENT_MAIN_COMMIT;
-  static const Step STEP_HANDLED_INPUT_EVENT_MAIN_OR_IMPL = Step::STEP_HANDLED_INPUT_EVENT_MAIN_OR_IMPL;
-  static const Step STEP_HANDLED_INPUT_EVENT_IMPL = Step::STEP_HANDLED_INPUT_EVENT_IMPL;
-  static const Step STEP_SWAP_BUFFERS = Step::STEP_SWAP_BUFFERS;
-  static const Step STEP_DRAW_AND_SWAP = Step::STEP_DRAW_AND_SWAP;
-  static const Step STEP_FINISHED_SWAP_BUFFERS = Step::STEP_FINISHED_SWAP_BUFFERS;
-  static const LatencyComponentType COMPONENT_UNSPECIFIED = LatencyComponentType::COMPONENT_UNSPECIFIED;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_BEGIN_RWH = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_BEGIN_RWH;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_SCROLL_UPDATE_ORIGINAL = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_SCROLL_UPDATE_ORIGINAL;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_FIRST_SCROLL_UPDATE_ORIGINAL = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_FIRST_SCROLL_UPDATE_ORIGINAL;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_ORIGINAL = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_ORIGINAL;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_UI = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_UI;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_RENDERER_MAIN = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_RENDERER_MAIN;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_RENDERING_SCHEDULED_MAIN = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_RENDERING_SCHEDULED_MAIN;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_RENDERING_SCHEDULED_IMPL = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_RENDERING_SCHEDULED_IMPL;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_SCROLL_UPDATE_LAST_EVENT = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_SCROLL_UPDATE_LAST_EVENT;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_ACK_RWH = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_ACK_RWH;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_RENDERER_SWAP = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_RENDERER_SWAP;
-  static const LatencyComponentType COMPONENT_DISPLAY_COMPOSITOR_RECEIVED_FRAME = LatencyComponentType::COMPONENT_DISPLAY_COMPOSITOR_RECEIVED_FRAME;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_GPU_SWAP_BUFFER = LatencyComponentType::COMPONENT_INPUT_EVENT_GPU_SWAP_BUFFER;
-  static const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_FRAME_SWAP = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_FRAME_SWAP;
+  static inline const Step STEP_UNSPECIFIED = Step::STEP_UNSPECIFIED;
+  static inline const Step STEP_SEND_INPUT_EVENT_UI = Step::STEP_SEND_INPUT_EVENT_UI;
+  static inline const Step STEP_HANDLE_INPUT_EVENT_IMPL = Step::STEP_HANDLE_INPUT_EVENT_IMPL;
+  static inline const Step STEP_DID_HANDLE_INPUT_AND_OVERSCROLL = Step::STEP_DID_HANDLE_INPUT_AND_OVERSCROLL;
+  static inline const Step STEP_HANDLE_INPUT_EVENT_MAIN = Step::STEP_HANDLE_INPUT_EVENT_MAIN;
+  static inline const Step STEP_MAIN_THREAD_SCROLL_UPDATE = Step::STEP_MAIN_THREAD_SCROLL_UPDATE;
+  static inline const Step STEP_HANDLE_INPUT_EVENT_MAIN_COMMIT = Step::STEP_HANDLE_INPUT_EVENT_MAIN_COMMIT;
+  static inline const Step STEP_HANDLED_INPUT_EVENT_MAIN_OR_IMPL = Step::STEP_HANDLED_INPUT_EVENT_MAIN_OR_IMPL;
+  static inline const Step STEP_HANDLED_INPUT_EVENT_IMPL = Step::STEP_HANDLED_INPUT_EVENT_IMPL;
+  static inline const Step STEP_SWAP_BUFFERS = Step::STEP_SWAP_BUFFERS;
+  static inline const Step STEP_DRAW_AND_SWAP = Step::STEP_DRAW_AND_SWAP;
+  static inline const Step STEP_FINISHED_SWAP_BUFFERS = Step::STEP_FINISHED_SWAP_BUFFERS;
+  static inline const LatencyComponentType COMPONENT_UNSPECIFIED = LatencyComponentType::COMPONENT_UNSPECIFIED;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_BEGIN_RWH = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_BEGIN_RWH;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_SCROLL_UPDATE_ORIGINAL = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_SCROLL_UPDATE_ORIGINAL;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_FIRST_SCROLL_UPDATE_ORIGINAL = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_FIRST_SCROLL_UPDATE_ORIGINAL;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_ORIGINAL = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_ORIGINAL;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_UI = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_UI;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_RENDERER_MAIN = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_RENDERER_MAIN;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_RENDERING_SCHEDULED_MAIN = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_RENDERING_SCHEDULED_MAIN;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_RENDERING_SCHEDULED_IMPL = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_RENDERING_SCHEDULED_IMPL;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_SCROLL_UPDATE_LAST_EVENT = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_SCROLL_UPDATE_LAST_EVENT;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_ACK_RWH = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_ACK_RWH;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_RENDERER_SWAP = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_RENDERER_SWAP;
+  static inline const LatencyComponentType COMPONENT_DISPLAY_COMPOSITOR_RECEIVED_FRAME = LatencyComponentType::COMPONENT_DISPLAY_COMPOSITOR_RECEIVED_FRAME;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_GPU_SWAP_BUFFER = LatencyComponentType::COMPONENT_INPUT_EVENT_GPU_SWAP_BUFFER;
+  static inline const LatencyComponentType COMPONENT_INPUT_EVENT_LATENCY_FRAME_SWAP = LatencyComponentType::COMPONENT_INPUT_EVENT_LATENCY_FRAME_SWAP;
 
   using FieldMetadata_TraceId =
     ::protozero::proto_utils::FieldMetadata<
@@ -122479,44 +122515,44 @@ class ChromeLegacyIpc : public ::protozero::Message {
   static inline const char* MessageClass_Name(MessageClass value) {
     return ::perfetto::protos::pbzero::ChromeLegacyIpc_MessageClass_Name(value);
   }
-  static const MessageClass CLASS_UNSPECIFIED = MessageClass::CLASS_UNSPECIFIED;
-  static const MessageClass CLASS_AUTOMATION = MessageClass::CLASS_AUTOMATION;
-  static const MessageClass CLASS_FRAME = MessageClass::CLASS_FRAME;
-  static const MessageClass CLASS_PAGE = MessageClass::CLASS_PAGE;
-  static const MessageClass CLASS_VIEW = MessageClass::CLASS_VIEW;
-  static const MessageClass CLASS_WIDGET = MessageClass::CLASS_WIDGET;
-  static const MessageClass CLASS_INPUT = MessageClass::CLASS_INPUT;
-  static const MessageClass CLASS_TEST = MessageClass::CLASS_TEST;
-  static const MessageClass CLASS_WORKER = MessageClass::CLASS_WORKER;
-  static const MessageClass CLASS_NACL = MessageClass::CLASS_NACL;
-  static const MessageClass CLASS_GPU_CHANNEL = MessageClass::CLASS_GPU_CHANNEL;
-  static const MessageClass CLASS_MEDIA = MessageClass::CLASS_MEDIA;
-  static const MessageClass CLASS_PPAPI = MessageClass::CLASS_PPAPI;
-  static const MessageClass CLASS_CHROME = MessageClass::CLASS_CHROME;
-  static const MessageClass CLASS_DRAG = MessageClass::CLASS_DRAG;
-  static const MessageClass CLASS_PRINT = MessageClass::CLASS_PRINT;
-  static const MessageClass CLASS_EXTENSION = MessageClass::CLASS_EXTENSION;
-  static const MessageClass CLASS_TEXT_INPUT_CLIENT = MessageClass::CLASS_TEXT_INPUT_CLIENT;
-  static const MessageClass CLASS_BLINK_TEST = MessageClass::CLASS_BLINK_TEST;
-  static const MessageClass CLASS_ACCESSIBILITY = MessageClass::CLASS_ACCESSIBILITY;
-  static const MessageClass CLASS_PRERENDER = MessageClass::CLASS_PRERENDER;
-  static const MessageClass CLASS_CHROMOTING = MessageClass::CLASS_CHROMOTING;
-  static const MessageClass CLASS_BROWSER_PLUGIN = MessageClass::CLASS_BROWSER_PLUGIN;
-  static const MessageClass CLASS_ANDROID_WEB_VIEW = MessageClass::CLASS_ANDROID_WEB_VIEW;
-  static const MessageClass CLASS_NACL_HOST = MessageClass::CLASS_NACL_HOST;
-  static const MessageClass CLASS_ENCRYPTED_MEDIA = MessageClass::CLASS_ENCRYPTED_MEDIA;
-  static const MessageClass CLASS_CAST = MessageClass::CLASS_CAST;
-  static const MessageClass CLASS_GIN_JAVA_BRIDGE = MessageClass::CLASS_GIN_JAVA_BRIDGE;
-  static const MessageClass CLASS_CHROME_UTILITY_PRINTING = MessageClass::CLASS_CHROME_UTILITY_PRINTING;
-  static const MessageClass CLASS_OZONE_GPU = MessageClass::CLASS_OZONE_GPU;
-  static const MessageClass CLASS_WEB_TEST = MessageClass::CLASS_WEB_TEST;
-  static const MessageClass CLASS_NETWORK_HINTS = MessageClass::CLASS_NETWORK_HINTS;
-  static const MessageClass CLASS_EXTENSIONS_GUEST_VIEW = MessageClass::CLASS_EXTENSIONS_GUEST_VIEW;
-  static const MessageClass CLASS_GUEST_VIEW = MessageClass::CLASS_GUEST_VIEW;
-  static const MessageClass CLASS_MEDIA_PLAYER_DELEGATE = MessageClass::CLASS_MEDIA_PLAYER_DELEGATE;
-  static const MessageClass CLASS_EXTENSION_WORKER = MessageClass::CLASS_EXTENSION_WORKER;
-  static const MessageClass CLASS_SUBRESOURCE_FILTER = MessageClass::CLASS_SUBRESOURCE_FILTER;
-  static const MessageClass CLASS_UNFREEZABLE_FRAME = MessageClass::CLASS_UNFREEZABLE_FRAME;
+  static inline const MessageClass CLASS_UNSPECIFIED = MessageClass::CLASS_UNSPECIFIED;
+  static inline const MessageClass CLASS_AUTOMATION = MessageClass::CLASS_AUTOMATION;
+  static inline const MessageClass CLASS_FRAME = MessageClass::CLASS_FRAME;
+  static inline const MessageClass CLASS_PAGE = MessageClass::CLASS_PAGE;
+  static inline const MessageClass CLASS_VIEW = MessageClass::CLASS_VIEW;
+  static inline const MessageClass CLASS_WIDGET = MessageClass::CLASS_WIDGET;
+  static inline const MessageClass CLASS_INPUT = MessageClass::CLASS_INPUT;
+  static inline const MessageClass CLASS_TEST = MessageClass::CLASS_TEST;
+  static inline const MessageClass CLASS_WORKER = MessageClass::CLASS_WORKER;
+  static inline const MessageClass CLASS_NACL = MessageClass::CLASS_NACL;
+  static inline const MessageClass CLASS_GPU_CHANNEL = MessageClass::CLASS_GPU_CHANNEL;
+  static inline const MessageClass CLASS_MEDIA = MessageClass::CLASS_MEDIA;
+  static inline const MessageClass CLASS_PPAPI = MessageClass::CLASS_PPAPI;
+  static inline const MessageClass CLASS_CHROME = MessageClass::CLASS_CHROME;
+  static inline const MessageClass CLASS_DRAG = MessageClass::CLASS_DRAG;
+  static inline const MessageClass CLASS_PRINT = MessageClass::CLASS_PRINT;
+  static inline const MessageClass CLASS_EXTENSION = MessageClass::CLASS_EXTENSION;
+  static inline const MessageClass CLASS_TEXT_INPUT_CLIENT = MessageClass::CLASS_TEXT_INPUT_CLIENT;
+  static inline const MessageClass CLASS_BLINK_TEST = MessageClass::CLASS_BLINK_TEST;
+  static inline const MessageClass CLASS_ACCESSIBILITY = MessageClass::CLASS_ACCESSIBILITY;
+  static inline const MessageClass CLASS_PRERENDER = MessageClass::CLASS_PRERENDER;
+  static inline const MessageClass CLASS_CHROMOTING = MessageClass::CLASS_CHROMOTING;
+  static inline const MessageClass CLASS_BROWSER_PLUGIN = MessageClass::CLASS_BROWSER_PLUGIN;
+  static inline const MessageClass CLASS_ANDROID_WEB_VIEW = MessageClass::CLASS_ANDROID_WEB_VIEW;
+  static inline const MessageClass CLASS_NACL_HOST = MessageClass::CLASS_NACL_HOST;
+  static inline const MessageClass CLASS_ENCRYPTED_MEDIA = MessageClass::CLASS_ENCRYPTED_MEDIA;
+  static inline const MessageClass CLASS_CAST = MessageClass::CLASS_CAST;
+  static inline const MessageClass CLASS_GIN_JAVA_BRIDGE = MessageClass::CLASS_GIN_JAVA_BRIDGE;
+  static inline const MessageClass CLASS_CHROME_UTILITY_PRINTING = MessageClass::CLASS_CHROME_UTILITY_PRINTING;
+  static inline const MessageClass CLASS_OZONE_GPU = MessageClass::CLASS_OZONE_GPU;
+  static inline const MessageClass CLASS_WEB_TEST = MessageClass::CLASS_WEB_TEST;
+  static inline const MessageClass CLASS_NETWORK_HINTS = MessageClass::CLASS_NETWORK_HINTS;
+  static inline const MessageClass CLASS_EXTENSIONS_GUEST_VIEW = MessageClass::CLASS_EXTENSIONS_GUEST_VIEW;
+  static inline const MessageClass CLASS_GUEST_VIEW = MessageClass::CLASS_GUEST_VIEW;
+  static inline const MessageClass CLASS_MEDIA_PLAYER_DELEGATE = MessageClass::CLASS_MEDIA_PLAYER_DELEGATE;
+  static inline const MessageClass CLASS_EXTENSION_WORKER = MessageClass::CLASS_EXTENSION_WORKER;
+  static inline const MessageClass CLASS_SUBRESOURCE_FILTER = MessageClass::CLASS_SUBRESOURCE_FILTER;
+  static inline const MessageClass CLASS_UNFREEZABLE_FRAME = MessageClass::CLASS_UNFREEZABLE_FRAME;
 
   using FieldMetadata_MessageClass =
     ::protozero::proto_utils::FieldMetadata<
@@ -123079,47 +123115,47 @@ class ChromeProcessDescriptor : public ::protozero::Message {
   static inline const char* ProcessType_Name(ProcessType value) {
     return ::perfetto::protos::pbzero::ChromeProcessDescriptor_ProcessType_Name(value);
   }
-  static const ProcessType PROCESS_UNSPECIFIED = ProcessType::PROCESS_UNSPECIFIED;
-  static const ProcessType PROCESS_BROWSER = ProcessType::PROCESS_BROWSER;
-  static const ProcessType PROCESS_RENDERER = ProcessType::PROCESS_RENDERER;
-  static const ProcessType PROCESS_UTILITY = ProcessType::PROCESS_UTILITY;
-  static const ProcessType PROCESS_ZYGOTE = ProcessType::PROCESS_ZYGOTE;
-  static const ProcessType PROCESS_SANDBOX_HELPER = ProcessType::PROCESS_SANDBOX_HELPER;
-  static const ProcessType PROCESS_GPU = ProcessType::PROCESS_GPU;
-  static const ProcessType PROCESS_PPAPI_PLUGIN = ProcessType::PROCESS_PPAPI_PLUGIN;
-  static const ProcessType PROCESS_PPAPI_BROKER = ProcessType::PROCESS_PPAPI_BROKER;
-  static const ProcessType PROCESS_SERVICE_NETWORK = ProcessType::PROCESS_SERVICE_NETWORK;
-  static const ProcessType PROCESS_SERVICE_TRACING = ProcessType::PROCESS_SERVICE_TRACING;
-  static const ProcessType PROCESS_SERVICE_STORAGE = ProcessType::PROCESS_SERVICE_STORAGE;
-  static const ProcessType PROCESS_SERVICE_AUDIO = ProcessType::PROCESS_SERVICE_AUDIO;
-  static const ProcessType PROCESS_SERVICE_DATA_DECODER = ProcessType::PROCESS_SERVICE_DATA_DECODER;
-  static const ProcessType PROCESS_SERVICE_UTIL_WIN = ProcessType::PROCESS_SERVICE_UTIL_WIN;
-  static const ProcessType PROCESS_SERVICE_PROXY_RESOLVER = ProcessType::PROCESS_SERVICE_PROXY_RESOLVER;
-  static const ProcessType PROCESS_SERVICE_CDM = ProcessType::PROCESS_SERVICE_CDM;
-  static const ProcessType PROCESS_SERVICE_VIDEO_CAPTURE = ProcessType::PROCESS_SERVICE_VIDEO_CAPTURE;
-  static const ProcessType PROCESS_SERVICE_UNZIPPER = ProcessType::PROCESS_SERVICE_UNZIPPER;
-  static const ProcessType PROCESS_SERVICE_MIRRORING = ProcessType::PROCESS_SERVICE_MIRRORING;
-  static const ProcessType PROCESS_SERVICE_FILEPATCHER = ProcessType::PROCESS_SERVICE_FILEPATCHER;
-  static const ProcessType PROCESS_SERVICE_TTS = ProcessType::PROCESS_SERVICE_TTS;
-  static const ProcessType PROCESS_SERVICE_PRINTING = ProcessType::PROCESS_SERVICE_PRINTING;
-  static const ProcessType PROCESS_SERVICE_QUARANTINE = ProcessType::PROCESS_SERVICE_QUARANTINE;
-  static const ProcessType PROCESS_SERVICE_CROS_LOCALSEARCH = ProcessType::PROCESS_SERVICE_CROS_LOCALSEARCH;
-  static const ProcessType PROCESS_SERVICE_CROS_ASSISTANT_AUDIO_DECODER = ProcessType::PROCESS_SERVICE_CROS_ASSISTANT_AUDIO_DECODER;
-  static const ProcessType PROCESS_SERVICE_FILEUTIL = ProcessType::PROCESS_SERVICE_FILEUTIL;
-  static const ProcessType PROCESS_SERVICE_PRINTCOMPOSITOR = ProcessType::PROCESS_SERVICE_PRINTCOMPOSITOR;
-  static const ProcessType PROCESS_SERVICE_PAINTPREVIEW = ProcessType::PROCESS_SERVICE_PAINTPREVIEW;
-  static const ProcessType PROCESS_SERVICE_SPEECHRECOGNITION = ProcessType::PROCESS_SERVICE_SPEECHRECOGNITION;
-  static const ProcessType PROCESS_SERVICE_XRDEVICE = ProcessType::PROCESS_SERVICE_XRDEVICE;
-  static const ProcessType PROCESS_SERVICE_READICON = ProcessType::PROCESS_SERVICE_READICON;
-  static const ProcessType PROCESS_SERVICE_LANGUAGEDETECTION = ProcessType::PROCESS_SERVICE_LANGUAGEDETECTION;
-  static const ProcessType PROCESS_SERVICE_SHARING = ProcessType::PROCESS_SERVICE_SHARING;
-  static const ProcessType PROCESS_SERVICE_MEDIAPARSER = ProcessType::PROCESS_SERVICE_MEDIAPARSER;
-  static const ProcessType PROCESS_SERVICE_QRCODEGENERATOR = ProcessType::PROCESS_SERVICE_QRCODEGENERATOR;
-  static const ProcessType PROCESS_SERVICE_PROFILEIMPORT = ProcessType::PROCESS_SERVICE_PROFILEIMPORT;
-  static const ProcessType PROCESS_SERVICE_IME = ProcessType::PROCESS_SERVICE_IME;
-  static const ProcessType PROCESS_SERVICE_RECORDING = ProcessType::PROCESS_SERVICE_RECORDING;
-  static const ProcessType PROCESS_SERVICE_SHAPEDETECTION = ProcessType::PROCESS_SERVICE_SHAPEDETECTION;
-  static const ProcessType PROCESS_RENDERER_EXTENSION = ProcessType::PROCESS_RENDERER_EXTENSION;
+  static inline const ProcessType PROCESS_UNSPECIFIED = ProcessType::PROCESS_UNSPECIFIED;
+  static inline const ProcessType PROCESS_BROWSER = ProcessType::PROCESS_BROWSER;
+  static inline const ProcessType PROCESS_RENDERER = ProcessType::PROCESS_RENDERER;
+  static inline const ProcessType PROCESS_UTILITY = ProcessType::PROCESS_UTILITY;
+  static inline const ProcessType PROCESS_ZYGOTE = ProcessType::PROCESS_ZYGOTE;
+  static inline const ProcessType PROCESS_SANDBOX_HELPER = ProcessType::PROCESS_SANDBOX_HELPER;
+  static inline const ProcessType PROCESS_GPU = ProcessType::PROCESS_GPU;
+  static inline const ProcessType PROCESS_PPAPI_PLUGIN = ProcessType::PROCESS_PPAPI_PLUGIN;
+  static inline const ProcessType PROCESS_PPAPI_BROKER = ProcessType::PROCESS_PPAPI_BROKER;
+  static inline const ProcessType PROCESS_SERVICE_NETWORK = ProcessType::PROCESS_SERVICE_NETWORK;
+  static inline const ProcessType PROCESS_SERVICE_TRACING = ProcessType::PROCESS_SERVICE_TRACING;
+  static inline const ProcessType PROCESS_SERVICE_STORAGE = ProcessType::PROCESS_SERVICE_STORAGE;
+  static inline const ProcessType PROCESS_SERVICE_AUDIO = ProcessType::PROCESS_SERVICE_AUDIO;
+  static inline const ProcessType PROCESS_SERVICE_DATA_DECODER = ProcessType::PROCESS_SERVICE_DATA_DECODER;
+  static inline const ProcessType PROCESS_SERVICE_UTIL_WIN = ProcessType::PROCESS_SERVICE_UTIL_WIN;
+  static inline const ProcessType PROCESS_SERVICE_PROXY_RESOLVER = ProcessType::PROCESS_SERVICE_PROXY_RESOLVER;
+  static inline const ProcessType PROCESS_SERVICE_CDM = ProcessType::PROCESS_SERVICE_CDM;
+  static inline const ProcessType PROCESS_SERVICE_VIDEO_CAPTURE = ProcessType::PROCESS_SERVICE_VIDEO_CAPTURE;
+  static inline const ProcessType PROCESS_SERVICE_UNZIPPER = ProcessType::PROCESS_SERVICE_UNZIPPER;
+  static inline const ProcessType PROCESS_SERVICE_MIRRORING = ProcessType::PROCESS_SERVICE_MIRRORING;
+  static inline const ProcessType PROCESS_SERVICE_FILEPATCHER = ProcessType::PROCESS_SERVICE_FILEPATCHER;
+  static inline const ProcessType PROCESS_SERVICE_TTS = ProcessType::PROCESS_SERVICE_TTS;
+  static inline const ProcessType PROCESS_SERVICE_PRINTING = ProcessType::PROCESS_SERVICE_PRINTING;
+  static inline const ProcessType PROCESS_SERVICE_QUARANTINE = ProcessType::PROCESS_SERVICE_QUARANTINE;
+  static inline const ProcessType PROCESS_SERVICE_CROS_LOCALSEARCH = ProcessType::PROCESS_SERVICE_CROS_LOCALSEARCH;
+  static inline const ProcessType PROCESS_SERVICE_CROS_ASSISTANT_AUDIO_DECODER = ProcessType::PROCESS_SERVICE_CROS_ASSISTANT_AUDIO_DECODER;
+  static inline const ProcessType PROCESS_SERVICE_FILEUTIL = ProcessType::PROCESS_SERVICE_FILEUTIL;
+  static inline const ProcessType PROCESS_SERVICE_PRINTCOMPOSITOR = ProcessType::PROCESS_SERVICE_PRINTCOMPOSITOR;
+  static inline const ProcessType PROCESS_SERVICE_PAINTPREVIEW = ProcessType::PROCESS_SERVICE_PAINTPREVIEW;
+  static inline const ProcessType PROCESS_SERVICE_SPEECHRECOGNITION = ProcessType::PROCESS_SERVICE_SPEECHRECOGNITION;
+  static inline const ProcessType PROCESS_SERVICE_XRDEVICE = ProcessType::PROCESS_SERVICE_XRDEVICE;
+  static inline const ProcessType PROCESS_SERVICE_READICON = ProcessType::PROCESS_SERVICE_READICON;
+  static inline const ProcessType PROCESS_SERVICE_LANGUAGEDETECTION = ProcessType::PROCESS_SERVICE_LANGUAGEDETECTION;
+  static inline const ProcessType PROCESS_SERVICE_SHARING = ProcessType::PROCESS_SERVICE_SHARING;
+  static inline const ProcessType PROCESS_SERVICE_MEDIAPARSER = ProcessType::PROCESS_SERVICE_MEDIAPARSER;
+  static inline const ProcessType PROCESS_SERVICE_QRCODEGENERATOR = ProcessType::PROCESS_SERVICE_QRCODEGENERATOR;
+  static inline const ProcessType PROCESS_SERVICE_PROFILEIMPORT = ProcessType::PROCESS_SERVICE_PROFILEIMPORT;
+  static inline const ProcessType PROCESS_SERVICE_IME = ProcessType::PROCESS_SERVICE_IME;
+  static inline const ProcessType PROCESS_SERVICE_RECORDING = ProcessType::PROCESS_SERVICE_RECORDING;
+  static inline const ProcessType PROCESS_SERVICE_SHAPEDETECTION = ProcessType::PROCESS_SERVICE_SHAPEDETECTION;
+  static inline const ProcessType PROCESS_RENDERER_EXTENSION = ProcessType::PROCESS_RENDERER_EXTENSION;
 
   using FieldMetadata_ProcessType =
     ::protozero::proto_utils::FieldMetadata<
@@ -123601,50 +123637,50 @@ class ChromeThreadDescriptor : public ::protozero::Message {
   static inline const char* ThreadType_Name(ThreadType value) {
     return ::perfetto::protos::pbzero::ChromeThreadDescriptor_ThreadType_Name(value);
   }
-  static const ThreadType THREAD_UNSPECIFIED = ThreadType::THREAD_UNSPECIFIED;
-  static const ThreadType THREAD_MAIN = ThreadType::THREAD_MAIN;
-  static const ThreadType THREAD_IO = ThreadType::THREAD_IO;
-  static const ThreadType THREAD_POOL_BG_WORKER = ThreadType::THREAD_POOL_BG_WORKER;
-  static const ThreadType THREAD_POOL_FG_WORKER = ThreadType::THREAD_POOL_FG_WORKER;
-  static const ThreadType THREAD_POOL_FG_BLOCKING = ThreadType::THREAD_POOL_FG_BLOCKING;
-  static const ThreadType THREAD_POOL_BG_BLOCKING = ThreadType::THREAD_POOL_BG_BLOCKING;
-  static const ThreadType THREAD_POOL_SERVICE = ThreadType::THREAD_POOL_SERVICE;
-  static const ThreadType THREAD_COMPOSITOR = ThreadType::THREAD_COMPOSITOR;
-  static const ThreadType THREAD_VIZ_COMPOSITOR = ThreadType::THREAD_VIZ_COMPOSITOR;
-  static const ThreadType THREAD_COMPOSITOR_WORKER = ThreadType::THREAD_COMPOSITOR_WORKER;
-  static const ThreadType THREAD_SERVICE_WORKER = ThreadType::THREAD_SERVICE_WORKER;
-  static const ThreadType THREAD_NETWORK_SERVICE = ThreadType::THREAD_NETWORK_SERVICE;
-  static const ThreadType THREAD_CHILD_IO = ThreadType::THREAD_CHILD_IO;
-  static const ThreadType THREAD_BROWSER_IO = ThreadType::THREAD_BROWSER_IO;
-  static const ThreadType THREAD_BROWSER_MAIN = ThreadType::THREAD_BROWSER_MAIN;
-  static const ThreadType THREAD_RENDERER_MAIN = ThreadType::THREAD_RENDERER_MAIN;
-  static const ThreadType THREAD_UTILITY_MAIN = ThreadType::THREAD_UTILITY_MAIN;
-  static const ThreadType THREAD_GPU_MAIN = ThreadType::THREAD_GPU_MAIN;
-  static const ThreadType THREAD_CACHE_BLOCKFILE = ThreadType::THREAD_CACHE_BLOCKFILE;
-  static const ThreadType THREAD_MEDIA = ThreadType::THREAD_MEDIA;
-  static const ThreadType THREAD_AUDIO_OUTPUTDEVICE = ThreadType::THREAD_AUDIO_OUTPUTDEVICE;
-  static const ThreadType THREAD_AUDIO_INPUTDEVICE = ThreadType::THREAD_AUDIO_INPUTDEVICE;
-  static const ThreadType THREAD_GPU_MEMORY = ThreadType::THREAD_GPU_MEMORY;
-  static const ThreadType THREAD_GPU_VSYNC = ThreadType::THREAD_GPU_VSYNC;
-  static const ThreadType THREAD_DXA_VIDEODECODER = ThreadType::THREAD_DXA_VIDEODECODER;
-  static const ThreadType THREAD_BROWSER_WATCHDOG = ThreadType::THREAD_BROWSER_WATCHDOG;
-  static const ThreadType THREAD_WEBRTC_NETWORK = ThreadType::THREAD_WEBRTC_NETWORK;
-  static const ThreadType THREAD_WINDOW_OWNER = ThreadType::THREAD_WINDOW_OWNER;
-  static const ThreadType THREAD_WEBRTC_SIGNALING = ThreadType::THREAD_WEBRTC_SIGNALING;
-  static const ThreadType THREAD_WEBRTC_WORKER = ThreadType::THREAD_WEBRTC_WORKER;
-  static const ThreadType THREAD_PPAPI_MAIN = ThreadType::THREAD_PPAPI_MAIN;
-  static const ThreadType THREAD_GPU_WATCHDOG = ThreadType::THREAD_GPU_WATCHDOG;
-  static const ThreadType THREAD_SWAPPER = ThreadType::THREAD_SWAPPER;
-  static const ThreadType THREAD_GAMEPAD_POLLING = ThreadType::THREAD_GAMEPAD_POLLING;
-  static const ThreadType THREAD_WEBCRYPTO = ThreadType::THREAD_WEBCRYPTO;
-  static const ThreadType THREAD_DATABASE = ThreadType::THREAD_DATABASE;
-  static const ThreadType THREAD_PROXYRESOLVER = ThreadType::THREAD_PROXYRESOLVER;
-  static const ThreadType THREAD_DEVTOOLSADB = ThreadType::THREAD_DEVTOOLSADB;
-  static const ThreadType THREAD_NETWORKCONFIGWATCHER = ThreadType::THREAD_NETWORKCONFIGWATCHER;
-  static const ThreadType THREAD_WASAPI_RENDER = ThreadType::THREAD_WASAPI_RENDER;
-  static const ThreadType THREAD_LOADER_LOCK_SAMPLER = ThreadType::THREAD_LOADER_LOCK_SAMPLER;
-  static const ThreadType THREAD_MEMORY_INFRA = ThreadType::THREAD_MEMORY_INFRA;
-  static const ThreadType THREAD_SAMPLING_PROFILER = ThreadType::THREAD_SAMPLING_PROFILER;
+  static inline const ThreadType THREAD_UNSPECIFIED = ThreadType::THREAD_UNSPECIFIED;
+  static inline const ThreadType THREAD_MAIN = ThreadType::THREAD_MAIN;
+  static inline const ThreadType THREAD_IO = ThreadType::THREAD_IO;
+  static inline const ThreadType THREAD_POOL_BG_WORKER = ThreadType::THREAD_POOL_BG_WORKER;
+  static inline const ThreadType THREAD_POOL_FG_WORKER = ThreadType::THREAD_POOL_FG_WORKER;
+  static inline const ThreadType THREAD_POOL_FG_BLOCKING = ThreadType::THREAD_POOL_FG_BLOCKING;
+  static inline const ThreadType THREAD_POOL_BG_BLOCKING = ThreadType::THREAD_POOL_BG_BLOCKING;
+  static inline const ThreadType THREAD_POOL_SERVICE = ThreadType::THREAD_POOL_SERVICE;
+  static inline const ThreadType THREAD_COMPOSITOR = ThreadType::THREAD_COMPOSITOR;
+  static inline const ThreadType THREAD_VIZ_COMPOSITOR = ThreadType::THREAD_VIZ_COMPOSITOR;
+  static inline const ThreadType THREAD_COMPOSITOR_WORKER = ThreadType::THREAD_COMPOSITOR_WORKER;
+  static inline const ThreadType THREAD_SERVICE_WORKER = ThreadType::THREAD_SERVICE_WORKER;
+  static inline const ThreadType THREAD_NETWORK_SERVICE = ThreadType::THREAD_NETWORK_SERVICE;
+  static inline const ThreadType THREAD_CHILD_IO = ThreadType::THREAD_CHILD_IO;
+  static inline const ThreadType THREAD_BROWSER_IO = ThreadType::THREAD_BROWSER_IO;
+  static inline const ThreadType THREAD_BROWSER_MAIN = ThreadType::THREAD_BROWSER_MAIN;
+  static inline const ThreadType THREAD_RENDERER_MAIN = ThreadType::THREAD_RENDERER_MAIN;
+  static inline const ThreadType THREAD_UTILITY_MAIN = ThreadType::THREAD_UTILITY_MAIN;
+  static inline const ThreadType THREAD_GPU_MAIN = ThreadType::THREAD_GPU_MAIN;
+  static inline const ThreadType THREAD_CACHE_BLOCKFILE = ThreadType::THREAD_CACHE_BLOCKFILE;
+  static inline const ThreadType THREAD_MEDIA = ThreadType::THREAD_MEDIA;
+  static inline const ThreadType THREAD_AUDIO_OUTPUTDEVICE = ThreadType::THREAD_AUDIO_OUTPUTDEVICE;
+  static inline const ThreadType THREAD_AUDIO_INPUTDEVICE = ThreadType::THREAD_AUDIO_INPUTDEVICE;
+  static inline const ThreadType THREAD_GPU_MEMORY = ThreadType::THREAD_GPU_MEMORY;
+  static inline const ThreadType THREAD_GPU_VSYNC = ThreadType::THREAD_GPU_VSYNC;
+  static inline const ThreadType THREAD_DXA_VIDEODECODER = ThreadType::THREAD_DXA_VIDEODECODER;
+  static inline const ThreadType THREAD_BROWSER_WATCHDOG = ThreadType::THREAD_BROWSER_WATCHDOG;
+  static inline const ThreadType THREAD_WEBRTC_NETWORK = ThreadType::THREAD_WEBRTC_NETWORK;
+  static inline const ThreadType THREAD_WINDOW_OWNER = ThreadType::THREAD_WINDOW_OWNER;
+  static inline const ThreadType THREAD_WEBRTC_SIGNALING = ThreadType::THREAD_WEBRTC_SIGNALING;
+  static inline const ThreadType THREAD_WEBRTC_WORKER = ThreadType::THREAD_WEBRTC_WORKER;
+  static inline const ThreadType THREAD_PPAPI_MAIN = ThreadType::THREAD_PPAPI_MAIN;
+  static inline const ThreadType THREAD_GPU_WATCHDOG = ThreadType::THREAD_GPU_WATCHDOG;
+  static inline const ThreadType THREAD_SWAPPER = ThreadType::THREAD_SWAPPER;
+  static inline const ThreadType THREAD_GAMEPAD_POLLING = ThreadType::THREAD_GAMEPAD_POLLING;
+  static inline const ThreadType THREAD_WEBCRYPTO = ThreadType::THREAD_WEBCRYPTO;
+  static inline const ThreadType THREAD_DATABASE = ThreadType::THREAD_DATABASE;
+  static inline const ThreadType THREAD_PROXYRESOLVER = ThreadType::THREAD_PROXYRESOLVER;
+  static inline const ThreadType THREAD_DEVTOOLSADB = ThreadType::THREAD_DEVTOOLSADB;
+  static inline const ThreadType THREAD_NETWORKCONFIGWATCHER = ThreadType::THREAD_NETWORKCONFIGWATCHER;
+  static inline const ThreadType THREAD_WASAPI_RENDER = ThreadType::THREAD_WASAPI_RENDER;
+  static inline const ThreadType THREAD_LOADER_LOCK_SAMPLER = ThreadType::THREAD_LOADER_LOCK_SAMPLER;
+  static inline const ThreadType THREAD_MEMORY_INFRA = ThreadType::THREAD_MEMORY_INFRA;
+  static inline const ThreadType THREAD_SAMPLING_PROFILER = ThreadType::THREAD_SAMPLING_PROFILER;
 
   using FieldMetadata_ThreadType =
     ::protozero::proto_utils::FieldMetadata<
@@ -124010,13 +124046,13 @@ class CounterDescriptor : public ::protozero::Message {
   static inline const char* Unit_Name(Unit value) {
     return ::perfetto::protos::pbzero::CounterDescriptor_Unit_Name(value);
   }
-  static const BuiltinCounterType COUNTER_UNSPECIFIED = BuiltinCounterType::COUNTER_UNSPECIFIED;
-  static const BuiltinCounterType COUNTER_THREAD_TIME_NS = BuiltinCounterType::COUNTER_THREAD_TIME_NS;
-  static const BuiltinCounterType COUNTER_THREAD_INSTRUCTION_COUNT = BuiltinCounterType::COUNTER_THREAD_INSTRUCTION_COUNT;
-  static const Unit UNIT_UNSPECIFIED = Unit::UNIT_UNSPECIFIED;
-  static const Unit UNIT_TIME_NS = Unit::UNIT_TIME_NS;
-  static const Unit UNIT_COUNT = Unit::UNIT_COUNT;
-  static const Unit UNIT_SIZE_BYTES = Unit::UNIT_SIZE_BYTES;
+  static inline const BuiltinCounterType COUNTER_UNSPECIFIED = BuiltinCounterType::COUNTER_UNSPECIFIED;
+  static inline const BuiltinCounterType COUNTER_THREAD_TIME_NS = BuiltinCounterType::COUNTER_THREAD_TIME_NS;
+  static inline const BuiltinCounterType COUNTER_THREAD_INSTRUCTION_COUNT = BuiltinCounterType::COUNTER_THREAD_INSTRUCTION_COUNT;
+  static inline const Unit UNIT_UNSPECIFIED = Unit::UNIT_UNSPECIFIED;
+  static inline const Unit UNIT_TIME_NS = Unit::UNIT_TIME_NS;
+  static inline const Unit UNIT_COUNT = Unit::UNIT_COUNT;
+  static inline const Unit UNIT_SIZE_BYTES = Unit::UNIT_SIZE_BYTES;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<
@@ -124740,9 +124776,9 @@ class DebugAnnotation_NestedValue : public ::protozero::Message {
   static inline const char* NestedType_Name(NestedType value) {
     return ::perfetto::protos::pbzero::DebugAnnotation_NestedValue_NestedType_Name(value);
   }
-  static const NestedType UNSPECIFIED = NestedType::UNSPECIFIED;
-  static const NestedType DICT = NestedType::DICT;
-  static const NestedType ARRAY = NestedType::ARRAY;
+  static inline const NestedType UNSPECIFIED = NestedType::UNSPECIFIED;
+  static inline const NestedType DICT = NestedType::DICT;
+  static inline const NestedType ARRAY = NestedType::ARRAY;
 
   using FieldMetadata_NestedType =
     ::protozero::proto_utils::FieldMetadata<
@@ -125163,15 +125199,15 @@ class ProcessDescriptor : public ::protozero::Message {
   static inline const char* ChromeProcessType_Name(ChromeProcessType value) {
     return ::perfetto::protos::pbzero::ProcessDescriptor_ChromeProcessType_Name(value);
   }
-  static const ChromeProcessType PROCESS_UNSPECIFIED = ChromeProcessType::PROCESS_UNSPECIFIED;
-  static const ChromeProcessType PROCESS_BROWSER = ChromeProcessType::PROCESS_BROWSER;
-  static const ChromeProcessType PROCESS_RENDERER = ChromeProcessType::PROCESS_RENDERER;
-  static const ChromeProcessType PROCESS_UTILITY = ChromeProcessType::PROCESS_UTILITY;
-  static const ChromeProcessType PROCESS_ZYGOTE = ChromeProcessType::PROCESS_ZYGOTE;
-  static const ChromeProcessType PROCESS_SANDBOX_HELPER = ChromeProcessType::PROCESS_SANDBOX_HELPER;
-  static const ChromeProcessType PROCESS_GPU = ChromeProcessType::PROCESS_GPU;
-  static const ChromeProcessType PROCESS_PPAPI_PLUGIN = ChromeProcessType::PROCESS_PPAPI_PLUGIN;
-  static const ChromeProcessType PROCESS_PPAPI_BROKER = ChromeProcessType::PROCESS_PPAPI_BROKER;
+  static inline const ChromeProcessType PROCESS_UNSPECIFIED = ChromeProcessType::PROCESS_UNSPECIFIED;
+  static inline const ChromeProcessType PROCESS_BROWSER = ChromeProcessType::PROCESS_BROWSER;
+  static inline const ChromeProcessType PROCESS_RENDERER = ChromeProcessType::PROCESS_RENDERER;
+  static inline const ChromeProcessType PROCESS_UTILITY = ChromeProcessType::PROCESS_UTILITY;
+  static inline const ChromeProcessType PROCESS_ZYGOTE = ChromeProcessType::PROCESS_ZYGOTE;
+  static inline const ChromeProcessType PROCESS_SANDBOX_HELPER = ChromeProcessType::PROCESS_SANDBOX_HELPER;
+  static inline const ChromeProcessType PROCESS_GPU = ChromeProcessType::PROCESS_GPU;
+  static inline const ChromeProcessType PROCESS_PPAPI_PLUGIN = ChromeProcessType::PROCESS_PPAPI_PLUGIN;
+  static inline const ChromeProcessType PROCESS_PPAPI_BROKER = ChromeProcessType::PROCESS_PPAPI_BROKER;
 
   using FieldMetadata_Pid =
     ::protozero::proto_utils::FieldMetadata<
@@ -125817,20 +125853,20 @@ class ThreadDescriptor : public ::protozero::Message {
   static inline const char* ChromeThreadType_Name(ChromeThreadType value) {
     return ::perfetto::protos::pbzero::ThreadDescriptor_ChromeThreadType_Name(value);
   }
-  static const ChromeThreadType CHROME_THREAD_UNSPECIFIED = ChromeThreadType::CHROME_THREAD_UNSPECIFIED;
-  static const ChromeThreadType CHROME_THREAD_MAIN = ChromeThreadType::CHROME_THREAD_MAIN;
-  static const ChromeThreadType CHROME_THREAD_IO = ChromeThreadType::CHROME_THREAD_IO;
-  static const ChromeThreadType CHROME_THREAD_POOL_BG_WORKER = ChromeThreadType::CHROME_THREAD_POOL_BG_WORKER;
-  static const ChromeThreadType CHROME_THREAD_POOL_FG_WORKER = ChromeThreadType::CHROME_THREAD_POOL_FG_WORKER;
-  static const ChromeThreadType CHROME_THREAD_POOL_FB_BLOCKING = ChromeThreadType::CHROME_THREAD_POOL_FB_BLOCKING;
-  static const ChromeThreadType CHROME_THREAD_POOL_BG_BLOCKING = ChromeThreadType::CHROME_THREAD_POOL_BG_BLOCKING;
-  static const ChromeThreadType CHROME_THREAD_POOL_SERVICE = ChromeThreadType::CHROME_THREAD_POOL_SERVICE;
-  static const ChromeThreadType CHROME_THREAD_COMPOSITOR = ChromeThreadType::CHROME_THREAD_COMPOSITOR;
-  static const ChromeThreadType CHROME_THREAD_VIZ_COMPOSITOR = ChromeThreadType::CHROME_THREAD_VIZ_COMPOSITOR;
-  static const ChromeThreadType CHROME_THREAD_COMPOSITOR_WORKER = ChromeThreadType::CHROME_THREAD_COMPOSITOR_WORKER;
-  static const ChromeThreadType CHROME_THREAD_SERVICE_WORKER = ChromeThreadType::CHROME_THREAD_SERVICE_WORKER;
-  static const ChromeThreadType CHROME_THREAD_MEMORY_INFRA = ChromeThreadType::CHROME_THREAD_MEMORY_INFRA;
-  static const ChromeThreadType CHROME_THREAD_SAMPLING_PROFILER = ChromeThreadType::CHROME_THREAD_SAMPLING_PROFILER;
+  static inline const ChromeThreadType CHROME_THREAD_UNSPECIFIED = ChromeThreadType::CHROME_THREAD_UNSPECIFIED;
+  static inline const ChromeThreadType CHROME_THREAD_MAIN = ChromeThreadType::CHROME_THREAD_MAIN;
+  static inline const ChromeThreadType CHROME_THREAD_IO = ChromeThreadType::CHROME_THREAD_IO;
+  static inline const ChromeThreadType CHROME_THREAD_POOL_BG_WORKER = ChromeThreadType::CHROME_THREAD_POOL_BG_WORKER;
+  static inline const ChromeThreadType CHROME_THREAD_POOL_FG_WORKER = ChromeThreadType::CHROME_THREAD_POOL_FG_WORKER;
+  static inline const ChromeThreadType CHROME_THREAD_POOL_FB_BLOCKING = ChromeThreadType::CHROME_THREAD_POOL_FB_BLOCKING;
+  static inline const ChromeThreadType CHROME_THREAD_POOL_BG_BLOCKING = ChromeThreadType::CHROME_THREAD_POOL_BG_BLOCKING;
+  static inline const ChromeThreadType CHROME_THREAD_POOL_SERVICE = ChromeThreadType::CHROME_THREAD_POOL_SERVICE;
+  static inline const ChromeThreadType CHROME_THREAD_COMPOSITOR = ChromeThreadType::CHROME_THREAD_COMPOSITOR;
+  static inline const ChromeThreadType CHROME_THREAD_VIZ_COMPOSITOR = ChromeThreadType::CHROME_THREAD_VIZ_COMPOSITOR;
+  static inline const ChromeThreadType CHROME_THREAD_COMPOSITOR_WORKER = ChromeThreadType::CHROME_THREAD_COMPOSITOR_WORKER;
+  static inline const ChromeThreadType CHROME_THREAD_SERVICE_WORKER = ChromeThreadType::CHROME_THREAD_SERVICE_WORKER;
+  static inline const ChromeThreadType CHROME_THREAD_MEMORY_INFRA = ChromeThreadType::CHROME_THREAD_MEMORY_INFRA;
+  static inline const ChromeThreadType CHROME_THREAD_SAMPLING_PROFILER = ChromeThreadType::CHROME_THREAD_SAMPLING_PROFILER;
 
   using FieldMetadata_Pid =
     ::protozero::proto_utils::FieldMetadata<
@@ -126714,11 +126750,11 @@ class TrackEvent : public ::protozero::Message {
   static inline const char* Type_Name(Type value) {
     return ::perfetto::protos::pbzero::TrackEvent_Type_Name(value);
   }
-  static const Type TYPE_UNSPECIFIED = Type::TYPE_UNSPECIFIED;
-  static const Type TYPE_SLICE_BEGIN = Type::TYPE_SLICE_BEGIN;
-  static const Type TYPE_SLICE_END = Type::TYPE_SLICE_END;
-  static const Type TYPE_INSTANT = Type::TYPE_INSTANT;
-  static const Type TYPE_COUNTER = Type::TYPE_COUNTER;
+  static inline const Type TYPE_UNSPECIFIED = Type::TYPE_UNSPECIFIED;
+  static inline const Type TYPE_SLICE_BEGIN = Type::TYPE_SLICE_BEGIN;
+  static inline const Type TYPE_SLICE_END = Type::TYPE_SLICE_END;
+  static inline const Type TYPE_INSTANT = Type::TYPE_INSTANT;
+  static inline const Type TYPE_COUNTER = Type::TYPE_COUNTER;
 
   using FieldMetadata_CategoryIids =
     ::protozero::proto_utils::FieldMetadata<
@@ -127485,14 +127521,14 @@ class TrackEvent_LegacyEvent : public ::protozero::Message {
   static inline const char* InstantEventScope_Name(InstantEventScope value) {
     return ::perfetto::protos::pbzero::TrackEvent_LegacyEvent_InstantEventScope_Name(value);
   }
-  static const FlowDirection FLOW_UNSPECIFIED = FlowDirection::FLOW_UNSPECIFIED;
-  static const FlowDirection FLOW_IN = FlowDirection::FLOW_IN;
-  static const FlowDirection FLOW_OUT = FlowDirection::FLOW_OUT;
-  static const FlowDirection FLOW_INOUT = FlowDirection::FLOW_INOUT;
-  static const InstantEventScope SCOPE_UNSPECIFIED = InstantEventScope::SCOPE_UNSPECIFIED;
-  static const InstantEventScope SCOPE_GLOBAL = InstantEventScope::SCOPE_GLOBAL;
-  static const InstantEventScope SCOPE_PROCESS = InstantEventScope::SCOPE_PROCESS;
-  static const InstantEventScope SCOPE_THREAD = InstantEventScope::SCOPE_THREAD;
+  static inline const FlowDirection FLOW_UNSPECIFIED = FlowDirection::FLOW_UNSPECIFIED;
+  static inline const FlowDirection FLOW_IN = FlowDirection::FLOW_IN;
+  static inline const FlowDirection FLOW_OUT = FlowDirection::FLOW_OUT;
+  static inline const FlowDirection FLOW_INOUT = FlowDirection::FLOW_INOUT;
+  static inline const InstantEventScope SCOPE_UNSPECIFIED = InstantEventScope::SCOPE_UNSPECIFIED;
+  static inline const InstantEventScope SCOPE_GLOBAL = InstantEventScope::SCOPE_GLOBAL;
+  static inline const InstantEventScope SCOPE_PROCESS = InstantEventScope::SCOPE_PROCESS;
+  static inline const InstantEventScope SCOPE_THREAD = InstantEventScope::SCOPE_THREAD;
 
   using FieldMetadata_NameIid =
     ::protozero::proto_utils::FieldMetadata<
@@ -133522,9 +133558,9 @@ class TracePacket : public ::protozero::Message {
   static inline const char* SequenceFlags_Name(SequenceFlags value) {
     return ::perfetto::protos::pbzero::TracePacket_SequenceFlags_Name(value);
   }
-  static const SequenceFlags SEQ_UNSPECIFIED = SequenceFlags::SEQ_UNSPECIFIED;
-  static const SequenceFlags SEQ_INCREMENTAL_STATE_CLEARED = SequenceFlags::SEQ_INCREMENTAL_STATE_CLEARED;
-  static const SequenceFlags SEQ_NEEDS_INCREMENTAL_STATE = SequenceFlags::SEQ_NEEDS_INCREMENTAL_STATE;
+  static inline const SequenceFlags SEQ_UNSPECIFIED = SequenceFlags::SEQ_UNSPECIFIED;
+  static inline const SequenceFlags SEQ_INCREMENTAL_STATE_CLEARED = SequenceFlags::SEQ_INCREMENTAL_STATE_CLEARED;
+  static inline const SequenceFlags SEQ_NEEDS_INCREMENTAL_STATE = SequenceFlags::SEQ_NEEDS_INCREMENTAL_STATE;
 
   using FieldMetadata_Timestamp =
     ::protozero::proto_utils::FieldMetadata<
@@ -134844,9 +134880,9 @@ class MemoryTrackerSnapshot : public ::protozero::Message {
   static inline const char* LevelOfDetail_Name(LevelOfDetail value) {
     return ::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail_Name(value);
   }
-  static const LevelOfDetail DETAIL_FULL = LevelOfDetail::DETAIL_FULL;
-  static const LevelOfDetail DETAIL_LIGHT = LevelOfDetail::DETAIL_LIGHT;
-  static const LevelOfDetail DETAIL_BACKGROUND = LevelOfDetail::DETAIL_BACKGROUND;
+  static inline const LevelOfDetail DETAIL_FULL = LevelOfDetail::DETAIL_FULL;
+  static inline const LevelOfDetail DETAIL_LIGHT = LevelOfDetail::DETAIL_LIGHT;
+  static inline const LevelOfDetail DETAIL_BACKGROUND = LevelOfDetail::DETAIL_BACKGROUND;
 
   using FieldMetadata_GlobalDumpId =
     ::protozero::proto_utils::FieldMetadata<
@@ -135227,9 +135263,9 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
   static inline const char* Units_Name(Units value) {
     return ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_Name(value);
   }
-  static const Units UNSPECIFIED = Units::UNSPECIFIED;
-  static const Units BYTES = Units::BYTES;
-  static const Units COUNT = Units::COUNT;
+  static inline const Units UNSPECIFIED = Units::UNSPECIFIED;
+  static inline const Units BYTES = Units::BYTES;
+  static inline const Units COUNT = Units::COUNT;
 
   using FieldMetadata_Name =
     ::protozero::proto_utils::FieldMetadata<

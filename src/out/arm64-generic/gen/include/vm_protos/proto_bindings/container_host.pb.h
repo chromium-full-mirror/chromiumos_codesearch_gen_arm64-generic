@@ -1414,6 +1414,7 @@ class Application final :
     kKeywordsFieldNumber = 9,
     kNoDisplayFieldNumber = 5,
     kStartupNotifyFieldNumber = 7,
+    kTerminalFieldNumber = 13,
   };
   // repeated string mime_types = 4;
   int mime_types_size() const;
@@ -1605,6 +1606,15 @@ class Application final :
   void _internal_set_startup_notify(bool value);
   public:
 
+  // bool terminal = 13;
+  void clear_terminal();
+  bool terminal() const;
+  void set_terminal(bool value);
+  private:
+  bool _internal_terminal() const;
+  void _internal_set_terminal(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.container.Application)
  private:
   class _Internal;
@@ -1625,6 +1635,7 @@ class Application final :
     ::vm_tools::container::Application_LocaleStrings* keywords_;
     bool no_display_;
     bool startup_notify_;
+    bool terminal_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -7658,6 +7669,26 @@ inline void Application::set_allocated_exec(std::string* exec) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:vm_tools.container.Application.exec)
+}
+
+// bool terminal = 13;
+inline void Application::clear_terminal() {
+  _impl_.terminal_ = false;
+}
+inline bool Application::_internal_terminal() const {
+  return _impl_.terminal_;
+}
+inline bool Application::terminal() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.Application.terminal)
+  return _internal_terminal();
+}
+inline void Application::_internal_set_terminal(bool value) {
+  
+  _impl_.terminal_ = value;
+}
+inline void Application::set_terminal(bool value) {
+  _internal_set_terminal(value);
+  // @@protoc_insertion_point(field_set:vm_tools.container.Application.terminal)
 }
 
 // string package_id = 8;
