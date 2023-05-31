@@ -875,6 +875,21 @@ std::string GetProtoDebugStringWithIndent(const KeyInfo& value,
     base::StringAppendF(&output, "%s", value.dm_token().c_str());
     output += "\n";
   }
+  if (value.has_user_customer_id()) {
+    output += indent + "  user_customer_id: ";
+    base::StringAppendF(&output, "%s", value.user_customer_id().c_str());
+    output += "\n";
+  }
+  if (value.has_obfuscated_gaia_id()) {
+    output += indent + "  obfuscated_gaia_id: ";
+    base::StringAppendF(&output, "%s", value.obfuscated_gaia_id().c_str());
+    output += "\n";
+  }
+  if (value.has_profile_id()) {
+    output += indent + "  profile_id: ";
+    base::StringAppendF(&output, "%s", value.profile_id().c_str());
+    output += "\n";
+  }
   output += indent + "}\n";
   return output;
 }

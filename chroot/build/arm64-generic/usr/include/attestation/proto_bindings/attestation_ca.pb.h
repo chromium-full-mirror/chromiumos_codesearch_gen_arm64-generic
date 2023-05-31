@@ -3240,6 +3240,9 @@ class KeyInfo final :
     kSigningSchemeFieldNumber = 8,
     kDeviceTrustSignalsJsonFieldNumber = 10,
     kDmTokenFieldNumber = 11,
+    kUserCustomerIdFieldNumber = 12,
+    kObfuscatedGaiaIdFieldNumber = 13,
+    kProfileIdFieldNumber = 14,
     kDeviceTrustSignalsFieldNumber = 9,
     kKeyTypeFieldNumber = 1,
   };
@@ -3405,6 +3408,60 @@ class KeyInfo final :
   std::string* _internal_mutable_dm_token();
   public:
 
+  // optional string user_customer_id = 12;
+  bool has_user_customer_id() const;
+  private:
+  bool _internal_has_user_customer_id() const;
+  public:
+  void clear_user_customer_id();
+  const std::string& user_customer_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_customer_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_customer_id();
+  PROTOBUF_NODISCARD std::string* release_user_customer_id();
+  void set_allocated_user_customer_id(std::string* user_customer_id);
+  private:
+  const std::string& _internal_user_customer_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_customer_id(const std::string& value);
+  std::string* _internal_mutable_user_customer_id();
+  public:
+
+  // optional string obfuscated_gaia_id = 13;
+  bool has_obfuscated_gaia_id() const;
+  private:
+  bool _internal_has_obfuscated_gaia_id() const;
+  public:
+  void clear_obfuscated_gaia_id();
+  const std::string& obfuscated_gaia_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_obfuscated_gaia_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_obfuscated_gaia_id();
+  PROTOBUF_NODISCARD std::string* release_obfuscated_gaia_id();
+  void set_allocated_obfuscated_gaia_id(std::string* obfuscated_gaia_id);
+  private:
+  const std::string& _internal_obfuscated_gaia_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_obfuscated_gaia_id(const std::string& value);
+  std::string* _internal_mutable_obfuscated_gaia_id();
+  public:
+
+  // optional string profile_id = 14;
+  bool has_profile_id() const;
+  private:
+  bool _internal_has_profile_id() const;
+  public:
+  void clear_profile_id();
+  const std::string& profile_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_profile_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_profile_id();
+  PROTOBUF_NODISCARD std::string* release_profile_id();
+  void set_allocated_profile_id(std::string* profile_id);
+  private:
+  const std::string& _internal_profile_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_profile_id(const std::string& value);
+  std::string* _internal_mutable_profile_id();
+  public:
+
   // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
   PROTOBUF_DEPRECATED bool has_device_trust_signals() const;
   private:
@@ -3455,6 +3512,9 @@ class KeyInfo final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr signing_scheme_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_trust_signals_json_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dm_token_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_customer_id_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr obfuscated_gaia_id_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr profile_id_;
     ::attestation::DeviceTrustSignals* device_trust_signals_;
     int key_type_;
   };
@@ -8193,7 +8253,7 @@ inline void ChallengeResponse::set_allocated_encrypted_key_info(::attestation::E
 
 // optional .attestation.KeyProfile key_type = 1;
 inline bool KeyInfo::_internal_has_key_type() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000400u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00002000u) != 0;
   return value;
 }
 inline bool KeyInfo::has_key_type() const {
@@ -8201,7 +8261,7 @@ inline bool KeyInfo::has_key_type() const {
 }
 inline void KeyInfo::clear_key_type() {
   _impl_.key_type_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000400u;
+  _impl_._has_bits_[0] &= ~0x00002000u;
 }
 inline ::attestation::KeyProfile KeyInfo::_internal_key_type() const {
   return static_cast< ::attestation::KeyProfile >(_impl_.key_type_);
@@ -8212,7 +8272,7 @@ inline ::attestation::KeyProfile KeyInfo::key_type() const {
 }
 inline void KeyInfo::_internal_set_key_type(::attestation::KeyProfile value) {
   assert(::attestation::KeyProfile_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000400u;
+  _impl_._has_bits_[0] |= 0x00002000u;
   _impl_.key_type_ = value;
 }
 inline void KeyInfo::set_key_type(::attestation::KeyProfile value) {
@@ -8698,7 +8758,7 @@ inline void KeyInfo::set_allocated_signing_scheme(std::string* signing_scheme) {
 
 // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
 inline bool KeyInfo::_internal_has_device_trust_signals() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000200u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00001000u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.device_trust_signals_ != nullptr);
   return value;
 }
@@ -8707,7 +8767,7 @@ inline bool KeyInfo::has_device_trust_signals() const {
 }
 inline void KeyInfo::clear_device_trust_signals() {
   if (_impl_.device_trust_signals_ != nullptr) _impl_.device_trust_signals_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000200u;
+  _impl_._has_bits_[0] &= ~0x00001000u;
 }
 inline const ::attestation::DeviceTrustSignals& KeyInfo::_internal_device_trust_signals() const {
   const ::attestation::DeviceTrustSignals* p = _impl_.device_trust_signals_;
@@ -8725,14 +8785,14 @@ inline void KeyInfo::unsafe_arena_set_allocated_device_trust_signals(
   }
   _impl_.device_trust_signals_ = device_trust_signals;
   if (device_trust_signals) {
-    _impl_._has_bits_[0] |= 0x00000200u;
+    _impl_._has_bits_[0] |= 0x00001000u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000200u;
+    _impl_._has_bits_[0] &= ~0x00001000u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:attestation.KeyInfo.device_trust_signals)
 }
 inline ::attestation::DeviceTrustSignals* KeyInfo::release_device_trust_signals() {
-  _impl_._has_bits_[0] &= ~0x00000200u;
+  _impl_._has_bits_[0] &= ~0x00001000u;
   ::attestation::DeviceTrustSignals* temp = _impl_.device_trust_signals_;
   _impl_.device_trust_signals_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -8748,13 +8808,13 @@ inline ::attestation::DeviceTrustSignals* KeyInfo::release_device_trust_signals(
 }
 inline ::attestation::DeviceTrustSignals* KeyInfo::unsafe_arena_release_device_trust_signals() {
   // @@protoc_insertion_point(field_release:attestation.KeyInfo.device_trust_signals)
-  _impl_._has_bits_[0] &= ~0x00000200u;
+  _impl_._has_bits_[0] &= ~0x00001000u;
   ::attestation::DeviceTrustSignals* temp = _impl_.device_trust_signals_;
   _impl_.device_trust_signals_ = nullptr;
   return temp;
 }
 inline ::attestation::DeviceTrustSignals* KeyInfo::_internal_mutable_device_trust_signals() {
-  _impl_._has_bits_[0] |= 0x00000200u;
+  _impl_._has_bits_[0] |= 0x00001000u;
   if (_impl_.device_trust_signals_ == nullptr) {
     auto* p = CreateMaybeMessage<::attestation::DeviceTrustSignals>(GetArenaForAllocation());
     _impl_.device_trust_signals_ = p;
@@ -8778,9 +8838,9 @@ inline void KeyInfo::set_allocated_device_trust_signals(::attestation::DeviceTru
       device_trust_signals = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, device_trust_signals, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000200u;
+    _impl_._has_bits_[0] |= 0x00001000u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000200u;
+    _impl_._has_bits_[0] &= ~0x00001000u;
   }
   _impl_.device_trust_signals_ = device_trust_signals;
   // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.device_trust_signals)
@@ -8920,6 +8980,210 @@ inline void KeyInfo::set_allocated_dm_token(std::string* dm_token) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.dm_token)
+}
+
+// optional string user_customer_id = 12;
+inline bool KeyInfo::_internal_has_user_customer_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000200u) != 0;
+  return value;
+}
+inline bool KeyInfo::has_user_customer_id() const {
+  return _internal_has_user_customer_id();
+}
+inline void KeyInfo::clear_user_customer_id() {
+  _impl_.user_customer_id_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000200u;
+}
+inline const std::string& KeyInfo::user_customer_id() const {
+  // @@protoc_insertion_point(field_get:attestation.KeyInfo.user_customer_id)
+  return _internal_user_customer_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void KeyInfo::set_user_customer_id(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000200u;
+ _impl_.user_customer_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:attestation.KeyInfo.user_customer_id)
+}
+inline std::string* KeyInfo::mutable_user_customer_id() {
+  std::string* _s = _internal_mutable_user_customer_id();
+  // @@protoc_insertion_point(field_mutable:attestation.KeyInfo.user_customer_id)
+  return _s;
+}
+inline const std::string& KeyInfo::_internal_user_customer_id() const {
+  return _impl_.user_customer_id_.Get();
+}
+inline void KeyInfo::_internal_set_user_customer_id(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000200u;
+  _impl_.user_customer_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* KeyInfo::_internal_mutable_user_customer_id() {
+  _impl_._has_bits_[0] |= 0x00000200u;
+  return _impl_.user_customer_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* KeyInfo::release_user_customer_id() {
+  // @@protoc_insertion_point(field_release:attestation.KeyInfo.user_customer_id)
+  if (!_internal_has_user_customer_id()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000200u;
+  auto* p = _impl_.user_customer_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.user_customer_id_.IsDefault()) {
+    _impl_.user_customer_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void KeyInfo::set_allocated_user_customer_id(std::string* user_customer_id) {
+  if (user_customer_id != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000200u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000200u;
+  }
+  _impl_.user_customer_id_.SetAllocated(user_customer_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.user_customer_id_.IsDefault()) {
+    _impl_.user_customer_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.user_customer_id)
+}
+
+// optional string obfuscated_gaia_id = 13;
+inline bool KeyInfo::_internal_has_obfuscated_gaia_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000400u) != 0;
+  return value;
+}
+inline bool KeyInfo::has_obfuscated_gaia_id() const {
+  return _internal_has_obfuscated_gaia_id();
+}
+inline void KeyInfo::clear_obfuscated_gaia_id() {
+  _impl_.obfuscated_gaia_id_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000400u;
+}
+inline const std::string& KeyInfo::obfuscated_gaia_id() const {
+  // @@protoc_insertion_point(field_get:attestation.KeyInfo.obfuscated_gaia_id)
+  return _internal_obfuscated_gaia_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void KeyInfo::set_obfuscated_gaia_id(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000400u;
+ _impl_.obfuscated_gaia_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:attestation.KeyInfo.obfuscated_gaia_id)
+}
+inline std::string* KeyInfo::mutable_obfuscated_gaia_id() {
+  std::string* _s = _internal_mutable_obfuscated_gaia_id();
+  // @@protoc_insertion_point(field_mutable:attestation.KeyInfo.obfuscated_gaia_id)
+  return _s;
+}
+inline const std::string& KeyInfo::_internal_obfuscated_gaia_id() const {
+  return _impl_.obfuscated_gaia_id_.Get();
+}
+inline void KeyInfo::_internal_set_obfuscated_gaia_id(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000400u;
+  _impl_.obfuscated_gaia_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* KeyInfo::_internal_mutable_obfuscated_gaia_id() {
+  _impl_._has_bits_[0] |= 0x00000400u;
+  return _impl_.obfuscated_gaia_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* KeyInfo::release_obfuscated_gaia_id() {
+  // @@protoc_insertion_point(field_release:attestation.KeyInfo.obfuscated_gaia_id)
+  if (!_internal_has_obfuscated_gaia_id()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000400u;
+  auto* p = _impl_.obfuscated_gaia_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.obfuscated_gaia_id_.IsDefault()) {
+    _impl_.obfuscated_gaia_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void KeyInfo::set_allocated_obfuscated_gaia_id(std::string* obfuscated_gaia_id) {
+  if (obfuscated_gaia_id != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000400u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000400u;
+  }
+  _impl_.obfuscated_gaia_id_.SetAllocated(obfuscated_gaia_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.obfuscated_gaia_id_.IsDefault()) {
+    _impl_.obfuscated_gaia_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.obfuscated_gaia_id)
+}
+
+// optional string profile_id = 14;
+inline bool KeyInfo::_internal_has_profile_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000800u) != 0;
+  return value;
+}
+inline bool KeyInfo::has_profile_id() const {
+  return _internal_has_profile_id();
+}
+inline void KeyInfo::clear_profile_id() {
+  _impl_.profile_id_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000800u;
+}
+inline const std::string& KeyInfo::profile_id() const {
+  // @@protoc_insertion_point(field_get:attestation.KeyInfo.profile_id)
+  return _internal_profile_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void KeyInfo::set_profile_id(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000800u;
+ _impl_.profile_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:attestation.KeyInfo.profile_id)
+}
+inline std::string* KeyInfo::mutable_profile_id() {
+  std::string* _s = _internal_mutable_profile_id();
+  // @@protoc_insertion_point(field_mutable:attestation.KeyInfo.profile_id)
+  return _s;
+}
+inline const std::string& KeyInfo::_internal_profile_id() const {
+  return _impl_.profile_id_.Get();
+}
+inline void KeyInfo::_internal_set_profile_id(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000800u;
+  _impl_.profile_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* KeyInfo::_internal_mutable_profile_id() {
+  _impl_._has_bits_[0] |= 0x00000800u;
+  return _impl_.profile_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* KeyInfo::release_profile_id() {
+  // @@protoc_insertion_point(field_release:attestation.KeyInfo.profile_id)
+  if (!_internal_has_profile_id()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000800u;
+  auto* p = _impl_.profile_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.profile_id_.IsDefault()) {
+    _impl_.profile_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void KeyInfo::set_allocated_profile_id(std::string* profile_id) {
+  if (profile_id != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000800u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000800u;
+  }
+  _impl_.profile_id_.SetAllocated(profile_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.profile_id_.IsDefault()) {
+    _impl_.profile_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.profile_id)
 }
 
 // -------------------------------------------------------------------

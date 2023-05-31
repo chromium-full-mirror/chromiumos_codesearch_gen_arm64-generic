@@ -274,6 +274,9 @@ PROTOBUF_CONSTEXPR KeyInfo::KeyInfo(
   , /*decltype(_impl_.signing_scheme_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.device_trust_signals_json_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.dm_token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.user_customer_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.obfuscated_gaia_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.profile_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.device_trust_signals_)*/nullptr
   , /*decltype(_impl_.key_type_)*/0} {}
 struct KeyInfoDefaultTypeInternal {
@@ -5873,7 +5876,7 @@ class KeyInfo::_Internal {
  public:
   using HasBits = decltype(std::declval<KeyInfo>()._impl_._has_bits_);
   static void set_has_key_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
+    (*has_bits)[0] |= 8192u;
   }
   static void set_has_domain(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -5898,13 +5901,22 @@ class KeyInfo::_Internal {
   }
   static const ::attestation::DeviceTrustSignals& device_trust_signals(const KeyInfo* msg);
   static void set_has_device_trust_signals(HasBits* has_bits) {
-    (*has_bits)[0] |= 512u;
+    (*has_bits)[0] |= 4096u;
   }
   static void set_has_device_trust_signals_json(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
   }
   static void set_has_dm_token(HasBits* has_bits) {
     (*has_bits)[0] |= 256u;
+  }
+  static void set_has_user_customer_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
+  }
+  static void set_has_obfuscated_gaia_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1024u;
+  }
+  static void set_has_profile_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 2048u;
   }
 };
 
@@ -5933,6 +5945,9 @@ KeyInfo::KeyInfo(const KeyInfo& from)
     , decltype(_impl_.signing_scheme_){}
     , decltype(_impl_.device_trust_signals_json_){}
     , decltype(_impl_.dm_token_){}
+    , decltype(_impl_.user_customer_id_){}
+    , decltype(_impl_.obfuscated_gaia_id_){}
+    , decltype(_impl_.profile_id_){}
     , decltype(_impl_.device_trust_signals_){nullptr}
     , decltype(_impl_.key_type_){}};
 
@@ -6009,6 +6024,30 @@ KeyInfo::KeyInfo(const KeyInfo& from)
     _this->_impl_.dm_token_.Set(from._internal_dm_token(), 
       _this->GetArenaForAllocation());
   }
+  _impl_.user_customer_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.user_customer_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_user_customer_id()) {
+    _this->_impl_.user_customer_id_.Set(from._internal_user_customer_id(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.obfuscated_gaia_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.obfuscated_gaia_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_obfuscated_gaia_id()) {
+    _this->_impl_.obfuscated_gaia_id_.Set(from._internal_obfuscated_gaia_id(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.profile_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.profile_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_profile_id()) {
+    _this->_impl_.profile_id_.Set(from._internal_profile_id(), 
+      _this->GetArenaForAllocation());
+  }
   if (from._internal_has_device_trust_signals()) {
     _this->_impl_.device_trust_signals_ = new ::attestation::DeviceTrustSignals(*from._impl_.device_trust_signals_);
   }
@@ -6032,6 +6071,9 @@ inline void KeyInfo::SharedCtor(
     , decltype(_impl_.signing_scheme_){}
     , decltype(_impl_.device_trust_signals_json_){}
     , decltype(_impl_.dm_token_){}
+    , decltype(_impl_.user_customer_id_){}
+    , decltype(_impl_.obfuscated_gaia_id_){}
+    , decltype(_impl_.profile_id_){}
     , decltype(_impl_.device_trust_signals_){nullptr}
     , decltype(_impl_.key_type_){0}
   };
@@ -6071,6 +6113,18 @@ inline void KeyInfo::SharedCtor(
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.dm_token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.user_customer_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.user_customer_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.obfuscated_gaia_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.obfuscated_gaia_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.profile_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.profile_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 KeyInfo::~KeyInfo() {
@@ -6093,6 +6147,9 @@ inline void KeyInfo::SharedDtor() {
   _impl_.signing_scheme_.Destroy();
   _impl_.device_trust_signals_json_.Destroy();
   _impl_.dm_token_.Destroy();
+  _impl_.user_customer_id_.Destroy();
+  _impl_.obfuscated_gaia_id_.Destroy();
+  _impl_.profile_id_.Destroy();
   if (this != internal_default_instance()) delete _impl_.device_trust_signals_;
 }
 
@@ -6133,11 +6190,20 @@ void KeyInfo::Clear() {
       _impl_.device_trust_signals_json_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x00000300u) {
+  if (cached_has_bits & 0x00001f00u) {
     if (cached_has_bits & 0x00000100u) {
       _impl_.dm_token_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000200u) {
+      _impl_.user_customer_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000400u) {
+      _impl_.obfuscated_gaia_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000800u) {
+      _impl_.profile_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00001000u) {
       GOOGLE_DCHECK(_impl_.device_trust_signals_ != nullptr);
       _impl_.device_trust_signals_->Clear();
     }
@@ -6256,6 +6322,33 @@ const char* KeyInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
         } else
           goto handle_unusual;
         continue;
+      // optional string user_customer_id = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+          auto str = _internal_mutable_user_customer_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string obfuscated_gaia_id = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+          auto str = _internal_mutable_obfuscated_gaia_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string profile_id = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+          auto str = _internal_mutable_profile_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -6288,7 +6381,7 @@ uint8_t* KeyInfo::_InternalSerialize(
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional .attestation.KeyProfile key_type = 1;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_key_type(), target);
@@ -6337,7 +6430,7 @@ uint8_t* KeyInfo::_InternalSerialize(
   }
 
   // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00001000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(9, _Internal::device_trust_signals(this),
         _Internal::device_trust_signals(this).GetCachedSize(), target, stream);
@@ -6353,6 +6446,24 @@ uint8_t* KeyInfo::_InternalSerialize(
   if (cached_has_bits & 0x00000100u) {
     target = stream->WriteStringMaybeAliased(
         11, this->_internal_dm_token(), target);
+  }
+
+  // optional string user_customer_id = 12;
+  if (cached_has_bits & 0x00000200u) {
+    target = stream->WriteStringMaybeAliased(
+        12, this->_internal_user_customer_id(), target);
+  }
+
+  // optional string obfuscated_gaia_id = 13;
+  if (cached_has_bits & 0x00000400u) {
+    target = stream->WriteStringMaybeAliased(
+        13, this->_internal_obfuscated_gaia_id(), target);
+  }
+
+  // optional string profile_id = 14;
+  if (cached_has_bits & 0x00000800u) {
+    target = stream->WriteStringMaybeAliased(
+        14, this->_internal_profile_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6430,7 +6541,7 @@ size_t KeyInfo::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00003f00u) {
     // optional string dm_token = 11;
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 +
@@ -6438,15 +6549,36 @@ size_t KeyInfo::ByteSizeLong() const {
           this->_internal_dm_token());
     }
 
-    // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
+    // optional string user_customer_id = 12;
     if (cached_has_bits & 0x00000200u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_user_customer_id());
+    }
+
+    // optional string obfuscated_gaia_id = 13;
+    if (cached_has_bits & 0x00000400u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_obfuscated_gaia_id());
+    }
+
+    // optional string profile_id = 14;
+    if (cached_has_bits & 0x00000800u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_profile_id());
+    }
+
+    // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
+    if (cached_has_bits & 0x00001000u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.device_trust_signals_);
     }
 
     // optional .attestation.KeyProfile key_type = 1;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00002000u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_key_type());
     }
@@ -6500,15 +6632,24 @@ void KeyInfo::MergeFrom(const KeyInfo& from) {
       _this->_internal_set_device_trust_signals_json(from._internal_device_trust_signals_json());
     }
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00003f00u) {
     if (cached_has_bits & 0x00000100u) {
       _this->_internal_set_dm_token(from._internal_dm_token());
     }
     if (cached_has_bits & 0x00000200u) {
+      _this->_internal_set_user_customer_id(from._internal_user_customer_id());
+    }
+    if (cached_has_bits & 0x00000400u) {
+      _this->_internal_set_obfuscated_gaia_id(from._internal_obfuscated_gaia_id());
+    }
+    if (cached_has_bits & 0x00000800u) {
+      _this->_internal_set_profile_id(from._internal_profile_id());
+    }
+    if (cached_has_bits & 0x00001000u) {
       _this->_internal_mutable_device_trust_signals()->::attestation::DeviceTrustSignals::MergeFrom(
           from._internal_device_trust_signals());
     }
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00002000u) {
       _this->_impl_.key_type_ = from._impl_.key_type_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
@@ -6568,6 +6709,18 @@ void KeyInfo::InternalSwap(KeyInfo* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.dm_token_, lhs_arena,
       &other->_impl_.dm_token_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.user_customer_id_, lhs_arena,
+      &other->_impl_.user_customer_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.obfuscated_gaia_id_, lhs_arena,
+      &other->_impl_.obfuscated_gaia_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.profile_id_, lhs_arena,
+      &other->_impl_.profile_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(KeyInfo, _impl_.key_type_)
