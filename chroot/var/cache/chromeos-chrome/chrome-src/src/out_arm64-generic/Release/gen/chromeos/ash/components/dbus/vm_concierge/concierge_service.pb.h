@@ -407,13 +407,14 @@ enum StartVmRequest_TerminaFeature : int {
   StartVmRequest_TerminaFeature_USED_BY_TESTS = 1,
   StartVmRequest_TerminaFeature_START_LXD PROTOBUF_DEPRECATED_ENUM = 2,
   StartVmRequest_TerminaFeature_RESET_LXD_ON_LAUNCH PROTOBUF_DEPRECATED_ENUM = 3,
-  StartVmRequest_TerminaFeature_LXD_4_LTS = 4,
+  StartVmRequest_TerminaFeature_LXD_4_LTS PROTOBUF_DEPRECATED_ENUM = 4,
+  StartVmRequest_TerminaFeature_LXD_5_LTS = 5,
   StartVmRequest_TerminaFeature_StartVmRequest_TerminaFeature_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   StartVmRequest_TerminaFeature_StartVmRequest_TerminaFeature_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool StartVmRequest_TerminaFeature_IsValid(int value);
 constexpr StartVmRequest_TerminaFeature StartVmRequest_TerminaFeature_TerminaFeature_MIN = StartVmRequest_TerminaFeature_UNKNOWN;
-constexpr StartVmRequest_TerminaFeature StartVmRequest_TerminaFeature_TerminaFeature_MAX = StartVmRequest_TerminaFeature_LXD_4_LTS;
+constexpr StartVmRequest_TerminaFeature StartVmRequest_TerminaFeature_TerminaFeature_MAX = StartVmRequest_TerminaFeature_LXD_5_LTS;
 constexpr int StartVmRequest_TerminaFeature_TerminaFeature_ARRAYSIZE = StartVmRequest_TerminaFeature_TerminaFeature_MAX + 1;
 
 const std::string& StartVmRequest_TerminaFeature_Name(StartVmRequest_TerminaFeature value);
@@ -1782,8 +1783,10 @@ class StartVmRequest final :
     StartVmRequest_TerminaFeature_START_LXD;
   PROTOBUF_DEPRECATED_ENUM static constexpr TerminaFeature RESET_LXD_ON_LAUNCH =
     StartVmRequest_TerminaFeature_RESET_LXD_ON_LAUNCH;
-  static constexpr TerminaFeature LXD_4_LTS =
+  PROTOBUF_DEPRECATED_ENUM static constexpr TerminaFeature LXD_4_LTS =
     StartVmRequest_TerminaFeature_LXD_4_LTS;
+  static constexpr TerminaFeature LXD_5_LTS =
+    StartVmRequest_TerminaFeature_LXD_5_LTS;
   static inline bool TerminaFeature_IsValid(int value) {
     return StartVmRequest_TerminaFeature_IsValid(value);
   }
@@ -1813,7 +1816,6 @@ class StartVmRequest final :
     kKernelParamsFieldNumber = 17,
     kFeaturesFieldNumber = 21,
     kOemStringsFieldNumber = 24,
-    kSharedDirectoryFieldNumber = 3,
     kNameFieldNumber = 4,
     kOwnerIdFieldNumber = 7,
     kVmUsernameFieldNumber = 26,
@@ -1932,20 +1934,6 @@ class StartVmRequest final :
   private:
   const std::string& _internal_oem_strings(int index) const;
   std::string* _internal_add_oem_strings();
-  public:
-
-  // string shared_directory = 3 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_shared_directory();
-  PROTOBUF_DEPRECATED const std::string& shared_directory() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  PROTOBUF_DEPRECATED void set_shared_directory(ArgT0&& arg0, ArgT... args);
-  PROTOBUF_DEPRECATED std::string* mutable_shared_directory();
-  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED std::string* release_shared_directory();
-  PROTOBUF_DEPRECATED void set_allocated_shared_directory(std::string* shared_directory);
-  private:
-  const std::string& _internal_shared_directory() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_shared_directory(const std::string& value);
-  std::string* _internal_mutable_shared_directory();
   public:
 
   // string name = 4;
@@ -2157,7 +2145,6 @@ class StartVmRequest final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> features_;
   mutable std::atomic<int> _features_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> oem_strings_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr shared_directory_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_username_;
@@ -2645,7 +2632,6 @@ class StartArcVmRequest final :
 
   enum : int {
     kDisksFieldNumber = 2,
-    kParamsFieldNumber = 5,
     kNameFieldNumber = 3,
     kOwnerIdFieldNumber = 4,
     kFstabFieldNumber = 6,
@@ -2658,33 +2644,24 @@ class StartArcVmRequest final :
     kUseHugepagesFieldNumber = 11,
     kMemoryMibFieldNumber = 12,
     kRootfsBlockSizeFieldNumber = 15,
-    kUsePerVmCoreSchedulingFieldNumber = 14,
-    kEnableConsumerAutoUpdateToggleFieldNumber = 16,
-    kLockGuestMemoryFieldNumber = 18,
-    kEnableArcFilePickerExperimentFieldNumber = 19,
     kPanelOrientationFieldNumber = 17,
-    kEnableCustomTabsExperimentFieldNumber = 20,
+    kUsePerVmCoreSchedulingFieldNumber = 14,
+    kLockGuestMemoryFieldNumber = 18,
     kEnableKeyboardShortcutHelperIntegrationFieldNumber = 21,
-    kEnableNotificationsRefreshFieldNumber = 22,
-    kEnableTtsCachingFieldNumber = 23,
-    kLogdConfigSizeFieldNumber = 26,
-    kEnableGmscoreLmkProtectionFieldNumber = 24,
     kEnableBroadcastAnrPrenotifyFieldNumber = 25,
-    kEnableVirtioBlkDataFieldNumber = 27,
-    kDisableMediaStoreMaintenanceFieldNumber = 29,
+    kLogdConfigSizeFieldNumber = 26,
     kVmMemoryPsiPeriodFieldNumber = 28,
     kGuestZramSizeFieldNumber = 32,
     kGuestSwappinessFieldNumber = 33,
-    kArcGeneratePlayAutoInstallFieldNumber = 30,
-    kDisableDownloadProviderFieldNumber = 31,
-    kUpdateO4CListViaA2C2FieldNumber = 37,
-    kEnableRwFieldNumber = 41,
     kMglruReclaimIntervalFieldNumber = 35,
     kMglruReclaimSwappinessFieldNumber = 36,
+    kEnableVirtioBlkDataFieldNumber = 27,
+    kUpdateO4CListViaA2C2FieldNumber = 37,
+    kEnableRwFieldNumber = 41,
+    kEnableWebViewZygoteLazyInitFieldNumber = 42,
     kUsapProfileFieldNumber = 38,
     kNativeBridgeExperimentFieldNumber = 39,
     kUreadaheadModeFieldNumber = 40,
-    kEnableWebViewZygoteLazyInitFieldNumber = 42,
     kEnableVmmSwapFieldNumber = 43,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
@@ -2704,30 +2681,6 @@ class StartArcVmRequest final :
   ::vm_tools::concierge::DiskImage* add_disks();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vm_tools::concierge::DiskImage >&
       disks() const;
-
-  // repeated string params = 5 [deprecated = true];
-  PROTOBUF_DEPRECATED int params_size() const;
-  private:
-  int _internal_params_size() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_params();
-  PROTOBUF_DEPRECATED const std::string& params(int index) const;
-  PROTOBUF_DEPRECATED std::string* mutable_params(int index);
-  PROTOBUF_DEPRECATED void set_params(int index, const std::string& value);
-  PROTOBUF_DEPRECATED void set_params(int index, std::string&& value);
-  PROTOBUF_DEPRECATED void set_params(int index, const char* value);
-  PROTOBUF_DEPRECATED void set_params(int index, const char* value, size_t size);
-  PROTOBUF_DEPRECATED std::string* add_params();
-  PROTOBUF_DEPRECATED void add_params(const std::string& value);
-  PROTOBUF_DEPRECATED void add_params(std::string&& value);
-  PROTOBUF_DEPRECATED void add_params(const char* value);
-  PROTOBUF_DEPRECATED void add_params(const char* value, size_t size);
-  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& params() const;
-  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_params();
-  private:
-  const std::string& _internal_params(int index) const;
-  std::string* _internal_add_params();
-  public:
 
   // string name = 3;
   void clear_name();
@@ -2870,6 +2823,15 @@ class StartArcVmRequest final :
   void _internal_set_rootfs_block_size(uint32_t value);
   public:
 
+  // .vm_tools.concierge.StartArcVmRequest.DisplayOrientation panel_orientation = 17;
+  void clear_panel_orientation();
+  ::vm_tools::concierge::StartArcVmRequest_DisplayOrientation panel_orientation() const;
+  void set_panel_orientation(::vm_tools::concierge::StartArcVmRequest_DisplayOrientation value);
+  private:
+  ::vm_tools::concierge::StartArcVmRequest_DisplayOrientation _internal_panel_orientation() const;
+  void _internal_set_panel_orientation(::vm_tools::concierge::StartArcVmRequest_DisplayOrientation value);
+  public:
+
   // bool use_per_vm_core_scheduling = 14;
   void clear_use_per_vm_core_scheduling();
   bool use_per_vm_core_scheduling() const;
@@ -2877,15 +2839,6 @@ class StartArcVmRequest final :
   private:
   bool _internal_use_per_vm_core_scheduling() const;
   void _internal_set_use_per_vm_core_scheduling(bool value);
-  public:
-
-  // bool enable_consumer_auto_update_toggle = 16 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_enable_consumer_auto_update_toggle();
-  PROTOBUF_DEPRECATED bool enable_consumer_auto_update_toggle() const;
-  PROTOBUF_DEPRECATED void set_enable_consumer_auto_update_toggle(bool value);
-  private:
-  bool _internal_enable_consumer_auto_update_toggle() const;
-  void _internal_set_enable_consumer_auto_update_toggle(bool value);
   public:
 
   // bool lock_guest_memory = 18;
@@ -2897,33 +2850,6 @@ class StartArcVmRequest final :
   void _internal_set_lock_guest_memory(bool value);
   public:
 
-  // bool enable_arc_file_picker_experiment = 19 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_enable_arc_file_picker_experiment();
-  PROTOBUF_DEPRECATED bool enable_arc_file_picker_experiment() const;
-  PROTOBUF_DEPRECATED void set_enable_arc_file_picker_experiment(bool value);
-  private:
-  bool _internal_enable_arc_file_picker_experiment() const;
-  void _internal_set_enable_arc_file_picker_experiment(bool value);
-  public:
-
-  // .vm_tools.concierge.StartArcVmRequest.DisplayOrientation panel_orientation = 17;
-  void clear_panel_orientation();
-  ::vm_tools::concierge::StartArcVmRequest_DisplayOrientation panel_orientation() const;
-  void set_panel_orientation(::vm_tools::concierge::StartArcVmRequest_DisplayOrientation value);
-  private:
-  ::vm_tools::concierge::StartArcVmRequest_DisplayOrientation _internal_panel_orientation() const;
-  void _internal_set_panel_orientation(::vm_tools::concierge::StartArcVmRequest_DisplayOrientation value);
-  public:
-
-  // bool enable_custom_tabs_experiment = 20 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_enable_custom_tabs_experiment();
-  PROTOBUF_DEPRECATED bool enable_custom_tabs_experiment() const;
-  PROTOBUF_DEPRECATED void set_enable_custom_tabs_experiment(bool value);
-  private:
-  bool _internal_enable_custom_tabs_experiment() const;
-  void _internal_set_enable_custom_tabs_experiment(bool value);
-  public:
-
   // bool enable_keyboard_shortcut_helper_integration = 21;
   void clear_enable_keyboard_shortcut_helper_integration();
   bool enable_keyboard_shortcut_helper_integration() const;
@@ -2931,42 +2857,6 @@ class StartArcVmRequest final :
   private:
   bool _internal_enable_keyboard_shortcut_helper_integration() const;
   void _internal_set_enable_keyboard_shortcut_helper_integration(bool value);
-  public:
-
-  // bool enable_notifications_refresh = 22 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_enable_notifications_refresh();
-  PROTOBUF_DEPRECATED bool enable_notifications_refresh() const;
-  PROTOBUF_DEPRECATED void set_enable_notifications_refresh(bool value);
-  private:
-  bool _internal_enable_notifications_refresh() const;
-  void _internal_set_enable_notifications_refresh(bool value);
-  public:
-
-  // bool enable_tts_caching = 23 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_enable_tts_caching();
-  PROTOBUF_DEPRECATED bool enable_tts_caching() const;
-  PROTOBUF_DEPRECATED void set_enable_tts_caching(bool value);
-  private:
-  bool _internal_enable_tts_caching() const;
-  void _internal_set_enable_tts_caching(bool value);
-  public:
-
-  // int32 logd_config_size = 26 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_logd_config_size();
-  PROTOBUF_DEPRECATED int32_t logd_config_size() const;
-  PROTOBUF_DEPRECATED void set_logd_config_size(int32_t value);
-  private:
-  int32_t _internal_logd_config_size() const;
-  void _internal_set_logd_config_size(int32_t value);
-  public:
-
-  // bool enable_gmscore_lmk_protection = 24 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_enable_gmscore_lmk_protection();
-  PROTOBUF_DEPRECATED bool enable_gmscore_lmk_protection() const;
-  PROTOBUF_DEPRECATED void set_enable_gmscore_lmk_protection(bool value);
-  private:
-  bool _internal_enable_gmscore_lmk_protection() const;
-  void _internal_set_enable_gmscore_lmk_protection(bool value);
   public:
 
   // bool enable_broadcast_anr_prenotify = 25;
@@ -2978,22 +2868,13 @@ class StartArcVmRequest final :
   void _internal_set_enable_broadcast_anr_prenotify(bool value);
   public:
 
-  // bool enable_virtio_blk_data = 27;
-  void clear_enable_virtio_blk_data();
-  bool enable_virtio_blk_data() const;
-  void set_enable_virtio_blk_data(bool value);
+  // int32 logd_config_size = 26 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_logd_config_size();
+  PROTOBUF_DEPRECATED int32_t logd_config_size() const;
+  PROTOBUF_DEPRECATED void set_logd_config_size(int32_t value);
   private:
-  bool _internal_enable_virtio_blk_data() const;
-  void _internal_set_enable_virtio_blk_data(bool value);
-  public:
-
-  // bool disable_media_store_maintenance = 29 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_disable_media_store_maintenance();
-  PROTOBUF_DEPRECATED bool disable_media_store_maintenance() const;
-  PROTOBUF_DEPRECATED void set_disable_media_store_maintenance(bool value);
-  private:
-  bool _internal_disable_media_store_maintenance() const;
-  void _internal_set_disable_media_store_maintenance(bool value);
+  int32_t _internal_logd_config_size() const;
+  void _internal_set_logd_config_size(int32_t value);
   public:
 
   // int32 vm_memory_psi_period = 28;
@@ -3023,22 +2904,31 @@ class StartArcVmRequest final :
   void _internal_set_guest_swappiness(int32_t value);
   public:
 
-  // bool arc_generate_play_auto_install = 30 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_arc_generate_play_auto_install();
-  PROTOBUF_DEPRECATED bool arc_generate_play_auto_install() const;
-  PROTOBUF_DEPRECATED void set_arc_generate_play_auto_install(bool value);
+  // int32 mglru_reclaim_interval = 35;
+  void clear_mglru_reclaim_interval();
+  int32_t mglru_reclaim_interval() const;
+  void set_mglru_reclaim_interval(int32_t value);
   private:
-  bool _internal_arc_generate_play_auto_install() const;
-  void _internal_set_arc_generate_play_auto_install(bool value);
+  int32_t _internal_mglru_reclaim_interval() const;
+  void _internal_set_mglru_reclaim_interval(int32_t value);
   public:
 
-  // bool disable_download_provider = 31 [deprecated = true];
-  PROTOBUF_DEPRECATED void clear_disable_download_provider();
-  PROTOBUF_DEPRECATED bool disable_download_provider() const;
-  PROTOBUF_DEPRECATED void set_disable_download_provider(bool value);
+  // int32 mglru_reclaim_swappiness = 36;
+  void clear_mglru_reclaim_swappiness();
+  int32_t mglru_reclaim_swappiness() const;
+  void set_mglru_reclaim_swappiness(int32_t value);
   private:
-  bool _internal_disable_download_provider() const;
-  void _internal_set_disable_download_provider(bool value);
+  int32_t _internal_mglru_reclaim_swappiness() const;
+  void _internal_set_mglru_reclaim_swappiness(int32_t value);
+  public:
+
+  // bool enable_virtio_blk_data = 27;
+  void clear_enable_virtio_blk_data();
+  bool enable_virtio_blk_data() const;
+  void set_enable_virtio_blk_data(bool value);
+  private:
+  bool _internal_enable_virtio_blk_data() const;
+  void _internal_set_enable_virtio_blk_data(bool value);
   public:
 
   // bool update_o4c_list_via_a2c2 = 37 [deprecated = true];
@@ -3059,22 +2949,13 @@ class StartArcVmRequest final :
   void _internal_set_enable_rw(bool value);
   public:
 
-  // int32 mglru_reclaim_interval = 35;
-  void clear_mglru_reclaim_interval();
-  int32_t mglru_reclaim_interval() const;
-  void set_mglru_reclaim_interval(int32_t value);
+  // bool enable_web_view_zygote_lazy_init = 42;
+  void clear_enable_web_view_zygote_lazy_init();
+  bool enable_web_view_zygote_lazy_init() const;
+  void set_enable_web_view_zygote_lazy_init(bool value);
   private:
-  int32_t _internal_mglru_reclaim_interval() const;
-  void _internal_set_mglru_reclaim_interval(int32_t value);
-  public:
-
-  // int32 mglru_reclaim_swappiness = 36;
-  void clear_mglru_reclaim_swappiness();
-  int32_t mglru_reclaim_swappiness() const;
-  void set_mglru_reclaim_swappiness(int32_t value);
-  private:
-  int32_t _internal_mglru_reclaim_swappiness() const;
-  void _internal_set_mglru_reclaim_swappiness(int32_t value);
+  bool _internal_enable_web_view_zygote_lazy_init() const;
+  void _internal_set_enable_web_view_zygote_lazy_init(bool value);
   public:
 
   // .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
@@ -3104,15 +2985,6 @@ class StartArcVmRequest final :
   void _internal_set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
   public:
 
-  // bool enable_web_view_zygote_lazy_init = 42;
-  void clear_enable_web_view_zygote_lazy_init();
-  bool enable_web_view_zygote_lazy_init() const;
-  void set_enable_web_view_zygote_lazy_init(bool value);
-  private:
-  bool _internal_enable_web_view_zygote_lazy_init() const;
-  void _internal_set_enable_web_view_zygote_lazy_init(bool value);
-  public:
-
   // bool enable_vmm_swap = 43;
   void clear_enable_vmm_swap();
   bool enable_vmm_swap() const;
@@ -3130,7 +3002,6 @@ class StartArcVmRequest final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vm_tools::concierge::DiskImage > disks_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> params_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr fstab_;
@@ -3143,33 +3014,24 @@ class StartArcVmRequest final :
   bool use_hugepages_;
   uint32_t memory_mib_;
   uint32_t rootfs_block_size_;
-  bool use_per_vm_core_scheduling_;
-  bool enable_consumer_auto_update_toggle_;
-  bool lock_guest_memory_;
-  bool enable_arc_file_picker_experiment_;
   int panel_orientation_;
-  bool enable_custom_tabs_experiment_;
+  bool use_per_vm_core_scheduling_;
+  bool lock_guest_memory_;
   bool enable_keyboard_shortcut_helper_integration_;
-  bool enable_notifications_refresh_;
-  bool enable_tts_caching_;
-  int32_t logd_config_size_;
-  bool enable_gmscore_lmk_protection_;
   bool enable_broadcast_anr_prenotify_;
-  bool enable_virtio_blk_data_;
-  bool disable_media_store_maintenance_;
+  int32_t logd_config_size_;
   int32_t vm_memory_psi_period_;
   int32_t guest_zram_size_;
   int32_t guest_swappiness_;
-  bool arc_generate_play_auto_install_;
-  bool disable_download_provider_;
-  bool update_o4c_list_via_a2c2_;
-  bool enable_rw_;
   int32_t mglru_reclaim_interval_;
   int32_t mglru_reclaim_swappiness_;
+  bool enable_virtio_blk_data_;
+  bool update_o4c_list_via_a2c2_;
+  bool enable_rw_;
+  bool enable_web_view_zygote_lazy_init_;
   int usap_profile_;
   int native_bridge_experiment_;
   int ureadahead_mode_;
-  bool enable_web_view_zygote_lazy_init_;
   bool enable_vmm_swap_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
@@ -14816,56 +14678,6 @@ StartVmRequest::disks() const {
   return disks_;
 }
 
-// string shared_directory = 3 [deprecated = true];
-inline void StartVmRequest::clear_shared_directory() {
-  shared_directory_.ClearToEmpty();
-}
-inline const std::string& StartVmRequest::shared_directory() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.shared_directory)
-  return _internal_shared_directory();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void StartVmRequest::set_shared_directory(ArgT0&& arg0, ArgT... args) {
- 
- shared_directory_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.shared_directory)
-}
-inline std::string* StartVmRequest::mutable_shared_directory() {
-  std::string* _s = _internal_mutable_shared_directory();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.StartVmRequest.shared_directory)
-  return _s;
-}
-inline const std::string& StartVmRequest::_internal_shared_directory() const {
-  return shared_directory_.Get();
-}
-inline void StartVmRequest::_internal_set_shared_directory(const std::string& value) {
-  
-  shared_directory_.Set(value, GetArenaForAllocation());
-}
-inline std::string* StartVmRequest::_internal_mutable_shared_directory() {
-  
-  return shared_directory_.Mutable(GetArenaForAllocation());
-}
-inline std::string* StartVmRequest::release_shared_directory() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.StartVmRequest.shared_directory)
-  return shared_directory_.Release();
-}
-inline void StartVmRequest::set_allocated_shared_directory(std::string* shared_directory) {
-  if (shared_directory != nullptr) {
-    
-  } else {
-    
-  }
-  shared_directory_.SetAllocated(shared_directory, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (shared_directory_.IsDefault()) {
-    shared_directory_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.StartVmRequest.shared_directory)
-}
-
 // string name = 4;
 inline void StartVmRequest::clear_name() {
   name_.ClearToEmpty();
@@ -16165,81 +15977,6 @@ inline void StartArcVmRequest::set_allocated_owner_id(std::string* owner_id) {
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.StartArcVmRequest.owner_id)
 }
 
-// repeated string params = 5 [deprecated = true];
-inline int StartArcVmRequest::_internal_params_size() const {
-  return params_.size();
-}
-inline int StartArcVmRequest::params_size() const {
-  return _internal_params_size();
-}
-inline void StartArcVmRequest::clear_params() {
-  params_.Clear();
-}
-inline std::string* StartArcVmRequest::add_params() {
-  std::string* _s = _internal_add_params();
-  // @@protoc_insertion_point(field_add_mutable:vm_tools.concierge.StartArcVmRequest.params)
-  return _s;
-}
-inline const std::string& StartArcVmRequest::_internal_params(int index) const {
-  return params_.Get(index);
-}
-inline const std::string& StartArcVmRequest::params(int index) const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.params)
-  return _internal_params(index);
-}
-inline std::string* StartArcVmRequest::mutable_params(int index) {
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.StartArcVmRequest.params)
-  return params_.Mutable(index);
-}
-inline void StartArcVmRequest::set_params(int index, const std::string& value) {
-  params_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.params)
-}
-inline void StartArcVmRequest::set_params(int index, std::string&& value) {
-  params_.Mutable(index)->assign(std::move(value));
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.params)
-}
-inline void StartArcVmRequest::set_params(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  params_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:vm_tools.concierge.StartArcVmRequest.params)
-}
-inline void StartArcVmRequest::set_params(int index, const char* value, size_t size) {
-  params_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:vm_tools.concierge.StartArcVmRequest.params)
-}
-inline std::string* StartArcVmRequest::_internal_add_params() {
-  return params_.Add();
-}
-inline void StartArcVmRequest::add_params(const std::string& value) {
-  params_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:vm_tools.concierge.StartArcVmRequest.params)
-}
-inline void StartArcVmRequest::add_params(std::string&& value) {
-  params_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:vm_tools.concierge.StartArcVmRequest.params)
-}
-inline void StartArcVmRequest::add_params(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  params_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:vm_tools.concierge.StartArcVmRequest.params)
-}
-inline void StartArcVmRequest::add_params(const char* value, size_t size) {
-  params_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:vm_tools.concierge.StartArcVmRequest.params)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-StartArcVmRequest::params() const {
-  // @@protoc_insertion_point(field_list:vm_tools.concierge.StartArcVmRequest.params)
-  return params_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-StartArcVmRequest::mutable_params() {
-  // @@protoc_insertion_point(field_mutable_list:vm_tools.concierge.StartArcVmRequest.params)
-  return &params_;
-}
-
 // string fstab = 6;
 inline void StartArcVmRequest::clear_fstab() {
   fstab_.ClearToEmpty();
@@ -16450,26 +16187,6 @@ inline void StartArcVmRequest::set_rootfs_block_size(uint32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.rootfs_block_size)
 }
 
-// bool enable_consumer_auto_update_toggle = 16 [deprecated = true];
-inline void StartArcVmRequest::clear_enable_consumer_auto_update_toggle() {
-  enable_consumer_auto_update_toggle_ = false;
-}
-inline bool StartArcVmRequest::_internal_enable_consumer_auto_update_toggle() const {
-  return enable_consumer_auto_update_toggle_;
-}
-inline bool StartArcVmRequest::enable_consumer_auto_update_toggle() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_consumer_auto_update_toggle)
-  return _internal_enable_consumer_auto_update_toggle();
-}
-inline void StartArcVmRequest::_internal_set_enable_consumer_auto_update_toggle(bool value) {
-  
-  enable_consumer_auto_update_toggle_ = value;
-}
-inline void StartArcVmRequest::set_enable_consumer_auto_update_toggle(bool value) {
-  _internal_set_enable_consumer_auto_update_toggle(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_consumer_auto_update_toggle)
-}
-
 // .vm_tools.concierge.StartArcVmRequest.DisplayOrientation panel_orientation = 17;
 inline void StartArcVmRequest::clear_panel_orientation() {
   panel_orientation_ = 0;
@@ -16510,46 +16227,6 @@ inline void StartArcVmRequest::set_lock_guest_memory(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.lock_guest_memory)
 }
 
-// bool enable_arc_file_picker_experiment = 19 [deprecated = true];
-inline void StartArcVmRequest::clear_enable_arc_file_picker_experiment() {
-  enable_arc_file_picker_experiment_ = false;
-}
-inline bool StartArcVmRequest::_internal_enable_arc_file_picker_experiment() const {
-  return enable_arc_file_picker_experiment_;
-}
-inline bool StartArcVmRequest::enable_arc_file_picker_experiment() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_arc_file_picker_experiment)
-  return _internal_enable_arc_file_picker_experiment();
-}
-inline void StartArcVmRequest::_internal_set_enable_arc_file_picker_experiment(bool value) {
-  
-  enable_arc_file_picker_experiment_ = value;
-}
-inline void StartArcVmRequest::set_enable_arc_file_picker_experiment(bool value) {
-  _internal_set_enable_arc_file_picker_experiment(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_arc_file_picker_experiment)
-}
-
-// bool enable_custom_tabs_experiment = 20 [deprecated = true];
-inline void StartArcVmRequest::clear_enable_custom_tabs_experiment() {
-  enable_custom_tabs_experiment_ = false;
-}
-inline bool StartArcVmRequest::_internal_enable_custom_tabs_experiment() const {
-  return enable_custom_tabs_experiment_;
-}
-inline bool StartArcVmRequest::enable_custom_tabs_experiment() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_custom_tabs_experiment)
-  return _internal_enable_custom_tabs_experiment();
-}
-inline void StartArcVmRequest::_internal_set_enable_custom_tabs_experiment(bool value) {
-  
-  enable_custom_tabs_experiment_ = value;
-}
-inline void StartArcVmRequest::set_enable_custom_tabs_experiment(bool value) {
-  _internal_set_enable_custom_tabs_experiment(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_custom_tabs_experiment)
-}
-
 // bool enable_keyboard_shortcut_helper_integration = 21;
 inline void StartArcVmRequest::clear_enable_keyboard_shortcut_helper_integration() {
   enable_keyboard_shortcut_helper_integration_ = false;
@@ -16568,66 +16245,6 @@ inline void StartArcVmRequest::_internal_set_enable_keyboard_shortcut_helper_int
 inline void StartArcVmRequest::set_enable_keyboard_shortcut_helper_integration(bool value) {
   _internal_set_enable_keyboard_shortcut_helper_integration(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_keyboard_shortcut_helper_integration)
-}
-
-// bool enable_notifications_refresh = 22 [deprecated = true];
-inline void StartArcVmRequest::clear_enable_notifications_refresh() {
-  enable_notifications_refresh_ = false;
-}
-inline bool StartArcVmRequest::_internal_enable_notifications_refresh() const {
-  return enable_notifications_refresh_;
-}
-inline bool StartArcVmRequest::enable_notifications_refresh() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_notifications_refresh)
-  return _internal_enable_notifications_refresh();
-}
-inline void StartArcVmRequest::_internal_set_enable_notifications_refresh(bool value) {
-  
-  enable_notifications_refresh_ = value;
-}
-inline void StartArcVmRequest::set_enable_notifications_refresh(bool value) {
-  _internal_set_enable_notifications_refresh(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_notifications_refresh)
-}
-
-// bool enable_tts_caching = 23 [deprecated = true];
-inline void StartArcVmRequest::clear_enable_tts_caching() {
-  enable_tts_caching_ = false;
-}
-inline bool StartArcVmRequest::_internal_enable_tts_caching() const {
-  return enable_tts_caching_;
-}
-inline bool StartArcVmRequest::enable_tts_caching() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_tts_caching)
-  return _internal_enable_tts_caching();
-}
-inline void StartArcVmRequest::_internal_set_enable_tts_caching(bool value) {
-  
-  enable_tts_caching_ = value;
-}
-inline void StartArcVmRequest::set_enable_tts_caching(bool value) {
-  _internal_set_enable_tts_caching(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_tts_caching)
-}
-
-// bool enable_gmscore_lmk_protection = 24 [deprecated = true];
-inline void StartArcVmRequest::clear_enable_gmscore_lmk_protection() {
-  enable_gmscore_lmk_protection_ = false;
-}
-inline bool StartArcVmRequest::_internal_enable_gmscore_lmk_protection() const {
-  return enable_gmscore_lmk_protection_;
-}
-inline bool StartArcVmRequest::enable_gmscore_lmk_protection() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_gmscore_lmk_protection)
-  return _internal_enable_gmscore_lmk_protection();
-}
-inline void StartArcVmRequest::_internal_set_enable_gmscore_lmk_protection(bool value) {
-  
-  enable_gmscore_lmk_protection_ = value;
-}
-inline void StartArcVmRequest::set_enable_gmscore_lmk_protection(bool value) {
-  _internal_set_enable_gmscore_lmk_protection(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_gmscore_lmk_protection)
 }
 
 // bool enable_broadcast_anr_prenotify = 25;
@@ -16708,66 +16325,6 @@ inline void StartArcVmRequest::_internal_set_vm_memory_psi_period(int32_t value)
 inline void StartArcVmRequest::set_vm_memory_psi_period(int32_t value) {
   _internal_set_vm_memory_psi_period(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.vm_memory_psi_period)
-}
-
-// bool disable_media_store_maintenance = 29 [deprecated = true];
-inline void StartArcVmRequest::clear_disable_media_store_maintenance() {
-  disable_media_store_maintenance_ = false;
-}
-inline bool StartArcVmRequest::_internal_disable_media_store_maintenance() const {
-  return disable_media_store_maintenance_;
-}
-inline bool StartArcVmRequest::disable_media_store_maintenance() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.disable_media_store_maintenance)
-  return _internal_disable_media_store_maintenance();
-}
-inline void StartArcVmRequest::_internal_set_disable_media_store_maintenance(bool value) {
-  
-  disable_media_store_maintenance_ = value;
-}
-inline void StartArcVmRequest::set_disable_media_store_maintenance(bool value) {
-  _internal_set_disable_media_store_maintenance(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.disable_media_store_maintenance)
-}
-
-// bool arc_generate_play_auto_install = 30 [deprecated = true];
-inline void StartArcVmRequest::clear_arc_generate_play_auto_install() {
-  arc_generate_play_auto_install_ = false;
-}
-inline bool StartArcVmRequest::_internal_arc_generate_play_auto_install() const {
-  return arc_generate_play_auto_install_;
-}
-inline bool StartArcVmRequest::arc_generate_play_auto_install() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.arc_generate_play_auto_install)
-  return _internal_arc_generate_play_auto_install();
-}
-inline void StartArcVmRequest::_internal_set_arc_generate_play_auto_install(bool value) {
-  
-  arc_generate_play_auto_install_ = value;
-}
-inline void StartArcVmRequest::set_arc_generate_play_auto_install(bool value) {
-  _internal_set_arc_generate_play_auto_install(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.arc_generate_play_auto_install)
-}
-
-// bool disable_download_provider = 31 [deprecated = true];
-inline void StartArcVmRequest::clear_disable_download_provider() {
-  disable_download_provider_ = false;
-}
-inline bool StartArcVmRequest::_internal_disable_download_provider() const {
-  return disable_download_provider_;
-}
-inline bool StartArcVmRequest::disable_download_provider() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.disable_download_provider)
-  return _internal_disable_download_provider();
-}
-inline void StartArcVmRequest::_internal_set_disable_download_provider(bool value) {
-  
-  disable_download_provider_ = value;
-}
-inline void StartArcVmRequest::set_disable_download_provider(bool value) {
-  _internal_set_disable_download_provider(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.disable_download_provider)
 }
 
 // int32 guest_zram_size = 32;
