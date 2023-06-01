@@ -1634,6 +1634,25 @@ struct RemoveAuthFactorReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RemoveAuthFactorReplyDefaultTypeInternal _RemoveAuthFactorReply_default_instance_;
+PROTOBUF_CONSTEXPR AuthIntentsForAuthFactorType::AuthIntentsForAuthFactorType(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.current_)*/{}
+  , /*decltype(_impl_._current_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.minimum_)*/{}
+  , /*decltype(_impl_._minimum_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.maximum_)*/{}
+  , /*decltype(_impl_._maximum_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct AuthIntentsForAuthFactorTypeDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthIntentsForAuthFactorTypeDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthIntentsForAuthFactorTypeDefaultTypeInternal() {}
+  union {
+    AuthIntentsForAuthFactorType _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthIntentsForAuthFactorTypeDefaultTypeInternal _AuthIntentsForAuthFactorType_default_instance_;
 PROTOBUF_CONSTEXPR ListAuthFactorsRequest::ListAuthFactorsRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.account_id_)*/nullptr
@@ -1653,6 +1672,7 @@ PROTOBUF_CONSTEXPR ListAuthFactorsReply::ListAuthFactorsReply(
   , /*decltype(_impl_.supported_auth_factors_)*/{}
   , /*decltype(_impl_._supported_auth_factors_cached_byte_size_)*/{0}
   , /*decltype(_impl_.configured_auth_factors_with_status_)*/{}
+  , /*decltype(_impl_.auth_intents_for_types_)*/{}
   , /*decltype(_impl_.error_info_)*/nullptr
   , /*decltype(_impl_.error_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
@@ -1815,6 +1835,37 @@ struct TerminateAuthFactorReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TerminateAuthFactorReplyDefaultTypeInternal _TerminateAuthFactorReply_default_instance_;
+PROTOBUF_CONSTEXPR ModifyAuthFactorIntentsRequest::ModifyAuthFactorIntentsRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.intents_)*/{}
+  , /*decltype(_impl_._intents_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.auth_session_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ModifyAuthFactorIntentsRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ModifyAuthFactorIntentsRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ModifyAuthFactorIntentsRequestDefaultTypeInternal() {}
+  union {
+    ModifyAuthFactorIntentsRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ModifyAuthFactorIntentsRequestDefaultTypeInternal _ModifyAuthFactorIntentsRequest_default_instance_;
+PROTOBUF_CONSTEXPR ModifyAuthFactorIntentsReply::ModifyAuthFactorIntentsReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.error_info_)*/nullptr
+  , /*decltype(_impl_.auth_intents_)*/nullptr
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ModifyAuthFactorIntentsReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ModifyAuthFactorIntentsReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ModifyAuthFactorIntentsReplyDefaultTypeInternal() {}
+  union {
+    ModifyAuthFactorIntentsReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ModifyAuthFactorIntentsReplyDefaultTypeInternal _ModifyAuthFactorIntentsReply_default_instance_;
 PROTOBUF_CONSTEXPR AuthScanResult::AuthScanResult(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.scan_result_)*/{}
@@ -28419,6 +28470,327 @@ std::string RemoveAuthFactorReply::GetTypeName() const {
 
 // ===================================================================
 
+class AuthIntentsForAuthFactorType::_Internal {
+ public:
+};
+
+AuthIntentsForAuthFactorType::AuthIntentsForAuthFactorType(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.AuthIntentsForAuthFactorType)
+}
+AuthIntentsForAuthFactorType::AuthIntentsForAuthFactorType(const AuthIntentsForAuthFactorType& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthIntentsForAuthFactorType* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.current_){from._impl_.current_}
+    , /*decltype(_impl_._current_cached_byte_size_)*/{0}
+    , decltype(_impl_.minimum_){from._impl_.minimum_}
+    , /*decltype(_impl_._minimum_cached_byte_size_)*/{0}
+    , decltype(_impl_.maximum_){from._impl_.maximum_}
+    , /*decltype(_impl_._maximum_cached_byte_size_)*/{0}
+    , decltype(_impl_.type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.type_ = from._impl_.type_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.AuthIntentsForAuthFactorType)
+}
+
+inline void AuthIntentsForAuthFactorType::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.current_){arena}
+    , /*decltype(_impl_._current_cached_byte_size_)*/{0}
+    , decltype(_impl_.minimum_){arena}
+    , /*decltype(_impl_._minimum_cached_byte_size_)*/{0}
+    , decltype(_impl_.maximum_){arena}
+    , /*decltype(_impl_._maximum_cached_byte_size_)*/{0}
+    , decltype(_impl_.type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+AuthIntentsForAuthFactorType::~AuthIntentsForAuthFactorType() {
+  // @@protoc_insertion_point(destructor:user_data_auth.AuthIntentsForAuthFactorType)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AuthIntentsForAuthFactorType::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.current_.~RepeatedField();
+  _impl_.minimum_.~RepeatedField();
+  _impl_.maximum_.~RepeatedField();
+}
+
+void AuthIntentsForAuthFactorType::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void AuthIntentsForAuthFactorType::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.AuthIntentsForAuthFactorType)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.current_.Clear();
+  _impl_.minimum_.Clear();
+  _impl_.maximum_.Clear();
+  _impl_.type_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AuthIntentsForAuthFactorType::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.AuthFactorType type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_type(static_cast<::user_data_auth::AuthFactorType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntent current = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_current(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 16) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_current(static_cast<::user_data_auth::AuthIntent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntent minimum = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_minimum(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 24) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_minimum(static_cast<::user_data_auth::AuthIntent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntent maximum = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_maximum(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 32) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_maximum(static_cast<::user_data_auth::AuthIntent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AuthIntentsForAuthFactorType::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.AuthIntentsForAuthFactorType)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.AuthFactorType type = 1;
+  if (this->_internal_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_type(), target);
+  }
+
+  // repeated .user_data_auth.AuthIntent current = 2;
+  {
+    int byte_size = _impl_._current_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          2, _impl_.current_, byte_size, target);
+    }
+  }
+
+  // repeated .user_data_auth.AuthIntent minimum = 3;
+  {
+    int byte_size = _impl_._minimum_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          3, _impl_.minimum_, byte_size, target);
+    }
+  }
+
+  // repeated .user_data_auth.AuthIntent maximum = 4;
+  {
+    int byte_size = _impl_._maximum_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          4, _impl_.maximum_, byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.AuthIntentsForAuthFactorType)
+  return target;
+}
+
+size_t AuthIntentsForAuthFactorType::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.AuthIntentsForAuthFactorType)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .user_data_auth.AuthIntent current = 2;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_current_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_current(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._current_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // repeated .user_data_auth.AuthIntent minimum = 3;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_minimum_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_minimum(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._minimum_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // repeated .user_data_auth.AuthIntent maximum = 4;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_maximum_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_maximum(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._maximum_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // .user_data_auth.AuthFactorType type = 1;
+  if (this->_internal_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AuthIntentsForAuthFactorType::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthIntentsForAuthFactorType*>(
+      &from));
+}
+
+void AuthIntentsForAuthFactorType::MergeFrom(const AuthIntentsForAuthFactorType& from) {
+  AuthIntentsForAuthFactorType* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.AuthIntentsForAuthFactorType)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.current_.MergeFrom(from._impl_.current_);
+  _this->_impl_.minimum_.MergeFrom(from._impl_.minimum_);
+  _this->_impl_.maximum_.MergeFrom(from._impl_.maximum_);
+  if (from._internal_type() != 0) {
+    _this->_internal_set_type(from._internal_type());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AuthIntentsForAuthFactorType::CopyFrom(const AuthIntentsForAuthFactorType& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.AuthIntentsForAuthFactorType)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AuthIntentsForAuthFactorType::IsInitialized() const {
+  return true;
+}
+
+void AuthIntentsForAuthFactorType::InternalSwap(AuthIntentsForAuthFactorType* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.current_.InternalSwap(&other->_impl_.current_);
+  _impl_.minimum_.InternalSwap(&other->_impl_.minimum_);
+  _impl_.maximum_.InternalSwap(&other->_impl_.maximum_);
+  swap(_impl_.type_, other->_impl_.type_);
+}
+
+std::string AuthIntentsForAuthFactorType::GetTypeName() const {
+  return "user_data_auth.AuthIntentsForAuthFactorType";
+}
+
+
+// ===================================================================
+
 class ListAuthFactorsRequest::_Internal {
  public:
   static const ::cryptohome::AccountIdentifier& account_id(const ListAuthFactorsRequest* msg);
@@ -28646,6 +29018,7 @@ ListAuthFactorsReply::ListAuthFactorsReply(const ListAuthFactorsReply& from)
     , decltype(_impl_.supported_auth_factors_){from._impl_.supported_auth_factors_}
     , /*decltype(_impl_._supported_auth_factors_cached_byte_size_)*/{0}
     , decltype(_impl_.configured_auth_factors_with_status_){from._impl_.configured_auth_factors_with_status_}
+    , decltype(_impl_.auth_intents_for_types_){from._impl_.auth_intents_for_types_}
     , decltype(_impl_.error_info_){nullptr}
     , decltype(_impl_.error_){}
     , /*decltype(_impl_._cached_size_)*/{}};
@@ -28667,6 +29040,7 @@ inline void ListAuthFactorsReply::SharedCtor(
     , decltype(_impl_.supported_auth_factors_){arena}
     , /*decltype(_impl_._supported_auth_factors_cached_byte_size_)*/{0}
     , decltype(_impl_.configured_auth_factors_with_status_){arena}
+    , decltype(_impl_.auth_intents_for_types_){arena}
     , decltype(_impl_.error_info_){nullptr}
     , decltype(_impl_.error_){0}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -28687,6 +29061,7 @@ inline void ListAuthFactorsReply::SharedDtor() {
   _impl_.configured_auth_factors_.~RepeatedPtrField();
   _impl_.supported_auth_factors_.~RepeatedField();
   _impl_.configured_auth_factors_with_status_.~RepeatedPtrField();
+  _impl_.auth_intents_for_types_.~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.error_info_;
 }
 
@@ -28703,6 +29078,7 @@ void ListAuthFactorsReply::Clear() {
   _impl_.configured_auth_factors_.Clear();
   _impl_.supported_auth_factors_.Clear();
   _impl_.configured_auth_factors_with_status_.Clear();
+  _impl_.auth_intents_for_types_.Clear();
   if (GetArenaForAllocation() == nullptr && _impl_.error_info_ != nullptr) {
     delete _impl_.error_info_;
   }
@@ -28769,6 +29145,19 @@ const char* ListAuthFactorsReply::_InternalParse(const char* ptr, ::_pbi::ParseC
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntentsForAuthFactorType auth_intents_for_types = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_auth_intents_for_types(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -28840,6 +29229,14 @@ uint8_t* ListAuthFactorsReply::_InternalSerialize(
         InternalWriteMessage(5, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .user_data_auth.AuthIntentsForAuthFactorType auth_intents_for_types = 6;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_auth_intents_for_types_size()); i < n; i++) {
+    const auto& repfield = this->_internal_auth_intents_for_types(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(6, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -28887,6 +29284,13 @@ size_t ListAuthFactorsReply::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // repeated .user_data_auth.AuthIntentsForAuthFactorType auth_intents_for_types = 6;
+  total_size += 1UL * this->_internal_auth_intents_for_types_size();
+  for (const auto& msg : this->_impl_.auth_intents_for_types_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   // .user_data_auth.CryptohomeErrorInfo error_info = 2;
   if (this->_internal_has_error_info()) {
     total_size += 1 +
@@ -28924,6 +29328,7 @@ void ListAuthFactorsReply::MergeFrom(const ListAuthFactorsReply& from) {
   _this->_impl_.configured_auth_factors_.MergeFrom(from._impl_.configured_auth_factors_);
   _this->_impl_.supported_auth_factors_.MergeFrom(from._impl_.supported_auth_factors_);
   _this->_impl_.configured_auth_factors_with_status_.MergeFrom(from._impl_.configured_auth_factors_with_status_);
+  _this->_impl_.auth_intents_for_types_.MergeFrom(from._impl_.auth_intents_for_types_);
   if (from._internal_has_error_info()) {
     _this->_internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(
         from._internal_error_info());
@@ -28951,6 +29356,7 @@ void ListAuthFactorsReply::InternalSwap(ListAuthFactorsReply* other) {
   _impl_.configured_auth_factors_.InternalSwap(&other->_impl_.configured_auth_factors_);
   _impl_.supported_auth_factors_.InternalSwap(&other->_impl_.supported_auth_factors_);
   _impl_.configured_auth_factors_with_status_.InternalSwap(&other->_impl_.configured_auth_factors_with_status_);
+  _impl_.auth_intents_for_types_.InternalSwap(&other->_impl_.auth_intents_for_types_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ListAuthFactorsReply, _impl_.error_)
       + sizeof(ListAuthFactorsReply::_impl_.error_)
@@ -31764,6 +32170,552 @@ std::string TerminateAuthFactorReply::GetTypeName() const {
 
 // ===================================================================
 
+class ModifyAuthFactorIntentsRequest::_Internal {
+ public:
+};
+
+ModifyAuthFactorIntentsRequest::ModifyAuthFactorIntentsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.ModifyAuthFactorIntentsRequest)
+}
+ModifyAuthFactorIntentsRequest::ModifyAuthFactorIntentsRequest(const ModifyAuthFactorIntentsRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ModifyAuthFactorIntentsRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.intents_){from._impl_.intents_}
+    , /*decltype(_impl_._intents_cached_byte_size_)*/{0}
+    , decltype(_impl_.auth_session_id_){}
+    , decltype(_impl_.type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.auth_session_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.auth_session_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_auth_session_id().empty()) {
+    _this->_impl_.auth_session_id_.Set(from._internal_auth_session_id(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.type_ = from._impl_.type_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.ModifyAuthFactorIntentsRequest)
+}
+
+inline void ModifyAuthFactorIntentsRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.intents_){arena}
+    , /*decltype(_impl_._intents_cached_byte_size_)*/{0}
+    , decltype(_impl_.auth_session_id_){}
+    , decltype(_impl_.type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.auth_session_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.auth_session_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+ModifyAuthFactorIntentsRequest::~ModifyAuthFactorIntentsRequest() {
+  // @@protoc_insertion_point(destructor:user_data_auth.ModifyAuthFactorIntentsRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ModifyAuthFactorIntentsRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.intents_.~RepeatedField();
+  _impl_.auth_session_id_.Destroy();
+}
+
+void ModifyAuthFactorIntentsRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ModifyAuthFactorIntentsRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.ModifyAuthFactorIntentsRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.intents_.Clear();
+  _impl_.auth_session_id_.ClearToEmpty();
+  _impl_.type_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ModifyAuthFactorIntentsRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bytes auth_session_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_auth_session_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthFactorType type = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_type(static_cast<::user_data_auth::AuthFactorType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntent intents = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_intents(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 24) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_intents(static_cast<::user_data_auth::AuthIntent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ModifyAuthFactorIntentsRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.ModifyAuthFactorIntentsRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bytes auth_session_id = 1;
+  if (!this->_internal_auth_session_id().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_auth_session_id(), target);
+  }
+
+  // .user_data_auth.AuthFactorType type = 2;
+  if (this->_internal_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_type(), target);
+  }
+
+  // repeated .user_data_auth.AuthIntent intents = 3;
+  {
+    int byte_size = _impl_._intents_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          3, _impl_.intents_, byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.ModifyAuthFactorIntentsRequest)
+  return target;
+}
+
+size_t ModifyAuthFactorIntentsRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.ModifyAuthFactorIntentsRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .user_data_auth.AuthIntent intents = 3;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_intents_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_intents(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._intents_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // bytes auth_session_id = 1;
+  if (!this->_internal_auth_session_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_auth_session_id());
+  }
+
+  // .user_data_auth.AuthFactorType type = 2;
+  if (this->_internal_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ModifyAuthFactorIntentsRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ModifyAuthFactorIntentsRequest*>(
+      &from));
+}
+
+void ModifyAuthFactorIntentsRequest::MergeFrom(const ModifyAuthFactorIntentsRequest& from) {
+  ModifyAuthFactorIntentsRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.ModifyAuthFactorIntentsRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.intents_.MergeFrom(from._impl_.intents_);
+  if (!from._internal_auth_session_id().empty()) {
+    _this->_internal_set_auth_session_id(from._internal_auth_session_id());
+  }
+  if (from._internal_type() != 0) {
+    _this->_internal_set_type(from._internal_type());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ModifyAuthFactorIntentsRequest::CopyFrom(const ModifyAuthFactorIntentsRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.ModifyAuthFactorIntentsRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ModifyAuthFactorIntentsRequest::IsInitialized() const {
+  return true;
+}
+
+void ModifyAuthFactorIntentsRequest::InternalSwap(ModifyAuthFactorIntentsRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.intents_.InternalSwap(&other->_impl_.intents_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.auth_session_id_, lhs_arena,
+      &other->_impl_.auth_session_id_, rhs_arena
+  );
+  swap(_impl_.type_, other->_impl_.type_);
+}
+
+std::string ModifyAuthFactorIntentsRequest::GetTypeName() const {
+  return "user_data_auth.ModifyAuthFactorIntentsRequest";
+}
+
+
+// ===================================================================
+
+class ModifyAuthFactorIntentsReply::_Internal {
+ public:
+  static const ::user_data_auth::CryptohomeErrorInfo& error_info(const ModifyAuthFactorIntentsReply* msg);
+  static const ::user_data_auth::AuthIntentsForAuthFactorType& auth_intents(const ModifyAuthFactorIntentsReply* msg);
+};
+
+const ::user_data_auth::CryptohomeErrorInfo&
+ModifyAuthFactorIntentsReply::_Internal::error_info(const ModifyAuthFactorIntentsReply* msg) {
+  return *msg->_impl_.error_info_;
+}
+const ::user_data_auth::AuthIntentsForAuthFactorType&
+ModifyAuthFactorIntentsReply::_Internal::auth_intents(const ModifyAuthFactorIntentsReply* msg) {
+  return *msg->_impl_.auth_intents_;
+}
+ModifyAuthFactorIntentsReply::ModifyAuthFactorIntentsReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.ModifyAuthFactorIntentsReply)
+}
+ModifyAuthFactorIntentsReply::ModifyAuthFactorIntentsReply(const ModifyAuthFactorIntentsReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ModifyAuthFactorIntentsReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_info_){nullptr}
+    , decltype(_impl_.auth_intents_){nullptr}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_error_info()) {
+    _this->_impl_.error_info_ = new ::user_data_auth::CryptohomeErrorInfo(*from._impl_.error_info_);
+  }
+  if (from._internal_has_auth_intents()) {
+    _this->_impl_.auth_intents_ = new ::user_data_auth::AuthIntentsForAuthFactorType(*from._impl_.auth_intents_);
+  }
+  _this->_impl_.error_ = from._impl_.error_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.ModifyAuthFactorIntentsReply)
+}
+
+inline void ModifyAuthFactorIntentsReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_info_){nullptr}
+    , decltype(_impl_.auth_intents_){nullptr}
+    , decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+ModifyAuthFactorIntentsReply::~ModifyAuthFactorIntentsReply() {
+  // @@protoc_insertion_point(destructor:user_data_auth.ModifyAuthFactorIntentsReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ModifyAuthFactorIntentsReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.error_info_;
+  if (this != internal_default_instance()) delete _impl_.auth_intents_;
+}
+
+void ModifyAuthFactorIntentsReply::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ModifyAuthFactorIntentsReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.ModifyAuthFactorIntentsReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.error_info_ != nullptr) {
+    delete _impl_.error_info_;
+  }
+  _impl_.error_info_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.auth_intents_ != nullptr) {
+    delete _impl_.auth_intents_;
+  }
+  _impl_.auth_intents_ = nullptr;
+  _impl_.error_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ModifyAuthFactorIntentsReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.CryptohomeErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthIntentsForAuthFactorType auth_intents = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_auth_intents(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ModifyAuthFactorIntentsReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.ModifyAuthFactorIntentsReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  if (this->_internal_has_error_info()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::error_info(this),
+        _Internal::error_info(this).GetCachedSize(), target, stream);
+  }
+
+  // .user_data_auth.AuthIntentsForAuthFactorType auth_intents = 3;
+  if (this->_internal_has_auth_intents()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::auth_intents(this),
+        _Internal::auth_intents(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.ModifyAuthFactorIntentsReply)
+  return target;
+}
+
+size_t ModifyAuthFactorIntentsReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.ModifyAuthFactorIntentsReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  if (this->_internal_has_error_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.error_info_);
+  }
+
+  // .user_data_auth.AuthIntentsForAuthFactorType auth_intents = 3;
+  if (this->_internal_has_auth_intents()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.auth_intents_);
+  }
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ModifyAuthFactorIntentsReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ModifyAuthFactorIntentsReply*>(
+      &from));
+}
+
+void ModifyAuthFactorIntentsReply::MergeFrom(const ModifyAuthFactorIntentsReply& from) {
+  ModifyAuthFactorIntentsReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.ModifyAuthFactorIntentsReply)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_error_info()) {
+    _this->_internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(
+        from._internal_error_info());
+  }
+  if (from._internal_has_auth_intents()) {
+    _this->_internal_mutable_auth_intents()->::user_data_auth::AuthIntentsForAuthFactorType::MergeFrom(
+        from._internal_auth_intents());
+  }
+  if (from._internal_error() != 0) {
+    _this->_internal_set_error(from._internal_error());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ModifyAuthFactorIntentsReply::CopyFrom(const ModifyAuthFactorIntentsReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.ModifyAuthFactorIntentsReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ModifyAuthFactorIntentsReply::IsInitialized() const {
+  return true;
+}
+
+void ModifyAuthFactorIntentsReply::InternalSwap(ModifyAuthFactorIntentsReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ModifyAuthFactorIntentsReply, _impl_.error_)
+      + sizeof(ModifyAuthFactorIntentsReply::_impl_.error_)
+      - PROTOBUF_FIELD_OFFSET(ModifyAuthFactorIntentsReply, _impl_.error_info_)>(
+          reinterpret_cast<char*>(&_impl_.error_info_),
+          reinterpret_cast<char*>(&other->_impl_.error_info_));
+}
+
+std::string ModifyAuthFactorIntentsReply::GetTypeName() const {
+  return "user_data_auth.ModifyAuthFactorIntentsReply";
+}
+
+
+// ===================================================================
+
 class AuthScanResult::_Internal {
  public:
 };
@@ -34054,6 +35006,10 @@ template<> PROTOBUF_NOINLINE ::user_data_auth::RemoveAuthFactorReply*
 Arena::CreateMaybeMessage< ::user_data_auth::RemoveAuthFactorReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::RemoveAuthFactorReply >(arena);
 }
+template<> PROTOBUF_NOINLINE ::user_data_auth::AuthIntentsForAuthFactorType*
+Arena::CreateMaybeMessage< ::user_data_auth::AuthIntentsForAuthFactorType >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::AuthIntentsForAuthFactorType >(arena);
+}
 template<> PROTOBUF_NOINLINE ::user_data_auth::ListAuthFactorsRequest*
 Arena::CreateMaybeMessage< ::user_data_auth::ListAuthFactorsRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::ListAuthFactorsRequest >(arena);
@@ -34101,6 +35057,14 @@ Arena::CreateMaybeMessage< ::user_data_auth::TerminateAuthFactorRequest >(Arena*
 template<> PROTOBUF_NOINLINE ::user_data_auth::TerminateAuthFactorReply*
 Arena::CreateMaybeMessage< ::user_data_auth::TerminateAuthFactorReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::TerminateAuthFactorReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::ModifyAuthFactorIntentsRequest*
+Arena::CreateMaybeMessage< ::user_data_auth::ModifyAuthFactorIntentsRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::ModifyAuthFactorIntentsRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::ModifyAuthFactorIntentsReply*
+Arena::CreateMaybeMessage< ::user_data_auth::ModifyAuthFactorIntentsReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::ModifyAuthFactorIntentsReply >(arena);
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::AuthScanResult*
 Arena::CreateMaybeMessage< ::user_data_auth::AuthScanResult >(Arena* arena) {

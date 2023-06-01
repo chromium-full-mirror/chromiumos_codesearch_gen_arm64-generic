@@ -417,6 +417,18 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Returns the value of CrOSLateBootAudioTestFeatureFlag as seen by CRAS.
+  virtual bool GetAudioTestFeatureFlag(
+      bool* out_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the value of CrOSLateBootAudioTestFeatureFlag as seen by CRAS.
+  virtual void GetAudioTestFeatureFlagAsync(
+      base::OnceCallback<void(bool /*enabled*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool GetDeprioritizeBtWbsMic(
       bool* out_deprioritized,
       brillo::ErrorPtr* error,
@@ -1870,6 +1882,35 @@ class ControlProxy final : public ControlProxyInterface {
         dbus_object_proxy_,
         "org.chromium.cras.Control",
         "GetSystemAgcSupported",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // Returns the value of CrOSLateBootAudioTestFeatureFlag as seen by CRAS.
+  bool GetAudioTestFeatureFlag(
+      bool* out_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "GetAudioTestFeatureFlag",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_enabled);
+  }
+
+  // Returns the value of CrOSLateBootAudioTestFeatureFlag as seen by CRAS.
+  void GetAudioTestFeatureFlagAsync(
+      base::OnceCallback<void(bool /*enabled*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "GetAudioTestFeatureFlag",
         std::move(success_callback),
         std::move(error_callback));
   }

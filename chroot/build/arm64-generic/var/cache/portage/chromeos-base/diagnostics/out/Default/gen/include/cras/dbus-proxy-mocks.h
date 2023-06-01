@@ -182,6 +182,14 @@ class ControlProxyMock : public ControlProxyInterface {
                void(base::OnceCallback<void(bool /*supported*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(GetAudioTestFeatureFlag,
+               bool(bool* /*out_enabled*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(GetAudioTestFeatureFlagAsync,
+               void(base::OnceCallback<void(bool /*enabled*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD3(GetDeprioritizeBtWbsMic,
                bool(bool* /*out_deprioritized*/,
                     brillo::ErrorPtr* /*error*/,

@@ -3367,6 +3367,60 @@ std::string GetProtoDebugStringWithIndent(const RemoveAuthFactorReply& value,
   return output;
 }
 
+std::string GetProtoDebugString(const AuthIntentsForAuthFactorType& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const AuthIntentsForAuthFactorType& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  type: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.type(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  current: {";
+  for (int i = 0; i < value.current_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.current(i), indent_size + 2)
+            .c_str());
+  }
+  output += "}\n";
+  output += indent + "  minimum: {";
+  for (int i = 0; i < value.minimum_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.minimum(i), indent_size + 2)
+            .c_str());
+  }
+  output += "}\n";
+  output += indent + "  maximum: {";
+  for (int i = 0; i < value.maximum_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.maximum(i), indent_size + 2)
+            .c_str());
+  }
+  output += "}\n";
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const ListAuthFactorsRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -3442,6 +3496,17 @@ std::string GetProtoDebugStringWithIndent(const ListAuthFactorsReply& value,
     base::StringAppendF(&output, "%s",
                         GetProtoDebugStringWithIndent(
                             value.supported_auth_factors(i), indent_size + 2)
+                            .c_str());
+  }
+  output += "}\n";
+  output += indent + "  auth_intents_for_types: {";
+  for (int i = 0; i < value.auth_intents_for_types_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.auth_intents_for_types(i), indent_size + 2)
                             .c_str());
   }
   output += "}\n";
@@ -3763,6 +3828,80 @@ std::string GetProtoDebugStringWithIndent(const TerminateAuthFactorReply& value,
   base::StringAppendF(
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const ModifyAuthFactorIntentsRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const ModifyAuthFactorIntentsRequest& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  auth_session_id: ";
+  base::StringAppendF(&output, "%s",
+                      base::HexEncode(value.auth_session_id().data(),
+                                      value.auth_session_id().size())
+                          .c_str());
+  output += "\n";
+
+  output += indent + "  type: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.type(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  intents: {";
+  for (int i = 0; i < value.intents_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.intents(i), indent_size + 2)
+            .c_str());
+  }
+  output += "}\n";
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const ModifyAuthFactorIntentsReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const ModifyAuthFactorIntentsReply& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  error: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  error_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  auth_intents: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.auth_intents(), indent_size + 2)
           .c_str());
   output += "\n";
 
