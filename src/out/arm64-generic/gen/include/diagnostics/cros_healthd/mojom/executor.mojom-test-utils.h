@@ -141,6 +141,24 @@ class  StylusObserverAsyncWaiter {
 };
 
 
+class  PowerButtonObserverInterceptorForTesting : public PowerButtonObserver {
+  virtual PowerButtonObserver* GetForwardingInterface() = 0;
+  void OnEvent(PowerButtonObserver::ButtonState button_state) override;
+};
+class  PowerButtonObserverAsyncWaiter {
+ public:
+  explicit PowerButtonObserverAsyncWaiter(PowerButtonObserver* proxy);
+
+  PowerButtonObserverAsyncWaiter(const PowerButtonObserverAsyncWaiter&) = delete;
+  PowerButtonObserverAsyncWaiter& operator=(const PowerButtonObserverAsyncWaiter&) = delete;
+
+  ~PowerButtonObserverAsyncWaiter();
+
+ private:
+  PowerButtonObserver* const proxy_;
+};
+
+
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) override;
@@ -173,6 +191,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
   void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) override;
+  void MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
 };
 class  ExecutorAsyncWaiter {
  public:

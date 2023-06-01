@@ -2523,6 +2523,166 @@ bool StylusObserverRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kStylusObserverValidationInfo);
 }
 
+const char PowerButtonObserver::Name_[] = "ash.cros_healthd.mojom.PowerButtonObserver";
+
+PowerButtonObserver::IPCStableHashFunction PowerButtonObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kPowerButtonObserver_OnEvent_Name: {
+      return &PowerButtonObserver::OnEvent_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* PowerButtonObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kPowerButtonObserver_OnEvent_Name:
+            return "Receive ash::cros_healthd::mojom::PowerButtonObserver::OnEvent";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kPowerButtonObserver_OnEvent_Name:
+            return "Receive reply ash::cros_healthd::mojom::PowerButtonObserver::OnEvent";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t PowerButtonObserver::OnEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::PowerButtonObserver::OnEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+PowerButtonObserverProxy::PowerButtonObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void PowerButtonObserverProxy::OnEvent(
+    PowerButtonObserver::ButtonState in_button_state) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::PowerButtonObserver::OnEvent", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("button_state"), in_button_state,
+                        "<value of type PowerButtonObserver::ButtonState>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kPowerButtonObserver_OnEvent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::PowerButtonObserver_OnEvent_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>(
+      in_button_state, &params->button_state);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PowerButtonObserver::Name_);
+  message.set_method_name("OnEvent");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool PowerButtonObserverStubDispatch::Accept(
+    PowerButtonObserver* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kPowerButtonObserver_OnEvent_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PowerButtonObserver_OnEvent_Params_Data* params =
+          reinterpret_cast<internal::PowerButtonObserver_OnEvent_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PowerButtonObserver::ButtonState p_button_state{};
+      PowerButtonObserver_OnEvent_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadButtonState(&p_button_state))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PowerButtonObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnEvent(
+std::move(p_button_state));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool PowerButtonObserverStubDispatch::AcceptWithResponder(
+    PowerButtonObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kPowerButtonObserver_OnEvent_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+
+static const mojo::internal::GenericValidationInfo kPowerButtonObserverValidationInfo[] = {
+    {&internal::PowerButtonObserver_OnEvent_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool PowerButtonObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::PowerButtonObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kPowerButtonObserverValidationInfo);
+}
+
 const char Executor::Name_[] = "ash.cros_healthd.mojom.Executor";
 
 Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& message) {
@@ -2618,6 +2778,9 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_FetchCrashFromCrashSender_Name: {
       return &Executor::FetchCrashFromCrashSender_Sym::IPCStableHash;
     }
+    case internal::kExecutor_MonitorPowerButton_Name: {
+      return &Executor::MonitorPowerButton_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2689,6 +2852,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::FetchDisplayInfo";
       case internal::kExecutor_FetchCrashFromCrashSender_Name:
             return "Receive ash::cros_healthd::mojom::Executor::FetchCrashFromCrashSender";
+      case internal::kExecutor_MonitorPowerButton_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::MonitorPowerButton";
     }
   } else {
     switch (message.name()) {
@@ -2752,6 +2917,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::FetchDisplayInfo";
       case internal::kExecutor_FetchCrashFromCrashSender_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::FetchCrashFromCrashSender";
+      case internal::kExecutor_MonitorPowerButton_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::MonitorPowerButton";
     }
   }
   return "Receive unknown mojo message";
@@ -3152,6 +3319,19 @@ uint32_t Executor::FetchCrashFromCrashSender_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Executor::FetchCrashFromCrashSender");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::MonitorPowerButton_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::MonitorPowerButton");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -4708,6 +4888,58 @@ void ExecutorProxy::FetchCrashFromCrashSender(
       new Executor_FetchCrashFromCrashSender_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::MonitorPowerButton(
+    ::mojo::PendingRemote<PowerButtonObserver> in_observer, ::mojo::PendingReceiver<ProcessControl> in_process_control) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Executor::MonitorPowerButton", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<PowerButtonObserver>>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("process_control"), in_process_control,
+                        "<value of type ::mojo::PendingReceiver<ProcessControl>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_MonitorPowerButton_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_MonitorPowerButton_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::PowerButtonObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in Executor.MonitorPowerButton request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+      in_process_control, &params->process_control, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->process_control),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid process_control in Executor.MonitorPowerButton request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("MonitorPowerButton");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class Executor_ReadFile_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -7798,6 +8030,40 @@ std::move(p_receiver));
     case internal::kExecutor_FetchCrashFromCrashSender_Name: {
       break;
     }
+    case internal::kExecutor_MonitorPowerButton_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Executor_MonitorPowerButton_Params_Data* params =
+          reinterpret_cast<internal::Executor_MonitorPowerButton_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<PowerButtonObserver> p_observer{};
+      ::mojo::PendingReceiver<ProcessControl> p_process_control{};
+      Executor_MonitorPowerButton_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (success) {
+        p_process_control =
+            input_data_view.TakeProcessControl<decltype(p_process_control)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 30, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->MonitorPowerButton(
+std::move(p_observer), 
+std::move(p_process_control));
+      return true;
+    }
   }
   return false;
 }
@@ -8411,6 +8677,9 @@ std::move(p_name), std::move(callback));
       impl->FetchCrashFromCrashSender(std::move(callback));
       return true;
     }
+    case internal::kExecutor_MonitorPowerButton_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -8477,6 +8746,8 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      &internal::Executor_FetchDisplayInfo_ResponseParams_Data::Validate},
     {&internal::Executor_FetchCrashFromCrashSender_Params_Data::Validate,
      &internal::Executor_FetchCrashFromCrashSender_ResponseParams_Data::Validate},
+    {&internal::Executor_MonitorPowerButton_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool ExecutorRequestValidator::Accept(mojo::Message* message) {
@@ -8798,6 +9069,17 @@ StylusObserverAsyncWaiter::~StylusObserverAsyncWaiter() = default;
 
 
 
+void PowerButtonObserverInterceptorForTesting::OnEvent(PowerButtonObserver::ButtonState button_state) {
+  GetForwardingInterface()->OnEvent(std::move(button_state));
+}
+PowerButtonObserverAsyncWaiter::PowerButtonObserverAsyncWaiter(
+    PowerButtonObserver* proxy) : proxy_(proxy) {}
+
+PowerButtonObserverAsyncWaiter::~PowerButtonObserverAsyncWaiter() = default;
+
+
+
+
 void ExecutorInterceptorForTesting::ReadFile(Executor::File file_enum, ReadFileCallback callback) {
   GetForwardingInterface()->ReadFile(std::move(file_enum), std::move(callback));
 }
@@ -8887,6 +9169,9 @@ void ExecutorInterceptorForTesting::FetchDisplayInfo(FetchDisplayInfoCallback ca
 }
 void ExecutorInterceptorForTesting::FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) {
   GetForwardingInterface()->FetchCrashFromCrashSender(std::move(callback));
+}
+void ExecutorInterceptorForTesting::MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
+  GetForwardingInterface()->MonitorPowerButton(std::move(observer), std::move(process_control));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}

@@ -462,6 +462,22 @@ class  Delegate_FetchDisplayInfo_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_FetchDisplayInfo_ResponseParams_Data) == 24,
               "Bad sizeof(Delegate_FetchDisplayInfo_ResponseParams_Data)");
+class  Delegate_MonitorPowerButton_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_MonitorPowerButton_Params_Data>;
+
+  Delegate_MonitorPowerButton_Params_Data();
+  ~Delegate_MonitorPowerButton_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_MonitorPowerButton_Params_Data) == 16,
+              "Bad sizeof(Delegate_MonitorPowerButton_Params_Data)");
 
 }  // namespace internal
 
@@ -1199,6 +1215,31 @@ class Delegate_FetchDisplayInfo_ResponseParamsDataView {
 };
 
 
+class Delegate_MonitorPowerButton_ParamsDataView {
+ public:
+  Delegate_MonitorPowerButton_ParamsDataView() = default;
+
+  Delegate_MonitorPowerButton_ParamsDataView(
+      internal::Delegate_MonitorPowerButton_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::PowerButtonObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Delegate_MonitorPowerButton_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -1320,6 +1361,8 @@ inline void Delegate_FetchDisplayInfo_ResponseParamsDataView::GetResultDataView(
   auto pointer = &data_->result;
   *output = ::ash::cros_healthd::mojom::DisplayResultDataView(pointer, message_);
 }
+
+
 
 }  // namespace mojom
 }  // namespace cros_healthd

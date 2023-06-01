@@ -33,6 +33,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) override;
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
+  void MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) override;
 };
 class  DelegateAsyncWaiter {
  public:

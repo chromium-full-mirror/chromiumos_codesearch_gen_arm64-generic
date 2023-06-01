@@ -309,6 +309,23 @@ class  StylusObserver_OnConnected_Params_Data {
 };
 static_assert(sizeof(StylusObserver_OnConnected_Params_Data) == 16,
               "Bad sizeof(StylusObserver_OnConnected_Params_Data)");
+class  PowerButtonObserver_OnEvent_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t button_state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<PowerButtonObserver_OnEvent_Params_Data>;
+
+  PowerButtonObserver_OnEvent_Params_Data();
+  ~PowerButtonObserver_OnEvent_Params_Data() = delete;
+};
+static_assert(sizeof(PowerButtonObserver_OnEvent_Params_Data) == 16,
+              "Bad sizeof(PowerButtonObserver_OnEvent_Params_Data)");
 class  Executor_ReadFile_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1149,6 +1166,24 @@ class  Executor_FetchCrashFromCrashSender_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_FetchCrashFromCrashSender_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_FetchCrashFromCrashSender_ResponseParams_Data)");
+class  Executor_MonitorPowerButton_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+  mojo::internal::Handle_Data process_control;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_MonitorPowerButton_Params_Data>;
+
+  Executor_MonitorPowerButton_Params_Data();
+  ~Executor_MonitorPowerButton_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_MonitorPowerButton_Params_Data) == 24,
+              "Bad sizeof(Executor_MonitorPowerButton_Params_Data)");
 
 }  // namespace internal
 
@@ -1538,6 +1573,31 @@ class StylusObserver_OnConnected_ParamsDataView {
  private:
   internal::StylusObserver_OnConnected_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class PowerButtonObserver_OnEvent_ParamsDataView {
+ public:
+  PowerButtonObserver_OnEvent_ParamsDataView() = default;
+
+  PowerButtonObserver_OnEvent_ParamsDataView(
+      internal::PowerButtonObserver_OnEvent_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadButtonState(UserType* output) const {
+    auto data_value = data_->button_state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>(
+        data_value, output);
+  }
+  PowerButtonObserver_ButtonState button_state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>(data_->button_state));
+  }
+ private:
+  internal::PowerButtonObserver_OnEvent_Params_Data* data_ = nullptr;
 };
 
 
@@ -2928,6 +2988,40 @@ class Executor_FetchCrashFromCrashSender_ResponseParamsDataView {
 };
 
 
+class Executor_MonitorPowerButton_ParamsDataView {
+ public:
+  Executor_MonitorPowerButton_ParamsDataView() = default;
+
+  Executor_MonitorPowerButton_ParamsDataView(
+      internal::Executor_MonitorPowerButton_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::PowerButtonObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeProcessControl() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->process_control, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_MonitorPowerButton_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -2996,6 +3090,8 @@ inline void StylusObserver_OnConnected_ParamsDataView::GetConnectedEventDataView
   auto pointer = data_->connected_event.Get();
   *output = ::ash::cros_healthd::mojom::StylusConnectedEventDataView(pointer, message_);
 }
+
+
 
 
 
@@ -3228,6 +3324,8 @@ inline void Executor_FetchCrashFromCrashSender_ResponseParamsDataView::GetResult
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
 }
+
+
 
 }  // namespace mojom
 }  // namespace cros_healthd

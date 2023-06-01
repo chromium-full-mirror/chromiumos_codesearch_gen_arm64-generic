@@ -30,6 +30,7 @@ constexpr uint32_t kStylusGarageObserver_OnInsert_Name = 0;
 constexpr uint32_t kStylusGarageObserver_OnRemove_Name = 1;
 constexpr uint32_t kStylusObserver_OnTouch_Name = 0;
 constexpr uint32_t kStylusObserver_OnConnected_Name = 1;
+constexpr uint32_t kPowerButtonObserver_OnEvent_Name = 0;
 constexpr uint32_t kExecutor_ReadFile_Name = 0;
 constexpr uint32_t kExecutor_GetFileInfo_Name = 1;
 constexpr uint32_t kExecutor_GetFanSpeed_Name = 2;
@@ -60,6 +61,7 @@ constexpr uint32_t kExecutor_GetConnectedHdmiConnectors_Name = 26;
 constexpr uint32_t kExecutor_GetPrivacyScreenInfo_Name = 27;
 constexpr uint32_t kExecutor_FetchDisplayInfo_Name = 28;
 constexpr uint32_t kExecutor_FetchCrashFromCrashSender_Name = 29;
+constexpr uint32_t kExecutor_MonitorPowerButton_Name = 30;
 
 }  // namespace internal
 }  // namespace mojom

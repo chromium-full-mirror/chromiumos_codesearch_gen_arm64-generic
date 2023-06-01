@@ -42,6 +42,8 @@ enum class FingerprintCaptureType : int32_t;
 
 enum class StressAppTestType : int32_t;
 
+enum class PowerButtonObserver_ButtonState : int32_t;
+
 enum class Executor_File : int32_t;
 
 enum class Executor_IwCommand : int32_t;
@@ -78,6 +80,8 @@ class TouchscreenObserver;
 class StylusGarageObserver;
 
 class StylusObserver;
+
+class PowerButtonObserver;
 
 class Executor;
 

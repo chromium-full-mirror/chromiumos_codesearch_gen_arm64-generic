@@ -89,6 +89,7 @@ class Delegate
     kGetConnectedHdmiConnectorsMinVersion = 0,
     kGetPrivacyScreenInfoMinVersion = 0,
     kFetchDisplayInfoMinVersion = 0,
+    kMonitorPowerButtonMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -140,6 +141,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct FetchDisplayInfo_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct MonitorPowerButton_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -214,6 +218,9 @@ class Delegate
   using FetchDisplayInfoCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::DisplayResultPtr)>;
   
   virtual void FetchDisplayInfo(FetchDisplayInfoCallback callback) = 0;
+
+  
+  virtual void MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) = 0;
 };
 
 
@@ -256,6 +263,8 @@ class  DelegateProxy
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) final;
   
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) final;
+  
+  void MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

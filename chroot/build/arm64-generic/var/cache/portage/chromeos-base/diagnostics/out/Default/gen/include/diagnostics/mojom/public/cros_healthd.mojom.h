@@ -153,7 +153,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 10;
+  static constexpr uint32_t Version_ = 11;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -211,6 +211,7 @@ class CrosHealthdDiagnosticsService
     kRunBluetoothDiscoveryRoutineMinVersion = 9,
     kRunBluetoothScanningRoutineMinVersion = 9,
     kRunBluetoothPairingRoutineMinVersion = 9,
+    kRunPowerButtonRoutineMinVersion = 11,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -349,6 +350,9 @@ class CrosHealthdDiagnosticsService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunBluetoothPairingRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunPowerButtonRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -578,6 +582,11 @@ class CrosHealthdDiagnosticsService
   using RunBluetoothPairingRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunBluetoothPairingRoutine(const std::string& peripheral_id, RunBluetoothPairingRoutineCallback callback) = 0;
+
+
+  using RunPowerButtonRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunPowerButtonRoutine(uint32_t timeout_seconds, RunPowerButtonRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -992,6 +1001,8 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunBluetoothScanningRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunBluetoothScanningRoutineCallback callback) final;
   
   void RunBluetoothPairingRoutine(const std::string& peripheral_id, RunBluetoothPairingRoutineCallback callback) final;
+  
+  void RunPowerButtonRoutine(uint32_t timeout_seconds, RunPowerButtonRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

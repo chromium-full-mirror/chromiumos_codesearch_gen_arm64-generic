@@ -155,6 +155,24 @@ inline bool IsKnownEnumValue(StressAppTestType value) {
 }
 
 
+enum class PowerButtonObserver_ButtonState : int32_t {
+  
+  kUp = 0,
+  
+  kDown = 1,
+  
+  kRepeat = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, PowerButtonObserver_ButtonState value);
+inline bool IsKnownEnumValue(PowerButtonObserver_ButtonState value) {
+  return internal::PowerButtonObserver_ButtonState_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class Executor_File : int32_t {
   
   kCrashLog = 0,
@@ -254,6 +272,16 @@ using StylusObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<StylusObserverInterfaceBase>;
 using StylusObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<StylusObserverInterfaceBase>;
+class PowerButtonObserverInterfaceBase {};
+
+using PowerButtonObserverPtrDataView =
+    mojo::InterfacePtrDataView<PowerButtonObserverInterfaceBase>;
+using PowerButtonObserverRequestDataView =
+    mojo::InterfaceRequestDataView<PowerButtonObserverInterfaceBase>;
+using PowerButtonObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<PowerButtonObserverInterfaceBase>;
+using PowerButtonObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<PowerButtonObserverInterfaceBase>;
 class ExecutorInterfaceBase {};
 
 using ExecutorPtrDataView =
@@ -498,6 +526,10 @@ struct hash<::ash::cros_healthd::mojom::StressAppTestType>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::StressAppTestType> {};
 
 template <>
+struct hash<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState> {};
+
+template <>
 struct hash<::ash::cros_healthd::mojom::Executor_File>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Executor_File> {};
 
@@ -544,6 +576,26 @@ struct Serializer<::ash::cros_healthd::mojom::StressAppTestType, MaybeConstUserT
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::StressAppTestType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>(input)), output);
   }
 };
 
@@ -982,6 +1034,15 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::StressAppTestType> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::StressAppTestType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState value);
 };
 
 } // namespace perfetto

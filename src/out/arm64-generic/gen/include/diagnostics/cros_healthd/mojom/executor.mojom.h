@@ -386,6 +386,53 @@ class StylusObserver
   virtual void OnConnected(::ash::cros_healthd::mojom::StylusConnectedEventPtr connected_event) = 0;
 };
 
+class PowerButtonObserverProxy;
+
+template <typename ImplRefTraits>
+class PowerButtonObserverStub;
+
+class PowerButtonObserverRequestValidator;
+
+
+class PowerButtonObserver
+    : public PowerButtonObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = PowerButtonObserverInterfaceBase;
+  using Proxy_ = PowerButtonObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = PowerButtonObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = PowerButtonObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnEventMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  
+  using ButtonState = PowerButtonObserver_ButtonState;
+  virtual ~PowerButtonObserver() = default;
+
+  
+  virtual void OnEvent(PowerButtonObserver::ButtonState button_state) = 0;
+};
+
 class ExecutorProxy;
 
 template <typename ImplRefTraits>
@@ -446,6 +493,7 @@ class Executor
     kGetPrivacyScreenInfoMinVersion = 0,
     kFetchDisplayInfoMinVersion = 0,
     kFetchCrashFromCrashSenderMinVersion = 0,
+    kMonitorPowerButtonMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -539,6 +587,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct FetchCrashFromCrashSender_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct MonitorPowerButton_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -679,6 +730,9 @@ class Executor
   using FetchCrashFromCrashSenderCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
   
   virtual void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) = 0;
+
+  
+  virtual void MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
 };
 
 
@@ -791,6 +845,21 @@ class  StylusObserverProxy
 
 
 
+class  PowerButtonObserverProxy
+    : public PowerButtonObserver {
+ public:
+  using InterfaceType = PowerButtonObserver;
+
+  explicit PowerButtonObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnEvent(PowerButtonObserver::ButtonState button_state) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  ExecutorProxy
     : public Executor {
  public:
@@ -857,6 +926,8 @@ class  ExecutorProxy
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) final;
   
   void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) final;
+  
+  void MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1107,6 +1178,47 @@ class StylusObserverStub
  private:
   ImplPointerType sink_;
 };
+class  PowerButtonObserverStubDispatch {
+ public:
+  static bool Accept(PowerButtonObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      PowerButtonObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<PowerButtonObserver>>
+class PowerButtonObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  PowerButtonObserverStub() = default;
+  ~PowerButtonObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return PowerButtonObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return PowerButtonObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  ExecutorStubDispatch {
  public:
   static bool Accept(Executor* impl, mojo::Message* message);
@@ -1169,6 +1281,10 @@ class  StylusGarageObserverRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  StylusObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  PowerButtonObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

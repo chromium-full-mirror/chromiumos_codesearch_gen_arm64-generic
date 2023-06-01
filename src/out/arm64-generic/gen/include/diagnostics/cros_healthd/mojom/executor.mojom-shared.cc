@@ -73,6 +73,32 @@ std::ostream& operator<<(std::ostream& os, StressAppTestType value) {
   return os << StressAppTestTypeToString(value);
 }
 
+NOINLINE static const char* PowerButtonObserver_ButtonStateToStringHelper(PowerButtonObserver_ButtonState value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case PowerButtonObserver_ButtonState::kUp:
+      return "kUp";
+    case PowerButtonObserver_ButtonState::kDown:
+      return "kDown";
+    case PowerButtonObserver_ButtonState::kRepeat:
+      return "kRepeat";
+    default:
+      return nullptr;
+  }
+}
+
+std::string PowerButtonObserver_ButtonStateToString(PowerButtonObserver_ButtonState value) {
+  const char *str = PowerButtonObserver_ButtonStateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown PowerButtonObserver_ButtonState value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, PowerButtonObserver_ButtonState value) {
+  return os << PowerButtonObserver_ButtonStateToString(value);
+}
+
 NOINLINE static const char* Executor_FileToStringHelper(Executor_File value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -867,6 +893,34 @@ bool StylusObserver_OnConnected_Params_Data::Validate(
 }
 
 StylusObserver_OnConnected_Params_Data::StylusObserver_OnConnected_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PowerButtonObserver_OnEvent_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PowerButtonObserver_OnEvent_Params_Data* object =
+      static_cast<const PowerButtonObserver_OnEvent_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::PowerButtonObserver_ButtonState_Data
+        ::Validate(object->button_state, validation_context))
+    return false;
+
+  return true;
+}
+
+PowerButtonObserver_OnEvent_Params_Data::PowerButtonObserver_OnEvent_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2389,6 +2443,47 @@ bool Executor_FetchCrashFromCrashSender_ResponseParams_Data::Validate(
 Executor_FetchCrashFromCrashSender_ResponseParams_Data::Executor_FetchCrashFromCrashSender_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Executor_MonitorPowerButton_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_MonitorPowerButton_Params_Data* object =
+      static_cast<const Executor_MonitorPowerButton_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->process_control, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->process_control,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_MonitorPowerButton_Params_Data::Executor_MonitorPowerButton_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
@@ -2410,6 +2505,16 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::StressAppTestType>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::StressAppTestType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::StressAppTestTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::PowerButtonObserver_ButtonStateToString(value));
 }
 
 } // namespace perfetto
