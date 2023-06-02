@@ -102,6 +102,9 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_MonitorPowerButton_Name: {
       return &Delegate::MonitorPowerButton_Sym::IPCStableHash;
     }
+    case internal::kDelegate_RunPrimeSearch_Name: {
+      return &Delegate::RunPrimeSearch_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -147,6 +150,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::FetchDisplayInfo";
       case internal::kDelegate_MonitorPowerButton_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorPowerButton";
+      case internal::kDelegate_RunPrimeSearch_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::RunPrimeSearch";
     }
   } else {
     switch (message.name()) {
@@ -184,6 +189,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::FetchDisplayInfo";
       case internal::kDelegate_MonitorPowerButton_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorPowerButton";
+      case internal::kDelegate_RunPrimeSearch_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::RunPrimeSearch";
     }
   }
   return "Receive unknown mojo message";
@@ -419,6 +426,19 @@ uint32_t Delegate::MonitorPowerButton_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Delegate::RunPrimeSearch_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::RunPrimeSearch");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Delegate_GetFingerprintFrame_ForwardToCallback
@@ -595,6 +615,22 @@ class Delegate_FetchDisplayInfo_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Delegate::FetchDisplayInfoCallback callback_;
+};
+
+class Delegate_RunPrimeSearch_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_RunPrimeSearch_ForwardToCallback(
+      Delegate::RunPrimeSearchCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_RunPrimeSearch_ForwardToCallback(const Delegate_RunPrimeSearch_ForwardToCallback&) = delete;
+  Delegate_RunPrimeSearch_ForwardToCallback& operator=(const Delegate_RunPrimeSearch_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::RunPrimeSearchCallback callback_;
 };
 
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1248,6 +1284,49 @@ void DelegateProxy::MonitorPowerButton(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DelegateProxy::RunPrimeSearch(
+    uint32_t in_duration_sec, uint64_t in_max_num, RunPrimeSearchCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::RunPrimeSearch", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("duration_sec"), in_duration_sec,
+                        "<value of type uint32_t>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("max_num"), in_max_num,
+                        "<value of type uint64_t>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_RunPrimeSearch_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_RunPrimeSearch_Params_Data> params(
+          message);
+  params.Allocate();
+  params->duration_sec = in_duration_sec;
+  params->max_num = in_max_num;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("RunPrimeSearch");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_RunPrimeSearch_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class Delegate_GetFingerprintFrame_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -2703,6 +2782,124 @@ void Delegate_FetchDisplayInfo_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Delegate_RunPrimeSearch_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::RunPrimeSearchCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_RunPrimeSearch_ProxyToResponder> proxy(
+        new Delegate_RunPrimeSearch_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_RunPrimeSearch_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_RunPrimeSearch_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_RunPrimeSearch_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::RunPrimeSearchCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_passed);
+};
+
+bool Delegate_RunPrimeSearch_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_RunPrimeSearch_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_RunPrimeSearch_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_passed{};
+  Delegate_RunPrimeSearch_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_passed = input_data_view.passed();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 17, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_passed));
+  return true;
+}
+
+void Delegate_RunPrimeSearch_ProxyToResponder::Run(
+    bool in_passed) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::RunPrimeSearch", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("passed"), in_passed,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_RunPrimeSearch_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_RunPrimeSearch_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->passed = in_passed;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("RunPrimeSearch");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool DelegateStubDispatch::Accept(
@@ -2909,6 +3106,9 @@ std::move(p_observer));
       impl->MonitorPowerButton(
 std::move(p_observer));
       return true;
+    }
+    case internal::kDelegate_RunPrimeSearch_Name: {
+      break;
     }
   }
   return false;
@@ -3236,6 +3436,39 @@ std::move(p_path), std::move(callback));
     case internal::kDelegate_MonitorPowerButton_Name: {
       break;
     }
+    case internal::kDelegate_RunPrimeSearch_Name: {
+
+      internal::Delegate_RunPrimeSearch_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_RunPrimeSearch_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      uint32_t p_duration_sec{};
+      uint64_t p_max_num{};
+      Delegate_RunPrimeSearch_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_duration_sec = input_data_view.duration_sec();
+      if (success)
+        p_max_num = input_data_view.max_num();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 17, false);
+        return false;
+      }
+      Delegate::RunPrimeSearchCallback callback =
+          Delegate_RunPrimeSearch_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunPrimeSearch(
+std::move(p_duration_sec), 
+std::move(p_max_num), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -3276,6 +3509,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      &internal::Delegate_FetchDisplayInfo_ResponseParams_Data::Validate},
     {&internal::Delegate_MonitorPowerButton_Params_Data::Validate,
      nullptr /* no response */},
+    {&internal::Delegate_RunPrimeSearch_Params_Data::Validate,
+     &internal::Delegate_RunPrimeSearch_ResponseParams_Data::Validate},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -3358,6 +3593,9 @@ void DelegateInterceptorForTesting::FetchDisplayInfo(FetchDisplayInfoCallback ca
 }
 void DelegateInterceptorForTesting::MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) {
   GetForwardingInterface()->MonitorPowerButton(std::move(observer));
+}
+void DelegateInterceptorForTesting::RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, RunPrimeSearchCallback callback) {
+  GetForwardingInterface()->RunPrimeSearch(std::move(duration_sec), std::move(max_num), std::move(callback));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
@@ -3613,6 +3851,29 @@ void DelegateAsyncWaiter::FetchDisplayInfo(
     ) {
   ::ash::cros_healthd::mojom::DisplayResultPtr async_wait_result;
   FetchDisplayInfo(&async_wait_result);
+  return async_wait_result;
+}
+
+void DelegateAsyncWaiter::RunPrimeSearch(
+    uint32_t duration_sec, uint64_t max_num, bool* out_passed) {
+  base::RunLoop loop;
+  proxy_->RunPrimeSearch(std::move(duration_sec),std::move(max_num),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_passed
+,
+             bool passed) {*out_passed = std::move(passed);
+            loop->Quit();
+          },
+          &loop,
+          out_passed));
+  loop.Run();
+}
+
+bool DelegateAsyncWaiter::RunPrimeSearch(
+    uint32_t duration_sec, uint64_t max_num) {
+  bool async_wait_result;
+  RunPrimeSearch(std::move(duration_sec),std::move(max_num),&async_wait_result);
   return async_wait_result;
 }
 

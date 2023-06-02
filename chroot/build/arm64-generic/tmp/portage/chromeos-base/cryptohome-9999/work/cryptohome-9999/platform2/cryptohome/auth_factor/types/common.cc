@@ -55,9 +55,17 @@ bool AfDriverFullAuthUnsupported::IsFullAuthAllowed(
 }
 
 CryptohomeStatusOr<base::TimeDelta> AfDriverNoDelay::GetFactorDelay(
-    const AuthFactor& factor) {
+    const ObfuscatedUsername& username, const AuthFactor& factor) {
   return MakeStatus<CryptohomeError>(
       CRYPTOHOME_ERR_LOC(kLocAuthFactorCommonGetFactorDelayUnsupported),
+      ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
+      user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+}
+
+CryptohomeStatusOr<bool> AfDriverNoExpiration::IsExpired(
+    const ObfuscatedUsername& username, const AuthFactor& factor) {
+  return MakeStatus<CryptohomeError>(
+      CRYPTOHOME_ERR_LOC(kLocAuthFactorCommonIsExpiredUnsupported),
       ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
       user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
 }

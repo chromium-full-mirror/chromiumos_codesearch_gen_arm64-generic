@@ -32,6 +32,7 @@ class CpuStressRoutineArgument_Data;
 class UfsLifetimeRoutineArgument_Data;
 class DiskReadRoutineArgument_Data;
 class CpuCacheRoutineArgument_Data;
+class PrimeSearchRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
@@ -43,6 +44,7 @@ class CpuStressRoutineDetail_Data;
 class UfsLifetimeRoutineDetail_Data;
 class DiskReadRoutineDetail_Data;
 class CpuCacheRoutineDetail_Data;
+class PrimeSearchRoutineDetail_Data;
 class MemtesterResult_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
@@ -210,6 +212,8 @@ class  RoutineArgument_Data {
     kDiskRead,
     
     kCpuCache,
+    
+    kPrimeSearch,
   };
 
   // A note on layout:
@@ -224,6 +228,7 @@ class  RoutineArgument_Data {
     mojo::internal::Pointer<internal::UfsLifetimeRoutineArgument_Data> f_ufs_lifetime;
     mojo::internal::Pointer<internal::DiskReadRoutineArgument_Data> f_disk_read;
     mojo::internal::Pointer<internal::CpuCacheRoutineArgument_Data> f_cpu_cache;
+    mojo::internal::Pointer<internal::PrimeSearchRoutineArgument_Data> f_prime_search;
     uint64_t unknown;
   };
 
@@ -333,6 +338,8 @@ class  RoutineDetail_Data {
     kDiskRead,
     
     kCpuCache,
+    
+    kPrimeSearch,
   };
 
   // A note on layout:
@@ -346,6 +353,7 @@ class  RoutineDetail_Data {
     mojo::internal::Pointer<internal::UfsLifetimeRoutineDetail_Data> f_ufs_lifetime;
     mojo::internal::Pointer<internal::DiskReadRoutineDetail_Data> f_disk_read;
     mojo::internal::Pointer<internal::CpuCacheRoutineDetail_Data> f_cpu_cache;
+    mojo::internal::Pointer<internal::PrimeSearchRoutineDetail_Data> f_prime_search;
     uint64_t unknown;
   };
 
@@ -645,6 +653,54 @@ struct CpuCacheRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     CpuCacheRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  PrimeSearchRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::external::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<PrimeSearchRoutineArgument_Data>;
+
+  PrimeSearchRoutineArgument_Data();
+  ~PrimeSearchRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(PrimeSearchRoutineArgument_Data) == 16,
+              "Bad sizeof(PrimeSearchRoutineArgument_Data)");
+// Used by PrimeSearchRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PrimeSearchRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PrimeSearchRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PrimeSearchRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PrimeSearchRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PrimeSearchRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -1180,6 +1236,53 @@ struct CpuCacheRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     CpuCacheRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  PrimeSearchRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PrimeSearchRoutineDetail_Data>;
+
+  PrimeSearchRoutineDetail_Data();
+  ~PrimeSearchRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(PrimeSearchRoutineDetail_Data) == 8,
+              "Bad sizeof(PrimeSearchRoutineDetail_Data)");
+// Used by PrimeSearchRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PrimeSearchRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PrimeSearchRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PrimeSearchRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PrimeSearchRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PrimeSearchRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  MemtesterResult_Data {
  public:
   static bool Validate(const void* data,

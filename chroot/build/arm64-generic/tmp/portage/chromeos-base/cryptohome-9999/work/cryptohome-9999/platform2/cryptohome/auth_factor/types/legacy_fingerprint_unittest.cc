@@ -188,9 +188,23 @@ TEST_F(LegacyFingerprintDriverTest, GetDelayFails) {
                     CreateMetadataWithType<std::monostate>(),
                     {.state = std::monostate()});
 
-  auto delay_in_ms = driver.GetFactorDelay(factor);
+  auto delay_in_ms = driver.GetFactorDelay(kObfuscatedUser, factor);
   ASSERT_THAT(delay_in_ms, NotOk());
   EXPECT_THAT(delay_in_ms.status()->local_legacy_error(),
+              Eq(user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT));
+}
+
+TEST_F(LegacyFingerprintDriverTest, GetExpirationFails) {
+  LegacyFingerprintAuthFactorDriver legacy_fp_driver(&fp_service_);
+  AuthFactorDriver& driver = legacy_fp_driver;
+
+  AuthFactor factor(AuthFactorType::kLegacyFingerprint, "",
+                    CreateMetadataWithType<std::monostate>(),
+                    {.state = std::monostate()});
+
+  auto expired = driver.IsExpired(kObfuscatedUser, factor);
+  ASSERT_THAT(expired, NotOk());
+  EXPECT_THAT(expired.status()->local_legacy_error(),
               Eq(user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT));
 }
 

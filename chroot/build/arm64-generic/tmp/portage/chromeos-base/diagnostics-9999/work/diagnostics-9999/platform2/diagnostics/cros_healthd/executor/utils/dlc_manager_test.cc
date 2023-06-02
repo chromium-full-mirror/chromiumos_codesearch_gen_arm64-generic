@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include <memory>
 #include <optional>
 #include <string>
 #include <utility>
@@ -27,6 +28,7 @@ using ::testing::Invoke;
 using ::testing::Return;
 using ::testing::WithArg;
 using ::testing::WithArgs;
+using ::testing::WithoutArgs;
 
 class DlcManagerTest : public testing::Test {
  protected:
@@ -56,7 +58,30 @@ class DlcManagerTest : public testing::Test {
                     callback) { std::move(*callback).Run(available); }));
   }
 
-  void SetInstallDlcCall(bool is_success) {
+  void SetRegisterDlcStateChangedCall(bool is_success) {
+    EXPECT_CALL(mock_dlc_service_, DoRegisterDlcStateChangedSignalHandler(_, _))
+        .WillOnce(WithArgs<0, 1>(
+            [=](const base::RepeatingCallback<void(
+                    const dlcservice::DlcState&)>& signal_callback,
+                dbus::ObjectProxy::OnConnectedCallback* on_connected_callback) {
+              if (is_success)
+                state_changed_cb = signal_callback;
+              std::move(*on_connected_callback).Run("", "", is_success);
+            }));
+  }
+
+  void SetUpIntializedDlcManager() {
+    SetDlcServiceAvailability(/*available=*/true);
+    SetRegisterDlcStateChangedCall(/*is_success=*/true);
+    dlc_manager_.Initialize();
+  }
+
+  void SetUpNotIntializedDlcManager() {
+    SetDlcServiceAvailability(/*available=*/false);
+    dlc_manager_.Initialize();
+  }
+
+  void SetInstallDlcCall(const dlcservice::DlcState& state, bool is_success) {
     EXPECT_CALL(mock_dlc_service_, InstallAsync(_, _, _, _))
         .WillOnce(WithArgs<0, 1, 2>(Invoke(
             [=](const dlcservice::InstallRequest& in_install_request,
@@ -65,89 +90,102 @@ class DlcManagerTest : public testing::Test {
               last_install_dlc_id = in_install_request.id();
               if (is_success) {
                 std::move(success_callback).Run();
+                state_changed_cb.Run(state);
               } else {
                 auto error = brillo::Error::Create(FROM_HERE, "", "", "");
                 std::move(error_callback).Run(error.get());
               }
             })));
   }
-
-  void SetGetDlcStateCall(const dlcservice::DlcState& state, bool is_success) {
-    EXPECT_CALL(mock_dlc_service_, GetDlcStateAsync(_, _, _, _))
-        .WillOnce(WithArgs<0, 1, 2>(Invoke(
-            [=](const std::string& in_id,
-                base::OnceCallback<void(const dlcservice::DlcState&)>
-                    success_callback,
-                base::OnceCallback<void(brillo::Error*)> error_callback) {
-              last_get_dlc_state_id = in_id;
-              if (is_success) {
-                std::move(success_callback).Run(state);
-              } else {
-                auto error = brillo::Error::Create(FROM_HERE, "", "", "");
-                std::move(error_callback).Run(error.get());
-              }
-            })));
-  }
-
- private:
-  base::test::TaskEnvironment task_environment_;
-  scoped_refptr<dbus::MockObjectProxy> dlc_service_object_proxy_;
-  org::chromium::DlcServiceInterfaceProxyMock mock_dlc_service_;
-  DlcManager dlc_manager_{&mock_dlc_service_};
 
  protected:
+  base::test::TaskEnvironment task_environment_{
+      base::test::TaskEnvironment::TimeSource::MOCK_TIME};
+  org::chromium::DlcServiceInterfaceProxyMock mock_dlc_service_;
+  base::RepeatingCallback<void(const dlcservice::DlcState&)> state_changed_cb;
   std::optional<std::string> last_install_dlc_id;
-  std::optional<std::string> last_get_dlc_state_id;
+
+ private:
+  scoped_refptr<dbus::MockObjectProxy> dlc_service_object_proxy_;
+  DlcManager dlc_manager_{&mock_dlc_service_};
 };
 
+// Test that DLC manager can get the DLC root path successfully.
 TEST_F(DlcManagerTest, GetRootPathSuccess) {
-  SetDlcServiceAvailability(/*available=*/true);
-  SetInstallDlcCall(/*is_success=*/true);
+  SetUpIntializedDlcManager();
   auto state = dlcservice::DlcState{};
-  state.set_is_verified(true);
+  state.set_id("test-dlc");
+  state.set_state(dlcservice::DlcState::INSTALLED);
   state.set_root_path("/run/imageloader/test-dlc/package/root");
-  SetGetDlcStateCall(state, /*is_success=*/true);
+  SetInstallDlcCall(state, /*is_success=*/true);
 
   EXPECT_EQ(GetBinaryRootPathSync("test-dlc"),
             base::FilePath(state.root_path()));
   EXPECT_EQ(last_install_dlc_id, "test-dlc");
-  EXPECT_EQ(last_get_dlc_state_id, "test-dlc");
 }
 
+// Test that DLC manager handle the error when DLC service is unavailable.
 TEST_F(DlcManagerTest, DlcServiceUnavailableError) {
+  auto start_ticks_ = base::TimeTicks::Now();
+  SetUpNotIntializedDlcManager();
   SetDlcServiceAvailability(/*available=*/false);
+
   EXPECT_FALSE(GetBinaryRootPathSync("test-dlc").has_value());
   EXPECT_FALSE(last_install_dlc_id.has_value());
-  EXPECT_FALSE(last_get_dlc_state_id.has_value());
+  EXPECT_LT(base::TimeTicks::Now() - start_ticks_, kGetDlcRootPathTimeout)
+      << "Unexpected to reach timeout";
 }
 
+// Test that DLC manager handle the error of registering DLC state change events
+// failure.
+TEST_F(DlcManagerTest, RegisterDlcStateChangedError) {
+  auto start_ticks_ = base::TimeTicks::Now();
+  SetUpNotIntializedDlcManager();
+  SetDlcServiceAvailability(/*available=*/true);
+  SetRegisterDlcStateChangedCall(/*is_success=*/false);
+
+  EXPECT_FALSE(GetBinaryRootPathSync("test-dlc").has_value());
+  EXPECT_FALSE(last_install_dlc_id.has_value());
+  EXPECT_LT(base::TimeTicks::Now() - start_ticks_, kGetDlcRootPathTimeout)
+      << "Unexpected to reach timeout";
+}
+
+// Test that DLC manager handle the error of installing DLC.
 TEST_F(DlcManagerTest, InstallDlcError) {
-  SetDlcServiceAvailability(/*available=*/true);
-  SetInstallDlcCall(/*is_success=*/false);
+  SetUpIntializedDlcManager();
+  auto state = dlcservice::DlcState{};
+  state.set_id("test-dlc");
+  state.set_state(dlcservice::DlcState::INSTALLED);
+  SetInstallDlcCall(state, /*is_success=*/false);
+
   EXPECT_FALSE(GetBinaryRootPathSync("test-dlc").has_value());
   EXPECT_EQ(last_install_dlc_id, "test-dlc");
-  EXPECT_FALSE(last_get_dlc_state_id.has_value());
 }
 
-TEST_F(DlcManagerTest, GetDlcStateError) {
-  SetDlcServiceAvailability(/*available=*/true);
-  SetInstallDlcCall(/*is_success=*/true);
+// Test that DLC manager handle the error of getting not-installed state DLC
+// after installation.
+TEST_F(DlcManagerTest, InstallDlcNotInstalledStateError) {
+  SetUpIntializedDlcManager();
   auto state = dlcservice::DlcState{};
-  SetGetDlcStateCall(state, /*is_success=*/false);
+  state.set_id("test-dlc");
+  state.set_state(dlcservice::DlcState::NOT_INSTALLED);
+  SetInstallDlcCall(state, /*is_success=*/true);
+
   EXPECT_FALSE(GetBinaryRootPathSync("test-dlc").has_value());
   EXPECT_EQ(last_install_dlc_id, "test-dlc");
-  EXPECT_EQ(last_get_dlc_state_id, "test-dlc");
 }
 
-TEST_F(DlcManagerTest, GetInvalidDlcError) {
+// Test that DLC manager handle the timeout error of getting DLC root path.
+TEST_F(DlcManagerTest, GetRootPathSuccessTimeoutError) {
+  SetUpNotIntializedDlcManager();
   SetDlcServiceAvailability(/*available=*/true);
-  SetInstallDlcCall(/*is_success=*/true);
-  auto state = dlcservice::DlcState{};
-  state.set_is_verified(false);
-  SetGetDlcStateCall(state, /*is_success=*/true);
+
+  EXPECT_CALL(mock_dlc_service_, DoRegisterDlcStateChangedSignalHandler(_, _))
+      .WillOnce(WithoutArgs(
+          [&]() { task_environment_.FastForwardBy(kGetDlcRootPathTimeout); }));
+
   EXPECT_FALSE(GetBinaryRootPathSync("test-dlc").has_value());
-  EXPECT_EQ(last_install_dlc_id, "test-dlc");
-  EXPECT_EQ(last_get_dlc_state_id, "test-dlc");
+  EXPECT_FALSE(last_install_dlc_id.has_value());
 }
 
 }  // namespace

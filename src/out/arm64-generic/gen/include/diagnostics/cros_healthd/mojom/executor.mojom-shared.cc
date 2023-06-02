@@ -983,6 +983,64 @@ Executor_ReadFile_ResponseParams_Data::Executor_ReadFile_ResponseParams_Data()
 
 
 // static
+bool Executor_ReadFilePart_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_ReadFilePart_Params_Data* object =
+      static_cast<const Executor_ReadFilePart_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::Executor_File_Data
+        ::Validate(object->file_enum, validation_context))
+    return false;
+
+  return true;
+}
+
+Executor_ReadFilePart_Params_Data::Executor_ReadFilePart_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_ReadFilePart_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_ReadFilePart_ResponseParams_Data* object =
+      static_cast<const Executor_ReadFilePart_ResponseParams_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& content_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->content, validation_context,
+                                         &content_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_ReadFilePart_ResponseParams_Data::Executor_ReadFilePart_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Executor_GetFileInfo_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2482,6 +2540,61 @@ bool Executor_MonitorPowerButton_Params_Data::Validate(
 }
 
 Executor_MonitorPowerButton_Params_Data::Executor_MonitorPowerButton_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_RunPrimeSearch_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RunPrimeSearch_Params_Data* object =
+      static_cast<const Executor_RunPrimeSearch_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->process_control, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->process_control,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_RunPrimeSearch_Params_Data::Executor_RunPrimeSearch_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_RunPrimeSearch_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RunPrimeSearch_ResponseParams_Data* object =
+      static_cast<const Executor_RunPrimeSearch_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+Executor_RunPrimeSearch_ResponseParams_Data::Executor_RunPrimeSearch_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

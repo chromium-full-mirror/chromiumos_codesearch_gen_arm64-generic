@@ -217,6 +217,34 @@ bool CpuCacheRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+PrimeSearchRoutineArgument::PrimeSearchRoutineArgument()
+    : exec_duration() {}
+
+PrimeSearchRoutineArgument::PrimeSearchRoutineArgument(
+    absl::optional<base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+PrimeSearchRoutineArgument::~PrimeSearchRoutineArgument() = default;
+
+void PrimeSearchRoutineArgument::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool PrimeSearchRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -570,6 +598,23 @@ bool CpuCacheRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+PrimeSearchRoutineDetail::PrimeSearchRoutineDetail() {}
+
+PrimeSearchRoutineDetail::~PrimeSearchRoutineDetail() = default;
+size_t PrimeSearchRoutineDetail::Hash(size_t seed) const {
+  return seed;
+}
+
+void PrimeSearchRoutineDetail::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool PrimeSearchRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 MemtesterResult::MemtesterResult()
     : passed_items(),
       failed_items() {}
@@ -693,6 +738,17 @@ void RoutineArgument::set_cpu_cache(
         std::move(cpu_cache));
   }
 }
+void RoutineArgument::set_prime_search(
+    PrimeSearchRoutineArgumentPtr prime_search) {
+  if (tag_ == Tag::kPrimeSearch) {
+    *(data_.prime_search) = std::move(prime_search);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kPrimeSearch;
+    data_.prime_search = new PrimeSearchRoutineArgumentPtr(
+        std::move(prime_search));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -723,6 +779,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kCpuCache:
 
       delete data_.cpu_cache;
+      break;
+    case Tag::kPrimeSearch:
+
+      delete data_.prime_search;
       break;
   }
 }
@@ -888,6 +948,17 @@ void RoutineDetail::set_cpu_cache(
         std::move(cpu_cache));
   }
 }
+void RoutineDetail::set_prime_search(
+    PrimeSearchRoutineDetailPtr prime_search) {
+  if (tag_ == Tag::kPrimeSearch) {
+    *(data_.prime_search) = std::move(prime_search);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kPrimeSearch;
+    data_.prime_search = new PrimeSearchRoutineDetailPtr(
+        std::move(prime_search));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -915,6 +986,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kCpuCache:
 
       delete data_.cpu_cache;
+      break;
+    case Tag::kPrimeSearch:
+
+      delete data_.prime_search;
       break;
   }
 }
@@ -2090,6 +2165,20 @@ bool StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgument::DataView,
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineArgument::DataView, ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::PrimeSearchRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr result(::ash::cros_healthd::mojom::PrimeSearchRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -2248,6 +2337,18 @@ bool StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetail::DataView, :
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::DataView, ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr result(::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::cros_healthd::mojom::MemtesterResultPtr>::Read(
     ::ash::cros_healthd::mojom::MemtesterResult::DataView input,
     ::ash::cros_healthd::mojom::MemtesterResultPtr* output) {
@@ -2326,6 +2427,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewCpuCache(
           std::move(result_cpu_cache));
+      break;
+    }
+    case Tag::kPrimeSearch: {
+      ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr result_prime_search;
+      if (!input.ReadPrimeSearch(&result_prime_search))
+        return false;
+
+      *output = UnionType::NewPrimeSearch(
+          std::move(result_prime_search));
       break;
     }
     default:
@@ -2447,6 +2557,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewCpuCache(
           std::move(result_cpu_cache));
+      break;
+    }
+    case Tag::kPrimeSearch: {
+      ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr result_prime_search;
+      if (!input.ReadPrimeSearch(&result_prime_search))
+        return false;
+
+      *output = UnionType::NewPrimeSearch(
+          std::move(result_prime_search));
       break;
     }
     default:

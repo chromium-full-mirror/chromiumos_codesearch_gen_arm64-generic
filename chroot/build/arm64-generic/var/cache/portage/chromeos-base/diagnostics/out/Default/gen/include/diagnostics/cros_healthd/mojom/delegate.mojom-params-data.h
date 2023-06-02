@@ -478,6 +478,41 @@ class  Delegate_MonitorPowerButton_Params_Data {
 };
 static_assert(sizeof(Delegate_MonitorPowerButton_Params_Data) == 16,
               "Bad sizeof(Delegate_MonitorPowerButton_Params_Data)");
+class  Delegate_RunPrimeSearch_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t duration_sec;
+  uint8_t pad0_[4];
+  uint64_t max_num;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_RunPrimeSearch_Params_Data>;
+
+  Delegate_RunPrimeSearch_Params_Data();
+  ~Delegate_RunPrimeSearch_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_RunPrimeSearch_Params_Data) == 24,
+              "Bad sizeof(Delegate_RunPrimeSearch_Params_Data)");
+class  Delegate_RunPrimeSearch_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t passed : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_RunPrimeSearch_ResponseParams_Data>;
+
+  Delegate_RunPrimeSearch_ResponseParams_Data();
+  ~Delegate_RunPrimeSearch_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_RunPrimeSearch_ResponseParams_Data) == 16,
+              "Bad sizeof(Delegate_RunPrimeSearch_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1240,6 +1275,45 @@ class Delegate_MonitorPowerButton_ParamsDataView {
 };
 
 
+class Delegate_RunPrimeSearch_ParamsDataView {
+ public:
+  Delegate_RunPrimeSearch_ParamsDataView() = default;
+
+  Delegate_RunPrimeSearch_ParamsDataView(
+      internal::Delegate_RunPrimeSearch_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t duration_sec() const {
+    return data_->duration_sec;
+  }
+  uint64_t max_num() const {
+    return data_->max_num;
+  }
+ private:
+  internal::Delegate_RunPrimeSearch_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_RunPrimeSearch_ResponseParamsDataView {
+ public:
+  Delegate_RunPrimeSearch_ResponseParamsDataView() = default;
+
+  Delegate_RunPrimeSearch_ResponseParamsDataView(
+      internal::Delegate_RunPrimeSearch_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool passed() const {
+    return data_->passed;
+  }
+ private:
+  internal::Delegate_RunPrimeSearch_ResponseParams_Data* data_ = nullptr;
+};
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -1361,6 +1435,10 @@ inline void Delegate_FetchDisplayInfo_ResponseParamsDataView::GetResultDataView(
   auto pointer = &data_->result;
   *output = ::ash::cros_healthd::mojom::DisplayResultDataView(pointer, message_);
 }
+
+
+
+
 
 
 

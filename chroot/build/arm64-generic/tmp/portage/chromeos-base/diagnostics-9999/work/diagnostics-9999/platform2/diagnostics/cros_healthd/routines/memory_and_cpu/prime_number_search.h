@@ -10,9 +10,6 @@
 
 namespace diagnostics {
 
-// Largest number that routine will calculate prime numbers up to.
-constexpr uint64_t kMaxPrimeNumber = 1000000;
-
 class PrimeNumberSearch {
  public:
   explicit PrimeNumberSearch(uint64_t max_num);
@@ -25,6 +22,9 @@ class PrimeNumberSearch {
   // Executes prime number search task. Returns true if searching is completed
   // without any error, false otherwise.
   bool Run();
+
+  // Largest number that routine will calculate prime numbers up to.
+  static constexpr uint64_t kMaxPrimeNumber = 1000000;
 
  private:
   const uint64_t max_num_ = 0;

@@ -51,6 +51,10 @@ class Executor final : public ash::cros_healthd::mojom::Executor {
 
   // ash::cros_healthd::mojom::Executor overrides:
   void ReadFile(File file_enum, ReadFileCallback callback) override;
+  void ReadFilePart(File file_enum,
+                    uint64_t begin,
+                    uint64_t size,
+                    ReadFilePartCallback callback) override;
   void GetFileInfo(File file_enum, GetFileInfoCallback callback) override;
   void GetFanSpeed(GetFanSpeedCallback callback) override;
   void RunIw(IwCommand cmd,
@@ -126,6 +130,12 @@ class Executor final : public ash::cros_healthd::mojom::Executor {
           observer,
       mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>
           process_control_receiver) override;
+  void RunPrimeSearch(
+      uint32_t duration_sec,
+      uint64_t max_num,
+      mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>
+          process_control_receiver,
+      RunPrimeSearchCallback callback) override;
 
  private:
   // Runs the given process and wait for it to die. Does not track the process

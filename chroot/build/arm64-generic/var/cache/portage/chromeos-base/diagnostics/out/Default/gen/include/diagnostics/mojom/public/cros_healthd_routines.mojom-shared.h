@@ -49,6 +49,8 @@ class DiskReadRoutineArgumentDataView;
 
 class CpuCacheRoutineArgumentDataView;
 
+class PrimeSearchRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -70,6 +72,8 @@ class UfsLifetimeRoutineDetailDataView;
 class DiskReadRoutineDetailDataView;
 
 class CpuCacheRoutineDetailDataView;
+
+class PrimeSearchRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
@@ -123,6 +127,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::DiskReadRoutineArgumentDataVi
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::CpuCacheRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::PrimeSearchRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -200,6 +211,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::DiskReadRoutineDetailDataView
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::CpuCacheRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::PrimeSearchRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -568,6 +586,42 @@ static_assert(
 };
 
 
+class PrimeSearchRoutineArgumentDataView {
+ public:
+  PrimeSearchRoutineArgumentDataView() = default;
+
+  PrimeSearchRoutineArgumentDataView(
+      internal::PrimeSearchRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+    "Attempting to read the optional `exec_duration` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExecDuration` instead "
+    "of `ReadExecDuration if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PrimeSearchRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class RoutineStateDataView {
  public:
   RoutineStateDataView() = default;
@@ -821,6 +875,21 @@ class CpuCacheRoutineDetailDataView {
 };
 
 
+class PrimeSearchRoutineDetailDataView {
+ public:
+  PrimeSearchRoutineDetailDataView() = default;
+
+  PrimeSearchRoutineDetailDataView(
+      internal::PrimeSearchRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PrimeSearchRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class MemtesterResultDataView {
  public:
   MemtesterResultDataView() = default;
@@ -945,6 +1014,17 @@ class RoutineArgumentDataView {
     CHECK(is_cpu_cache());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView>(
         data_->data.f_cpu_cache.Get(), output, message_);
+  }
+  bool is_prime_search() const { return data_->tag == Tag::kPrimeSearch; }
+  inline void GetPrimeSearchDataView(
+      PrimeSearchRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrimeSearch(UserType* output) const {
+    
+    CHECK(is_prime_search());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView>(
+        data_->data.f_prime_search.Get(), output, message_);
   }
 
  private:
@@ -1107,6 +1187,17 @@ class RoutineDetailDataView {
     CHECK(is_cpu_cache());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView>(
         data_->data.f_cpu_cache.Get(), output, message_);
+  }
+  bool is_prime_search() const { return data_->tag == Tag::kPrimeSearch; }
+  inline void GetPrimeSearchDataView(
+      PrimeSearchRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrimeSearch(UserType* output) const {
+    
+    CHECK(is_prime_search());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView>(
+        data_->data.f_prime_search.Get(), output, message_);
   }
 
  private:
@@ -1425,6 +1516,43 @@ struct Serializer<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView, M
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::PrimeSearchRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::PrimeSearchRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -1804,6 +1932,35 @@ struct Serializer<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView, May
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::PrimeSearchRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::PrimeSearchRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::MemtesterResultDataView, UserType>;
@@ -1981,6 +2138,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null cpu_cache in RoutineArgument union");
         fragment->data.f_cpu_cache.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kPrimeSearch: {
+        decltype(Traits::prime_search(input))
+            in_prime_search = Traits::prime_search(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_prime_search)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView>(
+            in_prime_search, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null prime_search in RoutineArgument union");
+        fragment->data.f_prime_search.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -2226,6 +2399,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kPrimeSearch: {
+        decltype(Traits::prime_search(input))
+            in_prime_search = Traits::prime_search(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_prime_search)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView>(
+            in_prime_search, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null prime_search in RoutineDetail union");
+        fragment->data.f_prime_search.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -2276,6 +2465,13 @@ inline void CpuCacheRoutineArgumentDataView::GetExecDurationDataView(
 }
 
 
+inline void PrimeSearchRoutineArgumentDataView::GetExecDurationDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
 inline void RoutineStateDataView::GetStateUnionDataView(
     RoutineStateUnionDataView* output) {
   auto pointer = &data_->state_union;
@@ -2306,6 +2502,8 @@ inline void MemoryRoutineDetailDataView::GetResultDataView(
   auto pointer = data_->result.Get();
   *output = MemtesterResultDataView(pointer, message_);
 }
+
+
 
 
 
@@ -2360,6 +2558,11 @@ inline void RoutineArgumentDataView::GetCpuCacheDataView(
   CHECK(is_cpu_cache());
   *output = CpuCacheRoutineArgumentDataView(data_->data.f_cpu_cache.Get(), message_);
 }
+inline void RoutineArgumentDataView::GetPrimeSearchDataView(
+    PrimeSearchRoutineArgumentDataView* output) const {
+  CHECK(is_prime_search());
+  *output = PrimeSearchRoutineArgumentDataView(data_->data.f_prime_search.Get(), message_);
+}
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
     RoutineStateInitializedDataView* output) const {
@@ -2411,6 +2614,11 @@ inline void RoutineDetailDataView::GetCpuCacheDataView(
     CpuCacheRoutineDetailDataView* output) const {
   CHECK(is_cpu_cache());
   *output = CpuCacheRoutineDetailDataView(data_->data.f_cpu_cache.Get(), message_);
+}
+inline void RoutineDetailDataView::GetPrimeSearchDataView(
+    PrimeSearchRoutineDetailDataView* output) const {
+  CHECK(is_prime_search());
+  *output = PrimeSearchRoutineDetailDataView(data_->data.f_prime_search.Get(), message_);
 }
 
 

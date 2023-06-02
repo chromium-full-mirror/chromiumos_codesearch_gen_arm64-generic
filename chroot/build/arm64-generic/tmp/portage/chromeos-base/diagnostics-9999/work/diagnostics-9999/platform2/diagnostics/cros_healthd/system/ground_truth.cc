@@ -163,6 +163,13 @@ mojom::SupportStatusPtr GroundTruth::GetRoutineSupportStatus(
     case mojom::RoutineArgument::Tag::kUnrecognizedArgument:
       return mojom::SupportStatus::NewException(mojom::Exception::New(
           mojom::Exception::Reason::kUnexpected, "Got kUnrecognizedArgument"));
+    // Always supported. There is no rule on the routine arguments.
+    case mojom::RoutineArgument::Tag::kMemory:
+    case mojom::RoutineArgument::Tag::kAudioDriver:
+    case mojom::RoutineArgument::Tag::kCpuStress:
+    case mojom::RoutineArgument::Tag::kCpuCache:
+    case mojom::RoutineArgument::Tag::kPrimeSearch:
+      return mojom::SupportStatus::NewSupported(mojom::Supported::New());
     // Need to be determined by boxster/cros_config.
     case mojom::RoutineArgument::Tag::kUfsLifetime: {
       auto storage_type = StorageType();
@@ -175,17 +182,28 @@ mojom::SupportStatusPtr GroundTruth::GetRoutineSupportStatus(
                                 storage_type),
           nullptr));
     }
-    // To be designed, set to supported first.
-    case mojom::RoutineArgument::Tag::kMemory:
+    // Need to check the routine arguments.
+    case mojom::RoutineArgument::Tag::kDiskRead: {
+      auto& arg = routine_arg->get_disk_read();
+      if (arg->disk_read_duration.InSeconds() <= 0) {
+        return mojom::SupportStatus::NewUnsupported(mojom::Unsupported::New(
+            "Disk read duration should not be zero after rounding towards zero "
+            "to the nearest second",
+            nullptr));
+      }
+
+      if (arg->file_size_mib == 0) {
+        return mojom::SupportStatus::NewUnsupported(mojom::Unsupported::New(
+            "Test file size should not be zero", nullptr));
+      }
+
+      if (arg->type == mojom::DiskReadTypeEnum::kUnmappedEnumField) {
+        return mojom::SupportStatus::NewUnsupported(
+            mojom::Unsupported::New("Unexpected disk read type", nullptr));
+      }
+
       return mojom::SupportStatus::NewSupported(mojom::Supported::New());
-    case mojom::RoutineArgument::Tag::kAudioDriver:
-      return mojom::SupportStatus::NewSupported(mojom::Supported::New());
-    case mojom::RoutineArgument::Tag::kCpuStress:
-      return mojom::SupportStatus::NewSupported(mojom::Supported::New());
-    case mojom::RoutineArgument::Tag::kDiskRead:
-      return mojom::SupportStatus::NewSupported(mojom::Supported::New());
-    case mojom::RoutineArgument::Tag::kCpuCache:
-      return mojom::SupportStatus::NewSupported(mojom::Supported::New());
+    }
   }
 }
 

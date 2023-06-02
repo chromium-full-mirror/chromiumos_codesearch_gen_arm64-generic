@@ -83,12 +83,23 @@ class GroundTruthTest : public testing::Test {
   GroundTruth ground_truth_{&mock_context_};
 };
 
-TEST_F(GroundTruthTest, AlwaysSupported) {
+TEST_F(GroundTruthTest, AlwaysSupportedEvents) {
   ExpectEventSupported(mojom::EventCategoryEnum::kUsb);
   ExpectEventSupported(mojom::EventCategoryEnum::kThunderbolt);
   ExpectEventSupported(mojom::EventCategoryEnum::kBluetooth);
   ExpectEventSupported(mojom::EventCategoryEnum::kPower);
   ExpectEventSupported(mojom::EventCategoryEnum::kAudio);
+}
+
+TEST_F(GroundTruthTest, AlwaysSupportedRoutines) {
+  ExpectRoutineSupported(
+      mojom::RoutineArgument::NewMemory(mojom::MemoryRoutineArgument::New()));
+  ExpectRoutineSupported(mojom::RoutineArgument::NewAudioDriver(
+      mojom::AudioDriverRoutineArgument::New()));
+  ExpectRoutineSupported(mojom::RoutineArgument::NewCpuStress(
+      mojom::CpuStressRoutineArgument::New()));
+  ExpectRoutineSupported(mojom::RoutineArgument::NewCpuCache(
+      mojom::CpuCacheRoutineArgument::New()));
 }
 
 TEST_F(GroundTruthTest, CurrentUnsupported) {
@@ -343,6 +354,42 @@ TEST_F(GroundTruthTest, UfsLifetimeRoutine) {
           mojom::RoutineArgument::NewUfsLifetime(arg.Clone()));
     }
   }
+}
+
+TEST_F(GroundTruthTest, DiskReadRoutine) {
+  auto arg = mojom::DiskReadRoutineArgument::New();
+  arg->type = mojom::DiskReadTypeEnum::kLinearRead;
+  arg->disk_read_duration = base::Seconds(1);
+  arg->file_size_mib = 1;
+
+  ExpectRoutineSupported(mojom::RoutineArgument::NewDiskRead(std::move(arg)));
+}
+
+TEST_F(GroundTruthTest, DiskReadRoutineUnknownType) {
+  auto arg = mojom::DiskReadRoutineArgument::New();
+  arg->type = mojom::DiskReadTypeEnum::kUnmappedEnumField;
+  arg->disk_read_duration = base::Seconds(1);
+  arg->file_size_mib = 1;
+
+  ExpectRoutineUnsupported(mojom::RoutineArgument::NewDiskRead(std::move(arg)));
+}
+
+TEST_F(GroundTruthTest, DiskReadRoutineZeroDuration) {
+  auto arg = mojom::DiskReadRoutineArgument::New();
+  arg->type = mojom::DiskReadTypeEnum::kLinearRead;
+  arg->disk_read_duration = base::Seconds(0);
+  arg->file_size_mib = 1;
+
+  ExpectRoutineUnsupported(mojom::RoutineArgument::NewDiskRead(std::move(arg)));
+}
+
+TEST_F(GroundTruthTest, DiskReadRoutineZeroFileSize) {
+  auto arg = mojom::DiskReadRoutineArgument::New();
+  arg->type = mojom::DiskReadTypeEnum::kLinearRead;
+  arg->disk_read_duration = base::Seconds(1);
+  arg->file_size_mib = 0;
+
+  ExpectRoutineUnsupported(mojom::RoutineArgument::NewDiskRead(std::move(arg)));
 }
 
 }  // namespace

@@ -52,7 +52,8 @@ PROTOBUF_CONSTEXPR CheckUserAccountRequest::CheckUserAccountRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.user_email_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
+  , /*decltype(_impl_.user_email_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.enrollment_nudge_request_)*/false} {}
 struct CheckUserAccountRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CheckUserAccountRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -113,7 +114,8 @@ PROTOBUF_CONSTEXPR CheckUserAccountResponse::CheckUserAccountResponse(
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.domain_verified_)*/false
-  , /*decltype(_impl_.user_account_type_)*/0} {}
+  , /*decltype(_impl_.user_account_type_)*/0
+  , /*decltype(_impl_.enrollment_nudge_type_)*/0} {}
 struct CheckUserAccountResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CheckUserAccountResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1460,7 +1462,6 @@ PROTOBUF_CONSTEXPR ChromeDesktopReportRequest::ChromeDesktopReportRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.partial_report_types_)*/{}
   , /*decltype(_impl_.machine_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.os_info_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.os_user_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -1487,7 +1488,6 @@ PROTOBUF_CONSTEXPR ChromeOsUserReportRequest::ChromeOsUserReportRequest(
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.android_app_infos_)*/{}
-  , /*decltype(_impl_.partial_report_types_)*/{}
   , /*decltype(_impl_.browser_report_)*/nullptr} {}
 struct ChromeOsUserReportRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeOsUserReportRequestDefaultTypeInternal()
@@ -3656,6 +3656,69 @@ constexpr CheckUserAccountResponse_UserAccountType CheckUserAccountResponse::DAS
 constexpr CheckUserAccountResponse_UserAccountType CheckUserAccountResponse::UserAccountType_MIN;
 constexpr CheckUserAccountResponse_UserAccountType CheckUserAccountResponse::UserAccountType_MAX;
 constexpr int CheckUserAccountResponse::UserAccountType_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool CheckUserAccountResponse_EnrollmentNudgeType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CheckUserAccountResponse_EnrollmentNudgeType_strings[3] = {};
+
+static const char CheckUserAccountResponse_EnrollmentNudgeType_names[] =
+  "ENROLLMENT_REQUIRED"
+  "NONE"
+  "UNKNOWN_ENROLLMENT_NUDGE_TYPE";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CheckUserAccountResponse_EnrollmentNudgeType_entries[] = {
+  { {CheckUserAccountResponse_EnrollmentNudgeType_names + 0, 19}, 2 },
+  { {CheckUserAccountResponse_EnrollmentNudgeType_names + 19, 4}, 1 },
+  { {CheckUserAccountResponse_EnrollmentNudgeType_names + 23, 29}, 0 },
+};
+
+static const int CheckUserAccountResponse_EnrollmentNudgeType_entries_by_number[] = {
+  2, // 0 -> UNKNOWN_ENROLLMENT_NUDGE_TYPE
+  1, // 1 -> NONE
+  0, // 2 -> ENROLLMENT_REQUIRED
+};
+
+const std::string& CheckUserAccountResponse_EnrollmentNudgeType_Name(
+    CheckUserAccountResponse_EnrollmentNudgeType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          CheckUserAccountResponse_EnrollmentNudgeType_entries,
+          CheckUserAccountResponse_EnrollmentNudgeType_entries_by_number,
+          3, CheckUserAccountResponse_EnrollmentNudgeType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      CheckUserAccountResponse_EnrollmentNudgeType_entries,
+      CheckUserAccountResponse_EnrollmentNudgeType_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     CheckUserAccountResponse_EnrollmentNudgeType_strings[idx].get();
+}
+bool CheckUserAccountResponse_EnrollmentNudgeType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CheckUserAccountResponse_EnrollmentNudgeType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      CheckUserAccountResponse_EnrollmentNudgeType_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<CheckUserAccountResponse_EnrollmentNudgeType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr CheckUserAccountResponse_EnrollmentNudgeType CheckUserAccountResponse::UNKNOWN_ENROLLMENT_NUDGE_TYPE;
+constexpr CheckUserAccountResponse_EnrollmentNudgeType CheckUserAccountResponse::NONE;
+constexpr CheckUserAccountResponse_EnrollmentNudgeType CheckUserAccountResponse::ENROLLMENT_REQUIRED;
+constexpr CheckUserAccountResponse_EnrollmentNudgeType CheckUserAccountResponse::EnrollmentNudgeType_MIN;
+constexpr CheckUserAccountResponse_EnrollmentNudgeType CheckUserAccountResponse::EnrollmentNudgeType_MAX;
+constexpr int CheckUserAccountResponse::EnrollmentNudgeType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool DeviceRegisterResponse_DeviceMode_IsValid(int value) {
   switch (value) {
@@ -9647,57 +9710,6 @@ bool BusType_Parse(
   }
   return success;
 }
-bool PartialReportType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-      return true;
-    default:
-      return false;
-  }
-}
-
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PartialReportType_strings[2] = {};
-
-static const char PartialReportType_names[] =
-  "EXTENSION_REQUEST"
-  "UNSPECIFIED";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PartialReportType_entries[] = {
-  { {PartialReportType_names + 0, 17}, 1 },
-  { {PartialReportType_names + 17, 11}, 0 },
-};
-
-static const int PartialReportType_entries_by_number[] = {
-  1, // 0 -> UNSPECIFIED
-  0, // 1 -> EXTENSION_REQUEST
-};
-
-const std::string& PartialReportType_Name(
-    PartialReportType value) {
-  static const bool dummy =
-      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          PartialReportType_entries,
-          PartialReportType_entries_by_number,
-          2, PartialReportType_strings);
-  (void) dummy;
-  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      PartialReportType_entries,
-      PartialReportType_entries_by_number,
-      2, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     PartialReportType_strings[idx].get();
-}
-bool PartialReportType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PartialReportType* value) {
-  int int_value;
-  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      PartialReportType_entries, 2, name, &int_value);
-  if (success) {
-    *value = static_cast<PartialReportType>(int_value);
-  }
-  return success;
-}
 bool CrostiniAppType_IsValid(int value) {
   switch (value) {
     case 0:
@@ -10430,6 +10442,9 @@ class CheckUserAccountRequest::_Internal {
   static void set_has_user_email(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_enrollment_nudge_request(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
 CheckUserAccountRequest::CheckUserAccountRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -10444,7 +10459,8 @@ CheckUserAccountRequest::CheckUserAccountRequest(const CheckUserAccountRequest& 
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.user_email_){}};
+    , decltype(_impl_.user_email_){}
+    , decltype(_impl_.enrollment_nudge_request_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.user_email_.InitDefault();
@@ -10455,6 +10471,7 @@ CheckUserAccountRequest::CheckUserAccountRequest(const CheckUserAccountRequest& 
     _this->_impl_.user_email_.Set(from._internal_user_email(), 
       _this->GetArenaForAllocation());
   }
+  _this->_impl_.enrollment_nudge_request_ = from._impl_.enrollment_nudge_request_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CheckUserAccountRequest)
 }
 
@@ -10466,6 +10483,7 @@ inline void CheckUserAccountRequest::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.user_email_){}
+    , decltype(_impl_.enrollment_nudge_request_){false}
   };
   _impl_.user_email_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -10501,6 +10519,7 @@ void CheckUserAccountRequest::Clear() {
   if (cached_has_bits & 0x00000001u) {
     _impl_.user_email_.ClearNonDefaultToEmpty();
   }
+  _impl_.enrollment_nudge_request_ = false;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -10517,6 +10536,15 @@ const char* CheckUserAccountRequest::_InternalParse(const char* ptr, ::_pbi::Par
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_user_email();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool enrollment_nudge_request = 2 [default = false];
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_enrollment_nudge_request(&has_bits);
+          _impl_.enrollment_nudge_request_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -10558,6 +10586,12 @@ uint8_t* CheckUserAccountRequest::_InternalSerialize(
         1, this->_internal_user_email(), target);
   }
 
+  // optional bool enrollment_nudge_request = 2 [default = false];
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_enrollment_nudge_request(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -10574,14 +10608,21 @@ size_t CheckUserAccountRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional string user_email = 1;
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_user_email());
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional string user_email = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_user_email());
+    }
 
+    // optional bool enrollment_nudge_request = 2 [default = false];
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -10603,8 +10644,15 @@ void CheckUserAccountRequest::MergeFrom(const CheckUserAccountRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_user_email()) {
-    _this->_internal_set_user_email(from._internal_user_email());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_set_user_email(from._internal_user_email());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.enrollment_nudge_request_ = from._impl_.enrollment_nudge_request_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -10630,6 +10678,7 @@ void CheckUserAccountRequest::InternalSwap(CheckUserAccountRequest* other) {
       &_impl_.user_email_, lhs_arena,
       &other->_impl_.user_email_, rhs_arena
   );
+  swap(_impl_.enrollment_nudge_request_, other->_impl_.enrollment_nudge_request_);
 }
 
 std::string CheckUserAccountRequest::GetTypeName() const {
@@ -11894,6 +11943,9 @@ class CheckUserAccountResponse::_Internal {
   static void set_has_user_account_type(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_enrollment_nudge_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 CheckUserAccountResponse::CheckUserAccountResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -11909,12 +11961,13 @@ CheckUserAccountResponse::CheckUserAccountResponse(const CheckUserAccountRespons
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.domain_verified_){}
-    , decltype(_impl_.user_account_type_){}};
+    , decltype(_impl_.user_account_type_){}
+    , decltype(_impl_.enrollment_nudge_type_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&_impl_.domain_verified_, &from._impl_.domain_verified_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.user_account_type_) -
-    reinterpret_cast<char*>(&_impl_.domain_verified_)) + sizeof(_impl_.user_account_type_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.enrollment_nudge_type_) -
+    reinterpret_cast<char*>(&_impl_.domain_verified_)) + sizeof(_impl_.enrollment_nudge_type_));
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CheckUserAccountResponse)
 }
 
@@ -11927,6 +11980,7 @@ inline void CheckUserAccountResponse::SharedCtor(
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.domain_verified_){false}
     , decltype(_impl_.user_account_type_){0}
+    , decltype(_impl_.enrollment_nudge_type_){0}
   };
 }
 
@@ -11954,10 +12008,10 @@ void CheckUserAccountResponse::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     ::memset(&_impl_.domain_verified_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&_impl_.user_account_type_) -
-        reinterpret_cast<char*>(&_impl_.domain_verified_)) + sizeof(_impl_.user_account_type_));
+        reinterpret_cast<char*>(&_impl_.enrollment_nudge_type_) -
+        reinterpret_cast<char*>(&_impl_.domain_verified_)) + sizeof(_impl_.enrollment_nudge_type_));
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -11988,6 +12042,19 @@ const char* CheckUserAccountResponse::_InternalParse(const char* ptr, ::_pbi::Pa
             _internal_set_user_account_type(static_cast<::enterprise_management::CheckUserAccountResponse_UserAccountType>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.CheckUserAccountResponse.EnrollmentNudgeType enrollment_nudge_type = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType_IsValid(val))) {
+            _internal_set_enrollment_nudge_type(static_cast<::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
           }
         } else
           goto handle_unusual;
@@ -12036,6 +12103,13 @@ uint8_t* CheckUserAccountResponse::_InternalSerialize(
       2, this->_internal_user_account_type(), target);
   }
 
+  // optional .enterprise_management.CheckUserAccountResponse.EnrollmentNudgeType enrollment_nudge_type = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_enrollment_nudge_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -12053,7 +12127,7 @@ size_t CheckUserAccountResponse::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional bool domain_verified = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 + 1;
@@ -12063,6 +12137,12 @@ size_t CheckUserAccountResponse::ByteSizeLong() const {
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_user_account_type());
+    }
+
+    // optional .enterprise_management.CheckUserAccountResponse.EnrollmentNudgeType enrollment_nudge_type = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_enrollment_nudge_type());
     }
 
   }
@@ -12088,12 +12168,15 @@ void CheckUserAccountResponse::MergeFrom(const CheckUserAccountResponse& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _this->_impl_.domain_verified_ = from._impl_.domain_verified_;
     }
     if (cached_has_bits & 0x00000002u) {
       _this->_impl_.user_account_type_ = from._impl_.user_account_type_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _this->_impl_.enrollment_nudge_type_ = from._impl_.enrollment_nudge_type_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
@@ -12116,8 +12199,8 @@ void CheckUserAccountResponse::InternalSwap(CheckUserAccountResponse* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CheckUserAccountResponse, _impl_.user_account_type_)
-      + sizeof(CheckUserAccountResponse::_impl_.user_account_type_)
+      PROTOBUF_FIELD_OFFSET(CheckUserAccountResponse, _impl_.enrollment_nudge_type_)
+      + sizeof(CheckUserAccountResponse::_impl_.enrollment_nudge_type_)
       - PROTOBUF_FIELD_OFFSET(CheckUserAccountResponse, _impl_.domain_verified_)>(
           reinterpret_cast<char*>(&_impl_.domain_verified_),
           reinterpret_cast<char*>(&other->_impl_.domain_verified_));
@@ -40467,7 +40550,6 @@ ChromeDesktopReportRequest::ChromeDesktopReportRequest(const ChromeDesktopReport
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.partial_report_types_){from._impl_.partial_report_types_}
     , decltype(_impl_.machine_name_){}
     , decltype(_impl_.os_info_){}
     , decltype(_impl_.os_user_){}
@@ -40573,7 +40655,6 @@ inline void ChromeDesktopReportRequest::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.partial_report_types_){arena}
     , decltype(_impl_.machine_name_){}
     , decltype(_impl_.os_info_){}
     , decltype(_impl_.os_user_){}
@@ -40636,7 +40717,6 @@ ChromeDesktopReportRequest::~ChromeDesktopReportRequest() {
 
 inline void ChromeDesktopReportRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.partial_report_types_.~RepeatedField();
   _impl_.machine_name_.Destroy();
   _impl_.os_info_.Destroy();
   _impl_.os_user_.Destroy();
@@ -40661,7 +40741,6 @@ void ChromeDesktopReportRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.partial_report_types_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -40795,27 +40874,6 @@ const char* ChromeDesktopReportRequest::_InternalParse(const char* ptr, ::_pbi::
         } else
           goto handle_unusual;
         continue;
-      // repeated .enterprise_management.PartialReportType partial_report_types = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-            CHK_(ptr);
-            if (PROTOBUF_PREDICT_TRUE(::enterprise_management::PartialReportType_IsValid(val))) {
-              _internal_add_partial_report_types(static_cast<::enterprise_management::PartialReportType>(val));
-            } else {
-              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(10, val, mutable_unknown_fields());
-            }
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<80>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 82) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_partial_report_types(), ptr, ctx, ::enterprise_management::PartialReportType_IsValid, &_internal_metadata_, 10);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // optional string machine_attestation_key = 11;
       case 11:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
@@ -40931,13 +40989,6 @@ uint8_t* ChromeDesktopReportRequest::_InternalSerialize(
         _Internal::browser_device_identifier(this).GetCachedSize(), target, stream);
   }
 
-  // repeated .enterprise_management.PartialReportType partial_report_types = 10;
-  for (int i = 0, n = this->_internal_partial_report_types_size(); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        10, this->_internal_partial_report_types(i), target);
-  }
-
   // optional string machine_attestation_key = 11;
   if (cached_has_bits & 0x00000040u) {
     target = stream->WriteStringMaybeAliased(
@@ -40971,16 +41022,6 @@ size_t ChromeDesktopReportRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // repeated .enterprise_management.PartialReportType partial_report_types = 10;
-  {
-    size_t data_size = 0;
-    unsigned int count = static_cast<unsigned int>(this->_internal_partial_report_types_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::_pbi::WireFormatLite::EnumSize(
-        this->_internal_partial_report_types(static_cast<int>(i)));
-    }
-    total_size += (1UL * count) + data_size;
-  }
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
@@ -41092,7 +41133,6 @@ void ChromeDesktopReportRequest::MergeFrom(const ChromeDesktopReportRequest& fro
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.partial_report_types_.MergeFrom(from._impl_.partial_report_types_);
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -41157,7 +41197,6 @@ void ChromeDesktopReportRequest::InternalSwap(ChromeDesktopReportRequest* other)
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  _impl_.partial_report_types_.InternalSwap(&other->_impl_.partial_report_types_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.machine_name_, lhs_arena,
       &other->_impl_.machine_name_, rhs_arena
@@ -41235,7 +41274,6 @@ ChromeOsUserReportRequest::ChromeOsUserReportRequest(const ChromeOsUserReportReq
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.android_app_infos_){from._impl_.android_app_infos_}
-    , decltype(_impl_.partial_report_types_){from._impl_.partial_report_types_}
     , decltype(_impl_.browser_report_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -41253,7 +41291,6 @@ inline void ChromeOsUserReportRequest::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.android_app_infos_){arena}
-    , decltype(_impl_.partial_report_types_){arena}
     , decltype(_impl_.browser_report_){nullptr}
   };
 }
@@ -41270,7 +41307,6 @@ ChromeOsUserReportRequest::~ChromeOsUserReportRequest() {
 inline void ChromeOsUserReportRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.android_app_infos_.~RepeatedPtrField();
-  _impl_.partial_report_types_.~RepeatedField();
   if (this != internal_default_instance()) delete _impl_.browser_report_;
 }
 
@@ -41285,7 +41321,6 @@ void ChromeOsUserReportRequest::Clear() {
   (void) cached_has_bits;
 
   _impl_.android_app_infos_.Clear();
-  _impl_.partial_report_types_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     GOOGLE_DCHECK(_impl_.browser_report_ != nullptr);
@@ -41320,27 +41355,6 @@ const char* ChromeOsUserReportRequest::_InternalParse(const char* ptr, ::_pbi::P
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .enterprise_management.PartialReportType partial_report_types = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-            CHK_(ptr);
-            if (PROTOBUF_PREDICT_TRUE(::enterprise_management::PartialReportType_IsValid(val))) {
-              _internal_add_partial_report_types(static_cast<::enterprise_management::PartialReportType>(val));
-            } else {
-              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
-            }
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<24>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 26) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_partial_report_types(), ptr, ctx, ::enterprise_management::PartialReportType_IsValid, &_internal_metadata_, 3);
-          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -41390,13 +41404,6 @@ uint8_t* ChromeOsUserReportRequest::_InternalSerialize(
         InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // repeated .enterprise_management.PartialReportType partial_report_types = 3;
-  for (int i = 0, n = this->_internal_partial_report_types_size(); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        3, this->_internal_partial_report_types(i), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -41418,16 +41425,6 @@ size_t ChromeOsUserReportRequest::ByteSizeLong() const {
   for (const auto& msg : this->_impl_.android_app_infos_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .enterprise_management.PartialReportType partial_report_types = 3;
-  {
-    size_t data_size = 0;
-    unsigned int count = static_cast<unsigned int>(this->_internal_partial_report_types_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::_pbi::WireFormatLite::EnumSize(
-        this->_internal_partial_report_types(static_cast<int>(i)));
-    }
-    total_size += (1UL * count) + data_size;
   }
 
   // optional .enterprise_management.BrowserReport browser_report = 1;
@@ -41460,7 +41457,6 @@ void ChromeOsUserReportRequest::MergeFrom(const ChromeOsUserReportRequest& from)
   (void) cached_has_bits;
 
   _this->_impl_.android_app_infos_.MergeFrom(from._impl_.android_app_infos_);
-  _this->_impl_.partial_report_types_.MergeFrom(from._impl_.partial_report_types_);
   if (from._internal_has_browser_report()) {
     _this->_internal_mutable_browser_report()->::enterprise_management::BrowserReport::MergeFrom(
         from._internal_browser_report());
@@ -41484,7 +41480,6 @@ void ChromeOsUserReportRequest::InternalSwap(ChromeOsUserReportRequest* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.android_app_infos_.InternalSwap(&other->_impl_.android_app_infos_);
-  _impl_.partial_report_types_.InternalSwap(&other->_impl_.partial_report_types_);
   swap(_impl_.browser_report_, other->_impl_.browser_report_);
 }
 

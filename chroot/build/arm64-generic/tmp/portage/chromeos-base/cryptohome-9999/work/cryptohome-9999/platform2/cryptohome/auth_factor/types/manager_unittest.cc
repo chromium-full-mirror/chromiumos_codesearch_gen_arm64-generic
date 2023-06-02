@@ -18,6 +18,7 @@
 #include "cryptohome/mock_cryptohome_keys_manager.h"
 #include "cryptohome/mock_fingerprint_manager.h"
 #include "cryptohome/mock_platform.h"
+#include "cryptohome/user_secret_stash/user_metadata.h"
 
 namespace cryptohome {
 namespace {
@@ -48,7 +49,8 @@ class AuthFactorDriverManagerTest : public ::testing::Test {
       AsyncInitPtr<ChallengeCredentialsHelper>(nullptr),
       nullptr,
       &fp_service_,
-      AsyncInitPtr<BiometricsAuthBlockService>(nullptr)};
+      AsyncInitPtr<BiometricsAuthBlockService>(nullptr),
+      nullptr};
 };
 
 TEST_F(AuthFactorDriverManagerTest, GetDriverIsSameForConstAndNonconst) {
@@ -243,9 +245,31 @@ TEST_F(AuthFactorDriverManagerTest, IsDelaySupported) {
   EXPECT_THAT(is_delayable(AuthFactorType::kKiosk), IsFalse());
   EXPECT_THAT(is_delayable(AuthFactorType::kSmartCard), IsFalse());
   EXPECT_THAT(is_delayable(AuthFactorType::kLegacyFingerprint), IsFalse());
-  EXPECT_THAT(is_delayable(AuthFactorType::kFingerprint), IsFalse());
+  EXPECT_THAT(is_delayable(AuthFactorType::kFingerprint), IsTrue());
 
   EXPECT_THAT(is_delayable(AuthFactorType::kUnspecified), IsFalse());
+
+  static_assert(static_cast<int>(AuthFactorType::kUnspecified) == 7,
+                "All types of AuthFactorType are not all included here");
+}
+
+// Test AuthFactorDriver::IsExpirationSupported. We do this here instead of in a
+// per-driver test because the check is trivial enough that one test is simpler
+// to validate than N separate tests.
+TEST_F(AuthFactorDriverManagerTest, IsExpirationSupported) {
+  auto has_expiration = [this](AuthFactorType type) {
+    return manager_.GetDriver(type).IsExpirationSupported();
+  };
+
+  EXPECT_THAT(has_expiration(AuthFactorType::kPassword), IsFalse());
+  EXPECT_THAT(has_expiration(AuthFactorType::kPin), IsFalse());
+  EXPECT_THAT(has_expiration(AuthFactorType::kCryptohomeRecovery), IsFalse());
+  EXPECT_THAT(has_expiration(AuthFactorType::kKiosk), IsFalse());
+  EXPECT_THAT(has_expiration(AuthFactorType::kSmartCard), IsFalse());
+  EXPECT_THAT(has_expiration(AuthFactorType::kLegacyFingerprint), IsFalse());
+  EXPECT_THAT(has_expiration(AuthFactorType::kFingerprint), IsTrue());
+
+  EXPECT_THAT(has_expiration(AuthFactorType::kUnspecified), IsFalse());
 
   static_assert(static_cast<int>(AuthFactorType::kUnspecified) == 7,
                 "All types of AuthFactorType are not all included here");

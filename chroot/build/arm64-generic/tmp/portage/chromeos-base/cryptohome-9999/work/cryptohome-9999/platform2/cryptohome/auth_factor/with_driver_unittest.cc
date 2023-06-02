@@ -27,6 +27,7 @@
 #include "cryptohome/mock_fingerprint_manager.h"
 #include "cryptohome/mock_le_credential_manager.h"
 #include "cryptohome/mock_platform.h"
+#include "cryptohome/user_secret_stash/mock_user_metadata.h"
 #include "cryptohome/util/async_init.h"
 
 namespace cryptohome {
@@ -41,6 +42,11 @@ using ::testing::UnorderedElementsAreArray;
 
 class AuthFactorWithDriverTest : public ::testing::Test {
  protected:
+  // Useful generic constants to use for usernames.
+  const Username kUser{"user"};
+  const ObfuscatedUsername kObfuscatedUser{
+      brillo::cryptohome::home::SanitizeUserName(kUser)};
+
   // Useful generic constants to use for labels and version metadata.
   static constexpr char kLabel[] = "some-label";
   static constexpr char kChromeosVersion[] = "1.2.3_a_b_c";
@@ -90,6 +96,7 @@ class AuthFactorWithDriverTest : public ::testing::Test {
       AsyncInitPtr<FingerprintManager>(&fp_manager_), base::DoNothing()};
   MockBiometricsCommandProcessor* bio_command_processor_;
   std::unique_ptr<BiometricsAuthBlockService> bio_service_;
+  MockUserMetadataReader mock_user_metadata_reader_;
 
   // A real version of the manager, using mock inputs.
   AuthFactorDriverManager manager_{
@@ -102,7 +109,8 @@ class AuthFactorWithDriverTest : public ::testing::Test {
           [](AuthFactorWithDriverTest* test) {
             return test->bio_service_.get();
           },
-          base::Unretained(this)))};
+          base::Unretained(this))),
+      &mock_user_metadata_reader_};
 };
 
 TEST_F(AuthFactorWithDriverTest, PasswordSupportsAllIntents) {
@@ -110,7 +118,8 @@ TEST_F(AuthFactorWithDriverTest, PasswordSupportsAllIntents) {
       CreateFactor(AuthFactorType::kPassword, PasswordAuthFactorMetadata(),
                    TpmEccAuthBlockState());
 
-  auto intents = GetSupportedIntents(password_factor, manager_);
+  auto intents =
+      GetSupportedIntents(kObfuscatedUser, password_factor, manager_);
 
   EXPECT_THAT(intents, UnorderedElementsAreArray(kAllAuthIntents));
 }
@@ -121,7 +130,7 @@ TEST_F(AuthFactorWithDriverTest, PinNoIntentsWithNoHardware) {
                    PinWeaverAuthBlockState{.le_label = kLeLabel});
   EXPECT_CALL(hwsec_, IsReady()).WillOnce(ReturnValue(false));
 
-  auto intents = GetSupportedIntents(pin_factor, manager_);
+  auto intents = GetSupportedIntents(kObfuscatedUser, pin_factor, manager_);
 
   EXPECT_THAT(intents, IsEmpty());
 }
@@ -135,7 +144,7 @@ TEST_F(AuthFactorWithDriverTest, PinNoIntentsWithDelay) {
   EXPECT_CALL(*le_manager_, GetDelayInSeconds(kLeLabel))
       .WillOnce(ReturnValue(15));
 
-  auto intents = GetSupportedIntents(pin_factor, manager_);
+  auto intents = GetSupportedIntents(kObfuscatedUser, pin_factor, manager_);
 
   EXPECT_THAT(intents, IsEmpty());
 }
@@ -149,7 +158,7 @@ TEST_F(AuthFactorWithDriverTest, PinSupportAllIntentsWhenUnlocked) {
   EXPECT_CALL(*le_manager_, GetDelayInSeconds(kLeLabel))
       .WillOnce(ReturnValue(0));
 
-  auto intents = GetSupportedIntents(pin_factor, manager_);
+  auto intents = GetSupportedIntents(kObfuscatedUser, pin_factor, manager_);
 
   EXPECT_THAT(intents, UnorderedElementsAreArray(kAllAuthIntents));
 }
@@ -160,7 +169,47 @@ TEST_F(AuthFactorWithDriverTest, FingerprintNoIntentsWithNoHardware) {
                                       FingerprintAuthBlockState{});
   EXPECT_CALL(*bio_command_processor_, IsReady()).WillOnce(Return(false));
 
-  auto intents = GetSupportedIntents(fp_factor, manager_);
+  auto intents = GetSupportedIntents(kObfuscatedUser, fp_factor, manager_);
+
+  EXPECT_THAT(intents, IsEmpty());
+}
+
+TEST_F(AuthFactorWithDriverTest, FingerprintNoIntentsWhenExpired) {
+  AuthFactor fp_factor = CreateFactor(AuthFactorType::kFingerprint,
+                                      FingerprintAuthFactorMetadata(),
+                                      FingerprintAuthBlockState{});
+  EXPECT_CALL(*bio_command_processor_, IsReady()).WillOnce(Return(true));
+  EXPECT_CALL(hwsec_, IsReady()).WillOnce(ReturnValue(true));
+  EXPECT_CALL(hwsec_, IsBiometricsPinWeaverEnabled())
+      .WillOnce(ReturnValue(true));
+  EXPECT_CALL(mock_user_metadata_reader_, Load(kObfuscatedUser))
+      .WillOnce(
+          ReturnValue(UserMetadata{.fingerprint_rate_limiter_id = kLeLabel}));
+  EXPECT_CALL(*le_manager_, GetExpirationInSeconds(kLeLabel))
+      .WillOnce(ReturnValue(0));
+
+  auto intents = GetSupportedIntents(kObfuscatedUser, fp_factor, manager_);
+
+  EXPECT_THAT(intents, IsEmpty());
+}
+
+TEST_F(AuthFactorWithDriverTest, FingerprintNoIntentsWithDelay) {
+  AuthFactor fp_factor = CreateFactor(AuthFactorType::kFingerprint,
+                                      FingerprintAuthFactorMetadata(),
+                                      FingerprintAuthBlockState{});
+  EXPECT_CALL(*bio_command_processor_, IsReady()).WillOnce(Return(true));
+  EXPECT_CALL(hwsec_, IsReady()).WillOnce(ReturnValue(true));
+  EXPECT_CALL(hwsec_, IsBiometricsPinWeaverEnabled())
+      .WillOnce(ReturnValue(true));
+  EXPECT_CALL(mock_user_metadata_reader_, Load(kObfuscatedUser))
+      .WillRepeatedly(
+          ReturnValue(UserMetadata{.fingerprint_rate_limiter_id = kLeLabel}));
+  EXPECT_CALL(*le_manager_, GetExpirationInSeconds(kLeLabel))
+      .WillOnce(ReturnValue(15));
+  EXPECT_CALL(*le_manager_, GetDelayInSeconds(kLeLabel))
+      .WillOnce(ReturnValue(15));
+
+  auto intents = GetSupportedIntents(kObfuscatedUser, fp_factor, manager_);
 
   EXPECT_THAT(intents, IsEmpty());
 }
@@ -173,8 +222,15 @@ TEST_F(AuthFactorWithDriverTest, FingerprintSupportsSomeIntents) {
   EXPECT_CALL(hwsec_, IsReady()).WillOnce(ReturnValue(true));
   EXPECT_CALL(hwsec_, IsBiometricsPinWeaverEnabled())
       .WillOnce(ReturnValue(true));
+  EXPECT_CALL(mock_user_metadata_reader_, Load(kObfuscatedUser))
+      .WillRepeatedly(
+          ReturnValue(UserMetadata{.fingerprint_rate_limiter_id = kLeLabel}));
+  EXPECT_CALL(*le_manager_, GetExpirationInSeconds(kLeLabel))
+      .WillOnce(ReturnValue(15));
+  EXPECT_CALL(*le_manager_, GetDelayInSeconds(kLeLabel))
+      .WillOnce(ReturnValue(0));
 
-  auto intents = GetSupportedIntents(fp_factor, manager_);
+  auto intents = GetSupportedIntents(kObfuscatedUser, fp_factor, manager_);
 
   EXPECT_THAT(intents, UnorderedElementsAre(AuthIntent::kVerifyOnly,
                                             AuthIntent::kWebAuthn));

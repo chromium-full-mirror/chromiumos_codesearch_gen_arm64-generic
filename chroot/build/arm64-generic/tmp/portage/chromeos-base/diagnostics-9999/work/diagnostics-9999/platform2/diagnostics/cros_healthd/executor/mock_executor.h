@@ -27,6 +27,10 @@ class MockExecutor final : public ash::cros_healthd::mojom::Executor {
 
   // ash::cros_healthd::mojom::Executor overrides:
   MOCK_METHOD(void, ReadFile, (File, ReadFileCallback), (override));
+  MOCK_METHOD(void,
+              ReadFilePart,
+              (File, uint64_t, uint64_t, ReadFilePartCallback),
+              (override));
   MOCK_METHOD(void, GetFileInfo, (File, GetFileInfoCallback), (override));
   MOCK_METHOD(void, GetFanSpeed, (GetFanSpeedCallback), (override));
   MOCK_METHOD(void,
@@ -154,6 +158,14 @@ class MockExecutor final : public ash::cros_healthd::mojom::Executor {
                    ash::cros_healthd::mojom::PowerButtonObserver> observer,
                mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>
                    process_control),
+              (override));
+  MOCK_METHOD(void,
+              RunPrimeSearch,
+              (uint32_t duration_sec,
+               uint64_t max_num,
+               mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>
+                   process_control_receiver,
+               RunPrimeSearchCallback callback),
               (override));
 };
 

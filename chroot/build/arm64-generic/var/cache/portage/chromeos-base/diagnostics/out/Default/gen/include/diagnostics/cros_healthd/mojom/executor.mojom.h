@@ -464,6 +464,7 @@ class Executor
   using ResponseValidator_ = ExecutorResponseValidator;
   enum MethodMinVersions : uint32_t {
     kReadFileMinVersion = 0,
+    kReadFilePartMinVersion = 0,
     kGetFileInfoMinVersion = 0,
     kGetFanSpeedMinVersion = 0,
     kRunIwMinVersion = 0,
@@ -494,12 +495,16 @@ class Executor
     kFetchDisplayInfoMinVersion = 0,
     kFetchCrashFromCrashSenderMinVersion = 0,
     kMonitorPowerButtonMinVersion = 0,
+    kRunPrimeSearchMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct ReadFile_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ReadFilePart_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetFileInfo_Sym {
@@ -592,6 +597,9 @@ class Executor
   struct MonitorPowerButton_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct RunPrimeSearch_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   
   using File = Executor_File;
@@ -603,6 +611,11 @@ class Executor
   using ReadFileCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
   
   virtual void ReadFile(Executor::File file_enum, ReadFileCallback callback) = 0;
+
+
+  using ReadFilePartCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  
+  virtual void ReadFilePart(Executor::File file_enum, uint64_t begin, uint64_t size, ReadFilePartCallback callback) = 0;
 
 
   using GetFileInfoCallback = base::OnceCallback<void(FileInfoPtr)>;
@@ -733,6 +746,11 @@ class Executor
 
   
   virtual void MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
+
+
+  using RunPrimeSearchCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) = 0;
 };
 
 
@@ -869,6 +887,8 @@ class  ExecutorProxy
   
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) final;
   
+  void ReadFilePart(Executor::File file_enum, uint64_t begin, uint64_t size, ReadFilePartCallback callback) final;
+  
   void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) final;
   
   void GetFanSpeed(GetFanSpeedCallback callback) final;
@@ -928,6 +948,8 @@ class  ExecutorProxy
   void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) final;
   
   void MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
+  
+  void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

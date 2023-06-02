@@ -14,7 +14,9 @@
 namespace cryptohome {
 
 base::flat_set<AuthIntent> GetSupportedIntents(
-    const AuthFactor& auth_factor, AuthFactorDriverManager& driver_manager) {
+    const ObfuscatedUsername& username,
+    const AuthFactor& auth_factor,
+    AuthFactorDriverManager& driver_manager) {
   AuthFactorDriver& driver = driver_manager.GetDriver(auth_factor.type());
 
   // If the hardware support for this factor is not available no intents are
@@ -23,11 +25,20 @@ base::flat_set<AuthIntent> GetSupportedIntents(
     return {};
   }
 
+  // If the driver supports expiration lockout, and the factor is currently
+  // expired then no intents are available.
+  if (driver.IsExpirationSupported()) {
+    auto is_expired = driver.IsExpired(username, auth_factor);
+    if (is_expired.value_or(true)) {
+      return {};
+    }
+  }
+
   // If the driver supports delay or lockout, and the factor is currently locked
   // then no intents are available. If the delay lookup fails then we assume
   // that the factor is not working correctly and so is also unavailable.
   if (driver.IsDelaySupported()) {
-    auto delay = driver.GetFactorDelay(auth_factor);
+    auto delay = driver.GetFactorDelay(username, auth_factor);
     if (!delay.ok() || delay->is_positive()) {
       return {};
     }

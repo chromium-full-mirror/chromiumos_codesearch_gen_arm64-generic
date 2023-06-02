@@ -34,7 +34,8 @@ class PinAuthFactorDriver final
       public AfDriverWithMetadata<PinAuthFactorMetadata>,
       public AfDriverNoPrepare,
       public AfDriverFullAuthDecrypt,
-      public AfDriverNoCredentialVerifier {
+      public AfDriverNoCredentialVerifier,
+      public AfDriverNoExpiration {
  public:
   explicit PinAuthFactorDriver(Crypto* crypto) : crypto_(crypto) {}
 
@@ -44,7 +45,7 @@ class PinAuthFactorDriver final
   bool NeedsRateLimiter() const override;
   bool IsDelaySupported() const override;
   CryptohomeStatusOr<base::TimeDelta> GetFactorDelay(
-      const AuthFactor& factor) override;
+      const ObfuscatedUsername& username, const AuthFactor& factor) override;
   AuthFactorLabelArity GetAuthFactorLabelArity() const override;
 
   std::optional<user_data_auth::AuthFactor> TypedConvertToProto(

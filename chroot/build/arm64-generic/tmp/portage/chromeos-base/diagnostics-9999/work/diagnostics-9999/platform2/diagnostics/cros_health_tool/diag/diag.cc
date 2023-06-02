@@ -19,7 +19,6 @@
 #include <base/json/json_writer.h>
 #include <base/logging.h>
 #include <base/run_loop.h>
-#include <base/time/time.h>
 #include <brillo/flag_helper.h>
 #include <mojo/service_constants.h>
 
@@ -36,12 +35,6 @@ namespace diagnostics {
 namespace {
 
 namespace mojom = ::ash::cros_healthd::mojom;
-
-// Poll interval while waiting for a routine to finish.
-constexpr base::TimeDelta kRoutinePollIntervalTimeDelta =
-    base::Milliseconds(100);
-// Maximum time we're willing to wait for a routine to finish.
-constexpr base::TimeDelta kMaximumRoutineExecutionTimeDelta = base::Hours(1);
 
 const struct {
   const char* readable_name;
@@ -244,6 +237,20 @@ int DiskReadV2Main(int argc, char** argv) {
   COMMON_V2_ROUTINE_MAIN(DiskRead);
 }
 
+int PrimeSearchV2Main(int argc, char** argv) {
+  DEFINE_uint32(length_seconds, 60,
+                "Number of seconds to run the routine for.");
+  COMMON_V2_ROUTINE_FLAGS("Prime search V2 routine")
+  base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
+
+  auto argument = mojom::PrimeSearchRoutineArgument::New();
+  if (command_line->HasSwitch("length_seconds")) {
+    argument->exec_duration = base::Seconds(FLAGS_length_seconds);
+  }
+
+  COMMON_V2_ROUTINE_MAIN(PrimeSearch);
+}
+
 #define COMMON_LEGACY_ROUTINE_FLAGS                                            \
   DEFINE_uint32(force_cancel_at_percent, std::numeric_limits<uint32_t>::max(), \
                 "If specified, will attempt to cancel the routine when its "   \
@@ -253,8 +260,7 @@ int DiskReadV2Main(int argc, char** argv) {
   COMMON_LEGACY_ROUTINE_FLAGS                                               \
   brillo::FlagHelper::Init(argc, argv, #routine);                           \
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess(); \
-  DiagActions actions{kRoutinePollIntervalTimeDelta,                        \
-                      kMaximumRoutineExecutionTimeDelta};                   \
+  DiagActions actions;                                                      \
   if (command_line->HasSwitch("force_cancel_at_percent"))                   \
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);            \
   auto result = actions.ActionRun##routine();                               \
@@ -274,8 +280,7 @@ int UrandomMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Urandom routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -294,8 +299,7 @@ int SmartctlCheckMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Smartctl check routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -316,8 +320,7 @@ int AcPowerMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Ac power routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -336,8 +339,7 @@ int CpuCacheMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Cpu cache routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -354,8 +356,7 @@ int CpuStressMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Cpu stress routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -372,8 +373,7 @@ int FloatingPointAccuracyMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Floating point accuracy routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -393,8 +393,7 @@ int NvmeWearLevelMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Nvme wear level routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -413,8 +412,7 @@ int NvmeSelfTestMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Nvme self test routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -436,8 +434,7 @@ int DiskReadMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Disk read routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -464,8 +461,7 @@ int PrimeSearchMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Prime search routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -486,8 +482,7 @@ int BatteryDischargeMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Battery discharge routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -506,8 +501,7 @@ int BatteryChargeMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Battery charge routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -532,8 +526,7 @@ int MemoryMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Memory routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -588,8 +581,7 @@ int VideoConferencingMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Video conferencing routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -631,8 +623,7 @@ int PrivacyScreenMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Privacy screen routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -663,8 +654,7 @@ int LedLitUpMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Led lit up routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -696,8 +686,7 @@ int AudioSetVolumeMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Audio set volume routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -714,8 +703,7 @@ int AudioSetGainMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Audio set gain routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -739,8 +727,7 @@ int BluetoothScanningMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Bluetooth scanning routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -759,8 +746,7 @@ int BluetoothPairingMain(int argc, char** argv) {
   brillo::FlagHelper::Init(argc, argv, "Bluetooth pairing routine");
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
   if (command_line->HasSwitch("force_cancel_at_percent"))
     actions.ForceCancelAtPercent(FLAGS_force_cancel_at_percent);
 
@@ -781,8 +767,7 @@ int PowerButtonMain(int argc, char** argv) {
 
   brillo::FlagHelper::Init(argc, argv, "Power button routine");
 
-  DiagActions actions{kRoutinePollIntervalTimeDelta,
-                      kMaximumRoutineExecutionTimeDelta};
+  DiagActions actions;
 
   auto result = actions.ActionRunPowerButtonRoutine(FLAGS_length_seconds);
 
@@ -797,6 +782,7 @@ const std::map<std::string, int (*)(int, char**)> routine_to_fp_mapping{
     {"ufs_lifetime", UfsLifetimeMain},
     {"cpu_cache_v2", CpuCacheV2Main},
     {"disk_read_v2", DiskReadV2Main},
+    {"prime_search_v2", PrimeSearchV2Main},
     // V1 routines.
     {"battery_capacity", BatteryCapacityMain},
     {"battery_health", BatteryHealthMain},
@@ -880,8 +866,7 @@ int diag_main(int argc, char** argv) {
 
   // We should deprecate this.
   if (subtool == "get_routines") {
-    DiagActions actions{kRoutinePollIntervalTimeDelta,
-                        kMaximumRoutineExecutionTimeDelta};
+    DiagActions actions;
     return actions.ActionGetRoutines() ? EXIT_SUCCESS : EXIT_FAILURE;
   }
 

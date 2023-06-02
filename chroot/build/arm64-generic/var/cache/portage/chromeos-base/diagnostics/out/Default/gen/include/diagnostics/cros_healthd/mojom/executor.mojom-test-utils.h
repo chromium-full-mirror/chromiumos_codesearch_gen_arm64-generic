@@ -162,6 +162,7 @@ class  PowerButtonObserverAsyncWaiter {
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) override;
+  void ReadFilePart(Executor::File file_enum, uint64_t begin, uint64_t size, ReadFilePartCallback callback) override;
   void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) override;
   void GetFanSpeed(GetFanSpeedCallback callback) override;
   void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) override;
@@ -192,6 +193,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
   void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) override;
   void MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
+  void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -204,6 +206,9 @@ class  ExecutorAsyncWaiter {
   void ReadFile(
       Executor::File file_enum, absl::optional<std::string>* out_content);
   absl::optional<std::string> ReadFile(Executor::File file_enum);
+  void ReadFilePart(
+      Executor::File file_enum, uint64_t begin, uint64_t size, absl::optional<std::string>* out_content);
+  absl::optional<std::string> ReadFilePart(Executor::File file_enum, uint64_t begin, uint64_t size);
   void GetFileInfo(
       Executor::File file_enum, FileInfoPtr* out_info);
   FileInfoPtr GetFileInfo(Executor::File file_enum);
@@ -264,6 +269,9 @@ class  ExecutorAsyncWaiter {
   void FetchCrashFromCrashSender(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr FetchCrashFromCrashSender();
+  void RunPrimeSearch(
+      uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, bool* out_passed);
+  bool RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control);
 
  private:
   Executor* const proxy_;

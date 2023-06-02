@@ -50,7 +50,7 @@ TEST(PrimeNumberSearchTest, IsPrime) {
 
 // Test that all values under kMaxPrimeNumber are calculated correctly.
 TEST(PrimeNumbersSearchTest, RunFull) {
-  PrimeNumberSearch prime_search(kMaxPrimeNumber);
+  PrimeNumberSearch prime_search(PrimeNumberSearch::kMaxPrimeNumber);
   EXPECT_TRUE(prime_search.Run());
 }
 

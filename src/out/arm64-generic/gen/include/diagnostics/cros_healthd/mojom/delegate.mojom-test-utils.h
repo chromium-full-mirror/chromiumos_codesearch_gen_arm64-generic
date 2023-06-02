@@ -34,6 +34,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
   void MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) override;
+  void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, RunPrimeSearchCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -76,6 +77,9 @@ class  DelegateAsyncWaiter {
   void FetchDisplayInfo(
       ::ash::cros_healthd::mojom::DisplayResultPtr* out_result);
   ::ash::cros_healthd::mojom::DisplayResultPtr FetchDisplayInfo();
+  void RunPrimeSearch(
+      uint32_t duration_sec, uint64_t max_num, bool* out_passed);
+  bool RunPrimeSearch(uint32_t duration_sec, uint64_t max_num);
 
  private:
   Delegate* const proxy_;

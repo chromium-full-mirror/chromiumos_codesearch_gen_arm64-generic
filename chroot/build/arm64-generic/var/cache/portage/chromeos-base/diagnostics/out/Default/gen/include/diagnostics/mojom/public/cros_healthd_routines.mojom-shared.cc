@@ -253,6 +253,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case RoutineArgument_Tag::kPrimeSearch: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_prime_search, 8, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_prime_search, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       return true;
@@ -423,6 +433,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       return true;
     }
+    case RoutineDetail_Tag::kPrimeSearch: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_prime_search, 7, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_prime_search, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(
@@ -588,6 +608,32 @@ bool CpuCacheRoutineArgument_Data::Validate(
 }
 
 CpuCacheRoutineArgument_Data::CpuCacheRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PrimeSearchRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PrimeSearchRoutineArgument_Data* object =
+      static_cast<const PrimeSearchRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+PrimeSearchRoutineArgument_Data::PrimeSearchRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -874,6 +920,29 @@ bool CpuCacheRoutineDetail_Data::Validate(
 }
 
 CpuCacheRoutineDetail_Data::CpuCacheRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PrimeSearchRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PrimeSearchRoutineDetail_Data* object =
+      static_cast<const PrimeSearchRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+PrimeSearchRoutineDetail_Data::PrimeSearchRoutineDetail_Data()
     : header_({sizeof(*this), 0}) {}
 
 

@@ -942,6 +942,26 @@ inline const std::string& CheckUserAccountResponse_UserAccountType_Name(T enum_t
 }
 bool CheckUserAccountResponse_UserAccountType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CheckUserAccountResponse_UserAccountType* value);
+enum CheckUserAccountResponse_EnrollmentNudgeType : int {
+  CheckUserAccountResponse_EnrollmentNudgeType_UNKNOWN_ENROLLMENT_NUDGE_TYPE = 0,
+  CheckUserAccountResponse_EnrollmentNudgeType_NONE = 1,
+  CheckUserAccountResponse_EnrollmentNudgeType_ENROLLMENT_REQUIRED = 2
+};
+bool CheckUserAccountResponse_EnrollmentNudgeType_IsValid(int value);
+constexpr CheckUserAccountResponse_EnrollmentNudgeType CheckUserAccountResponse_EnrollmentNudgeType_EnrollmentNudgeType_MIN = CheckUserAccountResponse_EnrollmentNudgeType_UNKNOWN_ENROLLMENT_NUDGE_TYPE;
+constexpr CheckUserAccountResponse_EnrollmentNudgeType CheckUserAccountResponse_EnrollmentNudgeType_EnrollmentNudgeType_MAX = CheckUserAccountResponse_EnrollmentNudgeType_ENROLLMENT_REQUIRED;
+constexpr int CheckUserAccountResponse_EnrollmentNudgeType_EnrollmentNudgeType_ARRAYSIZE = CheckUserAccountResponse_EnrollmentNudgeType_EnrollmentNudgeType_MAX + 1;
+
+const std::string& CheckUserAccountResponse_EnrollmentNudgeType_Name(CheckUserAccountResponse_EnrollmentNudgeType value);
+template<typename T>
+inline const std::string& CheckUserAccountResponse_EnrollmentNudgeType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, CheckUserAccountResponse_EnrollmentNudgeType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function CheckUserAccountResponse_EnrollmentNudgeType_Name.");
+  return CheckUserAccountResponse_EnrollmentNudgeType_Name(static_cast<CheckUserAccountResponse_EnrollmentNudgeType>(enum_t_value));
+}
+bool CheckUserAccountResponse_EnrollmentNudgeType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CheckUserAccountResponse_EnrollmentNudgeType* value);
 enum DeviceRegisterResponse_DeviceMode : int {
   DeviceRegisterResponse_DeviceMode_ENTERPRISE = 0,
   DeviceRegisterResponse_DeviceMode_RETAIL_DEPRECATED = 1,
@@ -2707,25 +2727,6 @@ inline const std::string& BusType_Name(T enum_t_value) {
 }
 bool BusType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BusType* value);
-enum PartialReportType : int {
-  UNSPECIFIED = 0,
-  EXTENSION_REQUEST = 1
-};
-bool PartialReportType_IsValid(int value);
-constexpr PartialReportType PartialReportType_MIN = UNSPECIFIED;
-constexpr PartialReportType PartialReportType_MAX = EXTENSION_REQUEST;
-constexpr int PartialReportType_ARRAYSIZE = PartialReportType_MAX + 1;
-
-const std::string& PartialReportType_Name(PartialReportType value);
-template<typename T>
-inline const std::string& PartialReportType_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, PartialReportType>::value ||
-    ::std::is_integral<T>::value,
-    "Incorrect type passed to function PartialReportType_Name.");
-  return PartialReportType_Name(static_cast<PartialReportType>(enum_t_value));
-}
-bool PartialReportType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PartialReportType* value);
 enum CrostiniAppType : int {
   CROSTINI_APP_TYPE_TERMINAL = 0,
   CROSTINI_APP_TYPE_INTERACTIVE = 1,
@@ -3275,6 +3276,7 @@ class CheckUserAccountRequest final :
 
   enum : int {
     kUserEmailFieldNumber = 1,
+    kEnrollmentNudgeRequestFieldNumber = 2,
   };
   // optional string user_email = 1;
   bool has_user_email() const;
@@ -3294,6 +3296,19 @@ class CheckUserAccountRequest final :
   std::string* _internal_mutable_user_email();
   public:
 
+  // optional bool enrollment_nudge_request = 2 [default = false];
+  bool has_enrollment_nudge_request() const;
+  private:
+  bool _internal_has_enrollment_nudge_request() const;
+  public:
+  void clear_enrollment_nudge_request();
+  bool enrollment_nudge_request() const;
+  void set_enrollment_nudge_request(bool value);
+  private:
+  bool _internal_enrollment_nudge_request() const;
+  void _internal_set_enrollment_nudge_request(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:enterprise_management.CheckUserAccountRequest)
  private:
   class _Internal;
@@ -3305,6 +3320,7 @@ class CheckUserAccountRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_email_;
+    bool enrollment_nudge_request_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
@@ -4220,11 +4236,40 @@ class CheckUserAccountResponse final :
     return CheckUserAccountResponse_UserAccountType_Parse(name, value);
   }
 
+  typedef CheckUserAccountResponse_EnrollmentNudgeType EnrollmentNudgeType;
+  static constexpr EnrollmentNudgeType UNKNOWN_ENROLLMENT_NUDGE_TYPE =
+    CheckUserAccountResponse_EnrollmentNudgeType_UNKNOWN_ENROLLMENT_NUDGE_TYPE;
+  static constexpr EnrollmentNudgeType NONE =
+    CheckUserAccountResponse_EnrollmentNudgeType_NONE;
+  static constexpr EnrollmentNudgeType ENROLLMENT_REQUIRED =
+    CheckUserAccountResponse_EnrollmentNudgeType_ENROLLMENT_REQUIRED;
+  static inline bool EnrollmentNudgeType_IsValid(int value) {
+    return CheckUserAccountResponse_EnrollmentNudgeType_IsValid(value);
+  }
+  static constexpr EnrollmentNudgeType EnrollmentNudgeType_MIN =
+    CheckUserAccountResponse_EnrollmentNudgeType_EnrollmentNudgeType_MIN;
+  static constexpr EnrollmentNudgeType EnrollmentNudgeType_MAX =
+    CheckUserAccountResponse_EnrollmentNudgeType_EnrollmentNudgeType_MAX;
+  static constexpr int EnrollmentNudgeType_ARRAYSIZE =
+    CheckUserAccountResponse_EnrollmentNudgeType_EnrollmentNudgeType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& EnrollmentNudgeType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, EnrollmentNudgeType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function EnrollmentNudgeType_Name.");
+    return CheckUserAccountResponse_EnrollmentNudgeType_Name(enum_t_value);
+  }
+  static inline bool EnrollmentNudgeType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      EnrollmentNudgeType* value) {
+    return CheckUserAccountResponse_EnrollmentNudgeType_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kDomainVerifiedFieldNumber = 1,
     kUserAccountTypeFieldNumber = 2,
+    kEnrollmentNudgeTypeFieldNumber = 3,
   };
   // optional bool domain_verified = 1;
   bool has_domain_verified() const;
@@ -4252,6 +4297,19 @@ class CheckUserAccountResponse final :
   void _internal_set_user_account_type(::enterprise_management::CheckUserAccountResponse_UserAccountType value);
   public:
 
+  // optional .enterprise_management.CheckUserAccountResponse.EnrollmentNudgeType enrollment_nudge_type = 3;
+  bool has_enrollment_nudge_type() const;
+  private:
+  bool _internal_has_enrollment_nudge_type() const;
+  public:
+  void clear_enrollment_nudge_type();
+  ::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType enrollment_nudge_type() const;
+  void set_enrollment_nudge_type(::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType value);
+  private:
+  ::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType _internal_enrollment_nudge_type() const;
+  void _internal_set_enrollment_nudge_type(::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:enterprise_management.CheckUserAccountResponse)
  private:
   class _Internal;
@@ -4264,6 +4322,7 @@ class CheckUserAccountResponse final :
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     bool domain_verified_;
     int user_account_type_;
+    int enrollment_nudge_type_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
@@ -21712,7 +21771,6 @@ class ChromeDesktopReportRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPartialReportTypesFieldNumber = 10,
     kMachineNameFieldNumber = 1,
     kOsInfoFieldNumber = 2,
     kOsUserFieldNumber = 3,
@@ -21726,23 +21784,6 @@ class ChromeDesktopReportRequest final :
     kOsReportFieldNumber = 7,
     kBrowserDeviceIdentifierFieldNumber = 9,
   };
-  // repeated .enterprise_management.PartialReportType partial_report_types = 10;
-  int partial_report_types_size() const;
-  private:
-  int _internal_partial_report_types_size() const;
-  public:
-  void clear_partial_report_types();
-  private:
-  ::enterprise_management::PartialReportType _internal_partial_report_types(int index) const;
-  void _internal_add_partial_report_types(::enterprise_management::PartialReportType value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_partial_report_types();
-  public:
-  ::enterprise_management::PartialReportType partial_report_types(int index) const;
-  void set_partial_report_types(int index, ::enterprise_management::PartialReportType value);
-  void add_partial_report_types(::enterprise_management::PartialReportType value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& partial_report_types() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_partial_report_types();
-
   // optional string machine_name = 1 [deprecated = true];
   PROTOBUF_DEPRECATED bool has_machine_name() const;
   private:
@@ -21969,7 +22010,6 @@ class ChromeDesktopReportRequest final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> partial_report_types_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr machine_name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr os_info_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr os_user_;
@@ -22099,7 +22139,6 @@ class ChromeOsUserReportRequest final :
 
   enum : int {
     kAndroidAppInfosFieldNumber = 2,
-    kPartialReportTypesFieldNumber = 3,
     kBrowserReportFieldNumber = 1,
   };
   // repeated .enterprise_management.AndroidAppInfo android_app_infos = 2;
@@ -22119,23 +22158,6 @@ class ChromeOsUserReportRequest final :
   ::enterprise_management::AndroidAppInfo* add_android_app_infos();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_management::AndroidAppInfo >&
       android_app_infos() const;
-
-  // repeated .enterprise_management.PartialReportType partial_report_types = 3;
-  int partial_report_types_size() const;
-  private:
-  int _internal_partial_report_types_size() const;
-  public:
-  void clear_partial_report_types();
-  private:
-  ::enterprise_management::PartialReportType _internal_partial_report_types(int index) const;
-  void _internal_add_partial_report_types(::enterprise_management::PartialReportType value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_partial_report_types();
-  public:
-  ::enterprise_management::PartialReportType partial_report_types(int index) const;
-  void set_partial_report_types(int index, ::enterprise_management::PartialReportType value);
-  void add_partial_report_types(::enterprise_management::PartialReportType value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& partial_report_types() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_partial_report_types();
 
   // optional .enterprise_management.BrowserReport browser_report = 1;
   bool has_browser_report() const;
@@ -22166,7 +22188,6 @@ class ChromeOsUserReportRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_management::AndroidAppInfo > android_app_infos_;
-    ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> partial_report_types_;
     ::enterprise_management::BrowserReport* browser_report_;
   };
   union { Impl_ _impl_; };
@@ -43588,6 +43609,34 @@ inline void CheckUserAccountRequest::set_allocated_user_email(std::string* user_
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.CheckUserAccountRequest.user_email)
 }
 
+// optional bool enrollment_nudge_request = 2 [default = false];
+inline bool CheckUserAccountRequest::_internal_has_enrollment_nudge_request() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool CheckUserAccountRequest::has_enrollment_nudge_request() const {
+  return _internal_has_enrollment_nudge_request();
+}
+inline void CheckUserAccountRequest::clear_enrollment_nudge_request() {
+  _impl_.enrollment_nudge_request_ = false;
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline bool CheckUserAccountRequest::_internal_enrollment_nudge_request() const {
+  return _impl_.enrollment_nudge_request_;
+}
+inline bool CheckUserAccountRequest::enrollment_nudge_request() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.CheckUserAccountRequest.enrollment_nudge_request)
+  return _internal_enrollment_nudge_request();
+}
+inline void CheckUserAccountRequest::_internal_set_enrollment_nudge_request(bool value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.enrollment_nudge_request_ = value;
+}
+inline void CheckUserAccountRequest::set_enrollment_nudge_request(bool value) {
+  _internal_set_enrollment_nudge_request(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.CheckUserAccountRequest.enrollment_nudge_request)
+}
+
 // -------------------------------------------------------------------
 
 // DeviceRegisterRequest
@@ -44845,6 +44894,35 @@ inline void CheckUserAccountResponse::_internal_set_user_account_type(::enterpri
 inline void CheckUserAccountResponse::set_user_account_type(::enterprise_management::CheckUserAccountResponse_UserAccountType value) {
   _internal_set_user_account_type(value);
   // @@protoc_insertion_point(field_set:enterprise_management.CheckUserAccountResponse.user_account_type)
+}
+
+// optional .enterprise_management.CheckUserAccountResponse.EnrollmentNudgeType enrollment_nudge_type = 3;
+inline bool CheckUserAccountResponse::_internal_has_enrollment_nudge_type() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool CheckUserAccountResponse::has_enrollment_nudge_type() const {
+  return _internal_has_enrollment_nudge_type();
+}
+inline void CheckUserAccountResponse::clear_enrollment_nudge_type() {
+  _impl_.enrollment_nudge_type_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline ::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType CheckUserAccountResponse::_internal_enrollment_nudge_type() const {
+  return static_cast< ::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType >(_impl_.enrollment_nudge_type_);
+}
+inline ::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType CheckUserAccountResponse::enrollment_nudge_type() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.CheckUserAccountResponse.enrollment_nudge_type)
+  return _internal_enrollment_nudge_type();
+}
+inline void CheckUserAccountResponse::_internal_set_enrollment_nudge_type(::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType value) {
+  assert(::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.enrollment_nudge_type_ = value;
+}
+inline void CheckUserAccountResponse::set_enrollment_nudge_type(::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType value) {
+  _internal_set_enrollment_nudge_type(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.CheckUserAccountResponse.enrollment_nudge_type)
 }
 
 // -------------------------------------------------------------------
@@ -65271,51 +65349,6 @@ inline void ChromeDesktopReportRequest::set_allocated_browser_device_identifier(
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDesktopReportRequest.browser_device_identifier)
 }
 
-// repeated .enterprise_management.PartialReportType partial_report_types = 10;
-inline int ChromeDesktopReportRequest::_internal_partial_report_types_size() const {
-  return _impl_.partial_report_types_.size();
-}
-inline int ChromeDesktopReportRequest::partial_report_types_size() const {
-  return _internal_partial_report_types_size();
-}
-inline void ChromeDesktopReportRequest::clear_partial_report_types() {
-  _impl_.partial_report_types_.Clear();
-}
-inline ::enterprise_management::PartialReportType ChromeDesktopReportRequest::_internal_partial_report_types(int index) const {
-  return static_cast< ::enterprise_management::PartialReportType >(_impl_.partial_report_types_.Get(index));
-}
-inline ::enterprise_management::PartialReportType ChromeDesktopReportRequest::partial_report_types(int index) const {
-  // @@protoc_insertion_point(field_get:enterprise_management.ChromeDesktopReportRequest.partial_report_types)
-  return _internal_partial_report_types(index);
-}
-inline void ChromeDesktopReportRequest::set_partial_report_types(int index, ::enterprise_management::PartialReportType value) {
-  assert(::enterprise_management::PartialReportType_IsValid(value));
-  _impl_.partial_report_types_.Set(index, value);
-  // @@protoc_insertion_point(field_set:enterprise_management.ChromeDesktopReportRequest.partial_report_types)
-}
-inline void ChromeDesktopReportRequest::_internal_add_partial_report_types(::enterprise_management::PartialReportType value) {
-  assert(::enterprise_management::PartialReportType_IsValid(value));
-  _impl_.partial_report_types_.Add(value);
-}
-inline void ChromeDesktopReportRequest::add_partial_report_types(::enterprise_management::PartialReportType value) {
-  _internal_add_partial_report_types(value);
-  // @@protoc_insertion_point(field_add:enterprise_management.ChromeDesktopReportRequest.partial_report_types)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
-ChromeDesktopReportRequest::partial_report_types() const {
-  // @@protoc_insertion_point(field_list:enterprise_management.ChromeDesktopReportRequest.partial_report_types)
-  return _impl_.partial_report_types_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-ChromeDesktopReportRequest::_internal_mutable_partial_report_types() {
-  return &_impl_.partial_report_types_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-ChromeDesktopReportRequest::mutable_partial_report_types() {
-  // @@protoc_insertion_point(field_mutable_list:enterprise_management.ChromeDesktopReportRequest.partial_report_types)
-  return _internal_mutable_partial_report_types();
-}
-
 // optional string machine_attestation_key = 11;
 inline bool ChromeDesktopReportRequest::_internal_has_machine_attestation_key() const {
   bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
@@ -65652,51 +65685,6 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_management:
 ChromeOsUserReportRequest::android_app_infos() const {
   // @@protoc_insertion_point(field_list:enterprise_management.ChromeOsUserReportRequest.android_app_infos)
   return _impl_.android_app_infos_;
-}
-
-// repeated .enterprise_management.PartialReportType partial_report_types = 3;
-inline int ChromeOsUserReportRequest::_internal_partial_report_types_size() const {
-  return _impl_.partial_report_types_.size();
-}
-inline int ChromeOsUserReportRequest::partial_report_types_size() const {
-  return _internal_partial_report_types_size();
-}
-inline void ChromeOsUserReportRequest::clear_partial_report_types() {
-  _impl_.partial_report_types_.Clear();
-}
-inline ::enterprise_management::PartialReportType ChromeOsUserReportRequest::_internal_partial_report_types(int index) const {
-  return static_cast< ::enterprise_management::PartialReportType >(_impl_.partial_report_types_.Get(index));
-}
-inline ::enterprise_management::PartialReportType ChromeOsUserReportRequest::partial_report_types(int index) const {
-  // @@protoc_insertion_point(field_get:enterprise_management.ChromeOsUserReportRequest.partial_report_types)
-  return _internal_partial_report_types(index);
-}
-inline void ChromeOsUserReportRequest::set_partial_report_types(int index, ::enterprise_management::PartialReportType value) {
-  assert(::enterprise_management::PartialReportType_IsValid(value));
-  _impl_.partial_report_types_.Set(index, value);
-  // @@protoc_insertion_point(field_set:enterprise_management.ChromeOsUserReportRequest.partial_report_types)
-}
-inline void ChromeOsUserReportRequest::_internal_add_partial_report_types(::enterprise_management::PartialReportType value) {
-  assert(::enterprise_management::PartialReportType_IsValid(value));
-  _impl_.partial_report_types_.Add(value);
-}
-inline void ChromeOsUserReportRequest::add_partial_report_types(::enterprise_management::PartialReportType value) {
-  _internal_add_partial_report_types(value);
-  // @@protoc_insertion_point(field_add:enterprise_management.ChromeOsUserReportRequest.partial_report_types)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
-ChromeOsUserReportRequest::partial_report_types() const {
-  // @@protoc_insertion_point(field_list:enterprise_management.ChromeOsUserReportRequest.partial_report_types)
-  return _impl_.partial_report_types_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-ChromeOsUserReportRequest::_internal_mutable_partial_report_types() {
-  return &_impl_.partial_report_types_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-ChromeOsUserReportRequest::mutable_partial_report_types() {
-  // @@protoc_insertion_point(field_mutable_list:enterprise_management.ChromeOsUserReportRequest.partial_report_types)
-  return _internal_mutable_partial_report_types();
 }
 
 // -------------------------------------------------------------------
@@ -87130,6 +87118,7 @@ template <> struct is_proto_enum< ::enterprise_management::DeviceRegisterRequest
 template <> struct is_proto_enum< ::enterprise_management::DeviceRegisterRequest_Lifetime> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceRegisterRequest_PsmExecutionResult> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::CheckUserAccountResponse_UserAccountType> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceRegisterResponse_DeviceMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceCertUploadRequest_CertificateType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceServiceApiAccessRequest_DeviceType> : ::std::true_type {};
@@ -87205,7 +87194,6 @@ template <> struct is_proto_enum< ::enterprise_management::CrdSessionAvailabilit
 template <> struct is_proto_enum< ::enterprise_management::Channel> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BusDeviceClass> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BusType> : ::std::true_type {};
-template <> struct is_proto_enum< ::enterprise_management::PartialReportType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::CrostiniAppType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::HashingAlgorithm> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::SigningAlgorithm> : ::std::true_type {};

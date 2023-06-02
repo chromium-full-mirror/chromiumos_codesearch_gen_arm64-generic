@@ -208,9 +208,27 @@ TEST_F(SmartCardDriverTest, GetDelayFails) {
                         {.public_key_spki_der = kPublicKey}),
                     {.state = ChallengeCredentialAuthBlockState()});
 
-  auto delay_in_ms = driver.GetFactorDelay(factor);
+  auto delay_in_ms = driver.GetFactorDelay(kObfuscatedUser, factor);
   ASSERT_THAT(delay_in_ms, NotOk());
   EXPECT_THAT(delay_in_ms.status()->local_legacy_error(),
+              Eq(user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT));
+}
+
+TEST_F(SmartCardDriverTest, GetExpirationFails) {
+  SmartCardAuthFactorDriver sc_driver(
+      &crypto_,
+      AsyncInitPtr<ChallengeCredentialsHelper>(&challenge_credentials_helper_),
+      &key_challenge_service_factory_);
+  AuthFactorDriver& driver = sc_driver;
+
+  AuthFactor factor(AuthFactorType::kSmartCard, kLabel,
+                    CreateMetadataWithType<SmartCardAuthFactorMetadata>(
+                        {.public_key_spki_der = kPublicKey}),
+                    {.state = ChallengeCredentialAuthBlockState()});
+
+  auto expired = driver.IsExpired(kObfuscatedUser, factor);
+  ASSERT_THAT(expired, NotOk());
+  EXPECT_THAT(expired.status()->local_legacy_error(),
               Eq(user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT));
 }
 

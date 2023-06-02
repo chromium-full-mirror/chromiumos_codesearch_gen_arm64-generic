@@ -359,6 +359,41 @@ class  Executor_ReadFile_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_ReadFile_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_ReadFile_ResponseParams_Data)");
+class  Executor_ReadFilePart_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t file_enum;
+  uint8_t pad0_[4];
+  uint64_t begin;
+  uint64_t size;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_ReadFilePart_Params_Data>;
+
+  Executor_ReadFilePart_Params_Data();
+  ~Executor_ReadFilePart_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_ReadFilePart_Params_Data) == 32,
+              "Bad sizeof(Executor_ReadFilePart_Params_Data)");
+class  Executor_ReadFilePart_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> content;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_ReadFilePart_ResponseParams_Data>;
+
+  Executor_ReadFilePart_ResponseParams_Data();
+  ~Executor_ReadFilePart_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_ReadFilePart_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_ReadFilePart_ResponseParams_Data)");
 class  Executor_GetFileInfo_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1184,6 +1219,41 @@ class  Executor_MonitorPowerButton_Params_Data {
 };
 static_assert(sizeof(Executor_MonitorPowerButton_Params_Data) == 24,
               "Bad sizeof(Executor_MonitorPowerButton_Params_Data)");
+class  Executor_RunPrimeSearch_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t duration_sec;
+  mojo::internal::Handle_Data process_control;
+  uint64_t max_num;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RunPrimeSearch_Params_Data>;
+
+  Executor_RunPrimeSearch_Params_Data();
+  ~Executor_RunPrimeSearch_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_RunPrimeSearch_Params_Data) == 24,
+              "Bad sizeof(Executor_RunPrimeSearch_Params_Data)");
+class  Executor_RunPrimeSearch_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t passed : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RunPrimeSearch_ResponseParams_Data>;
+
+  Executor_RunPrimeSearch_ResponseParams_Data();
+  ~Executor_RunPrimeSearch_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_RunPrimeSearch_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_RunPrimeSearch_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1658,6 +1728,73 @@ static_assert(
   }
  private:
   internal::Executor_ReadFile_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_ReadFilePart_ParamsDataView {
+ public:
+  Executor_ReadFilePart_ParamsDataView() = default;
+
+  Executor_ReadFilePart_ParamsDataView(
+      internal::Executor_ReadFilePart_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadFileEnum(UserType* output) const {
+    auto data_value = data_->file_enum;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::Executor_File>(
+        data_value, output);
+  }
+  Executor_File file_enum() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::Executor_File>(data_->file_enum));
+  }
+  uint64_t begin() const {
+    return data_->begin;
+  }
+  uint64_t size() const {
+    return data_->size;
+  }
+ private:
+  internal::Executor_ReadFilePart_Params_Data* data_ = nullptr;
+};
+
+
+class Executor_ReadFilePart_ResponseParamsDataView {
+ public:
+  Executor_ReadFilePart_ResponseParamsDataView() = default;
+
+  Executor_ReadFilePart_ResponseParamsDataView(
+      internal::Executor_ReadFilePart_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetContentDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadContent(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `content` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadContent` instead "
+    "of `ReadContent if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->content.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_ReadFilePart_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -3022,6 +3159,55 @@ class Executor_MonitorPowerButton_ParamsDataView {
 };
 
 
+class Executor_RunPrimeSearch_ParamsDataView {
+ public:
+  Executor_RunPrimeSearch_ParamsDataView() = default;
+
+  Executor_RunPrimeSearch_ParamsDataView(
+      internal::Executor_RunPrimeSearch_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t duration_sec() const {
+    return data_->duration_sec;
+  }
+  uint64_t max_num() const {
+    return data_->max_num;
+  }
+  template <typename UserType>
+  UserType TakeProcessControl() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->process_control, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_RunPrimeSearch_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Executor_RunPrimeSearch_ResponseParamsDataView {
+ public:
+  Executor_RunPrimeSearch_ResponseParamsDataView() = default;
+
+  Executor_RunPrimeSearch_ResponseParamsDataView(
+      internal::Executor_RunPrimeSearch_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool passed() const {
+    return data_->passed;
+  }
+ private:
+  internal::Executor_RunPrimeSearch_ResponseParams_Data* data_ = nullptr;
+};
+
+
 
 
 
@@ -3097,6 +3283,15 @@ inline void StylusObserver_OnConnected_ParamsDataView::GetConnectedEventDataView
 
 
 inline void Executor_ReadFile_ResponseParamsDataView::GetContentDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->content.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_ReadFilePart_ResponseParamsDataView::GetContentDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->content.Get();
   *output = mojo::StringDataView(pointer, message_);
@@ -3324,6 +3519,10 @@ inline void Executor_FetchCrashFromCrashSender_ResponseParamsDataView::GetResult
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
 }
+
+
+
+
 
 
 

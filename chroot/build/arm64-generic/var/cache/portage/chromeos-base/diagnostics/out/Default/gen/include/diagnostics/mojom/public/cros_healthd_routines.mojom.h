@@ -818,6 +818,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  RoutineStateInitialized {
  public:
   template <typename T>
@@ -1936,6 +1937,142 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  PrimeSearchRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PrimeSearchRoutineDetail, T>::value>;
+  using DataView = PrimeSearchRoutineDetailDataView;
+  using Data_ = internal::PrimeSearchRoutineDetail_Data;
+
+  template <typename... Args>
+  static PrimeSearchRoutineDetailPtr New(Args&&... args) {
+    return PrimeSearchRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PrimeSearchRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<PrimeSearchRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PrimeSearchRoutineDetail>::Convert(*this);
+  }
+
+
+  PrimeSearchRoutineDetail();
+
+
+  ~PrimeSearchRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PrimeSearchRoutineDetailPtr>
+  PrimeSearchRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PrimeSearchRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PrimeSearchRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PrimeSearchRoutineDetail_UnserializedMessageContext<
+            UserType, PrimeSearchRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PrimeSearchRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PrimeSearchRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PrimeSearchRoutineDetail_UnserializedMessageContext<
+            UserType, PrimeSearchRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PrimeSearchRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineArgument {
  public:
@@ -2007,6 +2144,14 @@ class  RoutineArgument {
       CpuCacheRoutineArgumentPtr cpu_cache) {
     auto result = RoutineArgumentPtr(absl::in_place);
     result->set_cpu_cache(std::move(cpu_cache));
+    return result;
+  }
+  // Construct an instance holding |prime_search|.
+  static RoutineArgumentPtr
+  NewPrimeSearch(
+      PrimeSearchRoutineArgumentPtr prime_search) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_prime_search(std::move(prime_search));
     return result;
   }
 
@@ -2135,6 +2280,18 @@ class  RoutineArgument {
   
   void set_cpu_cache(
       CpuCacheRoutineArgumentPtr cpu_cache);
+  
+  bool is_prime_search() const { return tag_ == Tag::kPrimeSearch; }
+
+  
+  PrimeSearchRoutineArgumentPtr& get_prime_search() const {
+    CHECK(tag_ == Tag::kPrimeSearch);
+    return *(data_.prime_search);
+  }
+
+  
+  void set_prime_search(
+      PrimeSearchRoutineArgumentPtr prime_search);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2160,6 +2317,7 @@ class  RoutineArgument {
     UfsLifetimeRoutineArgumentPtr* ufs_lifetime;
     DiskReadRoutineArgumentPtr* disk_read;
     CpuCacheRoutineArgumentPtr* cpu_cache;
+    PrimeSearchRoutineArgumentPtr* prime_search;
   };
 
   static bool Validate(const void* data,
@@ -2408,6 +2566,14 @@ class  RoutineDetail {
     result->set_cpu_cache(std::move(cpu_cache));
     return result;
   }
+  // Construct an instance holding |prime_search|.
+  static RoutineDetailPtr
+  NewPrimeSearch(
+      PrimeSearchRoutineDetailPtr prime_search) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_prime_search(std::move(prime_search));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -2522,6 +2688,18 @@ class  RoutineDetail {
   
   void set_cpu_cache(
       CpuCacheRoutineDetailPtr cpu_cache);
+  
+  bool is_prime_search() const { return tag_ == Tag::kPrimeSearch; }
+
+  
+  PrimeSearchRoutineDetailPtr& get_prime_search() const {
+    CHECK(tag_ == Tag::kPrimeSearch);
+    return *(data_.prime_search);
+  }
+
+  
+  void set_prime_search(
+      PrimeSearchRoutineDetailPtr prime_search);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2546,6 +2724,7 @@ class  RoutineDetail {
     UfsLifetimeRoutineDetailPtr* ufs_lifetime;
     DiskReadRoutineDetailPtr* disk_read;
     CpuCacheRoutineDetailPtr* cpu_cache;
+    PrimeSearchRoutineDetailPtr* prime_search;
   };
 
   static bool Validate(const void* data,
@@ -2981,6 +3160,146 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, CpuCacheRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  PrimeSearchRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PrimeSearchRoutineArgument, T>::value>;
+  using DataView = PrimeSearchRoutineArgumentDataView;
+  using Data_ = internal::PrimeSearchRoutineArgument_Data;
+
+  template <typename... Args>
+  static PrimeSearchRoutineArgumentPtr New(Args&&... args) {
+    return PrimeSearchRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PrimeSearchRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<PrimeSearchRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PrimeSearchRoutineArgument>::Convert(*this);
+  }
+
+
+  PrimeSearchRoutineArgument();
+
+  explicit PrimeSearchRoutineArgument(
+      absl::optional<base::TimeDelta> exec_duration);
+
+
+  ~PrimeSearchRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PrimeSearchRoutineArgumentPtr>
+  PrimeSearchRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PrimeSearchRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PrimeSearchRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, PrimeSearchRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PrimeSearchRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PrimeSearchRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PrimeSearchRoutineArgument_UnserializedMessageContext<
+            UserType, PrimeSearchRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PrimeSearchRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PrimeSearchRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PrimeSearchRoutineArgument_UnserializedMessageContext<
+            UserType, PrimeSearchRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PrimeSearchRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  absl::optional<base::TimeDelta> exec_duration;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PrimeSearchRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PrimeSearchRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PrimeSearchRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PrimeSearchRoutineArgument::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -3432,6 +3751,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  MemtesterResult {
  public:
   template <typename T>
@@ -3595,6 +3915,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kCpuCache:
       return NewCpuCache(
           mojo::Clone(*data_.cpu_cache));
+    case Tag::kPrimeSearch:
+      return NewPrimeSearch(
+          mojo::Clone(*data_.prime_search));
   }
   return nullptr;
 }
@@ -3621,6 +3944,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.disk_read), *(other.data_.disk_read));
     case Tag::kCpuCache:
       return mojo::Equals(*(data_.cpu_cache), *(other.data_.cpu_cache));
+    case Tag::kPrimeSearch:
+      return mojo::Equals(*(data_.prime_search), *(other.data_.prime_search));
   }
 
   return false;
@@ -3685,6 +4010,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kCpuCache:
       return NewCpuCache(
           mojo::Clone(*data_.cpu_cache));
+    case Tag::kPrimeSearch:
+      return NewPrimeSearch(
+          mojo::Clone(*data_.prime_search));
   }
   return nullptr;
 }
@@ -3709,6 +4037,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.disk_read), *(other.data_.disk_read));
     case Tag::kCpuCache:
       return mojo::Equals(*(data_.cpu_cache), *(other.data_.cpu_cache));
+    case Tag::kPrimeSearch:
+      return mojo::Equals(*(data_.prime_search), *(other.data_.prime_search));
   }
 
   return false;
@@ -3838,6 +4168,28 @@ bool CpuCacheRoutineArgument::Equals(const T& other_struct) const {
 }
 
 template <typename T, CpuCacheRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.exec_duration < rhs.exec_duration)
+    return true;
+  if (rhs.exec_duration < lhs.exec_duration)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+PrimeSearchRoutineArgumentPtr PrimeSearchRoutineArgument::Clone() const {
+  return New(
+      mojo::Clone(exec_duration)
+  );
+}
+
+template <typename T, PrimeSearchRoutineArgument::EnableIfSame<T>*>
+bool PrimeSearchRoutineArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->exec_duration, other_struct.exec_duration))
+    return false;
+  return true;
+}
+
+template <typename T, PrimeSearchRoutineArgument::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.exec_duration < rhs.exec_duration)
     return true;
@@ -4102,6 +4454,21 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+PrimeSearchRoutineDetailPtr PrimeSearchRoutineDetail::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>*>
+bool PrimeSearchRoutineDetail::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, PrimeSearchRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
 MemtesterResultPtr MemtesterResult::Clone() const {
   return New(
       mojo::Clone(passed_items),
@@ -4226,6 +4593,21 @@ struct  StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgument::DataVi
   }
 
   static bool Read(::ash::cros_healthd::mojom::CpuCacheRoutineArgument::DataView input, ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::PrimeSearchRoutineArgument::exec_duration)& exec_duration(
+      const ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr& input) {
+    return input->exec_duration;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::PrimeSearchRoutineArgument::DataView input, ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr* output);
 };
 
 
@@ -4405,6 +4787,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetail::DataView
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::DataView input, ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
                                          ::ash::cros_healthd::mojom::MemtesterResultPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) { return !input; }
@@ -4460,6 +4852,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::CpuCacheRoutineArgumentPtr& cpu_cache(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_cpu_cache();
+  }
+
+  static const ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentPtr& prime_search(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_prime_search();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -4528,6 +4924,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::CpuCacheRoutineDetailPtr& cpu_cache(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_cpu_cache();
+  }
+
+  static const ::ash::cros_healthd::mojom::PrimeSearchRoutineDetailPtr& prime_search(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_prime_search();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);
