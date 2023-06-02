@@ -69,9 +69,23 @@ struct SeedDetailsDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SeedDetailsDefaultTypeInternal _SeedDetails_default_instance_;
-PROTOBUF_CONSTEXPR Store::Store(
+PROTOBUF_CONSTEXPR OverridesSet::OverridesSet(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.overrides_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct OverridesSetDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OverridesSetDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~OverridesSetDefaultTypeInternal() {}
+  union {
+    OverridesSet _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OverridesSetDefaultTypeInternal _OverridesSet_default_instance_;
+PROTOBUF_CONSTEXPR Store::Store(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.overrides_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.overrides_hmac_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.last_good_seed_)*/nullptr
   , /*decltype(_impl_.boot_attempts_since_last_seed_update_)*/0u
   , /*decltype(_impl_._cached_size_)*/{}} {}
@@ -1208,6 +1222,193 @@ std::string SeedDetails::GetTypeName() const {
 
 // ===================================================================
 
+class OverridesSet::_Internal {
+ public:
+};
+
+OverridesSet::OverridesSet(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:featured.OverridesSet)
+}
+OverridesSet::OverridesSet(const OverridesSet& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  OverridesSet* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.overrides_){from._impl_.overrides_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:featured.OverridesSet)
+}
+
+inline void OverridesSet::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.overrides_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+OverridesSet::~OverridesSet() {
+  // @@protoc_insertion_point(destructor:featured.OverridesSet)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void OverridesSet::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.overrides_.~RepeatedPtrField();
+}
+
+void OverridesSet::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void OverridesSet::Clear() {
+// @@protoc_insertion_point(message_clear_start:featured.OverridesSet)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.overrides_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* OverridesSet::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .featured.FeatureOverride overrides = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_overrides(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* OverridesSet::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:featured.OverridesSet)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .featured.FeatureOverride overrides = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_overrides_size()); i < n; i++) {
+    const auto& repfield = this->_internal_overrides(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:featured.OverridesSet)
+  return target;
+}
+
+size_t OverridesSet::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:featured.OverridesSet)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .featured.FeatureOverride overrides = 1;
+  total_size += 1UL * this->_internal_overrides_size();
+  for (const auto& msg : this->_impl_.overrides_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void OverridesSet::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const OverridesSet*>(
+      &from));
+}
+
+void OverridesSet::MergeFrom(const OverridesSet& from) {
+  OverridesSet* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:featured.OverridesSet)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.overrides_.MergeFrom(from._impl_.overrides_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void OverridesSet::CopyFrom(const OverridesSet& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:featured.OverridesSet)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool OverridesSet::IsInitialized() const {
+  return true;
+}
+
+void OverridesSet::InternalSwap(OverridesSet* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.overrides_.InternalSwap(&other->_impl_.overrides_);
+}
+
+std::string OverridesSet::GetTypeName() const {
+  return "featured.OverridesSet";
+}
+
+
+// ===================================================================
+
 class Store::_Internal {
  public:
   static const ::featured::SeedDetails& last_good_seed(const Store* msg);
@@ -1227,12 +1428,29 @@ Store::Store(const Store& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   Store* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.overrides_){from._impl_.overrides_}
+      decltype(_impl_.overrides_){}
+    , decltype(_impl_.overrides_hmac_){}
     , decltype(_impl_.last_good_seed_){nullptr}
     , decltype(_impl_.boot_attempts_since_last_seed_update_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.overrides_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.overrides_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_overrides().empty()) {
+    _this->_impl_.overrides_.Set(from._internal_overrides(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.overrides_hmac_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.overrides_hmac_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_overrides_hmac().empty()) {
+    _this->_impl_.overrides_hmac_.Set(from._internal_overrides_hmac(), 
+      _this->GetArenaForAllocation());
+  }
   if (from._internal_has_last_good_seed()) {
     _this->_impl_.last_good_seed_ = new ::featured::SeedDetails(*from._impl_.last_good_seed_);
   }
@@ -1245,11 +1463,20 @@ inline void Store::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.overrides_){arena}
+      decltype(_impl_.overrides_){}
+    , decltype(_impl_.overrides_hmac_){}
     , decltype(_impl_.last_good_seed_){nullptr}
     , decltype(_impl_.boot_attempts_since_last_seed_update_){0u}
     , /*decltype(_impl_._cached_size_)*/{}
   };
+  _impl_.overrides_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.overrides_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.overrides_hmac_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.overrides_hmac_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Store::~Store() {
@@ -1263,7 +1490,8 @@ Store::~Store() {
 
 inline void Store::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.overrides_.~RepeatedPtrField();
+  _impl_.overrides_.Destroy();
+  _impl_.overrides_hmac_.Destroy();
   if (this != internal_default_instance()) delete _impl_.last_good_seed_;
 }
 
@@ -1277,7 +1505,8 @@ void Store::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.overrides_.Clear();
+  _impl_.overrides_.ClearToEmpty();
+  _impl_.overrides_hmac_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && _impl_.last_good_seed_ != nullptr) {
     delete _impl_.last_good_seed_;
   }
@@ -1308,16 +1537,21 @@ const char* Store::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
-      // repeated .featured.FeatureOverride overrides = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_overrides(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+      // bytes overrides = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_overrides();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes overrides_hmac = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_overrides_hmac();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1363,12 +1597,16 @@ uint8_t* Store::_InternalSerialize(
         _Internal::last_good_seed(this).GetCachedSize(), target, stream);
   }
 
-  // repeated .featured.FeatureOverride overrides = 3;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_overrides_size()); i < n; i++) {
-    const auto& repfield = this->_internal_overrides(i);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
+  // bytes overrides = 4;
+  if (!this->_internal_overrides().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_overrides(), target);
+  }
+
+  // bytes overrides_hmac = 5;
+  if (!this->_internal_overrides_hmac().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        5, this->_internal_overrides_hmac(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1387,11 +1625,18 @@ size_t Store::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .featured.FeatureOverride overrides = 3;
-  total_size += 1UL * this->_internal_overrides_size();
-  for (const auto& msg : this->_impl_.overrides_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  // bytes overrides = 4;
+  if (!this->_internal_overrides().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_overrides());
+  }
+
+  // bytes overrides_hmac = 5;
+  if (!this->_internal_overrides_hmac().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_overrides_hmac());
   }
 
   // .featured.SeedDetails last_good_seed = 2;
@@ -1427,7 +1672,12 @@ void Store::MergeFrom(const Store& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.overrides_.MergeFrom(from._impl_.overrides_);
+  if (!from._internal_overrides().empty()) {
+    _this->_internal_set_overrides(from._internal_overrides());
+  }
+  if (!from._internal_overrides_hmac().empty()) {
+    _this->_internal_set_overrides_hmac(from._internal_overrides_hmac());
+  }
   if (from._internal_has_last_good_seed()) {
     _this->_internal_mutable_last_good_seed()->::featured::SeedDetails::MergeFrom(
         from._internal_last_good_seed());
@@ -1451,8 +1701,17 @@ bool Store::IsInitialized() const {
 
 void Store::InternalSwap(Store* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.overrides_.InternalSwap(&other->_impl_.overrides_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.overrides_, lhs_arena,
+      &other->_impl_.overrides_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.overrides_hmac_, lhs_arena,
+      &other->_impl_.overrides_hmac_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Store, _impl_.boot_attempts_since_last_seed_update_)
       + sizeof(Store::_impl_.boot_attempts_since_last_seed_update_)
@@ -1709,6 +1968,10 @@ Arena::CreateMaybeMessage< ::featured::FeatureOverride >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::featured::SeedDetails*
 Arena::CreateMaybeMessage< ::featured::SeedDetails >(Arena* arena) {
   return Arena::CreateMessageInternal< ::featured::SeedDetails >(arena);
+}
+template<> PROTOBUF_NOINLINE ::featured::OverridesSet*
+Arena::CreateMaybeMessage< ::featured::OverridesSet >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::featured::OverridesSet >(arena);
 }
 template<> PROTOBUF_NOINLINE ::featured::Store*
 Arena::CreateMaybeMessage< ::featured::Store >(Arena* arena) {
