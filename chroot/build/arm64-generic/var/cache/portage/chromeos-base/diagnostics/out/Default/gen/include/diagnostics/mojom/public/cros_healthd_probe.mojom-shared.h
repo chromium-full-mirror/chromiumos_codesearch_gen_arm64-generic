@@ -2217,6 +2217,27 @@ static_assert(
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BlockDeviceInfoDataView>(
         pointer, output, message_);
   }
+  inline void GetFirmwareStringDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFirmwareString(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `firmware_string` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadFirmwareString` instead "
+    "of `ReadFirmwareString if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 2
+                    ? data_->firmware_string.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::NonRemovableBlockDeviceInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -9177,6 +9198,14 @@ struct Serializer<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataVie
     device_info_fragment.Claim(&fragment->device_info);
     mojo::internal::Serialize<::ash::cros_healthd::mojom::BlockDeviceInfoDataView>(
         in_device_info, device_info_fragment, true);
+    decltype(Traits::firmware_string(input)) in_firmware_string = Traits::firmware_string(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->firmware_string)::BaseType> firmware_string_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_firmware_string, firmware_string_fragment);
+    fragment->firmware_string.Set(
+        firmware_string_fragment.is_null() ? nullptr : firmware_string_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::NonRemovableBlockDeviceInfo_Data* input,
@@ -15071,6 +15100,12 @@ inline void NonRemovableBlockDeviceInfoDataView::GetDeviceInfoDataView(
   auto pointer = data_->header_.version >= 1
                  ? &data_->device_info : nullptr;
   *output = BlockDeviceInfoDataView(pointer, message_);
+}
+inline void NonRemovableBlockDeviceInfoDataView::GetFirmwareStringDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->header_.version >= 2
+                 ? data_->firmware_string.Get() : nullptr;
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 

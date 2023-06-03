@@ -39,34 +39,10 @@
 
 namespace cryptohome {
 
-enum class SerializedAuthFactorType : int32_t {
-  kPassword = 1,
-  kPin = 2,
-  kCryptohomeRecovery = 3,
-  kKiosk = 4,
-  kSmartCard = 5,
-  kLegacyFingerprint = 6,
-  kFingerprint = 7,
-};
-
-}  // namespace cryptohome
-
-namespace cryptohome {
-
-enum class SerializedAuthIntent : int32_t {
-  kDecrypt = 1,
-  kVerifyOnly = 2,
-  kWebAuthn = 3,
-};
-
-}  // namespace cryptohome
-
-namespace cryptohome {
-
 struct SerializedUserAuthFactorTypePolicy {
-  std::optional<::cryptohome::SerializedAuthFactorType> type;
-  std::vector<::cryptohome::SerializedAuthIntent> enabled_intents;
-  std::vector<::cryptohome::SerializedAuthIntent> disabled_intents;
+  std::optional<::cryptohome::enumeration::SerializedAuthFactorType> type;
+  std::vector<::cryptohome::enumeration::SerializedAuthIntent> enabled_intents;
+  std::vector<::cryptohome::enumeration::SerializedAuthIntent> disabled_intents;
 };
 
 }  // namespace cryptohome

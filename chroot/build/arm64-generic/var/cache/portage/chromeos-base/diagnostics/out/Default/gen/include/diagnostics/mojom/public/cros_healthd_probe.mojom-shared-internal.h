@@ -2832,6 +2832,7 @@ class  NonRemovableBlockDeviceInfo_Data {
   uint32_t serial;
   uint8_t pad16_[4];
   internal::BlockDeviceInfo_Data device_info;
+  mojo::internal::Pointer<mojo::internal::String_Data> firmware_string;
 
  private:
   friend class mojo::internal::MessageFragment<NonRemovableBlockDeviceInfo_Data>;
@@ -2839,7 +2840,7 @@ class  NonRemovableBlockDeviceInfo_Data {
   NonRemovableBlockDeviceInfo_Data();
   ~NonRemovableBlockDeviceInfo_Data() = delete;
 };
-static_assert(sizeof(NonRemovableBlockDeviceInfo_Data) == 184,
+static_assert(sizeof(NonRemovableBlockDeviceInfo_Data) == 192,
               "Bad sizeof(NonRemovableBlockDeviceInfo_Data)");
 // Used by NonRemovableBlockDeviceInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

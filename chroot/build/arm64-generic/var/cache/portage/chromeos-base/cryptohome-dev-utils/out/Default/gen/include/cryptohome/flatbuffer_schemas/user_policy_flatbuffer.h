@@ -45,70 +45,6 @@
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::SerializedAuthFactorType> {
-  using ResultType = ::cryptohome::_serialized_::SerializedAuthFactorType;
-
-  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
-                        ::cryptohome::SerializedAuthFactorType object) const {
-    return static_cast<ResultType>(object);
-  }
-};
-
-}  // namespace hwsec_foundation
-
-namespace hwsec_foundation {
-
-template <>
-struct FromFlatBuffer<::cryptohome::SerializedAuthFactorType> {
-  ::cryptohome::SerializedAuthFactorType operator()(
-      ::cryptohome::_serialized_::SerializedAuthFactorType object) const {
-    return static_cast<::cryptohome::SerializedAuthFactorType>(object);
-  }
-
-  ::cryptohome::SerializedAuthFactorType operator()(
-      std::underlying_type_t<
-          ::cryptohome::_serialized_::SerializedAuthFactorType> object) const {
-    return static_cast<::cryptohome::SerializedAuthFactorType>(object);
-  }
-};
-
-}  // namespace hwsec_foundation
-
-namespace hwsec_foundation {
-
-template <>
-struct ToFlatBuffer<::cryptohome::SerializedAuthIntent> {
-  using ResultType = ::cryptohome::_serialized_::SerializedAuthIntent;
-
-  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
-                        ::cryptohome::SerializedAuthIntent object) const {
-    return static_cast<ResultType>(object);
-  }
-};
-
-}  // namespace hwsec_foundation
-
-namespace hwsec_foundation {
-
-template <>
-struct FromFlatBuffer<::cryptohome::SerializedAuthIntent> {
-  ::cryptohome::SerializedAuthIntent operator()(
-      ::cryptohome::_serialized_::SerializedAuthIntent object) const {
-    return static_cast<::cryptohome::SerializedAuthIntent>(object);
-  }
-
-  ::cryptohome::SerializedAuthIntent operator()(
-      std::underlying_type_t<::cryptohome::_serialized_::SerializedAuthIntent>
-          object) const {
-    return static_cast<::cryptohome::SerializedAuthIntent>(object);
-  }
-};
-
-}  // namespace hwsec_foundation
-
-namespace hwsec_foundation {
-
-template <>
 struct ToFlatBuffer<::cryptohome::SerializedUserAuthFactorTypePolicy> {
   using ResultType = flatbuffers::Offset<
       ::cryptohome::_serialized_::SerializedUserAuthFactorTypePolicy>;
@@ -116,15 +52,15 @@ struct ToFlatBuffer<::cryptohome::SerializedUserAuthFactorTypePolicy> {
   ResultType operator()(
       flatbuffers::FlatBufferBuilder* builder,
       const ::cryptohome::SerializedUserAuthFactorTypePolicy& object) const {
-    auto type =
-        ToFlatBuffer<std::optional<::cryptohome::SerializedAuthFactorType>>()(
-            builder, object.type);
-    auto enabled_intents =
-        ToFlatBuffer<std::vector<::cryptohome::SerializedAuthIntent>>()(
-            builder, object.enabled_intents);
-    auto disabled_intents =
-        ToFlatBuffer<std::vector<::cryptohome::SerializedAuthIntent>>()(
-            builder, object.disabled_intents);
+    auto type = ToFlatBuffer<
+        std::optional<::cryptohome::enumeration::SerializedAuthFactorType>>()(
+        builder, object.type);
+    auto enabled_intents = ToFlatBuffer<
+        std::vector<::cryptohome::enumeration::SerializedAuthIntent>>()(
+        builder, object.enabled_intents);
+    auto disabled_intents = ToFlatBuffer<
+        std::vector<::cryptohome::enumeration::SerializedAuthIntent>>()(
+        builder, object.disabled_intents);
 
     return ::cryptohome::_serialized_::CreateSerializedUserAuthFactorTypePolicy(
         *builder, type, enabled_intents, disabled_intents);
@@ -144,15 +80,15 @@ struct FromFlatBuffer<::cryptohome::SerializedUserAuthFactorTypePolicy> {
       return ::cryptohome::SerializedUserAuthFactorTypePolicy();
     }
     return ::cryptohome::SerializedUserAuthFactorTypePolicy{
-        .type = FromFlatBuffer<
-            std::optional<::cryptohome::SerializedAuthFactorType>>()(
+        .type = FromFlatBuffer<std::optional<
+            ::cryptohome::enumeration::SerializedAuthFactorType>>()(
             object->type()),
-        .enabled_intents =
-            FromFlatBuffer<std::vector<::cryptohome::SerializedAuthIntent>>()(
-                object->enabled_intents()),
-        .disabled_intents =
-            FromFlatBuffer<std::vector<::cryptohome::SerializedAuthIntent>>()(
-                object->disabled_intents()),
+        .enabled_intents = FromFlatBuffer<
+            std::vector<::cryptohome::enumeration::SerializedAuthIntent>>()(
+            object->enabled_intents()),
+        .disabled_intents = FromFlatBuffer<
+            std::vector<::cryptohome::enumeration::SerializedAuthIntent>>()(
+            object->disabled_intents()),
     };
   }
 };

@@ -2840,6 +2840,7 @@ bool NonRemovableBlockDeviceInfo_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 168 },
     { 1, 184 },
+    { 2, 192 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -2924,12 +2925,21 @@ bool NonRemovableBlockDeviceInfo_Data::Validate(
 
   if (!mojo::internal::ValidateInlinedUnion(object->device_info, validation_context))
     return false;
+  if (object->header_.version < 2)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& firmware_string_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->firmware_string, validation_context,
+                                         &firmware_string_validate_params)) {
+    return false;
+  }
 
   return true;
 }
 
 NonRemovableBlockDeviceInfo_Data::NonRemovableBlockDeviceInfo_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static

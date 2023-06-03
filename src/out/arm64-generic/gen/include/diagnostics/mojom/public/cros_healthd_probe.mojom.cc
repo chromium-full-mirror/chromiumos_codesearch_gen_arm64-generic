@@ -870,7 +870,8 @@ NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo()
       purpose(),
       path(),
       manufacturer_id(),
-      serial() {}
+      serial(),
+      firmware_string() {}
 
 NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(
     uint64_t bytes_read_since_last_boot_in,
@@ -907,7 +908,8 @@ NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(
       purpose(std::move(purpose_in)),
       path(std::move(path_in)),
       manufacturer_id(std::move(manufacturer_id_in)),
-      serial(std::move(serial_in)) {}
+      serial(std::move(serial_in)),
+      firmware_string() {}
 
 NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(
     uint64_t bytes_read_since_last_boot_in,
@@ -945,7 +947,48 @@ NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(
       purpose(std::move(purpose_in)),
       path(std::move(path_in)),
       manufacturer_id(std::move(manufacturer_id_in)),
-      serial(std::move(serial_in)) {}
+      serial(std::move(serial_in)),
+      firmware_string() {}
+
+NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(
+    uint64_t bytes_read_since_last_boot_in,
+    uint64_t bytes_written_since_last_boot_in,
+    uint64_t read_time_seconds_since_last_boot_in,
+    uint64_t write_time_seconds_since_last_boot_in,
+    uint64_t io_time_seconds_since_last_boot_in,
+    ::ash::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot_in,
+    BlockDeviceInfoPtr device_info_in,
+    BlockDeviceVendorPtr vendor_id_in,
+    BlockDeviceProductPtr product_id_in,
+    BlockDeviceRevisionPtr revision_in,
+    const std::string& name_in,
+    uint64_t size_in,
+    BlockDeviceFirmwarePtr firmware_version_in,
+    const std::string& type_in,
+    StorageDevicePurpose purpose_in,
+    const std::string& path_in,
+    uint8_t manufacturer_id_in,
+    uint32_t serial_in,
+    const absl::optional<std::string>& firmware_string_in)
+    : bytes_read_since_last_boot(std::move(bytes_read_since_last_boot_in)),
+      bytes_written_since_last_boot(std::move(bytes_written_since_last_boot_in)),
+      read_time_seconds_since_last_boot(std::move(read_time_seconds_since_last_boot_in)),
+      write_time_seconds_since_last_boot(std::move(write_time_seconds_since_last_boot_in)),
+      io_time_seconds_since_last_boot(std::move(io_time_seconds_since_last_boot_in)),
+      discard_time_seconds_since_last_boot(std::move(discard_time_seconds_since_last_boot_in)),
+      device_info(std::move(device_info_in)),
+      vendor_id(std::move(vendor_id_in)),
+      product_id(std::move(product_id_in)),
+      revision(std::move(revision_in)),
+      name(std::move(name_in)),
+      size(std::move(size_in)),
+      firmware_version(std::move(firmware_version_in)),
+      type(std::move(type_in)),
+      purpose(std::move(purpose_in)),
+      path(std::move(path_in)),
+      manufacturer_id(std::move(manufacturer_id_in)),
+      serial(std::move(serial_in)),
+      firmware_string(std::move(firmware_string_in)) {}
 
 NonRemovableBlockDeviceInfo::~NonRemovableBlockDeviceInfo() = default;
 
@@ -1110,6 +1153,15 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "serial"), this->serial,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "firmware_string"), this->firmware_string,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const absl::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8444,6 +8496,8 @@ bool StructTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataV
       if (success)
         result->serial = input.serial();
       if (success && !input.ReadDeviceInfo(&result->device_info))
+        success = false;
+      if (success && !input.ReadFirmwareString(&result->firmware_string))
         success = false;
   *output = std::move(result);
   return success;

@@ -8535,6 +8535,27 @@ class  NonRemovableBlockDeviceInfo {
       uint8_t manufacturer_id,
       uint32_t serial);
 
+  NonRemovableBlockDeviceInfo(
+      uint64_t bytes_read_since_last_boot,
+      uint64_t bytes_written_since_last_boot,
+      uint64_t read_time_seconds_since_last_boot,
+      uint64_t write_time_seconds_since_last_boot,
+      uint64_t io_time_seconds_since_last_boot,
+      ::ash::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot,
+      BlockDeviceInfoPtr device_info,
+      BlockDeviceVendorPtr vendor_id,
+      BlockDeviceProductPtr product_id,
+      BlockDeviceRevisionPtr revision,
+      const std::string& name,
+      uint64_t size,
+      BlockDeviceFirmwarePtr firmware_version,
+      const std::string& type,
+      StorageDevicePurpose purpose,
+      const std::string& path,
+      uint8_t manufacturer_id,
+      uint32_t serial,
+      const absl::optional<std::string>& firmware_string);
+
 NonRemovableBlockDeviceInfo(const NonRemovableBlockDeviceInfo&) = delete;
 NonRemovableBlockDeviceInfo& operator=(const NonRemovableBlockDeviceInfo&) = delete;
 
@@ -8648,6 +8669,8 @@ NonRemovableBlockDeviceInfo& operator=(const NonRemovableBlockDeviceInfo&) = del
   uint8_t manufacturer_id;
   
   uint32_t serial;
+  
+  absl::optional<std::string> firmware_string;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -16244,7 +16267,8 @@ NonRemovableBlockDeviceInfoPtr NonRemovableBlockDeviceInfo::Clone() const {
       mojo::Clone(purpose),
       mojo::Clone(path),
       mojo::Clone(manufacturer_id),
-      mojo::Clone(serial)
+      mojo::Clone(serial),
+      mojo::Clone(firmware_string)
   );
 }
 
@@ -16285,6 +16309,8 @@ bool NonRemovableBlockDeviceInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->manufacturer_id, other_struct.manufacturer_id))
     return false;
   if (!mojo::Equals(this->serial, other_struct.serial))
+    return false;
+  if (!mojo::Equals(this->firmware_string, other_struct.firmware_string))
     return false;
   return true;
 }
@@ -16362,6 +16388,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.serial < rhs.serial)
     return true;
   if (rhs.serial < lhs.serial)
+    return false;
+  if (lhs.firmware_string < rhs.firmware_string)
+    return true;
+  if (rhs.firmware_string < lhs.firmware_string)
     return false;
   return false;
 }
@@ -19809,6 +19839,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::Da
   static decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::serial) serial(
       const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->serial;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::firmware_string)& firmware_string(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+    return input->firmware_string;
   }
 
   static bool Read(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView input, ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr* output);
