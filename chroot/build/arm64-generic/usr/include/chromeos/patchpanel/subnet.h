@@ -42,11 +42,10 @@ class BRILLO_EXPORT SubnetAddress {
 // Represents an allocated IPv4 subnet.
 class BRILLO_EXPORT Subnet {
  public:
-  // Creates a new Subnet with the given base address and prefix length.
-  // |base_addr| must be in network-byte order. |release_cb| runs in the
-  // destructor of this class and can be used to free other resources associated
-  // with the subnet.
-  Subnet(uint32_t base_addr, int prefix_length, base::OnceClosure release_cb);
+  // Creates a new Subnet with the given base CIDR.
+  // |release_cb| runs in the destructor of this class and can be used to free
+  // other resources associated with the subnet.
+  Subnet(const net_base::IPv4CIDR& base_cidr, base::OnceClosure release_cb);
   Subnet(const Subnet&) = delete;
   Subnet& operator=(const Subnet&) = delete;
 
@@ -57,30 +56,17 @@ class BRILLO_EXPORT Subnet {
   // address.
   std::unique_ptr<SubnetAddress> AllocateAtOffset(uint32_t offset);
 
-  // Returns the address at the given |offset| in network-byte order. Returns
-  // INADDR_ANY if the offset exceeds the available IPs in the subnet.
-  // Available IPs do not include the network id or the broadcast address.
-  // |offset| is relative to the base address.
-  uint32_t AddressAtOffset(uint32_t offset) const;
+  // Returns the CIDR which address is at the given |offset| and the same prefix
+  // length as |base_cidr_|. Returns std::nullopt if the offset exceeds the
+  // available IPs in the subnet. Available IPs do not include the subnet base
+  // address or the broadcast address. |offset| is relative to the base address.
+  std::optional<net_base::IPv4CIDR> CIDRAtOffset(uint32_t offset) const;
 
   // Returns the number of available IPs in this subnet.
   uint32_t AvailableCount() const;
 
-  // Returns the base address in network-byte order.
-  uint32_t BaseAddress() const;
-
-  // Returns the netmask in network-byte order.
-  uint32_t Netmask() const;
-
-  // Returns the prefix in network-byte order.
-  uint32_t Prefix() const;
-
-  // Returns the prefix length.
-  int PrefixLength() const;
-
-  // Returns the CIDR representation of this subnet, for instance
-  // 192.168.0.0/24.
-  std::string ToCidrString() const;
+  // Returns the base CIDR of the subnet.
+  const net_base::IPv4CIDR& base_cidr() const { return base_cidr_; }
 
  private:
   // Returns true if the address that is relative to the base address by
@@ -92,19 +78,16 @@ class BRILLO_EXPORT Subnet {
   // Marks the address at |offset| as free.
   void Free(uint32_t offset);
 
-  // Base address of the subnet, in network-byte order.
-  uint32_t base_addr_;
+  // Base CIDR of the subnet.
+  net_base::IPv4CIDR base_cidr_;
 
-  // Prefix length.
-  int prefix_length_;
+  // Callback to run when this object is deleted.
+  base::ScopedClosureRunner release_cb_;
 
   // Keeps track of allocated addresses.
   std::vector<bool> addrs_;
 
-  // Callback to run when this object is deleted.
-  base::OnceClosure release_cb_;
-
-  base::WeakPtrFactory<Subnet> weak_factory_;
+  base::WeakPtrFactory<Subnet> weak_factory_{this};
 };
 
 }  // namespace patchpanel

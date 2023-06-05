@@ -45,6 +45,9 @@ namespace shadercached {
 class InstallRequest;
 struct InstallRequestDefaultTypeInternal;
 extern InstallRequestDefaultTypeInternal _InstallRequest_default_instance_;
+class InstallResponse;
+struct InstallResponseDefaultTypeInternal;
+extern InstallResponseDefaultTypeInternal _InstallResponse_default_instance_;
 class PrepareShaderCacheRequest;
 struct PrepareShaderCacheRequestDefaultTypeInternal;
 extern PrepareShaderCacheRequestDefaultTypeInternal _PrepareShaderCacheRequest_default_instance_;
@@ -66,6 +69,7 @@ extern UnmountRequestDefaultTypeInternal _UnmountRequest_default_instance_;
 }  // namespace shadercached
 PROTOBUF_NAMESPACE_OPEN
 template<> ::shadercached::InstallRequest* Arena::CreateMaybeMessage<::shadercached::InstallRequest>(Arena*);
+template<> ::shadercached::InstallResponse* Arena::CreateMaybeMessage<::shadercached::InstallResponse>(Arena*);
 template<> ::shadercached::PrepareShaderCacheRequest* Arena::CreateMaybeMessage<::shadercached::PrepareShaderCacheRequest>(Arena*);
 template<> ::shadercached::PrepareShaderCacheResponse* Arena::CreateMaybeMessage<::shadercached::PrepareShaderCacheResponse>(Arena*);
 template<> ::shadercached::PurgeRequest* Arena::CreateMaybeMessage<::shadercached::PurgeRequest>(Arena*);
@@ -250,6 +254,136 @@ class InstallRequest final :
 };
 // -------------------------------------------------------------------
 
+class InstallResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:shadercached.InstallResponse) */ {
+ public:
+  inline InstallResponse() : InstallResponse(nullptr) {}
+  ~InstallResponse() override;
+  explicit PROTOBUF_CONSTEXPR InstallResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallResponse(const InstallResponse& from);
+  InstallResponse(InstallResponse&& from) noexcept
+    : InstallResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallResponse& operator=(const InstallResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallResponse& operator=(InstallResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallResponse* internal_default_instance() {
+    return reinterpret_cast<const InstallResponse*>(
+               &_InstallResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(InstallResponse& a, InstallResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallResponse& from);
+  void MergeFrom(const InstallResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "shadercached.InstallResponse";
+  }
+  protected:
+  explicit InstallResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMountedFieldNumber = 1,
+  };
+  // bool mounted = 1;
+  void clear_mounted();
+  bool mounted() const;
+  void set_mounted(bool value);
+  private:
+  bool _internal_mounted() const;
+  void _internal_set_mounted(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:shadercached.InstallResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    bool mounted_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_shadercached_2eproto;
+};
+// -------------------------------------------------------------------
+
 class UninstallRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:shadercached.UninstallRequest) */ {
  public:
@@ -289,7 +423,7 @@ class UninstallRequest final :
                &_UninstallRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(UninstallRequest& a, UninstallRequest& b) {
     a.Swap(&b);
@@ -419,7 +553,7 @@ class ShaderCacheMountStatus final :
                &_ShaderCacheMountStatus_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(ShaderCacheMountStatus& a, ShaderCacheMountStatus& b) {
     a.Swap(&b);
@@ -608,7 +742,7 @@ class UnmountRequest final :
                &_UnmountRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(UnmountRequest& a, UnmountRequest& b) {
     a.Swap(&b);
@@ -770,7 +904,7 @@ class PrepareShaderCacheRequest final :
                &_PrepareShaderCacheRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(PrepareShaderCacheRequest& a, PrepareShaderCacheRequest& b) {
     a.Swap(&b);
@@ -921,7 +1055,7 @@ class PrepareShaderCacheResponse final :
                &_PrepareShaderCacheResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(PrepareShaderCacheResponse& a, PrepareShaderCacheResponse& b) {
     a.Swap(&b);
@@ -1056,7 +1190,7 @@ class PurgeRequest final :
                &_PurgeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(PurgeRequest& a, PurgeRequest& b) {
     a.Swap(&b);
@@ -1315,6 +1449,30 @@ inline void InstallRequest::set_allocated_vm_owner_id(std::string* vm_owner_id) 
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:shadercached.InstallRequest.vm_owner_id)
+}
+
+// -------------------------------------------------------------------
+
+// InstallResponse
+
+// bool mounted = 1;
+inline void InstallResponse::clear_mounted() {
+  _impl_.mounted_ = false;
+}
+inline bool InstallResponse::_internal_mounted() const {
+  return _impl_.mounted_;
+}
+inline bool InstallResponse::mounted() const {
+  // @@protoc_insertion_point(field_get:shadercached.InstallResponse.mounted)
+  return _internal_mounted();
+}
+inline void InstallResponse::_internal_set_mounted(bool value) {
+  
+  _impl_.mounted_ = value;
+}
+inline void InstallResponse::set_mounted(bool value) {
+  _internal_set_mounted(value);
+  // @@protoc_insertion_point(field_set:shadercached.InstallResponse.mounted)
 }
 
 // -------------------------------------------------------------------
@@ -1924,6 +2082,8 @@ inline void PurgeRequest::set_allocated_vm_owner_id(std::string* vm_owner_id) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

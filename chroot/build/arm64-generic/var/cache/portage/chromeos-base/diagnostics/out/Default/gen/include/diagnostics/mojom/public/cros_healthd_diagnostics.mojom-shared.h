@@ -188,8 +188,10 @@ enum class DiagnosticRoutineEnum : int32_t {
   kBluetoothPairing = 43,
   
   kPowerButton = 44,
+  
+  kAudioDriver = 45,
   kMinValue = 0,
-  kMaxValue = 44,
+  kMaxValue = 45,
   kDefaultValue = 30
 };
 

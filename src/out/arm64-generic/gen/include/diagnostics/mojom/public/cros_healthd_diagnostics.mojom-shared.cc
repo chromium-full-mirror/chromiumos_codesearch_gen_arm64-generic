@@ -115,6 +115,8 @@ NOINLINE static const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kBluetoothPairing";
     case DiagnosticRoutineEnum::kPowerButton:
       return "kPowerButton";
+    case DiagnosticRoutineEnum::kAudioDriver:
+      return "kAudioDriver";
     default:
       return nullptr;
   }

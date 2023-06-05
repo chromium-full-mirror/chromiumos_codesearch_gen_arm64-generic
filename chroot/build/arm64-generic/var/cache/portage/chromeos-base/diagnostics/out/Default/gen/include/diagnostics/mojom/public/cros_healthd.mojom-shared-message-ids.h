@@ -68,6 +68,7 @@ constexpr uint32_t kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_N
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name = 43;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name = 44;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name = 45;
+constexpr uint32_t kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name = 46;
 constexpr uint32_t kCrosHealthdEventService_AddBluetoothObserver_Name = 0;
 constexpr uint32_t kCrosHealthdEventService_AddLidObserver_Name = 1;
 constexpr uint32_t kCrosHealthdEventService_AddPowerObserver_Name = 2;

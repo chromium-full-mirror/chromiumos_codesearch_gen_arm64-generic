@@ -87,6 +87,7 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunBluetoothScanningRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunBluetoothScanningRoutineCallback callback) override;
   void RunBluetoothPairingRoutine(const std::string& peripheral_id, RunBluetoothPairingRoutineCallback callback) override;
   void RunPowerButtonRoutine(uint32_t timeout_seconds, RunPowerButtonRoutineCallback callback) override;
+  void RunAudioDriverRoutine(RunAudioDriverRoutineCallback callback) override;
 };
 class  CrosHealthdDiagnosticsServiceAsyncWaiter {
  public:
@@ -234,6 +235,9 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
   void RunPowerButtonRoutine(
       uint32_t timeout_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunPowerButtonRoutine(uint32_t timeout_seconds);
+  void RunAudioDriverRoutine(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAudioDriverRoutine();
 
  private:
   CrosHealthdDiagnosticsService* const proxy_;

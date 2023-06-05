@@ -34,6 +34,19 @@ struct InstallRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallRequestDefaultTypeInternal _InstallRequest_default_instance_;
+PROTOBUF_CONSTEXPR InstallResponse::InstallResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.mounted_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct InstallResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR InstallResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~InstallResponseDefaultTypeInternal() {}
+  union {
+    InstallResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallResponseDefaultTypeInternal _InstallResponse_default_instance_;
 PROTOBUF_CONSTEXPR UninstallRequest::UninstallRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.steam_app_id_)*/uint64_t{0u}
@@ -435,6 +448,186 @@ void InstallRequest::InternalSwap(InstallRequest* other) {
 
 std::string InstallRequest::GetTypeName() const {
   return "shadercached.InstallRequest";
+}
+
+
+// ===================================================================
+
+class InstallResponse::_Internal {
+ public:
+};
+
+InstallResponse::InstallResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:shadercached.InstallResponse)
+}
+InstallResponse::InstallResponse(const InstallResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  InstallResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.mounted_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.mounted_ = from._impl_.mounted_;
+  // @@protoc_insertion_point(copy_constructor:shadercached.InstallResponse)
+}
+
+inline void InstallResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.mounted_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+InstallResponse::~InstallResponse() {
+  // @@protoc_insertion_point(destructor:shadercached.InstallResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void InstallResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void InstallResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void InstallResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:shadercached.InstallResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.mounted_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* InstallResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool mounted = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.mounted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* InstallResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:shadercached.InstallResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool mounted = 1;
+  if (this->_internal_mounted() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_mounted(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:shadercached.InstallResponse)
+  return target;
+}
+
+size_t InstallResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:shadercached.InstallResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool mounted = 1;
+  if (this->_internal_mounted() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void InstallResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const InstallResponse*>(
+      &from));
+}
+
+void InstallResponse::MergeFrom(const InstallResponse& from) {
+  InstallResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:shadercached.InstallResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_mounted() != 0) {
+    _this->_internal_set_mounted(from._internal_mounted());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void InstallResponse::CopyFrom(const InstallResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:shadercached.InstallResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool InstallResponse::IsInitialized() const {
+  return true;
+}
+
+void InstallResponse::InternalSwap(InstallResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.mounted_, other->_impl_.mounted_);
+}
+
+std::string InstallResponse::GetTypeName() const {
+  return "shadercached.InstallResponse";
 }
 
 
@@ -1986,6 +2179,10 @@ PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::shadercached::InstallRequest*
 Arena::CreateMaybeMessage< ::shadercached::InstallRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::shadercached::InstallRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::shadercached::InstallResponse*
+Arena::CreateMaybeMessage< ::shadercached::InstallResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::shadercached::InstallResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::shadercached::UninstallRequest*
 Arena::CreateMaybeMessage< ::shadercached::UninstallRequest >(Arena* arena) {
