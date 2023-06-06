@@ -528,6 +528,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR StartAuthSessionReply::StartAuthSessionReply(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.auth_factors_)*/{}
+  , /*decltype(_impl_.configured_auth_factors_with_status_)*/{}
   , /*decltype(_impl_.auth_session_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.broadcast_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.error_info_)*/nullptr
@@ -10907,6 +10908,7 @@ StartAuthSessionReply::StartAuthSessionReply(const StartAuthSessionReply& from)
   StartAuthSessionReply* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.auth_factors_){from._impl_.auth_factors_}
+    , decltype(_impl_.configured_auth_factors_with_status_){from._impl_.configured_auth_factors_with_status_}
     , decltype(_impl_.auth_session_id_){}
     , decltype(_impl_.broadcast_id_){}
     , decltype(_impl_.error_info_){nullptr}
@@ -10946,6 +10948,7 @@ inline void StartAuthSessionReply::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.auth_factors_){arena}
+    , decltype(_impl_.configured_auth_factors_with_status_){arena}
     , decltype(_impl_.auth_session_id_){}
     , decltype(_impl_.broadcast_id_){}
     , decltype(_impl_.error_info_){nullptr}
@@ -10975,6 +10978,7 @@ StartAuthSessionReply::~StartAuthSessionReply() {
 inline void StartAuthSessionReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.auth_factors_.~RepeatedPtrField();
+  _impl_.configured_auth_factors_with_status_.~RepeatedPtrField();
   _impl_.auth_session_id_.Destroy();
   _impl_.broadcast_id_.Destroy();
   if (this != internal_default_instance()) delete _impl_.error_info_;
@@ -10991,6 +10995,7 @@ void StartAuthSessionReply::Clear() {
   (void) cached_has_bits;
 
   _impl_.auth_factors_.Clear();
+  _impl_.configured_auth_factors_with_status_.Clear();
   _impl_.auth_session_id_.ClearToEmpty();
   _impl_.broadcast_id_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && _impl_.error_info_ != nullptr) {
@@ -11065,6 +11070,19 @@ const char* StartAuthSessionReply::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
+      // repeated .user_data_auth.AuthFactorWithStatus configured_auth_factors_with_status = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_configured_auth_factors_with_status(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<74>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -11134,6 +11152,14 @@ uint8_t* StartAuthSessionReply::_InternalSerialize(
         8, this->_internal_broadcast_id(), target);
   }
 
+  // repeated .user_data_auth.AuthFactorWithStatus configured_auth_factors_with_status = 9;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_configured_auth_factors_with_status_size()); i < n; i++) {
+    const auto& repfield = this->_internal_configured_auth_factors_with_status(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(9, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -11153,6 +11179,13 @@ size_t StartAuthSessionReply::ByteSizeLong() const {
   // repeated .user_data_auth.AuthFactor auth_factors = 5;
   total_size += 1UL * this->_internal_auth_factors_size();
   for (const auto& msg : this->_impl_.auth_factors_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .user_data_auth.AuthFactorWithStatus configured_auth_factors_with_status = 9;
+  total_size += 1UL * this->_internal_configured_auth_factors_with_status_size();
+  for (const auto& msg : this->_impl_.configured_auth_factors_with_status_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -11211,6 +11244,7 @@ void StartAuthSessionReply::MergeFrom(const StartAuthSessionReply& from) {
   (void) cached_has_bits;
 
   _this->_impl_.auth_factors_.MergeFrom(from._impl_.auth_factors_);
+  _this->_impl_.configured_auth_factors_with_status_.MergeFrom(from._impl_.configured_auth_factors_with_status_);
   if (!from._internal_auth_session_id().empty()) {
     _this->_internal_set_auth_session_id(from._internal_auth_session_id());
   }
@@ -11247,6 +11281,7 @@ void StartAuthSessionReply::InternalSwap(StartAuthSessionReply* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.auth_factors_.InternalSwap(&other->_impl_.auth_factors_);
+  _impl_.configured_auth_factors_with_status_.InternalSwap(&other->_impl_.configured_auth_factors_with_status_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.auth_session_id_, lhs_arena,
       &other->_impl_.auth_session_id_, rhs_arena

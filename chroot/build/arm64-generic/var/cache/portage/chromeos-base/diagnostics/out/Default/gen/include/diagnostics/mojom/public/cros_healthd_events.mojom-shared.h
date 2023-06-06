@@ -628,9 +628,9 @@ enum class StylusGarageEventInfo_State : int32_t {
   
   kUnmappedEnumField = 0,
   
-  kInsert = 1,
+  kInserted = 1,
   
-  kRemove = 2,
+  kRemoved = 2,
   kMinValue = 0,
   kMaxValue = 2,
   kDefaultValue = 0

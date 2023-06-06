@@ -386,10 +386,10 @@ NOINLINE static const char* StylusGarageEventInfo_StateToStringHelper(StylusGara
   switch(value) {
     case StylusGarageEventInfo_State::kUnmappedEnumField:
       return "kUnmappedEnumField";
-    case StylusGarageEventInfo_State::kInsert:
-      return "kInsert";
-    case StylusGarageEventInfo_State::kRemove:
-      return "kRemove";
+    case StylusGarageEventInfo_State::kInserted:
+      return "kInserted";
+    case StylusGarageEventInfo_State::kRemoved:
+      return "kRemoved";
     default:
       return nullptr;
   }

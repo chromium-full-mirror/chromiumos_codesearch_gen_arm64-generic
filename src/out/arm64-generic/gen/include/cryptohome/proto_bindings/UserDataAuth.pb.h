@@ -6339,6 +6339,7 @@ class StartAuthSessionReply final :
 
   enum : int {
     kAuthFactorsFieldNumber = 5,
+    kConfiguredAuthFactorsWithStatusFieldNumber = 9,
     kAuthSessionIdFieldNumber = 2,
     kBroadcastIdFieldNumber = 8,
     kErrorInfoFieldNumber = 6,
@@ -6362,6 +6363,24 @@ class StartAuthSessionReply final :
   ::user_data_auth::AuthFactor* add_auth_factors();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFactor >&
       auth_factors() const;
+
+  // repeated .user_data_auth.AuthFactorWithStatus configured_auth_factors_with_status = 9;
+  int configured_auth_factors_with_status_size() const;
+  private:
+  int _internal_configured_auth_factors_with_status_size() const;
+  public:
+  void clear_configured_auth_factors_with_status();
+  ::user_data_auth::AuthFactorWithStatus* mutable_configured_auth_factors_with_status(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFactorWithStatus >*
+      mutable_configured_auth_factors_with_status();
+  private:
+  const ::user_data_auth::AuthFactorWithStatus& _internal_configured_auth_factors_with_status(int index) const;
+  ::user_data_auth::AuthFactorWithStatus* _internal_add_configured_auth_factors_with_status();
+  public:
+  const ::user_data_auth::AuthFactorWithStatus& configured_auth_factors_with_status(int index) const;
+  ::user_data_auth::AuthFactorWithStatus* add_configured_auth_factors_with_status();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFactorWithStatus >&
+      configured_auth_factors_with_status() const;
 
   // bytes auth_session_id = 2;
   void clear_auth_session_id();
@@ -6436,6 +6455,7 @@ class StartAuthSessionReply final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFactor > auth_factors_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFactorWithStatus > configured_auth_factors_with_status_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_session_id_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr broadcast_id_;
     ::user_data_auth::CryptohomeErrorInfo* error_info_;
@@ -24868,6 +24888,46 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFa
 StartAuthSessionReply::auth_factors() const {
   // @@protoc_insertion_point(field_list:user_data_auth.StartAuthSessionReply.auth_factors)
   return _impl_.auth_factors_;
+}
+
+// repeated .user_data_auth.AuthFactorWithStatus configured_auth_factors_with_status = 9;
+inline int StartAuthSessionReply::_internal_configured_auth_factors_with_status_size() const {
+  return _impl_.configured_auth_factors_with_status_.size();
+}
+inline int StartAuthSessionReply::configured_auth_factors_with_status_size() const {
+  return _internal_configured_auth_factors_with_status_size();
+}
+inline void StartAuthSessionReply::clear_configured_auth_factors_with_status() {
+  _impl_.configured_auth_factors_with_status_.Clear();
+}
+inline ::user_data_auth::AuthFactorWithStatus* StartAuthSessionReply::mutable_configured_auth_factors_with_status(int index) {
+  // @@protoc_insertion_point(field_mutable:user_data_auth.StartAuthSessionReply.configured_auth_factors_with_status)
+  return _impl_.configured_auth_factors_with_status_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFactorWithStatus >*
+StartAuthSessionReply::mutable_configured_auth_factors_with_status() {
+  // @@protoc_insertion_point(field_mutable_list:user_data_auth.StartAuthSessionReply.configured_auth_factors_with_status)
+  return &_impl_.configured_auth_factors_with_status_;
+}
+inline const ::user_data_auth::AuthFactorWithStatus& StartAuthSessionReply::_internal_configured_auth_factors_with_status(int index) const {
+  return _impl_.configured_auth_factors_with_status_.Get(index);
+}
+inline const ::user_data_auth::AuthFactorWithStatus& StartAuthSessionReply::configured_auth_factors_with_status(int index) const {
+  // @@protoc_insertion_point(field_get:user_data_auth.StartAuthSessionReply.configured_auth_factors_with_status)
+  return _internal_configured_auth_factors_with_status(index);
+}
+inline ::user_data_auth::AuthFactorWithStatus* StartAuthSessionReply::_internal_add_configured_auth_factors_with_status() {
+  return _impl_.configured_auth_factors_with_status_.Add();
+}
+inline ::user_data_auth::AuthFactorWithStatus* StartAuthSessionReply::add_configured_auth_factors_with_status() {
+  ::user_data_auth::AuthFactorWithStatus* _add = _internal_add_configured_auth_factors_with_status();
+  // @@protoc_insertion_point(field_add:user_data_auth.StartAuthSessionReply.configured_auth_factors_with_status)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFactorWithStatus >&
+StartAuthSessionReply::configured_auth_factors_with_status() const {
+  // @@protoc_insertion_point(field_list:user_data_auth.StartAuthSessionReply.configured_auth_factors_with_status)
+  return _impl_.configured_auth_factors_with_status_;
 }
 
 // -------------------------------------------------------------------
