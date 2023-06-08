@@ -41,8 +41,8 @@ class PatchPanelInterface {
       const base::ScopedFD& in_client_fd) = 0;
   virtual patchpanel::GetDevicesResponse GetDevices(
       const patchpanel::GetDevicesRequest& in_request) const = 0;
-  virtual patchpanel::DownstreamNetworkInfoResponse DownstreamNetworkInfo(
-      const patchpanel::DownstreamNetworkInfoRequest& in_request) const = 0;
+  virtual patchpanel::GetDownstreamNetworkInfoResponse GetDownstreamNetworkInfo(
+      const patchpanel::GetDownstreamNetworkInfoRequest& in_request) const = 0;
   virtual patchpanel::TrafficCountersResponse GetTrafficCounters(
       const patchpanel::TrafficCountersRequest& in_request) const = 0;
   virtual patchpanel::ModifyPortRuleResponse ModifyPortRule(
@@ -113,9 +113,9 @@ class PatchPanelAdaptor {
         base::Unretained(interface_),
         &PatchPanelInterface::GetDevices);
     itf->AddSimpleMethodHandler(
-        "DownstreamNetworkInfo",
+        "GetDownstreamNetworkInfo",
         base::Unretained(interface_),
-        &PatchPanelInterface::DownstreamNetworkInfo);
+        &PatchPanelInterface::GetDownstreamNetworkInfo);
     itf->AddSimpleMethodHandler(
         "GetTrafficCounters",
         base::Unretained(interface_),
@@ -227,7 +227,7 @@ class PatchPanelAdaptor {
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
-        "    <method name=\"DownstreamNetworkInfo\">\n"
+        "    <method name=\"GetDownstreamNetworkInfo\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

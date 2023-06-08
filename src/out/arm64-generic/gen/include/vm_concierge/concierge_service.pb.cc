@@ -1131,6 +1131,7 @@ PROTOBUF_CONSTEXPR VmSwappingSignal::VmSwappingSignal(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.state_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct VmSwappingSignalDefaultTypeInternal {
   PROTOBUF_CONSTEXPR VmSwappingSignalDefaultTypeInternal()
@@ -2471,6 +2472,57 @@ bool SwapOperation_Parse(
       SwapOperation_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<SwapOperation>(int_value);
+  }
+  return success;
+}
+bool SwappingState_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SwappingState_strings[2] = {};
+
+static const char SwappingState_names[] =
+  "SWAPPING_IN"
+  "SWAPPING_OUT";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SwappingState_entries[] = {
+  { {SwappingState_names + 0, 11}, 1 },
+  { {SwappingState_names + 11, 12}, 0 },
+};
+
+static const int SwappingState_entries_by_number[] = {
+  1, // 0 -> SWAPPING_OUT
+  0, // 1 -> SWAPPING_IN
+};
+
+const std::string& SwappingState_Name(
+    SwappingState value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SwappingState_entries,
+          SwappingState_entries_by_number,
+          2, SwappingState_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SwappingState_entries,
+      SwappingState_entries_by_number,
+      2, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     SwappingState_strings[idx].get();
+}
+bool SwappingState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SwappingState* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SwappingState_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<SwappingState>(int_value);
   }
   return success;
 }
@@ -23377,6 +23429,7 @@ VmSwappingSignal::VmSwappingSignal(const VmSwappingSignal& from)
   new (&_impl_) Impl_{
       decltype(_impl_.name_){}
     , decltype(_impl_.owner_id_){}
+    , decltype(_impl_.state_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -23396,6 +23449,7 @@ VmSwappingSignal::VmSwappingSignal(const VmSwappingSignal& from)
     _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
       _this->GetArenaForAllocation());
   }
+  _this->_impl_.state_ = from._impl_.state_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.VmSwappingSignal)
 }
 
@@ -23406,6 +23460,7 @@ inline void VmSwappingSignal::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.name_){}
     , decltype(_impl_.owner_id_){}
+    , decltype(_impl_.state_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
@@ -23445,6 +23500,7 @@ void VmSwappingSignal::Clear() {
 
   _impl_.name_.ClearToEmpty();
   _impl_.owner_id_.ClearToEmpty();
+  _impl_.state_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -23471,6 +23527,15 @@ const char* VmSwappingSignal::_InternalParse(const char* ptr, ::_pbi::ParseConte
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .vm_tools.concierge.SwappingState state = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_state(static_cast<::vm_tools::concierge::SwappingState>(val));
         } else
           goto handle_unusual;
         continue;
@@ -23523,6 +23588,13 @@ uint8_t* VmSwappingSignal::_InternalSerialize(
         2, this->_internal_owner_id(), target);
   }
 
+  // .vm_tools.concierge.SwappingState state = 3;
+  if (this->_internal_state() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_state(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -23553,6 +23625,12 @@ size_t VmSwappingSignal::ByteSizeLong() const {
         this->_internal_owner_id());
   }
 
+  // .vm_tools.concierge.SwappingState state = 3;
+  if (this->_internal_state() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_state());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -23579,6 +23657,9 @@ void VmSwappingSignal::MergeFrom(const VmSwappingSignal& from) {
   }
   if (!from._internal_owner_id().empty()) {
     _this->_internal_set_owner_id(from._internal_owner_id());
+  }
+  if (from._internal_state() != 0) {
+    _this->_internal_set_state(from._internal_state());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -23607,6 +23688,7 @@ void VmSwappingSignal::InternalSwap(VmSwappingSignal* other) {
       &_impl_.owner_id_, lhs_arena,
       &other->_impl_.owner_id_, rhs_arena
   );
+  swap(_impl_.state_, other->_impl_.state_);
 }
 
 std::string VmSwappingSignal::GetTypeName() const {

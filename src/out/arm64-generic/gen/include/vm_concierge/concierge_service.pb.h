@@ -816,6 +816,27 @@ inline const std::string& SwapOperation_Name(T enum_t_value) {
 }
 bool SwapOperation_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SwapOperation* value);
+enum SwappingState : int {
+  SWAPPING_OUT = 0,
+  SWAPPING_IN = 1,
+  SwappingState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  SwappingState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool SwappingState_IsValid(int value);
+constexpr SwappingState SwappingState_MIN = SWAPPING_OUT;
+constexpr SwappingState SwappingState_MAX = SWAPPING_IN;
+constexpr int SwappingState_ARRAYSIZE = SwappingState_MAX + 1;
+
+const std::string& SwappingState_Name(SwappingState value);
+template<typename T>
+inline const std::string& SwappingState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SwappingState>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SwappingState_Name.");
+  return SwappingState_Name(static_cast<SwappingState>(enum_t_value));
+}
+bool SwappingState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SwappingState* value);
 // ===================================================================
 
 class VirtualMachineSpec final :
@@ -13257,6 +13278,7 @@ class VmSwappingSignal final :
   enum : int {
     kNameFieldNumber = 1,
     kOwnerIdFieldNumber = 2,
+    kStateFieldNumber = 3,
   };
   // string name = 1;
   void clear_name();
@@ -13286,6 +13308,15 @@ class VmSwappingSignal final :
   std::string* _internal_mutable_owner_id();
   public:
 
+  // .vm_tools.concierge.SwappingState state = 3;
+  void clear_state();
+  ::vm_tools::concierge::SwappingState state() const;
+  void set_state(::vm_tools::concierge::SwappingState value);
+  private:
+  ::vm_tools::concierge::SwappingState _internal_state() const;
+  void _internal_set_state(::vm_tools::concierge::SwappingState value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.VmSwappingSignal)
  private:
   class _Internal;
@@ -13296,6 +13327,7 @@ class VmSwappingSignal final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+    int state_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -24138,6 +24170,26 @@ inline void VmSwappingSignal::set_allocated_owner_id(std::string* owner_id) {
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VmSwappingSignal.owner_id)
 }
 
+// .vm_tools.concierge.SwappingState state = 3;
+inline void VmSwappingSignal::clear_state() {
+  _impl_.state_ = 0;
+}
+inline ::vm_tools::concierge::SwappingState VmSwappingSignal::_internal_state() const {
+  return static_cast< ::vm_tools::concierge::SwappingState >(_impl_.state_);
+}
+inline ::vm_tools::concierge::SwappingState VmSwappingSignal::state() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmSwappingSignal.state)
+  return _internal_state();
+}
+inline void VmSwappingSignal::_internal_set_state(::vm_tools::concierge::SwappingState value) {
+  
+  _impl_.state_ = value;
+}
+inline void VmSwappingSignal::set_state(::vm_tools::concierge::SwappingState value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmSwappingSignal.state)
+}
+
 // -------------------------------------------------------------------
 
 // InstallPflashRequest
@@ -24693,6 +24745,7 @@ template <> struct is_proto_enum< ::vm_tools::concierge::DiskImageAllocationType
 template <> struct is_proto_enum< ::vm_tools::concierge::CpuCgroup> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::CpuRestrictionState> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::SwapOperation> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::concierge::SwappingState> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

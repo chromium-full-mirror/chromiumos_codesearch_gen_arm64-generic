@@ -49,6 +49,12 @@ extern AddFileRequestDefaultTypeInternal _AddFileRequest_default_instance_;
 class AddFileResponse;
 struct AddFileResponseDefaultTypeInternal;
 extern AddFileResponseDefaultTypeInternal _AddFileResponse_default_instance_;
+class AddFilesRequest;
+struct AddFilesRequestDefaultTypeInternal;
+extern AddFilesRequestDefaultTypeInternal _AddFilesRequest_default_instance_;
+class AddFilesResponse;
+struct AddFilesResponseDefaultTypeInternal;
+extern AddFilesResponseDefaultTypeInternal _AddFilesResponse_default_instance_;
 class CheckFilesTransferRequest;
 struct CheckFilesTransferRequestDefaultTypeInternal;
 extern CheckFilesTransferRequestDefaultTypeInternal _CheckFilesTransferRequest_default_instance_;
@@ -98,6 +104,8 @@ extern SetDlpFilesPolicyResponseDefaultTypeInternal _SetDlpFilesPolicyResponse_d
 PROTOBUF_NAMESPACE_OPEN
 template<> ::dlp::AddFileRequest* Arena::CreateMaybeMessage<::dlp::AddFileRequest>(Arena*);
 template<> ::dlp::AddFileResponse* Arena::CreateMaybeMessage<::dlp::AddFileResponse>(Arena*);
+template<> ::dlp::AddFilesRequest* Arena::CreateMaybeMessage<::dlp::AddFilesRequest>(Arena*);
+template<> ::dlp::AddFilesResponse* Arena::CreateMaybeMessage<::dlp::AddFilesResponse>(Arena*);
 template<> ::dlp::CheckFilesTransferRequest* Arena::CreateMaybeMessage<::dlp::CheckFilesTransferRequest>(Arena*);
 template<> ::dlp::CheckFilesTransferResponse* Arena::CreateMaybeMessage<::dlp::CheckFilesTransferResponse>(Arena*);
 template<> ::dlp::DlpFilesRule* Arena::CreateMaybeMessage<::dlp::DlpFilesRule>(Arena*);
@@ -902,6 +910,152 @@ class AddFileRequest final :
 };
 // -------------------------------------------------------------------
 
+class AddFilesRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlp.AddFilesRequest) */ {
+ public:
+  inline AddFilesRequest() : AddFilesRequest(nullptr) {}
+  ~AddFilesRequest() override;
+  explicit PROTOBUF_CONSTEXPR AddFilesRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AddFilesRequest(const AddFilesRequest& from);
+  AddFilesRequest(AddFilesRequest&& from) noexcept
+    : AddFilesRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline AddFilesRequest& operator=(const AddFilesRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AddFilesRequest& operator=(AddFilesRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const AddFilesRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AddFilesRequest* internal_default_instance() {
+    return reinterpret_cast<const AddFilesRequest*>(
+               &_AddFilesRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(AddFilesRequest& a, AddFilesRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AddFilesRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AddFilesRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AddFilesRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AddFilesRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AddFilesRequest& from);
+  void MergeFrom(const AddFilesRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AddFilesRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "dlp.AddFilesRequest";
+  }
+  protected:
+  explicit AddFilesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAddFileRequestsFieldNumber = 1,
+  };
+  // repeated .dlp.AddFileRequest add_file_requests = 1;
+  int add_file_requests_size() const;
+  private:
+  int _internal_add_file_requests_size() const;
+  public:
+  void clear_add_file_requests();
+  ::dlp::AddFileRequest* mutable_add_file_requests(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::AddFileRequest >*
+      mutable_add_file_requests();
+  private:
+  const ::dlp::AddFileRequest& _internal_add_file_requests(int index) const;
+  ::dlp::AddFileRequest* _internal_add_add_file_requests();
+  public:
+  const ::dlp::AddFileRequest& add_file_requests(int index) const;
+  ::dlp::AddFileRequest* add_add_file_requests();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::AddFileRequest >&
+      add_file_requests() const;
+
+  // @@protoc_insertion_point(class_scope:dlp.AddFilesRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::AddFileRequest > add_file_requests_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_dlp_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class AddFileResponse final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlp.AddFileResponse) */ {
  public:
@@ -948,7 +1102,7 @@ class AddFileResponse final :
                &_AddFileResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(AddFileResponse& a, AddFileResponse& b) {
     a.Swap(&b);
@@ -1049,6 +1203,153 @@ class AddFileResponse final :
 };
 // -------------------------------------------------------------------
 
+class AddFilesResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlp.AddFilesResponse) */ {
+ public:
+  inline AddFilesResponse() : AddFilesResponse(nullptr) {}
+  ~AddFilesResponse() override;
+  explicit PROTOBUF_CONSTEXPR AddFilesResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AddFilesResponse(const AddFilesResponse& from);
+  AddFilesResponse(AddFilesResponse&& from) noexcept
+    : AddFilesResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline AddFilesResponse& operator=(const AddFilesResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AddFilesResponse& operator=(AddFilesResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const AddFilesResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AddFilesResponse* internal_default_instance() {
+    return reinterpret_cast<const AddFilesResponse*>(
+               &_AddFilesResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(AddFilesResponse& a, AddFilesResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AddFilesResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AddFilesResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AddFilesResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AddFilesResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AddFilesResponse& from);
+  void MergeFrom(const AddFilesResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AddFilesResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "dlp.AddFilesResponse";
+  }
+  protected:
+  explicit AddFilesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorMessageFieldNumber = 1,
+  };
+  // optional string error_message = 1;
+  bool has_error_message() const;
+  private:
+  bool _internal_has_error_message() const;
+  public:
+  void clear_error_message();
+  const std::string& error_message() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_error_message(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_error_message();
+  PROTOBUF_NODISCARD std::string* release_error_message();
+  void set_allocated_error_message(std::string* error_message);
+  private:
+  const std::string& _internal_error_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_error_message(const std::string& value);
+  std::string* _internal_mutable_error_message();
+  public:
+
+  // @@protoc_insertion_point(class_scope:dlp.AddFilesResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr error_message_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_dlp_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class RequestFileAccessRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:dlp.RequestFileAccessRequest) */ {
  public:
@@ -1095,7 +1396,7 @@ class RequestFileAccessRequest final :
                &_RequestFileAccessRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(RequestFileAccessRequest& a, RequestFileAccessRequest& b) {
     a.Swap(&b);
@@ -1298,7 +1599,7 @@ class RequestFileAccessResponse final :
                &_RequestFileAccessResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(RequestFileAccessResponse& a, RequestFileAccessResponse& b) {
     a.Swap(&b);
@@ -1460,7 +1761,7 @@ class FileMetadata final :
                &_FileMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(FileMetadata& a, FileMetadata& b) {
     a.Swap(&b);
@@ -1642,7 +1943,7 @@ class FileRestriction final :
                &_FileRestriction_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(FileRestriction& a, FileRestriction& b) {
     a.Swap(&b);
@@ -1804,7 +2105,7 @@ class IsDlpPolicyMatchedRequest final :
                &_IsDlpPolicyMatchedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(IsDlpPolicyMatchedRequest& a, IsDlpPolicyMatchedRequest& b) {
     a.Swap(&b);
@@ -1951,7 +2252,7 @@ class IsDlpPolicyMatchedResponse final :
                &_IsDlpPolicyMatchedResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(IsDlpPolicyMatchedResponse& a, IsDlpPolicyMatchedResponse& b) {
     a.Swap(&b);
@@ -2093,7 +2394,7 @@ class GetFilesSourcesRequest final :
                &_GetFilesSourcesRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(GetFilesSourcesRequest& a, GetFilesSourcesRequest& b) {
     a.Swap(&b);
@@ -2243,7 +2544,7 @@ class GetFilesSourcesResponse final :
                &_GetFilesSourcesResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(GetFilesSourcesResponse& a, GetFilesSourcesResponse& b) {
     a.Swap(&b);
@@ -2410,7 +2711,7 @@ class CheckFilesTransferRequest final :
                &_CheckFilesTransferRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(CheckFilesTransferRequest& a, CheckFilesTransferRequest& b) {
     a.Swap(&b);
@@ -2628,7 +2929,7 @@ class CheckFilesTransferResponse final :
                &_CheckFilesTransferResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(CheckFilesTransferResponse& a, CheckFilesTransferResponse& b) {
     a.Swap(&b);
@@ -2801,7 +3102,7 @@ class IsFilesTransferRestrictedRequest final :
                &_IsFilesTransferRestrictedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(IsFilesTransferRestrictedRequest& a, IsFilesTransferRestrictedRequest& b) {
     a.Swap(&b);
@@ -3013,7 +3314,7 @@ class IsFilesTransferRestrictedResponse final :
                &_IsFilesTransferRestrictedResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(IsFilesTransferRestrictedResponse& a, IsFilesTransferRestrictedResponse& b) {
     a.Swap(&b);
@@ -3693,6 +3994,50 @@ inline void AddFileRequest::set_allocated_referrer_url(std::string* referrer_url
 
 // -------------------------------------------------------------------
 
+// AddFilesRequest
+
+// repeated .dlp.AddFileRequest add_file_requests = 1;
+inline int AddFilesRequest::_internal_add_file_requests_size() const {
+  return _impl_.add_file_requests_.size();
+}
+inline int AddFilesRequest::add_file_requests_size() const {
+  return _internal_add_file_requests_size();
+}
+inline void AddFilesRequest::clear_add_file_requests() {
+  _impl_.add_file_requests_.Clear();
+}
+inline ::dlp::AddFileRequest* AddFilesRequest::mutable_add_file_requests(int index) {
+  // @@protoc_insertion_point(field_mutable:dlp.AddFilesRequest.add_file_requests)
+  return _impl_.add_file_requests_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::AddFileRequest >*
+AddFilesRequest::mutable_add_file_requests() {
+  // @@protoc_insertion_point(field_mutable_list:dlp.AddFilesRequest.add_file_requests)
+  return &_impl_.add_file_requests_;
+}
+inline const ::dlp::AddFileRequest& AddFilesRequest::_internal_add_file_requests(int index) const {
+  return _impl_.add_file_requests_.Get(index);
+}
+inline const ::dlp::AddFileRequest& AddFilesRequest::add_file_requests(int index) const {
+  // @@protoc_insertion_point(field_get:dlp.AddFilesRequest.add_file_requests)
+  return _internal_add_file_requests(index);
+}
+inline ::dlp::AddFileRequest* AddFilesRequest::_internal_add_add_file_requests() {
+  return _impl_.add_file_requests_.Add();
+}
+inline ::dlp::AddFileRequest* AddFilesRequest::add_add_file_requests() {
+  ::dlp::AddFileRequest* _add = _internal_add_add_file_requests();
+  // @@protoc_insertion_point(field_add:dlp.AddFilesRequest.add_file_requests)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::dlp::AddFileRequest >&
+AddFilesRequest::add_file_requests() const {
+  // @@protoc_insertion_point(field_list:dlp.AddFilesRequest.add_file_requests)
+  return _impl_.add_file_requests_;
+}
+
+// -------------------------------------------------------------------
+
 // AddFileResponse
 
 // optional string error_message = 1;
@@ -3761,6 +4106,78 @@ inline void AddFileResponse::set_allocated_error_message(std::string* error_mess
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:dlp.AddFileResponse.error_message)
+}
+
+// -------------------------------------------------------------------
+
+// AddFilesResponse
+
+// optional string error_message = 1;
+inline bool AddFilesResponse::_internal_has_error_message() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool AddFilesResponse::has_error_message() const {
+  return _internal_has_error_message();
+}
+inline void AddFilesResponse::clear_error_message() {
+  _impl_.error_message_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& AddFilesResponse::error_message() const {
+  // @@protoc_insertion_point(field_get:dlp.AddFilesResponse.error_message)
+  return _internal_error_message();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AddFilesResponse::set_error_message(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000001u;
+ _impl_.error_message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:dlp.AddFilesResponse.error_message)
+}
+inline std::string* AddFilesResponse::mutable_error_message() {
+  std::string* _s = _internal_mutable_error_message();
+  // @@protoc_insertion_point(field_mutable:dlp.AddFilesResponse.error_message)
+  return _s;
+}
+inline const std::string& AddFilesResponse::_internal_error_message() const {
+  return _impl_.error_message_.Get();
+}
+inline void AddFilesResponse::_internal_set_error_message(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.error_message_.Set(value, GetArenaForAllocation());
+}
+inline std::string* AddFilesResponse::_internal_mutable_error_message() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.error_message_.Mutable(GetArenaForAllocation());
+}
+inline std::string* AddFilesResponse::release_error_message() {
+  // @@protoc_insertion_point(field_release:dlp.AddFilesResponse.error_message)
+  if (!_internal_has_error_message()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* p = _impl_.error_message_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.error_message_.IsDefault()) {
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void AddFilesResponse::set_allocated_error_message(std::string* error_message) {
+  if (error_message != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.error_message_.SetAllocated(error_message, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.error_message_.IsDefault()) {
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:dlp.AddFilesResponse.error_message)
 }
 
 // -------------------------------------------------------------------
@@ -5340,6 +5757,10 @@ IsFilesTransferRestrictedResponse::files_restrictions() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
