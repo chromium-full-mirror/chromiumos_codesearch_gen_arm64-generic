@@ -162,7 +162,7 @@ class  PowerButtonObserverAsyncWaiter {
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) override;
-  void ReadFilePart(Executor::File file_enum, uint64_t begin, uint64_t size, ReadFilePartCallback callback) override;
+  void ReadFilePart(Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, ReadFilePartCallback callback) override;
   void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) override;
   void GetFanSpeed(GetFanSpeedCallback callback) override;
   void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) override;
@@ -207,8 +207,8 @@ class  ExecutorAsyncWaiter {
       Executor::File file_enum, absl::optional<std::string>* out_content);
   absl::optional<std::string> ReadFile(Executor::File file_enum);
   void ReadFilePart(
-      Executor::File file_enum, uint64_t begin, uint64_t size, absl::optional<std::string>* out_content);
-  absl::optional<std::string> ReadFilePart(Executor::File file_enum, uint64_t begin, uint64_t size);
+      Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, absl::optional<std::string>* out_content);
+  absl::optional<std::string> ReadFilePart(Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size);
   void GetFileInfo(
       Executor::File file_enum, FileInfoPtr* out_info);
   FileInfoPtr GetFileInfo(Executor::File file_enum);

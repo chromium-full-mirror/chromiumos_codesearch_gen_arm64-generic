@@ -113,7 +113,7 @@ process_bpf__attach(struct process_bpf *obj)
 static inline void
 process_bpf__detach(struct process_bpf *obj)
 {
-	return bpf_object__detach_skeleton(obj->skeleton);
+	bpf_object__detach_skeleton(obj->skeleton);
 }
 
 static inline const void *process_bpf__elf_bytes(size_t *sz);

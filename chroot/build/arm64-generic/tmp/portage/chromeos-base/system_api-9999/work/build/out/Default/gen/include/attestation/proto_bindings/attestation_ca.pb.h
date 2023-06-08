@@ -129,11 +129,12 @@ enum CertificateProfile : int {
   SOFT_BIND_CERTIFICATE = 10,
   DEVICE_SETUP_CERTIFICATE = 11,
   ARC_TPM_CERTIFYING_KEY_CERTIFICATE = 12,
-  ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE = 13
+  ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE = 13,
+  DEVICE_TRUST_USER_CERTIFICATE = 14
 };
 bool CertificateProfile_IsValid(int value);
 constexpr CertificateProfile CertificateProfile_MIN = ENTERPRISE_MACHINE_CERTIFICATE;
-constexpr CertificateProfile CertificateProfile_MAX = ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE;
+constexpr CertificateProfile CertificateProfile_MAX = DEVICE_TRUST_USER_CERTIFICATE;
 constexpr int CertificateProfile_ARRAYSIZE = CertificateProfile_MAX + 1;
 
 const std::string& CertificateProfile_Name(CertificateProfile value);
@@ -209,26 +210,27 @@ inline const std::string& ResponseStatus_Name(T enum_t_value) {
 }
 bool ResponseStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ResponseStatus* value);
-enum KeyProfile : int {
-  EMK = 0,
-  EUK = 1,
-  CBCM = 2
+enum VerifiedAccessFlow : int {
+  ENTERPRISE_MACHINE = 0,
+  ENTERPRISE_USER = 1,
+  CBCM = 2,
+  DEVICE_TRUST_CONNECTOR = 3
 };
-bool KeyProfile_IsValid(int value);
-constexpr KeyProfile KeyProfile_MIN = EMK;
-constexpr KeyProfile KeyProfile_MAX = CBCM;
-constexpr int KeyProfile_ARRAYSIZE = KeyProfile_MAX + 1;
+bool VerifiedAccessFlow_IsValid(int value);
+constexpr VerifiedAccessFlow VerifiedAccessFlow_MIN = ENTERPRISE_MACHINE;
+constexpr VerifiedAccessFlow VerifiedAccessFlow_MAX = DEVICE_TRUST_CONNECTOR;
+constexpr int VerifiedAccessFlow_ARRAYSIZE = VerifiedAccessFlow_MAX + 1;
 
-const std::string& KeyProfile_Name(KeyProfile value);
+const std::string& VerifiedAccessFlow_Name(VerifiedAccessFlow value);
 template<typename T>
-inline const std::string& KeyProfile_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, KeyProfile>::value ||
+inline const std::string& VerifiedAccessFlow_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, VerifiedAccessFlow>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function KeyProfile_Name.");
-  return KeyProfile_Name(static_cast<KeyProfile>(enum_t_value));
+    "Incorrect type passed to function VerifiedAccessFlow_Name.");
+  return VerifiedAccessFlow_Name(static_cast<VerifiedAccessFlow>(enum_t_value));
 }
-bool KeyProfile_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, KeyProfile* value);
+bool VerifiedAccessFlow_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VerifiedAccessFlow* value);
 // ===================================================================
 
 class Quote final :
@@ -3244,7 +3246,7 @@ class KeyInfo final :
     kObfuscatedGaiaIdFieldNumber = 13,
     kProfileIdFieldNumber = 14,
     kDeviceTrustSignalsFieldNumber = 9,
-    kKeyTypeFieldNumber = 1,
+    kFlowTypeFieldNumber = 1,
   };
   // optional string domain = 2;
   bool has_domain() const;
@@ -3480,17 +3482,17 @@ class KeyInfo final :
       ::attestation::DeviceTrustSignals* device_trust_signals);
   PROTOBUF_DEPRECATED ::attestation::DeviceTrustSignals* unsafe_arena_release_device_trust_signals();
 
-  // optional .attestation.KeyProfile key_type = 1;
-  bool has_key_type() const;
+  // optional .attestation.VerifiedAccessFlow flow_type = 1;
+  bool has_flow_type() const;
   private:
-  bool _internal_has_key_type() const;
+  bool _internal_has_flow_type() const;
   public:
-  void clear_key_type();
-  ::attestation::KeyProfile key_type() const;
-  void set_key_type(::attestation::KeyProfile value);
+  void clear_flow_type();
+  ::attestation::VerifiedAccessFlow flow_type() const;
+  void set_flow_type(::attestation::VerifiedAccessFlow value);
   private:
-  ::attestation::KeyProfile _internal_key_type() const;
-  void _internal_set_key_type(::attestation::KeyProfile value);
+  ::attestation::VerifiedAccessFlow _internal_flow_type() const;
+  void _internal_set_flow_type(::attestation::VerifiedAccessFlow value);
   public:
 
   // @@protoc_insertion_point(class_scope:attestation.KeyInfo)
@@ -3516,7 +3518,7 @@ class KeyInfo final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr obfuscated_gaia_id_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr profile_id_;
     ::attestation::DeviceTrustSignals* device_trust_signals_;
-    int key_type_;
+    int flow_type_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_attestation_5fca_2eproto;
@@ -8251,33 +8253,33 @@ inline void ChallengeResponse::set_allocated_encrypted_key_info(::attestation::E
 
 // KeyInfo
 
-// optional .attestation.KeyProfile key_type = 1;
-inline bool KeyInfo::_internal_has_key_type() const {
+// optional .attestation.VerifiedAccessFlow flow_type = 1;
+inline bool KeyInfo::_internal_has_flow_type() const {
   bool value = (_impl_._has_bits_[0] & 0x00002000u) != 0;
   return value;
 }
-inline bool KeyInfo::has_key_type() const {
-  return _internal_has_key_type();
+inline bool KeyInfo::has_flow_type() const {
+  return _internal_has_flow_type();
 }
-inline void KeyInfo::clear_key_type() {
-  _impl_.key_type_ = 0;
+inline void KeyInfo::clear_flow_type() {
+  _impl_.flow_type_ = 0;
   _impl_._has_bits_[0] &= ~0x00002000u;
 }
-inline ::attestation::KeyProfile KeyInfo::_internal_key_type() const {
-  return static_cast< ::attestation::KeyProfile >(_impl_.key_type_);
+inline ::attestation::VerifiedAccessFlow KeyInfo::_internal_flow_type() const {
+  return static_cast< ::attestation::VerifiedAccessFlow >(_impl_.flow_type_);
 }
-inline ::attestation::KeyProfile KeyInfo::key_type() const {
-  // @@protoc_insertion_point(field_get:attestation.KeyInfo.key_type)
-  return _internal_key_type();
+inline ::attestation::VerifiedAccessFlow KeyInfo::flow_type() const {
+  // @@protoc_insertion_point(field_get:attestation.KeyInfo.flow_type)
+  return _internal_flow_type();
 }
-inline void KeyInfo::_internal_set_key_type(::attestation::KeyProfile value) {
-  assert(::attestation::KeyProfile_IsValid(value));
+inline void KeyInfo::_internal_set_flow_type(::attestation::VerifiedAccessFlow value) {
+  assert(::attestation::VerifiedAccessFlow_IsValid(value));
   _impl_._has_bits_[0] |= 0x00002000u;
-  _impl_.key_type_ = value;
+  _impl_.flow_type_ = value;
 }
-inline void KeyInfo::set_key_type(::attestation::KeyProfile value) {
-  _internal_set_key_type(value);
-  // @@protoc_insertion_point(field_set:attestation.KeyInfo.key_type)
+inline void KeyInfo::set_flow_type(::attestation::VerifiedAccessFlow value) {
+  _internal_set_flow_type(value);
+  // @@protoc_insertion_point(field_set:attestation.KeyInfo.flow_type)
 }
 
 // optional string domain = 2;
@@ -10672,7 +10674,7 @@ template <> struct is_proto_enum< ::attestation::CertificateProfile> : ::std::tr
 template <> struct is_proto_enum< ::attestation::TpmVersion> : ::std::true_type {};
 template <> struct is_proto_enum< ::attestation::NVRAMQuoteType> : ::std::true_type {};
 template <> struct is_proto_enum< ::attestation::ResponseStatus> : ::std::true_type {};
-template <> struct is_proto_enum< ::attestation::KeyProfile> : ::std::true_type {};
+template <> struct is_proto_enum< ::attestation::VerifiedAccessFlow> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

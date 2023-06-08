@@ -3791,7 +3791,7 @@ void ExecutorProxy::ReadFile(
 }
 
 void ExecutorProxy::ReadFilePart(
-    Executor::File in_file_enum, uint64_t in_begin, uint64_t in_size, ReadFilePartCallback callback) {
+    Executor::File in_file_enum, uint64_t in_begin, absl::optional<uint64_t> in_size, ReadFilePartCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Executor::ReadFilePart", "input_parameters",
@@ -3805,7 +3805,7 @@ void ExecutorProxy::ReadFilePart(
                         "<value of type uint64_t>");
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("size"), in_size,
-                        "<value of type uint64_t>");
+                        "<value of type absl::optional<uint64_t>>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -3826,7 +3826,10 @@ void ExecutorProxy::ReadFilePart(
   mojo::internal::Serialize<::ash::cros_healthd::mojom::Executor_File>(
       in_file_enum, &params->file_enum);
   params->begin = in_begin;
-  params->size = in_size;
+  params->size_$flag = in_size.has_value();
+  if (in_size.has_value()) {
+    params->size_$value = in_size.value();
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Executor::Name_);
@@ -8536,15 +8539,16 @@ std::move(p_file_enum), std::move(callback));
       bool success = true;
       Executor::File p_file_enum{};
       uint64_t p_begin{};
-      uint64_t p_size{};
+      absl::optional<uint64_t> p_size{};
       Executor_ReadFilePart_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFileEnum(&p_file_enum))
         success = false;
       if (success)
         p_begin = input_data_view.begin();
-      if (success)
+      if (success) {
         p_size = input_data_view.size();
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -9583,7 +9587,7 @@ PowerButtonObserverAsyncWaiter::~PowerButtonObserverAsyncWaiter() = default;
 void ExecutorInterceptorForTesting::ReadFile(Executor::File file_enum, ReadFileCallback callback) {
   GetForwardingInterface()->ReadFile(std::move(file_enum), std::move(callback));
 }
-void ExecutorInterceptorForTesting::ReadFilePart(Executor::File file_enum, uint64_t begin, uint64_t size, ReadFilePartCallback callback) {
+void ExecutorInterceptorForTesting::ReadFilePart(Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, ReadFilePartCallback callback) {
   GetForwardingInterface()->ReadFilePart(std::move(file_enum), std::move(begin), std::move(size), std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) {
@@ -9708,7 +9712,7 @@ absl::optional<std::string> ExecutorAsyncWaiter::ReadFile(
 }
 
 void ExecutorAsyncWaiter::ReadFilePart(
-    Executor::File file_enum, uint64_t begin, uint64_t size, absl::optional<std::string>* out_content) {
+    Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, absl::optional<std::string>* out_content) {
   base::RunLoop loop;
   proxy_->ReadFilePart(std::move(file_enum),std::move(begin),std::move(size),
       base::BindOnce(
@@ -9724,7 +9728,7 @@ void ExecutorAsyncWaiter::ReadFilePart(
 }
 
 absl::optional<std::string> ExecutorAsyncWaiter::ReadFilePart(
-    Executor::File file_enum, uint64_t begin, uint64_t size) {
+    Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size) {
   absl::optional<std::string> async_wait_result;
   ReadFilePart(std::move(file_enum),std::move(begin),std::move(size),&async_wait_result);
   return async_wait_result;

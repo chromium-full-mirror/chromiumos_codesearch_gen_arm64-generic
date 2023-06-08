@@ -35,8 +35,6 @@ struct network_bpf {
 		struct bpf_link *cros_handle_inet_stream_connect_exit;
 		struct bpf_link *cros_handle_inet_release_enter;
 	} links;
-	struct network_bpf__rodata {
-	} *rodata;
 
 #ifdef __cplusplus
 	static inline struct network_bpf *open(const struct bpf_object_open_opts *opts = nullptr);
@@ -128,7 +126,7 @@ network_bpf__attach(struct network_bpf *obj)
 static inline void
 network_bpf__detach(struct network_bpf *obj)
 {
-	return bpf_object__detach_skeleton(obj->skeleton);
+	bpf_object__detach_skeleton(obj->skeleton);
 }
 
 static inline const void *network_bpf__elf_bytes(size_t *sz);
@@ -175,7 +173,6 @@ network_bpf__create_skeleton(struct network_bpf *obj)
 
 	s->maps[5].name = "network_.rodata";
 	s->maps[5].map = &obj->maps.rodata;
-	s->maps[5].mmaped = (void **)&obj->rodata;
 
 	/* programs */
 	s->prog_cnt = 6;

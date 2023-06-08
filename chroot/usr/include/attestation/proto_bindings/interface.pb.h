@@ -7514,7 +7514,8 @@ class SignEnterpriseChallengeRequest final :
     kVaTypeFieldNumber = 7,
     kIncludeSignedPublicKeyFieldNumber = 5,
     kIncludeCustomerIdFieldNumber = 11,
-    kKeyProfileFieldNumber = 12,
+    kIncludeCertificateFieldNumber = 13,
+    kFlowTypeFieldNumber = 12,
   };
   // optional string key_label = 1;
   bool has_key_label() const;
@@ -7699,17 +7700,30 @@ class SignEnterpriseChallengeRequest final :
   void _internal_set_include_customer_id(bool value);
   public:
 
-  // optional .attestation.KeyProfile key_profile = 12;
-  bool has_key_profile() const;
+  // optional bool include_certificate = 13;
+  bool has_include_certificate() const;
   private:
-  bool _internal_has_key_profile() const;
+  bool _internal_has_include_certificate() const;
   public:
-  void clear_key_profile();
-  ::attestation::KeyProfile key_profile() const;
-  void set_key_profile(::attestation::KeyProfile value);
+  void clear_include_certificate();
+  bool include_certificate() const;
+  void set_include_certificate(bool value);
   private:
-  ::attestation::KeyProfile _internal_key_profile() const;
-  void _internal_set_key_profile(::attestation::KeyProfile value);
+  bool _internal_include_certificate() const;
+  void _internal_set_include_certificate(bool value);
+  public:
+
+  // optional .attestation.VerifiedAccessFlow flow_type = 12;
+  bool has_flow_type() const;
+  private:
+  bool _internal_has_flow_type() const;
+  public:
+  void clear_flow_type();
+  ::attestation::VerifiedAccessFlow flow_type() const;
+  void set_flow_type(::attestation::VerifiedAccessFlow value);
+  private:
+  ::attestation::VerifiedAccessFlow _internal_flow_type() const;
+  void _internal_set_flow_type(::attestation::VerifiedAccessFlow value);
   public:
 
   // @@protoc_insertion_point(class_scope:attestation.SignEnterpriseChallengeRequest)
@@ -7733,7 +7747,8 @@ class SignEnterpriseChallengeRequest final :
     int va_type_;
     bool include_signed_public_key_;
     bool include_customer_id_;
-    int key_profile_;
+    bool include_certificate_;
+    int flow_type_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_interface_2eproto;
@@ -16244,33 +16259,61 @@ inline void SignEnterpriseChallengeRequest::set_include_customer_id(bool value) 
   // @@protoc_insertion_point(field_set:attestation.SignEnterpriseChallengeRequest.include_customer_id)
 }
 
-// optional .attestation.KeyProfile key_profile = 12;
-inline bool SignEnterpriseChallengeRequest::_internal_has_key_profile() const {
+// optional .attestation.VerifiedAccessFlow flow_type = 12;
+inline bool SignEnterpriseChallengeRequest::_internal_has_flow_type() const {
+  bool value = (_impl_._has_bits_[0] & 0x00001000u) != 0;
+  return value;
+}
+inline bool SignEnterpriseChallengeRequest::has_flow_type() const {
+  return _internal_has_flow_type();
+}
+inline void SignEnterpriseChallengeRequest::clear_flow_type() {
+  _impl_.flow_type_ = 0;
+  _impl_._has_bits_[0] &= ~0x00001000u;
+}
+inline ::attestation::VerifiedAccessFlow SignEnterpriseChallengeRequest::_internal_flow_type() const {
+  return static_cast< ::attestation::VerifiedAccessFlow >(_impl_.flow_type_);
+}
+inline ::attestation::VerifiedAccessFlow SignEnterpriseChallengeRequest::flow_type() const {
+  // @@protoc_insertion_point(field_get:attestation.SignEnterpriseChallengeRequest.flow_type)
+  return _internal_flow_type();
+}
+inline void SignEnterpriseChallengeRequest::_internal_set_flow_type(::attestation::VerifiedAccessFlow value) {
+  assert(::attestation::VerifiedAccessFlow_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00001000u;
+  _impl_.flow_type_ = value;
+}
+inline void SignEnterpriseChallengeRequest::set_flow_type(::attestation::VerifiedAccessFlow value) {
+  _internal_set_flow_type(value);
+  // @@protoc_insertion_point(field_set:attestation.SignEnterpriseChallengeRequest.flow_type)
+}
+
+// optional bool include_certificate = 13;
+inline bool SignEnterpriseChallengeRequest::_internal_has_include_certificate() const {
   bool value = (_impl_._has_bits_[0] & 0x00000800u) != 0;
   return value;
 }
-inline bool SignEnterpriseChallengeRequest::has_key_profile() const {
-  return _internal_has_key_profile();
+inline bool SignEnterpriseChallengeRequest::has_include_certificate() const {
+  return _internal_has_include_certificate();
 }
-inline void SignEnterpriseChallengeRequest::clear_key_profile() {
-  _impl_.key_profile_ = 0;
+inline void SignEnterpriseChallengeRequest::clear_include_certificate() {
+  _impl_.include_certificate_ = false;
   _impl_._has_bits_[0] &= ~0x00000800u;
 }
-inline ::attestation::KeyProfile SignEnterpriseChallengeRequest::_internal_key_profile() const {
-  return static_cast< ::attestation::KeyProfile >(_impl_.key_profile_);
+inline bool SignEnterpriseChallengeRequest::_internal_include_certificate() const {
+  return _impl_.include_certificate_;
 }
-inline ::attestation::KeyProfile SignEnterpriseChallengeRequest::key_profile() const {
-  // @@protoc_insertion_point(field_get:attestation.SignEnterpriseChallengeRequest.key_profile)
-  return _internal_key_profile();
+inline bool SignEnterpriseChallengeRequest::include_certificate() const {
+  // @@protoc_insertion_point(field_get:attestation.SignEnterpriseChallengeRequest.include_certificate)
+  return _internal_include_certificate();
 }
-inline void SignEnterpriseChallengeRequest::_internal_set_key_profile(::attestation::KeyProfile value) {
-  assert(::attestation::KeyProfile_IsValid(value));
+inline void SignEnterpriseChallengeRequest::_internal_set_include_certificate(bool value) {
   _impl_._has_bits_[0] |= 0x00000800u;
-  _impl_.key_profile_ = value;
+  _impl_.include_certificate_ = value;
 }
-inline void SignEnterpriseChallengeRequest::set_key_profile(::attestation::KeyProfile value) {
-  _internal_set_key_profile(value);
-  // @@protoc_insertion_point(field_set:attestation.SignEnterpriseChallengeRequest.key_profile)
+inline void SignEnterpriseChallengeRequest::set_include_certificate(bool value) {
+  _internal_set_include_certificate(value);
+  // @@protoc_insertion_point(field_set:attestation.SignEnterpriseChallengeRequest.include_certificate)
 }
 
 // -------------------------------------------------------------------

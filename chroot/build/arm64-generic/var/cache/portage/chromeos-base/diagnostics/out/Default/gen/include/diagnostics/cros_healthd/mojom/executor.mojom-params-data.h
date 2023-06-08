@@ -366,9 +366,10 @@ class  Executor_ReadFilePart_Params_Data {
 
   mojo::internal::StructHeader header_;
   int32_t file_enum;
-  uint8_t pad0_[4];
+  uint8_t size_$flag : 1;
+  uint8_t pad1_[3];
   uint64_t begin;
-  uint64_t size;
+  uint64_t size_$value;
 
  private:
   friend class mojo::internal::MessageFragment<Executor_ReadFilePart_Params_Data>;
@@ -1755,8 +1756,11 @@ class Executor_ReadFilePart_ParamsDataView {
   uint64_t begin() const {
     return data_->begin;
   }
-  uint64_t size() const {
-    return data_->size;
+  absl::optional<uint64_t> size() const {
+
+    return data_->size_$flag
+        ? absl::make_optional(data_->size_$value)
+        : absl::nullopt;
   }
  private:
   internal::Executor_ReadFilePart_Params_Data* data_ = nullptr;

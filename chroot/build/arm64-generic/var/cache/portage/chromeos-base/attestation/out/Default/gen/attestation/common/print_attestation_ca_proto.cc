@@ -70,6 +70,9 @@ std::string GetProtoDebugStringWithIndent(CertificateProfile value,
   if (value == ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE) {
     return "ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE";
   }
+  if (value == DEVICE_TRUST_USER_CERTIFICATE) {
+    return "DEVICE_TRUST_USER_CERTIFICATE";
+  }
   return "<unknown>";
 }
 
@@ -135,19 +138,23 @@ std::string GetProtoDebugStringWithIndent(ResponseStatus value,
   return "<unknown>";
 }
 
-std::string GetProtoDebugString(KeyProfile value) {
+std::string GetProtoDebugString(VerifiedAccessFlow value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
 
-std::string GetProtoDebugStringWithIndent(KeyProfile value, int indent_size) {
-  if (value == EMK) {
-    return "EMK";
+std::string GetProtoDebugStringWithIndent(VerifiedAccessFlow value,
+                                          int indent_size) {
+  if (value == ENTERPRISE_MACHINE) {
+    return "ENTERPRISE_MACHINE";
   }
-  if (value == EUK) {
-    return "EUK";
+  if (value == ENTERPRISE_USER) {
+    return "ENTERPRISE_USER";
   }
   if (value == CBCM) {
     return "CBCM";
+  }
+  if (value == DEVICE_TRUST_CONNECTOR) {
+    return "DEVICE_TRUST_CONNECTOR";
   }
   return "<unknown>";
 }
@@ -799,11 +806,11 @@ std::string GetProtoDebugStringWithIndent(const KeyInfo& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  if (value.has_key_type()) {
-    output += indent + "  key_type: ";
+  if (value.has_flow_type()) {
+    output += indent + "  flow_type: ";
     base::StringAppendF(
         &output, "%s",
-        GetProtoDebugStringWithIndent(value.key_type(), indent_size + 2)
+        GetProtoDebugStringWithIndent(value.flow_type(), indent_size + 2)
             .c_str());
     output += "\n";
   }

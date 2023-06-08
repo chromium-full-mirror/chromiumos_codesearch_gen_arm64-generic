@@ -1491,12 +1491,18 @@ std::string GetProtoDebugStringWithIndent(
                         value.include_customer_id() ? "true" : "false");
     output += "\n";
   }
-  if (value.has_key_profile()) {
-    output += indent + "  key_profile: ";
+  if (value.has_flow_type()) {
+    output += indent + "  flow_type: ";
     base::StringAppendF(
         &output, "%s",
-        GetProtoDebugStringWithIndent(value.key_profile(), indent_size + 2)
+        GetProtoDebugStringWithIndent(value.flow_type(), indent_size + 2)
             .c_str());
+    output += "\n";
+  }
+  if (value.has_include_certificate()) {
+    output += indent + "  include_certificate: ";
+    base::StringAppendF(&output, "%s",
+                        value.include_certificate() ? "true" : "false");
     output += "\n";
   }
   output += indent + "}\n";

@@ -25,6 +25,7 @@ PROTOBUF_CONSTEXPR DeviceInfo::DeviceInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.feature_level_)*/0
   , /*decltype(_impl_.scope_level_)*/0
+  , /*decltype(_impl_.cached_version_hash_)*/0u
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct DeviceInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceInfoDefaultTypeInternal()
@@ -49,6 +50,7 @@ const uint32_t TableStruct_device_5finfo_2eproto::offsets[] PROTOBUF_SECTION_VAR
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::libsegmentation::DeviceInfo, _impl_.feature_level_),
   PROTOBUF_FIELD_OFFSET(::libsegmentation::DeviceInfo, _impl_.scope_level_),
+  PROTOBUF_FIELD_OFFSET(::libsegmentation::DeviceInfo, _impl_.cached_version_hash_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::libsegmentation::DeviceInfo)},
@@ -59,19 +61,20 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_device_5finfo_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\021device_info.proto\022\017libsegmentation\"\254\002\n"
+  "\n\021device_info.proto\022\017libsegmentation\"\311\002\n"
   "\nDeviceInfo\022\?\n\rfeature_level\030\001 \001(\0162(.lib"
   "segmentation.DeviceInfo.FeatureLevel\022;\n\013"
   "scope_level\030\002 \001(\0162&.libsegmentation.Devi"
-  "ceInfo.ScopeLevel\"S\n\014FeatureLevel\022\031\n\025FEA"
-  "TURE_LEVEL_UNKNOWN\020\000\022\023\n\017FEATURE_LEVEL_0\020"
-  "\001\022\023\n\017FEATURE_LEVEL_1\020\002\"K\n\nScopeLevel\022\027\n\023"
-  "SCOPE_LEVEL_UNKNOWN\020\000\022\021\n\rSCOPE_LEVEL_0\020\001"
-  "\022\021\n\rSCOPE_LEVEL_1\020\002b\006proto3"
+  "ceInfo.ScopeLevel\022\033\n\023cached_version_hash"
+  "\030\003 \001(\r\"S\n\014FeatureLevel\022\031\n\025FEATURE_LEVEL_"
+  "UNKNOWN\020\000\022\023\n\017FEATURE_LEVEL_0\020\001\022\023\n\017FEATUR"
+  "E_LEVEL_1\020\002\"K\n\nScopeLevel\022\027\n\023SCOPE_LEVEL"
+  "_UNKNOWN\020\000\022\021\n\rSCOPE_LEVEL_0\020\001\022\021\n\rSCOPE_L"
+  "EVEL_1\020\002b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_device_5finfo_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_device_5finfo_2eproto = {
-    false, false, 347, descriptor_table_protodef_device_5finfo_2eproto,
+    false, false, 376, descriptor_table_protodef_device_5finfo_2eproto,
     "device_info.proto",
     &descriptor_table_device_5finfo_2eproto_once, nullptr, 0, 1,
     schemas, file_default_instances, TableStruct_device_5finfo_2eproto::offsets,
@@ -150,12 +153,13 @@ DeviceInfo::DeviceInfo(const DeviceInfo& from)
   new (&_impl_) Impl_{
       decltype(_impl_.feature_level_){}
     , decltype(_impl_.scope_level_){}
+    , decltype(_impl_.cached_version_hash_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.feature_level_, &from._impl_.feature_level_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.scope_level_) -
-    reinterpret_cast<char*>(&_impl_.feature_level_)) + sizeof(_impl_.scope_level_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.cached_version_hash_) -
+    reinterpret_cast<char*>(&_impl_.feature_level_)) + sizeof(_impl_.cached_version_hash_));
   // @@protoc_insertion_point(copy_constructor:libsegmentation.DeviceInfo)
 }
 
@@ -166,6 +170,7 @@ inline void DeviceInfo::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.feature_level_){0}
     , decltype(_impl_.scope_level_){0}
+    , decltype(_impl_.cached_version_hash_){0u}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -194,8 +199,8 @@ void DeviceInfo::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.feature_level_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.scope_level_) -
-      reinterpret_cast<char*>(&_impl_.feature_level_)) + sizeof(_impl_.scope_level_));
+      reinterpret_cast<char*>(&_impl_.cached_version_hash_) -
+      reinterpret_cast<char*>(&_impl_.feature_level_)) + sizeof(_impl_.cached_version_hash_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -220,6 +225,14 @@ const char* DeviceInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_scope_level(static_cast<::libsegmentation::DeviceInfo_ScopeLevel>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 cached_version_hash = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.cached_version_hash_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -266,6 +279,12 @@ uint8_t* DeviceInfo::_InternalSerialize(
       2, this->_internal_scope_level(), target);
   }
 
+  // uint32 cached_version_hash = 3;
+  if (this->_internal_cached_version_hash() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_cached_version_hash(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -294,6 +313,11 @@ size_t DeviceInfo::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_scope_level());
   }
 
+  // uint32 cached_version_hash = 3;
+  if (this->_internal_cached_version_hash() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_cached_version_hash());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -318,6 +342,9 @@ void DeviceInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   if (from._internal_scope_level() != 0) {
     _this->_internal_set_scope_level(from._internal_scope_level());
   }
+  if (from._internal_cached_version_hash() != 0) {
+    _this->_internal_set_cached_version_hash(from._internal_cached_version_hash());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -336,8 +363,8 @@ void DeviceInfo::InternalSwap(DeviceInfo* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceInfo, _impl_.scope_level_)
-      + sizeof(DeviceInfo::_impl_.scope_level_)
+      PROTOBUF_FIELD_OFFSET(DeviceInfo, _impl_.cached_version_hash_)
+      + sizeof(DeviceInfo::_impl_.cached_version_hash_)
       - PROTOBUF_FIELD_OFFSET(DeviceInfo, _impl_.feature_level_)>(
           reinterpret_cast<char*>(&_impl_.feature_level_),
           reinterpret_cast<char*>(&other->_impl_.feature_level_));

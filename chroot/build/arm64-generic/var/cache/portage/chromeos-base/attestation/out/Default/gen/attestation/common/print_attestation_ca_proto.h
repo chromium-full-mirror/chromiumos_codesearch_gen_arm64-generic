@@ -33,8 +33,9 @@ BRILLO_EXPORT std::string GetProtoDebugString(NVRAMQuoteType value);
 std::string GetProtoDebugStringWithIndent(ResponseStatus value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(ResponseStatus value);
-std::string GetProtoDebugStringWithIndent(KeyProfile value, int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(KeyProfile value);
+std::string GetProtoDebugStringWithIndent(VerifiedAccessFlow value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(VerifiedAccessFlow value);
 std::string GetProtoDebugStringWithIndent(const Quote& value, int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const Quote& value);
 std::string GetProtoDebugStringWithIndent(const EncryptedData& value,

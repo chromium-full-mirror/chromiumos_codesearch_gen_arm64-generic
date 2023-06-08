@@ -296,6 +296,7 @@ class DeviceInfo final :
   enum : int {
     kFeatureLevelFieldNumber = 1,
     kScopeLevelFieldNumber = 2,
+    kCachedVersionHashFieldNumber = 3,
   };
   // .libsegmentation.DeviceInfo.FeatureLevel feature_level = 1;
   void clear_feature_level();
@@ -315,6 +316,15 @@ class DeviceInfo final :
   void _internal_set_scope_level(::libsegmentation::DeviceInfo_ScopeLevel value);
   public:
 
+  // uint32 cached_version_hash = 3;
+  void clear_cached_version_hash();
+  uint32_t cached_version_hash() const;
+  void set_cached_version_hash(uint32_t value);
+  private:
+  uint32_t _internal_cached_version_hash() const;
+  void _internal_set_cached_version_hash(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:libsegmentation.DeviceInfo)
  private:
   class _Internal;
@@ -325,6 +335,7 @@ class DeviceInfo final :
   struct Impl_ {
     int feature_level_;
     int scope_level_;
+    uint32_t cached_version_hash_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -379,6 +390,26 @@ inline void DeviceInfo::_internal_set_scope_level(::libsegmentation::DeviceInfo_
 inline void DeviceInfo::set_scope_level(::libsegmentation::DeviceInfo_ScopeLevel value) {
   _internal_set_scope_level(value);
   // @@protoc_insertion_point(field_set:libsegmentation.DeviceInfo.scope_level)
+}
+
+// uint32 cached_version_hash = 3;
+inline void DeviceInfo::clear_cached_version_hash() {
+  _impl_.cached_version_hash_ = 0u;
+}
+inline uint32_t DeviceInfo::_internal_cached_version_hash() const {
+  return _impl_.cached_version_hash_;
+}
+inline uint32_t DeviceInfo::cached_version_hash() const {
+  // @@protoc_insertion_point(field_get:libsegmentation.DeviceInfo.cached_version_hash)
+  return _internal_cached_version_hash();
+}
+inline void DeviceInfo::_internal_set_cached_version_hash(uint32_t value) {
+  
+  _impl_.cached_version_hash_ = value;
+}
+inline void DeviceInfo::set_cached_version_hash(uint32_t value) {
+  _internal_set_cached_version_hash(value);
+  // @@protoc_insertion_point(field_set:libsegmentation.DeviceInfo.cached_version_hash)
 }
 
 #ifdef __GNUC__

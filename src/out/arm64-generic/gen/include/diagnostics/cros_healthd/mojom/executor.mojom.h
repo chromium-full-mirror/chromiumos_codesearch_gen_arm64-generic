@@ -615,7 +615,7 @@ class Executor
 
   using ReadFilePartCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
   
-  virtual void ReadFilePart(Executor::File file_enum, uint64_t begin, uint64_t size, ReadFilePartCallback callback) = 0;
+  virtual void ReadFilePart(Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, ReadFilePartCallback callback) = 0;
 
 
   using GetFileInfoCallback = base::OnceCallback<void(FileInfoPtr)>;
@@ -887,7 +887,7 @@ class  ExecutorProxy
   
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) final;
   
-  void ReadFilePart(Executor::File file_enum, uint64_t begin, uint64_t size, ReadFilePartCallback callback) final;
+  void ReadFilePart(Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, ReadFilePartCallback callback) final;
   
   void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) final;
   

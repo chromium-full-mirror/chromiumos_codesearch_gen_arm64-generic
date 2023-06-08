@@ -10,6 +10,7 @@
 
 namespace segmentation {
   const char* protobuf_features = "";
+  const char* protobuf_devices = "";
 }
 
 #endif

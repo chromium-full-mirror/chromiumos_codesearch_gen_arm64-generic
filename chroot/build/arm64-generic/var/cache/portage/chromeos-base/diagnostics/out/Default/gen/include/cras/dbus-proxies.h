@@ -417,14 +417,18 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  // Returns the value of CrOSLateBootAudioTestFeatureFlag as seen by CRAS.
-  virtual bool GetAudioTestFeatureFlag(
+  // Returns the enabled status of the given feature as seen by CRAS.
+  // Test only.
+  virtual bool GetFeatureFlagForTest(
+      const std::string& in_feature,
       bool* out_enabled,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  // Returns the value of CrOSLateBootAudioTestFeatureFlag as seen by CRAS.
-  virtual void GetAudioTestFeatureFlagAsync(
+  // Returns the enabled status of the given feature as seen by CRAS.
+  // Test only.
+  virtual void GetFeatureFlagForTestAsync(
+      const std::string& in_feature,
       base::OnceCallback<void(bool /*enabled*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -1886,8 +1890,10 @@ class ControlProxy final : public ControlProxyInterface {
         std::move(error_callback));
   }
 
-  // Returns the value of CrOSLateBootAudioTestFeatureFlag as seen by CRAS.
-  bool GetAudioTestFeatureFlag(
+  // Returns the enabled status of the given feature as seen by CRAS.
+  // Test only.
+  bool GetFeatureFlagForTest(
+      const std::string& in_feature,
       bool* out_enabled,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -1895,14 +1901,17 @@ class ControlProxy final : public ControlProxyInterface {
         timeout_ms,
         dbus_object_proxy_,
         "org.chromium.cras.Control",
-        "GetAudioTestFeatureFlag",
-        error);
+        "GetFeatureFlagForTest",
+        error,
+        in_feature);
     return response && brillo::dbus_utils::ExtractMethodCallResults(
         response.get(), error, out_enabled);
   }
 
-  // Returns the value of CrOSLateBootAudioTestFeatureFlag as seen by CRAS.
-  void GetAudioTestFeatureFlagAsync(
+  // Returns the enabled status of the given feature as seen by CRAS.
+  // Test only.
+  void GetFeatureFlagForTestAsync(
+      const std::string& in_feature,
       base::OnceCallback<void(bool /*enabled*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -1910,9 +1919,10 @@ class ControlProxy final : public ControlProxyInterface {
         timeout_ms,
         dbus_object_proxy_,
         "org.chromium.cras.Control",
-        "GetAudioTestFeatureFlag",
+        "GetFeatureFlagForTest",
         std::move(success_callback),
-        std::move(error_callback));
+        std::move(error_callback),
+        in_feature);
   }
 
   bool GetDeprioritizeBtWbsMic(
