@@ -15,6 +15,7 @@
 #include <vector>
 
 #include <base/cancelable_callback.h>
+#include <base/containers/flat_set.h>
 #include <base/files/file_descriptor_watcher_posix.h>
 #include <base/files/file_path.h>
 #include <base/functional/callback.h>
@@ -53,13 +54,13 @@ class SHILL_EXPORT ProcessManager {
     std::string group;
     // Provides the child process with capabilities, which |user| might not have
     // on its own.
-    uint64_t capmask;
+    uint64_t capmask = 0;
     // Allows child process to inherit supplementary groups from uid, equivalent
     // to using '-G' on the minijail command line.
-    bool inherit_supplementary_groups;
-    // Indicates that non-standard file descriptors should be closed so they
-    // cannot be inherited by the child process.
-    bool close_nonstd_fds;
+    bool inherit_supplementary_groups = false;
+    // Set of non-standard file descriptors to be inherited by the child
+    // process.
+    base::flat_set<int> preserved_nonstd_fds;
     // If set, the soft limit of the maximum size of the process's virtual
     // memory (RLIMIT_AS) will be set to this value. See getrlimit(2).
     std::optional<rlim_t> rlimit_as_soft;

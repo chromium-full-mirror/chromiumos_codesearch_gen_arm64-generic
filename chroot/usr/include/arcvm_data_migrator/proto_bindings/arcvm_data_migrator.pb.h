@@ -53,9 +53,6 @@ extern GetAndroidDataInfoRequestDefaultTypeInternal _GetAndroidDataInfoRequest_d
 class GetAndroidDataInfoResponse;
 struct GetAndroidDataInfoResponseDefaultTypeInternal;
 extern GetAndroidDataInfoResponseDefaultTypeInternal _GetAndroidDataInfoResponse_default_instance_;
-class GetAndroidDataSizeRequest;
-struct GetAndroidDataSizeRequestDefaultTypeInternal;
-extern GetAndroidDataSizeRequestDefaultTypeInternal _GetAndroidDataSizeRequest_default_instance_;
 class HasDataToMigrateRequest;
 struct HasDataToMigrateRequestDefaultTypeInternal;
 extern HasDataToMigrateRequestDefaultTypeInternal _HasDataToMigrateRequest_default_instance_;
@@ -68,7 +65,6 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::arc::data_migrator::DataMigrationProgress* Arena::CreateMaybeMessage<::arc::data_migrator::DataMigrationProgress>(Arena*);
 template<> ::arc::data_migrator::GetAndroidDataInfoRequest* Arena::CreateMaybeMessage<::arc::data_migrator::GetAndroidDataInfoRequest>(Arena*);
 template<> ::arc::data_migrator::GetAndroidDataInfoResponse* Arena::CreateMaybeMessage<::arc::data_migrator::GetAndroidDataInfoResponse>(Arena*);
-template<> ::arc::data_migrator::GetAndroidDataSizeRequest* Arena::CreateMaybeMessage<::arc::data_migrator::GetAndroidDataSizeRequest>(Arena*);
 template<> ::arc::data_migrator::HasDataToMigrateRequest* Arena::CreateMaybeMessage<::arc::data_migrator::HasDataToMigrateRequest>(Arena*);
 template<> ::arc::data_migrator::StartMigrationRequest* Arena::CreateMaybeMessage<::arc::data_migrator::StartMigrationRequest>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -255,141 +251,6 @@ class HasDataToMigrateRequest final :
 };
 // -------------------------------------------------------------------
 
-class GetAndroidDataSizeRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:arc.data_migrator.GetAndroidDataSizeRequest) */ {
- public:
-  inline GetAndroidDataSizeRequest() : GetAndroidDataSizeRequest(nullptr) {}
-  ~GetAndroidDataSizeRequest() override;
-  explicit PROTOBUF_CONSTEXPR GetAndroidDataSizeRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  GetAndroidDataSizeRequest(const GetAndroidDataSizeRequest& from);
-  GetAndroidDataSizeRequest(GetAndroidDataSizeRequest&& from) noexcept
-    : GetAndroidDataSizeRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline GetAndroidDataSizeRequest& operator=(const GetAndroidDataSizeRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline GetAndroidDataSizeRequest& operator=(GetAndroidDataSizeRequest&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const GetAndroidDataSizeRequest& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const GetAndroidDataSizeRequest* internal_default_instance() {
-    return reinterpret_cast<const GetAndroidDataSizeRequest*>(
-               &_GetAndroidDataSizeRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(GetAndroidDataSizeRequest& a, GetAndroidDataSizeRequest& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(GetAndroidDataSizeRequest* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(GetAndroidDataSizeRequest* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  GetAndroidDataSizeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<GetAndroidDataSizeRequest>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const GetAndroidDataSizeRequest& from);
-  void MergeFrom(const GetAndroidDataSizeRequest& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(GetAndroidDataSizeRequest* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "arc.data_migrator.GetAndroidDataSizeRequest";
-  }
-  protected:
-  explicit GetAndroidDataSizeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kUsernameFieldNumber = 1,
-  };
-  // string username = 1;
-  void clear_username();
-  const std::string& username() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_username(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_username();
-  PROTOBUF_NODISCARD std::string* release_username();
-  void set_allocated_username(std::string* username);
-  private:
-  const std::string& _internal_username() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username(const std::string& value);
-  std::string* _internal_mutable_username();
-  public:
-
-  // @@protoc_insertion_point(class_scope:arc.data_migrator.GetAndroidDataSizeRequest)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_arcvm_5fdata_5fmigrator_2eproto;
-};
-// -------------------------------------------------------------------
-
 class GetAndroidDataInfoRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:arc.data_migrator.GetAndroidDataInfoRequest) */ {
  public:
@@ -429,7 +290,7 @@ class GetAndroidDataInfoRequest final :
                &_GetAndroidDataInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    1;
 
   friend void swap(GetAndroidDataInfoRequest& a, GetAndroidDataInfoRequest& b) {
     a.Swap(&b);
@@ -564,7 +425,7 @@ class GetAndroidDataInfoResponse final :
                &_GetAndroidDataInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   friend void swap(GetAndroidDataInfoResponse& a, GetAndroidDataInfoResponse& b) {
     a.Swap(&b);
@@ -705,7 +566,7 @@ class StartMigrationRequest final :
                &_StartMigrationRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(StartMigrationRequest& a, StartMigrationRequest& b) {
     a.Swap(&b);
@@ -851,7 +712,7 @@ class DataMigrationProgress final :
                &_DataMigrationProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(DataMigrationProgress& a, DataMigrationProgress& b) {
     a.Swap(&b);
@@ -1021,60 +882,6 @@ inline void HasDataToMigrateRequest::set_allocated_username(std::string* usernam
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:arc.data_migrator.HasDataToMigrateRequest.username)
-}
-
-// -------------------------------------------------------------------
-
-// GetAndroidDataSizeRequest
-
-// string username = 1;
-inline void GetAndroidDataSizeRequest::clear_username() {
-  _impl_.username_.ClearToEmpty();
-}
-inline const std::string& GetAndroidDataSizeRequest::username() const {
-  // @@protoc_insertion_point(field_get:arc.data_migrator.GetAndroidDataSizeRequest.username)
-  return _internal_username();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void GetAndroidDataSizeRequest::set_username(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:arc.data_migrator.GetAndroidDataSizeRequest.username)
-}
-inline std::string* GetAndroidDataSizeRequest::mutable_username() {
-  std::string* _s = _internal_mutable_username();
-  // @@protoc_insertion_point(field_mutable:arc.data_migrator.GetAndroidDataSizeRequest.username)
-  return _s;
-}
-inline const std::string& GetAndroidDataSizeRequest::_internal_username() const {
-  return _impl_.username_.Get();
-}
-inline void GetAndroidDataSizeRequest::_internal_set_username(const std::string& value) {
-  
-  _impl_.username_.Set(value, GetArenaForAllocation());
-}
-inline std::string* GetAndroidDataSizeRequest::_internal_mutable_username() {
-  
-  return _impl_.username_.Mutable(GetArenaForAllocation());
-}
-inline std::string* GetAndroidDataSizeRequest::release_username() {
-  // @@protoc_insertion_point(field_release:arc.data_migrator.GetAndroidDataSizeRequest.username)
-  return _impl_.username_.Release();
-}
-inline void GetAndroidDataSizeRequest::set_allocated_username(std::string* username) {
-  if (username != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.username_.SetAllocated(username, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.username_.IsDefault()) {
-    _impl_.username_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:arc.data_migrator.GetAndroidDataSizeRequest.username)
 }
 
 // -------------------------------------------------------------------
@@ -1316,8 +1123,6 @@ inline void DataMigrationProgress::set_total_bytes(uint64_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -83,14 +83,10 @@ MATCHER_P(MinijailOptionsMatchCapMask, capmask, "") {
   return arg.capmask == capmask;
 }
 
-MATCHER_P(MinijailOptionsMatchInheritSupplumentaryGroup,
+MATCHER_P(MinijailOptionsMatchInheritSupplementaryGroup,
           inherit_supplementary_groups,
           "") {
   return arg.inherit_supplementary_groups == inherit_supplementary_groups;
-}
-
-MATCHER_P(MinijailOptionsMatchCloseNonstdFDs, close_nonstd_fds, "") {
-  return arg.close_nonstd_fds == close_nonstd_fds;
 }
 
 }  // namespace shill
