@@ -252,8 +252,11 @@ PROTOBUF_CONSTEXPR KeyInfo::KeyInfo(
   , signing_scheme_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , device_trust_signals_json_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , dm_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , user_customer_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , obfuscated_gaia_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , profile_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , device_trust_signals_(nullptr)
-  , key_type_(0)
+  , flow_type_(0)
 {}
 struct KeyInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR KeyInfoDefaultTypeInternal()
@@ -321,13 +324,14 @@ bool CertificateProfile_IsValid(int value) {
     case 11:
     case 12:
     case 13:
+    case 14:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CertificateProfile_strings[14] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CertificateProfile_strings[15] = {};
 
 static const char CertificateProfile_names[] =
   "ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE"
@@ -336,6 +340,7 @@ static const char CertificateProfile_names[] =
   "CONTENT_PROTECTION_CERTIFICATE"
   "CONTENT_PROTECTION_CERTIFICATE_WITH_STABLE_ID"
   "DEVICE_SETUP_CERTIFICATE"
+  "DEVICE_TRUST_USER_CERTIFICATE"
   "ENTERPRISE_ENROLLMENT_CERTIFICATE"
   "ENTERPRISE_MACHINE_CERTIFICATE"
   "ENTERPRISE_USER_CERTIFICATE"
@@ -352,31 +357,33 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CertificateProfile_ent
   { {CertificateProfile_names + 88, 30}, 2 },
   { {CertificateProfile_names + 118, 45}, 3 },
   { {CertificateProfile_names + 163, 24}, 11 },
-  { {CertificateProfile_names + 187, 33}, 7 },
-  { {CertificateProfile_names + 220, 30}, 0 },
-  { {CertificateProfile_names + 250, 27}, 1 },
-  { {CertificateProfile_names + 277, 30}, 9 },
-  { {CertificateProfile_names + 307, 16}, 5 },
-  { {CertificateProfile_names + 323, 21}, 6 },
-  { {CertificateProfile_names + 344, 21}, 10 },
-  { {CertificateProfile_names + 365, 15}, 8 },
+  { {CertificateProfile_names + 187, 29}, 14 },
+  { {CertificateProfile_names + 216, 33}, 7 },
+  { {CertificateProfile_names + 249, 30}, 0 },
+  { {CertificateProfile_names + 279, 27}, 1 },
+  { {CertificateProfile_names + 306, 30}, 9 },
+  { {CertificateProfile_names + 336, 16}, 5 },
+  { {CertificateProfile_names + 352, 21}, 6 },
+  { {CertificateProfile_names + 373, 21}, 10 },
+  { {CertificateProfile_names + 394, 15}, 8 },
 };
 
 static const int CertificateProfile_entries_by_number[] = {
-  7, // 0 -> ENTERPRISE_MACHINE_CERTIFICATE
-  8, // 1 -> ENTERPRISE_USER_CERTIFICATE
+  8, // 0 -> ENTERPRISE_MACHINE_CERTIFICATE
+  9, // 1 -> ENTERPRISE_USER_CERTIFICATE
   3, // 2 -> CONTENT_PROTECTION_CERTIFICATE
   4, // 3 -> CONTENT_PROTECTION_CERTIFICATE_WITH_STABLE_ID
   2, // 4 -> CAST_CERTIFICATE
-  10, // 5 -> GFSC_CERTIFICATE
-  11, // 6 -> JETSTREAM_CERTIFICATE
-  6, // 7 -> ENTERPRISE_ENROLLMENT_CERTIFICATE
-  13, // 8 -> XTS_CERTIFICATE
-  9, // 9 -> ENTERPRISE_VTPM_EK_CERTIFICATE
-  12, // 10 -> SOFT_BIND_CERTIFICATE
+  11, // 5 -> GFSC_CERTIFICATE
+  12, // 6 -> JETSTREAM_CERTIFICATE
+  7, // 7 -> ENTERPRISE_ENROLLMENT_CERTIFICATE
+  14, // 8 -> XTS_CERTIFICATE
+  10, // 9 -> ENTERPRISE_VTPM_EK_CERTIFICATE
+  13, // 10 -> SOFT_BIND_CERTIFICATE
   5, // 11 -> DEVICE_SETUP_CERTIFICATE
   1, // 12 -> ARC_TPM_CERTIFYING_KEY_CERTIFICATE
   0, // 13 -> ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE
+  6, // 14 -> DEVICE_TRUST_USER_CERTIFICATE
 };
 
 const std::string& CertificateProfile_Name(
@@ -385,12 +392,12 @@ const std::string& CertificateProfile_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           CertificateProfile_entries,
           CertificateProfile_entries_by_number,
-          14, CertificateProfile_strings);
+          15, CertificateProfile_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       CertificateProfile_entries,
       CertificateProfile_entries_by_number,
-      14, value);
+      15, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      CertificateProfile_strings[idx].get();
 }
@@ -398,7 +405,7 @@ bool CertificateProfile_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CertificateProfile* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CertificateProfile_entries, 14, name, &int_value);
+      CertificateProfile_entries, 15, name, &int_value);
   if (success) {
     *value = static_cast<CertificateProfile>(int_value);
   }
@@ -581,58 +588,62 @@ bool ResponseStatus_Parse(
   }
   return success;
 }
-bool KeyProfile_IsValid(int value) {
+bool VerifiedAccessFlow_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> KeyProfile_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VerifiedAccessFlow_strings[4] = {};
 
-static const char KeyProfile_names[] =
+static const char VerifiedAccessFlow_names[] =
   "CBCM"
-  "EMK"
-  "EUK";
+  "DEVICE_TRUST_CONNECTOR"
+  "ENTERPRISE_MACHINE"
+  "ENTERPRISE_USER";
 
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry KeyProfile_entries[] = {
-  { {KeyProfile_names + 0, 4}, 2 },
-  { {KeyProfile_names + 4, 3}, 0 },
-  { {KeyProfile_names + 7, 3}, 1 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry VerifiedAccessFlow_entries[] = {
+  { {VerifiedAccessFlow_names + 0, 4}, 2 },
+  { {VerifiedAccessFlow_names + 4, 22}, 3 },
+  { {VerifiedAccessFlow_names + 26, 18}, 0 },
+  { {VerifiedAccessFlow_names + 44, 15}, 1 },
 };
 
-static const int KeyProfile_entries_by_number[] = {
-  1, // 0 -> EMK
-  2, // 1 -> EUK
+static const int VerifiedAccessFlow_entries_by_number[] = {
+  2, // 0 -> ENTERPRISE_MACHINE
+  3, // 1 -> ENTERPRISE_USER
   0, // 2 -> CBCM
+  1, // 3 -> DEVICE_TRUST_CONNECTOR
 };
 
-const std::string& KeyProfile_Name(
-    KeyProfile value) {
+const std::string& VerifiedAccessFlow_Name(
+    VerifiedAccessFlow value) {
   static const bool dummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          KeyProfile_entries,
-          KeyProfile_entries_by_number,
-          3, KeyProfile_strings);
+          VerifiedAccessFlow_entries,
+          VerifiedAccessFlow_entries_by_number,
+          4, VerifiedAccessFlow_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      KeyProfile_entries,
-      KeyProfile_entries_by_number,
-      3, value);
+      VerifiedAccessFlow_entries,
+      VerifiedAccessFlow_entries_by_number,
+      4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     KeyProfile_strings[idx].get();
+                     VerifiedAccessFlow_strings[idx].get();
 }
-bool KeyProfile_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, KeyProfile* value) {
+bool VerifiedAccessFlow_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VerifiedAccessFlow* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      KeyProfile_entries, 3, name, &int_value);
+      VerifiedAccessFlow_entries, 4, name, &int_value);
   if (success) {
-    *value = static_cast<KeyProfile>(int_value);
+    *value = static_cast<VerifiedAccessFlow>(int_value);
   }
   return success;
 }
@@ -5604,8 +5615,8 @@ std::string ChallengeResponse::GetTypeName() const {
 class KeyInfo::_Internal {
  public:
   using HasBits = decltype(std::declval<KeyInfo>()._has_bits_);
-  static void set_has_key_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
+  static void set_has_flow_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 8192u;
   }
   static void set_has_domain(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -5630,13 +5641,22 @@ class KeyInfo::_Internal {
   }
   static const ::attestation::DeviceTrustSignals& device_trust_signals(const KeyInfo* msg);
   static void set_has_device_trust_signals(HasBits* has_bits) {
-    (*has_bits)[0] |= 512u;
+    (*has_bits)[0] |= 4096u;
   }
   static void set_has_device_trust_signals_json(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
   }
   static void set_has_dm_token(HasBits* has_bits) {
     (*has_bits)[0] |= 256u;
+  }
+  static void set_has_user_customer_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
+  }
+  static void set_has_obfuscated_gaia_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1024u;
+  }
+  static void set_has_profile_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 2048u;
   }
 };
 
@@ -5726,12 +5746,36 @@ KeyInfo::KeyInfo(const KeyInfo& from)
     dm_token_.Set(from._internal_dm_token(), 
       GetArenaForAllocation());
   }
+  user_customer_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_customer_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_user_customer_id()) {
+    user_customer_id_.Set(from._internal_user_customer_id(), 
+      GetArenaForAllocation());
+  }
+  obfuscated_gaia_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    obfuscated_gaia_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_obfuscated_gaia_id()) {
+    obfuscated_gaia_id_.Set(from._internal_obfuscated_gaia_id(), 
+      GetArenaForAllocation());
+  }
+  profile_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    profile_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_profile_id()) {
+    profile_id_.Set(from._internal_profile_id(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_device_trust_signals()) {
     device_trust_signals_ = new ::attestation::DeviceTrustSignals(*from.device_trust_signals_);
   } else {
     device_trust_signals_ = nullptr;
   }
-  key_type_ = from.key_type_;
+  flow_type_ = from.flow_type_;
   // @@protoc_insertion_point(copy_constructor:attestation.KeyInfo)
 }
 
@@ -5772,10 +5816,22 @@ dm_token_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   dm_token_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+user_customer_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_customer_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+obfuscated_gaia_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  obfuscated_gaia_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+profile_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  profile_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_trust_signals_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&key_type_) -
-    reinterpret_cast<char*>(&device_trust_signals_)) + sizeof(key_type_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&flow_type_) -
+    reinterpret_cast<char*>(&device_trust_signals_)) + sizeof(flow_type_));
 }
 
 KeyInfo::~KeyInfo() {
@@ -5798,6 +5854,9 @@ inline void KeyInfo::SharedDtor() {
   signing_scheme_.Destroy();
   device_trust_signals_json_.Destroy();
   dm_token_.Destroy();
+  user_customer_id_.Destroy();
+  obfuscated_gaia_id_.Destroy();
+  profile_id_.Destroy();
   if (this != internal_default_instance()) delete device_trust_signals_;
 }
 
@@ -5838,16 +5897,25 @@ void KeyInfo::Clear() {
       device_trust_signals_json_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x00000300u) {
+  if (cached_has_bits & 0x00001f00u) {
     if (cached_has_bits & 0x00000100u) {
       dm_token_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000200u) {
+      user_customer_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000400u) {
+      obfuscated_gaia_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000800u) {
+      profile_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00001000u) {
       GOOGLE_DCHECK(device_trust_signals_ != nullptr);
       device_trust_signals_->Clear();
     }
   }
-  key_type_ = 0;
+  flow_type_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -5859,13 +5927,13 @@ const char* KeyInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .attestation.KeyProfile key_type = 1;
+      // optional .attestation.VerifiedAccessFlow flow_type = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::attestation::KeyProfile_IsValid(val))) {
-            _internal_set_key_type(static_cast<::attestation::KeyProfile>(val));
+          if (PROTOBUF_PREDICT_TRUE(::attestation::VerifiedAccessFlow_IsValid(val))) {
+            _internal_set_flow_type(static_cast<::attestation::VerifiedAccessFlow>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
@@ -5961,6 +6029,33 @@ const char* KeyInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
         } else
           goto handle_unusual;
         continue;
+      // optional string user_customer_id = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+          auto str = _internal_mutable_user_customer_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string obfuscated_gaia_id = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+          auto str = _internal_mutable_obfuscated_gaia_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string profile_id = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+          auto str = _internal_mutable_profile_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5992,11 +6087,11 @@ uint8_t* KeyInfo::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .attestation.KeyProfile key_type = 1;
-  if (cached_has_bits & 0x00000400u) {
+  // optional .attestation.VerifiedAccessFlow flow_type = 1;
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_key_type(), target);
+      1, this->_internal_flow_type(), target);
   }
 
   // optional string domain = 2;
@@ -6042,7 +6137,7 @@ uint8_t* KeyInfo::_InternalSerialize(
   }
 
   // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00001000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(9, _Internal::device_trust_signals(this),
         _Internal::device_trust_signals(this).GetCachedSize(), target, stream);
@@ -6058,6 +6153,24 @@ uint8_t* KeyInfo::_InternalSerialize(
   if (cached_has_bits & 0x00000100u) {
     target = stream->WriteStringMaybeAliased(
         11, this->_internal_dm_token(), target);
+  }
+
+  // optional string user_customer_id = 12;
+  if (cached_has_bits & 0x00000200u) {
+    target = stream->WriteStringMaybeAliased(
+        12, this->_internal_user_customer_id(), target);
+  }
+
+  // optional string obfuscated_gaia_id = 13;
+  if (cached_has_bits & 0x00000400u) {
+    target = stream->WriteStringMaybeAliased(
+        13, this->_internal_obfuscated_gaia_id(), target);
+  }
+
+  // optional string profile_id = 14;
+  if (cached_has_bits & 0x00000800u) {
+    target = stream->WriteStringMaybeAliased(
+        14, this->_internal_profile_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6135,7 +6248,7 @@ size_t KeyInfo::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00003f00u) {
     // optional string dm_token = 11;
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 +
@@ -6143,17 +6256,38 @@ size_t KeyInfo::ByteSizeLong() const {
           this->_internal_dm_token());
     }
 
-    // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
+    // optional string user_customer_id = 12;
     if (cached_has_bits & 0x00000200u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_user_customer_id());
+    }
+
+    // optional string obfuscated_gaia_id = 13;
+    if (cached_has_bits & 0x00000400u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_obfuscated_gaia_id());
+    }
+
+    // optional string profile_id = 14;
+    if (cached_has_bits & 0x00000800u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_profile_id());
+    }
+
+    // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
+    if (cached_has_bits & 0x00001000u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *device_trust_signals_);
     }
 
-    // optional .attestation.KeyProfile key_type = 1;
-    if (cached_has_bits & 0x00000400u) {
+    // optional .attestation.VerifiedAccessFlow flow_type = 1;
+    if (cached_has_bits & 0x00002000u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_key_type());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_flow_type());
     }
 
   }
@@ -6204,15 +6338,24 @@ void KeyInfo::MergeFrom(const KeyInfo& from) {
       _internal_set_device_trust_signals_json(from._internal_device_trust_signals_json());
     }
   }
-  if (cached_has_bits & 0x00000700u) {
+  if (cached_has_bits & 0x00003f00u) {
     if (cached_has_bits & 0x00000100u) {
       _internal_set_dm_token(from._internal_dm_token());
     }
     if (cached_has_bits & 0x00000200u) {
-      _internal_mutable_device_trust_signals()->::attestation::DeviceTrustSignals::MergeFrom(from._internal_device_trust_signals());
+      _internal_set_user_customer_id(from._internal_user_customer_id());
     }
     if (cached_has_bits & 0x00000400u) {
-      key_type_ = from.key_type_;
+      _internal_set_obfuscated_gaia_id(from._internal_obfuscated_gaia_id());
+    }
+    if (cached_has_bits & 0x00000800u) {
+      _internal_set_profile_id(from._internal_profile_id());
+    }
+    if (cached_has_bits & 0x00001000u) {
+      _internal_mutable_device_trust_signals()->::attestation::DeviceTrustSignals::MergeFrom(from._internal_device_trust_signals());
+    }
+    if (cached_has_bits & 0x00002000u) {
+      flow_type_ = from.flow_type_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -6272,9 +6415,21 @@ void KeyInfo::InternalSwap(KeyInfo* other) {
       &dm_token_, lhs_arena,
       &other->dm_token_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &user_customer_id_, lhs_arena,
+      &other->user_customer_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &obfuscated_gaia_id_, lhs_arena,
+      &other->obfuscated_gaia_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &profile_id_, lhs_arena,
+      &other->profile_id_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(KeyInfo, key_type_)
-      + sizeof(KeyInfo::key_type_)
+      PROTOBUF_FIELD_OFFSET(KeyInfo, flow_type_)
+      + sizeof(KeyInfo::flow_type_)
       - PROTOBUF_FIELD_OFFSET(KeyInfo, device_trust_signals_)>(
           reinterpret_cast<char*>(&device_trust_signals_),
           reinterpret_cast<char*>(&other->device_trust_signals_));

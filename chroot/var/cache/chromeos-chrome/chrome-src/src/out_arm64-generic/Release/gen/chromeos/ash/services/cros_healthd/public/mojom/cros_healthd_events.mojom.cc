@@ -902,6 +902,122 @@ bool StylusConnectedEvent::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+CrashUploadInfo::CrashUploadInfo()
+    : crash_report_id(),
+      creation_time(),
+      offset() {}
+
+CrashUploadInfo::CrashUploadInfo(
+    const std::string& crash_report_id_in,
+    ::base::Time creation_time_in,
+    uint64_t offset_in)
+    : crash_report_id(std::move(crash_report_id_in)),
+      creation_time(std::move(creation_time_in)),
+      offset(std::move(offset_in)) {}
+
+CrashUploadInfo::~CrashUploadInfo() = default;
+
+void CrashUploadInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "crash_report_id"), this->crash_report_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "creation_time"), this->creation_time,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::Time>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "offset"), this->offset,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CrashUploadInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CrashEventInfo::CrashEventInfo()
+    : crash_type(),
+      local_id(),
+      capture_time(),
+      upload_info() {}
+
+CrashEventInfo::CrashEventInfo(
+    CrashEventInfo::CrashType crash_type_in,
+    const std::string& local_id_in,
+    ::base::Time capture_time_in,
+    CrashUploadInfoPtr upload_info_in)
+    : crash_type(std::move(crash_type_in)),
+      local_id(std::move(local_id_in)),
+      capture_time(std::move(capture_time_in)),
+      upload_info(std::move(upload_info_in)) {}
+
+CrashEventInfo::~CrashEventInfo() = default;
+
+void CrashEventInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "crash_type"), this->crash_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CrashEventInfo::CrashType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "local_id"), this->local_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "capture_time"), this->capture_time,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::Time>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "upload_info"), this->upload_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CrashUploadInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CrashEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 TouchpadEventInfo::TouchpadEventInfo() : tag_(Tag::kDefaultType) {
   data_.default_type = uint8_t();
 }
@@ -1274,6 +1390,17 @@ void EventInfo::set_stylus_event_info(
         std::move(stylus_event_info));
   }
 }
+void EventInfo::set_crash_event_info(
+    CrashEventInfoPtr crash_event_info) {
+  if (tag_ == Tag::kCrashEventInfo) {
+    *(data_.crash_event_info) = std::move(crash_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCrashEventInfo;
+    data_.crash_event_info = new CrashEventInfoPtr(
+        std::move(crash_event_info));
+  }
+}
 
 void EventInfo::DestroyActive() {
   switch (tag_) {
@@ -1336,6 +1463,10 @@ void EventInfo::DestroyActive() {
     case Tag::kStylusEventInfo:
 
       delete data_.stylus_event_info;
+      break;
+    case Tag::kCrashEventInfo:
+
+      delete data_.crash_event_info;
       break;
   }
 }
@@ -4057,6 +4188,44 @@ bool StructTraits<::ash::cros_healthd::mojom::StylusConnectedEvent::DataView, ::
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CrashUploadInfo::DataView, ::ash::cros_healthd::mojom::CrashUploadInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::CrashUploadInfo::DataView input,
+    ::ash::cros_healthd::mojom::CrashUploadInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CrashUploadInfoPtr result(::ash::cros_healthd::mojom::CrashUploadInfo::New());
+  
+      if (success && !input.ReadCrashReportId(&result->crash_report_id))
+        success = false;
+      if (success && !input.ReadCreationTime(&result->creation_time))
+        success = false;
+      if (success)
+        result->offset = input.offset();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CrashEventInfo::DataView, ::ash::cros_healthd::mojom::CrashEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::CrashEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::CrashEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CrashEventInfoPtr result(::ash::cros_healthd::mojom::CrashEventInfo::New());
+  
+      if (success && !input.ReadCrashType(&result->crash_type))
+        success = false;
+      if (success && !input.ReadLocalId(&result->local_id))
+        success = false;
+      if (success && !input.ReadCaptureTime(&result->capture_time))
+        success = false;
+      if (success && !input.ReadUploadInfo(&result->upload_info))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView, ::ash::cros_healthd::mojom::TouchpadEventInfoPtr>::Read(
     ::ash::cros_healthd::mojom::TouchpadEventInfo::DataView input,
@@ -4316,6 +4485,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
 
       *output = UnionType::NewStylusEventInfo(
           std::move(result_stylus_event_info));
+      break;
+    }
+    case Tag::kCrashEventInfo: {
+      ::ash::cros_healthd::mojom::CrashEventInfoPtr result_crash_event_info;
+      if (!input.ReadCrashEventInfo(&result_crash_event_info))
+        return false;
+
+      *output = UnionType::NewCrashEventInfo(
+          std::move(result_crash_event_info));
       break;
     }
     default:

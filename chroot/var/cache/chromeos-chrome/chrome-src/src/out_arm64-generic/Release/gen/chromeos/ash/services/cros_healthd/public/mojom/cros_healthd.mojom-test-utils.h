@@ -58,7 +58,7 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunPrimeSearchRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunPrimeSearchRoutineCallback callback) override;
   void RunBatteryDischargeRoutine(uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, RunBatteryDischargeRoutineCallback callback) override;
   void RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required, RunBatteryChargeRoutineCallback callback) override;
-  void RunMemoryRoutine(RunMemoryRoutineCallback callback) override;
+  void RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) override;
   void RunLanConnectivityRoutine(RunLanConnectivityRoutineCallback callback) override;
   void RunSignalStrengthRoutine(RunSignalStrengthRoutineCallback callback) override;
   void RunGatewayCanBePingedRoutine(RunGatewayCanBePingedRoutineCallback callback) override;
@@ -86,6 +86,8 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunBluetoothDiscoveryRoutine(RunBluetoothDiscoveryRoutineCallback callback) override;
   void RunBluetoothScanningRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunBluetoothScanningRoutineCallback callback) override;
   void RunBluetoothPairingRoutine(const std::string& peripheral_id, RunBluetoothPairingRoutineCallback callback) override;
+  void RunPowerButtonRoutine(uint32_t timeout_seconds, RunPowerButtonRoutineCallback callback) override;
+  void RunAudioDriverRoutine(RunAudioDriverRoutineCallback callback) override;
 };
 class  CrosHealthdDiagnosticsServiceAsyncWaiter {
  public:
@@ -147,8 +149,8 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
       uint32_t length_seconds, uint32_t minimum_charge_percent_required, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required);
   void RunMemoryRoutine(
-      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunMemoryRoutine();
+      absl::optional<uint32_t> max_testing_mem_kib, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunMemoryRoutine(absl::optional<uint32_t> max_testing_mem_kib);
   void RunLanConnectivityRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunLanConnectivityRoutine();
@@ -230,6 +232,12 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
   void RunBluetoothPairingRoutine(
       const std::string& peripheral_id, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBluetoothPairingRoutine(const std::string& peripheral_id);
+  void RunPowerButtonRoutine(
+      uint32_t timeout_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunPowerButtonRoutine(uint32_t timeout_seconds);
+  void RunAudioDriverRoutine(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAudioDriverRoutine();
 
  private:
   CrosHealthdDiagnosticsService* const proxy_;

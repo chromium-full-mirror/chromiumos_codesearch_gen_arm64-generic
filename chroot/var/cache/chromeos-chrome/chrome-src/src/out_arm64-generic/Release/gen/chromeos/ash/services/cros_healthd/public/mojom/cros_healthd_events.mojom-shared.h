@@ -26,6 +26,7 @@
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_events.mojom-shared-internal.h"
 #include "ash/system/diagnostics/mojom/input.mojom-shared.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-shared.h"
+#include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -74,6 +75,10 @@ class StylusTouchPointInfoDataView;
 class StylusTouchEventDataView;
 
 class StylusConnectedEventDataView;
+
+class CrashUploadInfoDataView;
+
+class CrashEventInfoDataView;
 
 class TouchpadEventInfoDataView;
 class TouchscreenEventInfoDataView;
@@ -222,6 +227,20 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::StylusConnectedEventDataView>
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CrashUploadInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CrashUploadInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CrashEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CrashEventInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::TouchpadEventInfo_Data;
   using DataAsArrayElement = Data;
@@ -318,8 +337,10 @@ enum class EventCategoryEnum : int32_t {
   kStylusGarage = 14,
   
   kStylus = 15,
+  
+  kCrash = 16,
   kMinValue = 0,
-  kMaxValue = 15,
+  kMaxValue = 16,
   kDefaultValue = 0
 };
 
@@ -606,9 +627,9 @@ enum class StylusGarageEventInfo_State : int32_t {
   
   kUnmappedEnumField = 0,
   
-  kInsert = 1,
+  kInserted = 1,
   
-  kRemove = 2,
+  kRemoved = 2,
   kMinValue = 0,
   kMaxValue = 2,
   kDefaultValue = 0
@@ -624,6 +645,31 @@ inline StylusGarageEventInfo_State ToKnownEnumValue(StylusGarageEventInfo_State 
     return value;
   }
   return StylusGarageEventInfo_State::kDefaultValue;
+}
+
+
+enum class CrashEventInfo_CrashType : int32_t {
+  
+  kUnknown = 0,
+  
+  kKernel = 1,
+  
+  kEmbeddedController = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, CrashEventInfo_CrashType value);
+inline bool IsKnownEnumValue(CrashEventInfo_CrashType value) {
+  return internal::CrashEventInfo_CrashType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline CrashEventInfo_CrashType ToKnownEnumValue(CrashEventInfo_CrashType value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return CrashEventInfo_CrashType::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class CrosHealthdBluetoothObserverInterfaceBase {};
@@ -1337,6 +1383,111 @@ class StylusConnectedEventDataView {
 };
 
 
+class CrashUploadInfoDataView {
+ public:
+  CrashUploadInfoDataView() = default;
+
+  CrashUploadInfoDataView(
+      internal::CrashUploadInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetCrashReportIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCrashReportId(UserType* output) {
+    
+    auto* pointer = data_->crash_report_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetCreationTimeDataView(
+      ::mojo_base::mojom::TimeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCreationTime(UserType* output) {
+    
+    auto* pointer = data_->creation_time.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
+        pointer, output, message_);
+  }
+  uint64_t offset() const {
+    return data_->offset;
+  }
+ private:
+  internal::CrashUploadInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CrashEventInfoDataView {
+ public:
+  CrashEventInfoDataView() = default;
+
+  CrashEventInfoDataView(
+      internal::CrashEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadCrashType(UserType* output) const {
+    auto data_value = data_->crash_type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CrashEventInfo_CrashType>(
+        data_value, output);
+  }
+  CrashEventInfo_CrashType crash_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::CrashEventInfo_CrashType>(data_->crash_type));
+  }
+  inline void GetLocalIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocalId(UserType* output) {
+    
+    auto* pointer = data_->local_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetCaptureTimeDataView(
+      ::mojo_base::mojom::TimeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCaptureTime(UserType* output) {
+    
+    auto* pointer = data_->capture_time.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
+        pointer, output, message_);
+  }
+  inline void GetUploadInfoDataView(
+      CrashUploadInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUploadInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::CrashUploadInfoDataView, UserType>(),
+    "Attempting to read the optional `upload_info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadUploadInfo` instead "
+    "of `ReadUploadInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->upload_info.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CrashUploadInfoDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrashEventInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class TouchpadEventInfoDataView {
  public:
   using Tag = internal::TouchpadEventInfo_Data::TouchpadEventInfo_Tag;
@@ -1684,6 +1835,17 @@ class EventInfoDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusEventInfoDataView>(
         data_->data.f_stylus_event_info.Get(), output, message_);
   }
+  bool is_crash_event_info() const { return data_->tag == Tag::kCrashEventInfo; }
+  inline void GetCrashEventInfoDataView(
+      CrashEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCrashEventInfo(UserType* output) const {
+    
+    CHECK(is_crash_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CrashEventInfoDataView>(
+        data_->data.f_crash_event_info.Get(), output, message_);
+  }
 
  private:
   internal::EventInfo_Data* data_ = nullptr;
@@ -1749,6 +1911,10 @@ struct hash<::ash::cros_healthd::mojom::HdmiEventInfo_State>
 template <>
 struct hash<::ash::cros_healthd::mojom::StylusGarageEventInfo_State>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::StylusGarageEventInfo_State> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::CrashEventInfo_CrashType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::CrashEventInfo_CrashType> {};
 
 }  // namespace std
 
@@ -2009,6 +2175,26 @@ struct Serializer<::ash::cros_healthd::mojom::StylusGarageEventInfo_State, Maybe
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::StylusGarageEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CrashEventInfo_CrashType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::CrashEventInfo_CrashType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::CrashEventInfo_CrashType>(input)), output);
   }
 };
 
@@ -2730,6 +2916,123 @@ struct Serializer<::ash::cros_healthd::mojom::StylusConnectedEventDataView, Mayb
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CrashUploadInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CrashUploadInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CrashUploadInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::crash_report_id(input)) in_crash_report_id = Traits::crash_report_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->crash_report_id)::BaseType> crash_report_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_crash_report_id, crash_report_id_fragment);
+    fragment->crash_report_id.Set(
+        crash_report_id_fragment.is_null() ? nullptr : crash_report_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->crash_report_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null crash_report_id in CrashUploadInfo struct");
+    decltype(Traits::creation_time(input)) in_creation_time = Traits::creation_time(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->creation_time)::BaseType> creation_time_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDataView>(
+        in_creation_time, creation_time_fragment);
+    fragment->creation_time.Set(
+        creation_time_fragment.is_null() ? nullptr : creation_time_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->creation_time.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null creation_time in CrashUploadInfo struct");
+    fragment->offset = Traits::offset(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CrashUploadInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CrashUploadInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CrashEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CrashEventInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CrashEventInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CrashEventInfo_CrashType>(
+        Traits::crash_type(input), &fragment->crash_type);
+    decltype(Traits::local_id(input)) in_local_id = Traits::local_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->local_id)::BaseType> local_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_local_id, local_id_fragment);
+    fragment->local_id.Set(
+        local_id_fragment.is_null() ? nullptr : local_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->local_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null local_id in CrashEventInfo struct");
+    decltype(Traits::capture_time(input)) in_capture_time = Traits::capture_time(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->capture_time)::BaseType> capture_time_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDataView>(
+        in_capture_time, capture_time_fragment);
+    fragment->capture_time.Set(
+        capture_time_fragment.is_null() ? nullptr : capture_time_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->capture_time.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null capture_time in CrashEventInfo struct");
+    decltype(Traits::upload_info(input)) in_upload_info = Traits::upload_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->upload_info)::BaseType> upload_info_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CrashUploadInfoDataView>(
+        in_upload_info, upload_info_fragment);
+    fragment->upload_info.Set(
+        upload_info_fragment.is_null() ? nullptr : upload_info_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CrashEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CrashEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, UserType>;
@@ -3234,6 +3537,22 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kCrashEventInfo: {
+        decltype(Traits::crash_event_info(input))
+            in_crash_event_info = Traits::crash_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_crash_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CrashEventInfoDataView>(
+            in_crash_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null crash_event_info in EventInfo union");
+        fragment->data.f_crash_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -3350,6 +3669,35 @@ inline void StylusTouchEventDataView::GetTouchPointDataView(
 
 
 
+inline void CrashUploadInfoDataView::GetCrashReportIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->crash_report_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void CrashUploadInfoDataView::GetCreationTimeDataView(
+    ::mojo_base::mojom::TimeDataView* output) {
+  auto pointer = data_->creation_time.Get();
+  *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
+}
+
+
+inline void CrashEventInfoDataView::GetLocalIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->local_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void CrashEventInfoDataView::GetCaptureTimeDataView(
+    ::mojo_base::mojom::TimeDataView* output) {
+  auto pointer = data_->capture_time.Get();
+  *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
+}
+inline void CrashEventInfoDataView::GetUploadInfoDataView(
+    CrashUploadInfoDataView* output) {
+  auto pointer = data_->upload_info.Get();
+  *output = CrashUploadInfoDataView(pointer, message_);
+}
+
+
 inline void TouchpadEventInfoDataView::GetButtonEventDataView(
     TouchpadButtonEventDataView* output) const {
   CHECK(is_button_event());
@@ -3457,6 +3805,11 @@ inline void EventInfoDataView::GetStylusEventInfoDataView(
     StylusEventInfoDataView* output) const {
   CHECK(is_stylus_event_info());
   *output = StylusEventInfoDataView(data_->data.f_stylus_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetCrashEventInfoDataView(
+    CrashEventInfoDataView* output) const {
+  CHECK(is_crash_event_info());
+  *output = CrashEventInfoDataView(data_->data.f_crash_event_info.Get(), message_);
 }
 
 
@@ -3580,6 +3933,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::StylusGarageEventInfo_State> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::StylusGarageEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::CrashEventInfo_CrashType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::CrashEventInfo_CrashType value);
 };
 
 } // namespace perfetto

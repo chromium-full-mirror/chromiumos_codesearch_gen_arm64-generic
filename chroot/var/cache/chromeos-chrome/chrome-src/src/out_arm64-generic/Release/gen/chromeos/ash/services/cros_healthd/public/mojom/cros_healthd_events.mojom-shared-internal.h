@@ -12,6 +12,7 @@
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "ash/system/diagnostics/mojom/input.mojom-shared-internal.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-shared-internal.h"
+#include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -45,6 +46,8 @@ class StylusGarageEventInfo_Data;
 class StylusTouchPointInfo_Data;
 class StylusTouchEvent_Data;
 class StylusConnectedEvent_Data;
+class CrashUploadInfo_Data;
+class CrashEventInfo_Data;
 class TouchpadEventInfo_Data;
 class TouchscreenEventInfo_Data;
 class StylusEventInfo_Data;
@@ -98,6 +101,7 @@ struct EventCategoryEnum_Data {
       case 13:
       case 14:
       case 15:
+      case 16:
         return true;
     }
     return false;
@@ -397,6 +401,31 @@ struct StylusGarageEventInfo_State_Data {
   }
 };
 
+struct CrashEventInfo_CrashType_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 
 
@@ -626,6 +655,8 @@ class  EventInfo_Data {
     kStylusGarageEventInfo,
     
     kStylusEventInfo,
+    
+    kCrashEventInfo,
   };
 
   // A note on layout:
@@ -648,6 +679,7 @@ class  EventInfo_Data {
     mojo::internal::Pointer<internal::TouchscreenEventInfo_Data> f_touchscreen_event_info;
     mojo::internal::Pointer<internal::StylusGarageEventInfo_Data> f_stylus_garage_event_info;
     mojo::internal::Pointer<internal::StylusEventInfo_Data> f_stylus_event_info;
+    mojo::internal::Pointer<internal::CrashEventInfo_Data> f_crash_event_info;
     uint64_t unknown;
   };
 
@@ -1603,6 +1635,108 @@ struct StylusConnectedEvent_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     StylusConnectedEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CrashUploadInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> crash_report_id;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> creation_time;
+  uint64_t offset;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrashUploadInfo_Data>;
+
+  CrashUploadInfo_Data();
+  ~CrashUploadInfo_Data() = delete;
+};
+static_assert(sizeof(CrashUploadInfo_Data) == 32,
+              "Bad sizeof(CrashUploadInfo_Data)");
+// Used by CrashUploadInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CrashUploadInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CrashUploadInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CrashUploadInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CrashUploadInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CrashUploadInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CrashEventInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t crash_type;
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<mojo::internal::String_Data> local_id;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> capture_time;
+  mojo::internal::Pointer<internal::CrashUploadInfo_Data> upload_info;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrashEventInfo_Data>;
+
+  CrashEventInfo_Data();
+  ~CrashEventInfo_Data() = delete;
+};
+static_assert(sizeof(CrashEventInfo_Data) == 40,
+              "Bad sizeof(CrashEventInfo_Data)");
+// Used by CrashEventInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CrashEventInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CrashEventInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CrashEventInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CrashEventInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CrashEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

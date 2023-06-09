@@ -697,6 +697,9 @@ class  CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t max_testing_mem_kib_$flag : 1;
+  uint8_t pad0_[3];
+  uint32_t max_testing_mem_kib_$value;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data>;
@@ -704,7 +707,7 @@ class  CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data {
   CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data();
   ~CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data) == 8,
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data)");
 class  CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParams_Data {
  public:
@@ -1575,6 +1578,70 @@ class  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_D
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t timeout_seconds;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data) == 8,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data)");
 class  CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -3068,6 +3135,15 @@ class CrosHealthdDiagnosticsService_RunMemoryRoutine_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  absl::optional<uint32_t> max_testing_mem_kib() const {
+    if (data_->header_.version < 10) {
+      return absl::nullopt;
+    }
+
+    return data_->max_testing_mem_kib_$flag
+        ? absl::make_optional(data_->max_testing_mem_kib_$value)
+        : absl::nullopt;
+  }
  private:
   internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data* data_ = nullptr;
 };
@@ -4310,6 +4386,91 @@ class CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDat
 };
 
 
+class CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t timeout_seconds() const {
+    return data_->timeout_seconds;
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_Params_Data* data_ = nullptr;
+};
+
+
+class CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_Params_Data* data_ = nullptr;
+};
+
+
+class CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_ParamsDataView {
  public:
   CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_ParamsDataView() = default;
@@ -5348,6 +5509,24 @@ inline void CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ParamsDataV
 
 
 inline void CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParamsDataView::GetResponseDataView(
     ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
   *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);

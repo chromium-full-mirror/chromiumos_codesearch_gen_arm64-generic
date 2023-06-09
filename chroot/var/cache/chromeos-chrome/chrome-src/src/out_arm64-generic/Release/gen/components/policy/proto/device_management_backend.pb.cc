@@ -2370,7 +2370,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR ESimProfileInfo::ESimProfileInfo(
     ::_pbi::ConstantInitialized)
   : iccid_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , smdp_address_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , smdp_address_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , smds_address_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct ESimProfileInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ESimProfileInfoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -57428,6 +57430,12 @@ class ESimProfileInfo::_Internal {
   static void set_has_smdp_address(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_smds_address(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
 };
 
 ESimProfileInfo::ESimProfileInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -57456,6 +57464,22 @@ ESimProfileInfo::ESimProfileInfo(const ESimProfileInfo& from)
     smdp_address_.Set(from._internal_smdp_address(), 
       GetArenaForAllocation());
   }
+  smds_address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    smds_address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_smds_address()) {
+    smds_address_.Set(from._internal_smds_address(), 
+      GetArenaForAllocation());
+  }
+  name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_name()) {
+    name_.Set(from._internal_name(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ESimProfileInfo)
 }
 
@@ -57467,6 +57491,14 @@ iccid_.InitDefault();
 smdp_address_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   smdp_address_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+smds_address_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  smds_address_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -57483,6 +57515,8 @@ inline void ESimProfileInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   iccid_.Destroy();
   smdp_address_.Destroy();
+  smds_address_.Destroy();
+  name_.Destroy();
 }
 
 void ESimProfileInfo::SetCachedSize(int size) const {
@@ -57496,12 +57530,18 @@ void ESimProfileInfo::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       iccid_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
       smdp_address_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      smds_address_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      name_.ClearNonDefaultToEmpty();
     }
   }
   _has_bits_.Clear();
@@ -57528,6 +57568,24 @@ const char* ESimProfileInfo::_InternalParse(const char* ptr, ::_pbi::ParseContex
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_smdp_address();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string smds_address = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_smds_address();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string name = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
@@ -57576,6 +57634,18 @@ uint8_t* ESimProfileInfo::_InternalSerialize(
         2, this->_internal_smdp_address(), target);
   }
 
+  // optional string smds_address = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_smds_address(), target);
+  }
+
+  // optional string name = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_name(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -57593,7 +57663,7 @@ size_t ESimProfileInfo::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional string iccid = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -57606,6 +57676,20 @@ size_t ESimProfileInfo::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_smdp_address());
+    }
+
+    // optional string smds_address = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_smds_address());
+    }
+
+    // optional string name = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_name());
     }
 
   }
@@ -57630,12 +57714,18 @@ void ESimProfileInfo::MergeFrom(const ESimProfileInfo& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_iccid(from._internal_iccid());
     }
     if (cached_has_bits & 0x00000002u) {
       _internal_set_smdp_address(from._internal_smdp_address());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _internal_set_smds_address(from._internal_smds_address());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _internal_set_name(from._internal_name());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -57665,6 +57755,14 @@ void ESimProfileInfo::InternalSwap(ESimProfileInfo* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &smdp_address_, lhs_arena,
       &other->smdp_address_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &smds_address_, lhs_arena,
+      &other->smds_address_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
   );
 }
 

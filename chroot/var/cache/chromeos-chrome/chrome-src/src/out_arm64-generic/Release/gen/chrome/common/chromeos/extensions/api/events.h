@@ -37,7 +37,8 @@ enum class EventCategory {
   kSdCard,
   kPower,
   kKeyboardDiagnostic,
-  kMaxValue = kKeyboardDiagnostic,
+  kStylusGarage,
+  kMaxValue = kStylusGarage,
 };
 
 
@@ -372,6 +373,17 @@ enum class PowerEvent {
 const char* ToString(PowerEvent as_enum);
 PowerEvent ParsePowerEvent(base::StringPiece as_string);
 
+enum class StylusGarageEvent {
+  kNone = 0,
+  kInserted,
+  kRemoved,
+  kMaxValue = kRemoved,
+};
+
+
+const char* ToString(StylusGarageEvent as_enum);
+StylusGarageEvent ParseStylusGarageEvent(base::StringPiece as_string);
+
 struct AudioJackEventInfo {
   AudioJackEventInfo();
   ~AudioJackEventInfo();
@@ -575,6 +587,45 @@ struct PowerEventInfo {
 
 };
 
+struct StylusGarageEventInfo {
+  StylusGarageEventInfo();
+  ~StylusGarageEventInfo();
+  StylusGarageEventInfo(const StylusGarageEventInfo&) = delete;
+  StylusGarageEventInfo& operator=(const StylusGarageEventInfo&) = delete;
+  StylusGarageEventInfo(StylusGarageEventInfo&& rhs);
+  StylusGarageEventInfo& operator=(StylusGarageEventInfo&& rhs);
+
+  // Populates a StylusGarageEventInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, StylusGarageEventInfo& out);
+
+  // Populates a StylusGarageEventInfo object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, StylusGarageEventInfo& out);
+
+  // Creates a deep copy of StylusGarageEventInfo.
+  StylusGarageEventInfo Clone() const;
+
+  // Creates a StylusGarageEventInfo object from a base::Value, or NULL on
+  // failure.
+  static std::unique_ptr<StylusGarageEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a StylusGarageEventInfo object from a base::Value::Dict, or nullopt
+  // on failure.
+  static absl::optional<StylusGarageEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a StylusGarageEventInfo object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<StylusGarageEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisStylusGarageEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  StylusGarageEvent event;
+
+};
+
 
 //
 // Functions
@@ -697,6 +748,13 @@ extern const char kEventName[];  // "os.events.onPowerEvent"
 
 base::Value::List Create(const PowerEventInfo& event_info);
 }  // namespace OnPowerEvent
+
+namespace OnStylusGarageEvent {
+
+extern const char kEventName[];  // "os.events.onStylusGarageEvent"
+
+base::Value::List Create(const StylusGarageEventInfo& event_info);
+}  // namespace OnStylusGarageEvent
 
 }  // namespace os_events
 }  // namespace api

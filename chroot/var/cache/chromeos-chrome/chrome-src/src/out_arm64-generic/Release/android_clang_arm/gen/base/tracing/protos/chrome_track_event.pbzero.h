@@ -1230,13 +1230,14 @@ enum EventType : int32_t {
   GESTURE_PINCH_END = 24,
   GESTURE_PINCH_UPDATE = 25,
   INERTIAL_GESTURE_SCROLL_UPDATE = 26,
+  MOUSE_MOVED_EVENT = 27,
 };
 } // namespace perfetto_pbzero_enum_EventLatency
 using EventLatency_EventType = perfetto_pbzero_enum_EventLatency::EventType;
 
 
 constexpr EventLatency_EventType EventLatency_EventType_MIN = EventLatency_EventType::EVENT_TYPE_UNSPECIFIED;
-constexpr EventLatency_EventType EventLatency_EventType_MAX = EventLatency_EventType::INERTIAL_GESTURE_SCROLL_UPDATE;
+constexpr EventLatency_EventType EventLatency_EventType_MAX = EventLatency_EventType::MOUSE_MOVED_EVENT;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -1322,6 +1323,9 @@ const char* EventLatency_EventType_Name(::perfetto::protos::pbzero::EventLatency
 
   case ::perfetto::protos::pbzero::EventLatency_EventType::INERTIAL_GESTURE_SCROLL_UPDATE:
     return "INERTIAL_GESTURE_SCROLL_UPDATE";
+
+  case ::perfetto::protos::pbzero::EventLatency_EventType::MOUSE_MOVED_EVENT:
+    return "MOUSE_MOVED_EVENT";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -4198,6 +4202,7 @@ class EventLatency : public ::protozero::Message {
   static inline const EventType GESTURE_PINCH_END = EventType::GESTURE_PINCH_END;
   static inline const EventType GESTURE_PINCH_UPDATE = EventType::GESTURE_PINCH_UPDATE;
   static inline const EventType INERTIAL_GESTURE_SCROLL_UPDATE = EventType::INERTIAL_GESTURE_SCROLL_UPDATE;
+  static inline const EventType MOUSE_MOVED_EVENT = EventType::MOUSE_MOVED_EVENT;
 
   using FieldMetadata_EventType =
     ::protozero::proto_utils::FieldMetadata<

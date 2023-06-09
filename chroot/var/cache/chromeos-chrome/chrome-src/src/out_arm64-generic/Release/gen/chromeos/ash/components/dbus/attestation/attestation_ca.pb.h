@@ -129,11 +129,12 @@ enum CertificateProfile : int {
   SOFT_BIND_CERTIFICATE = 10,
   DEVICE_SETUP_CERTIFICATE = 11,
   ARC_TPM_CERTIFYING_KEY_CERTIFICATE = 12,
-  ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE = 13
+  ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE = 13,
+  DEVICE_TRUST_USER_CERTIFICATE = 14
 };
 bool CertificateProfile_IsValid(int value);
 constexpr CertificateProfile CertificateProfile_MIN = ENTERPRISE_MACHINE_CERTIFICATE;
-constexpr CertificateProfile CertificateProfile_MAX = ARC_ATTESTATION_DEVICE_KEY_CERTIFICATE;
+constexpr CertificateProfile CertificateProfile_MAX = DEVICE_TRUST_USER_CERTIFICATE;
 constexpr int CertificateProfile_ARRAYSIZE = CertificateProfile_MAX + 1;
 
 const std::string& CertificateProfile_Name(CertificateProfile value);
@@ -209,26 +210,27 @@ inline const std::string& ResponseStatus_Name(T enum_t_value) {
 }
 bool ResponseStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ResponseStatus* value);
-enum KeyProfile : int {
-  EMK = 0,
-  EUK = 1,
-  CBCM = 2
+enum VerifiedAccessFlow : int {
+  ENTERPRISE_MACHINE = 0,
+  ENTERPRISE_USER = 1,
+  CBCM = 2,
+  DEVICE_TRUST_CONNECTOR = 3
 };
-bool KeyProfile_IsValid(int value);
-constexpr KeyProfile KeyProfile_MIN = EMK;
-constexpr KeyProfile KeyProfile_MAX = CBCM;
-constexpr int KeyProfile_ARRAYSIZE = KeyProfile_MAX + 1;
+bool VerifiedAccessFlow_IsValid(int value);
+constexpr VerifiedAccessFlow VerifiedAccessFlow_MIN = ENTERPRISE_MACHINE;
+constexpr VerifiedAccessFlow VerifiedAccessFlow_MAX = DEVICE_TRUST_CONNECTOR;
+constexpr int VerifiedAccessFlow_ARRAYSIZE = VerifiedAccessFlow_MAX + 1;
 
-const std::string& KeyProfile_Name(KeyProfile value);
+const std::string& VerifiedAccessFlow_Name(VerifiedAccessFlow value);
 template<typename T>
-inline const std::string& KeyProfile_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, KeyProfile>::value ||
+inline const std::string& VerifiedAccessFlow_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, VerifiedAccessFlow>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function KeyProfile_Name.");
-  return KeyProfile_Name(static_cast<KeyProfile>(enum_t_value));
+    "Incorrect type passed to function VerifiedAccessFlow_Name.");
+  return VerifiedAccessFlow_Name(static_cast<VerifiedAccessFlow>(enum_t_value));
 }
-bool KeyProfile_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, KeyProfile* value);
+bool VerifiedAccessFlow_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VerifiedAccessFlow* value);
 // ===================================================================
 
 class Quote final :
@@ -3201,8 +3203,11 @@ class KeyInfo final :
     kSigningSchemeFieldNumber = 8,
     kDeviceTrustSignalsJsonFieldNumber = 10,
     kDmTokenFieldNumber = 11,
+    kUserCustomerIdFieldNumber = 12,
+    kObfuscatedGaiaIdFieldNumber = 13,
+    kProfileIdFieldNumber = 14,
     kDeviceTrustSignalsFieldNumber = 9,
-    kKeyTypeFieldNumber = 1,
+    kFlowTypeFieldNumber = 1,
   };
   // optional string domain = 2;
   bool has_domain() const;
@@ -3366,6 +3371,60 @@ class KeyInfo final :
   std::string* _internal_mutable_dm_token();
   public:
 
+  // optional string user_customer_id = 12;
+  bool has_user_customer_id() const;
+  private:
+  bool _internal_has_user_customer_id() const;
+  public:
+  void clear_user_customer_id();
+  const std::string& user_customer_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_customer_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_customer_id();
+  PROTOBUF_NODISCARD std::string* release_user_customer_id();
+  void set_allocated_user_customer_id(std::string* user_customer_id);
+  private:
+  const std::string& _internal_user_customer_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_customer_id(const std::string& value);
+  std::string* _internal_mutable_user_customer_id();
+  public:
+
+  // optional string obfuscated_gaia_id = 13;
+  bool has_obfuscated_gaia_id() const;
+  private:
+  bool _internal_has_obfuscated_gaia_id() const;
+  public:
+  void clear_obfuscated_gaia_id();
+  const std::string& obfuscated_gaia_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_obfuscated_gaia_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_obfuscated_gaia_id();
+  PROTOBUF_NODISCARD std::string* release_obfuscated_gaia_id();
+  void set_allocated_obfuscated_gaia_id(std::string* obfuscated_gaia_id);
+  private:
+  const std::string& _internal_obfuscated_gaia_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_obfuscated_gaia_id(const std::string& value);
+  std::string* _internal_mutable_obfuscated_gaia_id();
+  public:
+
+  // optional string profile_id = 14;
+  bool has_profile_id() const;
+  private:
+  bool _internal_has_profile_id() const;
+  public:
+  void clear_profile_id();
+  const std::string& profile_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_profile_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_profile_id();
+  PROTOBUF_NODISCARD std::string* release_profile_id();
+  void set_allocated_profile_id(std::string* profile_id);
+  private:
+  const std::string& _internal_profile_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_profile_id(const std::string& value);
+  std::string* _internal_mutable_profile_id();
+  public:
+
   // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
   PROTOBUF_DEPRECATED bool has_device_trust_signals() const;
   private:
@@ -3384,17 +3443,17 @@ class KeyInfo final :
       ::attestation::DeviceTrustSignals* device_trust_signals);
   PROTOBUF_DEPRECATED ::attestation::DeviceTrustSignals* unsafe_arena_release_device_trust_signals();
 
-  // optional .attestation.KeyProfile key_type = 1;
-  bool has_key_type() const;
+  // optional .attestation.VerifiedAccessFlow flow_type = 1;
+  bool has_flow_type() const;
   private:
-  bool _internal_has_key_type() const;
+  bool _internal_has_flow_type() const;
   public:
-  void clear_key_type();
-  ::attestation::KeyProfile key_type() const;
-  void set_key_type(::attestation::KeyProfile value);
+  void clear_flow_type();
+  ::attestation::VerifiedAccessFlow flow_type() const;
+  void set_flow_type(::attestation::VerifiedAccessFlow value);
   private:
-  ::attestation::KeyProfile _internal_key_type() const;
-  void _internal_set_key_type(::attestation::KeyProfile value);
+  ::attestation::VerifiedAccessFlow _internal_flow_type() const;
+  void _internal_set_flow_type(::attestation::VerifiedAccessFlow value);
   public:
 
   // @@protoc_insertion_point(class_scope:attestation.KeyInfo)
@@ -3415,8 +3474,11 @@ class KeyInfo final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr signing_scheme_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_trust_signals_json_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dm_token_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_customer_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr obfuscated_gaia_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr profile_id_;
   ::attestation::DeviceTrustSignals* device_trust_signals_;
-  int key_type_;
+  int flow_type_;
   friend struct ::TableStruct_attestation_5fca_2eproto;
 };
 // -------------------------------------------------------------------
@@ -8146,33 +8208,33 @@ inline void ChallengeResponse::set_allocated_encrypted_key_info(::attestation::E
 
 // KeyInfo
 
-// optional .attestation.KeyProfile key_type = 1;
-inline bool KeyInfo::_internal_has_key_type() const {
-  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+// optional .attestation.VerifiedAccessFlow flow_type = 1;
+inline bool KeyInfo::_internal_has_flow_type() const {
+  bool value = (_has_bits_[0] & 0x00002000u) != 0;
   return value;
 }
-inline bool KeyInfo::has_key_type() const {
-  return _internal_has_key_type();
+inline bool KeyInfo::has_flow_type() const {
+  return _internal_has_flow_type();
 }
-inline void KeyInfo::clear_key_type() {
-  key_type_ = 0;
-  _has_bits_[0] &= ~0x00000400u;
+inline void KeyInfo::clear_flow_type() {
+  flow_type_ = 0;
+  _has_bits_[0] &= ~0x00002000u;
 }
-inline ::attestation::KeyProfile KeyInfo::_internal_key_type() const {
-  return static_cast< ::attestation::KeyProfile >(key_type_);
+inline ::attestation::VerifiedAccessFlow KeyInfo::_internal_flow_type() const {
+  return static_cast< ::attestation::VerifiedAccessFlow >(flow_type_);
 }
-inline ::attestation::KeyProfile KeyInfo::key_type() const {
-  // @@protoc_insertion_point(field_get:attestation.KeyInfo.key_type)
-  return _internal_key_type();
+inline ::attestation::VerifiedAccessFlow KeyInfo::flow_type() const {
+  // @@protoc_insertion_point(field_get:attestation.KeyInfo.flow_type)
+  return _internal_flow_type();
 }
-inline void KeyInfo::_internal_set_key_type(::attestation::KeyProfile value) {
-  assert(::attestation::KeyProfile_IsValid(value));
-  _has_bits_[0] |= 0x00000400u;
-  key_type_ = value;
+inline void KeyInfo::_internal_set_flow_type(::attestation::VerifiedAccessFlow value) {
+  assert(::attestation::VerifiedAccessFlow_IsValid(value));
+  _has_bits_[0] |= 0x00002000u;
+  flow_type_ = value;
 }
-inline void KeyInfo::set_key_type(::attestation::KeyProfile value) {
-  _internal_set_key_type(value);
-  // @@protoc_insertion_point(field_set:attestation.KeyInfo.key_type)
+inline void KeyInfo::set_flow_type(::attestation::VerifiedAccessFlow value) {
+  _internal_set_flow_type(value);
+  // @@protoc_insertion_point(field_set:attestation.KeyInfo.flow_type)
 }
 
 // optional string domain = 2;
@@ -8653,7 +8715,7 @@ inline void KeyInfo::set_allocated_signing_scheme(std::string* signing_scheme) {
 
 // optional .attestation.DeviceTrustSignals device_trust_signals = 9 [deprecated = true];
 inline bool KeyInfo::_internal_has_device_trust_signals() const {
-  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  bool value = (_has_bits_[0] & 0x00001000u) != 0;
   PROTOBUF_ASSUME(!value || device_trust_signals_ != nullptr);
   return value;
 }
@@ -8662,7 +8724,7 @@ inline bool KeyInfo::has_device_trust_signals() const {
 }
 inline void KeyInfo::clear_device_trust_signals() {
   if (device_trust_signals_ != nullptr) device_trust_signals_->Clear();
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00001000u;
 }
 inline const ::attestation::DeviceTrustSignals& KeyInfo::_internal_device_trust_signals() const {
   const ::attestation::DeviceTrustSignals* p = device_trust_signals_;
@@ -8680,14 +8742,14 @@ inline void KeyInfo::unsafe_arena_set_allocated_device_trust_signals(
   }
   device_trust_signals_ = device_trust_signals;
   if (device_trust_signals) {
-    _has_bits_[0] |= 0x00000200u;
+    _has_bits_[0] |= 0x00001000u;
   } else {
-    _has_bits_[0] &= ~0x00000200u;
+    _has_bits_[0] &= ~0x00001000u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:attestation.KeyInfo.device_trust_signals)
 }
 inline ::attestation::DeviceTrustSignals* KeyInfo::release_device_trust_signals() {
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00001000u;
   ::attestation::DeviceTrustSignals* temp = device_trust_signals_;
   device_trust_signals_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -8703,13 +8765,13 @@ inline ::attestation::DeviceTrustSignals* KeyInfo::release_device_trust_signals(
 }
 inline ::attestation::DeviceTrustSignals* KeyInfo::unsafe_arena_release_device_trust_signals() {
   // @@protoc_insertion_point(field_release:attestation.KeyInfo.device_trust_signals)
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00001000u;
   ::attestation::DeviceTrustSignals* temp = device_trust_signals_;
   device_trust_signals_ = nullptr;
   return temp;
 }
 inline ::attestation::DeviceTrustSignals* KeyInfo::_internal_mutable_device_trust_signals() {
-  _has_bits_[0] |= 0x00000200u;
+  _has_bits_[0] |= 0x00001000u;
   if (device_trust_signals_ == nullptr) {
     auto* p = CreateMaybeMessage<::attestation::DeviceTrustSignals>(GetArenaForAllocation());
     device_trust_signals_ = p;
@@ -8733,9 +8795,9 @@ inline void KeyInfo::set_allocated_device_trust_signals(::attestation::DeviceTru
       device_trust_signals = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, device_trust_signals, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000200u;
+    _has_bits_[0] |= 0x00001000u;
   } else {
-    _has_bits_[0] &= ~0x00000200u;
+    _has_bits_[0] &= ~0x00001000u;
   }
   device_trust_signals_ = device_trust_signals;
   // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.device_trust_signals)
@@ -8875,6 +8937,210 @@ inline void KeyInfo::set_allocated_dm_token(std::string* dm_token) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.dm_token)
+}
+
+// optional string user_customer_id = 12;
+inline bool KeyInfo::_internal_has_user_customer_id() const {
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  return value;
+}
+inline bool KeyInfo::has_user_customer_id() const {
+  return _internal_has_user_customer_id();
+}
+inline void KeyInfo::clear_user_customer_id() {
+  user_customer_id_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline const std::string& KeyInfo::user_customer_id() const {
+  // @@protoc_insertion_point(field_get:attestation.KeyInfo.user_customer_id)
+  return _internal_user_customer_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void KeyInfo::set_user_customer_id(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000200u;
+ user_customer_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:attestation.KeyInfo.user_customer_id)
+}
+inline std::string* KeyInfo::mutable_user_customer_id() {
+  std::string* _s = _internal_mutable_user_customer_id();
+  // @@protoc_insertion_point(field_mutable:attestation.KeyInfo.user_customer_id)
+  return _s;
+}
+inline const std::string& KeyInfo::_internal_user_customer_id() const {
+  return user_customer_id_.Get();
+}
+inline void KeyInfo::_internal_set_user_customer_id(const std::string& value) {
+  _has_bits_[0] |= 0x00000200u;
+  user_customer_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* KeyInfo::_internal_mutable_user_customer_id() {
+  _has_bits_[0] |= 0x00000200u;
+  return user_customer_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* KeyInfo::release_user_customer_id() {
+  // @@protoc_insertion_point(field_release:attestation.KeyInfo.user_customer_id)
+  if (!_internal_has_user_customer_id()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000200u;
+  auto* p = user_customer_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_customer_id_.IsDefault()) {
+    user_customer_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void KeyInfo::set_allocated_user_customer_id(std::string* user_customer_id) {
+  if (user_customer_id != nullptr) {
+    _has_bits_[0] |= 0x00000200u;
+  } else {
+    _has_bits_[0] &= ~0x00000200u;
+  }
+  user_customer_id_.SetAllocated(user_customer_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_customer_id_.IsDefault()) {
+    user_customer_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.user_customer_id)
+}
+
+// optional string obfuscated_gaia_id = 13;
+inline bool KeyInfo::_internal_has_obfuscated_gaia_id() const {
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+  return value;
+}
+inline bool KeyInfo::has_obfuscated_gaia_id() const {
+  return _internal_has_obfuscated_gaia_id();
+}
+inline void KeyInfo::clear_obfuscated_gaia_id() {
+  obfuscated_gaia_id_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000400u;
+}
+inline const std::string& KeyInfo::obfuscated_gaia_id() const {
+  // @@protoc_insertion_point(field_get:attestation.KeyInfo.obfuscated_gaia_id)
+  return _internal_obfuscated_gaia_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void KeyInfo::set_obfuscated_gaia_id(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000400u;
+ obfuscated_gaia_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:attestation.KeyInfo.obfuscated_gaia_id)
+}
+inline std::string* KeyInfo::mutable_obfuscated_gaia_id() {
+  std::string* _s = _internal_mutable_obfuscated_gaia_id();
+  // @@protoc_insertion_point(field_mutable:attestation.KeyInfo.obfuscated_gaia_id)
+  return _s;
+}
+inline const std::string& KeyInfo::_internal_obfuscated_gaia_id() const {
+  return obfuscated_gaia_id_.Get();
+}
+inline void KeyInfo::_internal_set_obfuscated_gaia_id(const std::string& value) {
+  _has_bits_[0] |= 0x00000400u;
+  obfuscated_gaia_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* KeyInfo::_internal_mutable_obfuscated_gaia_id() {
+  _has_bits_[0] |= 0x00000400u;
+  return obfuscated_gaia_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* KeyInfo::release_obfuscated_gaia_id() {
+  // @@protoc_insertion_point(field_release:attestation.KeyInfo.obfuscated_gaia_id)
+  if (!_internal_has_obfuscated_gaia_id()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000400u;
+  auto* p = obfuscated_gaia_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (obfuscated_gaia_id_.IsDefault()) {
+    obfuscated_gaia_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void KeyInfo::set_allocated_obfuscated_gaia_id(std::string* obfuscated_gaia_id) {
+  if (obfuscated_gaia_id != nullptr) {
+    _has_bits_[0] |= 0x00000400u;
+  } else {
+    _has_bits_[0] &= ~0x00000400u;
+  }
+  obfuscated_gaia_id_.SetAllocated(obfuscated_gaia_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (obfuscated_gaia_id_.IsDefault()) {
+    obfuscated_gaia_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.obfuscated_gaia_id)
+}
+
+// optional string profile_id = 14;
+inline bool KeyInfo::_internal_has_profile_id() const {
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  return value;
+}
+inline bool KeyInfo::has_profile_id() const {
+  return _internal_has_profile_id();
+}
+inline void KeyInfo::clear_profile_id() {
+  profile_id_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline const std::string& KeyInfo::profile_id() const {
+  // @@protoc_insertion_point(field_get:attestation.KeyInfo.profile_id)
+  return _internal_profile_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void KeyInfo::set_profile_id(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000800u;
+ profile_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:attestation.KeyInfo.profile_id)
+}
+inline std::string* KeyInfo::mutable_profile_id() {
+  std::string* _s = _internal_mutable_profile_id();
+  // @@protoc_insertion_point(field_mutable:attestation.KeyInfo.profile_id)
+  return _s;
+}
+inline const std::string& KeyInfo::_internal_profile_id() const {
+  return profile_id_.Get();
+}
+inline void KeyInfo::_internal_set_profile_id(const std::string& value) {
+  _has_bits_[0] |= 0x00000800u;
+  profile_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* KeyInfo::_internal_mutable_profile_id() {
+  _has_bits_[0] |= 0x00000800u;
+  return profile_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* KeyInfo::release_profile_id() {
+  // @@protoc_insertion_point(field_release:attestation.KeyInfo.profile_id)
+  if (!_internal_has_profile_id()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000800u;
+  auto* p = profile_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (profile_id_.IsDefault()) {
+    profile_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void KeyInfo::set_allocated_profile_id(std::string* profile_id) {
+  if (profile_id != nullptr) {
+    _has_bits_[0] |= 0x00000800u;
+  } else {
+    _has_bits_[0] &= ~0x00000800u;
+  }
+  profile_id_.SetAllocated(profile_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (profile_id_.IsDefault()) {
+    profile_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:attestation.KeyInfo.profile_id)
 }
 
 // -------------------------------------------------------------------
@@ -10363,7 +10629,7 @@ template <> struct is_proto_enum< ::attestation::CertificateProfile> : ::std::tr
 template <> struct is_proto_enum< ::attestation::TpmVersion> : ::std::true_type {};
 template <> struct is_proto_enum< ::attestation::NVRAMQuoteType> : ::std::true_type {};
 template <> struct is_proto_enum< ::attestation::ResponseStatus> : ::std::true_type {};
-template <> struct is_proto_enum< ::attestation::KeyProfile> : ::std::true_type {};
+template <> struct is_proto_enum< ::attestation::VerifiedAccessFlow> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

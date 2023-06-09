@@ -10,5 +10,7 @@
 #include "ash/system/diagnostics/mojom/input.mojom-import-headers.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-import-headers.h"
+#include "mojo/public/mojom/base/time.mojom.h"
+#include "mojo/public/mojom/base/time.mojom-import-headers.h"
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_EVENTS_MOJOM_IMPORT_HEADERS_H_

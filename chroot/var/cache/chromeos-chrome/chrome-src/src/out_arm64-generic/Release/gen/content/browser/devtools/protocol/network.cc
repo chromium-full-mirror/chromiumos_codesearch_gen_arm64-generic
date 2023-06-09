@@ -829,14 +829,35 @@ CRDTP_BEGIN_SERIALIZER(CrossOriginEmbedderPolicyStatus)
 CRDTP_END_SERIALIZER();
 
 
+namespace ContentSecurityPolicySourceEnum {
+const char HTTP[] = "HTTP";
+const char Meta[] = "Meta";
+} // namespace ContentSecurityPolicySourceEnum
+
+
+CRDTP_BEGIN_DESERIALIZER(ContentSecurityPolicyStatus)
+    CRDTP_DESERIALIZE_FIELD("effectiveDirectives", m_effectiveDirectives),
+    CRDTP_DESERIALIZE_FIELD("isEnforced", m_isEnforced),
+    CRDTP_DESERIALIZE_FIELD("source", m_source),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(ContentSecurityPolicyStatus)
+    CRDTP_SERIALIZE_FIELD("effectiveDirectives", m_effectiveDirectives);
+    CRDTP_SERIALIZE_FIELD("isEnforced", m_isEnforced);
+    CRDTP_SERIALIZE_FIELD("source", m_source);
+CRDTP_END_SERIALIZER();
+
+
 CRDTP_BEGIN_DESERIALIZER(SecurityIsolationStatus)
     CRDTP_DESERIALIZE_FIELD_OPT("coep", m_coep),
     CRDTP_DESERIALIZE_FIELD_OPT("coop", m_coop),
+    CRDTP_DESERIALIZE_FIELD_OPT("csp", m_csp),
 CRDTP_END_DESERIALIZER()
 
 CRDTP_BEGIN_SERIALIZER(SecurityIsolationStatus)
     CRDTP_SERIALIZE_FIELD("coop", m_coop);
     CRDTP_SERIALIZE_FIELD("coep", m_coep);
+    CRDTP_SERIALIZE_FIELD("csp", m_csp);
 CRDTP_END_SERIALIZER();
 
 

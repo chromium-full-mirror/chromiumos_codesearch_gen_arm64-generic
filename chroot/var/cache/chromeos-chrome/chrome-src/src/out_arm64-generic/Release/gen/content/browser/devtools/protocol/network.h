@@ -69,6 +69,8 @@ using CrossOriginOpenerPolicyValue = String;
 class CrossOriginOpenerPolicyStatus;
 using CrossOriginEmbedderPolicyValue = String;
 class CrossOriginEmbedderPolicyStatus;
+using ContentSecurityPolicySource = String;
+class ContentSecurityPolicyStatus;
 class SecurityIsolationStatus;
 using ReportStatus = String;
 using ReportId = String;
@@ -322,6 +324,11 @@ CONTENT_EXPORT extern const char None[];
 CONTENT_EXPORT extern const char Credentialless[];
 CONTENT_EXPORT extern const char RequireCorp[];
 } // namespace CrossOriginEmbedderPolicyValueEnum
+
+namespace ContentSecurityPolicySourceEnum {
+CONTENT_EXPORT extern const char HTTP[];
+CONTENT_EXPORT extern const char Meta[];
+} // namespace ContentSecurityPolicySourceEnum
 
 namespace ReportStatusEnum {
 CONTENT_EXPORT extern const char Queued[];
@@ -3465,6 +3472,88 @@ private:
 };
 
 
+class CONTENT_EXPORT ContentSecurityPolicyStatus : public ::crdtp::ProtocolObject<ContentSecurityPolicyStatus> {
+public:
+    ~ContentSecurityPolicyStatus() override { }
+
+    String GetEffectiveDirectives() { return m_effectiveDirectives; }
+    void SetEffectiveDirectives(const String& value) { m_effectiveDirectives = value; }
+
+    bool GetIsEnforced() { return m_isEnforced; }
+    void SetIsEnforced(bool value) { m_isEnforced = value; }
+
+    String GetSource() { return m_source; }
+    void SetSource(const String& value) { m_source = value; }
+
+    template<int STATE>
+    class ContentSecurityPolicyStatusBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            EffectiveDirectivesSet = 1 << 1,
+            IsEnforcedSet = 1 << 2,
+            SourceSet = 1 << 3,
+            AllFieldsSet = (EffectiveDirectivesSet | IsEnforcedSet | SourceSet | 0)};
+
+
+        ContentSecurityPolicyStatusBuilder<STATE | EffectiveDirectivesSet>& SetEffectiveDirectives(const String& value)
+        {
+            static_assert(!(STATE & EffectiveDirectivesSet), "property effectiveDirectives should not be set yet");
+            m_result->SetEffectiveDirectives(value);
+            return castState<EffectiveDirectivesSet>();
+        }
+
+        ContentSecurityPolicyStatusBuilder<STATE | IsEnforcedSet>& SetIsEnforced(bool value)
+        {
+            static_assert(!(STATE & IsEnforcedSet), "property isEnforced should not be set yet");
+            m_result->SetIsEnforced(value);
+            return castState<IsEnforcedSet>();
+        }
+
+        ContentSecurityPolicyStatusBuilder<STATE | SourceSet>& SetSource(const String& value)
+        {
+            static_assert(!(STATE & SourceSet), "property source should not be set yet");
+            m_result->SetSource(value);
+            return castState<SourceSet>();
+        }
+
+        std::unique_ptr<ContentSecurityPolicyStatus> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class ContentSecurityPolicyStatus;
+        ContentSecurityPolicyStatusBuilder() : m_result(new ContentSecurityPolicyStatus()) { }
+
+        template<int STEP> ContentSecurityPolicyStatusBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<ContentSecurityPolicyStatusBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Network::ContentSecurityPolicyStatus> m_result;
+    };
+
+    static ContentSecurityPolicyStatusBuilder<0> Create()
+    {
+        return ContentSecurityPolicyStatusBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    ContentSecurityPolicyStatus()
+    {
+          m_isEnforced = false;
+    }
+
+    String m_effectiveDirectives;
+    bool m_isEnforced;
+    String m_source;
+};
+
+
 class CONTENT_EXPORT SecurityIsolationStatus : public ::crdtp::ProtocolObject<SecurityIsolationStatus> {
 public:
     ~SecurityIsolationStatus() override { }
@@ -3476,6 +3565,10 @@ public:
     bool HasCoep() { return m_coep.isJust(); }
     protocol::Network::CrossOriginEmbedderPolicyStatus* GetCoep(protocol::Network::CrossOriginEmbedderPolicyStatus* defaultValue) { return m_coep.isJust() ? m_coep.fromJust() : defaultValue; }
     void SetCoep(std::unique_ptr<protocol::Network::CrossOriginEmbedderPolicyStatus> value) { m_coep = std::move(value); }
+
+    bool HasCsp() { return m_csp.isJust(); }
+    protocol::Array<protocol::Network::ContentSecurityPolicyStatus>* GetCsp(protocol::Array<protocol::Network::ContentSecurityPolicyStatus>* defaultValue) { return m_csp.isJust() ? m_csp.fromJust() : defaultValue; }
+    void SetCsp(std::unique_ptr<protocol::Array<protocol::Network::ContentSecurityPolicyStatus>> value) { m_csp = std::move(value); }
 
     template<int STATE>
     class SecurityIsolationStatusBuilder {
@@ -3494,6 +3587,12 @@ public:
         SecurityIsolationStatusBuilder<STATE>& SetCoep(std::unique_ptr<protocol::Network::CrossOriginEmbedderPolicyStatus> value)
         {
             m_result->SetCoep(std::move(value));
+            return *this;
+        }
+
+        SecurityIsolationStatusBuilder<STATE>& SetCsp(std::unique_ptr<protocol::Array<protocol::Network::ContentSecurityPolicyStatus>> value)
+        {
+            m_result->SetCsp(std::move(value));
             return *this;
         }
 
@@ -3529,6 +3628,7 @@ private:
 
     Maybe<protocol::Network::CrossOriginOpenerPolicyStatus> m_coop;
     Maybe<protocol::Network::CrossOriginEmbedderPolicyStatus> m_coep;
+    Maybe<protocol::Array<protocol::Network::ContentSecurityPolicyStatus>> m_csp;
 };
 
 

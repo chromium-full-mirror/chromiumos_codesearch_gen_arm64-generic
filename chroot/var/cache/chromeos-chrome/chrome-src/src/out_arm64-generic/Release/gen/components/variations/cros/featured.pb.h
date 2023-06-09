@@ -48,6 +48,9 @@ extern ComputedStateDefaultTypeInternal _ComputedState_default_instance_;
 class FeatureOverride;
 struct FeatureOverrideDefaultTypeInternal;
 extern FeatureOverrideDefaultTypeInternal _FeatureOverride_default_instance_;
+class OverridesSet;
+struct OverridesSetDefaultTypeInternal;
+extern OverridesSetDefaultTypeInternal _OverridesSet_default_instance_;
 class Param;
 struct ParamDefaultTypeInternal;
 extern ParamDefaultTypeInternal _Param_default_instance_;
@@ -61,6 +64,7 @@ extern StoreDefaultTypeInternal _Store_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::featured::ComputedState* Arena::CreateMaybeMessage<::featured::ComputedState>(Arena*);
 template<> ::featured::FeatureOverride* Arena::CreateMaybeMessage<::featured::FeatureOverride>(Arena*);
+template<> ::featured::OverridesSet* Arena::CreateMaybeMessage<::featured::OverridesSet>(Arena*);
 template<> ::featured::Param* Arena::CreateMaybeMessage<::featured::Param>(Arena*);
 template<> ::featured::SeedDetails* Arena::CreateMaybeMessage<::featured::SeedDetails>(Arena*);
 template<> ::featured::Store* Arena::CreateMaybeMessage<::featured::Store>(Arena*);
@@ -641,6 +645,142 @@ class SeedDetails final :
 };
 // -------------------------------------------------------------------
 
+class OverridesSet final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:featured.OverridesSet) */ {
+ public:
+  inline OverridesSet() : OverridesSet(nullptr) {}
+  ~OverridesSet() override;
+  explicit PROTOBUF_CONSTEXPR OverridesSet(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OverridesSet(const OverridesSet& from);
+  OverridesSet(OverridesSet&& from) noexcept
+    : OverridesSet() {
+    *this = ::std::move(from);
+  }
+
+  inline OverridesSet& operator=(const OverridesSet& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OverridesSet& operator=(OverridesSet&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const OverridesSet& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OverridesSet* internal_default_instance() {
+    return reinterpret_cast<const OverridesSet*>(
+               &_OverridesSet_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(OverridesSet& a, OverridesSet& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(OverridesSet* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OverridesSet* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  OverridesSet* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OverridesSet>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const OverridesSet& from);
+  void MergeFrom(const OverridesSet& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(OverridesSet* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "featured.OverridesSet";
+  }
+  protected:
+  explicit OverridesSet(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kOverridesFieldNumber = 1,
+  };
+  // repeated .featured.FeatureOverride overrides = 1;
+  int overrides_size() const;
+  private:
+  int _internal_overrides_size() const;
+  public:
+  void clear_overrides();
+  ::featured::FeatureOverride* mutable_overrides(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >*
+      mutable_overrides();
+  private:
+  const ::featured::FeatureOverride& _internal_overrides(int index) const;
+  ::featured::FeatureOverride* _internal_add_overrides();
+  public:
+  const ::featured::FeatureOverride& overrides(int index) const;
+  ::featured::FeatureOverride* add_overrides();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >&
+      overrides() const;
+
+  // @@protoc_insertion_point(class_scope:featured.OverridesSet)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride > overrides_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_featured_2eproto;
+};
+// -------------------------------------------------------------------
+
 class Store final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:featured.Store) */ {
  public:
@@ -680,7 +820,7 @@ class Store final :
                &_Store_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(Store& a, Store& b) {
     a.Swap(&b);
@@ -744,27 +884,38 @@ class Store final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kOverridesFieldNumber = 3,
+    kOverridesFieldNumber = 4,
+    kOverridesHmacFieldNumber = 5,
     kLastGoodSeedFieldNumber = 2,
     kBootAttemptsSinceLastSeedUpdateFieldNumber = 1,
   };
-  // repeated .featured.FeatureOverride overrides = 3;
-  int overrides_size() const;
-  private:
-  int _internal_overrides_size() const;
-  public:
+  // bytes overrides = 4;
   void clear_overrides();
-  ::featured::FeatureOverride* mutable_overrides(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >*
-      mutable_overrides();
+  const std::string& overrides() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_overrides(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_overrides();
+  PROTOBUF_NODISCARD std::string* release_overrides();
+  void set_allocated_overrides(std::string* overrides);
   private:
-  const ::featured::FeatureOverride& _internal_overrides(int index) const;
-  ::featured::FeatureOverride* _internal_add_overrides();
+  const std::string& _internal_overrides() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_overrides(const std::string& value);
+  std::string* _internal_mutable_overrides();
   public:
-  const ::featured::FeatureOverride& overrides(int index) const;
-  ::featured::FeatureOverride* add_overrides();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >&
-      overrides() const;
+
+  // bytes overrides_hmac = 5;
+  void clear_overrides_hmac();
+  const std::string& overrides_hmac() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_overrides_hmac(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_overrides_hmac();
+  PROTOBUF_NODISCARD std::string* release_overrides_hmac();
+  void set_allocated_overrides_hmac(std::string* overrides_hmac);
+  private:
+  const std::string& _internal_overrides_hmac() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_overrides_hmac(const std::string& value);
+  std::string* _internal_mutable_overrides_hmac();
+  public:
 
   // .featured.SeedDetails last_good_seed = 2;
   bool has_last_good_seed() const;
@@ -800,7 +951,8 @@ class Store final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride > overrides_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr overrides_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr overrides_hmac_;
   ::featured::SeedDetails* last_good_seed_;
   uint32_t boot_attempts_since_last_seed_update_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -847,7 +999,7 @@ class ComputedState final :
                &_ComputedState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(ComputedState& a, ComputedState& b) {
     a.Swap(&b);
@@ -1603,6 +1755,50 @@ inline void SeedDetails::set_fetch_time(int64_t value) {
 
 // -------------------------------------------------------------------
 
+// OverridesSet
+
+// repeated .featured.FeatureOverride overrides = 1;
+inline int OverridesSet::_internal_overrides_size() const {
+  return overrides_.size();
+}
+inline int OverridesSet::overrides_size() const {
+  return _internal_overrides_size();
+}
+inline void OverridesSet::clear_overrides() {
+  overrides_.Clear();
+}
+inline ::featured::FeatureOverride* OverridesSet::mutable_overrides(int index) {
+  // @@protoc_insertion_point(field_mutable:featured.OverridesSet.overrides)
+  return overrides_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >*
+OverridesSet::mutable_overrides() {
+  // @@protoc_insertion_point(field_mutable_list:featured.OverridesSet.overrides)
+  return &overrides_;
+}
+inline const ::featured::FeatureOverride& OverridesSet::_internal_overrides(int index) const {
+  return overrides_.Get(index);
+}
+inline const ::featured::FeatureOverride& OverridesSet::overrides(int index) const {
+  // @@protoc_insertion_point(field_get:featured.OverridesSet.overrides)
+  return _internal_overrides(index);
+}
+inline ::featured::FeatureOverride* OverridesSet::_internal_add_overrides() {
+  return overrides_.Add();
+}
+inline ::featured::FeatureOverride* OverridesSet::add_overrides() {
+  ::featured::FeatureOverride* _add = _internal_add_overrides();
+  // @@protoc_insertion_point(field_add:featured.OverridesSet.overrides)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >&
+OverridesSet::overrides() const {
+  // @@protoc_insertion_point(field_list:featured.OverridesSet.overrides)
+  return overrides_;
+}
+
+// -------------------------------------------------------------------
+
 // Store
 
 // uint32 boot_attempts_since_last_seed_update = 1;
@@ -1715,44 +1911,104 @@ inline void Store::set_allocated_last_good_seed(::featured::SeedDetails* last_go
   // @@protoc_insertion_point(field_set_allocated:featured.Store.last_good_seed)
 }
 
-// repeated .featured.FeatureOverride overrides = 3;
-inline int Store::_internal_overrides_size() const {
-  return overrides_.size();
-}
-inline int Store::overrides_size() const {
-  return _internal_overrides_size();
-}
+// bytes overrides = 4;
 inline void Store::clear_overrides() {
-  overrides_.Clear();
+  overrides_.ClearToEmpty();
 }
-inline ::featured::FeatureOverride* Store::mutable_overrides(int index) {
-  // @@protoc_insertion_point(field_mutable:featured.Store.overrides)
-  return overrides_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >*
-Store::mutable_overrides() {
-  // @@protoc_insertion_point(field_mutable_list:featured.Store.overrides)
-  return &overrides_;
-}
-inline const ::featured::FeatureOverride& Store::_internal_overrides(int index) const {
-  return overrides_.Get(index);
-}
-inline const ::featured::FeatureOverride& Store::overrides(int index) const {
+inline const std::string& Store::overrides() const {
   // @@protoc_insertion_point(field_get:featured.Store.overrides)
-  return _internal_overrides(index);
+  return _internal_overrides();
 }
-inline ::featured::FeatureOverride* Store::_internal_add_overrides() {
-  return overrides_.Add();
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Store::set_overrides(ArgT0&& arg0, ArgT... args) {
+ 
+ overrides_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:featured.Store.overrides)
 }
-inline ::featured::FeatureOverride* Store::add_overrides() {
-  ::featured::FeatureOverride* _add = _internal_add_overrides();
-  // @@protoc_insertion_point(field_add:featured.Store.overrides)
-  return _add;
+inline std::string* Store::mutable_overrides() {
+  std::string* _s = _internal_mutable_overrides();
+  // @@protoc_insertion_point(field_mutable:featured.Store.overrides)
+  return _s;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::featured::FeatureOverride >&
-Store::overrides() const {
-  // @@protoc_insertion_point(field_list:featured.Store.overrides)
-  return overrides_;
+inline const std::string& Store::_internal_overrides() const {
+  return overrides_.Get();
+}
+inline void Store::_internal_set_overrides(const std::string& value) {
+  
+  overrides_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Store::_internal_mutable_overrides() {
+  
+  return overrides_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Store::release_overrides() {
+  // @@protoc_insertion_point(field_release:featured.Store.overrides)
+  return overrides_.Release();
+}
+inline void Store::set_allocated_overrides(std::string* overrides) {
+  if (overrides != nullptr) {
+    
+  } else {
+    
+  }
+  overrides_.SetAllocated(overrides, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (overrides_.IsDefault()) {
+    overrides_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:featured.Store.overrides)
+}
+
+// bytes overrides_hmac = 5;
+inline void Store::clear_overrides_hmac() {
+  overrides_hmac_.ClearToEmpty();
+}
+inline const std::string& Store::overrides_hmac() const {
+  // @@protoc_insertion_point(field_get:featured.Store.overrides_hmac)
+  return _internal_overrides_hmac();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Store::set_overrides_hmac(ArgT0&& arg0, ArgT... args) {
+ 
+ overrides_hmac_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:featured.Store.overrides_hmac)
+}
+inline std::string* Store::mutable_overrides_hmac() {
+  std::string* _s = _internal_mutable_overrides_hmac();
+  // @@protoc_insertion_point(field_mutable:featured.Store.overrides_hmac)
+  return _s;
+}
+inline const std::string& Store::_internal_overrides_hmac() const {
+  return overrides_hmac_.Get();
+}
+inline void Store::_internal_set_overrides_hmac(const std::string& value) {
+  
+  overrides_hmac_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Store::_internal_mutable_overrides_hmac() {
+  
+  return overrides_hmac_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Store::release_overrides_hmac() {
+  // @@protoc_insertion_point(field_release:featured.Store.overrides_hmac)
+  return overrides_hmac_.Release();
+}
+inline void Store::set_allocated_overrides_hmac(std::string* overrides_hmac) {
+  if (overrides_hmac != nullptr) {
+    
+  } else {
+    
+  }
+  overrides_hmac_.SetAllocated(overrides_hmac, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (overrides_hmac_.IsDefault()) {
+    overrides_hmac_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:featured.Store.overrides_hmac)
 }
 
 // -------------------------------------------------------------------
@@ -1892,6 +2148,8 @@ inline void ComputedState::set_allocated_used_seed(::featured::SeedDetails* used
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

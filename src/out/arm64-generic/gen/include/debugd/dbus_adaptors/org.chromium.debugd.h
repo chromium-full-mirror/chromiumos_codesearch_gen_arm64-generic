@@ -153,11 +153,24 @@ class debugdInterface {
   virtual int32_t CupsAddAutoConfiguredPrinter(
       const std::string& in_name,
       const std::string& in_uri) = 0;
+  // Add a printer that can be auto-configured to CUPS.  Immediately attempt
+  // to connect.  Returns true if setup was successful.
+  virtual int32_t CupsAddAutoConfiguredPrinterV2(
+      const std::string& in_name,
+      const std::string& in_uri,
+      const std::string& in_language) = 0;
   // Add a printer to CUPS using the passed PPD contents.  Immediately
   // attempt to connect.  Returns true if setup was successful.
   virtual int32_t CupsAddManuallyConfiguredPrinter(
       const std::string& in_name,
       const std::string& in_uri,
+      const std::vector<uint8_t>& in_ppd_contents) = 0;
+  // Add a printer to CUPS using the passed PPD contents.  Immediately
+  // attempt to connect.  Returns true if setup was successful.
+  virtual int32_t CupsAddManuallyConfiguredPrinterV2(
+      const std::string& in_name,
+      const std::string& in_uri,
+      const std::string& in_language,
       const std::vector<uint8_t>& in_ppd_contents) = 0;
   // Remove a printer from CUPS.  Returns true if the printer was removed
   // successfully.
@@ -609,9 +622,17 @@ class debugdAdaptor {
         base::Unretained(interface_),
         &debugdInterface::CupsAddAutoConfiguredPrinter);
     itf->AddSimpleMethodHandler(
+        "CupsAddAutoConfiguredPrinterV2",
+        base::Unretained(interface_),
+        &debugdInterface::CupsAddAutoConfiguredPrinterV2);
+    itf->AddSimpleMethodHandler(
         "CupsAddManuallyConfiguredPrinter",
         base::Unretained(interface_),
         &debugdInterface::CupsAddManuallyConfiguredPrinter);
+    itf->AddSimpleMethodHandler(
+        "CupsAddManuallyConfiguredPrinterV2",
+        base::Unretained(interface_),
+        &debugdInterface::CupsAddManuallyConfiguredPrinterV2);
     itf->AddSimpleMethodHandler(
         "CupsRemovePrinter",
         base::Unretained(interface_),
@@ -1031,9 +1052,22 @@ class debugdAdaptor {
         "      <arg name=\"uri\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"result\" type=\"i\" direction=\"out\"/>\n"
         "    </method>\n"
+        "    <method name=\"CupsAddAutoConfiguredPrinterV2\">\n"
+        "      <arg name=\"name\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"uri\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"language\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"result\" type=\"i\" direction=\"out\"/>\n"
+        "    </method>\n"
         "    <method name=\"CupsAddManuallyConfiguredPrinter\">\n"
         "      <arg name=\"name\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"uri\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"ppd_contents\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"result\" type=\"i\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"CupsAddManuallyConfiguredPrinterV2\">\n"
+        "      <arg name=\"name\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"uri\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"language\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"ppd_contents\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"result\" type=\"i\" direction=\"out\"/>\n"
         "    </method>\n"

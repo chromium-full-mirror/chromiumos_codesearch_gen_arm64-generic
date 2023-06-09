@@ -450,6 +450,26 @@ class debugdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Add a printer that can be auto-configured to CUPS.  Immediately attempt
+  // to connect.  Returns true if setup was successful.
+  virtual bool CupsAddAutoConfiguredPrinterV2(
+      const std::string& in_name,
+      const std::string& in_uri,
+      const std::string& in_language,
+      int32_t* out_result,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Add a printer that can be auto-configured to CUPS.  Immediately attempt
+  // to connect.  Returns true if setup was successful.
+  virtual void CupsAddAutoConfiguredPrinterV2Async(
+      const std::string& in_name,
+      const std::string& in_uri,
+      const std::string& in_language,
+      base::OnceCallback<void(int32_t /*result*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Add a printer to CUPS using the passed PPD contents.  Immediately
   // attempt to connect.  Returns true if setup was successful.
   virtual bool CupsAddManuallyConfiguredPrinter(
@@ -465,6 +485,28 @@ class debugdProxyInterface {
   virtual void CupsAddManuallyConfiguredPrinterAsync(
       const std::string& in_name,
       const std::string& in_uri,
+      const std::vector<uint8_t>& in_ppd_contents,
+      base::OnceCallback<void(int32_t /*result*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Add a printer to CUPS using the passed PPD contents.  Immediately
+  // attempt to connect.  Returns true if setup was successful.
+  virtual bool CupsAddManuallyConfiguredPrinterV2(
+      const std::string& in_name,
+      const std::string& in_uri,
+      const std::string& in_language,
+      const std::vector<uint8_t>& in_ppd_contents,
+      int32_t* out_result,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Add a printer to CUPS using the passed PPD contents.  Immediately
+  // attempt to connect.  Returns true if setup was successful.
+  virtual void CupsAddManuallyConfiguredPrinterV2Async(
+      const std::string& in_name,
+      const std::string& in_uri,
+      const std::string& in_language,
       const std::vector<uint8_t>& in_ppd_contents,
       base::OnceCallback<void(int32_t /*result*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -2558,6 +2600,49 @@ class debugdProxy final : public debugdProxyInterface {
         in_uri);
   }
 
+  // Add a printer that can be auto-configured to CUPS.  Immediately attempt
+  // to connect.  Returns true if setup was successful.
+  bool CupsAddAutoConfiguredPrinterV2(
+      const std::string& in_name,
+      const std::string& in_uri,
+      const std::string& in_language,
+      int32_t* out_result,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "CupsAddAutoConfiguredPrinterV2",
+        error,
+        in_name,
+        in_uri,
+        in_language);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_result);
+  }
+
+  // Add a printer that can be auto-configured to CUPS.  Immediately attempt
+  // to connect.  Returns true if setup was successful.
+  void CupsAddAutoConfiguredPrinterV2Async(
+      const std::string& in_name,
+      const std::string& in_uri,
+      const std::string& in_language,
+      base::OnceCallback<void(int32_t /*result*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "CupsAddAutoConfiguredPrinterV2",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_name,
+        in_uri,
+        in_language);
+  }
+
   // Add a printer to CUPS using the passed PPD contents.  Immediately
   // attempt to connect.  Returns true if setup was successful.
   bool CupsAddManuallyConfiguredPrinter(
@@ -2598,6 +2683,53 @@ class debugdProxy final : public debugdProxyInterface {
         std::move(error_callback),
         in_name,
         in_uri,
+        in_ppd_contents);
+  }
+
+  // Add a printer to CUPS using the passed PPD contents.  Immediately
+  // attempt to connect.  Returns true if setup was successful.
+  bool CupsAddManuallyConfiguredPrinterV2(
+      const std::string& in_name,
+      const std::string& in_uri,
+      const std::string& in_language,
+      const std::vector<uint8_t>& in_ppd_contents,
+      int32_t* out_result,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "CupsAddManuallyConfiguredPrinterV2",
+        error,
+        in_name,
+        in_uri,
+        in_language,
+        in_ppd_contents);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_result);
+  }
+
+  // Add a printer to CUPS using the passed PPD contents.  Immediately
+  // attempt to connect.  Returns true if setup was successful.
+  void CupsAddManuallyConfiguredPrinterV2Async(
+      const std::string& in_name,
+      const std::string& in_uri,
+      const std::string& in_language,
+      const std::vector<uint8_t>& in_ppd_contents,
+      base::OnceCallback<void(int32_t /*result*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "CupsAddManuallyConfiguredPrinterV2",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_name,
+        in_uri,
+        in_language,
         in_ppd_contents);
   }
 

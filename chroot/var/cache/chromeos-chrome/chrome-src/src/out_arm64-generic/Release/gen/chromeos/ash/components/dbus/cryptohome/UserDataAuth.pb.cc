@@ -507,6 +507,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR StartAuthSessionReply::StartAuthSessionReply(
     ::_pbi::ConstantInitialized)
   : auth_factors_()
+  , configured_auth_factors_with_status_()
   , auth_session_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , broadcast_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , error_info_(nullptr)
@@ -1561,6 +1562,25 @@ struct RemoveAuthFactorReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RemoveAuthFactorReplyDefaultTypeInternal _RemoveAuthFactorReply_default_instance_;
+PROTOBUF_CONSTEXPR AuthIntentsForAuthFactorType::AuthIntentsForAuthFactorType(
+    ::_pbi::ConstantInitialized)
+  : current_()
+  , _current_cached_byte_size_(0)
+  , minimum_()
+  , _minimum_cached_byte_size_(0)
+  , maximum_()
+  , _maximum_cached_byte_size_(0)
+  , type_(0)
+{}
+struct AuthIntentsForAuthFactorTypeDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthIntentsForAuthFactorTypeDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthIntentsForAuthFactorTypeDefaultTypeInternal() {}
+  union {
+    AuthIntentsForAuthFactorType _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthIntentsForAuthFactorTypeDefaultTypeInternal _AuthIntentsForAuthFactorType_default_instance_;
 PROTOBUF_CONSTEXPR ListAuthFactorsRequest::ListAuthFactorsRequest(
     ::_pbi::ConstantInitialized)
   : account_id_(nullptr){}
@@ -1579,6 +1599,7 @@ PROTOBUF_CONSTEXPR ListAuthFactorsReply::ListAuthFactorsReply(
   , supported_auth_factors_()
   , _supported_auth_factors_cached_byte_size_(0)
   , configured_auth_factors_with_status_()
+  , auth_intents_for_types_()
   , error_info_(nullptr)
   , error_(0)
 {}
@@ -1679,6 +1700,37 @@ struct GetRecoveryRequestReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetRecoveryRequestReplyDefaultTypeInternal _GetRecoveryRequestReply_default_instance_;
+PROTOBUF_CONSTEXPR CreateVaultKeysetRequest::CreateVaultKeysetRequest(
+    ::_pbi::ConstantInitialized)
+  : auth_session_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , passkey_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , type_(0)
+
+  , disable_key_data_(false){}
+struct CreateVaultKeysetRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CreateVaultKeysetRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CreateVaultKeysetRequestDefaultTypeInternal() {}
+  union {
+    CreateVaultKeysetRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateVaultKeysetRequestDefaultTypeInternal _CreateVaultKeysetRequest_default_instance_;
+PROTOBUF_CONSTEXPR CreateVaultKeysetReply::CreateVaultKeysetReply(
+    ::_pbi::ConstantInitialized)
+  : error_info_(nullptr)
+  , error_(0)
+{}
+struct CreateVaultKeysetReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CreateVaultKeysetReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CreateVaultKeysetReplyDefaultTypeInternal() {}
+  union {
+    CreateVaultKeysetReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreateVaultKeysetReplyDefaultTypeInternal _CreateVaultKeysetReply_default_instance_;
 PROTOBUF_CONSTEXPR PrepareAuthFactorRequest::PrepareAuthFactorRequest(
     ::_pbi::ConstantInitialized)
   : auth_session_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -1737,6 +1789,37 @@ struct TerminateAuthFactorReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TerminateAuthFactorReplyDefaultTypeInternal _TerminateAuthFactorReply_default_instance_;
+PROTOBUF_CONSTEXPR ModifyAuthFactorIntentsRequest::ModifyAuthFactorIntentsRequest(
+    ::_pbi::ConstantInitialized)
+  : intents_()
+  , _intents_cached_byte_size_(0)
+  , auth_session_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , type_(0)
+{}
+struct ModifyAuthFactorIntentsRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ModifyAuthFactorIntentsRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ModifyAuthFactorIntentsRequestDefaultTypeInternal() {}
+  union {
+    ModifyAuthFactorIntentsRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ModifyAuthFactorIntentsRequestDefaultTypeInternal _ModifyAuthFactorIntentsRequest_default_instance_;
+PROTOBUF_CONSTEXPR ModifyAuthFactorIntentsReply::ModifyAuthFactorIntentsReply(
+    ::_pbi::ConstantInitialized)
+  : error_info_(nullptr)
+  , auth_intents_(nullptr)
+  , error_(0)
+{}
+struct ModifyAuthFactorIntentsReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ModifyAuthFactorIntentsReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ModifyAuthFactorIntentsReplyDefaultTypeInternal() {}
+  union {
+    ModifyAuthFactorIntentsReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ModifyAuthFactorIntentsReplyDefaultTypeInternal _ModifyAuthFactorIntentsReply_default_instance_;
 PROTOBUF_CONSTEXPR AuthScanResult::AuthScanResult(
     ::_pbi::ConstantInitialized)
   : _oneof_case_{}{}
@@ -1951,13 +2034,14 @@ bool CryptohomeErrorCode_IsValid(int value) {
     case 57:
     case 58:
     case 59:
+    case 60:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CryptohomeErrorCode_strings[60] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CryptohomeErrorCode_strings[61] = {};
 
 static const char CryptohomeErrorCode_names[] =
   "CRYPTOHOME_ADD_CREDENTIALS_FAILED"
@@ -1973,6 +2057,7 @@ static const char CryptohomeErrorCode_names[] =
   "CRYPTOHOME_ERROR_CANNOT_CONNECT_TO_CA"
   "CRYPTOHOME_ERROR_CA_REFUSED_CERTIFICATE"
   "CRYPTOHOME_ERROR_CA_REFUSED_ENROLLMENT"
+  "CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED"
   "CRYPTOHOME_ERROR_CREDENTIAL_LOCKED"
   "CRYPTOHOME_ERROR_FAILED_TO_EXTEND_PCR"
   "CRYPTOHOME_ERROR_FAILED_TO_READ_PCR"
@@ -2035,116 +2120,118 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CryptohomeErrorCode_en
   { {CryptohomeErrorCode_names + 386, 37}, 22 },
   { {CryptohomeErrorCode_names + 423, 39}, 24 },
   { {CryptohomeErrorCode_names + 462, 38}, 23 },
-  { {CryptohomeErrorCode_names + 500, 34}, 59 },
-  { {CryptohomeErrorCode_names + 534, 37}, 40 },
-  { {CryptohomeErrorCode_names + 571, 35}, 38 },
-  { {CryptohomeErrorCode_names + 606, 42}, 47 },
-  { {CryptohomeErrorCode_names + 648, 44}, 46 },
-  { {CryptohomeErrorCode_names + 692, 35}, 44 },
-  { {CryptohomeErrorCode_names + 727, 43}, 42 },
-  { {CryptohomeErrorCode_names + 770, 43}, 43 },
-  { {CryptohomeErrorCode_names + 813, 61}, 28 },
-  { {CryptohomeErrorCode_names + 874, 60}, 27 },
-  { {CryptohomeErrorCode_names + 934, 55}, 26 },
-  { {CryptohomeErrorCode_names + 989, 51}, 36 },
-  { {CryptohomeErrorCode_names + 1040, 46}, 34 },
-  { {CryptohomeErrorCode_names + 1086, 46}, 35 },
-  { {CryptohomeErrorCode_names + 1132, 43}, 25 },
-  { {CryptohomeErrorCode_names + 1175, 33}, 33 },
-  { {CryptohomeErrorCode_names + 1208, 33}, 12 },
-  { {CryptohomeErrorCode_names + 1241, 30}, 15 },
-  { {CryptohomeErrorCode_names + 1271, 35}, 11 },
-  { {CryptohomeErrorCode_names + 1306, 36}, 17 },
-  { {CryptohomeErrorCode_names + 1342, 42}, 16 },
-  { {CryptohomeErrorCode_names + 1384, 35}, 31 },
-  { {CryptohomeErrorCode_names + 1419, 28}, 5 },
-  { {CryptohomeErrorCode_names + 1447, 39}, 6 },
-  { {CryptohomeErrorCode_names + 1486, 37}, 29 },
-  { {CryptohomeErrorCode_names + 1523, 52}, 30 },
-  { {CryptohomeErrorCode_names + 1575, 32}, 4 },
-  { {CryptohomeErrorCode_names + 1607, 24}, 0 },
-  { {CryptohomeErrorCode_names + 1631, 37}, 39 },
-  { {CryptohomeErrorCode_names + 1668, 31}, 57 },
-  { {CryptohomeErrorCode_names + 1699, 35}, 56 },
-  { {CryptohomeErrorCode_names + 1734, 30}, 32 },
-  { {CryptohomeErrorCode_names + 1764, 31}, 7 },
-  { {CryptohomeErrorCode_names + 1795, 32}, 8 },
-  { {CryptohomeErrorCode_names + 1827, 37}, 20 },
-  { {CryptohomeErrorCode_names + 1864, 33}, 9 },
-  { {CryptohomeErrorCode_names + 1897, 36}, 41 },
-  { {CryptohomeErrorCode_names + 1933, 45}, 51 },
-  { {CryptohomeErrorCode_names + 1978, 31}, 52 },
-  { {CryptohomeErrorCode_names + 2009, 31}, 53 },
-  { {CryptohomeErrorCode_names + 2040, 41}, 14 },
-  { {CryptohomeErrorCode_names + 2081, 54}, 37 },
-  { {CryptohomeErrorCode_names + 2135, 36}, 45 },
-  { {CryptohomeErrorCode_names + 2171, 37}, 49 },
-  { {CryptohomeErrorCode_names + 2208, 36}, 54 },
-  { {CryptohomeErrorCode_names + 2244, 37}, 48 },
-  { {CryptohomeErrorCode_names + 2281, 36}, 55 },
+  { {CryptohomeErrorCode_names + 500, 35}, 60 },
+  { {CryptohomeErrorCode_names + 535, 34}, 59 },
+  { {CryptohomeErrorCode_names + 569, 37}, 40 },
+  { {CryptohomeErrorCode_names + 606, 35}, 38 },
+  { {CryptohomeErrorCode_names + 641, 42}, 47 },
+  { {CryptohomeErrorCode_names + 683, 44}, 46 },
+  { {CryptohomeErrorCode_names + 727, 35}, 44 },
+  { {CryptohomeErrorCode_names + 762, 43}, 42 },
+  { {CryptohomeErrorCode_names + 805, 43}, 43 },
+  { {CryptohomeErrorCode_names + 848, 61}, 28 },
+  { {CryptohomeErrorCode_names + 909, 60}, 27 },
+  { {CryptohomeErrorCode_names + 969, 55}, 26 },
+  { {CryptohomeErrorCode_names + 1024, 51}, 36 },
+  { {CryptohomeErrorCode_names + 1075, 46}, 34 },
+  { {CryptohomeErrorCode_names + 1121, 46}, 35 },
+  { {CryptohomeErrorCode_names + 1167, 43}, 25 },
+  { {CryptohomeErrorCode_names + 1210, 33}, 33 },
+  { {CryptohomeErrorCode_names + 1243, 33}, 12 },
+  { {CryptohomeErrorCode_names + 1276, 30}, 15 },
+  { {CryptohomeErrorCode_names + 1306, 35}, 11 },
+  { {CryptohomeErrorCode_names + 1341, 36}, 17 },
+  { {CryptohomeErrorCode_names + 1377, 42}, 16 },
+  { {CryptohomeErrorCode_names + 1419, 35}, 31 },
+  { {CryptohomeErrorCode_names + 1454, 28}, 5 },
+  { {CryptohomeErrorCode_names + 1482, 39}, 6 },
+  { {CryptohomeErrorCode_names + 1521, 37}, 29 },
+  { {CryptohomeErrorCode_names + 1558, 52}, 30 },
+  { {CryptohomeErrorCode_names + 1610, 32}, 4 },
+  { {CryptohomeErrorCode_names + 1642, 24}, 0 },
+  { {CryptohomeErrorCode_names + 1666, 37}, 39 },
+  { {CryptohomeErrorCode_names + 1703, 31}, 57 },
+  { {CryptohomeErrorCode_names + 1734, 35}, 56 },
+  { {CryptohomeErrorCode_names + 1769, 30}, 32 },
+  { {CryptohomeErrorCode_names + 1799, 31}, 7 },
+  { {CryptohomeErrorCode_names + 1830, 32}, 8 },
+  { {CryptohomeErrorCode_names + 1862, 37}, 20 },
+  { {CryptohomeErrorCode_names + 1899, 33}, 9 },
+  { {CryptohomeErrorCode_names + 1932, 36}, 41 },
+  { {CryptohomeErrorCode_names + 1968, 45}, 51 },
+  { {CryptohomeErrorCode_names + 2013, 31}, 52 },
+  { {CryptohomeErrorCode_names + 2044, 31}, 53 },
+  { {CryptohomeErrorCode_names + 2075, 41}, 14 },
+  { {CryptohomeErrorCode_names + 2116, 54}, 37 },
+  { {CryptohomeErrorCode_names + 2170, 36}, 45 },
+  { {CryptohomeErrorCode_names + 2206, 37}, 49 },
+  { {CryptohomeErrorCode_names + 2243, 36}, 54 },
+  { {CryptohomeErrorCode_names + 2279, 37}, 48 },
+  { {CryptohomeErrorCode_names + 2316, 36}, 55 },
 };
 
 static const int CryptohomeErrorCode_entries_by_number[] = {
-  40, // 0 -> CRYPTOHOME_ERROR_NOT_SET
+  41, // 0 -> CRYPTOHOME_ERROR_NOT_SET
   1, // 1 -> CRYPTOHOME_ERROR_ACCOUNT_NOT_FOUND
   5, // 2 -> CRYPTOHOME_ERROR_AUTHORIZATION_KEY_NOT_FOUND
   4, // 3 -> CRYPTOHOME_ERROR_AUTHORIZATION_KEY_FAILED
-  39, // 4 -> CRYPTOHOME_ERROR_NOT_IMPLEMENTED
-  35, // 5 -> CRYPTOHOME_ERROR_MOUNT_FATAL
-  36, // 6 -> CRYPTOHOME_ERROR_MOUNT_MOUNT_POINT_BUSY
-  45, // 7 -> CRYPTOHOME_ERROR_TPM_COMM_ERROR
-  46, // 8 -> CRYPTOHOME_ERROR_TPM_DEFEND_LOCK
-  48, // 9 -> CRYPTOHOME_ERROR_TPM_NEEDS_REBOOT
+  40, // 4 -> CRYPTOHOME_ERROR_NOT_IMPLEMENTED
+  36, // 5 -> CRYPTOHOME_ERROR_MOUNT_FATAL
+  37, // 6 -> CRYPTOHOME_ERROR_MOUNT_MOUNT_POINT_BUSY
+  46, // 7 -> CRYPTOHOME_ERROR_TPM_COMM_ERROR
+  47, // 8 -> CRYPTOHOME_ERROR_TPM_DEFEND_LOCK
+  49, // 9 -> CRYPTOHOME_ERROR_TPM_NEEDS_REBOOT
   3, // 10 -> CRYPTOHOME_ERROR_AUTHORIZATION_KEY_DENIED
-  31, // 11 -> CRYPTOHOME_ERROR_KEY_QUOTA_EXCEEDED
-  29, // 12 -> CRYPTOHOME_ERROR_KEY_LABEL_EXISTS
+  32, // 11 -> CRYPTOHOME_ERROR_KEY_QUOTA_EXCEEDED
+  30, // 12 -> CRYPTOHOME_ERROR_KEY_LABEL_EXISTS
   6, // 13 -> CRYPTOHOME_ERROR_BACKING_STORE_FAILURE
-  53, // 14 -> CRYPTOHOME_ERROR_UPDATE_SIGNATURE_INVALID
-  30, // 15 -> CRYPTOHOME_ERROR_KEY_NOT_FOUND
-  33, // 16 -> CRYPTOHOME_ERROR_LOCKBOX_SIGNATURE_INVALID
-  32, // 17 -> CRYPTOHOME_ERROR_LOCKBOX_CANNOT_SIGN
+  54, // 14 -> CRYPTOHOME_ERROR_UPDATE_SIGNATURE_INVALID
+  31, // 15 -> CRYPTOHOME_ERROR_KEY_NOT_FOUND
+  34, // 16 -> CRYPTOHOME_ERROR_LOCKBOX_SIGNATURE_INVALID
+  33, // 17 -> CRYPTOHOME_ERROR_LOCKBOX_CANNOT_SIGN
   9, // 18 -> CRYPTOHOME_ERROR_BOOT_ATTRIBUTE_NOT_FOUND
   8, // 19 -> CRYPTOHOME_ERROR_BOOT_ATTRIBUTES_CANNOT_SIGN
-  47, // 20 -> CRYPTOHOME_ERROR_TPM_EK_NOT_AVAILABLE
+  48, // 20 -> CRYPTOHOME_ERROR_TPM_EK_NOT_AVAILABLE
   2, // 21 -> CRYPTOHOME_ERROR_ATTESTATION_NOT_READY
   10, // 22 -> CRYPTOHOME_ERROR_CANNOT_CONNECT_TO_CA
   12, // 23 -> CRYPTOHOME_ERROR_CA_REFUSED_ENROLLMENT
   11, // 24 -> CRYPTOHOME_ERROR_CA_REFUSED_CERTIFICATE
-  27, // 25 -> CRYPTOHOME_ERROR_INTERNAL_ATTESTATION_ERROR
-  23, // 26 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_INVALID
-  22, // 27 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_STORE
-  21, // 28 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE
-  37, // 29 -> CRYPTOHOME_ERROR_MOUNT_OLD_ENCRYPTION
-  38, // 30 -> CRYPTOHOME_ERROR_MOUNT_PREVIOUS_MIGRATION_INCOMPLETE
-  34, // 31 -> CRYPTOHOME_ERROR_MIGRATE_KEY_FAILED
-  44, // 32 -> CRYPTOHOME_ERROR_REMOVE_FAILED
-  28, // 33 -> CRYPTOHOME_ERROR_INVALID_ARGUMENT
-  25, // 34 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_GET_FAILED
-  26, // 35 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_SET_FAILED
-  24, // 36 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED
-  54, // 37 -> CRYPTOHOME_ERROR_UPDATE_USER_ACTIVITY_TIMESTAMP_FAILED
-  15, // 38 -> CRYPTOHOME_ERROR_FAILED_TO_READ_PCR
-  41, // 39 -> CRYPTOHOME_ERROR_PCR_ALREADY_EXTENDED
-  14, // 40 -> CRYPTOHOME_ERROR_FAILED_TO_EXTEND_PCR
-  49, // 41 -> CRYPTOHOME_ERROR_TPM_UPDATE_REQUIRED
-  19, // 42 -> CRYPTOHOME_ERROR_FINGERPRINT_ERROR_INTERNAL
-  20, // 43 -> CRYPTOHOME_ERROR_FINGERPRINT_RETRY_REQUIRED
-  18, // 44 -> CRYPTOHOME_ERROR_FINGERPRINT_DENIED
-  55, // 45 -> CRYPTOHOME_ERROR_VAULT_UNRECOVERABLE
-  17, // 46 -> CRYPTOHOME_ERROR_FIDO_MAKE_CREDENTIAL_FAILED
-  16, // 47 -> CRYPTOHOME_ERROR_FIDO_GET_ASSERTION_FAILED
-  58, // 48 -> CRYPTOHOME_TOKEN_SERIALIZATION_FAILED
-  56, // 49 -> CRYPTOHOME_INVALID_AUTH_SESSION_TOKEN
+  28, // 25 -> CRYPTOHOME_ERROR_INTERNAL_ATTESTATION_ERROR
+  24, // 26 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_INVALID
+  23, // 27 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_STORE
+  22, // 28 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE
+  38, // 29 -> CRYPTOHOME_ERROR_MOUNT_OLD_ENCRYPTION
+  39, // 30 -> CRYPTOHOME_ERROR_MOUNT_PREVIOUS_MIGRATION_INCOMPLETE
+  35, // 31 -> CRYPTOHOME_ERROR_MIGRATE_KEY_FAILED
+  45, // 32 -> CRYPTOHOME_ERROR_REMOVE_FAILED
+  29, // 33 -> CRYPTOHOME_ERROR_INVALID_ARGUMENT
+  26, // 34 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_GET_FAILED
+  27, // 35 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_SET_FAILED
+  25, // 36 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED
+  55, // 37 -> CRYPTOHOME_ERROR_UPDATE_USER_ACTIVITY_TIMESTAMP_FAILED
+  16, // 38 -> CRYPTOHOME_ERROR_FAILED_TO_READ_PCR
+  42, // 39 -> CRYPTOHOME_ERROR_PCR_ALREADY_EXTENDED
+  15, // 40 -> CRYPTOHOME_ERROR_FAILED_TO_EXTEND_PCR
+  50, // 41 -> CRYPTOHOME_ERROR_TPM_UPDATE_REQUIRED
+  20, // 42 -> CRYPTOHOME_ERROR_FINGERPRINT_ERROR_INTERNAL
+  21, // 43 -> CRYPTOHOME_ERROR_FINGERPRINT_RETRY_REQUIRED
+  19, // 44 -> CRYPTOHOME_ERROR_FINGERPRINT_DENIED
+  56, // 45 -> CRYPTOHOME_ERROR_VAULT_UNRECOVERABLE
+  18, // 46 -> CRYPTOHOME_ERROR_FIDO_MAKE_CREDENTIAL_FAILED
+  17, // 47 -> CRYPTOHOME_ERROR_FIDO_GET_ASSERTION_FAILED
+  59, // 48 -> CRYPTOHOME_TOKEN_SERIALIZATION_FAILED
+  57, // 49 -> CRYPTOHOME_INVALID_AUTH_SESSION_TOKEN
   0, // 50 -> CRYPTOHOME_ADD_CREDENTIALS_FAILED
-  50, // 51 -> CRYPTOHOME_ERROR_UNAUTHENTICATED_AUTH_SESSION
-  51, // 52 -> CRYPTOHOME_ERROR_UNKNOWN_LEGACY
-  52, // 53 -> CRYPTOHOME_ERROR_UNUSABLE_VAULT
-  57, // 54 -> CRYPTOHOME_REMOVE_CREDENTIALS_FAILED
-  59, // 55 -> CRYPTOHOME_UPDATE_CREDENTIALS_FAILED
-  43, // 56 -> CRYPTOHOME_ERROR_RECOVERY_TRANSIENT
-  42, // 57 -> CRYPTOHOME_ERROR_RECOVERY_FATAL
+  51, // 51 -> CRYPTOHOME_ERROR_UNAUTHENTICATED_AUTH_SESSION
+  52, // 52 -> CRYPTOHOME_ERROR_UNKNOWN_LEGACY
+  53, // 53 -> CRYPTOHOME_ERROR_UNUSABLE_VAULT
+  58, // 54 -> CRYPTOHOME_REMOVE_CREDENTIALS_FAILED
+  60, // 55 -> CRYPTOHOME_UPDATE_CREDENTIALS_FAILED
+  44, // 56 -> CRYPTOHOME_ERROR_RECOVERY_TRANSIENT
+  43, // 57 -> CRYPTOHOME_ERROR_RECOVERY_FATAL
   7, // 58 -> CRYPTOHOME_ERROR_BIOMETRICS_BUSY
-  13, // 59 -> CRYPTOHOME_ERROR_CREDENTIAL_LOCKED
+  14, // 59 -> CRYPTOHOME_ERROR_CREDENTIAL_LOCKED
+  13, // 60 -> CRYPTOHOME_ERROR_CREDENTIAL_EXPIRED
 };
 
 const std::string& CryptohomeErrorCode_Name(
@@ -2153,12 +2240,12 @@ const std::string& CryptohomeErrorCode_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           CryptohomeErrorCode_entries,
           CryptohomeErrorCode_entries_by_number,
-          60, CryptohomeErrorCode_strings);
+          61, CryptohomeErrorCode_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       CryptohomeErrorCode_entries,
       CryptohomeErrorCode_entries_by_number,
-      60, value);
+      61, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      CryptohomeErrorCode_strings[idx].get();
 }
@@ -2166,7 +2253,7 @@ bool CryptohomeErrorCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CryptohomeErrorCode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CryptohomeErrorCode_entries, 60, name, &int_value);
+      CryptohomeErrorCode_entries, 61, name, &int_value);
   if (success) {
     *value = static_cast<CryptohomeErrorCode>(int_value);
   }
@@ -2184,17 +2271,19 @@ bool PrimaryAction_IsValid(int value) {
     case 7:
     case 8:
     case 9:
+    case 10:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PrimaryAction_strings[10] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PrimaryAction_strings[11] = {};
 
 static const char PrimaryAction_names[] =
   "PRIMARY_CREATE_REQUIRED"
   "PRIMARY_INCORRECT_AUTH"
+  "PRIMARY_LE_EXPIRED"
   "PRIMARY_LE_LOCKED_OUT"
   "PRIMARY_NONE"
   "PRIMARY_NOTIFY_OLD_ENCRYPTION_POLICY"
@@ -2207,27 +2296,29 @@ static const char PrimaryAction_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PrimaryAction_entries[] = {
   { {PrimaryAction_names + 0, 23}, 2 },
   { {PrimaryAction_names + 23, 22}, 8 },
-  { {PrimaryAction_names + 45, 21}, 9 },
-  { {PrimaryAction_names + 66, 12}, 1 },
-  { {PrimaryAction_names + 78, 36}, 3 },
-  { {PrimaryAction_names + 114, 16}, 0 },
-  { {PrimaryAction_names + 130, 33}, 4 },
-  { {PrimaryAction_names + 163, 19}, 7 },
-  { {PrimaryAction_names + 182, 24}, 6 },
-  { {PrimaryAction_names + 206, 27}, 5 },
+  { {PrimaryAction_names + 45, 18}, 10 },
+  { {PrimaryAction_names + 63, 21}, 9 },
+  { {PrimaryAction_names + 84, 12}, 1 },
+  { {PrimaryAction_names + 96, 36}, 3 },
+  { {PrimaryAction_names + 132, 16}, 0 },
+  { {PrimaryAction_names + 148, 33}, 4 },
+  { {PrimaryAction_names + 181, 19}, 7 },
+  { {PrimaryAction_names + 200, 24}, 6 },
+  { {PrimaryAction_names + 224, 27}, 5 },
 };
 
 static const int PrimaryAction_entries_by_number[] = {
-  5, // 0 -> PRIMARY_NO_ERROR
-  3, // 1 -> PRIMARY_NONE
+  6, // 0 -> PRIMARY_NO_ERROR
+  4, // 1 -> PRIMARY_NONE
   0, // 2 -> PRIMARY_CREATE_REQUIRED
-  4, // 3 -> PRIMARY_NOTIFY_OLD_ENCRYPTION_POLICY
-  6, // 4 -> PRIMARY_RESUME_PREVIOUS_MIGRATION
-  9, // 5 -> PRIMARY_TPM_UDPATE_REQUIRED
-  8, // 6 -> PRIMARY_TPM_NEEDS_REBOOT
-  7, // 7 -> PRIMARY_TPM_LOCKOUT
+  5, // 3 -> PRIMARY_NOTIFY_OLD_ENCRYPTION_POLICY
+  7, // 4 -> PRIMARY_RESUME_PREVIOUS_MIGRATION
+  10, // 5 -> PRIMARY_TPM_UDPATE_REQUIRED
+  9, // 6 -> PRIMARY_TPM_NEEDS_REBOOT
+  8, // 7 -> PRIMARY_TPM_LOCKOUT
   1, // 8 -> PRIMARY_INCORRECT_AUTH
-  2, // 9 -> PRIMARY_LE_LOCKED_OUT
+  3, // 9 -> PRIMARY_LE_LOCKED_OUT
+  2, // 10 -> PRIMARY_LE_EXPIRED
 };
 
 const std::string& PrimaryAction_Name(
@@ -2236,12 +2327,12 @@ const std::string& PrimaryAction_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           PrimaryAction_entries,
           PrimaryAction_entries_by_number,
-          10, PrimaryAction_strings);
+          11, PrimaryAction_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       PrimaryAction_entries,
       PrimaryAction_entries_by_number,
-      10, value);
+      11, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      PrimaryAction_strings[idx].get();
 }
@@ -2249,7 +2340,7 @@ bool PrimaryAction_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PrimaryAction* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      PrimaryAction_entries, 10, name, &int_value);
+      PrimaryAction_entries, 11, name, &int_value);
   if (success) {
     *value = static_cast<PrimaryAction>(int_value);
   }
@@ -10313,13 +10404,15 @@ void StartAuthSessionReply::clear_auth_factors() {
 StartAuthSessionReply::StartAuthSessionReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  auth_factors_(arena) {
+  auth_factors_(arena),
+  configured_auth_factors_with_status_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:user_data_auth.StartAuthSessionReply)
 }
 StartAuthSessionReply::StartAuthSessionReply(const StartAuthSessionReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      auth_factors_(from.auth_factors_) {
+      auth_factors_(from.auth_factors_),
+      configured_auth_factors_with_status_(from.configured_auth_factors_with_status_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   auth_session_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -10390,6 +10483,7 @@ void StartAuthSessionReply::Clear() {
   (void) cached_has_bits;
 
   auth_factors_.Clear();
+  configured_auth_factors_with_status_.Clear();
   auth_session_id_.ClearToEmpty();
   broadcast_id_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
@@ -10464,6 +10558,19 @@ const char* StartAuthSessionReply::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
+      // repeated .user_data_auth.AuthFactorWithStatus configured_auth_factors_with_status = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_configured_auth_factors_with_status(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<74>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -10533,6 +10640,14 @@ uint8_t* StartAuthSessionReply::_InternalSerialize(
         8, this->_internal_broadcast_id(), target);
   }
 
+  // repeated .user_data_auth.AuthFactorWithStatus configured_auth_factors_with_status = 9;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_configured_auth_factors_with_status_size()); i < n; i++) {
+    const auto& repfield = this->_internal_configured_auth_factors_with_status(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(9, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -10552,6 +10667,13 @@ size_t StartAuthSessionReply::ByteSizeLong() const {
   // repeated .user_data_auth.AuthFactor auth_factors = 5;
   total_size += 1UL * this->_internal_auth_factors_size();
   for (const auto& msg : this->auth_factors_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .user_data_auth.AuthFactorWithStatus configured_auth_factors_with_status = 9;
+  total_size += 1UL * this->_internal_configured_auth_factors_with_status_size();
+  for (const auto& msg : this->configured_auth_factors_with_status_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -10609,6 +10731,7 @@ void StartAuthSessionReply::MergeFrom(const StartAuthSessionReply& from) {
   (void) cached_has_bits;
 
   auth_factors_.MergeFrom(from.auth_factors_);
+  configured_auth_factors_with_status_.MergeFrom(from.configured_auth_factors_with_status_);
   if (!from._internal_auth_session_id().empty()) {
     _internal_set_auth_session_id(from._internal_auth_session_id());
   }
@@ -10644,6 +10767,7 @@ void StartAuthSessionReply::InternalSwap(StartAuthSessionReply* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   auth_factors_.InternalSwap(&other->auth_factors_);
+  configured_auth_factors_with_status_.InternalSwap(&other->configured_auth_factors_with_status_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &auth_session_id_, lhs_arena,
       &other->auth_session_id_, rhs_arena
@@ -26891,6 +27015,306 @@ std::string RemoveAuthFactorReply::GetTypeName() const {
 
 // ===================================================================
 
+class AuthIntentsForAuthFactorType::_Internal {
+ public:
+};
+
+AuthIntentsForAuthFactorType::AuthIntentsForAuthFactorType(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  current_(arena),
+  minimum_(arena),
+  maximum_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.AuthIntentsForAuthFactorType)
+}
+AuthIntentsForAuthFactorType::AuthIntentsForAuthFactorType(const AuthIntentsForAuthFactorType& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      current_(from.current_),
+      minimum_(from.minimum_),
+      maximum_(from.maximum_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  type_ = from.type_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.AuthIntentsForAuthFactorType)
+}
+
+inline void AuthIntentsForAuthFactorType::SharedCtor() {
+type_ = 0;
+}
+
+AuthIntentsForAuthFactorType::~AuthIntentsForAuthFactorType() {
+  // @@protoc_insertion_point(destructor:user_data_auth.AuthIntentsForAuthFactorType)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AuthIntentsForAuthFactorType::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void AuthIntentsForAuthFactorType::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void AuthIntentsForAuthFactorType::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.AuthIntentsForAuthFactorType)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  current_.Clear();
+  minimum_.Clear();
+  maximum_.Clear();
+  type_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AuthIntentsForAuthFactorType::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.AuthFactorType type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_type(static_cast<::user_data_auth::AuthFactorType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntent current = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_current(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 16) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_current(static_cast<::user_data_auth::AuthIntent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntent minimum = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_minimum(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 24) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_minimum(static_cast<::user_data_auth::AuthIntent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntent maximum = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_maximum(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 32) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_maximum(static_cast<::user_data_auth::AuthIntent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AuthIntentsForAuthFactorType::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.AuthIntentsForAuthFactorType)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.AuthFactorType type = 1;
+  if (this->_internal_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_type(), target);
+  }
+
+  // repeated .user_data_auth.AuthIntent current = 2;
+  {
+    int byte_size = _current_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          2, current_, byte_size, target);
+    }
+  }
+
+  // repeated .user_data_auth.AuthIntent minimum = 3;
+  {
+    int byte_size = _minimum_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          3, minimum_, byte_size, target);
+    }
+  }
+
+  // repeated .user_data_auth.AuthIntent maximum = 4;
+  {
+    int byte_size = _maximum_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          4, maximum_, byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.AuthIntentsForAuthFactorType)
+  return target;
+}
+
+size_t AuthIntentsForAuthFactorType::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.AuthIntentsForAuthFactorType)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .user_data_auth.AuthIntent current = 2;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_current_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_current(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _current_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // repeated .user_data_auth.AuthIntent minimum = 3;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_minimum_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_minimum(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _minimum_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // repeated .user_data_auth.AuthIntent maximum = 4;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_maximum_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_maximum(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _maximum_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // .user_data_auth.AuthFactorType type = 1;
+  if (this->_internal_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AuthIntentsForAuthFactorType::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthIntentsForAuthFactorType*>(
+      &from));
+}
+
+void AuthIntentsForAuthFactorType::MergeFrom(const AuthIntentsForAuthFactorType& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.AuthIntentsForAuthFactorType)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  current_.MergeFrom(from.current_);
+  minimum_.MergeFrom(from.minimum_);
+  maximum_.MergeFrom(from.maximum_);
+  if (from._internal_type() != 0) {
+    _internal_set_type(from._internal_type());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AuthIntentsForAuthFactorType::CopyFrom(const AuthIntentsForAuthFactorType& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.AuthIntentsForAuthFactorType)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AuthIntentsForAuthFactorType::IsInitialized() const {
+  return true;
+}
+
+void AuthIntentsForAuthFactorType::InternalSwap(AuthIntentsForAuthFactorType* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  current_.InternalSwap(&other->current_);
+  minimum_.InternalSwap(&other->minimum_);
+  maximum_.InternalSwap(&other->maximum_);
+  swap(type_, other->type_);
+}
+
+std::string AuthIntentsForAuthFactorType::GetTypeName() const {
+  return "user_data_auth.AuthIntentsForAuthFactorType";
+}
+
+
+// ===================================================================
+
 class ListAuthFactorsRequest::_Internal {
  public:
   static const ::cryptohome::AccountIdentifier& account_id(const ListAuthFactorsRequest* msg);
@@ -27098,7 +27522,8 @@ ListAuthFactorsReply::ListAuthFactorsReply(::PROTOBUF_NAMESPACE_ID::Arena* arena
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   configured_auth_factors_(arena),
   supported_auth_factors_(arena),
-  configured_auth_factors_with_status_(arena) {
+  configured_auth_factors_with_status_(arena),
+  auth_intents_for_types_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:user_data_auth.ListAuthFactorsReply)
 }
@@ -27106,7 +27531,8 @@ ListAuthFactorsReply::ListAuthFactorsReply(const ListAuthFactorsReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       configured_auth_factors_(from.configured_auth_factors_),
       supported_auth_factors_(from.supported_auth_factors_),
-      configured_auth_factors_with_status_(from.configured_auth_factors_with_status_) {
+      configured_auth_factors_with_status_(from.configured_auth_factors_with_status_),
+      auth_intents_for_types_(from.auth_intents_for_types_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_error_info()) {
     error_info_ = new ::user_data_auth::CryptohomeErrorInfo(*from.error_info_);
@@ -27151,6 +27577,7 @@ void ListAuthFactorsReply::Clear() {
   configured_auth_factors_.Clear();
   supported_auth_factors_.Clear();
   configured_auth_factors_with_status_.Clear();
+  auth_intents_for_types_.Clear();
   if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
     delete error_info_;
   }
@@ -27217,6 +27644,19 @@ const char* ListAuthFactorsReply::_InternalParse(const char* ptr, ::_pbi::ParseC
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntentsForAuthFactorType auth_intents_for_types = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_auth_intents_for_types(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -27288,6 +27728,14 @@ uint8_t* ListAuthFactorsReply::_InternalSerialize(
         InternalWriteMessage(5, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .user_data_auth.AuthIntentsForAuthFactorType auth_intents_for_types = 6;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_auth_intents_for_types_size()); i < n; i++) {
+    const auto& repfield = this->_internal_auth_intents_for_types(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(6, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -27335,6 +27783,13 @@ size_t ListAuthFactorsReply::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // repeated .user_data_auth.AuthIntentsForAuthFactorType auth_intents_for_types = 6;
+  total_size += 1UL * this->_internal_auth_intents_for_types_size();
+  for (const auto& msg : this->auth_intents_for_types_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   // .user_data_auth.CryptohomeErrorInfo error_info = 2;
   if (this->_internal_has_error_info()) {
     total_size += 1 +
@@ -27371,6 +27826,7 @@ void ListAuthFactorsReply::MergeFrom(const ListAuthFactorsReply& from) {
   configured_auth_factors_.MergeFrom(from.configured_auth_factors_);
   supported_auth_factors_.MergeFrom(from.supported_auth_factors_);
   configured_auth_factors_with_status_.MergeFrom(from.configured_auth_factors_with_status_);
+  auth_intents_for_types_.MergeFrom(from.auth_intents_for_types_);
   if (from._internal_has_error_info()) {
     _internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(from._internal_error_info());
   }
@@ -27397,6 +27853,7 @@ void ListAuthFactorsReply::InternalSwap(ListAuthFactorsReply* other) {
   configured_auth_factors_.InternalSwap(&other->configured_auth_factors_);
   supported_auth_factors_.InternalSwap(&other->supported_auth_factors_);
   configured_auth_factors_with_status_.InternalSwap(&other->configured_auth_factors_with_status_);
+  auth_intents_for_types_.InternalSwap(&other->auth_intents_for_types_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ListAuthFactorsReply, error_)
       + sizeof(ListAuthFactorsReply::error_)
@@ -29160,6 +29617,566 @@ std::string GetRecoveryRequestReply::GetTypeName() const {
 
 // ===================================================================
 
+class CreateVaultKeysetRequest::_Internal {
+ public:
+};
+
+CreateVaultKeysetRequest::CreateVaultKeysetRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.CreateVaultKeysetRequest)
+}
+CreateVaultKeysetRequest::CreateVaultKeysetRequest(const CreateVaultKeysetRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  auth_session_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    auth_session_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_auth_session_id().empty()) {
+    auth_session_id_.Set(from._internal_auth_session_id(), 
+      GetArenaForAllocation());
+  }
+  passkey_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    passkey_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_passkey().empty()) {
+    passkey_.Set(from._internal_passkey(), 
+      GetArenaForAllocation());
+  }
+  key_label_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    key_label_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_key_label().empty()) {
+    key_label_.Set(from._internal_key_label(), 
+      GetArenaForAllocation());
+  }
+  ::memcpy(&type_, &from.type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&disable_key_data_) -
+    reinterpret_cast<char*>(&type_)) + sizeof(disable_key_data_));
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.CreateVaultKeysetRequest)
+}
+
+inline void CreateVaultKeysetRequest::SharedCtor() {
+auth_session_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  auth_session_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+passkey_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  passkey_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+key_label_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  key_label_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&type_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&disable_key_data_) -
+    reinterpret_cast<char*>(&type_)) + sizeof(disable_key_data_));
+}
+
+CreateVaultKeysetRequest::~CreateVaultKeysetRequest() {
+  // @@protoc_insertion_point(destructor:user_data_auth.CreateVaultKeysetRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CreateVaultKeysetRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  auth_session_id_.Destroy();
+  passkey_.Destroy();
+  key_label_.Destroy();
+}
+
+void CreateVaultKeysetRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CreateVaultKeysetRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.CreateVaultKeysetRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  auth_session_id_.ClearToEmpty();
+  passkey_.ClearToEmpty();
+  key_label_.ClearToEmpty();
+  ::memset(&type_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&disable_key_data_) -
+      reinterpret_cast<char*>(&type_)) + sizeof(disable_key_data_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CreateVaultKeysetRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bytes auth_session_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_auth_session_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes passkey = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_passkey();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string key_label = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_key_label();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthFactorType type = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_type(static_cast<::user_data_auth::AuthFactorType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool disable_key_data = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          disable_key_data_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CreateVaultKeysetRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.CreateVaultKeysetRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bytes auth_session_id = 1;
+  if (!this->_internal_auth_session_id().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_auth_session_id(), target);
+  }
+
+  // bytes passkey = 2;
+  if (!this->_internal_passkey().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_passkey(), target);
+  }
+
+  // string key_label = 3;
+  if (!this->_internal_key_label().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_key_label().data(), static_cast<int>(this->_internal_key_label().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "user_data_auth.CreateVaultKeysetRequest.key_label");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_key_label(), target);
+  }
+
+  // .user_data_auth.AuthFactorType type = 4;
+  if (this->_internal_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      4, this->_internal_type(), target);
+  }
+
+  // bool disable_key_data = 5;
+  if (this->_internal_disable_key_data() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_disable_key_data(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.CreateVaultKeysetRequest)
+  return target;
+}
+
+size_t CreateVaultKeysetRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.CreateVaultKeysetRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bytes auth_session_id = 1;
+  if (!this->_internal_auth_session_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_auth_session_id());
+  }
+
+  // bytes passkey = 2;
+  if (!this->_internal_passkey().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_passkey());
+  }
+
+  // string key_label = 3;
+  if (!this->_internal_key_label().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_key_label());
+  }
+
+  // .user_data_auth.AuthFactorType type = 4;
+  if (this->_internal_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+  }
+
+  // bool disable_key_data = 5;
+  if (this->_internal_disable_key_data() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CreateVaultKeysetRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CreateVaultKeysetRequest*>(
+      &from));
+}
+
+void CreateVaultKeysetRequest::MergeFrom(const CreateVaultKeysetRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.CreateVaultKeysetRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_auth_session_id().empty()) {
+    _internal_set_auth_session_id(from._internal_auth_session_id());
+  }
+  if (!from._internal_passkey().empty()) {
+    _internal_set_passkey(from._internal_passkey());
+  }
+  if (!from._internal_key_label().empty()) {
+    _internal_set_key_label(from._internal_key_label());
+  }
+  if (from._internal_type() != 0) {
+    _internal_set_type(from._internal_type());
+  }
+  if (from._internal_disable_key_data() != 0) {
+    _internal_set_disable_key_data(from._internal_disable_key_data());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CreateVaultKeysetRequest::CopyFrom(const CreateVaultKeysetRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.CreateVaultKeysetRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CreateVaultKeysetRequest::IsInitialized() const {
+  return true;
+}
+
+void CreateVaultKeysetRequest::InternalSwap(CreateVaultKeysetRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &auth_session_id_, lhs_arena,
+      &other->auth_session_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &passkey_, lhs_arena,
+      &other->passkey_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &key_label_, lhs_arena,
+      &other->key_label_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CreateVaultKeysetRequest, disable_key_data_)
+      + sizeof(CreateVaultKeysetRequest::disable_key_data_)
+      - PROTOBUF_FIELD_OFFSET(CreateVaultKeysetRequest, type_)>(
+          reinterpret_cast<char*>(&type_),
+          reinterpret_cast<char*>(&other->type_));
+}
+
+std::string CreateVaultKeysetRequest::GetTypeName() const {
+  return "user_data_auth.CreateVaultKeysetRequest";
+}
+
+
+// ===================================================================
+
+class CreateVaultKeysetReply::_Internal {
+ public:
+  static const ::user_data_auth::CryptohomeErrorInfo& error_info(const CreateVaultKeysetReply* msg);
+};
+
+const ::user_data_auth::CryptohomeErrorInfo&
+CreateVaultKeysetReply::_Internal::error_info(const CreateVaultKeysetReply* msg) {
+  return *msg->error_info_;
+}
+CreateVaultKeysetReply::CreateVaultKeysetReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.CreateVaultKeysetReply)
+}
+CreateVaultKeysetReply::CreateVaultKeysetReply(const CreateVaultKeysetReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_error_info()) {
+    error_info_ = new ::user_data_auth::CryptohomeErrorInfo(*from.error_info_);
+  } else {
+    error_info_ = nullptr;
+  }
+  error_ = from.error_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.CreateVaultKeysetReply)
+}
+
+inline void CreateVaultKeysetReply::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&error_info_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&error_) -
+    reinterpret_cast<char*>(&error_info_)) + sizeof(error_));
+}
+
+CreateVaultKeysetReply::~CreateVaultKeysetReply() {
+  // @@protoc_insertion_point(destructor:user_data_auth.CreateVaultKeysetReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CreateVaultKeysetReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete error_info_;
+}
+
+void CreateVaultKeysetReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CreateVaultKeysetReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.CreateVaultKeysetReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
+    delete error_info_;
+  }
+  error_info_ = nullptr;
+  error_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CreateVaultKeysetReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.CryptohomeErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CreateVaultKeysetReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.CreateVaultKeysetReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  if (this->_internal_has_error_info()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::error_info(this),
+        _Internal::error_info(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.CreateVaultKeysetReply)
+  return target;
+}
+
+size_t CreateVaultKeysetReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.CreateVaultKeysetReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  if (this->_internal_has_error_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *error_info_);
+  }
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CreateVaultKeysetReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CreateVaultKeysetReply*>(
+      &from));
+}
+
+void CreateVaultKeysetReply::MergeFrom(const CreateVaultKeysetReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.CreateVaultKeysetReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_error_info()) {
+    _internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(from._internal_error_info());
+  }
+  if (from._internal_error() != 0) {
+    _internal_set_error(from._internal_error());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CreateVaultKeysetReply::CopyFrom(const CreateVaultKeysetReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.CreateVaultKeysetReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CreateVaultKeysetReply::IsInitialized() const {
+  return true;
+}
+
+void CreateVaultKeysetReply::InternalSwap(CreateVaultKeysetReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CreateVaultKeysetReply, error_)
+      + sizeof(CreateVaultKeysetReply::error_)
+      - PROTOBUF_FIELD_OFFSET(CreateVaultKeysetReply, error_info_)>(
+          reinterpret_cast<char*>(&error_info_),
+          reinterpret_cast<char*>(&other->error_info_));
+}
+
+std::string CreateVaultKeysetReply::GetTypeName() const {
+  return "user_data_auth.CreateVaultKeysetReply";
+}
+
+
+// ===================================================================
+
 class PrepareAuthFactorRequest::_Internal {
  public:
 };
@@ -30062,6 +31079,524 @@ void TerminateAuthFactorReply::InternalSwap(TerminateAuthFactorReply* other) {
 
 std::string TerminateAuthFactorReply::GetTypeName() const {
   return "user_data_auth.TerminateAuthFactorReply";
+}
+
+
+// ===================================================================
+
+class ModifyAuthFactorIntentsRequest::_Internal {
+ public:
+};
+
+ModifyAuthFactorIntentsRequest::ModifyAuthFactorIntentsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  intents_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.ModifyAuthFactorIntentsRequest)
+}
+ModifyAuthFactorIntentsRequest::ModifyAuthFactorIntentsRequest(const ModifyAuthFactorIntentsRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      intents_(from.intents_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  auth_session_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    auth_session_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_auth_session_id().empty()) {
+    auth_session_id_.Set(from._internal_auth_session_id(), 
+      GetArenaForAllocation());
+  }
+  type_ = from.type_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.ModifyAuthFactorIntentsRequest)
+}
+
+inline void ModifyAuthFactorIntentsRequest::SharedCtor() {
+auth_session_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  auth_session_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+type_ = 0;
+}
+
+ModifyAuthFactorIntentsRequest::~ModifyAuthFactorIntentsRequest() {
+  // @@protoc_insertion_point(destructor:user_data_auth.ModifyAuthFactorIntentsRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ModifyAuthFactorIntentsRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  auth_session_id_.Destroy();
+}
+
+void ModifyAuthFactorIntentsRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ModifyAuthFactorIntentsRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.ModifyAuthFactorIntentsRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  intents_.Clear();
+  auth_session_id_.ClearToEmpty();
+  type_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ModifyAuthFactorIntentsRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bytes auth_session_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_auth_session_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthFactorType type = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_type(static_cast<::user_data_auth::AuthFactorType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntent intents = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_intents(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 24) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_intents(static_cast<::user_data_auth::AuthIntent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ModifyAuthFactorIntentsRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.ModifyAuthFactorIntentsRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bytes auth_session_id = 1;
+  if (!this->_internal_auth_session_id().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_auth_session_id(), target);
+  }
+
+  // .user_data_auth.AuthFactorType type = 2;
+  if (this->_internal_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_type(), target);
+  }
+
+  // repeated .user_data_auth.AuthIntent intents = 3;
+  {
+    int byte_size = _intents_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          3, intents_, byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.ModifyAuthFactorIntentsRequest)
+  return target;
+}
+
+size_t ModifyAuthFactorIntentsRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.ModifyAuthFactorIntentsRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .user_data_auth.AuthIntent intents = 3;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_intents_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_intents(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _intents_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // bytes auth_session_id = 1;
+  if (!this->_internal_auth_session_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_auth_session_id());
+  }
+
+  // .user_data_auth.AuthFactorType type = 2;
+  if (this->_internal_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ModifyAuthFactorIntentsRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ModifyAuthFactorIntentsRequest*>(
+      &from));
+}
+
+void ModifyAuthFactorIntentsRequest::MergeFrom(const ModifyAuthFactorIntentsRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.ModifyAuthFactorIntentsRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  intents_.MergeFrom(from.intents_);
+  if (!from._internal_auth_session_id().empty()) {
+    _internal_set_auth_session_id(from._internal_auth_session_id());
+  }
+  if (from._internal_type() != 0) {
+    _internal_set_type(from._internal_type());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ModifyAuthFactorIntentsRequest::CopyFrom(const ModifyAuthFactorIntentsRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.ModifyAuthFactorIntentsRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ModifyAuthFactorIntentsRequest::IsInitialized() const {
+  return true;
+}
+
+void ModifyAuthFactorIntentsRequest::InternalSwap(ModifyAuthFactorIntentsRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  intents_.InternalSwap(&other->intents_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &auth_session_id_, lhs_arena,
+      &other->auth_session_id_, rhs_arena
+  );
+  swap(type_, other->type_);
+}
+
+std::string ModifyAuthFactorIntentsRequest::GetTypeName() const {
+  return "user_data_auth.ModifyAuthFactorIntentsRequest";
+}
+
+
+// ===================================================================
+
+class ModifyAuthFactorIntentsReply::_Internal {
+ public:
+  static const ::user_data_auth::CryptohomeErrorInfo& error_info(const ModifyAuthFactorIntentsReply* msg);
+  static const ::user_data_auth::AuthIntentsForAuthFactorType& auth_intents(const ModifyAuthFactorIntentsReply* msg);
+};
+
+const ::user_data_auth::CryptohomeErrorInfo&
+ModifyAuthFactorIntentsReply::_Internal::error_info(const ModifyAuthFactorIntentsReply* msg) {
+  return *msg->error_info_;
+}
+const ::user_data_auth::AuthIntentsForAuthFactorType&
+ModifyAuthFactorIntentsReply::_Internal::auth_intents(const ModifyAuthFactorIntentsReply* msg) {
+  return *msg->auth_intents_;
+}
+ModifyAuthFactorIntentsReply::ModifyAuthFactorIntentsReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.ModifyAuthFactorIntentsReply)
+}
+ModifyAuthFactorIntentsReply::ModifyAuthFactorIntentsReply(const ModifyAuthFactorIntentsReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_error_info()) {
+    error_info_ = new ::user_data_auth::CryptohomeErrorInfo(*from.error_info_);
+  } else {
+    error_info_ = nullptr;
+  }
+  if (from._internal_has_auth_intents()) {
+    auth_intents_ = new ::user_data_auth::AuthIntentsForAuthFactorType(*from.auth_intents_);
+  } else {
+    auth_intents_ = nullptr;
+  }
+  error_ = from.error_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.ModifyAuthFactorIntentsReply)
+}
+
+inline void ModifyAuthFactorIntentsReply::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&error_info_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&error_) -
+    reinterpret_cast<char*>(&error_info_)) + sizeof(error_));
+}
+
+ModifyAuthFactorIntentsReply::~ModifyAuthFactorIntentsReply() {
+  // @@protoc_insertion_point(destructor:user_data_auth.ModifyAuthFactorIntentsReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ModifyAuthFactorIntentsReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete error_info_;
+  if (this != internal_default_instance()) delete auth_intents_;
+}
+
+void ModifyAuthFactorIntentsReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ModifyAuthFactorIntentsReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.ModifyAuthFactorIntentsReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
+    delete error_info_;
+  }
+  error_info_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && auth_intents_ != nullptr) {
+    delete auth_intents_;
+  }
+  auth_intents_ = nullptr;
+  error_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ModifyAuthFactorIntentsReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.CryptohomeErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthIntentsForAuthFactorType auth_intents = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_auth_intents(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ModifyAuthFactorIntentsReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.ModifyAuthFactorIntentsReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  if (this->_internal_has_error_info()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::error_info(this),
+        _Internal::error_info(this).GetCachedSize(), target, stream);
+  }
+
+  // .user_data_auth.AuthIntentsForAuthFactorType auth_intents = 3;
+  if (this->_internal_has_auth_intents()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::auth_intents(this),
+        _Internal::auth_intents(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.ModifyAuthFactorIntentsReply)
+  return target;
+}
+
+size_t ModifyAuthFactorIntentsReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.ModifyAuthFactorIntentsReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  if (this->_internal_has_error_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *error_info_);
+  }
+
+  // .user_data_auth.AuthIntentsForAuthFactorType auth_intents = 3;
+  if (this->_internal_has_auth_intents()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *auth_intents_);
+  }
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ModifyAuthFactorIntentsReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ModifyAuthFactorIntentsReply*>(
+      &from));
+}
+
+void ModifyAuthFactorIntentsReply::MergeFrom(const ModifyAuthFactorIntentsReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.ModifyAuthFactorIntentsReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_error_info()) {
+    _internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(from._internal_error_info());
+  }
+  if (from._internal_has_auth_intents()) {
+    _internal_mutable_auth_intents()->::user_data_auth::AuthIntentsForAuthFactorType::MergeFrom(from._internal_auth_intents());
+  }
+  if (from._internal_error() != 0) {
+    _internal_set_error(from._internal_error());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ModifyAuthFactorIntentsReply::CopyFrom(const ModifyAuthFactorIntentsReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.ModifyAuthFactorIntentsReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ModifyAuthFactorIntentsReply::IsInitialized() const {
+  return true;
+}
+
+void ModifyAuthFactorIntentsReply::InternalSwap(ModifyAuthFactorIntentsReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ModifyAuthFactorIntentsReply, error_)
+      + sizeof(ModifyAuthFactorIntentsReply::error_)
+      - PROTOBUF_FIELD_OFFSET(ModifyAuthFactorIntentsReply, error_info_)>(
+          reinterpret_cast<char*>(&error_info_),
+          reinterpret_cast<char*>(&other->error_info_));
+}
+
+std::string ModifyAuthFactorIntentsReply::GetTypeName() const {
+  return "user_data_auth.ModifyAuthFactorIntentsReply";
 }
 
 
@@ -32247,6 +33782,10 @@ template<> PROTOBUF_NOINLINE ::user_data_auth::RemoveAuthFactorReply*
 Arena::CreateMaybeMessage< ::user_data_auth::RemoveAuthFactorReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::RemoveAuthFactorReply >(arena);
 }
+template<> PROTOBUF_NOINLINE ::user_data_auth::AuthIntentsForAuthFactorType*
+Arena::CreateMaybeMessage< ::user_data_auth::AuthIntentsForAuthFactorType >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::AuthIntentsForAuthFactorType >(arena);
+}
 template<> PROTOBUF_NOINLINE ::user_data_auth::ListAuthFactorsRequest*
 Arena::CreateMaybeMessage< ::user_data_auth::ListAuthFactorsRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::ListAuthFactorsRequest >(arena);
@@ -32279,6 +33818,14 @@ template<> PROTOBUF_NOINLINE ::user_data_auth::GetRecoveryRequestReply*
 Arena::CreateMaybeMessage< ::user_data_auth::GetRecoveryRequestReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::GetRecoveryRequestReply >(arena);
 }
+template<> PROTOBUF_NOINLINE ::user_data_auth::CreateVaultKeysetRequest*
+Arena::CreateMaybeMessage< ::user_data_auth::CreateVaultKeysetRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::CreateVaultKeysetRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::CreateVaultKeysetReply*
+Arena::CreateMaybeMessage< ::user_data_auth::CreateVaultKeysetReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::CreateVaultKeysetReply >(arena);
+}
 template<> PROTOBUF_NOINLINE ::user_data_auth::PrepareAuthFactorRequest*
 Arena::CreateMaybeMessage< ::user_data_auth::PrepareAuthFactorRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::PrepareAuthFactorRequest >(arena);
@@ -32294,6 +33841,14 @@ Arena::CreateMaybeMessage< ::user_data_auth::TerminateAuthFactorRequest >(Arena*
 template<> PROTOBUF_NOINLINE ::user_data_auth::TerminateAuthFactorReply*
 Arena::CreateMaybeMessage< ::user_data_auth::TerminateAuthFactorReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::TerminateAuthFactorReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::ModifyAuthFactorIntentsRequest*
+Arena::CreateMaybeMessage< ::user_data_auth::ModifyAuthFactorIntentsRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::ModifyAuthFactorIntentsRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::ModifyAuthFactorIntentsReply*
+Arena::CreateMaybeMessage< ::user_data_auth::ModifyAuthFactorIntentsReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::ModifyAuthFactorIntentsReply >(arena);
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::AuthScanResult*
 Arena::CreateMaybeMessage< ::user_data_auth::AuthScanResult >(Arena* arena) {

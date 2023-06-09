@@ -35180,6 +35180,8 @@ std::string GetTypeName() const final;
 enum : int {
 kIccidFieldNumber = 1,
 kSmdpAddressFieldNumber = 2,
+kSmdsAddressFieldNumber = 3,
+kNameFieldNumber = 4,
 };
 // optional string iccid = 1;
 bool has_iccid() const;
@@ -35217,6 +35219,42 @@ inline PROTOBUF_ALWAYS_INLINE void _internal_set_smdp_address(const std::string&
 std::string* _internal_mutable_smdp_address();
 public:
 
+// optional string smds_address = 3;
+bool has_smds_address() const;
+private:
+bool _internal_has_smds_address() const;
+public:
+void clear_smds_address();
+const std::string& smds_address() const;
+template <typename ArgT0 = const std::string&, typename... ArgT>
+void set_smds_address(ArgT0&& arg0, ArgT... args);
+std::string* mutable_smds_address();
+PROTOBUF_NODISCARD std::string* release_smds_address();
+void set_allocated_smds_address(std::string* smds_address);
+private:
+const std::string& _internal_smds_address() const;
+inline PROTOBUF_ALWAYS_INLINE void _internal_set_smds_address(const std::string& value);
+std::string* _internal_mutable_smds_address();
+public:
+
+// optional string name = 4;
+bool has_name() const;
+private:
+bool _internal_has_name() const;
+public:
+void clear_name();
+const std::string& name() const;
+template <typename ArgT0 = const std::string&, typename... ArgT>
+void set_name(ArgT0&& arg0, ArgT... args);
+std::string* mutable_name();
+PROTOBUF_NODISCARD std::string* release_name();
+void set_allocated_name(std::string* name);
+private:
+const std::string& _internal_name() const;
+inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+std::string* _internal_mutable_name();
+public:
+
 // @@protoc_insertion_point(class_scope:enterprise_management.ESimProfileInfo)
 private:
 class _Internal;
@@ -35228,6 +35266,8 @@ typedef void DestructorSkippable_;
 mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr iccid_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr smdp_address_;
+::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr smds_address_;
+::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
 friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
@@ -74405,6 +74445,142 @@ smdp_address_.Set("", GetArenaForAllocation());
 }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ESimProfileInfo.smdp_address)
+}
+
+// optional string smds_address = 3;
+inline bool ESimProfileInfo::_internal_has_smds_address() const {
+bool value = (_has_bits_[0] & 0x00000004u) != 0;
+return value;
+}
+inline bool ESimProfileInfo::has_smds_address() const {
+return _internal_has_smds_address();
+}
+inline void ESimProfileInfo::clear_smds_address() {
+smds_address_.ClearToEmpty();
+_has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& ESimProfileInfo::smds_address() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ESimProfileInfo.smds_address)
+return _internal_smds_address();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ESimProfileInfo::set_smds_address(ArgT0&& arg0, ArgT... args) {
+_has_bits_[0] |= 0x00000004u;
+smds_address_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+// @@protoc_insertion_point(field_set:enterprise_management.ESimProfileInfo.smds_address)
+}
+inline std::string* ESimProfileInfo::mutable_smds_address() {
+std::string* _s = _internal_mutable_smds_address();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ESimProfileInfo.smds_address)
+return _s;
+}
+inline const std::string& ESimProfileInfo::_internal_smds_address() const {
+return smds_address_.Get();
+}
+inline void ESimProfileInfo::_internal_set_smds_address(const std::string& value) {
+_has_bits_[0] |= 0x00000004u;
+smds_address_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ESimProfileInfo::_internal_mutable_smds_address() {
+_has_bits_[0] |= 0x00000004u;
+return smds_address_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ESimProfileInfo::release_smds_address() {
+// @@protoc_insertion_point(field_release:enterprise_management.ESimProfileInfo.smds_address)
+if (!_internal_has_smds_address()) {
+return nullptr;
+}
+_has_bits_[0] &= ~0x00000004u;
+auto* p = smds_address_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (smds_address_.IsDefault()) {
+smds_address_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+return p;
+}
+inline void ESimProfileInfo::set_allocated_smds_address(std::string* smds_address) {
+if (smds_address != nullptr) {
+_has_bits_[0] |= 0x00000004u;
+} else {
+_has_bits_[0] &= ~0x00000004u;
+}
+smds_address_.SetAllocated(smds_address, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (smds_address_.IsDefault()) {
+smds_address_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ESimProfileInfo.smds_address)
+}
+
+// optional string name = 4;
+inline bool ESimProfileInfo::_internal_has_name() const {
+bool value = (_has_bits_[0] & 0x00000008u) != 0;
+return value;
+}
+inline bool ESimProfileInfo::has_name() const {
+return _internal_has_name();
+}
+inline void ESimProfileInfo::clear_name() {
+name_.ClearToEmpty();
+_has_bits_[0] &= ~0x00000008u;
+}
+inline const std::string& ESimProfileInfo::name() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ESimProfileInfo.name)
+return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ESimProfileInfo::set_name(ArgT0&& arg0, ArgT... args) {
+_has_bits_[0] |= 0x00000008u;
+name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+// @@protoc_insertion_point(field_set:enterprise_management.ESimProfileInfo.name)
+}
+inline std::string* ESimProfileInfo::mutable_name() {
+std::string* _s = _internal_mutable_name();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ESimProfileInfo.name)
+return _s;
+}
+inline const std::string& ESimProfileInfo::_internal_name() const {
+return name_.Get();
+}
+inline void ESimProfileInfo::_internal_set_name(const std::string& value) {
+_has_bits_[0] |= 0x00000008u;
+name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ESimProfileInfo::_internal_mutable_name() {
+_has_bits_[0] |= 0x00000008u;
+return name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ESimProfileInfo::release_name() {
+// @@protoc_insertion_point(field_release:enterprise_management.ESimProfileInfo.name)
+if (!_internal_has_name()) {
+return nullptr;
+}
+_has_bits_[0] &= ~0x00000008u;
+auto* p = name_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (name_.IsDefault()) {
+name_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+return p;
+}
+inline void ESimProfileInfo::set_allocated_name(std::string* name) {
+if (name != nullptr) {
+_has_bits_[0] |= 0x00000008u;
+} else {
+_has_bits_[0] &= ~0x00000008u;
+}
+name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (name_.IsDefault()) {
+name_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ESimProfileInfo.name)
 }
 
 // -------------------------------------------------------------------

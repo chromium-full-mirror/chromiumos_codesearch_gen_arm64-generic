@@ -639,7 +639,8 @@ PROTOBUF_CONSTEXPR SignEnterpriseChallengeRequest::SignEnterpriseChallengeReques
 
   , include_signed_public_key_(false)
   , include_customer_id_(false)
-  , key_profile_(0)
+  , include_certificate_(false)
+  , flow_type_(0)
 {}
 struct SignEnterpriseChallengeRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SignEnterpriseChallengeRequestDefaultTypeInternal()
@@ -11997,7 +11998,10 @@ class SignEnterpriseChallengeRequest::_Internal {
   static void set_has_include_customer_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1024u;
   }
-  static void set_has_key_profile(HasBits* has_bits) {
+  static void set_has_flow_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 4096u;
+  }
+  static void set_has_include_certificate(HasBits* has_bits) {
     (*has_bits)[0] |= 2048u;
   }
 };
@@ -12082,8 +12086,8 @@ SignEnterpriseChallengeRequest::SignEnterpriseChallengeRequest(const SignEnterpr
     device_trust_signals_ = nullptr;
   }
   ::memcpy(&va_type_, &from.va_type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&key_profile_) -
-    reinterpret_cast<char*>(&va_type_)) + sizeof(key_profile_));
+    static_cast<size_t>(reinterpret_cast<char*>(&flow_type_) -
+    reinterpret_cast<char*>(&va_type_)) + sizeof(flow_type_));
   // @@protoc_insertion_point(copy_constructor:attestation.SignEnterpriseChallengeRequest)
 }
 
@@ -12118,8 +12122,8 @@ device_trust_signals_json_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_trust_signals_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&key_profile_) -
-    reinterpret_cast<char*>(&device_trust_signals_)) + sizeof(key_profile_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&flow_type_) -
+    reinterpret_cast<char*>(&device_trust_signals_)) + sizeof(flow_type_));
 }
 
 SignEnterpriseChallengeRequest::~SignEnterpriseChallengeRequest() {
@@ -12181,10 +12185,10 @@ void SignEnterpriseChallengeRequest::Clear() {
       device_trust_signals_->Clear();
     }
   }
-  if (cached_has_bits & 0x00000f00u) {
+  if (cached_has_bits & 0x00001f00u) {
     ::memset(&va_type_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&key_profile_) -
-        reinterpret_cast<char*>(&va_type_)) + sizeof(key_profile_));
+        reinterpret_cast<char*>(&flow_type_) -
+        reinterpret_cast<char*>(&va_type_)) + sizeof(flow_type_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -12299,16 +12303,25 @@ const char* SignEnterpriseChallengeRequest::_InternalParse(const char* ptr, ::_p
         } else
           goto handle_unusual;
         continue;
-      // optional .attestation.KeyProfile key_profile = 12;
+      // optional .attestation.VerifiedAccessFlow flow_type = 12;
       case 12:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::attestation::KeyProfile_IsValid(val))) {
-            _internal_set_key_profile(static_cast<::attestation::KeyProfile>(val));
+          if (PROTOBUF_PREDICT_TRUE(::attestation::VerifiedAccessFlow_IsValid(val))) {
+            _internal_set_flow_type(static_cast<::attestation::VerifiedAccessFlow>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(12, val, mutable_unknown_fields());
           }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool include_certificate = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+          _Internal::set_has_include_certificate(&has_bits);
+          include_certificate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -12411,11 +12424,17 @@ uint8_t* SignEnterpriseChallengeRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(11, this->_internal_include_customer_id(), target);
   }
 
-  // optional .attestation.KeyProfile key_profile = 12;
-  if (cached_has_bits & 0x00000800u) {
+  // optional .attestation.VerifiedAccessFlow flow_type = 12;
+  if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      12, this->_internal_key_profile(), target);
+      12, this->_internal_flow_type(), target);
+  }
+
+  // optional bool include_certificate = 13;
+  if (cached_has_bits & 0x00000800u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(13, this->_internal_include_certificate(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -12493,7 +12512,7 @@ size_t SignEnterpriseChallengeRequest::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00000f00u) {
+  if (cached_has_bits & 0x00001f00u) {
     // optional .attestation.VAType va_type = 7;
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 +
@@ -12510,10 +12529,15 @@ size_t SignEnterpriseChallengeRequest::ByteSizeLong() const {
       total_size += 1 + 1;
     }
 
-    // optional .attestation.KeyProfile key_profile = 12;
+    // optional bool include_certificate = 13;
     if (cached_has_bits & 0x00000800u) {
+      total_size += 1 + 1;
+    }
+
+    // optional .attestation.VerifiedAccessFlow flow_type = 12;
+    if (cached_has_bits & 0x00001000u) {
       total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_key_profile());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_flow_type());
     }
 
   }
@@ -12564,7 +12588,7 @@ void SignEnterpriseChallengeRequest::MergeFrom(const SignEnterpriseChallengeRequ
       _internal_mutable_device_trust_signals()->::attestation::DeviceTrustSignals::MergeFrom(from._internal_device_trust_signals());
     }
   }
-  if (cached_has_bits & 0x00000f00u) {
+  if (cached_has_bits & 0x00001f00u) {
     if (cached_has_bits & 0x00000100u) {
       va_type_ = from.va_type_;
     }
@@ -12575,7 +12599,10 @@ void SignEnterpriseChallengeRequest::MergeFrom(const SignEnterpriseChallengeRequ
       include_customer_id_ = from.include_customer_id_;
     }
     if (cached_has_bits & 0x00000800u) {
-      key_profile_ = from.key_profile_;
+      include_certificate_ = from.include_certificate_;
+    }
+    if (cached_has_bits & 0x00001000u) {
+      flow_type_ = from.flow_type_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -12628,8 +12655,8 @@ void SignEnterpriseChallengeRequest::InternalSwap(SignEnterpriseChallengeRequest
       &other->device_trust_signals_json_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SignEnterpriseChallengeRequest, key_profile_)
-      + sizeof(SignEnterpriseChallengeRequest::key_profile_)
+      PROTOBUF_FIELD_OFFSET(SignEnterpriseChallengeRequest, flow_type_)
+      + sizeof(SignEnterpriseChallengeRequest::flow_type_)
       - PROTOBUF_FIELD_OFFSET(SignEnterpriseChallengeRequest, device_trust_signals_)>(
           reinterpret_cast<char*>(&device_trust_signals_),
           reinterpret_cast<char*>(&other->device_trust_signals_));
