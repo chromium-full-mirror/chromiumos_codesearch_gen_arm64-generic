@@ -513,6 +513,22 @@ class  Delegate_RunPrimeSearch_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_RunPrimeSearch_ResponseParams_Data) == 16,
               "Bad sizeof(Delegate_RunPrimeSearch_ResponseParams_Data)");
+class  Delegate_MonitorVolumeButton_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_MonitorVolumeButton_Params_Data>;
+
+  Delegate_MonitorVolumeButton_Params_Data();
+  ~Delegate_MonitorVolumeButton_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_MonitorVolumeButton_Params_Data) == 16,
+              "Bad sizeof(Delegate_MonitorVolumeButton_Params_Data)");
 
 }  // namespace internal
 
@@ -1314,6 +1330,31 @@ class Delegate_RunPrimeSearch_ResponseParamsDataView {
 };
 
 
+class Delegate_MonitorVolumeButton_ParamsDataView {
+ public:
+  Delegate_MonitorVolumeButton_ParamsDataView() = default;
+
+  Delegate_MonitorVolumeButton_ParamsDataView(
+      internal::Delegate_MonitorVolumeButton_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::VolumeButtonObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Delegate_MonitorVolumeButton_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -1435,6 +1476,8 @@ inline void Delegate_FetchDisplayInfo_ResponseParamsDataView::GetResultDataView(
   auto pointer = &data_->result;
   *output = ::ash::cros_healthd::mojom::DisplayResultDataView(pointer, message_);
 }
+
+
 
 
 

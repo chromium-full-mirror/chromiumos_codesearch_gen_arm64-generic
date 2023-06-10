@@ -35,6 +35,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
   void MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) override;
   void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, RunPrimeSearchCallback callback) override;
+  void MonitorVolumeButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver> observer) override;
 };
 class  DelegateAsyncWaiter {
  public:

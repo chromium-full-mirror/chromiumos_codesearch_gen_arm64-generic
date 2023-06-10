@@ -38,6 +38,8 @@ class CpuCacheRoutineArgumentDataView;
 
 class PrimeSearchRoutineArgumentDataView;
 
+class VolumeButtonRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -64,6 +66,8 @@ class PrimeSearchRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
+class VolumeButtonRoutineDetailDataView;
+
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
 class RoutineDetailDataView;
@@ -73,6 +77,8 @@ enum class MemtesterTestItemEnum : int32_t;
 enum class RoutineControlExceptionEnum : int32_t;
 
 enum class DiskReadTypeEnum : int32_t;
+
+enum class VolumeButtonRoutineArgument_ButtonType : int32_t;
 
 enum class RoutineStateWaiting_Reason : int32_t;
 class MemoryRoutineArgument;
@@ -95,6 +101,9 @@ using CpuCacheRoutineArgumentPtr = mojo::StructPtr<CpuCacheRoutineArgument>;
 
 class PrimeSearchRoutineArgument;
 using PrimeSearchRoutineArgumentPtr = mojo::StructPtr<PrimeSearchRoutineArgument>;
+
+class VolumeButtonRoutineArgument;
+using VolumeButtonRoutineArgumentPtr = mojo::StructPtr<VolumeButtonRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -134,6 +143,9 @@ using PrimeSearchRoutineDetailPtr = mojo::InlinedStructPtr<PrimeSearchRoutineDet
 
 class MemtesterResult;
 using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;
+
+class VolumeButtonRoutineDetail;
+using VolumeButtonRoutineDetailPtr = mojo::InlinedStructPtr<VolumeButtonRoutineDetail>;
 
 class RoutineArgument;
 

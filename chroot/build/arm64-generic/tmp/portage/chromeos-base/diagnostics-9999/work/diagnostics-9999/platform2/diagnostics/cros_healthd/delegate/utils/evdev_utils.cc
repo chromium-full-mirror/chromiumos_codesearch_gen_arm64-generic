@@ -98,13 +98,17 @@ bool EvdevUtil::EvdevDevice::StarWatchingEvents(
   return !!watcher_;
 }
 
-EvdevUtil::EvdevUtil(std::unique_ptr<Delegate> delegate)
+EvdevUtil::EvdevUtil(std::unique_ptr<Delegate> delegate,
+                     bool allow_multiple_devices)
     : EvdevUtil(std::move(delegate),
+                allow_multiple_devices,
                 base::BindRepeating(&LibevdevWrapperImpl::Create)) {}
 
 EvdevUtil::EvdevUtil(std::unique_ptr<Delegate> delegate,
+                     bool allow_multiple_devices,
                      LibevdevWrapperFactoryMethod factory_method)
-    : delegate_(std::move(delegate)) {
+    : allow_multiple_devices_(allow_multiple_devices),
+      delegate_(std::move(delegate)) {
   Initialize(factory_method);
 }
 
@@ -115,14 +119,16 @@ void EvdevUtil::Initialize(LibevdevWrapperFactoryMethod factory_method) {
                                  /*recursive=*/false,
                                  base::FileEnumerator::FILES);
   for (auto path = file_enum.Next(); !path.empty(); path = file_enum.Next()) {
-    if (Initialize(path, factory_method)) {
+    if (Initialize(path, factory_method) && !allow_multiple_devices_) {
       return;
     }
   }
 
-  LOG(ERROR) << "EvdevUtil can't find target, initialization fail";
-  delegate_->InitializationFail(/*custom_reason = */ 0,
-                                "EvdevUtil can't find target.");
+  if (devs_.empty()) {
+    LOG(ERROR) << "EvdevUtil can't find target, initialization fail";
+    delegate_->InitializationFail(/*custom_reason = */ 0,
+                                  "EvdevUtil can't find target.");
+  }
 }
 
 bool EvdevUtil::Initialize(const base::FilePath& path,
@@ -151,7 +157,7 @@ bool EvdevUtil::Initialize(const base::FilePath& path,
     return false;
   }
 
-  dev_ = std::move(evdev_device);
+  devs_.push_back(std::move(evdev_device));
 
   LOG(INFO) << "Connected to evdev node: " << path
             << ", device name: " << libevdev_ptr->GetName();
@@ -407,5 +413,50 @@ void EvdevPowerButtonObserver::InitializationFail(
 }
 
 void EvdevPowerButtonObserver::ReportProperties(LibevdevWrapper* dev) {}
+
+EvdevVolumeButtonObserver::EvdevVolumeButtonObserver(
+    mojo::PendingRemote<mojom::VolumeButtonObserver> observer)
+    : observer_(std::move(observer)) {}
+
+bool EvdevVolumeButtonObserver::IsTarget(LibevdevWrapper* dev) {
+  return dev->HasEventCode(EV_KEY, KEY_VOLUMEDOWN) &&
+         dev->HasEventCode(EV_KEY, KEY_VOLUMEUP);
+}
+
+void EvdevVolumeButtonObserver::FireEvent(const input_event& ev,
+                                          LibevdevWrapper* dev) {
+  if (ev.type != EV_KEY) {
+    return;
+  }
+
+  mojom::VolumeButtonObserver::Button button;
+  if (ev.code == KEY_VOLUMEUP) {
+    button = mojom::VolumeButtonObserver::Button::kVolumeUp;
+  } else if (ev.code == KEY_VOLUMEDOWN) {
+    button = mojom::VolumeButtonObserver::Button::kVolumeDown;
+  } else {
+    return;
+  }
+
+  mojom::VolumeButtonObserver::ButtonState button_state;
+  if (ev.value == 0) {
+    button_state = mojom::VolumeButtonObserver::ButtonState::kUp;
+  } else if (ev.value == 1) {
+    button_state = mojom::VolumeButtonObserver::ButtonState::kDown;
+  } else if (ev.value == 2) {
+    button_state = mojom::VolumeButtonObserver::ButtonState::kRepeat;
+  } else {
+    return;
+  }
+
+  observer_->OnEvent(button, button_state);
+}
+
+void EvdevVolumeButtonObserver::InitializationFail(
+    uint32_t custom_reason, const std::string& description) {
+  observer_.ResetWithReason(custom_reason, description);
+}
+
+void EvdevVolumeButtonObserver::ReportProperties(LibevdevWrapper* dev) {}
 
 }  // namespace diagnostics

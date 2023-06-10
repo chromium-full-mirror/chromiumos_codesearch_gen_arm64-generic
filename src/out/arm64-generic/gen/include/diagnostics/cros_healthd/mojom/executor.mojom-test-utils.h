@@ -159,6 +159,24 @@ class  PowerButtonObserverAsyncWaiter {
 };
 
 
+class  VolumeButtonObserverInterceptorForTesting : public VolumeButtonObserver {
+  virtual VolumeButtonObserver* GetForwardingInterface() = 0;
+  void OnEvent(VolumeButtonObserver::Button button, VolumeButtonObserver::ButtonState button_state) override;
+};
+class  VolumeButtonObserverAsyncWaiter {
+ public:
+  explicit VolumeButtonObserverAsyncWaiter(VolumeButtonObserver* proxy);
+
+  VolumeButtonObserverAsyncWaiter(const VolumeButtonObserverAsyncWaiter&) = delete;
+  VolumeButtonObserverAsyncWaiter& operator=(const VolumeButtonObserverAsyncWaiter&) = delete;
+
+  ~VolumeButtonObserverAsyncWaiter();
+
+ private:
+  VolumeButtonObserver* const proxy_;
+};
+
+
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) override;
@@ -194,6 +212,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) override;
   void MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) override;
+  void MonitorVolumeButton(::mojo::PendingRemote<VolumeButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
 };
 class  ExecutorAsyncWaiter {
  public:

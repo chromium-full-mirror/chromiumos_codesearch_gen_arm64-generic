@@ -433,6 +433,55 @@ class PowerButtonObserver
   virtual void OnEvent(PowerButtonObserver::ButtonState button_state) = 0;
 };
 
+class VolumeButtonObserverProxy;
+
+template <typename ImplRefTraits>
+class VolumeButtonObserverStub;
+
+class VolumeButtonObserverRequestValidator;
+
+
+class VolumeButtonObserver
+    : public VolumeButtonObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = VolumeButtonObserverInterfaceBase;
+  using Proxy_ = VolumeButtonObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = VolumeButtonObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = VolumeButtonObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnEventMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  
+  using Button = VolumeButtonObserver_Button;
+  
+  using ButtonState = VolumeButtonObserver_ButtonState;
+  virtual ~VolumeButtonObserver() = default;
+
+  
+  virtual void OnEvent(VolumeButtonObserver::Button button, VolumeButtonObserver::ButtonState button_state) = 0;
+};
+
 class ExecutorProxy;
 
 template <typename ImplRefTraits>
@@ -496,6 +545,7 @@ class Executor
     kFetchCrashFromCrashSenderMinVersion = 0,
     kMonitorPowerButtonMinVersion = 0,
     kRunPrimeSearchMinVersion = 0,
+    kMonitorVolumeButtonMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -598,6 +648,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunPrimeSearch_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct MonitorVolumeButton_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -751,6 +804,9 @@ class Executor
   using RunPrimeSearchCallback = base::OnceCallback<void(bool)>;
   
   virtual void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) = 0;
+
+  
+  virtual void MonitorVolumeButton(::mojo::PendingRemote<VolumeButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
 };
 
 
@@ -878,6 +934,21 @@ class  PowerButtonObserverProxy
 
 
 
+class  VolumeButtonObserverProxy
+    : public VolumeButtonObserver {
+ public:
+  using InterfaceType = VolumeButtonObserver;
+
+  explicit VolumeButtonObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnEvent(VolumeButtonObserver::Button button, VolumeButtonObserver::ButtonState button_state) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  ExecutorProxy
     : public Executor {
  public:
@@ -950,6 +1021,8 @@ class  ExecutorProxy
   void MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
   
   void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) final;
+  
+  void MonitorVolumeButton(::mojo::PendingRemote<VolumeButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1241,6 +1314,47 @@ class PowerButtonObserverStub
  private:
   ImplPointerType sink_;
 };
+class  VolumeButtonObserverStubDispatch {
+ public:
+  static bool Accept(VolumeButtonObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      VolumeButtonObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<VolumeButtonObserver>>
+class VolumeButtonObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  VolumeButtonObserverStub() = default;
+  ~VolumeButtonObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return VolumeButtonObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return VolumeButtonObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  ExecutorStubDispatch {
  public:
   static bool Accept(Executor* impl, mojo::Message* message);
@@ -1307,6 +1421,10 @@ class  StylusObserverRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  PowerButtonObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  VolumeButtonObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

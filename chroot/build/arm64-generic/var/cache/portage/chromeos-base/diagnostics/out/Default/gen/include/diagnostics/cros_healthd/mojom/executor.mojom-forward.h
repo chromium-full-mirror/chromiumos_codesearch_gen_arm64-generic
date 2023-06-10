@@ -44,6 +44,10 @@ enum class StressAppTestType : int32_t;
 
 enum class PowerButtonObserver_ButtonState : int32_t;
 
+enum class VolumeButtonObserver_Button : int32_t;
+
+enum class VolumeButtonObserver_ButtonState : int32_t;
+
 enum class Executor_File : int32_t;
 
 enum class Executor_IwCommand : int32_t;
@@ -82,6 +86,8 @@ class StylusGarageObserver;
 class StylusObserver;
 
 class PowerButtonObserver;
+
+class VolumeButtonObserver;
 
 class Executor;
 

@@ -245,6 +245,46 @@ bool PrimeSearchRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+VolumeButtonRoutineArgument::VolumeButtonRoutineArgument()
+    : type(),
+      timeout() {}
+
+VolumeButtonRoutineArgument::VolumeButtonRoutineArgument(
+    VolumeButtonRoutineArgument::ButtonType type_in,
+    base::TimeDelta timeout_in)
+    : type(std::move(type_in)),
+      timeout(std::move(timeout_in)) {}
+
+VolumeButtonRoutineArgument::~VolumeButtonRoutineArgument() = default;
+
+void VolumeButtonRoutineArgument::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type VolumeButtonRoutineArgument::ButtonType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "timeout"), this->timeout,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type base::TimeDelta>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool VolumeButtonRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -655,6 +695,23 @@ bool MemtesterResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+VolumeButtonRoutineDetail::VolumeButtonRoutineDetail() {}
+
+VolumeButtonRoutineDetail::~VolumeButtonRoutineDetail() = default;
+size_t VolumeButtonRoutineDetail::Hash(size_t seed) const {
+  return seed;
+}
+
+void VolumeButtonRoutineDetail::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool VolumeButtonRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -749,6 +806,17 @@ void RoutineArgument::set_prime_search(
         std::move(prime_search));
   }
 }
+void RoutineArgument::set_volume_button(
+    VolumeButtonRoutineArgumentPtr volume_button) {
+  if (tag_ == Tag::kVolumeButton) {
+    *(data_.volume_button) = std::move(volume_button);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kVolumeButton;
+    data_.volume_button = new VolumeButtonRoutineArgumentPtr(
+        std::move(volume_button));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -783,6 +851,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kPrimeSearch:
 
       delete data_.prime_search;
+      break;
+    case Tag::kVolumeButton:
+
+      delete data_.volume_button;
       break;
   }
 }
@@ -959,6 +1031,17 @@ void RoutineDetail::set_prime_search(
         std::move(prime_search));
   }
 }
+void RoutineDetail::set_volume_button(
+    VolumeButtonRoutineDetailPtr volume_button) {
+  if (tag_ == Tag::kVolumeButton) {
+    *(data_.volume_button) = std::move(volume_button);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kVolumeButton;
+    data_.volume_button = new VolumeButtonRoutineDetailPtr(
+        std::move(volume_button));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -990,6 +1073,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kPrimeSearch:
 
       delete data_.prime_search;
+      break;
+    case Tag::kVolumeButton:
+
+      delete data_.volume_button;
       break;
   }
 }
@@ -2179,6 +2266,22 @@ bool StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineArgument::DataVi
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::DataView, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr result(::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadTimeout(&result->timeout))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -2363,6 +2466,18 @@ bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView, ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr result(::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::cros_healthd::mojom::RoutineArgumentPtr>::Read(
     ::ash::cros_healthd::mojom::RoutineArgument::DataView input,
@@ -2436,6 +2551,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewPrimeSearch(
           std::move(result_prime_search));
+      break;
+    }
+    case Tag::kVolumeButton: {
+      ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr result_volume_button;
+      if (!input.ReadVolumeButton(&result_volume_button))
+        return false;
+
+      *output = UnionType::NewVolumeButton(
+          std::move(result_volume_button));
       break;
     }
     default:
@@ -2566,6 +2690,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewPrimeSearch(
           std::move(result_prime_search));
+      break;
+    }
+    case Tag::kVolumeButton: {
+      ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr result_volume_button;
+      if (!input.ReadVolumeButton(&result_volume_button))
+        return false;
+
+      *output = UnionType::NewVolumeButton(
+          std::move(result_volume_button));
       break;
     }
     default:

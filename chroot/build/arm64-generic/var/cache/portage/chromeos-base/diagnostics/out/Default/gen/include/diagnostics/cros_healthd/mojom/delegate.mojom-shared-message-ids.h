@@ -33,6 +33,7 @@ constexpr uint32_t kDelegate_GetPrivacyScreenInfo_Name = 14;
 constexpr uint32_t kDelegate_FetchDisplayInfo_Name = 15;
 constexpr uint32_t kDelegate_MonitorPowerButton_Name = 16;
 constexpr uint32_t kDelegate_RunPrimeSearch_Name = 17;
+constexpr uint32_t kDelegate_MonitorVolumeButton_Name = 18;
 
 }  // namespace internal
 }  // namespace mojom

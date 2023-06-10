@@ -99,6 +99,56 @@ std::ostream& operator<<(std::ostream& os, PowerButtonObserver_ButtonState value
   return os << PowerButtonObserver_ButtonStateToString(value);
 }
 
+NOINLINE static const char* VolumeButtonObserver_ButtonToStringHelper(VolumeButtonObserver_Button value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case VolumeButtonObserver_Button::kVolumeUp:
+      return "kVolumeUp";
+    case VolumeButtonObserver_Button::kVolumeDown:
+      return "kVolumeDown";
+    default:
+      return nullptr;
+  }
+}
+
+std::string VolumeButtonObserver_ButtonToString(VolumeButtonObserver_Button value) {
+  const char *str = VolumeButtonObserver_ButtonToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown VolumeButtonObserver_Button value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, VolumeButtonObserver_Button value) {
+  return os << VolumeButtonObserver_ButtonToString(value);
+}
+
+NOINLINE static const char* VolumeButtonObserver_ButtonStateToStringHelper(VolumeButtonObserver_ButtonState value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case VolumeButtonObserver_ButtonState::kUp:
+      return "kUp";
+    case VolumeButtonObserver_ButtonState::kDown:
+      return "kDown";
+    case VolumeButtonObserver_ButtonState::kRepeat:
+      return "kRepeat";
+    default:
+      return nullptr;
+  }
+}
+
+std::string VolumeButtonObserver_ButtonStateToString(VolumeButtonObserver_ButtonState value) {
+  const char *str = VolumeButtonObserver_ButtonStateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown VolumeButtonObserver_ButtonState value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, VolumeButtonObserver_ButtonState value) {
+  return os << VolumeButtonObserver_ButtonStateToString(value);
+}
+
 NOINLINE static const char* Executor_FileToStringHelper(Executor_File value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -921,6 +971,39 @@ bool PowerButtonObserver_OnEvent_Params_Data::Validate(
 }
 
 PowerButtonObserver_OnEvent_Params_Data::PowerButtonObserver_OnEvent_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool VolumeButtonObserver_OnEvent_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const VolumeButtonObserver_OnEvent_Params_Data* object =
+      static_cast<const VolumeButtonObserver_OnEvent_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::VolumeButtonObserver_Button_Data
+        ::Validate(object->button, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::VolumeButtonObserver_ButtonState_Data
+        ::Validate(object->button_state, validation_context))
+    return false;
+
+  return true;
+}
+
+VolumeButtonObserver_OnEvent_Params_Data::VolumeButtonObserver_OnEvent_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2597,6 +2680,47 @@ bool Executor_RunPrimeSearch_ResponseParams_Data::Validate(
 Executor_RunPrimeSearch_ResponseParams_Data::Executor_RunPrimeSearch_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Executor_MonitorVolumeButton_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_MonitorVolumeButton_Params_Data* object =
+      static_cast<const Executor_MonitorVolumeButton_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->process_control, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->process_control,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_MonitorVolumeButton_Params_Data::Executor_MonitorVolumeButton_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
@@ -2628,6 +2752,26 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::PowerButtonObserver_ButtonStateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonObserver_Button>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonObserver_Button value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonStateToString(value));
 }
 
 } // namespace perfetto

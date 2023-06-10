@@ -51,6 +51,8 @@ class CpuCacheRoutineArgumentDataView;
 
 class PrimeSearchRoutineArgumentDataView;
 
+class VolumeButtonRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -76,6 +78,8 @@ class CpuCacheRoutineDetailDataView;
 class PrimeSearchRoutineDetailDataView;
 
 class MemtesterResultDataView;
+
+class VolumeButtonRoutineDetailDataView;
 
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
@@ -134,6 +138,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuCacheRoutineArgumentDataVi
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::PrimeSearchRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::VolumeButtonRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -225,6 +236,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataV
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::MemtesterResultDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::MemtesterResult_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::VolumeButtonRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -367,6 +385,31 @@ inline DiskReadTypeEnum ToKnownEnumValue(DiskReadTypeEnum value) {
     return value;
   }
   return DiskReadTypeEnum::kDefaultValue;
+}
+
+
+enum class VolumeButtonRoutineArgument_ButtonType : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kVolumeUp = 1,
+  
+  kVolumeDown = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, VolumeButtonRoutineArgument_ButtonType value);
+inline bool IsKnownEnumValue(VolumeButtonRoutineArgument_ButtonType value) {
+  return internal::VolumeButtonRoutineArgument_ButtonType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline VolumeButtonRoutineArgument_ButtonType ToKnownEnumValue(VolumeButtonRoutineArgument_ButtonType value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return VolumeButtonRoutineArgument_ButtonType::kDefaultValue;
 }
 
 
@@ -618,6 +661,42 @@ static_assert(
   }
  private:
   internal::PrimeSearchRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class VolumeButtonRoutineArgumentDataView {
+ public:
+  VolumeButtonRoutineArgumentDataView() = default;
+
+  VolumeButtonRoutineArgumentDataView(
+      internal::VolumeButtonRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>(
+        data_value, output);
+  }
+  VolumeButtonRoutineArgument_ButtonType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>(data_->type));
+  }
+  inline void GetTimeoutDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTimeout(UserType* output) {
+    
+    auto* pointer = data_->timeout.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::VolumeButtonRoutineArgument_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -926,6 +1005,21 @@ class MemtesterResultDataView {
 };
 
 
+class VolumeButtonRoutineDetailDataView {
+ public:
+  VolumeButtonRoutineDetailDataView() = default;
+
+  VolumeButtonRoutineDetailDataView(
+      internal::VolumeButtonRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::VolumeButtonRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class RoutineArgumentDataView {
  public:
   using Tag = internal::RoutineArgument_Data::RoutineArgument_Tag;
@@ -1025,6 +1119,17 @@ class RoutineArgumentDataView {
     CHECK(is_prime_search());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView>(
         data_->data.f_prime_search.Get(), output, message_);
+  }
+  bool is_volume_button() const { return data_->tag == Tag::kVolumeButton; }
+  inline void GetVolumeButtonDataView(
+      VolumeButtonRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadVolumeButton(UserType* output) const {
+    
+    CHECK(is_volume_button());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView>(
+        data_->data.f_volume_button.Get(), output, message_);
   }
 
  private:
@@ -1199,6 +1304,17 @@ class RoutineDetailDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView>(
         data_->data.f_prime_search.Get(), output, message_);
   }
+  bool is_volume_button() const { return data_->tag == Tag::kVolumeButton; }
+  inline void GetVolumeButtonDataView(
+      VolumeButtonRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadVolumeButton(UserType* output) const {
+    
+    CHECK(is_volume_button());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
+        data_->data.f_volume_button.Get(), output, message_);
+  }
 
  private:
   internal::RoutineDetail_Data* data_ = nullptr;
@@ -1224,6 +1340,10 @@ struct hash<::ash::cros_healthd::mojom::RoutineControlExceptionEnum>
 template <>
 struct hash<::ash::cros_healthd::mojom::DiskReadTypeEnum>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DiskReadTypeEnum> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType> {};
 
 template <>
 struct hash<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>
@@ -1288,6 +1408,26 @@ struct Serializer<::ash::cros_healthd::mojom::DiskReadTypeEnum, MaybeConstUserTy
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::DiskReadTypeEnum>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>(input)), output);
   }
 };
 
@@ -1553,6 +1693,49 @@ struct Serializer<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::VolumeButtonRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>(
+        Traits::type(input), &fragment->type);
+    decltype(Traits::timeout(input)) in_timeout = Traits::timeout(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->timeout)::BaseType> timeout_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        in_timeout, timeout_fragment);
+    fragment->timeout.Set(
+        timeout_fragment.is_null() ? nullptr : timeout_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->timeout.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null timeout in VolumeButtonRoutineArgument struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::VolumeButtonRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -2018,6 +2201,35 @@ struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::VolumeButtonRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::VolumeButtonRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView, UserType>;
@@ -2154,6 +2366,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null prime_search in RoutineArgument union");
         fragment->data.f_prime_search.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kVolumeButton: {
+        decltype(Traits::volume_button(input))
+            in_volume_button = Traits::volume_button(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_volume_button)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView>(
+            in_volume_button, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null volume_button in RoutineArgument union");
+        fragment->data.f_volume_button.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -2415,6 +2643,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kVolumeButton: {
+        decltype(Traits::volume_button(input))
+            in_volume_button = Traits::volume_button(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_volume_button)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
+            in_volume_button, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null volume_button in RoutineDetail union");
+        fragment->data.f_volume_button.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -2468,6 +2712,13 @@ inline void CpuCacheRoutineArgumentDataView::GetExecDurationDataView(
 inline void PrimeSearchRoutineArgumentDataView::GetExecDurationDataView(
     ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->exec_duration.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
+inline void VolumeButtonRoutineArgumentDataView::GetTimeoutDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->timeout.Get();
   *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
 
@@ -2528,6 +2779,8 @@ inline void MemtesterResultDataView::GetFailedItemsDataView(
 }
 
 
+
+
 inline void RoutineArgumentDataView::GetMemoryDataView(
     MemoryRoutineArgumentDataView* output) const {
   CHECK(is_memory());
@@ -2562,6 +2815,11 @@ inline void RoutineArgumentDataView::GetPrimeSearchDataView(
     PrimeSearchRoutineArgumentDataView* output) const {
   CHECK(is_prime_search());
   *output = PrimeSearchRoutineArgumentDataView(data_->data.f_prime_search.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetVolumeButtonDataView(
+    VolumeButtonRoutineArgumentDataView* output) const {
+  CHECK(is_volume_button());
+  *output = VolumeButtonRoutineArgumentDataView(data_->data.f_volume_button.Get(), message_);
 }
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
@@ -2620,6 +2878,11 @@ inline void RoutineDetailDataView::GetPrimeSearchDataView(
   CHECK(is_prime_search());
   *output = PrimeSearchRoutineDetailDataView(data_->data.f_prime_search.Get(), message_);
 }
+inline void RoutineDetailDataView::GetVolumeButtonDataView(
+    VolumeButtonRoutineDetailDataView* output) const {
+  CHECK(is_volume_button());
+  *output = VolumeButtonRoutineDetailDataView(data_->data.f_volume_button.Get(), message_);
+}
 
 
 }  // namespace mojom
@@ -2652,6 +2915,15 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType value);
 };
 
 } // namespace perfetto

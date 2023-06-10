@@ -326,6 +326,23 @@ class  PowerButtonObserver_OnEvent_Params_Data {
 };
 static_assert(sizeof(PowerButtonObserver_OnEvent_Params_Data) == 16,
               "Bad sizeof(PowerButtonObserver_OnEvent_Params_Data)");
+class  VolumeButtonObserver_OnEvent_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t button;
+  int32_t button_state;
+
+ private:
+  friend class mojo::internal::MessageFragment<VolumeButtonObserver_OnEvent_Params_Data>;
+
+  VolumeButtonObserver_OnEvent_Params_Data();
+  ~VolumeButtonObserver_OnEvent_Params_Data() = delete;
+};
+static_assert(sizeof(VolumeButtonObserver_OnEvent_Params_Data) == 16,
+              "Bad sizeof(VolumeButtonObserver_OnEvent_Params_Data)");
 class  Executor_ReadFile_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1255,6 +1272,24 @@ class  Executor_RunPrimeSearch_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_RunPrimeSearch_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_RunPrimeSearch_ResponseParams_Data)");
+class  Executor_MonitorVolumeButton_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+  mojo::internal::Handle_Data process_control;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_MonitorVolumeButton_Params_Data>;
+
+  Executor_MonitorVolumeButton_Params_Data();
+  ~Executor_MonitorVolumeButton_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_MonitorVolumeButton_Params_Data) == 24,
+              "Bad sizeof(Executor_MonitorVolumeButton_Params_Data)");
 
 }  // namespace internal
 
@@ -1669,6 +1704,41 @@ class PowerButtonObserver_OnEvent_ParamsDataView {
   }
  private:
   internal::PowerButtonObserver_OnEvent_Params_Data* data_ = nullptr;
+};
+
+
+class VolumeButtonObserver_OnEvent_ParamsDataView {
+ public:
+  VolumeButtonObserver_OnEvent_ParamsDataView() = default;
+
+  VolumeButtonObserver_OnEvent_ParamsDataView(
+      internal::VolumeButtonObserver_OnEvent_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadButton(UserType* output) const {
+    auto data_value = data_->button;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonObserver_Button>(
+        data_value, output);
+  }
+  VolumeButtonObserver_Button button() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::VolumeButtonObserver_Button>(data_->button));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadButtonState(UserType* output) const {
+    auto data_value = data_->button_state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState>(
+        data_value, output);
+  }
+  VolumeButtonObserver_ButtonState button_state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState>(data_->button_state));
+  }
+ private:
+  internal::VolumeButtonObserver_OnEvent_Params_Data* data_ = nullptr;
 };
 
 
@@ -3212,6 +3282,40 @@ class Executor_RunPrimeSearch_ResponseParamsDataView {
 };
 
 
+class Executor_MonitorVolumeButton_ParamsDataView {
+ public:
+  Executor_MonitorVolumeButton_ParamsDataView() = default;
+
+  Executor_MonitorVolumeButton_ParamsDataView(
+      internal::Executor_MonitorVolumeButton_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::VolumeButtonObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeProcessControl() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->process_control, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_MonitorVolumeButton_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 
 
@@ -3280,6 +3384,8 @@ inline void StylusObserver_OnConnected_ParamsDataView::GetConnectedEventDataView
   auto pointer = data_->connected_event.Get();
   *output = ::ash::cros_healthd::mojom::StylusConnectedEventDataView(pointer, message_);
 }
+
+
 
 
 
@@ -3523,6 +3629,8 @@ inline void Executor_FetchCrashFromCrashSender_ResponseParamsDataView::GetResult
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
 }
+
+
 
 
 

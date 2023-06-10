@@ -173,6 +173,40 @@ inline bool IsKnownEnumValue(PowerButtonObserver_ButtonState value) {
 }
 
 
+enum class VolumeButtonObserver_Button : int32_t {
+  
+  kVolumeUp = 0,
+  
+  kVolumeDown = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, VolumeButtonObserver_Button value);
+inline bool IsKnownEnumValue(VolumeButtonObserver_Button value) {
+  return internal::VolumeButtonObserver_Button_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class VolumeButtonObserver_ButtonState : int32_t {
+  
+  kUp = 0,
+  
+  kDown = 1,
+  
+  kRepeat = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, VolumeButtonObserver_ButtonState value);
+inline bool IsKnownEnumValue(VolumeButtonObserver_ButtonState value) {
+  return internal::VolumeButtonObserver_ButtonState_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class Executor_File : int32_t {
   
   kCrashLog = 0,
@@ -282,6 +316,16 @@ using PowerButtonObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<PowerButtonObserverInterfaceBase>;
 using PowerButtonObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<PowerButtonObserverInterfaceBase>;
+class VolumeButtonObserverInterfaceBase {};
+
+using VolumeButtonObserverPtrDataView =
+    mojo::InterfacePtrDataView<VolumeButtonObserverInterfaceBase>;
+using VolumeButtonObserverRequestDataView =
+    mojo::InterfaceRequestDataView<VolumeButtonObserverInterfaceBase>;
+using VolumeButtonObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<VolumeButtonObserverInterfaceBase>;
+using VolumeButtonObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<VolumeButtonObserverInterfaceBase>;
 class ExecutorInterfaceBase {};
 
 using ExecutorPtrDataView =
@@ -530,6 +574,14 @@ struct hash<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState> {};
 
 template <>
+struct hash<::ash::cros_healthd::mojom::VolumeButtonObserver_Button>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::VolumeButtonObserver_Button> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState> {};
+
+template <>
 struct hash<::ash::cros_healthd::mojom::Executor_File>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Executor_File> {};
 
@@ -596,6 +648,46 @@ struct Serializer<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState, M
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::VolumeButtonObserver_Button, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::VolumeButtonObserver_Button, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::VolumeButtonObserver_Button>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState>(input)), output);
   }
 };
 
@@ -1043,6 +1135,24 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonObserver_Button> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonObserver_Button value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState value);
 };
 
 } // namespace perfetto
