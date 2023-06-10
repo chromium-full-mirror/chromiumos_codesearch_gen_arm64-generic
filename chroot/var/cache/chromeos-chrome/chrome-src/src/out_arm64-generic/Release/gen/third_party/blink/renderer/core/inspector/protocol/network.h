@@ -308,6 +308,7 @@ namespace TrustTokenOperationDone {
 namespace StatusEnum {
 CORE_EXPORT extern const char* Ok;
 CORE_EXPORT extern const char* InvalidArgument;
+CORE_EXPORT extern const char* MissingIssuerKeys;
 CORE_EXPORT extern const char* FailedPrecondition;
 CORE_EXPORT extern const char* ResourceExhausted;
 CORE_EXPORT extern const char* AlreadyExists;

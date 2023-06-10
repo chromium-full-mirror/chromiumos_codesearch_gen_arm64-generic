@@ -599,18 +599,18 @@ struct LocalOnlyNetworkResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LocalOnlyNetworkResponseDefaultTypeInternal _LocalOnlyNetworkResponse_default_instance_;
-PROTOBUF_CONSTEXPR DownstreamNetworkInfoRequest::DownstreamNetworkInfoRequest(
+PROTOBUF_CONSTEXPR GetDownstreamNetworkInfoRequest::GetDownstreamNetworkInfoRequest(
     ::_pbi::ConstantInitialized)
   : downstream_ifname_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
-struct DownstreamNetworkInfoRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DownstreamNetworkInfoRequestDefaultTypeInternal()
+struct GetDownstreamNetworkInfoRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetDownstreamNetworkInfoRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~DownstreamNetworkInfoRequestDefaultTypeInternal() {}
+  ~GetDownstreamNetworkInfoRequestDefaultTypeInternal() {}
   union {
-    DownstreamNetworkInfoRequest _instance;
+    GetDownstreamNetworkInfoRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DownstreamNetworkInfoRequestDefaultTypeInternal _DownstreamNetworkInfoRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetDownstreamNetworkInfoRequestDefaultTypeInternal _GetDownstreamNetworkInfoRequest_default_instance_;
 PROTOBUF_CONSTEXPR NetworkClientInfo::NetworkClientInfo(
     ::_pbi::ConstantInitialized)
   : ipv6_addresses_()
@@ -627,20 +627,20 @@ struct NetworkClientInfoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkClientInfoDefaultTypeInternal _NetworkClientInfo_default_instance_;
-PROTOBUF_CONSTEXPR DownstreamNetworkInfoResponse::DownstreamNetworkInfoResponse(
+PROTOBUF_CONSTEXPR GetDownstreamNetworkInfoResponse::GetDownstreamNetworkInfoResponse(
     ::_pbi::ConstantInitialized)
   : clients_info_()
   , downstream_network_(nullptr)
   , success_(false){}
-struct DownstreamNetworkInfoResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DownstreamNetworkInfoResponseDefaultTypeInternal()
+struct GetDownstreamNetworkInfoResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetDownstreamNetworkInfoResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~DownstreamNetworkInfoResponseDefaultTypeInternal() {}
+  ~GetDownstreamNetworkInfoResponseDefaultTypeInternal() {}
   union {
-    DownstreamNetworkInfoResponse _instance;
+    GetDownstreamNetworkInfoResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DownstreamNetworkInfoResponseDefaultTypeInternal _DownstreamNetworkInfoResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetDownstreamNetworkInfoResponseDefaultTypeInternal _GetDownstreamNetworkInfoResponse_default_instance_;
 PROTOBUF_CONSTEXPR NotifyAndroidInteractiveStateRequest::NotifyAndroidInteractiveStateRequest(
     ::_pbi::ConstantInitialized)
   : interactive_(false){}
@@ -11001,17 +11001,17 @@ std::string LocalOnlyNetworkResponse::GetTypeName() const {
 
 // ===================================================================
 
-class DownstreamNetworkInfoRequest::_Internal {
+class GetDownstreamNetworkInfoRequest::_Internal {
  public:
 };
 
-DownstreamNetworkInfoRequest::DownstreamNetworkInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+GetDownstreamNetworkInfoRequest::GetDownstreamNetworkInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:patchpanel.DownstreamNetworkInfoRequest)
+  // @@protoc_insertion_point(arena_constructor:patchpanel.GetDownstreamNetworkInfoRequest)
 }
-DownstreamNetworkInfoRequest::DownstreamNetworkInfoRequest(const DownstreamNetworkInfoRequest& from)
+GetDownstreamNetworkInfoRequest::GetDownstreamNetworkInfoRequest(const GetDownstreamNetworkInfoRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   downstream_ifname_.InitDefault();
@@ -11022,18 +11022,18 @@ DownstreamNetworkInfoRequest::DownstreamNetworkInfoRequest(const DownstreamNetwo
     downstream_ifname_.Set(from._internal_downstream_ifname(), 
       GetArenaForAllocation());
   }
-  // @@protoc_insertion_point(copy_constructor:patchpanel.DownstreamNetworkInfoRequest)
+  // @@protoc_insertion_point(copy_constructor:patchpanel.GetDownstreamNetworkInfoRequest)
 }
 
-inline void DownstreamNetworkInfoRequest::SharedCtor() {
+inline void GetDownstreamNetworkInfoRequest::SharedCtor() {
 downstream_ifname_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   downstream_ifname_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
-DownstreamNetworkInfoRequest::~DownstreamNetworkInfoRequest() {
-  // @@protoc_insertion_point(destructor:patchpanel.DownstreamNetworkInfoRequest)
+GetDownstreamNetworkInfoRequest::~GetDownstreamNetworkInfoRequest() {
+  // @@protoc_insertion_point(destructor:patchpanel.GetDownstreamNetworkInfoRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -11041,17 +11041,17 @@ DownstreamNetworkInfoRequest::~DownstreamNetworkInfoRequest() {
   SharedDtor();
 }
 
-inline void DownstreamNetworkInfoRequest::SharedDtor() {
+inline void GetDownstreamNetworkInfoRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   downstream_ifname_.Destroy();
 }
 
-void DownstreamNetworkInfoRequest::SetCachedSize(int size) const {
+void GetDownstreamNetworkInfoRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void DownstreamNetworkInfoRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:patchpanel.DownstreamNetworkInfoRequest)
+void GetDownstreamNetworkInfoRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.GetDownstreamNetworkInfoRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -11060,7 +11060,7 @@ void DownstreamNetworkInfoRequest::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DownstreamNetworkInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* GetDownstreamNetworkInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -11099,9 +11099,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DownstreamNetworkInfoRequest::_InternalSerialize(
+uint8_t* GetDownstreamNetworkInfoRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.DownstreamNetworkInfoRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.GetDownstreamNetworkInfoRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -11110,7 +11110,7 @@ uint8_t* DownstreamNetworkInfoRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_downstream_ifname().data(), static_cast<int>(this->_internal_downstream_ifname().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "patchpanel.DownstreamNetworkInfoRequest.downstream_ifname");
+      "patchpanel.GetDownstreamNetworkInfoRequest.downstream_ifname");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_downstream_ifname(), target);
   }
@@ -11119,12 +11119,12 @@ uint8_t* DownstreamNetworkInfoRequest::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.DownstreamNetworkInfoRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.GetDownstreamNetworkInfoRequest)
   return target;
 }
 
-size_t DownstreamNetworkInfoRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:patchpanel.DownstreamNetworkInfoRequest)
+size_t GetDownstreamNetworkInfoRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.GetDownstreamNetworkInfoRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -11146,14 +11146,14 @@ size_t DownstreamNetworkInfoRequest::ByteSizeLong() const {
   return total_size;
 }
 
-void DownstreamNetworkInfoRequest::CheckTypeAndMergeFrom(
+void GetDownstreamNetworkInfoRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const DownstreamNetworkInfoRequest*>(
+  MergeFrom(*::_pbi::DownCast<const GetDownstreamNetworkInfoRequest*>(
       &from));
 }
 
-void DownstreamNetworkInfoRequest::MergeFrom(const DownstreamNetworkInfoRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.DownstreamNetworkInfoRequest)
+void GetDownstreamNetworkInfoRequest::MergeFrom(const GetDownstreamNetworkInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.GetDownstreamNetworkInfoRequest)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -11164,18 +11164,18 @@ void DownstreamNetworkInfoRequest::MergeFrom(const DownstreamNetworkInfoRequest&
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void DownstreamNetworkInfoRequest::CopyFrom(const DownstreamNetworkInfoRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.DownstreamNetworkInfoRequest)
+void GetDownstreamNetworkInfoRequest::CopyFrom(const GetDownstreamNetworkInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.GetDownstreamNetworkInfoRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool DownstreamNetworkInfoRequest::IsInitialized() const {
+bool GetDownstreamNetworkInfoRequest::IsInitialized() const {
   return true;
 }
 
-void DownstreamNetworkInfoRequest::InternalSwap(DownstreamNetworkInfoRequest* other) {
+void GetDownstreamNetworkInfoRequest::InternalSwap(GetDownstreamNetworkInfoRequest* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
@@ -11186,8 +11186,8 @@ void DownstreamNetworkInfoRequest::InternalSwap(DownstreamNetworkInfoRequest* ot
   );
 }
 
-std::string DownstreamNetworkInfoRequest::GetTypeName() const {
-  return "patchpanel.DownstreamNetworkInfoRequest";
+std::string GetDownstreamNetworkInfoRequest::GetTypeName() const {
+  return "patchpanel.GetDownstreamNetworkInfoRequest";
 }
 
 
@@ -11552,23 +11552,23 @@ std::string NetworkClientInfo::GetTypeName() const {
 
 // ===================================================================
 
-class DownstreamNetworkInfoResponse::_Internal {
+class GetDownstreamNetworkInfoResponse::_Internal {
  public:
-  static const ::patchpanel::DownstreamNetwork& downstream_network(const DownstreamNetworkInfoResponse* msg);
+  static const ::patchpanel::DownstreamNetwork& downstream_network(const GetDownstreamNetworkInfoResponse* msg);
 };
 
 const ::patchpanel::DownstreamNetwork&
-DownstreamNetworkInfoResponse::_Internal::downstream_network(const DownstreamNetworkInfoResponse* msg) {
+GetDownstreamNetworkInfoResponse::_Internal::downstream_network(const GetDownstreamNetworkInfoResponse* msg) {
   return *msg->downstream_network_;
 }
-DownstreamNetworkInfoResponse::DownstreamNetworkInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+GetDownstreamNetworkInfoResponse::GetDownstreamNetworkInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   clients_info_(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:patchpanel.DownstreamNetworkInfoResponse)
+  // @@protoc_insertion_point(arena_constructor:patchpanel.GetDownstreamNetworkInfoResponse)
 }
-DownstreamNetworkInfoResponse::DownstreamNetworkInfoResponse(const DownstreamNetworkInfoResponse& from)
+GetDownstreamNetworkInfoResponse::GetDownstreamNetworkInfoResponse(const GetDownstreamNetworkInfoResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       clients_info_(from.clients_info_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -11578,18 +11578,18 @@ DownstreamNetworkInfoResponse::DownstreamNetworkInfoResponse(const DownstreamNet
     downstream_network_ = nullptr;
   }
   success_ = from.success_;
-  // @@protoc_insertion_point(copy_constructor:patchpanel.DownstreamNetworkInfoResponse)
+  // @@protoc_insertion_point(copy_constructor:patchpanel.GetDownstreamNetworkInfoResponse)
 }
 
-inline void DownstreamNetworkInfoResponse::SharedCtor() {
+inline void GetDownstreamNetworkInfoResponse::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&downstream_network_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&success_) -
     reinterpret_cast<char*>(&downstream_network_)) + sizeof(success_));
 }
 
-DownstreamNetworkInfoResponse::~DownstreamNetworkInfoResponse() {
-  // @@protoc_insertion_point(destructor:patchpanel.DownstreamNetworkInfoResponse)
+GetDownstreamNetworkInfoResponse::~GetDownstreamNetworkInfoResponse() {
+  // @@protoc_insertion_point(destructor:patchpanel.GetDownstreamNetworkInfoResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -11597,17 +11597,17 @@ DownstreamNetworkInfoResponse::~DownstreamNetworkInfoResponse() {
   SharedDtor();
 }
 
-inline void DownstreamNetworkInfoResponse::SharedDtor() {
+inline void GetDownstreamNetworkInfoResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete downstream_network_;
 }
 
-void DownstreamNetworkInfoResponse::SetCachedSize(int size) const {
+void GetDownstreamNetworkInfoResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void DownstreamNetworkInfoResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:patchpanel.DownstreamNetworkInfoResponse)
+void GetDownstreamNetworkInfoResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.GetDownstreamNetworkInfoResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -11621,7 +11621,7 @@ void DownstreamNetworkInfoResponse::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DownstreamNetworkInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* GetDownstreamNetworkInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -11679,9 +11679,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DownstreamNetworkInfoResponse::_InternalSerialize(
+uint8_t* GetDownstreamNetworkInfoResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.DownstreamNetworkInfoResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.GetDownstreamNetworkInfoResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -11710,12 +11710,12 @@ uint8_t* DownstreamNetworkInfoResponse::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.DownstreamNetworkInfoResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.GetDownstreamNetworkInfoResponse)
   return target;
 }
 
-size_t DownstreamNetworkInfoResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:patchpanel.DownstreamNetworkInfoResponse)
+size_t GetDownstreamNetworkInfoResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.GetDownstreamNetworkInfoResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -11749,14 +11749,14 @@ size_t DownstreamNetworkInfoResponse::ByteSizeLong() const {
   return total_size;
 }
 
-void DownstreamNetworkInfoResponse::CheckTypeAndMergeFrom(
+void GetDownstreamNetworkInfoResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const DownstreamNetworkInfoResponse*>(
+  MergeFrom(*::_pbi::DownCast<const GetDownstreamNetworkInfoResponse*>(
       &from));
 }
 
-void DownstreamNetworkInfoResponse::MergeFrom(const DownstreamNetworkInfoResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.DownstreamNetworkInfoResponse)
+void GetDownstreamNetworkInfoResponse::MergeFrom(const GetDownstreamNetworkInfoResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.GetDownstreamNetworkInfoResponse)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -11771,31 +11771,31 @@ void DownstreamNetworkInfoResponse::MergeFrom(const DownstreamNetworkInfoRespons
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void DownstreamNetworkInfoResponse::CopyFrom(const DownstreamNetworkInfoResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.DownstreamNetworkInfoResponse)
+void GetDownstreamNetworkInfoResponse::CopyFrom(const GetDownstreamNetworkInfoResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.GetDownstreamNetworkInfoResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool DownstreamNetworkInfoResponse::IsInitialized() const {
+bool GetDownstreamNetworkInfoResponse::IsInitialized() const {
   return true;
 }
 
-void DownstreamNetworkInfoResponse::InternalSwap(DownstreamNetworkInfoResponse* other) {
+void GetDownstreamNetworkInfoResponse::InternalSwap(GetDownstreamNetworkInfoResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   clients_info_.InternalSwap(&other->clients_info_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DownstreamNetworkInfoResponse, success_)
-      + sizeof(DownstreamNetworkInfoResponse::success_)
-      - PROTOBUF_FIELD_OFFSET(DownstreamNetworkInfoResponse, downstream_network_)>(
+      PROTOBUF_FIELD_OFFSET(GetDownstreamNetworkInfoResponse, success_)
+      + sizeof(GetDownstreamNetworkInfoResponse::success_)
+      - PROTOBUF_FIELD_OFFSET(GetDownstreamNetworkInfoResponse, downstream_network_)>(
           reinterpret_cast<char*>(&downstream_network_),
           reinterpret_cast<char*>(&other->downstream_network_));
 }
 
-std::string DownstreamNetworkInfoResponse::GetTypeName() const {
-  return "patchpanel.DownstreamNetworkInfoResponse";
+std::string GetDownstreamNetworkInfoResponse::GetTypeName() const {
+  return "patchpanel.GetDownstreamNetworkInfoResponse";
 }
 
 
@@ -12584,17 +12584,17 @@ template<> PROTOBUF_NOINLINE ::patchpanel::LocalOnlyNetworkResponse*
 Arena::CreateMaybeMessage< ::patchpanel::LocalOnlyNetworkResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::LocalOnlyNetworkResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::DownstreamNetworkInfoRequest*
-Arena::CreateMaybeMessage< ::patchpanel::DownstreamNetworkInfoRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::patchpanel::DownstreamNetworkInfoRequest >(arena);
+template<> PROTOBUF_NOINLINE ::patchpanel::GetDownstreamNetworkInfoRequest*
+Arena::CreateMaybeMessage< ::patchpanel::GetDownstreamNetworkInfoRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::GetDownstreamNetworkInfoRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::patchpanel::NetworkClientInfo*
 Arena::CreateMaybeMessage< ::patchpanel::NetworkClientInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::NetworkClientInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::DownstreamNetworkInfoResponse*
-Arena::CreateMaybeMessage< ::patchpanel::DownstreamNetworkInfoResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::patchpanel::DownstreamNetworkInfoResponse >(arena);
+template<> PROTOBUF_NOINLINE ::patchpanel::GetDownstreamNetworkInfoResponse*
+Arena::CreateMaybeMessage< ::patchpanel::GetDownstreamNetworkInfoResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::GetDownstreamNetworkInfoResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::patchpanel::NotifyAndroidInteractiveStateRequest*
 Arena::CreateMaybeMessage< ::patchpanel::NotifyAndroidInteractiveStateRequest >(Arena* arena) {

@@ -943,6 +943,7 @@ namespace TrustTokenOperationDone {
 namespace StatusEnum {
 const char* Ok = "Ok";
 const char* InvalidArgument = "InvalidArgument";
+const char* MissingIssuerKeys = "MissingIssuerKeys";
 const char* FailedPrecondition = "FailedPrecondition";
 const char* ResourceExhausted = "ResourceExhausted";
 const char* AlreadyExists = "AlreadyExists";

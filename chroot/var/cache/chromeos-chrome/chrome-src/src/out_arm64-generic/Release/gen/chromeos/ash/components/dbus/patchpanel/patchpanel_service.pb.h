@@ -76,18 +76,18 @@ extern ConnectNamespaceResponseDefaultTypeInternal _ConnectNamespaceResponse_def
 class DownstreamNetwork;
 struct DownstreamNetworkDefaultTypeInternal;
 extern DownstreamNetworkDefaultTypeInternal _DownstreamNetwork_default_instance_;
-class DownstreamNetworkInfoRequest;
-struct DownstreamNetworkInfoRequestDefaultTypeInternal;
-extern DownstreamNetworkInfoRequestDefaultTypeInternal _DownstreamNetworkInfoRequest_default_instance_;
-class DownstreamNetworkInfoResponse;
-struct DownstreamNetworkInfoResponseDefaultTypeInternal;
-extern DownstreamNetworkInfoResponseDefaultTypeInternal _DownstreamNetworkInfoResponse_default_instance_;
 class GetDevicesRequest;
 struct GetDevicesRequestDefaultTypeInternal;
 extern GetDevicesRequestDefaultTypeInternal _GetDevicesRequest_default_instance_;
 class GetDevicesResponse;
 struct GetDevicesResponseDefaultTypeInternal;
 extern GetDevicesResponseDefaultTypeInternal _GetDevicesResponse_default_instance_;
+class GetDownstreamNetworkInfoRequest;
+struct GetDownstreamNetworkInfoRequestDefaultTypeInternal;
+extern GetDownstreamNetworkInfoRequestDefaultTypeInternal _GetDownstreamNetworkInfoRequest_default_instance_;
+class GetDownstreamNetworkInfoResponse;
+struct GetDownstreamNetworkInfoResponseDefaultTypeInternal;
+extern GetDownstreamNetworkInfoResponseDefaultTypeInternal _GetDownstreamNetworkInfoResponse_default_instance_;
 class IPv4Configuration;
 struct IPv4ConfigurationDefaultTypeInternal;
 extern IPv4ConfigurationDefaultTypeInternal _IPv4Configuration_default_instance_;
@@ -206,10 +206,10 @@ template<> ::patchpanel::ArcVmStartupResponse* Arena::CreateMaybeMessage<::patch
 template<> ::patchpanel::ConnectNamespaceRequest* Arena::CreateMaybeMessage<::patchpanel::ConnectNamespaceRequest>(Arena*);
 template<> ::patchpanel::ConnectNamespaceResponse* Arena::CreateMaybeMessage<::patchpanel::ConnectNamespaceResponse>(Arena*);
 template<> ::patchpanel::DownstreamNetwork* Arena::CreateMaybeMessage<::patchpanel::DownstreamNetwork>(Arena*);
-template<> ::patchpanel::DownstreamNetworkInfoRequest* Arena::CreateMaybeMessage<::patchpanel::DownstreamNetworkInfoRequest>(Arena*);
-template<> ::patchpanel::DownstreamNetworkInfoResponse* Arena::CreateMaybeMessage<::patchpanel::DownstreamNetworkInfoResponse>(Arena*);
 template<> ::patchpanel::GetDevicesRequest* Arena::CreateMaybeMessage<::patchpanel::GetDevicesRequest>(Arena*);
 template<> ::patchpanel::GetDevicesResponse* Arena::CreateMaybeMessage<::patchpanel::GetDevicesResponse>(Arena*);
+template<> ::patchpanel::GetDownstreamNetworkInfoRequest* Arena::CreateMaybeMessage<::patchpanel::GetDownstreamNetworkInfoRequest>(Arena*);
+template<> ::patchpanel::GetDownstreamNetworkInfoResponse* Arena::CreateMaybeMessage<::patchpanel::GetDownstreamNetworkInfoResponse>(Arena*);
 template<> ::patchpanel::IPv4Configuration* Arena::CreateMaybeMessage<::patchpanel::IPv4Configuration>(Arena*);
 template<> ::patchpanel::IPv4Configuration_DhcpOption* Arena::CreateMaybeMessage<::patchpanel::IPv4Configuration_DhcpOption>(Arena*);
 template<> ::patchpanel::IPv4Subnet* Arena::CreateMaybeMessage<::patchpanel::IPv4Subnet>(Arena*);
@@ -7249,24 +7249,24 @@ class LocalOnlyNetworkResponse final :
 };
 // -------------------------------------------------------------------
 
-class DownstreamNetworkInfoRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.DownstreamNetworkInfoRequest) */ {
+class GetDownstreamNetworkInfoRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.GetDownstreamNetworkInfoRequest) */ {
  public:
-  inline DownstreamNetworkInfoRequest() : DownstreamNetworkInfoRequest(nullptr) {}
-  ~DownstreamNetworkInfoRequest() override;
-  explicit PROTOBUF_CONSTEXPR DownstreamNetworkInfoRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline GetDownstreamNetworkInfoRequest() : GetDownstreamNetworkInfoRequest(nullptr) {}
+  ~GetDownstreamNetworkInfoRequest() override;
+  explicit PROTOBUF_CONSTEXPR GetDownstreamNetworkInfoRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  DownstreamNetworkInfoRequest(const DownstreamNetworkInfoRequest& from);
-  DownstreamNetworkInfoRequest(DownstreamNetworkInfoRequest&& from) noexcept
-    : DownstreamNetworkInfoRequest() {
+  GetDownstreamNetworkInfoRequest(const GetDownstreamNetworkInfoRequest& from);
+  GetDownstreamNetworkInfoRequest(GetDownstreamNetworkInfoRequest&& from) noexcept
+    : GetDownstreamNetworkInfoRequest() {
     *this = ::std::move(from);
   }
 
-  inline DownstreamNetworkInfoRequest& operator=(const DownstreamNetworkInfoRequest& from) {
+  inline GetDownstreamNetworkInfoRequest& operator=(const GetDownstreamNetworkInfoRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline DownstreamNetworkInfoRequest& operator=(DownstreamNetworkInfoRequest&& from) noexcept {
+  inline GetDownstreamNetworkInfoRequest& operator=(GetDownstreamNetworkInfoRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -7280,20 +7280,20 @@ class DownstreamNetworkInfoRequest final :
     return *this;
   }
 
-  static const DownstreamNetworkInfoRequest& default_instance() {
+  static const GetDownstreamNetworkInfoRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const DownstreamNetworkInfoRequest* internal_default_instance() {
-    return reinterpret_cast<const DownstreamNetworkInfoRequest*>(
-               &_DownstreamNetworkInfoRequest_default_instance_);
+  static inline const GetDownstreamNetworkInfoRequest* internal_default_instance() {
+    return reinterpret_cast<const GetDownstreamNetworkInfoRequest*>(
+               &_GetDownstreamNetworkInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     43;
 
-  friend void swap(DownstreamNetworkInfoRequest& a, DownstreamNetworkInfoRequest& b) {
+  friend void swap(GetDownstreamNetworkInfoRequest& a, GetDownstreamNetworkInfoRequest& b) {
     a.Swap(&b);
   }
-  PROTOBUF_NOINLINE void Swap(DownstreamNetworkInfoRequest* other) {
+  PROTOBUF_NOINLINE void Swap(GetDownstreamNetworkInfoRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7306,7 +7306,7 @@ class DownstreamNetworkInfoRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(DownstreamNetworkInfoRequest* other) {
+  void UnsafeArenaSwap(GetDownstreamNetworkInfoRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -7314,12 +7314,12 @@ class DownstreamNetworkInfoRequest final :
 
   // implements Message ----------------------------------------------
 
-  DownstreamNetworkInfoRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<DownstreamNetworkInfoRequest>(arena);
+  GetDownstreamNetworkInfoRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetDownstreamNetworkInfoRequest>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const DownstreamNetworkInfoRequest& from);
-  void MergeFrom(const DownstreamNetworkInfoRequest& from);
+  void CopyFrom(const GetDownstreamNetworkInfoRequest& from);
+  void MergeFrom(const GetDownstreamNetworkInfoRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -7333,15 +7333,15 @@ class DownstreamNetworkInfoRequest final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(DownstreamNetworkInfoRequest* other);
+  void InternalSwap(GetDownstreamNetworkInfoRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "patchpanel.DownstreamNetworkInfoRequest";
+    return "patchpanel.GetDownstreamNetworkInfoRequest";
   }
   protected:
-  explicit DownstreamNetworkInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit GetDownstreamNetworkInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -7368,7 +7368,7 @@ class DownstreamNetworkInfoRequest final :
   std::string* _internal_mutable_downstream_ifname();
   public:
 
-  // @@protoc_insertion_point(class_scope:patchpanel.DownstreamNetworkInfoRequest)
+  // @@protoc_insertion_point(class_scope:patchpanel.GetDownstreamNetworkInfoRequest)
  private:
   class _Internal;
 
@@ -7587,24 +7587,24 @@ class NetworkClientInfo final :
 };
 // -------------------------------------------------------------------
 
-class DownstreamNetworkInfoResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.DownstreamNetworkInfoResponse) */ {
+class GetDownstreamNetworkInfoResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.GetDownstreamNetworkInfoResponse) */ {
  public:
-  inline DownstreamNetworkInfoResponse() : DownstreamNetworkInfoResponse(nullptr) {}
-  ~DownstreamNetworkInfoResponse() override;
-  explicit PROTOBUF_CONSTEXPR DownstreamNetworkInfoResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline GetDownstreamNetworkInfoResponse() : GetDownstreamNetworkInfoResponse(nullptr) {}
+  ~GetDownstreamNetworkInfoResponse() override;
+  explicit PROTOBUF_CONSTEXPR GetDownstreamNetworkInfoResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  DownstreamNetworkInfoResponse(const DownstreamNetworkInfoResponse& from);
-  DownstreamNetworkInfoResponse(DownstreamNetworkInfoResponse&& from) noexcept
-    : DownstreamNetworkInfoResponse() {
+  GetDownstreamNetworkInfoResponse(const GetDownstreamNetworkInfoResponse& from);
+  GetDownstreamNetworkInfoResponse(GetDownstreamNetworkInfoResponse&& from) noexcept
+    : GetDownstreamNetworkInfoResponse() {
     *this = ::std::move(from);
   }
 
-  inline DownstreamNetworkInfoResponse& operator=(const DownstreamNetworkInfoResponse& from) {
+  inline GetDownstreamNetworkInfoResponse& operator=(const GetDownstreamNetworkInfoResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline DownstreamNetworkInfoResponse& operator=(DownstreamNetworkInfoResponse&& from) noexcept {
+  inline GetDownstreamNetworkInfoResponse& operator=(GetDownstreamNetworkInfoResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -7618,20 +7618,20 @@ class DownstreamNetworkInfoResponse final :
     return *this;
   }
 
-  static const DownstreamNetworkInfoResponse& default_instance() {
+  static const GetDownstreamNetworkInfoResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const DownstreamNetworkInfoResponse* internal_default_instance() {
-    return reinterpret_cast<const DownstreamNetworkInfoResponse*>(
-               &_DownstreamNetworkInfoResponse_default_instance_);
+  static inline const GetDownstreamNetworkInfoResponse* internal_default_instance() {
+    return reinterpret_cast<const GetDownstreamNetworkInfoResponse*>(
+               &_GetDownstreamNetworkInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     45;
 
-  friend void swap(DownstreamNetworkInfoResponse& a, DownstreamNetworkInfoResponse& b) {
+  friend void swap(GetDownstreamNetworkInfoResponse& a, GetDownstreamNetworkInfoResponse& b) {
     a.Swap(&b);
   }
-  PROTOBUF_NOINLINE void Swap(DownstreamNetworkInfoResponse* other) {
+  PROTOBUF_NOINLINE void Swap(GetDownstreamNetworkInfoResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -7644,7 +7644,7 @@ class DownstreamNetworkInfoResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(DownstreamNetworkInfoResponse* other) {
+  void UnsafeArenaSwap(GetDownstreamNetworkInfoResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -7652,12 +7652,12 @@ class DownstreamNetworkInfoResponse final :
 
   // implements Message ----------------------------------------------
 
-  DownstreamNetworkInfoResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<DownstreamNetworkInfoResponse>(arena);
+  GetDownstreamNetworkInfoResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetDownstreamNetworkInfoResponse>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const DownstreamNetworkInfoResponse& from);
-  void MergeFrom(const DownstreamNetworkInfoResponse& from);
+  void CopyFrom(const GetDownstreamNetworkInfoResponse& from);
+  void MergeFrom(const GetDownstreamNetworkInfoResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -7671,15 +7671,15 @@ class DownstreamNetworkInfoResponse final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(DownstreamNetworkInfoResponse* other);
+  void InternalSwap(GetDownstreamNetworkInfoResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "patchpanel.DownstreamNetworkInfoResponse";
+    return "patchpanel.GetDownstreamNetworkInfoResponse";
   }
   protected:
-  explicit DownstreamNetworkInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit GetDownstreamNetworkInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -7739,7 +7739,7 @@ class DownstreamNetworkInfoResponse final :
   void _internal_set_success(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:patchpanel.DownstreamNetworkInfoResponse)
+  // @@protoc_insertion_point(class_scope:patchpanel.GetDownstreamNetworkInfoResponse)
  private:
   class _Internal;
 
@@ -12147,44 +12147,44 @@ inline void LocalOnlyNetworkResponse::set_response_code(::patchpanel::Downstream
 
 // -------------------------------------------------------------------
 
-// DownstreamNetworkInfoRequest
+// GetDownstreamNetworkInfoRequest
 
 // string downstream_ifname = 1;
-inline void DownstreamNetworkInfoRequest::clear_downstream_ifname() {
+inline void GetDownstreamNetworkInfoRequest::clear_downstream_ifname() {
   downstream_ifname_.ClearToEmpty();
 }
-inline const std::string& DownstreamNetworkInfoRequest::downstream_ifname() const {
-  // @@protoc_insertion_point(field_get:patchpanel.DownstreamNetworkInfoRequest.downstream_ifname)
+inline const std::string& GetDownstreamNetworkInfoRequest::downstream_ifname() const {
+  // @@protoc_insertion_point(field_get:patchpanel.GetDownstreamNetworkInfoRequest.downstream_ifname)
   return _internal_downstream_ifname();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void DownstreamNetworkInfoRequest::set_downstream_ifname(ArgT0&& arg0, ArgT... args) {
+void GetDownstreamNetworkInfoRequest::set_downstream_ifname(ArgT0&& arg0, ArgT... args) {
  
  downstream_ifname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:patchpanel.DownstreamNetworkInfoRequest.downstream_ifname)
+  // @@protoc_insertion_point(field_set:patchpanel.GetDownstreamNetworkInfoRequest.downstream_ifname)
 }
-inline std::string* DownstreamNetworkInfoRequest::mutable_downstream_ifname() {
+inline std::string* GetDownstreamNetworkInfoRequest::mutable_downstream_ifname() {
   std::string* _s = _internal_mutable_downstream_ifname();
-  // @@protoc_insertion_point(field_mutable:patchpanel.DownstreamNetworkInfoRequest.downstream_ifname)
+  // @@protoc_insertion_point(field_mutable:patchpanel.GetDownstreamNetworkInfoRequest.downstream_ifname)
   return _s;
 }
-inline const std::string& DownstreamNetworkInfoRequest::_internal_downstream_ifname() const {
+inline const std::string& GetDownstreamNetworkInfoRequest::_internal_downstream_ifname() const {
   return downstream_ifname_.Get();
 }
-inline void DownstreamNetworkInfoRequest::_internal_set_downstream_ifname(const std::string& value) {
+inline void GetDownstreamNetworkInfoRequest::_internal_set_downstream_ifname(const std::string& value) {
   
   downstream_ifname_.Set(value, GetArenaForAllocation());
 }
-inline std::string* DownstreamNetworkInfoRequest::_internal_mutable_downstream_ifname() {
+inline std::string* GetDownstreamNetworkInfoRequest::_internal_mutable_downstream_ifname() {
   
   return downstream_ifname_.Mutable(GetArenaForAllocation());
 }
-inline std::string* DownstreamNetworkInfoRequest::release_downstream_ifname() {
-  // @@protoc_insertion_point(field_release:patchpanel.DownstreamNetworkInfoRequest.downstream_ifname)
+inline std::string* GetDownstreamNetworkInfoRequest::release_downstream_ifname() {
+  // @@protoc_insertion_point(field_release:patchpanel.GetDownstreamNetworkInfoRequest.downstream_ifname)
   return downstream_ifname_.Release();
 }
-inline void DownstreamNetworkInfoRequest::set_allocated_downstream_ifname(std::string* downstream_ifname) {
+inline void GetDownstreamNetworkInfoRequest::set_allocated_downstream_ifname(std::string* downstream_ifname) {
   if (downstream_ifname != nullptr) {
     
   } else {
@@ -12196,7 +12196,7 @@ inline void DownstreamNetworkInfoRequest::set_allocated_downstream_ifname(std::s
     downstream_ifname_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:patchpanel.DownstreamNetworkInfoRequest.downstream_ifname)
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.GetDownstreamNetworkInfoRequest.downstream_ifname)
 }
 
 // -------------------------------------------------------------------
@@ -12480,51 +12480,51 @@ inline void NetworkClientInfo::set_allocated_vendor_class(std::string* vendor_cl
 
 // -------------------------------------------------------------------
 
-// DownstreamNetworkInfoResponse
+// GetDownstreamNetworkInfoResponse
 
 // bool success = 1;
-inline void DownstreamNetworkInfoResponse::clear_success() {
+inline void GetDownstreamNetworkInfoResponse::clear_success() {
   success_ = false;
 }
-inline bool DownstreamNetworkInfoResponse::_internal_success() const {
+inline bool GetDownstreamNetworkInfoResponse::_internal_success() const {
   return success_;
 }
-inline bool DownstreamNetworkInfoResponse::success() const {
-  // @@protoc_insertion_point(field_get:patchpanel.DownstreamNetworkInfoResponse.success)
+inline bool GetDownstreamNetworkInfoResponse::success() const {
+  // @@protoc_insertion_point(field_get:patchpanel.GetDownstreamNetworkInfoResponse.success)
   return _internal_success();
 }
-inline void DownstreamNetworkInfoResponse::_internal_set_success(bool value) {
+inline void GetDownstreamNetworkInfoResponse::_internal_set_success(bool value) {
   
   success_ = value;
 }
-inline void DownstreamNetworkInfoResponse::set_success(bool value) {
+inline void GetDownstreamNetworkInfoResponse::set_success(bool value) {
   _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:patchpanel.DownstreamNetworkInfoResponse.success)
+  // @@protoc_insertion_point(field_set:patchpanel.GetDownstreamNetworkInfoResponse.success)
 }
 
 // .patchpanel.DownstreamNetwork downstream_network = 2;
-inline bool DownstreamNetworkInfoResponse::_internal_has_downstream_network() const {
+inline bool GetDownstreamNetworkInfoResponse::_internal_has_downstream_network() const {
   return this != internal_default_instance() && downstream_network_ != nullptr;
 }
-inline bool DownstreamNetworkInfoResponse::has_downstream_network() const {
+inline bool GetDownstreamNetworkInfoResponse::has_downstream_network() const {
   return _internal_has_downstream_network();
 }
-inline void DownstreamNetworkInfoResponse::clear_downstream_network() {
+inline void GetDownstreamNetworkInfoResponse::clear_downstream_network() {
   if (GetArenaForAllocation() == nullptr && downstream_network_ != nullptr) {
     delete downstream_network_;
   }
   downstream_network_ = nullptr;
 }
-inline const ::patchpanel::DownstreamNetwork& DownstreamNetworkInfoResponse::_internal_downstream_network() const {
+inline const ::patchpanel::DownstreamNetwork& GetDownstreamNetworkInfoResponse::_internal_downstream_network() const {
   const ::patchpanel::DownstreamNetwork* p = downstream_network_;
   return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::DownstreamNetwork&>(
       ::patchpanel::_DownstreamNetwork_default_instance_);
 }
-inline const ::patchpanel::DownstreamNetwork& DownstreamNetworkInfoResponse::downstream_network() const {
-  // @@protoc_insertion_point(field_get:patchpanel.DownstreamNetworkInfoResponse.downstream_network)
+inline const ::patchpanel::DownstreamNetwork& GetDownstreamNetworkInfoResponse::downstream_network() const {
+  // @@protoc_insertion_point(field_get:patchpanel.GetDownstreamNetworkInfoResponse.downstream_network)
   return _internal_downstream_network();
 }
-inline void DownstreamNetworkInfoResponse::unsafe_arena_set_allocated_downstream_network(
+inline void GetDownstreamNetworkInfoResponse::unsafe_arena_set_allocated_downstream_network(
     ::patchpanel::DownstreamNetwork* downstream_network) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(downstream_network_);
@@ -12535,9 +12535,9 @@ inline void DownstreamNetworkInfoResponse::unsafe_arena_set_allocated_downstream
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.DownstreamNetworkInfoResponse.downstream_network)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.GetDownstreamNetworkInfoResponse.downstream_network)
 }
-inline ::patchpanel::DownstreamNetwork* DownstreamNetworkInfoResponse::release_downstream_network() {
+inline ::patchpanel::DownstreamNetwork* GetDownstreamNetworkInfoResponse::release_downstream_network() {
   
   ::patchpanel::DownstreamNetwork* temp = downstream_network_;
   downstream_network_ = nullptr;
@@ -12552,14 +12552,14 @@ inline ::patchpanel::DownstreamNetwork* DownstreamNetworkInfoResponse::release_d
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::patchpanel::DownstreamNetwork* DownstreamNetworkInfoResponse::unsafe_arena_release_downstream_network() {
-  // @@protoc_insertion_point(field_release:patchpanel.DownstreamNetworkInfoResponse.downstream_network)
+inline ::patchpanel::DownstreamNetwork* GetDownstreamNetworkInfoResponse::unsafe_arena_release_downstream_network() {
+  // @@protoc_insertion_point(field_release:patchpanel.GetDownstreamNetworkInfoResponse.downstream_network)
   
   ::patchpanel::DownstreamNetwork* temp = downstream_network_;
   downstream_network_ = nullptr;
   return temp;
 }
-inline ::patchpanel::DownstreamNetwork* DownstreamNetworkInfoResponse::_internal_mutable_downstream_network() {
+inline ::patchpanel::DownstreamNetwork* GetDownstreamNetworkInfoResponse::_internal_mutable_downstream_network() {
   
   if (downstream_network_ == nullptr) {
     auto* p = CreateMaybeMessage<::patchpanel::DownstreamNetwork>(GetArenaForAllocation());
@@ -12567,12 +12567,12 @@ inline ::patchpanel::DownstreamNetwork* DownstreamNetworkInfoResponse::_internal
   }
   return downstream_network_;
 }
-inline ::patchpanel::DownstreamNetwork* DownstreamNetworkInfoResponse::mutable_downstream_network() {
+inline ::patchpanel::DownstreamNetwork* GetDownstreamNetworkInfoResponse::mutable_downstream_network() {
   ::patchpanel::DownstreamNetwork* _msg = _internal_mutable_downstream_network();
-  // @@protoc_insertion_point(field_mutable:patchpanel.DownstreamNetworkInfoResponse.downstream_network)
+  // @@protoc_insertion_point(field_mutable:patchpanel.GetDownstreamNetworkInfoResponse.downstream_network)
   return _msg;
 }
-inline void DownstreamNetworkInfoResponse::set_allocated_downstream_network(::patchpanel::DownstreamNetwork* downstream_network) {
+inline void GetDownstreamNetworkInfoResponse::set_allocated_downstream_network(::patchpanel::DownstreamNetwork* downstream_network) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete downstream_network_;
@@ -12589,46 +12589,46 @@ inline void DownstreamNetworkInfoResponse::set_allocated_downstream_network(::pa
     
   }
   downstream_network_ = downstream_network;
-  // @@protoc_insertion_point(field_set_allocated:patchpanel.DownstreamNetworkInfoResponse.downstream_network)
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.GetDownstreamNetworkInfoResponse.downstream_network)
 }
 
 // repeated .patchpanel.NetworkClientInfo clients_info = 3;
-inline int DownstreamNetworkInfoResponse::_internal_clients_info_size() const {
+inline int GetDownstreamNetworkInfoResponse::_internal_clients_info_size() const {
   return clients_info_.size();
 }
-inline int DownstreamNetworkInfoResponse::clients_info_size() const {
+inline int GetDownstreamNetworkInfoResponse::clients_info_size() const {
   return _internal_clients_info_size();
 }
-inline void DownstreamNetworkInfoResponse::clear_clients_info() {
+inline void GetDownstreamNetworkInfoResponse::clear_clients_info() {
   clients_info_.Clear();
 }
-inline ::patchpanel::NetworkClientInfo* DownstreamNetworkInfoResponse::mutable_clients_info(int index) {
-  // @@protoc_insertion_point(field_mutable:patchpanel.DownstreamNetworkInfoResponse.clients_info)
+inline ::patchpanel::NetworkClientInfo* GetDownstreamNetworkInfoResponse::mutable_clients_info(int index) {
+  // @@protoc_insertion_point(field_mutable:patchpanel.GetDownstreamNetworkInfoResponse.clients_info)
   return clients_info_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::NetworkClientInfo >*
-DownstreamNetworkInfoResponse::mutable_clients_info() {
-  // @@protoc_insertion_point(field_mutable_list:patchpanel.DownstreamNetworkInfoResponse.clients_info)
+GetDownstreamNetworkInfoResponse::mutable_clients_info() {
+  // @@protoc_insertion_point(field_mutable_list:patchpanel.GetDownstreamNetworkInfoResponse.clients_info)
   return &clients_info_;
 }
-inline const ::patchpanel::NetworkClientInfo& DownstreamNetworkInfoResponse::_internal_clients_info(int index) const {
+inline const ::patchpanel::NetworkClientInfo& GetDownstreamNetworkInfoResponse::_internal_clients_info(int index) const {
   return clients_info_.Get(index);
 }
-inline const ::patchpanel::NetworkClientInfo& DownstreamNetworkInfoResponse::clients_info(int index) const {
-  // @@protoc_insertion_point(field_get:patchpanel.DownstreamNetworkInfoResponse.clients_info)
+inline const ::patchpanel::NetworkClientInfo& GetDownstreamNetworkInfoResponse::clients_info(int index) const {
+  // @@protoc_insertion_point(field_get:patchpanel.GetDownstreamNetworkInfoResponse.clients_info)
   return _internal_clients_info(index);
 }
-inline ::patchpanel::NetworkClientInfo* DownstreamNetworkInfoResponse::_internal_add_clients_info() {
+inline ::patchpanel::NetworkClientInfo* GetDownstreamNetworkInfoResponse::_internal_add_clients_info() {
   return clients_info_.Add();
 }
-inline ::patchpanel::NetworkClientInfo* DownstreamNetworkInfoResponse::add_clients_info() {
+inline ::patchpanel::NetworkClientInfo* GetDownstreamNetworkInfoResponse::add_clients_info() {
   ::patchpanel::NetworkClientInfo* _add = _internal_add_clients_info();
-  // @@protoc_insertion_point(field_add:patchpanel.DownstreamNetworkInfoResponse.clients_info)
+  // @@protoc_insertion_point(field_add:patchpanel.GetDownstreamNetworkInfoResponse.clients_info)
   return _add;
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::patchpanel::NetworkClientInfo >&
-DownstreamNetworkInfoResponse::clients_info() const {
-  // @@protoc_insertion_point(field_list:patchpanel.DownstreamNetworkInfoResponse.clients_info)
+GetDownstreamNetworkInfoResponse::clients_info() const {
+  // @@protoc_insertion_point(field_list:patchpanel.GetDownstreamNetworkInfoResponse.clients_info)
   return clients_info_;
 }
 
