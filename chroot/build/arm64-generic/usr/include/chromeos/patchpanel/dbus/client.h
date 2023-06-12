@@ -23,6 +23,7 @@
 #include <dbus/object_proxy.h>
 #pragma GCC diagnostic pop
 #include <net-base/ipv4_address.h>
+#include <net-base/ipv6_address.h>
 
 namespace org {
 namespace chromium {
@@ -126,14 +127,14 @@ class BRILLO_EXPORT Client {
   struct DownstreamNetwork {
     std::string ifname;
     IPv4Subnet ipv4_subnet;
-    std::vector<uint8_t> ipv4_gateway_addr;
+    net_base::IPv4Address ipv4_gateway_addr;
   };
 
   // See NetworkClientInfo in patchpanel_service.proto.
   struct NetworkClientInfo {
     std::vector<uint8_t> mac_addr;
-    std::vector<uint8_t> ipv4_addr;
-    std::vector<std::vector<uint8_t>> ipv6_addresses;
+    net_base::IPv4Address ipv4_addr;
+    std::vector<net_base::IPv6Address> ipv6_addresses;
     std::string hostname;
     std::string vendor_class;
   };
@@ -192,7 +193,7 @@ class BRILLO_EXPORT Client {
   //  - Forward DHCP WPAD proxy configuration if advertised by the upstream
   //    network.
   struct DHCPOptions {
-    std::vector<std::array<uint8_t, 4>> dns_server_addresses;
+    std::vector<net_base::IPv4Address> dns_server_addresses;
     std::vector<std::string> domain_search_list;
     bool is_android_metered = false;
   };

@@ -705,11 +705,19 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Tells whether the system can potentially support noise cancellation.
+  // Always returns true.
+  //
+  // TODO(b/281608407): Remove this function.
   virtual bool IsNoiseCancellationSupported(
       bool* out_supported,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Tells whether the system can potentially support noise cancellation.
+  // Always returns true.
+  //
+  // TODO(b/281608407): Remove this function.
   virtual void IsNoiseCancellationSupportedAsync(
       base::OnceCallback<void(bool /*supported*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -2548,6 +2556,10 @@ class ControlProxy final : public ControlProxyInterface {
         in_enabled);
   }
 
+  // Tells whether the system can potentially support noise cancellation.
+  // Always returns true.
+  //
+  // TODO(b/281608407): Remove this function.
   bool IsNoiseCancellationSupported(
       bool* out_supported,
       brillo::ErrorPtr* error,
@@ -2562,6 +2574,10 @@ class ControlProxy final : public ControlProxyInterface {
         response.get(), error, out_supported);
   }
 
+  // Tells whether the system can potentially support noise cancellation.
+  // Always returns true.
+  //
+  // TODO(b/281608407): Remove this function.
   void IsNoiseCancellationSupportedAsync(
       base::OnceCallback<void(bool /*supported*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
