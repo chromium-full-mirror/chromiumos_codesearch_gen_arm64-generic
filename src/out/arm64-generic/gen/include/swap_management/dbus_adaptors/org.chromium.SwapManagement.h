@@ -31,10 +31,11 @@ class SwapManagementInterface {
   // Turn swap usage off and then on (leaves config files alone).
   virtual bool SwapRestart(
       brillo::ErrorPtr* error) = 0;
-  // Set zram size in swap file. Change can be applied after SwapRestart or reboot.
+  // Set zram size in swap file, or disable swap. Change can be applied after
+  // SwapRestart or reboot, and persistently across reboot.
   virtual bool SwapSetSize(
       brillo::ErrorPtr* error,
-      uint32_t in_size) = 0;
+      int32_t in_size) = 0;
   // Set the /proc/sys/vm/swappiness to the provided |swappiness|.
   virtual bool SwapSetSwappiness(
       brillo::ErrorPtr* error,
@@ -134,7 +135,7 @@ class SwapManagementAdaptor {
         "    <method name=\"SwapRestart\">\n"
         "    </method>\n"
         "    <method name=\"SwapSetSize\">\n"
-        "      <arg name=\"size\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"size\" type=\"i\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"SwapSetSwappiness\">\n"
         "      <arg name=\"swappiness\" type=\"u\" direction=\"in\"/>\n"
