@@ -20,6 +20,7 @@
 #include "cryptohome/auth_factor/types/test_utils.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_helper.h"
 #include "cryptohome/challenge_credentials/mock_challenge_credentials_helper.h"
+#include "cryptohome/flatbuffer_schemas/auth_factor.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/mock_key_challenge_service.h"
 #include "cryptohome/mock_key_challenge_service_factory.h"
@@ -59,7 +60,7 @@ TEST_F(SmartCardDriverTest, ConvertToProto) {
       &key_challenge_service_factory_);
   AuthFactorDriver& driver = sc_driver;
   AuthFactorMetadata metadata =
-      CreateMetadataWithType<SmartCardAuthFactorMetadata>(
+      CreateMetadataWithType<auth_factor::SmartCardMetadata>(
           {.public_key_spki_der = kPublicKey});
 
   // Test
@@ -204,7 +205,7 @@ TEST_F(SmartCardDriverTest, GetDelayFails) {
   AuthFactorDriver& driver = sc_driver;
 
   AuthFactor factor(AuthFactorType::kSmartCard, kLabel,
-                    CreateMetadataWithType<SmartCardAuthFactorMetadata>(
+                    CreateMetadataWithType<auth_factor::SmartCardMetadata>(
                         {.public_key_spki_der = kPublicKey}),
                     {.state = ChallengeCredentialAuthBlockState()});
 
@@ -222,7 +223,7 @@ TEST_F(SmartCardDriverTest, GetExpirationFails) {
   AuthFactorDriver& driver = sc_driver;
 
   AuthFactor factor(AuthFactorType::kSmartCard, kLabel,
-                    CreateMetadataWithType<SmartCardAuthFactorMetadata>(
+                    CreateMetadataWithType<auth_factor::SmartCardMetadata>(
                         {.public_key_spki_der = kPublicKey}),
                     {.state = ChallengeCredentialAuthBlockState()});
 

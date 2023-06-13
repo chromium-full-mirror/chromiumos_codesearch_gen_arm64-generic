@@ -14,6 +14,7 @@
 #include "cryptohome/auth_factor/types/interface.h"
 #include "cryptohome/auth_factor/types/test_utils.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
+#include "cryptohome/flatbuffer_schemas/auth_factor.h"
 
 namespace cryptohome {
 namespace {
@@ -35,7 +36,7 @@ TEST_F(CryptohomeRecoveryDriverTest, ConvertToProto) {
   CryptohomeRecoveryAuthFactorDriver recovery_driver(&crypto_);
   AuthFactorDriver& driver = recovery_driver;
   AuthFactorMetadata metadata =
-      CreateMetadataWithType<CryptohomeRecoveryAuthFactorMetadata>();
+      CreateMetadataWithType<auth_factor::CryptohomeRecoveryMetadata>();
 
   // Test
   std::optional<user_data_auth::AuthFactor> proto =
@@ -153,7 +154,7 @@ TEST_F(CryptohomeRecoveryDriverTest, GetDelayFails) {
 
   AuthFactor factor(
       AuthFactorType::kCryptohomeRecovery, kLabel,
-      CreateMetadataWithType<CryptohomeRecoveryAuthFactorMetadata>(),
+      CreateMetadataWithType<auth_factor::CryptohomeRecoveryMetadata>(),
       {.state = CryptohomeRecoveryAuthBlockState()});
 
   auto delay_in_ms = driver.GetFactorDelay(kObfuscatedUser, factor);
@@ -168,7 +169,7 @@ TEST_F(CryptohomeRecoveryDriverTest, GetExpirationFails) {
 
   AuthFactor factor(
       AuthFactorType::kCryptohomeRecovery, kLabel,
-      CreateMetadataWithType<CryptohomeRecoveryAuthFactorMetadata>(),
+      CreateMetadataWithType<auth_factor::CryptohomeRecoveryMetadata>(),
       {.state = CryptohomeRecoveryAuthBlockState()});
 
   auto expired = driver.IsExpired(kObfuscatedUser, factor);

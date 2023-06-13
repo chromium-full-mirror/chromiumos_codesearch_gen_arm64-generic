@@ -19,6 +19,7 @@
 #include "cryptohome/auth_factor/types/interface.h"
 #include "cryptohome/auth_factor/types/test_utils.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
+#include "cryptohome/flatbuffer_schemas/auth_factor.h"
 #include "cryptohome/mock_le_credential_manager.h"
 
 namespace cryptohome {
@@ -52,8 +53,9 @@ TEST_F(PinDriverTest, PinConvertToProto) {
   // Setup
   PinAuthFactorDriver pin_driver(&crypto_);
   AuthFactorDriver& driver = pin_driver;
-  AuthFactorMetadata metadata = CreateMetadataWithType<PinAuthFactorMetadata>();
-  metadata.common.lockout_policy = LockoutPolicy::kAttemptLimited;
+  AuthFactorMetadata metadata =
+      CreateMetadataWithType<auth_factor::PinMetadata>();
+  metadata.common.lockout_policy = auth_factor::LockoutPolicy::ATTEMPT_LIMITED;
 
   // Test
   std::optional<user_data_auth::AuthFactor> proto =
@@ -168,7 +170,7 @@ TEST_F(PinDriverTest, GetDelayFailsWithWrongFactorType) {
   AuthFactorDriver& driver = pin_driver;
 
   AuthFactor factor(AuthFactorType::kPassword, kLabel,
-                    CreateMetadataWithType<PasswordAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::PasswordMetadata>(),
                     {.state = TpmEccAuthBlockState()});
 
   auto delay_in_ms = driver.GetFactorDelay(kObfuscatedUser, factor);
@@ -182,7 +184,7 @@ TEST_F(PinDriverTest, GetDelayFailsWithoutLeLabel) {
   AuthFactorDriver& driver = pin_driver;
 
   AuthFactor factor(AuthFactorType::kPin, kLabel,
-                    CreateMetadataWithType<PinAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::PinMetadata>(),
                     {.state = PinWeaverAuthBlockState()});
 
   auto delay_in_ms = driver.GetFactorDelay(kObfuscatedUser, factor);
@@ -196,7 +198,7 @@ TEST_F(PinDriverTest, GetDelayInfinite) {
   AuthFactorDriver& driver = pin_driver;
 
   AuthFactor factor(AuthFactorType::kPin, kLabel,
-                    CreateMetadataWithType<PinAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::PinMetadata>(),
                     {.state = PinWeaverAuthBlockState({.le_label = kLeLabel})});
   EXPECT_CALL(*le_manager_, GetDelayInSeconds(kLeLabel))
       .WillOnce(ReturnValue(std::numeric_limits<uint32_t>::max()));
@@ -211,7 +213,7 @@ TEST_F(PinDriverTest, GetDelayFinite) {
   AuthFactorDriver& driver = pin_driver;
 
   AuthFactor factor(AuthFactorType::kPin, kLabel,
-                    CreateMetadataWithType<PinAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::PinMetadata>(),
                     {.state = PinWeaverAuthBlockState({.le_label = kLeLabel})});
   EXPECT_CALL(*le_manager_, GetDelayInSeconds(kLeLabel))
       .WillOnce(ReturnValue(10));
@@ -226,7 +228,7 @@ TEST_F(PinDriverTest, GetDelayZero) {
   AuthFactorDriver& driver = pin_driver;
 
   AuthFactor factor(AuthFactorType::kPin, kLabel,
-                    CreateMetadataWithType<PinAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::PinMetadata>(),
                     {.state = PinWeaverAuthBlockState({.le_label = kLeLabel})});
   EXPECT_CALL(*le_manager_, GetDelayInSeconds(kLeLabel))
       .WillOnce(ReturnValue(0));
@@ -241,7 +243,7 @@ TEST_F(PinDriverTest, GetExpirationFails) {
   AuthFactorDriver& driver = pin_driver;
 
   AuthFactor factor(AuthFactorType::kPin, kLabel,
-                    CreateMetadataWithType<PinAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::PinMetadata>(),
                     {.state = PinWeaverAuthBlockState()});
 
   auto expired = driver.IsExpired(kObfuscatedUser, factor);

@@ -27,6 +27,7 @@
 #include "cryptohome/auth_factor/types/interface.h"
 #include "cryptohome/auth_factor/types/test_utils.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
+#include "cryptohome/flatbuffer_schemas/auth_factor.h"
 #include "cryptohome/mock_le_credential_manager.h"
 #include "cryptohome/mock_platform.h"
 #include "cryptohome/user_secret_stash/mock_user_metadata.h"
@@ -88,7 +89,7 @@ TEST_F(FingerprintDriverTest, ConvertToProto) {
       &mock_user_metadata_reader_);
   AuthFactorDriver& driver = fp_driver;
   AuthFactorMetadata metadata =
-      CreateMetadataWithType<FingerprintAuthFactorMetadata>();
+      CreateMetadataWithType<auth_factor::FingerprintMetadata>();
 
   // Test
   std::optional<user_data_auth::AuthFactor> proto =
@@ -287,7 +288,7 @@ TEST_F(FingerprintDriverTest, GetDelayFailsWithoutLeLabel) {
   AuthFactorDriver& driver = fp_driver;
 
   AuthFactor factor(AuthFactorType::kFingerprint, kLabel,
-                    CreateMetadataWithType<FingerprintAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::FingerprintMetadata>(),
                     {.state = FingerprintAuthBlockState()});
 
   EXPECT_CALL(mock_user_metadata_reader_, Load)
@@ -309,7 +310,7 @@ TEST_F(FingerprintDriverTest, GetDelayInfinite) {
   AuthFactorDriver& driver = fp_driver;
 
   AuthFactor factor(AuthFactorType::kFingerprint, kLabel,
-                    CreateMetadataWithType<FingerprintAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::FingerprintMetadata>(),
                     {.state = FingerprintAuthBlockState()});
   EXPECT_CALL(mock_user_metadata_reader_, Load(kObfuscatedUser))
       .WillOnce(
@@ -330,7 +331,7 @@ TEST_F(FingerprintDriverTest, GetDelayFinite) {
   AuthFactorDriver& driver = fp_driver;
 
   AuthFactor factor(AuthFactorType::kFingerprint, kLabel,
-                    CreateMetadataWithType<FingerprintAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::FingerprintMetadata>(),
                     {.state = FingerprintAuthBlockState()});
   EXPECT_CALL(mock_user_metadata_reader_, Load(kObfuscatedUser))
       .WillOnce(
@@ -351,7 +352,7 @@ TEST_F(FingerprintDriverTest, GetDelayZero) {
   AuthFactorDriver& driver = fp_driver;
 
   AuthFactor factor(AuthFactorType::kFingerprint, kLabel,
-                    CreateMetadataWithType<FingerprintAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::FingerprintMetadata>(),
                     {.state = FingerprintAuthBlockState()});
   EXPECT_CALL(mock_user_metadata_reader_, Load(kObfuscatedUser))
       .WillOnce(
@@ -372,7 +373,7 @@ TEST_F(FingerprintDriverTest, IsExpiredFailsWithoutLeLabel) {
   AuthFactorDriver& driver = fp_driver;
 
   AuthFactor factor(AuthFactorType::kFingerprint, kLabel,
-                    CreateMetadataWithType<FingerprintAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::FingerprintMetadata>(),
                     {.state = FingerprintAuthBlockState()});
 
   EXPECT_CALL(mock_user_metadata_reader_, Load)
@@ -394,7 +395,7 @@ TEST_F(FingerprintDriverTest, IsNotExpired) {
   AuthFactorDriver& driver = fp_driver;
 
   AuthFactor factor(AuthFactorType::kFingerprint, kLabel,
-                    CreateMetadataWithType<FingerprintAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::FingerprintMetadata>(),
                     {.state = FingerprintAuthBlockState()});
   EXPECT_CALL(mock_user_metadata_reader_, Load(kObfuscatedUser))
       .WillOnce(
@@ -415,7 +416,7 @@ TEST_F(FingerprintDriverTest, IsExpired) {
   AuthFactorDriver& driver = fp_driver;
 
   AuthFactor factor(AuthFactorType::kFingerprint, kLabel,
-                    CreateMetadataWithType<FingerprintAuthFactorMetadata>(),
+                    CreateMetadataWithType<auth_factor::FingerprintMetadata>(),
                     {.state = FingerprintAuthBlockState()});
   EXPECT_CALL(mock_user_metadata_reader_, Load(kObfuscatedUser))
       .WillOnce(

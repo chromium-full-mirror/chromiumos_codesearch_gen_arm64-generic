@@ -23,6 +23,7 @@
 #include "cryptohome/auth_intent.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
+#include "cryptohome/flatbuffer_schemas/auth_factor.h"
 #include "cryptohome/mock_cryptohome_keys_manager.h"
 #include "cryptohome/mock_fingerprint_manager.h"
 #include "cryptohome/mock_le_credential_manager.h"
@@ -115,7 +116,7 @@ class AuthFactorWithDriverTest : public ::testing::Test {
 
 TEST_F(AuthFactorWithDriverTest, PasswordSupportsAllIntents) {
   AuthFactor password_factor =
-      CreateFactor(AuthFactorType::kPassword, PasswordAuthFactorMetadata(),
+      CreateFactor(AuthFactorType::kPassword, auth_factor::PasswordMetadata(),
                    TpmEccAuthBlockState());
 
   auto intents =
@@ -126,7 +127,7 @@ TEST_F(AuthFactorWithDriverTest, PasswordSupportsAllIntents) {
 
 TEST_F(AuthFactorWithDriverTest, PinNoIntentsWithNoHardware) {
   AuthFactor pin_factor =
-      CreateFactor(AuthFactorType::kPin, PinAuthFactorMetadata(),
+      CreateFactor(AuthFactorType::kPin, auth_factor::PinMetadata(),
                    PinWeaverAuthBlockState{.le_label = kLeLabel});
   EXPECT_CALL(hwsec_, IsReady()).WillOnce(ReturnValue(false));
 
@@ -137,7 +138,7 @@ TEST_F(AuthFactorWithDriverTest, PinNoIntentsWithNoHardware) {
 
 TEST_F(AuthFactorWithDriverTest, PinNoIntentsWithDelay) {
   AuthFactor pin_factor =
-      CreateFactor(AuthFactorType::kPin, PinAuthFactorMetadata(),
+      CreateFactor(AuthFactorType::kPin, auth_factor::PinMetadata(),
                    PinWeaverAuthBlockState{.le_label = kLeLabel});
   EXPECT_CALL(hwsec_, IsReady()).WillOnce(ReturnValue(true));
   EXPECT_CALL(hwsec_, IsPinWeaverEnabled()).WillOnce(ReturnValue(true));
@@ -151,7 +152,7 @@ TEST_F(AuthFactorWithDriverTest, PinNoIntentsWithDelay) {
 
 TEST_F(AuthFactorWithDriverTest, PinSupportAllIntentsWhenUnlocked) {
   AuthFactor pin_factor =
-      CreateFactor(AuthFactorType::kPin, PinAuthFactorMetadata(),
+      CreateFactor(AuthFactorType::kPin, auth_factor::PinMetadata(),
                    PinWeaverAuthBlockState{.le_label = kLeLabel});
   EXPECT_CALL(hwsec_, IsReady()).WillOnce(ReturnValue(true));
   EXPECT_CALL(hwsec_, IsPinWeaverEnabled()).WillOnce(ReturnValue(true));
@@ -165,7 +166,7 @@ TEST_F(AuthFactorWithDriverTest, PinSupportAllIntentsWhenUnlocked) {
 
 TEST_F(AuthFactorWithDriverTest, FingerprintNoIntentsWithNoHardware) {
   AuthFactor fp_factor = CreateFactor(AuthFactorType::kFingerprint,
-                                      FingerprintAuthFactorMetadata(),
+                                      auth_factor::FingerprintMetadata(),
                                       FingerprintAuthBlockState{});
   EXPECT_CALL(*bio_command_processor_, IsReady()).WillOnce(Return(false));
 
@@ -176,7 +177,7 @@ TEST_F(AuthFactorWithDriverTest, FingerprintNoIntentsWithNoHardware) {
 
 TEST_F(AuthFactorWithDriverTest, FingerprintNoIntentsWhenExpired) {
   AuthFactor fp_factor = CreateFactor(AuthFactorType::kFingerprint,
-                                      FingerprintAuthFactorMetadata(),
+                                      auth_factor::FingerprintMetadata(),
                                       FingerprintAuthBlockState{});
   EXPECT_CALL(*bio_command_processor_, IsReady()).WillOnce(Return(true));
   EXPECT_CALL(hwsec_, IsReady()).WillOnce(ReturnValue(true));
@@ -195,7 +196,7 @@ TEST_F(AuthFactorWithDriverTest, FingerprintNoIntentsWhenExpired) {
 
 TEST_F(AuthFactorWithDriverTest, FingerprintNoIntentsWithDelay) {
   AuthFactor fp_factor = CreateFactor(AuthFactorType::kFingerprint,
-                                      FingerprintAuthFactorMetadata(),
+                                      auth_factor::FingerprintMetadata(),
                                       FingerprintAuthBlockState{});
   EXPECT_CALL(*bio_command_processor_, IsReady()).WillOnce(Return(true));
   EXPECT_CALL(hwsec_, IsReady()).WillOnce(ReturnValue(true));
@@ -216,7 +217,7 @@ TEST_F(AuthFactorWithDriverTest, FingerprintNoIntentsWithDelay) {
 
 TEST_F(AuthFactorWithDriverTest, FingerprintSupportsSomeIntents) {
   AuthFactor fp_factor = CreateFactor(AuthFactorType::kFingerprint,
-                                      FingerprintAuthFactorMetadata(),
+                                      auth_factor::FingerprintMetadata(),
                                       FingerprintAuthBlockState{});
   EXPECT_CALL(*bio_command_processor_, IsReady()).WillOnce(Return(true));
   EXPECT_CALL(hwsec_, IsReady()).WillOnce(ReturnValue(true));

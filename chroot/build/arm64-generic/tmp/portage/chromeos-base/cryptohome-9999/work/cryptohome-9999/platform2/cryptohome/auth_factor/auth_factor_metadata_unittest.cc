@@ -14,7 +14,7 @@ namespace cryptohome {
 TEST(AuthFactorMetadataTest, DefaultConstructor) {
   AuthFactorMetadata metadata;
   EXPECT_FALSE(
-      std::holds_alternative<PasswordAuthFactorMetadata>(metadata.metadata));
+      std::holds_alternative<auth_factor::PasswordMetadata>(metadata.metadata));
 }
 
 }  // namespace cryptohome
