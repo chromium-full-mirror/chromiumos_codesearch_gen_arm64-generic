@@ -348,6 +348,16 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
                     base::OnceCallback<void(const user_data_auth::ResetApplicationContainerReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD4(CreateVaultKeyset,
+               bool(const user_data_auth::CreateVaultKeysetRequest& /*in_request*/,
+                    user_data_auth::CreateVaultKeysetReply* /*out_reply*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(CreateVaultKeysetAsync,
+               void(const user_data_auth::CreateVaultKeysetRequest& /*in_request*/,
+                    base::OnceCallback<void(const user_data_auth::CreateVaultKeysetReply& /*reply*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   void RegisterDircryptoMigrationProgressSignalHandler(
     const base::RepeatingCallback<void(const user_data_auth::DircryptoMigrationProgress&)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {

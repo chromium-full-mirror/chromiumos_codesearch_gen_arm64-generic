@@ -1535,7 +1535,6 @@ PROTOBUF_CONSTEXPR AuthenticateAuthFactorReply::AuthenticateAuthFactorReply(
   , /*decltype(_impl_._authorized_for_cached_byte_size_)*/{0}
   , /*decltype(_impl_.error_info_)*/nullptr
   , /*decltype(_impl_.error_)*/0
-  , /*decltype(_impl_.authenticated_)*/false
   , /*decltype(_impl_.seconds_left_)*/0u} {}
 struct AuthenticateAuthFactorReplyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR AuthenticateAuthFactorReplyDefaultTypeInternal()
@@ -26558,7 +26557,6 @@ AuthenticateAuthFactorReply::AuthenticateAuthFactorReply(const AuthenticateAuthF
     , /*decltype(_impl_._authorized_for_cached_byte_size_)*/{0}
     , decltype(_impl_.error_info_){nullptr}
     , decltype(_impl_.error_){}
-    , decltype(_impl_.authenticated_){}
     , decltype(_impl_.seconds_left_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -26582,7 +26580,6 @@ inline void AuthenticateAuthFactorReply::SharedCtor(
     , /*decltype(_impl_._authorized_for_cached_byte_size_)*/{0}
     , decltype(_impl_.error_info_){nullptr}
     , decltype(_impl_.error_){0}
-    , decltype(_impl_.authenticated_){false}
     , decltype(_impl_.seconds_left_){0u}
   };
 }
@@ -26617,9 +26614,7 @@ void AuthenticateAuthFactorReply::Clear() {
     delete _impl_.error_info_;
   }
   _impl_.error_info_ = nullptr;
-  ::memset(&_impl_.error_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.authenticated_) -
-      reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.authenticated_));
+  _impl_.error_ = 0;
   _impl_.seconds_left_ = 0u;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -26645,14 +26640,6 @@ const char* AuthenticateAuthFactorReply::_InternalParse(const char* ptr, ::_pbi:
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool authenticated = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _impl_.authenticated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -26722,12 +26709,6 @@ uint8_t* AuthenticateAuthFactorReply::_InternalSerialize(
         _Internal::error_info(this).GetCachedSize(), target, stream);
   }
 
-  // bool authenticated = 3;
-  if (this->_internal_authenticated() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_authenticated(), target);
-  }
-
   // repeated .user_data_auth.AuthIntent authorized_for = 4;
   {
     int byte_size = _impl_._authorized_for_cached_byte_size_.load(std::memory_order_relaxed);
@@ -26789,11 +26770,6 @@ size_t AuthenticateAuthFactorReply::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
-  // bool authenticated = 3;
-  if (this->_internal_authenticated() != 0) {
-    total_size += 1 + 1;
-  }
-
   // optional uint32 seconds_left = 5;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
@@ -26828,9 +26804,6 @@ void AuthenticateAuthFactorReply::MergeFrom(const AuthenticateAuthFactorReply& f
   }
   if (from._internal_error() != 0) {
     _this->_internal_set_error(from._internal_error());
-  }
-  if (from._internal_authenticated() != 0) {
-    _this->_internal_set_authenticated(from._internal_authenticated());
   }
   if (from._internal_has_seconds_left()) {
     _this->_internal_set_seconds_left(from._internal_seconds_left());

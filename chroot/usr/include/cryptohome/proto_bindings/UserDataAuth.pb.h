@@ -16779,7 +16779,6 @@ class AuthenticateAuthFactorReply final :
     kAuthorizedForFieldNumber = 4,
     kErrorInfoFieldNumber = 2,
     kErrorFieldNumber = 1,
-    kAuthenticatedFieldNumber = 3,
     kSecondsLeftFieldNumber = 5,
   };
   // repeated .user_data_auth.AuthIntent authorized_for = 4;
@@ -16826,15 +16825,6 @@ class AuthenticateAuthFactorReply final :
   void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
   public:
 
-  // bool authenticated = 3;
-  void clear_authenticated();
-  bool authenticated() const;
-  void set_authenticated(bool value);
-  private:
-  bool _internal_authenticated() const;
-  void _internal_set_authenticated(bool value);
-  public:
-
   // optional uint32 seconds_left = 5;
   bool has_seconds_left() const;
   private:
@@ -16862,7 +16852,6 @@ class AuthenticateAuthFactorReply final :
     mutable std::atomic<int> _authorized_for_cached_byte_size_;
     ::user_data_auth::CryptohomeErrorInfo* error_info_;
     int error_;
-    bool authenticated_;
     uint32_t seconds_left_;
   };
   union { Impl_ _impl_; };
@@ -30297,26 +30286,6 @@ inline void AuthenticateAuthFactorReply::set_allocated_error_info(::user_data_au
   }
   _impl_.error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthenticateAuthFactorReply.error_info)
-}
-
-// bool authenticated = 3;
-inline void AuthenticateAuthFactorReply::clear_authenticated() {
-  _impl_.authenticated_ = false;
-}
-inline bool AuthenticateAuthFactorReply::_internal_authenticated() const {
-  return _impl_.authenticated_;
-}
-inline bool AuthenticateAuthFactorReply::authenticated() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.AuthenticateAuthFactorReply.authenticated)
-  return _internal_authenticated();
-}
-inline void AuthenticateAuthFactorReply::_internal_set_authenticated(bool value) {
-  
-  _impl_.authenticated_ = value;
-}
-inline void AuthenticateAuthFactorReply::set_authenticated(bool value) {
-  _internal_set_authenticated(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthFactorReply.authenticated)
 }
 
 // repeated .user_data_auth.AuthIntent authorized_for = 4;

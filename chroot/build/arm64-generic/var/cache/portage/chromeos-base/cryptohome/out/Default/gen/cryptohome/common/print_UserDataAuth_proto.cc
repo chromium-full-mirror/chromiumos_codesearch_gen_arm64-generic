@@ -3161,10 +3161,6 @@ std::string GetProtoDebugStringWithIndent(
           .c_str());
   output += "\n";
 
-  output += indent + "  authenticated: ";
-  base::StringAppendF(&output, "%s", value.authenticated() ? "true" : "false");
-  output += "\n";
-
   output += indent + "  authorized_for: {";
   for (int i = 0; i < value.authorized_for_size(); ++i) {
     if (i > 0) {

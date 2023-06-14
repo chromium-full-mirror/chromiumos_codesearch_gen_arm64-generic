@@ -122,6 +122,9 @@ class UserDataAuthInterfaceInterface {
   virtual void ResetApplicationContainer(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::ResetApplicationContainerReply>> response,
       const user_data_auth::ResetApplicationContainerRequest& in_request) = 0;
+  virtual void CreateVaultKeyset(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::CreateVaultKeysetReply>> response,
+      const user_data_auth::CreateVaultKeysetRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::UserDataAuthInterface.
@@ -263,6 +266,10 @@ class UserDataAuthInterfaceAdaptor {
         "ResetApplicationContainer",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::ResetApplicationContainer);
+    itf->AddMethodHandler(
+        "CreateVaultKeyset",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::CreateVaultKeyset);
 
     signal_DircryptoMigrationProgress_ = itf->RegisterSignalOfType<SignalDircryptoMigrationProgressType>("DircryptoMigrationProgress");
     signal_AuthFactorStatusUpdate_ = itf->RegisterSignalOfType<SignalAuthFactorStatusUpdateType>("AuthFactorStatusUpdate");
@@ -434,6 +441,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"ResetApplicationContainer\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"CreateVaultKeyset\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
