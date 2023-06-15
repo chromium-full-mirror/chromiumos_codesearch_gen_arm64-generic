@@ -1555,7 +1555,7 @@ struct ConstChars {
 class Field {
  public:
   bool valid() const { return id_ != 0; }
-  uint16_t id() const { return id_; }
+  uint32_t id() const { return id_; }
   explicit operator bool() const { return valid(); }
 
   proto_utils::ProtoWireType type() const {
@@ -1651,7 +1651,7 @@ class Field {
 
   uint64_t raw_int_value() const { return int_value_; }
 
-  void initialize(uint16_t id,
+  void initialize(uint32_t id,
                   uint8_t type,
                   uint64_t int_value,
                   uint32_t size) {
@@ -1690,19 +1690,21 @@ class Field {
   // to |dst|. |dst| is resized accordingly.
   void SerializeAndAppendTo(std::vector<uint8_t>* dst) const;
 
+  static constexpr uint32_t kMaxId = (1 << 24) - 1;  // See id_ : 24 below.
  private:
   template <typename Container>
   void SerializeAndAppendToInternal(Container* dst) const;
 
   // Fields are deliberately not initialized to keep the class trivially
   // constructible. It makes a large perf difference for ProtoDecoder.
-
   uint64_t int_value_;  // In kLengthDelimited this contains the data() addr.
   uint32_t size_;       // Only valid when when type == kLengthDelimited.
-  uint16_t id_;         // Proto field ordinal.
-  uint8_t type_;        // proto_utils::ProtoWireType.
-};
 
+  // Note: MSVC and clang-cl require bit-fields to be of the same type, hence
+  // the `: 8` below rather than uint8_t.
+  uint32_t id_ : 24;   // Proto field ordinal.
+  uint32_t type_ : 8;  // proto_utils::ProtoWireType.
+};
 // The Field struct is used in a lot of perf-sensitive contexts.
 static_assert(sizeof(Field) == 16, "Field struct too big");
 
@@ -1837,6 +1839,418 @@ constexpr size_t kMaxDataSourceInstances = 8;
 
 #endif  // INCLUDE_PERFETTO_TRACING_INTERNAL_BASIC_TYPES_H_
 // gen_amalgamated begin header: include/perfetto/tracing/internal/data_source_internal.h
+// gen_amalgamated begin header: include/perfetto/tracing/core/data_source_config.h
+// gen_amalgamated begin header: gen/protos/perfetto/config/data_source_config.gen.h
+// gen_amalgamated begin header: include/perfetto/protozero/cpp_message_obj.h
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef INCLUDE_PERFETTO_PROTOZERO_CPP_MESSAGE_OBJ_H_
+#define INCLUDE_PERFETTO_PROTOZERO_CPP_MESSAGE_OBJ_H_
+
+#include <stdint.h>
+
+#include <string>
+#include <vector>
+
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace protozero {
+
+// Base class for generated .gen.h classes, which are full C++ objects that
+// support both ser and deserialization (but are not zero-copy).
+// This is only used by the "cpp" targets not the "pbzero" ones.
+class PERFETTO_EXPORT_COMPONENT CppMessageObj {
+ public:
+  virtual ~CppMessageObj();
+  virtual std::string SerializeAsString() const = 0;
+  virtual std::vector<uint8_t> SerializeAsArray() const = 0;
+  virtual bool ParseFromArray(const void*, size_t) = 0;
+
+  bool ParseFromString(const std::string& str) {
+    return ParseFromArray(str.data(), str.size());
+  }
+};
+
+}  // namespace protozero
+
+#endif  // INCLUDE_PERFETTO_PROTOZERO_CPP_MESSAGE_OBJ_H_
+// gen_amalgamated begin header: include/perfetto/protozero/copyable_ptr.h
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef INCLUDE_PERFETTO_PROTOZERO_COPYABLE_PTR_H_
+#define INCLUDE_PERFETTO_PROTOZERO_COPYABLE_PTR_H_
+
+#include <memory>
+
+namespace protozero {
+
+// This class is essentially a std::vector<T> of fixed size = 1.
+// It's a pointer wrapper with deep copying and deep equality comparison.
+// At all effects this wrapper behaves like the underlying T, with the exception
+// of the heap indirection.
+// Conversely to a std::unique_ptr, the pointer will be always valid, never
+// null. The problem it solves is the following: when generating C++ classes
+// from proto files, we want to keep each header hermetic (i.e. not #include
+// headers of dependent types). As such we can't directly instantiate T
+// field members but we can instead rely on pointers, so only the .cc file needs
+// to see the actual definition of T. If the generated classes were move-only we
+// could just use a unique_ptr there. But they aren't, hence this wrapper.
+// Converesely to unique_ptr, this wrapper:
+// - Default constructs the T instance in its constructor.
+// - Implements deep comparison in operator== instead of pointer comparison.
+template <typename T>
+class CopyablePtr {
+ public:
+  CopyablePtr() : ptr_(new T()) {}
+  ~CopyablePtr() = default;
+
+  // Copy operators.
+  CopyablePtr(const CopyablePtr& other) : ptr_(new T(*other.ptr_)) {}
+  CopyablePtr& operator=(const CopyablePtr& other) {
+    *ptr_ = *other.ptr_;
+    return *this;
+  }
+
+  // Move operators.
+  CopyablePtr(CopyablePtr&& other) noexcept : ptr_(std::move(other.ptr_)) {
+    other.ptr_.reset(new T());
+  }
+
+  CopyablePtr& operator=(CopyablePtr&& other) {
+    ptr_ = std::move(other.ptr_);
+    other.ptr_.reset(new T());
+    return *this;
+  }
+
+  T* get() { return ptr_.get(); }
+  const T* get() const { return ptr_.get(); }
+
+  T* operator->() { return ptr_.get(); }
+  const T* operator->() const { return ptr_.get(); }
+
+  T& operator*() { return *ptr_; }
+  const T& operator*() const { return *ptr_; }
+
+  friend bool operator==(const CopyablePtr& lhs, const CopyablePtr& rhs) {
+    return *lhs == *rhs;
+  }
+
+  friend bool operator!=(const CopyablePtr& lhs, const CopyablePtr& rhs) {
+    // In theory the underlying type might have a special operator!=
+    // implementation which is not just !(x == y). Respect that.
+    return *lhs != *rhs;
+  }
+
+ private:
+  std::unique_ptr<T> ptr_;
+};
+
+}  // namespace protozero
+
+#endif  // INCLUDE_PERFETTO_PROTOZERO_COPYABLE_PTR_H_
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class DataSourceConfig;
+class TestConfig;
+class TestConfig_DummyFields;
+class InterceptorConfig;
+class ChromeConfig;
+class SystemInfoConfig;
+enum DataSourceConfig_SessionInitiator : int;
+enum ChromeConfig_ClientPriority : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum DataSourceConfig_SessionInitiator : int {
+  DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED = 0,
+  DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM = 1,
+};
+
+class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessageObj {
+ public:
+  using SessionInitiator = DataSourceConfig_SessionInitiator;
+  static constexpr auto SESSION_INITIATOR_UNSPECIFIED = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED;
+  static constexpr auto SESSION_INITIATOR_TRUSTED_SYSTEM = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM;
+  static constexpr auto SessionInitiator_MIN = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED;
+  static constexpr auto SessionInitiator_MAX = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM;
+  enum FieldNumbers {
+    kNameFieldNumber = 1,
+    kTargetBufferFieldNumber = 2,
+    kTraceDurationMsFieldNumber = 3,
+    kPreferSuspendClockForDurationFieldNumber = 122,
+    kStopTimeoutMsFieldNumber = 7,
+    kEnableExtraGuardrailsFieldNumber = 6,
+    kSessionInitiatorFieldNumber = 8,
+    kTracingSessionIdFieldNumber = 4,
+    kFtraceConfigFieldNumber = 100,
+    kInodeFileConfigFieldNumber = 102,
+    kProcessStatsConfigFieldNumber = 103,
+    kSysStatsConfigFieldNumber = 104,
+    kHeapprofdConfigFieldNumber = 105,
+    kJavaHprofConfigFieldNumber = 110,
+    kAndroidPowerConfigFieldNumber = 106,
+    kAndroidLogConfigFieldNumber = 107,
+    kGpuCounterConfigFieldNumber = 108,
+    kAndroidGameInterventionListConfigFieldNumber = 116,
+    kPackagesListConfigFieldNumber = 109,
+    kPerfEventConfigFieldNumber = 111,
+    kVulkanMemoryConfigFieldNumber = 112,
+    kTrackEventConfigFieldNumber = 113,
+    kAndroidPolledStateConfigFieldNumber = 114,
+    kAndroidSystemPropertyConfigFieldNumber = 118,
+    kStatsdTracingConfigFieldNumber = 117,
+    kSystemInfoConfigFieldNumber = 119,
+    kChromeConfigFieldNumber = 101,
+    kInterceptorConfigFieldNumber = 115,
+    kNetworkPacketTraceConfigFieldNumber = 120,
+    kLegacyConfigFieldNumber = 1000,
+    kForTestingFieldNumber = 1001,
+  };
+
+  DataSourceConfig();
+  ~DataSourceConfig() override;
+  DataSourceConfig(DataSourceConfig&&) noexcept;
+  DataSourceConfig& operator=(DataSourceConfig&&);
+  DataSourceConfig(const DataSourceConfig&);
+  DataSourceConfig& operator=(const DataSourceConfig&);
+  bool operator==(const DataSourceConfig&) const;
+  bool operator!=(const DataSourceConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_name() const { return _has_field_[1]; }
+  const std::string& name() const { return name_; }
+  void set_name(const std::string& value) { name_ = value; _has_field_.set(1); }
+
+  bool has_target_buffer() const { return _has_field_[2]; }
+  uint32_t target_buffer() const { return target_buffer_; }
+  void set_target_buffer(uint32_t value) { target_buffer_ = value; _has_field_.set(2); }
+
+  bool has_trace_duration_ms() const { return _has_field_[3]; }
+  uint32_t trace_duration_ms() const { return trace_duration_ms_; }
+  void set_trace_duration_ms(uint32_t value) { trace_duration_ms_ = value; _has_field_.set(3); }
+
+  bool has_prefer_suspend_clock_for_duration() const { return _has_field_[122]; }
+  bool prefer_suspend_clock_for_duration() const { return prefer_suspend_clock_for_duration_; }
+  void set_prefer_suspend_clock_for_duration(bool value) { prefer_suspend_clock_for_duration_ = value; _has_field_.set(122); }
+
+  bool has_stop_timeout_ms() const { return _has_field_[7]; }
+  uint32_t stop_timeout_ms() const { return stop_timeout_ms_; }
+  void set_stop_timeout_ms(uint32_t value) { stop_timeout_ms_ = value; _has_field_.set(7); }
+
+  bool has_enable_extra_guardrails() const { return _has_field_[6]; }
+  bool enable_extra_guardrails() const { return enable_extra_guardrails_; }
+  void set_enable_extra_guardrails(bool value) { enable_extra_guardrails_ = value; _has_field_.set(6); }
+
+  bool has_session_initiator() const { return _has_field_[8]; }
+  DataSourceConfig_SessionInitiator session_initiator() const { return session_initiator_; }
+  void set_session_initiator(DataSourceConfig_SessionInitiator value) { session_initiator_ = value; _has_field_.set(8); }
+
+  bool has_tracing_session_id() const { return _has_field_[4]; }
+  uint64_t tracing_session_id() const { return tracing_session_id_; }
+  void set_tracing_session_id(uint64_t value) { tracing_session_id_ = value; _has_field_.set(4); }
+
+  const std::string& ftrace_config_raw() const { return ftrace_config_; }
+  void set_ftrace_config_raw(const std::string& raw) { ftrace_config_ = raw; _has_field_.set(100); }
+
+  const std::string& inode_file_config_raw() const { return inode_file_config_; }
+  void set_inode_file_config_raw(const std::string& raw) { inode_file_config_ = raw; _has_field_.set(102); }
+
+  const std::string& process_stats_config_raw() const { return process_stats_config_; }
+  void set_process_stats_config_raw(const std::string& raw) { process_stats_config_ = raw; _has_field_.set(103); }
+
+  const std::string& sys_stats_config_raw() const { return sys_stats_config_; }
+  void set_sys_stats_config_raw(const std::string& raw) { sys_stats_config_ = raw; _has_field_.set(104); }
+
+  const std::string& heapprofd_config_raw() const { return heapprofd_config_; }
+  void set_heapprofd_config_raw(const std::string& raw) { heapprofd_config_ = raw; _has_field_.set(105); }
+
+  const std::string& java_hprof_config_raw() const { return java_hprof_config_; }
+  void set_java_hprof_config_raw(const std::string& raw) { java_hprof_config_ = raw; _has_field_.set(110); }
+
+  const std::string& android_power_config_raw() const { return android_power_config_; }
+  void set_android_power_config_raw(const std::string& raw) { android_power_config_ = raw; _has_field_.set(106); }
+
+  const std::string& android_log_config_raw() const { return android_log_config_; }
+  void set_android_log_config_raw(const std::string& raw) { android_log_config_ = raw; _has_field_.set(107); }
+
+  const std::string& gpu_counter_config_raw() const { return gpu_counter_config_; }
+  void set_gpu_counter_config_raw(const std::string& raw) { gpu_counter_config_ = raw; _has_field_.set(108); }
+
+  const std::string& android_game_intervention_list_config_raw() const { return android_game_intervention_list_config_; }
+  void set_android_game_intervention_list_config_raw(const std::string& raw) { android_game_intervention_list_config_ = raw; _has_field_.set(116); }
+
+  const std::string& packages_list_config_raw() const { return packages_list_config_; }
+  void set_packages_list_config_raw(const std::string& raw) { packages_list_config_ = raw; _has_field_.set(109); }
+
+  const std::string& perf_event_config_raw() const { return perf_event_config_; }
+  void set_perf_event_config_raw(const std::string& raw) { perf_event_config_ = raw; _has_field_.set(111); }
+
+  const std::string& vulkan_memory_config_raw() const { return vulkan_memory_config_; }
+  void set_vulkan_memory_config_raw(const std::string& raw) { vulkan_memory_config_ = raw; _has_field_.set(112); }
+
+  const std::string& track_event_config_raw() const { return track_event_config_; }
+  void set_track_event_config_raw(const std::string& raw) { track_event_config_ = raw; _has_field_.set(113); }
+
+  const std::string& android_polled_state_config_raw() const { return android_polled_state_config_; }
+  void set_android_polled_state_config_raw(const std::string& raw) { android_polled_state_config_ = raw; _has_field_.set(114); }
+
+  const std::string& android_system_property_config_raw() const { return android_system_property_config_; }
+  void set_android_system_property_config_raw(const std::string& raw) { android_system_property_config_ = raw; _has_field_.set(118); }
+
+  const std::string& statsd_tracing_config_raw() const { return statsd_tracing_config_; }
+  void set_statsd_tracing_config_raw(const std::string& raw) { statsd_tracing_config_ = raw; _has_field_.set(117); }
+
+  bool has_system_info_config() const { return _has_field_[119]; }
+  const SystemInfoConfig& system_info_config() const { return *system_info_config_; }
+  SystemInfoConfig* mutable_system_info_config() { _has_field_.set(119); return system_info_config_.get(); }
+
+  bool has_chrome_config() const { return _has_field_[101]; }
+  const ChromeConfig& chrome_config() const { return *chrome_config_; }
+  ChromeConfig* mutable_chrome_config() { _has_field_.set(101); return chrome_config_.get(); }
+
+  bool has_interceptor_config() const { return _has_field_[115]; }
+  const InterceptorConfig& interceptor_config() const { return *interceptor_config_; }
+  InterceptorConfig* mutable_interceptor_config() { _has_field_.set(115); return interceptor_config_.get(); }
+
+  const std::string& network_packet_trace_config_raw() const { return network_packet_trace_config_; }
+  void set_network_packet_trace_config_raw(const std::string& raw) { network_packet_trace_config_ = raw; _has_field_.set(120); }
+
+  bool has_legacy_config() const { return _has_field_[1000]; }
+  const std::string& legacy_config() const { return legacy_config_; }
+  void set_legacy_config(const std::string& value) { legacy_config_ = value; _has_field_.set(1000); }
+
+  bool has_for_testing() const { return _has_field_[1001]; }
+  const TestConfig& for_testing() const { return *for_testing_; }
+  TestConfig* mutable_for_testing() { _has_field_.set(1001); return for_testing_.get(); }
+
+ private:
+  std::string name_{};
+  uint32_t target_buffer_{};
+  uint32_t trace_duration_ms_{};
+  bool prefer_suspend_clock_for_duration_{};
+  uint32_t stop_timeout_ms_{};
+  bool enable_extra_guardrails_{};
+  DataSourceConfig_SessionInitiator session_initiator_{};
+  uint64_t tracing_session_id_{};
+  std::string ftrace_config_;  // [lazy=true]
+  std::string inode_file_config_;  // [lazy=true]
+  std::string process_stats_config_;  // [lazy=true]
+  std::string sys_stats_config_;  // [lazy=true]
+  std::string heapprofd_config_;  // [lazy=true]
+  std::string java_hprof_config_;  // [lazy=true]
+  std::string android_power_config_;  // [lazy=true]
+  std::string android_log_config_;  // [lazy=true]
+  std::string gpu_counter_config_;  // [lazy=true]
+  std::string android_game_intervention_list_config_;  // [lazy=true]
+  std::string packages_list_config_;  // [lazy=true]
+  std::string perf_event_config_;  // [lazy=true]
+  std::string vulkan_memory_config_;  // [lazy=true]
+  std::string track_event_config_;  // [lazy=true]
+  std::string android_polled_state_config_;  // [lazy=true]
+  std::string android_system_property_config_;  // [lazy=true]
+  std::string statsd_tracing_config_;  // [lazy=true]
+  ::protozero::CopyablePtr<SystemInfoConfig> system_info_config_;
+  ::protozero::CopyablePtr<ChromeConfig> chrome_config_;
+  ::protozero::CopyablePtr<InterceptorConfig> interceptor_config_;
+  std::string network_packet_trace_config_;  // [lazy=true]
+  std::string legacy_config_{};
+  ::protozero::CopyablePtr<TestConfig> for_testing_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<1002> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef INCLUDE_PERFETTO_TRACING_CORE_DATA_SOURCE_CONFIG_H_
+#define INCLUDE_PERFETTO_TRACING_CORE_DATA_SOURCE_CONFIG_H_
+
+// Creates the aliases in the ::perfetto namespace, doing things like:
+// using ::perfetto::Foo = ::perfetto::protos::gen::Foo.
+// See comments in forward_decls.h for the historical reasons of this
+// indirection layer.
+// gen_amalgamated expanded: #include "perfetto/tracing/core/forward_decls.h"
+
+// gen_amalgamated expanded: #include "protos/perfetto/config/data_source_config.gen.h"
+
+#endif  // INCLUDE_PERFETTO_TRACING_CORE_DATA_SOURCE_CONFIG_H_
 // gen_amalgamated begin header: include/perfetto/tracing/trace_writer_base.h
 // gen_amalgamated begin header: include/perfetto/protozero/message_handle.h
 // gen_amalgamated begin header: include/perfetto/protozero/message.h
@@ -2529,6 +2943,7 @@ class TraceWriterBase {
 
 // No perfetto headers (other than tracing/api and protozero) should be here.
 // gen_amalgamated expanded: #include "perfetto/tracing/buffer_exhausted_policy.h"
+// gen_amalgamated expanded: #include "perfetto/tracing/core/data_source_config.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/internal/basic_types.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/trace_writer_base.h"
 
@@ -2594,16 +3009,11 @@ struct DataSourceState {
   // to the startup session's ID.
   uint64_t startup_session_id = 0;
 
-  // A hash of the trace config used by this instance. This is used to
-  // de-duplicate instances for data sources with identical names (e.g., track
-  // event).
-  uint64_t config_hash = 0;
-
-  // Similar to config_hash, but excludes target buffers and service-set fields
-  // for matching of startup-tracing data source instances to sessions later
-  // started by the service.
-  // Learn more: ComputeStartupConfigHash
-  uint64_t startup_config_hash = 0;
+  // The trace config used by this instance. This is used to de-duplicate
+  // instances for data sources with identical names (e.g., track event).
+  // We store it as a pointer to be able to free memory after the datasource
+  // is stopped.
+  std::unique_ptr<DataSourceConfig> config;
 
   // If this data source is being intercepted (see Interceptor), this field
   // contains the non-zero id of a registered interceptor which should receive
@@ -5761,418 +6171,6 @@ class PERFETTO_EXPORT_COMPONENT ConsoleInterceptor
 }  // namespace perfetto
 
 #endif  // INCLUDE_PERFETTO_TRACING_CONSOLE_INTERCEPTOR_H_
-// gen_amalgamated begin header: include/perfetto/tracing/core/data_source_config.h
-// gen_amalgamated begin header: gen/protos/perfetto/config/data_source_config.gen.h
-// gen_amalgamated begin header: include/perfetto/protozero/cpp_message_obj.h
-/*
- * Copyright (C) 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-#ifndef INCLUDE_PERFETTO_PROTOZERO_CPP_MESSAGE_OBJ_H_
-#define INCLUDE_PERFETTO_PROTOZERO_CPP_MESSAGE_OBJ_H_
-
-#include <stdint.h>
-
-#include <string>
-#include <vector>
-
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace protozero {
-
-// Base class for generated .gen.h classes, which are full C++ objects that
-// support both ser and deserialization (but are not zero-copy).
-// This is only used by the "cpp" targets not the "pbzero" ones.
-class PERFETTO_EXPORT_COMPONENT CppMessageObj {
- public:
-  virtual ~CppMessageObj();
-  virtual std::string SerializeAsString() const = 0;
-  virtual std::vector<uint8_t> SerializeAsArray() const = 0;
-  virtual bool ParseFromArray(const void*, size_t) = 0;
-
-  bool ParseFromString(const std::string& str) {
-    return ParseFromArray(str.data(), str.size());
-  }
-};
-
-}  // namespace protozero
-
-#endif  // INCLUDE_PERFETTO_PROTOZERO_CPP_MESSAGE_OBJ_H_
-// gen_amalgamated begin header: include/perfetto/protozero/copyable_ptr.h
-/*
- * Copyright (C) 2019 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-#ifndef INCLUDE_PERFETTO_PROTOZERO_COPYABLE_PTR_H_
-#define INCLUDE_PERFETTO_PROTOZERO_COPYABLE_PTR_H_
-
-#include <memory>
-
-namespace protozero {
-
-// This class is essentially a std::vector<T> of fixed size = 1.
-// It's a pointer wrapper with deep copying and deep equality comparison.
-// At all effects this wrapper behaves like the underlying T, with the exception
-// of the heap indirection.
-// Conversely to a std::unique_ptr, the pointer will be always valid, never
-// null. The problem it solves is the following: when generating C++ classes
-// from proto files, we want to keep each header hermetic (i.e. not #include
-// headers of dependent types). As such we can't directly instantiate T
-// field members but we can instead rely on pointers, so only the .cc file needs
-// to see the actual definition of T. If the generated classes were move-only we
-// could just use a unique_ptr there. But they aren't, hence this wrapper.
-// Converesely to unique_ptr, this wrapper:
-// - Default constructs the T instance in its constructor.
-// - Implements deep comparison in operator== instead of pointer comparison.
-template <typename T>
-class CopyablePtr {
- public:
-  CopyablePtr() : ptr_(new T()) {}
-  ~CopyablePtr() = default;
-
-  // Copy operators.
-  CopyablePtr(const CopyablePtr& other) : ptr_(new T(*other.ptr_)) {}
-  CopyablePtr& operator=(const CopyablePtr& other) {
-    *ptr_ = *other.ptr_;
-    return *this;
-  }
-
-  // Move operators.
-  CopyablePtr(CopyablePtr&& other) noexcept : ptr_(std::move(other.ptr_)) {
-    other.ptr_.reset(new T());
-  }
-
-  CopyablePtr& operator=(CopyablePtr&& other) {
-    ptr_ = std::move(other.ptr_);
-    other.ptr_.reset(new T());
-    return *this;
-  }
-
-  T* get() { return ptr_.get(); }
-  const T* get() const { return ptr_.get(); }
-
-  T* operator->() { return ptr_.get(); }
-  const T* operator->() const { return ptr_.get(); }
-
-  T& operator*() { return *ptr_; }
-  const T& operator*() const { return *ptr_; }
-
-  friend bool operator==(const CopyablePtr& lhs, const CopyablePtr& rhs) {
-    return *lhs == *rhs;
-  }
-
-  friend bool operator!=(const CopyablePtr& lhs, const CopyablePtr& rhs) {
-    // In theory the underlying type might have a special operator!=
-    // implementation which is not just !(x == y). Respect that.
-    return *lhs != *rhs;
-  }
-
- private:
-  std::unique_ptr<T> ptr_;
-};
-
-}  // namespace protozero
-
-#endif  // INCLUDE_PERFETTO_PROTOZERO_COPYABLE_PTR_H_
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class DataSourceConfig;
-class TestConfig;
-class TestConfig_DummyFields;
-class InterceptorConfig;
-class ChromeConfig;
-class SystemInfoConfig;
-enum DataSourceConfig_SessionInitiator : int;
-enum ChromeConfig_ClientPriority : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum DataSourceConfig_SessionInitiator : int {
-  DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED = 0,
-  DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM = 1,
-};
-
-class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessageObj {
- public:
-  using SessionInitiator = DataSourceConfig_SessionInitiator;
-  static constexpr auto SESSION_INITIATOR_UNSPECIFIED = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED;
-  static constexpr auto SESSION_INITIATOR_TRUSTED_SYSTEM = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM;
-  static constexpr auto SessionInitiator_MIN = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED;
-  static constexpr auto SessionInitiator_MAX = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM;
-  enum FieldNumbers {
-    kNameFieldNumber = 1,
-    kTargetBufferFieldNumber = 2,
-    kTraceDurationMsFieldNumber = 3,
-    kPreferSuspendClockForDurationFieldNumber = 122,
-    kStopTimeoutMsFieldNumber = 7,
-    kEnableExtraGuardrailsFieldNumber = 6,
-    kSessionInitiatorFieldNumber = 8,
-    kTracingSessionIdFieldNumber = 4,
-    kFtraceConfigFieldNumber = 100,
-    kInodeFileConfigFieldNumber = 102,
-    kProcessStatsConfigFieldNumber = 103,
-    kSysStatsConfigFieldNumber = 104,
-    kHeapprofdConfigFieldNumber = 105,
-    kJavaHprofConfigFieldNumber = 110,
-    kAndroidPowerConfigFieldNumber = 106,
-    kAndroidLogConfigFieldNumber = 107,
-    kGpuCounterConfigFieldNumber = 108,
-    kAndroidGameInterventionListConfigFieldNumber = 116,
-    kPackagesListConfigFieldNumber = 109,
-    kPerfEventConfigFieldNumber = 111,
-    kVulkanMemoryConfigFieldNumber = 112,
-    kTrackEventConfigFieldNumber = 113,
-    kAndroidPolledStateConfigFieldNumber = 114,
-    kAndroidSystemPropertyConfigFieldNumber = 118,
-    kStatsdTracingConfigFieldNumber = 117,
-    kSystemInfoConfigFieldNumber = 119,
-    kChromeConfigFieldNumber = 101,
-    kInterceptorConfigFieldNumber = 115,
-    kNetworkPacketTraceConfigFieldNumber = 120,
-    kLegacyConfigFieldNumber = 1000,
-    kForTestingFieldNumber = 1001,
-  };
-
-  DataSourceConfig();
-  ~DataSourceConfig() override;
-  DataSourceConfig(DataSourceConfig&&) noexcept;
-  DataSourceConfig& operator=(DataSourceConfig&&);
-  DataSourceConfig(const DataSourceConfig&);
-  DataSourceConfig& operator=(const DataSourceConfig&);
-  bool operator==(const DataSourceConfig&) const;
-  bool operator!=(const DataSourceConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_name() const { return _has_field_[1]; }
-  const std::string& name() const { return name_; }
-  void set_name(const std::string& value) { name_ = value; _has_field_.set(1); }
-
-  bool has_target_buffer() const { return _has_field_[2]; }
-  uint32_t target_buffer() const { return target_buffer_; }
-  void set_target_buffer(uint32_t value) { target_buffer_ = value; _has_field_.set(2); }
-
-  bool has_trace_duration_ms() const { return _has_field_[3]; }
-  uint32_t trace_duration_ms() const { return trace_duration_ms_; }
-  void set_trace_duration_ms(uint32_t value) { trace_duration_ms_ = value; _has_field_.set(3); }
-
-  bool has_prefer_suspend_clock_for_duration() const { return _has_field_[122]; }
-  bool prefer_suspend_clock_for_duration() const { return prefer_suspend_clock_for_duration_; }
-  void set_prefer_suspend_clock_for_duration(bool value) { prefer_suspend_clock_for_duration_ = value; _has_field_.set(122); }
-
-  bool has_stop_timeout_ms() const { return _has_field_[7]; }
-  uint32_t stop_timeout_ms() const { return stop_timeout_ms_; }
-  void set_stop_timeout_ms(uint32_t value) { stop_timeout_ms_ = value; _has_field_.set(7); }
-
-  bool has_enable_extra_guardrails() const { return _has_field_[6]; }
-  bool enable_extra_guardrails() const { return enable_extra_guardrails_; }
-  void set_enable_extra_guardrails(bool value) { enable_extra_guardrails_ = value; _has_field_.set(6); }
-
-  bool has_session_initiator() const { return _has_field_[8]; }
-  DataSourceConfig_SessionInitiator session_initiator() const { return session_initiator_; }
-  void set_session_initiator(DataSourceConfig_SessionInitiator value) { session_initiator_ = value; _has_field_.set(8); }
-
-  bool has_tracing_session_id() const { return _has_field_[4]; }
-  uint64_t tracing_session_id() const { return tracing_session_id_; }
-  void set_tracing_session_id(uint64_t value) { tracing_session_id_ = value; _has_field_.set(4); }
-
-  const std::string& ftrace_config_raw() const { return ftrace_config_; }
-  void set_ftrace_config_raw(const std::string& raw) { ftrace_config_ = raw; _has_field_.set(100); }
-
-  const std::string& inode_file_config_raw() const { return inode_file_config_; }
-  void set_inode_file_config_raw(const std::string& raw) { inode_file_config_ = raw; _has_field_.set(102); }
-
-  const std::string& process_stats_config_raw() const { return process_stats_config_; }
-  void set_process_stats_config_raw(const std::string& raw) { process_stats_config_ = raw; _has_field_.set(103); }
-
-  const std::string& sys_stats_config_raw() const { return sys_stats_config_; }
-  void set_sys_stats_config_raw(const std::string& raw) { sys_stats_config_ = raw; _has_field_.set(104); }
-
-  const std::string& heapprofd_config_raw() const { return heapprofd_config_; }
-  void set_heapprofd_config_raw(const std::string& raw) { heapprofd_config_ = raw; _has_field_.set(105); }
-
-  const std::string& java_hprof_config_raw() const { return java_hprof_config_; }
-  void set_java_hprof_config_raw(const std::string& raw) { java_hprof_config_ = raw; _has_field_.set(110); }
-
-  const std::string& android_power_config_raw() const { return android_power_config_; }
-  void set_android_power_config_raw(const std::string& raw) { android_power_config_ = raw; _has_field_.set(106); }
-
-  const std::string& android_log_config_raw() const { return android_log_config_; }
-  void set_android_log_config_raw(const std::string& raw) { android_log_config_ = raw; _has_field_.set(107); }
-
-  const std::string& gpu_counter_config_raw() const { return gpu_counter_config_; }
-  void set_gpu_counter_config_raw(const std::string& raw) { gpu_counter_config_ = raw; _has_field_.set(108); }
-
-  const std::string& android_game_intervention_list_config_raw() const { return android_game_intervention_list_config_; }
-  void set_android_game_intervention_list_config_raw(const std::string& raw) { android_game_intervention_list_config_ = raw; _has_field_.set(116); }
-
-  const std::string& packages_list_config_raw() const { return packages_list_config_; }
-  void set_packages_list_config_raw(const std::string& raw) { packages_list_config_ = raw; _has_field_.set(109); }
-
-  const std::string& perf_event_config_raw() const { return perf_event_config_; }
-  void set_perf_event_config_raw(const std::string& raw) { perf_event_config_ = raw; _has_field_.set(111); }
-
-  const std::string& vulkan_memory_config_raw() const { return vulkan_memory_config_; }
-  void set_vulkan_memory_config_raw(const std::string& raw) { vulkan_memory_config_ = raw; _has_field_.set(112); }
-
-  const std::string& track_event_config_raw() const { return track_event_config_; }
-  void set_track_event_config_raw(const std::string& raw) { track_event_config_ = raw; _has_field_.set(113); }
-
-  const std::string& android_polled_state_config_raw() const { return android_polled_state_config_; }
-  void set_android_polled_state_config_raw(const std::string& raw) { android_polled_state_config_ = raw; _has_field_.set(114); }
-
-  const std::string& android_system_property_config_raw() const { return android_system_property_config_; }
-  void set_android_system_property_config_raw(const std::string& raw) { android_system_property_config_ = raw; _has_field_.set(118); }
-
-  const std::string& statsd_tracing_config_raw() const { return statsd_tracing_config_; }
-  void set_statsd_tracing_config_raw(const std::string& raw) { statsd_tracing_config_ = raw; _has_field_.set(117); }
-
-  bool has_system_info_config() const { return _has_field_[119]; }
-  const SystemInfoConfig& system_info_config() const { return *system_info_config_; }
-  SystemInfoConfig* mutable_system_info_config() { _has_field_.set(119); return system_info_config_.get(); }
-
-  bool has_chrome_config() const { return _has_field_[101]; }
-  const ChromeConfig& chrome_config() const { return *chrome_config_; }
-  ChromeConfig* mutable_chrome_config() { _has_field_.set(101); return chrome_config_.get(); }
-
-  bool has_interceptor_config() const { return _has_field_[115]; }
-  const InterceptorConfig& interceptor_config() const { return *interceptor_config_; }
-  InterceptorConfig* mutable_interceptor_config() { _has_field_.set(115); return interceptor_config_.get(); }
-
-  const std::string& network_packet_trace_config_raw() const { return network_packet_trace_config_; }
-  void set_network_packet_trace_config_raw(const std::string& raw) { network_packet_trace_config_ = raw; _has_field_.set(120); }
-
-  bool has_legacy_config() const { return _has_field_[1000]; }
-  const std::string& legacy_config() const { return legacy_config_; }
-  void set_legacy_config(const std::string& value) { legacy_config_ = value; _has_field_.set(1000); }
-
-  bool has_for_testing() const { return _has_field_[1001]; }
-  const TestConfig& for_testing() const { return *for_testing_; }
-  TestConfig* mutable_for_testing() { _has_field_.set(1001); return for_testing_.get(); }
-
- private:
-  std::string name_{};
-  uint32_t target_buffer_{};
-  uint32_t trace_duration_ms_{};
-  bool prefer_suspend_clock_for_duration_{};
-  uint32_t stop_timeout_ms_{};
-  bool enable_extra_guardrails_{};
-  DataSourceConfig_SessionInitiator session_initiator_{};
-  uint64_t tracing_session_id_{};
-  std::string ftrace_config_;  // [lazy=true]
-  std::string inode_file_config_;  // [lazy=true]
-  std::string process_stats_config_;  // [lazy=true]
-  std::string sys_stats_config_;  // [lazy=true]
-  std::string heapprofd_config_;  // [lazy=true]
-  std::string java_hprof_config_;  // [lazy=true]
-  std::string android_power_config_;  // [lazy=true]
-  std::string android_log_config_;  // [lazy=true]
-  std::string gpu_counter_config_;  // [lazy=true]
-  std::string android_game_intervention_list_config_;  // [lazy=true]
-  std::string packages_list_config_;  // [lazy=true]
-  std::string perf_event_config_;  // [lazy=true]
-  std::string vulkan_memory_config_;  // [lazy=true]
-  std::string track_event_config_;  // [lazy=true]
-  std::string android_polled_state_config_;  // [lazy=true]
-  std::string android_system_property_config_;  // [lazy=true]
-  std::string statsd_tracing_config_;  // [lazy=true]
-  ::protozero::CopyablePtr<SystemInfoConfig> system_info_config_;
-  ::protozero::CopyablePtr<ChromeConfig> chrome_config_;
-  ::protozero::CopyablePtr<InterceptorConfig> interceptor_config_;
-  std::string network_packet_trace_config_;  // [lazy=true]
-  std::string legacy_config_{};
-  ::protozero::CopyablePtr<TestConfig> for_testing_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<1002> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
-/*
- * Copyright (C) 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-#ifndef INCLUDE_PERFETTO_TRACING_CORE_DATA_SOURCE_CONFIG_H_
-#define INCLUDE_PERFETTO_TRACING_CORE_DATA_SOURCE_CONFIG_H_
-
-// Creates the aliases in the ::perfetto namespace, doing things like:
-// using ::perfetto::Foo = ::perfetto::protos::gen::Foo.
-// See comments in forward_decls.h for the historical reasons of this
-// indirection layer.
-// gen_amalgamated expanded: #include "perfetto/tracing/core/forward_decls.h"
-
-// gen_amalgamated expanded: #include "protos/perfetto/config/data_source_config.gen.h"
-
-#endif  // INCLUDE_PERFETTO_TRACING_CORE_DATA_SOURCE_CONFIG_H_
 // gen_amalgamated begin header: include/perfetto/tracing/core/data_source_descriptor.h
 // gen_amalgamated begin header: gen/protos/perfetto/common/data_source_descriptor.gen.h
 // DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
@@ -10646,6 +10644,11 @@ class PERFETTO_EXPORT_COMPONENT DataSourceBase {
   // to tell other threads to flush their TraceContext for this data source
   // (the library cannot execute code on all the threads on its own).
   virtual void OnFlush(const FlushArgs&);
+
+  // Determines whether a startup session can be adopted by a service-initiated
+  // tracing session (i.e. whether their configs are compatible).
+  virtual bool CanAdoptStartupSession(const DataSourceConfig& startup_config,
+                                      const DataSourceConfig& service_config);
 };
 
 struct DefaultDataSourceTraits {
@@ -17299,6 +17302,15 @@ inline void ValidateEventNameType() {
       "track-events#dynamic-event-names");
 }
 
+inline bool UnorderedEqual(std::vector<std::string> vec1,
+                           std::vector<std::string> vec2) {
+  std::sort(vec1.begin(), vec1.end());
+  vec1.erase(std::unique(vec1.begin(), vec1.end()), vec1.end());
+  std::sort(vec2.begin(), vec2.end());
+  vec2.erase(std::unique(vec2.begin(), vec2.end()), vec2.end());
+  return vec1 == vec2;
+}
+
 }  // namespace
 
 inline ::perfetto::DynamicString DecayEventNameType(
@@ -17424,6 +17436,56 @@ class TrackEventDataSource
     TrackEventInternal::WillClearIncrementalState(*Registry, args);
   }
 
+  // In Chrome, startup sessions are propagated from the browser process to
+  // child processes using command-line flags. Command-line flags can only
+  // convey the category filter and privacy settings, so we use only those
+  // to determine which startup sessions to adopt.
+  // TODO(khokhlov): After Chrome is able to propagate the entire config to the
+  // child process, we can make this comparison more strict by only clearing
+  // selected fields and comparing everything else. One specific thing to keep
+  // in mind is to clear the |convert_to_legacy_json| field, because Telemetry
+  // initiates tracing with proto format, but in some cases adopts the tracing
+  // session later via devtools which expect json format.
+  bool CanAdoptStartupSession(const DataSourceConfig& startup_config,
+                              const DataSourceConfig& service_config) override {
+    if (startup_config.track_event_config_raw().empty() ||
+        service_config.track_event_config_raw().empty()) {
+      return false;
+    }
+
+    protos::gen::TrackEventConfig startup_te_cfg;
+    startup_te_cfg.ParseFromString(startup_config.track_event_config_raw());
+    protos::gen::TrackEventConfig service_te_cfg;
+    service_te_cfg.ParseFromString(service_config.track_event_config_raw());
+
+    if (!UnorderedEqual(startup_te_cfg.enabled_categories(),
+                        service_te_cfg.enabled_categories())) {
+      return false;
+    }
+    if (!UnorderedEqual(startup_te_cfg.disabled_categories(),
+                        service_te_cfg.disabled_categories())) {
+      return false;
+    }
+    if (!UnorderedEqual(startup_te_cfg.enabled_tags(),
+                        service_te_cfg.enabled_tags())) {
+      return false;
+    }
+    if (!UnorderedEqual(startup_te_cfg.disabled_tags(),
+                        service_te_cfg.disabled_tags())) {
+      return false;
+    }
+    if (startup_te_cfg.filter_debug_annotations() !=
+        service_te_cfg.filter_debug_annotations()) {
+      return false;
+    }
+    if (startup_te_cfg.filter_dynamic_event_names() !=
+        service_te_cfg.filter_dynamic_event_names()) {
+      return false;
+    }
+
+    return true;
+  }
+
   static void Flush() {
     Base::template Trace([](typename Base::TraceContext ctx) { ctx.Flush(); });
   }
@@ -17465,23 +17527,118 @@ class TrackEventDataSource
   }
 
   // The following methods forward all arguments to TraceForCategoryBody
-  // while casting string constants to const char*.
-  template <typename... Arguments>
-  static void TraceForCategory(Arguments&&... args) PERFETTO_ALWAYS_INLINE {
-    TraceForCategoryBody(DecayStrType(args)...);
+  // while casting string constants to const char* and integer arguments to
+  // int64_t, uint64_t or bool.
+  template <typename CategoryType,
+            typename EventNameType,
+            typename... Arguments>
+  static void TraceForCategory(uint32_t instances,
+                               const CategoryType& category,
+                               const EventNameType& name,
+                               perfetto::protos::pbzero::TrackEvent::Type type,
+                               Arguments&&... args) PERFETTO_ALWAYS_INLINE {
+    TraceForCategoryBody(instances, DecayStrType(category), DecayStrType(name),
+                         type, DecayArgType(args)...);
   }
 
-  template <typename... Arguments>
-  static void TraceForCategoryLegacy(Arguments&&... args)
-      PERFETTO_ALWAYS_INLINE {
-    TraceForCategoryLegacyBody(DecayStrType(args)...);
+#if PERFETTO_ENABLE_LEGACY_TRACE_EVENTS
+  template <typename TrackType,
+            typename CategoryType,
+            typename EventNameType,
+            typename... Arguments,
+            typename TrackTypeCheck = typename std::enable_if<
+                std::is_convertible<TrackType, Track>::value>::type>
+  static void TraceForCategoryLegacy(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TrackType&& track,
+      char phase,
+      uint32_t flags,
+      Arguments&&... args) PERFETTO_ALWAYS_INLINE {
+    TraceForCategoryLegacyBody(instances, DecayStrType(category),
+                               DecayStrType(event_name), type, track, phase,
+                               flags, DecayArgType(args)...);
   }
 
-  template <typename... Arguments>
-  static void TraceForCategoryLegacyWithId(Arguments&&... args)
-      PERFETTO_ALWAYS_INLINE {
-    TraceForCategoryLegacyWithIdBody(DecayStrType(args)...);
+  template <typename TrackType,
+            typename CategoryType,
+            typename EventNameType,
+            typename TimestampType = uint64_t,
+            typename... Arguments,
+            typename TrackTypeCheck = typename std::enable_if<
+                std::is_convertible<TrackType, Track>::value>::type,
+            typename TimestampTypeCheck = typename std::enable_if<
+                IsValidTimestamp<TimestampType>()>::type>
+  static void TraceForCategoryLegacy(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TrackType&& track,
+      char phase,
+      uint32_t flags,
+      TimestampType&& timestamp,
+      Arguments&&... args) PERFETTO_ALWAYS_INLINE {
+    TraceForCategoryLegacyBody(instances, DecayStrType(category),
+                               DecayStrType(event_name), type, track, phase,
+                               flags, timestamp, DecayArgType(args)...);
   }
+
+  template <typename TrackType,
+            typename CategoryType,
+            typename EventNameType,
+            typename ThreadIdType,
+            typename LegacyIdType,
+            typename... Arguments,
+            typename TrackTypeCheck = typename std::enable_if<
+                std::is_convertible<TrackType, Track>::value>::type>
+  static void TraceForCategoryLegacyWithId(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TrackType&& track,
+      char phase,
+      uint32_t flags,
+      ThreadIdType thread_id,
+      LegacyIdType legacy_id,
+      Arguments&&... args) PERFETTO_ALWAYS_INLINE {
+    TraceForCategoryLegacyWithIdBody(
+        instances, DecayStrType(category), DecayStrType(event_name), type,
+        track, phase, flags, thread_id, legacy_id, DecayArgType(args)...);
+  }
+
+  template <typename TrackType,
+            typename CategoryType,
+            typename EventNameType,
+            typename ThreadIdType,
+            typename LegacyIdType,
+            typename TimestampType = uint64_t,
+            typename... Arguments,
+            typename TrackTypeCheck = typename std::enable_if<
+                std::is_convertible<TrackType, Track>::value>::type,
+            typename TimestampTypeCheck = typename std::enable_if<
+                IsValidTimestamp<TimestampType>()>::type>
+  static void TraceForCategoryLegacyWithId(
+      uint32_t instances,
+      const CategoryType& category,
+      const EventNameType& event_name,
+      perfetto::protos::pbzero::TrackEvent::Type type,
+      TrackType&& track,
+      char phase,
+      uint32_t flags,
+      ThreadIdType thread_id,
+      LegacyIdType legacy_id,
+      TimestampType&& timestamp,
+      Arguments&&... args) PERFETTO_ALWAYS_INLINE {
+    TraceForCategoryLegacyWithIdBody(instances, DecayStrType(category),
+                                     DecayStrType(event_name), type, track,
+                                     phase, flags, thread_id, legacy_id,
+                                     timestamp, DecayArgType(args)...);
+  }
+#endif
 
   // Initialize the track event library. Should be called before tracing is
   // enabled.
@@ -17555,6 +17712,30 @@ class TrackEventDataSource
   }
 
   static const char* DecayStrType(const char* t) { return t; }
+
+  // The DecayArgType method is used to avoid unnecessary instantiations of
+  // templates on:
+  // * string constants of different sizes.
+  // * integers of different sizes or constness.
+  // * floats of different sizes.
+  // This allows to avoid extra instantiations of TraceForCategory templates.
+  template <typename T>
+  static T&& DecayArgType(T&& t) {
+    return std::forward<T>(t);
+  }
+
+  static const char* DecayArgType(const char* s) { return s; }
+  static uint64_t DecayArgType(uint64_t u) { return u; }
+  static uint64_t DecayArgType(uint32_t u) { return u; }
+  static uint64_t DecayArgType(uint16_t u) { return u; }
+  static uint64_t DecayArgType(uint8_t u) { return u; }
+  static int64_t DecayArgType(int64_t i) { return i; }
+  static int64_t DecayArgType(int32_t i) { return i; }
+  static int64_t DecayArgType(int16_t i) { return i; }
+  static int64_t DecayArgType(int8_t i) { return i; }
+  static bool DecayArgType(bool b) { return b; }
+  static double DecayArgType(float f) { return static_cast<double>(f); }
+  static double DecayArgType(double f) { return f; }
 
   // Once we've determined tracing to be enabled for this category, actually
   // write a trace event onto this thread's default track. Outlined to avoid
@@ -29924,6 +30105,3349 @@ class TrackEventCategory : public ::protozero::Message {
 } // Namespace.
 } // Namespace.
 #endif  // Include guard.
+// gen_amalgamated begin header: gen/protos/perfetto/config/android/android_game_intervention_list_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_GAME_INTERVENTION_LIST_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_GAME_INTERVENTION_LIST_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class AndroidGameInterventionListConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT AndroidGameInterventionListConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPackageNameFilterFieldNumber = 1,
+  };
+
+  AndroidGameInterventionListConfig();
+  ~AndroidGameInterventionListConfig() override;
+  AndroidGameInterventionListConfig(AndroidGameInterventionListConfig&&) noexcept;
+  AndroidGameInterventionListConfig& operator=(AndroidGameInterventionListConfig&&);
+  AndroidGameInterventionListConfig(const AndroidGameInterventionListConfig&);
+  AndroidGameInterventionListConfig& operator=(const AndroidGameInterventionListConfig&);
+  bool operator==(const AndroidGameInterventionListConfig&) const;
+  bool operator!=(const AndroidGameInterventionListConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<std::string>& package_name_filter() const { return package_name_filter_; }
+  std::vector<std::string>* mutable_package_name_filter() { return &package_name_filter_; }
+  int package_name_filter_size() const { return static_cast<int>(package_name_filter_.size()); }
+  void clear_package_name_filter() { package_name_filter_.clear(); }
+  void add_package_name_filter(std::string value) { package_name_filter_.emplace_back(value); }
+  std::string* add_package_name_filter() { package_name_filter_.emplace_back(); return &package_name_filter_.back(); }
+
+ private:
+  std::vector<std::string> package_name_filter_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_GAME_INTERVENTION_LIST_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/android/android_log_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_LOG_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_LOG_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class AndroidLogConfig;
+enum AndroidLogId : int;
+enum AndroidLogPriority : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT AndroidLogConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kLogIdsFieldNumber = 1,
+    kMinPrioFieldNumber = 3,
+    kFilterTagsFieldNumber = 4,
+  };
+
+  AndroidLogConfig();
+  ~AndroidLogConfig() override;
+  AndroidLogConfig(AndroidLogConfig&&) noexcept;
+  AndroidLogConfig& operator=(AndroidLogConfig&&);
+  AndroidLogConfig(const AndroidLogConfig&);
+  AndroidLogConfig& operator=(const AndroidLogConfig&);
+  bool operator==(const AndroidLogConfig&) const;
+  bool operator!=(const AndroidLogConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<AndroidLogId>& log_ids() const { return log_ids_; }
+  std::vector<AndroidLogId>* mutable_log_ids() { return &log_ids_; }
+  int log_ids_size() const { return static_cast<int>(log_ids_.size()); }
+  void clear_log_ids() { log_ids_.clear(); }
+  void add_log_ids(AndroidLogId value) { log_ids_.emplace_back(value); }
+  AndroidLogId* add_log_ids() { log_ids_.emplace_back(); return &log_ids_.back(); }
+
+  bool has_min_prio() const { return _has_field_[3]; }
+  AndroidLogPriority min_prio() const { return min_prio_; }
+  void set_min_prio(AndroidLogPriority value) { min_prio_ = value; _has_field_.set(3); }
+
+  const std::vector<std::string>& filter_tags() const { return filter_tags_; }
+  std::vector<std::string>* mutable_filter_tags() { return &filter_tags_; }
+  int filter_tags_size() const { return static_cast<int>(filter_tags_.size()); }
+  void clear_filter_tags() { filter_tags_.clear(); }
+  void add_filter_tags(std::string value) { filter_tags_.emplace_back(value); }
+  std::string* add_filter_tags() { filter_tags_.emplace_back(); return &filter_tags_.back(); }
+
+ private:
+  std::vector<AndroidLogId> log_ids_;
+  AndroidLogPriority min_prio_{};
+  std::vector<std::string> filter_tags_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<5> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_LOG_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/android/android_polled_state_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_POLLED_STATE_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_POLLED_STATE_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class AndroidPolledStateConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT AndroidPolledStateConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPollMsFieldNumber = 1,
+  };
+
+  AndroidPolledStateConfig();
+  ~AndroidPolledStateConfig() override;
+  AndroidPolledStateConfig(AndroidPolledStateConfig&&) noexcept;
+  AndroidPolledStateConfig& operator=(AndroidPolledStateConfig&&);
+  AndroidPolledStateConfig(const AndroidPolledStateConfig&);
+  AndroidPolledStateConfig& operator=(const AndroidPolledStateConfig&);
+  bool operator==(const AndroidPolledStateConfig&) const;
+  bool operator!=(const AndroidPolledStateConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_poll_ms() const { return _has_field_[1]; }
+  uint32_t poll_ms() const { return poll_ms_; }
+  void set_poll_ms(uint32_t value) { poll_ms_ = value; _has_field_.set(1); }
+
+ private:
+  uint32_t poll_ms_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_POLLED_STATE_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/android/android_system_property_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_SYSTEM_PROPERTY_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_SYSTEM_PROPERTY_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class AndroidSystemPropertyConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT AndroidSystemPropertyConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPollMsFieldNumber = 1,
+    kPropertyNameFieldNumber = 2,
+  };
+
+  AndroidSystemPropertyConfig();
+  ~AndroidSystemPropertyConfig() override;
+  AndroidSystemPropertyConfig(AndroidSystemPropertyConfig&&) noexcept;
+  AndroidSystemPropertyConfig& operator=(AndroidSystemPropertyConfig&&);
+  AndroidSystemPropertyConfig(const AndroidSystemPropertyConfig&);
+  AndroidSystemPropertyConfig& operator=(const AndroidSystemPropertyConfig&);
+  bool operator==(const AndroidSystemPropertyConfig&) const;
+  bool operator!=(const AndroidSystemPropertyConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_poll_ms() const { return _has_field_[1]; }
+  uint32_t poll_ms() const { return poll_ms_; }
+  void set_poll_ms(uint32_t value) { poll_ms_ = value; _has_field_.set(1); }
+
+  const std::vector<std::string>& property_name() const { return property_name_; }
+  std::vector<std::string>* mutable_property_name() { return &property_name_; }
+  int property_name_size() const { return static_cast<int>(property_name_.size()); }
+  void clear_property_name() { property_name_.clear(); }
+  void add_property_name(std::string value) { property_name_.emplace_back(value); }
+  std::string* add_property_name() { property_name_.emplace_back(); return &property_name_.back(); }
+
+ private:
+  uint32_t poll_ms_{};
+  std::vector<std::string> property_name_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_SYSTEM_PROPERTY_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/android/network_trace_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_NETWORK_TRACE_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_NETWORK_TRACE_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class NetworkPacketTraceConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT NetworkPacketTraceConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPollMsFieldNumber = 1,
+    kAggregationThresholdFieldNumber = 2,
+    kInternLimitFieldNumber = 3,
+    kDropLocalPortFieldNumber = 4,
+    kDropRemotePortFieldNumber = 5,
+    kDropTcpFlagsFieldNumber = 6,
+  };
+
+  NetworkPacketTraceConfig();
+  ~NetworkPacketTraceConfig() override;
+  NetworkPacketTraceConfig(NetworkPacketTraceConfig&&) noexcept;
+  NetworkPacketTraceConfig& operator=(NetworkPacketTraceConfig&&);
+  NetworkPacketTraceConfig(const NetworkPacketTraceConfig&);
+  NetworkPacketTraceConfig& operator=(const NetworkPacketTraceConfig&);
+  bool operator==(const NetworkPacketTraceConfig&) const;
+  bool operator!=(const NetworkPacketTraceConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_poll_ms() const { return _has_field_[1]; }
+  uint32_t poll_ms() const { return poll_ms_; }
+  void set_poll_ms(uint32_t value) { poll_ms_ = value; _has_field_.set(1); }
+
+  bool has_aggregation_threshold() const { return _has_field_[2]; }
+  uint32_t aggregation_threshold() const { return aggregation_threshold_; }
+  void set_aggregation_threshold(uint32_t value) { aggregation_threshold_ = value; _has_field_.set(2); }
+
+  bool has_intern_limit() const { return _has_field_[3]; }
+  uint32_t intern_limit() const { return intern_limit_; }
+  void set_intern_limit(uint32_t value) { intern_limit_ = value; _has_field_.set(3); }
+
+  bool has_drop_local_port() const { return _has_field_[4]; }
+  bool drop_local_port() const { return drop_local_port_; }
+  void set_drop_local_port(bool value) { drop_local_port_ = value; _has_field_.set(4); }
+
+  bool has_drop_remote_port() const { return _has_field_[5]; }
+  bool drop_remote_port() const { return drop_remote_port_; }
+  void set_drop_remote_port(bool value) { drop_remote_port_ = value; _has_field_.set(5); }
+
+  bool has_drop_tcp_flags() const { return _has_field_[6]; }
+  bool drop_tcp_flags() const { return drop_tcp_flags_; }
+  void set_drop_tcp_flags(bool value) { drop_tcp_flags_ = value; _has_field_.set(6); }
+
+ private:
+  uint32_t poll_ms_{};
+  uint32_t aggregation_threshold_{};
+  uint32_t intern_limit_{};
+  bool drop_local_port_{};
+  bool drop_remote_port_{};
+  bool drop_tcp_flags_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<7> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_NETWORK_TRACE_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/android/packages_list_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_PACKAGES_LIST_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_PACKAGES_LIST_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class PackagesListConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT PackagesListConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPackageNameFilterFieldNumber = 1,
+  };
+
+  PackagesListConfig();
+  ~PackagesListConfig() override;
+  PackagesListConfig(PackagesListConfig&&) noexcept;
+  PackagesListConfig& operator=(PackagesListConfig&&);
+  PackagesListConfig(const PackagesListConfig&);
+  PackagesListConfig& operator=(const PackagesListConfig&);
+  bool operator==(const PackagesListConfig&) const;
+  bool operator!=(const PackagesListConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<std::string>& package_name_filter() const { return package_name_filter_; }
+  std::vector<std::string>* mutable_package_name_filter() { return &package_name_filter_; }
+  int package_name_filter_size() const { return static_cast<int>(package_name_filter_.size()); }
+  void clear_package_name_filter() { package_name_filter_.clear(); }
+  void add_package_name_filter(std::string value) { package_name_filter_.emplace_back(value); }
+  std::string* add_package_name_filter() { package_name_filter_.emplace_back(); return &package_name_filter_.back(); }
+
+ private:
+  std::vector<std::string> package_name_filter_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_PACKAGES_LIST_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/ftrace/ftrace_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_FTRACE_FTRACE_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_FTRACE_FTRACE_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class FtraceConfig;
+class FtraceConfig_PrintFilter;
+class FtraceConfig_PrintFilter_Rule;
+class FtraceConfig_PrintFilter_Rule_AtraceMessage;
+class FtraceConfig_CompactSchedConfig;
+enum FtraceConfig_KsymsMemPolicy : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum FtraceConfig_KsymsMemPolicy : int {
+  FtraceConfig_KsymsMemPolicy_KSYMS_UNSPECIFIED = 0,
+  FtraceConfig_KsymsMemPolicy_KSYMS_CLEANUP_ON_STOP = 1,
+  FtraceConfig_KsymsMemPolicy_KSYMS_RETAIN = 2,
+};
+
+class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj {
+ public:
+  using CompactSchedConfig = FtraceConfig_CompactSchedConfig;
+  using PrintFilter = FtraceConfig_PrintFilter;
+  using KsymsMemPolicy = FtraceConfig_KsymsMemPolicy;
+  static constexpr auto KSYMS_UNSPECIFIED = FtraceConfig_KsymsMemPolicy_KSYMS_UNSPECIFIED;
+  static constexpr auto KSYMS_CLEANUP_ON_STOP = FtraceConfig_KsymsMemPolicy_KSYMS_CLEANUP_ON_STOP;
+  static constexpr auto KSYMS_RETAIN = FtraceConfig_KsymsMemPolicy_KSYMS_RETAIN;
+  static constexpr auto KsymsMemPolicy_MIN = FtraceConfig_KsymsMemPolicy_KSYMS_UNSPECIFIED;
+  static constexpr auto KsymsMemPolicy_MAX = FtraceConfig_KsymsMemPolicy_KSYMS_RETAIN;
+  enum FieldNumbers {
+    kFtraceEventsFieldNumber = 1,
+    kAtraceCategoriesFieldNumber = 2,
+    kAtraceAppsFieldNumber = 3,
+    kBufferSizeKbFieldNumber = 10,
+    kDrainPeriodMsFieldNumber = 11,
+    kCompactSchedFieldNumber = 12,
+    kPrintFilterFieldNumber = 22,
+    kSymbolizeKsymsFieldNumber = 13,
+    kKsymsMemPolicyFieldNumber = 17,
+    kInitializeKsymsSynchronouslyForTestingFieldNumber = 14,
+    kThrottleRssStatFieldNumber = 15,
+    kDisableGenericEventsFieldNumber = 16,
+    kSyscallEventsFieldNumber = 18,
+    kEnableFunctionGraphFieldNumber = 19,
+    kFunctionFiltersFieldNumber = 20,
+    kFunctionGraphRootsFieldNumber = 21,
+    kPreserveFtraceBufferFieldNumber = 23,
+    kUseMonotonicRawClockFieldNumber = 24,
+    kInstanceNameFieldNumber = 25,
+  };
+
+  FtraceConfig();
+  ~FtraceConfig() override;
+  FtraceConfig(FtraceConfig&&) noexcept;
+  FtraceConfig& operator=(FtraceConfig&&);
+  FtraceConfig(const FtraceConfig&);
+  FtraceConfig& operator=(const FtraceConfig&);
+  bool operator==(const FtraceConfig&) const;
+  bool operator!=(const FtraceConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<std::string>& ftrace_events() const { return ftrace_events_; }
+  std::vector<std::string>* mutable_ftrace_events() { return &ftrace_events_; }
+  int ftrace_events_size() const { return static_cast<int>(ftrace_events_.size()); }
+  void clear_ftrace_events() { ftrace_events_.clear(); }
+  void add_ftrace_events(std::string value) { ftrace_events_.emplace_back(value); }
+  std::string* add_ftrace_events() { ftrace_events_.emplace_back(); return &ftrace_events_.back(); }
+
+  const std::vector<std::string>& atrace_categories() const { return atrace_categories_; }
+  std::vector<std::string>* mutable_atrace_categories() { return &atrace_categories_; }
+  int atrace_categories_size() const { return static_cast<int>(atrace_categories_.size()); }
+  void clear_atrace_categories() { atrace_categories_.clear(); }
+  void add_atrace_categories(std::string value) { atrace_categories_.emplace_back(value); }
+  std::string* add_atrace_categories() { atrace_categories_.emplace_back(); return &atrace_categories_.back(); }
+
+  const std::vector<std::string>& atrace_apps() const { return atrace_apps_; }
+  std::vector<std::string>* mutable_atrace_apps() { return &atrace_apps_; }
+  int atrace_apps_size() const { return static_cast<int>(atrace_apps_.size()); }
+  void clear_atrace_apps() { atrace_apps_.clear(); }
+  void add_atrace_apps(std::string value) { atrace_apps_.emplace_back(value); }
+  std::string* add_atrace_apps() { atrace_apps_.emplace_back(); return &atrace_apps_.back(); }
+
+  bool has_buffer_size_kb() const { return _has_field_[10]; }
+  uint32_t buffer_size_kb() const { return buffer_size_kb_; }
+  void set_buffer_size_kb(uint32_t value) { buffer_size_kb_ = value; _has_field_.set(10); }
+
+  bool has_drain_period_ms() const { return _has_field_[11]; }
+  uint32_t drain_period_ms() const { return drain_period_ms_; }
+  void set_drain_period_ms(uint32_t value) { drain_period_ms_ = value; _has_field_.set(11); }
+
+  bool has_compact_sched() const { return _has_field_[12]; }
+  const FtraceConfig_CompactSchedConfig& compact_sched() const { return *compact_sched_; }
+  FtraceConfig_CompactSchedConfig* mutable_compact_sched() { _has_field_.set(12); return compact_sched_.get(); }
+
+  bool has_print_filter() const { return _has_field_[22]; }
+  const FtraceConfig_PrintFilter& print_filter() const { return *print_filter_; }
+  FtraceConfig_PrintFilter* mutable_print_filter() { _has_field_.set(22); return print_filter_.get(); }
+
+  bool has_symbolize_ksyms() const { return _has_field_[13]; }
+  bool symbolize_ksyms() const { return symbolize_ksyms_; }
+  void set_symbolize_ksyms(bool value) { symbolize_ksyms_ = value; _has_field_.set(13); }
+
+  bool has_ksyms_mem_policy() const { return _has_field_[17]; }
+  FtraceConfig_KsymsMemPolicy ksyms_mem_policy() const { return ksyms_mem_policy_; }
+  void set_ksyms_mem_policy(FtraceConfig_KsymsMemPolicy value) { ksyms_mem_policy_ = value; _has_field_.set(17); }
+
+  bool has_initialize_ksyms_synchronously_for_testing() const { return _has_field_[14]; }
+  bool initialize_ksyms_synchronously_for_testing() const { return initialize_ksyms_synchronously_for_testing_; }
+  void set_initialize_ksyms_synchronously_for_testing(bool value) { initialize_ksyms_synchronously_for_testing_ = value; _has_field_.set(14); }
+
+  bool has_throttle_rss_stat() const { return _has_field_[15]; }
+  bool throttle_rss_stat() const { return throttle_rss_stat_; }
+  void set_throttle_rss_stat(bool value) { throttle_rss_stat_ = value; _has_field_.set(15); }
+
+  bool has_disable_generic_events() const { return _has_field_[16]; }
+  bool disable_generic_events() const { return disable_generic_events_; }
+  void set_disable_generic_events(bool value) { disable_generic_events_ = value; _has_field_.set(16); }
+
+  const std::vector<std::string>& syscall_events() const { return syscall_events_; }
+  std::vector<std::string>* mutable_syscall_events() { return &syscall_events_; }
+  int syscall_events_size() const { return static_cast<int>(syscall_events_.size()); }
+  void clear_syscall_events() { syscall_events_.clear(); }
+  void add_syscall_events(std::string value) { syscall_events_.emplace_back(value); }
+  std::string* add_syscall_events() { syscall_events_.emplace_back(); return &syscall_events_.back(); }
+
+  bool has_enable_function_graph() const { return _has_field_[19]; }
+  bool enable_function_graph() const { return enable_function_graph_; }
+  void set_enable_function_graph(bool value) { enable_function_graph_ = value; _has_field_.set(19); }
+
+  const std::vector<std::string>& function_filters() const { return function_filters_; }
+  std::vector<std::string>* mutable_function_filters() { return &function_filters_; }
+  int function_filters_size() const { return static_cast<int>(function_filters_.size()); }
+  void clear_function_filters() { function_filters_.clear(); }
+  void add_function_filters(std::string value) { function_filters_.emplace_back(value); }
+  std::string* add_function_filters() { function_filters_.emplace_back(); return &function_filters_.back(); }
+
+  const std::vector<std::string>& function_graph_roots() const { return function_graph_roots_; }
+  std::vector<std::string>* mutable_function_graph_roots() { return &function_graph_roots_; }
+  int function_graph_roots_size() const { return static_cast<int>(function_graph_roots_.size()); }
+  void clear_function_graph_roots() { function_graph_roots_.clear(); }
+  void add_function_graph_roots(std::string value) { function_graph_roots_.emplace_back(value); }
+  std::string* add_function_graph_roots() { function_graph_roots_.emplace_back(); return &function_graph_roots_.back(); }
+
+  bool has_preserve_ftrace_buffer() const { return _has_field_[23]; }
+  bool preserve_ftrace_buffer() const { return preserve_ftrace_buffer_; }
+  void set_preserve_ftrace_buffer(bool value) { preserve_ftrace_buffer_ = value; _has_field_.set(23); }
+
+  bool has_use_monotonic_raw_clock() const { return _has_field_[24]; }
+  bool use_monotonic_raw_clock() const { return use_monotonic_raw_clock_; }
+  void set_use_monotonic_raw_clock(bool value) { use_monotonic_raw_clock_ = value; _has_field_.set(24); }
+
+  bool has_instance_name() const { return _has_field_[25]; }
+  const std::string& instance_name() const { return instance_name_; }
+  void set_instance_name(const std::string& value) { instance_name_ = value; _has_field_.set(25); }
+
+ private:
+  std::vector<std::string> ftrace_events_;
+  std::vector<std::string> atrace_categories_;
+  std::vector<std::string> atrace_apps_;
+  uint32_t buffer_size_kb_{};
+  uint32_t drain_period_ms_{};
+  ::protozero::CopyablePtr<FtraceConfig_CompactSchedConfig> compact_sched_;
+  ::protozero::CopyablePtr<FtraceConfig_PrintFilter> print_filter_;
+  bool symbolize_ksyms_{};
+  FtraceConfig_KsymsMemPolicy ksyms_mem_policy_{};
+  bool initialize_ksyms_synchronously_for_testing_{};
+  bool throttle_rss_stat_{};
+  bool disable_generic_events_{};
+  std::vector<std::string> syscall_events_;
+  bool enable_function_graph_{};
+  std::vector<std::string> function_filters_;
+  std::vector<std::string> function_graph_roots_;
+  bool preserve_ftrace_buffer_{};
+  bool use_monotonic_raw_clock_{};
+  std::string instance_name_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<26> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT FtraceConfig_PrintFilter : public ::protozero::CppMessageObj {
+ public:
+  using Rule = FtraceConfig_PrintFilter_Rule;
+  enum FieldNumbers {
+    kRulesFieldNumber = 1,
+  };
+
+  FtraceConfig_PrintFilter();
+  ~FtraceConfig_PrintFilter() override;
+  FtraceConfig_PrintFilter(FtraceConfig_PrintFilter&&) noexcept;
+  FtraceConfig_PrintFilter& operator=(FtraceConfig_PrintFilter&&);
+  FtraceConfig_PrintFilter(const FtraceConfig_PrintFilter&);
+  FtraceConfig_PrintFilter& operator=(const FtraceConfig_PrintFilter&);
+  bool operator==(const FtraceConfig_PrintFilter&) const;
+  bool operator!=(const FtraceConfig_PrintFilter& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<FtraceConfig_PrintFilter_Rule>& rules() const { return rules_; }
+  std::vector<FtraceConfig_PrintFilter_Rule>* mutable_rules() { return &rules_; }
+  int rules_size() const;
+  void clear_rules();
+  FtraceConfig_PrintFilter_Rule* add_rules();
+
+ private:
+  std::vector<FtraceConfig_PrintFilter_Rule> rules_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT FtraceConfig_PrintFilter_Rule : public ::protozero::CppMessageObj {
+ public:
+  using AtraceMessage = FtraceConfig_PrintFilter_Rule_AtraceMessage;
+  enum FieldNumbers {
+    kPrefixFieldNumber = 1,
+    kAtraceMsgFieldNumber = 3,
+    kAllowFieldNumber = 2,
+  };
+
+  FtraceConfig_PrintFilter_Rule();
+  ~FtraceConfig_PrintFilter_Rule() override;
+  FtraceConfig_PrintFilter_Rule(FtraceConfig_PrintFilter_Rule&&) noexcept;
+  FtraceConfig_PrintFilter_Rule& operator=(FtraceConfig_PrintFilter_Rule&&);
+  FtraceConfig_PrintFilter_Rule(const FtraceConfig_PrintFilter_Rule&);
+  FtraceConfig_PrintFilter_Rule& operator=(const FtraceConfig_PrintFilter_Rule&);
+  bool operator==(const FtraceConfig_PrintFilter_Rule&) const;
+  bool operator!=(const FtraceConfig_PrintFilter_Rule& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_prefix() const { return _has_field_[1]; }
+  const std::string& prefix() const { return prefix_; }
+  void set_prefix(const std::string& value) { prefix_ = value; _has_field_.set(1); }
+
+  bool has_atrace_msg() const { return _has_field_[3]; }
+  const FtraceConfig_PrintFilter_Rule_AtraceMessage& atrace_msg() const { return *atrace_msg_; }
+  FtraceConfig_PrintFilter_Rule_AtraceMessage* mutable_atrace_msg() { _has_field_.set(3); return atrace_msg_.get(); }
+
+  bool has_allow() const { return _has_field_[2]; }
+  bool allow() const { return allow_; }
+  void set_allow(bool value) { allow_ = value; _has_field_.set(2); }
+
+ private:
+  std::string prefix_{};
+  ::protozero::CopyablePtr<FtraceConfig_PrintFilter_Rule_AtraceMessage> atrace_msg_;
+  bool allow_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT FtraceConfig_PrintFilter_Rule_AtraceMessage : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kTypeFieldNumber = 1,
+    kPrefixFieldNumber = 2,
+  };
+
+  FtraceConfig_PrintFilter_Rule_AtraceMessage();
+  ~FtraceConfig_PrintFilter_Rule_AtraceMessage() override;
+  FtraceConfig_PrintFilter_Rule_AtraceMessage(FtraceConfig_PrintFilter_Rule_AtraceMessage&&) noexcept;
+  FtraceConfig_PrintFilter_Rule_AtraceMessage& operator=(FtraceConfig_PrintFilter_Rule_AtraceMessage&&);
+  FtraceConfig_PrintFilter_Rule_AtraceMessage(const FtraceConfig_PrintFilter_Rule_AtraceMessage&);
+  FtraceConfig_PrintFilter_Rule_AtraceMessage& operator=(const FtraceConfig_PrintFilter_Rule_AtraceMessage&);
+  bool operator==(const FtraceConfig_PrintFilter_Rule_AtraceMessage&) const;
+  bool operator!=(const FtraceConfig_PrintFilter_Rule_AtraceMessage& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_type() const { return _has_field_[1]; }
+  const std::string& type() const { return type_; }
+  void set_type(const std::string& value) { type_ = value; _has_field_.set(1); }
+
+  bool has_prefix() const { return _has_field_[2]; }
+  const std::string& prefix() const { return prefix_; }
+  void set_prefix(const std::string& value) { prefix_ = value; _has_field_.set(2); }
+
+ private:
+  std::string type_{};
+  std::string prefix_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT FtraceConfig_CompactSchedConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kEnabledFieldNumber = 1,
+  };
+
+  FtraceConfig_CompactSchedConfig();
+  ~FtraceConfig_CompactSchedConfig() override;
+  FtraceConfig_CompactSchedConfig(FtraceConfig_CompactSchedConfig&&) noexcept;
+  FtraceConfig_CompactSchedConfig& operator=(FtraceConfig_CompactSchedConfig&&);
+  FtraceConfig_CompactSchedConfig(const FtraceConfig_CompactSchedConfig&);
+  FtraceConfig_CompactSchedConfig& operator=(const FtraceConfig_CompactSchedConfig&);
+  bool operator==(const FtraceConfig_CompactSchedConfig&) const;
+  bool operator!=(const FtraceConfig_CompactSchedConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_enabled() const { return _has_field_[1]; }
+  bool enabled() const { return enabled_; }
+  void set_enabled(bool value) { enabled_ = value; _has_field_.set(1); }
+
+ private:
+  bool enabled_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_FTRACE_FTRACE_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/gpu/gpu_counter_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_GPU_COUNTER_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_GPU_COUNTER_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class GpuCounterConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT GpuCounterConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kCounterPeriodNsFieldNumber = 1,
+    kCounterIdsFieldNumber = 2,
+    kInstrumentedSamplingFieldNumber = 3,
+    kFixGpuClockFieldNumber = 4,
+  };
+
+  GpuCounterConfig();
+  ~GpuCounterConfig() override;
+  GpuCounterConfig(GpuCounterConfig&&) noexcept;
+  GpuCounterConfig& operator=(GpuCounterConfig&&);
+  GpuCounterConfig(const GpuCounterConfig&);
+  GpuCounterConfig& operator=(const GpuCounterConfig&);
+  bool operator==(const GpuCounterConfig&) const;
+  bool operator!=(const GpuCounterConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_counter_period_ns() const { return _has_field_[1]; }
+  uint64_t counter_period_ns() const { return counter_period_ns_; }
+  void set_counter_period_ns(uint64_t value) { counter_period_ns_ = value; _has_field_.set(1); }
+
+  const std::vector<uint32_t>& counter_ids() const { return counter_ids_; }
+  std::vector<uint32_t>* mutable_counter_ids() { return &counter_ids_; }
+  int counter_ids_size() const { return static_cast<int>(counter_ids_.size()); }
+  void clear_counter_ids() { counter_ids_.clear(); }
+  void add_counter_ids(uint32_t value) { counter_ids_.emplace_back(value); }
+  uint32_t* add_counter_ids() { counter_ids_.emplace_back(); return &counter_ids_.back(); }
+
+  bool has_instrumented_sampling() const { return _has_field_[3]; }
+  bool instrumented_sampling() const { return instrumented_sampling_; }
+  void set_instrumented_sampling(bool value) { instrumented_sampling_ = value; _has_field_.set(3); }
+
+  bool has_fix_gpu_clock() const { return _has_field_[4]; }
+  bool fix_gpu_clock() const { return fix_gpu_clock_; }
+  void set_fix_gpu_clock(bool value) { fix_gpu_clock_ = value; _has_field_.set(4); }
+
+ private:
+  uint64_t counter_period_ns_{};
+  std::vector<uint32_t> counter_ids_;
+  bool instrumented_sampling_{};
+  bool fix_gpu_clock_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<5> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_GPU_COUNTER_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/gpu/vulkan_memory_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_VULKAN_MEMORY_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_VULKAN_MEMORY_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class VulkanMemoryConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT VulkanMemoryConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kTrackDriverMemoryUsageFieldNumber = 1,
+    kTrackDeviceMemoryUsageFieldNumber = 2,
+  };
+
+  VulkanMemoryConfig();
+  ~VulkanMemoryConfig() override;
+  VulkanMemoryConfig(VulkanMemoryConfig&&) noexcept;
+  VulkanMemoryConfig& operator=(VulkanMemoryConfig&&);
+  VulkanMemoryConfig(const VulkanMemoryConfig&);
+  VulkanMemoryConfig& operator=(const VulkanMemoryConfig&);
+  bool operator==(const VulkanMemoryConfig&) const;
+  bool operator!=(const VulkanMemoryConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_track_driver_memory_usage() const { return _has_field_[1]; }
+  bool track_driver_memory_usage() const { return track_driver_memory_usage_; }
+  void set_track_driver_memory_usage(bool value) { track_driver_memory_usage_ = value; _has_field_.set(1); }
+
+  bool has_track_device_memory_usage() const { return _has_field_[2]; }
+  bool track_device_memory_usage() const { return track_device_memory_usage_; }
+  void set_track_device_memory_usage(bool value) { track_device_memory_usage_ = value; _has_field_.set(2); }
+
+ private:
+  bool track_driver_memory_usage_{};
+  bool track_device_memory_usage_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_VULKAN_MEMORY_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/inode_file/inode_file_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INODE_FILE_INODE_FILE_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INODE_FILE_INODE_FILE_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class InodeFileConfig;
+class InodeFileConfig_MountPointMappingEntry;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT InodeFileConfig : public ::protozero::CppMessageObj {
+ public:
+  using MountPointMappingEntry = InodeFileConfig_MountPointMappingEntry;
+  enum FieldNumbers {
+    kScanIntervalMsFieldNumber = 1,
+    kScanDelayMsFieldNumber = 2,
+    kScanBatchSizeFieldNumber = 3,
+    kDoNotScanFieldNumber = 4,
+    kScanMountPointsFieldNumber = 5,
+    kMountPointMappingFieldNumber = 6,
+  };
+
+  InodeFileConfig();
+  ~InodeFileConfig() override;
+  InodeFileConfig(InodeFileConfig&&) noexcept;
+  InodeFileConfig& operator=(InodeFileConfig&&);
+  InodeFileConfig(const InodeFileConfig&);
+  InodeFileConfig& operator=(const InodeFileConfig&);
+  bool operator==(const InodeFileConfig&) const;
+  bool operator!=(const InodeFileConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_scan_interval_ms() const { return _has_field_[1]; }
+  uint32_t scan_interval_ms() const { return scan_interval_ms_; }
+  void set_scan_interval_ms(uint32_t value) { scan_interval_ms_ = value; _has_field_.set(1); }
+
+  bool has_scan_delay_ms() const { return _has_field_[2]; }
+  uint32_t scan_delay_ms() const { return scan_delay_ms_; }
+  void set_scan_delay_ms(uint32_t value) { scan_delay_ms_ = value; _has_field_.set(2); }
+
+  bool has_scan_batch_size() const { return _has_field_[3]; }
+  uint32_t scan_batch_size() const { return scan_batch_size_; }
+  void set_scan_batch_size(uint32_t value) { scan_batch_size_ = value; _has_field_.set(3); }
+
+  bool has_do_not_scan() const { return _has_field_[4]; }
+  bool do_not_scan() const { return do_not_scan_; }
+  void set_do_not_scan(bool value) { do_not_scan_ = value; _has_field_.set(4); }
+
+  const std::vector<std::string>& scan_mount_points() const { return scan_mount_points_; }
+  std::vector<std::string>* mutable_scan_mount_points() { return &scan_mount_points_; }
+  int scan_mount_points_size() const { return static_cast<int>(scan_mount_points_.size()); }
+  void clear_scan_mount_points() { scan_mount_points_.clear(); }
+  void add_scan_mount_points(std::string value) { scan_mount_points_.emplace_back(value); }
+  std::string* add_scan_mount_points() { scan_mount_points_.emplace_back(); return &scan_mount_points_.back(); }
+
+  const std::vector<InodeFileConfig_MountPointMappingEntry>& mount_point_mapping() const { return mount_point_mapping_; }
+  std::vector<InodeFileConfig_MountPointMappingEntry>* mutable_mount_point_mapping() { return &mount_point_mapping_; }
+  int mount_point_mapping_size() const;
+  void clear_mount_point_mapping();
+  InodeFileConfig_MountPointMappingEntry* add_mount_point_mapping();
+
+ private:
+  uint32_t scan_interval_ms_{};
+  uint32_t scan_delay_ms_{};
+  uint32_t scan_batch_size_{};
+  bool do_not_scan_{};
+  std::vector<std::string> scan_mount_points_;
+  std::vector<InodeFileConfig_MountPointMappingEntry> mount_point_mapping_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<7> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT InodeFileConfig_MountPointMappingEntry : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kMountpointFieldNumber = 1,
+    kScanRootsFieldNumber = 2,
+  };
+
+  InodeFileConfig_MountPointMappingEntry();
+  ~InodeFileConfig_MountPointMappingEntry() override;
+  InodeFileConfig_MountPointMappingEntry(InodeFileConfig_MountPointMappingEntry&&) noexcept;
+  InodeFileConfig_MountPointMappingEntry& operator=(InodeFileConfig_MountPointMappingEntry&&);
+  InodeFileConfig_MountPointMappingEntry(const InodeFileConfig_MountPointMappingEntry&);
+  InodeFileConfig_MountPointMappingEntry& operator=(const InodeFileConfig_MountPointMappingEntry&);
+  bool operator==(const InodeFileConfig_MountPointMappingEntry&) const;
+  bool operator!=(const InodeFileConfig_MountPointMappingEntry& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_mountpoint() const { return _has_field_[1]; }
+  const std::string& mountpoint() const { return mountpoint_; }
+  void set_mountpoint(const std::string& value) { mountpoint_ = value; _has_field_.set(1); }
+
+  const std::vector<std::string>& scan_roots() const { return scan_roots_; }
+  std::vector<std::string>* mutable_scan_roots() { return &scan_roots_; }
+  int scan_roots_size() const { return static_cast<int>(scan_roots_.size()); }
+  void clear_scan_roots() { scan_roots_.clear(); }
+  void add_scan_roots(std::string value) { scan_roots_.emplace_back(value); }
+  std::string* add_scan_roots() { scan_roots_.emplace_back(); return &scan_roots_.back(); }
+
+ private:
+  std::string mountpoint_{};
+  std::vector<std::string> scan_roots_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INODE_FILE_INODE_FILE_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/interceptors/console_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTORS_CONSOLE_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTORS_CONSOLE_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class ConsoleConfig;
+enum ConsoleConfig_Output : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum ConsoleConfig_Output : int {
+  ConsoleConfig_Output_OUTPUT_UNSPECIFIED = 0,
+  ConsoleConfig_Output_OUTPUT_STDOUT = 1,
+  ConsoleConfig_Output_OUTPUT_STDERR = 2,
+};
+
+class PERFETTO_EXPORT_COMPONENT ConsoleConfig : public ::protozero::CppMessageObj {
+ public:
+  using Output = ConsoleConfig_Output;
+  static constexpr auto OUTPUT_UNSPECIFIED = ConsoleConfig_Output_OUTPUT_UNSPECIFIED;
+  static constexpr auto OUTPUT_STDOUT = ConsoleConfig_Output_OUTPUT_STDOUT;
+  static constexpr auto OUTPUT_STDERR = ConsoleConfig_Output_OUTPUT_STDERR;
+  static constexpr auto Output_MIN = ConsoleConfig_Output_OUTPUT_UNSPECIFIED;
+  static constexpr auto Output_MAX = ConsoleConfig_Output_OUTPUT_STDERR;
+  enum FieldNumbers {
+    kOutputFieldNumber = 1,
+    kEnableColorsFieldNumber = 2,
+  };
+
+  ConsoleConfig();
+  ~ConsoleConfig() override;
+  ConsoleConfig(ConsoleConfig&&) noexcept;
+  ConsoleConfig& operator=(ConsoleConfig&&);
+  ConsoleConfig(const ConsoleConfig&);
+  ConsoleConfig& operator=(const ConsoleConfig&);
+  bool operator==(const ConsoleConfig&) const;
+  bool operator!=(const ConsoleConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_output() const { return _has_field_[1]; }
+  ConsoleConfig_Output output() const { return output_; }
+  void set_output(ConsoleConfig_Output value) { output_ = value; _has_field_.set(1); }
+
+  bool has_enable_colors() const { return _has_field_[2]; }
+  bool enable_colors() const { return enable_colors_; }
+  void set_enable_colors(bool value) { enable_colors_ = value; _has_field_.set(2); }
+
+ private:
+  ConsoleConfig_Output output_{};
+  bool enable_colors_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTORS_CONSOLE_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/power/android_power_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_POWER_ANDROID_POWER_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_POWER_ANDROID_POWER_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class AndroidPowerConfig;
+enum AndroidPowerConfig_BatteryCounters : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum AndroidPowerConfig_BatteryCounters : int {
+  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_UNSPECIFIED = 0,
+  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CHARGE = 1,
+  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CAPACITY_PERCENT = 2,
+  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT = 3,
+  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG = 4,
+};
+
+class PERFETTO_EXPORT_COMPONENT AndroidPowerConfig : public ::protozero::CppMessageObj {
+ public:
+  using BatteryCounters = AndroidPowerConfig_BatteryCounters;
+  static constexpr auto BATTERY_COUNTER_UNSPECIFIED = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_UNSPECIFIED;
+  static constexpr auto BATTERY_COUNTER_CHARGE = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CHARGE;
+  static constexpr auto BATTERY_COUNTER_CAPACITY_PERCENT = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CAPACITY_PERCENT;
+  static constexpr auto BATTERY_COUNTER_CURRENT = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT;
+  static constexpr auto BATTERY_COUNTER_CURRENT_AVG = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG;
+  static constexpr auto BatteryCounters_MIN = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_UNSPECIFIED;
+  static constexpr auto BatteryCounters_MAX = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG;
+  enum FieldNumbers {
+    kBatteryPollMsFieldNumber = 1,
+    kBatteryCountersFieldNumber = 2,
+    kCollectPowerRailsFieldNumber = 3,
+    kCollectEnergyEstimationBreakdownFieldNumber = 4,
+    kCollectEntityStateResidencyFieldNumber = 5,
+  };
+
+  AndroidPowerConfig();
+  ~AndroidPowerConfig() override;
+  AndroidPowerConfig(AndroidPowerConfig&&) noexcept;
+  AndroidPowerConfig& operator=(AndroidPowerConfig&&);
+  AndroidPowerConfig(const AndroidPowerConfig&);
+  AndroidPowerConfig& operator=(const AndroidPowerConfig&);
+  bool operator==(const AndroidPowerConfig&) const;
+  bool operator!=(const AndroidPowerConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_battery_poll_ms() const { return _has_field_[1]; }
+  uint32_t battery_poll_ms() const { return battery_poll_ms_; }
+  void set_battery_poll_ms(uint32_t value) { battery_poll_ms_ = value; _has_field_.set(1); }
+
+  const std::vector<AndroidPowerConfig_BatteryCounters>& battery_counters() const { return battery_counters_; }
+  std::vector<AndroidPowerConfig_BatteryCounters>* mutable_battery_counters() { return &battery_counters_; }
+  int battery_counters_size() const { return static_cast<int>(battery_counters_.size()); }
+  void clear_battery_counters() { battery_counters_.clear(); }
+  void add_battery_counters(AndroidPowerConfig_BatteryCounters value) { battery_counters_.emplace_back(value); }
+  AndroidPowerConfig_BatteryCounters* add_battery_counters() { battery_counters_.emplace_back(); return &battery_counters_.back(); }
+
+  bool has_collect_power_rails() const { return _has_field_[3]; }
+  bool collect_power_rails() const { return collect_power_rails_; }
+  void set_collect_power_rails(bool value) { collect_power_rails_ = value; _has_field_.set(3); }
+
+  bool has_collect_energy_estimation_breakdown() const { return _has_field_[4]; }
+  bool collect_energy_estimation_breakdown() const { return collect_energy_estimation_breakdown_; }
+  void set_collect_energy_estimation_breakdown(bool value) { collect_energy_estimation_breakdown_ = value; _has_field_.set(4); }
+
+  bool has_collect_entity_state_residency() const { return _has_field_[5]; }
+  bool collect_entity_state_residency() const { return collect_entity_state_residency_; }
+  void set_collect_entity_state_residency(bool value) { collect_entity_state_residency_ = value; _has_field_.set(5); }
+
+ private:
+  uint32_t battery_poll_ms_{};
+  std::vector<AndroidPowerConfig_BatteryCounters> battery_counters_;
+  bool collect_power_rails_{};
+  bool collect_energy_estimation_breakdown_{};
+  bool collect_entity_state_residency_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<6> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_POWER_ANDROID_POWER_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/process_stats/process_stats_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROCESS_STATS_PROCESS_STATS_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROCESS_STATS_PROCESS_STATS_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class ProcessStatsConfig;
+enum ProcessStatsConfig_Quirks : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum ProcessStatsConfig_Quirks : int {
+  ProcessStatsConfig_Quirks_QUIRKS_UNSPECIFIED = 0,
+  ProcessStatsConfig_Quirks_DISABLE_INITIAL_DUMP = 1,
+  ProcessStatsConfig_Quirks_DISABLE_ON_DEMAND = 2,
+};
+
+class PERFETTO_EXPORT_COMPONENT ProcessStatsConfig : public ::protozero::CppMessageObj {
+ public:
+  using Quirks = ProcessStatsConfig_Quirks;
+  static constexpr auto QUIRKS_UNSPECIFIED = ProcessStatsConfig_Quirks_QUIRKS_UNSPECIFIED;
+  static constexpr auto DISABLE_INITIAL_DUMP = ProcessStatsConfig_Quirks_DISABLE_INITIAL_DUMP;
+  static constexpr auto DISABLE_ON_DEMAND = ProcessStatsConfig_Quirks_DISABLE_ON_DEMAND;
+  static constexpr auto Quirks_MIN = ProcessStatsConfig_Quirks_QUIRKS_UNSPECIFIED;
+  static constexpr auto Quirks_MAX = ProcessStatsConfig_Quirks_DISABLE_ON_DEMAND;
+  enum FieldNumbers {
+    kQuirksFieldNumber = 1,
+    kScanAllProcessesOnStartFieldNumber = 2,
+    kRecordThreadNamesFieldNumber = 3,
+    kProcStatsPollMsFieldNumber = 4,
+    kProcStatsCacheTtlMsFieldNumber = 6,
+    kResolveProcessFdsFieldNumber = 9,
+    kScanSmapsRollupFieldNumber = 10,
+  };
+
+  ProcessStatsConfig();
+  ~ProcessStatsConfig() override;
+  ProcessStatsConfig(ProcessStatsConfig&&) noexcept;
+  ProcessStatsConfig& operator=(ProcessStatsConfig&&);
+  ProcessStatsConfig(const ProcessStatsConfig&);
+  ProcessStatsConfig& operator=(const ProcessStatsConfig&);
+  bool operator==(const ProcessStatsConfig&) const;
+  bool operator!=(const ProcessStatsConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<ProcessStatsConfig_Quirks>& quirks() const { return quirks_; }
+  std::vector<ProcessStatsConfig_Quirks>* mutable_quirks() { return &quirks_; }
+  int quirks_size() const { return static_cast<int>(quirks_.size()); }
+  void clear_quirks() { quirks_.clear(); }
+  void add_quirks(ProcessStatsConfig_Quirks value) { quirks_.emplace_back(value); }
+  ProcessStatsConfig_Quirks* add_quirks() { quirks_.emplace_back(); return &quirks_.back(); }
+
+  bool has_scan_all_processes_on_start() const { return _has_field_[2]; }
+  bool scan_all_processes_on_start() const { return scan_all_processes_on_start_; }
+  void set_scan_all_processes_on_start(bool value) { scan_all_processes_on_start_ = value; _has_field_.set(2); }
+
+  bool has_record_thread_names() const { return _has_field_[3]; }
+  bool record_thread_names() const { return record_thread_names_; }
+  void set_record_thread_names(bool value) { record_thread_names_ = value; _has_field_.set(3); }
+
+  bool has_proc_stats_poll_ms() const { return _has_field_[4]; }
+  uint32_t proc_stats_poll_ms() const { return proc_stats_poll_ms_; }
+  void set_proc_stats_poll_ms(uint32_t value) { proc_stats_poll_ms_ = value; _has_field_.set(4); }
+
+  bool has_proc_stats_cache_ttl_ms() const { return _has_field_[6]; }
+  uint32_t proc_stats_cache_ttl_ms() const { return proc_stats_cache_ttl_ms_; }
+  void set_proc_stats_cache_ttl_ms(uint32_t value) { proc_stats_cache_ttl_ms_ = value; _has_field_.set(6); }
+
+  bool has_resolve_process_fds() const { return _has_field_[9]; }
+  bool resolve_process_fds() const { return resolve_process_fds_; }
+  void set_resolve_process_fds(bool value) { resolve_process_fds_ = value; _has_field_.set(9); }
+
+  bool has_scan_smaps_rollup() const { return _has_field_[10]; }
+  bool scan_smaps_rollup() const { return scan_smaps_rollup_; }
+  void set_scan_smaps_rollup(bool value) { scan_smaps_rollup_ = value; _has_field_.set(10); }
+
+ private:
+  std::vector<ProcessStatsConfig_Quirks> quirks_;
+  bool scan_all_processes_on_start_{};
+  bool record_thread_names_{};
+  uint32_t proc_stats_poll_ms_{};
+  uint32_t proc_stats_cache_ttl_ms_{};
+  bool resolve_process_fds_{};
+  bool scan_smaps_rollup_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<11> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROCESS_STATS_PROCESS_STATS_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/profiling/heapprofd_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_HEAPPROFD_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_HEAPPROFD_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class HeapprofdConfig;
+class HeapprofdConfig_ContinuousDumpConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT HeapprofdConfig : public ::protozero::CppMessageObj {
+ public:
+  using ContinuousDumpConfig = HeapprofdConfig_ContinuousDumpConfig;
+  enum FieldNumbers {
+    kSamplingIntervalBytesFieldNumber = 1,
+    kAdaptiveSamplingShmemThresholdFieldNumber = 24,
+    kAdaptiveSamplingMaxSamplingIntervalBytesFieldNumber = 25,
+    kProcessCmdlineFieldNumber = 2,
+    kPidFieldNumber = 4,
+    kTargetInstalledByFieldNumber = 26,
+    kHeapsFieldNumber = 20,
+    kExcludeHeapsFieldNumber = 27,
+    kStreamAllocationsFieldNumber = 23,
+    kHeapSamplingIntervalsFieldNumber = 22,
+    kAllHeapsFieldNumber = 21,
+    kAllFieldNumber = 5,
+    kMinAnonymousMemoryKbFieldNumber = 15,
+    kMaxHeapprofdMemoryKbFieldNumber = 16,
+    kMaxHeapprofdCpuSecsFieldNumber = 17,
+    kSkipSymbolPrefixFieldNumber = 7,
+    kContinuousDumpConfigFieldNumber = 6,
+    kShmemSizeBytesFieldNumber = 8,
+    kBlockClientFieldNumber = 9,
+    kBlockClientTimeoutUsFieldNumber = 14,
+    kNoStartupFieldNumber = 10,
+    kNoRunningFieldNumber = 11,
+    kDumpAtMaxFieldNumber = 13,
+    kDisableForkTeardownFieldNumber = 18,
+    kDisableVforkDetectionFieldNumber = 19,
+  };
+
+  HeapprofdConfig();
+  ~HeapprofdConfig() override;
+  HeapprofdConfig(HeapprofdConfig&&) noexcept;
+  HeapprofdConfig& operator=(HeapprofdConfig&&);
+  HeapprofdConfig(const HeapprofdConfig&);
+  HeapprofdConfig& operator=(const HeapprofdConfig&);
+  bool operator==(const HeapprofdConfig&) const;
+  bool operator!=(const HeapprofdConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_sampling_interval_bytes() const { return _has_field_[1]; }
+  uint64_t sampling_interval_bytes() const { return sampling_interval_bytes_; }
+  void set_sampling_interval_bytes(uint64_t value) { sampling_interval_bytes_ = value; _has_field_.set(1); }
+
+  bool has_adaptive_sampling_shmem_threshold() const { return _has_field_[24]; }
+  uint64_t adaptive_sampling_shmem_threshold() const { return adaptive_sampling_shmem_threshold_; }
+  void set_adaptive_sampling_shmem_threshold(uint64_t value) { adaptive_sampling_shmem_threshold_ = value; _has_field_.set(24); }
+
+  bool has_adaptive_sampling_max_sampling_interval_bytes() const { return _has_field_[25]; }
+  uint64_t adaptive_sampling_max_sampling_interval_bytes() const { return adaptive_sampling_max_sampling_interval_bytes_; }
+  void set_adaptive_sampling_max_sampling_interval_bytes(uint64_t value) { adaptive_sampling_max_sampling_interval_bytes_ = value; _has_field_.set(25); }
+
+  const std::vector<std::string>& process_cmdline() const { return process_cmdline_; }
+  std::vector<std::string>* mutable_process_cmdline() { return &process_cmdline_; }
+  int process_cmdline_size() const { return static_cast<int>(process_cmdline_.size()); }
+  void clear_process_cmdline() { process_cmdline_.clear(); }
+  void add_process_cmdline(std::string value) { process_cmdline_.emplace_back(value); }
+  std::string* add_process_cmdline() { process_cmdline_.emplace_back(); return &process_cmdline_.back(); }
+
+  const std::vector<uint64_t>& pid() const { return pid_; }
+  std::vector<uint64_t>* mutable_pid() { return &pid_; }
+  int pid_size() const { return static_cast<int>(pid_.size()); }
+  void clear_pid() { pid_.clear(); }
+  void add_pid(uint64_t value) { pid_.emplace_back(value); }
+  uint64_t* add_pid() { pid_.emplace_back(); return &pid_.back(); }
+
+  const std::vector<std::string>& target_installed_by() const { return target_installed_by_; }
+  std::vector<std::string>* mutable_target_installed_by() { return &target_installed_by_; }
+  int target_installed_by_size() const { return static_cast<int>(target_installed_by_.size()); }
+  void clear_target_installed_by() { target_installed_by_.clear(); }
+  void add_target_installed_by(std::string value) { target_installed_by_.emplace_back(value); }
+  std::string* add_target_installed_by() { target_installed_by_.emplace_back(); return &target_installed_by_.back(); }
+
+  const std::vector<std::string>& heaps() const { return heaps_; }
+  std::vector<std::string>* mutable_heaps() { return &heaps_; }
+  int heaps_size() const { return static_cast<int>(heaps_.size()); }
+  void clear_heaps() { heaps_.clear(); }
+  void add_heaps(std::string value) { heaps_.emplace_back(value); }
+  std::string* add_heaps() { heaps_.emplace_back(); return &heaps_.back(); }
+
+  const std::vector<std::string>& exclude_heaps() const { return exclude_heaps_; }
+  std::vector<std::string>* mutable_exclude_heaps() { return &exclude_heaps_; }
+  int exclude_heaps_size() const { return static_cast<int>(exclude_heaps_.size()); }
+  void clear_exclude_heaps() { exclude_heaps_.clear(); }
+  void add_exclude_heaps(std::string value) { exclude_heaps_.emplace_back(value); }
+  std::string* add_exclude_heaps() { exclude_heaps_.emplace_back(); return &exclude_heaps_.back(); }
+
+  bool has_stream_allocations() const { return _has_field_[23]; }
+  bool stream_allocations() const { return stream_allocations_; }
+  void set_stream_allocations(bool value) { stream_allocations_ = value; _has_field_.set(23); }
+
+  const std::vector<uint64_t>& heap_sampling_intervals() const { return heap_sampling_intervals_; }
+  std::vector<uint64_t>* mutable_heap_sampling_intervals() { return &heap_sampling_intervals_; }
+  int heap_sampling_intervals_size() const { return static_cast<int>(heap_sampling_intervals_.size()); }
+  void clear_heap_sampling_intervals() { heap_sampling_intervals_.clear(); }
+  void add_heap_sampling_intervals(uint64_t value) { heap_sampling_intervals_.emplace_back(value); }
+  uint64_t* add_heap_sampling_intervals() { heap_sampling_intervals_.emplace_back(); return &heap_sampling_intervals_.back(); }
+
+  bool has_all_heaps() const { return _has_field_[21]; }
+  bool all_heaps() const { return all_heaps_; }
+  void set_all_heaps(bool value) { all_heaps_ = value; _has_field_.set(21); }
+
+  bool has_all() const { return _has_field_[5]; }
+  bool all() const { return all_; }
+  void set_all(bool value) { all_ = value; _has_field_.set(5); }
+
+  bool has_min_anonymous_memory_kb() const { return _has_field_[15]; }
+  uint32_t min_anonymous_memory_kb() const { return min_anonymous_memory_kb_; }
+  void set_min_anonymous_memory_kb(uint32_t value) { min_anonymous_memory_kb_ = value; _has_field_.set(15); }
+
+  bool has_max_heapprofd_memory_kb() const { return _has_field_[16]; }
+  uint32_t max_heapprofd_memory_kb() const { return max_heapprofd_memory_kb_; }
+  void set_max_heapprofd_memory_kb(uint32_t value) { max_heapprofd_memory_kb_ = value; _has_field_.set(16); }
+
+  bool has_max_heapprofd_cpu_secs() const { return _has_field_[17]; }
+  uint64_t max_heapprofd_cpu_secs() const { return max_heapprofd_cpu_secs_; }
+  void set_max_heapprofd_cpu_secs(uint64_t value) { max_heapprofd_cpu_secs_ = value; _has_field_.set(17); }
+
+  const std::vector<std::string>& skip_symbol_prefix() const { return skip_symbol_prefix_; }
+  std::vector<std::string>* mutable_skip_symbol_prefix() { return &skip_symbol_prefix_; }
+  int skip_symbol_prefix_size() const { return static_cast<int>(skip_symbol_prefix_.size()); }
+  void clear_skip_symbol_prefix() { skip_symbol_prefix_.clear(); }
+  void add_skip_symbol_prefix(std::string value) { skip_symbol_prefix_.emplace_back(value); }
+  std::string* add_skip_symbol_prefix() { skip_symbol_prefix_.emplace_back(); return &skip_symbol_prefix_.back(); }
+
+  bool has_continuous_dump_config() const { return _has_field_[6]; }
+  const HeapprofdConfig_ContinuousDumpConfig& continuous_dump_config() const { return *continuous_dump_config_; }
+  HeapprofdConfig_ContinuousDumpConfig* mutable_continuous_dump_config() { _has_field_.set(6); return continuous_dump_config_.get(); }
+
+  bool has_shmem_size_bytes() const { return _has_field_[8]; }
+  uint64_t shmem_size_bytes() const { return shmem_size_bytes_; }
+  void set_shmem_size_bytes(uint64_t value) { shmem_size_bytes_ = value; _has_field_.set(8); }
+
+  bool has_block_client() const { return _has_field_[9]; }
+  bool block_client() const { return block_client_; }
+  void set_block_client(bool value) { block_client_ = value; _has_field_.set(9); }
+
+  bool has_block_client_timeout_us() const { return _has_field_[14]; }
+  uint32_t block_client_timeout_us() const { return block_client_timeout_us_; }
+  void set_block_client_timeout_us(uint32_t value) { block_client_timeout_us_ = value; _has_field_.set(14); }
+
+  bool has_no_startup() const { return _has_field_[10]; }
+  bool no_startup() const { return no_startup_; }
+  void set_no_startup(bool value) { no_startup_ = value; _has_field_.set(10); }
+
+  bool has_no_running() const { return _has_field_[11]; }
+  bool no_running() const { return no_running_; }
+  void set_no_running(bool value) { no_running_ = value; _has_field_.set(11); }
+
+  bool has_dump_at_max() const { return _has_field_[13]; }
+  bool dump_at_max() const { return dump_at_max_; }
+  void set_dump_at_max(bool value) { dump_at_max_ = value; _has_field_.set(13); }
+
+  bool has_disable_fork_teardown() const { return _has_field_[18]; }
+  bool disable_fork_teardown() const { return disable_fork_teardown_; }
+  void set_disable_fork_teardown(bool value) { disable_fork_teardown_ = value; _has_field_.set(18); }
+
+  bool has_disable_vfork_detection() const { return _has_field_[19]; }
+  bool disable_vfork_detection() const { return disable_vfork_detection_; }
+  void set_disable_vfork_detection(bool value) { disable_vfork_detection_ = value; _has_field_.set(19); }
+
+ private:
+  uint64_t sampling_interval_bytes_{};
+  uint64_t adaptive_sampling_shmem_threshold_{};
+  uint64_t adaptive_sampling_max_sampling_interval_bytes_{};
+  std::vector<std::string> process_cmdline_;
+  std::vector<uint64_t> pid_;
+  std::vector<std::string> target_installed_by_;
+  std::vector<std::string> heaps_;
+  std::vector<std::string> exclude_heaps_;
+  bool stream_allocations_{};
+  std::vector<uint64_t> heap_sampling_intervals_;
+  bool all_heaps_{};
+  bool all_{};
+  uint32_t min_anonymous_memory_kb_{};
+  uint32_t max_heapprofd_memory_kb_{};
+  uint64_t max_heapprofd_cpu_secs_{};
+  std::vector<std::string> skip_symbol_prefix_;
+  ::protozero::CopyablePtr<HeapprofdConfig_ContinuousDumpConfig> continuous_dump_config_;
+  uint64_t shmem_size_bytes_{};
+  bool block_client_{};
+  uint32_t block_client_timeout_us_{};
+  bool no_startup_{};
+  bool no_running_{};
+  bool dump_at_max_{};
+  bool disable_fork_teardown_{};
+  bool disable_vfork_detection_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<28> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT HeapprofdConfig_ContinuousDumpConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kDumpPhaseMsFieldNumber = 5,
+    kDumpIntervalMsFieldNumber = 6,
+  };
+
+  HeapprofdConfig_ContinuousDumpConfig();
+  ~HeapprofdConfig_ContinuousDumpConfig() override;
+  HeapprofdConfig_ContinuousDumpConfig(HeapprofdConfig_ContinuousDumpConfig&&) noexcept;
+  HeapprofdConfig_ContinuousDumpConfig& operator=(HeapprofdConfig_ContinuousDumpConfig&&);
+  HeapprofdConfig_ContinuousDumpConfig(const HeapprofdConfig_ContinuousDumpConfig&);
+  HeapprofdConfig_ContinuousDumpConfig& operator=(const HeapprofdConfig_ContinuousDumpConfig&);
+  bool operator==(const HeapprofdConfig_ContinuousDumpConfig&) const;
+  bool operator!=(const HeapprofdConfig_ContinuousDumpConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_dump_phase_ms() const { return _has_field_[5]; }
+  uint32_t dump_phase_ms() const { return dump_phase_ms_; }
+  void set_dump_phase_ms(uint32_t value) { dump_phase_ms_ = value; _has_field_.set(5); }
+
+  bool has_dump_interval_ms() const { return _has_field_[6]; }
+  uint32_t dump_interval_ms() const { return dump_interval_ms_; }
+  void set_dump_interval_ms(uint32_t value) { dump_interval_ms_ = value; _has_field_.set(6); }
+
+ private:
+  uint32_t dump_phase_ms_{};
+  uint32_t dump_interval_ms_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<7> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_HEAPPROFD_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/profiling/java_hprof_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_JAVA_HPROF_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_JAVA_HPROF_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class JavaHprofConfig;
+class JavaHprofConfig_ContinuousDumpConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT JavaHprofConfig : public ::protozero::CppMessageObj {
+ public:
+  using ContinuousDumpConfig = JavaHprofConfig_ContinuousDumpConfig;
+  enum FieldNumbers {
+    kProcessCmdlineFieldNumber = 1,
+    kPidFieldNumber = 2,
+    kTargetInstalledByFieldNumber = 7,
+    kContinuousDumpConfigFieldNumber = 3,
+    kMinAnonymousMemoryKbFieldNumber = 4,
+    kDumpSmapsFieldNumber = 5,
+    kIgnoredTypesFieldNumber = 6,
+  };
+
+  JavaHprofConfig();
+  ~JavaHprofConfig() override;
+  JavaHprofConfig(JavaHprofConfig&&) noexcept;
+  JavaHprofConfig& operator=(JavaHprofConfig&&);
+  JavaHprofConfig(const JavaHprofConfig&);
+  JavaHprofConfig& operator=(const JavaHprofConfig&);
+  bool operator==(const JavaHprofConfig&) const;
+  bool operator!=(const JavaHprofConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<std::string>& process_cmdline() const { return process_cmdline_; }
+  std::vector<std::string>* mutable_process_cmdline() { return &process_cmdline_; }
+  int process_cmdline_size() const { return static_cast<int>(process_cmdline_.size()); }
+  void clear_process_cmdline() { process_cmdline_.clear(); }
+  void add_process_cmdline(std::string value) { process_cmdline_.emplace_back(value); }
+  std::string* add_process_cmdline() { process_cmdline_.emplace_back(); return &process_cmdline_.back(); }
+
+  const std::vector<uint64_t>& pid() const { return pid_; }
+  std::vector<uint64_t>* mutable_pid() { return &pid_; }
+  int pid_size() const { return static_cast<int>(pid_.size()); }
+  void clear_pid() { pid_.clear(); }
+  void add_pid(uint64_t value) { pid_.emplace_back(value); }
+  uint64_t* add_pid() { pid_.emplace_back(); return &pid_.back(); }
+
+  const std::vector<std::string>& target_installed_by() const { return target_installed_by_; }
+  std::vector<std::string>* mutable_target_installed_by() { return &target_installed_by_; }
+  int target_installed_by_size() const { return static_cast<int>(target_installed_by_.size()); }
+  void clear_target_installed_by() { target_installed_by_.clear(); }
+  void add_target_installed_by(std::string value) { target_installed_by_.emplace_back(value); }
+  std::string* add_target_installed_by() { target_installed_by_.emplace_back(); return &target_installed_by_.back(); }
+
+  bool has_continuous_dump_config() const { return _has_field_[3]; }
+  const JavaHprofConfig_ContinuousDumpConfig& continuous_dump_config() const { return *continuous_dump_config_; }
+  JavaHprofConfig_ContinuousDumpConfig* mutable_continuous_dump_config() { _has_field_.set(3); return continuous_dump_config_.get(); }
+
+  bool has_min_anonymous_memory_kb() const { return _has_field_[4]; }
+  uint32_t min_anonymous_memory_kb() const { return min_anonymous_memory_kb_; }
+  void set_min_anonymous_memory_kb(uint32_t value) { min_anonymous_memory_kb_ = value; _has_field_.set(4); }
+
+  bool has_dump_smaps() const { return _has_field_[5]; }
+  bool dump_smaps() const { return dump_smaps_; }
+  void set_dump_smaps(bool value) { dump_smaps_ = value; _has_field_.set(5); }
+
+  const std::vector<std::string>& ignored_types() const { return ignored_types_; }
+  std::vector<std::string>* mutable_ignored_types() { return &ignored_types_; }
+  int ignored_types_size() const { return static_cast<int>(ignored_types_.size()); }
+  void clear_ignored_types() { ignored_types_.clear(); }
+  void add_ignored_types(std::string value) { ignored_types_.emplace_back(value); }
+  std::string* add_ignored_types() { ignored_types_.emplace_back(); return &ignored_types_.back(); }
+
+ private:
+  std::vector<std::string> process_cmdline_;
+  std::vector<uint64_t> pid_;
+  std::vector<std::string> target_installed_by_;
+  ::protozero::CopyablePtr<JavaHprofConfig_ContinuousDumpConfig> continuous_dump_config_;
+  uint32_t min_anonymous_memory_kb_{};
+  bool dump_smaps_{};
+  std::vector<std::string> ignored_types_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<8> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT JavaHprofConfig_ContinuousDumpConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kDumpPhaseMsFieldNumber = 1,
+    kDumpIntervalMsFieldNumber = 2,
+    kScanPidsOnlyOnStartFieldNumber = 3,
+  };
+
+  JavaHprofConfig_ContinuousDumpConfig();
+  ~JavaHprofConfig_ContinuousDumpConfig() override;
+  JavaHprofConfig_ContinuousDumpConfig(JavaHprofConfig_ContinuousDumpConfig&&) noexcept;
+  JavaHprofConfig_ContinuousDumpConfig& operator=(JavaHprofConfig_ContinuousDumpConfig&&);
+  JavaHprofConfig_ContinuousDumpConfig(const JavaHprofConfig_ContinuousDumpConfig&);
+  JavaHprofConfig_ContinuousDumpConfig& operator=(const JavaHprofConfig_ContinuousDumpConfig&);
+  bool operator==(const JavaHprofConfig_ContinuousDumpConfig&) const;
+  bool operator!=(const JavaHprofConfig_ContinuousDumpConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_dump_phase_ms() const { return _has_field_[1]; }
+  uint32_t dump_phase_ms() const { return dump_phase_ms_; }
+  void set_dump_phase_ms(uint32_t value) { dump_phase_ms_ = value; _has_field_.set(1); }
+
+  bool has_dump_interval_ms() const { return _has_field_[2]; }
+  uint32_t dump_interval_ms() const { return dump_interval_ms_; }
+  void set_dump_interval_ms(uint32_t value) { dump_interval_ms_ = value; _has_field_.set(2); }
+
+  bool has_scan_pids_only_on_start() const { return _has_field_[3]; }
+  bool scan_pids_only_on_start() const { return scan_pids_only_on_start_; }
+  void set_scan_pids_only_on_start(bool value) { scan_pids_only_on_start_ = value; _has_field_.set(3); }
+
+ private:
+  uint32_t dump_phase_ms_{};
+  uint32_t dump_interval_ms_{};
+  bool scan_pids_only_on_start_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_JAVA_HPROF_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/profiling/perf_event_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_PERF_EVENT_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_PERF_EVENT_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class PerfEventConfig;
+class PerfEventConfig_CallstackSampling;
+class PerfEventConfig_Scope;
+class PerfEvents_Timebase;
+class PerfEvents_RawEvent;
+class PerfEvents_Tracepoint;
+enum PerfEventConfig_UnwindMode : int;
+enum PerfEvents_Counter : int;
+enum PerfEvents_PerfClock : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum PerfEventConfig_UnwindMode : int {
+  PerfEventConfig_UnwindMode_UNWIND_UNKNOWN = 0,
+  PerfEventConfig_UnwindMode_UNWIND_SKIP = 1,
+  PerfEventConfig_UnwindMode_UNWIND_DWARF = 2,
+};
+
+class PERFETTO_EXPORT_COMPONENT PerfEventConfig : public ::protozero::CppMessageObj {
+ public:
+  using CallstackSampling = PerfEventConfig_CallstackSampling;
+  using Scope = PerfEventConfig_Scope;
+  using UnwindMode = PerfEventConfig_UnwindMode;
+  static constexpr auto UNWIND_UNKNOWN = PerfEventConfig_UnwindMode_UNWIND_UNKNOWN;
+  static constexpr auto UNWIND_SKIP = PerfEventConfig_UnwindMode_UNWIND_SKIP;
+  static constexpr auto UNWIND_DWARF = PerfEventConfig_UnwindMode_UNWIND_DWARF;
+  static constexpr auto UnwindMode_MIN = PerfEventConfig_UnwindMode_UNWIND_UNKNOWN;
+  static constexpr auto UnwindMode_MAX = PerfEventConfig_UnwindMode_UNWIND_DWARF;
+  enum FieldNumbers {
+    kTimebaseFieldNumber = 15,
+    kCallstackSamplingFieldNumber = 16,
+    kRingBufferReadPeriodMsFieldNumber = 8,
+    kRingBufferPagesFieldNumber = 3,
+    kMaxEnqueuedFootprintKbFieldNumber = 17,
+    kMaxDaemonMemoryKbFieldNumber = 13,
+    kRemoteDescriptorTimeoutMsFieldNumber = 9,
+    kUnwindStateClearPeriodMsFieldNumber = 10,
+    kTargetInstalledByFieldNumber = 18,
+    kAllCpusFieldNumber = 1,
+    kSamplingFrequencyFieldNumber = 2,
+    kKernelFramesFieldNumber = 12,
+    kTargetPidFieldNumber = 4,
+    kTargetCmdlineFieldNumber = 5,
+    kExcludePidFieldNumber = 6,
+    kExcludeCmdlineFieldNumber = 7,
+    kAdditionalCmdlineCountFieldNumber = 11,
+  };
+
+  PerfEventConfig();
+  ~PerfEventConfig() override;
+  PerfEventConfig(PerfEventConfig&&) noexcept;
+  PerfEventConfig& operator=(PerfEventConfig&&);
+  PerfEventConfig(const PerfEventConfig&);
+  PerfEventConfig& operator=(const PerfEventConfig&);
+  bool operator==(const PerfEventConfig&) const;
+  bool operator!=(const PerfEventConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_timebase() const { return _has_field_[15]; }
+  const PerfEvents_Timebase& timebase() const { return *timebase_; }
+  PerfEvents_Timebase* mutable_timebase() { _has_field_.set(15); return timebase_.get(); }
+
+  bool has_callstack_sampling() const { return _has_field_[16]; }
+  const PerfEventConfig_CallstackSampling& callstack_sampling() const { return *callstack_sampling_; }
+  PerfEventConfig_CallstackSampling* mutable_callstack_sampling() { _has_field_.set(16); return callstack_sampling_.get(); }
+
+  bool has_ring_buffer_read_period_ms() const { return _has_field_[8]; }
+  uint32_t ring_buffer_read_period_ms() const { return ring_buffer_read_period_ms_; }
+  void set_ring_buffer_read_period_ms(uint32_t value) { ring_buffer_read_period_ms_ = value; _has_field_.set(8); }
+
+  bool has_ring_buffer_pages() const { return _has_field_[3]; }
+  uint32_t ring_buffer_pages() const { return ring_buffer_pages_; }
+  void set_ring_buffer_pages(uint32_t value) { ring_buffer_pages_ = value; _has_field_.set(3); }
+
+  bool has_max_enqueued_footprint_kb() const { return _has_field_[17]; }
+  uint64_t max_enqueued_footprint_kb() const { return max_enqueued_footprint_kb_; }
+  void set_max_enqueued_footprint_kb(uint64_t value) { max_enqueued_footprint_kb_ = value; _has_field_.set(17); }
+
+  bool has_max_daemon_memory_kb() const { return _has_field_[13]; }
+  uint32_t max_daemon_memory_kb() const { return max_daemon_memory_kb_; }
+  void set_max_daemon_memory_kb(uint32_t value) { max_daemon_memory_kb_ = value; _has_field_.set(13); }
+
+  bool has_remote_descriptor_timeout_ms() const { return _has_field_[9]; }
+  uint32_t remote_descriptor_timeout_ms() const { return remote_descriptor_timeout_ms_; }
+  void set_remote_descriptor_timeout_ms(uint32_t value) { remote_descriptor_timeout_ms_ = value; _has_field_.set(9); }
+
+  bool has_unwind_state_clear_period_ms() const { return _has_field_[10]; }
+  uint32_t unwind_state_clear_period_ms() const { return unwind_state_clear_period_ms_; }
+  void set_unwind_state_clear_period_ms(uint32_t value) { unwind_state_clear_period_ms_ = value; _has_field_.set(10); }
+
+  const std::vector<std::string>& target_installed_by() const { return target_installed_by_; }
+  std::vector<std::string>* mutable_target_installed_by() { return &target_installed_by_; }
+  int target_installed_by_size() const { return static_cast<int>(target_installed_by_.size()); }
+  void clear_target_installed_by() { target_installed_by_.clear(); }
+  void add_target_installed_by(std::string value) { target_installed_by_.emplace_back(value); }
+  std::string* add_target_installed_by() { target_installed_by_.emplace_back(); return &target_installed_by_.back(); }
+
+  bool has_all_cpus() const { return _has_field_[1]; }
+  bool all_cpus() const { return all_cpus_; }
+  void set_all_cpus(bool value) { all_cpus_ = value; _has_field_.set(1); }
+
+  bool has_sampling_frequency() const { return _has_field_[2]; }
+  uint32_t sampling_frequency() const { return sampling_frequency_; }
+  void set_sampling_frequency(uint32_t value) { sampling_frequency_ = value; _has_field_.set(2); }
+
+  bool has_kernel_frames() const { return _has_field_[12]; }
+  bool kernel_frames() const { return kernel_frames_; }
+  void set_kernel_frames(bool value) { kernel_frames_ = value; _has_field_.set(12); }
+
+  const std::vector<int32_t>& target_pid() const { return target_pid_; }
+  std::vector<int32_t>* mutable_target_pid() { return &target_pid_; }
+  int target_pid_size() const { return static_cast<int>(target_pid_.size()); }
+  void clear_target_pid() { target_pid_.clear(); }
+  void add_target_pid(int32_t value) { target_pid_.emplace_back(value); }
+  int32_t* add_target_pid() { target_pid_.emplace_back(); return &target_pid_.back(); }
+
+  const std::vector<std::string>& target_cmdline() const { return target_cmdline_; }
+  std::vector<std::string>* mutable_target_cmdline() { return &target_cmdline_; }
+  int target_cmdline_size() const { return static_cast<int>(target_cmdline_.size()); }
+  void clear_target_cmdline() { target_cmdline_.clear(); }
+  void add_target_cmdline(std::string value) { target_cmdline_.emplace_back(value); }
+  std::string* add_target_cmdline() { target_cmdline_.emplace_back(); return &target_cmdline_.back(); }
+
+  const std::vector<int32_t>& exclude_pid() const { return exclude_pid_; }
+  std::vector<int32_t>* mutable_exclude_pid() { return &exclude_pid_; }
+  int exclude_pid_size() const { return static_cast<int>(exclude_pid_.size()); }
+  void clear_exclude_pid() { exclude_pid_.clear(); }
+  void add_exclude_pid(int32_t value) { exclude_pid_.emplace_back(value); }
+  int32_t* add_exclude_pid() { exclude_pid_.emplace_back(); return &exclude_pid_.back(); }
+
+  const std::vector<std::string>& exclude_cmdline() const { return exclude_cmdline_; }
+  std::vector<std::string>* mutable_exclude_cmdline() { return &exclude_cmdline_; }
+  int exclude_cmdline_size() const { return static_cast<int>(exclude_cmdline_.size()); }
+  void clear_exclude_cmdline() { exclude_cmdline_.clear(); }
+  void add_exclude_cmdline(std::string value) { exclude_cmdline_.emplace_back(value); }
+  std::string* add_exclude_cmdline() { exclude_cmdline_.emplace_back(); return &exclude_cmdline_.back(); }
+
+  bool has_additional_cmdline_count() const { return _has_field_[11]; }
+  uint32_t additional_cmdline_count() const { return additional_cmdline_count_; }
+  void set_additional_cmdline_count(uint32_t value) { additional_cmdline_count_ = value; _has_field_.set(11); }
+
+ private:
+  ::protozero::CopyablePtr<PerfEvents_Timebase> timebase_;
+  ::protozero::CopyablePtr<PerfEventConfig_CallstackSampling> callstack_sampling_;
+  uint32_t ring_buffer_read_period_ms_{};
+  uint32_t ring_buffer_pages_{};
+  uint64_t max_enqueued_footprint_kb_{};
+  uint32_t max_daemon_memory_kb_{};
+  uint32_t remote_descriptor_timeout_ms_{};
+  uint32_t unwind_state_clear_period_ms_{};
+  std::vector<std::string> target_installed_by_;
+  bool all_cpus_{};
+  uint32_t sampling_frequency_{};
+  bool kernel_frames_{};
+  std::vector<int32_t> target_pid_;
+  std::vector<std::string> target_cmdline_;
+  std::vector<int32_t> exclude_pid_;
+  std::vector<std::string> exclude_cmdline_;
+  uint32_t additional_cmdline_count_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<19> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT PerfEventConfig_CallstackSampling : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kScopeFieldNumber = 1,
+    kKernelFramesFieldNumber = 2,
+    kUserFramesFieldNumber = 3,
+  };
+
+  PerfEventConfig_CallstackSampling();
+  ~PerfEventConfig_CallstackSampling() override;
+  PerfEventConfig_CallstackSampling(PerfEventConfig_CallstackSampling&&) noexcept;
+  PerfEventConfig_CallstackSampling& operator=(PerfEventConfig_CallstackSampling&&);
+  PerfEventConfig_CallstackSampling(const PerfEventConfig_CallstackSampling&);
+  PerfEventConfig_CallstackSampling& operator=(const PerfEventConfig_CallstackSampling&);
+  bool operator==(const PerfEventConfig_CallstackSampling&) const;
+  bool operator!=(const PerfEventConfig_CallstackSampling& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_scope() const { return _has_field_[1]; }
+  const PerfEventConfig_Scope& scope() const { return *scope_; }
+  PerfEventConfig_Scope* mutable_scope() { _has_field_.set(1); return scope_.get(); }
+
+  bool has_kernel_frames() const { return _has_field_[2]; }
+  bool kernel_frames() const { return kernel_frames_; }
+  void set_kernel_frames(bool value) { kernel_frames_ = value; _has_field_.set(2); }
+
+  bool has_user_frames() const { return _has_field_[3]; }
+  PerfEventConfig_UnwindMode user_frames() const { return user_frames_; }
+  void set_user_frames(PerfEventConfig_UnwindMode value) { user_frames_ = value; _has_field_.set(3); }
+
+ private:
+  ::protozero::CopyablePtr<PerfEventConfig_Scope> scope_;
+  bool kernel_frames_{};
+  PerfEventConfig_UnwindMode user_frames_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT PerfEventConfig_Scope : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kTargetPidFieldNumber = 1,
+    kTargetCmdlineFieldNumber = 2,
+    kExcludePidFieldNumber = 3,
+    kExcludeCmdlineFieldNumber = 4,
+    kAdditionalCmdlineCountFieldNumber = 5,
+    kProcessShardCountFieldNumber = 6,
+  };
+
+  PerfEventConfig_Scope();
+  ~PerfEventConfig_Scope() override;
+  PerfEventConfig_Scope(PerfEventConfig_Scope&&) noexcept;
+  PerfEventConfig_Scope& operator=(PerfEventConfig_Scope&&);
+  PerfEventConfig_Scope(const PerfEventConfig_Scope&);
+  PerfEventConfig_Scope& operator=(const PerfEventConfig_Scope&);
+  bool operator==(const PerfEventConfig_Scope&) const;
+  bool operator!=(const PerfEventConfig_Scope& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<int32_t>& target_pid() const { return target_pid_; }
+  std::vector<int32_t>* mutable_target_pid() { return &target_pid_; }
+  int target_pid_size() const { return static_cast<int>(target_pid_.size()); }
+  void clear_target_pid() { target_pid_.clear(); }
+  void add_target_pid(int32_t value) { target_pid_.emplace_back(value); }
+  int32_t* add_target_pid() { target_pid_.emplace_back(); return &target_pid_.back(); }
+
+  const std::vector<std::string>& target_cmdline() const { return target_cmdline_; }
+  std::vector<std::string>* mutable_target_cmdline() { return &target_cmdline_; }
+  int target_cmdline_size() const { return static_cast<int>(target_cmdline_.size()); }
+  void clear_target_cmdline() { target_cmdline_.clear(); }
+  void add_target_cmdline(std::string value) { target_cmdline_.emplace_back(value); }
+  std::string* add_target_cmdline() { target_cmdline_.emplace_back(); return &target_cmdline_.back(); }
+
+  const std::vector<int32_t>& exclude_pid() const { return exclude_pid_; }
+  std::vector<int32_t>* mutable_exclude_pid() { return &exclude_pid_; }
+  int exclude_pid_size() const { return static_cast<int>(exclude_pid_.size()); }
+  void clear_exclude_pid() { exclude_pid_.clear(); }
+  void add_exclude_pid(int32_t value) { exclude_pid_.emplace_back(value); }
+  int32_t* add_exclude_pid() { exclude_pid_.emplace_back(); return &exclude_pid_.back(); }
+
+  const std::vector<std::string>& exclude_cmdline() const { return exclude_cmdline_; }
+  std::vector<std::string>* mutable_exclude_cmdline() { return &exclude_cmdline_; }
+  int exclude_cmdline_size() const { return static_cast<int>(exclude_cmdline_.size()); }
+  void clear_exclude_cmdline() { exclude_cmdline_.clear(); }
+  void add_exclude_cmdline(std::string value) { exclude_cmdline_.emplace_back(value); }
+  std::string* add_exclude_cmdline() { exclude_cmdline_.emplace_back(); return &exclude_cmdline_.back(); }
+
+  bool has_additional_cmdline_count() const { return _has_field_[5]; }
+  uint32_t additional_cmdline_count() const { return additional_cmdline_count_; }
+  void set_additional_cmdline_count(uint32_t value) { additional_cmdline_count_ = value; _has_field_.set(5); }
+
+  bool has_process_shard_count() const { return _has_field_[6]; }
+  uint32_t process_shard_count() const { return process_shard_count_; }
+  void set_process_shard_count(uint32_t value) { process_shard_count_ = value; _has_field_.set(6); }
+
+ private:
+  std::vector<int32_t> target_pid_;
+  std::vector<std::string> target_cmdline_;
+  std::vector<int32_t> exclude_pid_;
+  std::vector<std::string> exclude_cmdline_;
+  uint32_t additional_cmdline_count_{};
+  uint32_t process_shard_count_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<7> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_PERF_EVENT_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/statsd/atom_ids.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_ATOM_IDS_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_ATOM_IDS_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum AtomId : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum AtomId : int {
+  ATOM_UNSPECIFIED = 0,
+  ATOM_BLE_SCAN_STATE_CHANGED = 2,
+  ATOM_PROCESS_STATE_CHANGED = 3,
+  ATOM_BLE_SCAN_RESULT_RECEIVED = 4,
+  ATOM_SENSOR_STATE_CHANGED = 5,
+  ATOM_GPS_SCAN_STATE_CHANGED = 6,
+  ATOM_SYNC_STATE_CHANGED = 7,
+  ATOM_SCHEDULED_JOB_STATE_CHANGED = 8,
+  ATOM_SCREEN_BRIGHTNESS_CHANGED = 9,
+  ATOM_WAKELOCK_STATE_CHANGED = 10,
+  ATOM_LONG_PARTIAL_WAKELOCK_STATE_CHANGED = 11,
+  ATOM_MOBILE_RADIO_POWER_STATE_CHANGED = 12,
+  ATOM_WIFI_RADIO_POWER_STATE_CHANGED = 13,
+  ATOM_ACTIVITY_MANAGER_SLEEP_STATE_CHANGED = 14,
+  ATOM_MEMORY_FACTOR_STATE_CHANGED = 15,
+  ATOM_EXCESSIVE_CPU_USAGE_REPORTED = 16,
+  ATOM_CACHED_KILL_REPORTED = 17,
+  ATOM_PROCESS_MEMORY_STAT_REPORTED = 18,
+  ATOM_LAUNCHER_EVENT = 19,
+  ATOM_BATTERY_SAVER_MODE_STATE_CHANGED = 20,
+  ATOM_DEVICE_IDLE_MODE_STATE_CHANGED = 21,
+  ATOM_DEVICE_IDLING_MODE_STATE_CHANGED = 22,
+  ATOM_AUDIO_STATE_CHANGED = 23,
+  ATOM_MEDIA_CODEC_STATE_CHANGED = 24,
+  ATOM_CAMERA_STATE_CHANGED = 25,
+  ATOM_FLASHLIGHT_STATE_CHANGED = 26,
+  ATOM_UID_PROCESS_STATE_CHANGED = 27,
+  ATOM_PROCESS_LIFE_CYCLE_STATE_CHANGED = 28,
+  ATOM_SCREEN_STATE_CHANGED = 29,
+  ATOM_BATTERY_LEVEL_CHANGED = 30,
+  ATOM_CHARGING_STATE_CHANGED = 31,
+  ATOM_PLUGGED_STATE_CHANGED = 32,
+  ATOM_INTERACTIVE_STATE_CHANGED = 33,
+  ATOM_TOUCH_EVENT_REPORTED = 34,
+  ATOM_WAKEUP_ALARM_OCCURRED = 35,
+  ATOM_KERNEL_WAKEUP_REPORTED = 36,
+  ATOM_WIFI_LOCK_STATE_CHANGED = 37,
+  ATOM_WIFI_SIGNAL_STRENGTH_CHANGED = 38,
+  ATOM_WIFI_SCAN_STATE_CHANGED = 39,
+  ATOM_PHONE_SIGNAL_STRENGTH_CHANGED = 40,
+  ATOM_SETTING_CHANGED = 41,
+  ATOM_ACTIVITY_FOREGROUND_STATE_CHANGED = 42,
+  ATOM_ISOLATED_UID_CHANGED = 43,
+  ATOM_PACKET_WAKEUP_OCCURRED = 44,
+  ATOM_WALL_CLOCK_TIME_SHIFTED = 45,
+  ATOM_ANOMALY_DETECTED = 46,
+  ATOM_APP_BREADCRUMB_REPORTED = 47,
+  ATOM_APP_START_OCCURRED = 48,
+  ATOM_APP_START_CANCELED = 49,
+  ATOM_APP_START_FULLY_DRAWN = 50,
+  ATOM_LMK_KILL_OCCURRED = 51,
+  ATOM_PICTURE_IN_PICTURE_STATE_CHANGED = 52,
+  ATOM_WIFI_MULTICAST_LOCK_STATE_CHANGED = 53,
+  ATOM_LMK_STATE_CHANGED = 54,
+  ATOM_APP_START_MEMORY_STATE_CAPTURED = 55,
+  ATOM_SHUTDOWN_SEQUENCE_REPORTED = 56,
+  ATOM_BOOT_SEQUENCE_REPORTED = 57,
+  ATOM_DAVEY_OCCURRED = 58,
+  ATOM_OVERLAY_STATE_CHANGED = 59,
+  ATOM_FOREGROUND_SERVICE_STATE_CHANGED = 60,
+  ATOM_CALL_STATE_CHANGED = 61,
+  ATOM_KEYGUARD_STATE_CHANGED = 62,
+  ATOM_KEYGUARD_BOUNCER_STATE_CHANGED = 63,
+  ATOM_KEYGUARD_BOUNCER_PASSWORD_ENTERED = 64,
+  ATOM_APP_DIED = 65,
+  ATOM_RESOURCE_CONFIGURATION_CHANGED = 66,
+  ATOM_BLUETOOTH_ENABLED_STATE_CHANGED = 67,
+  ATOM_BLUETOOTH_CONNECTION_STATE_CHANGED = 68,
+  ATOM_GPS_SIGNAL_QUALITY_CHANGED = 69,
+  ATOM_USB_CONNECTOR_STATE_CHANGED = 70,
+  ATOM_SPEAKER_IMPEDANCE_REPORTED = 71,
+  ATOM_HARDWARE_FAILED = 72,
+  ATOM_PHYSICAL_DROP_DETECTED = 73,
+  ATOM_CHARGE_CYCLES_REPORTED = 74,
+  ATOM_MOBILE_CONNECTION_STATE_CHANGED = 75,
+  ATOM_MOBILE_RADIO_TECHNOLOGY_CHANGED = 76,
+  ATOM_USB_DEVICE_ATTACHED = 77,
+  ATOM_APP_CRASH_OCCURRED = 78,
+  ATOM_ANR_OCCURRED = 79,
+  ATOM_WTF_OCCURRED = 80,
+  ATOM_LOW_MEM_REPORTED = 81,
+  ATOM_GENERIC_ATOM = 82,
+  ATOM_VIBRATOR_STATE_CHANGED = 84,
+  ATOM_DEFERRED_JOB_STATS_REPORTED = 85,
+  ATOM_THERMAL_THROTTLING = 86,
+  ATOM_BIOMETRIC_ACQUIRED = 87,
+  ATOM_BIOMETRIC_AUTHENTICATED = 88,
+  ATOM_BIOMETRIC_ERROR_OCCURRED = 89,
+  ATOM_UI_EVENT_REPORTED = 90,
+  ATOM_BATTERY_HEALTH_SNAPSHOT = 91,
+  ATOM_SLOW_IO = 92,
+  ATOM_BATTERY_CAUSED_SHUTDOWN = 93,
+  ATOM_PHONE_SERVICE_STATE_CHANGED = 94,
+  ATOM_PHONE_STATE_CHANGED = 95,
+  ATOM_USER_RESTRICTION_CHANGED = 96,
+  ATOM_SETTINGS_UI_CHANGED = 97,
+  ATOM_CONNECTIVITY_STATE_CHANGED = 98,
+  ATOM_SERVICE_STATE_CHANGED = 99,
+  ATOM_SERVICE_LAUNCH_REPORTED = 100,
+  ATOM_FLAG_FLIP_UPDATE_OCCURRED = 101,
+  ATOM_BINARY_PUSH_STATE_CHANGED = 102,
+  ATOM_DEVICE_POLICY_EVENT = 103,
+  ATOM_DOCS_UI_FILE_OP_CANCELED = 104,
+  ATOM_DOCS_UI_FILE_OP_COPY_MOVE_MODE_REPORTED = 105,
+  ATOM_DOCS_UI_FILE_OP_FAILURE = 106,
+  ATOM_DOCS_UI_PROVIDER_FILE_OP = 107,
+  ATOM_DOCS_UI_INVALID_SCOPED_ACCESS_REQUEST = 108,
+  ATOM_DOCS_UI_LAUNCH_REPORTED = 109,
+  ATOM_DOCS_UI_ROOT_VISITED = 110,
+  ATOM_DOCS_UI_STARTUP_MS = 111,
+  ATOM_DOCS_UI_USER_ACTION_REPORTED = 112,
+  ATOM_WIFI_ENABLED_STATE_CHANGED = 113,
+  ATOM_WIFI_RUNNING_STATE_CHANGED = 114,
+  ATOM_APP_COMPACTED = 115,
+  ATOM_NETWORK_DNS_EVENT_REPORTED = 116,
+  ATOM_DOCS_UI_PICKER_LAUNCHED_FROM_REPORTED = 117,
+  ATOM_DOCS_UI_PICK_RESULT_REPORTED = 118,
+  ATOM_DOCS_UI_SEARCH_MODE_REPORTED = 119,
+  ATOM_DOCS_UI_SEARCH_TYPE_REPORTED = 120,
+  ATOM_DATA_STALL_EVENT = 121,
+  ATOM_RESCUE_PARTY_RESET_REPORTED = 122,
+  ATOM_SIGNED_CONFIG_REPORTED = 123,
+  ATOM_GNSS_NI_EVENT_REPORTED = 124,
+  ATOM_BLUETOOTH_LINK_LAYER_CONNECTION_EVENT = 125,
+  ATOM_BLUETOOTH_ACL_CONNECTION_STATE_CHANGED = 126,
+  ATOM_BLUETOOTH_SCO_CONNECTION_STATE_CHANGED = 127,
+  ATOM_APP_DOWNGRADED = 128,
+  ATOM_APP_OPTIMIZED_AFTER_DOWNGRADED = 129,
+  ATOM_LOW_STORAGE_STATE_CHANGED = 130,
+  ATOM_GNSS_NFW_NOTIFICATION_REPORTED = 131,
+  ATOM_GNSS_CONFIGURATION_REPORTED = 132,
+  ATOM_USB_PORT_OVERHEAT_EVENT_REPORTED = 133,
+  ATOM_NFC_ERROR_OCCURRED = 134,
+  ATOM_NFC_STATE_CHANGED = 135,
+  ATOM_NFC_BEAM_OCCURRED = 136,
+  ATOM_NFC_CARDEMULATION_OCCURRED = 137,
+  ATOM_NFC_TAG_OCCURRED = 138,
+  ATOM_NFC_HCE_TRANSACTION_OCCURRED = 139,
+  ATOM_SE_STATE_CHANGED = 140,
+  ATOM_SE_OMAPI_REPORTED = 141,
+  ATOM_BROADCAST_DISPATCH_LATENCY_REPORTED = 142,
+  ATOM_ATTENTION_MANAGER_SERVICE_RESULT_REPORTED = 143,
+  ATOM_ADB_CONNECTION_CHANGED = 144,
+  ATOM_SPEECH_DSP_STAT_REPORTED = 145,
+  ATOM_USB_CONTAMINANT_REPORTED = 146,
+  ATOM_WATCHDOG_ROLLBACK_OCCURRED = 147,
+  ATOM_BIOMETRIC_SYSTEM_HEALTH_ISSUE_DETECTED = 148,
+  ATOM_BUBBLE_UI_CHANGED = 149,
+  ATOM_SCHEDULED_JOB_CONSTRAINT_CHANGED = 150,
+  ATOM_BLUETOOTH_ACTIVE_DEVICE_CHANGED = 151,
+  ATOM_BLUETOOTH_A2DP_PLAYBACK_STATE_CHANGED = 152,
+  ATOM_BLUETOOTH_A2DP_CODEC_CONFIG_CHANGED = 153,
+  ATOM_BLUETOOTH_A2DP_CODEC_CAPABILITY_CHANGED = 154,
+  ATOM_BLUETOOTH_A2DP_AUDIO_UNDERRUN_REPORTED = 155,
+  ATOM_BLUETOOTH_A2DP_AUDIO_OVERRUN_REPORTED = 156,
+  ATOM_BLUETOOTH_DEVICE_RSSI_REPORTED = 157,
+  ATOM_BLUETOOTH_DEVICE_FAILED_CONTACT_COUNTER_REPORTED = 158,
+  ATOM_BLUETOOTH_DEVICE_TX_POWER_LEVEL_REPORTED = 159,
+  ATOM_BLUETOOTH_HCI_TIMEOUT_REPORTED = 160,
+  ATOM_BLUETOOTH_QUALITY_REPORT_REPORTED = 161,
+  ATOM_BLUETOOTH_DEVICE_INFO_REPORTED = 162,
+  ATOM_BLUETOOTH_REMOTE_VERSION_INFO_REPORTED = 163,
+  ATOM_BLUETOOTH_SDP_ATTRIBUTE_REPORTED = 164,
+  ATOM_BLUETOOTH_BOND_STATE_CHANGED = 165,
+  ATOM_BLUETOOTH_CLASSIC_PAIRING_EVENT_REPORTED = 166,
+  ATOM_BLUETOOTH_SMP_PAIRING_EVENT_REPORTED = 167,
+  ATOM_SCREEN_TIMEOUT_EXTENSION_REPORTED = 168,
+  ATOM_PROCESS_START_TIME = 169,
+  ATOM_PERMISSION_GRANT_REQUEST_RESULT_REPORTED = 170,
+  ATOM_BLUETOOTH_SOCKET_CONNECTION_STATE_CHANGED = 171,
+  ATOM_DEVICE_IDENTIFIER_ACCESS_DENIED = 172,
+  ATOM_BUBBLE_DEVELOPER_ERROR_REPORTED = 173,
+  ATOM_ASSIST_GESTURE_STAGE_REPORTED = 174,
+  ATOM_ASSIST_GESTURE_FEEDBACK_REPORTED = 175,
+  ATOM_ASSIST_GESTURE_PROGRESS_REPORTED = 176,
+  ATOM_TOUCH_GESTURE_CLASSIFIED = 177,
+  ATOM_HIDDEN_API_USED = 178,
+  ATOM_STYLE_UI_CHANGED = 179,
+  ATOM_PRIVACY_INDICATORS_INTERACTED = 180,
+  ATOM_APP_INSTALL_ON_EXTERNAL_STORAGE_REPORTED = 181,
+  ATOM_NETWORK_STACK_REPORTED = 182,
+  ATOM_APP_MOVED_STORAGE_REPORTED = 183,
+  ATOM_BIOMETRIC_ENROLLED = 184,
+  ATOM_SYSTEM_SERVER_WATCHDOG_OCCURRED = 185,
+  ATOM_TOMB_STONE_OCCURRED = 186,
+  ATOM_BLUETOOTH_CLASS_OF_DEVICE_REPORTED = 187,
+  ATOM_INTELLIGENCE_EVENT_REPORTED = 188,
+  ATOM_THERMAL_THROTTLING_SEVERITY_STATE_CHANGED = 189,
+  ATOM_ROLE_REQUEST_RESULT_REPORTED = 190,
+  ATOM_MEDIAMETRICS_AUDIOPOLICY_REPORTED = 191,
+  ATOM_MEDIAMETRICS_AUDIORECORD_REPORTED = 192,
+  ATOM_MEDIAMETRICS_AUDIOTHREAD_REPORTED = 193,
+  ATOM_MEDIAMETRICS_AUDIOTRACK_REPORTED = 194,
+  ATOM_MEDIAMETRICS_CODEC_REPORTED = 195,
+  ATOM_MEDIAMETRICS_DRM_WIDEVINE_REPORTED = 196,
+  ATOM_MEDIAMETRICS_EXTRACTOR_REPORTED = 197,
+  ATOM_MEDIAMETRICS_MEDIADRM_REPORTED = 198,
+  ATOM_MEDIAMETRICS_NUPLAYER_REPORTED = 199,
+  ATOM_MEDIAMETRICS_RECORDER_REPORTED = 200,
+  ATOM_MEDIAMETRICS_DRMMANAGER_REPORTED = 201,
+  ATOM_CAR_POWER_STATE_CHANGED = 203,
+  ATOM_GARAGE_MODE_INFO = 204,
+  ATOM_TEST_ATOM_REPORTED = 205,
+  ATOM_CONTENT_CAPTURE_CALLER_MISMATCH_REPORTED = 206,
+  ATOM_CONTENT_CAPTURE_SERVICE_EVENTS = 207,
+  ATOM_CONTENT_CAPTURE_SESSION_EVENTS = 208,
+  ATOM_CONTENT_CAPTURE_FLUSHED = 209,
+  ATOM_LOCATION_MANAGER_API_USAGE_REPORTED = 210,
+  ATOM_REVIEW_PERMISSIONS_FRAGMENT_RESULT_REPORTED = 211,
+  ATOM_RUNTIME_PERMISSIONS_UPGRADE_RESULT = 212,
+  ATOM_GRANT_PERMISSIONS_ACTIVITY_BUTTON_ACTIONS = 213,
+  ATOM_LOCATION_ACCESS_CHECK_NOTIFICATION_ACTION = 214,
+  ATOM_APP_PERMISSION_FRAGMENT_ACTION_REPORTED = 215,
+  ATOM_APP_PERMISSION_FRAGMENT_VIEWED = 216,
+  ATOM_APP_PERMISSIONS_FRAGMENT_VIEWED = 217,
+  ATOM_PERMISSION_APPS_FRAGMENT_VIEWED = 218,
+  ATOM_TEXT_SELECTION_EVENT = 219,
+  ATOM_TEXT_LINKIFY_EVENT = 220,
+  ATOM_CONVERSATION_ACTIONS_EVENT = 221,
+  ATOM_LANGUAGE_DETECTION_EVENT = 222,
+  ATOM_EXCLUSION_RECT_STATE_CHANGED = 223,
+  ATOM_BACK_GESTURE_REPORTED_REPORTED = 224,
+  ATOM_UPDATE_ENGINE_UPDATE_ATTEMPT_REPORTED = 225,
+  ATOM_UPDATE_ENGINE_SUCCESSFUL_UPDATE_REPORTED = 226,
+  ATOM_CAMERA_ACTION_EVENT = 227,
+  ATOM_APP_COMPATIBILITY_CHANGE_REPORTED = 228,
+  ATOM_PERFETTO_UPLOADED = 229,
+  ATOM_VMS_CLIENT_CONNECTION_STATE_CHANGED = 230,
+  ATOM_MEDIA_PROVIDER_SCAN_OCCURRED = 233,
+  ATOM_MEDIA_CONTENT_DELETED = 234,
+  ATOM_MEDIA_PROVIDER_PERMISSION_REQUESTED = 235,
+  ATOM_MEDIA_PROVIDER_SCHEMA_CHANGED = 236,
+  ATOM_MEDIA_PROVIDER_IDLE_MAINTENANCE_FINISHED = 237,
+  ATOM_REBOOT_ESCROW_RECOVERY_REPORTED = 238,
+  ATOM_BOOT_TIME_EVENT_DURATION_REPORTED = 239,
+  ATOM_BOOT_TIME_EVENT_ELAPSED_TIME_REPORTED = 240,
+  ATOM_BOOT_TIME_EVENT_UTC_TIME_REPORTED = 241,
+  ATOM_BOOT_TIME_EVENT_ERROR_CODE_REPORTED = 242,
+  ATOM_USERSPACE_REBOOT_REPORTED = 243,
+  ATOM_NOTIFICATION_REPORTED = 244,
+  ATOM_NOTIFICATION_PANEL_REPORTED = 245,
+  ATOM_NOTIFICATION_CHANNEL_MODIFIED = 246,
+  ATOM_INTEGRITY_CHECK_RESULT_REPORTED = 247,
+  ATOM_INTEGRITY_RULES_PUSHED = 248,
+  ATOM_CB_MESSAGE_REPORTED = 249,
+  ATOM_CB_MESSAGE_ERROR = 250,
+  ATOM_WIFI_HEALTH_STAT_REPORTED = 251,
+  ATOM_WIFI_FAILURE_STAT_REPORTED = 252,
+  ATOM_WIFI_CONNECTION_RESULT_REPORTED = 253,
+  ATOM_APP_FREEZE_CHANGED = 254,
+  ATOM_SNAPSHOT_MERGE_REPORTED = 255,
+  ATOM_FOREGROUND_SERVICE_APP_OP_SESSION_ENDED = 256,
+  ATOM_DISPLAY_JANK_REPORTED = 257,
+  ATOM_APP_STANDBY_BUCKET_CHANGED = 258,
+  ATOM_SHARESHEET_STARTED = 259,
+  ATOM_RANKING_SELECTED = 260,
+  ATOM_TVSETTINGS_UI_INTERACTED = 261,
+  ATOM_LAUNCHER_SNAPSHOT = 262,
+  ATOM_PACKAGE_INSTALLER_V2_REPORTED = 263,
+  ATOM_USER_LIFECYCLE_JOURNEY_REPORTED = 264,
+  ATOM_USER_LIFECYCLE_EVENT_OCCURRED = 265,
+  ATOM_ACCESSIBILITY_SHORTCUT_REPORTED = 266,
+  ATOM_ACCESSIBILITY_SERVICE_REPORTED = 267,
+  ATOM_DOCS_UI_DRAG_AND_DROP_REPORTED = 268,
+  ATOM_APP_USAGE_EVENT_OCCURRED = 269,
+  ATOM_AUTO_REVOKE_NOTIFICATION_CLICKED = 270,
+  ATOM_AUTO_REVOKE_FRAGMENT_APP_VIEWED = 271,
+  ATOM_AUTO_REVOKED_APP_INTERACTION = 272,
+  ATOM_APP_PERMISSION_GROUPS_FRAGMENT_AUTO_REVOKE_ACTION = 273,
+  ATOM_EVS_USAGE_STATS_REPORTED = 274,
+  ATOM_AUDIO_POWER_USAGE_DATA_REPORTED = 275,
+  ATOM_TV_TUNER_STATE_CHANGED = 276,
+  ATOM_MEDIAOUTPUT_OP_SWITCH_REPORTED = 277,
+  ATOM_CB_MESSAGE_FILTERED = 278,
+  ATOM_TV_TUNER_DVR_STATUS = 279,
+  ATOM_TV_CAS_SESSION_OPEN_STATUS = 280,
+  ATOM_ASSISTANT_INVOCATION_REPORTED = 281,
+  ATOM_DISPLAY_WAKE_REPORTED = 282,
+  ATOM_CAR_USER_HAL_MODIFY_USER_REQUEST_REPORTED = 283,
+  ATOM_CAR_USER_HAL_MODIFY_USER_RESPONSE_REPORTED = 284,
+  ATOM_CAR_USER_HAL_POST_SWITCH_RESPONSE_REPORTED = 285,
+  ATOM_CAR_USER_HAL_INITIAL_USER_INFO_REQUEST_REPORTED = 286,
+  ATOM_CAR_USER_HAL_INITIAL_USER_INFO_RESPONSE_REPORTED = 287,
+  ATOM_CAR_USER_HAL_USER_ASSOCIATION_REQUEST_REPORTED = 288,
+  ATOM_CAR_USER_HAL_SET_USER_ASSOCIATION_RESPONSE_REPORTED = 289,
+  ATOM_NETWORK_IP_PROVISIONING_REPORTED = 290,
+  ATOM_NETWORK_DHCP_RENEW_REPORTED = 291,
+  ATOM_NETWORK_VALIDATION_REPORTED = 292,
+  ATOM_NETWORK_STACK_QUIRK_REPORTED = 293,
+  ATOM_MEDIAMETRICS_AUDIORECORDDEVICEUSAGE_REPORTED = 294,
+  ATOM_MEDIAMETRICS_AUDIOTHREADDEVICEUSAGE_REPORTED = 295,
+  ATOM_MEDIAMETRICS_AUDIOTRACKDEVICEUSAGE_REPORTED = 296,
+  ATOM_MEDIAMETRICS_AUDIODEVICECONNECTION_REPORTED = 297,
+  ATOM_BLOB_COMMITTED = 298,
+  ATOM_BLOB_LEASED = 299,
+  ATOM_BLOB_OPENED = 300,
+  ATOM_CONTACTS_PROVIDER_STATUS_REPORTED = 301,
+  ATOM_KEYSTORE_KEY_EVENT_REPORTED = 302,
+  ATOM_NETWORK_TETHERING_REPORTED = 303,
+  ATOM_IME_TOUCH_REPORTED = 304,
+  ATOM_UI_INTERACTION_FRAME_INFO_REPORTED = 305,
+  ATOM_UI_ACTION_LATENCY_REPORTED = 306,
+  ATOM_WIFI_DISCONNECT_REPORTED = 307,
+  ATOM_WIFI_CONNECTION_STATE_CHANGED = 308,
+  ATOM_HDMI_CEC_ACTIVE_SOURCE_CHANGED = 309,
+  ATOM_HDMI_CEC_MESSAGE_REPORTED = 310,
+  ATOM_AIRPLANE_MODE = 311,
+  ATOM_MODEM_RESTART = 312,
+  ATOM_CARRIER_ID_MISMATCH_REPORTED = 313,
+  ATOM_CARRIER_ID_TABLE_UPDATED = 314,
+  ATOM_DATA_STALL_RECOVERY_REPORTED = 315,
+  ATOM_MEDIAMETRICS_MEDIAPARSER_REPORTED = 316,
+  ATOM_TLS_HANDSHAKE_REPORTED = 317,
+  ATOM_TEXT_CLASSIFIER_API_USAGE_REPORTED = 318,
+  ATOM_CAR_WATCHDOG_KILL_STATS_REPORTED = 319,
+  ATOM_MEDIAMETRICS_PLAYBACK_REPORTED = 320,
+  ATOM_MEDIA_NETWORK_INFO_CHANGED = 321,
+  ATOM_MEDIA_PLAYBACK_STATE_CHANGED = 322,
+  ATOM_MEDIA_PLAYBACK_ERROR_REPORTED = 323,
+  ATOM_MEDIA_PLAYBACK_TRACK_CHANGED = 324,
+  ATOM_WIFI_SCAN_REPORTED = 325,
+  ATOM_WIFI_PNO_SCAN_REPORTED = 326,
+  ATOM_TIF_TUNE_CHANGED = 327,
+  ATOM_AUTO_ROTATE_REPORTED = 328,
+  ATOM_PERFETTO_TRIGGER = 329,
+  ATOM_TRANSCODING_DATA = 330,
+  ATOM_IMS_SERVICE_ENTITLEMENT_UPDATED = 331,
+  ATOM_ART_DATUM_REPORTED = 332,
+  ATOM_DEVICE_ROTATED = 333,
+  ATOM_SIM_SPECIFIC_SETTINGS_RESTORED = 334,
+  ATOM_TEXT_CLASSIFIER_DOWNLOAD_REPORTED = 335,
+  ATOM_PIN_STORAGE_EVENT = 336,
+  ATOM_FACE_DOWN_REPORTED = 337,
+  ATOM_BLUETOOTH_HAL_CRASH_REASON_REPORTED = 338,
+  ATOM_REBOOT_ESCROW_PREPARATION_REPORTED = 339,
+  ATOM_REBOOT_ESCROW_LSKF_CAPTURE_REPORTED = 340,
+  ATOM_REBOOT_ESCROW_REBOOT_REPORTED = 341,
+  ATOM_BINDER_LATENCY_REPORTED = 342,
+  ATOM_MEDIAMETRICS_AAUDIOSTREAM_REPORTED = 343,
+  ATOM_MEDIA_TRANSCODING_SESSION_ENDED = 344,
+  ATOM_MAGNIFICATION_USAGE_REPORTED = 345,
+  ATOM_MAGNIFICATION_MODE_WITH_IME_ON_REPORTED = 346,
+  ATOM_APP_SEARCH_CALL_STATS_REPORTED = 347,
+  ATOM_APP_SEARCH_PUT_DOCUMENT_STATS_REPORTED = 348,
+  ATOM_DEVICE_CONTROL_CHANGED = 349,
+  ATOM_DEVICE_STATE_CHANGED = 350,
+  ATOM_INPUTDEVICE_REGISTERED = 351,
+  ATOM_SMARTSPACE_CARD_REPORTED = 352,
+  ATOM_AUTH_PROMPT_AUTHENTICATE_INVOKED = 353,
+  ATOM_AUTH_MANAGER_CAN_AUTHENTICATE_INVOKED = 354,
+  ATOM_AUTH_ENROLL_ACTION_INVOKED = 355,
+  ATOM_AUTH_DEPRECATED_API_USED = 356,
+  ATOM_UNATTENDED_REBOOT_OCCURRED = 357,
+  ATOM_LONG_REBOOT_BLOCKING_REPORTED = 358,
+  ATOM_LOCATION_TIME_ZONE_PROVIDER_STATE_CHANGED = 359,
+  ATOM_FDTRACK_EVENT_OCCURRED = 364,
+  ATOM_TIMEOUT_AUTO_EXTENDED_REPORTED = 365,
+  ATOM_ODREFRESH_REPORTED = 366,
+  ATOM_ALARM_BATCH_DELIVERED = 367,
+  ATOM_ALARM_SCHEDULED = 368,
+  ATOM_CAR_WATCHDOG_IO_OVERUSE_STATS_REPORTED = 369,
+  ATOM_USER_LEVEL_HIBERNATION_STATE_CHANGED = 370,
+  ATOM_APP_SEARCH_INITIALIZE_STATS_REPORTED = 371,
+  ATOM_APP_SEARCH_QUERY_STATS_REPORTED = 372,
+  ATOM_APP_PROCESS_DIED = 373,
+  ATOM_NETWORK_IP_REACHABILITY_MONITOR_REPORTED = 374,
+  ATOM_SLOW_INPUT_EVENT_REPORTED = 375,
+  ATOM_ANR_OCCURRED_PROCESSING_STARTED = 376,
+  ATOM_APP_SEARCH_REMOVE_STATS_REPORTED = 377,
+  ATOM_MEDIA_CODEC_REPORTED = 378,
+  ATOM_PERMISSION_USAGE_FRAGMENT_INTERACTION = 379,
+  ATOM_PERMISSION_DETAILS_INTERACTION = 380,
+  ATOM_PRIVACY_SENSOR_TOGGLE_INTERACTION = 381,
+  ATOM_PRIVACY_TOGGLE_DIALOG_INTERACTION = 382,
+  ATOM_APP_SEARCH_OPTIMIZE_STATS_REPORTED = 383,
+  ATOM_NON_A11Y_TOOL_SERVICE_WARNING_REPORT = 384,
+  ATOM_APP_SEARCH_SET_SCHEMA_STATS_REPORTED = 385,
+  ATOM_APP_COMPAT_STATE_CHANGED = 386,
+  ATOM_SIZE_COMPAT_RESTART_BUTTON_EVENT_REPORTED = 387,
+  ATOM_SPLITSCREEN_UI_CHANGED = 388,
+  ATOM_NETWORK_DNS_HANDSHAKE_REPORTED = 389,
+  ATOM_BLUETOOTH_CODE_PATH_COUNTER = 390,
+  ATOM_BLUETOOTH_LE_BATCH_SCAN_REPORT_DELAY = 392,
+  ATOM_ACCESSIBILITY_FLOATING_MENU_UI_CHANGED = 393,
+  ATOM_NEURALNETWORKS_COMPILATION_COMPLETED = 394,
+  ATOM_NEURALNETWORKS_EXECUTION_COMPLETED = 395,
+  ATOM_NEURALNETWORKS_COMPILATION_FAILED = 396,
+  ATOM_NEURALNETWORKS_EXECUTION_FAILED = 397,
+  ATOM_CONTEXT_HUB_BOOTED = 398,
+  ATOM_CONTEXT_HUB_RESTARTED = 399,
+  ATOM_CONTEXT_HUB_LOADED_NANOAPP_SNAPSHOT_REPORTED = 400,
+  ATOM_CHRE_CODE_DOWNLOAD_TRANSACTED = 401,
+  ATOM_UWB_SESSION_INITED = 402,
+  ATOM_UWB_SESSION_CLOSED = 403,
+  ATOM_UWB_FIRST_RANGING_RECEIVED = 404,
+  ATOM_UWB_RANGING_MEASUREMENT_RECEIVED = 405,
+  ATOM_TEXT_CLASSIFIER_DOWNLOAD_WORK_SCHEDULED = 406,
+  ATOM_TEXT_CLASSIFIER_DOWNLOAD_WORK_COMPLETED = 407,
+  ATOM_CLIPBOARD_CLEARED = 408,
+  ATOM_VM_CREATION_REQUESTED = 409,
+  ATOM_NEARBY_DEVICE_SCAN_STATE_CHANGED = 410,
+  ATOM_CAMERA_COMPAT_CONTROL_EVENT_REPORTED = 411,
+  ATOM_APPLICATION_LOCALES_CHANGED = 412,
+  ATOM_MEDIAMETRICS_AUDIOTRACKSTATUS_REPORTED = 413,
+  ATOM_FOLD_STATE_DURATION_REPORTED = 414,
+  ATOM_LOCATION_TIME_ZONE_PROVIDER_CONTROLLER_STATE_CHANGED = 415,
+  ATOM_DISPLAY_HBM_STATE_CHANGED = 416,
+  ATOM_DISPLAY_HBM_BRIGHTNESS_CHANGED = 417,
+  ATOM_PERSISTENT_URI_PERMISSIONS_FLUSHED = 418,
+  ATOM_EARLY_BOOT_COMP_OS_ARTIFACTS_CHECK_REPORTED = 419,
+  ATOM_VBMETA_DIGEST_REPORTED = 420,
+  ATOM_APEX_INFO_GATHERED = 421,
+  ATOM_PVM_INFO_GATHERED = 422,
+  ATOM_WEAR_SETTINGS_UI_INTERACTED = 423,
+  ATOM_TRACING_SERVICE_REPORT_EVENT = 424,
+  ATOM_MEDIAMETRICS_AUDIORECORDSTATUS_REPORTED = 425,
+  ATOM_LAUNCHER_LATENCY = 426,
+  ATOM_DROPBOX_ENTRY_DROPPED = 427,
+  ATOM_WIFI_P2P_CONNECTION_REPORTED = 428,
+  ATOM_GAME_STATE_CHANGED = 429,
+  ATOM_HOTWORD_DETECTOR_CREATE_REQUESTED = 430,
+  ATOM_HOTWORD_DETECTION_SERVICE_INIT_RESULT_REPORTED = 431,
+  ATOM_HOTWORD_DETECTION_SERVICE_RESTARTED = 432,
+  ATOM_HOTWORD_DETECTOR_KEYPHRASE_TRIGGERED = 433,
+  ATOM_HOTWORD_DETECTOR_EVENTS = 434,
+  ATOM_BOOT_COMPLETED_BROADCAST_COMPLETION_LATENCY_REPORTED = 437,
+  ATOM_CONTACTS_INDEXER_UPDATE_STATS_REPORTED = 440,
+  ATOM_APP_BACKGROUND_RESTRICTIONS_INFO = 441,
+  ATOM_MMS_SMS_PROVIDER_GET_THREAD_ID_FAILED = 442,
+  ATOM_MMS_SMS_DATABASE_HELPER_ON_UPGRADE_FAILED = 443,
+  ATOM_PERMISSION_REMINDER_NOTIFICATION_INTERACTED = 444,
+  ATOM_RECENT_PERMISSION_DECISIONS_INTERACTED = 445,
+  ATOM_GNSS_PSDS_DOWNLOAD_REPORTED = 446,
+  ATOM_LE_AUDIO_CONNECTION_SESSION_REPORTED = 447,
+  ATOM_LE_AUDIO_BROADCAST_SESSION_REPORTED = 448,
+  ATOM_DREAM_UI_EVENT_REPORTED = 449,
+  ATOM_TASK_MANAGER_EVENT_REPORTED = 450,
+  ATOM_CDM_ASSOCIATION_ACTION = 451,
+  ATOM_MAGNIFICATION_TRIPLE_TAP_AND_HOLD_ACTIVATED_SESSION_REPORTED = 452,
+  ATOM_MAGNIFICATION_FOLLOW_TYPING_FOCUS_ACTIVATED_SESSION_REPORTED = 453,
+  ATOM_ACCESSIBILITY_TEXT_READING_OPTIONS_CHANGED = 454,
+  ATOM_WIFI_SETUP_FAILURE_CRASH_REPORTED = 455,
+  ATOM_UWB_DEVICE_ERROR_REPORTED = 456,
+  ATOM_ISOLATED_COMPILATION_SCHEDULED = 457,
+  ATOM_ISOLATED_COMPILATION_ENDED = 458,
+  ATOM_ONS_OPPORTUNISTIC_ESIM_PROVISIONING_COMPLETE = 459,
+  ATOM_TELEPHONY_ANOMALY_DETECTED = 461,
+  ATOM_LETTERBOX_POSITION_CHANGED = 462,
+  ATOM_REMOTE_KEY_PROVISIONING_ATTEMPT = 463,
+  ATOM_REMOTE_KEY_PROVISIONING_NETWORK_INFO = 464,
+  ATOM_REMOTE_KEY_PROVISIONING_TIMING = 465,
+  ATOM_MEDIAOUTPUT_OP_INTERACTION_REPORT = 466,
+  ATOM_BACKGROUND_DEXOPT_JOB_ENDED = 467,
+  ATOM_SYNC_EXEMPTION_OCCURRED = 468,
+  ATOM_AUTOFILL_PRESENTATION_EVENT_REPORTED = 469,
+  ATOM_DOCK_STATE_CHANGED = 470,
+  ATOM_BROADCAST_DELIVERY_EVENT_REPORTED = 475,
+  ATOM_SERVICE_REQUEST_EVENT_REPORTED = 476,
+  ATOM_PROVIDER_ACQUISITION_EVENT_REPORTED = 477,
+  ATOM_BLUETOOTH_DEVICE_NAME_REPORTED = 478,
+  ATOM_VIBRATION_REPORTED = 487,
+  ATOM_UWB_RANGING_START = 489,
+  ATOM_DISPLAY_BRIGHTNESS_CHANGED = 494,
+  ATOM_ACTIVITY_ACTION_BLOCKED = 495,
+  ATOM_NETWORK_DNS_SERVER_SUPPORT_REPORTED = 504,
+  ATOM_VM_BOOTED = 505,
+  ATOM_VM_EXITED = 506,
+  ATOM_AMBIENT_BRIGHTNESS_STATS_REPORTED = 507,
+  ATOM_MEDIAMETRICS_SPATIALIZERCAPABILITIES_REPORTED = 508,
+  ATOM_MEDIAMETRICS_SPATIALIZERDEVICEENABLED_REPORTED = 509,
+  ATOM_MEDIAMETRICS_HEADTRACKERDEVICEENABLED_REPORTED = 510,
+  ATOM_MEDIAMETRICS_HEADTRACKERDEVICESUPPORTED_REPORTED = 511,
+  ATOM_HEARING_AID_INFO_REPORTED = 513,
+  ATOM_DEVICE_WIDE_JOB_CONSTRAINT_CHANGED = 514,
+  ATOM_IWLAN_SETUP_DATA_CALL_RESULT_REPORTED = 519,
+  ATOM_IWLAN_PDN_DISCONNECTED_REASON_REPORTED = 520,
+  ATOM_AIRPLANE_MODE_SESSION_REPORTED = 521,
+  ATOM_VM_CPU_STATUS_REPORTED = 522,
+  ATOM_VM_MEM_STATUS_REPORTED = 523,
+  ATOM_DEFAULT_NETWORK_REMATCH_INFO = 525,
+  ATOM_NETWORK_SELECTION_PERFORMANCE = 526,
+  ATOM_NETWORK_NSD_REPORTED = 527,
+  ATOM_BLUETOOTH_DISCONNECTION_REASON_REPORTED = 529,
+  ATOM_BLUETOOTH_LOCAL_VERSIONS_REPORTED = 530,
+  ATOM_BLUETOOTH_REMOTE_SUPPORTED_FEATURES_REPORTED = 531,
+  ATOM_BLUETOOTH_LOCAL_SUPPORTED_FEATURES_REPORTED = 532,
+  ATOM_BLUETOOTH_GATT_APP_INFO = 533,
+  ATOM_BRIGHTNESS_CONFIGURATION_UPDATED = 534,
+  ATOM_LAUNCHER_IMPRESSION_EVENT = 547,
+  ATOM_ODSIGN_REPORTED = 548,
+  ATOM_ART_DEVICE_DATUM_REPORTED = 550,
+  ATOM_NETWORK_SLICE_SESSION_ENDED = 558,
+  ATOM_NETWORK_SLICE_DAILY_DATA_USAGE_REPORTED = 559,
+  ATOM_NFC_TAG_TYPE_OCCURRED = 560,
+  ATOM_NFC_AID_CONFLICT_OCCURRED = 561,
+  ATOM_NFC_READER_CONFLICT_OCCURRED = 562,
+  ATOM_ART_DATUM_DELTA_REPORTED = 565,
+  ATOM_MEDIA_DRM_CREATED = 568,
+  ATOM_MEDIA_DRM_ERRORED = 569,
+  ATOM_MEDIA_DRM_SESSION_OPENED = 570,
+  ATOM_MEDIA_DRM_SESSION_CLOSED = 571,
+  ATOM_PERFORMANCE_HINT_SESSION_REPORTED = 574,
+  ATOM_HOTWORD_AUDIO_EGRESS_EVENT_REPORTED = 578,
+  ATOM_NETWORK_VALIDATION_FAILURE_STATS_DAILY_REPORTED = 601,
+  ATOM_WIFI_BYTES_TRANSFER = 10000,
+  ATOM_WIFI_BYTES_TRANSFER_BY_FG_BG = 10001,
+  ATOM_MOBILE_BYTES_TRANSFER = 10002,
+  ATOM_MOBILE_BYTES_TRANSFER_BY_FG_BG = 10003,
+  ATOM_BLUETOOTH_BYTES_TRANSFER = 10006,
+  ATOM_KERNEL_WAKELOCK = 10004,
+  ATOM_SUBSYSTEM_SLEEP_STATE = 10005,
+  ATOM_CPU_TIME_PER_UID = 10009,
+  ATOM_CPU_TIME_PER_UID_FREQ = 10010,
+  ATOM_WIFI_ACTIVITY_INFO = 10011,
+  ATOM_MODEM_ACTIVITY_INFO = 10012,
+  ATOM_BLUETOOTH_ACTIVITY_INFO = 10007,
+  ATOM_PROCESS_MEMORY_STATE = 10013,
+  ATOM_SYSTEM_ELAPSED_REALTIME = 10014,
+  ATOM_SYSTEM_UPTIME = 10015,
+  ATOM_CPU_ACTIVE_TIME = 10016,
+  ATOM_CPU_CLUSTER_TIME = 10017,
+  ATOM_DISK_SPACE = 10018,
+  ATOM_REMAINING_BATTERY_CAPACITY = 10019,
+  ATOM_FULL_BATTERY_CAPACITY = 10020,
+  ATOM_TEMPERATURE = 10021,
+  ATOM_BINDER_CALLS = 10022,
+  ATOM_BINDER_CALLS_EXCEPTIONS = 10023,
+  ATOM_LOOPER_STATS = 10024,
+  ATOM_DISK_STATS = 10025,
+  ATOM_DIRECTORY_USAGE = 10026,
+  ATOM_APP_SIZE = 10027,
+  ATOM_CATEGORY_SIZE = 10028,
+  ATOM_PROC_STATS = 10029,
+  ATOM_BATTERY_VOLTAGE = 10030,
+  ATOM_NUM_FINGERPRINTS_ENROLLED = 10031,
+  ATOM_DISK_IO = 10032,
+  ATOM_POWER_PROFILE = 10033,
+  ATOM_PROC_STATS_PKG_PROC = 10034,
+  ATOM_PROCESS_CPU_TIME = 10035,
+  ATOM_CPU_TIME_PER_THREAD_FREQ = 10037,
+  ATOM_ON_DEVICE_POWER_MEASUREMENT = 10038,
+  ATOM_DEVICE_CALCULATED_POWER_USE = 10039,
+  ATOM_PROCESS_MEMORY_HIGH_WATER_MARK = 10042,
+  ATOM_BATTERY_LEVEL = 10043,
+  ATOM_BUILD_INFORMATION = 10044,
+  ATOM_BATTERY_CYCLE_COUNT = 10045,
+  ATOM_DEBUG_ELAPSED_CLOCK = 10046,
+  ATOM_DEBUG_FAILING_ELAPSED_CLOCK = 10047,
+  ATOM_NUM_FACES_ENROLLED = 10048,
+  ATOM_ROLE_HOLDER = 10049,
+  ATOM_DANGEROUS_PERMISSION_STATE = 10050,
+  ATOM_TRAIN_INFO = 10051,
+  ATOM_TIME_ZONE_DATA_INFO = 10052,
+  ATOM_EXTERNAL_STORAGE_INFO = 10053,
+  ATOM_GPU_STATS_GLOBAL_INFO = 10054,
+  ATOM_GPU_STATS_APP_INFO = 10055,
+  ATOM_SYSTEM_ION_HEAP_SIZE = 10056,
+  ATOM_APPS_ON_EXTERNAL_STORAGE_INFO = 10057,
+  ATOM_FACE_SETTINGS = 10058,
+  ATOM_COOLING_DEVICE = 10059,
+  ATOM_APP_OPS = 10060,
+  ATOM_PROCESS_SYSTEM_ION_HEAP_SIZE = 10061,
+  ATOM_SURFACEFLINGER_STATS_GLOBAL_INFO = 10062,
+  ATOM_SURFACEFLINGER_STATS_LAYER_INFO = 10063,
+  ATOM_PROCESS_MEMORY_SNAPSHOT = 10064,
+  ATOM_VMS_CLIENT_STATS = 10065,
+  ATOM_NOTIFICATION_REMOTE_VIEWS = 10066,
+  ATOM_DANGEROUS_PERMISSION_STATE_SAMPLED = 10067,
+  ATOM_GRAPHICS_STATS = 10068,
+  ATOM_RUNTIME_APP_OP_ACCESS = 10069,
+  ATOM_ION_HEAP_SIZE = 10070,
+  ATOM_PACKAGE_NOTIFICATION_PREFERENCES = 10071,
+  ATOM_PACKAGE_NOTIFICATION_CHANNEL_PREFERENCES = 10072,
+  ATOM_PACKAGE_NOTIFICATION_CHANNEL_GROUP_PREFERENCES = 10073,
+  ATOM_GNSS_STATS = 10074,
+  ATOM_ATTRIBUTED_APP_OPS = 10075,
+  ATOM_VOICE_CALL_SESSION = 10076,
+  ATOM_VOICE_CALL_RAT_USAGE = 10077,
+  ATOM_SIM_SLOT_STATE = 10078,
+  ATOM_SUPPORTED_RADIO_ACCESS_FAMILY = 10079,
+  ATOM_SETTING_SNAPSHOT = 10080,
+  ATOM_BLOB_INFO = 10081,
+  ATOM_DATA_USAGE_BYTES_TRANSFER = 10082,
+  ATOM_BYTES_TRANSFER_BY_TAG_AND_METERED = 10083,
+  ATOM_DND_MODE_RULE = 10084,
+  ATOM_GENERAL_EXTERNAL_STORAGE_ACCESS_STATS = 10085,
+  ATOM_INCOMING_SMS = 10086,
+  ATOM_OUTGOING_SMS = 10087,
+  ATOM_CARRIER_ID_TABLE_VERSION = 10088,
+  ATOM_DATA_CALL_SESSION = 10089,
+  ATOM_CELLULAR_SERVICE_STATE = 10090,
+  ATOM_CELLULAR_DATA_SERVICE_SWITCH = 10091,
+  ATOM_SYSTEM_MEMORY = 10092,
+  ATOM_IMS_REGISTRATION_TERMINATION = 10093,
+  ATOM_IMS_REGISTRATION_STATS = 10094,
+  ATOM_CPU_TIME_PER_CLUSTER_FREQ = 10095,
+  ATOM_CPU_CYCLES_PER_UID_CLUSTER = 10096,
+  ATOM_DEVICE_ROTATED_DATA = 10097,
+  ATOM_CPU_CYCLES_PER_THREAD_GROUP_CLUSTER = 10098,
+  ATOM_MEDIA_DRM_ACTIVITY_INFO = 10099,
+  ATOM_OEM_MANAGED_BYTES_TRANSFER = 10100,
+  ATOM_GNSS_POWER_STATS = 10101,
+  ATOM_TIME_ZONE_DETECTOR_STATE = 10102,
+  ATOM_KEYSTORE2_STORAGE_STATS = 10103,
+  ATOM_RKP_POOL_STATS = 10104,
+  ATOM_PROCESS_DMABUF_MEMORY = 10105,
+  ATOM_PENDING_ALARM_INFO = 10106,
+  ATOM_USER_LEVEL_HIBERNATED_APPS = 10107,
+  ATOM_LAUNCHER_LAYOUT_SNAPSHOT = 10108,
+  ATOM_GLOBAL_HIBERNATED_APPS = 10109,
+  ATOM_INPUT_EVENT_LATENCY_SKETCH = 10110,
+  ATOM_BATTERY_USAGE_STATS_BEFORE_RESET = 10111,
+  ATOM_BATTERY_USAGE_STATS_SINCE_RESET = 10112,
+  ATOM_BATTERY_USAGE_STATS_SINCE_RESET_USING_POWER_PROFILE_MODEL = 10113,
+  ATOM_INSTALLED_INCREMENTAL_PACKAGE = 10114,
+  ATOM_TELEPHONY_NETWORK_REQUESTS = 10115,
+  ATOM_APP_SEARCH_STORAGE_INFO = 10116,
+  ATOM_VMSTAT = 10117,
+  ATOM_KEYSTORE2_KEY_CREATION_WITH_GENERAL_INFO = 10118,
+  ATOM_KEYSTORE2_KEY_CREATION_WITH_AUTH_INFO = 10119,
+  ATOM_KEYSTORE2_KEY_CREATION_WITH_PURPOSE_AND_MODES_INFO = 10120,
+  ATOM_KEYSTORE2_ATOM_WITH_OVERFLOW = 10121,
+  ATOM_KEYSTORE2_KEY_OPERATION_WITH_PURPOSE_AND_MODES_INFO = 10122,
+  ATOM_KEYSTORE2_KEY_OPERATION_WITH_GENERAL_INFO = 10123,
+  ATOM_RKP_ERROR_STATS = 10124,
+  ATOM_KEYSTORE2_CRASH_STATS = 10125,
+  ATOM_VENDOR_APEX_INFO = 10126,
+  ATOM_ACCESSIBILITY_SHORTCUT_STATS = 10127,
+  ATOM_ACCESSIBILITY_FLOATING_MENU_STATS = 10128,
+  ATOM_DATA_USAGE_BYTES_TRANSFER_V2 = 10129,
+  ATOM_MEDIA_CAPABILITIES = 10130,
+  ATOM_CAR_WATCHDOG_SYSTEM_IO_USAGE_SUMMARY = 10131,
+  ATOM_CAR_WATCHDOG_UID_IO_USAGE_SUMMARY = 10132,
+  ATOM_IMS_REGISTRATION_FEATURE_TAG_STATS = 10133,
+  ATOM_RCS_CLIENT_PROVISIONING_STATS = 10134,
+  ATOM_RCS_ACS_PROVISIONING_STATS = 10135,
+  ATOM_SIP_DELEGATE_STATS = 10136,
+  ATOM_SIP_TRANSPORT_FEATURE_TAG_STATS = 10137,
+  ATOM_SIP_MESSAGE_RESPONSE = 10138,
+  ATOM_SIP_TRANSPORT_SESSION = 10139,
+  ATOM_IMS_DEDICATED_BEARER_LISTENER_EVENT = 10140,
+  ATOM_IMS_DEDICATED_BEARER_EVENT = 10141,
+  ATOM_IMS_REGISTRATION_SERVICE_DESC_STATS = 10142,
+  ATOM_UCE_EVENT_STATS = 10143,
+  ATOM_PRESENCE_NOTIFY_EVENT = 10144,
+  ATOM_GBA_EVENT = 10145,
+  ATOM_PER_SIM_STATUS = 10146,
+  ATOM_GPU_WORK_PER_UID = 10147,
+  ATOM_PERSISTENT_URI_PERMISSIONS_AMOUNT_PER_PACKAGE = 10148,
+  ATOM_SIGNED_PARTITION_INFO = 10149,
+  ATOM_PINNED_FILE_SIZES_PER_PACKAGE = 10150,
+  ATOM_PENDING_INTENTS_PER_PACKAGE = 10151,
+  ATOM_USER_INFO = 10152,
+  ATOM_TELEPHONY_NETWORK_REQUESTS_V2 = 10153,
+  ATOM_DEVICE_TELEPHONY_PROPERTIES = 10154,
+  ATOM_REMOTE_KEY_PROVISIONING_ERROR_COUNTS = 10155,
+  ATOM_INCOMING_MMS = 10157,
+  ATOM_OUTGOING_MMS = 10158,
+  ATOM_MULTI_USER_INFO = 10160,
+  ATOM_NETWORK_BPF_MAP_INFO = 10161,
+  ATOM_CONNECTIVITY_STATE_SAMPLE = 10163,
+  ATOM_NETWORK_SELECTION_REMATCH_REASONS_INFO = 10164,
+  ATOM_NETWORK_SLICE_REQUEST_COUNT = 10168,
+  ATOM_ADPF_SYSTEM_COMPONENT_INFO = 10173,
+  ATOM_NOTIFICATION_MEMORY_USE = 10174,
+};
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_ATOM_IDS_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/statsd/statsd_tracing_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_STATSD_TRACING_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_STATSD_TRACING_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class StatsdPullAtomConfig;
+class StatsdTracingConfig;
+enum AtomId : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT StatsdPullAtomConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPullAtomIdFieldNumber = 1,
+    kRawPullAtomIdFieldNumber = 2,
+    kPullFrequencyMsFieldNumber = 3,
+    kPackagesFieldNumber = 4,
+  };
+
+  StatsdPullAtomConfig();
+  ~StatsdPullAtomConfig() override;
+  StatsdPullAtomConfig(StatsdPullAtomConfig&&) noexcept;
+  StatsdPullAtomConfig& operator=(StatsdPullAtomConfig&&);
+  StatsdPullAtomConfig(const StatsdPullAtomConfig&);
+  StatsdPullAtomConfig& operator=(const StatsdPullAtomConfig&);
+  bool operator==(const StatsdPullAtomConfig&) const;
+  bool operator!=(const StatsdPullAtomConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<AtomId>& pull_atom_id() const { return pull_atom_id_; }
+  std::vector<AtomId>* mutable_pull_atom_id() { return &pull_atom_id_; }
+  int pull_atom_id_size() const { return static_cast<int>(pull_atom_id_.size()); }
+  void clear_pull_atom_id() { pull_atom_id_.clear(); }
+  void add_pull_atom_id(AtomId value) { pull_atom_id_.emplace_back(value); }
+  AtomId* add_pull_atom_id() { pull_atom_id_.emplace_back(); return &pull_atom_id_.back(); }
+
+  const std::vector<int32_t>& raw_pull_atom_id() const { return raw_pull_atom_id_; }
+  std::vector<int32_t>* mutable_raw_pull_atom_id() { return &raw_pull_atom_id_; }
+  int raw_pull_atom_id_size() const { return static_cast<int>(raw_pull_atom_id_.size()); }
+  void clear_raw_pull_atom_id() { raw_pull_atom_id_.clear(); }
+  void add_raw_pull_atom_id(int32_t value) { raw_pull_atom_id_.emplace_back(value); }
+  int32_t* add_raw_pull_atom_id() { raw_pull_atom_id_.emplace_back(); return &raw_pull_atom_id_.back(); }
+
+  bool has_pull_frequency_ms() const { return _has_field_[3]; }
+  int32_t pull_frequency_ms() const { return pull_frequency_ms_; }
+  void set_pull_frequency_ms(int32_t value) { pull_frequency_ms_ = value; _has_field_.set(3); }
+
+  const std::vector<std::string>& packages() const { return packages_; }
+  std::vector<std::string>* mutable_packages() { return &packages_; }
+  int packages_size() const { return static_cast<int>(packages_.size()); }
+  void clear_packages() { packages_.clear(); }
+  void add_packages(std::string value) { packages_.emplace_back(value); }
+  std::string* add_packages() { packages_.emplace_back(); return &packages_.back(); }
+
+ private:
+  std::vector<AtomId> pull_atom_id_;
+  std::vector<int32_t> raw_pull_atom_id_;
+  int32_t pull_frequency_ms_{};
+  std::vector<std::string> packages_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<5> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT StatsdTracingConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPushAtomIdFieldNumber = 1,
+    kRawPushAtomIdFieldNumber = 2,
+    kPullConfigFieldNumber = 3,
+  };
+
+  StatsdTracingConfig();
+  ~StatsdTracingConfig() override;
+  StatsdTracingConfig(StatsdTracingConfig&&) noexcept;
+  StatsdTracingConfig& operator=(StatsdTracingConfig&&);
+  StatsdTracingConfig(const StatsdTracingConfig&);
+  StatsdTracingConfig& operator=(const StatsdTracingConfig&);
+  bool operator==(const StatsdTracingConfig&) const;
+  bool operator!=(const StatsdTracingConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<AtomId>& push_atom_id() const { return push_atom_id_; }
+  std::vector<AtomId>* mutable_push_atom_id() { return &push_atom_id_; }
+  int push_atom_id_size() const { return static_cast<int>(push_atom_id_.size()); }
+  void clear_push_atom_id() { push_atom_id_.clear(); }
+  void add_push_atom_id(AtomId value) { push_atom_id_.emplace_back(value); }
+  AtomId* add_push_atom_id() { push_atom_id_.emplace_back(); return &push_atom_id_.back(); }
+
+  const std::vector<int32_t>& raw_push_atom_id() const { return raw_push_atom_id_; }
+  std::vector<int32_t>* mutable_raw_push_atom_id() { return &raw_push_atom_id_; }
+  int raw_push_atom_id_size() const { return static_cast<int>(raw_push_atom_id_.size()); }
+  void clear_raw_push_atom_id() { raw_push_atom_id_.clear(); }
+  void add_raw_push_atom_id(int32_t value) { raw_push_atom_id_.emplace_back(value); }
+  int32_t* add_raw_push_atom_id() { raw_push_atom_id_.emplace_back(); return &raw_push_atom_id_.back(); }
+
+  const std::vector<StatsdPullAtomConfig>& pull_config() const { return pull_config_; }
+  std::vector<StatsdPullAtomConfig>* mutable_pull_config() { return &pull_config_; }
+  int pull_config_size() const;
+  void clear_pull_config();
+  StatsdPullAtomConfig* add_pull_config();
+
+ private:
+  std::vector<AtomId> push_atom_id_;
+  std::vector<int32_t> raw_push_atom_id_;
+  std::vector<StatsdPullAtomConfig> pull_config_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_STATSD_TRACING_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/sys_stats/sys_stats_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYS_STATS_SYS_STATS_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYS_STATS_SYS_STATS_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class SysStatsConfig;
+enum SysStatsConfig_StatCounters : int;
+enum MeminfoCounters : int;
+enum VmstatCounters : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum SysStatsConfig_StatCounters : int {
+  SysStatsConfig_StatCounters_STAT_UNSPECIFIED = 0,
+  SysStatsConfig_StatCounters_STAT_CPU_TIMES = 1,
+  SysStatsConfig_StatCounters_STAT_IRQ_COUNTS = 2,
+  SysStatsConfig_StatCounters_STAT_SOFTIRQ_COUNTS = 3,
+  SysStatsConfig_StatCounters_STAT_FORK_COUNT = 4,
+};
+
+class PERFETTO_EXPORT_COMPONENT SysStatsConfig : public ::protozero::CppMessageObj {
+ public:
+  using StatCounters = SysStatsConfig_StatCounters;
+  static constexpr auto STAT_UNSPECIFIED = SysStatsConfig_StatCounters_STAT_UNSPECIFIED;
+  static constexpr auto STAT_CPU_TIMES = SysStatsConfig_StatCounters_STAT_CPU_TIMES;
+  static constexpr auto STAT_IRQ_COUNTS = SysStatsConfig_StatCounters_STAT_IRQ_COUNTS;
+  static constexpr auto STAT_SOFTIRQ_COUNTS = SysStatsConfig_StatCounters_STAT_SOFTIRQ_COUNTS;
+  static constexpr auto STAT_FORK_COUNT = SysStatsConfig_StatCounters_STAT_FORK_COUNT;
+  static constexpr auto StatCounters_MIN = SysStatsConfig_StatCounters_STAT_UNSPECIFIED;
+  static constexpr auto StatCounters_MAX = SysStatsConfig_StatCounters_STAT_FORK_COUNT;
+  enum FieldNumbers {
+    kMeminfoPeriodMsFieldNumber = 1,
+    kMeminfoCountersFieldNumber = 2,
+    kVmstatPeriodMsFieldNumber = 3,
+    kVmstatCountersFieldNumber = 4,
+    kStatPeriodMsFieldNumber = 5,
+    kStatCountersFieldNumber = 6,
+    kDevfreqPeriodMsFieldNumber = 7,
+    kCpufreqPeriodMsFieldNumber = 8,
+    kBuddyinfoPeriodMsFieldNumber = 9,
+    kDiskstatPeriodMsFieldNumber = 10,
+  };
+
+  SysStatsConfig();
+  ~SysStatsConfig() override;
+  SysStatsConfig(SysStatsConfig&&) noexcept;
+  SysStatsConfig& operator=(SysStatsConfig&&);
+  SysStatsConfig(const SysStatsConfig&);
+  SysStatsConfig& operator=(const SysStatsConfig&);
+  bool operator==(const SysStatsConfig&) const;
+  bool operator!=(const SysStatsConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_meminfo_period_ms() const { return _has_field_[1]; }
+  uint32_t meminfo_period_ms() const { return meminfo_period_ms_; }
+  void set_meminfo_period_ms(uint32_t value) { meminfo_period_ms_ = value; _has_field_.set(1); }
+
+  const std::vector<MeminfoCounters>& meminfo_counters() const { return meminfo_counters_; }
+  std::vector<MeminfoCounters>* mutable_meminfo_counters() { return &meminfo_counters_; }
+  int meminfo_counters_size() const { return static_cast<int>(meminfo_counters_.size()); }
+  void clear_meminfo_counters() { meminfo_counters_.clear(); }
+  void add_meminfo_counters(MeminfoCounters value) { meminfo_counters_.emplace_back(value); }
+  MeminfoCounters* add_meminfo_counters() { meminfo_counters_.emplace_back(); return &meminfo_counters_.back(); }
+
+  bool has_vmstat_period_ms() const { return _has_field_[3]; }
+  uint32_t vmstat_period_ms() const { return vmstat_period_ms_; }
+  void set_vmstat_period_ms(uint32_t value) { vmstat_period_ms_ = value; _has_field_.set(3); }
+
+  const std::vector<VmstatCounters>& vmstat_counters() const { return vmstat_counters_; }
+  std::vector<VmstatCounters>* mutable_vmstat_counters() { return &vmstat_counters_; }
+  int vmstat_counters_size() const { return static_cast<int>(vmstat_counters_.size()); }
+  void clear_vmstat_counters() { vmstat_counters_.clear(); }
+  void add_vmstat_counters(VmstatCounters value) { vmstat_counters_.emplace_back(value); }
+  VmstatCounters* add_vmstat_counters() { vmstat_counters_.emplace_back(); return &vmstat_counters_.back(); }
+
+  bool has_stat_period_ms() const { return _has_field_[5]; }
+  uint32_t stat_period_ms() const { return stat_period_ms_; }
+  void set_stat_period_ms(uint32_t value) { stat_period_ms_ = value; _has_field_.set(5); }
+
+  const std::vector<SysStatsConfig_StatCounters>& stat_counters() const { return stat_counters_; }
+  std::vector<SysStatsConfig_StatCounters>* mutable_stat_counters() { return &stat_counters_; }
+  int stat_counters_size() const { return static_cast<int>(stat_counters_.size()); }
+  void clear_stat_counters() { stat_counters_.clear(); }
+  void add_stat_counters(SysStatsConfig_StatCounters value) { stat_counters_.emplace_back(value); }
+  SysStatsConfig_StatCounters* add_stat_counters() { stat_counters_.emplace_back(); return &stat_counters_.back(); }
+
+  bool has_devfreq_period_ms() const { return _has_field_[7]; }
+  uint32_t devfreq_period_ms() const { return devfreq_period_ms_; }
+  void set_devfreq_period_ms(uint32_t value) { devfreq_period_ms_ = value; _has_field_.set(7); }
+
+  bool has_cpufreq_period_ms() const { return _has_field_[8]; }
+  uint32_t cpufreq_period_ms() const { return cpufreq_period_ms_; }
+  void set_cpufreq_period_ms(uint32_t value) { cpufreq_period_ms_ = value; _has_field_.set(8); }
+
+  bool has_buddyinfo_period_ms() const { return _has_field_[9]; }
+  uint32_t buddyinfo_period_ms() const { return buddyinfo_period_ms_; }
+  void set_buddyinfo_period_ms(uint32_t value) { buddyinfo_period_ms_ = value; _has_field_.set(9); }
+
+  bool has_diskstat_period_ms() const { return _has_field_[10]; }
+  uint32_t diskstat_period_ms() const { return diskstat_period_ms_; }
+  void set_diskstat_period_ms(uint32_t value) { diskstat_period_ms_ = value; _has_field_.set(10); }
+
+ private:
+  uint32_t meminfo_period_ms_{};
+  std::vector<MeminfoCounters> meminfo_counters_;
+  uint32_t vmstat_period_ms_{};
+  std::vector<VmstatCounters> vmstat_counters_;
+  uint32_t stat_period_ms_{};
+  std::vector<SysStatsConfig_StatCounters> stat_counters_;
+  uint32_t devfreq_period_ms_{};
+  uint32_t cpufreq_period_ms_{};
+  uint32_t buddyinfo_period_ms_{};
+  uint32_t diskstat_period_ms_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<11> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYS_STATS_SYS_STATS_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/system_info/system_info.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYSTEM_INFO_SYSTEM_INFO_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYSTEM_INFO_SYSTEM_INFO_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class SystemInfoConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT SystemInfoConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+  };
+
+  SystemInfoConfig();
+  ~SystemInfoConfig() override;
+  SystemInfoConfig(SystemInfoConfig&&) noexcept;
+  SystemInfoConfig& operator=(SystemInfoConfig&&);
+  SystemInfoConfig(const SystemInfoConfig&);
+  SystemInfoConfig& operator=(const SystemInfoConfig&);
+  bool operator==(const SystemInfoConfig&) const;
+  bool operator!=(const SystemInfoConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+ private:
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYSTEM_INFO_SYSTEM_INFO_PROTO_CPP_H_
 // gen_amalgamated begin header: gen/protos/perfetto/config/track_event/track_event_config.gen.h
 // DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
 #ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TRACK_EVENT_TRACK_EVENT_CONFIG_PROTO_CPP_H_
@@ -30054,6 +33578,2292 @@ class PERFETTO_EXPORT_COMPONENT TrackEventConfig : public ::protozero::CppMessag
 }  // namespace gen
 
 #endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TRACK_EVENT_TRACK_EVENT_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/chrome/chrome_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_CHROME_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_CHROME_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class ChromeConfig;
+enum ChromeConfig_ClientPriority : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum ChromeConfig_ClientPriority : int {
+  ChromeConfig_ClientPriority_UNKNOWN = 0,
+  ChromeConfig_ClientPriority_BACKGROUND = 1,
+  ChromeConfig_ClientPriority_USER_INITIATED = 2,
+};
+
+class PERFETTO_EXPORT_COMPONENT ChromeConfig : public ::protozero::CppMessageObj {
+ public:
+  using ClientPriority = ChromeConfig_ClientPriority;
+  static constexpr auto UNKNOWN = ChromeConfig_ClientPriority_UNKNOWN;
+  static constexpr auto BACKGROUND = ChromeConfig_ClientPriority_BACKGROUND;
+  static constexpr auto USER_INITIATED = ChromeConfig_ClientPriority_USER_INITIATED;
+  static constexpr auto ClientPriority_MIN = ChromeConfig_ClientPriority_UNKNOWN;
+  static constexpr auto ClientPriority_MAX = ChromeConfig_ClientPriority_USER_INITIATED;
+  enum FieldNumbers {
+    kTraceConfigFieldNumber = 1,
+    kPrivacyFilteringEnabledFieldNumber = 2,
+    kConvertToLegacyJsonFieldNumber = 3,
+    kClientPriorityFieldNumber = 4,
+    kJsonAgentLabelFilterFieldNumber = 5,
+  };
+
+  ChromeConfig();
+  ~ChromeConfig() override;
+  ChromeConfig(ChromeConfig&&) noexcept;
+  ChromeConfig& operator=(ChromeConfig&&);
+  ChromeConfig(const ChromeConfig&);
+  ChromeConfig& operator=(const ChromeConfig&);
+  bool operator==(const ChromeConfig&) const;
+  bool operator!=(const ChromeConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_trace_config() const { return _has_field_[1]; }
+  const std::string& trace_config() const { return trace_config_; }
+  void set_trace_config(const std::string& value) { trace_config_ = value; _has_field_.set(1); }
+
+  bool has_privacy_filtering_enabled() const { return _has_field_[2]; }
+  bool privacy_filtering_enabled() const { return privacy_filtering_enabled_; }
+  void set_privacy_filtering_enabled(bool value) { privacy_filtering_enabled_ = value; _has_field_.set(2); }
+
+  bool has_convert_to_legacy_json() const { return _has_field_[3]; }
+  bool convert_to_legacy_json() const { return convert_to_legacy_json_; }
+  void set_convert_to_legacy_json(bool value) { convert_to_legacy_json_ = value; _has_field_.set(3); }
+
+  bool has_client_priority() const { return _has_field_[4]; }
+  ChromeConfig_ClientPriority client_priority() const { return client_priority_; }
+  void set_client_priority(ChromeConfig_ClientPriority value) { client_priority_ = value; _has_field_.set(4); }
+
+  bool has_json_agent_label_filter() const { return _has_field_[5]; }
+  const std::string& json_agent_label_filter() const { return json_agent_label_filter_; }
+  void set_json_agent_label_filter(const std::string& value) { json_agent_label_filter_ = value; _has_field_.set(5); }
+
+ private:
+  std::string trace_config_{};
+  bool privacy_filtering_enabled_{};
+  bool convert_to_legacy_json_{};
+  ChromeConfig_ClientPriority client_priority_{};
+  std::string json_agent_label_filter_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<6> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_CHROME_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/chrome/scenario_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_SCENARIO_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_SCENARIO_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class ChromeFieldTracingConfig;
+class ScenarioConfig;
+class NestedScenarioConfig;
+class TriggerRule;
+class TriggerRule_RepeatingInterval;
+class TriggerRule_HistogramTrigger;
+class TraceConfig;
+class TraceConfig_CmdTraceStartDelay;
+class TraceConfig_AndroidReportConfig;
+class TraceConfig_TraceFilter;
+class TraceConfig_IncidentReportConfig;
+class TraceConfig_IncrementalStateConfig;
+class TraceConfig_TriggerConfig;
+class TraceConfig_TriggerConfig_Trigger;
+class TraceConfig_GuardrailOverrides;
+class TraceConfig_StatsdMetadata;
+class TraceConfig_ProducerConfig;
+class TraceConfig_BuiltinDataSource;
+class TraceConfig_DataSource;
+class DataSourceConfig;
+class TestConfig;
+class TestConfig_DummyFields;
+class InterceptorConfig;
+class ChromeConfig;
+class SystemInfoConfig;
+class TraceConfig_BufferConfig;
+enum TraceConfig_LockdownModeOperation : int;
+enum TraceConfig_CompressionType : int;
+enum TraceConfig_StatsdLogging : int;
+enum TraceConfig_TriggerConfig_TriggerMode : int;
+enum BuiltinClock : int;
+enum DataSourceConfig_SessionInitiator : int;
+enum ChromeConfig_ClientPriority : int;
+enum TraceConfig_BufferConfig_FillPolicy : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT ChromeFieldTracingConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kScenariosFieldNumber = 1,
+  };
+
+  ChromeFieldTracingConfig();
+  ~ChromeFieldTracingConfig() override;
+  ChromeFieldTracingConfig(ChromeFieldTracingConfig&&) noexcept;
+  ChromeFieldTracingConfig& operator=(ChromeFieldTracingConfig&&);
+  ChromeFieldTracingConfig(const ChromeFieldTracingConfig&);
+  ChromeFieldTracingConfig& operator=(const ChromeFieldTracingConfig&);
+  bool operator==(const ChromeFieldTracingConfig&) const;
+  bool operator!=(const ChromeFieldTracingConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<ScenarioConfig>& scenarios() const { return scenarios_; }
+  std::vector<ScenarioConfig>* mutable_scenarios() { return &scenarios_; }
+  int scenarios_size() const;
+  void clear_scenarios();
+  ScenarioConfig* add_scenarios();
+
+ private:
+  std::vector<ScenarioConfig> scenarios_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT ScenarioConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kScenarioNameFieldNumber = 1,
+    kStartRulesFieldNumber = 2,
+    kStopRulesFieldNumber = 3,
+    kUploadRulesFieldNumber = 4,
+    kSetupRulesFieldNumber = 5,
+    kTraceConfigFieldNumber = 6,
+    kNestedScenariosFieldNumber = 7,
+  };
+
+  ScenarioConfig();
+  ~ScenarioConfig() override;
+  ScenarioConfig(ScenarioConfig&&) noexcept;
+  ScenarioConfig& operator=(ScenarioConfig&&);
+  ScenarioConfig(const ScenarioConfig&);
+  ScenarioConfig& operator=(const ScenarioConfig&);
+  bool operator==(const ScenarioConfig&) const;
+  bool operator!=(const ScenarioConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_scenario_name() const { return _has_field_[1]; }
+  const std::string& scenario_name() const { return scenario_name_; }
+  void set_scenario_name(const std::string& value) { scenario_name_ = value; _has_field_.set(1); }
+
+  const std::vector<TriggerRule>& start_rules() const { return start_rules_; }
+  std::vector<TriggerRule>* mutable_start_rules() { return &start_rules_; }
+  int start_rules_size() const;
+  void clear_start_rules();
+  TriggerRule* add_start_rules();
+
+  const std::vector<TriggerRule>& stop_rules() const { return stop_rules_; }
+  std::vector<TriggerRule>* mutable_stop_rules() { return &stop_rules_; }
+  int stop_rules_size() const;
+  void clear_stop_rules();
+  TriggerRule* add_stop_rules();
+
+  const std::vector<TriggerRule>& upload_rules() const { return upload_rules_; }
+  std::vector<TriggerRule>* mutable_upload_rules() { return &upload_rules_; }
+  int upload_rules_size() const;
+  void clear_upload_rules();
+  TriggerRule* add_upload_rules();
+
+  const std::vector<TriggerRule>& setup_rules() const { return setup_rules_; }
+  std::vector<TriggerRule>* mutable_setup_rules() { return &setup_rules_; }
+  int setup_rules_size() const;
+  void clear_setup_rules();
+  TriggerRule* add_setup_rules();
+
+  bool has_trace_config() const { return _has_field_[6]; }
+  const TraceConfig& trace_config() const { return *trace_config_; }
+  TraceConfig* mutable_trace_config() { _has_field_.set(6); return trace_config_.get(); }
+
+  const std::vector<NestedScenarioConfig>& nested_scenarios() const { return nested_scenarios_; }
+  std::vector<NestedScenarioConfig>* mutable_nested_scenarios() { return &nested_scenarios_; }
+  int nested_scenarios_size() const;
+  void clear_nested_scenarios();
+  NestedScenarioConfig* add_nested_scenarios();
+
+ private:
+  std::string scenario_name_{};
+  std::vector<TriggerRule> start_rules_;
+  std::vector<TriggerRule> stop_rules_;
+  std::vector<TriggerRule> upload_rules_;
+  std::vector<TriggerRule> setup_rules_;
+  ::protozero::CopyablePtr<TraceConfig> trace_config_;
+  std::vector<NestedScenarioConfig> nested_scenarios_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<8> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT NestedScenarioConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kScenarioNameFieldNumber = 1,
+    kStartRulesFieldNumber = 2,
+    kStopRulesFieldNumber = 3,
+    kUploadRulesFieldNumber = 4,
+  };
+
+  NestedScenarioConfig();
+  ~NestedScenarioConfig() override;
+  NestedScenarioConfig(NestedScenarioConfig&&) noexcept;
+  NestedScenarioConfig& operator=(NestedScenarioConfig&&);
+  NestedScenarioConfig(const NestedScenarioConfig&);
+  NestedScenarioConfig& operator=(const NestedScenarioConfig&);
+  bool operator==(const NestedScenarioConfig&) const;
+  bool operator!=(const NestedScenarioConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_scenario_name() const { return _has_field_[1]; }
+  const std::string& scenario_name() const { return scenario_name_; }
+  void set_scenario_name(const std::string& value) { scenario_name_ = value; _has_field_.set(1); }
+
+  const std::vector<TriggerRule>& start_rules() const { return start_rules_; }
+  std::vector<TriggerRule>* mutable_start_rules() { return &start_rules_; }
+  int start_rules_size() const;
+  void clear_start_rules();
+  TriggerRule* add_start_rules();
+
+  const std::vector<TriggerRule>& stop_rules() const { return stop_rules_; }
+  std::vector<TriggerRule>* mutable_stop_rules() { return &stop_rules_; }
+  int stop_rules_size() const;
+  void clear_stop_rules();
+  TriggerRule* add_stop_rules();
+
+  const std::vector<TriggerRule>& upload_rules() const { return upload_rules_; }
+  std::vector<TriggerRule>* mutable_upload_rules() { return &upload_rules_; }
+  int upload_rules_size() const;
+  void clear_upload_rules();
+  TriggerRule* add_upload_rules();
+
+ private:
+  std::string scenario_name_{};
+  std::vector<TriggerRule> start_rules_;
+  std::vector<TriggerRule> stop_rules_;
+  std::vector<TriggerRule> upload_rules_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<5> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TriggerRule : public ::protozero::CppMessageObj {
+ public:
+  using HistogramTrigger = TriggerRule_HistogramTrigger;
+  using RepeatingInterval = TriggerRule_RepeatingInterval;
+  enum FieldNumbers {
+    kNameFieldNumber = 1,
+    kTriggerChanceFieldNumber = 2,
+    kDelayMsFieldNumber = 3,
+    kManualTriggerNameFieldNumber = 4,
+    kHistogramFieldNumber = 5,
+    kRepeatingIntervalFieldNumber = 6,
+  };
+
+  TriggerRule();
+  ~TriggerRule() override;
+  TriggerRule(TriggerRule&&) noexcept;
+  TriggerRule& operator=(TriggerRule&&);
+  TriggerRule(const TriggerRule&);
+  TriggerRule& operator=(const TriggerRule&);
+  bool operator==(const TriggerRule&) const;
+  bool operator!=(const TriggerRule& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_name() const { return _has_field_[1]; }
+  const std::string& name() const { return name_; }
+  void set_name(const std::string& value) { name_ = value; _has_field_.set(1); }
+
+  bool has_trigger_chance() const { return _has_field_[2]; }
+  float trigger_chance() const { return trigger_chance_; }
+  void set_trigger_chance(float value) { trigger_chance_ = value; _has_field_.set(2); }
+
+  bool has_delay_ms() const { return _has_field_[3]; }
+  uint64_t delay_ms() const { return delay_ms_; }
+  void set_delay_ms(uint64_t value) { delay_ms_ = value; _has_field_.set(3); }
+
+  bool has_manual_trigger_name() const { return _has_field_[4]; }
+  const std::string& manual_trigger_name() const { return manual_trigger_name_; }
+  void set_manual_trigger_name(const std::string& value) { manual_trigger_name_ = value; _has_field_.set(4); }
+
+  bool has_histogram() const { return _has_field_[5]; }
+  const TriggerRule_HistogramTrigger& histogram() const { return *histogram_; }
+  TriggerRule_HistogramTrigger* mutable_histogram() { _has_field_.set(5); return histogram_.get(); }
+
+  bool has_repeating_interval() const { return _has_field_[6]; }
+  const TriggerRule_RepeatingInterval& repeating_interval() const { return *repeating_interval_; }
+  TriggerRule_RepeatingInterval* mutable_repeating_interval() { _has_field_.set(6); return repeating_interval_.get(); }
+
+ private:
+  std::string name_{};
+  float trigger_chance_{};
+  uint64_t delay_ms_{};
+  std::string manual_trigger_name_{};
+  ::protozero::CopyablePtr<TriggerRule_HistogramTrigger> histogram_;
+  ::protozero::CopyablePtr<TriggerRule_RepeatingInterval> repeating_interval_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<7> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TriggerRule_RepeatingInterval : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPeriodMsFieldNumber = 1,
+    kRandomizedFieldNumber = 2,
+  };
+
+  TriggerRule_RepeatingInterval();
+  ~TriggerRule_RepeatingInterval() override;
+  TriggerRule_RepeatingInterval(TriggerRule_RepeatingInterval&&) noexcept;
+  TriggerRule_RepeatingInterval& operator=(TriggerRule_RepeatingInterval&&);
+  TriggerRule_RepeatingInterval(const TriggerRule_RepeatingInterval&);
+  TriggerRule_RepeatingInterval& operator=(const TriggerRule_RepeatingInterval&);
+  bool operator==(const TriggerRule_RepeatingInterval&) const;
+  bool operator!=(const TriggerRule_RepeatingInterval& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_period_ms() const { return _has_field_[1]; }
+  uint64_t period_ms() const { return period_ms_; }
+  void set_period_ms(uint64_t value) { period_ms_ = value; _has_field_.set(1); }
+
+  bool has_randomized() const { return _has_field_[2]; }
+  bool randomized() const { return randomized_; }
+  void set_randomized(bool value) { randomized_ = value; _has_field_.set(2); }
+
+ private:
+  uint64_t period_ms_{};
+  bool randomized_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TriggerRule_HistogramTrigger : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kHistogramNameFieldNumber = 1,
+    kMinValueFieldNumber = 2,
+    kMaxValueFieldNumber = 3,
+  };
+
+  TriggerRule_HistogramTrigger();
+  ~TriggerRule_HistogramTrigger() override;
+  TriggerRule_HistogramTrigger(TriggerRule_HistogramTrigger&&) noexcept;
+  TriggerRule_HistogramTrigger& operator=(TriggerRule_HistogramTrigger&&);
+  TriggerRule_HistogramTrigger(const TriggerRule_HistogramTrigger&);
+  TriggerRule_HistogramTrigger& operator=(const TriggerRule_HistogramTrigger&);
+  bool operator==(const TriggerRule_HistogramTrigger&) const;
+  bool operator!=(const TriggerRule_HistogramTrigger& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_histogram_name() const { return _has_field_[1]; }
+  const std::string& histogram_name() const { return histogram_name_; }
+  void set_histogram_name(const std::string& value) { histogram_name_ = value; _has_field_.set(1); }
+
+  bool has_min_value() const { return _has_field_[2]; }
+  int64_t min_value() const { return min_value_; }
+  void set_min_value(int64_t value) { min_value_ = value; _has_field_.set(2); }
+
+  bool has_max_value() const { return _has_field_[3]; }
+  int64_t max_value() const { return max_value_; }
+  void set_max_value(int64_t value) { max_value_ = value; _has_field_.set(3); }
+
+ private:
+  std::string histogram_name_{};
+  int64_t min_value_{};
+  int64_t max_value_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_SCENARIO_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/data_source_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class DataSourceConfig;
+class TestConfig;
+class TestConfig_DummyFields;
+class InterceptorConfig;
+class ChromeConfig;
+class SystemInfoConfig;
+enum DataSourceConfig_SessionInitiator : int;
+enum ChromeConfig_ClientPriority : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum DataSourceConfig_SessionInitiator : int {
+  DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED = 0,
+  DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM = 1,
+};
+
+class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessageObj {
+ public:
+  using SessionInitiator = DataSourceConfig_SessionInitiator;
+  static constexpr auto SESSION_INITIATOR_UNSPECIFIED = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED;
+  static constexpr auto SESSION_INITIATOR_TRUSTED_SYSTEM = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM;
+  static constexpr auto SessionInitiator_MIN = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED;
+  static constexpr auto SessionInitiator_MAX = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM;
+  enum FieldNumbers {
+    kNameFieldNumber = 1,
+    kTargetBufferFieldNumber = 2,
+    kTraceDurationMsFieldNumber = 3,
+    kPreferSuspendClockForDurationFieldNumber = 122,
+    kStopTimeoutMsFieldNumber = 7,
+    kEnableExtraGuardrailsFieldNumber = 6,
+    kSessionInitiatorFieldNumber = 8,
+    kTracingSessionIdFieldNumber = 4,
+    kFtraceConfigFieldNumber = 100,
+    kInodeFileConfigFieldNumber = 102,
+    kProcessStatsConfigFieldNumber = 103,
+    kSysStatsConfigFieldNumber = 104,
+    kHeapprofdConfigFieldNumber = 105,
+    kJavaHprofConfigFieldNumber = 110,
+    kAndroidPowerConfigFieldNumber = 106,
+    kAndroidLogConfigFieldNumber = 107,
+    kGpuCounterConfigFieldNumber = 108,
+    kAndroidGameInterventionListConfigFieldNumber = 116,
+    kPackagesListConfigFieldNumber = 109,
+    kPerfEventConfigFieldNumber = 111,
+    kVulkanMemoryConfigFieldNumber = 112,
+    kTrackEventConfigFieldNumber = 113,
+    kAndroidPolledStateConfigFieldNumber = 114,
+    kAndroidSystemPropertyConfigFieldNumber = 118,
+    kStatsdTracingConfigFieldNumber = 117,
+    kSystemInfoConfigFieldNumber = 119,
+    kChromeConfigFieldNumber = 101,
+    kInterceptorConfigFieldNumber = 115,
+    kNetworkPacketTraceConfigFieldNumber = 120,
+    kLegacyConfigFieldNumber = 1000,
+    kForTestingFieldNumber = 1001,
+  };
+
+  DataSourceConfig();
+  ~DataSourceConfig() override;
+  DataSourceConfig(DataSourceConfig&&) noexcept;
+  DataSourceConfig& operator=(DataSourceConfig&&);
+  DataSourceConfig(const DataSourceConfig&);
+  DataSourceConfig& operator=(const DataSourceConfig&);
+  bool operator==(const DataSourceConfig&) const;
+  bool operator!=(const DataSourceConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_name() const { return _has_field_[1]; }
+  const std::string& name() const { return name_; }
+  void set_name(const std::string& value) { name_ = value; _has_field_.set(1); }
+
+  bool has_target_buffer() const { return _has_field_[2]; }
+  uint32_t target_buffer() const { return target_buffer_; }
+  void set_target_buffer(uint32_t value) { target_buffer_ = value; _has_field_.set(2); }
+
+  bool has_trace_duration_ms() const { return _has_field_[3]; }
+  uint32_t trace_duration_ms() const { return trace_duration_ms_; }
+  void set_trace_duration_ms(uint32_t value) { trace_duration_ms_ = value; _has_field_.set(3); }
+
+  bool has_prefer_suspend_clock_for_duration() const { return _has_field_[122]; }
+  bool prefer_suspend_clock_for_duration() const { return prefer_suspend_clock_for_duration_; }
+  void set_prefer_suspend_clock_for_duration(bool value) { prefer_suspend_clock_for_duration_ = value; _has_field_.set(122); }
+
+  bool has_stop_timeout_ms() const { return _has_field_[7]; }
+  uint32_t stop_timeout_ms() const { return stop_timeout_ms_; }
+  void set_stop_timeout_ms(uint32_t value) { stop_timeout_ms_ = value; _has_field_.set(7); }
+
+  bool has_enable_extra_guardrails() const { return _has_field_[6]; }
+  bool enable_extra_guardrails() const { return enable_extra_guardrails_; }
+  void set_enable_extra_guardrails(bool value) { enable_extra_guardrails_ = value; _has_field_.set(6); }
+
+  bool has_session_initiator() const { return _has_field_[8]; }
+  DataSourceConfig_SessionInitiator session_initiator() const { return session_initiator_; }
+  void set_session_initiator(DataSourceConfig_SessionInitiator value) { session_initiator_ = value; _has_field_.set(8); }
+
+  bool has_tracing_session_id() const { return _has_field_[4]; }
+  uint64_t tracing_session_id() const { return tracing_session_id_; }
+  void set_tracing_session_id(uint64_t value) { tracing_session_id_ = value; _has_field_.set(4); }
+
+  const std::string& ftrace_config_raw() const { return ftrace_config_; }
+  void set_ftrace_config_raw(const std::string& raw) { ftrace_config_ = raw; _has_field_.set(100); }
+
+  const std::string& inode_file_config_raw() const { return inode_file_config_; }
+  void set_inode_file_config_raw(const std::string& raw) { inode_file_config_ = raw; _has_field_.set(102); }
+
+  const std::string& process_stats_config_raw() const { return process_stats_config_; }
+  void set_process_stats_config_raw(const std::string& raw) { process_stats_config_ = raw; _has_field_.set(103); }
+
+  const std::string& sys_stats_config_raw() const { return sys_stats_config_; }
+  void set_sys_stats_config_raw(const std::string& raw) { sys_stats_config_ = raw; _has_field_.set(104); }
+
+  const std::string& heapprofd_config_raw() const { return heapprofd_config_; }
+  void set_heapprofd_config_raw(const std::string& raw) { heapprofd_config_ = raw; _has_field_.set(105); }
+
+  const std::string& java_hprof_config_raw() const { return java_hprof_config_; }
+  void set_java_hprof_config_raw(const std::string& raw) { java_hprof_config_ = raw; _has_field_.set(110); }
+
+  const std::string& android_power_config_raw() const { return android_power_config_; }
+  void set_android_power_config_raw(const std::string& raw) { android_power_config_ = raw; _has_field_.set(106); }
+
+  const std::string& android_log_config_raw() const { return android_log_config_; }
+  void set_android_log_config_raw(const std::string& raw) { android_log_config_ = raw; _has_field_.set(107); }
+
+  const std::string& gpu_counter_config_raw() const { return gpu_counter_config_; }
+  void set_gpu_counter_config_raw(const std::string& raw) { gpu_counter_config_ = raw; _has_field_.set(108); }
+
+  const std::string& android_game_intervention_list_config_raw() const { return android_game_intervention_list_config_; }
+  void set_android_game_intervention_list_config_raw(const std::string& raw) { android_game_intervention_list_config_ = raw; _has_field_.set(116); }
+
+  const std::string& packages_list_config_raw() const { return packages_list_config_; }
+  void set_packages_list_config_raw(const std::string& raw) { packages_list_config_ = raw; _has_field_.set(109); }
+
+  const std::string& perf_event_config_raw() const { return perf_event_config_; }
+  void set_perf_event_config_raw(const std::string& raw) { perf_event_config_ = raw; _has_field_.set(111); }
+
+  const std::string& vulkan_memory_config_raw() const { return vulkan_memory_config_; }
+  void set_vulkan_memory_config_raw(const std::string& raw) { vulkan_memory_config_ = raw; _has_field_.set(112); }
+
+  const std::string& track_event_config_raw() const { return track_event_config_; }
+  void set_track_event_config_raw(const std::string& raw) { track_event_config_ = raw; _has_field_.set(113); }
+
+  const std::string& android_polled_state_config_raw() const { return android_polled_state_config_; }
+  void set_android_polled_state_config_raw(const std::string& raw) { android_polled_state_config_ = raw; _has_field_.set(114); }
+
+  const std::string& android_system_property_config_raw() const { return android_system_property_config_; }
+  void set_android_system_property_config_raw(const std::string& raw) { android_system_property_config_ = raw; _has_field_.set(118); }
+
+  const std::string& statsd_tracing_config_raw() const { return statsd_tracing_config_; }
+  void set_statsd_tracing_config_raw(const std::string& raw) { statsd_tracing_config_ = raw; _has_field_.set(117); }
+
+  bool has_system_info_config() const { return _has_field_[119]; }
+  const SystemInfoConfig& system_info_config() const { return *system_info_config_; }
+  SystemInfoConfig* mutable_system_info_config() { _has_field_.set(119); return system_info_config_.get(); }
+
+  bool has_chrome_config() const { return _has_field_[101]; }
+  const ChromeConfig& chrome_config() const { return *chrome_config_; }
+  ChromeConfig* mutable_chrome_config() { _has_field_.set(101); return chrome_config_.get(); }
+
+  bool has_interceptor_config() const { return _has_field_[115]; }
+  const InterceptorConfig& interceptor_config() const { return *interceptor_config_; }
+  InterceptorConfig* mutable_interceptor_config() { _has_field_.set(115); return interceptor_config_.get(); }
+
+  const std::string& network_packet_trace_config_raw() const { return network_packet_trace_config_; }
+  void set_network_packet_trace_config_raw(const std::string& raw) { network_packet_trace_config_ = raw; _has_field_.set(120); }
+
+  bool has_legacy_config() const { return _has_field_[1000]; }
+  const std::string& legacy_config() const { return legacy_config_; }
+  void set_legacy_config(const std::string& value) { legacy_config_ = value; _has_field_.set(1000); }
+
+  bool has_for_testing() const { return _has_field_[1001]; }
+  const TestConfig& for_testing() const { return *for_testing_; }
+  TestConfig* mutable_for_testing() { _has_field_.set(1001); return for_testing_.get(); }
+
+ private:
+  std::string name_{};
+  uint32_t target_buffer_{};
+  uint32_t trace_duration_ms_{};
+  bool prefer_suspend_clock_for_duration_{};
+  uint32_t stop_timeout_ms_{};
+  bool enable_extra_guardrails_{};
+  DataSourceConfig_SessionInitiator session_initiator_{};
+  uint64_t tracing_session_id_{};
+  std::string ftrace_config_;  // [lazy=true]
+  std::string inode_file_config_;  // [lazy=true]
+  std::string process_stats_config_;  // [lazy=true]
+  std::string sys_stats_config_;  // [lazy=true]
+  std::string heapprofd_config_;  // [lazy=true]
+  std::string java_hprof_config_;  // [lazy=true]
+  std::string android_power_config_;  // [lazy=true]
+  std::string android_log_config_;  // [lazy=true]
+  std::string gpu_counter_config_;  // [lazy=true]
+  std::string android_game_intervention_list_config_;  // [lazy=true]
+  std::string packages_list_config_;  // [lazy=true]
+  std::string perf_event_config_;  // [lazy=true]
+  std::string vulkan_memory_config_;  // [lazy=true]
+  std::string track_event_config_;  // [lazy=true]
+  std::string android_polled_state_config_;  // [lazy=true]
+  std::string android_system_property_config_;  // [lazy=true]
+  std::string statsd_tracing_config_;  // [lazy=true]
+  ::protozero::CopyablePtr<SystemInfoConfig> system_info_config_;
+  ::protozero::CopyablePtr<ChromeConfig> chrome_config_;
+  ::protozero::CopyablePtr<InterceptorConfig> interceptor_config_;
+  std::string network_packet_trace_config_;  // [lazy=true]
+  std::string legacy_config_{};
+  ::protozero::CopyablePtr<TestConfig> for_testing_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<1002> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/interceptor_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTOR_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTOR_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class InterceptorConfig;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT InterceptorConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kNameFieldNumber = 1,
+    kConsoleConfigFieldNumber = 100,
+  };
+
+  InterceptorConfig();
+  ~InterceptorConfig() override;
+  InterceptorConfig(InterceptorConfig&&) noexcept;
+  InterceptorConfig& operator=(InterceptorConfig&&);
+  InterceptorConfig(const InterceptorConfig&);
+  InterceptorConfig& operator=(const InterceptorConfig&);
+  bool operator==(const InterceptorConfig&) const;
+  bool operator!=(const InterceptorConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_name() const { return _has_field_[1]; }
+  const std::string& name() const { return name_; }
+  void set_name(const std::string& value) { name_ = value; _has_field_.set(1); }
+
+  const std::string& console_config_raw() const { return console_config_; }
+  void set_console_config_raw(const std::string& raw) { console_config_ = raw; _has_field_.set(100); }
+
+ private:
+  std::string name_{};
+  std::string console_config_;  // [lazy=true]
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<101> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTOR_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/stress_test_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STRESS_TEST_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STRESS_TEST_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class StressTestConfig;
+class StressTestConfig_WriterTiming;
+class TraceConfig;
+class TraceConfig_CmdTraceStartDelay;
+class TraceConfig_AndroidReportConfig;
+class TraceConfig_TraceFilter;
+class TraceConfig_IncidentReportConfig;
+class TraceConfig_IncrementalStateConfig;
+class TraceConfig_TriggerConfig;
+class TraceConfig_TriggerConfig_Trigger;
+class TraceConfig_GuardrailOverrides;
+class TraceConfig_StatsdMetadata;
+class TraceConfig_ProducerConfig;
+class TraceConfig_BuiltinDataSource;
+class TraceConfig_DataSource;
+class DataSourceConfig;
+class TestConfig;
+class TestConfig_DummyFields;
+class InterceptorConfig;
+class ChromeConfig;
+class SystemInfoConfig;
+class TraceConfig_BufferConfig;
+enum TraceConfig_LockdownModeOperation : int;
+enum TraceConfig_CompressionType : int;
+enum TraceConfig_StatsdLogging : int;
+enum TraceConfig_TriggerConfig_TriggerMode : int;
+enum BuiltinClock : int;
+enum DataSourceConfig_SessionInitiator : int;
+enum ChromeConfig_ClientPriority : int;
+enum TraceConfig_BufferConfig_FillPolicy : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT StressTestConfig : public ::protozero::CppMessageObj {
+ public:
+  using WriterTiming = StressTestConfig_WriterTiming;
+  enum FieldNumbers {
+    kTraceConfigFieldNumber = 1,
+    kShmemSizeKbFieldNumber = 2,
+    kShmemPageSizeKbFieldNumber = 3,
+    kNumProcessesFieldNumber = 4,
+    kNumThreadsFieldNumber = 5,
+    kMaxEventsFieldNumber = 6,
+    kNestingFieldNumber = 7,
+    kSteadyStateTimingsFieldNumber = 8,
+    kBurstPeriodMsFieldNumber = 9,
+    kBurstDurationMsFieldNumber = 10,
+    kBurstTimingsFieldNumber = 11,
+  };
+
+  StressTestConfig();
+  ~StressTestConfig() override;
+  StressTestConfig(StressTestConfig&&) noexcept;
+  StressTestConfig& operator=(StressTestConfig&&);
+  StressTestConfig(const StressTestConfig&);
+  StressTestConfig& operator=(const StressTestConfig&);
+  bool operator==(const StressTestConfig&) const;
+  bool operator!=(const StressTestConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_trace_config() const { return _has_field_[1]; }
+  const TraceConfig& trace_config() const { return *trace_config_; }
+  TraceConfig* mutable_trace_config() { _has_field_.set(1); return trace_config_.get(); }
+
+  bool has_shmem_size_kb() const { return _has_field_[2]; }
+  uint32_t shmem_size_kb() const { return shmem_size_kb_; }
+  void set_shmem_size_kb(uint32_t value) { shmem_size_kb_ = value; _has_field_.set(2); }
+
+  bool has_shmem_page_size_kb() const { return _has_field_[3]; }
+  uint32_t shmem_page_size_kb() const { return shmem_page_size_kb_; }
+  void set_shmem_page_size_kb(uint32_t value) { shmem_page_size_kb_ = value; _has_field_.set(3); }
+
+  bool has_num_processes() const { return _has_field_[4]; }
+  uint32_t num_processes() const { return num_processes_; }
+  void set_num_processes(uint32_t value) { num_processes_ = value; _has_field_.set(4); }
+
+  bool has_num_threads() const { return _has_field_[5]; }
+  uint32_t num_threads() const { return num_threads_; }
+  void set_num_threads(uint32_t value) { num_threads_ = value; _has_field_.set(5); }
+
+  bool has_max_events() const { return _has_field_[6]; }
+  uint32_t max_events() const { return max_events_; }
+  void set_max_events(uint32_t value) { max_events_ = value; _has_field_.set(6); }
+
+  bool has_nesting() const { return _has_field_[7]; }
+  uint32_t nesting() const { return nesting_; }
+  void set_nesting(uint32_t value) { nesting_ = value; _has_field_.set(7); }
+
+  bool has_steady_state_timings() const { return _has_field_[8]; }
+  const StressTestConfig_WriterTiming& steady_state_timings() const { return *steady_state_timings_; }
+  StressTestConfig_WriterTiming* mutable_steady_state_timings() { _has_field_.set(8); return steady_state_timings_.get(); }
+
+  bool has_burst_period_ms() const { return _has_field_[9]; }
+  uint32_t burst_period_ms() const { return burst_period_ms_; }
+  void set_burst_period_ms(uint32_t value) { burst_period_ms_ = value; _has_field_.set(9); }
+
+  bool has_burst_duration_ms() const { return _has_field_[10]; }
+  uint32_t burst_duration_ms() const { return burst_duration_ms_; }
+  void set_burst_duration_ms(uint32_t value) { burst_duration_ms_ = value; _has_field_.set(10); }
+
+  bool has_burst_timings() const { return _has_field_[11]; }
+  const StressTestConfig_WriterTiming& burst_timings() const { return *burst_timings_; }
+  StressTestConfig_WriterTiming* mutable_burst_timings() { _has_field_.set(11); return burst_timings_.get(); }
+
+ private:
+  ::protozero::CopyablePtr<TraceConfig> trace_config_;
+  uint32_t shmem_size_kb_{};
+  uint32_t shmem_page_size_kb_{};
+  uint32_t num_processes_{};
+  uint32_t num_threads_{};
+  uint32_t max_events_{};
+  uint32_t nesting_{};
+  ::protozero::CopyablePtr<StressTestConfig_WriterTiming> steady_state_timings_;
+  uint32_t burst_period_ms_{};
+  uint32_t burst_duration_ms_{};
+  ::protozero::CopyablePtr<StressTestConfig_WriterTiming> burst_timings_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<12> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT StressTestConfig_WriterTiming : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPayloadMeanFieldNumber = 1,
+    kPayloadStddevFieldNumber = 2,
+    kRateMeanFieldNumber = 3,
+    kRateStddevFieldNumber = 4,
+    kPayloadWriteTimeMsFieldNumber = 5,
+  };
+
+  StressTestConfig_WriterTiming();
+  ~StressTestConfig_WriterTiming() override;
+  StressTestConfig_WriterTiming(StressTestConfig_WriterTiming&&) noexcept;
+  StressTestConfig_WriterTiming& operator=(StressTestConfig_WriterTiming&&);
+  StressTestConfig_WriterTiming(const StressTestConfig_WriterTiming&);
+  StressTestConfig_WriterTiming& operator=(const StressTestConfig_WriterTiming&);
+  bool operator==(const StressTestConfig_WriterTiming&) const;
+  bool operator!=(const StressTestConfig_WriterTiming& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_payload_mean() const { return _has_field_[1]; }
+  double payload_mean() const { return payload_mean_; }
+  void set_payload_mean(double value) { payload_mean_ = value; _has_field_.set(1); }
+
+  bool has_payload_stddev() const { return _has_field_[2]; }
+  double payload_stddev() const { return payload_stddev_; }
+  void set_payload_stddev(double value) { payload_stddev_ = value; _has_field_.set(2); }
+
+  bool has_rate_mean() const { return _has_field_[3]; }
+  double rate_mean() const { return rate_mean_; }
+  void set_rate_mean(double value) { rate_mean_ = value; _has_field_.set(3); }
+
+  bool has_rate_stddev() const { return _has_field_[4]; }
+  double rate_stddev() const { return rate_stddev_; }
+  void set_rate_stddev(double value) { rate_stddev_ = value; _has_field_.set(4); }
+
+  bool has_payload_write_time_ms() const { return _has_field_[5]; }
+  uint32_t payload_write_time_ms() const { return payload_write_time_ms_; }
+  void set_payload_write_time_ms(uint32_t value) { payload_write_time_ms_ = value; _has_field_.set(5); }
+
+ private:
+  double payload_mean_{};
+  double payload_stddev_{};
+  double rate_mean_{};
+  double rate_stddev_{};
+  uint32_t payload_write_time_ms_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<6> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STRESS_TEST_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/test_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TEST_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TEST_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class TestConfig;
+class TestConfig_DummyFields;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT TestConfig : public ::protozero::CppMessageObj {
+ public:
+  using DummyFields = TestConfig_DummyFields;
+  enum FieldNumbers {
+    kMessageCountFieldNumber = 1,
+    kMaxMessagesPerSecondFieldNumber = 2,
+    kSeedFieldNumber = 3,
+    kMessageSizeFieldNumber = 4,
+    kSendBatchOnRegisterFieldNumber = 5,
+    kDummyFieldsFieldNumber = 6,
+  };
+
+  TestConfig();
+  ~TestConfig() override;
+  TestConfig(TestConfig&&) noexcept;
+  TestConfig& operator=(TestConfig&&);
+  TestConfig(const TestConfig&);
+  TestConfig& operator=(const TestConfig&);
+  bool operator==(const TestConfig&) const;
+  bool operator!=(const TestConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_message_count() const { return _has_field_[1]; }
+  uint32_t message_count() const { return message_count_; }
+  void set_message_count(uint32_t value) { message_count_ = value; _has_field_.set(1); }
+
+  bool has_max_messages_per_second() const { return _has_field_[2]; }
+  uint32_t max_messages_per_second() const { return max_messages_per_second_; }
+  void set_max_messages_per_second(uint32_t value) { max_messages_per_second_ = value; _has_field_.set(2); }
+
+  bool has_seed() const { return _has_field_[3]; }
+  uint32_t seed() const { return seed_; }
+  void set_seed(uint32_t value) { seed_ = value; _has_field_.set(3); }
+
+  bool has_message_size() const { return _has_field_[4]; }
+  uint32_t message_size() const { return message_size_; }
+  void set_message_size(uint32_t value) { message_size_ = value; _has_field_.set(4); }
+
+  bool has_send_batch_on_register() const { return _has_field_[5]; }
+  bool send_batch_on_register() const { return send_batch_on_register_; }
+  void set_send_batch_on_register(bool value) { send_batch_on_register_ = value; _has_field_.set(5); }
+
+  bool has_dummy_fields() const { return _has_field_[6]; }
+  const TestConfig_DummyFields& dummy_fields() const { return *dummy_fields_; }
+  TestConfig_DummyFields* mutable_dummy_fields() { _has_field_.set(6); return dummy_fields_.get(); }
+
+ private:
+  uint32_t message_count_{};
+  uint32_t max_messages_per_second_{};
+  uint32_t seed_{};
+  uint32_t message_size_{};
+  bool send_batch_on_register_{};
+  ::protozero::CopyablePtr<TestConfig_DummyFields> dummy_fields_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<7> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TestConfig_DummyFields : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kFieldUint32FieldNumber = 1,
+    kFieldInt32FieldNumber = 2,
+    kFieldUint64FieldNumber = 3,
+    kFieldInt64FieldNumber = 4,
+    kFieldFixed64FieldNumber = 5,
+    kFieldSfixed64FieldNumber = 6,
+    kFieldFixed32FieldNumber = 7,
+    kFieldSfixed32FieldNumber = 8,
+    kFieldDoubleFieldNumber = 9,
+    kFieldFloatFieldNumber = 10,
+    kFieldSint64FieldNumber = 11,
+    kFieldSint32FieldNumber = 12,
+    kFieldStringFieldNumber = 13,
+    kFieldBytesFieldNumber = 14,
+  };
+
+  TestConfig_DummyFields();
+  ~TestConfig_DummyFields() override;
+  TestConfig_DummyFields(TestConfig_DummyFields&&) noexcept;
+  TestConfig_DummyFields& operator=(TestConfig_DummyFields&&);
+  TestConfig_DummyFields(const TestConfig_DummyFields&);
+  TestConfig_DummyFields& operator=(const TestConfig_DummyFields&);
+  bool operator==(const TestConfig_DummyFields&) const;
+  bool operator!=(const TestConfig_DummyFields& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_field_uint32() const { return _has_field_[1]; }
+  uint32_t field_uint32() const { return field_uint32_; }
+  void set_field_uint32(uint32_t value) { field_uint32_ = value; _has_field_.set(1); }
+
+  bool has_field_int32() const { return _has_field_[2]; }
+  int32_t field_int32() const { return field_int32_; }
+  void set_field_int32(int32_t value) { field_int32_ = value; _has_field_.set(2); }
+
+  bool has_field_uint64() const { return _has_field_[3]; }
+  uint64_t field_uint64() const { return field_uint64_; }
+  void set_field_uint64(uint64_t value) { field_uint64_ = value; _has_field_.set(3); }
+
+  bool has_field_int64() const { return _has_field_[4]; }
+  int64_t field_int64() const { return field_int64_; }
+  void set_field_int64(int64_t value) { field_int64_ = value; _has_field_.set(4); }
+
+  bool has_field_fixed64() const { return _has_field_[5]; }
+  uint64_t field_fixed64() const { return field_fixed64_; }
+  void set_field_fixed64(uint64_t value) { field_fixed64_ = value; _has_field_.set(5); }
+
+  bool has_field_sfixed64() const { return _has_field_[6]; }
+  int64_t field_sfixed64() const { return field_sfixed64_; }
+  void set_field_sfixed64(int64_t value) { field_sfixed64_ = value; _has_field_.set(6); }
+
+  bool has_field_fixed32() const { return _has_field_[7]; }
+  uint32_t field_fixed32() const { return field_fixed32_; }
+  void set_field_fixed32(uint32_t value) { field_fixed32_ = value; _has_field_.set(7); }
+
+  bool has_field_sfixed32() const { return _has_field_[8]; }
+  int32_t field_sfixed32() const { return field_sfixed32_; }
+  void set_field_sfixed32(int32_t value) { field_sfixed32_ = value; _has_field_.set(8); }
+
+  bool has_field_double() const { return _has_field_[9]; }
+  double field_double() const { return field_double_; }
+  void set_field_double(double value) { field_double_ = value; _has_field_.set(9); }
+
+  bool has_field_float() const { return _has_field_[10]; }
+  float field_float() const { return field_float_; }
+  void set_field_float(float value) { field_float_ = value; _has_field_.set(10); }
+
+  bool has_field_sint64() const { return _has_field_[11]; }
+  int64_t field_sint64() const { return field_sint64_; }
+  void set_field_sint64(int64_t value) { field_sint64_ = value; _has_field_.set(11); }
+
+  bool has_field_sint32() const { return _has_field_[12]; }
+  int32_t field_sint32() const { return field_sint32_; }
+  void set_field_sint32(int32_t value) { field_sint32_ = value; _has_field_.set(12); }
+
+  bool has_field_string() const { return _has_field_[13]; }
+  const std::string& field_string() const { return field_string_; }
+  void set_field_string(const std::string& value) { field_string_ = value; _has_field_.set(13); }
+
+  bool has_field_bytes() const { return _has_field_[14]; }
+  const std::string& field_bytes() const { return field_bytes_; }
+  void set_field_bytes(const std::string& value) { field_bytes_ = value; _has_field_.set(14); }
+  void set_field_bytes(const void* p, size_t s) { field_bytes_.assign(reinterpret_cast<const char*>(p), s); _has_field_.set(14); }
+
+ private:
+  uint32_t field_uint32_{};
+  int32_t field_int32_{};
+  uint64_t field_uint64_{};
+  int64_t field_int64_{};
+  uint64_t field_fixed64_{};
+  int64_t field_sfixed64_{};
+  uint32_t field_fixed32_{};
+  int32_t field_sfixed32_{};
+  double field_double_{};
+  float field_float_{};
+  int64_t field_sint64_{};
+  int32_t field_sint32_{};
+  std::string field_string_{};
+  std::string field_bytes_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<15> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TEST_CONFIG_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/config/trace_config.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TRACE_CONFIG_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TRACE_CONFIG_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class TraceConfig;
+class TraceConfig_CmdTraceStartDelay;
+class TraceConfig_AndroidReportConfig;
+class TraceConfig_TraceFilter;
+class TraceConfig_IncidentReportConfig;
+class TraceConfig_IncrementalStateConfig;
+class TraceConfig_TriggerConfig;
+class TraceConfig_TriggerConfig_Trigger;
+class TraceConfig_GuardrailOverrides;
+class TraceConfig_StatsdMetadata;
+class TraceConfig_ProducerConfig;
+class TraceConfig_BuiltinDataSource;
+class TraceConfig_DataSource;
+class DataSourceConfig;
+class TestConfig;
+class TestConfig_DummyFields;
+class InterceptorConfig;
+class ChromeConfig;
+class SystemInfoConfig;
+class TraceConfig_BufferConfig;
+enum TraceConfig_LockdownModeOperation : int;
+enum TraceConfig_CompressionType : int;
+enum TraceConfig_StatsdLogging : int;
+enum TraceConfig_TriggerConfig_TriggerMode : int;
+enum BuiltinClock : int;
+enum DataSourceConfig_SessionInitiator : int;
+enum ChromeConfig_ClientPriority : int;
+enum TraceConfig_BufferConfig_FillPolicy : int;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+enum TraceConfig_LockdownModeOperation : int {
+  TraceConfig_LockdownModeOperation_LOCKDOWN_UNCHANGED = 0,
+  TraceConfig_LockdownModeOperation_LOCKDOWN_CLEAR = 1,
+  TraceConfig_LockdownModeOperation_LOCKDOWN_SET = 2,
+};
+enum TraceConfig_CompressionType : int {
+  TraceConfig_CompressionType_COMPRESSION_TYPE_UNSPECIFIED = 0,
+  TraceConfig_CompressionType_COMPRESSION_TYPE_DEFLATE = 1,
+};
+enum TraceConfig_StatsdLogging : int {
+  TraceConfig_StatsdLogging_STATSD_LOGGING_UNSPECIFIED = 0,
+  TraceConfig_StatsdLogging_STATSD_LOGGING_ENABLED = 1,
+  TraceConfig_StatsdLogging_STATSD_LOGGING_DISABLED = 2,
+};
+enum TraceConfig_TriggerConfig_TriggerMode : int {
+  TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED = 0,
+  TraceConfig_TriggerConfig_TriggerMode_START_TRACING = 1,
+  TraceConfig_TriggerConfig_TriggerMode_STOP_TRACING = 2,
+  TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT = 3,
+};
+enum TraceConfig_BufferConfig_FillPolicy : int {
+  TraceConfig_BufferConfig_FillPolicy_UNSPECIFIED = 0,
+  TraceConfig_BufferConfig_FillPolicy_RING_BUFFER = 1,
+  TraceConfig_BufferConfig_FillPolicy_DISCARD = 2,
+};
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj {
+ public:
+  using BufferConfig = TraceConfig_BufferConfig;
+  using DataSource = TraceConfig_DataSource;
+  using BuiltinDataSource = TraceConfig_BuiltinDataSource;
+  using ProducerConfig = TraceConfig_ProducerConfig;
+  using StatsdMetadata = TraceConfig_StatsdMetadata;
+  using GuardrailOverrides = TraceConfig_GuardrailOverrides;
+  using TriggerConfig = TraceConfig_TriggerConfig;
+  using IncrementalStateConfig = TraceConfig_IncrementalStateConfig;
+  using IncidentReportConfig = TraceConfig_IncidentReportConfig;
+  using TraceFilter = TraceConfig_TraceFilter;
+  using AndroidReportConfig = TraceConfig_AndroidReportConfig;
+  using CmdTraceStartDelay = TraceConfig_CmdTraceStartDelay;
+  using LockdownModeOperation = TraceConfig_LockdownModeOperation;
+  static constexpr auto LOCKDOWN_UNCHANGED = TraceConfig_LockdownModeOperation_LOCKDOWN_UNCHANGED;
+  static constexpr auto LOCKDOWN_CLEAR = TraceConfig_LockdownModeOperation_LOCKDOWN_CLEAR;
+  static constexpr auto LOCKDOWN_SET = TraceConfig_LockdownModeOperation_LOCKDOWN_SET;
+  static constexpr auto LockdownModeOperation_MIN = TraceConfig_LockdownModeOperation_LOCKDOWN_UNCHANGED;
+  static constexpr auto LockdownModeOperation_MAX = TraceConfig_LockdownModeOperation_LOCKDOWN_SET;
+  using CompressionType = TraceConfig_CompressionType;
+  static constexpr auto COMPRESSION_TYPE_UNSPECIFIED = TraceConfig_CompressionType_COMPRESSION_TYPE_UNSPECIFIED;
+  static constexpr auto COMPRESSION_TYPE_DEFLATE = TraceConfig_CompressionType_COMPRESSION_TYPE_DEFLATE;
+  static constexpr auto CompressionType_MIN = TraceConfig_CompressionType_COMPRESSION_TYPE_UNSPECIFIED;
+  static constexpr auto CompressionType_MAX = TraceConfig_CompressionType_COMPRESSION_TYPE_DEFLATE;
+  using StatsdLogging = TraceConfig_StatsdLogging;
+  static constexpr auto STATSD_LOGGING_UNSPECIFIED = TraceConfig_StatsdLogging_STATSD_LOGGING_UNSPECIFIED;
+  static constexpr auto STATSD_LOGGING_ENABLED = TraceConfig_StatsdLogging_STATSD_LOGGING_ENABLED;
+  static constexpr auto STATSD_LOGGING_DISABLED = TraceConfig_StatsdLogging_STATSD_LOGGING_DISABLED;
+  static constexpr auto StatsdLogging_MIN = TraceConfig_StatsdLogging_STATSD_LOGGING_UNSPECIFIED;
+  static constexpr auto StatsdLogging_MAX = TraceConfig_StatsdLogging_STATSD_LOGGING_DISABLED;
+  enum FieldNumbers {
+    kBuffersFieldNumber = 1,
+    kDataSourcesFieldNumber = 2,
+    kBuiltinDataSourcesFieldNumber = 20,
+    kDurationMsFieldNumber = 3,
+    kPreferSuspendClockForDurationFieldNumber = 36,
+    kEnableExtraGuardrailsFieldNumber = 4,
+    kLockdownModeFieldNumber = 5,
+    kProducersFieldNumber = 6,
+    kStatsdMetadataFieldNumber = 7,
+    kWriteIntoFileFieldNumber = 8,
+    kOutputPathFieldNumber = 29,
+    kFileWritePeriodMsFieldNumber = 9,
+    kMaxFileSizeBytesFieldNumber = 10,
+    kGuardrailOverridesFieldNumber = 11,
+    kDeferredStartFieldNumber = 12,
+    kFlushPeriodMsFieldNumber = 13,
+    kFlushTimeoutMsFieldNumber = 14,
+    kDataSourceStopTimeoutMsFieldNumber = 23,
+    kNotifyTraceurFieldNumber = 16,
+    kBugreportScoreFieldNumber = 30,
+    kTriggerConfigFieldNumber = 17,
+    kActivateTriggersFieldNumber = 18,
+    kIncrementalStateConfigFieldNumber = 21,
+    kAllowUserBuildTracingFieldNumber = 19,
+    kUniqueSessionNameFieldNumber = 22,
+    kCompressionTypeFieldNumber = 24,
+    kCompressFromCliFieldNumber = 37,
+    kIncidentReportConfigFieldNumber = 25,
+    kStatsdLoggingFieldNumber = 31,
+    kTraceUuidMsbFieldNumber = 27,
+    kTraceUuidLsbFieldNumber = 28,
+    kTraceFilterFieldNumber = 33,
+    kAndroidReportConfigFieldNumber = 34,
+    kCmdTraceStartDelayFieldNumber = 35,
+  };
+
+  TraceConfig();
+  ~TraceConfig() override;
+  TraceConfig(TraceConfig&&) noexcept;
+  TraceConfig& operator=(TraceConfig&&);
+  TraceConfig(const TraceConfig&);
+  TraceConfig& operator=(const TraceConfig&);
+  bool operator==(const TraceConfig&) const;
+  bool operator!=(const TraceConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<TraceConfig_BufferConfig>& buffers() const { return buffers_; }
+  std::vector<TraceConfig_BufferConfig>* mutable_buffers() { return &buffers_; }
+  int buffers_size() const;
+  void clear_buffers();
+  TraceConfig_BufferConfig* add_buffers();
+
+  const std::vector<TraceConfig_DataSource>& data_sources() const { return data_sources_; }
+  std::vector<TraceConfig_DataSource>* mutable_data_sources() { return &data_sources_; }
+  int data_sources_size() const;
+  void clear_data_sources();
+  TraceConfig_DataSource* add_data_sources();
+
+  bool has_builtin_data_sources() const { return _has_field_[20]; }
+  const TraceConfig_BuiltinDataSource& builtin_data_sources() const { return *builtin_data_sources_; }
+  TraceConfig_BuiltinDataSource* mutable_builtin_data_sources() { _has_field_.set(20); return builtin_data_sources_.get(); }
+
+  bool has_duration_ms() const { return _has_field_[3]; }
+  uint32_t duration_ms() const { return duration_ms_; }
+  void set_duration_ms(uint32_t value) { duration_ms_ = value; _has_field_.set(3); }
+
+  bool has_prefer_suspend_clock_for_duration() const { return _has_field_[36]; }
+  bool prefer_suspend_clock_for_duration() const { return prefer_suspend_clock_for_duration_; }
+  void set_prefer_suspend_clock_for_duration(bool value) { prefer_suspend_clock_for_duration_ = value; _has_field_.set(36); }
+
+  bool has_enable_extra_guardrails() const { return _has_field_[4]; }
+  bool enable_extra_guardrails() const { return enable_extra_guardrails_; }
+  void set_enable_extra_guardrails(bool value) { enable_extra_guardrails_ = value; _has_field_.set(4); }
+
+  bool has_lockdown_mode() const { return _has_field_[5]; }
+  TraceConfig_LockdownModeOperation lockdown_mode() const { return lockdown_mode_; }
+  void set_lockdown_mode(TraceConfig_LockdownModeOperation value) { lockdown_mode_ = value; _has_field_.set(5); }
+
+  const std::vector<TraceConfig_ProducerConfig>& producers() const { return producers_; }
+  std::vector<TraceConfig_ProducerConfig>* mutable_producers() { return &producers_; }
+  int producers_size() const;
+  void clear_producers();
+  TraceConfig_ProducerConfig* add_producers();
+
+  bool has_statsd_metadata() const { return _has_field_[7]; }
+  const TraceConfig_StatsdMetadata& statsd_metadata() const { return *statsd_metadata_; }
+  TraceConfig_StatsdMetadata* mutable_statsd_metadata() { _has_field_.set(7); return statsd_metadata_.get(); }
+
+  bool has_write_into_file() const { return _has_field_[8]; }
+  bool write_into_file() const { return write_into_file_; }
+  void set_write_into_file(bool value) { write_into_file_ = value; _has_field_.set(8); }
+
+  bool has_output_path() const { return _has_field_[29]; }
+  const std::string& output_path() const { return output_path_; }
+  void set_output_path(const std::string& value) { output_path_ = value; _has_field_.set(29); }
+
+  bool has_file_write_period_ms() const { return _has_field_[9]; }
+  uint32_t file_write_period_ms() const { return file_write_period_ms_; }
+  void set_file_write_period_ms(uint32_t value) { file_write_period_ms_ = value; _has_field_.set(9); }
+
+  bool has_max_file_size_bytes() const { return _has_field_[10]; }
+  uint64_t max_file_size_bytes() const { return max_file_size_bytes_; }
+  void set_max_file_size_bytes(uint64_t value) { max_file_size_bytes_ = value; _has_field_.set(10); }
+
+  bool has_guardrail_overrides() const { return _has_field_[11]; }
+  const TraceConfig_GuardrailOverrides& guardrail_overrides() const { return *guardrail_overrides_; }
+  TraceConfig_GuardrailOverrides* mutable_guardrail_overrides() { _has_field_.set(11); return guardrail_overrides_.get(); }
+
+  bool has_deferred_start() const { return _has_field_[12]; }
+  bool deferred_start() const { return deferred_start_; }
+  void set_deferred_start(bool value) { deferred_start_ = value; _has_field_.set(12); }
+
+  bool has_flush_period_ms() const { return _has_field_[13]; }
+  uint32_t flush_period_ms() const { return flush_period_ms_; }
+  void set_flush_period_ms(uint32_t value) { flush_period_ms_ = value; _has_field_.set(13); }
+
+  bool has_flush_timeout_ms() const { return _has_field_[14]; }
+  uint32_t flush_timeout_ms() const { return flush_timeout_ms_; }
+  void set_flush_timeout_ms(uint32_t value) { flush_timeout_ms_ = value; _has_field_.set(14); }
+
+  bool has_data_source_stop_timeout_ms() const { return _has_field_[23]; }
+  uint32_t data_source_stop_timeout_ms() const { return data_source_stop_timeout_ms_; }
+  void set_data_source_stop_timeout_ms(uint32_t value) { data_source_stop_timeout_ms_ = value; _has_field_.set(23); }
+
+  bool has_notify_traceur() const { return _has_field_[16]; }
+  bool notify_traceur() const { return notify_traceur_; }
+  void set_notify_traceur(bool value) { notify_traceur_ = value; _has_field_.set(16); }
+
+  bool has_bugreport_score() const { return _has_field_[30]; }
+  int32_t bugreport_score() const { return bugreport_score_; }
+  void set_bugreport_score(int32_t value) { bugreport_score_ = value; _has_field_.set(30); }
+
+  bool has_trigger_config() const { return _has_field_[17]; }
+  const TraceConfig_TriggerConfig& trigger_config() const { return *trigger_config_; }
+  TraceConfig_TriggerConfig* mutable_trigger_config() { _has_field_.set(17); return trigger_config_.get(); }
+
+  const std::vector<std::string>& activate_triggers() const { return activate_triggers_; }
+  std::vector<std::string>* mutable_activate_triggers() { return &activate_triggers_; }
+  int activate_triggers_size() const { return static_cast<int>(activate_triggers_.size()); }
+  void clear_activate_triggers() { activate_triggers_.clear(); }
+  void add_activate_triggers(std::string value) { activate_triggers_.emplace_back(value); }
+  std::string* add_activate_triggers() { activate_triggers_.emplace_back(); return &activate_triggers_.back(); }
+
+  bool has_incremental_state_config() const { return _has_field_[21]; }
+  const TraceConfig_IncrementalStateConfig& incremental_state_config() const { return *incremental_state_config_; }
+  TraceConfig_IncrementalStateConfig* mutable_incremental_state_config() { _has_field_.set(21); return incremental_state_config_.get(); }
+
+  bool has_allow_user_build_tracing() const { return _has_field_[19]; }
+  bool allow_user_build_tracing() const { return allow_user_build_tracing_; }
+  void set_allow_user_build_tracing(bool value) { allow_user_build_tracing_ = value; _has_field_.set(19); }
+
+  bool has_unique_session_name() const { return _has_field_[22]; }
+  const std::string& unique_session_name() const { return unique_session_name_; }
+  void set_unique_session_name(const std::string& value) { unique_session_name_ = value; _has_field_.set(22); }
+
+  bool has_compression_type() const { return _has_field_[24]; }
+  TraceConfig_CompressionType compression_type() const { return compression_type_; }
+  void set_compression_type(TraceConfig_CompressionType value) { compression_type_ = value; _has_field_.set(24); }
+
+  bool has_compress_from_cli() const { return _has_field_[37]; }
+  bool compress_from_cli() const { return compress_from_cli_; }
+  void set_compress_from_cli(bool value) { compress_from_cli_ = value; _has_field_.set(37); }
+
+  bool has_incident_report_config() const { return _has_field_[25]; }
+  const TraceConfig_IncidentReportConfig& incident_report_config() const { return *incident_report_config_; }
+  TraceConfig_IncidentReportConfig* mutable_incident_report_config() { _has_field_.set(25); return incident_report_config_.get(); }
+
+  bool has_statsd_logging() const { return _has_field_[31]; }
+  TraceConfig_StatsdLogging statsd_logging() const { return statsd_logging_; }
+  void set_statsd_logging(TraceConfig_StatsdLogging value) { statsd_logging_ = value; _has_field_.set(31); }
+
+  bool has_trace_uuid_msb() const { return _has_field_[27]; }
+  int64_t trace_uuid_msb() const { return trace_uuid_msb_; }
+  void set_trace_uuid_msb(int64_t value) { trace_uuid_msb_ = value; _has_field_.set(27); }
+
+  bool has_trace_uuid_lsb() const { return _has_field_[28]; }
+  int64_t trace_uuid_lsb() const { return trace_uuid_lsb_; }
+  void set_trace_uuid_lsb(int64_t value) { trace_uuid_lsb_ = value; _has_field_.set(28); }
+
+  bool has_trace_filter() const { return _has_field_[33]; }
+  const TraceConfig_TraceFilter& trace_filter() const { return *trace_filter_; }
+  TraceConfig_TraceFilter* mutable_trace_filter() { _has_field_.set(33); return trace_filter_.get(); }
+
+  bool has_android_report_config() const { return _has_field_[34]; }
+  const TraceConfig_AndroidReportConfig& android_report_config() const { return *android_report_config_; }
+  TraceConfig_AndroidReportConfig* mutable_android_report_config() { _has_field_.set(34); return android_report_config_.get(); }
+
+  bool has_cmd_trace_start_delay() const { return _has_field_[35]; }
+  const TraceConfig_CmdTraceStartDelay& cmd_trace_start_delay() const { return *cmd_trace_start_delay_; }
+  TraceConfig_CmdTraceStartDelay* mutable_cmd_trace_start_delay() { _has_field_.set(35); return cmd_trace_start_delay_.get(); }
+
+ private:
+  std::vector<TraceConfig_BufferConfig> buffers_;
+  std::vector<TraceConfig_DataSource> data_sources_;
+  ::protozero::CopyablePtr<TraceConfig_BuiltinDataSource> builtin_data_sources_;
+  uint32_t duration_ms_{};
+  bool prefer_suspend_clock_for_duration_{};
+  bool enable_extra_guardrails_{};
+  TraceConfig_LockdownModeOperation lockdown_mode_{};
+  std::vector<TraceConfig_ProducerConfig> producers_;
+  ::protozero::CopyablePtr<TraceConfig_StatsdMetadata> statsd_metadata_;
+  bool write_into_file_{};
+  std::string output_path_{};
+  uint32_t file_write_period_ms_{};
+  uint64_t max_file_size_bytes_{};
+  ::protozero::CopyablePtr<TraceConfig_GuardrailOverrides> guardrail_overrides_;
+  bool deferred_start_{};
+  uint32_t flush_period_ms_{};
+  uint32_t flush_timeout_ms_{};
+  uint32_t data_source_stop_timeout_ms_{};
+  bool notify_traceur_{};
+  int32_t bugreport_score_{};
+  ::protozero::CopyablePtr<TraceConfig_TriggerConfig> trigger_config_;
+  std::vector<std::string> activate_triggers_;
+  ::protozero::CopyablePtr<TraceConfig_IncrementalStateConfig> incremental_state_config_;
+  bool allow_user_build_tracing_{};
+  std::string unique_session_name_{};
+  TraceConfig_CompressionType compression_type_{};
+  bool compress_from_cli_{};
+  ::protozero::CopyablePtr<TraceConfig_IncidentReportConfig> incident_report_config_;
+  TraceConfig_StatsdLogging statsd_logging_{};
+  int64_t trace_uuid_msb_{};
+  int64_t trace_uuid_lsb_{};
+  ::protozero::CopyablePtr<TraceConfig_TraceFilter> trace_filter_;
+  ::protozero::CopyablePtr<TraceConfig_AndroidReportConfig> android_report_config_;
+  ::protozero::CopyablePtr<TraceConfig_CmdTraceStartDelay> cmd_trace_start_delay_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<38> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_CmdTraceStartDelay : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kMinDelayMsFieldNumber = 1,
+    kMaxDelayMsFieldNumber = 2,
+  };
+
+  TraceConfig_CmdTraceStartDelay();
+  ~TraceConfig_CmdTraceStartDelay() override;
+  TraceConfig_CmdTraceStartDelay(TraceConfig_CmdTraceStartDelay&&) noexcept;
+  TraceConfig_CmdTraceStartDelay& operator=(TraceConfig_CmdTraceStartDelay&&);
+  TraceConfig_CmdTraceStartDelay(const TraceConfig_CmdTraceStartDelay&);
+  TraceConfig_CmdTraceStartDelay& operator=(const TraceConfig_CmdTraceStartDelay&);
+  bool operator==(const TraceConfig_CmdTraceStartDelay&) const;
+  bool operator!=(const TraceConfig_CmdTraceStartDelay& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_min_delay_ms() const { return _has_field_[1]; }
+  uint32_t min_delay_ms() const { return min_delay_ms_; }
+  void set_min_delay_ms(uint32_t value) { min_delay_ms_ = value; _has_field_.set(1); }
+
+  bool has_max_delay_ms() const { return _has_field_[2]; }
+  uint32_t max_delay_ms() const { return max_delay_ms_; }
+  void set_max_delay_ms(uint32_t value) { max_delay_ms_ = value; _has_field_.set(2); }
+
+ private:
+  uint32_t min_delay_ms_{};
+  uint32_t max_delay_ms_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_AndroidReportConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kReporterServicePackageFieldNumber = 1,
+    kReporterServiceClassFieldNumber = 2,
+    kSkipReportFieldNumber = 3,
+    kUsePipeInFrameworkForTestingFieldNumber = 4,
+  };
+
+  TraceConfig_AndroidReportConfig();
+  ~TraceConfig_AndroidReportConfig() override;
+  TraceConfig_AndroidReportConfig(TraceConfig_AndroidReportConfig&&) noexcept;
+  TraceConfig_AndroidReportConfig& operator=(TraceConfig_AndroidReportConfig&&);
+  TraceConfig_AndroidReportConfig(const TraceConfig_AndroidReportConfig&);
+  TraceConfig_AndroidReportConfig& operator=(const TraceConfig_AndroidReportConfig&);
+  bool operator==(const TraceConfig_AndroidReportConfig&) const;
+  bool operator!=(const TraceConfig_AndroidReportConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_reporter_service_package() const { return _has_field_[1]; }
+  const std::string& reporter_service_package() const { return reporter_service_package_; }
+  void set_reporter_service_package(const std::string& value) { reporter_service_package_ = value; _has_field_.set(1); }
+
+  bool has_reporter_service_class() const { return _has_field_[2]; }
+  const std::string& reporter_service_class() const { return reporter_service_class_; }
+  void set_reporter_service_class(const std::string& value) { reporter_service_class_ = value; _has_field_.set(2); }
+
+  bool has_skip_report() const { return _has_field_[3]; }
+  bool skip_report() const { return skip_report_; }
+  void set_skip_report(bool value) { skip_report_ = value; _has_field_.set(3); }
+
+  bool has_use_pipe_in_framework_for_testing() const { return _has_field_[4]; }
+  bool use_pipe_in_framework_for_testing() const { return use_pipe_in_framework_for_testing_; }
+  void set_use_pipe_in_framework_for_testing(bool value) { use_pipe_in_framework_for_testing_ = value; _has_field_.set(4); }
+
+ private:
+  std::string reporter_service_package_{};
+  std::string reporter_service_class_{};
+  bool skip_report_{};
+  bool use_pipe_in_framework_for_testing_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<5> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kBytecodeFieldNumber = 1,
+  };
+
+  TraceConfig_TraceFilter();
+  ~TraceConfig_TraceFilter() override;
+  TraceConfig_TraceFilter(TraceConfig_TraceFilter&&) noexcept;
+  TraceConfig_TraceFilter& operator=(TraceConfig_TraceFilter&&);
+  TraceConfig_TraceFilter(const TraceConfig_TraceFilter&);
+  TraceConfig_TraceFilter& operator=(const TraceConfig_TraceFilter&);
+  bool operator==(const TraceConfig_TraceFilter&) const;
+  bool operator!=(const TraceConfig_TraceFilter& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_bytecode() const { return _has_field_[1]; }
+  const std::string& bytecode() const { return bytecode_; }
+  void set_bytecode(const std::string& value) { bytecode_ = value; _has_field_.set(1); }
+  void set_bytecode(const void* p, size_t s) { bytecode_.assign(reinterpret_cast<const char*>(p), s); _has_field_.set(1); }
+
+ private:
+  std::string bytecode_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_IncidentReportConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kDestinationPackageFieldNumber = 1,
+    kDestinationClassFieldNumber = 2,
+    kPrivacyLevelFieldNumber = 3,
+    kSkipIncidentdFieldNumber = 5,
+    kSkipDropboxFieldNumber = 4,
+  };
+
+  TraceConfig_IncidentReportConfig();
+  ~TraceConfig_IncidentReportConfig() override;
+  TraceConfig_IncidentReportConfig(TraceConfig_IncidentReportConfig&&) noexcept;
+  TraceConfig_IncidentReportConfig& operator=(TraceConfig_IncidentReportConfig&&);
+  TraceConfig_IncidentReportConfig(const TraceConfig_IncidentReportConfig&);
+  TraceConfig_IncidentReportConfig& operator=(const TraceConfig_IncidentReportConfig&);
+  bool operator==(const TraceConfig_IncidentReportConfig&) const;
+  bool operator!=(const TraceConfig_IncidentReportConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_destination_package() const { return _has_field_[1]; }
+  const std::string& destination_package() const { return destination_package_; }
+  void set_destination_package(const std::string& value) { destination_package_ = value; _has_field_.set(1); }
+
+  bool has_destination_class() const { return _has_field_[2]; }
+  const std::string& destination_class() const { return destination_class_; }
+  void set_destination_class(const std::string& value) { destination_class_ = value; _has_field_.set(2); }
+
+  bool has_privacy_level() const { return _has_field_[3]; }
+  int32_t privacy_level() const { return privacy_level_; }
+  void set_privacy_level(int32_t value) { privacy_level_ = value; _has_field_.set(3); }
+
+  bool has_skip_incidentd() const { return _has_field_[5]; }
+  bool skip_incidentd() const { return skip_incidentd_; }
+  void set_skip_incidentd(bool value) { skip_incidentd_ = value; _has_field_.set(5); }
+
+  bool has_skip_dropbox() const { return _has_field_[4]; }
+  bool skip_dropbox() const { return skip_dropbox_; }
+  void set_skip_dropbox(bool value) { skip_dropbox_ = value; _has_field_.set(4); }
+
+ private:
+  std::string destination_package_{};
+  std::string destination_class_{};
+  int32_t privacy_level_{};
+  bool skip_incidentd_{};
+  bool skip_dropbox_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<6> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_IncrementalStateConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kClearPeriodMsFieldNumber = 1,
+  };
+
+  TraceConfig_IncrementalStateConfig();
+  ~TraceConfig_IncrementalStateConfig() override;
+  TraceConfig_IncrementalStateConfig(TraceConfig_IncrementalStateConfig&&) noexcept;
+  TraceConfig_IncrementalStateConfig& operator=(TraceConfig_IncrementalStateConfig&&);
+  TraceConfig_IncrementalStateConfig(const TraceConfig_IncrementalStateConfig&);
+  TraceConfig_IncrementalStateConfig& operator=(const TraceConfig_IncrementalStateConfig&);
+  bool operator==(const TraceConfig_IncrementalStateConfig&) const;
+  bool operator!=(const TraceConfig_IncrementalStateConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_clear_period_ms() const { return _has_field_[1]; }
+  uint32_t clear_period_ms() const { return clear_period_ms_; }
+  void set_clear_period_ms(uint32_t value) { clear_period_ms_ = value; _has_field_.set(1); }
+
+ private:
+  uint32_t clear_period_ms_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig : public ::protozero::CppMessageObj {
+ public:
+  using Trigger = TraceConfig_TriggerConfig_Trigger;
+  using TriggerMode = TraceConfig_TriggerConfig_TriggerMode;
+  static constexpr auto UNSPECIFIED = TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED;
+  static constexpr auto START_TRACING = TraceConfig_TriggerConfig_TriggerMode_START_TRACING;
+  static constexpr auto STOP_TRACING = TraceConfig_TriggerConfig_TriggerMode_STOP_TRACING;
+  static constexpr auto CLONE_SNAPSHOT = TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT;
+  static constexpr auto TriggerMode_MIN = TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED;
+  static constexpr auto TriggerMode_MAX = TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT;
+  enum FieldNumbers {
+    kTriggerModeFieldNumber = 1,
+    kUseCloneSnapshotIfAvailableFieldNumber = 4,
+    kTriggersFieldNumber = 2,
+    kTriggerTimeoutMsFieldNumber = 3,
+  };
+
+  TraceConfig_TriggerConfig();
+  ~TraceConfig_TriggerConfig() override;
+  TraceConfig_TriggerConfig(TraceConfig_TriggerConfig&&) noexcept;
+  TraceConfig_TriggerConfig& operator=(TraceConfig_TriggerConfig&&);
+  TraceConfig_TriggerConfig(const TraceConfig_TriggerConfig&);
+  TraceConfig_TriggerConfig& operator=(const TraceConfig_TriggerConfig&);
+  bool operator==(const TraceConfig_TriggerConfig&) const;
+  bool operator!=(const TraceConfig_TriggerConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_trigger_mode() const { return _has_field_[1]; }
+  TraceConfig_TriggerConfig_TriggerMode trigger_mode() const { return trigger_mode_; }
+  void set_trigger_mode(TraceConfig_TriggerConfig_TriggerMode value) { trigger_mode_ = value; _has_field_.set(1); }
+
+  bool has_use_clone_snapshot_if_available() const { return _has_field_[4]; }
+  bool use_clone_snapshot_if_available() const { return use_clone_snapshot_if_available_; }
+  void set_use_clone_snapshot_if_available(bool value) { use_clone_snapshot_if_available_ = value; _has_field_.set(4); }
+
+  const std::vector<TraceConfig_TriggerConfig_Trigger>& triggers() const { return triggers_; }
+  std::vector<TraceConfig_TriggerConfig_Trigger>* mutable_triggers() { return &triggers_; }
+  int triggers_size() const;
+  void clear_triggers();
+  TraceConfig_TriggerConfig_Trigger* add_triggers();
+
+  bool has_trigger_timeout_ms() const { return _has_field_[3]; }
+  uint32_t trigger_timeout_ms() const { return trigger_timeout_ms_; }
+  void set_trigger_timeout_ms(uint32_t value) { trigger_timeout_ms_ = value; _has_field_.set(3); }
+
+ private:
+  TraceConfig_TriggerConfig_TriggerMode trigger_mode_{};
+  bool use_clone_snapshot_if_available_{};
+  std::vector<TraceConfig_TriggerConfig_Trigger> triggers_;
+  uint32_t trigger_timeout_ms_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<5> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig_Trigger : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kNameFieldNumber = 1,
+    kProducerNameRegexFieldNumber = 2,
+    kStopDelayMsFieldNumber = 3,
+    kMaxPer24HFieldNumber = 4,
+    kSkipProbabilityFieldNumber = 5,
+  };
+
+  TraceConfig_TriggerConfig_Trigger();
+  ~TraceConfig_TriggerConfig_Trigger() override;
+  TraceConfig_TriggerConfig_Trigger(TraceConfig_TriggerConfig_Trigger&&) noexcept;
+  TraceConfig_TriggerConfig_Trigger& operator=(TraceConfig_TriggerConfig_Trigger&&);
+  TraceConfig_TriggerConfig_Trigger(const TraceConfig_TriggerConfig_Trigger&);
+  TraceConfig_TriggerConfig_Trigger& operator=(const TraceConfig_TriggerConfig_Trigger&);
+  bool operator==(const TraceConfig_TriggerConfig_Trigger&) const;
+  bool operator!=(const TraceConfig_TriggerConfig_Trigger& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_name() const { return _has_field_[1]; }
+  const std::string& name() const { return name_; }
+  void set_name(const std::string& value) { name_ = value; _has_field_.set(1); }
+
+  bool has_producer_name_regex() const { return _has_field_[2]; }
+  const std::string& producer_name_regex() const { return producer_name_regex_; }
+  void set_producer_name_regex(const std::string& value) { producer_name_regex_ = value; _has_field_.set(2); }
+
+  bool has_stop_delay_ms() const { return _has_field_[3]; }
+  uint32_t stop_delay_ms() const { return stop_delay_ms_; }
+  void set_stop_delay_ms(uint32_t value) { stop_delay_ms_ = value; _has_field_.set(3); }
+
+  bool has_max_per_24_h() const { return _has_field_[4]; }
+  uint32_t max_per_24_h() const { return max_per_24_h_; }
+  void set_max_per_24_h(uint32_t value) { max_per_24_h_ = value; _has_field_.set(4); }
+
+  bool has_skip_probability() const { return _has_field_[5]; }
+  double skip_probability() const { return skip_probability_; }
+  void set_skip_probability(double value) { skip_probability_ = value; _has_field_.set(5); }
+
+ private:
+  std::string name_{};
+  std::string producer_name_regex_{};
+  uint32_t stop_delay_ms_{};
+  uint32_t max_per_24_h_{};
+  double skip_probability_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<6> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_GuardrailOverrides : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kMaxUploadPerDayBytesFieldNumber = 1,
+    kMaxTracingBufferSizeKbFieldNumber = 2,
+  };
+
+  TraceConfig_GuardrailOverrides();
+  ~TraceConfig_GuardrailOverrides() override;
+  TraceConfig_GuardrailOverrides(TraceConfig_GuardrailOverrides&&) noexcept;
+  TraceConfig_GuardrailOverrides& operator=(TraceConfig_GuardrailOverrides&&);
+  TraceConfig_GuardrailOverrides(const TraceConfig_GuardrailOverrides&);
+  TraceConfig_GuardrailOverrides& operator=(const TraceConfig_GuardrailOverrides&);
+  bool operator==(const TraceConfig_GuardrailOverrides&) const;
+  bool operator!=(const TraceConfig_GuardrailOverrides& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_max_upload_per_day_bytes() const { return _has_field_[1]; }
+  uint64_t max_upload_per_day_bytes() const { return max_upload_per_day_bytes_; }
+  void set_max_upload_per_day_bytes(uint64_t value) { max_upload_per_day_bytes_ = value; _has_field_.set(1); }
+
+  bool has_max_tracing_buffer_size_kb() const { return _has_field_[2]; }
+  uint32_t max_tracing_buffer_size_kb() const { return max_tracing_buffer_size_kb_; }
+  void set_max_tracing_buffer_size_kb(uint32_t value) { max_tracing_buffer_size_kb_ = value; _has_field_.set(2); }
+
+ private:
+  uint64_t max_upload_per_day_bytes_{};
+  uint32_t max_tracing_buffer_size_kb_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_StatsdMetadata : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kTriggeringAlertIdFieldNumber = 1,
+    kTriggeringConfigUidFieldNumber = 2,
+    kTriggeringConfigIdFieldNumber = 3,
+    kTriggeringSubscriptionIdFieldNumber = 4,
+  };
+
+  TraceConfig_StatsdMetadata();
+  ~TraceConfig_StatsdMetadata() override;
+  TraceConfig_StatsdMetadata(TraceConfig_StatsdMetadata&&) noexcept;
+  TraceConfig_StatsdMetadata& operator=(TraceConfig_StatsdMetadata&&);
+  TraceConfig_StatsdMetadata(const TraceConfig_StatsdMetadata&);
+  TraceConfig_StatsdMetadata& operator=(const TraceConfig_StatsdMetadata&);
+  bool operator==(const TraceConfig_StatsdMetadata&) const;
+  bool operator!=(const TraceConfig_StatsdMetadata& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_triggering_alert_id() const { return _has_field_[1]; }
+  int64_t triggering_alert_id() const { return triggering_alert_id_; }
+  void set_triggering_alert_id(int64_t value) { triggering_alert_id_ = value; _has_field_.set(1); }
+
+  bool has_triggering_config_uid() const { return _has_field_[2]; }
+  int32_t triggering_config_uid() const { return triggering_config_uid_; }
+  void set_triggering_config_uid(int32_t value) { triggering_config_uid_ = value; _has_field_.set(2); }
+
+  bool has_triggering_config_id() const { return _has_field_[3]; }
+  int64_t triggering_config_id() const { return triggering_config_id_; }
+  void set_triggering_config_id(int64_t value) { triggering_config_id_ = value; _has_field_.set(3); }
+
+  bool has_triggering_subscription_id() const { return _has_field_[4]; }
+  int64_t triggering_subscription_id() const { return triggering_subscription_id_; }
+  void set_triggering_subscription_id(int64_t value) { triggering_subscription_id_ = value; _has_field_.set(4); }
+
+ private:
+  int64_t triggering_alert_id_{};
+  int32_t triggering_config_uid_{};
+  int64_t triggering_config_id_{};
+  int64_t triggering_subscription_id_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<5> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_ProducerConfig : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kProducerNameFieldNumber = 1,
+    kShmSizeKbFieldNumber = 2,
+    kPageSizeKbFieldNumber = 3,
+  };
+
+  TraceConfig_ProducerConfig();
+  ~TraceConfig_ProducerConfig() override;
+  TraceConfig_ProducerConfig(TraceConfig_ProducerConfig&&) noexcept;
+  TraceConfig_ProducerConfig& operator=(TraceConfig_ProducerConfig&&);
+  TraceConfig_ProducerConfig(const TraceConfig_ProducerConfig&);
+  TraceConfig_ProducerConfig& operator=(const TraceConfig_ProducerConfig&);
+  bool operator==(const TraceConfig_ProducerConfig&) const;
+  bool operator!=(const TraceConfig_ProducerConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_producer_name() const { return _has_field_[1]; }
+  const std::string& producer_name() const { return producer_name_; }
+  void set_producer_name(const std::string& value) { producer_name_ = value; _has_field_.set(1); }
+
+  bool has_shm_size_kb() const { return _has_field_[2]; }
+  uint32_t shm_size_kb() const { return shm_size_kb_; }
+  void set_shm_size_kb(uint32_t value) { shm_size_kb_ = value; _has_field_.set(2); }
+
+  bool has_page_size_kb() const { return _has_field_[3]; }
+  uint32_t page_size_kb() const { return page_size_kb_; }
+  void set_page_size_kb(uint32_t value) { page_size_kb_ = value; _has_field_.set(3); }
+
+ private:
+  std::string producer_name_{};
+  uint32_t shm_size_kb_{};
+  uint32_t page_size_kb_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_BuiltinDataSource : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kDisableClockSnapshottingFieldNumber = 1,
+    kDisableTraceConfigFieldNumber = 2,
+    kDisableSystemInfoFieldNumber = 3,
+    kDisableServiceEventsFieldNumber = 4,
+    kPrimaryTraceClockFieldNumber = 5,
+    kSnapshotIntervalMsFieldNumber = 6,
+    kPreferSuspendClockForSnapshotFieldNumber = 7,
+    kDisableChunkUsageHistogramsFieldNumber = 8,
+  };
+
+  TraceConfig_BuiltinDataSource();
+  ~TraceConfig_BuiltinDataSource() override;
+  TraceConfig_BuiltinDataSource(TraceConfig_BuiltinDataSource&&) noexcept;
+  TraceConfig_BuiltinDataSource& operator=(TraceConfig_BuiltinDataSource&&);
+  TraceConfig_BuiltinDataSource(const TraceConfig_BuiltinDataSource&);
+  TraceConfig_BuiltinDataSource& operator=(const TraceConfig_BuiltinDataSource&);
+  bool operator==(const TraceConfig_BuiltinDataSource&) const;
+  bool operator!=(const TraceConfig_BuiltinDataSource& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_disable_clock_snapshotting() const { return _has_field_[1]; }
+  bool disable_clock_snapshotting() const { return disable_clock_snapshotting_; }
+  void set_disable_clock_snapshotting(bool value) { disable_clock_snapshotting_ = value; _has_field_.set(1); }
+
+  bool has_disable_trace_config() const { return _has_field_[2]; }
+  bool disable_trace_config() const { return disable_trace_config_; }
+  void set_disable_trace_config(bool value) { disable_trace_config_ = value; _has_field_.set(2); }
+
+  bool has_disable_system_info() const { return _has_field_[3]; }
+  bool disable_system_info() const { return disable_system_info_; }
+  void set_disable_system_info(bool value) { disable_system_info_ = value; _has_field_.set(3); }
+
+  bool has_disable_service_events() const { return _has_field_[4]; }
+  bool disable_service_events() const { return disable_service_events_; }
+  void set_disable_service_events(bool value) { disable_service_events_ = value; _has_field_.set(4); }
+
+  bool has_primary_trace_clock() const { return _has_field_[5]; }
+  BuiltinClock primary_trace_clock() const { return primary_trace_clock_; }
+  void set_primary_trace_clock(BuiltinClock value) { primary_trace_clock_ = value; _has_field_.set(5); }
+
+  bool has_snapshot_interval_ms() const { return _has_field_[6]; }
+  uint32_t snapshot_interval_ms() const { return snapshot_interval_ms_; }
+  void set_snapshot_interval_ms(uint32_t value) { snapshot_interval_ms_ = value; _has_field_.set(6); }
+
+  bool has_prefer_suspend_clock_for_snapshot() const { return _has_field_[7]; }
+  bool prefer_suspend_clock_for_snapshot() const { return prefer_suspend_clock_for_snapshot_; }
+  void set_prefer_suspend_clock_for_snapshot(bool value) { prefer_suspend_clock_for_snapshot_ = value; _has_field_.set(7); }
+
+  bool has_disable_chunk_usage_histograms() const { return _has_field_[8]; }
+  bool disable_chunk_usage_histograms() const { return disable_chunk_usage_histograms_; }
+  void set_disable_chunk_usage_histograms(bool value) { disable_chunk_usage_histograms_ = value; _has_field_.set(8); }
+
+ private:
+  bool disable_clock_snapshotting_{};
+  bool disable_trace_config_{};
+  bool disable_system_info_{};
+  bool disable_service_events_{};
+  BuiltinClock primary_trace_clock_{};
+  uint32_t snapshot_interval_ms_{};
+  bool prefer_suspend_clock_for_snapshot_{};
+  bool disable_chunk_usage_histograms_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<9> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_DataSource : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kConfigFieldNumber = 1,
+    kProducerNameFilterFieldNumber = 2,
+    kProducerNameRegexFilterFieldNumber = 3,
+  };
+
+  TraceConfig_DataSource();
+  ~TraceConfig_DataSource() override;
+  TraceConfig_DataSource(TraceConfig_DataSource&&) noexcept;
+  TraceConfig_DataSource& operator=(TraceConfig_DataSource&&);
+  TraceConfig_DataSource(const TraceConfig_DataSource&);
+  TraceConfig_DataSource& operator=(const TraceConfig_DataSource&);
+  bool operator==(const TraceConfig_DataSource&) const;
+  bool operator!=(const TraceConfig_DataSource& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_config() const { return _has_field_[1]; }
+  const DataSourceConfig& config() const { return *config_; }
+  DataSourceConfig* mutable_config() { _has_field_.set(1); return config_.get(); }
+
+  const std::vector<std::string>& producer_name_filter() const { return producer_name_filter_; }
+  std::vector<std::string>* mutable_producer_name_filter() { return &producer_name_filter_; }
+  int producer_name_filter_size() const { return static_cast<int>(producer_name_filter_.size()); }
+  void clear_producer_name_filter() { producer_name_filter_.clear(); }
+  void add_producer_name_filter(std::string value) { producer_name_filter_.emplace_back(value); }
+  std::string* add_producer_name_filter() { producer_name_filter_.emplace_back(); return &producer_name_filter_.back(); }
+
+  const std::vector<std::string>& producer_name_regex_filter() const { return producer_name_regex_filter_; }
+  std::vector<std::string>* mutable_producer_name_regex_filter() { return &producer_name_regex_filter_; }
+  int producer_name_regex_filter_size() const { return static_cast<int>(producer_name_regex_filter_.size()); }
+  void clear_producer_name_regex_filter() { producer_name_regex_filter_.clear(); }
+  void add_producer_name_regex_filter(std::string value) { producer_name_regex_filter_.emplace_back(value); }
+  std::string* add_producer_name_regex_filter() { producer_name_regex_filter_.emplace_back(); return &producer_name_regex_filter_.back(); }
+
+ private:
+  ::protozero::CopyablePtr<DataSourceConfig> config_;
+  std::vector<std::string> producer_name_filter_;
+  std::vector<std::string> producer_name_regex_filter_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_BufferConfig : public ::protozero::CppMessageObj {
+ public:
+  using FillPolicy = TraceConfig_BufferConfig_FillPolicy;
+  static constexpr auto UNSPECIFIED = TraceConfig_BufferConfig_FillPolicy_UNSPECIFIED;
+  static constexpr auto RING_BUFFER = TraceConfig_BufferConfig_FillPolicy_RING_BUFFER;
+  static constexpr auto DISCARD = TraceConfig_BufferConfig_FillPolicy_DISCARD;
+  static constexpr auto FillPolicy_MIN = TraceConfig_BufferConfig_FillPolicy_UNSPECIFIED;
+  static constexpr auto FillPolicy_MAX = TraceConfig_BufferConfig_FillPolicy_DISCARD;
+  enum FieldNumbers {
+    kSizeKbFieldNumber = 1,
+    kFillPolicyFieldNumber = 4,
+  };
+
+  TraceConfig_BufferConfig();
+  ~TraceConfig_BufferConfig() override;
+  TraceConfig_BufferConfig(TraceConfig_BufferConfig&&) noexcept;
+  TraceConfig_BufferConfig& operator=(TraceConfig_BufferConfig&&);
+  TraceConfig_BufferConfig(const TraceConfig_BufferConfig&);
+  TraceConfig_BufferConfig& operator=(const TraceConfig_BufferConfig&);
+  bool operator==(const TraceConfig_BufferConfig&) const;
+  bool operator!=(const TraceConfig_BufferConfig& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_size_kb() const { return _has_field_[1]; }
+  uint32_t size_kb() const { return size_kb_; }
+  void set_size_kb(uint32_t value) { size_kb_ = value; _has_field_.set(1); }
+
+  bool has_fill_policy() const { return _has_field_[4]; }
+  TraceConfig_BufferConfig_FillPolicy fill_policy() const { return fill_policy_; }
+  void set_fill_policy(TraceConfig_BufferConfig_FillPolicy value) { fill_policy_ = value; _has_field_.set(4); }
+
+ private:
+  uint32_t size_kb_{};
+  TraceConfig_BufferConfig_FillPolicy fill_policy_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<5> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TRACE_CONFIG_PROTO_CPP_H_
 // gen_amalgamated begin header: gen/protos/perfetto/config/android/android_game_intervention_list_config.pbzero.h
 // Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
 
@@ -124953,6 +130763,59 @@ namespace perfetto {
 namespace protos {
 namespace pbzero {
 
+namespace perfetto_pbzero_enum_LogMessage {
+enum Priority : int32_t;
+}  // namespace perfetto_pbzero_enum_LogMessage
+using LogMessage_Priority = perfetto_pbzero_enum_LogMessage::Priority;
+
+namespace perfetto_pbzero_enum_LogMessage {
+enum Priority : int32_t {
+  PRIO_UNSPECIFIED = 0,
+  PRIO_UNUSED = 1,
+  PRIO_VERBOSE = 2,
+  PRIO_DEBUG = 3,
+  PRIO_INFO = 4,
+  PRIO_WARN = 5,
+  PRIO_ERROR = 6,
+  PRIO_FATAL = 7,
+};
+} // namespace perfetto_pbzero_enum_LogMessage
+using LogMessage_Priority = perfetto_pbzero_enum_LogMessage::Priority;
+
+
+constexpr LogMessage_Priority LogMessage_Priority_MIN = LogMessage_Priority::PRIO_UNSPECIFIED;
+constexpr LogMessage_Priority LogMessage_Priority_MAX = LogMessage_Priority::PRIO_FATAL;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* LogMessage_Priority_Name(::perfetto::protos::pbzero::LogMessage_Priority value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::LogMessage_Priority::PRIO_UNSPECIFIED:
+    return "PRIO_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::LogMessage_Priority::PRIO_UNUSED:
+    return "PRIO_UNUSED";
+
+  case ::perfetto::protos::pbzero::LogMessage_Priority::PRIO_VERBOSE:
+    return "PRIO_VERBOSE";
+
+  case ::perfetto::protos::pbzero::LogMessage_Priority::PRIO_DEBUG:
+    return "PRIO_DEBUG";
+
+  case ::perfetto::protos::pbzero::LogMessage_Priority::PRIO_INFO:
+    return "PRIO_INFO";
+
+  case ::perfetto::protos::pbzero::LogMessage_Priority::PRIO_WARN:
+    return "PRIO_WARN";
+
+  case ::perfetto::protos::pbzero::LogMessage_Priority::PRIO_ERROR:
+    return "PRIO_ERROR";
+
+  case ::perfetto::protos::pbzero::LogMessage_Priority::PRIO_FATAL:
+    return "PRIO_FATAL";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
 
 class LogMessageBody_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
@@ -125018,7 +130881,7 @@ class LogMessageBody : public ::protozero::Message {
   }
 };
 
-class LogMessage_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class LogMessage_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   LogMessage_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit LogMessage_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -125027,6 +130890,8 @@ class LogMessage_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=
   uint64_t source_location_iid() const { return at<1>().as_uint64(); }
   bool has_body_iid() const { return at<2>().valid(); }
   uint64_t body_iid() const { return at<2>().as_uint64(); }
+  bool has_prio() const { return at<3>().valid(); }
+  int32_t prio() const { return at<3>().as_int32(); }
 };
 
 class LogMessage : public ::protozero::Message {
@@ -125035,9 +130900,23 @@ class LogMessage : public ::protozero::Message {
   enum : int32_t {
     kSourceLocationIidFieldNumber = 1,
     kBodyIidFieldNumber = 2,
+    kPrioFieldNumber = 3,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.LogMessage"; }
 
+
+  using Priority = ::perfetto::protos::pbzero::LogMessage_Priority;
+  static inline const char* Priority_Name(Priority value) {
+    return ::perfetto::protos::pbzero::LogMessage_Priority_Name(value);
+  }
+  static inline const Priority PRIO_UNSPECIFIED = Priority::PRIO_UNSPECIFIED;
+  static inline const Priority PRIO_UNUSED = Priority::PRIO_UNUSED;
+  static inline const Priority PRIO_VERBOSE = Priority::PRIO_VERBOSE;
+  static inline const Priority PRIO_DEBUG = Priority::PRIO_DEBUG;
+  static inline const Priority PRIO_INFO = Priority::PRIO_INFO;
+  static inline const Priority PRIO_WARN = Priority::PRIO_WARN;
+  static inline const Priority PRIO_ERROR = Priority::PRIO_ERROR;
+  static inline const Priority PRIO_FATAL = Priority::PRIO_FATAL;
 
   using FieldMetadata_SourceLocationIid =
     ::protozero::proto_utils::FieldMetadata<
@@ -125072,6 +130951,24 @@ class LogMessage : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Prio =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::LogMessage_Priority,
+      LogMessage>;
+
+  static constexpr FieldMetadata_Prio kPrio{};
+  void set_prio(::perfetto::protos::pbzero::LogMessage_Priority value) {
+    static constexpr uint32_t field_id = FieldMetadata_Prio::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
         ::Append(*this, field_id, value);
   }
 };
@@ -138922,6 +144819,7 @@ namespace protos {
 namespace gen {
 class LogMessageBody;
 class LogMessage;
+enum LogMessage_Priority : int;
 }  // namespace perfetto
 }  // namespace protos
 }  // namespace gen
@@ -138933,6 +144831,16 @@ class Message;
 namespace perfetto {
 namespace protos {
 namespace gen {
+enum LogMessage_Priority : int {
+  LogMessage_Priority_PRIO_UNSPECIFIED = 0,
+  LogMessage_Priority_PRIO_UNUSED = 1,
+  LogMessage_Priority_PRIO_VERBOSE = 2,
+  LogMessage_Priority_PRIO_DEBUG = 3,
+  LogMessage_Priority_PRIO_INFO = 4,
+  LogMessage_Priority_PRIO_WARN = 5,
+  LogMessage_Priority_PRIO_ERROR = 6,
+  LogMessage_Priority_PRIO_FATAL = 7,
+};
 
 class PERFETTO_EXPORT_COMPONENT LogMessageBody : public ::protozero::CppMessageObj {
  public:
@@ -138977,9 +144885,21 @@ class PERFETTO_EXPORT_COMPONENT LogMessageBody : public ::protozero::CppMessageO
 
 class PERFETTO_EXPORT_COMPONENT LogMessage : public ::protozero::CppMessageObj {
  public:
+  using Priority = LogMessage_Priority;
+  static constexpr auto PRIO_UNSPECIFIED = LogMessage_Priority_PRIO_UNSPECIFIED;
+  static constexpr auto PRIO_UNUSED = LogMessage_Priority_PRIO_UNUSED;
+  static constexpr auto PRIO_VERBOSE = LogMessage_Priority_PRIO_VERBOSE;
+  static constexpr auto PRIO_DEBUG = LogMessage_Priority_PRIO_DEBUG;
+  static constexpr auto PRIO_INFO = LogMessage_Priority_PRIO_INFO;
+  static constexpr auto PRIO_WARN = LogMessage_Priority_PRIO_WARN;
+  static constexpr auto PRIO_ERROR = LogMessage_Priority_PRIO_ERROR;
+  static constexpr auto PRIO_FATAL = LogMessage_Priority_PRIO_FATAL;
+  static constexpr auto Priority_MIN = LogMessage_Priority_PRIO_UNSPECIFIED;
+  static constexpr auto Priority_MAX = LogMessage_Priority_PRIO_FATAL;
   enum FieldNumbers {
     kSourceLocationIidFieldNumber = 1,
     kBodyIidFieldNumber = 2,
+    kPrioFieldNumber = 3,
   };
 
   LogMessage();
@@ -139004,15 +144924,20 @@ class PERFETTO_EXPORT_COMPONENT LogMessage : public ::protozero::CppMessageObj {
   uint64_t body_iid() const { return body_iid_; }
   void set_body_iid(uint64_t value) { body_iid_ = value; _has_field_.set(2); }
 
+  bool has_prio() const { return _has_field_[3]; }
+  LogMessage_Priority prio() const { return prio_; }
+  void set_prio(LogMessage_Priority value) { prio_ = value; _has_field_.set(3); }
+
  private:
   uint64_t source_location_iid_{};
   uint64_t body_iid_{};
+  LogMessage_Priority prio_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<3> _has_field_{};
+  std::bitset<4> _has_field_{};
 };
 
 }  // namespace perfetto
@@ -139787,6 +145712,7 @@ enum ChromeCompositorStateMachine_MajorState_BeginImplFrameState : int;
 enum ChromeCompositorStateMachine_MajorState_BeginMainFrameState : int;
 enum ChromeCompositorStateMachine_MajorState_LayerTreeFrameSinkState : int;
 enum ChromeCompositorStateMachine_MajorState_ForcedRedrawOnTimeoutState : int;
+enum LogMessage_Priority : int;
 enum DebugAnnotation_NestedValue_NestedType : int;
 }  // namespace perfetto
 }  // namespace protos
@@ -140419,5635 +146345,6 @@ class PERFETTO_EXPORT_COMPONENT TrackEvent_LegacyEvent : public ::protozero::Cpp
 }  // namespace gen
 
 #endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_TRACK_EVENT_TRACK_EVENT_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/android/android_game_intervention_list_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_GAME_INTERVENTION_LIST_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_GAME_INTERVENTION_LIST_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class AndroidGameInterventionListConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT AndroidGameInterventionListConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kPackageNameFilterFieldNumber = 1,
-  };
-
-  AndroidGameInterventionListConfig();
-  ~AndroidGameInterventionListConfig() override;
-  AndroidGameInterventionListConfig(AndroidGameInterventionListConfig&&) noexcept;
-  AndroidGameInterventionListConfig& operator=(AndroidGameInterventionListConfig&&);
-  AndroidGameInterventionListConfig(const AndroidGameInterventionListConfig&);
-  AndroidGameInterventionListConfig& operator=(const AndroidGameInterventionListConfig&);
-  bool operator==(const AndroidGameInterventionListConfig&) const;
-  bool operator!=(const AndroidGameInterventionListConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<std::string>& package_name_filter() const { return package_name_filter_; }
-  std::vector<std::string>* mutable_package_name_filter() { return &package_name_filter_; }
-  int package_name_filter_size() const { return static_cast<int>(package_name_filter_.size()); }
-  void clear_package_name_filter() { package_name_filter_.clear(); }
-  void add_package_name_filter(std::string value) { package_name_filter_.emplace_back(value); }
-  std::string* add_package_name_filter() { package_name_filter_.emplace_back(); return &package_name_filter_.back(); }
-
- private:
-  std::vector<std::string> package_name_filter_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<2> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_GAME_INTERVENTION_LIST_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/android/android_log_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_LOG_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_LOG_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class AndroidLogConfig;
-enum AndroidLogId : int;
-enum AndroidLogPriority : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT AndroidLogConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kLogIdsFieldNumber = 1,
-    kMinPrioFieldNumber = 3,
-    kFilterTagsFieldNumber = 4,
-  };
-
-  AndroidLogConfig();
-  ~AndroidLogConfig() override;
-  AndroidLogConfig(AndroidLogConfig&&) noexcept;
-  AndroidLogConfig& operator=(AndroidLogConfig&&);
-  AndroidLogConfig(const AndroidLogConfig&);
-  AndroidLogConfig& operator=(const AndroidLogConfig&);
-  bool operator==(const AndroidLogConfig&) const;
-  bool operator!=(const AndroidLogConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<AndroidLogId>& log_ids() const { return log_ids_; }
-  std::vector<AndroidLogId>* mutable_log_ids() { return &log_ids_; }
-  int log_ids_size() const { return static_cast<int>(log_ids_.size()); }
-  void clear_log_ids() { log_ids_.clear(); }
-  void add_log_ids(AndroidLogId value) { log_ids_.emplace_back(value); }
-  AndroidLogId* add_log_ids() { log_ids_.emplace_back(); return &log_ids_.back(); }
-
-  bool has_min_prio() const { return _has_field_[3]; }
-  AndroidLogPriority min_prio() const { return min_prio_; }
-  void set_min_prio(AndroidLogPriority value) { min_prio_ = value; _has_field_.set(3); }
-
-  const std::vector<std::string>& filter_tags() const { return filter_tags_; }
-  std::vector<std::string>* mutable_filter_tags() { return &filter_tags_; }
-  int filter_tags_size() const { return static_cast<int>(filter_tags_.size()); }
-  void clear_filter_tags() { filter_tags_.clear(); }
-  void add_filter_tags(std::string value) { filter_tags_.emplace_back(value); }
-  std::string* add_filter_tags() { filter_tags_.emplace_back(); return &filter_tags_.back(); }
-
- private:
-  std::vector<AndroidLogId> log_ids_;
-  AndroidLogPriority min_prio_{};
-  std::vector<std::string> filter_tags_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<5> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_LOG_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/android/android_polled_state_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_POLLED_STATE_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_POLLED_STATE_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class AndroidPolledStateConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT AndroidPolledStateConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kPollMsFieldNumber = 1,
-  };
-
-  AndroidPolledStateConfig();
-  ~AndroidPolledStateConfig() override;
-  AndroidPolledStateConfig(AndroidPolledStateConfig&&) noexcept;
-  AndroidPolledStateConfig& operator=(AndroidPolledStateConfig&&);
-  AndroidPolledStateConfig(const AndroidPolledStateConfig&);
-  AndroidPolledStateConfig& operator=(const AndroidPolledStateConfig&);
-  bool operator==(const AndroidPolledStateConfig&) const;
-  bool operator!=(const AndroidPolledStateConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_poll_ms() const { return _has_field_[1]; }
-  uint32_t poll_ms() const { return poll_ms_; }
-  void set_poll_ms(uint32_t value) { poll_ms_ = value; _has_field_.set(1); }
-
- private:
-  uint32_t poll_ms_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<2> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_POLLED_STATE_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/android/android_system_property_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_SYSTEM_PROPERTY_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_SYSTEM_PROPERTY_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class AndroidSystemPropertyConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT AndroidSystemPropertyConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kPollMsFieldNumber = 1,
-    kPropertyNameFieldNumber = 2,
-  };
-
-  AndroidSystemPropertyConfig();
-  ~AndroidSystemPropertyConfig() override;
-  AndroidSystemPropertyConfig(AndroidSystemPropertyConfig&&) noexcept;
-  AndroidSystemPropertyConfig& operator=(AndroidSystemPropertyConfig&&);
-  AndroidSystemPropertyConfig(const AndroidSystemPropertyConfig&);
-  AndroidSystemPropertyConfig& operator=(const AndroidSystemPropertyConfig&);
-  bool operator==(const AndroidSystemPropertyConfig&) const;
-  bool operator!=(const AndroidSystemPropertyConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_poll_ms() const { return _has_field_[1]; }
-  uint32_t poll_ms() const { return poll_ms_; }
-  void set_poll_ms(uint32_t value) { poll_ms_ = value; _has_field_.set(1); }
-
-  const std::vector<std::string>& property_name() const { return property_name_; }
-  std::vector<std::string>* mutable_property_name() { return &property_name_; }
-  int property_name_size() const { return static_cast<int>(property_name_.size()); }
-  void clear_property_name() { property_name_.clear(); }
-  void add_property_name(std::string value) { property_name_.emplace_back(value); }
-  std::string* add_property_name() { property_name_.emplace_back(); return &property_name_.back(); }
-
- private:
-  uint32_t poll_ms_{};
-  std::vector<std::string> property_name_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<3> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_ANDROID_SYSTEM_PROPERTY_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/android/network_trace_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_NETWORK_TRACE_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_NETWORK_TRACE_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class NetworkPacketTraceConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT NetworkPacketTraceConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kPollMsFieldNumber = 1,
-    kAggregationThresholdFieldNumber = 2,
-    kInternLimitFieldNumber = 3,
-    kDropLocalPortFieldNumber = 4,
-    kDropRemotePortFieldNumber = 5,
-    kDropTcpFlagsFieldNumber = 6,
-  };
-
-  NetworkPacketTraceConfig();
-  ~NetworkPacketTraceConfig() override;
-  NetworkPacketTraceConfig(NetworkPacketTraceConfig&&) noexcept;
-  NetworkPacketTraceConfig& operator=(NetworkPacketTraceConfig&&);
-  NetworkPacketTraceConfig(const NetworkPacketTraceConfig&);
-  NetworkPacketTraceConfig& operator=(const NetworkPacketTraceConfig&);
-  bool operator==(const NetworkPacketTraceConfig&) const;
-  bool operator!=(const NetworkPacketTraceConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_poll_ms() const { return _has_field_[1]; }
-  uint32_t poll_ms() const { return poll_ms_; }
-  void set_poll_ms(uint32_t value) { poll_ms_ = value; _has_field_.set(1); }
-
-  bool has_aggregation_threshold() const { return _has_field_[2]; }
-  uint32_t aggregation_threshold() const { return aggregation_threshold_; }
-  void set_aggregation_threshold(uint32_t value) { aggregation_threshold_ = value; _has_field_.set(2); }
-
-  bool has_intern_limit() const { return _has_field_[3]; }
-  uint32_t intern_limit() const { return intern_limit_; }
-  void set_intern_limit(uint32_t value) { intern_limit_ = value; _has_field_.set(3); }
-
-  bool has_drop_local_port() const { return _has_field_[4]; }
-  bool drop_local_port() const { return drop_local_port_; }
-  void set_drop_local_port(bool value) { drop_local_port_ = value; _has_field_.set(4); }
-
-  bool has_drop_remote_port() const { return _has_field_[5]; }
-  bool drop_remote_port() const { return drop_remote_port_; }
-  void set_drop_remote_port(bool value) { drop_remote_port_ = value; _has_field_.set(5); }
-
-  bool has_drop_tcp_flags() const { return _has_field_[6]; }
-  bool drop_tcp_flags() const { return drop_tcp_flags_; }
-  void set_drop_tcp_flags(bool value) { drop_tcp_flags_ = value; _has_field_.set(6); }
-
- private:
-  uint32_t poll_ms_{};
-  uint32_t aggregation_threshold_{};
-  uint32_t intern_limit_{};
-  bool drop_local_port_{};
-  bool drop_remote_port_{};
-  bool drop_tcp_flags_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<7> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_NETWORK_TRACE_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/android/packages_list_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_PACKAGES_LIST_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_PACKAGES_LIST_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class PackagesListConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT PackagesListConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kPackageNameFilterFieldNumber = 1,
-  };
-
-  PackagesListConfig();
-  ~PackagesListConfig() override;
-  PackagesListConfig(PackagesListConfig&&) noexcept;
-  PackagesListConfig& operator=(PackagesListConfig&&);
-  PackagesListConfig(const PackagesListConfig&);
-  PackagesListConfig& operator=(const PackagesListConfig&);
-  bool operator==(const PackagesListConfig&) const;
-  bool operator!=(const PackagesListConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<std::string>& package_name_filter() const { return package_name_filter_; }
-  std::vector<std::string>* mutable_package_name_filter() { return &package_name_filter_; }
-  int package_name_filter_size() const { return static_cast<int>(package_name_filter_.size()); }
-  void clear_package_name_filter() { package_name_filter_.clear(); }
-  void add_package_name_filter(std::string value) { package_name_filter_.emplace_back(value); }
-  std::string* add_package_name_filter() { package_name_filter_.emplace_back(); return &package_name_filter_.back(); }
-
- private:
-  std::vector<std::string> package_name_filter_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<2> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_ANDROID_PACKAGES_LIST_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/ftrace/ftrace_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_FTRACE_FTRACE_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_FTRACE_FTRACE_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class FtraceConfig;
-class FtraceConfig_PrintFilter;
-class FtraceConfig_PrintFilter_Rule;
-class FtraceConfig_PrintFilter_Rule_AtraceMessage;
-class FtraceConfig_CompactSchedConfig;
-enum FtraceConfig_KsymsMemPolicy : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum FtraceConfig_KsymsMemPolicy : int {
-  FtraceConfig_KsymsMemPolicy_KSYMS_UNSPECIFIED = 0,
-  FtraceConfig_KsymsMemPolicy_KSYMS_CLEANUP_ON_STOP = 1,
-  FtraceConfig_KsymsMemPolicy_KSYMS_RETAIN = 2,
-};
-
-class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj {
- public:
-  using CompactSchedConfig = FtraceConfig_CompactSchedConfig;
-  using PrintFilter = FtraceConfig_PrintFilter;
-  using KsymsMemPolicy = FtraceConfig_KsymsMemPolicy;
-  static constexpr auto KSYMS_UNSPECIFIED = FtraceConfig_KsymsMemPolicy_KSYMS_UNSPECIFIED;
-  static constexpr auto KSYMS_CLEANUP_ON_STOP = FtraceConfig_KsymsMemPolicy_KSYMS_CLEANUP_ON_STOP;
-  static constexpr auto KSYMS_RETAIN = FtraceConfig_KsymsMemPolicy_KSYMS_RETAIN;
-  static constexpr auto KsymsMemPolicy_MIN = FtraceConfig_KsymsMemPolicy_KSYMS_UNSPECIFIED;
-  static constexpr auto KsymsMemPolicy_MAX = FtraceConfig_KsymsMemPolicy_KSYMS_RETAIN;
-  enum FieldNumbers {
-    kFtraceEventsFieldNumber = 1,
-    kAtraceCategoriesFieldNumber = 2,
-    kAtraceAppsFieldNumber = 3,
-    kBufferSizeKbFieldNumber = 10,
-    kDrainPeriodMsFieldNumber = 11,
-    kCompactSchedFieldNumber = 12,
-    kPrintFilterFieldNumber = 22,
-    kSymbolizeKsymsFieldNumber = 13,
-    kKsymsMemPolicyFieldNumber = 17,
-    kInitializeKsymsSynchronouslyForTestingFieldNumber = 14,
-    kThrottleRssStatFieldNumber = 15,
-    kDisableGenericEventsFieldNumber = 16,
-    kSyscallEventsFieldNumber = 18,
-    kEnableFunctionGraphFieldNumber = 19,
-    kFunctionFiltersFieldNumber = 20,
-    kFunctionGraphRootsFieldNumber = 21,
-    kPreserveFtraceBufferFieldNumber = 23,
-    kUseMonotonicRawClockFieldNumber = 24,
-    kInstanceNameFieldNumber = 25,
-  };
-
-  FtraceConfig();
-  ~FtraceConfig() override;
-  FtraceConfig(FtraceConfig&&) noexcept;
-  FtraceConfig& operator=(FtraceConfig&&);
-  FtraceConfig(const FtraceConfig&);
-  FtraceConfig& operator=(const FtraceConfig&);
-  bool operator==(const FtraceConfig&) const;
-  bool operator!=(const FtraceConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<std::string>& ftrace_events() const { return ftrace_events_; }
-  std::vector<std::string>* mutable_ftrace_events() { return &ftrace_events_; }
-  int ftrace_events_size() const { return static_cast<int>(ftrace_events_.size()); }
-  void clear_ftrace_events() { ftrace_events_.clear(); }
-  void add_ftrace_events(std::string value) { ftrace_events_.emplace_back(value); }
-  std::string* add_ftrace_events() { ftrace_events_.emplace_back(); return &ftrace_events_.back(); }
-
-  const std::vector<std::string>& atrace_categories() const { return atrace_categories_; }
-  std::vector<std::string>* mutable_atrace_categories() { return &atrace_categories_; }
-  int atrace_categories_size() const { return static_cast<int>(atrace_categories_.size()); }
-  void clear_atrace_categories() { atrace_categories_.clear(); }
-  void add_atrace_categories(std::string value) { atrace_categories_.emplace_back(value); }
-  std::string* add_atrace_categories() { atrace_categories_.emplace_back(); return &atrace_categories_.back(); }
-
-  const std::vector<std::string>& atrace_apps() const { return atrace_apps_; }
-  std::vector<std::string>* mutable_atrace_apps() { return &atrace_apps_; }
-  int atrace_apps_size() const { return static_cast<int>(atrace_apps_.size()); }
-  void clear_atrace_apps() { atrace_apps_.clear(); }
-  void add_atrace_apps(std::string value) { atrace_apps_.emplace_back(value); }
-  std::string* add_atrace_apps() { atrace_apps_.emplace_back(); return &atrace_apps_.back(); }
-
-  bool has_buffer_size_kb() const { return _has_field_[10]; }
-  uint32_t buffer_size_kb() const { return buffer_size_kb_; }
-  void set_buffer_size_kb(uint32_t value) { buffer_size_kb_ = value; _has_field_.set(10); }
-
-  bool has_drain_period_ms() const { return _has_field_[11]; }
-  uint32_t drain_period_ms() const { return drain_period_ms_; }
-  void set_drain_period_ms(uint32_t value) { drain_period_ms_ = value; _has_field_.set(11); }
-
-  bool has_compact_sched() const { return _has_field_[12]; }
-  const FtraceConfig_CompactSchedConfig& compact_sched() const { return *compact_sched_; }
-  FtraceConfig_CompactSchedConfig* mutable_compact_sched() { _has_field_.set(12); return compact_sched_.get(); }
-
-  bool has_print_filter() const { return _has_field_[22]; }
-  const FtraceConfig_PrintFilter& print_filter() const { return *print_filter_; }
-  FtraceConfig_PrintFilter* mutable_print_filter() { _has_field_.set(22); return print_filter_.get(); }
-
-  bool has_symbolize_ksyms() const { return _has_field_[13]; }
-  bool symbolize_ksyms() const { return symbolize_ksyms_; }
-  void set_symbolize_ksyms(bool value) { symbolize_ksyms_ = value; _has_field_.set(13); }
-
-  bool has_ksyms_mem_policy() const { return _has_field_[17]; }
-  FtraceConfig_KsymsMemPolicy ksyms_mem_policy() const { return ksyms_mem_policy_; }
-  void set_ksyms_mem_policy(FtraceConfig_KsymsMemPolicy value) { ksyms_mem_policy_ = value; _has_field_.set(17); }
-
-  bool has_initialize_ksyms_synchronously_for_testing() const { return _has_field_[14]; }
-  bool initialize_ksyms_synchronously_for_testing() const { return initialize_ksyms_synchronously_for_testing_; }
-  void set_initialize_ksyms_synchronously_for_testing(bool value) { initialize_ksyms_synchronously_for_testing_ = value; _has_field_.set(14); }
-
-  bool has_throttle_rss_stat() const { return _has_field_[15]; }
-  bool throttle_rss_stat() const { return throttle_rss_stat_; }
-  void set_throttle_rss_stat(bool value) { throttle_rss_stat_ = value; _has_field_.set(15); }
-
-  bool has_disable_generic_events() const { return _has_field_[16]; }
-  bool disable_generic_events() const { return disable_generic_events_; }
-  void set_disable_generic_events(bool value) { disable_generic_events_ = value; _has_field_.set(16); }
-
-  const std::vector<std::string>& syscall_events() const { return syscall_events_; }
-  std::vector<std::string>* mutable_syscall_events() { return &syscall_events_; }
-  int syscall_events_size() const { return static_cast<int>(syscall_events_.size()); }
-  void clear_syscall_events() { syscall_events_.clear(); }
-  void add_syscall_events(std::string value) { syscall_events_.emplace_back(value); }
-  std::string* add_syscall_events() { syscall_events_.emplace_back(); return &syscall_events_.back(); }
-
-  bool has_enable_function_graph() const { return _has_field_[19]; }
-  bool enable_function_graph() const { return enable_function_graph_; }
-  void set_enable_function_graph(bool value) { enable_function_graph_ = value; _has_field_.set(19); }
-
-  const std::vector<std::string>& function_filters() const { return function_filters_; }
-  std::vector<std::string>* mutable_function_filters() { return &function_filters_; }
-  int function_filters_size() const { return static_cast<int>(function_filters_.size()); }
-  void clear_function_filters() { function_filters_.clear(); }
-  void add_function_filters(std::string value) { function_filters_.emplace_back(value); }
-  std::string* add_function_filters() { function_filters_.emplace_back(); return &function_filters_.back(); }
-
-  const std::vector<std::string>& function_graph_roots() const { return function_graph_roots_; }
-  std::vector<std::string>* mutable_function_graph_roots() { return &function_graph_roots_; }
-  int function_graph_roots_size() const { return static_cast<int>(function_graph_roots_.size()); }
-  void clear_function_graph_roots() { function_graph_roots_.clear(); }
-  void add_function_graph_roots(std::string value) { function_graph_roots_.emplace_back(value); }
-  std::string* add_function_graph_roots() { function_graph_roots_.emplace_back(); return &function_graph_roots_.back(); }
-
-  bool has_preserve_ftrace_buffer() const { return _has_field_[23]; }
-  bool preserve_ftrace_buffer() const { return preserve_ftrace_buffer_; }
-  void set_preserve_ftrace_buffer(bool value) { preserve_ftrace_buffer_ = value; _has_field_.set(23); }
-
-  bool has_use_monotonic_raw_clock() const { return _has_field_[24]; }
-  bool use_monotonic_raw_clock() const { return use_monotonic_raw_clock_; }
-  void set_use_monotonic_raw_clock(bool value) { use_monotonic_raw_clock_ = value; _has_field_.set(24); }
-
-  bool has_instance_name() const { return _has_field_[25]; }
-  const std::string& instance_name() const { return instance_name_; }
-  void set_instance_name(const std::string& value) { instance_name_ = value; _has_field_.set(25); }
-
- private:
-  std::vector<std::string> ftrace_events_;
-  std::vector<std::string> atrace_categories_;
-  std::vector<std::string> atrace_apps_;
-  uint32_t buffer_size_kb_{};
-  uint32_t drain_period_ms_{};
-  ::protozero::CopyablePtr<FtraceConfig_CompactSchedConfig> compact_sched_;
-  ::protozero::CopyablePtr<FtraceConfig_PrintFilter> print_filter_;
-  bool symbolize_ksyms_{};
-  FtraceConfig_KsymsMemPolicy ksyms_mem_policy_{};
-  bool initialize_ksyms_synchronously_for_testing_{};
-  bool throttle_rss_stat_{};
-  bool disable_generic_events_{};
-  std::vector<std::string> syscall_events_;
-  bool enable_function_graph_{};
-  std::vector<std::string> function_filters_;
-  std::vector<std::string> function_graph_roots_;
-  bool preserve_ftrace_buffer_{};
-  bool use_monotonic_raw_clock_{};
-  std::string instance_name_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<26> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT FtraceConfig_PrintFilter : public ::protozero::CppMessageObj {
- public:
-  using Rule = FtraceConfig_PrintFilter_Rule;
-  enum FieldNumbers {
-    kRulesFieldNumber = 1,
-  };
-
-  FtraceConfig_PrintFilter();
-  ~FtraceConfig_PrintFilter() override;
-  FtraceConfig_PrintFilter(FtraceConfig_PrintFilter&&) noexcept;
-  FtraceConfig_PrintFilter& operator=(FtraceConfig_PrintFilter&&);
-  FtraceConfig_PrintFilter(const FtraceConfig_PrintFilter&);
-  FtraceConfig_PrintFilter& operator=(const FtraceConfig_PrintFilter&);
-  bool operator==(const FtraceConfig_PrintFilter&) const;
-  bool operator!=(const FtraceConfig_PrintFilter& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<FtraceConfig_PrintFilter_Rule>& rules() const { return rules_; }
-  std::vector<FtraceConfig_PrintFilter_Rule>* mutable_rules() { return &rules_; }
-  int rules_size() const;
-  void clear_rules();
-  FtraceConfig_PrintFilter_Rule* add_rules();
-
- private:
-  std::vector<FtraceConfig_PrintFilter_Rule> rules_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<2> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT FtraceConfig_PrintFilter_Rule : public ::protozero::CppMessageObj {
- public:
-  using AtraceMessage = FtraceConfig_PrintFilter_Rule_AtraceMessage;
-  enum FieldNumbers {
-    kPrefixFieldNumber = 1,
-    kAtraceMsgFieldNumber = 3,
-    kAllowFieldNumber = 2,
-  };
-
-  FtraceConfig_PrintFilter_Rule();
-  ~FtraceConfig_PrintFilter_Rule() override;
-  FtraceConfig_PrintFilter_Rule(FtraceConfig_PrintFilter_Rule&&) noexcept;
-  FtraceConfig_PrintFilter_Rule& operator=(FtraceConfig_PrintFilter_Rule&&);
-  FtraceConfig_PrintFilter_Rule(const FtraceConfig_PrintFilter_Rule&);
-  FtraceConfig_PrintFilter_Rule& operator=(const FtraceConfig_PrintFilter_Rule&);
-  bool operator==(const FtraceConfig_PrintFilter_Rule&) const;
-  bool operator!=(const FtraceConfig_PrintFilter_Rule& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_prefix() const { return _has_field_[1]; }
-  const std::string& prefix() const { return prefix_; }
-  void set_prefix(const std::string& value) { prefix_ = value; _has_field_.set(1); }
-
-  bool has_atrace_msg() const { return _has_field_[3]; }
-  const FtraceConfig_PrintFilter_Rule_AtraceMessage& atrace_msg() const { return *atrace_msg_; }
-  FtraceConfig_PrintFilter_Rule_AtraceMessage* mutable_atrace_msg() { _has_field_.set(3); return atrace_msg_.get(); }
-
-  bool has_allow() const { return _has_field_[2]; }
-  bool allow() const { return allow_; }
-  void set_allow(bool value) { allow_ = value; _has_field_.set(2); }
-
- private:
-  std::string prefix_{};
-  ::protozero::CopyablePtr<FtraceConfig_PrintFilter_Rule_AtraceMessage> atrace_msg_;
-  bool allow_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<4> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT FtraceConfig_PrintFilter_Rule_AtraceMessage : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kTypeFieldNumber = 1,
-    kPrefixFieldNumber = 2,
-  };
-
-  FtraceConfig_PrintFilter_Rule_AtraceMessage();
-  ~FtraceConfig_PrintFilter_Rule_AtraceMessage() override;
-  FtraceConfig_PrintFilter_Rule_AtraceMessage(FtraceConfig_PrintFilter_Rule_AtraceMessage&&) noexcept;
-  FtraceConfig_PrintFilter_Rule_AtraceMessage& operator=(FtraceConfig_PrintFilter_Rule_AtraceMessage&&);
-  FtraceConfig_PrintFilter_Rule_AtraceMessage(const FtraceConfig_PrintFilter_Rule_AtraceMessage&);
-  FtraceConfig_PrintFilter_Rule_AtraceMessage& operator=(const FtraceConfig_PrintFilter_Rule_AtraceMessage&);
-  bool operator==(const FtraceConfig_PrintFilter_Rule_AtraceMessage&) const;
-  bool operator!=(const FtraceConfig_PrintFilter_Rule_AtraceMessage& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_type() const { return _has_field_[1]; }
-  const std::string& type() const { return type_; }
-  void set_type(const std::string& value) { type_ = value; _has_field_.set(1); }
-
-  bool has_prefix() const { return _has_field_[2]; }
-  const std::string& prefix() const { return prefix_; }
-  void set_prefix(const std::string& value) { prefix_ = value; _has_field_.set(2); }
-
- private:
-  std::string type_{};
-  std::string prefix_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<3> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT FtraceConfig_CompactSchedConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kEnabledFieldNumber = 1,
-  };
-
-  FtraceConfig_CompactSchedConfig();
-  ~FtraceConfig_CompactSchedConfig() override;
-  FtraceConfig_CompactSchedConfig(FtraceConfig_CompactSchedConfig&&) noexcept;
-  FtraceConfig_CompactSchedConfig& operator=(FtraceConfig_CompactSchedConfig&&);
-  FtraceConfig_CompactSchedConfig(const FtraceConfig_CompactSchedConfig&);
-  FtraceConfig_CompactSchedConfig& operator=(const FtraceConfig_CompactSchedConfig&);
-  bool operator==(const FtraceConfig_CompactSchedConfig&) const;
-  bool operator!=(const FtraceConfig_CompactSchedConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_enabled() const { return _has_field_[1]; }
-  bool enabled() const { return enabled_; }
-  void set_enabled(bool value) { enabled_ = value; _has_field_.set(1); }
-
- private:
-  bool enabled_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<2> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_FTRACE_FTRACE_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/gpu/gpu_counter_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_GPU_COUNTER_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_GPU_COUNTER_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class GpuCounterConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT GpuCounterConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kCounterPeriodNsFieldNumber = 1,
-    kCounterIdsFieldNumber = 2,
-    kInstrumentedSamplingFieldNumber = 3,
-    kFixGpuClockFieldNumber = 4,
-  };
-
-  GpuCounterConfig();
-  ~GpuCounterConfig() override;
-  GpuCounterConfig(GpuCounterConfig&&) noexcept;
-  GpuCounterConfig& operator=(GpuCounterConfig&&);
-  GpuCounterConfig(const GpuCounterConfig&);
-  GpuCounterConfig& operator=(const GpuCounterConfig&);
-  bool operator==(const GpuCounterConfig&) const;
-  bool operator!=(const GpuCounterConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_counter_period_ns() const { return _has_field_[1]; }
-  uint64_t counter_period_ns() const { return counter_period_ns_; }
-  void set_counter_period_ns(uint64_t value) { counter_period_ns_ = value; _has_field_.set(1); }
-
-  const std::vector<uint32_t>& counter_ids() const { return counter_ids_; }
-  std::vector<uint32_t>* mutable_counter_ids() { return &counter_ids_; }
-  int counter_ids_size() const { return static_cast<int>(counter_ids_.size()); }
-  void clear_counter_ids() { counter_ids_.clear(); }
-  void add_counter_ids(uint32_t value) { counter_ids_.emplace_back(value); }
-  uint32_t* add_counter_ids() { counter_ids_.emplace_back(); return &counter_ids_.back(); }
-
-  bool has_instrumented_sampling() const { return _has_field_[3]; }
-  bool instrumented_sampling() const { return instrumented_sampling_; }
-  void set_instrumented_sampling(bool value) { instrumented_sampling_ = value; _has_field_.set(3); }
-
-  bool has_fix_gpu_clock() const { return _has_field_[4]; }
-  bool fix_gpu_clock() const { return fix_gpu_clock_; }
-  void set_fix_gpu_clock(bool value) { fix_gpu_clock_ = value; _has_field_.set(4); }
-
- private:
-  uint64_t counter_period_ns_{};
-  std::vector<uint32_t> counter_ids_;
-  bool instrumented_sampling_{};
-  bool fix_gpu_clock_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<5> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_GPU_COUNTER_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/gpu/vulkan_memory_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_VULKAN_MEMORY_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_VULKAN_MEMORY_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class VulkanMemoryConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT VulkanMemoryConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kTrackDriverMemoryUsageFieldNumber = 1,
-    kTrackDeviceMemoryUsageFieldNumber = 2,
-  };
-
-  VulkanMemoryConfig();
-  ~VulkanMemoryConfig() override;
-  VulkanMemoryConfig(VulkanMemoryConfig&&) noexcept;
-  VulkanMemoryConfig& operator=(VulkanMemoryConfig&&);
-  VulkanMemoryConfig(const VulkanMemoryConfig&);
-  VulkanMemoryConfig& operator=(const VulkanMemoryConfig&);
-  bool operator==(const VulkanMemoryConfig&) const;
-  bool operator!=(const VulkanMemoryConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_track_driver_memory_usage() const { return _has_field_[1]; }
-  bool track_driver_memory_usage() const { return track_driver_memory_usage_; }
-  void set_track_driver_memory_usage(bool value) { track_driver_memory_usage_ = value; _has_field_.set(1); }
-
-  bool has_track_device_memory_usage() const { return _has_field_[2]; }
-  bool track_device_memory_usage() const { return track_device_memory_usage_; }
-  void set_track_device_memory_usage(bool value) { track_device_memory_usage_ = value; _has_field_.set(2); }
-
- private:
-  bool track_driver_memory_usage_{};
-  bool track_device_memory_usage_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<3> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_GPU_VULKAN_MEMORY_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/inode_file/inode_file_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INODE_FILE_INODE_FILE_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INODE_FILE_INODE_FILE_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class InodeFileConfig;
-class InodeFileConfig_MountPointMappingEntry;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT InodeFileConfig : public ::protozero::CppMessageObj {
- public:
-  using MountPointMappingEntry = InodeFileConfig_MountPointMappingEntry;
-  enum FieldNumbers {
-    kScanIntervalMsFieldNumber = 1,
-    kScanDelayMsFieldNumber = 2,
-    kScanBatchSizeFieldNumber = 3,
-    kDoNotScanFieldNumber = 4,
-    kScanMountPointsFieldNumber = 5,
-    kMountPointMappingFieldNumber = 6,
-  };
-
-  InodeFileConfig();
-  ~InodeFileConfig() override;
-  InodeFileConfig(InodeFileConfig&&) noexcept;
-  InodeFileConfig& operator=(InodeFileConfig&&);
-  InodeFileConfig(const InodeFileConfig&);
-  InodeFileConfig& operator=(const InodeFileConfig&);
-  bool operator==(const InodeFileConfig&) const;
-  bool operator!=(const InodeFileConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_scan_interval_ms() const { return _has_field_[1]; }
-  uint32_t scan_interval_ms() const { return scan_interval_ms_; }
-  void set_scan_interval_ms(uint32_t value) { scan_interval_ms_ = value; _has_field_.set(1); }
-
-  bool has_scan_delay_ms() const { return _has_field_[2]; }
-  uint32_t scan_delay_ms() const { return scan_delay_ms_; }
-  void set_scan_delay_ms(uint32_t value) { scan_delay_ms_ = value; _has_field_.set(2); }
-
-  bool has_scan_batch_size() const { return _has_field_[3]; }
-  uint32_t scan_batch_size() const { return scan_batch_size_; }
-  void set_scan_batch_size(uint32_t value) { scan_batch_size_ = value; _has_field_.set(3); }
-
-  bool has_do_not_scan() const { return _has_field_[4]; }
-  bool do_not_scan() const { return do_not_scan_; }
-  void set_do_not_scan(bool value) { do_not_scan_ = value; _has_field_.set(4); }
-
-  const std::vector<std::string>& scan_mount_points() const { return scan_mount_points_; }
-  std::vector<std::string>* mutable_scan_mount_points() { return &scan_mount_points_; }
-  int scan_mount_points_size() const { return static_cast<int>(scan_mount_points_.size()); }
-  void clear_scan_mount_points() { scan_mount_points_.clear(); }
-  void add_scan_mount_points(std::string value) { scan_mount_points_.emplace_back(value); }
-  std::string* add_scan_mount_points() { scan_mount_points_.emplace_back(); return &scan_mount_points_.back(); }
-
-  const std::vector<InodeFileConfig_MountPointMappingEntry>& mount_point_mapping() const { return mount_point_mapping_; }
-  std::vector<InodeFileConfig_MountPointMappingEntry>* mutable_mount_point_mapping() { return &mount_point_mapping_; }
-  int mount_point_mapping_size() const;
-  void clear_mount_point_mapping();
-  InodeFileConfig_MountPointMappingEntry* add_mount_point_mapping();
-
- private:
-  uint32_t scan_interval_ms_{};
-  uint32_t scan_delay_ms_{};
-  uint32_t scan_batch_size_{};
-  bool do_not_scan_{};
-  std::vector<std::string> scan_mount_points_;
-  std::vector<InodeFileConfig_MountPointMappingEntry> mount_point_mapping_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<7> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT InodeFileConfig_MountPointMappingEntry : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kMountpointFieldNumber = 1,
-    kScanRootsFieldNumber = 2,
-  };
-
-  InodeFileConfig_MountPointMappingEntry();
-  ~InodeFileConfig_MountPointMappingEntry() override;
-  InodeFileConfig_MountPointMappingEntry(InodeFileConfig_MountPointMappingEntry&&) noexcept;
-  InodeFileConfig_MountPointMappingEntry& operator=(InodeFileConfig_MountPointMappingEntry&&);
-  InodeFileConfig_MountPointMappingEntry(const InodeFileConfig_MountPointMappingEntry&);
-  InodeFileConfig_MountPointMappingEntry& operator=(const InodeFileConfig_MountPointMappingEntry&);
-  bool operator==(const InodeFileConfig_MountPointMappingEntry&) const;
-  bool operator!=(const InodeFileConfig_MountPointMappingEntry& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_mountpoint() const { return _has_field_[1]; }
-  const std::string& mountpoint() const { return mountpoint_; }
-  void set_mountpoint(const std::string& value) { mountpoint_ = value; _has_field_.set(1); }
-
-  const std::vector<std::string>& scan_roots() const { return scan_roots_; }
-  std::vector<std::string>* mutable_scan_roots() { return &scan_roots_; }
-  int scan_roots_size() const { return static_cast<int>(scan_roots_.size()); }
-  void clear_scan_roots() { scan_roots_.clear(); }
-  void add_scan_roots(std::string value) { scan_roots_.emplace_back(value); }
-  std::string* add_scan_roots() { scan_roots_.emplace_back(); return &scan_roots_.back(); }
-
- private:
-  std::string mountpoint_{};
-  std::vector<std::string> scan_roots_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<3> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INODE_FILE_INODE_FILE_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/interceptors/console_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTORS_CONSOLE_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTORS_CONSOLE_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class ConsoleConfig;
-enum ConsoleConfig_Output : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum ConsoleConfig_Output : int {
-  ConsoleConfig_Output_OUTPUT_UNSPECIFIED = 0,
-  ConsoleConfig_Output_OUTPUT_STDOUT = 1,
-  ConsoleConfig_Output_OUTPUT_STDERR = 2,
-};
-
-class PERFETTO_EXPORT_COMPONENT ConsoleConfig : public ::protozero::CppMessageObj {
- public:
-  using Output = ConsoleConfig_Output;
-  static constexpr auto OUTPUT_UNSPECIFIED = ConsoleConfig_Output_OUTPUT_UNSPECIFIED;
-  static constexpr auto OUTPUT_STDOUT = ConsoleConfig_Output_OUTPUT_STDOUT;
-  static constexpr auto OUTPUT_STDERR = ConsoleConfig_Output_OUTPUT_STDERR;
-  static constexpr auto Output_MIN = ConsoleConfig_Output_OUTPUT_UNSPECIFIED;
-  static constexpr auto Output_MAX = ConsoleConfig_Output_OUTPUT_STDERR;
-  enum FieldNumbers {
-    kOutputFieldNumber = 1,
-    kEnableColorsFieldNumber = 2,
-  };
-
-  ConsoleConfig();
-  ~ConsoleConfig() override;
-  ConsoleConfig(ConsoleConfig&&) noexcept;
-  ConsoleConfig& operator=(ConsoleConfig&&);
-  ConsoleConfig(const ConsoleConfig&);
-  ConsoleConfig& operator=(const ConsoleConfig&);
-  bool operator==(const ConsoleConfig&) const;
-  bool operator!=(const ConsoleConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_output() const { return _has_field_[1]; }
-  ConsoleConfig_Output output() const { return output_; }
-  void set_output(ConsoleConfig_Output value) { output_ = value; _has_field_.set(1); }
-
-  bool has_enable_colors() const { return _has_field_[2]; }
-  bool enable_colors() const { return enable_colors_; }
-  void set_enable_colors(bool value) { enable_colors_ = value; _has_field_.set(2); }
-
- private:
-  ConsoleConfig_Output output_{};
-  bool enable_colors_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<3> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTORS_CONSOLE_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/power/android_power_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_POWER_ANDROID_POWER_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_POWER_ANDROID_POWER_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class AndroidPowerConfig;
-enum AndroidPowerConfig_BatteryCounters : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum AndroidPowerConfig_BatteryCounters : int {
-  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_UNSPECIFIED = 0,
-  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CHARGE = 1,
-  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CAPACITY_PERCENT = 2,
-  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT = 3,
-  AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG = 4,
-};
-
-class PERFETTO_EXPORT_COMPONENT AndroidPowerConfig : public ::protozero::CppMessageObj {
- public:
-  using BatteryCounters = AndroidPowerConfig_BatteryCounters;
-  static constexpr auto BATTERY_COUNTER_UNSPECIFIED = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_UNSPECIFIED;
-  static constexpr auto BATTERY_COUNTER_CHARGE = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CHARGE;
-  static constexpr auto BATTERY_COUNTER_CAPACITY_PERCENT = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CAPACITY_PERCENT;
-  static constexpr auto BATTERY_COUNTER_CURRENT = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT;
-  static constexpr auto BATTERY_COUNTER_CURRENT_AVG = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG;
-  static constexpr auto BatteryCounters_MIN = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_UNSPECIFIED;
-  static constexpr auto BatteryCounters_MAX = AndroidPowerConfig_BatteryCounters_BATTERY_COUNTER_CURRENT_AVG;
-  enum FieldNumbers {
-    kBatteryPollMsFieldNumber = 1,
-    kBatteryCountersFieldNumber = 2,
-    kCollectPowerRailsFieldNumber = 3,
-    kCollectEnergyEstimationBreakdownFieldNumber = 4,
-    kCollectEntityStateResidencyFieldNumber = 5,
-  };
-
-  AndroidPowerConfig();
-  ~AndroidPowerConfig() override;
-  AndroidPowerConfig(AndroidPowerConfig&&) noexcept;
-  AndroidPowerConfig& operator=(AndroidPowerConfig&&);
-  AndroidPowerConfig(const AndroidPowerConfig&);
-  AndroidPowerConfig& operator=(const AndroidPowerConfig&);
-  bool operator==(const AndroidPowerConfig&) const;
-  bool operator!=(const AndroidPowerConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_battery_poll_ms() const { return _has_field_[1]; }
-  uint32_t battery_poll_ms() const { return battery_poll_ms_; }
-  void set_battery_poll_ms(uint32_t value) { battery_poll_ms_ = value; _has_field_.set(1); }
-
-  const std::vector<AndroidPowerConfig_BatteryCounters>& battery_counters() const { return battery_counters_; }
-  std::vector<AndroidPowerConfig_BatteryCounters>* mutable_battery_counters() { return &battery_counters_; }
-  int battery_counters_size() const { return static_cast<int>(battery_counters_.size()); }
-  void clear_battery_counters() { battery_counters_.clear(); }
-  void add_battery_counters(AndroidPowerConfig_BatteryCounters value) { battery_counters_.emplace_back(value); }
-  AndroidPowerConfig_BatteryCounters* add_battery_counters() { battery_counters_.emplace_back(); return &battery_counters_.back(); }
-
-  bool has_collect_power_rails() const { return _has_field_[3]; }
-  bool collect_power_rails() const { return collect_power_rails_; }
-  void set_collect_power_rails(bool value) { collect_power_rails_ = value; _has_field_.set(3); }
-
-  bool has_collect_energy_estimation_breakdown() const { return _has_field_[4]; }
-  bool collect_energy_estimation_breakdown() const { return collect_energy_estimation_breakdown_; }
-  void set_collect_energy_estimation_breakdown(bool value) { collect_energy_estimation_breakdown_ = value; _has_field_.set(4); }
-
-  bool has_collect_entity_state_residency() const { return _has_field_[5]; }
-  bool collect_entity_state_residency() const { return collect_entity_state_residency_; }
-  void set_collect_entity_state_residency(bool value) { collect_entity_state_residency_ = value; _has_field_.set(5); }
-
- private:
-  uint32_t battery_poll_ms_{};
-  std::vector<AndroidPowerConfig_BatteryCounters> battery_counters_;
-  bool collect_power_rails_{};
-  bool collect_energy_estimation_breakdown_{};
-  bool collect_entity_state_residency_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<6> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_POWER_ANDROID_POWER_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/process_stats/process_stats_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROCESS_STATS_PROCESS_STATS_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROCESS_STATS_PROCESS_STATS_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class ProcessStatsConfig;
-enum ProcessStatsConfig_Quirks : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum ProcessStatsConfig_Quirks : int {
-  ProcessStatsConfig_Quirks_QUIRKS_UNSPECIFIED = 0,
-  ProcessStatsConfig_Quirks_DISABLE_INITIAL_DUMP = 1,
-  ProcessStatsConfig_Quirks_DISABLE_ON_DEMAND = 2,
-};
-
-class PERFETTO_EXPORT_COMPONENT ProcessStatsConfig : public ::protozero::CppMessageObj {
- public:
-  using Quirks = ProcessStatsConfig_Quirks;
-  static constexpr auto QUIRKS_UNSPECIFIED = ProcessStatsConfig_Quirks_QUIRKS_UNSPECIFIED;
-  static constexpr auto DISABLE_INITIAL_DUMP = ProcessStatsConfig_Quirks_DISABLE_INITIAL_DUMP;
-  static constexpr auto DISABLE_ON_DEMAND = ProcessStatsConfig_Quirks_DISABLE_ON_DEMAND;
-  static constexpr auto Quirks_MIN = ProcessStatsConfig_Quirks_QUIRKS_UNSPECIFIED;
-  static constexpr auto Quirks_MAX = ProcessStatsConfig_Quirks_DISABLE_ON_DEMAND;
-  enum FieldNumbers {
-    kQuirksFieldNumber = 1,
-    kScanAllProcessesOnStartFieldNumber = 2,
-    kRecordThreadNamesFieldNumber = 3,
-    kProcStatsPollMsFieldNumber = 4,
-    kProcStatsCacheTtlMsFieldNumber = 6,
-    kResolveProcessFdsFieldNumber = 9,
-    kScanSmapsRollupFieldNumber = 10,
-  };
-
-  ProcessStatsConfig();
-  ~ProcessStatsConfig() override;
-  ProcessStatsConfig(ProcessStatsConfig&&) noexcept;
-  ProcessStatsConfig& operator=(ProcessStatsConfig&&);
-  ProcessStatsConfig(const ProcessStatsConfig&);
-  ProcessStatsConfig& operator=(const ProcessStatsConfig&);
-  bool operator==(const ProcessStatsConfig&) const;
-  bool operator!=(const ProcessStatsConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<ProcessStatsConfig_Quirks>& quirks() const { return quirks_; }
-  std::vector<ProcessStatsConfig_Quirks>* mutable_quirks() { return &quirks_; }
-  int quirks_size() const { return static_cast<int>(quirks_.size()); }
-  void clear_quirks() { quirks_.clear(); }
-  void add_quirks(ProcessStatsConfig_Quirks value) { quirks_.emplace_back(value); }
-  ProcessStatsConfig_Quirks* add_quirks() { quirks_.emplace_back(); return &quirks_.back(); }
-
-  bool has_scan_all_processes_on_start() const { return _has_field_[2]; }
-  bool scan_all_processes_on_start() const { return scan_all_processes_on_start_; }
-  void set_scan_all_processes_on_start(bool value) { scan_all_processes_on_start_ = value; _has_field_.set(2); }
-
-  bool has_record_thread_names() const { return _has_field_[3]; }
-  bool record_thread_names() const { return record_thread_names_; }
-  void set_record_thread_names(bool value) { record_thread_names_ = value; _has_field_.set(3); }
-
-  bool has_proc_stats_poll_ms() const { return _has_field_[4]; }
-  uint32_t proc_stats_poll_ms() const { return proc_stats_poll_ms_; }
-  void set_proc_stats_poll_ms(uint32_t value) { proc_stats_poll_ms_ = value; _has_field_.set(4); }
-
-  bool has_proc_stats_cache_ttl_ms() const { return _has_field_[6]; }
-  uint32_t proc_stats_cache_ttl_ms() const { return proc_stats_cache_ttl_ms_; }
-  void set_proc_stats_cache_ttl_ms(uint32_t value) { proc_stats_cache_ttl_ms_ = value; _has_field_.set(6); }
-
-  bool has_resolve_process_fds() const { return _has_field_[9]; }
-  bool resolve_process_fds() const { return resolve_process_fds_; }
-  void set_resolve_process_fds(bool value) { resolve_process_fds_ = value; _has_field_.set(9); }
-
-  bool has_scan_smaps_rollup() const { return _has_field_[10]; }
-  bool scan_smaps_rollup() const { return scan_smaps_rollup_; }
-  void set_scan_smaps_rollup(bool value) { scan_smaps_rollup_ = value; _has_field_.set(10); }
-
- private:
-  std::vector<ProcessStatsConfig_Quirks> quirks_;
-  bool scan_all_processes_on_start_{};
-  bool record_thread_names_{};
-  uint32_t proc_stats_poll_ms_{};
-  uint32_t proc_stats_cache_ttl_ms_{};
-  bool resolve_process_fds_{};
-  bool scan_smaps_rollup_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<11> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROCESS_STATS_PROCESS_STATS_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/profiling/heapprofd_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_HEAPPROFD_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_HEAPPROFD_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class HeapprofdConfig;
-class HeapprofdConfig_ContinuousDumpConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT HeapprofdConfig : public ::protozero::CppMessageObj {
- public:
-  using ContinuousDumpConfig = HeapprofdConfig_ContinuousDumpConfig;
-  enum FieldNumbers {
-    kSamplingIntervalBytesFieldNumber = 1,
-    kAdaptiveSamplingShmemThresholdFieldNumber = 24,
-    kAdaptiveSamplingMaxSamplingIntervalBytesFieldNumber = 25,
-    kProcessCmdlineFieldNumber = 2,
-    kPidFieldNumber = 4,
-    kTargetInstalledByFieldNumber = 26,
-    kHeapsFieldNumber = 20,
-    kExcludeHeapsFieldNumber = 27,
-    kStreamAllocationsFieldNumber = 23,
-    kHeapSamplingIntervalsFieldNumber = 22,
-    kAllHeapsFieldNumber = 21,
-    kAllFieldNumber = 5,
-    kMinAnonymousMemoryKbFieldNumber = 15,
-    kMaxHeapprofdMemoryKbFieldNumber = 16,
-    kMaxHeapprofdCpuSecsFieldNumber = 17,
-    kSkipSymbolPrefixFieldNumber = 7,
-    kContinuousDumpConfigFieldNumber = 6,
-    kShmemSizeBytesFieldNumber = 8,
-    kBlockClientFieldNumber = 9,
-    kBlockClientTimeoutUsFieldNumber = 14,
-    kNoStartupFieldNumber = 10,
-    kNoRunningFieldNumber = 11,
-    kDumpAtMaxFieldNumber = 13,
-    kDisableForkTeardownFieldNumber = 18,
-    kDisableVforkDetectionFieldNumber = 19,
-  };
-
-  HeapprofdConfig();
-  ~HeapprofdConfig() override;
-  HeapprofdConfig(HeapprofdConfig&&) noexcept;
-  HeapprofdConfig& operator=(HeapprofdConfig&&);
-  HeapprofdConfig(const HeapprofdConfig&);
-  HeapprofdConfig& operator=(const HeapprofdConfig&);
-  bool operator==(const HeapprofdConfig&) const;
-  bool operator!=(const HeapprofdConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_sampling_interval_bytes() const { return _has_field_[1]; }
-  uint64_t sampling_interval_bytes() const { return sampling_interval_bytes_; }
-  void set_sampling_interval_bytes(uint64_t value) { sampling_interval_bytes_ = value; _has_field_.set(1); }
-
-  bool has_adaptive_sampling_shmem_threshold() const { return _has_field_[24]; }
-  uint64_t adaptive_sampling_shmem_threshold() const { return adaptive_sampling_shmem_threshold_; }
-  void set_adaptive_sampling_shmem_threshold(uint64_t value) { adaptive_sampling_shmem_threshold_ = value; _has_field_.set(24); }
-
-  bool has_adaptive_sampling_max_sampling_interval_bytes() const { return _has_field_[25]; }
-  uint64_t adaptive_sampling_max_sampling_interval_bytes() const { return adaptive_sampling_max_sampling_interval_bytes_; }
-  void set_adaptive_sampling_max_sampling_interval_bytes(uint64_t value) { adaptive_sampling_max_sampling_interval_bytes_ = value; _has_field_.set(25); }
-
-  const std::vector<std::string>& process_cmdline() const { return process_cmdline_; }
-  std::vector<std::string>* mutable_process_cmdline() { return &process_cmdline_; }
-  int process_cmdline_size() const { return static_cast<int>(process_cmdline_.size()); }
-  void clear_process_cmdline() { process_cmdline_.clear(); }
-  void add_process_cmdline(std::string value) { process_cmdline_.emplace_back(value); }
-  std::string* add_process_cmdline() { process_cmdline_.emplace_back(); return &process_cmdline_.back(); }
-
-  const std::vector<uint64_t>& pid() const { return pid_; }
-  std::vector<uint64_t>* mutable_pid() { return &pid_; }
-  int pid_size() const { return static_cast<int>(pid_.size()); }
-  void clear_pid() { pid_.clear(); }
-  void add_pid(uint64_t value) { pid_.emplace_back(value); }
-  uint64_t* add_pid() { pid_.emplace_back(); return &pid_.back(); }
-
-  const std::vector<std::string>& target_installed_by() const { return target_installed_by_; }
-  std::vector<std::string>* mutable_target_installed_by() { return &target_installed_by_; }
-  int target_installed_by_size() const { return static_cast<int>(target_installed_by_.size()); }
-  void clear_target_installed_by() { target_installed_by_.clear(); }
-  void add_target_installed_by(std::string value) { target_installed_by_.emplace_back(value); }
-  std::string* add_target_installed_by() { target_installed_by_.emplace_back(); return &target_installed_by_.back(); }
-
-  const std::vector<std::string>& heaps() const { return heaps_; }
-  std::vector<std::string>* mutable_heaps() { return &heaps_; }
-  int heaps_size() const { return static_cast<int>(heaps_.size()); }
-  void clear_heaps() { heaps_.clear(); }
-  void add_heaps(std::string value) { heaps_.emplace_back(value); }
-  std::string* add_heaps() { heaps_.emplace_back(); return &heaps_.back(); }
-
-  const std::vector<std::string>& exclude_heaps() const { return exclude_heaps_; }
-  std::vector<std::string>* mutable_exclude_heaps() { return &exclude_heaps_; }
-  int exclude_heaps_size() const { return static_cast<int>(exclude_heaps_.size()); }
-  void clear_exclude_heaps() { exclude_heaps_.clear(); }
-  void add_exclude_heaps(std::string value) { exclude_heaps_.emplace_back(value); }
-  std::string* add_exclude_heaps() { exclude_heaps_.emplace_back(); return &exclude_heaps_.back(); }
-
-  bool has_stream_allocations() const { return _has_field_[23]; }
-  bool stream_allocations() const { return stream_allocations_; }
-  void set_stream_allocations(bool value) { stream_allocations_ = value; _has_field_.set(23); }
-
-  const std::vector<uint64_t>& heap_sampling_intervals() const { return heap_sampling_intervals_; }
-  std::vector<uint64_t>* mutable_heap_sampling_intervals() { return &heap_sampling_intervals_; }
-  int heap_sampling_intervals_size() const { return static_cast<int>(heap_sampling_intervals_.size()); }
-  void clear_heap_sampling_intervals() { heap_sampling_intervals_.clear(); }
-  void add_heap_sampling_intervals(uint64_t value) { heap_sampling_intervals_.emplace_back(value); }
-  uint64_t* add_heap_sampling_intervals() { heap_sampling_intervals_.emplace_back(); return &heap_sampling_intervals_.back(); }
-
-  bool has_all_heaps() const { return _has_field_[21]; }
-  bool all_heaps() const { return all_heaps_; }
-  void set_all_heaps(bool value) { all_heaps_ = value; _has_field_.set(21); }
-
-  bool has_all() const { return _has_field_[5]; }
-  bool all() const { return all_; }
-  void set_all(bool value) { all_ = value; _has_field_.set(5); }
-
-  bool has_min_anonymous_memory_kb() const { return _has_field_[15]; }
-  uint32_t min_anonymous_memory_kb() const { return min_anonymous_memory_kb_; }
-  void set_min_anonymous_memory_kb(uint32_t value) { min_anonymous_memory_kb_ = value; _has_field_.set(15); }
-
-  bool has_max_heapprofd_memory_kb() const { return _has_field_[16]; }
-  uint32_t max_heapprofd_memory_kb() const { return max_heapprofd_memory_kb_; }
-  void set_max_heapprofd_memory_kb(uint32_t value) { max_heapprofd_memory_kb_ = value; _has_field_.set(16); }
-
-  bool has_max_heapprofd_cpu_secs() const { return _has_field_[17]; }
-  uint64_t max_heapprofd_cpu_secs() const { return max_heapprofd_cpu_secs_; }
-  void set_max_heapprofd_cpu_secs(uint64_t value) { max_heapprofd_cpu_secs_ = value; _has_field_.set(17); }
-
-  const std::vector<std::string>& skip_symbol_prefix() const { return skip_symbol_prefix_; }
-  std::vector<std::string>* mutable_skip_symbol_prefix() { return &skip_symbol_prefix_; }
-  int skip_symbol_prefix_size() const { return static_cast<int>(skip_symbol_prefix_.size()); }
-  void clear_skip_symbol_prefix() { skip_symbol_prefix_.clear(); }
-  void add_skip_symbol_prefix(std::string value) { skip_symbol_prefix_.emplace_back(value); }
-  std::string* add_skip_symbol_prefix() { skip_symbol_prefix_.emplace_back(); return &skip_symbol_prefix_.back(); }
-
-  bool has_continuous_dump_config() const { return _has_field_[6]; }
-  const HeapprofdConfig_ContinuousDumpConfig& continuous_dump_config() const { return *continuous_dump_config_; }
-  HeapprofdConfig_ContinuousDumpConfig* mutable_continuous_dump_config() { _has_field_.set(6); return continuous_dump_config_.get(); }
-
-  bool has_shmem_size_bytes() const { return _has_field_[8]; }
-  uint64_t shmem_size_bytes() const { return shmem_size_bytes_; }
-  void set_shmem_size_bytes(uint64_t value) { shmem_size_bytes_ = value; _has_field_.set(8); }
-
-  bool has_block_client() const { return _has_field_[9]; }
-  bool block_client() const { return block_client_; }
-  void set_block_client(bool value) { block_client_ = value; _has_field_.set(9); }
-
-  bool has_block_client_timeout_us() const { return _has_field_[14]; }
-  uint32_t block_client_timeout_us() const { return block_client_timeout_us_; }
-  void set_block_client_timeout_us(uint32_t value) { block_client_timeout_us_ = value; _has_field_.set(14); }
-
-  bool has_no_startup() const { return _has_field_[10]; }
-  bool no_startup() const { return no_startup_; }
-  void set_no_startup(bool value) { no_startup_ = value; _has_field_.set(10); }
-
-  bool has_no_running() const { return _has_field_[11]; }
-  bool no_running() const { return no_running_; }
-  void set_no_running(bool value) { no_running_ = value; _has_field_.set(11); }
-
-  bool has_dump_at_max() const { return _has_field_[13]; }
-  bool dump_at_max() const { return dump_at_max_; }
-  void set_dump_at_max(bool value) { dump_at_max_ = value; _has_field_.set(13); }
-
-  bool has_disable_fork_teardown() const { return _has_field_[18]; }
-  bool disable_fork_teardown() const { return disable_fork_teardown_; }
-  void set_disable_fork_teardown(bool value) { disable_fork_teardown_ = value; _has_field_.set(18); }
-
-  bool has_disable_vfork_detection() const { return _has_field_[19]; }
-  bool disable_vfork_detection() const { return disable_vfork_detection_; }
-  void set_disable_vfork_detection(bool value) { disable_vfork_detection_ = value; _has_field_.set(19); }
-
- private:
-  uint64_t sampling_interval_bytes_{};
-  uint64_t adaptive_sampling_shmem_threshold_{};
-  uint64_t adaptive_sampling_max_sampling_interval_bytes_{};
-  std::vector<std::string> process_cmdline_;
-  std::vector<uint64_t> pid_;
-  std::vector<std::string> target_installed_by_;
-  std::vector<std::string> heaps_;
-  std::vector<std::string> exclude_heaps_;
-  bool stream_allocations_{};
-  std::vector<uint64_t> heap_sampling_intervals_;
-  bool all_heaps_{};
-  bool all_{};
-  uint32_t min_anonymous_memory_kb_{};
-  uint32_t max_heapprofd_memory_kb_{};
-  uint64_t max_heapprofd_cpu_secs_{};
-  std::vector<std::string> skip_symbol_prefix_;
-  ::protozero::CopyablePtr<HeapprofdConfig_ContinuousDumpConfig> continuous_dump_config_;
-  uint64_t shmem_size_bytes_{};
-  bool block_client_{};
-  uint32_t block_client_timeout_us_{};
-  bool no_startup_{};
-  bool no_running_{};
-  bool dump_at_max_{};
-  bool disable_fork_teardown_{};
-  bool disable_vfork_detection_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<28> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT HeapprofdConfig_ContinuousDumpConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kDumpPhaseMsFieldNumber = 5,
-    kDumpIntervalMsFieldNumber = 6,
-  };
-
-  HeapprofdConfig_ContinuousDumpConfig();
-  ~HeapprofdConfig_ContinuousDumpConfig() override;
-  HeapprofdConfig_ContinuousDumpConfig(HeapprofdConfig_ContinuousDumpConfig&&) noexcept;
-  HeapprofdConfig_ContinuousDumpConfig& operator=(HeapprofdConfig_ContinuousDumpConfig&&);
-  HeapprofdConfig_ContinuousDumpConfig(const HeapprofdConfig_ContinuousDumpConfig&);
-  HeapprofdConfig_ContinuousDumpConfig& operator=(const HeapprofdConfig_ContinuousDumpConfig&);
-  bool operator==(const HeapprofdConfig_ContinuousDumpConfig&) const;
-  bool operator!=(const HeapprofdConfig_ContinuousDumpConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_dump_phase_ms() const { return _has_field_[5]; }
-  uint32_t dump_phase_ms() const { return dump_phase_ms_; }
-  void set_dump_phase_ms(uint32_t value) { dump_phase_ms_ = value; _has_field_.set(5); }
-
-  bool has_dump_interval_ms() const { return _has_field_[6]; }
-  uint32_t dump_interval_ms() const { return dump_interval_ms_; }
-  void set_dump_interval_ms(uint32_t value) { dump_interval_ms_ = value; _has_field_.set(6); }
-
- private:
-  uint32_t dump_phase_ms_{};
-  uint32_t dump_interval_ms_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<7> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_HEAPPROFD_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/profiling/java_hprof_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_JAVA_HPROF_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_JAVA_HPROF_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class JavaHprofConfig;
-class JavaHprofConfig_ContinuousDumpConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT JavaHprofConfig : public ::protozero::CppMessageObj {
- public:
-  using ContinuousDumpConfig = JavaHprofConfig_ContinuousDumpConfig;
-  enum FieldNumbers {
-    kProcessCmdlineFieldNumber = 1,
-    kPidFieldNumber = 2,
-    kTargetInstalledByFieldNumber = 7,
-    kContinuousDumpConfigFieldNumber = 3,
-    kMinAnonymousMemoryKbFieldNumber = 4,
-    kDumpSmapsFieldNumber = 5,
-    kIgnoredTypesFieldNumber = 6,
-  };
-
-  JavaHprofConfig();
-  ~JavaHprofConfig() override;
-  JavaHprofConfig(JavaHprofConfig&&) noexcept;
-  JavaHprofConfig& operator=(JavaHprofConfig&&);
-  JavaHprofConfig(const JavaHprofConfig&);
-  JavaHprofConfig& operator=(const JavaHprofConfig&);
-  bool operator==(const JavaHprofConfig&) const;
-  bool operator!=(const JavaHprofConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<std::string>& process_cmdline() const { return process_cmdline_; }
-  std::vector<std::string>* mutable_process_cmdline() { return &process_cmdline_; }
-  int process_cmdline_size() const { return static_cast<int>(process_cmdline_.size()); }
-  void clear_process_cmdline() { process_cmdline_.clear(); }
-  void add_process_cmdline(std::string value) { process_cmdline_.emplace_back(value); }
-  std::string* add_process_cmdline() { process_cmdline_.emplace_back(); return &process_cmdline_.back(); }
-
-  const std::vector<uint64_t>& pid() const { return pid_; }
-  std::vector<uint64_t>* mutable_pid() { return &pid_; }
-  int pid_size() const { return static_cast<int>(pid_.size()); }
-  void clear_pid() { pid_.clear(); }
-  void add_pid(uint64_t value) { pid_.emplace_back(value); }
-  uint64_t* add_pid() { pid_.emplace_back(); return &pid_.back(); }
-
-  const std::vector<std::string>& target_installed_by() const { return target_installed_by_; }
-  std::vector<std::string>* mutable_target_installed_by() { return &target_installed_by_; }
-  int target_installed_by_size() const { return static_cast<int>(target_installed_by_.size()); }
-  void clear_target_installed_by() { target_installed_by_.clear(); }
-  void add_target_installed_by(std::string value) { target_installed_by_.emplace_back(value); }
-  std::string* add_target_installed_by() { target_installed_by_.emplace_back(); return &target_installed_by_.back(); }
-
-  bool has_continuous_dump_config() const { return _has_field_[3]; }
-  const JavaHprofConfig_ContinuousDumpConfig& continuous_dump_config() const { return *continuous_dump_config_; }
-  JavaHprofConfig_ContinuousDumpConfig* mutable_continuous_dump_config() { _has_field_.set(3); return continuous_dump_config_.get(); }
-
-  bool has_min_anonymous_memory_kb() const { return _has_field_[4]; }
-  uint32_t min_anonymous_memory_kb() const { return min_anonymous_memory_kb_; }
-  void set_min_anonymous_memory_kb(uint32_t value) { min_anonymous_memory_kb_ = value; _has_field_.set(4); }
-
-  bool has_dump_smaps() const { return _has_field_[5]; }
-  bool dump_smaps() const { return dump_smaps_; }
-  void set_dump_smaps(bool value) { dump_smaps_ = value; _has_field_.set(5); }
-
-  const std::vector<std::string>& ignored_types() const { return ignored_types_; }
-  std::vector<std::string>* mutable_ignored_types() { return &ignored_types_; }
-  int ignored_types_size() const { return static_cast<int>(ignored_types_.size()); }
-  void clear_ignored_types() { ignored_types_.clear(); }
-  void add_ignored_types(std::string value) { ignored_types_.emplace_back(value); }
-  std::string* add_ignored_types() { ignored_types_.emplace_back(); return &ignored_types_.back(); }
-
- private:
-  std::vector<std::string> process_cmdline_;
-  std::vector<uint64_t> pid_;
-  std::vector<std::string> target_installed_by_;
-  ::protozero::CopyablePtr<JavaHprofConfig_ContinuousDumpConfig> continuous_dump_config_;
-  uint32_t min_anonymous_memory_kb_{};
-  bool dump_smaps_{};
-  std::vector<std::string> ignored_types_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<8> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT JavaHprofConfig_ContinuousDumpConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kDumpPhaseMsFieldNumber = 1,
-    kDumpIntervalMsFieldNumber = 2,
-    kScanPidsOnlyOnStartFieldNumber = 3,
-  };
-
-  JavaHprofConfig_ContinuousDumpConfig();
-  ~JavaHprofConfig_ContinuousDumpConfig() override;
-  JavaHprofConfig_ContinuousDumpConfig(JavaHprofConfig_ContinuousDumpConfig&&) noexcept;
-  JavaHprofConfig_ContinuousDumpConfig& operator=(JavaHprofConfig_ContinuousDumpConfig&&);
-  JavaHprofConfig_ContinuousDumpConfig(const JavaHprofConfig_ContinuousDumpConfig&);
-  JavaHprofConfig_ContinuousDumpConfig& operator=(const JavaHprofConfig_ContinuousDumpConfig&);
-  bool operator==(const JavaHprofConfig_ContinuousDumpConfig&) const;
-  bool operator!=(const JavaHprofConfig_ContinuousDumpConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_dump_phase_ms() const { return _has_field_[1]; }
-  uint32_t dump_phase_ms() const { return dump_phase_ms_; }
-  void set_dump_phase_ms(uint32_t value) { dump_phase_ms_ = value; _has_field_.set(1); }
-
-  bool has_dump_interval_ms() const { return _has_field_[2]; }
-  uint32_t dump_interval_ms() const { return dump_interval_ms_; }
-  void set_dump_interval_ms(uint32_t value) { dump_interval_ms_ = value; _has_field_.set(2); }
-
-  bool has_scan_pids_only_on_start() const { return _has_field_[3]; }
-  bool scan_pids_only_on_start() const { return scan_pids_only_on_start_; }
-  void set_scan_pids_only_on_start(bool value) { scan_pids_only_on_start_ = value; _has_field_.set(3); }
-
- private:
-  uint32_t dump_phase_ms_{};
-  uint32_t dump_interval_ms_{};
-  bool scan_pids_only_on_start_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<4> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_JAVA_HPROF_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/profiling/perf_event_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_PERF_EVENT_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_PERF_EVENT_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class PerfEventConfig;
-class PerfEventConfig_CallstackSampling;
-class PerfEventConfig_Scope;
-class PerfEvents_Timebase;
-class PerfEvents_RawEvent;
-class PerfEvents_Tracepoint;
-enum PerfEventConfig_UnwindMode : int;
-enum PerfEvents_Counter : int;
-enum PerfEvents_PerfClock : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum PerfEventConfig_UnwindMode : int {
-  PerfEventConfig_UnwindMode_UNWIND_UNKNOWN = 0,
-  PerfEventConfig_UnwindMode_UNWIND_SKIP = 1,
-  PerfEventConfig_UnwindMode_UNWIND_DWARF = 2,
-};
-
-class PERFETTO_EXPORT_COMPONENT PerfEventConfig : public ::protozero::CppMessageObj {
- public:
-  using CallstackSampling = PerfEventConfig_CallstackSampling;
-  using Scope = PerfEventConfig_Scope;
-  using UnwindMode = PerfEventConfig_UnwindMode;
-  static constexpr auto UNWIND_UNKNOWN = PerfEventConfig_UnwindMode_UNWIND_UNKNOWN;
-  static constexpr auto UNWIND_SKIP = PerfEventConfig_UnwindMode_UNWIND_SKIP;
-  static constexpr auto UNWIND_DWARF = PerfEventConfig_UnwindMode_UNWIND_DWARF;
-  static constexpr auto UnwindMode_MIN = PerfEventConfig_UnwindMode_UNWIND_UNKNOWN;
-  static constexpr auto UnwindMode_MAX = PerfEventConfig_UnwindMode_UNWIND_DWARF;
-  enum FieldNumbers {
-    kTimebaseFieldNumber = 15,
-    kCallstackSamplingFieldNumber = 16,
-    kRingBufferReadPeriodMsFieldNumber = 8,
-    kRingBufferPagesFieldNumber = 3,
-    kMaxEnqueuedFootprintKbFieldNumber = 17,
-    kMaxDaemonMemoryKbFieldNumber = 13,
-    kRemoteDescriptorTimeoutMsFieldNumber = 9,
-    kUnwindStateClearPeriodMsFieldNumber = 10,
-    kTargetInstalledByFieldNumber = 18,
-    kAllCpusFieldNumber = 1,
-    kSamplingFrequencyFieldNumber = 2,
-    kKernelFramesFieldNumber = 12,
-    kTargetPidFieldNumber = 4,
-    kTargetCmdlineFieldNumber = 5,
-    kExcludePidFieldNumber = 6,
-    kExcludeCmdlineFieldNumber = 7,
-    kAdditionalCmdlineCountFieldNumber = 11,
-  };
-
-  PerfEventConfig();
-  ~PerfEventConfig() override;
-  PerfEventConfig(PerfEventConfig&&) noexcept;
-  PerfEventConfig& operator=(PerfEventConfig&&);
-  PerfEventConfig(const PerfEventConfig&);
-  PerfEventConfig& operator=(const PerfEventConfig&);
-  bool operator==(const PerfEventConfig&) const;
-  bool operator!=(const PerfEventConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_timebase() const { return _has_field_[15]; }
-  const PerfEvents_Timebase& timebase() const { return *timebase_; }
-  PerfEvents_Timebase* mutable_timebase() { _has_field_.set(15); return timebase_.get(); }
-
-  bool has_callstack_sampling() const { return _has_field_[16]; }
-  const PerfEventConfig_CallstackSampling& callstack_sampling() const { return *callstack_sampling_; }
-  PerfEventConfig_CallstackSampling* mutable_callstack_sampling() { _has_field_.set(16); return callstack_sampling_.get(); }
-
-  bool has_ring_buffer_read_period_ms() const { return _has_field_[8]; }
-  uint32_t ring_buffer_read_period_ms() const { return ring_buffer_read_period_ms_; }
-  void set_ring_buffer_read_period_ms(uint32_t value) { ring_buffer_read_period_ms_ = value; _has_field_.set(8); }
-
-  bool has_ring_buffer_pages() const { return _has_field_[3]; }
-  uint32_t ring_buffer_pages() const { return ring_buffer_pages_; }
-  void set_ring_buffer_pages(uint32_t value) { ring_buffer_pages_ = value; _has_field_.set(3); }
-
-  bool has_max_enqueued_footprint_kb() const { return _has_field_[17]; }
-  uint64_t max_enqueued_footprint_kb() const { return max_enqueued_footprint_kb_; }
-  void set_max_enqueued_footprint_kb(uint64_t value) { max_enqueued_footprint_kb_ = value; _has_field_.set(17); }
-
-  bool has_max_daemon_memory_kb() const { return _has_field_[13]; }
-  uint32_t max_daemon_memory_kb() const { return max_daemon_memory_kb_; }
-  void set_max_daemon_memory_kb(uint32_t value) { max_daemon_memory_kb_ = value; _has_field_.set(13); }
-
-  bool has_remote_descriptor_timeout_ms() const { return _has_field_[9]; }
-  uint32_t remote_descriptor_timeout_ms() const { return remote_descriptor_timeout_ms_; }
-  void set_remote_descriptor_timeout_ms(uint32_t value) { remote_descriptor_timeout_ms_ = value; _has_field_.set(9); }
-
-  bool has_unwind_state_clear_period_ms() const { return _has_field_[10]; }
-  uint32_t unwind_state_clear_period_ms() const { return unwind_state_clear_period_ms_; }
-  void set_unwind_state_clear_period_ms(uint32_t value) { unwind_state_clear_period_ms_ = value; _has_field_.set(10); }
-
-  const std::vector<std::string>& target_installed_by() const { return target_installed_by_; }
-  std::vector<std::string>* mutable_target_installed_by() { return &target_installed_by_; }
-  int target_installed_by_size() const { return static_cast<int>(target_installed_by_.size()); }
-  void clear_target_installed_by() { target_installed_by_.clear(); }
-  void add_target_installed_by(std::string value) { target_installed_by_.emplace_back(value); }
-  std::string* add_target_installed_by() { target_installed_by_.emplace_back(); return &target_installed_by_.back(); }
-
-  bool has_all_cpus() const { return _has_field_[1]; }
-  bool all_cpus() const { return all_cpus_; }
-  void set_all_cpus(bool value) { all_cpus_ = value; _has_field_.set(1); }
-
-  bool has_sampling_frequency() const { return _has_field_[2]; }
-  uint32_t sampling_frequency() const { return sampling_frequency_; }
-  void set_sampling_frequency(uint32_t value) { sampling_frequency_ = value; _has_field_.set(2); }
-
-  bool has_kernel_frames() const { return _has_field_[12]; }
-  bool kernel_frames() const { return kernel_frames_; }
-  void set_kernel_frames(bool value) { kernel_frames_ = value; _has_field_.set(12); }
-
-  const std::vector<int32_t>& target_pid() const { return target_pid_; }
-  std::vector<int32_t>* mutable_target_pid() { return &target_pid_; }
-  int target_pid_size() const { return static_cast<int>(target_pid_.size()); }
-  void clear_target_pid() { target_pid_.clear(); }
-  void add_target_pid(int32_t value) { target_pid_.emplace_back(value); }
-  int32_t* add_target_pid() { target_pid_.emplace_back(); return &target_pid_.back(); }
-
-  const std::vector<std::string>& target_cmdline() const { return target_cmdline_; }
-  std::vector<std::string>* mutable_target_cmdline() { return &target_cmdline_; }
-  int target_cmdline_size() const { return static_cast<int>(target_cmdline_.size()); }
-  void clear_target_cmdline() { target_cmdline_.clear(); }
-  void add_target_cmdline(std::string value) { target_cmdline_.emplace_back(value); }
-  std::string* add_target_cmdline() { target_cmdline_.emplace_back(); return &target_cmdline_.back(); }
-
-  const std::vector<int32_t>& exclude_pid() const { return exclude_pid_; }
-  std::vector<int32_t>* mutable_exclude_pid() { return &exclude_pid_; }
-  int exclude_pid_size() const { return static_cast<int>(exclude_pid_.size()); }
-  void clear_exclude_pid() { exclude_pid_.clear(); }
-  void add_exclude_pid(int32_t value) { exclude_pid_.emplace_back(value); }
-  int32_t* add_exclude_pid() { exclude_pid_.emplace_back(); return &exclude_pid_.back(); }
-
-  const std::vector<std::string>& exclude_cmdline() const { return exclude_cmdline_; }
-  std::vector<std::string>* mutable_exclude_cmdline() { return &exclude_cmdline_; }
-  int exclude_cmdline_size() const { return static_cast<int>(exclude_cmdline_.size()); }
-  void clear_exclude_cmdline() { exclude_cmdline_.clear(); }
-  void add_exclude_cmdline(std::string value) { exclude_cmdline_.emplace_back(value); }
-  std::string* add_exclude_cmdline() { exclude_cmdline_.emplace_back(); return &exclude_cmdline_.back(); }
-
-  bool has_additional_cmdline_count() const { return _has_field_[11]; }
-  uint32_t additional_cmdline_count() const { return additional_cmdline_count_; }
-  void set_additional_cmdline_count(uint32_t value) { additional_cmdline_count_ = value; _has_field_.set(11); }
-
- private:
-  ::protozero::CopyablePtr<PerfEvents_Timebase> timebase_;
-  ::protozero::CopyablePtr<PerfEventConfig_CallstackSampling> callstack_sampling_;
-  uint32_t ring_buffer_read_period_ms_{};
-  uint32_t ring_buffer_pages_{};
-  uint64_t max_enqueued_footprint_kb_{};
-  uint32_t max_daemon_memory_kb_{};
-  uint32_t remote_descriptor_timeout_ms_{};
-  uint32_t unwind_state_clear_period_ms_{};
-  std::vector<std::string> target_installed_by_;
-  bool all_cpus_{};
-  uint32_t sampling_frequency_{};
-  bool kernel_frames_{};
-  std::vector<int32_t> target_pid_;
-  std::vector<std::string> target_cmdline_;
-  std::vector<int32_t> exclude_pid_;
-  std::vector<std::string> exclude_cmdline_;
-  uint32_t additional_cmdline_count_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<19> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT PerfEventConfig_CallstackSampling : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kScopeFieldNumber = 1,
-    kKernelFramesFieldNumber = 2,
-    kUserFramesFieldNumber = 3,
-  };
-
-  PerfEventConfig_CallstackSampling();
-  ~PerfEventConfig_CallstackSampling() override;
-  PerfEventConfig_CallstackSampling(PerfEventConfig_CallstackSampling&&) noexcept;
-  PerfEventConfig_CallstackSampling& operator=(PerfEventConfig_CallstackSampling&&);
-  PerfEventConfig_CallstackSampling(const PerfEventConfig_CallstackSampling&);
-  PerfEventConfig_CallstackSampling& operator=(const PerfEventConfig_CallstackSampling&);
-  bool operator==(const PerfEventConfig_CallstackSampling&) const;
-  bool operator!=(const PerfEventConfig_CallstackSampling& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_scope() const { return _has_field_[1]; }
-  const PerfEventConfig_Scope& scope() const { return *scope_; }
-  PerfEventConfig_Scope* mutable_scope() { _has_field_.set(1); return scope_.get(); }
-
-  bool has_kernel_frames() const { return _has_field_[2]; }
-  bool kernel_frames() const { return kernel_frames_; }
-  void set_kernel_frames(bool value) { kernel_frames_ = value; _has_field_.set(2); }
-
-  bool has_user_frames() const { return _has_field_[3]; }
-  PerfEventConfig_UnwindMode user_frames() const { return user_frames_; }
-  void set_user_frames(PerfEventConfig_UnwindMode value) { user_frames_ = value; _has_field_.set(3); }
-
- private:
-  ::protozero::CopyablePtr<PerfEventConfig_Scope> scope_;
-  bool kernel_frames_{};
-  PerfEventConfig_UnwindMode user_frames_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<4> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT PerfEventConfig_Scope : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kTargetPidFieldNumber = 1,
-    kTargetCmdlineFieldNumber = 2,
-    kExcludePidFieldNumber = 3,
-    kExcludeCmdlineFieldNumber = 4,
-    kAdditionalCmdlineCountFieldNumber = 5,
-    kProcessShardCountFieldNumber = 6,
-  };
-
-  PerfEventConfig_Scope();
-  ~PerfEventConfig_Scope() override;
-  PerfEventConfig_Scope(PerfEventConfig_Scope&&) noexcept;
-  PerfEventConfig_Scope& operator=(PerfEventConfig_Scope&&);
-  PerfEventConfig_Scope(const PerfEventConfig_Scope&);
-  PerfEventConfig_Scope& operator=(const PerfEventConfig_Scope&);
-  bool operator==(const PerfEventConfig_Scope&) const;
-  bool operator!=(const PerfEventConfig_Scope& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<int32_t>& target_pid() const { return target_pid_; }
-  std::vector<int32_t>* mutable_target_pid() { return &target_pid_; }
-  int target_pid_size() const { return static_cast<int>(target_pid_.size()); }
-  void clear_target_pid() { target_pid_.clear(); }
-  void add_target_pid(int32_t value) { target_pid_.emplace_back(value); }
-  int32_t* add_target_pid() { target_pid_.emplace_back(); return &target_pid_.back(); }
-
-  const std::vector<std::string>& target_cmdline() const { return target_cmdline_; }
-  std::vector<std::string>* mutable_target_cmdline() { return &target_cmdline_; }
-  int target_cmdline_size() const { return static_cast<int>(target_cmdline_.size()); }
-  void clear_target_cmdline() { target_cmdline_.clear(); }
-  void add_target_cmdline(std::string value) { target_cmdline_.emplace_back(value); }
-  std::string* add_target_cmdline() { target_cmdline_.emplace_back(); return &target_cmdline_.back(); }
-
-  const std::vector<int32_t>& exclude_pid() const { return exclude_pid_; }
-  std::vector<int32_t>* mutable_exclude_pid() { return &exclude_pid_; }
-  int exclude_pid_size() const { return static_cast<int>(exclude_pid_.size()); }
-  void clear_exclude_pid() { exclude_pid_.clear(); }
-  void add_exclude_pid(int32_t value) { exclude_pid_.emplace_back(value); }
-  int32_t* add_exclude_pid() { exclude_pid_.emplace_back(); return &exclude_pid_.back(); }
-
-  const std::vector<std::string>& exclude_cmdline() const { return exclude_cmdline_; }
-  std::vector<std::string>* mutable_exclude_cmdline() { return &exclude_cmdline_; }
-  int exclude_cmdline_size() const { return static_cast<int>(exclude_cmdline_.size()); }
-  void clear_exclude_cmdline() { exclude_cmdline_.clear(); }
-  void add_exclude_cmdline(std::string value) { exclude_cmdline_.emplace_back(value); }
-  std::string* add_exclude_cmdline() { exclude_cmdline_.emplace_back(); return &exclude_cmdline_.back(); }
-
-  bool has_additional_cmdline_count() const { return _has_field_[5]; }
-  uint32_t additional_cmdline_count() const { return additional_cmdline_count_; }
-  void set_additional_cmdline_count(uint32_t value) { additional_cmdline_count_ = value; _has_field_.set(5); }
-
-  bool has_process_shard_count() const { return _has_field_[6]; }
-  uint32_t process_shard_count() const { return process_shard_count_; }
-  void set_process_shard_count(uint32_t value) { process_shard_count_ = value; _has_field_.set(6); }
-
- private:
-  std::vector<int32_t> target_pid_;
-  std::vector<std::string> target_cmdline_;
-  std::vector<int32_t> exclude_pid_;
-  std::vector<std::string> exclude_cmdline_;
-  uint32_t additional_cmdline_count_{};
-  uint32_t process_shard_count_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<7> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_PROFILING_PERF_EVENT_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/statsd/atom_ids.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_ATOM_IDS_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_ATOM_IDS_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum AtomId : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum AtomId : int {
-  ATOM_UNSPECIFIED = 0,
-  ATOM_BLE_SCAN_STATE_CHANGED = 2,
-  ATOM_PROCESS_STATE_CHANGED = 3,
-  ATOM_BLE_SCAN_RESULT_RECEIVED = 4,
-  ATOM_SENSOR_STATE_CHANGED = 5,
-  ATOM_GPS_SCAN_STATE_CHANGED = 6,
-  ATOM_SYNC_STATE_CHANGED = 7,
-  ATOM_SCHEDULED_JOB_STATE_CHANGED = 8,
-  ATOM_SCREEN_BRIGHTNESS_CHANGED = 9,
-  ATOM_WAKELOCK_STATE_CHANGED = 10,
-  ATOM_LONG_PARTIAL_WAKELOCK_STATE_CHANGED = 11,
-  ATOM_MOBILE_RADIO_POWER_STATE_CHANGED = 12,
-  ATOM_WIFI_RADIO_POWER_STATE_CHANGED = 13,
-  ATOM_ACTIVITY_MANAGER_SLEEP_STATE_CHANGED = 14,
-  ATOM_MEMORY_FACTOR_STATE_CHANGED = 15,
-  ATOM_EXCESSIVE_CPU_USAGE_REPORTED = 16,
-  ATOM_CACHED_KILL_REPORTED = 17,
-  ATOM_PROCESS_MEMORY_STAT_REPORTED = 18,
-  ATOM_LAUNCHER_EVENT = 19,
-  ATOM_BATTERY_SAVER_MODE_STATE_CHANGED = 20,
-  ATOM_DEVICE_IDLE_MODE_STATE_CHANGED = 21,
-  ATOM_DEVICE_IDLING_MODE_STATE_CHANGED = 22,
-  ATOM_AUDIO_STATE_CHANGED = 23,
-  ATOM_MEDIA_CODEC_STATE_CHANGED = 24,
-  ATOM_CAMERA_STATE_CHANGED = 25,
-  ATOM_FLASHLIGHT_STATE_CHANGED = 26,
-  ATOM_UID_PROCESS_STATE_CHANGED = 27,
-  ATOM_PROCESS_LIFE_CYCLE_STATE_CHANGED = 28,
-  ATOM_SCREEN_STATE_CHANGED = 29,
-  ATOM_BATTERY_LEVEL_CHANGED = 30,
-  ATOM_CHARGING_STATE_CHANGED = 31,
-  ATOM_PLUGGED_STATE_CHANGED = 32,
-  ATOM_INTERACTIVE_STATE_CHANGED = 33,
-  ATOM_TOUCH_EVENT_REPORTED = 34,
-  ATOM_WAKEUP_ALARM_OCCURRED = 35,
-  ATOM_KERNEL_WAKEUP_REPORTED = 36,
-  ATOM_WIFI_LOCK_STATE_CHANGED = 37,
-  ATOM_WIFI_SIGNAL_STRENGTH_CHANGED = 38,
-  ATOM_WIFI_SCAN_STATE_CHANGED = 39,
-  ATOM_PHONE_SIGNAL_STRENGTH_CHANGED = 40,
-  ATOM_SETTING_CHANGED = 41,
-  ATOM_ACTIVITY_FOREGROUND_STATE_CHANGED = 42,
-  ATOM_ISOLATED_UID_CHANGED = 43,
-  ATOM_PACKET_WAKEUP_OCCURRED = 44,
-  ATOM_WALL_CLOCK_TIME_SHIFTED = 45,
-  ATOM_ANOMALY_DETECTED = 46,
-  ATOM_APP_BREADCRUMB_REPORTED = 47,
-  ATOM_APP_START_OCCURRED = 48,
-  ATOM_APP_START_CANCELED = 49,
-  ATOM_APP_START_FULLY_DRAWN = 50,
-  ATOM_LMK_KILL_OCCURRED = 51,
-  ATOM_PICTURE_IN_PICTURE_STATE_CHANGED = 52,
-  ATOM_WIFI_MULTICAST_LOCK_STATE_CHANGED = 53,
-  ATOM_LMK_STATE_CHANGED = 54,
-  ATOM_APP_START_MEMORY_STATE_CAPTURED = 55,
-  ATOM_SHUTDOWN_SEQUENCE_REPORTED = 56,
-  ATOM_BOOT_SEQUENCE_REPORTED = 57,
-  ATOM_DAVEY_OCCURRED = 58,
-  ATOM_OVERLAY_STATE_CHANGED = 59,
-  ATOM_FOREGROUND_SERVICE_STATE_CHANGED = 60,
-  ATOM_CALL_STATE_CHANGED = 61,
-  ATOM_KEYGUARD_STATE_CHANGED = 62,
-  ATOM_KEYGUARD_BOUNCER_STATE_CHANGED = 63,
-  ATOM_KEYGUARD_BOUNCER_PASSWORD_ENTERED = 64,
-  ATOM_APP_DIED = 65,
-  ATOM_RESOURCE_CONFIGURATION_CHANGED = 66,
-  ATOM_BLUETOOTH_ENABLED_STATE_CHANGED = 67,
-  ATOM_BLUETOOTH_CONNECTION_STATE_CHANGED = 68,
-  ATOM_GPS_SIGNAL_QUALITY_CHANGED = 69,
-  ATOM_USB_CONNECTOR_STATE_CHANGED = 70,
-  ATOM_SPEAKER_IMPEDANCE_REPORTED = 71,
-  ATOM_HARDWARE_FAILED = 72,
-  ATOM_PHYSICAL_DROP_DETECTED = 73,
-  ATOM_CHARGE_CYCLES_REPORTED = 74,
-  ATOM_MOBILE_CONNECTION_STATE_CHANGED = 75,
-  ATOM_MOBILE_RADIO_TECHNOLOGY_CHANGED = 76,
-  ATOM_USB_DEVICE_ATTACHED = 77,
-  ATOM_APP_CRASH_OCCURRED = 78,
-  ATOM_ANR_OCCURRED = 79,
-  ATOM_WTF_OCCURRED = 80,
-  ATOM_LOW_MEM_REPORTED = 81,
-  ATOM_GENERIC_ATOM = 82,
-  ATOM_VIBRATOR_STATE_CHANGED = 84,
-  ATOM_DEFERRED_JOB_STATS_REPORTED = 85,
-  ATOM_THERMAL_THROTTLING = 86,
-  ATOM_BIOMETRIC_ACQUIRED = 87,
-  ATOM_BIOMETRIC_AUTHENTICATED = 88,
-  ATOM_BIOMETRIC_ERROR_OCCURRED = 89,
-  ATOM_UI_EVENT_REPORTED = 90,
-  ATOM_BATTERY_HEALTH_SNAPSHOT = 91,
-  ATOM_SLOW_IO = 92,
-  ATOM_BATTERY_CAUSED_SHUTDOWN = 93,
-  ATOM_PHONE_SERVICE_STATE_CHANGED = 94,
-  ATOM_PHONE_STATE_CHANGED = 95,
-  ATOM_USER_RESTRICTION_CHANGED = 96,
-  ATOM_SETTINGS_UI_CHANGED = 97,
-  ATOM_CONNECTIVITY_STATE_CHANGED = 98,
-  ATOM_SERVICE_STATE_CHANGED = 99,
-  ATOM_SERVICE_LAUNCH_REPORTED = 100,
-  ATOM_FLAG_FLIP_UPDATE_OCCURRED = 101,
-  ATOM_BINARY_PUSH_STATE_CHANGED = 102,
-  ATOM_DEVICE_POLICY_EVENT = 103,
-  ATOM_DOCS_UI_FILE_OP_CANCELED = 104,
-  ATOM_DOCS_UI_FILE_OP_COPY_MOVE_MODE_REPORTED = 105,
-  ATOM_DOCS_UI_FILE_OP_FAILURE = 106,
-  ATOM_DOCS_UI_PROVIDER_FILE_OP = 107,
-  ATOM_DOCS_UI_INVALID_SCOPED_ACCESS_REQUEST = 108,
-  ATOM_DOCS_UI_LAUNCH_REPORTED = 109,
-  ATOM_DOCS_UI_ROOT_VISITED = 110,
-  ATOM_DOCS_UI_STARTUP_MS = 111,
-  ATOM_DOCS_UI_USER_ACTION_REPORTED = 112,
-  ATOM_WIFI_ENABLED_STATE_CHANGED = 113,
-  ATOM_WIFI_RUNNING_STATE_CHANGED = 114,
-  ATOM_APP_COMPACTED = 115,
-  ATOM_NETWORK_DNS_EVENT_REPORTED = 116,
-  ATOM_DOCS_UI_PICKER_LAUNCHED_FROM_REPORTED = 117,
-  ATOM_DOCS_UI_PICK_RESULT_REPORTED = 118,
-  ATOM_DOCS_UI_SEARCH_MODE_REPORTED = 119,
-  ATOM_DOCS_UI_SEARCH_TYPE_REPORTED = 120,
-  ATOM_DATA_STALL_EVENT = 121,
-  ATOM_RESCUE_PARTY_RESET_REPORTED = 122,
-  ATOM_SIGNED_CONFIG_REPORTED = 123,
-  ATOM_GNSS_NI_EVENT_REPORTED = 124,
-  ATOM_BLUETOOTH_LINK_LAYER_CONNECTION_EVENT = 125,
-  ATOM_BLUETOOTH_ACL_CONNECTION_STATE_CHANGED = 126,
-  ATOM_BLUETOOTH_SCO_CONNECTION_STATE_CHANGED = 127,
-  ATOM_APP_DOWNGRADED = 128,
-  ATOM_APP_OPTIMIZED_AFTER_DOWNGRADED = 129,
-  ATOM_LOW_STORAGE_STATE_CHANGED = 130,
-  ATOM_GNSS_NFW_NOTIFICATION_REPORTED = 131,
-  ATOM_GNSS_CONFIGURATION_REPORTED = 132,
-  ATOM_USB_PORT_OVERHEAT_EVENT_REPORTED = 133,
-  ATOM_NFC_ERROR_OCCURRED = 134,
-  ATOM_NFC_STATE_CHANGED = 135,
-  ATOM_NFC_BEAM_OCCURRED = 136,
-  ATOM_NFC_CARDEMULATION_OCCURRED = 137,
-  ATOM_NFC_TAG_OCCURRED = 138,
-  ATOM_NFC_HCE_TRANSACTION_OCCURRED = 139,
-  ATOM_SE_STATE_CHANGED = 140,
-  ATOM_SE_OMAPI_REPORTED = 141,
-  ATOM_BROADCAST_DISPATCH_LATENCY_REPORTED = 142,
-  ATOM_ATTENTION_MANAGER_SERVICE_RESULT_REPORTED = 143,
-  ATOM_ADB_CONNECTION_CHANGED = 144,
-  ATOM_SPEECH_DSP_STAT_REPORTED = 145,
-  ATOM_USB_CONTAMINANT_REPORTED = 146,
-  ATOM_WATCHDOG_ROLLBACK_OCCURRED = 147,
-  ATOM_BIOMETRIC_SYSTEM_HEALTH_ISSUE_DETECTED = 148,
-  ATOM_BUBBLE_UI_CHANGED = 149,
-  ATOM_SCHEDULED_JOB_CONSTRAINT_CHANGED = 150,
-  ATOM_BLUETOOTH_ACTIVE_DEVICE_CHANGED = 151,
-  ATOM_BLUETOOTH_A2DP_PLAYBACK_STATE_CHANGED = 152,
-  ATOM_BLUETOOTH_A2DP_CODEC_CONFIG_CHANGED = 153,
-  ATOM_BLUETOOTH_A2DP_CODEC_CAPABILITY_CHANGED = 154,
-  ATOM_BLUETOOTH_A2DP_AUDIO_UNDERRUN_REPORTED = 155,
-  ATOM_BLUETOOTH_A2DP_AUDIO_OVERRUN_REPORTED = 156,
-  ATOM_BLUETOOTH_DEVICE_RSSI_REPORTED = 157,
-  ATOM_BLUETOOTH_DEVICE_FAILED_CONTACT_COUNTER_REPORTED = 158,
-  ATOM_BLUETOOTH_DEVICE_TX_POWER_LEVEL_REPORTED = 159,
-  ATOM_BLUETOOTH_HCI_TIMEOUT_REPORTED = 160,
-  ATOM_BLUETOOTH_QUALITY_REPORT_REPORTED = 161,
-  ATOM_BLUETOOTH_DEVICE_INFO_REPORTED = 162,
-  ATOM_BLUETOOTH_REMOTE_VERSION_INFO_REPORTED = 163,
-  ATOM_BLUETOOTH_SDP_ATTRIBUTE_REPORTED = 164,
-  ATOM_BLUETOOTH_BOND_STATE_CHANGED = 165,
-  ATOM_BLUETOOTH_CLASSIC_PAIRING_EVENT_REPORTED = 166,
-  ATOM_BLUETOOTH_SMP_PAIRING_EVENT_REPORTED = 167,
-  ATOM_SCREEN_TIMEOUT_EXTENSION_REPORTED = 168,
-  ATOM_PROCESS_START_TIME = 169,
-  ATOM_PERMISSION_GRANT_REQUEST_RESULT_REPORTED = 170,
-  ATOM_BLUETOOTH_SOCKET_CONNECTION_STATE_CHANGED = 171,
-  ATOM_DEVICE_IDENTIFIER_ACCESS_DENIED = 172,
-  ATOM_BUBBLE_DEVELOPER_ERROR_REPORTED = 173,
-  ATOM_ASSIST_GESTURE_STAGE_REPORTED = 174,
-  ATOM_ASSIST_GESTURE_FEEDBACK_REPORTED = 175,
-  ATOM_ASSIST_GESTURE_PROGRESS_REPORTED = 176,
-  ATOM_TOUCH_GESTURE_CLASSIFIED = 177,
-  ATOM_HIDDEN_API_USED = 178,
-  ATOM_STYLE_UI_CHANGED = 179,
-  ATOM_PRIVACY_INDICATORS_INTERACTED = 180,
-  ATOM_APP_INSTALL_ON_EXTERNAL_STORAGE_REPORTED = 181,
-  ATOM_NETWORK_STACK_REPORTED = 182,
-  ATOM_APP_MOVED_STORAGE_REPORTED = 183,
-  ATOM_BIOMETRIC_ENROLLED = 184,
-  ATOM_SYSTEM_SERVER_WATCHDOG_OCCURRED = 185,
-  ATOM_TOMB_STONE_OCCURRED = 186,
-  ATOM_BLUETOOTH_CLASS_OF_DEVICE_REPORTED = 187,
-  ATOM_INTELLIGENCE_EVENT_REPORTED = 188,
-  ATOM_THERMAL_THROTTLING_SEVERITY_STATE_CHANGED = 189,
-  ATOM_ROLE_REQUEST_RESULT_REPORTED = 190,
-  ATOM_MEDIAMETRICS_AUDIOPOLICY_REPORTED = 191,
-  ATOM_MEDIAMETRICS_AUDIORECORD_REPORTED = 192,
-  ATOM_MEDIAMETRICS_AUDIOTHREAD_REPORTED = 193,
-  ATOM_MEDIAMETRICS_AUDIOTRACK_REPORTED = 194,
-  ATOM_MEDIAMETRICS_CODEC_REPORTED = 195,
-  ATOM_MEDIAMETRICS_DRM_WIDEVINE_REPORTED = 196,
-  ATOM_MEDIAMETRICS_EXTRACTOR_REPORTED = 197,
-  ATOM_MEDIAMETRICS_MEDIADRM_REPORTED = 198,
-  ATOM_MEDIAMETRICS_NUPLAYER_REPORTED = 199,
-  ATOM_MEDIAMETRICS_RECORDER_REPORTED = 200,
-  ATOM_MEDIAMETRICS_DRMMANAGER_REPORTED = 201,
-  ATOM_CAR_POWER_STATE_CHANGED = 203,
-  ATOM_GARAGE_MODE_INFO = 204,
-  ATOM_TEST_ATOM_REPORTED = 205,
-  ATOM_CONTENT_CAPTURE_CALLER_MISMATCH_REPORTED = 206,
-  ATOM_CONTENT_CAPTURE_SERVICE_EVENTS = 207,
-  ATOM_CONTENT_CAPTURE_SESSION_EVENTS = 208,
-  ATOM_CONTENT_CAPTURE_FLUSHED = 209,
-  ATOM_LOCATION_MANAGER_API_USAGE_REPORTED = 210,
-  ATOM_REVIEW_PERMISSIONS_FRAGMENT_RESULT_REPORTED = 211,
-  ATOM_RUNTIME_PERMISSIONS_UPGRADE_RESULT = 212,
-  ATOM_GRANT_PERMISSIONS_ACTIVITY_BUTTON_ACTIONS = 213,
-  ATOM_LOCATION_ACCESS_CHECK_NOTIFICATION_ACTION = 214,
-  ATOM_APP_PERMISSION_FRAGMENT_ACTION_REPORTED = 215,
-  ATOM_APP_PERMISSION_FRAGMENT_VIEWED = 216,
-  ATOM_APP_PERMISSIONS_FRAGMENT_VIEWED = 217,
-  ATOM_PERMISSION_APPS_FRAGMENT_VIEWED = 218,
-  ATOM_TEXT_SELECTION_EVENT = 219,
-  ATOM_TEXT_LINKIFY_EVENT = 220,
-  ATOM_CONVERSATION_ACTIONS_EVENT = 221,
-  ATOM_LANGUAGE_DETECTION_EVENT = 222,
-  ATOM_EXCLUSION_RECT_STATE_CHANGED = 223,
-  ATOM_BACK_GESTURE_REPORTED_REPORTED = 224,
-  ATOM_UPDATE_ENGINE_UPDATE_ATTEMPT_REPORTED = 225,
-  ATOM_UPDATE_ENGINE_SUCCESSFUL_UPDATE_REPORTED = 226,
-  ATOM_CAMERA_ACTION_EVENT = 227,
-  ATOM_APP_COMPATIBILITY_CHANGE_REPORTED = 228,
-  ATOM_PERFETTO_UPLOADED = 229,
-  ATOM_VMS_CLIENT_CONNECTION_STATE_CHANGED = 230,
-  ATOM_MEDIA_PROVIDER_SCAN_OCCURRED = 233,
-  ATOM_MEDIA_CONTENT_DELETED = 234,
-  ATOM_MEDIA_PROVIDER_PERMISSION_REQUESTED = 235,
-  ATOM_MEDIA_PROVIDER_SCHEMA_CHANGED = 236,
-  ATOM_MEDIA_PROVIDER_IDLE_MAINTENANCE_FINISHED = 237,
-  ATOM_REBOOT_ESCROW_RECOVERY_REPORTED = 238,
-  ATOM_BOOT_TIME_EVENT_DURATION_REPORTED = 239,
-  ATOM_BOOT_TIME_EVENT_ELAPSED_TIME_REPORTED = 240,
-  ATOM_BOOT_TIME_EVENT_UTC_TIME_REPORTED = 241,
-  ATOM_BOOT_TIME_EVENT_ERROR_CODE_REPORTED = 242,
-  ATOM_USERSPACE_REBOOT_REPORTED = 243,
-  ATOM_NOTIFICATION_REPORTED = 244,
-  ATOM_NOTIFICATION_PANEL_REPORTED = 245,
-  ATOM_NOTIFICATION_CHANNEL_MODIFIED = 246,
-  ATOM_INTEGRITY_CHECK_RESULT_REPORTED = 247,
-  ATOM_INTEGRITY_RULES_PUSHED = 248,
-  ATOM_CB_MESSAGE_REPORTED = 249,
-  ATOM_CB_MESSAGE_ERROR = 250,
-  ATOM_WIFI_HEALTH_STAT_REPORTED = 251,
-  ATOM_WIFI_FAILURE_STAT_REPORTED = 252,
-  ATOM_WIFI_CONNECTION_RESULT_REPORTED = 253,
-  ATOM_APP_FREEZE_CHANGED = 254,
-  ATOM_SNAPSHOT_MERGE_REPORTED = 255,
-  ATOM_FOREGROUND_SERVICE_APP_OP_SESSION_ENDED = 256,
-  ATOM_DISPLAY_JANK_REPORTED = 257,
-  ATOM_APP_STANDBY_BUCKET_CHANGED = 258,
-  ATOM_SHARESHEET_STARTED = 259,
-  ATOM_RANKING_SELECTED = 260,
-  ATOM_TVSETTINGS_UI_INTERACTED = 261,
-  ATOM_LAUNCHER_SNAPSHOT = 262,
-  ATOM_PACKAGE_INSTALLER_V2_REPORTED = 263,
-  ATOM_USER_LIFECYCLE_JOURNEY_REPORTED = 264,
-  ATOM_USER_LIFECYCLE_EVENT_OCCURRED = 265,
-  ATOM_ACCESSIBILITY_SHORTCUT_REPORTED = 266,
-  ATOM_ACCESSIBILITY_SERVICE_REPORTED = 267,
-  ATOM_DOCS_UI_DRAG_AND_DROP_REPORTED = 268,
-  ATOM_APP_USAGE_EVENT_OCCURRED = 269,
-  ATOM_AUTO_REVOKE_NOTIFICATION_CLICKED = 270,
-  ATOM_AUTO_REVOKE_FRAGMENT_APP_VIEWED = 271,
-  ATOM_AUTO_REVOKED_APP_INTERACTION = 272,
-  ATOM_APP_PERMISSION_GROUPS_FRAGMENT_AUTO_REVOKE_ACTION = 273,
-  ATOM_EVS_USAGE_STATS_REPORTED = 274,
-  ATOM_AUDIO_POWER_USAGE_DATA_REPORTED = 275,
-  ATOM_TV_TUNER_STATE_CHANGED = 276,
-  ATOM_MEDIAOUTPUT_OP_SWITCH_REPORTED = 277,
-  ATOM_CB_MESSAGE_FILTERED = 278,
-  ATOM_TV_TUNER_DVR_STATUS = 279,
-  ATOM_TV_CAS_SESSION_OPEN_STATUS = 280,
-  ATOM_ASSISTANT_INVOCATION_REPORTED = 281,
-  ATOM_DISPLAY_WAKE_REPORTED = 282,
-  ATOM_CAR_USER_HAL_MODIFY_USER_REQUEST_REPORTED = 283,
-  ATOM_CAR_USER_HAL_MODIFY_USER_RESPONSE_REPORTED = 284,
-  ATOM_CAR_USER_HAL_POST_SWITCH_RESPONSE_REPORTED = 285,
-  ATOM_CAR_USER_HAL_INITIAL_USER_INFO_REQUEST_REPORTED = 286,
-  ATOM_CAR_USER_HAL_INITIAL_USER_INFO_RESPONSE_REPORTED = 287,
-  ATOM_CAR_USER_HAL_USER_ASSOCIATION_REQUEST_REPORTED = 288,
-  ATOM_CAR_USER_HAL_SET_USER_ASSOCIATION_RESPONSE_REPORTED = 289,
-  ATOM_NETWORK_IP_PROVISIONING_REPORTED = 290,
-  ATOM_NETWORK_DHCP_RENEW_REPORTED = 291,
-  ATOM_NETWORK_VALIDATION_REPORTED = 292,
-  ATOM_NETWORK_STACK_QUIRK_REPORTED = 293,
-  ATOM_MEDIAMETRICS_AUDIORECORDDEVICEUSAGE_REPORTED = 294,
-  ATOM_MEDIAMETRICS_AUDIOTHREADDEVICEUSAGE_REPORTED = 295,
-  ATOM_MEDIAMETRICS_AUDIOTRACKDEVICEUSAGE_REPORTED = 296,
-  ATOM_MEDIAMETRICS_AUDIODEVICECONNECTION_REPORTED = 297,
-  ATOM_BLOB_COMMITTED = 298,
-  ATOM_BLOB_LEASED = 299,
-  ATOM_BLOB_OPENED = 300,
-  ATOM_CONTACTS_PROVIDER_STATUS_REPORTED = 301,
-  ATOM_KEYSTORE_KEY_EVENT_REPORTED = 302,
-  ATOM_NETWORK_TETHERING_REPORTED = 303,
-  ATOM_IME_TOUCH_REPORTED = 304,
-  ATOM_UI_INTERACTION_FRAME_INFO_REPORTED = 305,
-  ATOM_UI_ACTION_LATENCY_REPORTED = 306,
-  ATOM_WIFI_DISCONNECT_REPORTED = 307,
-  ATOM_WIFI_CONNECTION_STATE_CHANGED = 308,
-  ATOM_HDMI_CEC_ACTIVE_SOURCE_CHANGED = 309,
-  ATOM_HDMI_CEC_MESSAGE_REPORTED = 310,
-  ATOM_AIRPLANE_MODE = 311,
-  ATOM_MODEM_RESTART = 312,
-  ATOM_CARRIER_ID_MISMATCH_REPORTED = 313,
-  ATOM_CARRIER_ID_TABLE_UPDATED = 314,
-  ATOM_DATA_STALL_RECOVERY_REPORTED = 315,
-  ATOM_MEDIAMETRICS_MEDIAPARSER_REPORTED = 316,
-  ATOM_TLS_HANDSHAKE_REPORTED = 317,
-  ATOM_TEXT_CLASSIFIER_API_USAGE_REPORTED = 318,
-  ATOM_CAR_WATCHDOG_KILL_STATS_REPORTED = 319,
-  ATOM_MEDIAMETRICS_PLAYBACK_REPORTED = 320,
-  ATOM_MEDIA_NETWORK_INFO_CHANGED = 321,
-  ATOM_MEDIA_PLAYBACK_STATE_CHANGED = 322,
-  ATOM_MEDIA_PLAYBACK_ERROR_REPORTED = 323,
-  ATOM_MEDIA_PLAYBACK_TRACK_CHANGED = 324,
-  ATOM_WIFI_SCAN_REPORTED = 325,
-  ATOM_WIFI_PNO_SCAN_REPORTED = 326,
-  ATOM_TIF_TUNE_CHANGED = 327,
-  ATOM_AUTO_ROTATE_REPORTED = 328,
-  ATOM_PERFETTO_TRIGGER = 329,
-  ATOM_TRANSCODING_DATA = 330,
-  ATOM_IMS_SERVICE_ENTITLEMENT_UPDATED = 331,
-  ATOM_ART_DATUM_REPORTED = 332,
-  ATOM_DEVICE_ROTATED = 333,
-  ATOM_SIM_SPECIFIC_SETTINGS_RESTORED = 334,
-  ATOM_TEXT_CLASSIFIER_DOWNLOAD_REPORTED = 335,
-  ATOM_PIN_STORAGE_EVENT = 336,
-  ATOM_FACE_DOWN_REPORTED = 337,
-  ATOM_BLUETOOTH_HAL_CRASH_REASON_REPORTED = 338,
-  ATOM_REBOOT_ESCROW_PREPARATION_REPORTED = 339,
-  ATOM_REBOOT_ESCROW_LSKF_CAPTURE_REPORTED = 340,
-  ATOM_REBOOT_ESCROW_REBOOT_REPORTED = 341,
-  ATOM_BINDER_LATENCY_REPORTED = 342,
-  ATOM_MEDIAMETRICS_AAUDIOSTREAM_REPORTED = 343,
-  ATOM_MEDIA_TRANSCODING_SESSION_ENDED = 344,
-  ATOM_MAGNIFICATION_USAGE_REPORTED = 345,
-  ATOM_MAGNIFICATION_MODE_WITH_IME_ON_REPORTED = 346,
-  ATOM_APP_SEARCH_CALL_STATS_REPORTED = 347,
-  ATOM_APP_SEARCH_PUT_DOCUMENT_STATS_REPORTED = 348,
-  ATOM_DEVICE_CONTROL_CHANGED = 349,
-  ATOM_DEVICE_STATE_CHANGED = 350,
-  ATOM_INPUTDEVICE_REGISTERED = 351,
-  ATOM_SMARTSPACE_CARD_REPORTED = 352,
-  ATOM_AUTH_PROMPT_AUTHENTICATE_INVOKED = 353,
-  ATOM_AUTH_MANAGER_CAN_AUTHENTICATE_INVOKED = 354,
-  ATOM_AUTH_ENROLL_ACTION_INVOKED = 355,
-  ATOM_AUTH_DEPRECATED_API_USED = 356,
-  ATOM_UNATTENDED_REBOOT_OCCURRED = 357,
-  ATOM_LONG_REBOOT_BLOCKING_REPORTED = 358,
-  ATOM_LOCATION_TIME_ZONE_PROVIDER_STATE_CHANGED = 359,
-  ATOM_FDTRACK_EVENT_OCCURRED = 364,
-  ATOM_TIMEOUT_AUTO_EXTENDED_REPORTED = 365,
-  ATOM_ODREFRESH_REPORTED = 366,
-  ATOM_ALARM_BATCH_DELIVERED = 367,
-  ATOM_ALARM_SCHEDULED = 368,
-  ATOM_CAR_WATCHDOG_IO_OVERUSE_STATS_REPORTED = 369,
-  ATOM_USER_LEVEL_HIBERNATION_STATE_CHANGED = 370,
-  ATOM_APP_SEARCH_INITIALIZE_STATS_REPORTED = 371,
-  ATOM_APP_SEARCH_QUERY_STATS_REPORTED = 372,
-  ATOM_APP_PROCESS_DIED = 373,
-  ATOM_NETWORK_IP_REACHABILITY_MONITOR_REPORTED = 374,
-  ATOM_SLOW_INPUT_EVENT_REPORTED = 375,
-  ATOM_ANR_OCCURRED_PROCESSING_STARTED = 376,
-  ATOM_APP_SEARCH_REMOVE_STATS_REPORTED = 377,
-  ATOM_MEDIA_CODEC_REPORTED = 378,
-  ATOM_PERMISSION_USAGE_FRAGMENT_INTERACTION = 379,
-  ATOM_PERMISSION_DETAILS_INTERACTION = 380,
-  ATOM_PRIVACY_SENSOR_TOGGLE_INTERACTION = 381,
-  ATOM_PRIVACY_TOGGLE_DIALOG_INTERACTION = 382,
-  ATOM_APP_SEARCH_OPTIMIZE_STATS_REPORTED = 383,
-  ATOM_NON_A11Y_TOOL_SERVICE_WARNING_REPORT = 384,
-  ATOM_APP_SEARCH_SET_SCHEMA_STATS_REPORTED = 385,
-  ATOM_APP_COMPAT_STATE_CHANGED = 386,
-  ATOM_SIZE_COMPAT_RESTART_BUTTON_EVENT_REPORTED = 387,
-  ATOM_SPLITSCREEN_UI_CHANGED = 388,
-  ATOM_NETWORK_DNS_HANDSHAKE_REPORTED = 389,
-  ATOM_BLUETOOTH_CODE_PATH_COUNTER = 390,
-  ATOM_BLUETOOTH_LE_BATCH_SCAN_REPORT_DELAY = 392,
-  ATOM_ACCESSIBILITY_FLOATING_MENU_UI_CHANGED = 393,
-  ATOM_NEURALNETWORKS_COMPILATION_COMPLETED = 394,
-  ATOM_NEURALNETWORKS_EXECUTION_COMPLETED = 395,
-  ATOM_NEURALNETWORKS_COMPILATION_FAILED = 396,
-  ATOM_NEURALNETWORKS_EXECUTION_FAILED = 397,
-  ATOM_CONTEXT_HUB_BOOTED = 398,
-  ATOM_CONTEXT_HUB_RESTARTED = 399,
-  ATOM_CONTEXT_HUB_LOADED_NANOAPP_SNAPSHOT_REPORTED = 400,
-  ATOM_CHRE_CODE_DOWNLOAD_TRANSACTED = 401,
-  ATOM_UWB_SESSION_INITED = 402,
-  ATOM_UWB_SESSION_CLOSED = 403,
-  ATOM_UWB_FIRST_RANGING_RECEIVED = 404,
-  ATOM_UWB_RANGING_MEASUREMENT_RECEIVED = 405,
-  ATOM_TEXT_CLASSIFIER_DOWNLOAD_WORK_SCHEDULED = 406,
-  ATOM_TEXT_CLASSIFIER_DOWNLOAD_WORK_COMPLETED = 407,
-  ATOM_CLIPBOARD_CLEARED = 408,
-  ATOM_VM_CREATION_REQUESTED = 409,
-  ATOM_NEARBY_DEVICE_SCAN_STATE_CHANGED = 410,
-  ATOM_CAMERA_COMPAT_CONTROL_EVENT_REPORTED = 411,
-  ATOM_APPLICATION_LOCALES_CHANGED = 412,
-  ATOM_MEDIAMETRICS_AUDIOTRACKSTATUS_REPORTED = 413,
-  ATOM_FOLD_STATE_DURATION_REPORTED = 414,
-  ATOM_LOCATION_TIME_ZONE_PROVIDER_CONTROLLER_STATE_CHANGED = 415,
-  ATOM_DISPLAY_HBM_STATE_CHANGED = 416,
-  ATOM_DISPLAY_HBM_BRIGHTNESS_CHANGED = 417,
-  ATOM_PERSISTENT_URI_PERMISSIONS_FLUSHED = 418,
-  ATOM_EARLY_BOOT_COMP_OS_ARTIFACTS_CHECK_REPORTED = 419,
-  ATOM_VBMETA_DIGEST_REPORTED = 420,
-  ATOM_APEX_INFO_GATHERED = 421,
-  ATOM_PVM_INFO_GATHERED = 422,
-  ATOM_WEAR_SETTINGS_UI_INTERACTED = 423,
-  ATOM_TRACING_SERVICE_REPORT_EVENT = 424,
-  ATOM_MEDIAMETRICS_AUDIORECORDSTATUS_REPORTED = 425,
-  ATOM_LAUNCHER_LATENCY = 426,
-  ATOM_DROPBOX_ENTRY_DROPPED = 427,
-  ATOM_WIFI_P2P_CONNECTION_REPORTED = 428,
-  ATOM_GAME_STATE_CHANGED = 429,
-  ATOM_HOTWORD_DETECTOR_CREATE_REQUESTED = 430,
-  ATOM_HOTWORD_DETECTION_SERVICE_INIT_RESULT_REPORTED = 431,
-  ATOM_HOTWORD_DETECTION_SERVICE_RESTARTED = 432,
-  ATOM_HOTWORD_DETECTOR_KEYPHRASE_TRIGGERED = 433,
-  ATOM_HOTWORD_DETECTOR_EVENTS = 434,
-  ATOM_BOOT_COMPLETED_BROADCAST_COMPLETION_LATENCY_REPORTED = 437,
-  ATOM_CONTACTS_INDEXER_UPDATE_STATS_REPORTED = 440,
-  ATOM_APP_BACKGROUND_RESTRICTIONS_INFO = 441,
-  ATOM_MMS_SMS_PROVIDER_GET_THREAD_ID_FAILED = 442,
-  ATOM_MMS_SMS_DATABASE_HELPER_ON_UPGRADE_FAILED = 443,
-  ATOM_PERMISSION_REMINDER_NOTIFICATION_INTERACTED = 444,
-  ATOM_RECENT_PERMISSION_DECISIONS_INTERACTED = 445,
-  ATOM_GNSS_PSDS_DOWNLOAD_REPORTED = 446,
-  ATOM_LE_AUDIO_CONNECTION_SESSION_REPORTED = 447,
-  ATOM_LE_AUDIO_BROADCAST_SESSION_REPORTED = 448,
-  ATOM_DREAM_UI_EVENT_REPORTED = 449,
-  ATOM_TASK_MANAGER_EVENT_REPORTED = 450,
-  ATOM_CDM_ASSOCIATION_ACTION = 451,
-  ATOM_MAGNIFICATION_TRIPLE_TAP_AND_HOLD_ACTIVATED_SESSION_REPORTED = 452,
-  ATOM_MAGNIFICATION_FOLLOW_TYPING_FOCUS_ACTIVATED_SESSION_REPORTED = 453,
-  ATOM_ACCESSIBILITY_TEXT_READING_OPTIONS_CHANGED = 454,
-  ATOM_WIFI_SETUP_FAILURE_CRASH_REPORTED = 455,
-  ATOM_UWB_DEVICE_ERROR_REPORTED = 456,
-  ATOM_ISOLATED_COMPILATION_SCHEDULED = 457,
-  ATOM_ISOLATED_COMPILATION_ENDED = 458,
-  ATOM_ONS_OPPORTUNISTIC_ESIM_PROVISIONING_COMPLETE = 459,
-  ATOM_TELEPHONY_ANOMALY_DETECTED = 461,
-  ATOM_LETTERBOX_POSITION_CHANGED = 462,
-  ATOM_REMOTE_KEY_PROVISIONING_ATTEMPT = 463,
-  ATOM_REMOTE_KEY_PROVISIONING_NETWORK_INFO = 464,
-  ATOM_REMOTE_KEY_PROVISIONING_TIMING = 465,
-  ATOM_MEDIAOUTPUT_OP_INTERACTION_REPORT = 466,
-  ATOM_BACKGROUND_DEXOPT_JOB_ENDED = 467,
-  ATOM_SYNC_EXEMPTION_OCCURRED = 468,
-  ATOM_AUTOFILL_PRESENTATION_EVENT_REPORTED = 469,
-  ATOM_DOCK_STATE_CHANGED = 470,
-  ATOM_BROADCAST_DELIVERY_EVENT_REPORTED = 475,
-  ATOM_SERVICE_REQUEST_EVENT_REPORTED = 476,
-  ATOM_PROVIDER_ACQUISITION_EVENT_REPORTED = 477,
-  ATOM_BLUETOOTH_DEVICE_NAME_REPORTED = 478,
-  ATOM_VIBRATION_REPORTED = 487,
-  ATOM_UWB_RANGING_START = 489,
-  ATOM_DISPLAY_BRIGHTNESS_CHANGED = 494,
-  ATOM_ACTIVITY_ACTION_BLOCKED = 495,
-  ATOM_NETWORK_DNS_SERVER_SUPPORT_REPORTED = 504,
-  ATOM_VM_BOOTED = 505,
-  ATOM_VM_EXITED = 506,
-  ATOM_AMBIENT_BRIGHTNESS_STATS_REPORTED = 507,
-  ATOM_MEDIAMETRICS_SPATIALIZERCAPABILITIES_REPORTED = 508,
-  ATOM_MEDIAMETRICS_SPATIALIZERDEVICEENABLED_REPORTED = 509,
-  ATOM_MEDIAMETRICS_HEADTRACKERDEVICEENABLED_REPORTED = 510,
-  ATOM_MEDIAMETRICS_HEADTRACKERDEVICESUPPORTED_REPORTED = 511,
-  ATOM_HEARING_AID_INFO_REPORTED = 513,
-  ATOM_DEVICE_WIDE_JOB_CONSTRAINT_CHANGED = 514,
-  ATOM_IWLAN_SETUP_DATA_CALL_RESULT_REPORTED = 519,
-  ATOM_IWLAN_PDN_DISCONNECTED_REASON_REPORTED = 520,
-  ATOM_AIRPLANE_MODE_SESSION_REPORTED = 521,
-  ATOM_VM_CPU_STATUS_REPORTED = 522,
-  ATOM_VM_MEM_STATUS_REPORTED = 523,
-  ATOM_DEFAULT_NETWORK_REMATCH_INFO = 525,
-  ATOM_NETWORK_SELECTION_PERFORMANCE = 526,
-  ATOM_NETWORK_NSD_REPORTED = 527,
-  ATOM_BLUETOOTH_DISCONNECTION_REASON_REPORTED = 529,
-  ATOM_BLUETOOTH_LOCAL_VERSIONS_REPORTED = 530,
-  ATOM_BLUETOOTH_REMOTE_SUPPORTED_FEATURES_REPORTED = 531,
-  ATOM_BLUETOOTH_LOCAL_SUPPORTED_FEATURES_REPORTED = 532,
-  ATOM_BLUETOOTH_GATT_APP_INFO = 533,
-  ATOM_BRIGHTNESS_CONFIGURATION_UPDATED = 534,
-  ATOM_LAUNCHER_IMPRESSION_EVENT = 547,
-  ATOM_ODSIGN_REPORTED = 548,
-  ATOM_ART_DEVICE_DATUM_REPORTED = 550,
-  ATOM_NETWORK_SLICE_SESSION_ENDED = 558,
-  ATOM_NETWORK_SLICE_DAILY_DATA_USAGE_REPORTED = 559,
-  ATOM_NFC_TAG_TYPE_OCCURRED = 560,
-  ATOM_NFC_AID_CONFLICT_OCCURRED = 561,
-  ATOM_NFC_READER_CONFLICT_OCCURRED = 562,
-  ATOM_ART_DATUM_DELTA_REPORTED = 565,
-  ATOM_MEDIA_DRM_CREATED = 568,
-  ATOM_MEDIA_DRM_ERRORED = 569,
-  ATOM_MEDIA_DRM_SESSION_OPENED = 570,
-  ATOM_MEDIA_DRM_SESSION_CLOSED = 571,
-  ATOM_PERFORMANCE_HINT_SESSION_REPORTED = 574,
-  ATOM_HOTWORD_AUDIO_EGRESS_EVENT_REPORTED = 578,
-  ATOM_NETWORK_VALIDATION_FAILURE_STATS_DAILY_REPORTED = 601,
-  ATOM_WIFI_BYTES_TRANSFER = 10000,
-  ATOM_WIFI_BYTES_TRANSFER_BY_FG_BG = 10001,
-  ATOM_MOBILE_BYTES_TRANSFER = 10002,
-  ATOM_MOBILE_BYTES_TRANSFER_BY_FG_BG = 10003,
-  ATOM_BLUETOOTH_BYTES_TRANSFER = 10006,
-  ATOM_KERNEL_WAKELOCK = 10004,
-  ATOM_SUBSYSTEM_SLEEP_STATE = 10005,
-  ATOM_CPU_TIME_PER_UID = 10009,
-  ATOM_CPU_TIME_PER_UID_FREQ = 10010,
-  ATOM_WIFI_ACTIVITY_INFO = 10011,
-  ATOM_MODEM_ACTIVITY_INFO = 10012,
-  ATOM_BLUETOOTH_ACTIVITY_INFO = 10007,
-  ATOM_PROCESS_MEMORY_STATE = 10013,
-  ATOM_SYSTEM_ELAPSED_REALTIME = 10014,
-  ATOM_SYSTEM_UPTIME = 10015,
-  ATOM_CPU_ACTIVE_TIME = 10016,
-  ATOM_CPU_CLUSTER_TIME = 10017,
-  ATOM_DISK_SPACE = 10018,
-  ATOM_REMAINING_BATTERY_CAPACITY = 10019,
-  ATOM_FULL_BATTERY_CAPACITY = 10020,
-  ATOM_TEMPERATURE = 10021,
-  ATOM_BINDER_CALLS = 10022,
-  ATOM_BINDER_CALLS_EXCEPTIONS = 10023,
-  ATOM_LOOPER_STATS = 10024,
-  ATOM_DISK_STATS = 10025,
-  ATOM_DIRECTORY_USAGE = 10026,
-  ATOM_APP_SIZE = 10027,
-  ATOM_CATEGORY_SIZE = 10028,
-  ATOM_PROC_STATS = 10029,
-  ATOM_BATTERY_VOLTAGE = 10030,
-  ATOM_NUM_FINGERPRINTS_ENROLLED = 10031,
-  ATOM_DISK_IO = 10032,
-  ATOM_POWER_PROFILE = 10033,
-  ATOM_PROC_STATS_PKG_PROC = 10034,
-  ATOM_PROCESS_CPU_TIME = 10035,
-  ATOM_CPU_TIME_PER_THREAD_FREQ = 10037,
-  ATOM_ON_DEVICE_POWER_MEASUREMENT = 10038,
-  ATOM_DEVICE_CALCULATED_POWER_USE = 10039,
-  ATOM_PROCESS_MEMORY_HIGH_WATER_MARK = 10042,
-  ATOM_BATTERY_LEVEL = 10043,
-  ATOM_BUILD_INFORMATION = 10044,
-  ATOM_BATTERY_CYCLE_COUNT = 10045,
-  ATOM_DEBUG_ELAPSED_CLOCK = 10046,
-  ATOM_DEBUG_FAILING_ELAPSED_CLOCK = 10047,
-  ATOM_NUM_FACES_ENROLLED = 10048,
-  ATOM_ROLE_HOLDER = 10049,
-  ATOM_DANGEROUS_PERMISSION_STATE = 10050,
-  ATOM_TRAIN_INFO = 10051,
-  ATOM_TIME_ZONE_DATA_INFO = 10052,
-  ATOM_EXTERNAL_STORAGE_INFO = 10053,
-  ATOM_GPU_STATS_GLOBAL_INFO = 10054,
-  ATOM_GPU_STATS_APP_INFO = 10055,
-  ATOM_SYSTEM_ION_HEAP_SIZE = 10056,
-  ATOM_APPS_ON_EXTERNAL_STORAGE_INFO = 10057,
-  ATOM_FACE_SETTINGS = 10058,
-  ATOM_COOLING_DEVICE = 10059,
-  ATOM_APP_OPS = 10060,
-  ATOM_PROCESS_SYSTEM_ION_HEAP_SIZE = 10061,
-  ATOM_SURFACEFLINGER_STATS_GLOBAL_INFO = 10062,
-  ATOM_SURFACEFLINGER_STATS_LAYER_INFO = 10063,
-  ATOM_PROCESS_MEMORY_SNAPSHOT = 10064,
-  ATOM_VMS_CLIENT_STATS = 10065,
-  ATOM_NOTIFICATION_REMOTE_VIEWS = 10066,
-  ATOM_DANGEROUS_PERMISSION_STATE_SAMPLED = 10067,
-  ATOM_GRAPHICS_STATS = 10068,
-  ATOM_RUNTIME_APP_OP_ACCESS = 10069,
-  ATOM_ION_HEAP_SIZE = 10070,
-  ATOM_PACKAGE_NOTIFICATION_PREFERENCES = 10071,
-  ATOM_PACKAGE_NOTIFICATION_CHANNEL_PREFERENCES = 10072,
-  ATOM_PACKAGE_NOTIFICATION_CHANNEL_GROUP_PREFERENCES = 10073,
-  ATOM_GNSS_STATS = 10074,
-  ATOM_ATTRIBUTED_APP_OPS = 10075,
-  ATOM_VOICE_CALL_SESSION = 10076,
-  ATOM_VOICE_CALL_RAT_USAGE = 10077,
-  ATOM_SIM_SLOT_STATE = 10078,
-  ATOM_SUPPORTED_RADIO_ACCESS_FAMILY = 10079,
-  ATOM_SETTING_SNAPSHOT = 10080,
-  ATOM_BLOB_INFO = 10081,
-  ATOM_DATA_USAGE_BYTES_TRANSFER = 10082,
-  ATOM_BYTES_TRANSFER_BY_TAG_AND_METERED = 10083,
-  ATOM_DND_MODE_RULE = 10084,
-  ATOM_GENERAL_EXTERNAL_STORAGE_ACCESS_STATS = 10085,
-  ATOM_INCOMING_SMS = 10086,
-  ATOM_OUTGOING_SMS = 10087,
-  ATOM_CARRIER_ID_TABLE_VERSION = 10088,
-  ATOM_DATA_CALL_SESSION = 10089,
-  ATOM_CELLULAR_SERVICE_STATE = 10090,
-  ATOM_CELLULAR_DATA_SERVICE_SWITCH = 10091,
-  ATOM_SYSTEM_MEMORY = 10092,
-  ATOM_IMS_REGISTRATION_TERMINATION = 10093,
-  ATOM_IMS_REGISTRATION_STATS = 10094,
-  ATOM_CPU_TIME_PER_CLUSTER_FREQ = 10095,
-  ATOM_CPU_CYCLES_PER_UID_CLUSTER = 10096,
-  ATOM_DEVICE_ROTATED_DATA = 10097,
-  ATOM_CPU_CYCLES_PER_THREAD_GROUP_CLUSTER = 10098,
-  ATOM_MEDIA_DRM_ACTIVITY_INFO = 10099,
-  ATOM_OEM_MANAGED_BYTES_TRANSFER = 10100,
-  ATOM_GNSS_POWER_STATS = 10101,
-  ATOM_TIME_ZONE_DETECTOR_STATE = 10102,
-  ATOM_KEYSTORE2_STORAGE_STATS = 10103,
-  ATOM_RKP_POOL_STATS = 10104,
-  ATOM_PROCESS_DMABUF_MEMORY = 10105,
-  ATOM_PENDING_ALARM_INFO = 10106,
-  ATOM_USER_LEVEL_HIBERNATED_APPS = 10107,
-  ATOM_LAUNCHER_LAYOUT_SNAPSHOT = 10108,
-  ATOM_GLOBAL_HIBERNATED_APPS = 10109,
-  ATOM_INPUT_EVENT_LATENCY_SKETCH = 10110,
-  ATOM_BATTERY_USAGE_STATS_BEFORE_RESET = 10111,
-  ATOM_BATTERY_USAGE_STATS_SINCE_RESET = 10112,
-  ATOM_BATTERY_USAGE_STATS_SINCE_RESET_USING_POWER_PROFILE_MODEL = 10113,
-  ATOM_INSTALLED_INCREMENTAL_PACKAGE = 10114,
-  ATOM_TELEPHONY_NETWORK_REQUESTS = 10115,
-  ATOM_APP_SEARCH_STORAGE_INFO = 10116,
-  ATOM_VMSTAT = 10117,
-  ATOM_KEYSTORE2_KEY_CREATION_WITH_GENERAL_INFO = 10118,
-  ATOM_KEYSTORE2_KEY_CREATION_WITH_AUTH_INFO = 10119,
-  ATOM_KEYSTORE2_KEY_CREATION_WITH_PURPOSE_AND_MODES_INFO = 10120,
-  ATOM_KEYSTORE2_ATOM_WITH_OVERFLOW = 10121,
-  ATOM_KEYSTORE2_KEY_OPERATION_WITH_PURPOSE_AND_MODES_INFO = 10122,
-  ATOM_KEYSTORE2_KEY_OPERATION_WITH_GENERAL_INFO = 10123,
-  ATOM_RKP_ERROR_STATS = 10124,
-  ATOM_KEYSTORE2_CRASH_STATS = 10125,
-  ATOM_VENDOR_APEX_INFO = 10126,
-  ATOM_ACCESSIBILITY_SHORTCUT_STATS = 10127,
-  ATOM_ACCESSIBILITY_FLOATING_MENU_STATS = 10128,
-  ATOM_DATA_USAGE_BYTES_TRANSFER_V2 = 10129,
-  ATOM_MEDIA_CAPABILITIES = 10130,
-  ATOM_CAR_WATCHDOG_SYSTEM_IO_USAGE_SUMMARY = 10131,
-  ATOM_CAR_WATCHDOG_UID_IO_USAGE_SUMMARY = 10132,
-  ATOM_IMS_REGISTRATION_FEATURE_TAG_STATS = 10133,
-  ATOM_RCS_CLIENT_PROVISIONING_STATS = 10134,
-  ATOM_RCS_ACS_PROVISIONING_STATS = 10135,
-  ATOM_SIP_DELEGATE_STATS = 10136,
-  ATOM_SIP_TRANSPORT_FEATURE_TAG_STATS = 10137,
-  ATOM_SIP_MESSAGE_RESPONSE = 10138,
-  ATOM_SIP_TRANSPORT_SESSION = 10139,
-  ATOM_IMS_DEDICATED_BEARER_LISTENER_EVENT = 10140,
-  ATOM_IMS_DEDICATED_BEARER_EVENT = 10141,
-  ATOM_IMS_REGISTRATION_SERVICE_DESC_STATS = 10142,
-  ATOM_UCE_EVENT_STATS = 10143,
-  ATOM_PRESENCE_NOTIFY_EVENT = 10144,
-  ATOM_GBA_EVENT = 10145,
-  ATOM_PER_SIM_STATUS = 10146,
-  ATOM_GPU_WORK_PER_UID = 10147,
-  ATOM_PERSISTENT_URI_PERMISSIONS_AMOUNT_PER_PACKAGE = 10148,
-  ATOM_SIGNED_PARTITION_INFO = 10149,
-  ATOM_PINNED_FILE_SIZES_PER_PACKAGE = 10150,
-  ATOM_PENDING_INTENTS_PER_PACKAGE = 10151,
-  ATOM_USER_INFO = 10152,
-  ATOM_TELEPHONY_NETWORK_REQUESTS_V2 = 10153,
-  ATOM_DEVICE_TELEPHONY_PROPERTIES = 10154,
-  ATOM_REMOTE_KEY_PROVISIONING_ERROR_COUNTS = 10155,
-  ATOM_INCOMING_MMS = 10157,
-  ATOM_OUTGOING_MMS = 10158,
-  ATOM_MULTI_USER_INFO = 10160,
-  ATOM_NETWORK_BPF_MAP_INFO = 10161,
-  ATOM_CONNECTIVITY_STATE_SAMPLE = 10163,
-  ATOM_NETWORK_SELECTION_REMATCH_REASONS_INFO = 10164,
-  ATOM_NETWORK_SLICE_REQUEST_COUNT = 10168,
-  ATOM_ADPF_SYSTEM_COMPONENT_INFO = 10173,
-  ATOM_NOTIFICATION_MEMORY_USE = 10174,
-};
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_ATOM_IDS_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/statsd/statsd_tracing_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_STATSD_TRACING_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_STATSD_TRACING_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class StatsdPullAtomConfig;
-class StatsdTracingConfig;
-enum AtomId : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT StatsdPullAtomConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kPullAtomIdFieldNumber = 1,
-    kRawPullAtomIdFieldNumber = 2,
-    kPullFrequencyMsFieldNumber = 3,
-    kPackagesFieldNumber = 4,
-  };
-
-  StatsdPullAtomConfig();
-  ~StatsdPullAtomConfig() override;
-  StatsdPullAtomConfig(StatsdPullAtomConfig&&) noexcept;
-  StatsdPullAtomConfig& operator=(StatsdPullAtomConfig&&);
-  StatsdPullAtomConfig(const StatsdPullAtomConfig&);
-  StatsdPullAtomConfig& operator=(const StatsdPullAtomConfig&);
-  bool operator==(const StatsdPullAtomConfig&) const;
-  bool operator!=(const StatsdPullAtomConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<AtomId>& pull_atom_id() const { return pull_atom_id_; }
-  std::vector<AtomId>* mutable_pull_atom_id() { return &pull_atom_id_; }
-  int pull_atom_id_size() const { return static_cast<int>(pull_atom_id_.size()); }
-  void clear_pull_atom_id() { pull_atom_id_.clear(); }
-  void add_pull_atom_id(AtomId value) { pull_atom_id_.emplace_back(value); }
-  AtomId* add_pull_atom_id() { pull_atom_id_.emplace_back(); return &pull_atom_id_.back(); }
-
-  const std::vector<int32_t>& raw_pull_atom_id() const { return raw_pull_atom_id_; }
-  std::vector<int32_t>* mutable_raw_pull_atom_id() { return &raw_pull_atom_id_; }
-  int raw_pull_atom_id_size() const { return static_cast<int>(raw_pull_atom_id_.size()); }
-  void clear_raw_pull_atom_id() { raw_pull_atom_id_.clear(); }
-  void add_raw_pull_atom_id(int32_t value) { raw_pull_atom_id_.emplace_back(value); }
-  int32_t* add_raw_pull_atom_id() { raw_pull_atom_id_.emplace_back(); return &raw_pull_atom_id_.back(); }
-
-  bool has_pull_frequency_ms() const { return _has_field_[3]; }
-  int32_t pull_frequency_ms() const { return pull_frequency_ms_; }
-  void set_pull_frequency_ms(int32_t value) { pull_frequency_ms_ = value; _has_field_.set(3); }
-
-  const std::vector<std::string>& packages() const { return packages_; }
-  std::vector<std::string>* mutable_packages() { return &packages_; }
-  int packages_size() const { return static_cast<int>(packages_.size()); }
-  void clear_packages() { packages_.clear(); }
-  void add_packages(std::string value) { packages_.emplace_back(value); }
-  std::string* add_packages() { packages_.emplace_back(); return &packages_.back(); }
-
- private:
-  std::vector<AtomId> pull_atom_id_;
-  std::vector<int32_t> raw_pull_atom_id_;
-  int32_t pull_frequency_ms_{};
-  std::vector<std::string> packages_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<5> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT StatsdTracingConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kPushAtomIdFieldNumber = 1,
-    kRawPushAtomIdFieldNumber = 2,
-    kPullConfigFieldNumber = 3,
-  };
-
-  StatsdTracingConfig();
-  ~StatsdTracingConfig() override;
-  StatsdTracingConfig(StatsdTracingConfig&&) noexcept;
-  StatsdTracingConfig& operator=(StatsdTracingConfig&&);
-  StatsdTracingConfig(const StatsdTracingConfig&);
-  StatsdTracingConfig& operator=(const StatsdTracingConfig&);
-  bool operator==(const StatsdTracingConfig&) const;
-  bool operator!=(const StatsdTracingConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<AtomId>& push_atom_id() const { return push_atom_id_; }
-  std::vector<AtomId>* mutable_push_atom_id() { return &push_atom_id_; }
-  int push_atom_id_size() const { return static_cast<int>(push_atom_id_.size()); }
-  void clear_push_atom_id() { push_atom_id_.clear(); }
-  void add_push_atom_id(AtomId value) { push_atom_id_.emplace_back(value); }
-  AtomId* add_push_atom_id() { push_atom_id_.emplace_back(); return &push_atom_id_.back(); }
-
-  const std::vector<int32_t>& raw_push_atom_id() const { return raw_push_atom_id_; }
-  std::vector<int32_t>* mutable_raw_push_atom_id() { return &raw_push_atom_id_; }
-  int raw_push_atom_id_size() const { return static_cast<int>(raw_push_atom_id_.size()); }
-  void clear_raw_push_atom_id() { raw_push_atom_id_.clear(); }
-  void add_raw_push_atom_id(int32_t value) { raw_push_atom_id_.emplace_back(value); }
-  int32_t* add_raw_push_atom_id() { raw_push_atom_id_.emplace_back(); return &raw_push_atom_id_.back(); }
-
-  const std::vector<StatsdPullAtomConfig>& pull_config() const { return pull_config_; }
-  std::vector<StatsdPullAtomConfig>* mutable_pull_config() { return &pull_config_; }
-  int pull_config_size() const;
-  void clear_pull_config();
-  StatsdPullAtomConfig* add_pull_config();
-
- private:
-  std::vector<AtomId> push_atom_id_;
-  std::vector<int32_t> raw_push_atom_id_;
-  std::vector<StatsdPullAtomConfig> pull_config_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<4> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STATSD_STATSD_TRACING_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/sys_stats/sys_stats_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYS_STATS_SYS_STATS_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYS_STATS_SYS_STATS_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class SysStatsConfig;
-enum SysStatsConfig_StatCounters : int;
-enum MeminfoCounters : int;
-enum VmstatCounters : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum SysStatsConfig_StatCounters : int {
-  SysStatsConfig_StatCounters_STAT_UNSPECIFIED = 0,
-  SysStatsConfig_StatCounters_STAT_CPU_TIMES = 1,
-  SysStatsConfig_StatCounters_STAT_IRQ_COUNTS = 2,
-  SysStatsConfig_StatCounters_STAT_SOFTIRQ_COUNTS = 3,
-  SysStatsConfig_StatCounters_STAT_FORK_COUNT = 4,
-};
-
-class PERFETTO_EXPORT_COMPONENT SysStatsConfig : public ::protozero::CppMessageObj {
- public:
-  using StatCounters = SysStatsConfig_StatCounters;
-  static constexpr auto STAT_UNSPECIFIED = SysStatsConfig_StatCounters_STAT_UNSPECIFIED;
-  static constexpr auto STAT_CPU_TIMES = SysStatsConfig_StatCounters_STAT_CPU_TIMES;
-  static constexpr auto STAT_IRQ_COUNTS = SysStatsConfig_StatCounters_STAT_IRQ_COUNTS;
-  static constexpr auto STAT_SOFTIRQ_COUNTS = SysStatsConfig_StatCounters_STAT_SOFTIRQ_COUNTS;
-  static constexpr auto STAT_FORK_COUNT = SysStatsConfig_StatCounters_STAT_FORK_COUNT;
-  static constexpr auto StatCounters_MIN = SysStatsConfig_StatCounters_STAT_UNSPECIFIED;
-  static constexpr auto StatCounters_MAX = SysStatsConfig_StatCounters_STAT_FORK_COUNT;
-  enum FieldNumbers {
-    kMeminfoPeriodMsFieldNumber = 1,
-    kMeminfoCountersFieldNumber = 2,
-    kVmstatPeriodMsFieldNumber = 3,
-    kVmstatCountersFieldNumber = 4,
-    kStatPeriodMsFieldNumber = 5,
-    kStatCountersFieldNumber = 6,
-    kDevfreqPeriodMsFieldNumber = 7,
-    kCpufreqPeriodMsFieldNumber = 8,
-    kBuddyinfoPeriodMsFieldNumber = 9,
-    kDiskstatPeriodMsFieldNumber = 10,
-  };
-
-  SysStatsConfig();
-  ~SysStatsConfig() override;
-  SysStatsConfig(SysStatsConfig&&) noexcept;
-  SysStatsConfig& operator=(SysStatsConfig&&);
-  SysStatsConfig(const SysStatsConfig&);
-  SysStatsConfig& operator=(const SysStatsConfig&);
-  bool operator==(const SysStatsConfig&) const;
-  bool operator!=(const SysStatsConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_meminfo_period_ms() const { return _has_field_[1]; }
-  uint32_t meminfo_period_ms() const { return meminfo_period_ms_; }
-  void set_meminfo_period_ms(uint32_t value) { meminfo_period_ms_ = value; _has_field_.set(1); }
-
-  const std::vector<MeminfoCounters>& meminfo_counters() const { return meminfo_counters_; }
-  std::vector<MeminfoCounters>* mutable_meminfo_counters() { return &meminfo_counters_; }
-  int meminfo_counters_size() const { return static_cast<int>(meminfo_counters_.size()); }
-  void clear_meminfo_counters() { meminfo_counters_.clear(); }
-  void add_meminfo_counters(MeminfoCounters value) { meminfo_counters_.emplace_back(value); }
-  MeminfoCounters* add_meminfo_counters() { meminfo_counters_.emplace_back(); return &meminfo_counters_.back(); }
-
-  bool has_vmstat_period_ms() const { return _has_field_[3]; }
-  uint32_t vmstat_period_ms() const { return vmstat_period_ms_; }
-  void set_vmstat_period_ms(uint32_t value) { vmstat_period_ms_ = value; _has_field_.set(3); }
-
-  const std::vector<VmstatCounters>& vmstat_counters() const { return vmstat_counters_; }
-  std::vector<VmstatCounters>* mutable_vmstat_counters() { return &vmstat_counters_; }
-  int vmstat_counters_size() const { return static_cast<int>(vmstat_counters_.size()); }
-  void clear_vmstat_counters() { vmstat_counters_.clear(); }
-  void add_vmstat_counters(VmstatCounters value) { vmstat_counters_.emplace_back(value); }
-  VmstatCounters* add_vmstat_counters() { vmstat_counters_.emplace_back(); return &vmstat_counters_.back(); }
-
-  bool has_stat_period_ms() const { return _has_field_[5]; }
-  uint32_t stat_period_ms() const { return stat_period_ms_; }
-  void set_stat_period_ms(uint32_t value) { stat_period_ms_ = value; _has_field_.set(5); }
-
-  const std::vector<SysStatsConfig_StatCounters>& stat_counters() const { return stat_counters_; }
-  std::vector<SysStatsConfig_StatCounters>* mutable_stat_counters() { return &stat_counters_; }
-  int stat_counters_size() const { return static_cast<int>(stat_counters_.size()); }
-  void clear_stat_counters() { stat_counters_.clear(); }
-  void add_stat_counters(SysStatsConfig_StatCounters value) { stat_counters_.emplace_back(value); }
-  SysStatsConfig_StatCounters* add_stat_counters() { stat_counters_.emplace_back(); return &stat_counters_.back(); }
-
-  bool has_devfreq_period_ms() const { return _has_field_[7]; }
-  uint32_t devfreq_period_ms() const { return devfreq_period_ms_; }
-  void set_devfreq_period_ms(uint32_t value) { devfreq_period_ms_ = value; _has_field_.set(7); }
-
-  bool has_cpufreq_period_ms() const { return _has_field_[8]; }
-  uint32_t cpufreq_period_ms() const { return cpufreq_period_ms_; }
-  void set_cpufreq_period_ms(uint32_t value) { cpufreq_period_ms_ = value; _has_field_.set(8); }
-
-  bool has_buddyinfo_period_ms() const { return _has_field_[9]; }
-  uint32_t buddyinfo_period_ms() const { return buddyinfo_period_ms_; }
-  void set_buddyinfo_period_ms(uint32_t value) { buddyinfo_period_ms_ = value; _has_field_.set(9); }
-
-  bool has_diskstat_period_ms() const { return _has_field_[10]; }
-  uint32_t diskstat_period_ms() const { return diskstat_period_ms_; }
-  void set_diskstat_period_ms(uint32_t value) { diskstat_period_ms_ = value; _has_field_.set(10); }
-
- private:
-  uint32_t meminfo_period_ms_{};
-  std::vector<MeminfoCounters> meminfo_counters_;
-  uint32_t vmstat_period_ms_{};
-  std::vector<VmstatCounters> vmstat_counters_;
-  uint32_t stat_period_ms_{};
-  std::vector<SysStatsConfig_StatCounters> stat_counters_;
-  uint32_t devfreq_period_ms_{};
-  uint32_t cpufreq_period_ms_{};
-  uint32_t buddyinfo_period_ms_{};
-  uint32_t diskstat_period_ms_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<11> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYS_STATS_SYS_STATS_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/system_info/system_info.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYSTEM_INFO_SYSTEM_INFO_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYSTEM_INFO_SYSTEM_INFO_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class SystemInfoConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT SystemInfoConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-  };
-
-  SystemInfoConfig();
-  ~SystemInfoConfig() override;
-  SystemInfoConfig(SystemInfoConfig&&) noexcept;
-  SystemInfoConfig& operator=(SystemInfoConfig&&);
-  SystemInfoConfig(const SystemInfoConfig&);
-  SystemInfoConfig& operator=(const SystemInfoConfig&);
-  bool operator==(const SystemInfoConfig&) const;
-  bool operator!=(const SystemInfoConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
- private:
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<2> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_SYSTEM_INFO_SYSTEM_INFO_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/chrome/chrome_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_CHROME_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_CHROME_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class ChromeConfig;
-enum ChromeConfig_ClientPriority : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum ChromeConfig_ClientPriority : int {
-  ChromeConfig_ClientPriority_UNKNOWN = 0,
-  ChromeConfig_ClientPriority_BACKGROUND = 1,
-  ChromeConfig_ClientPriority_USER_INITIATED = 2,
-};
-
-class PERFETTO_EXPORT_COMPONENT ChromeConfig : public ::protozero::CppMessageObj {
- public:
-  using ClientPriority = ChromeConfig_ClientPriority;
-  static constexpr auto UNKNOWN = ChromeConfig_ClientPriority_UNKNOWN;
-  static constexpr auto BACKGROUND = ChromeConfig_ClientPriority_BACKGROUND;
-  static constexpr auto USER_INITIATED = ChromeConfig_ClientPriority_USER_INITIATED;
-  static constexpr auto ClientPriority_MIN = ChromeConfig_ClientPriority_UNKNOWN;
-  static constexpr auto ClientPriority_MAX = ChromeConfig_ClientPriority_USER_INITIATED;
-  enum FieldNumbers {
-    kTraceConfigFieldNumber = 1,
-    kPrivacyFilteringEnabledFieldNumber = 2,
-    kConvertToLegacyJsonFieldNumber = 3,
-    kClientPriorityFieldNumber = 4,
-    kJsonAgentLabelFilterFieldNumber = 5,
-  };
-
-  ChromeConfig();
-  ~ChromeConfig() override;
-  ChromeConfig(ChromeConfig&&) noexcept;
-  ChromeConfig& operator=(ChromeConfig&&);
-  ChromeConfig(const ChromeConfig&);
-  ChromeConfig& operator=(const ChromeConfig&);
-  bool operator==(const ChromeConfig&) const;
-  bool operator!=(const ChromeConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_trace_config() const { return _has_field_[1]; }
-  const std::string& trace_config() const { return trace_config_; }
-  void set_trace_config(const std::string& value) { trace_config_ = value; _has_field_.set(1); }
-
-  bool has_privacy_filtering_enabled() const { return _has_field_[2]; }
-  bool privacy_filtering_enabled() const { return privacy_filtering_enabled_; }
-  void set_privacy_filtering_enabled(bool value) { privacy_filtering_enabled_ = value; _has_field_.set(2); }
-
-  bool has_convert_to_legacy_json() const { return _has_field_[3]; }
-  bool convert_to_legacy_json() const { return convert_to_legacy_json_; }
-  void set_convert_to_legacy_json(bool value) { convert_to_legacy_json_ = value; _has_field_.set(3); }
-
-  bool has_client_priority() const { return _has_field_[4]; }
-  ChromeConfig_ClientPriority client_priority() const { return client_priority_; }
-  void set_client_priority(ChromeConfig_ClientPriority value) { client_priority_ = value; _has_field_.set(4); }
-
-  bool has_json_agent_label_filter() const { return _has_field_[5]; }
-  const std::string& json_agent_label_filter() const { return json_agent_label_filter_; }
-  void set_json_agent_label_filter(const std::string& value) { json_agent_label_filter_ = value; _has_field_.set(5); }
-
- private:
-  std::string trace_config_{};
-  bool privacy_filtering_enabled_{};
-  bool convert_to_legacy_json_{};
-  ChromeConfig_ClientPriority client_priority_{};
-  std::string json_agent_label_filter_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<6> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_CHROME_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/chrome/scenario_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_SCENARIO_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_SCENARIO_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class ChromeFieldTracingConfig;
-class ScenarioConfig;
-class NestedScenarioConfig;
-class TriggerRule;
-class TriggerRule_RepeatingInterval;
-class TriggerRule_HistogramTrigger;
-class TraceConfig;
-class TraceConfig_CmdTraceStartDelay;
-class TraceConfig_AndroidReportConfig;
-class TraceConfig_TraceFilter;
-class TraceConfig_IncidentReportConfig;
-class TraceConfig_IncrementalStateConfig;
-class TraceConfig_TriggerConfig;
-class TraceConfig_TriggerConfig_Trigger;
-class TraceConfig_GuardrailOverrides;
-class TraceConfig_StatsdMetadata;
-class TraceConfig_ProducerConfig;
-class TraceConfig_BuiltinDataSource;
-class TraceConfig_DataSource;
-class DataSourceConfig;
-class TestConfig;
-class TestConfig_DummyFields;
-class InterceptorConfig;
-class ChromeConfig;
-class SystemInfoConfig;
-class TraceConfig_BufferConfig;
-enum TraceConfig_LockdownModeOperation : int;
-enum TraceConfig_CompressionType : int;
-enum TraceConfig_StatsdLogging : int;
-enum TraceConfig_TriggerConfig_TriggerMode : int;
-enum BuiltinClock : int;
-enum DataSourceConfig_SessionInitiator : int;
-enum ChromeConfig_ClientPriority : int;
-enum TraceConfig_BufferConfig_FillPolicy : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT ChromeFieldTracingConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kScenariosFieldNumber = 1,
-  };
-
-  ChromeFieldTracingConfig();
-  ~ChromeFieldTracingConfig() override;
-  ChromeFieldTracingConfig(ChromeFieldTracingConfig&&) noexcept;
-  ChromeFieldTracingConfig& operator=(ChromeFieldTracingConfig&&);
-  ChromeFieldTracingConfig(const ChromeFieldTracingConfig&);
-  ChromeFieldTracingConfig& operator=(const ChromeFieldTracingConfig&);
-  bool operator==(const ChromeFieldTracingConfig&) const;
-  bool operator!=(const ChromeFieldTracingConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<ScenarioConfig>& scenarios() const { return scenarios_; }
-  std::vector<ScenarioConfig>* mutable_scenarios() { return &scenarios_; }
-  int scenarios_size() const;
-  void clear_scenarios();
-  ScenarioConfig* add_scenarios();
-
- private:
-  std::vector<ScenarioConfig> scenarios_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<2> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT ScenarioConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kScenarioNameFieldNumber = 1,
-    kStartRulesFieldNumber = 2,
-    kStopRulesFieldNumber = 3,
-    kUploadRulesFieldNumber = 4,
-    kSetupRulesFieldNumber = 5,
-    kTraceConfigFieldNumber = 6,
-    kNestedScenariosFieldNumber = 7,
-  };
-
-  ScenarioConfig();
-  ~ScenarioConfig() override;
-  ScenarioConfig(ScenarioConfig&&) noexcept;
-  ScenarioConfig& operator=(ScenarioConfig&&);
-  ScenarioConfig(const ScenarioConfig&);
-  ScenarioConfig& operator=(const ScenarioConfig&);
-  bool operator==(const ScenarioConfig&) const;
-  bool operator!=(const ScenarioConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_scenario_name() const { return _has_field_[1]; }
-  const std::string& scenario_name() const { return scenario_name_; }
-  void set_scenario_name(const std::string& value) { scenario_name_ = value; _has_field_.set(1); }
-
-  const std::vector<TriggerRule>& start_rules() const { return start_rules_; }
-  std::vector<TriggerRule>* mutable_start_rules() { return &start_rules_; }
-  int start_rules_size() const;
-  void clear_start_rules();
-  TriggerRule* add_start_rules();
-
-  const std::vector<TriggerRule>& stop_rules() const { return stop_rules_; }
-  std::vector<TriggerRule>* mutable_stop_rules() { return &stop_rules_; }
-  int stop_rules_size() const;
-  void clear_stop_rules();
-  TriggerRule* add_stop_rules();
-
-  const std::vector<TriggerRule>& upload_rules() const { return upload_rules_; }
-  std::vector<TriggerRule>* mutable_upload_rules() { return &upload_rules_; }
-  int upload_rules_size() const;
-  void clear_upload_rules();
-  TriggerRule* add_upload_rules();
-
-  const std::vector<TriggerRule>& setup_rules() const { return setup_rules_; }
-  std::vector<TriggerRule>* mutable_setup_rules() { return &setup_rules_; }
-  int setup_rules_size() const;
-  void clear_setup_rules();
-  TriggerRule* add_setup_rules();
-
-  bool has_trace_config() const { return _has_field_[6]; }
-  const TraceConfig& trace_config() const { return *trace_config_; }
-  TraceConfig* mutable_trace_config() { _has_field_.set(6); return trace_config_.get(); }
-
-  const std::vector<NestedScenarioConfig>& nested_scenarios() const { return nested_scenarios_; }
-  std::vector<NestedScenarioConfig>* mutable_nested_scenarios() { return &nested_scenarios_; }
-  int nested_scenarios_size() const;
-  void clear_nested_scenarios();
-  NestedScenarioConfig* add_nested_scenarios();
-
- private:
-  std::string scenario_name_{};
-  std::vector<TriggerRule> start_rules_;
-  std::vector<TriggerRule> stop_rules_;
-  std::vector<TriggerRule> upload_rules_;
-  std::vector<TriggerRule> setup_rules_;
-  ::protozero::CopyablePtr<TraceConfig> trace_config_;
-  std::vector<NestedScenarioConfig> nested_scenarios_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<8> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT NestedScenarioConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kScenarioNameFieldNumber = 1,
-    kStartRulesFieldNumber = 2,
-    kStopRulesFieldNumber = 3,
-    kUploadRulesFieldNumber = 4,
-  };
-
-  NestedScenarioConfig();
-  ~NestedScenarioConfig() override;
-  NestedScenarioConfig(NestedScenarioConfig&&) noexcept;
-  NestedScenarioConfig& operator=(NestedScenarioConfig&&);
-  NestedScenarioConfig(const NestedScenarioConfig&);
-  NestedScenarioConfig& operator=(const NestedScenarioConfig&);
-  bool operator==(const NestedScenarioConfig&) const;
-  bool operator!=(const NestedScenarioConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_scenario_name() const { return _has_field_[1]; }
-  const std::string& scenario_name() const { return scenario_name_; }
-  void set_scenario_name(const std::string& value) { scenario_name_ = value; _has_field_.set(1); }
-
-  const std::vector<TriggerRule>& start_rules() const { return start_rules_; }
-  std::vector<TriggerRule>* mutable_start_rules() { return &start_rules_; }
-  int start_rules_size() const;
-  void clear_start_rules();
-  TriggerRule* add_start_rules();
-
-  const std::vector<TriggerRule>& stop_rules() const { return stop_rules_; }
-  std::vector<TriggerRule>* mutable_stop_rules() { return &stop_rules_; }
-  int stop_rules_size() const;
-  void clear_stop_rules();
-  TriggerRule* add_stop_rules();
-
-  const std::vector<TriggerRule>& upload_rules() const { return upload_rules_; }
-  std::vector<TriggerRule>* mutable_upload_rules() { return &upload_rules_; }
-  int upload_rules_size() const;
-  void clear_upload_rules();
-  TriggerRule* add_upload_rules();
-
- private:
-  std::string scenario_name_{};
-  std::vector<TriggerRule> start_rules_;
-  std::vector<TriggerRule> stop_rules_;
-  std::vector<TriggerRule> upload_rules_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<5> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TriggerRule : public ::protozero::CppMessageObj {
- public:
-  using HistogramTrigger = TriggerRule_HistogramTrigger;
-  using RepeatingInterval = TriggerRule_RepeatingInterval;
-  enum FieldNumbers {
-    kNameFieldNumber = 1,
-    kTriggerChanceFieldNumber = 2,
-    kDelayMsFieldNumber = 3,
-    kManualTriggerNameFieldNumber = 4,
-    kHistogramFieldNumber = 5,
-    kRepeatingIntervalFieldNumber = 6,
-  };
-
-  TriggerRule();
-  ~TriggerRule() override;
-  TriggerRule(TriggerRule&&) noexcept;
-  TriggerRule& operator=(TriggerRule&&);
-  TriggerRule(const TriggerRule&);
-  TriggerRule& operator=(const TriggerRule&);
-  bool operator==(const TriggerRule&) const;
-  bool operator!=(const TriggerRule& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_name() const { return _has_field_[1]; }
-  const std::string& name() const { return name_; }
-  void set_name(const std::string& value) { name_ = value; _has_field_.set(1); }
-
-  bool has_trigger_chance() const { return _has_field_[2]; }
-  float trigger_chance() const { return trigger_chance_; }
-  void set_trigger_chance(float value) { trigger_chance_ = value; _has_field_.set(2); }
-
-  bool has_delay_ms() const { return _has_field_[3]; }
-  uint64_t delay_ms() const { return delay_ms_; }
-  void set_delay_ms(uint64_t value) { delay_ms_ = value; _has_field_.set(3); }
-
-  bool has_manual_trigger_name() const { return _has_field_[4]; }
-  const std::string& manual_trigger_name() const { return manual_trigger_name_; }
-  void set_manual_trigger_name(const std::string& value) { manual_trigger_name_ = value; _has_field_.set(4); }
-
-  bool has_histogram() const { return _has_field_[5]; }
-  const TriggerRule_HistogramTrigger& histogram() const { return *histogram_; }
-  TriggerRule_HistogramTrigger* mutable_histogram() { _has_field_.set(5); return histogram_.get(); }
-
-  bool has_repeating_interval() const { return _has_field_[6]; }
-  const TriggerRule_RepeatingInterval& repeating_interval() const { return *repeating_interval_; }
-  TriggerRule_RepeatingInterval* mutable_repeating_interval() { _has_field_.set(6); return repeating_interval_.get(); }
-
- private:
-  std::string name_{};
-  float trigger_chance_{};
-  uint64_t delay_ms_{};
-  std::string manual_trigger_name_{};
-  ::protozero::CopyablePtr<TriggerRule_HistogramTrigger> histogram_;
-  ::protozero::CopyablePtr<TriggerRule_RepeatingInterval> repeating_interval_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<7> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TriggerRule_RepeatingInterval : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kPeriodMsFieldNumber = 1,
-    kRandomizedFieldNumber = 2,
-  };
-
-  TriggerRule_RepeatingInterval();
-  ~TriggerRule_RepeatingInterval() override;
-  TriggerRule_RepeatingInterval(TriggerRule_RepeatingInterval&&) noexcept;
-  TriggerRule_RepeatingInterval& operator=(TriggerRule_RepeatingInterval&&);
-  TriggerRule_RepeatingInterval(const TriggerRule_RepeatingInterval&);
-  TriggerRule_RepeatingInterval& operator=(const TriggerRule_RepeatingInterval&);
-  bool operator==(const TriggerRule_RepeatingInterval&) const;
-  bool operator!=(const TriggerRule_RepeatingInterval& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_period_ms() const { return _has_field_[1]; }
-  uint64_t period_ms() const { return period_ms_; }
-  void set_period_ms(uint64_t value) { period_ms_ = value; _has_field_.set(1); }
-
-  bool has_randomized() const { return _has_field_[2]; }
-  bool randomized() const { return randomized_; }
-  void set_randomized(bool value) { randomized_ = value; _has_field_.set(2); }
-
- private:
-  uint64_t period_ms_{};
-  bool randomized_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<3> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TriggerRule_HistogramTrigger : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kHistogramNameFieldNumber = 1,
-    kMinValueFieldNumber = 2,
-    kMaxValueFieldNumber = 3,
-  };
-
-  TriggerRule_HistogramTrigger();
-  ~TriggerRule_HistogramTrigger() override;
-  TriggerRule_HistogramTrigger(TriggerRule_HistogramTrigger&&) noexcept;
-  TriggerRule_HistogramTrigger& operator=(TriggerRule_HistogramTrigger&&);
-  TriggerRule_HistogramTrigger(const TriggerRule_HistogramTrigger&);
-  TriggerRule_HistogramTrigger& operator=(const TriggerRule_HistogramTrigger&);
-  bool operator==(const TriggerRule_HistogramTrigger&) const;
-  bool operator!=(const TriggerRule_HistogramTrigger& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_histogram_name() const { return _has_field_[1]; }
-  const std::string& histogram_name() const { return histogram_name_; }
-  void set_histogram_name(const std::string& value) { histogram_name_ = value; _has_field_.set(1); }
-
-  bool has_min_value() const { return _has_field_[2]; }
-  int64_t min_value() const { return min_value_; }
-  void set_min_value(int64_t value) { min_value_ = value; _has_field_.set(2); }
-
-  bool has_max_value() const { return _has_field_[3]; }
-  int64_t max_value() const { return max_value_; }
-  void set_max_value(int64_t value) { max_value_ = value; _has_field_.set(3); }
-
- private:
-  std::string histogram_name_{};
-  int64_t min_value_{};
-  int64_t max_value_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<4> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_CHROME_SCENARIO_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/data_source_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class DataSourceConfig;
-class TestConfig;
-class TestConfig_DummyFields;
-class InterceptorConfig;
-class ChromeConfig;
-class SystemInfoConfig;
-enum DataSourceConfig_SessionInitiator : int;
-enum ChromeConfig_ClientPriority : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum DataSourceConfig_SessionInitiator : int {
-  DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED = 0,
-  DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM = 1,
-};
-
-class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessageObj {
- public:
-  using SessionInitiator = DataSourceConfig_SessionInitiator;
-  static constexpr auto SESSION_INITIATOR_UNSPECIFIED = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED;
-  static constexpr auto SESSION_INITIATOR_TRUSTED_SYSTEM = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM;
-  static constexpr auto SessionInitiator_MIN = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_UNSPECIFIED;
-  static constexpr auto SessionInitiator_MAX = DataSourceConfig_SessionInitiator_SESSION_INITIATOR_TRUSTED_SYSTEM;
-  enum FieldNumbers {
-    kNameFieldNumber = 1,
-    kTargetBufferFieldNumber = 2,
-    kTraceDurationMsFieldNumber = 3,
-    kPreferSuspendClockForDurationFieldNumber = 122,
-    kStopTimeoutMsFieldNumber = 7,
-    kEnableExtraGuardrailsFieldNumber = 6,
-    kSessionInitiatorFieldNumber = 8,
-    kTracingSessionIdFieldNumber = 4,
-    kFtraceConfigFieldNumber = 100,
-    kInodeFileConfigFieldNumber = 102,
-    kProcessStatsConfigFieldNumber = 103,
-    kSysStatsConfigFieldNumber = 104,
-    kHeapprofdConfigFieldNumber = 105,
-    kJavaHprofConfigFieldNumber = 110,
-    kAndroidPowerConfigFieldNumber = 106,
-    kAndroidLogConfigFieldNumber = 107,
-    kGpuCounterConfigFieldNumber = 108,
-    kAndroidGameInterventionListConfigFieldNumber = 116,
-    kPackagesListConfigFieldNumber = 109,
-    kPerfEventConfigFieldNumber = 111,
-    kVulkanMemoryConfigFieldNumber = 112,
-    kTrackEventConfigFieldNumber = 113,
-    kAndroidPolledStateConfigFieldNumber = 114,
-    kAndroidSystemPropertyConfigFieldNumber = 118,
-    kStatsdTracingConfigFieldNumber = 117,
-    kSystemInfoConfigFieldNumber = 119,
-    kChromeConfigFieldNumber = 101,
-    kInterceptorConfigFieldNumber = 115,
-    kNetworkPacketTraceConfigFieldNumber = 120,
-    kLegacyConfigFieldNumber = 1000,
-    kForTestingFieldNumber = 1001,
-  };
-
-  DataSourceConfig();
-  ~DataSourceConfig() override;
-  DataSourceConfig(DataSourceConfig&&) noexcept;
-  DataSourceConfig& operator=(DataSourceConfig&&);
-  DataSourceConfig(const DataSourceConfig&);
-  DataSourceConfig& operator=(const DataSourceConfig&);
-  bool operator==(const DataSourceConfig&) const;
-  bool operator!=(const DataSourceConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_name() const { return _has_field_[1]; }
-  const std::string& name() const { return name_; }
-  void set_name(const std::string& value) { name_ = value; _has_field_.set(1); }
-
-  bool has_target_buffer() const { return _has_field_[2]; }
-  uint32_t target_buffer() const { return target_buffer_; }
-  void set_target_buffer(uint32_t value) { target_buffer_ = value; _has_field_.set(2); }
-
-  bool has_trace_duration_ms() const { return _has_field_[3]; }
-  uint32_t trace_duration_ms() const { return trace_duration_ms_; }
-  void set_trace_duration_ms(uint32_t value) { trace_duration_ms_ = value; _has_field_.set(3); }
-
-  bool has_prefer_suspend_clock_for_duration() const { return _has_field_[122]; }
-  bool prefer_suspend_clock_for_duration() const { return prefer_suspend_clock_for_duration_; }
-  void set_prefer_suspend_clock_for_duration(bool value) { prefer_suspend_clock_for_duration_ = value; _has_field_.set(122); }
-
-  bool has_stop_timeout_ms() const { return _has_field_[7]; }
-  uint32_t stop_timeout_ms() const { return stop_timeout_ms_; }
-  void set_stop_timeout_ms(uint32_t value) { stop_timeout_ms_ = value; _has_field_.set(7); }
-
-  bool has_enable_extra_guardrails() const { return _has_field_[6]; }
-  bool enable_extra_guardrails() const { return enable_extra_guardrails_; }
-  void set_enable_extra_guardrails(bool value) { enable_extra_guardrails_ = value; _has_field_.set(6); }
-
-  bool has_session_initiator() const { return _has_field_[8]; }
-  DataSourceConfig_SessionInitiator session_initiator() const { return session_initiator_; }
-  void set_session_initiator(DataSourceConfig_SessionInitiator value) { session_initiator_ = value; _has_field_.set(8); }
-
-  bool has_tracing_session_id() const { return _has_field_[4]; }
-  uint64_t tracing_session_id() const { return tracing_session_id_; }
-  void set_tracing_session_id(uint64_t value) { tracing_session_id_ = value; _has_field_.set(4); }
-
-  const std::string& ftrace_config_raw() const { return ftrace_config_; }
-  void set_ftrace_config_raw(const std::string& raw) { ftrace_config_ = raw; _has_field_.set(100); }
-
-  const std::string& inode_file_config_raw() const { return inode_file_config_; }
-  void set_inode_file_config_raw(const std::string& raw) { inode_file_config_ = raw; _has_field_.set(102); }
-
-  const std::string& process_stats_config_raw() const { return process_stats_config_; }
-  void set_process_stats_config_raw(const std::string& raw) { process_stats_config_ = raw; _has_field_.set(103); }
-
-  const std::string& sys_stats_config_raw() const { return sys_stats_config_; }
-  void set_sys_stats_config_raw(const std::string& raw) { sys_stats_config_ = raw; _has_field_.set(104); }
-
-  const std::string& heapprofd_config_raw() const { return heapprofd_config_; }
-  void set_heapprofd_config_raw(const std::string& raw) { heapprofd_config_ = raw; _has_field_.set(105); }
-
-  const std::string& java_hprof_config_raw() const { return java_hprof_config_; }
-  void set_java_hprof_config_raw(const std::string& raw) { java_hprof_config_ = raw; _has_field_.set(110); }
-
-  const std::string& android_power_config_raw() const { return android_power_config_; }
-  void set_android_power_config_raw(const std::string& raw) { android_power_config_ = raw; _has_field_.set(106); }
-
-  const std::string& android_log_config_raw() const { return android_log_config_; }
-  void set_android_log_config_raw(const std::string& raw) { android_log_config_ = raw; _has_field_.set(107); }
-
-  const std::string& gpu_counter_config_raw() const { return gpu_counter_config_; }
-  void set_gpu_counter_config_raw(const std::string& raw) { gpu_counter_config_ = raw; _has_field_.set(108); }
-
-  const std::string& android_game_intervention_list_config_raw() const { return android_game_intervention_list_config_; }
-  void set_android_game_intervention_list_config_raw(const std::string& raw) { android_game_intervention_list_config_ = raw; _has_field_.set(116); }
-
-  const std::string& packages_list_config_raw() const { return packages_list_config_; }
-  void set_packages_list_config_raw(const std::string& raw) { packages_list_config_ = raw; _has_field_.set(109); }
-
-  const std::string& perf_event_config_raw() const { return perf_event_config_; }
-  void set_perf_event_config_raw(const std::string& raw) { perf_event_config_ = raw; _has_field_.set(111); }
-
-  const std::string& vulkan_memory_config_raw() const { return vulkan_memory_config_; }
-  void set_vulkan_memory_config_raw(const std::string& raw) { vulkan_memory_config_ = raw; _has_field_.set(112); }
-
-  const std::string& track_event_config_raw() const { return track_event_config_; }
-  void set_track_event_config_raw(const std::string& raw) { track_event_config_ = raw; _has_field_.set(113); }
-
-  const std::string& android_polled_state_config_raw() const { return android_polled_state_config_; }
-  void set_android_polled_state_config_raw(const std::string& raw) { android_polled_state_config_ = raw; _has_field_.set(114); }
-
-  const std::string& android_system_property_config_raw() const { return android_system_property_config_; }
-  void set_android_system_property_config_raw(const std::string& raw) { android_system_property_config_ = raw; _has_field_.set(118); }
-
-  const std::string& statsd_tracing_config_raw() const { return statsd_tracing_config_; }
-  void set_statsd_tracing_config_raw(const std::string& raw) { statsd_tracing_config_ = raw; _has_field_.set(117); }
-
-  bool has_system_info_config() const { return _has_field_[119]; }
-  const SystemInfoConfig& system_info_config() const { return *system_info_config_; }
-  SystemInfoConfig* mutable_system_info_config() { _has_field_.set(119); return system_info_config_.get(); }
-
-  bool has_chrome_config() const { return _has_field_[101]; }
-  const ChromeConfig& chrome_config() const { return *chrome_config_; }
-  ChromeConfig* mutable_chrome_config() { _has_field_.set(101); return chrome_config_.get(); }
-
-  bool has_interceptor_config() const { return _has_field_[115]; }
-  const InterceptorConfig& interceptor_config() const { return *interceptor_config_; }
-  InterceptorConfig* mutable_interceptor_config() { _has_field_.set(115); return interceptor_config_.get(); }
-
-  const std::string& network_packet_trace_config_raw() const { return network_packet_trace_config_; }
-  void set_network_packet_trace_config_raw(const std::string& raw) { network_packet_trace_config_ = raw; _has_field_.set(120); }
-
-  bool has_legacy_config() const { return _has_field_[1000]; }
-  const std::string& legacy_config() const { return legacy_config_; }
-  void set_legacy_config(const std::string& value) { legacy_config_ = value; _has_field_.set(1000); }
-
-  bool has_for_testing() const { return _has_field_[1001]; }
-  const TestConfig& for_testing() const { return *for_testing_; }
-  TestConfig* mutable_for_testing() { _has_field_.set(1001); return for_testing_.get(); }
-
- private:
-  std::string name_{};
-  uint32_t target_buffer_{};
-  uint32_t trace_duration_ms_{};
-  bool prefer_suspend_clock_for_duration_{};
-  uint32_t stop_timeout_ms_{};
-  bool enable_extra_guardrails_{};
-  DataSourceConfig_SessionInitiator session_initiator_{};
-  uint64_t tracing_session_id_{};
-  std::string ftrace_config_;  // [lazy=true]
-  std::string inode_file_config_;  // [lazy=true]
-  std::string process_stats_config_;  // [lazy=true]
-  std::string sys_stats_config_;  // [lazy=true]
-  std::string heapprofd_config_;  // [lazy=true]
-  std::string java_hprof_config_;  // [lazy=true]
-  std::string android_power_config_;  // [lazy=true]
-  std::string android_log_config_;  // [lazy=true]
-  std::string gpu_counter_config_;  // [lazy=true]
-  std::string android_game_intervention_list_config_;  // [lazy=true]
-  std::string packages_list_config_;  // [lazy=true]
-  std::string perf_event_config_;  // [lazy=true]
-  std::string vulkan_memory_config_;  // [lazy=true]
-  std::string track_event_config_;  // [lazy=true]
-  std::string android_polled_state_config_;  // [lazy=true]
-  std::string android_system_property_config_;  // [lazy=true]
-  std::string statsd_tracing_config_;  // [lazy=true]
-  ::protozero::CopyablePtr<SystemInfoConfig> system_info_config_;
-  ::protozero::CopyablePtr<ChromeConfig> chrome_config_;
-  ::protozero::CopyablePtr<InterceptorConfig> interceptor_config_;
-  std::string network_packet_trace_config_;  // [lazy=true]
-  std::string legacy_config_{};
-  ::protozero::CopyablePtr<TestConfig> for_testing_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<1002> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_DATA_SOURCE_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/interceptor_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTOR_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTOR_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class InterceptorConfig;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT InterceptorConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kNameFieldNumber = 1,
-    kConsoleConfigFieldNumber = 100,
-  };
-
-  InterceptorConfig();
-  ~InterceptorConfig() override;
-  InterceptorConfig(InterceptorConfig&&) noexcept;
-  InterceptorConfig& operator=(InterceptorConfig&&);
-  InterceptorConfig(const InterceptorConfig&);
-  InterceptorConfig& operator=(const InterceptorConfig&);
-  bool operator==(const InterceptorConfig&) const;
-  bool operator!=(const InterceptorConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_name() const { return _has_field_[1]; }
-  const std::string& name() const { return name_; }
-  void set_name(const std::string& value) { name_ = value; _has_field_.set(1); }
-
-  const std::string& console_config_raw() const { return console_config_; }
-  void set_console_config_raw(const std::string& raw) { console_config_ = raw; _has_field_.set(100); }
-
- private:
-  std::string name_{};
-  std::string console_config_;  // [lazy=true]
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<101> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_INTERCEPTOR_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/stress_test_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STRESS_TEST_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STRESS_TEST_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class StressTestConfig;
-class StressTestConfig_WriterTiming;
-class TraceConfig;
-class TraceConfig_CmdTraceStartDelay;
-class TraceConfig_AndroidReportConfig;
-class TraceConfig_TraceFilter;
-class TraceConfig_IncidentReportConfig;
-class TraceConfig_IncrementalStateConfig;
-class TraceConfig_TriggerConfig;
-class TraceConfig_TriggerConfig_Trigger;
-class TraceConfig_GuardrailOverrides;
-class TraceConfig_StatsdMetadata;
-class TraceConfig_ProducerConfig;
-class TraceConfig_BuiltinDataSource;
-class TraceConfig_DataSource;
-class DataSourceConfig;
-class TestConfig;
-class TestConfig_DummyFields;
-class InterceptorConfig;
-class ChromeConfig;
-class SystemInfoConfig;
-class TraceConfig_BufferConfig;
-enum TraceConfig_LockdownModeOperation : int;
-enum TraceConfig_CompressionType : int;
-enum TraceConfig_StatsdLogging : int;
-enum TraceConfig_TriggerConfig_TriggerMode : int;
-enum BuiltinClock : int;
-enum DataSourceConfig_SessionInitiator : int;
-enum ChromeConfig_ClientPriority : int;
-enum TraceConfig_BufferConfig_FillPolicy : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT StressTestConfig : public ::protozero::CppMessageObj {
- public:
-  using WriterTiming = StressTestConfig_WriterTiming;
-  enum FieldNumbers {
-    kTraceConfigFieldNumber = 1,
-    kShmemSizeKbFieldNumber = 2,
-    kShmemPageSizeKbFieldNumber = 3,
-    kNumProcessesFieldNumber = 4,
-    kNumThreadsFieldNumber = 5,
-    kMaxEventsFieldNumber = 6,
-    kNestingFieldNumber = 7,
-    kSteadyStateTimingsFieldNumber = 8,
-    kBurstPeriodMsFieldNumber = 9,
-    kBurstDurationMsFieldNumber = 10,
-    kBurstTimingsFieldNumber = 11,
-  };
-
-  StressTestConfig();
-  ~StressTestConfig() override;
-  StressTestConfig(StressTestConfig&&) noexcept;
-  StressTestConfig& operator=(StressTestConfig&&);
-  StressTestConfig(const StressTestConfig&);
-  StressTestConfig& operator=(const StressTestConfig&);
-  bool operator==(const StressTestConfig&) const;
-  bool operator!=(const StressTestConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_trace_config() const { return _has_field_[1]; }
-  const TraceConfig& trace_config() const { return *trace_config_; }
-  TraceConfig* mutable_trace_config() { _has_field_.set(1); return trace_config_.get(); }
-
-  bool has_shmem_size_kb() const { return _has_field_[2]; }
-  uint32_t shmem_size_kb() const { return shmem_size_kb_; }
-  void set_shmem_size_kb(uint32_t value) { shmem_size_kb_ = value; _has_field_.set(2); }
-
-  bool has_shmem_page_size_kb() const { return _has_field_[3]; }
-  uint32_t shmem_page_size_kb() const { return shmem_page_size_kb_; }
-  void set_shmem_page_size_kb(uint32_t value) { shmem_page_size_kb_ = value; _has_field_.set(3); }
-
-  bool has_num_processes() const { return _has_field_[4]; }
-  uint32_t num_processes() const { return num_processes_; }
-  void set_num_processes(uint32_t value) { num_processes_ = value; _has_field_.set(4); }
-
-  bool has_num_threads() const { return _has_field_[5]; }
-  uint32_t num_threads() const { return num_threads_; }
-  void set_num_threads(uint32_t value) { num_threads_ = value; _has_field_.set(5); }
-
-  bool has_max_events() const { return _has_field_[6]; }
-  uint32_t max_events() const { return max_events_; }
-  void set_max_events(uint32_t value) { max_events_ = value; _has_field_.set(6); }
-
-  bool has_nesting() const { return _has_field_[7]; }
-  uint32_t nesting() const { return nesting_; }
-  void set_nesting(uint32_t value) { nesting_ = value; _has_field_.set(7); }
-
-  bool has_steady_state_timings() const { return _has_field_[8]; }
-  const StressTestConfig_WriterTiming& steady_state_timings() const { return *steady_state_timings_; }
-  StressTestConfig_WriterTiming* mutable_steady_state_timings() { _has_field_.set(8); return steady_state_timings_.get(); }
-
-  bool has_burst_period_ms() const { return _has_field_[9]; }
-  uint32_t burst_period_ms() const { return burst_period_ms_; }
-  void set_burst_period_ms(uint32_t value) { burst_period_ms_ = value; _has_field_.set(9); }
-
-  bool has_burst_duration_ms() const { return _has_field_[10]; }
-  uint32_t burst_duration_ms() const { return burst_duration_ms_; }
-  void set_burst_duration_ms(uint32_t value) { burst_duration_ms_ = value; _has_field_.set(10); }
-
-  bool has_burst_timings() const { return _has_field_[11]; }
-  const StressTestConfig_WriterTiming& burst_timings() const { return *burst_timings_; }
-  StressTestConfig_WriterTiming* mutable_burst_timings() { _has_field_.set(11); return burst_timings_.get(); }
-
- private:
-  ::protozero::CopyablePtr<TraceConfig> trace_config_;
-  uint32_t shmem_size_kb_{};
-  uint32_t shmem_page_size_kb_{};
-  uint32_t num_processes_{};
-  uint32_t num_threads_{};
-  uint32_t max_events_{};
-  uint32_t nesting_{};
-  ::protozero::CopyablePtr<StressTestConfig_WriterTiming> steady_state_timings_;
-  uint32_t burst_period_ms_{};
-  uint32_t burst_duration_ms_{};
-  ::protozero::CopyablePtr<StressTestConfig_WriterTiming> burst_timings_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<12> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT StressTestConfig_WriterTiming : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kPayloadMeanFieldNumber = 1,
-    kPayloadStddevFieldNumber = 2,
-    kRateMeanFieldNumber = 3,
-    kRateStddevFieldNumber = 4,
-    kPayloadWriteTimeMsFieldNumber = 5,
-  };
-
-  StressTestConfig_WriterTiming();
-  ~StressTestConfig_WriterTiming() override;
-  StressTestConfig_WriterTiming(StressTestConfig_WriterTiming&&) noexcept;
-  StressTestConfig_WriterTiming& operator=(StressTestConfig_WriterTiming&&);
-  StressTestConfig_WriterTiming(const StressTestConfig_WriterTiming&);
-  StressTestConfig_WriterTiming& operator=(const StressTestConfig_WriterTiming&);
-  bool operator==(const StressTestConfig_WriterTiming&) const;
-  bool operator!=(const StressTestConfig_WriterTiming& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_payload_mean() const { return _has_field_[1]; }
-  double payload_mean() const { return payload_mean_; }
-  void set_payload_mean(double value) { payload_mean_ = value; _has_field_.set(1); }
-
-  bool has_payload_stddev() const { return _has_field_[2]; }
-  double payload_stddev() const { return payload_stddev_; }
-  void set_payload_stddev(double value) { payload_stddev_ = value; _has_field_.set(2); }
-
-  bool has_rate_mean() const { return _has_field_[3]; }
-  double rate_mean() const { return rate_mean_; }
-  void set_rate_mean(double value) { rate_mean_ = value; _has_field_.set(3); }
-
-  bool has_rate_stddev() const { return _has_field_[4]; }
-  double rate_stddev() const { return rate_stddev_; }
-  void set_rate_stddev(double value) { rate_stddev_ = value; _has_field_.set(4); }
-
-  bool has_payload_write_time_ms() const { return _has_field_[5]; }
-  uint32_t payload_write_time_ms() const { return payload_write_time_ms_; }
-  void set_payload_write_time_ms(uint32_t value) { payload_write_time_ms_ = value; _has_field_.set(5); }
-
- private:
-  double payload_mean_{};
-  double payload_stddev_{};
-  double rate_mean_{};
-  double rate_stddev_{};
-  uint32_t payload_write_time_ms_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<6> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_STRESS_TEST_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/test_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TEST_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TEST_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class TestConfig;
-class TestConfig_DummyFields;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-
-class PERFETTO_EXPORT_COMPONENT TestConfig : public ::protozero::CppMessageObj {
- public:
-  using DummyFields = TestConfig_DummyFields;
-  enum FieldNumbers {
-    kMessageCountFieldNumber = 1,
-    kMaxMessagesPerSecondFieldNumber = 2,
-    kSeedFieldNumber = 3,
-    kMessageSizeFieldNumber = 4,
-    kSendBatchOnRegisterFieldNumber = 5,
-    kDummyFieldsFieldNumber = 6,
-  };
-
-  TestConfig();
-  ~TestConfig() override;
-  TestConfig(TestConfig&&) noexcept;
-  TestConfig& operator=(TestConfig&&);
-  TestConfig(const TestConfig&);
-  TestConfig& operator=(const TestConfig&);
-  bool operator==(const TestConfig&) const;
-  bool operator!=(const TestConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_message_count() const { return _has_field_[1]; }
-  uint32_t message_count() const { return message_count_; }
-  void set_message_count(uint32_t value) { message_count_ = value; _has_field_.set(1); }
-
-  bool has_max_messages_per_second() const { return _has_field_[2]; }
-  uint32_t max_messages_per_second() const { return max_messages_per_second_; }
-  void set_max_messages_per_second(uint32_t value) { max_messages_per_second_ = value; _has_field_.set(2); }
-
-  bool has_seed() const { return _has_field_[3]; }
-  uint32_t seed() const { return seed_; }
-  void set_seed(uint32_t value) { seed_ = value; _has_field_.set(3); }
-
-  bool has_message_size() const { return _has_field_[4]; }
-  uint32_t message_size() const { return message_size_; }
-  void set_message_size(uint32_t value) { message_size_ = value; _has_field_.set(4); }
-
-  bool has_send_batch_on_register() const { return _has_field_[5]; }
-  bool send_batch_on_register() const { return send_batch_on_register_; }
-  void set_send_batch_on_register(bool value) { send_batch_on_register_ = value; _has_field_.set(5); }
-
-  bool has_dummy_fields() const { return _has_field_[6]; }
-  const TestConfig_DummyFields& dummy_fields() const { return *dummy_fields_; }
-  TestConfig_DummyFields* mutable_dummy_fields() { _has_field_.set(6); return dummy_fields_.get(); }
-
- private:
-  uint32_t message_count_{};
-  uint32_t max_messages_per_second_{};
-  uint32_t seed_{};
-  uint32_t message_size_{};
-  bool send_batch_on_register_{};
-  ::protozero::CopyablePtr<TestConfig_DummyFields> dummy_fields_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<7> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TestConfig_DummyFields : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kFieldUint32FieldNumber = 1,
-    kFieldInt32FieldNumber = 2,
-    kFieldUint64FieldNumber = 3,
-    kFieldInt64FieldNumber = 4,
-    kFieldFixed64FieldNumber = 5,
-    kFieldSfixed64FieldNumber = 6,
-    kFieldFixed32FieldNumber = 7,
-    kFieldSfixed32FieldNumber = 8,
-    kFieldDoubleFieldNumber = 9,
-    kFieldFloatFieldNumber = 10,
-    kFieldSint64FieldNumber = 11,
-    kFieldSint32FieldNumber = 12,
-    kFieldStringFieldNumber = 13,
-    kFieldBytesFieldNumber = 14,
-  };
-
-  TestConfig_DummyFields();
-  ~TestConfig_DummyFields() override;
-  TestConfig_DummyFields(TestConfig_DummyFields&&) noexcept;
-  TestConfig_DummyFields& operator=(TestConfig_DummyFields&&);
-  TestConfig_DummyFields(const TestConfig_DummyFields&);
-  TestConfig_DummyFields& operator=(const TestConfig_DummyFields&);
-  bool operator==(const TestConfig_DummyFields&) const;
-  bool operator!=(const TestConfig_DummyFields& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_field_uint32() const { return _has_field_[1]; }
-  uint32_t field_uint32() const { return field_uint32_; }
-  void set_field_uint32(uint32_t value) { field_uint32_ = value; _has_field_.set(1); }
-
-  bool has_field_int32() const { return _has_field_[2]; }
-  int32_t field_int32() const { return field_int32_; }
-  void set_field_int32(int32_t value) { field_int32_ = value; _has_field_.set(2); }
-
-  bool has_field_uint64() const { return _has_field_[3]; }
-  uint64_t field_uint64() const { return field_uint64_; }
-  void set_field_uint64(uint64_t value) { field_uint64_ = value; _has_field_.set(3); }
-
-  bool has_field_int64() const { return _has_field_[4]; }
-  int64_t field_int64() const { return field_int64_; }
-  void set_field_int64(int64_t value) { field_int64_ = value; _has_field_.set(4); }
-
-  bool has_field_fixed64() const { return _has_field_[5]; }
-  uint64_t field_fixed64() const { return field_fixed64_; }
-  void set_field_fixed64(uint64_t value) { field_fixed64_ = value; _has_field_.set(5); }
-
-  bool has_field_sfixed64() const { return _has_field_[6]; }
-  int64_t field_sfixed64() const { return field_sfixed64_; }
-  void set_field_sfixed64(int64_t value) { field_sfixed64_ = value; _has_field_.set(6); }
-
-  bool has_field_fixed32() const { return _has_field_[7]; }
-  uint32_t field_fixed32() const { return field_fixed32_; }
-  void set_field_fixed32(uint32_t value) { field_fixed32_ = value; _has_field_.set(7); }
-
-  bool has_field_sfixed32() const { return _has_field_[8]; }
-  int32_t field_sfixed32() const { return field_sfixed32_; }
-  void set_field_sfixed32(int32_t value) { field_sfixed32_ = value; _has_field_.set(8); }
-
-  bool has_field_double() const { return _has_field_[9]; }
-  double field_double() const { return field_double_; }
-  void set_field_double(double value) { field_double_ = value; _has_field_.set(9); }
-
-  bool has_field_float() const { return _has_field_[10]; }
-  float field_float() const { return field_float_; }
-  void set_field_float(float value) { field_float_ = value; _has_field_.set(10); }
-
-  bool has_field_sint64() const { return _has_field_[11]; }
-  int64_t field_sint64() const { return field_sint64_; }
-  void set_field_sint64(int64_t value) { field_sint64_ = value; _has_field_.set(11); }
-
-  bool has_field_sint32() const { return _has_field_[12]; }
-  int32_t field_sint32() const { return field_sint32_; }
-  void set_field_sint32(int32_t value) { field_sint32_ = value; _has_field_.set(12); }
-
-  bool has_field_string() const { return _has_field_[13]; }
-  const std::string& field_string() const { return field_string_; }
-  void set_field_string(const std::string& value) { field_string_ = value; _has_field_.set(13); }
-
-  bool has_field_bytes() const { return _has_field_[14]; }
-  const std::string& field_bytes() const { return field_bytes_; }
-  void set_field_bytes(const std::string& value) { field_bytes_ = value; _has_field_.set(14); }
-  void set_field_bytes(const void* p, size_t s) { field_bytes_.assign(reinterpret_cast<const char*>(p), s); _has_field_.set(14); }
-
- private:
-  uint32_t field_uint32_{};
-  int32_t field_int32_{};
-  uint64_t field_uint64_{};
-  int64_t field_int64_{};
-  uint64_t field_fixed64_{};
-  int64_t field_sfixed64_{};
-  uint32_t field_fixed32_{};
-  int32_t field_sfixed32_{};
-  double field_double_{};
-  float field_float_{};
-  int64_t field_sint64_{};
-  int32_t field_sint32_{};
-  std::string field_string_{};
-  std::string field_bytes_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<15> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TEST_CONFIG_PROTO_CPP_H_
-// gen_amalgamated begin header: gen/protos/perfetto/config/trace_config.gen.h
-// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
-#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TRACE_CONFIG_PROTO_CPP_H_
-#define PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TRACE_CONFIG_PROTO_CPP_H_
-
-#include <stdint.h>
-#include <bitset>
-#include <vector>
-#include <string>
-#include <type_traits>
-
-// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-class TraceConfig;
-class TraceConfig_CmdTraceStartDelay;
-class TraceConfig_AndroidReportConfig;
-class TraceConfig_TraceFilter;
-class TraceConfig_IncidentReportConfig;
-class TraceConfig_IncrementalStateConfig;
-class TraceConfig_TriggerConfig;
-class TraceConfig_TriggerConfig_Trigger;
-class TraceConfig_GuardrailOverrides;
-class TraceConfig_StatsdMetadata;
-class TraceConfig_ProducerConfig;
-class TraceConfig_BuiltinDataSource;
-class TraceConfig_DataSource;
-class DataSourceConfig;
-class TestConfig;
-class TestConfig_DummyFields;
-class InterceptorConfig;
-class ChromeConfig;
-class SystemInfoConfig;
-class TraceConfig_BufferConfig;
-enum TraceConfig_LockdownModeOperation : int;
-enum TraceConfig_CompressionType : int;
-enum TraceConfig_StatsdLogging : int;
-enum TraceConfig_TriggerConfig_TriggerMode : int;
-enum BuiltinClock : int;
-enum DataSourceConfig_SessionInitiator : int;
-enum ChromeConfig_ClientPriority : int;
-enum TraceConfig_BufferConfig_FillPolicy : int;
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-namespace protozero {
-class Message;
-}  // namespace protozero
-
-namespace perfetto {
-namespace protos {
-namespace gen {
-enum TraceConfig_LockdownModeOperation : int {
-  TraceConfig_LockdownModeOperation_LOCKDOWN_UNCHANGED = 0,
-  TraceConfig_LockdownModeOperation_LOCKDOWN_CLEAR = 1,
-  TraceConfig_LockdownModeOperation_LOCKDOWN_SET = 2,
-};
-enum TraceConfig_CompressionType : int {
-  TraceConfig_CompressionType_COMPRESSION_TYPE_UNSPECIFIED = 0,
-  TraceConfig_CompressionType_COMPRESSION_TYPE_DEFLATE = 1,
-};
-enum TraceConfig_StatsdLogging : int {
-  TraceConfig_StatsdLogging_STATSD_LOGGING_UNSPECIFIED = 0,
-  TraceConfig_StatsdLogging_STATSD_LOGGING_ENABLED = 1,
-  TraceConfig_StatsdLogging_STATSD_LOGGING_DISABLED = 2,
-};
-enum TraceConfig_TriggerConfig_TriggerMode : int {
-  TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED = 0,
-  TraceConfig_TriggerConfig_TriggerMode_START_TRACING = 1,
-  TraceConfig_TriggerConfig_TriggerMode_STOP_TRACING = 2,
-  TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT = 3,
-};
-enum TraceConfig_BufferConfig_FillPolicy : int {
-  TraceConfig_BufferConfig_FillPolicy_UNSPECIFIED = 0,
-  TraceConfig_BufferConfig_FillPolicy_RING_BUFFER = 1,
-  TraceConfig_BufferConfig_FillPolicy_DISCARD = 2,
-};
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj {
- public:
-  using BufferConfig = TraceConfig_BufferConfig;
-  using DataSource = TraceConfig_DataSource;
-  using BuiltinDataSource = TraceConfig_BuiltinDataSource;
-  using ProducerConfig = TraceConfig_ProducerConfig;
-  using StatsdMetadata = TraceConfig_StatsdMetadata;
-  using GuardrailOverrides = TraceConfig_GuardrailOverrides;
-  using TriggerConfig = TraceConfig_TriggerConfig;
-  using IncrementalStateConfig = TraceConfig_IncrementalStateConfig;
-  using IncidentReportConfig = TraceConfig_IncidentReportConfig;
-  using TraceFilter = TraceConfig_TraceFilter;
-  using AndroidReportConfig = TraceConfig_AndroidReportConfig;
-  using CmdTraceStartDelay = TraceConfig_CmdTraceStartDelay;
-  using LockdownModeOperation = TraceConfig_LockdownModeOperation;
-  static constexpr auto LOCKDOWN_UNCHANGED = TraceConfig_LockdownModeOperation_LOCKDOWN_UNCHANGED;
-  static constexpr auto LOCKDOWN_CLEAR = TraceConfig_LockdownModeOperation_LOCKDOWN_CLEAR;
-  static constexpr auto LOCKDOWN_SET = TraceConfig_LockdownModeOperation_LOCKDOWN_SET;
-  static constexpr auto LockdownModeOperation_MIN = TraceConfig_LockdownModeOperation_LOCKDOWN_UNCHANGED;
-  static constexpr auto LockdownModeOperation_MAX = TraceConfig_LockdownModeOperation_LOCKDOWN_SET;
-  using CompressionType = TraceConfig_CompressionType;
-  static constexpr auto COMPRESSION_TYPE_UNSPECIFIED = TraceConfig_CompressionType_COMPRESSION_TYPE_UNSPECIFIED;
-  static constexpr auto COMPRESSION_TYPE_DEFLATE = TraceConfig_CompressionType_COMPRESSION_TYPE_DEFLATE;
-  static constexpr auto CompressionType_MIN = TraceConfig_CompressionType_COMPRESSION_TYPE_UNSPECIFIED;
-  static constexpr auto CompressionType_MAX = TraceConfig_CompressionType_COMPRESSION_TYPE_DEFLATE;
-  using StatsdLogging = TraceConfig_StatsdLogging;
-  static constexpr auto STATSD_LOGGING_UNSPECIFIED = TraceConfig_StatsdLogging_STATSD_LOGGING_UNSPECIFIED;
-  static constexpr auto STATSD_LOGGING_ENABLED = TraceConfig_StatsdLogging_STATSD_LOGGING_ENABLED;
-  static constexpr auto STATSD_LOGGING_DISABLED = TraceConfig_StatsdLogging_STATSD_LOGGING_DISABLED;
-  static constexpr auto StatsdLogging_MIN = TraceConfig_StatsdLogging_STATSD_LOGGING_UNSPECIFIED;
-  static constexpr auto StatsdLogging_MAX = TraceConfig_StatsdLogging_STATSD_LOGGING_DISABLED;
-  enum FieldNumbers {
-    kBuffersFieldNumber = 1,
-    kDataSourcesFieldNumber = 2,
-    kBuiltinDataSourcesFieldNumber = 20,
-    kDurationMsFieldNumber = 3,
-    kPreferSuspendClockForDurationFieldNumber = 36,
-    kEnableExtraGuardrailsFieldNumber = 4,
-    kLockdownModeFieldNumber = 5,
-    kProducersFieldNumber = 6,
-    kStatsdMetadataFieldNumber = 7,
-    kWriteIntoFileFieldNumber = 8,
-    kOutputPathFieldNumber = 29,
-    kFileWritePeriodMsFieldNumber = 9,
-    kMaxFileSizeBytesFieldNumber = 10,
-    kGuardrailOverridesFieldNumber = 11,
-    kDeferredStartFieldNumber = 12,
-    kFlushPeriodMsFieldNumber = 13,
-    kFlushTimeoutMsFieldNumber = 14,
-    kDataSourceStopTimeoutMsFieldNumber = 23,
-    kNotifyTraceurFieldNumber = 16,
-    kBugreportScoreFieldNumber = 30,
-    kTriggerConfigFieldNumber = 17,
-    kActivateTriggersFieldNumber = 18,
-    kIncrementalStateConfigFieldNumber = 21,
-    kAllowUserBuildTracingFieldNumber = 19,
-    kUniqueSessionNameFieldNumber = 22,
-    kCompressionTypeFieldNumber = 24,
-    kCompressFromCliFieldNumber = 37,
-    kIncidentReportConfigFieldNumber = 25,
-    kStatsdLoggingFieldNumber = 31,
-    kTraceUuidMsbFieldNumber = 27,
-    kTraceUuidLsbFieldNumber = 28,
-    kTraceFilterFieldNumber = 33,
-    kAndroidReportConfigFieldNumber = 34,
-    kCmdTraceStartDelayFieldNumber = 35,
-  };
-
-  TraceConfig();
-  ~TraceConfig() override;
-  TraceConfig(TraceConfig&&) noexcept;
-  TraceConfig& operator=(TraceConfig&&);
-  TraceConfig(const TraceConfig&);
-  TraceConfig& operator=(const TraceConfig&);
-  bool operator==(const TraceConfig&) const;
-  bool operator!=(const TraceConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  const std::vector<TraceConfig_BufferConfig>& buffers() const { return buffers_; }
-  std::vector<TraceConfig_BufferConfig>* mutable_buffers() { return &buffers_; }
-  int buffers_size() const;
-  void clear_buffers();
-  TraceConfig_BufferConfig* add_buffers();
-
-  const std::vector<TraceConfig_DataSource>& data_sources() const { return data_sources_; }
-  std::vector<TraceConfig_DataSource>* mutable_data_sources() { return &data_sources_; }
-  int data_sources_size() const;
-  void clear_data_sources();
-  TraceConfig_DataSource* add_data_sources();
-
-  bool has_builtin_data_sources() const { return _has_field_[20]; }
-  const TraceConfig_BuiltinDataSource& builtin_data_sources() const { return *builtin_data_sources_; }
-  TraceConfig_BuiltinDataSource* mutable_builtin_data_sources() { _has_field_.set(20); return builtin_data_sources_.get(); }
-
-  bool has_duration_ms() const { return _has_field_[3]; }
-  uint32_t duration_ms() const { return duration_ms_; }
-  void set_duration_ms(uint32_t value) { duration_ms_ = value; _has_field_.set(3); }
-
-  bool has_prefer_suspend_clock_for_duration() const { return _has_field_[36]; }
-  bool prefer_suspend_clock_for_duration() const { return prefer_suspend_clock_for_duration_; }
-  void set_prefer_suspend_clock_for_duration(bool value) { prefer_suspend_clock_for_duration_ = value; _has_field_.set(36); }
-
-  bool has_enable_extra_guardrails() const { return _has_field_[4]; }
-  bool enable_extra_guardrails() const { return enable_extra_guardrails_; }
-  void set_enable_extra_guardrails(bool value) { enable_extra_guardrails_ = value; _has_field_.set(4); }
-
-  bool has_lockdown_mode() const { return _has_field_[5]; }
-  TraceConfig_LockdownModeOperation lockdown_mode() const { return lockdown_mode_; }
-  void set_lockdown_mode(TraceConfig_LockdownModeOperation value) { lockdown_mode_ = value; _has_field_.set(5); }
-
-  const std::vector<TraceConfig_ProducerConfig>& producers() const { return producers_; }
-  std::vector<TraceConfig_ProducerConfig>* mutable_producers() { return &producers_; }
-  int producers_size() const;
-  void clear_producers();
-  TraceConfig_ProducerConfig* add_producers();
-
-  bool has_statsd_metadata() const { return _has_field_[7]; }
-  const TraceConfig_StatsdMetadata& statsd_metadata() const { return *statsd_metadata_; }
-  TraceConfig_StatsdMetadata* mutable_statsd_metadata() { _has_field_.set(7); return statsd_metadata_.get(); }
-
-  bool has_write_into_file() const { return _has_field_[8]; }
-  bool write_into_file() const { return write_into_file_; }
-  void set_write_into_file(bool value) { write_into_file_ = value; _has_field_.set(8); }
-
-  bool has_output_path() const { return _has_field_[29]; }
-  const std::string& output_path() const { return output_path_; }
-  void set_output_path(const std::string& value) { output_path_ = value; _has_field_.set(29); }
-
-  bool has_file_write_period_ms() const { return _has_field_[9]; }
-  uint32_t file_write_period_ms() const { return file_write_period_ms_; }
-  void set_file_write_period_ms(uint32_t value) { file_write_period_ms_ = value; _has_field_.set(9); }
-
-  bool has_max_file_size_bytes() const { return _has_field_[10]; }
-  uint64_t max_file_size_bytes() const { return max_file_size_bytes_; }
-  void set_max_file_size_bytes(uint64_t value) { max_file_size_bytes_ = value; _has_field_.set(10); }
-
-  bool has_guardrail_overrides() const { return _has_field_[11]; }
-  const TraceConfig_GuardrailOverrides& guardrail_overrides() const { return *guardrail_overrides_; }
-  TraceConfig_GuardrailOverrides* mutable_guardrail_overrides() { _has_field_.set(11); return guardrail_overrides_.get(); }
-
-  bool has_deferred_start() const { return _has_field_[12]; }
-  bool deferred_start() const { return deferred_start_; }
-  void set_deferred_start(bool value) { deferred_start_ = value; _has_field_.set(12); }
-
-  bool has_flush_period_ms() const { return _has_field_[13]; }
-  uint32_t flush_period_ms() const { return flush_period_ms_; }
-  void set_flush_period_ms(uint32_t value) { flush_period_ms_ = value; _has_field_.set(13); }
-
-  bool has_flush_timeout_ms() const { return _has_field_[14]; }
-  uint32_t flush_timeout_ms() const { return flush_timeout_ms_; }
-  void set_flush_timeout_ms(uint32_t value) { flush_timeout_ms_ = value; _has_field_.set(14); }
-
-  bool has_data_source_stop_timeout_ms() const { return _has_field_[23]; }
-  uint32_t data_source_stop_timeout_ms() const { return data_source_stop_timeout_ms_; }
-  void set_data_source_stop_timeout_ms(uint32_t value) { data_source_stop_timeout_ms_ = value; _has_field_.set(23); }
-
-  bool has_notify_traceur() const { return _has_field_[16]; }
-  bool notify_traceur() const { return notify_traceur_; }
-  void set_notify_traceur(bool value) { notify_traceur_ = value; _has_field_.set(16); }
-
-  bool has_bugreport_score() const { return _has_field_[30]; }
-  int32_t bugreport_score() const { return bugreport_score_; }
-  void set_bugreport_score(int32_t value) { bugreport_score_ = value; _has_field_.set(30); }
-
-  bool has_trigger_config() const { return _has_field_[17]; }
-  const TraceConfig_TriggerConfig& trigger_config() const { return *trigger_config_; }
-  TraceConfig_TriggerConfig* mutable_trigger_config() { _has_field_.set(17); return trigger_config_.get(); }
-
-  const std::vector<std::string>& activate_triggers() const { return activate_triggers_; }
-  std::vector<std::string>* mutable_activate_triggers() { return &activate_triggers_; }
-  int activate_triggers_size() const { return static_cast<int>(activate_triggers_.size()); }
-  void clear_activate_triggers() { activate_triggers_.clear(); }
-  void add_activate_triggers(std::string value) { activate_triggers_.emplace_back(value); }
-  std::string* add_activate_triggers() { activate_triggers_.emplace_back(); return &activate_triggers_.back(); }
-
-  bool has_incremental_state_config() const { return _has_field_[21]; }
-  const TraceConfig_IncrementalStateConfig& incremental_state_config() const { return *incremental_state_config_; }
-  TraceConfig_IncrementalStateConfig* mutable_incremental_state_config() { _has_field_.set(21); return incremental_state_config_.get(); }
-
-  bool has_allow_user_build_tracing() const { return _has_field_[19]; }
-  bool allow_user_build_tracing() const { return allow_user_build_tracing_; }
-  void set_allow_user_build_tracing(bool value) { allow_user_build_tracing_ = value; _has_field_.set(19); }
-
-  bool has_unique_session_name() const { return _has_field_[22]; }
-  const std::string& unique_session_name() const { return unique_session_name_; }
-  void set_unique_session_name(const std::string& value) { unique_session_name_ = value; _has_field_.set(22); }
-
-  bool has_compression_type() const { return _has_field_[24]; }
-  TraceConfig_CompressionType compression_type() const { return compression_type_; }
-  void set_compression_type(TraceConfig_CompressionType value) { compression_type_ = value; _has_field_.set(24); }
-
-  bool has_compress_from_cli() const { return _has_field_[37]; }
-  bool compress_from_cli() const { return compress_from_cli_; }
-  void set_compress_from_cli(bool value) { compress_from_cli_ = value; _has_field_.set(37); }
-
-  bool has_incident_report_config() const { return _has_field_[25]; }
-  const TraceConfig_IncidentReportConfig& incident_report_config() const { return *incident_report_config_; }
-  TraceConfig_IncidentReportConfig* mutable_incident_report_config() { _has_field_.set(25); return incident_report_config_.get(); }
-
-  bool has_statsd_logging() const { return _has_field_[31]; }
-  TraceConfig_StatsdLogging statsd_logging() const { return statsd_logging_; }
-  void set_statsd_logging(TraceConfig_StatsdLogging value) { statsd_logging_ = value; _has_field_.set(31); }
-
-  bool has_trace_uuid_msb() const { return _has_field_[27]; }
-  int64_t trace_uuid_msb() const { return trace_uuid_msb_; }
-  void set_trace_uuid_msb(int64_t value) { trace_uuid_msb_ = value; _has_field_.set(27); }
-
-  bool has_trace_uuid_lsb() const { return _has_field_[28]; }
-  int64_t trace_uuid_lsb() const { return trace_uuid_lsb_; }
-  void set_trace_uuid_lsb(int64_t value) { trace_uuid_lsb_ = value; _has_field_.set(28); }
-
-  bool has_trace_filter() const { return _has_field_[33]; }
-  const TraceConfig_TraceFilter& trace_filter() const { return *trace_filter_; }
-  TraceConfig_TraceFilter* mutable_trace_filter() { _has_field_.set(33); return trace_filter_.get(); }
-
-  bool has_android_report_config() const { return _has_field_[34]; }
-  const TraceConfig_AndroidReportConfig& android_report_config() const { return *android_report_config_; }
-  TraceConfig_AndroidReportConfig* mutable_android_report_config() { _has_field_.set(34); return android_report_config_.get(); }
-
-  bool has_cmd_trace_start_delay() const { return _has_field_[35]; }
-  const TraceConfig_CmdTraceStartDelay& cmd_trace_start_delay() const { return *cmd_trace_start_delay_; }
-  TraceConfig_CmdTraceStartDelay* mutable_cmd_trace_start_delay() { _has_field_.set(35); return cmd_trace_start_delay_.get(); }
-
- private:
-  std::vector<TraceConfig_BufferConfig> buffers_;
-  std::vector<TraceConfig_DataSource> data_sources_;
-  ::protozero::CopyablePtr<TraceConfig_BuiltinDataSource> builtin_data_sources_;
-  uint32_t duration_ms_{};
-  bool prefer_suspend_clock_for_duration_{};
-  bool enable_extra_guardrails_{};
-  TraceConfig_LockdownModeOperation lockdown_mode_{};
-  std::vector<TraceConfig_ProducerConfig> producers_;
-  ::protozero::CopyablePtr<TraceConfig_StatsdMetadata> statsd_metadata_;
-  bool write_into_file_{};
-  std::string output_path_{};
-  uint32_t file_write_period_ms_{};
-  uint64_t max_file_size_bytes_{};
-  ::protozero::CopyablePtr<TraceConfig_GuardrailOverrides> guardrail_overrides_;
-  bool deferred_start_{};
-  uint32_t flush_period_ms_{};
-  uint32_t flush_timeout_ms_{};
-  uint32_t data_source_stop_timeout_ms_{};
-  bool notify_traceur_{};
-  int32_t bugreport_score_{};
-  ::protozero::CopyablePtr<TraceConfig_TriggerConfig> trigger_config_;
-  std::vector<std::string> activate_triggers_;
-  ::protozero::CopyablePtr<TraceConfig_IncrementalStateConfig> incremental_state_config_;
-  bool allow_user_build_tracing_{};
-  std::string unique_session_name_{};
-  TraceConfig_CompressionType compression_type_{};
-  bool compress_from_cli_{};
-  ::protozero::CopyablePtr<TraceConfig_IncidentReportConfig> incident_report_config_;
-  TraceConfig_StatsdLogging statsd_logging_{};
-  int64_t trace_uuid_msb_{};
-  int64_t trace_uuid_lsb_{};
-  ::protozero::CopyablePtr<TraceConfig_TraceFilter> trace_filter_;
-  ::protozero::CopyablePtr<TraceConfig_AndroidReportConfig> android_report_config_;
-  ::protozero::CopyablePtr<TraceConfig_CmdTraceStartDelay> cmd_trace_start_delay_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<38> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_CmdTraceStartDelay : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kMinDelayMsFieldNumber = 1,
-    kMaxDelayMsFieldNumber = 2,
-  };
-
-  TraceConfig_CmdTraceStartDelay();
-  ~TraceConfig_CmdTraceStartDelay() override;
-  TraceConfig_CmdTraceStartDelay(TraceConfig_CmdTraceStartDelay&&) noexcept;
-  TraceConfig_CmdTraceStartDelay& operator=(TraceConfig_CmdTraceStartDelay&&);
-  TraceConfig_CmdTraceStartDelay(const TraceConfig_CmdTraceStartDelay&);
-  TraceConfig_CmdTraceStartDelay& operator=(const TraceConfig_CmdTraceStartDelay&);
-  bool operator==(const TraceConfig_CmdTraceStartDelay&) const;
-  bool operator!=(const TraceConfig_CmdTraceStartDelay& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_min_delay_ms() const { return _has_field_[1]; }
-  uint32_t min_delay_ms() const { return min_delay_ms_; }
-  void set_min_delay_ms(uint32_t value) { min_delay_ms_ = value; _has_field_.set(1); }
-
-  bool has_max_delay_ms() const { return _has_field_[2]; }
-  uint32_t max_delay_ms() const { return max_delay_ms_; }
-  void set_max_delay_ms(uint32_t value) { max_delay_ms_ = value; _has_field_.set(2); }
-
- private:
-  uint32_t min_delay_ms_{};
-  uint32_t max_delay_ms_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<3> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_AndroidReportConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kReporterServicePackageFieldNumber = 1,
-    kReporterServiceClassFieldNumber = 2,
-    kSkipReportFieldNumber = 3,
-    kUsePipeInFrameworkForTestingFieldNumber = 4,
-  };
-
-  TraceConfig_AndroidReportConfig();
-  ~TraceConfig_AndroidReportConfig() override;
-  TraceConfig_AndroidReportConfig(TraceConfig_AndroidReportConfig&&) noexcept;
-  TraceConfig_AndroidReportConfig& operator=(TraceConfig_AndroidReportConfig&&);
-  TraceConfig_AndroidReportConfig(const TraceConfig_AndroidReportConfig&);
-  TraceConfig_AndroidReportConfig& operator=(const TraceConfig_AndroidReportConfig&);
-  bool operator==(const TraceConfig_AndroidReportConfig&) const;
-  bool operator!=(const TraceConfig_AndroidReportConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_reporter_service_package() const { return _has_field_[1]; }
-  const std::string& reporter_service_package() const { return reporter_service_package_; }
-  void set_reporter_service_package(const std::string& value) { reporter_service_package_ = value; _has_field_.set(1); }
-
-  bool has_reporter_service_class() const { return _has_field_[2]; }
-  const std::string& reporter_service_class() const { return reporter_service_class_; }
-  void set_reporter_service_class(const std::string& value) { reporter_service_class_ = value; _has_field_.set(2); }
-
-  bool has_skip_report() const { return _has_field_[3]; }
-  bool skip_report() const { return skip_report_; }
-  void set_skip_report(bool value) { skip_report_ = value; _has_field_.set(3); }
-
-  bool has_use_pipe_in_framework_for_testing() const { return _has_field_[4]; }
-  bool use_pipe_in_framework_for_testing() const { return use_pipe_in_framework_for_testing_; }
-  void set_use_pipe_in_framework_for_testing(bool value) { use_pipe_in_framework_for_testing_ = value; _has_field_.set(4); }
-
- private:
-  std::string reporter_service_package_{};
-  std::string reporter_service_class_{};
-  bool skip_report_{};
-  bool use_pipe_in_framework_for_testing_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<5> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kBytecodeFieldNumber = 1,
-  };
-
-  TraceConfig_TraceFilter();
-  ~TraceConfig_TraceFilter() override;
-  TraceConfig_TraceFilter(TraceConfig_TraceFilter&&) noexcept;
-  TraceConfig_TraceFilter& operator=(TraceConfig_TraceFilter&&);
-  TraceConfig_TraceFilter(const TraceConfig_TraceFilter&);
-  TraceConfig_TraceFilter& operator=(const TraceConfig_TraceFilter&);
-  bool operator==(const TraceConfig_TraceFilter&) const;
-  bool operator!=(const TraceConfig_TraceFilter& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_bytecode() const { return _has_field_[1]; }
-  const std::string& bytecode() const { return bytecode_; }
-  void set_bytecode(const std::string& value) { bytecode_ = value; _has_field_.set(1); }
-  void set_bytecode(const void* p, size_t s) { bytecode_.assign(reinterpret_cast<const char*>(p), s); _has_field_.set(1); }
-
- private:
-  std::string bytecode_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<2> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_IncidentReportConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kDestinationPackageFieldNumber = 1,
-    kDestinationClassFieldNumber = 2,
-    kPrivacyLevelFieldNumber = 3,
-    kSkipIncidentdFieldNumber = 5,
-    kSkipDropboxFieldNumber = 4,
-  };
-
-  TraceConfig_IncidentReportConfig();
-  ~TraceConfig_IncidentReportConfig() override;
-  TraceConfig_IncidentReportConfig(TraceConfig_IncidentReportConfig&&) noexcept;
-  TraceConfig_IncidentReportConfig& operator=(TraceConfig_IncidentReportConfig&&);
-  TraceConfig_IncidentReportConfig(const TraceConfig_IncidentReportConfig&);
-  TraceConfig_IncidentReportConfig& operator=(const TraceConfig_IncidentReportConfig&);
-  bool operator==(const TraceConfig_IncidentReportConfig&) const;
-  bool operator!=(const TraceConfig_IncidentReportConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_destination_package() const { return _has_field_[1]; }
-  const std::string& destination_package() const { return destination_package_; }
-  void set_destination_package(const std::string& value) { destination_package_ = value; _has_field_.set(1); }
-
-  bool has_destination_class() const { return _has_field_[2]; }
-  const std::string& destination_class() const { return destination_class_; }
-  void set_destination_class(const std::string& value) { destination_class_ = value; _has_field_.set(2); }
-
-  bool has_privacy_level() const { return _has_field_[3]; }
-  int32_t privacy_level() const { return privacy_level_; }
-  void set_privacy_level(int32_t value) { privacy_level_ = value; _has_field_.set(3); }
-
-  bool has_skip_incidentd() const { return _has_field_[5]; }
-  bool skip_incidentd() const { return skip_incidentd_; }
-  void set_skip_incidentd(bool value) { skip_incidentd_ = value; _has_field_.set(5); }
-
-  bool has_skip_dropbox() const { return _has_field_[4]; }
-  bool skip_dropbox() const { return skip_dropbox_; }
-  void set_skip_dropbox(bool value) { skip_dropbox_ = value; _has_field_.set(4); }
-
- private:
-  std::string destination_package_{};
-  std::string destination_class_{};
-  int32_t privacy_level_{};
-  bool skip_incidentd_{};
-  bool skip_dropbox_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<6> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_IncrementalStateConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kClearPeriodMsFieldNumber = 1,
-  };
-
-  TraceConfig_IncrementalStateConfig();
-  ~TraceConfig_IncrementalStateConfig() override;
-  TraceConfig_IncrementalStateConfig(TraceConfig_IncrementalStateConfig&&) noexcept;
-  TraceConfig_IncrementalStateConfig& operator=(TraceConfig_IncrementalStateConfig&&);
-  TraceConfig_IncrementalStateConfig(const TraceConfig_IncrementalStateConfig&);
-  TraceConfig_IncrementalStateConfig& operator=(const TraceConfig_IncrementalStateConfig&);
-  bool operator==(const TraceConfig_IncrementalStateConfig&) const;
-  bool operator!=(const TraceConfig_IncrementalStateConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_clear_period_ms() const { return _has_field_[1]; }
-  uint32_t clear_period_ms() const { return clear_period_ms_; }
-  void set_clear_period_ms(uint32_t value) { clear_period_ms_ = value; _has_field_.set(1); }
-
- private:
-  uint32_t clear_period_ms_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<2> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig : public ::protozero::CppMessageObj {
- public:
-  using Trigger = TraceConfig_TriggerConfig_Trigger;
-  using TriggerMode = TraceConfig_TriggerConfig_TriggerMode;
-  static constexpr auto UNSPECIFIED = TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED;
-  static constexpr auto START_TRACING = TraceConfig_TriggerConfig_TriggerMode_START_TRACING;
-  static constexpr auto STOP_TRACING = TraceConfig_TriggerConfig_TriggerMode_STOP_TRACING;
-  static constexpr auto CLONE_SNAPSHOT = TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT;
-  static constexpr auto TriggerMode_MIN = TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED;
-  static constexpr auto TriggerMode_MAX = TraceConfig_TriggerConfig_TriggerMode_CLONE_SNAPSHOT;
-  enum FieldNumbers {
-    kTriggerModeFieldNumber = 1,
-    kUseCloneSnapshotIfAvailableFieldNumber = 4,
-    kTriggersFieldNumber = 2,
-    kTriggerTimeoutMsFieldNumber = 3,
-  };
-
-  TraceConfig_TriggerConfig();
-  ~TraceConfig_TriggerConfig() override;
-  TraceConfig_TriggerConfig(TraceConfig_TriggerConfig&&) noexcept;
-  TraceConfig_TriggerConfig& operator=(TraceConfig_TriggerConfig&&);
-  TraceConfig_TriggerConfig(const TraceConfig_TriggerConfig&);
-  TraceConfig_TriggerConfig& operator=(const TraceConfig_TriggerConfig&);
-  bool operator==(const TraceConfig_TriggerConfig&) const;
-  bool operator!=(const TraceConfig_TriggerConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_trigger_mode() const { return _has_field_[1]; }
-  TraceConfig_TriggerConfig_TriggerMode trigger_mode() const { return trigger_mode_; }
-  void set_trigger_mode(TraceConfig_TriggerConfig_TriggerMode value) { trigger_mode_ = value; _has_field_.set(1); }
-
-  bool has_use_clone_snapshot_if_available() const { return _has_field_[4]; }
-  bool use_clone_snapshot_if_available() const { return use_clone_snapshot_if_available_; }
-  void set_use_clone_snapshot_if_available(bool value) { use_clone_snapshot_if_available_ = value; _has_field_.set(4); }
-
-  const std::vector<TraceConfig_TriggerConfig_Trigger>& triggers() const { return triggers_; }
-  std::vector<TraceConfig_TriggerConfig_Trigger>* mutable_triggers() { return &triggers_; }
-  int triggers_size() const;
-  void clear_triggers();
-  TraceConfig_TriggerConfig_Trigger* add_triggers();
-
-  bool has_trigger_timeout_ms() const { return _has_field_[3]; }
-  uint32_t trigger_timeout_ms() const { return trigger_timeout_ms_; }
-  void set_trigger_timeout_ms(uint32_t value) { trigger_timeout_ms_ = value; _has_field_.set(3); }
-
- private:
-  TraceConfig_TriggerConfig_TriggerMode trigger_mode_{};
-  bool use_clone_snapshot_if_available_{};
-  std::vector<TraceConfig_TriggerConfig_Trigger> triggers_;
-  uint32_t trigger_timeout_ms_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<5> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_TriggerConfig_Trigger : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kNameFieldNumber = 1,
-    kProducerNameRegexFieldNumber = 2,
-    kStopDelayMsFieldNumber = 3,
-    kMaxPer24HFieldNumber = 4,
-    kSkipProbabilityFieldNumber = 5,
-  };
-
-  TraceConfig_TriggerConfig_Trigger();
-  ~TraceConfig_TriggerConfig_Trigger() override;
-  TraceConfig_TriggerConfig_Trigger(TraceConfig_TriggerConfig_Trigger&&) noexcept;
-  TraceConfig_TriggerConfig_Trigger& operator=(TraceConfig_TriggerConfig_Trigger&&);
-  TraceConfig_TriggerConfig_Trigger(const TraceConfig_TriggerConfig_Trigger&);
-  TraceConfig_TriggerConfig_Trigger& operator=(const TraceConfig_TriggerConfig_Trigger&);
-  bool operator==(const TraceConfig_TriggerConfig_Trigger&) const;
-  bool operator!=(const TraceConfig_TriggerConfig_Trigger& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_name() const { return _has_field_[1]; }
-  const std::string& name() const { return name_; }
-  void set_name(const std::string& value) { name_ = value; _has_field_.set(1); }
-
-  bool has_producer_name_regex() const { return _has_field_[2]; }
-  const std::string& producer_name_regex() const { return producer_name_regex_; }
-  void set_producer_name_regex(const std::string& value) { producer_name_regex_ = value; _has_field_.set(2); }
-
-  bool has_stop_delay_ms() const { return _has_field_[3]; }
-  uint32_t stop_delay_ms() const { return stop_delay_ms_; }
-  void set_stop_delay_ms(uint32_t value) { stop_delay_ms_ = value; _has_field_.set(3); }
-
-  bool has_max_per_24_h() const { return _has_field_[4]; }
-  uint32_t max_per_24_h() const { return max_per_24_h_; }
-  void set_max_per_24_h(uint32_t value) { max_per_24_h_ = value; _has_field_.set(4); }
-
-  bool has_skip_probability() const { return _has_field_[5]; }
-  double skip_probability() const { return skip_probability_; }
-  void set_skip_probability(double value) { skip_probability_ = value; _has_field_.set(5); }
-
- private:
-  std::string name_{};
-  std::string producer_name_regex_{};
-  uint32_t stop_delay_ms_{};
-  uint32_t max_per_24_h_{};
-  double skip_probability_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<6> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_GuardrailOverrides : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kMaxUploadPerDayBytesFieldNumber = 1,
-    kMaxTracingBufferSizeKbFieldNumber = 2,
-  };
-
-  TraceConfig_GuardrailOverrides();
-  ~TraceConfig_GuardrailOverrides() override;
-  TraceConfig_GuardrailOverrides(TraceConfig_GuardrailOverrides&&) noexcept;
-  TraceConfig_GuardrailOverrides& operator=(TraceConfig_GuardrailOverrides&&);
-  TraceConfig_GuardrailOverrides(const TraceConfig_GuardrailOverrides&);
-  TraceConfig_GuardrailOverrides& operator=(const TraceConfig_GuardrailOverrides&);
-  bool operator==(const TraceConfig_GuardrailOverrides&) const;
-  bool operator!=(const TraceConfig_GuardrailOverrides& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_max_upload_per_day_bytes() const { return _has_field_[1]; }
-  uint64_t max_upload_per_day_bytes() const { return max_upload_per_day_bytes_; }
-  void set_max_upload_per_day_bytes(uint64_t value) { max_upload_per_day_bytes_ = value; _has_field_.set(1); }
-
-  bool has_max_tracing_buffer_size_kb() const { return _has_field_[2]; }
-  uint32_t max_tracing_buffer_size_kb() const { return max_tracing_buffer_size_kb_; }
-  void set_max_tracing_buffer_size_kb(uint32_t value) { max_tracing_buffer_size_kb_ = value; _has_field_.set(2); }
-
- private:
-  uint64_t max_upload_per_day_bytes_{};
-  uint32_t max_tracing_buffer_size_kb_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<3> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_StatsdMetadata : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kTriggeringAlertIdFieldNumber = 1,
-    kTriggeringConfigUidFieldNumber = 2,
-    kTriggeringConfigIdFieldNumber = 3,
-    kTriggeringSubscriptionIdFieldNumber = 4,
-  };
-
-  TraceConfig_StatsdMetadata();
-  ~TraceConfig_StatsdMetadata() override;
-  TraceConfig_StatsdMetadata(TraceConfig_StatsdMetadata&&) noexcept;
-  TraceConfig_StatsdMetadata& operator=(TraceConfig_StatsdMetadata&&);
-  TraceConfig_StatsdMetadata(const TraceConfig_StatsdMetadata&);
-  TraceConfig_StatsdMetadata& operator=(const TraceConfig_StatsdMetadata&);
-  bool operator==(const TraceConfig_StatsdMetadata&) const;
-  bool operator!=(const TraceConfig_StatsdMetadata& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_triggering_alert_id() const { return _has_field_[1]; }
-  int64_t triggering_alert_id() const { return triggering_alert_id_; }
-  void set_triggering_alert_id(int64_t value) { triggering_alert_id_ = value; _has_field_.set(1); }
-
-  bool has_triggering_config_uid() const { return _has_field_[2]; }
-  int32_t triggering_config_uid() const { return triggering_config_uid_; }
-  void set_triggering_config_uid(int32_t value) { triggering_config_uid_ = value; _has_field_.set(2); }
-
-  bool has_triggering_config_id() const { return _has_field_[3]; }
-  int64_t triggering_config_id() const { return triggering_config_id_; }
-  void set_triggering_config_id(int64_t value) { triggering_config_id_ = value; _has_field_.set(3); }
-
-  bool has_triggering_subscription_id() const { return _has_field_[4]; }
-  int64_t triggering_subscription_id() const { return triggering_subscription_id_; }
-  void set_triggering_subscription_id(int64_t value) { triggering_subscription_id_ = value; _has_field_.set(4); }
-
- private:
-  int64_t triggering_alert_id_{};
-  int32_t triggering_config_uid_{};
-  int64_t triggering_config_id_{};
-  int64_t triggering_subscription_id_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<5> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_ProducerConfig : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kProducerNameFieldNumber = 1,
-    kShmSizeKbFieldNumber = 2,
-    kPageSizeKbFieldNumber = 3,
-  };
-
-  TraceConfig_ProducerConfig();
-  ~TraceConfig_ProducerConfig() override;
-  TraceConfig_ProducerConfig(TraceConfig_ProducerConfig&&) noexcept;
-  TraceConfig_ProducerConfig& operator=(TraceConfig_ProducerConfig&&);
-  TraceConfig_ProducerConfig(const TraceConfig_ProducerConfig&);
-  TraceConfig_ProducerConfig& operator=(const TraceConfig_ProducerConfig&);
-  bool operator==(const TraceConfig_ProducerConfig&) const;
-  bool operator!=(const TraceConfig_ProducerConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_producer_name() const { return _has_field_[1]; }
-  const std::string& producer_name() const { return producer_name_; }
-  void set_producer_name(const std::string& value) { producer_name_ = value; _has_field_.set(1); }
-
-  bool has_shm_size_kb() const { return _has_field_[2]; }
-  uint32_t shm_size_kb() const { return shm_size_kb_; }
-  void set_shm_size_kb(uint32_t value) { shm_size_kb_ = value; _has_field_.set(2); }
-
-  bool has_page_size_kb() const { return _has_field_[3]; }
-  uint32_t page_size_kb() const { return page_size_kb_; }
-  void set_page_size_kb(uint32_t value) { page_size_kb_ = value; _has_field_.set(3); }
-
- private:
-  std::string producer_name_{};
-  uint32_t shm_size_kb_{};
-  uint32_t page_size_kb_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<4> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_BuiltinDataSource : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kDisableClockSnapshottingFieldNumber = 1,
-    kDisableTraceConfigFieldNumber = 2,
-    kDisableSystemInfoFieldNumber = 3,
-    kDisableServiceEventsFieldNumber = 4,
-    kPrimaryTraceClockFieldNumber = 5,
-    kSnapshotIntervalMsFieldNumber = 6,
-    kPreferSuspendClockForSnapshotFieldNumber = 7,
-    kDisableChunkUsageHistogramsFieldNumber = 8,
-  };
-
-  TraceConfig_BuiltinDataSource();
-  ~TraceConfig_BuiltinDataSource() override;
-  TraceConfig_BuiltinDataSource(TraceConfig_BuiltinDataSource&&) noexcept;
-  TraceConfig_BuiltinDataSource& operator=(TraceConfig_BuiltinDataSource&&);
-  TraceConfig_BuiltinDataSource(const TraceConfig_BuiltinDataSource&);
-  TraceConfig_BuiltinDataSource& operator=(const TraceConfig_BuiltinDataSource&);
-  bool operator==(const TraceConfig_BuiltinDataSource&) const;
-  bool operator!=(const TraceConfig_BuiltinDataSource& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_disable_clock_snapshotting() const { return _has_field_[1]; }
-  bool disable_clock_snapshotting() const { return disable_clock_snapshotting_; }
-  void set_disable_clock_snapshotting(bool value) { disable_clock_snapshotting_ = value; _has_field_.set(1); }
-
-  bool has_disable_trace_config() const { return _has_field_[2]; }
-  bool disable_trace_config() const { return disable_trace_config_; }
-  void set_disable_trace_config(bool value) { disable_trace_config_ = value; _has_field_.set(2); }
-
-  bool has_disable_system_info() const { return _has_field_[3]; }
-  bool disable_system_info() const { return disable_system_info_; }
-  void set_disable_system_info(bool value) { disable_system_info_ = value; _has_field_.set(3); }
-
-  bool has_disable_service_events() const { return _has_field_[4]; }
-  bool disable_service_events() const { return disable_service_events_; }
-  void set_disable_service_events(bool value) { disable_service_events_ = value; _has_field_.set(4); }
-
-  bool has_primary_trace_clock() const { return _has_field_[5]; }
-  BuiltinClock primary_trace_clock() const { return primary_trace_clock_; }
-  void set_primary_trace_clock(BuiltinClock value) { primary_trace_clock_ = value; _has_field_.set(5); }
-
-  bool has_snapshot_interval_ms() const { return _has_field_[6]; }
-  uint32_t snapshot_interval_ms() const { return snapshot_interval_ms_; }
-  void set_snapshot_interval_ms(uint32_t value) { snapshot_interval_ms_ = value; _has_field_.set(6); }
-
-  bool has_prefer_suspend_clock_for_snapshot() const { return _has_field_[7]; }
-  bool prefer_suspend_clock_for_snapshot() const { return prefer_suspend_clock_for_snapshot_; }
-  void set_prefer_suspend_clock_for_snapshot(bool value) { prefer_suspend_clock_for_snapshot_ = value; _has_field_.set(7); }
-
-  bool has_disable_chunk_usage_histograms() const { return _has_field_[8]; }
-  bool disable_chunk_usage_histograms() const { return disable_chunk_usage_histograms_; }
-  void set_disable_chunk_usage_histograms(bool value) { disable_chunk_usage_histograms_ = value; _has_field_.set(8); }
-
- private:
-  bool disable_clock_snapshotting_{};
-  bool disable_trace_config_{};
-  bool disable_system_info_{};
-  bool disable_service_events_{};
-  BuiltinClock primary_trace_clock_{};
-  uint32_t snapshot_interval_ms_{};
-  bool prefer_suspend_clock_for_snapshot_{};
-  bool disable_chunk_usage_histograms_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<9> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_DataSource : public ::protozero::CppMessageObj {
- public:
-  enum FieldNumbers {
-    kConfigFieldNumber = 1,
-    kProducerNameFilterFieldNumber = 2,
-    kProducerNameRegexFilterFieldNumber = 3,
-  };
-
-  TraceConfig_DataSource();
-  ~TraceConfig_DataSource() override;
-  TraceConfig_DataSource(TraceConfig_DataSource&&) noexcept;
-  TraceConfig_DataSource& operator=(TraceConfig_DataSource&&);
-  TraceConfig_DataSource(const TraceConfig_DataSource&);
-  TraceConfig_DataSource& operator=(const TraceConfig_DataSource&);
-  bool operator==(const TraceConfig_DataSource&) const;
-  bool operator!=(const TraceConfig_DataSource& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_config() const { return _has_field_[1]; }
-  const DataSourceConfig& config() const { return *config_; }
-  DataSourceConfig* mutable_config() { _has_field_.set(1); return config_.get(); }
-
-  const std::vector<std::string>& producer_name_filter() const { return producer_name_filter_; }
-  std::vector<std::string>* mutable_producer_name_filter() { return &producer_name_filter_; }
-  int producer_name_filter_size() const { return static_cast<int>(producer_name_filter_.size()); }
-  void clear_producer_name_filter() { producer_name_filter_.clear(); }
-  void add_producer_name_filter(std::string value) { producer_name_filter_.emplace_back(value); }
-  std::string* add_producer_name_filter() { producer_name_filter_.emplace_back(); return &producer_name_filter_.back(); }
-
-  const std::vector<std::string>& producer_name_regex_filter() const { return producer_name_regex_filter_; }
-  std::vector<std::string>* mutable_producer_name_regex_filter() { return &producer_name_regex_filter_; }
-  int producer_name_regex_filter_size() const { return static_cast<int>(producer_name_regex_filter_.size()); }
-  void clear_producer_name_regex_filter() { producer_name_regex_filter_.clear(); }
-  void add_producer_name_regex_filter(std::string value) { producer_name_regex_filter_.emplace_back(value); }
-  std::string* add_producer_name_regex_filter() { producer_name_regex_filter_.emplace_back(); return &producer_name_regex_filter_.back(); }
-
- private:
-  ::protozero::CopyablePtr<DataSourceConfig> config_;
-  std::vector<std::string> producer_name_filter_;
-  std::vector<std::string> producer_name_regex_filter_;
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<4> _has_field_{};
-};
-
-
-class PERFETTO_EXPORT_COMPONENT TraceConfig_BufferConfig : public ::protozero::CppMessageObj {
- public:
-  using FillPolicy = TraceConfig_BufferConfig_FillPolicy;
-  static constexpr auto UNSPECIFIED = TraceConfig_BufferConfig_FillPolicy_UNSPECIFIED;
-  static constexpr auto RING_BUFFER = TraceConfig_BufferConfig_FillPolicy_RING_BUFFER;
-  static constexpr auto DISCARD = TraceConfig_BufferConfig_FillPolicy_DISCARD;
-  static constexpr auto FillPolicy_MIN = TraceConfig_BufferConfig_FillPolicy_UNSPECIFIED;
-  static constexpr auto FillPolicy_MAX = TraceConfig_BufferConfig_FillPolicy_DISCARD;
-  enum FieldNumbers {
-    kSizeKbFieldNumber = 1,
-    kFillPolicyFieldNumber = 4,
-  };
-
-  TraceConfig_BufferConfig();
-  ~TraceConfig_BufferConfig() override;
-  TraceConfig_BufferConfig(TraceConfig_BufferConfig&&) noexcept;
-  TraceConfig_BufferConfig& operator=(TraceConfig_BufferConfig&&);
-  TraceConfig_BufferConfig(const TraceConfig_BufferConfig&);
-  TraceConfig_BufferConfig& operator=(const TraceConfig_BufferConfig&);
-  bool operator==(const TraceConfig_BufferConfig&) const;
-  bool operator!=(const TraceConfig_BufferConfig& other) const { return !(*this == other); }
-
-  bool ParseFromArray(const void*, size_t) override;
-  std::string SerializeAsString() const override;
-  std::vector<uint8_t> SerializeAsArray() const override;
-  void Serialize(::protozero::Message*) const;
-
-  bool has_size_kb() const { return _has_field_[1]; }
-  uint32_t size_kb() const { return size_kb_; }
-  void set_size_kb(uint32_t value) { size_kb_ = value; _has_field_.set(1); }
-
-  bool has_fill_policy() const { return _has_field_[4]; }
-  TraceConfig_BufferConfig_FillPolicy fill_policy() const { return fill_policy_; }
-  void set_fill_policy(TraceConfig_BufferConfig_FillPolicy value) { fill_policy_ = value; _has_field_.set(4); }
-
- private:
-  uint32_t size_kb_{};
-  TraceConfig_BufferConfig_FillPolicy fill_policy_{};
-
-  // Allows to preserve unknown protobuf fields for compatibility
-  // with future versions of .proto files.
-  std::string unknown_fields_;
-
-  std::bitset<5> _has_field_{};
-};
-
-}  // namespace perfetto
-}  // namespace protos
-}  // namespace gen
-
-#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_CONFIG_TRACE_CONFIG_PROTO_CPP_H_
 // gen_amalgamated begin header: gen/protos/perfetto/ipc/consumer_port.gen.h
 // DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
 #ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_IPC_CONSUMER_PORT_PROTO_CPP_H_
@@ -148982,7 +149279,7 @@ struct ConstChars {
 class Field {
  public:
   bool valid() const { return id_ != 0; }
-  uint16_t id() const { return id_; }
+  uint32_t id() const { return id_; }
   explicit operator bool() const { return valid(); }
 
   proto_utils::ProtoWireType type() const {
@@ -149078,7 +149375,7 @@ class Field {
 
   uint64_t raw_int_value() const { return int_value_; }
 
-  void initialize(uint16_t id,
+  void initialize(uint32_t id,
                   uint8_t type,
                   uint64_t int_value,
                   uint32_t size) {
@@ -149117,19 +149414,21 @@ class Field {
   // to |dst|. |dst| is resized accordingly.
   void SerializeAndAppendTo(std::vector<uint8_t>* dst) const;
 
+  static constexpr uint32_t kMaxId = (1 << 24) - 1;  // See id_ : 24 below.
  private:
   template <typename Container>
   void SerializeAndAppendToInternal(Container* dst) const;
 
   // Fields are deliberately not initialized to keep the class trivially
   // constructible. It makes a large perf difference for ProtoDecoder.
-
   uint64_t int_value_;  // In kLengthDelimited this contains the data() addr.
   uint32_t size_;       // Only valid when when type == kLengthDelimited.
-  uint16_t id_;         // Proto field ordinal.
-  uint8_t type_;        // proto_utils::ProtoWireType.
-};
 
+  // Note: MSVC and clang-cl require bit-fields to be of the same type, hence
+  // the `: 8` below rather than uint8_t.
+  uint32_t id_ : 24;   // Proto field ordinal.
+  uint32_t type_ : 8;  // proto_utils::ProtoWireType.
+};
 // The Field struct is used in a lot of perf-sensitive contexts.
 static_assert(sizeof(Field) == 16, "Field struct too big");
 
