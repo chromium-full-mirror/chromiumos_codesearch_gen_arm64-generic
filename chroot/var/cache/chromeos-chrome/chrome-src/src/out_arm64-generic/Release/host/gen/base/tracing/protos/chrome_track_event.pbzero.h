@@ -902,13 +902,15 @@ enum QueueName : int32_t {
   WORKER_WEB_SCHEDULING_TQ = 51,
   UI_USER_BLOCKING_DEFERRABLE_TQ = 52,
   IO_USER_BLOCKING_DEFERRABLE_TQ = 53,
+  UI_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ = 54,
+  IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ = 55,
 };
 } // namespace perfetto_pbzero_enum_SequenceManagerTask
 using SequenceManagerTask_QueueName = perfetto_pbzero_enum_SequenceManagerTask::QueueName;
 
 
 constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MIN = SequenceManagerTask_QueueName::UNKNOWN_TQ;
-constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MAX = SequenceManagerTask_QueueName::IO_USER_BLOCKING_DEFERRABLE_TQ;
+constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MAX = SequenceManagerTask_QueueName::IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -1075,6 +1077,12 @@ const char* SequenceManagerTask_QueueName_Name(::perfetto::protos::pbzero::Seque
 
   case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_USER_BLOCKING_DEFERRABLE_TQ:
     return "IO_USER_BLOCKING_DEFERRABLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ:
+    return "UI_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ:
+    return "IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3825,6 +3833,8 @@ class SequenceManagerTask : public ::protozero::Message {
   static inline const QueueName WORKER_WEB_SCHEDULING_TQ = QueueName::WORKER_WEB_SCHEDULING_TQ;
   static inline const QueueName UI_USER_BLOCKING_DEFERRABLE_TQ = QueueName::UI_USER_BLOCKING_DEFERRABLE_TQ;
   static inline const QueueName IO_USER_BLOCKING_DEFERRABLE_TQ = QueueName::IO_USER_BLOCKING_DEFERRABLE_TQ;
+  static inline const QueueName UI_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ = QueueName::UI_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ;
+  static inline const QueueName IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ = QueueName::IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ;
 
   using FieldMetadata_Priority =
     ::protozero::proto_utils::FieldMetadata<
