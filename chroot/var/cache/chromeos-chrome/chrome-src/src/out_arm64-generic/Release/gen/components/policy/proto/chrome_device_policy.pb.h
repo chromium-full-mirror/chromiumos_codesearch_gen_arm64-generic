@@ -24044,6 +24044,7 @@ kDeviceScreensaverLoginScreenImageDisplayIntervalSecondsFieldNumber = 144,
 kDeviceScreensaverLoginScreenImagesFieldNumber = 145,
 kDeviceSystemAecEnabledFieldNumber = 146,
 kDeviceLoginScreenGeolocationAccessLevelFieldNumber = 147,
+kDeviceLoginScreenWebhidAllowDevicesForUrlsFieldNumber = 148,
 };
 // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
 bool has_device_policy_refresh_rate() const;
@@ -26637,6 +26638,24 @@ void unsafe_arena_set_allocated_device_login_screen_geolocation_access_level(
 ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto* device_login_screen_geolocation_access_level);
 ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto* unsafe_arena_release_device_login_screen_geolocation_access_level();
 
+// optional .enterprise_management.StringPolicyProto device_login_screen_webhid_allow_devices_for_urls = 148;
+bool has_device_login_screen_webhid_allow_devices_for_urls() const;
+private:
+bool _internal_has_device_login_screen_webhid_allow_devices_for_urls() const;
+public:
+void clear_device_login_screen_webhid_allow_devices_for_urls();
+const ::enterprise_management::StringPolicyProto& device_login_screen_webhid_allow_devices_for_urls() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringPolicyProto* release_device_login_screen_webhid_allow_devices_for_urls();
+::enterprise_management::StringPolicyProto* mutable_device_login_screen_webhid_allow_devices_for_urls();
+void set_allocated_device_login_screen_webhid_allow_devices_for_urls(::enterprise_management::StringPolicyProto* device_login_screen_webhid_allow_devices_for_urls);
+private:
+const ::enterprise_management::StringPolicyProto& _internal_device_login_screen_webhid_allow_devices_for_urls() const;
+::enterprise_management::StringPolicyProto* _internal_mutable_device_login_screen_webhid_allow_devices_for_urls();
+public:
+void unsafe_arena_set_allocated_device_login_screen_webhid_allow_devices_for_urls(
+::enterprise_management::StringPolicyProto* device_login_screen_webhid_allow_devices_for_urls);
+::enterprise_management::StringPolicyProto* unsafe_arena_release_device_login_screen_webhid_allow_devices_for_urls();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
 private:
 class _Internal;
@@ -26790,6 +26809,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::DeviceScreensaverLoginScreenImagesProto* device_screensaver_login_screen_images_;
 ::enterprise_management::DeviceSystemAecEnabledProto* device_system_aec_enabled_;
 ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto* device_login_screen_geolocation_access_level_;
+::enterprise_management::StringPolicyProto* device_login_screen_webhid_allow_devices_for_urls_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // ===================================================================
@@ -52366,6 +52386,93 @@ _has_bits_[4] &= ~0x00008000u;
 }
 device_login_screen_geolocation_access_level_ = device_login_screen_geolocation_access_level;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_geolocation_access_level)
+}
+
+// optional .enterprise_management.StringPolicyProto device_login_screen_webhid_allow_devices_for_urls = 148;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_login_screen_webhid_allow_devices_for_urls() const {
+bool value = (_has_bits_[4] & 0x00010000u) != 0;
+PROTOBUF_ASSUME(!value || device_login_screen_webhid_allow_devices_for_urls_ != nullptr);
+return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_login_screen_webhid_allow_devices_for_urls() const {
+return _internal_has_device_login_screen_webhid_allow_devices_for_urls();
+}
+inline const ::enterprise_management::StringPolicyProto& ChromeDeviceSettingsProto::_internal_device_login_screen_webhid_allow_devices_for_urls() const {
+const ::enterprise_management::StringPolicyProto* p = device_login_screen_webhid_allow_devices_for_urls_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringPolicyProto&>(
+::enterprise_management::_StringPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringPolicyProto& ChromeDeviceSettingsProto::device_login_screen_webhid_allow_devices_for_urls() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_webhid_allow_devices_for_urls)
+return _internal_device_login_screen_webhid_allow_devices_for_urls();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_login_screen_webhid_allow_devices_for_urls(
+::enterprise_management::StringPolicyProto* device_login_screen_webhid_allow_devices_for_urls) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_login_screen_webhid_allow_devices_for_urls_);
+}
+device_login_screen_webhid_allow_devices_for_urls_ = device_login_screen_webhid_allow_devices_for_urls;
+if (device_login_screen_webhid_allow_devices_for_urls) {
+_has_bits_[4] |= 0x00010000u;
+} else {
+_has_bits_[4] &= ~0x00010000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_webhid_allow_devices_for_urls)
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::release_device_login_screen_webhid_allow_devices_for_urls() {
+_has_bits_[4] &= ~0x00010000u;
+::enterprise_management::StringPolicyProto* temp = device_login_screen_webhid_allow_devices_for_urls_;
+device_login_screen_webhid_allow_devices_for_urls_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_login_screen_webhid_allow_devices_for_urls() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_webhid_allow_devices_for_urls)
+_has_bits_[4] &= ~0x00010000u;
+::enterprise_management::StringPolicyProto* temp = device_login_screen_webhid_allow_devices_for_urls_;
+device_login_screen_webhid_allow_devices_for_urls_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_device_login_screen_webhid_allow_devices_for_urls() {
+_has_bits_[4] |= 0x00010000u;
+if (device_login_screen_webhid_allow_devices_for_urls_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
+device_login_screen_webhid_allow_devices_for_urls_ = p;
+}
+return device_login_screen_webhid_allow_devices_for_urls_;
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::mutable_device_login_screen_webhid_allow_devices_for_urls() {
+::enterprise_management::StringPolicyProto* _msg = _internal_mutable_device_login_screen_webhid_allow_devices_for_urls();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_webhid_allow_devices_for_urls)
+return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_login_screen_webhid_allow_devices_for_urls(::enterprise_management::StringPolicyProto* device_login_screen_webhid_allow_devices_for_urls) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_login_screen_webhid_allow_devices_for_urls_);
+}
+if (device_login_screen_webhid_allow_devices_for_urls) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_login_screen_webhid_allow_devices_for_urls));
+if (message_arena != submessage_arena) {
+device_login_screen_webhid_allow_devices_for_urls = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, device_login_screen_webhid_allow_devices_for_urls, submessage_arena);
+}
+_has_bits_[4] |= 0x00010000u;
+} else {
+_has_bits_[4] &= ~0x00010000u;
+}
+device_login_screen_webhid_allow_devices_for_urls_ = device_login_screen_webhid_allow_devices_for_urls;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_webhid_allow_devices_for_urls)
 }
 
 #ifdef __GNUC__

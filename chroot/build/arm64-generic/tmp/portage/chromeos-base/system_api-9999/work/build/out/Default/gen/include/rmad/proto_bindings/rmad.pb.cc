@@ -231,11 +231,14 @@ PROTOBUF_CONSTEXPR UpdateDeviceInfoState::UpdateDeviceInfoState(
   , /*decltype(_impl_.sku_index_)*/0
   , /*decltype(_impl_.whitelabel_index_)*/0
   , /*decltype(_impl_.custom_label_index_)*/0
+  , /*decltype(_impl_.hw_compliance_version_)*/0u
+  , /*decltype(_impl_.is_chassis_branded_)*/false
+  , /*decltype(_impl_.mlb_repair_)*/false
   , /*decltype(_impl_.original_region_index_)*/0
   , /*decltype(_impl_.original_sku_index_)*/0
   , /*decltype(_impl_.original_whitelabel_index_)*/0
   , /*decltype(_impl_.original_custom_label_index_)*/0
-  , /*decltype(_impl_.mlb_repair_)*/false
+  , /*decltype(_impl_.original_feature_level_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UpdateDeviceInfoStateDefaultTypeInternal {
   PROTOBUF_CONSTEXPR UpdateDeviceInfoStateDefaultTypeInternal()
@@ -1316,6 +1319,74 @@ constexpr RestockState_RestockChoice RestockState::RMAD_RESTOCK_CONTINUE_RMA;
 constexpr RestockState_RestockChoice RestockState::RestockChoice_MIN;
 constexpr RestockState_RestockChoice RestockState::RestockChoice_MAX;
 constexpr int RestockState::RestockChoice_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool UpdateDeviceInfoState_FeatureLevel_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> UpdateDeviceInfoState_FeatureLevel_strings[4] = {};
+
+static const char UpdateDeviceInfoState_FeatureLevel_names[] =
+  "RMAD_FEATURE_LEVEL_0"
+  "RMAD_FEATURE_LEVEL_1"
+  "RMAD_FEATURE_LEVEL_UNKNOWN"
+  "RMAD_FEATURE_LEVEL_UNSUPPORTED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UpdateDeviceInfoState_FeatureLevel_entries[] = {
+  { {UpdateDeviceInfoState_FeatureLevel_names + 0, 20}, 2 },
+  { {UpdateDeviceInfoState_FeatureLevel_names + 20, 20}, 3 },
+  { {UpdateDeviceInfoState_FeatureLevel_names + 40, 26}, 1 },
+  { {UpdateDeviceInfoState_FeatureLevel_names + 66, 30}, 0 },
+};
+
+static const int UpdateDeviceInfoState_FeatureLevel_entries_by_number[] = {
+  3, // 0 -> RMAD_FEATURE_LEVEL_UNSUPPORTED
+  2, // 1 -> RMAD_FEATURE_LEVEL_UNKNOWN
+  0, // 2 -> RMAD_FEATURE_LEVEL_0
+  1, // 3 -> RMAD_FEATURE_LEVEL_1
+};
+
+const std::string& UpdateDeviceInfoState_FeatureLevel_Name(
+    UpdateDeviceInfoState_FeatureLevel value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          UpdateDeviceInfoState_FeatureLevel_entries,
+          UpdateDeviceInfoState_FeatureLevel_entries_by_number,
+          4, UpdateDeviceInfoState_FeatureLevel_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      UpdateDeviceInfoState_FeatureLevel_entries,
+      UpdateDeviceInfoState_FeatureLevel_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     UpdateDeviceInfoState_FeatureLevel_strings[idx].get();
+}
+bool UpdateDeviceInfoState_FeatureLevel_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateDeviceInfoState_FeatureLevel* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      UpdateDeviceInfoState_FeatureLevel_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<UpdateDeviceInfoState_FeatureLevel>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr UpdateDeviceInfoState_FeatureLevel UpdateDeviceInfoState::RMAD_FEATURE_LEVEL_UNSUPPORTED;
+constexpr UpdateDeviceInfoState_FeatureLevel UpdateDeviceInfoState::RMAD_FEATURE_LEVEL_UNKNOWN;
+constexpr UpdateDeviceInfoState_FeatureLevel UpdateDeviceInfoState::RMAD_FEATURE_LEVEL_0;
+constexpr UpdateDeviceInfoState_FeatureLevel UpdateDeviceInfoState::RMAD_FEATURE_LEVEL_1;
+constexpr UpdateDeviceInfoState_FeatureLevel UpdateDeviceInfoState::FeatureLevel_MIN;
+constexpr UpdateDeviceInfoState_FeatureLevel UpdateDeviceInfoState::FeatureLevel_MAX;
+constexpr int UpdateDeviceInfoState::FeatureLevel_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool CalibrationComponentStatus_CalibrationStatus_IsValid(int value) {
   switch (value) {
@@ -5832,11 +5903,14 @@ UpdateDeviceInfoState::UpdateDeviceInfoState(const UpdateDeviceInfoState& from)
     , decltype(_impl_.sku_index_){}
     , decltype(_impl_.whitelabel_index_){}
     , decltype(_impl_.custom_label_index_){}
+    , decltype(_impl_.hw_compliance_version_){}
+    , decltype(_impl_.is_chassis_branded_){}
+    , decltype(_impl_.mlb_repair_){}
     , decltype(_impl_.original_region_index_){}
     , decltype(_impl_.original_sku_index_){}
     , decltype(_impl_.original_whitelabel_index_){}
     , decltype(_impl_.original_custom_label_index_){}
-    , decltype(_impl_.mlb_repair_){}
+    , decltype(_impl_.original_feature_level_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -5873,8 +5947,8 @@ UpdateDeviceInfoState::UpdateDeviceInfoState(const UpdateDeviceInfoState& from)
       _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.region_index_, &from._impl_.region_index_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mlb_repair_) -
-    reinterpret_cast<char*>(&_impl_.region_index_)) + sizeof(_impl_.mlb_repair_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.original_feature_level_) -
+    reinterpret_cast<char*>(&_impl_.region_index_)) + sizeof(_impl_.original_feature_level_));
   // @@protoc_insertion_point(copy_constructor:rmad.UpdateDeviceInfoState)
 }
 
@@ -5896,11 +5970,14 @@ inline void UpdateDeviceInfoState::SharedCtor(
     , decltype(_impl_.sku_index_){0}
     , decltype(_impl_.whitelabel_index_){0}
     , decltype(_impl_.custom_label_index_){0}
+    , decltype(_impl_.hw_compliance_version_){0u}
+    , decltype(_impl_.is_chassis_branded_){false}
+    , decltype(_impl_.mlb_repair_){false}
     , decltype(_impl_.original_region_index_){0}
     , decltype(_impl_.original_sku_index_){0}
     , decltype(_impl_.original_whitelabel_index_){0}
     , decltype(_impl_.original_custom_label_index_){0}
-    , decltype(_impl_.mlb_repair_){false}
+    , decltype(_impl_.original_feature_level_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.serial_number_.InitDefault();
@@ -5961,8 +6038,8 @@ void UpdateDeviceInfoState::Clear() {
   _impl_.original_serial_number_.ClearToEmpty();
   _impl_.original_dram_part_number_.ClearToEmpty();
   ::memset(&_impl_.region_index_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.mlb_repair_) -
-      reinterpret_cast<char*>(&_impl_.region_index_)) + sizeof(_impl_.mlb_repair_));
+      reinterpret_cast<char*>(&_impl_.original_feature_level_) -
+      reinterpret_cast<char*>(&_impl_.region_index_)) + sizeof(_impl_.original_feature_level_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -6020,6 +6097,22 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::_pbi::Parse
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           _impl_.custom_label_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool is_chassis_branded = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _impl_.is_chassis_branded_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 hw_compliance_version = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          _impl_.hw_compliance_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6132,6 +6225,15 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
+      // .rmad.UpdateDeviceInfoState.FeatureLevel original_feature_level = 207;
+      case 207:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_original_feature_level(static_cast<::rmad::UpdateDeviceInfoState_FeatureLevel>(val));
+        } else
+          goto handle_unusual;
+        continue;
       // bool mlb_repair = 301;
       case 301:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
@@ -6211,6 +6313,18 @@ uint8_t* UpdateDeviceInfoState::_InternalSerialize(
   if (this->_internal_custom_label_index() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_custom_label_index(), target);
+  }
+
+  // bool is_chassis_branded = 7;
+  if (this->_internal_is_chassis_branded() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_is_chassis_branded(), target);
+  }
+
+  // uint32 hw_compliance_version = 8;
+  if (this->_internal_hw_compliance_version() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(8, this->_internal_hw_compliance_version(), target);
   }
 
   // repeated string region_list = 102;
@@ -6294,6 +6408,13 @@ uint8_t* UpdateDeviceInfoState::_InternalSerialize(
   if (this->_internal_original_custom_label_index() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(206, this->_internal_original_custom_label_index(), target);
+  }
+
+  // .rmad.UpdateDeviceInfoState.FeatureLevel original_feature_level = 207;
+  if (this->_internal_original_feature_level() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      207, this->_internal_original_feature_level(), target);
   }
 
   // bool mlb_repair = 301;
@@ -6404,6 +6525,21 @@ size_t UpdateDeviceInfoState::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_custom_label_index());
   }
 
+  // uint32 hw_compliance_version = 8;
+  if (this->_internal_hw_compliance_version() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_hw_compliance_version());
+  }
+
+  // bool is_chassis_branded = 7;
+  if (this->_internal_is_chassis_branded() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool mlb_repair = 301;
+  if (this->_internal_mlb_repair() != 0) {
+    total_size += 2 + 1;
+  }
+
   // int32 original_region_index = 202;
   if (this->_internal_original_region_index() != 0) {
     total_size += 2 +
@@ -6432,9 +6568,10 @@ size_t UpdateDeviceInfoState::ByteSizeLong() const {
         this->_internal_original_custom_label_index());
   }
 
-  // bool mlb_repair = 301;
-  if (this->_internal_mlb_repair() != 0) {
-    total_size += 2 + 1;
+  // .rmad.UpdateDeviceInfoState.FeatureLevel original_feature_level = 207;
+  if (this->_internal_original_feature_level() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_original_feature_level());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6486,6 +6623,15 @@ void UpdateDeviceInfoState::MergeFrom(const UpdateDeviceInfoState& from) {
   if (from._internal_custom_label_index() != 0) {
     _this->_internal_set_custom_label_index(from._internal_custom_label_index());
   }
+  if (from._internal_hw_compliance_version() != 0) {
+    _this->_internal_set_hw_compliance_version(from._internal_hw_compliance_version());
+  }
+  if (from._internal_is_chassis_branded() != 0) {
+    _this->_internal_set_is_chassis_branded(from._internal_is_chassis_branded());
+  }
+  if (from._internal_mlb_repair() != 0) {
+    _this->_internal_set_mlb_repair(from._internal_mlb_repair());
+  }
   if (from._internal_original_region_index() != 0) {
     _this->_internal_set_original_region_index(from._internal_original_region_index());
   }
@@ -6498,8 +6644,8 @@ void UpdateDeviceInfoState::MergeFrom(const UpdateDeviceInfoState& from) {
   if (from._internal_original_custom_label_index() != 0) {
     _this->_internal_set_original_custom_label_index(from._internal_original_custom_label_index());
   }
-  if (from._internal_mlb_repair() != 0) {
-    _this->_internal_set_mlb_repair(from._internal_mlb_repair());
+  if (from._internal_original_feature_level() != 0) {
+    _this->_internal_set_original_feature_level(from._internal_original_feature_level());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -6541,8 +6687,8 @@ void UpdateDeviceInfoState::InternalSwap(UpdateDeviceInfoState* other) {
       &other->_impl_.original_dram_part_number_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UpdateDeviceInfoState, _impl_.mlb_repair_)
-      + sizeof(UpdateDeviceInfoState::_impl_.mlb_repair_)
+      PROTOBUF_FIELD_OFFSET(UpdateDeviceInfoState, _impl_.original_feature_level_)
+      + sizeof(UpdateDeviceInfoState::_impl_.original_feature_level_)
       - PROTOBUF_FIELD_OFFSET(UpdateDeviceInfoState, _impl_.region_index_)>(
           reinterpret_cast<char*>(&_impl_.region_index_),
           reinterpret_cast<char*>(&other->_impl_.region_index_));
