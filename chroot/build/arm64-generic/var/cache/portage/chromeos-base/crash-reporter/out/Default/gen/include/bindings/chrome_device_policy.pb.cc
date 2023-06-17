@@ -2226,7 +2226,8 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , /*decltype(_impl_.device_screensaver_login_screen_image_display_interval_seconds_)*/nullptr
   , /*decltype(_impl_.device_screensaver_login_screen_images_)*/nullptr
   , /*decltype(_impl_.device_system_aec_enabled_)*/nullptr
-  , /*decltype(_impl_.device_login_screen_geolocation_access_level_)*/nullptr} {}
+  , /*decltype(_impl_.device_login_screen_geolocation_access_level_)*/nullptr
+  , /*decltype(_impl_.device_login_screen_webhid_allow_devices_for_urls_)*/nullptr} {}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -37276,6 +37277,10 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_login_screen_geolocation_access_level(HasBits* has_bits) {
     (*has_bits)[4] |= 32768u;
   }
+  static const ::enterprise_management::StringPolicyProto& device_login_screen_webhid_allow_devices_for_urls(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_login_screen_webhid_allow_devices_for_urls(HasBits* has_bits) {
+    (*has_bits)[4] |= 65536u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -37854,6 +37859,10 @@ const ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto&
 ChromeDeviceSettingsProto::_Internal::device_login_screen_geolocation_access_level(const ChromeDeviceSettingsProto* msg) {
   return *msg->_impl_.device_login_screen_geolocation_access_level_;
 }
+const ::enterprise_management::StringPolicyProto&
+ChromeDeviceSettingsProto::_Internal::device_login_screen_webhid_allow_devices_for_urls(const ChromeDeviceSettingsProto* msg) {
+  return *msg->_impl_.device_login_screen_webhid_allow_devices_for_urls_;
+}
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (_impl_.device_login_screen_system_info_enforced_ != nullptr) _impl_.device_login_screen_system_info_enforced_->Clear();
   _impl_._has_bits_[2] &= ~0x02000000u;
@@ -37909,6 +37918,10 @@ void ChromeDeviceSettingsProto::clear_device_login_screen_context_aware_access_s
 void ChromeDeviceSettingsProto::clear_device_printing_client_name_template() {
   if (_impl_.device_printing_client_name_template_ != nullptr) _impl_.device_printing_client_name_template_->Clear();
   _impl_._has_bits_[4] &= ~0x00000020u;
+}
+void ChromeDeviceSettingsProto::clear_device_login_screen_webhid_allow_devices_for_urls() {
+  if (_impl_.device_login_screen_webhid_allow_devices_for_urls_ != nullptr) _impl_.device_login_screen_webhid_allow_devices_for_urls_->Clear();
+  _impl_._has_bits_[4] &= ~0x00010000u;
 }
 ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -38065,7 +38078,8 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
     , decltype(_impl_.device_screensaver_login_screen_image_display_interval_seconds_){nullptr}
     , decltype(_impl_.device_screensaver_login_screen_images_){nullptr}
     , decltype(_impl_.device_system_aec_enabled_){nullptr}
-    , decltype(_impl_.device_login_screen_geolocation_access_level_){nullptr}};
+    , decltype(_impl_.device_login_screen_geolocation_access_level_){nullptr}
+    , decltype(_impl_.device_login_screen_webhid_allow_devices_for_urls_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_device_policy_refresh_rate()) {
@@ -38500,6 +38514,9 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   if (from._internal_has_device_login_screen_geolocation_access_level()) {
     _this->_impl_.device_login_screen_geolocation_access_level_ = new ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto(*from._impl_.device_login_screen_geolocation_access_level_);
   }
+  if (from._internal_has_device_login_screen_webhid_allow_devices_for_urls()) {
+    _this->_impl_.device_login_screen_webhid_allow_devices_for_urls_ = new ::enterprise_management::StringPolicyProto(*from._impl_.device_login_screen_webhid_allow_devices_for_urls_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
@@ -38654,6 +38671,7 @@ inline void ChromeDeviceSettingsProto::SharedCtor(
     , decltype(_impl_.device_screensaver_login_screen_images_){nullptr}
     , decltype(_impl_.device_system_aec_enabled_){nullptr}
     , decltype(_impl_.device_login_screen_geolocation_access_level_){nullptr}
+    , decltype(_impl_.device_login_screen_webhid_allow_devices_for_urls_){nullptr}
   };
 }
 
@@ -38812,6 +38830,7 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.device_screensaver_login_screen_images_;
   if (this != internal_default_instance()) delete _impl_.device_system_aec_enabled_;
   if (this != internal_default_instance()) delete _impl_.device_login_screen_geolocation_access_level_;
+  if (this != internal_default_instance()) delete _impl_.device_login_screen_webhid_allow_devices_for_urls_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -39440,6 +39459,10 @@ void ChromeDeviceSettingsProto::Clear() {
       GOOGLE_DCHECK(_impl_.device_login_screen_geolocation_access_level_ != nullptr);
       _impl_.device_login_screen_geolocation_access_level_->Clear();
     }
+  }
+  if (cached_has_bits & 0x00010000u) {
+    GOOGLE_DCHECK(_impl_.device_login_screen_webhid_allow_devices_for_urls_ != nullptr);
+    _impl_.device_login_screen_webhid_allow_devices_for_urls_->Clear();
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -40603,6 +40626,14 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.StringPolicyProto device_login_screen_webhid_allow_devices_for_urls = 148;
+      case 148:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 162)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_login_screen_webhid_allow_devices_for_urls(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -41643,6 +41674,13 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(147, _Internal::device_login_screen_geolocation_access_level(this),
         _Internal::device_login_screen_geolocation_access_level(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.StringPolicyProto device_login_screen_webhid_allow_devices_for_urls = 148;
+  if (cached_has_bits & 0x00010000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(148, _Internal::device_login_screen_webhid_allow_devices_for_urls(this),
+        _Internal::device_login_screen_webhid_allow_devices_for_urls(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -42710,6 +42748,13 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
+  // optional .enterprise_management.StringPolicyProto device_login_screen_webhid_allow_devices_for_urls = 148;
+  if (cached_has_bits & 0x00010000u) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.device_login_screen_webhid_allow_devices_for_urls_);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -43348,6 +43393,10 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
           from._internal_device_login_screen_geolocation_access_level());
     }
   }
+  if (cached_has_bits & 0x00010000u) {
+    _this->_internal_mutable_device_login_screen_webhid_allow_devices_for_urls()->::enterprise_management::StringPolicyProto::MergeFrom(
+        from._internal_device_login_screen_webhid_allow_devices_for_urls());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -43371,8 +43420,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   swap(_impl_._has_bits_[4], other->_impl_._has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.device_login_screen_geolocation_access_level_)
-      + sizeof(ChromeDeviceSettingsProto::_impl_.device_login_screen_geolocation_access_level_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.device_login_screen_webhid_allow_devices_for_urls_)
+      + sizeof(ChromeDeviceSettingsProto::_impl_.device_login_screen_webhid_allow_devices_for_urls_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, _impl_.device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&_impl_.device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->_impl_.device_policy_refresh_rate_));
