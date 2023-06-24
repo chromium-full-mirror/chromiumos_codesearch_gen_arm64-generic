@@ -128,8 +128,7 @@ class  VideoEncodeAccelerator_Encode_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::media::mojom::internal::VideoFrame_Data> frame;
-  uint8_t force_keyframe : 1;
-  uint8_t padfinal_[7];
+  mojo::internal::Pointer<internal::VideoEncodeOptions_Data> options;
 
  private:
   friend class mojo::internal::MessageFragment<VideoEncodeAccelerator_Encode_Params_Data>;
@@ -517,8 +516,15 @@ class VideoEncodeAccelerator_Encode_ParamsDataView {
     return mojo::internal::Deserialize<::media::mojom::VideoFrameDataView>(
         pointer, output, message_);
   }
-  bool force_keyframe() const {
-    return data_->force_keyframe;
+  inline void GetOptionsDataView(
+      VideoEncodeOptionsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOptions(UserType* output) {
+    
+    auto* pointer = data_->options.Get();
+    return mojo::internal::Deserialize<::media::mojom::VideoEncodeOptionsDataView>(
+        pointer, output, message_);
   }
  private:
   internal::VideoEncodeAccelerator_Encode_Params_Data* data_ = nullptr;
@@ -832,6 +838,11 @@ inline void VideoEncodeAccelerator_Encode_ParamsDataView::GetFrameDataView(
     ::media::mojom::VideoFrameDataView* output) {
   auto pointer = data_->frame.Get();
   *output = ::media::mojom::VideoFrameDataView(pointer, message_);
+}
+inline void VideoEncodeAccelerator_Encode_ParamsDataView::GetOptionsDataView(
+    VideoEncodeOptionsDataView* output) {
+  auto pointer = data_->options.Get();
+  *output = VideoEncodeOptionsDataView(pointer, message_);
 }
 
 

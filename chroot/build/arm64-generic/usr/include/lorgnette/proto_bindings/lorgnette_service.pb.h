@@ -2992,6 +2992,7 @@ class StartScannerDiscoveryRequest final :
     kClientIdFieldNumber = 1,
     kDownloadPolicyFieldNumber = 2,
     kLocalOnlyFieldNumber = 3,
+    kPreferredOnlyFieldNumber = 4,
   };
   // string client_id = 1;
   void clear_client_id();
@@ -3025,6 +3026,15 @@ class StartScannerDiscoveryRequest final :
   void _internal_set_local_only(bool value);
   public:
 
+  // bool preferred_only = 4;
+  void clear_preferred_only();
+  bool preferred_only() const;
+  void set_preferred_only(bool value);
+  private:
+  bool _internal_preferred_only() const;
+  void _internal_set_preferred_only(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:lorgnette.StartScannerDiscoveryRequest)
  private:
   class _Internal;
@@ -3036,6 +3046,7 @@ class StartScannerDiscoveryRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr client_id_;
     int download_policy_;
     bool local_only_;
+    bool preferred_only_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5553,6 +5564,26 @@ inline void StartScannerDiscoveryRequest::_internal_set_local_only(bool value) {
 inline void StartScannerDiscoveryRequest::set_local_only(bool value) {
   _internal_set_local_only(value);
   // @@protoc_insertion_point(field_set:lorgnette.StartScannerDiscoveryRequest.local_only)
+}
+
+// bool preferred_only = 4;
+inline void StartScannerDiscoveryRequest::clear_preferred_only() {
+  _impl_.preferred_only_ = false;
+}
+inline bool StartScannerDiscoveryRequest::_internal_preferred_only() const {
+  return _impl_.preferred_only_;
+}
+inline bool StartScannerDiscoveryRequest::preferred_only() const {
+  // @@protoc_insertion_point(field_get:lorgnette.StartScannerDiscoveryRequest.preferred_only)
+  return _internal_preferred_only();
+}
+inline void StartScannerDiscoveryRequest::_internal_set_preferred_only(bool value) {
+  
+  _impl_.preferred_only_ = value;
+}
+inline void StartScannerDiscoveryRequest::set_preferred_only(bool value) {
+  _internal_set_preferred_only(value);
+  // @@protoc_insertion_point(field_set:lorgnette.StartScannerDiscoveryRequest.preferred_only)
 }
 
 // -------------------------------------------------------------------

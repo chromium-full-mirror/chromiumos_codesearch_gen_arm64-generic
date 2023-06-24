@@ -599,6 +599,29 @@ VideoEncodeAcceleratorConfig_Data::VideoEncodeAcceleratorConfig_Data()
 
 
 // static
+bool VideoEncodeOptions_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const VideoEncodeOptions_Data* object =
+      static_cast<const VideoEncodeOptions_Data*>(data);
+
+  return true;
+}
+
+VideoEncodeOptions_Data::VideoEncodeOptions_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool H264Metadata_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -987,6 +1010,13 @@ bool VideoEncodeAccelerator_Encode_Params_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->frame, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->options, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->options, validation_context))
     return false;
 
   return true;

@@ -9,8 +9,8 @@
 #define LIBSEGMENTATION_FEATURE_MANAGEMENT_PB_H_
 
 namespace segmentation {
-  const char* protobuf_features = "";
-  const char* protobuf_devices = "";
+  const char protobuf_features[] = "";
+  const char protobuf_devices[] = "";
 }
 
 #endif

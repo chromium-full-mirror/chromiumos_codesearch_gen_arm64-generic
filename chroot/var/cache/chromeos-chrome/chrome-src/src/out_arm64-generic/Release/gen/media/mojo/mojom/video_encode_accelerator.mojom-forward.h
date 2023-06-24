@@ -41,6 +41,8 @@ class ExternalBitrateDataView;
 
 class VideoEncodeAcceleratorConfigDataView;
 
+class VideoEncodeOptionsDataView;
+
 class H264MetadataDataView;
 
 class H265MetadataDataView;
@@ -88,6 +90,9 @@ using ExternalBitratePtr = mojo::InlinedStructPtr<ExternalBitrate>;
 
 class VideoEncodeAcceleratorConfig;
 using VideoEncodeAcceleratorConfigPtr = mojo::StructPtr<VideoEncodeAcceleratorConfig>;
+
+class VideoEncodeOptions;
+using VideoEncodeOptionsPtr = mojo::InlinedStructPtr<VideoEncodeOptions>;
 
 class H264Metadata;
 using H264MetadataPtr = mojo::InlinedStructPtr<H264Metadata>;

@@ -634,6 +634,46 @@ bool VideoEncodeAcceleratorConfig::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+VideoEncodeOptions::VideoEncodeOptions()
+    : force_keyframe(),
+      quantizer() {}
+
+VideoEncodeOptions::VideoEncodeOptions(
+    bool force_keyframe_in,
+    int32_t quantizer_in)
+    : force_keyframe(std::move(force_keyframe_in)),
+      quantizer(std::move(quantizer_in)) {}
+
+VideoEncodeOptions::~VideoEncodeOptions() = default;
+
+void VideoEncodeOptions::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "force_keyframe"), this->force_keyframe,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "quantizer"), this->quantizer,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool VideoEncodeOptions::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 H264Metadata::H264Metadata()
     : temporal_idx(),
       layer_sync() {}
@@ -2177,7 +2217,7 @@ void VideoEncodeAcceleratorProxy::Initialize(
 }
 
 void VideoEncodeAcceleratorProxy::Encode(
-    const ::scoped_refptr<::media::VideoFrame>& in_frame, bool in_force_keyframe, EncodeCallback callback) {
+    const ::scoped_refptr<::media::VideoFrame>& in_frame, const ::media::VideoEncoder::EncodeOptions& in_options, EncodeCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send media::mojom::VideoEncodeAccelerator::Encode", "input_parameters",
@@ -2187,8 +2227,8 @@ void VideoEncodeAcceleratorProxy::Encode(
            dict.AddItem("frame"), in_frame,
                         "<value of type const ::scoped_refptr<::media::VideoFrame>&>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("force_keyframe"), in_force_keyframe,
-                        "<value of type bool>");
+           dict.AddItem("options"), in_options,
+                        "<value of type const ::media::VideoEncoder::EncodeOptions&>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -2217,7 +2257,17 @@ void VideoEncodeAcceleratorProxy::Encode(
       params->frame.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
       "null frame in VideoEncodeAccelerator.Encode request");
-  params->force_keyframe = in_force_keyframe;
+  mojo::internal::MessageFragment<
+      typename decltype(params->options)::BaseType> options_fragment(
+          params.message());
+  mojo::internal::Serialize<::media::mojom::VideoEncodeOptionsDataView>(
+      in_options, options_fragment);
+  params->options.Set(
+      options_fragment.is_null() ? nullptr : options_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->options.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null options in VideoEncodeAccelerator.Encode request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(VideoEncodeAccelerator::Name_);
@@ -3171,13 +3221,13 @@ std::move(p_media_log), std::move(callback));
       
       bool success = true;
       ::scoped_refptr<::media::VideoFrame> p_frame{};
-      bool p_force_keyframe{};
+      ::media::VideoEncoder::EncodeOptions p_options{};
       VideoEncodeAccelerator_Encode_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFrame(&p_frame))
         success = false;
-      if (success)
-        p_force_keyframe = input_data_view.force_keyframe();
+      if (success && !input_data_view.ReadOptions(&p_options))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -3192,7 +3242,7 @@ std::move(p_media_log), std::move(callback));
       DCHECK(impl);
       impl->Encode(
 std::move(p_frame), 
-std::move(p_force_keyframe), std::move(callback));
+std::move(p_options), std::move(callback));
       return true;
     }
     case internal::kVideoEncodeAccelerator_UseOutputBitstreamBuffer_Name: {
@@ -3957,6 +4007,22 @@ bool StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView, ::medi
 
 
 // static
+bool StructTraits<::media::mojom::VideoEncodeOptions::DataView, ::media::mojom::VideoEncodeOptionsPtr>::Read(
+    ::media::mojom::VideoEncodeOptions::DataView input,
+    ::media::mojom::VideoEncodeOptionsPtr* output) {
+  bool success = true;
+  ::media::mojom::VideoEncodeOptionsPtr result(::media::mojom::VideoEncodeOptions::New());
+  
+      if (success)
+        result->force_keyframe = input.force_keyframe();
+      if (success)
+        result->quantizer = input.quantizer();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::media::mojom::H264Metadata::DataView, ::media::mojom::H264MetadataPtr>::Read(
     ::media::mojom::H264Metadata::DataView input,
     ::media::mojom::H264MetadataPtr* output) {
@@ -4237,8 +4303,8 @@ VideoEncodeAcceleratorProviderFactoryAsyncWaiter::~VideoEncodeAcceleratorProvide
 void VideoEncodeAcceleratorInterceptorForTesting::Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingAssociatedRemote<VideoEncodeAcceleratorClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, InitializeCallback callback) {
   GetForwardingInterface()->Initialize(std::move(config), std::move(client), std::move(media_log), std::move(callback));
 }
-void VideoEncodeAcceleratorInterceptorForTesting::Encode(const ::scoped_refptr<::media::VideoFrame>& frame, bool force_keyframe, EncodeCallback callback) {
-  GetForwardingInterface()->Encode(std::move(frame), std::move(force_keyframe), std::move(callback));
+void VideoEncodeAcceleratorInterceptorForTesting::Encode(const ::scoped_refptr<::media::VideoFrame>& frame, const ::media::VideoEncoder::EncodeOptions& options, EncodeCallback callback) {
+  GetForwardingInterface()->Encode(std::move(frame), std::move(options), std::move(callback));
 }
 void VideoEncodeAcceleratorInterceptorForTesting::UseOutputBitstreamBuffer(int32_t bitstream_buffer_id, ::base::UnsafeSharedMemoryRegion region) {
   GetForwardingInterface()->UseOutputBitstreamBuffer(std::move(bitstream_buffer_id), std::move(region));
@@ -4284,9 +4350,9 @@ bool VideoEncodeAcceleratorAsyncWaiter::Initialize(
 }
 
 void VideoEncodeAcceleratorAsyncWaiter::Encode(
-    const ::scoped_refptr<::media::VideoFrame>& frame, bool force_keyframe) {
+    const ::scoped_refptr<::media::VideoFrame>& frame, const ::media::VideoEncoder::EncodeOptions& options) {
   base::RunLoop loop;
-  proxy_->Encode(std::move(frame),std::move(force_keyframe),
+  proxy_->Encode(std::move(frame),std::move(options),
       base::BindOnce(
           [](base::RunLoop* loop) {
             loop->Quit();

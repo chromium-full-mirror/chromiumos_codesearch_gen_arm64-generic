@@ -39,6 +39,7 @@ class ConstantBitrate_Data;
 class VariableBitrate_Data;
 class ExternalBitrate_Data;
 class VideoEncodeAcceleratorConfig_Data;
+class VideoEncodeOptions_Data;
 class H264Metadata_Data;
 class H265Metadata_Data;
 class Vp8Metadata_Data;
@@ -708,6 +709,56 @@ struct VideoEncodeAcceleratorConfig_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     VideoEncodeAcceleratorConfig_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  VideoEncodeOptions_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t force_keyframe : 1;
+  uint8_t pad0_[3];
+  int32_t quantizer;
+
+ private:
+  friend class mojo::internal::MessageFragment<VideoEncodeOptions_Data>;
+
+  VideoEncodeOptions_Data();
+  ~VideoEncodeOptions_Data() = delete;
+};
+static_assert(sizeof(VideoEncodeOptions_Data) == 16,
+              "Bad sizeof(VideoEncodeOptions_Data)");
+// Used by VideoEncodeOptions::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct VideoEncodeOptions_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  VideoEncodeOptions_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~VideoEncodeOptions_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<VideoEncodeOptions_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    VideoEncodeOptions_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  H264Metadata_Data {
  public:
   static bool Validate(const void* data,

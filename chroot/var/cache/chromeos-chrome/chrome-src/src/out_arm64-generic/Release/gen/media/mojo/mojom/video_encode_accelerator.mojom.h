@@ -233,7 +233,7 @@ class VideoEncodeAccelerator
 
   using EncodeCallback = base::OnceCallback<void()>;
   
-  virtual void Encode(const ::scoped_refptr<::media::VideoFrame>& frame, bool force_keyframe, EncodeCallback callback) = 0;
+  virtual void Encode(const ::scoped_refptr<::media::VideoFrame>& frame, const ::media::VideoEncoder::EncodeOptions& options, EncodeCallback callback) = 0;
 
   
   virtual void UseOutputBitstreamBuffer(int32_t bitstream_buffer_id, ::base::UnsafeSharedMemoryRegion region) = 0;
@@ -370,7 +370,7 @@ class  VideoEncodeAcceleratorProxy
   
   void Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingAssociatedRemote<VideoEncodeAcceleratorClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, InitializeCallback callback) final;
   
-  void Encode(const ::scoped_refptr<::media::VideoFrame>& frame, bool force_keyframe, EncodeCallback callback) final;
+  void Encode(const ::scoped_refptr<::media::VideoFrame>& frame, const ::media::VideoEncoder::EncodeOptions& options, EncodeCallback callback) final;
   
   void UseOutputBitstreamBuffer(int32_t bitstream_buffer_id, ::base::UnsafeSharedMemoryRegion region) final;
   
@@ -1160,6 +1160,149 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+
+class  VideoEncodeOptions {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<VideoEncodeOptions, T>::value>;
+  using DataView = VideoEncodeOptionsDataView;
+  using Data_ = internal::VideoEncodeOptions_Data;
+
+  template <typename... Args>
+  static VideoEncodeOptionsPtr New(Args&&... args) {
+    return VideoEncodeOptionsPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static VideoEncodeOptionsPtr From(const U& u) {
+    return mojo::TypeConverter<VideoEncodeOptionsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, VideoEncodeOptions>::Convert(*this);
+  }
+
+
+  VideoEncodeOptions();
+
+  VideoEncodeOptions(
+      bool force_keyframe,
+      int32_t quantizer);
+
+
+  ~VideoEncodeOptions();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = VideoEncodeOptionsPtr>
+  VideoEncodeOptionsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, VideoEncodeOptions::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, VideoEncodeOptions::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, VideoEncodeOptions::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        VideoEncodeOptions::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        VideoEncodeOptions::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::VideoEncodeOptions_UnserializedMessageContext<
+            UserType, VideoEncodeOptions::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<VideoEncodeOptions::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return VideoEncodeOptions::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::VideoEncodeOptions_UnserializedMessageContext<
+            UserType, VideoEncodeOptions::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<VideoEncodeOptions::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool force_keyframe;
+  
+  int32_t quantizer;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, VideoEncodeOptions::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, VideoEncodeOptions::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, VideoEncodeOptions::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, VideoEncodeOptions::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -2748,6 +2891,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  Vp9Metadata {
  public:
   template <typename T>
@@ -3534,6 +3678,35 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+VideoEncodeOptionsPtr VideoEncodeOptions::Clone() const {
+  return New(
+      mojo::Clone(force_keyframe),
+      mojo::Clone(quantizer)
+  );
+}
+
+template <typename T, VideoEncodeOptions::EnableIfSame<T>*>
+bool VideoEncodeOptions::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->force_keyframe, other_struct.force_keyframe))
+    return false;
+  if (!mojo::Equals(this->quantizer, other_struct.quantizer))
+    return false;
+  return true;
+}
+
+template <typename T, VideoEncodeOptions::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.force_keyframe < rhs.force_keyframe)
+    return true;
+  if (rhs.force_keyframe < lhs.force_keyframe)
+    return false;
+  if (lhs.quantizer < rhs.quantizer)
+    return true;
+  if (rhs.quantizer < lhs.quantizer)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 H264MetadataPtr H264Metadata::Clone() const {
   return New(
       mojo::Clone(temporal_idx),
@@ -4059,6 +4232,26 @@ struct  StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView,
   }
 
   static bool Read(::media::mojom::VideoEncodeAcceleratorConfig::DataView input, ::media::mojom::VideoEncodeAcceleratorConfigPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::media::mojom::VideoEncodeOptions::DataView,
+                                         ::media::mojom::VideoEncodeOptionsPtr> {
+  static bool IsNull(const ::media::mojom::VideoEncodeOptionsPtr& input) { return !input; }
+  static void SetToNull(::media::mojom::VideoEncodeOptionsPtr* output) { output->reset(); }
+
+  static decltype(::media::mojom::VideoEncodeOptions::force_keyframe) force_keyframe(
+      const ::media::mojom::VideoEncodeOptionsPtr& input) {
+    return input->force_keyframe;
+  }
+
+  static decltype(::media::mojom::VideoEncodeOptions::quantizer) quantizer(
+      const ::media::mojom::VideoEncodeOptionsPtr& input) {
+    return input->quantizer;
+  }
+
+  static bool Read(::media::mojom::VideoEncodeOptions::DataView input, ::media::mojom::VideoEncodeOptionsPtr* output);
 };
 
 

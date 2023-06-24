@@ -57,7 +57,7 @@ class  VideoEncodeAcceleratorProviderFactoryAsyncWaiter {
 class  VideoEncodeAcceleratorInterceptorForTesting : public VideoEncodeAccelerator {
   virtual VideoEncodeAccelerator* GetForwardingInterface() = 0;
   void Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingAssociatedRemote<VideoEncodeAcceleratorClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, InitializeCallback callback) override;
-  void Encode(const ::scoped_refptr<::media::VideoFrame>& frame, bool force_keyframe, EncodeCallback callback) override;
+  void Encode(const ::scoped_refptr<::media::VideoFrame>& frame, const ::media::VideoEncoder::EncodeOptions& options, EncodeCallback callback) override;
   void UseOutputBitstreamBuffer(int32_t bitstream_buffer_id, ::base::UnsafeSharedMemoryRegion region) override;
   void RequestEncodingParametersChangeWithLayers(const ::media::VideoBitrateAllocation& bitrate_allocation, uint32_t framerate) override;
   void RequestEncodingParametersChangeWithBitrate(const ::media::Bitrate& bitrate, uint32_t framerate) override;
@@ -76,7 +76,7 @@ class  VideoEncodeAcceleratorAsyncWaiter {
       const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingAssociatedRemote<VideoEncodeAcceleratorClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, bool* out_result);
   bool Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingAssociatedRemote<VideoEncodeAcceleratorClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log);
   void Encode(
-      const ::scoped_refptr<::media::VideoFrame>& frame, bool force_keyframe);
+      const ::scoped_refptr<::media::VideoFrame>& frame, const ::media::VideoEncoder::EncodeOptions& options);
   
   void IsFlushSupported(
       bool* out_result);

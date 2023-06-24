@@ -60,6 +60,8 @@ class ExternalBitrateDataView;
 
 class VideoEncodeAcceleratorConfigDataView;
 
+class VideoEncodeOptionsDataView;
+
 class H264MetadataDataView;
 
 class H265MetadataDataView;
@@ -134,6 +136,13 @@ struct MojomTypeTraits<::media::mojom::ExternalBitrateDataView> {
 template <>
 struct MojomTypeTraits<::media::mojom::VideoEncodeAcceleratorConfigDataView> {
   using Data = ::media::mojom::internal::VideoEncodeAcceleratorConfig_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::media::mojom::VideoEncodeOptionsDataView> {
+  using Data = ::media::mojom::internal::VideoEncodeOptions_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -685,6 +694,27 @@ class VideoEncodeAcceleratorConfigDataView {
  private:
   internal::VideoEncodeAcceleratorConfig_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class VideoEncodeOptionsDataView {
+ public:
+  VideoEncodeOptionsDataView() = default;
+
+  VideoEncodeOptionsDataView(
+      internal::VideoEncodeOptions_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool force_keyframe() const {
+    return data_->force_keyframe;
+  }
+  int32_t quantizer() const {
+    return data_->quantizer;
+  }
+ private:
+  internal::VideoEncodeOptions_Data* data_ = nullptr;
 };
 
 
@@ -1572,6 +1602,37 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorConfigDataView, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::media::mojom::VideoEncodeOptionsDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::media::mojom::VideoEncodeOptionsDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::media::mojom::internal::VideoEncodeOptions_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->force_keyframe = Traits::force_keyframe(input);
+    fragment->quantizer = Traits::quantizer(input);
+  }
+
+  static bool Deserialize(::media::mojom::internal::VideoEncodeOptions_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::media::mojom::VideoEncodeOptionsDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::media::mojom::H264MetadataDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::media::mojom::H264MetadataDataView, UserType>;
@@ -2096,6 +2157,8 @@ inline void VideoEncodeAcceleratorConfigDataView::GetSpatialLayersDataView(
   auto pointer = data_->spatial_layers.Get();
   *output = mojo::ArrayDataView<SpatialLayerDataView>(pointer, message_);
 }
+
+
 
 
 
