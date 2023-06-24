@@ -50,9 +50,6 @@ const char Executor::Name_[] = "printscanmgr.mojom.Executor";
 Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kExecutor_StopUpstartJob_Name: {
-      return &Executor::StopUpstartJob_Sym::IPCStableHash;
-    }
     case internal::kExecutor_RestartUpstartJob_Name: {
       return &Executor::RestartUpstartJob_Sym::IPCStableHash;
     }
@@ -67,15 +64,11 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kExecutor_StopUpstartJob_Name:
-            return "Receive printscanmgr::mojom::Executor::StopUpstartJob";
       case internal::kExecutor_RestartUpstartJob_Name:
             return "Receive printscanmgr::mojom::Executor::RestartUpstartJob";
     }
   } else {
     switch (message.name()) {
-      case internal::kExecutor_StopUpstartJob_Name:
-            return "Receive reply printscanmgr::mojom::Executor::StopUpstartJob";
       case internal::kExecutor_RestartUpstartJob_Name:
             return "Receive reply printscanmgr::mojom::Executor::RestartUpstartJob";
     }
@@ -92,19 +85,6 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t Executor::StopUpstartJob_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)printscanmgr::mojom::Executor::StopUpstartJob");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t Executor::RestartUpstartJob_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -119,47 +99,10 @@ uint32_t Executor::RestartUpstartJob_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool Executor::StopUpstartJob(UpstartJob job, bool* out_success, std::string* out_errorMsg) {
-  NOTREACHED();
-  return false;
-}
 bool Executor::RestartUpstartJob(UpstartJob job, bool* out_success, std::string* out_errorMsg) {
   NOTREACHED();
   return false;
 }
-class Executor_StopUpstartJob_HandleSyncResponse
-    : public mojo::MessageReceiver {
- public:
-  Executor_StopUpstartJob_HandleSyncResponse(
-      bool* result, bool* out_success, std::string* out_errorMsg)
-      : result_(result), out_success_(out_success), out_errorMsg_(out_errorMsg) {
-    DCHECK(!*result_);
-  }
-
-  Executor_StopUpstartJob_HandleSyncResponse(const Executor_StopUpstartJob_HandleSyncResponse&) = delete;
-  Executor_StopUpstartJob_HandleSyncResponse& operator=(const Executor_StopUpstartJob_HandleSyncResponse&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  bool* result_;
-  bool* out_success_;
-  std::string* out_errorMsg_;};
-
-class Executor_StopUpstartJob_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  Executor_StopUpstartJob_ForwardToCallback(
-      Executor::StopUpstartJobCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  Executor_StopUpstartJob_ForwardToCallback(const Executor_StopUpstartJob_ForwardToCallback&) = delete;
-  Executor_StopUpstartJob_ForwardToCallback& operator=(const Executor_StopUpstartJob_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  Executor::StopUpstartJobCallback callback_;
-};
 class Executor_RestartUpstartJob_HandleSyncResponse
     : public mojo::MessageReceiver {
  public:
@@ -196,104 +139,6 @@ class Executor_RestartUpstartJob_ForwardToCallback
 
 ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
-}
-bool ExecutorProxy::StopUpstartJob(
-    UpstartJob param_job, bool* out_param_success, std::string* out_param_errorMsg) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_BEGIN1(
-    "mojom", "Call printscanmgr::mojom::Executor::StopUpstartJob (sync)", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("job"), param_job,
-                        "<value of type UpstartJob>");
-   });
-#else
-  TRACE_EVENT0("mojom", "Executor::StopUpstartJob");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = true;
-  const bool kAllowInterrupt =
-      true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kExecutor_StopUpstartJob_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::printscanmgr::mojom::internal::Executor_StopUpstartJob_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::printscanmgr::mojom::UpstartJob>(
-      param_job, &params->job);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Executor::Name_);
-  message.set_method_name("StopUpstartJob");
-#endif
-
-  bool result = false;
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Executor_StopUpstartJob_HandleSyncResponse(
-          &result, out_param_success, out_param_errorMsg));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_END1(
-    "mojom", "Executor::StopUpstartJob", "sync_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("success"), out_param_success,
-                        "<value of type bool>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("errorMsg"), out_param_errorMsg,
-                        "<value of type const std::string&>");
-   });
-#endif
-  return result;
-}
-
-void ExecutorProxy::StopUpstartJob(
-    UpstartJob in_job, StopUpstartJobCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send printscanmgr::mojom::Executor::StopUpstartJob", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("job"), in_job,
-                        "<value of type UpstartJob>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kExecutor_StopUpstartJob_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::printscanmgr::mojom::internal::Executor_StopUpstartJob_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::printscanmgr::mojom::UpstartJob>(
-      in_job, &params->job);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Executor::Name_);
-  message.set_method_name("StopUpstartJob");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Executor_StopUpstartJob_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 bool ExecutorProxy::RestartUpstartJob(
     UpstartJob param_job, bool* out_param_success, std::string* out_param_errorMsg) {
@@ -393,171 +238,6 @@ void ExecutorProxy::RestartUpstartJob(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
-class Executor_StopUpstartJob_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static Executor::StopUpstartJobCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<Executor_StopUpstartJob_ProxyToResponder> proxy(
-        new Executor_StopUpstartJob_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&Executor_StopUpstartJob_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~Executor_StopUpstartJob_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  Executor_StopUpstartJob_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "Executor::StopUpstartJobCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      bool in_success, const std::string& in_errorMsg);
-};
-
-bool Executor_StopUpstartJob_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Executor_StopUpstartJob_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::Executor_StopUpstartJob_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  bool p_success{};
-  std::string p_errorMsg{};
-  Executor_StopUpstartJob_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_success = input_data_view.success();
-  if (success && !input_data_view.ReadErrorMsg(&p_errorMsg))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 0, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_success), 
-std::move(p_errorMsg));
-  return true;
-}
-
-void Executor_StopUpstartJob_ProxyToResponder::Run(
-    bool in_success, const std::string& in_errorMsg) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply printscanmgr::mojom::Executor::StopUpstartJob", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("success"), in_success,
-                        "<value of type bool>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("errorMsg"), in_errorMsg,
-                        "<value of type const std::string&>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kExecutor_StopUpstartJob_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::printscanmgr::mojom::internal::Executor_StopUpstartJob_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->success = in_success;
-  mojo::internal::MessageFragment<
-      typename decltype(params->errorMsg)::BaseType> errorMsg_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_errorMsg, errorMsg_fragment);
-  params->errorMsg.Set(
-      errorMsg_fragment.is_null() ? nullptr : errorMsg_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->errorMsg.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null errorMsg in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Executor::Name_);
-  message.set_method_name("StopUpstartJob");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-bool Executor_StopUpstartJob_HandleSyncResponse::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Executor_StopUpstartJob_ResponseParams_Data* params =
-      reinterpret_cast<internal::Executor_StopUpstartJob_ResponseParams_Data*>(
-          message->mutable_payload());
-  
-  bool success = true;
-  bool p_success{};
-  std::string p_errorMsg{};
-  Executor_StopUpstartJob_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_success = input_data_view.success();
-  if (success && !input_data_view.ReadErrorMsg(&p_errorMsg))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 0, true);
-    return false;
-  }
-  *out_success_ = std::move(p_success);
-  *out_errorMsg_ = std::move(p_errorMsg);
-  *result_ = true;
-  return true;
-}
 class Executor_RestartUpstartJob_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static Executor::RestartUpstartJobCallback CreateCallback(
@@ -629,7 +309,7 @@ bool Executor_RestartUpstartJob_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 1, true);
+        Executor::Name_, 0, true);
     return false;
   }
   if (!callback_.is_null())
@@ -715,7 +395,7 @@ bool Executor_RestartUpstartJob_HandleSyncResponse::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 1, true);
+        Executor::Name_, 0, true);
     return false;
   }
   *out_success_ = std::move(p_success);
@@ -729,9 +409,6 @@ bool ExecutorStubDispatch::Accept(
     Executor* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kExecutor_StopUpstartJob_Name: {
-      break;
-    }
     case internal::kExecutor_RestartUpstartJob_Name: {
       break;
     }
@@ -748,35 +425,6 @@ bool ExecutorStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kExecutor_StopUpstartJob_Name: {
-
-      internal::Executor_StopUpstartJob_Params_Data* params =
-          reinterpret_cast<
-              internal::Executor_StopUpstartJob_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      UpstartJob p_job{};
-      Executor_StopUpstartJob_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadJob(&p_job))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 0, false);
-        return false;
-      }
-      Executor::StopUpstartJobCallback callback =
-          Executor_StopUpstartJob_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->StopUpstartJob(
-std::move(p_job), std::move(callback));
-      return true;
-    }
     case internal::kExecutor_RestartUpstartJob_Name: {
 
       internal::Executor_RestartUpstartJob_Params_Data* params =
@@ -794,7 +442,7 @@ std::move(p_job), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 1, false);
+            Executor::Name_, 0, false);
         return false;
       }
       Executor::RestartUpstartJobCallback callback =
@@ -812,8 +460,6 @@ std::move(p_job), std::move(callback));
 
 
 static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
-    {&internal::Executor_StopUpstartJob_Params_Data::Validate,
-     &internal::Executor_StopUpstartJob_ResponseParams_Data::Validate},
     {&internal::Executor_RestartUpstartJob_Params_Data::Validate,
      &internal::Executor_RestartUpstartJob_ResponseParams_Data::Validate},
 };
@@ -846,9 +492,6 @@ namespace printscanmgr {
 namespace mojom {
 
 
-void ExecutorInterceptorForTesting::StopUpstartJob(UpstartJob job, StopUpstartJobCallback callback) {
-  GetForwardingInterface()->StopUpstartJob(std::move(job), std::move(callback));
-}
 void ExecutorInterceptorForTesting::RestartUpstartJob(UpstartJob job, RestartUpstartJobCallback callback) {
   GetForwardingInterface()->RestartUpstartJob(std::move(job), std::move(callback));
 }
@@ -856,28 +499,6 @@ ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}
 
 ExecutorAsyncWaiter::~ExecutorAsyncWaiter() = default;
-
-void ExecutorAsyncWaiter::StopUpstartJob(
-    UpstartJob job, bool* out_success, std::string* out_errorMsg) {
-  base::RunLoop loop;
-  proxy_->StopUpstartJob(std::move(job),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             bool* out_success
-,
-             std::string* out_errorMsg
-,
-             bool success,
-             const std::string& errorMsg) {*out_success = std::move(success);*out_errorMsg = std::move(errorMsg);
-            loop->Quit();
-          },
-          &loop,
-          out_success,
-          out_errorMsg));
-  loop.Run();
-}
-
-
 
 void ExecutorAsyncWaiter::RestartUpstartJob(
     UpstartJob job, bool* out_success, std::string* out_errorMsg) {

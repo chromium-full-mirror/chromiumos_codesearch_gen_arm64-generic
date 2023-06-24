@@ -106,6 +106,7 @@ class Daemon;
 
 // Main class within the powerd daemon that ties all other classes together.
 class Daemon : public policy::AdaptiveChargingControllerInterface::Delegate,
+               public policy::BatterySaverController::Observer,
                public policy::InputEventHandler::Delegate,
                public policy::Suspender::Delegate,
                public policy::WifiController::Delegate,
@@ -197,7 +198,7 @@ class Daemon : public policy::AdaptiveChargingControllerInterface::Delegate,
 
   // Overridden from policy::AdaptiveChargingControllerInterface::Delegate:
   bool SetBatterySustain(int lower, int upper) override;
-  bool SetBatteryChargeLimit(uint32_t limit_mA) override;
+  bool SetBatterySlowCharging(uint32_t limit_mA) override;
   void GetAdaptiveChargingPrediction(const assist_ranker::RankerExample& proto,
                                      bool async) override;
   void GenerateAdaptiveChargingUnplugMetrics(
@@ -211,6 +212,9 @@ class Daemon : public policy::AdaptiveChargingControllerInterface::Delegate,
 
   // Overridden from system::AudioObserver:
   void OnAudioStateChange(bool active) override;
+
+  // Overridden from policy::BatterySaverController:
+  void OnBatterySaverStateChanged(const BatterySaverModeState& state) override;
 
   // Overridden from system::DBusWrapperInterface::Observer:
   void OnDBusNameOwnerChanged(const std::string& name,
@@ -284,6 +288,8 @@ class Daemon : public policy::AdaptiveChargingControllerInterface::Delegate,
   std::unique_ptr<dbus::Response> HandleRequestRestartMethod(
       dbus::MethodCall* method_call);
   std::unique_ptr<dbus::Response> HandleRequestSuspendMethod(
+      dbus::MethodCall* method_call);
+  std::unique_ptr<dbus::Response> HandleGetLastWakealarmMethod(
       dbus::MethodCall* method_call);
   std::unique_ptr<dbus::Response> HandleVideoActivityMethod(
       dbus::MethodCall* method_call);
@@ -532,6 +538,10 @@ class Daemon : public policy::AdaptiveChargingControllerInterface::Delegate,
   // Must come last so that weak pointers will be invalidated before other
   // members are destroyed.
   base::WeakPtrFactory<Daemon> weak_ptr_factory_;
+
+  // The last rtc wakealarm value is saved so that it can be returned by the
+  // GetLastWakealarm Dbus method.
+  uint64_t wakealarm_time_;
 };
 
 }  // namespace power_manager

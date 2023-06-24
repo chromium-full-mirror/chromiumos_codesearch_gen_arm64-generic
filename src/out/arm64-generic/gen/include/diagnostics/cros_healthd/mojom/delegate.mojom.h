@@ -85,7 +85,6 @@ class Delegate
     kMonitorStylusMinVersion = 0,
     kGetLidAngleMinVersion = 0,
     kGetPsrMinVersion = 0,
-    kGetAmountOfFreeDiskSpaceMinVersion = 0,
     kGetConnectedHdmiConnectorsMinVersion = 0,
     kGetPrivacyScreenInfoMinVersion = 0,
     kFetchDisplayInfoMinVersion = 0,
@@ -131,9 +130,6 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetPsr_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetAmountOfFreeDiskSpace_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetConnectedHdmiConnectors_Sym {
@@ -208,11 +204,6 @@ class Delegate
   virtual void GetPsr(GetPsrCallback callback) = 0;
 
 
-  using GetAmountOfFreeDiskSpaceCallback = base::OnceCallback<void(absl::optional<uint64_t>)>;
-  
-  virtual void GetAmountOfFreeDiskSpace(const std::string& path, GetAmountOfFreeDiskSpaceCallback callback) = 0;
-
-
   using GetConnectedHdmiConnectorsCallback = base::OnceCallback<void(base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>, const absl::optional<std::string>&)>;
   
   virtual void GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) = 0;
@@ -271,8 +262,6 @@ class  DelegateProxy
   void GetLidAngle(GetLidAngleCallback callback) final;
   
   void GetPsr(GetPsrCallback callback) final;
-  
-  void GetAmountOfFreeDiskSpace(const std::string& path, GetAmountOfFreeDiskSpaceCallback callback) final;
   
   void GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) final;
   

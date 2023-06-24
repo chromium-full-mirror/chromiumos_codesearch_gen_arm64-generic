@@ -48,12 +48,6 @@ class BRILLO_EXPORT Client {
     kIPv6,
   };
 
-  // See IPv4Subnet in patchpanel_service.proto.
-  struct IPv4Subnet {
-    std::vector<uint8_t> base_addr;
-    int prefix_len;
-  };
-
   // See TrafficCounter.Source in patchpanel_service.proto.
   enum class TrafficSource {
     kUnknown,
@@ -107,7 +101,7 @@ class BRILLO_EXPORT Client {
     std::string guest_ifname;
     net_base::IPv4Address ipv4_addr;
     net_base::IPv4Address host_ipv4_addr;
-    IPv4Subnet ipv4_subnet;
+    std::optional<net_base::IPv4CIDR> ipv4_subnet;
     GuestType guest_type;
     std::optional<net_base::IPv4Address> dns_proxy_ipv4_addr;
     std::optional<net_base::IPv6Address> dns_proxy_ipv6_addr;
@@ -115,7 +109,7 @@ class BRILLO_EXPORT Client {
 
   // See ConnectNamespaceResponse in patchpanel_service.proto.
   struct ConnectedNamespace {
-    IPv4Subnet ipv4_subnet;
+    net_base::IPv4CIDR ipv4_subnet;
     std::string peer_ifname;
     net_base::IPv4Address peer_ipv4_address;
     std::string host_ifname;
@@ -126,7 +120,7 @@ class BRILLO_EXPORT Client {
   // See DownstreamNetwork in patchpanel_service.proto.
   struct DownstreamNetwork {
     std::string ifname;
-    IPv4Subnet ipv4_subnet;
+    net_base::IPv4CIDR ipv4_subnet;
     net_base::IPv4Address ipv4_gateway_addr;
   };
 
@@ -250,7 +244,7 @@ class BRILLO_EXPORT Client {
 
   virtual bool NotifyTerminaVmStartup(uint32_t cid,
                                       VirtualDevice* device,
-                                      IPv4Subnet* container_subnet) = 0;
+                                      net_base::IPv4CIDR* container_subnet) = 0;
   virtual bool NotifyTerminaVmShutdown(uint32_t cid) = 0;
 
   virtual bool NotifyParallelsVmStartup(uint64_t vm_id,
@@ -275,6 +269,11 @@ class BRILLO_EXPORT Client {
   // pair with a valid ScopedFD and the ConnectedNamespace response
   // received if the request succeeded. Closing the ScopedFD will teardown the
   // veth and routing setup and free the allocated IPv4 subnet.
+  // If |outbound_ifname| is defined, it must be the kInterfaceProperty value of
+  // a shill Device. If the shill Device uses interface multiplexing (Cellular),
+  // ConnectNamespace is implicitly configured with the primary multiplexed
+  // interface.
+  // TODO(b/273744897): Migrate ConnectNamespace to use a patchpanel Network id.
   virtual std::pair<base::ScopedFD, ConnectedNamespace> ConnectNamespace(
       pid_t pid,
       const std::string& outbound_ifname,
@@ -312,6 +311,10 @@ class BRILLO_EXPORT Client {
   // proxy. This should only be called by 'dns-proxy'. If successful, it returns
   // a ScopedFD. The rules lifetime is tied to the file descriptor. This returns
   // an invalid file descriptor upon failure.
+  // |input_ifname| must be the kInterfaceProperty value of a shill Device.
+  // If the shill Device uses interface multiplexing (Cellular), RedirectDns is
+  // implicitly configured with the primary multiplexed interface.
+  // TODO(b/273744897): Migrate ConnectNamespace to use a patchpanel Network id.
   virtual base::ScopedFD RedirectDns(
       DnsRedirectionRequestType type,
       const std::string& input_ifname,

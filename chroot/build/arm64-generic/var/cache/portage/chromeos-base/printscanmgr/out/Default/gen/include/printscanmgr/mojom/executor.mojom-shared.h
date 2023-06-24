@@ -53,10 +53,8 @@ namespace mojom {
 enum class UpstartJob : int32_t {
   
   kCupsd = 0,
-  
-  kLorgnette = 1,
   kMinValue = 0,
-  kMaxValue = 1,
+  kMaxValue = 0,
 };
 
  std::ostream& operator<<(std::ostream& os, UpstartJob value);

@@ -27,13 +27,12 @@ constexpr uint32_t kDelegate_MonitorStylusGarage_Name = 8;
 constexpr uint32_t kDelegate_MonitorStylus_Name = 9;
 constexpr uint32_t kDelegate_GetLidAngle_Name = 10;
 constexpr uint32_t kDelegate_GetPsr_Name = 11;
-constexpr uint32_t kDelegate_GetAmountOfFreeDiskSpace_Name = 12;
-constexpr uint32_t kDelegate_GetConnectedHdmiConnectors_Name = 13;
-constexpr uint32_t kDelegate_GetPrivacyScreenInfo_Name = 14;
-constexpr uint32_t kDelegate_FetchDisplayInfo_Name = 15;
-constexpr uint32_t kDelegate_MonitorPowerButton_Name = 16;
-constexpr uint32_t kDelegate_RunPrimeSearch_Name = 17;
-constexpr uint32_t kDelegate_MonitorVolumeButton_Name = 18;
+constexpr uint32_t kDelegate_GetConnectedHdmiConnectors_Name = 12;
+constexpr uint32_t kDelegate_GetPrivacyScreenInfo_Name = 13;
+constexpr uint32_t kDelegate_FetchDisplayInfo_Name = 14;
+constexpr uint32_t kDelegate_MonitorPowerButton_Name = 15;
+constexpr uint32_t kDelegate_RunPrimeSearch_Name = 16;
+constexpr uint32_t kDelegate_MonitorVolumeButton_Name = 17;
 
 }  // namespace internal
 }  // namespace mojom

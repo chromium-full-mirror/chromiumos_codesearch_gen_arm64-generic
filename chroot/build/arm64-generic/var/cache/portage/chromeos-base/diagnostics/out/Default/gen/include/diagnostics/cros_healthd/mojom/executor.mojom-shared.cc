@@ -2317,52 +2317,6 @@ Executor_RemoveFioTestFile_ResponseParams_Data::Executor_RemoveFioTestFile_Respo
 
 
 // static
-bool Executor_GetFioTestDirectoryFreeSpace_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetFioTestDirectoryFreeSpace_Params_Data* object =
-      static_cast<const Executor_GetFioTestDirectoryFreeSpace_Params_Data*>(data);
-
-  return true;
-}
-
-Executor_GetFioTestDirectoryFreeSpace_Params_Data::Executor_GetFioTestDirectoryFreeSpace_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data* object =
-      static_cast<const Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data*>(data);
-
-  return true;
-}
-
-Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool Executor_GetConnectedHdmiConnectors_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

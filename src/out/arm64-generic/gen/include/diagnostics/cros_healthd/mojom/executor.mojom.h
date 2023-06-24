@@ -538,7 +538,6 @@ class Executor
     kGetPsrMinVersion = 0,
     kRunFioMinVersion = 0,
     kRemoveFioTestFileMinVersion = 0,
-    kGetFioTestDirectoryFreeSpaceMinVersion = 0,
     kGetConnectedHdmiConnectorsMinVersion = 0,
     kGetPrivacyScreenInfoMinVersion = 0,
     kFetchDisplayInfoMinVersion = 0,
@@ -627,9 +626,6 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RemoveFioTestFile_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetFioTestDirectoryFreeSpace_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetConnectedHdmiConnectors_Sym {
@@ -771,11 +767,6 @@ class Executor
   using RemoveFioTestFileCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
   
   virtual void RemoveFioTestFile(RemoveFioTestFileCallback callback) = 0;
-
-
-  using GetFioTestDirectoryFreeSpaceCallback = base::OnceCallback<void(absl::optional<uint64_t>)>;
-  
-  virtual void GetFioTestDirectoryFreeSpace(GetFioTestDirectoryFreeSpaceCallback callback) = 0;
 
 
   using GetConnectedHdmiConnectorsCallback = base::OnceCallback<void(base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>, const absl::optional<std::string>&)>;
@@ -1007,8 +998,6 @@ class  ExecutorProxy
   void RunFio(FioJobArgumentPtr argument, ::mojo::PendingReceiver<ProcessControl> receiver) final;
   
   void RemoveFioTestFile(RemoveFioTestFileCallback callback) final;
-  
-  void GetFioTestDirectoryFreeSpace(GetFioTestDirectoryFreeSpaceCallback callback) final;
   
   void GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) final;
   

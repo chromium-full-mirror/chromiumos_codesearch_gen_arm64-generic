@@ -38,7 +38,10 @@ enum class EventCategory {
   kPower,
   kKeyboardDiagnostic,
   kStylusGarage,
-  kMaxValue = kStylusGarage,
+  kTouchpadButton,
+  kTouchpadTouch,
+  kTouchpadConnected,
+  kMaxValue = kTouchpadConnected,
 };
 
 
@@ -626,6 +629,218 @@ struct StylusGarageEventInfo {
 
 };
 
+// An enumeration of input touch buttons. The enumeration refers to the physical
+// button that is present in some touchpads under the surface. Clicks resulting
+// from gestures such as two finger right-click are not included here. Separate
+// physical buttons external to the touchpad are also not included.
+enum class InputTouchButton {
+  kNone = 0,
+  kLeft,
+  kMiddle,
+  kRight,
+  kMaxValue = kRight,
+};
+
+
+const char* ToString(InputTouchButton as_enum);
+InputTouchButton ParseInputTouchButton(base::StringPiece as_string);
+
+enum class InputTouchButtonState {
+  kNone = 0,
+  kPressed,
+  kReleased,
+  kMaxValue = kReleased,
+};
+
+
+const char* ToString(InputTouchButtonState as_enum);
+InputTouchButtonState ParseInputTouchButtonState(base::StringPiece as_string);
+
+struct TouchpadButtonEventInfo {
+  TouchpadButtonEventInfo();
+  ~TouchpadButtonEventInfo();
+  TouchpadButtonEventInfo(const TouchpadButtonEventInfo&) = delete;
+  TouchpadButtonEventInfo& operator=(const TouchpadButtonEventInfo&) = delete;
+  TouchpadButtonEventInfo(TouchpadButtonEventInfo&& rhs);
+  TouchpadButtonEventInfo& operator=(TouchpadButtonEventInfo&& rhs);
+
+  // Populates a TouchpadButtonEventInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, TouchpadButtonEventInfo& out);
+
+  // Populates a TouchpadButtonEventInfo object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, TouchpadButtonEventInfo& out);
+
+  // Creates a deep copy of TouchpadButtonEventInfo.
+  TouchpadButtonEventInfo Clone() const;
+
+  // Creates a TouchpadButtonEventInfo object from a base::Value, or NULL on
+  // failure.
+  static std::unique_ptr<TouchpadButtonEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a TouchpadButtonEventInfo object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<TouchpadButtonEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a TouchpadButtonEventInfo object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<TouchpadButtonEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisTouchpadButtonEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  InputTouchButton button;
+
+  InputTouchButtonState state;
+
+};
+
+struct TouchPointInfo {
+  TouchPointInfo();
+  ~TouchPointInfo();
+  TouchPointInfo(const TouchPointInfo&) = delete;
+  TouchPointInfo& operator=(const TouchPointInfo&) = delete;
+  TouchPointInfo(TouchPointInfo&& rhs);
+  TouchPointInfo& operator=(TouchPointInfo&& rhs);
+
+  // Populates a TouchPointInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, TouchPointInfo& out);
+
+  // Populates a TouchPointInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, TouchPointInfo& out);
+
+  // Creates a deep copy of TouchPointInfo.
+  TouchPointInfo Clone() const;
+
+  // Creates a TouchPointInfo object from a base::Value, or NULL on failure.
+  static std::unique_ptr<TouchPointInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a TouchPointInfo object from a base::Value::Dict, or nullopt on
+  // failure.
+  static absl::optional<TouchPointInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a TouchPointInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<TouchPointInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisTouchPointInfo object.
+  base::Value::Dict ToValue() const;
+
+  // An id to track an initiated contact throughout its life cycle.
+  absl::optional<int> tracking_id;
+
+  // The x position.
+  absl::optional<int> x;
+
+  // The y position.
+  absl::optional<int> y;
+
+  // The pressure applied to the touch contact. The value ranges from 0 to
+  // |max_pressure| as defined in TouchpadConnectedEventInfo.
+  absl::optional<int> pressure;
+
+  // The length of the longer dimension of the touch contact.
+  absl::optional<int> touch_major;
+
+  // The length of the shorter dimension of the touch contact.
+  absl::optional<int> touch_minor;
+
+};
+
+struct TouchpadTouchEventInfo {
+  TouchpadTouchEventInfo();
+  ~TouchpadTouchEventInfo();
+  TouchpadTouchEventInfo(const TouchpadTouchEventInfo&) = delete;
+  TouchpadTouchEventInfo& operator=(const TouchpadTouchEventInfo&) = delete;
+  TouchpadTouchEventInfo(TouchpadTouchEventInfo&& rhs);
+  TouchpadTouchEventInfo& operator=(TouchpadTouchEventInfo&& rhs);
+
+  // Populates a TouchpadTouchEventInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, TouchpadTouchEventInfo& out);
+
+  // Populates a TouchpadTouchEventInfo object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, TouchpadTouchEventInfo& out);
+
+  // Creates a deep copy of TouchpadTouchEventInfo.
+  TouchpadTouchEventInfo Clone() const;
+
+  // Creates a TouchpadTouchEventInfo object from a base::Value, or NULL on
+  // failure.
+  static std::unique_ptr<TouchpadTouchEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a TouchpadTouchEventInfo object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<TouchpadTouchEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a TouchpadTouchEventInfo object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<TouchpadTouchEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisTouchpadTouchEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  // The touch points reported by the touchpad.
+  std::vector<TouchPointInfo> touch_points;
+
+};
+
+struct TouchpadConnectedEventInfo {
+  TouchpadConnectedEventInfo();
+  ~TouchpadConnectedEventInfo();
+  TouchpadConnectedEventInfo(const TouchpadConnectedEventInfo&) = delete;
+  TouchpadConnectedEventInfo& operator=(const TouchpadConnectedEventInfo&) = delete;
+  TouchpadConnectedEventInfo(TouchpadConnectedEventInfo&& rhs);
+  TouchpadConnectedEventInfo& operator=(TouchpadConnectedEventInfo&& rhs);
+
+  // Populates a TouchpadConnectedEventInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, TouchpadConnectedEventInfo& out);
+
+  // Populates a TouchpadConnectedEventInfo object from a Dict& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, TouchpadConnectedEventInfo& out);
+
+  // Creates a deep copy of TouchpadConnectedEventInfo.
+  TouchpadConnectedEventInfo Clone() const;
+
+  // Creates a TouchpadConnectedEventInfo object from a base::Value, or NULL on
+  // failure.
+  static std::unique_ptr<TouchpadConnectedEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a TouchpadConnectedEventInfo object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<TouchpadConnectedEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a TouchpadConnectedEventInfo object from a base::Value, or nullopt
+  // on failure.
+  static absl::optional<TouchpadConnectedEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisTouchpadConnectedEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  // The maximum possible x position of touch points.
+  absl::optional<int> max_x;
+
+  // The maximum possible y position of touch points.
+  absl::optional<int> max_y;
+
+  // The maximum possible pressure of touch points, or 0 if pressure is not
+  // supported.
+  absl::optional<int> max_pressure;
+
+  // The supported buttons;
+  std::vector<InputTouchButton> buttons;
+
+};
+
 
 //
 // Functions
@@ -755,6 +970,27 @@ extern const char kEventName[];  // "os.events.onStylusGarageEvent"
 
 base::Value::List Create(const StylusGarageEventInfo& event_info);
 }  // namespace OnStylusGarageEvent
+
+namespace OnTouchpadButtonEvent {
+
+extern const char kEventName[];  // "os.events.onTouchpadButtonEvent"
+
+base::Value::List Create(const TouchpadButtonEventInfo& event_info);
+}  // namespace OnTouchpadButtonEvent
+
+namespace OnTouchpadTouchEvent {
+
+extern const char kEventName[];  // "os.events.onTouchpadTouchEvent"
+
+base::Value::List Create(const TouchpadTouchEventInfo& event_info);
+}  // namespace OnTouchpadTouchEvent
+
+namespace OnTouchpadConnectedEvent {
+
+extern const char kEventName[];  // "os.events.onTouchpadConnectedEvent"
+
+base::Value::List Create(const TouchpadConnectedEventInfo& event_info);
+}  // namespace OnTouchpadConnectedEvent
 
 }  // namespace os_events
 }  // namespace api

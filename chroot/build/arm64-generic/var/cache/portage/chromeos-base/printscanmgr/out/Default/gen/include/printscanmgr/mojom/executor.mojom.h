@@ -59,8 +59,7 @@ class Executor
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static inline constexpr uint32_t kSyncMethodOrdinals[] = {
-    0, 
-    1
+    0
   };
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -73,30 +72,17 @@ class Executor
   using RequestValidator_ = ExecutorRequestValidator;
   using ResponseValidator_ = ExecutorResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kStopUpstartJobMinVersion = 0,
     kRestartUpstartJobMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct StopUpstartJob_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct RestartUpstartJob_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~Executor() = default;
-
-  // Sync method. This signature is used by the client side; the service side
-  // should implement the signature with callback below.
-  
-  virtual bool StopUpstartJob(UpstartJob job, bool* out_success, std::string* out_errorMsg);
-
-  using StopUpstartJobCallback = base::OnceCallback<void(bool, const std::string&)>;
-  
-  virtual void StopUpstartJob(UpstartJob job, StopUpstartJobCallback callback) = 0;
 
   // Sync method. This signature is used by the client side; the service side
   // should implement the signature with callback below.
@@ -116,10 +102,6 @@ class  ExecutorProxy
   using InterfaceType = Executor;
 
   explicit ExecutorProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  bool StopUpstartJob(UpstartJob job, bool* out_success, std::string* out_errorMsg) final;
-  
-  void StopUpstartJob(UpstartJob job, StopUpstartJobCallback callback) final;
   
   bool RestartUpstartJob(UpstartJob job, bool* out_success, std::string* out_errorMsg) final;
   

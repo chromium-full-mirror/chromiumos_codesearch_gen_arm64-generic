@@ -324,6 +324,10 @@ const char InsecurePrivateNetwork[] = "InsecurePrivateNetwork";
 const char InvalidPrivateNetworkAccess[] = "InvalidPrivateNetworkAccess";
 const char UnexpectedPrivateNetworkAccess[] = "UnexpectedPrivateNetworkAccess";
 const char NoCorsRedirectModeNotFollow[] = "NoCorsRedirectModeNotFollow";
+const char PreflightMissingPrivateNetworkAccessId[] = "PreflightMissingPrivateNetworkAccessId";
+const char PreflightMissingPrivateNetworkAccessName[] = "PreflightMissingPrivateNetworkAccessName";
+const char PrivateNetworkAccessPermissionUnavailable[] = "PrivateNetworkAccessPermissionUnavailable";
+const char PrivateNetworkAccessPermissionDenied[] = "PrivateNetworkAccessPermissionDenied";
 } // namespace CorsErrorEnum
 
 

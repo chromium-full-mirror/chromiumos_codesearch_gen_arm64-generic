@@ -201,6 +201,10 @@ CORE_EXPORT extern const char InsecurePrivateNetwork[];
 CORE_EXPORT extern const char InvalidPrivateNetworkAccess[];
 CORE_EXPORT extern const char UnexpectedPrivateNetworkAccess[];
 CORE_EXPORT extern const char NoCorsRedirectModeNotFollow[];
+CORE_EXPORT extern const char PreflightMissingPrivateNetworkAccessId[];
+CORE_EXPORT extern const char PreflightMissingPrivateNetworkAccessName[];
+CORE_EXPORT extern const char PrivateNetworkAccessPermissionUnavailable[];
+CORE_EXPORT extern const char PrivateNetworkAccessPermissionDenied[];
 } // namespace CorsErrorEnum
 
 namespace ServiceWorkerResponseSourceEnum {

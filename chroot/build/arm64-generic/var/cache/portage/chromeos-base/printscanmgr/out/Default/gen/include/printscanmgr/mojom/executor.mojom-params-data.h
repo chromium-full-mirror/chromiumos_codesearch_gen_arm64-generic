@@ -21,41 +21,6 @@ class ValidationContext;
 namespace printscanmgr {
 namespace mojom {
 namespace internal {
-class  Executor_StopUpstartJob_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t job;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_StopUpstartJob_Params_Data>;
-
-  Executor_StopUpstartJob_Params_Data();
-  ~Executor_StopUpstartJob_Params_Data() = delete;
-};
-static_assert(sizeof(Executor_StopUpstartJob_Params_Data) == 16,
-              "Bad sizeof(Executor_StopUpstartJob_Params_Data)");
-class  Executor_StopUpstartJob_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t success : 1;
-  uint8_t pad0_[7];
-  mojo::internal::Pointer<mojo::internal::String_Data> errorMsg;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_StopUpstartJob_ResponseParams_Data>;
-
-  Executor_StopUpstartJob_ResponseParams_Data();
-  ~Executor_StopUpstartJob_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Executor_StopUpstartJob_ResponseParams_Data) == 24,
-              "Bad sizeof(Executor_StopUpstartJob_ResponseParams_Data)");
 class  Executor_RestartUpstartJob_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -93,60 +58,6 @@ static_assert(sizeof(Executor_RestartUpstartJob_ResponseParams_Data) == 24,
               "Bad sizeof(Executor_RestartUpstartJob_ResponseParams_Data)");
 
 }  // namespace internal
-
-
-class Executor_StopUpstartJob_ParamsDataView {
- public:
-  Executor_StopUpstartJob_ParamsDataView() = default;
-
-  Executor_StopUpstartJob_ParamsDataView(
-      internal::Executor_StopUpstartJob_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadJob(UserType* output) const {
-    auto data_value = data_->job;
-    return mojo::internal::Deserialize<::printscanmgr::mojom::UpstartJob>(
-        data_value, output);
-  }
-  UpstartJob job() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::printscanmgr::mojom::UpstartJob>(data_->job));
-  }
- private:
-  internal::Executor_StopUpstartJob_Params_Data* data_ = nullptr;
-};
-
-
-class Executor_StopUpstartJob_ResponseParamsDataView {
- public:
-  Executor_StopUpstartJob_ResponseParamsDataView() = default;
-
-  Executor_StopUpstartJob_ResponseParamsDataView(
-      internal::Executor_StopUpstartJob_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  bool success() const {
-    return data_->success;
-  }
-  inline void GetErrorMsgDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadErrorMsg(UserType* output) {
-    
-    auto* pointer = data_->errorMsg.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Executor_StopUpstartJob_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
 
 
 class Executor_RestartUpstartJob_ParamsDataView {
@@ -201,15 +112,6 @@ class Executor_RestartUpstartJob_ResponseParamsDataView {
   internal::Executor_RestartUpstartJob_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
-
-
-inline void Executor_StopUpstartJob_ResponseParamsDataView::GetErrorMsgDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->errorMsg.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-
 
 
 

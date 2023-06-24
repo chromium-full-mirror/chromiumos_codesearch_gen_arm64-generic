@@ -2935,9 +2935,6 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_RemoveFioTestFile_Name: {
       return &Executor::RemoveFioTestFile_Sym::IPCStableHash;
     }
-    case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name: {
-      return &Executor::GetFioTestDirectoryFreeSpace_Sym::IPCStableHash;
-    }
     case internal::kExecutor_GetConnectedHdmiConnectors_Name: {
       return &Executor::GetConnectedHdmiConnectors_Sym::IPCStableHash;
     }
@@ -3022,8 +3019,6 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::RunFio";
       case internal::kExecutor_RemoveFioTestFile_Name:
             return "Receive ash::cros_healthd::mojom::Executor::RemoveFioTestFile";
-      case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name:
-            return "Receive ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace";
       case internal::kExecutor_GetConnectedHdmiConnectors_Name:
             return "Receive ash::cros_healthd::mojom::Executor::GetConnectedHdmiConnectors";
       case internal::kExecutor_GetPrivacyScreenInfo_Name:
@@ -3093,8 +3088,6 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::RunFio";
       case internal::kExecutor_RemoveFioTestFile_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::RemoveFioTestFile";
-      case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name:
-            return "Receive reply ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace";
       case internal::kExecutor_GetConnectedHdmiConnectors_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetConnectedHdmiConnectors";
       case internal::kExecutor_GetPrivacyScreenInfo_Name:
@@ -3457,19 +3450,6 @@ uint32_t Executor::RemoveFioTestFile_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Executor::RemoveFioTestFile");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t Executor::GetFioTestDirectoryFreeSpace_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -3837,22 +3817,6 @@ class Executor_RemoveFioTestFile_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Executor::RemoveFioTestFileCallback callback_;
-};
-
-class Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback(
-      Executor::GetFioTestDirectoryFreeSpaceCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback(const Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback&) = delete;
-  Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback& operator=(const Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  Executor::GetFioTestDirectoryFreeSpaceCallback callback_;
 };
 
 class Executor_GetConnectedHdmiConnectors_ForwardToCallback
@@ -5043,37 +5007,6 @@ void ExecutorProxy::RemoveFioTestFile(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_RemoveFioTestFile_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void ExecutorProxy::GetFioTestDirectoryFreeSpace(
-    GetFioTestDirectoryFreeSpaceCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kExecutor_GetFioTestDirectoryFreeSpace_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Executor::Name_);
-  message.set_method_name("GetFioTestDirectoryFreeSpace");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -7545,128 +7478,6 @@ void Executor_RemoveFioTestFile_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static Executor::GetFioTestDirectoryFreeSpaceCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder> proxy(
-        new Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "Executor::GetFioTestDirectoryFreeSpaceCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      absl::optional<uint64_t> in_free_space_byte);
-};
-
-bool Executor_GetFioTestDirectoryFreeSpace_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  absl::optional<uint64_t> p_free_space_byte{};
-  Executor_GetFioTestDirectoryFreeSpace_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success) {
-    p_free_space_byte = input_data_view.free_space_byte();
-  }
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 26, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_free_space_byte));
-  return true;
-}
-
-void Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder::Run(
-    absl::optional<uint64_t> in_free_space_byte) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetFioTestDirectoryFreeSpace", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("free_space_byte"), in_free_space_byte,
-                        "<value of type absl::optional<uint64_t>>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kExecutor_GetFioTestDirectoryFreeSpace_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->free_space_byte_$flag = in_free_space_byte.has_value();
-  if (in_free_space_byte.has_value()) {
-    params->free_space_byte_$value = in_free_space_byte.value();
-  }
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Executor::Name_);
-  message.set_method_name("GetFioTestDirectoryFreeSpace");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
 class Executor_GetConnectedHdmiConnectors_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static Executor::GetConnectedHdmiConnectorsCallback CreateCallback(
@@ -7738,7 +7549,7 @@ bool Executor_GetConnectedHdmiConnectors_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 27, true);
+        Executor::Name_, 26, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7885,7 +7696,7 @@ bool Executor_GetPrivacyScreenInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 28, true);
+        Executor::Name_, 27, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8019,7 +7830,7 @@ bool Executor_FetchDisplayInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 29, true);
+        Executor::Name_, 28, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8145,7 +7956,7 @@ bool Executor_FetchCrashFromCrashSender_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 30, true);
+        Executor::Name_, 29, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8273,7 +8084,7 @@ bool Executor_RunPrimeSearch_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 32, true);
+        Executor::Name_, 31, true);
     return false;
   }
   if (!callback_.is_null())
@@ -8676,9 +8487,6 @@ std::move(p_receiver));
     case internal::kExecutor_RemoveFioTestFile_Name: {
       break;
     }
-    case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name: {
-      break;
-    }
     case internal::kExecutor_GetConnectedHdmiConnectors_Name: {
       break;
     }
@@ -8715,7 +8523,7 @@ std::move(p_receiver));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 31, false);
+            Executor::Name_, 30, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -8752,7 +8560,7 @@ std::move(p_process_control));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 33, false);
+            Executor::Name_, 32, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -9288,31 +9096,6 @@ std::move(p_name), std::move(callback));
       impl->RemoveFioTestFile(std::move(callback));
       return true;
     }
-    case internal::kExecutor_GetFioTestDirectoryFreeSpace_Name: {
-
-      internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data* params =
-          reinterpret_cast<
-              internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      Executor_GetFioTestDirectoryFreeSpace_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 26, false);
-        return false;
-      }
-      Executor::GetFioTestDirectoryFreeSpaceCallback callback =
-          Executor_GetFioTestDirectoryFreeSpace_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetFioTestDirectoryFreeSpace(std::move(callback));
-      return true;
-    }
     case internal::kExecutor_GetConnectedHdmiConnectors_Name: {
 
       internal::Executor_GetConnectedHdmiConnectors_Params_Data* params =
@@ -9327,7 +9110,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 27, false);
+            Executor::Name_, 26, false);
         return false;
       }
       Executor::GetConnectedHdmiConnectorsCallback callback =
@@ -9352,7 +9135,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 28, false);
+            Executor::Name_, 27, false);
         return false;
       }
       Executor::GetPrivacyScreenInfoCallback callback =
@@ -9377,7 +9160,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 29, false);
+            Executor::Name_, 28, false);
         return false;
       }
       Executor::FetchDisplayInfoCallback callback =
@@ -9402,7 +9185,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 30, false);
+            Executor::Name_, 29, false);
         return false;
       }
       Executor::FetchCrashFromCrashSenderCallback callback =
@@ -9441,7 +9224,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 32, false);
+            Executor::Name_, 31, false);
         return false;
       }
       Executor::RunPrimeSearchCallback callback =
@@ -9516,8 +9299,6 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      nullptr /* no response */},
     {&internal::Executor_RemoveFioTestFile_Params_Data::Validate,
      &internal::Executor_RemoveFioTestFile_ResponseParams_Data::Validate},
-    {&internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data::Validate,
-     &internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data::Validate},
     {&internal::Executor_GetConnectedHdmiConnectors_Params_Data::Validate,
      &internal::Executor_GetConnectedHdmiConnectors_ResponseParams_Data::Validate},
     {&internal::Executor_GetPrivacyScreenInfo_Params_Data::Validate,
@@ -9953,9 +9734,6 @@ void ExecutorInterceptorForTesting::RunFio(FioJobArgumentPtr argument, ::mojo::P
 void ExecutorInterceptorForTesting::RemoveFioTestFile(RemoveFioTestFileCallback callback) {
   GetForwardingInterface()->RemoveFioTestFile(std::move(callback));
 }
-void ExecutorInterceptorForTesting::GetFioTestDirectoryFreeSpace(GetFioTestDirectoryFreeSpaceCallback callback) {
-  GetForwardingInterface()->GetFioTestDirectoryFreeSpace(std::move(callback));
-}
 void ExecutorInterceptorForTesting::GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) {
   GetForwardingInterface()->GetConnectedHdmiConnectors(std::move(callback));
 }
@@ -10367,29 +10145,6 @@ ExecutedProcessResultPtr ExecutorAsyncWaiter::RemoveFioTestFile(
     ) {
   ExecutedProcessResultPtr async_wait_result;
   RemoveFioTestFile(&async_wait_result);
-  return async_wait_result;
-}
-
-void ExecutorAsyncWaiter::GetFioTestDirectoryFreeSpace(
-    absl::optional<uint64_t>* out_free_space_byte) {
-  base::RunLoop loop;
-  proxy_->GetFioTestDirectoryFreeSpace(
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             absl::optional<uint64_t>* out_free_space_byte
-,
-             absl::optional<uint64_t> free_space_byte) {*out_free_space_byte = std::move(free_space_byte);
-            loop->Quit();
-          },
-          &loop,
-          out_free_space_byte));
-  loop.Run();
-}
-
-absl::optional<uint64_t> ExecutorAsyncWaiter::GetFioTestDirectoryFreeSpace(
-    ) {
-  absl::optional<uint64_t> async_wait_result;
-  GetFioTestDirectoryFreeSpace(&async_wait_result);
   return async_wait_result;
 }
 

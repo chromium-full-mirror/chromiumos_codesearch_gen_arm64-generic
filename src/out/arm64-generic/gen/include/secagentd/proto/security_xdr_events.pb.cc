@@ -133,6 +133,21 @@ struct NamespacesDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NamespacesDefaultTypeInternal _Namespaces_default_instance_;
+PROTOBUF_CONSTEXPR CommonEventVariantDataFields::CommonEventVariantDataFields(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.device_user_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.create_timestamp_us_)*/int64_t{0}} {}
+struct CommonEventVariantDataFieldsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CommonEventVariantDataFieldsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CommonEventVariantDataFieldsDefaultTypeInternal() {}
+  union {
+    CommonEventVariantDataFields _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommonEventVariantDataFieldsDefaultTypeInternal _CommonEventVariantDataFields_default_instance_;
 PROTOBUF_CONSTEXPR AgentStartEvent::AgentStartEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -227,21 +242,6 @@ struct ProcessTerminateEventDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessTerminateEventDefaultTypeInternal _ProcessTerminateEvent_default_instance_;
-PROTOBUF_CONSTEXPR CommonEventVariantDataFields::CommonEventVariantDataFields(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_._has_bits_)*/{}
-  , /*decltype(_impl_._cached_size_)*/{}
-  , /*decltype(_impl_.device_user_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.create_timestamp_us_)*/int64_t{0}} {}
-struct CommonEventVariantDataFieldsDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CommonEventVariantDataFieldsDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~CommonEventVariantDataFieldsDefaultTypeInternal() {}
-  union {
-    CommonEventVariantDataFields _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommonEventVariantDataFieldsDefaultTypeInternal _CommonEventVariantDataFields_default_instance_;
 PROTOBUF_CONSTEXPR ProcessEventAtomicVariant::ProcessEventAtomicVariant(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -3223,6 +3223,258 @@ std::string Namespaces::GetTypeName() const {
 
 // ===================================================================
 
+class CommonEventVariantDataFields::_Internal {
+ public:
+  using HasBits = decltype(std::declval<CommonEventVariantDataFields>()._impl_._has_bits_);
+  static void set_has_create_timestamp_us(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_device_user(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+CommonEventVariantDataFields::CommonEventVariantDataFields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.CommonEventVariantDataFields)
+}
+CommonEventVariantDataFields::CommonEventVariantDataFields(const CommonEventVariantDataFields& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CommonEventVariantDataFields* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.device_user_){}
+    , decltype(_impl_.create_timestamp_us_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.device_user_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.device_user_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_device_user()) {
+    _this->_impl_.device_user_.Set(from._internal_device_user(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.create_timestamp_us_ = from._impl_.create_timestamp_us_;
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.CommonEventVariantDataFields)
+}
+
+inline void CommonEventVariantDataFields::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.device_user_){}
+    , decltype(_impl_.create_timestamp_us_){int64_t{0}}
+  };
+  _impl_.device_user_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.device_user_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+CommonEventVariantDataFields::~CommonEventVariantDataFields() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.CommonEventVariantDataFields)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CommonEventVariantDataFields::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.device_user_.Destroy();
+}
+
+void CommonEventVariantDataFields::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void CommonEventVariantDataFields::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.CommonEventVariantDataFields)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    _impl_.device_user_.ClearNonDefaultToEmpty();
+  }
+  _impl_.create_timestamp_us_ = int64_t{0};
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CommonEventVariantDataFields::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional int64 create_timestamp_us = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_create_timestamp_us(&has_bits);
+          _impl_.create_timestamp_us_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string device_user = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_device_user();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CommonEventVariantDataFields::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.CommonEventVariantDataFields)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional int64 create_timestamp_us = 1;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_create_timestamp_us(), target);
+  }
+
+  // optional string device_user = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_device_user(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.CommonEventVariantDataFields)
+  return target;
+}
+
+size_t CommonEventVariantDataFields::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.CommonEventVariantDataFields)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string device_user = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_device_user());
+    }
+
+    // optional int64 create_timestamp_us = 1;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_create_timestamp_us());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CommonEventVariantDataFields::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CommonEventVariantDataFields*>(
+      &from));
+}
+
+void CommonEventVariantDataFields::MergeFrom(const CommonEventVariantDataFields& from) {
+  CommonEventVariantDataFields* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.CommonEventVariantDataFields)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_set_device_user(from._internal_device_user());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.create_timestamp_us_ = from._impl_.create_timestamp_us_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CommonEventVariantDataFields::CopyFrom(const CommonEventVariantDataFields& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.CommonEventVariantDataFields)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CommonEventVariantDataFields::IsInitialized() const {
+  return true;
+}
+
+void CommonEventVariantDataFields::InternalSwap(CommonEventVariantDataFields* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.device_user_, lhs_arena,
+      &other->_impl_.device_user_, rhs_arena
+  );
+  swap(_impl_.create_timestamp_us_, other->_impl_.create_timestamp_us_);
+}
+
+std::string CommonEventVariantDataFields::GetTypeName() const {
+  return "cros_xdr.reporting.CommonEventVariantDataFields";
+}
+
+
+// ===================================================================
+
 class AgentStartEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<AgentStartEvent>()._impl_._has_bits_);
@@ -5041,258 +5293,6 @@ void ProcessTerminateEvent::InternalSwap(ProcessTerminateEvent* other) {
 
 std::string ProcessTerminateEvent::GetTypeName() const {
   return "cros_xdr.reporting.ProcessTerminateEvent";
-}
-
-
-// ===================================================================
-
-class CommonEventVariantDataFields::_Internal {
- public:
-  using HasBits = decltype(std::declval<CommonEventVariantDataFields>()._impl_._has_bits_);
-  static void set_has_create_timestamp_us(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
-  static void set_has_device_user(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-};
-
-CommonEventVariantDataFields::CommonEventVariantDataFields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.CommonEventVariantDataFields)
-}
-CommonEventVariantDataFields::CommonEventVariantDataFields(const CommonEventVariantDataFields& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  CommonEventVariantDataFields* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){from._impl_._has_bits_}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.device_user_){}
-    , decltype(_impl_.create_timestamp_us_){}};
-
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _impl_.device_user_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.device_user_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_device_user()) {
-    _this->_impl_.device_user_.Set(from._internal_device_user(), 
-      _this->GetArenaForAllocation());
-  }
-  _this->_impl_.create_timestamp_us_ = from._impl_.create_timestamp_us_;
-  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.CommonEventVariantDataFields)
-}
-
-inline void CommonEventVariantDataFields::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_._has_bits_){}
-    , /*decltype(_impl_._cached_size_)*/{}
-    , decltype(_impl_.device_user_){}
-    , decltype(_impl_.create_timestamp_us_){int64_t{0}}
-  };
-  _impl_.device_user_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.device_user_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-}
-
-CommonEventVariantDataFields::~CommonEventVariantDataFields() {
-  // @@protoc_insertion_point(destructor:cros_xdr.reporting.CommonEventVariantDataFields)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void CommonEventVariantDataFields::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.device_user_.Destroy();
-}
-
-void CommonEventVariantDataFields::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void CommonEventVariantDataFields::Clear() {
-// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.CommonEventVariantDataFields)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    _impl_.device_user_.ClearNonDefaultToEmpty();
-  }
-  _impl_.create_timestamp_us_ = int64_t{0};
-  _impl_._has_bits_.Clear();
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* CommonEventVariantDataFields::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional int64 create_timestamp_us = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _Internal::set_has_create_timestamp_us(&has_bits);
-          _impl_.create_timestamp_us_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional string device_user = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_device_user();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  _impl_._has_bits_.Or(has_bits);
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* CommonEventVariantDataFields::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.CommonEventVariantDataFields)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = _impl_._has_bits_[0];
-  // optional int64 create_timestamp_us = 1;
-  if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_create_timestamp_us(), target);
-  }
-
-  // optional string device_user = 2;
-  if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_device_user(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.CommonEventVariantDataFields)
-  return target;
-}
-
-size_t CommonEventVariantDataFields::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.CommonEventVariantDataFields)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    // optional string device_user = 2;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_device_user());
-    }
-
-    // optional int64 create_timestamp_us = 1;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_create_timestamp_us());
-    }
-
-  }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void CommonEventVariantDataFields::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const CommonEventVariantDataFields*>(
-      &from));
-}
-
-void CommonEventVariantDataFields::MergeFrom(const CommonEventVariantDataFields& from) {
-  CommonEventVariantDataFields* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.CommonEventVariantDataFields)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      _this->_internal_set_device_user(from._internal_device_user());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _this->_impl_.create_timestamp_us_ = from._impl_.create_timestamp_us_;
-    }
-    _this->_impl_._has_bits_[0] |= cached_has_bits;
-  }
-  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void CommonEventVariantDataFields::CopyFrom(const CommonEventVariantDataFields& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.CommonEventVariantDataFields)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool CommonEventVariantDataFields::IsInitialized() const {
-  return true;
-}
-
-void CommonEventVariantDataFields::InternalSwap(CommonEventVariantDataFields* other) {
-  using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.device_user_, lhs_arena,
-      &other->_impl_.device_user_, rhs_arena
-  );
-  swap(_impl_.create_timestamp_us_, other->_impl_.create_timestamp_us_);
-}
-
-std::string CommonEventVariantDataFields::GetTypeName() const {
-  return "cros_xdr.reporting.CommonEventVariantDataFields";
 }
 
 
@@ -8349,6 +8349,10 @@ template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::Namespaces*
 Arena::CreateMaybeMessage< ::cros_xdr::reporting::Namespaces >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cros_xdr::reporting::Namespaces >(arena);
 }
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::CommonEventVariantDataFields*
+Arena::CreateMaybeMessage< ::cros_xdr::reporting::CommonEventVariantDataFields >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::CommonEventVariantDataFields >(arena);
+}
 template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::AgentStartEvent*
 Arena::CreateMaybeMessage< ::cros_xdr::reporting::AgentStartEvent >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cros_xdr::reporting::AgentStartEvent >(arena);
@@ -8372,10 +8376,6 @@ Arena::CreateMaybeMessage< ::cros_xdr::reporting::ProcessExecEvent >(Arena* aren
 template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::ProcessTerminateEvent*
 Arena::CreateMaybeMessage< ::cros_xdr::reporting::ProcessTerminateEvent >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cros_xdr::reporting::ProcessTerminateEvent >(arena);
-}
-template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::CommonEventVariantDataFields*
-Arena::CreateMaybeMessage< ::cros_xdr::reporting::CommonEventVariantDataFields >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::cros_xdr::reporting::CommonEventVariantDataFields >(arena);
 }
 template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::ProcessEventAtomicVariant*
 Arena::CreateMaybeMessage< ::cros_xdr::reporting::ProcessEventAtomicVariant >(Arena* arena) {

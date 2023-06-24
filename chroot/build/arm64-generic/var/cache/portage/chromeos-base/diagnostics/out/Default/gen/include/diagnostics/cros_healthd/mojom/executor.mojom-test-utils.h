@@ -205,7 +205,6 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetPsr(GetPsrCallback callback) override;
   void RunFio(FioJobArgumentPtr argument, ::mojo::PendingReceiver<ProcessControl> receiver) override;
   void RemoveFioTestFile(RemoveFioTestFileCallback callback) override;
-  void GetFioTestDirectoryFreeSpace(GetFioTestDirectoryFreeSpaceCallback callback) override;
   void GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) override;
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
@@ -273,9 +272,6 @@ class  ExecutorAsyncWaiter {
   void RemoveFioTestFile(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr RemoveFioTestFile();
-  void GetFioTestDirectoryFreeSpace(
-      absl::optional<uint64_t>* out_free_space_byte);
-  absl::optional<uint64_t> GetFioTestDirectoryFreeSpace();
   void GetConnectedHdmiConnectors(
       base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err);
   

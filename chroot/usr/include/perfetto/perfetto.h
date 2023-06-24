@@ -1132,6 +1132,7 @@ struct ContiguousMemoryRange {
 #ifndef INCLUDE_PERFETTO_PUBLIC_PB_UTILS_H_
 #define INCLUDE_PERFETTO_PUBLIC_PB_UTILS_H_
 
+#include <assert.h>
 #include <stdint.h>
 
 // gen_amalgamated expanded: #include "perfetto/public/compiler.h"
@@ -1199,6 +1200,42 @@ static inline const uint8_t* PerfettoPbParseVarInt(const uint8_t* start,
   }
   *out_value = 0;
   return start;
+}
+
+static inline uint32_t PerfettoPbZigZagEncode32(int32_t value) {
+#if defined(__cplusplus) || \
+    (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
+  // Right-shift of negative values is implementation specific.
+  // Assert the implementation does what we expect, which is that shifting an
+  // positive int32_t by 31 gives an all 0 bitmap, and a negative int32_t gives
+  // an all 1 bitmap.
+  static_assert(
+      PERFETTO_STATIC_CAST(uint32_t, INT32_C(-1) >> 31) == ~UINT32_C(0),
+      "implementation does not support assumed rightshift");
+  static_assert(PERFETTO_STATIC_CAST(uint32_t, INT32_C(1) >> 31) == UINT32_C(0),
+                "implementation does not support assumed rightshift");
+#endif
+
+  return (PERFETTO_STATIC_CAST(uint32_t, value) << 1) ^
+         PERFETTO_STATIC_CAST(uint32_t, value >> 31);
+}
+
+static inline uint64_t PerfettoPbZigZagEncode64(int64_t value) {
+#if defined(__cplusplus) || \
+    (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L)
+  // Right-shift of negative values is implementation specific.
+  // Assert the implementation does what we expect, which is that shifting an
+  // positive int64_t by 63 gives an all 0 bitmap, and a negative int64_t gives
+  // an all 1 bitmap.
+  static_assert(
+      PERFETTO_STATIC_CAST(uint64_t, INT64_C(-1) >> 63) == ~UINT64_C(0),
+      "implementation does not support assumed rightshift");
+  static_assert(PERFETTO_STATIC_CAST(uint64_t, INT64_C(1) >> 63) == UINT64_C(0),
+                "implementation does not support assumed rightshift");
+#endif
+
+  return (PERFETTO_STATIC_CAST(uint64_t, value) << 1) ^
+         PERFETTO_STATIC_CAST(uint64_t, value >> 63);
 }
 
 #endif  // INCLUDE_PERFETTO_PUBLIC_PB_UTILS_H_
@@ -1359,7 +1396,7 @@ inline typename std::make_unsigned<T>::type ZigZagEncode(T value) {
   // Right-shift of negative values is implementation specific.
   // Assert the implementation does what we expect, which is that shifting any
   // positive value by sizeof(T) * 8 - 1 gives an all 0 bitmap, and a negative
-  // value gives and all 1 bitmap.
+  // value gives an all 1 bitmap.
   constexpr uint64_t kUnsignedZero = 0u;
   constexpr int64_t kNegativeOne = -1;
   constexpr int64_t kPositiveOne = 1;
@@ -6332,6 +6369,8 @@ class TraceConfig;
 class TraceConfig_CmdTraceStartDelay;
 class TraceConfig_AndroidReportConfig;
 class TraceConfig_TraceFilter;
+class TraceConfig_TraceFilter_StringFilterChain;
+class TraceConfig_TraceFilter_StringFilterRule;
 class TraceConfig_IncidentReportConfig;
 class TraceConfig_IncrementalStateConfig;
 class TraceConfig_TriggerConfig;
@@ -6351,6 +6390,7 @@ class TraceConfig_BufferConfig;
 enum TraceConfig_LockdownModeOperation : int;
 enum TraceConfig_CompressionType : int;
 enum TraceConfig_StatsdLogging : int;
+enum TraceConfig_TraceFilter_StringFilterPolicy : int;
 enum TraceConfig_TriggerConfig_TriggerMode : int;
 enum BuiltinClock : int;
 enum DataSourceConfig_SessionInitiator : int;
@@ -6380,6 +6420,13 @@ enum TraceConfig_StatsdLogging : int {
   TraceConfig_StatsdLogging_STATSD_LOGGING_UNSPECIFIED = 0,
   TraceConfig_StatsdLogging_STATSD_LOGGING_ENABLED = 1,
   TraceConfig_StatsdLogging_STATSD_LOGGING_DISABLED = 2,
+};
+enum TraceConfig_TraceFilter_StringFilterPolicy : int {
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_UNSPECIFIED = 0,
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_REDACT_GROUPS = 1,
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_REDACT_GROUPS = 2,
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_BREAK = 3,
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK = 4,
 };
 enum TraceConfig_TriggerConfig_TriggerMode : int {
   TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED = 0,
@@ -6760,8 +6807,20 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_AndroidReportConfig : public ::proto
 
 class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter : public ::protozero::CppMessageObj {
  public:
+  using StringFilterRule = TraceConfig_TraceFilter_StringFilterRule;
+  using StringFilterChain = TraceConfig_TraceFilter_StringFilterChain;
+  using StringFilterPolicy = TraceConfig_TraceFilter_StringFilterPolicy;
+  static constexpr auto SFP_UNSPECIFIED = TraceConfig_TraceFilter_StringFilterPolicy_SFP_UNSPECIFIED;
+  static constexpr auto SFP_MATCH_REDACT_GROUPS = TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_REDACT_GROUPS;
+  static constexpr auto SFP_ATRACE_MATCH_REDACT_GROUPS = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_REDACT_GROUPS;
+  static constexpr auto SFP_MATCH_BREAK = TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_BREAK;
+  static constexpr auto SFP_ATRACE_MATCH_BREAK = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK;
+  static constexpr auto StringFilterPolicy_MIN = TraceConfig_TraceFilter_StringFilterPolicy_SFP_UNSPECIFIED;
+  static constexpr auto StringFilterPolicy_MAX = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK;
   enum FieldNumbers {
     kBytecodeFieldNumber = 1,
+    kBytecodeV2FieldNumber = 2,
+    kStringFilterChainFieldNumber = 3,
   };
 
   TraceConfig_TraceFilter();
@@ -6783,14 +6842,109 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter : public ::protozero::Cp
   void set_bytecode(const std::string& value) { bytecode_ = value; _has_field_.set(1); }
   void set_bytecode(const void* p, size_t s) { bytecode_.assign(reinterpret_cast<const char*>(p), s); _has_field_.set(1); }
 
+  bool has_bytecode_v2() const { return _has_field_[2]; }
+  const std::string& bytecode_v2() const { return bytecode_v2_; }
+  void set_bytecode_v2(const std::string& value) { bytecode_v2_ = value; _has_field_.set(2); }
+  void set_bytecode_v2(const void* p, size_t s) { bytecode_v2_.assign(reinterpret_cast<const char*>(p), s); _has_field_.set(2); }
+
+  bool has_string_filter_chain() const { return _has_field_[3]; }
+  const TraceConfig_TraceFilter_StringFilterChain& string_filter_chain() const { return *string_filter_chain_; }
+  TraceConfig_TraceFilter_StringFilterChain* mutable_string_filter_chain() { _has_field_.set(3); return string_filter_chain_.get(); }
+
  private:
   std::string bytecode_{};
+  std::string bytecode_v2_{};
+  ::protozero::CopyablePtr<TraceConfig_TraceFilter_StringFilterChain> string_filter_chain_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter_StringFilterChain : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kRulesFieldNumber = 1,
+  };
+
+  TraceConfig_TraceFilter_StringFilterChain();
+  ~TraceConfig_TraceFilter_StringFilterChain() override;
+  TraceConfig_TraceFilter_StringFilterChain(TraceConfig_TraceFilter_StringFilterChain&&) noexcept;
+  TraceConfig_TraceFilter_StringFilterChain& operator=(TraceConfig_TraceFilter_StringFilterChain&&);
+  TraceConfig_TraceFilter_StringFilterChain(const TraceConfig_TraceFilter_StringFilterChain&);
+  TraceConfig_TraceFilter_StringFilterChain& operator=(const TraceConfig_TraceFilter_StringFilterChain&);
+  bool operator==(const TraceConfig_TraceFilter_StringFilterChain&) const;
+  bool operator!=(const TraceConfig_TraceFilter_StringFilterChain& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<TraceConfig_TraceFilter_StringFilterRule>& rules() const { return rules_; }
+  std::vector<TraceConfig_TraceFilter_StringFilterRule>* mutable_rules() { return &rules_; }
+  int rules_size() const;
+  void clear_rules();
+  TraceConfig_TraceFilter_StringFilterRule* add_rules();
+
+ private:
+  std::vector<TraceConfig_TraceFilter_StringFilterRule> rules_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
   std::bitset<2> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter_StringFilterRule : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPolicyFieldNumber = 1,
+    kRegexPatternFieldNumber = 2,
+    kAtracePayloadStartsWithFieldNumber = 3,
+  };
+
+  TraceConfig_TraceFilter_StringFilterRule();
+  ~TraceConfig_TraceFilter_StringFilterRule() override;
+  TraceConfig_TraceFilter_StringFilterRule(TraceConfig_TraceFilter_StringFilterRule&&) noexcept;
+  TraceConfig_TraceFilter_StringFilterRule& operator=(TraceConfig_TraceFilter_StringFilterRule&&);
+  TraceConfig_TraceFilter_StringFilterRule(const TraceConfig_TraceFilter_StringFilterRule&);
+  TraceConfig_TraceFilter_StringFilterRule& operator=(const TraceConfig_TraceFilter_StringFilterRule&);
+  bool operator==(const TraceConfig_TraceFilter_StringFilterRule&) const;
+  bool operator!=(const TraceConfig_TraceFilter_StringFilterRule& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_policy() const { return _has_field_[1]; }
+  TraceConfig_TraceFilter_StringFilterPolicy policy() const { return policy_; }
+  void set_policy(TraceConfig_TraceFilter_StringFilterPolicy value) { policy_ = value; _has_field_.set(1); }
+
+  bool has_regex_pattern() const { return _has_field_[2]; }
+  const std::string& regex_pattern() const { return regex_pattern_; }
+  void set_regex_pattern(const std::string& value) { regex_pattern_ = value; _has_field_.set(2); }
+
+  bool has_atrace_payload_starts_with() const { return _has_field_[3]; }
+  const std::string& atrace_payload_starts_with() const { return atrace_payload_starts_with_; }
+  void set_atrace_payload_starts_with(const std::string& value) { atrace_payload_starts_with_ = value; _has_field_.set(3); }
+
+ private:
+  TraceConfig_TraceFilter_StringFilterPolicy policy_{};
+  std::string regex_pattern_{};
+  std::string atrace_payload_starts_with_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
 };
 
 
@@ -17716,9 +17870,8 @@ class TrackEventDataSource
   // The DecayArgType method is used to avoid unnecessary instantiations of
   // templates on:
   // * string constants of different sizes.
-  // * integers of different sizes or constness.
-  // * floats of different sizes.
-  // This allows to avoid extra instantiations of TraceForCategory templates.
+  // * primitive of different constness (or references).
+  // This avoids extra instantiations of TraceForCategory templates.
   template <typename T>
   static T&& DecayArgType(T&& t) {
     return std::forward<T>(t);
@@ -17726,15 +17879,15 @@ class TrackEventDataSource
 
   static const char* DecayArgType(const char* s) { return s; }
   static uint64_t DecayArgType(uint64_t u) { return u; }
-  static uint64_t DecayArgType(uint32_t u) { return u; }
-  static uint64_t DecayArgType(uint16_t u) { return u; }
-  static uint64_t DecayArgType(uint8_t u) { return u; }
+  static uint32_t DecayArgType(uint32_t u) { return u; }
+  static uint16_t DecayArgType(uint16_t u) { return u; }
+  static uint8_t DecayArgType(uint8_t u) { return u; }
   static int64_t DecayArgType(int64_t i) { return i; }
-  static int64_t DecayArgType(int32_t i) { return i; }
-  static int64_t DecayArgType(int16_t i) { return i; }
-  static int64_t DecayArgType(int8_t i) { return i; }
+  static int32_t DecayArgType(int32_t i) { return i; }
+  static int16_t DecayArgType(int16_t i) { return i; }
+  static int8_t DecayArgType(int8_t i) { return i; }
   static bool DecayArgType(bool b) { return b; }
-  static double DecayArgType(float f) { return static_cast<double>(f); }
+  static float DecayArgType(float f) { return f; }
   static double DecayArgType(double f) { return f; }
 
   // Once we've determined tracing to be enabled for this category, actually
@@ -17858,7 +18011,7 @@ class TrackEventDataSource
       perfetto::protos::pbzero::TrackEvent::Type type,
       CounterTrack track,
       TimestampType timestamp,
-      ValueType value) PERFETTO_ALWAYS_INLINE {
+      ValueType value) PERFETTO_NO_INLINE {
     PERFETTO_DCHECK(type == perfetto::protos::pbzero::TrackEvent::TYPE_COUNTER);
     TraceForCategoryImpl(
         instances, category, /*name=*/nullptr, type, track, timestamp,
@@ -22868,6 +23021,7 @@ class PERFETTO_EXPORT_COMPONENT TraceStats_FilterStats : public ::protozero::Cpp
     kInputBytesFieldNumber = 2,
     kOutputBytesFieldNumber = 3,
     kErrorsFieldNumber = 4,
+    kTimeTakenNsFieldNumber = 5,
   };
 
   TraceStats_FilterStats();
@@ -22900,17 +23054,22 @@ class PERFETTO_EXPORT_COMPONENT TraceStats_FilterStats : public ::protozero::Cpp
   uint64_t errors() const { return errors_; }
   void set_errors(uint64_t value) { errors_ = value; _has_field_.set(4); }
 
+  bool has_time_taken_ns() const { return _has_field_[5]; }
+  uint64_t time_taken_ns() const { return time_taken_ns_; }
+  void set_time_taken_ns(uint64_t value) { time_taken_ns_ = value; _has_field_.set(5); }
+
  private:
   uint64_t input_packets_{};
   uint64_t input_bytes_{};
   uint64_t output_bytes_{};
   uint64_t errors_{};
+  uint64_t time_taken_ns_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<5> _has_field_{};
+  std::bitset<6> _has_field_{};
 };
 
 
@@ -28661,7 +28820,7 @@ class TraceStats : public ::protozero::Message {
   }
 };
 
-class TraceStats_FilterStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TraceStats_FilterStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TraceStats_FilterStats_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceStats_FilterStats_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -28674,6 +28833,8 @@ class TraceStats_FilterStats_Decoder : public ::protozero::TypedProtoDecoder</*M
   uint64_t output_bytes() const { return at<3>().as_uint64(); }
   bool has_errors() const { return at<4>().valid(); }
   uint64_t errors() const { return at<4>().as_uint64(); }
+  bool has_time_taken_ns() const { return at<5>().valid(); }
+  uint64_t time_taken_ns() const { return at<5>().as_uint64(); }
 };
 
 class TraceStats_FilterStats : public ::protozero::Message {
@@ -28684,6 +28845,7 @@ class TraceStats_FilterStats : public ::protozero::Message {
     kInputBytesFieldNumber = 2,
     kOutputBytesFieldNumber = 3,
     kErrorsFieldNumber = 4,
+    kTimeTakenNsFieldNumber = 5,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TraceStats.FilterStats"; }
 
@@ -28753,6 +28915,24 @@ class TraceStats_FilterStats : public ::protozero::Message {
   static constexpr FieldMetadata_Errors kErrors{};
   void set_errors(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_Errors::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TimeTakenNs =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      TraceStats_FilterStats>;
+
+  static constexpr FieldMetadata_TimeTakenNs kTimeTakenNs{};
+  void set_time_taken_ns(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TimeTakenNs::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -33712,6 +33892,8 @@ class TraceConfig;
 class TraceConfig_CmdTraceStartDelay;
 class TraceConfig_AndroidReportConfig;
 class TraceConfig_TraceFilter;
+class TraceConfig_TraceFilter_StringFilterChain;
+class TraceConfig_TraceFilter_StringFilterRule;
 class TraceConfig_IncidentReportConfig;
 class TraceConfig_IncrementalStateConfig;
 class TraceConfig_TriggerConfig;
@@ -33731,6 +33913,7 @@ class TraceConfig_BufferConfig;
 enum TraceConfig_LockdownModeOperation : int;
 enum TraceConfig_CompressionType : int;
 enum TraceConfig_StatsdLogging : int;
+enum TraceConfig_TraceFilter_StringFilterPolicy : int;
 enum TraceConfig_TriggerConfig_TriggerMode : int;
 enum BuiltinClock : int;
 enum DataSourceConfig_SessionInitiator : int;
@@ -34431,6 +34614,8 @@ class TraceConfig;
 class TraceConfig_CmdTraceStartDelay;
 class TraceConfig_AndroidReportConfig;
 class TraceConfig_TraceFilter;
+class TraceConfig_TraceFilter_StringFilterChain;
+class TraceConfig_TraceFilter_StringFilterRule;
 class TraceConfig_IncidentReportConfig;
 class TraceConfig_IncrementalStateConfig;
 class TraceConfig_TriggerConfig;
@@ -34450,6 +34635,7 @@ class TraceConfig_BufferConfig;
 enum TraceConfig_LockdownModeOperation : int;
 enum TraceConfig_CompressionType : int;
 enum TraceConfig_StatsdLogging : int;
+enum TraceConfig_TraceFilter_StringFilterPolicy : int;
 enum TraceConfig_TriggerConfig_TriggerMode : int;
 enum BuiltinClock : int;
 enum DataSourceConfig_SessionInitiator : int;
@@ -34864,6 +35050,8 @@ class TraceConfig;
 class TraceConfig_CmdTraceStartDelay;
 class TraceConfig_AndroidReportConfig;
 class TraceConfig_TraceFilter;
+class TraceConfig_TraceFilter_StringFilterChain;
+class TraceConfig_TraceFilter_StringFilterRule;
 class TraceConfig_IncidentReportConfig;
 class TraceConfig_IncrementalStateConfig;
 class TraceConfig_TriggerConfig;
@@ -34883,6 +35071,7 @@ class TraceConfig_BufferConfig;
 enum TraceConfig_LockdownModeOperation : int;
 enum TraceConfig_CompressionType : int;
 enum TraceConfig_StatsdLogging : int;
+enum TraceConfig_TraceFilter_StringFilterPolicy : int;
 enum TraceConfig_TriggerConfig_TriggerMode : int;
 enum BuiltinClock : int;
 enum DataSourceConfig_SessionInitiator : int;
@@ -34912,6 +35101,13 @@ enum TraceConfig_StatsdLogging : int {
   TraceConfig_StatsdLogging_STATSD_LOGGING_UNSPECIFIED = 0,
   TraceConfig_StatsdLogging_STATSD_LOGGING_ENABLED = 1,
   TraceConfig_StatsdLogging_STATSD_LOGGING_DISABLED = 2,
+};
+enum TraceConfig_TraceFilter_StringFilterPolicy : int {
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_UNSPECIFIED = 0,
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_REDACT_GROUPS = 1,
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_REDACT_GROUPS = 2,
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_BREAK = 3,
+  TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK = 4,
 };
 enum TraceConfig_TriggerConfig_TriggerMode : int {
   TraceConfig_TriggerConfig_TriggerMode_UNSPECIFIED = 0,
@@ -35292,8 +35488,20 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_AndroidReportConfig : public ::proto
 
 class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter : public ::protozero::CppMessageObj {
  public:
+  using StringFilterRule = TraceConfig_TraceFilter_StringFilterRule;
+  using StringFilterChain = TraceConfig_TraceFilter_StringFilterChain;
+  using StringFilterPolicy = TraceConfig_TraceFilter_StringFilterPolicy;
+  static constexpr auto SFP_UNSPECIFIED = TraceConfig_TraceFilter_StringFilterPolicy_SFP_UNSPECIFIED;
+  static constexpr auto SFP_MATCH_REDACT_GROUPS = TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_REDACT_GROUPS;
+  static constexpr auto SFP_ATRACE_MATCH_REDACT_GROUPS = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_REDACT_GROUPS;
+  static constexpr auto SFP_MATCH_BREAK = TraceConfig_TraceFilter_StringFilterPolicy_SFP_MATCH_BREAK;
+  static constexpr auto SFP_ATRACE_MATCH_BREAK = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK;
+  static constexpr auto StringFilterPolicy_MIN = TraceConfig_TraceFilter_StringFilterPolicy_SFP_UNSPECIFIED;
+  static constexpr auto StringFilterPolicy_MAX = TraceConfig_TraceFilter_StringFilterPolicy_SFP_ATRACE_MATCH_BREAK;
   enum FieldNumbers {
     kBytecodeFieldNumber = 1,
+    kBytecodeV2FieldNumber = 2,
+    kStringFilterChainFieldNumber = 3,
   };
 
   TraceConfig_TraceFilter();
@@ -35315,14 +35523,109 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter : public ::protozero::Cp
   void set_bytecode(const std::string& value) { bytecode_ = value; _has_field_.set(1); }
   void set_bytecode(const void* p, size_t s) { bytecode_.assign(reinterpret_cast<const char*>(p), s); _has_field_.set(1); }
 
+  bool has_bytecode_v2() const { return _has_field_[2]; }
+  const std::string& bytecode_v2() const { return bytecode_v2_; }
+  void set_bytecode_v2(const std::string& value) { bytecode_v2_ = value; _has_field_.set(2); }
+  void set_bytecode_v2(const void* p, size_t s) { bytecode_v2_.assign(reinterpret_cast<const char*>(p), s); _has_field_.set(2); }
+
+  bool has_string_filter_chain() const { return _has_field_[3]; }
+  const TraceConfig_TraceFilter_StringFilterChain& string_filter_chain() const { return *string_filter_chain_; }
+  TraceConfig_TraceFilter_StringFilterChain* mutable_string_filter_chain() { _has_field_.set(3); return string_filter_chain_.get(); }
+
  private:
   std::string bytecode_{};
+  std::string bytecode_v2_{};
+  ::protozero::CopyablePtr<TraceConfig_TraceFilter_StringFilterChain> string_filter_chain_;
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter_StringFilterChain : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kRulesFieldNumber = 1,
+  };
+
+  TraceConfig_TraceFilter_StringFilterChain();
+  ~TraceConfig_TraceFilter_StringFilterChain() override;
+  TraceConfig_TraceFilter_StringFilterChain(TraceConfig_TraceFilter_StringFilterChain&&) noexcept;
+  TraceConfig_TraceFilter_StringFilterChain& operator=(TraceConfig_TraceFilter_StringFilterChain&&);
+  TraceConfig_TraceFilter_StringFilterChain(const TraceConfig_TraceFilter_StringFilterChain&);
+  TraceConfig_TraceFilter_StringFilterChain& operator=(const TraceConfig_TraceFilter_StringFilterChain&);
+  bool operator==(const TraceConfig_TraceFilter_StringFilterChain&) const;
+  bool operator!=(const TraceConfig_TraceFilter_StringFilterChain& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  const std::vector<TraceConfig_TraceFilter_StringFilterRule>& rules() const { return rules_; }
+  std::vector<TraceConfig_TraceFilter_StringFilterRule>* mutable_rules() { return &rules_; }
+  int rules_size() const;
+  void clear_rules();
+  TraceConfig_TraceFilter_StringFilterRule* add_rules();
+
+ private:
+  std::vector<TraceConfig_TraceFilter_StringFilterRule> rules_;
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
   std::bitset<2> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT TraceConfig_TraceFilter_StringFilterRule : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kPolicyFieldNumber = 1,
+    kRegexPatternFieldNumber = 2,
+    kAtracePayloadStartsWithFieldNumber = 3,
+  };
+
+  TraceConfig_TraceFilter_StringFilterRule();
+  ~TraceConfig_TraceFilter_StringFilterRule() override;
+  TraceConfig_TraceFilter_StringFilterRule(TraceConfig_TraceFilter_StringFilterRule&&) noexcept;
+  TraceConfig_TraceFilter_StringFilterRule& operator=(TraceConfig_TraceFilter_StringFilterRule&&);
+  TraceConfig_TraceFilter_StringFilterRule(const TraceConfig_TraceFilter_StringFilterRule&);
+  TraceConfig_TraceFilter_StringFilterRule& operator=(const TraceConfig_TraceFilter_StringFilterRule&);
+  bool operator==(const TraceConfig_TraceFilter_StringFilterRule&) const;
+  bool operator!=(const TraceConfig_TraceFilter_StringFilterRule& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_policy() const { return _has_field_[1]; }
+  TraceConfig_TraceFilter_StringFilterPolicy policy() const { return policy_; }
+  void set_policy(TraceConfig_TraceFilter_StringFilterPolicy value) { policy_ = value; _has_field_.set(1); }
+
+  bool has_regex_pattern() const { return _has_field_[2]; }
+  const std::string& regex_pattern() const { return regex_pattern_; }
+  void set_regex_pattern(const std::string& value) { regex_pattern_ = value; _has_field_.set(2); }
+
+  bool has_atrace_payload_starts_with() const { return _has_field_[3]; }
+  const std::string& atrace_payload_starts_with() const { return atrace_payload_starts_with_; }
+  void set_atrace_payload_starts_with(const std::string& value) { atrace_payload_starts_with_ = value; _has_field_.set(3); }
+
+ private:
+  TraceConfig_TraceFilter_StringFilterPolicy policy_{};
+  std::string regex_pattern_{};
+  std::string atrace_payload_starts_with_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
 };
 
 
@@ -45796,6 +46099,8 @@ class TraceConfig_IncrementalStateConfig;
 class TraceConfig_ProducerConfig;
 class TraceConfig_StatsdMetadata;
 class TraceConfig_TraceFilter;
+class TraceConfig_TraceFilter_StringFilterChain;
+class TraceConfig_TraceFilter_StringFilterRule;
 class TraceConfig_TriggerConfig;
 class TraceConfig_TriggerConfig_Trigger;
 enum BuiltinClock : int32_t;
@@ -45815,6 +46120,10 @@ namespace perfetto_pbzero_enum_TraceConfig {
 enum StatsdLogging : int32_t;
 }  // namespace perfetto_pbzero_enum_TraceConfig
 using TraceConfig_StatsdLogging = perfetto_pbzero_enum_TraceConfig::StatsdLogging;
+namespace perfetto_pbzero_enum_TraceConfig_TraceFilter {
+enum StringFilterPolicy : int32_t;
+}  // namespace perfetto_pbzero_enum_TraceConfig_TraceFilter
+using TraceConfig_TraceFilter_StringFilterPolicy = perfetto_pbzero_enum_TraceConfig_TraceFilter::StringFilterPolicy;
 namespace perfetto_pbzero_enum_TraceConfig_TriggerConfig {
 enum TriggerMode : int32_t;
 }  // namespace perfetto_pbzero_enum_TraceConfig_TriggerConfig
@@ -45899,6 +46208,43 @@ const char* TraceConfig_StatsdLogging_Name(::perfetto::protos::pbzero::TraceConf
 
   case ::perfetto::protos::pbzero::TraceConfig_StatsdLogging::STATSD_LOGGING_DISABLED:
     return "STATSD_LOGGING_DISABLED";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_TraceConfig_TraceFilter {
+enum StringFilterPolicy : int32_t {
+  SFP_UNSPECIFIED = 0,
+  SFP_MATCH_REDACT_GROUPS = 1,
+  SFP_ATRACE_MATCH_REDACT_GROUPS = 2,
+  SFP_MATCH_BREAK = 3,
+  SFP_ATRACE_MATCH_BREAK = 4,
+};
+} // namespace perfetto_pbzero_enum_TraceConfig_TraceFilter
+using TraceConfig_TraceFilter_StringFilterPolicy = perfetto_pbzero_enum_TraceConfig_TraceFilter::StringFilterPolicy;
+
+
+constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter_StringFilterPolicy_MIN = TraceConfig_TraceFilter_StringFilterPolicy::SFP_UNSPECIFIED;
+constexpr TraceConfig_TraceFilter_StringFilterPolicy TraceConfig_TraceFilter_StringFilterPolicy_MAX = TraceConfig_TraceFilter_StringFilterPolicy::SFP_ATRACE_MATCH_BREAK;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* TraceConfig_TraceFilter_StringFilterPolicy_Name(::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy::SFP_UNSPECIFIED:
+    return "SFP_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy::SFP_MATCH_REDACT_GROUPS:
+    return "SFP_MATCH_REDACT_GROUPS";
+
+  case ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy::SFP_ATRACE_MATCH_REDACT_GROUPS:
+    return "SFP_ATRACE_MATCH_REDACT_GROUPS";
+
+  case ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy::SFP_MATCH_BREAK:
+    return "SFP_MATCH_BREAK";
+
+  case ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy::SFP_ATRACE_MATCH_BREAK:
+    return "SFP_ATRACE_MATCH_BREAK";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -46870,13 +47216,17 @@ class TraceConfig_AndroidReportConfig : public ::protozero::Message {
   }
 };
 
-class TraceConfig_TraceFilter_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TraceConfig_TraceFilter_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TraceConfig_TraceFilter_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceConfig_TraceFilter_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit TraceConfig_TraceFilter_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_bytecode() const { return at<1>().valid(); }
   ::protozero::ConstBytes bytecode() const { return at<1>().as_bytes(); }
+  bool has_bytecode_v2() const { return at<2>().valid(); }
+  ::protozero::ConstBytes bytecode_v2() const { return at<2>().as_bytes(); }
+  bool has_string_filter_chain() const { return at<3>().valid(); }
+  ::protozero::ConstBytes string_filter_chain() const { return at<3>().as_bytes(); }
 };
 
 class TraceConfig_TraceFilter : public ::protozero::Message {
@@ -46884,9 +47234,23 @@ class TraceConfig_TraceFilter : public ::protozero::Message {
   using Decoder = TraceConfig_TraceFilter_Decoder;
   enum : int32_t {
     kBytecodeFieldNumber = 1,
+    kBytecodeV2FieldNumber = 2,
+    kStringFilterChainFieldNumber = 3,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TraceConfig.TraceFilter"; }
 
+  using StringFilterRule = ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterRule;
+  using StringFilterChain = ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterChain;
+
+  using StringFilterPolicy = ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy;
+  static inline const char* StringFilterPolicy_Name(StringFilterPolicy value) {
+    return ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy_Name(value);
+  }
+  static inline const StringFilterPolicy SFP_UNSPECIFIED = StringFilterPolicy::SFP_UNSPECIFIED;
+  static inline const StringFilterPolicy SFP_MATCH_REDACT_GROUPS = StringFilterPolicy::SFP_MATCH_REDACT_GROUPS;
+  static inline const StringFilterPolicy SFP_ATRACE_MATCH_REDACT_GROUPS = StringFilterPolicy::SFP_ATRACE_MATCH_REDACT_GROUPS;
+  static inline const StringFilterPolicy SFP_MATCH_BREAK = StringFilterPolicy::SFP_MATCH_BREAK;
+  static inline const StringFilterPolicy SFP_ATRACE_MATCH_BREAK = StringFilterPolicy::SFP_ATRACE_MATCH_BREAK;
 
   using FieldMetadata_Bytecode =
     ::protozero::proto_utils::FieldMetadata<
@@ -46909,6 +47273,168 @@ class TraceConfig_TraceFilter : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kBytes>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_BytecodeV2 =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBytes,
+      std::string,
+      TraceConfig_TraceFilter>;
+
+  static constexpr FieldMetadata_BytecodeV2 kBytecodeV2{};
+  void set_bytecode_v2(const uint8_t* data, size_t size) {
+    AppendBytes(FieldMetadata_BytecodeV2::kFieldId, data, size);
+  }
+  void set_bytecode_v2(::protozero::ConstBytes bytes) {
+    AppendBytes(FieldMetadata_BytecodeV2::kFieldId, bytes.data, bytes.size);
+  }
+  void set_bytecode_v2(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_BytecodeV2::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBytes>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_StringFilterChain =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      TraceConfig_TraceFilter_StringFilterChain,
+      TraceConfig_TraceFilter>;
+
+  static constexpr FieldMetadata_StringFilterChain kStringFilterChain{};
+  template <typename T = TraceConfig_TraceFilter_StringFilterChain> T* set_string_filter_chain() {
+    return BeginNestedMessage<T>(3);
+  }
+
+};
+
+class TraceConfig_TraceFilter_StringFilterChain_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+ public:
+  TraceConfig_TraceFilter_StringFilterChain_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit TraceConfig_TraceFilter_StringFilterChain_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit TraceConfig_TraceFilter_StringFilterChain_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_rules() const { return at<1>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> rules() const { return GetRepeated<::protozero::ConstBytes>(1); }
+};
+
+class TraceConfig_TraceFilter_StringFilterChain : public ::protozero::Message {
+ public:
+  using Decoder = TraceConfig_TraceFilter_StringFilterChain_Decoder;
+  enum : int32_t {
+    kRulesFieldNumber = 1,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.TraceConfig.TraceFilter.StringFilterChain"; }
+
+
+  using FieldMetadata_Rules =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      TraceConfig_TraceFilter_StringFilterRule,
+      TraceConfig_TraceFilter_StringFilterChain>;
+
+  static constexpr FieldMetadata_Rules kRules{};
+  template <typename T = TraceConfig_TraceFilter_StringFilterRule> T* add_rules() {
+    return BeginNestedMessage<T>(1);
+  }
+
+};
+
+class TraceConfig_TraceFilter_StringFilterRule_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  TraceConfig_TraceFilter_StringFilterRule_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit TraceConfig_TraceFilter_StringFilterRule_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit TraceConfig_TraceFilter_StringFilterRule_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_policy() const { return at<1>().valid(); }
+  int32_t policy() const { return at<1>().as_int32(); }
+  bool has_regex_pattern() const { return at<2>().valid(); }
+  ::protozero::ConstChars regex_pattern() const { return at<2>().as_string(); }
+  bool has_atrace_payload_starts_with() const { return at<3>().valid(); }
+  ::protozero::ConstChars atrace_payload_starts_with() const { return at<3>().as_string(); }
+};
+
+class TraceConfig_TraceFilter_StringFilterRule : public ::protozero::Message {
+ public:
+  using Decoder = TraceConfig_TraceFilter_StringFilterRule_Decoder;
+  enum : int32_t {
+    kPolicyFieldNumber = 1,
+    kRegexPatternFieldNumber = 2,
+    kAtracePayloadStartsWithFieldNumber = 3,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.TraceConfig.TraceFilter.StringFilterRule"; }
+
+
+  using FieldMetadata_Policy =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy,
+      TraceConfig_TraceFilter_StringFilterRule>;
+
+  static constexpr FieldMetadata_Policy kPolicy{};
+  void set_policy(::perfetto::protos::pbzero::TraceConfig_TraceFilter_StringFilterPolicy value) {
+    static constexpr uint32_t field_id = FieldMetadata_Policy::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_RegexPattern =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      TraceConfig_TraceFilter_StringFilterRule>;
+
+  static constexpr FieldMetadata_RegexPattern kRegexPattern{};
+  void set_regex_pattern(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_RegexPattern::kFieldId, data, size);
+  }
+  void set_regex_pattern(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_RegexPattern::kFieldId, chars.data, chars.size);
+  }
+  void set_regex_pattern(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_RegexPattern::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_AtracePayloadStartsWith =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      TraceConfig_TraceFilter_StringFilterRule>;
+
+  static constexpr FieldMetadata_AtracePayloadStartsWith kAtracePayloadStartsWith{};
+  void set_atrace_payload_starts_with(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_AtracePayloadStartsWith::kFieldId, data, size);
+  }
+  void set_atrace_payload_starts_with(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_AtracePayloadStartsWith::kFieldId, chars.data, chars.size);
+  }
+  void set_atrace_payload_starts_with(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_AtracePayloadStartsWith::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
         ::Append(*this, field_id, value);
   }
 };
@@ -139102,6 +139628,24 @@ class TestExtension : public ::perfetto::protos::pbzero::TrackEvent {
     return BeginNestedMessage<T>(9903);
   }
 
+
+  using FieldMetadata_UintExtensionForTesting =
+    ::protozero::proto_utils::FieldMetadata<
+      9904,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      TestExtension>;
+
+  static constexpr FieldMetadata_UintExtensionForTesting kUintExtensionForTesting{};
+  void set_uint_extension_for_testing(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_UintExtensionForTesting::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
 };
 } // Namespace.
 } // Namespace.
@@ -146393,6 +146937,8 @@ class TraceConfig;
 class TraceConfig_CmdTraceStartDelay;
 class TraceConfig_AndroidReportConfig;
 class TraceConfig_TraceFilter;
+class TraceConfig_TraceFilter_StringFilterChain;
+class TraceConfig_TraceFilter_StringFilterRule;
 class TraceConfig_IncidentReportConfig;
 class TraceConfig_IncrementalStateConfig;
 class TraceConfig_TriggerConfig;
@@ -146433,6 +146979,7 @@ enum TraceStats_FinalFlushOutcome : int;
 enum TraceConfig_LockdownModeOperation : int;
 enum TraceConfig_CompressionType : int;
 enum TraceConfig_StatsdLogging : int;
+enum TraceConfig_TraceFilter_StringFilterPolicy : int;
 enum TraceConfig_TriggerConfig_TriggerMode : int;
 enum BuiltinClock : int;
 enum DataSourceConfig_SessionInitiator : int;
@@ -151026,7 +151573,7 @@ inline typename std::make_unsigned<T>::type ZigZagEncode(T value) {
   // Right-shift of negative values is implementation specific.
   // Assert the implementation does what we expect, which is that shifting any
   // positive value by sizeof(T) * 8 - 1 gives an all 0 bitmap, and a negative
-  // value gives and all 1 bitmap.
+  // value gives an all 1 bitmap.
   constexpr uint64_t kUnsignedZero = 0u;
   constexpr int64_t kNegativeOne = -1;
   constexpr int64_t kPositiveOne = 1;

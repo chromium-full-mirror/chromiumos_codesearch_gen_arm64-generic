@@ -183,6 +183,7 @@ PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
   , /*decltype(_impl_.native_bridge_experiment_)*/0
   , /*decltype(_impl_.ureadahead_mode_)*/0
   , /*decltype(_impl_.enable_vmm_swap_)*/false
+  , /*decltype(_impl_.guest_zram_mib_)*/0u
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StartArcVmRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartArcVmRequestDefaultTypeInternal()
@@ -5521,6 +5522,7 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     , decltype(_impl_.native_bridge_experiment_){}
     , decltype(_impl_.ureadahead_mode_){}
     , decltype(_impl_.enable_vmm_swap_){}
+    , decltype(_impl_.guest_zram_mib_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -5555,8 +5557,8 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     _this->_impl_.mini_instance_request_ = new ::arc::StartArcMiniInstanceRequest(*from._impl_.mini_instance_request_);
   }
   ::memcpy(&_impl_.cpus_, &from._impl_.cpus_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.enable_vmm_swap_) -
-    reinterpret_cast<char*>(&_impl_.cpus_)) + sizeof(_impl_.enable_vmm_swap_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.guest_zram_mib_) -
+    reinterpret_cast<char*>(&_impl_.cpus_)) + sizeof(_impl_.guest_zram_mib_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartArcVmRequest)
 }
 
@@ -5597,6 +5599,7 @@ inline void StartArcVmRequest::SharedCtor(
     , decltype(_impl_.native_bridge_experiment_){0}
     , decltype(_impl_.ureadahead_mode_){0}
     , decltype(_impl_.enable_vmm_swap_){false}
+    , decltype(_impl_.guest_zram_mib_){0u}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
@@ -5655,8 +5658,8 @@ void StartArcVmRequest::Clear() {
   }
   _impl_.mini_instance_request_ = nullptr;
   ::memset(&_impl_.cpus_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.enable_vmm_swap_) -
-      reinterpret_cast<char*>(&_impl_.cpus_)) + sizeof(_impl_.enable_vmm_swap_));
+      reinterpret_cast<char*>(&_impl_.guest_zram_mib_) -
+      reinterpret_cast<char*>(&_impl_.cpus_)) + sizeof(_impl_.guest_zram_mib_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5838,7 +5841,7 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // int32 guest_zram_size = 32;
+      // int32 guest_zram_size = 32 [deprecated = true];
       case 32:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
           _impl_.guest_zram_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
@@ -5933,6 +5936,14 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 43:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           _impl_.enable_vmm_swap_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 guest_zram_mib = 44;
+      case 44:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          _impl_.guest_zram_mib_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6102,7 +6113,7 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(28, this->_internal_vm_memory_psi_period(), target);
   }
 
-  // int32 guest_zram_size = 32;
+  // int32 guest_zram_size = 32 [deprecated = true];
   if (this->_internal_guest_zram_size() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(32, this->_internal_guest_zram_size(), target);
@@ -6176,6 +6187,12 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
   if (this->_internal_enable_vmm_swap() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(43, this->_internal_enable_vmm_swap(), target);
+  }
+
+  // uint32 guest_zram_mib = 44;
+  if (this->_internal_guest_zram_mib() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(44, this->_internal_guest_zram_mib(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6311,7 +6328,7 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         this->_internal_vm_memory_psi_period());
   }
 
-  // int32 guest_zram_size = 32;
+  // int32 guest_zram_size = 32 [deprecated = true];
   if (this->_internal_guest_zram_size() != 0) {
     total_size += 2 +
       ::_pbi::WireFormatLite::Int32Size(
@@ -6380,6 +6397,13 @@ size_t StartArcVmRequest::ByteSizeLong() const {
   // bool enable_vmm_swap = 43;
   if (this->_internal_enable_vmm_swap() != 0) {
     total_size += 2 + 1;
+  }
+
+  // uint32 guest_zram_mib = 44;
+  if (this->_internal_guest_zram_mib() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::UInt32Size(
+        this->_internal_guest_zram_mib());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6499,6 +6523,9 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_enable_vmm_swap() != 0) {
     _this->_internal_set_enable_vmm_swap(from._internal_enable_vmm_swap());
   }
+  if (from._internal_guest_zram_mib() != 0) {
+    _this->_internal_set_guest_zram_mib(from._internal_guest_zram_mib());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -6532,8 +6559,8 @@ void StartArcVmRequest::InternalSwap(StartArcVmRequest* other) {
       &other->_impl_.fstab_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, _impl_.enable_vmm_swap_)
-      + sizeof(StartArcVmRequest::_impl_.enable_vmm_swap_)
+      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, _impl_.guest_zram_mib_)
+      + sizeof(StartArcVmRequest::_impl_.guest_zram_mib_)
       - PROTOBUF_FIELD_OFFSET(StartArcVmRequest, _impl_.vm_)>(
           reinterpret_cast<char*>(&_impl_.vm_),
           reinterpret_cast<char*>(&other->_impl_.vm_));

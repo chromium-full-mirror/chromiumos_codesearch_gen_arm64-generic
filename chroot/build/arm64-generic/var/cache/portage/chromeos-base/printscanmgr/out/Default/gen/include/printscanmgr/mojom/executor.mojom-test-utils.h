@@ -16,7 +16,6 @@ namespace mojom {
 
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
-  void StopUpstartJob(UpstartJob job, StopUpstartJobCallback callback) override;
   void RestartUpstartJob(UpstartJob job, RestartUpstartJobCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
@@ -27,9 +26,6 @@ class  ExecutorAsyncWaiter {
   ExecutorAsyncWaiter& operator=(const ExecutorAsyncWaiter&) = delete;
 
   ~ExecutorAsyncWaiter();
-  void StopUpstartJob(
-      UpstartJob job, bool* out_success, std::string* out_errorMsg);
-  
   void RestartUpstartJob(
       UpstartJob job, bool* out_success, std::string* out_errorMsg);
   

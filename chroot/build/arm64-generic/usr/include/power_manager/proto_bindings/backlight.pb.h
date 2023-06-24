@@ -108,11 +108,12 @@ enum BacklightBrightnessChange_Cause : int {
   BacklightBrightnessChange_Cause_MODEL = 9,
   BacklightBrightnessChange_Cause_WAKE_NOTIFICATION = 10,
   BacklightBrightnessChange_Cause_USER_TOGGLED_OFF = 11,
-  BacklightBrightnessChange_Cause_USER_TOGGLED_ON = 12
+  BacklightBrightnessChange_Cause_USER_TOGGLED_ON = 12,
+  BacklightBrightnessChange_Cause_BATTERY_SAVER_STATE_CHANGED = 13
 };
 bool BacklightBrightnessChange_Cause_IsValid(int value);
 constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange_Cause_Cause_MIN = BacklightBrightnessChange_Cause_USER_REQUEST;
-constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange_Cause_Cause_MAX = BacklightBrightnessChange_Cause_USER_TOGGLED_ON;
+constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange_Cause_Cause_MAX = BacklightBrightnessChange_Cause_BATTERY_SAVER_STATE_CHANGED;
 constexpr int BacklightBrightnessChange_Cause_Cause_ARRAYSIZE = BacklightBrightnessChange_Cause_Cause_MAX + 1;
 
 const std::string& BacklightBrightnessChange_Cause_Name(BacklightBrightnessChange_Cause value);
@@ -487,6 +488,8 @@ class BacklightBrightnessChange final :
     BacklightBrightnessChange_Cause_USER_TOGGLED_OFF;
   static constexpr Cause USER_TOGGLED_ON =
     BacklightBrightnessChange_Cause_USER_TOGGLED_ON;
+  static constexpr Cause BATTERY_SAVER_STATE_CHANGED =
+    BacklightBrightnessChange_Cause_BATTERY_SAVER_STATE_CHANGED;
   static inline bool Cause_IsValid(int value) {
     return BacklightBrightnessChange_Cause_IsValid(value);
   }

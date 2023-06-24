@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <fcntl.h>
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -18,7 +19,6 @@
 #include <base/logging.h>
 #include <base/memory/ref_counted.h>
 #include <base/posix/eintr_wrapper.h>
-#include <base/system/sys_info.h>
 #include <chromeos/ec/ec_commands.h>
 #include <libec/fingerprint/fp_frame_command.h>
 #include <libec/fingerprint/fp_info_command.h>
@@ -332,7 +332,7 @@ void DelegateImpl::GetLidAngle(GetLidAngleCallback callback) {
 }
 
 void DelegateImpl::GetPsr(GetPsrCallback callback) {
-  auto mei_path = base::FilePath(::psr::kCrosMeiPath);
+  auto mei_path = base::FilePath(psr::kCrosMeiPath);
   auto fd = base::ScopedFD(
       HANDLE_EINTR(open(mei_path.value().c_str(), O_RDWR, S_IRUSR | S_IWUSR)));
   auto result = mojom::PsrInfo::New();
@@ -417,17 +417,6 @@ void DelegateImpl::GetPsr(GetPsrCallback callback) {
   }
 
   std::move(callback).Run(std::move(result), std::nullopt);
-}
-
-void DelegateImpl::GetAmountOfFreeDiskSpace(
-    const std::string& path, GetAmountOfFreeDiskSpaceCallback callback) {
-  const auto free_space =
-      base::SysInfo::AmountOfFreeDiskSpace(base::FilePath(path));
-  if (free_space < 0) {
-    std::move(callback).Run(std::nullopt);
-    return;
-  }
-  std::move(callback).Run(free_space);
 }
 
 void DelegateImpl::GetConnectedHdmiConnectors(

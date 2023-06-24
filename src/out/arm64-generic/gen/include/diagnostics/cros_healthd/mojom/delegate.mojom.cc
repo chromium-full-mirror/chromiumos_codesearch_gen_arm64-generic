@@ -87,9 +87,6 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_GetPsr_Name: {
       return &Delegate::GetPsr_Sym::IPCStableHash;
     }
-    case internal::kDelegate_GetAmountOfFreeDiskSpace_Name: {
-      return &Delegate::GetAmountOfFreeDiskSpace_Sym::IPCStableHash;
-    }
     case internal::kDelegate_GetConnectedHdmiConnectors_Name: {
       return &Delegate::GetConnectedHdmiConnectors_Sym::IPCStableHash;
     }
@@ -143,8 +140,6 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::GetLidAngle";
       case internal::kDelegate_GetPsr_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::GetPsr";
-      case internal::kDelegate_GetAmountOfFreeDiskSpace_Name:
-            return "Receive ash::cros_healthd::mojom::Delegate::GetAmountOfFreeDiskSpace";
       case internal::kDelegate_GetConnectedHdmiConnectors_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors";
       case internal::kDelegate_GetPrivacyScreenInfo_Name:
@@ -184,8 +179,6 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetLidAngle";
       case internal::kDelegate_GetPsr_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetPsr";
-      case internal::kDelegate_GetAmountOfFreeDiskSpace_Name:
-            return "Receive reply ash::cros_healthd::mojom::Delegate::GetAmountOfFreeDiskSpace";
       case internal::kDelegate_GetConnectedHdmiConnectors_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors";
       case internal::kDelegate_GetPrivacyScreenInfo_Name:
@@ -364,19 +357,6 @@ uint32_t Delegate::GetPsr_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Delegate::GetPsr");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t Delegate::GetAmountOfFreeDiskSpace_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::Delegate::GetAmountOfFreeDiskSpace");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -571,22 +551,6 @@ class Delegate_GetPsr_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Delegate::GetPsrCallback callback_;
-};
-
-class Delegate_GetAmountOfFreeDiskSpace_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  Delegate_GetAmountOfFreeDiskSpace_ForwardToCallback(
-      Delegate::GetAmountOfFreeDiskSpaceCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  Delegate_GetAmountOfFreeDiskSpace_ForwardToCallback(const Delegate_GetAmountOfFreeDiskSpace_ForwardToCallback&) = delete;
-  Delegate_GetAmountOfFreeDiskSpace_ForwardToCallback& operator=(const Delegate_GetAmountOfFreeDiskSpace_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  Delegate::GetAmountOfFreeDiskSpaceCallback callback_;
 };
 
 class Delegate_GetConnectedHdmiConnectors_ForwardToCallback
@@ -1117,55 +1081,6 @@ void DelegateProxy::GetPsr(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Delegate_GetPsr_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void DelegateProxy::GetAmountOfFreeDiskSpace(
-    const std::string& in_path, GetAmountOfFreeDiskSpaceCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::Delegate::GetAmountOfFreeDiskSpace", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("path"), in_path,
-                        "<value of type const std::string&>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDelegate_GetAmountOfFreeDiskSpace_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::Delegate_GetAmountOfFreeDiskSpace_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->path)::BaseType> path_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_path, path_fragment);
-  params->path.Set(
-      path_fragment.is_null() ? nullptr : path_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->path.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null path in Delegate.GetAmountOfFreeDiskSpace request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Delegate::Name_);
-  message.set_method_name("GetAmountOfFreeDiskSpace");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Delegate_GetAmountOfFreeDiskSpace_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -2313,128 +2228,6 @@ void Delegate_GetPsr_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class Delegate_GetAmountOfFreeDiskSpace_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static Delegate::GetAmountOfFreeDiskSpaceCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<Delegate_GetAmountOfFreeDiskSpace_ProxyToResponder> proxy(
-        new Delegate_GetAmountOfFreeDiskSpace_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&Delegate_GetAmountOfFreeDiskSpace_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~Delegate_GetAmountOfFreeDiskSpace_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  Delegate_GetAmountOfFreeDiskSpace_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "Delegate::GetAmountOfFreeDiskSpaceCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      absl::optional<uint64_t> in_free_space_byte);
-};
-
-bool Delegate_GetAmountOfFreeDiskSpace_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  absl::optional<uint64_t> p_free_space_byte{};
-  Delegate_GetAmountOfFreeDiskSpace_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success) {
-    p_free_space_byte = input_data_view.free_space_byte();
-  }
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Delegate::Name_, 12, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_free_space_byte));
-  return true;
-}
-
-void Delegate_GetAmountOfFreeDiskSpace_ProxyToResponder::Run(
-    absl::optional<uint64_t> in_free_space_byte) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetAmountOfFreeDiskSpace", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("free_space_byte"), in_free_space_byte,
-                        "<value of type absl::optional<uint64_t>>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kDelegate_GetAmountOfFreeDiskSpace_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->free_space_byte_$flag = in_free_space_byte.has_value();
-  if (in_free_space_byte.has_value()) {
-    params->free_space_byte_$value = in_free_space_byte.value();
-  }
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Delegate::Name_);
-  message.set_method_name("GetAmountOfFreeDiskSpace");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
 class Delegate_GetConnectedHdmiConnectors_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static Delegate::GetConnectedHdmiConnectorsCallback CreateCallback(
@@ -2506,7 +2299,7 @@ bool Delegate_GetConnectedHdmiConnectors_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Delegate::Name_, 13, true);
+        Delegate::Name_, 12, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2653,7 +2446,7 @@ bool Delegate_GetPrivacyScreenInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Delegate::Name_, 14, true);
+        Delegate::Name_, 13, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2787,7 +2580,7 @@ bool Delegate_FetchDisplayInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Delegate::Name_, 15, true);
+        Delegate::Name_, 14, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2913,7 +2706,7 @@ bool Delegate_RunPrimeSearch_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Delegate::Name_, 17, true);
+        Delegate::Name_, 16, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3130,9 +2923,6 @@ std::move(p_observer));
     case internal::kDelegate_GetPsr_Name: {
       break;
     }
-    case internal::kDelegate_GetAmountOfFreeDiskSpace_Name: {
-      break;
-    }
     case internal::kDelegate_GetConnectedHdmiConnectors_Name: {
       break;
     }
@@ -3161,7 +2951,7 @@ std::move(p_observer));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Delegate::Name_, 16, false);
+            Delegate::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3192,7 +2982,7 @@ std::move(p_observer));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Delegate::Name_, 18, false);
+            Delegate::Name_, 17, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3420,35 +3210,6 @@ std::move(p_name), std::move(callback));
       impl->GetPsr(std::move(callback));
       return true;
     }
-    case internal::kDelegate_GetAmountOfFreeDiskSpace_Name: {
-
-      internal::Delegate_GetAmountOfFreeDiskSpace_Params_Data* params =
-          reinterpret_cast<
-              internal::Delegate_GetAmountOfFreeDiskSpace_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      std::string p_path{};
-      Delegate_GetAmountOfFreeDiskSpace_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadPath(&p_path))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Delegate::Name_, 12, false);
-        return false;
-      }
-      Delegate::GetAmountOfFreeDiskSpaceCallback callback =
-          Delegate_GetAmountOfFreeDiskSpace_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetAmountOfFreeDiskSpace(
-std::move(p_path), std::move(callback));
-      return true;
-    }
     case internal::kDelegate_GetConnectedHdmiConnectors_Name: {
 
       internal::Delegate_GetConnectedHdmiConnectors_Params_Data* params =
@@ -3463,7 +3224,7 @@ std::move(p_path), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Delegate::Name_, 13, false);
+            Delegate::Name_, 12, false);
         return false;
       }
       Delegate::GetConnectedHdmiConnectorsCallback callback =
@@ -3488,7 +3249,7 @@ std::move(p_path), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Delegate::Name_, 14, false);
+            Delegate::Name_, 13, false);
         return false;
       }
       Delegate::GetPrivacyScreenInfoCallback callback =
@@ -3513,7 +3274,7 @@ std::move(p_path), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Delegate::Name_, 15, false);
+            Delegate::Name_, 14, false);
         return false;
       }
       Delegate::FetchDisplayInfoCallback callback =
@@ -3547,7 +3308,7 @@ std::move(p_path), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Delegate::Name_, 17, false);
+            Delegate::Name_, 16, false);
         return false;
       }
       Delegate::RunPrimeSearchCallback callback =
@@ -3593,8 +3354,6 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      &internal::Delegate_GetLidAngle_ResponseParams_Data::Validate},
     {&internal::Delegate_GetPsr_Params_Data::Validate,
      &internal::Delegate_GetPsr_ResponseParams_Data::Validate},
-    {&internal::Delegate_GetAmountOfFreeDiskSpace_Params_Data::Validate,
-     &internal::Delegate_GetAmountOfFreeDiskSpace_ResponseParams_Data::Validate},
     {&internal::Delegate_GetConnectedHdmiConnectors_Params_Data::Validate,
      &internal::Delegate_GetConnectedHdmiConnectors_ResponseParams_Data::Validate},
     {&internal::Delegate_GetPrivacyScreenInfo_Params_Data::Validate,
@@ -3674,9 +3433,6 @@ void DelegateInterceptorForTesting::GetLidAngle(GetLidAngleCallback callback) {
 }
 void DelegateInterceptorForTesting::GetPsr(GetPsrCallback callback) {
   GetForwardingInterface()->GetPsr(std::move(callback));
-}
-void DelegateInterceptorForTesting::GetAmountOfFreeDiskSpace(const std::string& path, GetAmountOfFreeDiskSpaceCallback callback) {
-  GetForwardingInterface()->GetAmountOfFreeDiskSpace(std::move(path), std::move(callback));
 }
 void DelegateInterceptorForTesting::GetConnectedHdmiConnectors(GetConnectedHdmiConnectorsCallback callback) {
   GetForwardingInterface()->GetConnectedHdmiConnectors(std::move(callback));
@@ -3858,29 +3614,6 @@ void DelegateAsyncWaiter::GetPsr(
 }
 
 
-
-void DelegateAsyncWaiter::GetAmountOfFreeDiskSpace(
-    const std::string& path, absl::optional<uint64_t>* out_free_space_byte) {
-  base::RunLoop loop;
-  proxy_->GetAmountOfFreeDiskSpace(std::move(path),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             absl::optional<uint64_t>* out_free_space_byte
-,
-             absl::optional<uint64_t> free_space_byte) {*out_free_space_byte = std::move(free_space_byte);
-            loop->Quit();
-          },
-          &loop,
-          out_free_space_byte));
-  loop.Run();
-}
-
-absl::optional<uint64_t> DelegateAsyncWaiter::GetAmountOfFreeDiskSpace(
-    const std::string& path) {
-  absl::optional<uint64_t> async_wait_result;
-  GetAmountOfFreeDiskSpace(std::move(path),&async_wait_result);
-  return async_wait_result;
-}
 
 void DelegateAsyncWaiter::GetConnectedHdmiConnectors(
     base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>* out_connectors, absl::optional<std::string>* out_err) {

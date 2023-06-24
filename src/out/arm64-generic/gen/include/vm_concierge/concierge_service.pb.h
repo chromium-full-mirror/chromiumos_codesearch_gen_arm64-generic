@@ -2702,6 +2702,7 @@ class StartArcVmRequest final :
     kNativeBridgeExperimentFieldNumber = 39,
     kUreadaheadModeFieldNumber = 40,
     kEnableVmmSwapFieldNumber = 43,
+    kGuestZramMibFieldNumber = 44,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -2925,10 +2926,10 @@ class StartArcVmRequest final :
   void _internal_set_vm_memory_psi_period(int32_t value);
   public:
 
-  // int32 guest_zram_size = 32;
-  void clear_guest_zram_size();
-  int32_t guest_zram_size() const;
-  void set_guest_zram_size(int32_t value);
+  // int32 guest_zram_size = 32 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_guest_zram_size();
+  PROTOBUF_DEPRECATED int32_t guest_zram_size() const;
+  PROTOBUF_DEPRECATED void set_guest_zram_size(int32_t value);
   private:
   int32_t _internal_guest_zram_size() const;
   void _internal_set_guest_zram_size(int32_t value);
@@ -3033,6 +3034,15 @@ class StartArcVmRequest final :
   void _internal_set_enable_vmm_swap(bool value);
   public:
 
+  // uint32 guest_zram_mib = 44;
+  void clear_guest_zram_mib();
+  uint32_t guest_zram_mib() const;
+  void set_guest_zram_mib(uint32_t value);
+  private:
+  uint32_t _internal_guest_zram_mib() const;
+  void _internal_set_guest_zram_mib(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
  private:
   class _Internal;
@@ -3073,6 +3083,7 @@ class StartArcVmRequest final :
     int native_bridge_experiment_;
     int ureadahead_mode_;
     bool enable_vmm_swap_;
+    uint32_t guest_zram_mib_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -16584,7 +16595,7 @@ inline void StartArcVmRequest::set_vm_memory_psi_period(int32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.vm_memory_psi_period)
 }
 
-// int32 guest_zram_size = 32;
+// int32 guest_zram_size = 32 [deprecated = true];
 inline void StartArcVmRequest::clear_guest_zram_size() {
   _impl_.guest_zram_size_ = 0;
 }
@@ -16887,6 +16898,26 @@ inline void StartArcVmRequest::_internal_set_enable_vmm_swap(bool value) {
 inline void StartArcVmRequest::set_enable_vmm_swap(bool value) {
   _internal_set_enable_vmm_swap(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_vmm_swap)
+}
+
+// uint32 guest_zram_mib = 44;
+inline void StartArcVmRequest::clear_guest_zram_mib() {
+  _impl_.guest_zram_mib_ = 0u;
+}
+inline uint32_t StartArcVmRequest::_internal_guest_zram_mib() const {
+  return _impl_.guest_zram_mib_;
+}
+inline uint32_t StartArcVmRequest::guest_zram_mib() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.guest_zram_mib)
+  return _internal_guest_zram_mib();
+}
+inline void StartArcVmRequest::_internal_set_guest_zram_mib(uint32_t value) {
+  
+  _impl_.guest_zram_mib_ = value;
+}
+inline void StartArcVmRequest::set_guest_zram_mib(uint32_t value) {
+  _internal_set_guest_zram_mib(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.guest_zram_mib)
 }
 
 // -------------------------------------------------------------------

@@ -14,8 +14,7 @@ namespace mojom {
 namespace internal {
 
 
-constexpr uint32_t kExecutor_StopUpstartJob_Name = 0;
-constexpr uint32_t kExecutor_RestartUpstartJob_Name = 1;
+constexpr uint32_t kExecutor_RestartUpstartJob_Name = 0;
 
 }  // namespace internal
 }  // namespace mojom

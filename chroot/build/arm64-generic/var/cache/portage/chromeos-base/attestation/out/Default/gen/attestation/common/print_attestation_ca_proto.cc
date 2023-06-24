@@ -111,6 +111,9 @@ std::string GetProtoDebugStringWithIndent(NVRAMQuoteType value,
   if (value == RMA_BYTES) {
     return "RMA_BYTES";
   }
+  if (value == G2F_CERT) {
+    return "G2F_CERT";
+  }
   return "<unknown>";
 }
 

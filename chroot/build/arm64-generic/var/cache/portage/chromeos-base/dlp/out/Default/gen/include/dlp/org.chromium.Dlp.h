@@ -25,10 +25,6 @@ class DlpInterface {
   // Sets the Data Leak Prevention files policy.
   virtual std::vector<uint8_t> SetDlpFilesPolicy(
       const std::vector<uint8_t>& in_request) = 0;
-  // Adds file together with it's source to the database.
-  virtual void AddFile(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>>> response,
-      const std::vector<uint8_t>& in_request) = 0;
   // Adds files together with their sources to the database.
   virtual void AddFiles(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>>> response,
@@ -63,10 +59,6 @@ class DlpAdaptor {
         base::Unretained(interface_),
         &DlpInterface::SetDlpFilesPolicy);
     itf->AddMethodHandler(
-        "AddFile",
-        base::Unretained(interface_),
-        &DlpInterface::AddFile);
-    itf->AddMethodHandler(
         "AddFiles",
         base::Unretained(interface_),
         &DlpInterface::AddFiles);
@@ -92,10 +84,6 @@ class DlpAdaptor {
     return
         "  <interface name=\"org.chromium.Dlp\">\n"
         "    <method name=\"SetDlpFilesPolicy\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"AddFile\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

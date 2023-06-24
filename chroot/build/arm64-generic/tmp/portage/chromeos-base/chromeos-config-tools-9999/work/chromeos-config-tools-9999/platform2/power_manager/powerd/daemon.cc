@@ -30,6 +30,7 @@
 #include <chromeos/dbus/service_constants.h>
 #include <chromeos/mojo/service_constants.h>
 #include <chromeos/ec/ec_commands.h>
+#include <cros_config/cros_config.h>
 #include <dbus/bus.h>
 #include <dbus/message.h>
 #include <libec/ec_command.h>
@@ -370,6 +371,8 @@ Daemon::~Daemon() {
     audio_client_->RemoveObserver(this);
   if (power_supply_)
     power_supply_->RemoveObserver(this);
+
+  battery_saver_controller_.RemoveObserver(this);
 }
 
 void Daemon::Init() {
@@ -552,6 +555,7 @@ void Daemon::Init() {
                                  DisplayMode::NORMAL, prefs_.get());
 
   battery_saver_controller_.Init(*dbus_wrapper_);
+  battery_saver_controller_.AddObserver(this);
 
   const PowerSource power_source =
       power_status.line_power_on ? PowerSource::AC : PowerSource::BATTERY;
@@ -573,7 +577,7 @@ void Daemon::Init() {
       base::FilePath(kPowerOverrideLockfileDir), {});
 
   user_proximity_watcher_ = delegate_->CreateUserProximityWatcher(
-      prefs_.get(), udev_.get(), tablet_mode);
+      prefs_.get(), udev_.get(), tablet_mode, sensor_service_handler_.get());
   user_proximity_handler_ = std::make_unique<policy::UserProximityHandler>();
   user_proximity_handler_->Init(user_proximity_watcher_.get(),
                                 wifi_controller_.get(),
@@ -936,7 +940,7 @@ policy::Suspender::Delegate::SuspendResult Daemon::DoSuspend(
     args.push_back("--suspend_to_idle");
   }
 
-  suspend_configurator_->PrepareForSuspend(duration);
+  wakealarm_time_ = suspend_configurator_->PrepareForSuspend(duration);
 
   // Sync filesystems since outstanding operations can significantly delay
   // freeze, causing it to time out.
@@ -1135,7 +1139,7 @@ bool Daemon::SetBatterySustain(int lower, int upper) {
   return success;
 }
 
-bool Daemon::SetBatteryChargeLimit(uint32_t limit_mA) {
+bool Daemon::SetBatterySlowCharging(uint32_t limit_mA) {
   auto cmd = ec_command_factory_->ChargeCurrentLimitSetCommand(limit_mA);
 
   bool success = RunEcCommand(*cmd);
@@ -1258,6 +1262,15 @@ void Daemon::OnPowerStatusUpdate() {
   }
 }
 
+void Daemon::OnBatterySaverStateChanged(const BatterySaverModeState& state) {
+  TRACE_EVENT("power", "OnBatterySaverStateChanged");
+
+  // TODO(sxm): Collect metrics somewhere around here.
+
+  for (auto controller : all_backlight_controllers_)
+    controller->HandleBatterySaverModeChange(state);
+}
+
 void Daemon::InitDBus() {
   dbus_wrapper_ = delegate_->CreateDBusWrapper();
   dbus_wrapper_->AddObserver(this);
@@ -1307,6 +1320,7 @@ void Daemon::InitDBus() {
       {kRequestShutdownMethod, &Daemon::HandleRequestShutdownMethod},
       {kRequestRestartMethod, &Daemon::HandleRequestRestartMethod},
       {kRequestSuspendMethod, &Daemon::HandleRequestSuspendMethod},
+      {kGetLastWakealarmMethod, &Daemon::HandleGetLastWakealarmMethod},
       {kHandleVideoActivityMethod, &Daemon::HandleVideoActivityMethod},
       {kHandleUserActivityMethod, &Daemon::HandleUserActivityMethod},
       {kHandleWakeNotificationMethod, &Daemon::HandleWakeNotificationMethod},
@@ -1589,7 +1603,18 @@ std::unique_ptr<dbus::Response> Daemon::HandleRequestSuspendMethod(
   Suspend(SuspendImminent_Reason_OTHER, got_external_wakeup_count,
           external_wakeup_count, duration,
           static_cast<SuspendFlavor>(suspend_flavor));
+
   return nullptr;
+}
+
+std::unique_ptr<dbus::Response> Daemon::HandleGetLastWakealarmMethod(
+    dbus::MethodCall* method_call) {
+  std::unique_ptr<dbus::Response> response(
+      dbus::Response::FromMethodCall(method_call));
+  LOG(INFO) << "have wakealarm time: " << wakealarm_time_ << std::endl;
+  dbus::MessageWriter(response.get()).AppendUint64(wakealarm_time_);
+
+  return response;
 }
 
 void Daemon::SetFullscreenVideoWithTimeout(bool active, int timeout_seconds) {

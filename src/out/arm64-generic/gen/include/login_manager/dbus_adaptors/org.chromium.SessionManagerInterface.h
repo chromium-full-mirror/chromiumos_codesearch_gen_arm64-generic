@@ -69,10 +69,6 @@ class SessionManagerInterfaceInterface {
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<>> response,
       const std::vector<uint8_t>& in_descriptor_blob,
       const std::vector<uint8_t>& in_policy_blob) = 0;
-  virtual bool ListStoredComponentPolicies(
-      brillo::ErrorPtr* error,
-      const std::vector<uint8_t>& in_descriptor_blob,
-      std::vector<std::string>* out_component_ids) = 0;
   virtual bool RetrievePolicyEx(
       brillo::ErrorPtr* error,
       const std::vector<uint8_t>& in_descriptor_blob,
@@ -226,10 +222,6 @@ class SessionManagerInterfaceAdaptor {
         "StorePolicyEx",
         base::Unretained(interface_),
         &SessionManagerInterfaceInterface::StorePolicyEx);
-    itf->AddSimpleMethodHandlerWithError(
-        "ListStoredComponentPolicies",
-        base::Unretained(interface_),
-        &SessionManagerInterfaceInterface::ListStoredComponentPolicies);
     itf->AddSimpleMethodHandlerWithError(
         "RetrievePolicyEx",
         base::Unretained(interface_),
@@ -478,10 +470,6 @@ class SessionManagerInterfaceAdaptor {
         "    <method name=\"StorePolicyEx\">\n"
         "      <arg name=\"descriptor_blob\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"policy_blob\" type=\"ay\" direction=\"in\"/>\n"
-        "    </method>\n"
-        "    <method name=\"ListStoredComponentPolicies\">\n"
-        "      <arg name=\"descriptor_blob\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"component_ids\" type=\"as\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"RetrievePolicyEx\">\n"
         "      <arg name=\"descriptor_blob\" type=\"ay\" direction=\"in\"/>\n"

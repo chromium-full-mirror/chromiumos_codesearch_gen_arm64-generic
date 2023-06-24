@@ -455,6 +455,29 @@ inline const std::string& RestockState_RestockChoice_Name(T enum_t_value) {
 }
 bool RestockState_RestockChoice_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RestockState_RestockChoice* value);
+enum UpdateDeviceInfoState_FeatureLevel : int {
+  UpdateDeviceInfoState_FeatureLevel_RMAD_FEATURE_LEVEL_UNSUPPORTED = 0,
+  UpdateDeviceInfoState_FeatureLevel_RMAD_FEATURE_LEVEL_UNKNOWN = 1,
+  UpdateDeviceInfoState_FeatureLevel_RMAD_FEATURE_LEVEL_0 = 2,
+  UpdateDeviceInfoState_FeatureLevel_RMAD_FEATURE_LEVEL_1 = 3,
+  UpdateDeviceInfoState_FeatureLevel_UpdateDeviceInfoState_FeatureLevel_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  UpdateDeviceInfoState_FeatureLevel_UpdateDeviceInfoState_FeatureLevel_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool UpdateDeviceInfoState_FeatureLevel_IsValid(int value);
+constexpr UpdateDeviceInfoState_FeatureLevel UpdateDeviceInfoState_FeatureLevel_FeatureLevel_MIN = UpdateDeviceInfoState_FeatureLevel_RMAD_FEATURE_LEVEL_UNSUPPORTED;
+constexpr UpdateDeviceInfoState_FeatureLevel UpdateDeviceInfoState_FeatureLevel_FeatureLevel_MAX = UpdateDeviceInfoState_FeatureLevel_RMAD_FEATURE_LEVEL_1;
+constexpr int UpdateDeviceInfoState_FeatureLevel_FeatureLevel_ARRAYSIZE = UpdateDeviceInfoState_FeatureLevel_FeatureLevel_MAX + 1;
+
+const std::string& UpdateDeviceInfoState_FeatureLevel_Name(UpdateDeviceInfoState_FeatureLevel value);
+template<typename T>
+inline const std::string& UpdateDeviceInfoState_FeatureLevel_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, UpdateDeviceInfoState_FeatureLevel>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function UpdateDeviceInfoState_FeatureLevel_Name.");
+  return UpdateDeviceInfoState_FeatureLevel_Name(static_cast<UpdateDeviceInfoState_FeatureLevel>(enum_t_value));
+}
+bool UpdateDeviceInfoState_FeatureLevel_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateDeviceInfoState_FeatureLevel* value);
 enum CalibrationComponentStatus_CalibrationStatus : int {
   CalibrationComponentStatus_CalibrationStatus_RMAD_CALIBRATION_UNKNOWN = 0,
   CalibrationComponentStatus_CalibrationStatus_RMAD_CALIBRATION_WAITING = 1,
@@ -3369,6 +3392,36 @@ class UpdateDeviceInfoState final :
 
   // nested types ----------------------------------------------------
 
+  typedef UpdateDeviceInfoState_FeatureLevel FeatureLevel;
+  static constexpr FeatureLevel RMAD_FEATURE_LEVEL_UNSUPPORTED =
+    UpdateDeviceInfoState_FeatureLevel_RMAD_FEATURE_LEVEL_UNSUPPORTED;
+  static constexpr FeatureLevel RMAD_FEATURE_LEVEL_UNKNOWN =
+    UpdateDeviceInfoState_FeatureLevel_RMAD_FEATURE_LEVEL_UNKNOWN;
+  static constexpr FeatureLevel RMAD_FEATURE_LEVEL_0 =
+    UpdateDeviceInfoState_FeatureLevel_RMAD_FEATURE_LEVEL_0;
+  static constexpr FeatureLevel RMAD_FEATURE_LEVEL_1 =
+    UpdateDeviceInfoState_FeatureLevel_RMAD_FEATURE_LEVEL_1;
+  static inline bool FeatureLevel_IsValid(int value) {
+    return UpdateDeviceInfoState_FeatureLevel_IsValid(value);
+  }
+  static constexpr FeatureLevel FeatureLevel_MIN =
+    UpdateDeviceInfoState_FeatureLevel_FeatureLevel_MIN;
+  static constexpr FeatureLevel FeatureLevel_MAX =
+    UpdateDeviceInfoState_FeatureLevel_FeatureLevel_MAX;
+  static constexpr int FeatureLevel_ARRAYSIZE =
+    UpdateDeviceInfoState_FeatureLevel_FeatureLevel_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& FeatureLevel_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, FeatureLevel>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function FeatureLevel_Name.");
+    return UpdateDeviceInfoState_FeatureLevel_Name(enum_t_value);
+  }
+  static inline bool FeatureLevel_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      FeatureLevel* value) {
+    return UpdateDeviceInfoState_FeatureLevel_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -3384,11 +3437,14 @@ class UpdateDeviceInfoState final :
     kSkuIndexFieldNumber = 3,
     kWhitelabelIndexFieldNumber = 4,
     kCustomLabelIndexFieldNumber = 6,
+    kHwComplianceVersionFieldNumber = 8,
+    kIsChassisBrandedFieldNumber = 7,
+    kMlbRepairFieldNumber = 301,
     kOriginalRegionIndexFieldNumber = 202,
     kOriginalSkuIndexFieldNumber = 203,
     kOriginalWhitelabelIndexFieldNumber = 204,
     kOriginalCustomLabelIndexFieldNumber = 206,
-    kMlbRepairFieldNumber = 301,
+    kOriginalFeatureLevelFieldNumber = 207,
   };
   // repeated string region_list = 102;
   int region_list_size() const;
@@ -3576,6 +3632,33 @@ class UpdateDeviceInfoState final :
   void _internal_set_custom_label_index(int32_t value);
   public:
 
+  // uint32 hw_compliance_version = 8;
+  void clear_hw_compliance_version();
+  uint32_t hw_compliance_version() const;
+  void set_hw_compliance_version(uint32_t value);
+  private:
+  uint32_t _internal_hw_compliance_version() const;
+  void _internal_set_hw_compliance_version(uint32_t value);
+  public:
+
+  // bool is_chassis_branded = 7;
+  void clear_is_chassis_branded();
+  bool is_chassis_branded() const;
+  void set_is_chassis_branded(bool value);
+  private:
+  bool _internal_is_chassis_branded() const;
+  void _internal_set_is_chassis_branded(bool value);
+  public:
+
+  // bool mlb_repair = 301;
+  void clear_mlb_repair();
+  bool mlb_repair() const;
+  void set_mlb_repair(bool value);
+  private:
+  bool _internal_mlb_repair() const;
+  void _internal_set_mlb_repair(bool value);
+  public:
+
   // int32 original_region_index = 202;
   void clear_original_region_index();
   int32_t original_region_index() const;
@@ -3612,13 +3695,13 @@ class UpdateDeviceInfoState final :
   void _internal_set_original_custom_label_index(int32_t value);
   public:
 
-  // bool mlb_repair = 301;
-  void clear_mlb_repair();
-  bool mlb_repair() const;
-  void set_mlb_repair(bool value);
+  // .rmad.UpdateDeviceInfoState.FeatureLevel original_feature_level = 207;
+  void clear_original_feature_level();
+  ::rmad::UpdateDeviceInfoState_FeatureLevel original_feature_level() const;
+  void set_original_feature_level(::rmad::UpdateDeviceInfoState_FeatureLevel value);
   private:
-  bool _internal_mlb_repair() const;
-  void _internal_set_mlb_repair(bool value);
+  ::rmad::UpdateDeviceInfoState_FeatureLevel _internal_original_feature_level() const;
+  void _internal_set_original_feature_level(::rmad::UpdateDeviceInfoState_FeatureLevel value);
   public:
 
   // @@protoc_insertion_point(class_scope:rmad.UpdateDeviceInfoState)
@@ -3641,11 +3724,14 @@ class UpdateDeviceInfoState final :
   int32_t sku_index_;
   int32_t whitelabel_index_;
   int32_t custom_label_index_;
+  uint32_t hw_compliance_version_;
+  bool is_chassis_branded_;
+  bool mlb_repair_;
   int32_t original_region_index_;
   int32_t original_sku_index_;
   int32_t original_whitelabel_index_;
   int32_t original_custom_label_index_;
-  bool mlb_repair_;
+  int original_feature_level_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_rmad_2eproto;
 };
@@ -7448,6 +7534,46 @@ inline void UpdateDeviceInfoState::set_custom_label_index(int32_t value) {
   // @@protoc_insertion_point(field_set:rmad.UpdateDeviceInfoState.custom_label_index)
 }
 
+// bool is_chassis_branded = 7;
+inline void UpdateDeviceInfoState::clear_is_chassis_branded() {
+  is_chassis_branded_ = false;
+}
+inline bool UpdateDeviceInfoState::_internal_is_chassis_branded() const {
+  return is_chassis_branded_;
+}
+inline bool UpdateDeviceInfoState::is_chassis_branded() const {
+  // @@protoc_insertion_point(field_get:rmad.UpdateDeviceInfoState.is_chassis_branded)
+  return _internal_is_chassis_branded();
+}
+inline void UpdateDeviceInfoState::_internal_set_is_chassis_branded(bool value) {
+  
+  is_chassis_branded_ = value;
+}
+inline void UpdateDeviceInfoState::set_is_chassis_branded(bool value) {
+  _internal_set_is_chassis_branded(value);
+  // @@protoc_insertion_point(field_set:rmad.UpdateDeviceInfoState.is_chassis_branded)
+}
+
+// uint32 hw_compliance_version = 8;
+inline void UpdateDeviceInfoState::clear_hw_compliance_version() {
+  hw_compliance_version_ = 0u;
+}
+inline uint32_t UpdateDeviceInfoState::_internal_hw_compliance_version() const {
+  return hw_compliance_version_;
+}
+inline uint32_t UpdateDeviceInfoState::hw_compliance_version() const {
+  // @@protoc_insertion_point(field_get:rmad.UpdateDeviceInfoState.hw_compliance_version)
+  return _internal_hw_compliance_version();
+}
+inline void UpdateDeviceInfoState::_internal_set_hw_compliance_version(uint32_t value) {
+  
+  hw_compliance_version_ = value;
+}
+inline void UpdateDeviceInfoState::set_hw_compliance_version(uint32_t value) {
+  _internal_set_hw_compliance_version(value);
+  // @@protoc_insertion_point(field_set:rmad.UpdateDeviceInfoState.hw_compliance_version)
+}
+
 // repeated string region_list = 102;
 inline int UpdateDeviceInfoState::_internal_region_list_size() const {
   return region_list_.size();
@@ -7898,6 +8024,26 @@ inline void UpdateDeviceInfoState::_internal_set_original_custom_label_index(int
 inline void UpdateDeviceInfoState::set_original_custom_label_index(int32_t value) {
   _internal_set_original_custom_label_index(value);
   // @@protoc_insertion_point(field_set:rmad.UpdateDeviceInfoState.original_custom_label_index)
+}
+
+// .rmad.UpdateDeviceInfoState.FeatureLevel original_feature_level = 207;
+inline void UpdateDeviceInfoState::clear_original_feature_level() {
+  original_feature_level_ = 0;
+}
+inline ::rmad::UpdateDeviceInfoState_FeatureLevel UpdateDeviceInfoState::_internal_original_feature_level() const {
+  return static_cast< ::rmad::UpdateDeviceInfoState_FeatureLevel >(original_feature_level_);
+}
+inline ::rmad::UpdateDeviceInfoState_FeatureLevel UpdateDeviceInfoState::original_feature_level() const {
+  // @@protoc_insertion_point(field_get:rmad.UpdateDeviceInfoState.original_feature_level)
+  return _internal_original_feature_level();
+}
+inline void UpdateDeviceInfoState::_internal_set_original_feature_level(::rmad::UpdateDeviceInfoState_FeatureLevel value) {
+  
+  original_feature_level_ = value;
+}
+inline void UpdateDeviceInfoState::set_original_feature_level(::rmad::UpdateDeviceInfoState_FeatureLevel value) {
+  _internal_set_original_feature_level(value);
+  // @@protoc_insertion_point(field_set:rmad.UpdateDeviceInfoState.original_feature_level)
 }
 
 // bool mlb_repair = 301;
@@ -10107,6 +10253,7 @@ template <> struct is_proto_enum< ::rmad::WriteProtectDisableCompleteState_Actio
 template <> struct is_proto_enum< ::rmad::UpdateRoFirmwareState_UpdateFirmware> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::UpdateRoFirmwareState_UpdateChoice> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::RestockState_RestockChoice> : ::std::true_type {};
+template <> struct is_proto_enum< ::rmad::UpdateDeviceInfoState_FeatureLevel> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::CalibrationComponentStatus_CalibrationStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::ProvisionDeviceState_ProvisioningStep> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::ProvisionDeviceState_ProvisionChoice> : ::std::true_type {};

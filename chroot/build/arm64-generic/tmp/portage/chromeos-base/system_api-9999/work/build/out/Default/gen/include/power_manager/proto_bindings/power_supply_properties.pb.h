@@ -656,12 +656,13 @@ class PowerSupplyProperties final :
     kBatteryChargeFullDesignFieldNumber = 24,
     kBatteryChargeFullFieldNumber = 25,
     kBatteryVoltageMinDesignFieldNumber = 26,
+    kBatteryChargeFieldNumber = 27,
     kIsCalculatingBatteryTimeFieldNumber = 12,
     kSupportsDualRoleDevicesFieldNumber = 19,
     kAdaptiveChargingSupportedFieldNumber = 33,
     kAdaptiveDelayingChargeFieldNumber = 34,
     kAdaptiveChargingHeuristicEnabledFieldNumber = 35,
-    kBatteryChargeFieldNumber = 27,
+    kChargeLimitedFieldNumber = 36,
     kBatteryCurrentFieldNumber = 29,
     kPreferredMinimumExternalPowerFieldNumber = 32,
     kBatteryPercentFieldNumber = 7,
@@ -922,6 +923,19 @@ class PowerSupplyProperties final :
   void _internal_set_battery_voltage_min_design(double value);
   public:
 
+  // optional double battery_charge = 27;
+  bool has_battery_charge() const;
+  private:
+  bool _internal_has_battery_charge() const;
+  public:
+  void clear_battery_charge();
+  double battery_charge() const;
+  void set_battery_charge(double value);
+  private:
+  double _internal_battery_charge() const;
+  void _internal_set_battery_charge(double value);
+  public:
+
   // optional bool is_calculating_battery_time = 12 [default = false];
   bool has_is_calculating_battery_time() const;
   private:
@@ -987,17 +1001,17 @@ class PowerSupplyProperties final :
   void _internal_set_adaptive_charging_heuristic_enabled(bool value);
   public:
 
-  // optional double battery_charge = 27;
-  bool has_battery_charge() const;
+  // optional bool charge_limited = 36;
+  bool has_charge_limited() const;
   private:
-  bool _internal_has_battery_charge() const;
+  bool _internal_has_charge_limited() const;
   public:
-  void clear_battery_charge();
-  double battery_charge() const;
-  void set_battery_charge(double value);
+  void clear_charge_limited();
+  bool charge_limited() const;
+  void set_charge_limited(bool value);
   private:
-  double _internal_battery_charge() const;
-  void _internal_set_battery_charge(double value);
+  bool _internal_charge_limited() const;
+  void _internal_set_charge_limited(bool value);
   public:
 
   // optional double battery_current = 29;
@@ -1066,12 +1080,13 @@ class PowerSupplyProperties final :
     double battery_charge_full_design_;
     double battery_charge_full_;
     double battery_voltage_min_design_;
+    double battery_charge_;
     bool is_calculating_battery_time_;
     bool supports_dual_role_devices_;
     bool adaptive_charging_supported_;
     bool adaptive_delaying_charge_;
     bool adaptive_charging_heuristic_enabled_;
-    double battery_charge_;
+    bool charge_limited_;
     double battery_current_;
     double preferred_minimum_external_power_;
     double battery_percent_;
@@ -1580,7 +1595,7 @@ inline void PowerSupplyProperties::set_battery_state(::power_manager::PowerSuppl
 
 // optional double battery_percent = 7 [default = -1];
 inline bool PowerSupplyProperties::_internal_has_battery_percent() const {
-  bool value = (_impl_._has_bits_[0] & 0x01000000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x02000000u) != 0;
   return value;
 }
 inline bool PowerSupplyProperties::has_battery_percent() const {
@@ -1588,7 +1603,7 @@ inline bool PowerSupplyProperties::has_battery_percent() const {
 }
 inline void PowerSupplyProperties::clear_battery_percent() {
   _impl_.battery_percent_ = -1;
-  _impl_._has_bits_[0] &= ~0x01000000u;
+  _impl_._has_bits_[0] &= ~0x02000000u;
 }
 inline double PowerSupplyProperties::_internal_battery_percent() const {
   return _impl_.battery_percent_;
@@ -1598,7 +1613,7 @@ inline double PowerSupplyProperties::battery_percent() const {
   return _internal_battery_percent();
 }
 inline void PowerSupplyProperties::_internal_set_battery_percent(double value) {
-  _impl_._has_bits_[0] |= 0x01000000u;
+  _impl_._has_bits_[0] |= 0x02000000u;
   _impl_.battery_percent_ = value;
 }
 inline void PowerSupplyProperties::set_battery_percent(double value) {
@@ -1664,7 +1679,7 @@ inline void PowerSupplyProperties::set_battery_time_to_full_sec(int64_t value) {
 
 // optional bool is_calculating_battery_time = 12 [default = false];
 inline bool PowerSupplyProperties::_internal_has_is_calculating_battery_time() const {
-  bool value = (_impl_._has_bits_[0] & 0x00010000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00020000u) != 0;
   return value;
 }
 inline bool PowerSupplyProperties::has_is_calculating_battery_time() const {
@@ -1672,7 +1687,7 @@ inline bool PowerSupplyProperties::has_is_calculating_battery_time() const {
 }
 inline void PowerSupplyProperties::clear_is_calculating_battery_time() {
   _impl_.is_calculating_battery_time_ = false;
-  _impl_._has_bits_[0] &= ~0x00010000u;
+  _impl_._has_bits_[0] &= ~0x00020000u;
 }
 inline bool PowerSupplyProperties::_internal_is_calculating_battery_time() const {
   return _impl_.is_calculating_battery_time_;
@@ -1682,7 +1697,7 @@ inline bool PowerSupplyProperties::is_calculating_battery_time() const {
   return _internal_is_calculating_battery_time();
 }
 inline void PowerSupplyProperties::_internal_set_is_calculating_battery_time(bool value) {
-  _impl_._has_bits_[0] |= 0x00010000u;
+  _impl_._has_bits_[0] |= 0x00020000u;
   _impl_.is_calculating_battery_time_ = value;
 }
 inline void PowerSupplyProperties::set_is_calculating_battery_time(bool value) {
@@ -1720,7 +1735,7 @@ inline void PowerSupplyProperties::set_battery_discharge_rate(double value) {
 
 // optional bool supports_dual_role_devices = 19;
 inline bool PowerSupplyProperties::_internal_has_supports_dual_role_devices() const {
-  bool value = (_impl_._has_bits_[0] & 0x00020000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00040000u) != 0;
   return value;
 }
 inline bool PowerSupplyProperties::has_supports_dual_role_devices() const {
@@ -1728,7 +1743,7 @@ inline bool PowerSupplyProperties::has_supports_dual_role_devices() const {
 }
 inline void PowerSupplyProperties::clear_supports_dual_role_devices() {
   _impl_.supports_dual_role_devices_ = false;
-  _impl_._has_bits_[0] &= ~0x00020000u;
+  _impl_._has_bits_[0] &= ~0x00040000u;
 }
 inline bool PowerSupplyProperties::_internal_supports_dual_role_devices() const {
   return _impl_.supports_dual_role_devices_;
@@ -1738,7 +1753,7 @@ inline bool PowerSupplyProperties::supports_dual_role_devices() const {
   return _internal_supports_dual_role_devices();
 }
 inline void PowerSupplyProperties::_internal_set_supports_dual_role_devices(bool value) {
-  _impl_._has_bits_[0] |= 0x00020000u;
+  _impl_._has_bits_[0] |= 0x00040000u;
   _impl_.supports_dual_role_devices_ = value;
 }
 inline void PowerSupplyProperties::set_supports_dual_role_devices(bool value) {
@@ -2024,7 +2039,7 @@ inline void PowerSupplyProperties::set_battery_voltage_min_design(double value) 
 
 // optional double battery_charge = 27;
 inline bool PowerSupplyProperties::_internal_has_battery_charge() const {
-  bool value = (_impl_._has_bits_[0] & 0x00200000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00010000u) != 0;
   return value;
 }
 inline bool PowerSupplyProperties::has_battery_charge() const {
@@ -2032,7 +2047,7 @@ inline bool PowerSupplyProperties::has_battery_charge() const {
 }
 inline void PowerSupplyProperties::clear_battery_charge() {
   _impl_.battery_charge_ = 0;
-  _impl_._has_bits_[0] &= ~0x00200000u;
+  _impl_._has_bits_[0] &= ~0x00010000u;
 }
 inline double PowerSupplyProperties::_internal_battery_charge() const {
   return _impl_.battery_charge_;
@@ -2042,7 +2057,7 @@ inline double PowerSupplyProperties::battery_charge() const {
   return _internal_battery_charge();
 }
 inline void PowerSupplyProperties::_internal_set_battery_charge(double value) {
-  _impl_._has_bits_[0] |= 0x00200000u;
+  _impl_._has_bits_[0] |= 0x00010000u;
   _impl_.battery_charge_ = value;
 }
 inline void PowerSupplyProperties::set_battery_charge(double value) {
@@ -2120,7 +2135,7 @@ inline void PowerSupplyProperties::set_allocated_battery_model_name(std::string*
 
 // optional double battery_current = 29;
 inline bool PowerSupplyProperties::_internal_has_battery_current() const {
-  bool value = (_impl_._has_bits_[0] & 0x00400000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00800000u) != 0;
   return value;
 }
 inline bool PowerSupplyProperties::has_battery_current() const {
@@ -2128,7 +2143,7 @@ inline bool PowerSupplyProperties::has_battery_current() const {
 }
 inline void PowerSupplyProperties::clear_battery_current() {
   _impl_.battery_current_ = 0;
-  _impl_._has_bits_[0] &= ~0x00400000u;
+  _impl_._has_bits_[0] &= ~0x00800000u;
 }
 inline double PowerSupplyProperties::_internal_battery_current() const {
   return _impl_.battery_current_;
@@ -2138,7 +2153,7 @@ inline double PowerSupplyProperties::battery_current() const {
   return _internal_battery_current();
 }
 inline void PowerSupplyProperties::_internal_set_battery_current(double value) {
-  _impl_._has_bits_[0] |= 0x00400000u;
+  _impl_._has_bits_[0] |= 0x00800000u;
   _impl_.battery_current_ = value;
 }
 inline void PowerSupplyProperties::set_battery_current(double value) {
@@ -2284,7 +2299,7 @@ inline void PowerSupplyProperties::set_allocated_battery_status(std::string* bat
 
 // optional double preferred_minimum_external_power = 32;
 inline bool PowerSupplyProperties::_internal_has_preferred_minimum_external_power() const {
-  bool value = (_impl_._has_bits_[0] & 0x00800000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x01000000u) != 0;
   return value;
 }
 inline bool PowerSupplyProperties::has_preferred_minimum_external_power() const {
@@ -2292,7 +2307,7 @@ inline bool PowerSupplyProperties::has_preferred_minimum_external_power() const 
 }
 inline void PowerSupplyProperties::clear_preferred_minimum_external_power() {
   _impl_.preferred_minimum_external_power_ = 0;
-  _impl_._has_bits_[0] &= ~0x00800000u;
+  _impl_._has_bits_[0] &= ~0x01000000u;
 }
 inline double PowerSupplyProperties::_internal_preferred_minimum_external_power() const {
   return _impl_.preferred_minimum_external_power_;
@@ -2302,7 +2317,7 @@ inline double PowerSupplyProperties::preferred_minimum_external_power() const {
   return _internal_preferred_minimum_external_power();
 }
 inline void PowerSupplyProperties::_internal_set_preferred_minimum_external_power(double value) {
-  _impl_._has_bits_[0] |= 0x00800000u;
+  _impl_._has_bits_[0] |= 0x01000000u;
   _impl_.preferred_minimum_external_power_ = value;
 }
 inline void PowerSupplyProperties::set_preferred_minimum_external_power(double value) {
@@ -2312,7 +2327,7 @@ inline void PowerSupplyProperties::set_preferred_minimum_external_power(double v
 
 // optional bool adaptive_charging_supported = 33 [default = false];
 inline bool PowerSupplyProperties::_internal_has_adaptive_charging_supported() const {
-  bool value = (_impl_._has_bits_[0] & 0x00040000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00080000u) != 0;
   return value;
 }
 inline bool PowerSupplyProperties::has_adaptive_charging_supported() const {
@@ -2320,7 +2335,7 @@ inline bool PowerSupplyProperties::has_adaptive_charging_supported() const {
 }
 inline void PowerSupplyProperties::clear_adaptive_charging_supported() {
   _impl_.adaptive_charging_supported_ = false;
-  _impl_._has_bits_[0] &= ~0x00040000u;
+  _impl_._has_bits_[0] &= ~0x00080000u;
 }
 inline bool PowerSupplyProperties::_internal_adaptive_charging_supported() const {
   return _impl_.adaptive_charging_supported_;
@@ -2330,7 +2345,7 @@ inline bool PowerSupplyProperties::adaptive_charging_supported() const {
   return _internal_adaptive_charging_supported();
 }
 inline void PowerSupplyProperties::_internal_set_adaptive_charging_supported(bool value) {
-  _impl_._has_bits_[0] |= 0x00040000u;
+  _impl_._has_bits_[0] |= 0x00080000u;
   _impl_.adaptive_charging_supported_ = value;
 }
 inline void PowerSupplyProperties::set_adaptive_charging_supported(bool value) {
@@ -2340,7 +2355,7 @@ inline void PowerSupplyProperties::set_adaptive_charging_supported(bool value) {
 
 // optional bool adaptive_delaying_charge = 34 [default = false];
 inline bool PowerSupplyProperties::_internal_has_adaptive_delaying_charge() const {
-  bool value = (_impl_._has_bits_[0] & 0x00080000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00100000u) != 0;
   return value;
 }
 inline bool PowerSupplyProperties::has_adaptive_delaying_charge() const {
@@ -2348,7 +2363,7 @@ inline bool PowerSupplyProperties::has_adaptive_delaying_charge() const {
 }
 inline void PowerSupplyProperties::clear_adaptive_delaying_charge() {
   _impl_.adaptive_delaying_charge_ = false;
-  _impl_._has_bits_[0] &= ~0x00080000u;
+  _impl_._has_bits_[0] &= ~0x00100000u;
 }
 inline bool PowerSupplyProperties::_internal_adaptive_delaying_charge() const {
   return _impl_.adaptive_delaying_charge_;
@@ -2358,7 +2373,7 @@ inline bool PowerSupplyProperties::adaptive_delaying_charge() const {
   return _internal_adaptive_delaying_charge();
 }
 inline void PowerSupplyProperties::_internal_set_adaptive_delaying_charge(bool value) {
-  _impl_._has_bits_[0] |= 0x00080000u;
+  _impl_._has_bits_[0] |= 0x00100000u;
   _impl_.adaptive_delaying_charge_ = value;
 }
 inline void PowerSupplyProperties::set_adaptive_delaying_charge(bool value) {
@@ -2368,7 +2383,7 @@ inline void PowerSupplyProperties::set_adaptive_delaying_charge(bool value) {
 
 // optional bool adaptive_charging_heuristic_enabled = 35;
 inline bool PowerSupplyProperties::_internal_has_adaptive_charging_heuristic_enabled() const {
-  bool value = (_impl_._has_bits_[0] & 0x00100000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00200000u) != 0;
   return value;
 }
 inline bool PowerSupplyProperties::has_adaptive_charging_heuristic_enabled() const {
@@ -2376,7 +2391,7 @@ inline bool PowerSupplyProperties::has_adaptive_charging_heuristic_enabled() con
 }
 inline void PowerSupplyProperties::clear_adaptive_charging_heuristic_enabled() {
   _impl_.adaptive_charging_heuristic_enabled_ = false;
-  _impl_._has_bits_[0] &= ~0x00100000u;
+  _impl_._has_bits_[0] &= ~0x00200000u;
 }
 inline bool PowerSupplyProperties::_internal_adaptive_charging_heuristic_enabled() const {
   return _impl_.adaptive_charging_heuristic_enabled_;
@@ -2386,12 +2401,40 @@ inline bool PowerSupplyProperties::adaptive_charging_heuristic_enabled() const {
   return _internal_adaptive_charging_heuristic_enabled();
 }
 inline void PowerSupplyProperties::_internal_set_adaptive_charging_heuristic_enabled(bool value) {
-  _impl_._has_bits_[0] |= 0x00100000u;
+  _impl_._has_bits_[0] |= 0x00200000u;
   _impl_.adaptive_charging_heuristic_enabled_ = value;
 }
 inline void PowerSupplyProperties::set_adaptive_charging_heuristic_enabled(bool value) {
   _internal_set_adaptive_charging_heuristic_enabled(value);
   // @@protoc_insertion_point(field_set:power_manager.PowerSupplyProperties.adaptive_charging_heuristic_enabled)
+}
+
+// optional bool charge_limited = 36;
+inline bool PowerSupplyProperties::_internal_has_charge_limited() const {
+  bool value = (_impl_._has_bits_[0] & 0x00400000u) != 0;
+  return value;
+}
+inline bool PowerSupplyProperties::has_charge_limited() const {
+  return _internal_has_charge_limited();
+}
+inline void PowerSupplyProperties::clear_charge_limited() {
+  _impl_.charge_limited_ = false;
+  _impl_._has_bits_[0] &= ~0x00400000u;
+}
+inline bool PowerSupplyProperties::_internal_charge_limited() const {
+  return _impl_.charge_limited_;
+}
+inline bool PowerSupplyProperties::charge_limited() const {
+  // @@protoc_insertion_point(field_get:power_manager.PowerSupplyProperties.charge_limited)
+  return _internal_charge_limited();
+}
+inline void PowerSupplyProperties::_internal_set_charge_limited(bool value) {
+  _impl_._has_bits_[0] |= 0x00400000u;
+  _impl_.charge_limited_ = value;
+}
+inline void PowerSupplyProperties::set_charge_limited(bool value) {
+  _internal_set_charge_limited(value);
+  // @@protoc_insertion_point(field_set:power_manager.PowerSupplyProperties.charge_limited)
 }
 
 #ifdef __GNUC__

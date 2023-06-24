@@ -1058,39 +1058,6 @@ class  Executor_RemoveFioTestFile_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_RemoveFioTestFile_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_RemoveFioTestFile_ResponseParams_Data)");
-class  Executor_GetFioTestDirectoryFreeSpace_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetFioTestDirectoryFreeSpace_Params_Data>;
-
-  Executor_GetFioTestDirectoryFreeSpace_Params_Data();
-  ~Executor_GetFioTestDirectoryFreeSpace_Params_Data() = delete;
-};
-static_assert(sizeof(Executor_GetFioTestDirectoryFreeSpace_Params_Data) == 8,
-              "Bad sizeof(Executor_GetFioTestDirectoryFreeSpace_Params_Data)");
-class  Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t free_space_byte_$flag : 1;
-  uint8_t pad0_[7];
-  uint64_t free_space_byte_$value;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data>;
-
-  Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data();
-  ~Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data) == 24,
-              "Bad sizeof(Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data)");
 class  Executor_GetConnectedHdmiConnectors_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2963,42 +2930,6 @@ class Executor_RemoveFioTestFile_ResponseParamsDataView {
 };
 
 
-class Executor_GetFioTestDirectoryFreeSpace_ParamsDataView {
- public:
-  Executor_GetFioTestDirectoryFreeSpace_ParamsDataView() = default;
-
-  Executor_GetFioTestDirectoryFreeSpace_ParamsDataView(
-      internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::Executor_GetFioTestDirectoryFreeSpace_Params_Data* data_ = nullptr;
-};
-
-
-class Executor_GetFioTestDirectoryFreeSpace_ResponseParamsDataView {
- public:
-  Executor_GetFioTestDirectoryFreeSpace_ResponseParamsDataView() = default;
-
-  Executor_GetFioTestDirectoryFreeSpace_ResponseParamsDataView(
-      internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  absl::optional<uint64_t> free_space_byte() const {
-
-    return data_->free_space_byte_$flag
-        ? absl::make_optional(data_->free_space_byte_$value)
-        : absl::nullopt;
-  }
- private:
-  internal::Executor_GetFioTestDirectoryFreeSpace_ResponseParams_Data* data_ = nullptr;
-};
-
-
 class Executor_GetConnectedHdmiConnectors_ParamsDataView {
  public:
   Executor_GetConnectedHdmiConnectors_ParamsDataView() = default;
@@ -3584,10 +3515,6 @@ inline void Executor_RemoveFioTestFile_ResponseParamsDataView::GetResultDataView
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
 }
-
-
-
-
 
 
 

@@ -58,14 +58,13 @@ constexpr uint32_t kExecutor_MonitorStylus_Name = 22;
 constexpr uint32_t kExecutor_GetPsr_Name = 23;
 constexpr uint32_t kExecutor_RunFio_Name = 24;
 constexpr uint32_t kExecutor_RemoveFioTestFile_Name = 25;
-constexpr uint32_t kExecutor_GetFioTestDirectoryFreeSpace_Name = 26;
-constexpr uint32_t kExecutor_GetConnectedHdmiConnectors_Name = 27;
-constexpr uint32_t kExecutor_GetPrivacyScreenInfo_Name = 28;
-constexpr uint32_t kExecutor_FetchDisplayInfo_Name = 29;
-constexpr uint32_t kExecutor_FetchCrashFromCrashSender_Name = 30;
-constexpr uint32_t kExecutor_MonitorPowerButton_Name = 31;
-constexpr uint32_t kExecutor_RunPrimeSearch_Name = 32;
-constexpr uint32_t kExecutor_MonitorVolumeButton_Name = 33;
+constexpr uint32_t kExecutor_GetConnectedHdmiConnectors_Name = 26;
+constexpr uint32_t kExecutor_GetPrivacyScreenInfo_Name = 27;
+constexpr uint32_t kExecutor_FetchDisplayInfo_Name = 28;
+constexpr uint32_t kExecutor_FetchCrashFromCrashSender_Name = 29;
+constexpr uint32_t kExecutor_MonitorPowerButton_Name = 30;
+constexpr uint32_t kExecutor_RunPrimeSearch_Name = 31;
+constexpr uint32_t kExecutor_MonitorVolumeButton_Name = 32;
 
 }  // namespace internal
 }  // namespace mojom
