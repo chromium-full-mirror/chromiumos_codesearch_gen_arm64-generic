@@ -203,7 +203,7 @@ class CrosHealthdDiagnosticsService
     kRunFingerprintRoutineMinVersion = 3,
     kRunFingerprintAliveRoutineMinVersion = 3,
     kRunPrivacyScreenRoutineMinVersion = 4,
-    kRunLedLitUpRoutineMinVersion = 5,
+    kDEPRECATED_RunLedLitUpRoutineMinVersion = 5,
     kRunEmmcLifetimeRoutineMinVersion = 7,
     kRunAudioSetVolumeRoutineMinVersion = 8,
     kRunAudioSetGainRoutineMinVersion = 8,
@@ -329,7 +329,7 @@ class CrosHealthdDiagnosticsService
   struct RunPrivacyScreenRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct RunLedLitUpRoutine_Sym {
+  struct DEPRECATED_RunLedLitUpRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunEmmcLifetimeRoutine_Sym {
@@ -548,9 +548,9 @@ class CrosHealthdDiagnosticsService
   virtual void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) = 0;
 
 
-  using RunLedLitUpRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  using DEPRECATED_RunLedLitUpRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) = 0;
+  virtual void DEPRECATED_RunLedLitUpRoutine(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> replier, DEPRECATED_RunLedLitUpRoutineCallback callback) = 0;
 
 
   using RunEmmcLifetimeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -995,7 +995,7 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) final;
   
-  void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) final;
+  void DEPRECATED_RunLedLitUpRoutine(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> replier, DEPRECATED_RunLedLitUpRoutineCallback callback) final;
   
   void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) final;
   

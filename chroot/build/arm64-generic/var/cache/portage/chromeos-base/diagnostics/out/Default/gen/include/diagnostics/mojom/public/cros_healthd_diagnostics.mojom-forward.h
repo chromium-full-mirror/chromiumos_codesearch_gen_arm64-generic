@@ -48,9 +48,9 @@ enum class AcPowerStatusEnum : int32_t;
 
 enum class NvmeSelfTestTypeEnum : int32_t;
 
-enum class LedName : int32_t;
+enum class DEPRECATED_LedName : int32_t;
 
-enum class LedColor : int32_t;
+enum class DEPRECATED_LedColor : int32_t;
 
 constexpr int32_t kFailedToStartId = 0;
 class RunRoutineResponse;
@@ -69,7 +69,7 @@ class RoutineUpdateUnion;
 
 using RoutineUpdateUnionPtr = mojo::StructPtr<RoutineUpdateUnion>;
 
-class LedLitUpRoutineReplier;
+class DEPRECATED_LedLitUpRoutineReplier;
 
 
 

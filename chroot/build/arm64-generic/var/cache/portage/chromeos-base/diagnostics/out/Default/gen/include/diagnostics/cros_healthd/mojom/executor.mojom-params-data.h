@@ -2381,22 +2381,22 @@ class Executor_SetLedColor_ParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadName(UserType* output) const {
     auto data_value = data_->name;
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedName>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DEPRECATED_LedName>(
         data_value, output);
   }
-  ::ash::cros_healthd::mojom::LedName name() const {
+  ::ash::cros_healthd::mojom::DEPRECATED_LedName name() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::ash::cros_healthd::mojom::LedName>(data_->name));
+          static_cast<::ash::cros_healthd::mojom::DEPRECATED_LedName>(data_->name));
   }
   template <typename UserType>
   [[nodiscard]] bool ReadColor(UserType* output) const {
     auto data_value = data_->color;
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedColor>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DEPRECATED_LedColor>(
         data_value, output);
   }
-  ::ash::cros_healthd::mojom::LedColor color() const {
+  ::ash::cros_healthd::mojom::DEPRECATED_LedColor color() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::ash::cros_healthd::mojom::LedColor>(data_->color));
+          static_cast<::ash::cros_healthd::mojom::DEPRECATED_LedColor>(data_->color));
   }
  private:
   internal::Executor_SetLedColor_Params_Data* data_ = nullptr;
@@ -2452,12 +2452,12 @@ class Executor_ResetLedColor_ParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadName(UserType* output) const {
     auto data_value = data_->name;
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedName>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DEPRECATED_LedName>(
         data_value, output);
   }
-  ::ash::cros_healthd::mojom::LedName name() const {
+  ::ash::cros_healthd::mojom::DEPRECATED_LedName name() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::ash::cros_healthd::mojom::LedName>(data_->name));
+          static_cast<::ash::cros_healthd::mojom::DEPRECATED_LedName>(data_->name));
   }
  private:
   internal::Executor_ResetLedColor_Params_Data* data_ = nullptr;

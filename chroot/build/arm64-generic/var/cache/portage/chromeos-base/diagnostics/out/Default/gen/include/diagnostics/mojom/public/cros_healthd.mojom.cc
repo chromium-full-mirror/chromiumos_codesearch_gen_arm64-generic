@@ -949,8 +949,8 @@ CrosHealthdDiagnosticsService::IPCStableHashFunction CrosHealthdDiagnosticsServi
     case internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name: {
       return &CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name: {
-      return &CrosHealthdDiagnosticsService::RunLedLitUpRoutine_Sym::IPCStableHash;
+    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
       return &CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine_Sym::IPCStableHash;
@@ -1064,8 +1064,8 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name:
-            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine";
+      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Name:
@@ -1161,8 +1161,8 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine";
-      case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name:
-            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine";
+      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Name:
@@ -1676,7 +1676,7 @@ uint32_t CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine_Sym::IPCStableHa
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CrosHealthdDiagnosticsService::RunLedLitUpRoutine_Sym::IPCStableHash() {
+uint32_t CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1684,7 +1684,7 @@ uint32_t CrosHealthdDiagnosticsService::RunLedLitUpRoutine_Sym::IPCStableHash() 
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2400,20 +2400,20 @@ class CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ForwardToCallback
   CrosHealthdDiagnosticsService::RunPrivacyScreenRoutineCallback callback_;
 };
 
-class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback
+class CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback(
-      CrosHealthdDiagnosticsService::RunLedLitUpRoutineCallback callback
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutineCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback&) = delete;
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  CrosHealthdDiagnosticsService::RunLedLitUpRoutineCallback callback_;
+  CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutineCallback callback_;
 };
 
 class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback
@@ -3936,22 +3936,22 @@ void CrosHealthdDiagnosticsServiceProxy::RunPrivacyScreenRoutine(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void CrosHealthdDiagnosticsServiceProxy::RunLedLitUpRoutine(
-    ::ash::cros_healthd::mojom::LedName in_name, ::ash::cros_healthd::mojom::LedColor in_color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> in_replier, RunLedLitUpRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunLedLitUpRoutine(
+    ::ash::cros_healthd::mojom::DEPRECATED_LedName in_name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor in_color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> in_replier, DEPRECATED_RunLedLitUpRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("name"), in_name,
-                        "<value of type ::ash::cros_healthd::mojom::LedName>");
+                        "<value of type ::ash::cros_healthd::mojom::DEPRECATED_LedName>");
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("color"), in_color,
-                        "<value of type ::ash::cros_healthd::mojom::LedColor>");
+                        "<value of type ::ash::cros_healthd::mojom::DEPRECATED_LedColor>");
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("replier"), in_replier,
-                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier>>");
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier>>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -3964,28 +3964,28 @@ void CrosHealthdDiagnosticsServiceProxy::RunLedLitUpRoutine(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::ash::cros_healthd::mojom::LedName>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::DEPRECATED_LedName>(
       in_name, &params->name);
-  mojo::internal::Serialize<::ash::cros_healthd::mojom::LedColor>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::DEPRECATED_LedColor>(
       in_color, &params->color);
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::LedLitUpRoutineReplierInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplierInterfaceBase>>(
       in_replier, &params->replier, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->replier),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid replier in CrosHealthdDiagnosticsService.RunLedLitUpRoutine request");
+      "invalid replier in CrosHealthdDiagnosticsService.DEPRECATED_RunLedLitUpRoutine request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
-  message.set_method_name("RunLedLitUpRoutine");
+  message.set_method_name("DEPRECATED_RunLedLitUpRoutine");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback(
+      new CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -9078,19 +9078,19 @@ void CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ProxyToResponder::Run
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static CrosHealthdDiagnosticsService::RunLedLitUpRoutineCallback CreateCallback(
+  static CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutineCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder> proxy(
-        new CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder(
+    std::unique_ptr<CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder::Run,
+    return base::BindOnce(&CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder() {
+  ~CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -9107,7 +9107,7 @@ class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder : public
   }
 
  private:
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder(
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -9116,7 +9116,7 @@ class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder : public
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "CrosHealthdDiagnosticsService::RunLedLitUpRoutineCallback was destroyed without "
+        << "CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutineCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -9127,18 +9127,18 @@ class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder : public
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
-bool CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback::Accept(
+bool CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data* params =
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data*>(
+          internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView input_data_view(params, message);
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
     success = false;
@@ -9155,11 +9155,11 @@ std::move(p_response));
   return true;
 }
 
-void CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder::Run(
+void CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponder::Run(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -9173,9 +9173,9 @@ void CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -9192,7 +9192,7 @@ void CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder::Run(
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
-  message.set_method_name("RunLedLitUpRoutine");
+  message.set_method_name("DEPRECATED_RunLedLitUpRoutine");
 #endif
 
   message.set_request_id(request_id_);
@@ -10475,7 +10475,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
     case internal::kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name: {
       break;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name: {
+    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name: {
       break;
     }
     case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
@@ -11540,18 +11540,18 @@ std::move(p_stun_server_hostname), std::move(callback));
 std::move(p_target_state), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name: {
+    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name: {
 
-      internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data* params =
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data* params =
           reinterpret_cast<
-              internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data*>(
+              internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::LedName p_name{};
-      ::ash::cros_healthd::mojom::LedColor p_color{};
-      ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> p_replier{};
-      CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ParamsDataView input_data_view(params, message);
+      ::ash::cros_healthd::mojom::DEPRECATED_LedName p_name{};
+      ::ash::cros_healthd::mojom::DEPRECATED_LedColor p_color{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> p_replier{};
+      CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadName(&p_name))
         success = false;
@@ -11568,12 +11568,12 @@ std::move(p_target_state), std::move(callback));
             CrosHealthdDiagnosticsService::Name_, 37, false);
         return false;
       }
-      CrosHealthdDiagnosticsService::RunLedLitUpRoutineCallback callback =
-          CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder::CreateCallback(
+      CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutineCallback callback =
+          CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunLedLitUpRoutine(
+      impl->DEPRECATED_RunLedLitUpRoutine(
 std::move(p_name), 
 std::move(p_color), 
 std::move(p_replier), std::move(callback));
@@ -11920,8 +11920,8 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdDiagnosticsServic
      &internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data::Validate,
-     &internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data::Validate,
@@ -14896,8 +14896,8 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunFingerprintAliveRout
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) {
   GetForwardingInterface()->RunPrivacyScreenRoutine(std::move(target_state), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) {
-  GetForwardingInterface()->RunLedLitUpRoutine(std::move(name), std::move(color), std::move(replier), std::move(callback));
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::DEPRECATED_RunLedLitUpRoutine(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> replier, DEPRECATED_RunLedLitUpRoutineCallback callback) {
+  GetForwardingInterface()->DEPRECATED_RunLedLitUpRoutine(std::move(name), std::move(color), std::move(replier), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) {
   GetForwardingInterface()->RunEmmcLifetimeRoutine(std::move(callback));
@@ -15782,10 +15782,10 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrivacyScreenRoutine(
   return async_wait_result;
 }
 
-void CrosHealthdDiagnosticsServiceAsyncWaiter::RunLedLitUpRoutine(
-    ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+void CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunLedLitUpRoutine(
+    ::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> replier, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
-  proxy_->RunLedLitUpRoutine(std::move(name),std::move(color),std::move(replier),
+  proxy_->DEPRECATED_RunLedLitUpRoutine(std::move(name),std::move(color),std::move(replier),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
@@ -15798,10 +15798,10 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunLedLitUpRoutine(
   loop.Run();
 }
 
-::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunLedLitUpRoutine(
-    ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier) {
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunLedLitUpRoutine(
+    ::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> replier) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
-  RunLedLitUpRoutine(std::move(name),std::move(color),std::move(replier),&async_wait_result);
+  DEPRECATED_RunLedLitUpRoutine(std::move(name),std::move(color),std::move(replier),&async_wait_result);
   return async_wait_result;
 }
 

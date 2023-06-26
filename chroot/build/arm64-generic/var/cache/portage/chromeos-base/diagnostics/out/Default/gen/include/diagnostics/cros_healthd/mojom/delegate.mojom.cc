@@ -693,7 +693,7 @@ void DelegateProxy::GetFingerprintInfo(
 }
 
 void DelegateProxy::SetLedColor(
-    ::ash::cros_healthd::mojom::LedName in_name, ::ash::cros_healthd::mojom::LedColor in_color, SetLedColorCallback callback) {
+    ::ash::cros_healthd::mojom::DEPRECATED_LedName in_name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor in_color, SetLedColorCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::SetLedColor", "input_parameters",
@@ -701,10 +701,10 @@ void DelegateProxy::SetLedColor(
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("name"), in_name,
-                        "<value of type ::ash::cros_healthd::mojom::LedName>");
+                        "<value of type ::ash::cros_healthd::mojom::DEPRECATED_LedName>");
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("color"), in_color,
-                        "<value of type ::ash::cros_healthd::mojom::LedColor>");
+                        "<value of type ::ash::cros_healthd::mojom::DEPRECATED_LedColor>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -722,9 +722,9 @@ void DelegateProxy::SetLedColor(
       ::ash::cros_healthd::mojom::internal::Delegate_SetLedColor_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::ash::cros_healthd::mojom::LedName>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::DEPRECATED_LedName>(
       in_name, &params->name);
-  mojo::internal::Serialize<::ash::cros_healthd::mojom::LedColor>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::DEPRECATED_LedColor>(
       in_color, &params->color);
 
 #if defined(ENABLE_IPC_FUZZER)
@@ -738,7 +738,7 @@ void DelegateProxy::SetLedColor(
 }
 
 void DelegateProxy::ResetLedColor(
-    ::ash::cros_healthd::mojom::LedName in_name, ResetLedColorCallback callback) {
+    ::ash::cros_healthd::mojom::DEPRECATED_LedName in_name, ResetLedColorCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::ResetLedColor", "input_parameters",
@@ -746,7 +746,7 @@ void DelegateProxy::ResetLedColor(
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("name"), in_name,
-                        "<value of type ::ash::cros_healthd::mojom::LedName>");
+                        "<value of type ::ash::cros_healthd::mojom::DEPRECATED_LedName>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -764,7 +764,7 @@ void DelegateProxy::ResetLedColor(
       ::ash::cros_healthd::mojom::internal::Delegate_ResetLedColor_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::ash::cros_healthd::mojom::LedName>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::DEPRECATED_LedName>(
       in_name, &params->name);
 
 #if defined(ENABLE_IPC_FUZZER)
@@ -3066,8 +3066,8 @@ std::move(p_type), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::LedName p_name{};
-      ::ash::cros_healthd::mojom::LedColor p_color{};
+      ::ash::cros_healthd::mojom::DEPRECATED_LedName p_name{};
+      ::ash::cros_healthd::mojom::DEPRECATED_LedColor p_color{};
       Delegate_SetLedColor_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadName(&p_name))
@@ -3099,7 +3099,7 @@ std::move(p_color), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::LedName p_name{};
+      ::ash::cros_healthd::mojom::DEPRECATED_LedName p_name{};
       Delegate_ResetLedColor_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadName(&p_name))
@@ -3404,10 +3404,10 @@ void DelegateInterceptorForTesting::GetFingerprintFrame(::ash::cros_healthd::moj
 void DelegateInterceptorForTesting::GetFingerprintInfo(GetFingerprintInfoCallback callback) {
   GetForwardingInterface()->GetFingerprintInfo(std::move(callback));
 }
-void DelegateInterceptorForTesting::SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) {
+void DelegateInterceptorForTesting::SetLedColor(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, SetLedColorCallback callback) {
   GetForwardingInterface()->SetLedColor(std::move(name), std::move(color), std::move(callback));
 }
-void DelegateInterceptorForTesting::ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) {
+void DelegateInterceptorForTesting::ResetLedColor(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ResetLedColorCallback callback) {
   GetForwardingInterface()->ResetLedColor(std::move(name), std::move(callback));
 }
 void DelegateInterceptorForTesting::MonitorAudioJack(::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> observer) {
@@ -3502,7 +3502,7 @@ void DelegateAsyncWaiter::GetFingerprintInfo(
 
 
 void DelegateAsyncWaiter::SetLedColor(
-    ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, absl::optional<std::string>* out_err) {
+    ::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, absl::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->SetLedColor(std::move(name),std::move(color),
       base::BindOnce(
@@ -3518,14 +3518,14 @@ void DelegateAsyncWaiter::SetLedColor(
 }
 
 absl::optional<std::string> DelegateAsyncWaiter::SetLedColor(
-    ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color) {
+    ::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color) {
   absl::optional<std::string> async_wait_result;
   SetLedColor(std::move(name),std::move(color),&async_wait_result);
   return async_wait_result;
 }
 
 void DelegateAsyncWaiter::ResetLedColor(
-    ::ash::cros_healthd::mojom::LedName name, absl::optional<std::string>* out_err) {
+    ::ash::cros_healthd::mojom::DEPRECATED_LedName name, absl::optional<std::string>* out_err) {
   base::RunLoop loop;
   proxy_->ResetLedColor(std::move(name),
       base::BindOnce(
@@ -3541,7 +3541,7 @@ void DelegateAsyncWaiter::ResetLedColor(
 }
 
 absl::optional<std::string> DelegateAsyncWaiter::ResetLedColor(
-    ::ash::cros_healthd::mojom::LedName name) {
+    ::ash::cros_healthd::mojom::DEPRECATED_LedName name) {
   absl::optional<std::string> async_wait_result;
   ResetLedColor(std::move(name),&async_wait_result);
   return async_wait_result;

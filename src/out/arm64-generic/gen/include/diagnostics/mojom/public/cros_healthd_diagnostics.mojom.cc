@@ -284,13 +284,13 @@ bool RoutineUpdateUnion::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-const char LedLitUpRoutineReplier::Name_[] = "ash.cros_healthd.mojom.LedLitUpRoutineReplier";
+const char DEPRECATED_LedLitUpRoutineReplier::Name_[] = "ash.cros_healthd.mojom.DEPRECATED_LedLitUpRoutineReplier";
 
-LedLitUpRoutineReplier::IPCStableHashFunction LedLitUpRoutineReplier::MessageToMethodInfo_(mojo::Message& message) {
+DEPRECATED_LedLitUpRoutineReplier::IPCStableHashFunction DEPRECATED_LedLitUpRoutineReplier::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
-      return &LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash;
+    case internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name: {
+      return &DEPRECATED_LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -298,18 +298,18 @@ LedLitUpRoutineReplier::IPCStableHashFunction LedLitUpRoutineReplier::MessageToM
 }
 
 
-const char* LedLitUpRoutineReplier::MessageToMethodName_(mojo::Message& message) {
+const char* DEPRECATED_LedLitUpRoutineReplier::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kLedLitUpRoutineReplier_GetColorMatched_Name:
-            return "Receive ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched";
+      case internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name:
+            return "Receive ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier::GetColorMatched";
     }
   } else {
     switch (message.name()) {
-      case internal::kLedLitUpRoutineReplier_GetColorMatched_Name:
-            return "Receive reply ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched";
+      case internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name:
+            return "Receive reply ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier::GetColorMatched";
     }
   }
   return "Receive unknown mojo message";
@@ -324,7 +324,7 @@ const char* LedLitUpRoutineReplier::MessageToMethodName_(mojo::Message& message)
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash() {
+uint32_t DEPRECATED_LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -332,37 +332,37 @@ uint32_t LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched");
+          "(Impl)ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier::GetColorMatched");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-class LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback
+class DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(
-      LedLitUpRoutineReplier::GetColorMatchedCallback callback
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(
+      DEPRECATED_LedLitUpRoutineReplier::GetColorMatchedCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(const LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback&) = delete;
-  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback& operator=(const LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback&) = delete;
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(const DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback&) = delete;
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback& operator=(const DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  LedLitUpRoutineReplier::GetColorMatchedCallback callback_;
+  DEPRECATED_LedLitUpRoutineReplier::GetColorMatchedCallback callback_;
 };
 
-LedLitUpRoutineReplierProxy::LedLitUpRoutineReplierProxy(mojo::MessageReceiverWithResponder* receiver)
+DEPRECATED_LedLitUpRoutineReplierProxy::DEPRECATED_LedLitUpRoutineReplierProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
-void LedLitUpRoutineReplierProxy::GetColorMatched(
+void DEPRECATED_LedLitUpRoutineReplierProxy::GetColorMatched(
     GetColorMatchedCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier::GetColorMatched");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -374,34 +374,34 @@ void LedLitUpRoutineReplierProxy::GetColorMatched(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr);
+      internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data> params(
           message);
   params.Allocate();
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LedLitUpRoutineReplier::Name_);
+  message.set_interface_name(DEPRECATED_LedLitUpRoutineReplier::Name_);
   message.set_method_name("GetColorMatched");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(
+      new DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
-class LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static LedLitUpRoutineReplier::GetColorMatchedCallback CreateCallback(
+  static DEPRECATED_LedLitUpRoutineReplier::GetColorMatchedCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder> proxy(
-        new LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder(
+    std::unique_ptr<DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder> proxy(
+        new DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run,
+    return base::BindOnce(&DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder() {
+  ~DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -418,7 +418,7 @@ class LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder : public ::mojo::i
   }
 
  private:
-  LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder(
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -427,7 +427,7 @@ class LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder : public ::mojo::i
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "LedLitUpRoutineReplier::GetColorMatchedCallback was destroyed without "
+        << "DEPRECATED_LedLitUpRoutineReplier::GetColorMatchedCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -438,18 +438,18 @@ class LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder : public ::mojo::i
       bool in_matched);
 };
 
-bool LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback::Accept(
+bool DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* params =
+  internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(
+          internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   bool p_matched{};
-  LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView input_data_view(params, message);
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
     p_matched = input_data_view.matched();
@@ -457,7 +457,7 @@ bool LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        LedLitUpRoutineReplier::Name_, 0, true);
+        DEPRECATED_LedLitUpRoutineReplier::Name_, 0, true);
     return false;
   }
   if (!callback_.is_null())
@@ -466,11 +466,11 @@ std::move(p_matched));
   return true;
 }
 
-void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
+void DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
     bool in_matched) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier::GetColorMatched", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -484,15 +484,15 @@ void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr);
+      internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data> params(
           message);
   params.Allocate();
   params->matched = in_matched;
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(LedLitUpRoutineReplier::Name_);
+  message.set_interface_name(DEPRECATED_LedLitUpRoutineReplier::Name_);
   message.set_method_name("GetColorMatched");
 #endif
 
@@ -509,11 +509,11 @@ void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
 }
 
 // static
-bool LedLitUpRoutineReplierStubDispatch::Accept(
-    LedLitUpRoutineReplier* impl,
+bool DEPRECATED_LedLitUpRoutineReplierStubDispatch::Accept(
+    DEPRECATED_LedLitUpRoutineReplier* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+    case internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name: {
       break;
     }
   }
@@ -521,33 +521,33 @@ bool LedLitUpRoutineReplierStubDispatch::Accept(
 }
 
 // static
-bool LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
-    LedLitUpRoutineReplier* impl,
+bool DEPRECATED_LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
+    DEPRECATED_LedLitUpRoutineReplier* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+    case internal::kDEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Name: {
 
-      internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data* params =
+      internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data* params =
           reinterpret_cast<
-              internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(
+              internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
-      LedLitUpRoutineReplier_GetColorMatched_ParamsDataView input_data_view(params, message);
+      DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            LedLitUpRoutineReplier::Name_, 0, false);
+            DEPRECATED_LedLitUpRoutineReplier::Name_, 0, false);
         return false;
       }
-      LedLitUpRoutineReplier::GetColorMatchedCallback callback =
-          LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::CreateCallback(
+      DEPRECATED_LedLitUpRoutineReplier::GetColorMatchedCallback callback =
+          DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
@@ -559,19 +559,19 @@ bool LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
 }
 
 
-static const mojo::internal::GenericValidationInfo kLedLitUpRoutineReplierValidationInfo[] = {
-    {&internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate,
-     &internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate},
+static const mojo::internal::GenericValidationInfo kDEPRECATED_LedLitUpRoutineReplierValidationInfo[] = {
+    {&internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate,
+     &internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate},
 };
 
-bool LedLitUpRoutineReplierRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::ash::cros_healthd::mojom::LedLitUpRoutineReplier::Name_;
-  return mojo::internal::ValidateRequestGenericPacked(message, name, kLedLitUpRoutineReplierValidationInfo);
+bool DEPRECATED_LedLitUpRoutineReplierRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kDEPRECATED_LedLitUpRoutineReplierValidationInfo);
 }
 
-bool LedLitUpRoutineReplierResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::ash::cros_healthd::mojom::LedLitUpRoutineReplier::Name_;
-  return mojo::internal::ValidateResponseGenericPacked(message, name, kLedLitUpRoutineReplierValidationInfo);
+bool DEPRECATED_LedLitUpRoutineReplierResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kDEPRECATED_LedLitUpRoutineReplierValidationInfo);
 }
 
 
@@ -691,15 +691,15 @@ namespace cros_healthd {
 namespace mojom {
 
 
-void LedLitUpRoutineReplierInterceptorForTesting::GetColorMatched(GetColorMatchedCallback callback) {
+void DEPRECATED_LedLitUpRoutineReplierInterceptorForTesting::GetColorMatched(GetColorMatchedCallback callback) {
   GetForwardingInterface()->GetColorMatched(std::move(callback));
 }
-LedLitUpRoutineReplierAsyncWaiter::LedLitUpRoutineReplierAsyncWaiter(
-    LedLitUpRoutineReplier* proxy) : proxy_(proxy) {}
+DEPRECATED_LedLitUpRoutineReplierAsyncWaiter::DEPRECATED_LedLitUpRoutineReplierAsyncWaiter(
+    DEPRECATED_LedLitUpRoutineReplier* proxy) : proxy_(proxy) {}
 
-LedLitUpRoutineReplierAsyncWaiter::~LedLitUpRoutineReplierAsyncWaiter() = default;
+DEPRECATED_LedLitUpRoutineReplierAsyncWaiter::~DEPRECATED_LedLitUpRoutineReplierAsyncWaiter() = default;
 
-void LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
+void DEPRECATED_LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
     bool* out_matched) {
   base::RunLoop loop;
   proxy_->GetColorMatched(
@@ -715,7 +715,7 @@ void LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
   loop.Run();
 }
 
-bool LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
+bool DEPRECATED_LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
     ) {
   bool async_wait_result;
   GetColorMatched(&async_wait_result);

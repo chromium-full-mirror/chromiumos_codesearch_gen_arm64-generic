@@ -261,7 +261,7 @@ struct NvmeSelfTestTypeEnum_Data {
   }
 };
 
-struct LedName_Data {
+struct DEPRECATED_LedName_Data {
  public:
   static bool constexpr kIsExtensible = true;
 
@@ -289,7 +289,7 @@ struct LedName_Data {
   }
 };
 
-struct LedColor_Data {
+struct DEPRECATED_LedColor_Data {
  public:
   static bool constexpr kIsExtensible = true;
 

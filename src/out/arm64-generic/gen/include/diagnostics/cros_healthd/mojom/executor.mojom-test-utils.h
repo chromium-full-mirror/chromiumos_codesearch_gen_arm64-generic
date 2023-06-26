@@ -192,8 +192,8 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetLidAngle(GetLidAngleCallback callback) override;
   void GetFingerprintFrame(FingerprintCaptureType type, GetFingerprintFrameCallback callback) override;
   void GetFingerprintInfo(GetFingerprintInfoCallback callback) override;
-  void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) override;
-  void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) override;
+  void SetLedColor(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, SetLedColorCallback callback) override;
+  void ResetLedColor(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ResetLedColorCallback callback) override;
   void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) override;
   void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
@@ -255,11 +255,11 @@ class  ExecutorAsyncWaiter {
       FingerprintInfoResultPtr* out_result, absl::optional<std::string>* out_err);
   
   void SetLedColor(
-      ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, absl::optional<std::string>* out_err);
-  absl::optional<std::string> SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color);
+      ::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, absl::optional<std::string>* out_err);
+  absl::optional<std::string> SetLedColor(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color);
   void ResetLedColor(
-      ::ash::cros_healthd::mojom::LedName name, absl::optional<std::string>* out_err);
-  absl::optional<std::string> ResetLedColor(::ash::cros_healthd::mojom::LedName name);
+      ::ash::cros_healthd::mojom::DEPRECATED_LedName name, absl::optional<std::string>* out_err);
+  absl::optional<std::string> ResetLedColor(::ash::cros_healthd::mojom::DEPRECATED_LedName name);
   void GetHciDeviceConfig(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr GetHciDeviceConfig();

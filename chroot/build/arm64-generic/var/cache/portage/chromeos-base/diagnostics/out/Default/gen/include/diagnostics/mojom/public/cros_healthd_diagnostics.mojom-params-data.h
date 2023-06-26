@@ -22,7 +22,7 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
-class  LedLitUpRoutineReplier_GetColorMatched_Params_Data {
+class  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -30,14 +30,14 @@ class  LedLitUpRoutineReplier_GetColorMatched_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<LedLitUpRoutineReplier_GetColorMatched_Params_Data>;
+  friend class mojo::internal::MessageFragment<DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data>;
 
-  LedLitUpRoutineReplier_GetColorMatched_Params_Data();
-  ~LedLitUpRoutineReplier_GetColorMatched_Params_Data() = delete;
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data();
+  ~DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data() = delete;
 };
-static_assert(sizeof(LedLitUpRoutineReplier_GetColorMatched_Params_Data) == 8,
-              "Bad sizeof(LedLitUpRoutineReplier_GetColorMatched_Params_Data)");
-class  LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data {
+static_assert(sizeof(DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data) == 8,
+              "Bad sizeof(DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data)");
+class  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -47,38 +47,38 @@ class  LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data {
   uint8_t padfinal_[7];
 
  private:
-  friend class mojo::internal::MessageFragment<LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data>;
 
-  LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data();
-  ~LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data() = delete;
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data();
+  ~DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data) == 16,
-              "Bad sizeof(LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data)");
+static_assert(sizeof(DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data) == 16,
+              "Bad sizeof(DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data)");
 
 }  // namespace internal
 
 
-class LedLitUpRoutineReplier_GetColorMatched_ParamsDataView {
+class DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ParamsDataView {
  public:
-  LedLitUpRoutineReplier_GetColorMatched_ParamsDataView() = default;
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ParamsDataView() = default;
 
-  LedLitUpRoutineReplier_GetColorMatched_ParamsDataView(
-      internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data* data,
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ParamsDataView(
+      internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data* data_ = nullptr;
+  internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data* data_ = nullptr;
 };
 
 
-class LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView {
+class DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView {
  public:
-  LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView() = default;
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView() = default;
 
-  LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView(
-      internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* data,
+  DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView(
+      internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -87,7 +87,7 @@ class LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView {
     return data_->matched;
   }
  private:
-  internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* data_ = nullptr;
+  internal::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* data_ = nullptr;
 };
 
 
