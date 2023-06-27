@@ -24,115 +24,172 @@ class DlcServiceInterfaceProxyMock : public DlcServiceInterfaceProxyInterface {
   DlcServiceInterfaceProxyMock(const DlcServiceInterfaceProxyMock&) = delete;
   DlcServiceInterfaceProxyMock& operator=(const DlcServiceInterfaceProxyMock&) = delete;
 
-  MOCK_METHOD3(InstallDlc,
-               bool(const std::string& /*in_id*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallDlcAsync,
-               void(const std::string& /*in_id*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallWithOmahaUrl,
-               bool(const std::string& /*in_id*/,
-                    const std::string& /*in_omaha_url*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(InstallWithOmahaUrlAsync,
-               void(const std::string& /*in_id*/,
-                    const std::string& /*in_omaha_url*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(Install,
-               bool(const dlcservice::InstallRequest& /*in_install_request*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallAsync,
-               void(const dlcservice::InstallRequest& /*in_install_request*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(Uninstall,
-               bool(const std::string& /*in_id*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UninstallAsync,
-               void(const std::string& /*in_id*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(Purge,
-               bool(const std::string& /*in_id*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PurgeAsync,
-               void(const std::string& /*in_id*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(GetInstalled,
-               bool(std::vector<std::string>* /*out_ids*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(GetInstalledAsync,
-               void(base::OnceCallback<void(const std::vector<std::string>& /*ids*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(GetExistingDlcs,
-               bool(dlcservice::DlcsWithContent* /*out_dlc_list*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(GetExistingDlcsAsync,
-               void(base::OnceCallback<void(const dlcservice::DlcsWithContent& /*dlc_list*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(GetDlcsToUpdate,
-               bool(std::vector<std::string>* /*out_ids*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(GetDlcsToUpdateAsync,
-               void(base::OnceCallback<void(const std::vector<std::string>& /*ids*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetDlcState,
-               bool(const std::string& /*in_id*/,
-                    dlcservice::DlcState* /*out_state*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetDlcStateAsync,
-               void(const std::string& /*in_id*/,
-                    base::OnceCallback<void(const dlcservice::DlcState& /*state*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(InstallCompleted,
-               bool(const std::vector<std::string>& /*in_ids*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallCompletedAsync,
-               void(const std::vector<std::string>& /*in_ids*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(UpdateCompleted,
-               bool(const std::vector<std::string>& /*in_ids*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UpdateCompletedAsync,
-               void(const std::vector<std::string>& /*in_ids*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
+  MOCK_METHOD(bool,
+              InstallDlc,
+              (const std::string& /*in_id*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              InstallDlcAsync,
+              (const std::string& /*in_id*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              InstallWithOmahaUrl,
+              (const std::string& /*in_id*/,
+               const std::string& /*in_omaha_url*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              InstallWithOmahaUrlAsync,
+              (const std::string& /*in_id*/,
+               const std::string& /*in_omaha_url*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              Install,
+              (const dlcservice::InstallRequest& /*in_install_request*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              InstallAsync,
+              (const dlcservice::InstallRequest& /*in_install_request*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              Uninstall,
+              (const std::string& /*in_id*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              UninstallAsync,
+              (const std::string& /*in_id*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              Purge,
+              (const std::string& /*in_id*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              PurgeAsync,
+              (const std::string& /*in_id*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetInstalled,
+              (std::vector<std::string>* /*out_ids*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetInstalledAsync,
+              (base::OnceCallback<void(const std::vector<std::string>& /*ids*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetExistingDlcs,
+              (dlcservice::DlcsWithContent* /*out_dlc_list*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetExistingDlcsAsync,
+              (base::OnceCallback<void(const dlcservice::DlcsWithContent& /*dlc_list*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetDlcsToUpdate,
+              (std::vector<std::string>* /*out_ids*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetDlcsToUpdateAsync,
+              (base::OnceCallback<void(const std::vector<std::string>& /*ids*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetDlcState,
+              (const std::string& /*in_id*/,
+               dlcservice::DlcState* /*out_state*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetDlcStateAsync,
+              (const std::string& /*in_id*/,
+               base::OnceCallback<void(const dlcservice::DlcState& /*state*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              InstallCompleted,
+              (const std::vector<std::string>& /*in_ids*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              InstallCompletedAsync,
+              (const std::vector<std::string>& /*in_ids*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              UpdateCompleted,
+              (const std::vector<std::string>& /*in_ids*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              UpdateCompletedAsync,
+              (const std::vector<std::string>& /*in_ids*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
   void RegisterDlcStateChangedSignalHandler(
     const base::RepeatingCallback<void(const dlcservice::DlcState&)>& signal_callback,
-    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
     DoRegisterDlcStateChangedSignalHandler(signal_callback, &on_connected_callback);
   }
-  MOCK_METHOD2(DoRegisterDlcStateChangedSignalHandler,
-               void(const base::RepeatingCallback<void(const dlcservice::DlcState&)>& /*signal_callback*/,
-                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(void,
+              DoRegisterDlcStateChangedSignalHandler,
+              (const base::RepeatingCallback<void(const dlcservice::DlcState&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org

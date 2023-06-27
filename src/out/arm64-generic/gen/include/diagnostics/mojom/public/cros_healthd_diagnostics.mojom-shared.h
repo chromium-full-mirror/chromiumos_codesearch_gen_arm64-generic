@@ -190,8 +190,10 @@ enum class DiagnosticRoutineEnum : int32_t {
   kPowerButton = 44,
   
   kAudioDriver = 45,
+  
+  kUfsLifetime = 46,
   kMinValue = 0,
-  kMaxValue = 45,
+  kMaxValue = 46,
   kDefaultValue = 30
 };
 

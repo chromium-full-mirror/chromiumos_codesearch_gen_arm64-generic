@@ -5916,7 +5916,7 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // bool enable_rw = 41;
+      // bool enable_rw = 41 [deprecated = true];
       case 41:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           _impl_.enable_rw_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -6171,7 +6171,7 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
       40, this->_internal_ureadahead_mode(), target);
   }
 
-  // bool enable_rw = 41;
+  // bool enable_rw = 41 [deprecated = true];
   if (this->_internal_enable_rw() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(41, this->_internal_enable_rw(), target);
@@ -6366,7 +6366,7 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // bool enable_rw = 41;
+  // bool enable_rw = 41 [deprecated = true];
   if (this->_internal_enable_rw() != 0) {
     total_size += 2 + 1;
   }

@@ -25,78 +25,113 @@ class TpmNvramProxyMock : public TpmNvramProxyInterface {
   TpmNvramProxyMock(const TpmNvramProxyMock&) = delete;
   TpmNvramProxyMock& operator=(const TpmNvramProxyMock&) = delete;
 
-  MOCK_METHOD4(DefineSpace,
-               bool(const tpm_manager::DefineSpaceRequest& /*in_request*/,
-                    tpm_manager::DefineSpaceReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(DefineSpaceAsync,
-               void(const tpm_manager::DefineSpaceRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::DefineSpaceReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(DestroySpace,
-               bool(const tpm_manager::DestroySpaceRequest& /*in_request*/,
-                    tpm_manager::DestroySpaceReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(DestroySpaceAsync,
-               void(const tpm_manager::DestroySpaceRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::DestroySpaceReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(WriteSpace,
-               bool(const tpm_manager::WriteSpaceRequest& /*in_request*/,
-                    tpm_manager::WriteSpaceReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(WriteSpaceAsync,
-               void(const tpm_manager::WriteSpaceRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::WriteSpaceReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ReadSpace,
-               bool(const tpm_manager::ReadSpaceRequest& /*in_request*/,
-                    tpm_manager::ReadSpaceReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ReadSpaceAsync,
-               void(const tpm_manager::ReadSpaceRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::ReadSpaceReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(LockSpace,
-               bool(const tpm_manager::LockSpaceRequest& /*in_request*/,
-                    tpm_manager::LockSpaceReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(LockSpaceAsync,
-               void(const tpm_manager::LockSpaceRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::LockSpaceReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ListSpaces,
-               bool(const tpm_manager::ListSpacesRequest& /*in_request*/,
-                    tpm_manager::ListSpacesReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ListSpacesAsync,
-               void(const tpm_manager::ListSpacesRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::ListSpacesReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetSpaceInfo,
-               bool(const tpm_manager::GetSpaceInfoRequest& /*in_request*/,
-                    tpm_manager::GetSpaceInfoReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetSpaceInfoAsync,
-               void(const tpm_manager::GetSpaceInfoRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::GetSpaceInfoReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              DefineSpace,
+              (const tpm_manager::DefineSpaceRequest& /*in_request*/,
+               tpm_manager::DefineSpaceReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              DefineSpaceAsync,
+              (const tpm_manager::DefineSpaceRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::DefineSpaceReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              DestroySpace,
+              (const tpm_manager::DestroySpaceRequest& /*in_request*/,
+               tpm_manager::DestroySpaceReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              DestroySpaceAsync,
+              (const tpm_manager::DestroySpaceRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::DestroySpaceReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              WriteSpace,
+              (const tpm_manager::WriteSpaceRequest& /*in_request*/,
+               tpm_manager::WriteSpaceReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              WriteSpaceAsync,
+              (const tpm_manager::WriteSpaceRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::WriteSpaceReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ReadSpace,
+              (const tpm_manager::ReadSpaceRequest& /*in_request*/,
+               tpm_manager::ReadSpaceReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ReadSpaceAsync,
+              (const tpm_manager::ReadSpaceRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::ReadSpaceReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              LockSpace,
+              (const tpm_manager::LockSpaceRequest& /*in_request*/,
+               tpm_manager::LockSpaceReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              LockSpaceAsync,
+              (const tpm_manager::LockSpaceRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::LockSpaceReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ListSpaces,
+              (const tpm_manager::ListSpacesRequest& /*in_request*/,
+               tpm_manager::ListSpacesReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ListSpacesAsync,
+              (const tpm_manager::ListSpacesRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::ListSpacesReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetSpaceInfo,
+              (const tpm_manager::GetSpaceInfoRequest& /*in_request*/,
+               tpm_manager::GetSpaceInfoReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetSpaceInfoAsync,
+              (const tpm_manager::GetSpaceInfoRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::GetSpaceInfoReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org
@@ -111,116 +146,168 @@ class TpmManagerProxyMock : public TpmManagerProxyInterface {
   TpmManagerProxyMock(const TpmManagerProxyMock&) = delete;
   TpmManagerProxyMock& operator=(const TpmManagerProxyMock&) = delete;
 
-  MOCK_METHOD4(GetTpmStatus,
-               bool(const tpm_manager::GetTpmStatusRequest& /*in_request*/,
-                    tpm_manager::GetTpmStatusReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetTpmStatusAsync,
-               void(const tpm_manager::GetTpmStatusRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::GetTpmStatusReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetTpmNonsensitiveStatus,
-               bool(const tpm_manager::GetTpmNonsensitiveStatusRequest& /*in_request*/,
-                    tpm_manager::GetTpmNonsensitiveStatusReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetTpmNonsensitiveStatusAsync,
-               void(const tpm_manager::GetTpmNonsensitiveStatusRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::GetTpmNonsensitiveStatusReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetVersionInfo,
-               bool(const tpm_manager::GetVersionInfoRequest& /*in_request*/,
-                    tpm_manager::GetVersionInfoReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetVersionInfoAsync,
-               void(const tpm_manager::GetVersionInfoRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::GetVersionInfoReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetSupportedFeatures,
-               bool(const tpm_manager::GetSupportedFeaturesRequest& /*in_request*/,
-                    tpm_manager::GetSupportedFeaturesReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetSupportedFeaturesAsync,
-               void(const tpm_manager::GetSupportedFeaturesRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::GetSupportedFeaturesReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetDictionaryAttackInfo,
-               bool(const tpm_manager::GetDictionaryAttackInfoRequest& /*in_request*/,
-                    tpm_manager::GetDictionaryAttackInfoReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetDictionaryAttackInfoAsync,
-               void(const tpm_manager::GetDictionaryAttackInfoRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::GetDictionaryAttackInfoReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetRoVerificationStatus,
-               bool(const tpm_manager::GetRoVerificationStatusRequest& /*in_request*/,
-                    tpm_manager::GetRoVerificationStatusReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetRoVerificationStatusAsync,
-               void(const tpm_manager::GetRoVerificationStatusRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::GetRoVerificationStatusReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ResetDictionaryAttackLock,
-               bool(const tpm_manager::ResetDictionaryAttackLockRequest& /*in_request*/,
-                    tpm_manager::ResetDictionaryAttackLockReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ResetDictionaryAttackLockAsync,
-               void(const tpm_manager::ResetDictionaryAttackLockRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::ResetDictionaryAttackLockReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(TakeOwnership,
-               bool(const tpm_manager::TakeOwnershipRequest& /*in_request*/,
-                    tpm_manager::TakeOwnershipReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(TakeOwnershipAsync,
-               void(const tpm_manager::TakeOwnershipRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::TakeOwnershipReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveOwnerDependency,
-               bool(const tpm_manager::RemoveOwnerDependencyRequest& /*in_request*/,
-                    tpm_manager::RemoveOwnerDependencyReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveOwnerDependencyAsync,
-               void(const tpm_manager::RemoveOwnerDependencyRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::RemoveOwnerDependencyReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ClearStoredOwnerPassword,
-               bool(const tpm_manager::ClearStoredOwnerPasswordRequest& /*in_request*/,
-                    tpm_manager::ClearStoredOwnerPasswordReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ClearStoredOwnerPasswordAsync,
-               void(const tpm_manager::ClearStoredOwnerPasswordRequest& /*in_request*/,
-                    base::OnceCallback<void(const tpm_manager::ClearStoredOwnerPasswordReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
+  MOCK_METHOD(bool,
+              GetTpmStatus,
+              (const tpm_manager::GetTpmStatusRequest& /*in_request*/,
+               tpm_manager::GetTpmStatusReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetTpmStatusAsync,
+              (const tpm_manager::GetTpmStatusRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::GetTpmStatusReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetTpmNonsensitiveStatus,
+              (const tpm_manager::GetTpmNonsensitiveStatusRequest& /*in_request*/,
+               tpm_manager::GetTpmNonsensitiveStatusReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetTpmNonsensitiveStatusAsync,
+              (const tpm_manager::GetTpmNonsensitiveStatusRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::GetTpmNonsensitiveStatusReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetVersionInfo,
+              (const tpm_manager::GetVersionInfoRequest& /*in_request*/,
+               tpm_manager::GetVersionInfoReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetVersionInfoAsync,
+              (const tpm_manager::GetVersionInfoRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::GetVersionInfoReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetSupportedFeatures,
+              (const tpm_manager::GetSupportedFeaturesRequest& /*in_request*/,
+               tpm_manager::GetSupportedFeaturesReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetSupportedFeaturesAsync,
+              (const tpm_manager::GetSupportedFeaturesRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::GetSupportedFeaturesReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetDictionaryAttackInfo,
+              (const tpm_manager::GetDictionaryAttackInfoRequest& /*in_request*/,
+               tpm_manager::GetDictionaryAttackInfoReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetDictionaryAttackInfoAsync,
+              (const tpm_manager::GetDictionaryAttackInfoRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::GetDictionaryAttackInfoReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetRoVerificationStatus,
+              (const tpm_manager::GetRoVerificationStatusRequest& /*in_request*/,
+               tpm_manager::GetRoVerificationStatusReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetRoVerificationStatusAsync,
+              (const tpm_manager::GetRoVerificationStatusRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::GetRoVerificationStatusReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ResetDictionaryAttackLock,
+              (const tpm_manager::ResetDictionaryAttackLockRequest& /*in_request*/,
+               tpm_manager::ResetDictionaryAttackLockReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ResetDictionaryAttackLockAsync,
+              (const tpm_manager::ResetDictionaryAttackLockRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::ResetDictionaryAttackLockReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              TakeOwnership,
+              (const tpm_manager::TakeOwnershipRequest& /*in_request*/,
+               tpm_manager::TakeOwnershipReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              TakeOwnershipAsync,
+              (const tpm_manager::TakeOwnershipRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::TakeOwnershipReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              RemoveOwnerDependency,
+              (const tpm_manager::RemoveOwnerDependencyRequest& /*in_request*/,
+               tpm_manager::RemoveOwnerDependencyReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RemoveOwnerDependencyAsync,
+              (const tpm_manager::RemoveOwnerDependencyRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::RemoveOwnerDependencyReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ClearStoredOwnerPassword,
+              (const tpm_manager::ClearStoredOwnerPasswordRequest& /*in_request*/,
+               tpm_manager::ClearStoredOwnerPasswordReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ClearStoredOwnerPasswordAsync,
+              (const tpm_manager::ClearStoredOwnerPasswordRequest& /*in_request*/,
+               base::OnceCallback<void(const tpm_manager::ClearStoredOwnerPasswordReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
   void RegisterSignalOwnershipTakenSignalHandler(
     const base::RepeatingCallback<void(const tpm_manager::OwnershipTakenSignal&)>& signal_callback,
-    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
     DoRegisterSignalOwnershipTakenSignalHandler(signal_callback, &on_connected_callback);
   }
-  MOCK_METHOD2(DoRegisterSignalOwnershipTakenSignalHandler,
-               void(const base::RepeatingCallback<void(const tpm_manager::OwnershipTakenSignal&)>& /*signal_callback*/,
-                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(void,
+              DoRegisterSignalOwnershipTakenSignalHandler,
+              (const base::RepeatingCallback<void(const tpm_manager::OwnershipTakenSignal&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org

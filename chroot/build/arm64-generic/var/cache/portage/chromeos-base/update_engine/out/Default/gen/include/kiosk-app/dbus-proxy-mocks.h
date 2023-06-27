@@ -24,16 +24,21 @@ class KioskAppServiceInterfaceProxyMock : public KioskAppServiceInterfaceProxyIn
   KioskAppServiceInterfaceProxyMock(const KioskAppServiceInterfaceProxyMock&) = delete;
   KioskAppServiceInterfaceProxyMock& operator=(const KioskAppServiceInterfaceProxyMock&) = delete;
 
-  MOCK_METHOD3(GetRequiredPlatformVersion,
-               bool(std::string* /*out_required_platform_version*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(GetRequiredPlatformVersionAsync,
-               void(base::OnceCallback<void(const std::string& /*required_platform_version*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              GetRequiredPlatformVersion,
+              (std::string* /*out_required_platform_version*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetRequiredPlatformVersionAsync,
+              (base::OnceCallback<void(const std::string& /*required_platform_version*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org

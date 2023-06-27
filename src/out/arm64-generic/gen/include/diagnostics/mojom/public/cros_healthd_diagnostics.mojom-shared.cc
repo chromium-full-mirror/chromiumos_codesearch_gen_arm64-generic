@@ -117,6 +117,8 @@ NOINLINE static const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kPowerButton";
     case DiagnosticRoutineEnum::kAudioDriver:
       return "kAudioDriver";
+    case DiagnosticRoutineEnum::kUfsLifetime:
+      return "kUfsLifetime";
     default:
       return nullptr;
   }

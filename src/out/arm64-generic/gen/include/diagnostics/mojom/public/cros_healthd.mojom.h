@@ -153,7 +153,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 12;
+  static constexpr uint32_t Version_ = 13;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -213,6 +213,7 @@ class CrosHealthdDiagnosticsService
     kRunBluetoothPairingRoutineMinVersion = 9,
     kRunPowerButtonRoutineMinVersion = 11,
     kRunAudioDriverRoutineMinVersion = 12,
+    kRunUfsLifetimeRoutineMinVersion = 13,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -357,6 +358,9 @@ class CrosHealthdDiagnosticsService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunAudioDriverRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunUfsLifetimeRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -596,6 +600,11 @@ class CrosHealthdDiagnosticsService
   using RunAudioDriverRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunAudioDriverRoutine(RunAudioDriverRoutineCallback callback) = 0;
+
+
+  using RunUfsLifetimeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunUfsLifetimeRoutine(RunUfsLifetimeRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -1014,6 +1023,8 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunPowerButtonRoutine(uint32_t timeout_seconds, RunPowerButtonRoutineCallback callback) final;
   
   void RunAudioDriverRoutine(RunAudioDriverRoutineCallback callback) final;
+  
+  void RunUfsLifetimeRoutine(RunUfsLifetimeRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

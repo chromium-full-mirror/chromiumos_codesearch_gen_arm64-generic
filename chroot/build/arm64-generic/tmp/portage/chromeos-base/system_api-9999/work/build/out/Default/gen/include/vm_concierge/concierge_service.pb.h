@@ -2980,10 +2980,10 @@ class StartArcVmRequest final :
   void _internal_set_update_o4c_list_via_a2c2(bool value);
   public:
 
-  // bool enable_rw = 41;
-  void clear_enable_rw();
-  bool enable_rw() const;
-  void set_enable_rw(bool value);
+  // bool enable_rw = 41 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_enable_rw();
+  PROTOBUF_DEPRECATED bool enable_rw() const;
+  PROTOBUF_DEPRECATED void set_enable_rw(bool value);
   private:
   bool _internal_enable_rw() const;
   void _internal_set_enable_rw(bool value);
@@ -16840,7 +16840,7 @@ inline void StartArcVmRequest::set_ureadahead_mode(::vm_tools::concierge::StartA
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.ureadahead_mode)
 }
 
-// bool enable_rw = 41;
+// bool enable_rw = 41 [deprecated = true];
 inline void StartArcVmRequest::clear_enable_rw() {
   _impl_.enable_rw_ = false;
 }

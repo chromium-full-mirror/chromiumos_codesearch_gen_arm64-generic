@@ -24,120 +24,170 @@ class ImageLoaderInterfaceProxyMock : public ImageLoaderInterfaceProxyInterface 
   ImageLoaderInterfaceProxyMock(const ImageLoaderInterfaceProxyMock&) = delete;
   ImageLoaderInterfaceProxyMock& operator=(const ImageLoaderInterfaceProxyMock&) = delete;
 
-  MOCK_METHOD6(RegisterComponent,
-               bool(const std::string& /*in_name*/,
-                    const std::string& /*in_version*/,
-                    const std::string& /*in_component_folder_abs_path*/,
-                    bool* /*out_success*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD6(RegisterComponentAsync,
-               void(const std::string& /*in_name*/,
-                    const std::string& /*in_version*/,
-                    const std::string& /*in_component_folder_abs_path*/,
-                    base::OnceCallback<void(bool /*success*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetComponentVersion,
-               bool(const std::string& /*in_name*/,
-                    std::string* /*out_version*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetComponentVersionAsync,
-               void(const std::string& /*in_name*/,
-                    base::OnceCallback<void(const std::string& /*version*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(LoadComponent,
-               bool(const std::string& /*in_name*/,
-                    std::string* /*out_mount_point*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(LoadComponentAsync,
-               void(const std::string& /*in_name*/,
-                    base::OnceCallback<void(const std::string& /*mount_point*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(LoadComponentAtPath,
-               bool(const std::string& /*in_name*/,
-                    const std::string& /*in_absolute_path*/,
-                    std::string* /*out_mount_point*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(LoadComponentAtPathAsync,
-               void(const std::string& /*in_name*/,
-                    const std::string& /*in_absolute_path*/,
-                    base::OnceCallback<void(const std::string& /*mount_point*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD6(LoadDlcImage,
-               bool(const std::string& /*in_id*/,
-                    const std::string& /*in_package*/,
-                    const std::string& /*in_a_or_b*/,
-                    std::string* /*out_mount_point*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD6(LoadDlcImageAsync,
-               void(const std::string& /*in_id*/,
-                    const std::string& /*in_package*/,
-                    const std::string& /*in_a_or_b*/,
-                    base::OnceCallback<void(const std::string& /*mount_point*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(LoadDlc,
-               bool(const imageloader::LoadDlcRequest& /*in_load_request*/,
-                    std::string* /*out_mount_point*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(LoadDlcAsync,
-               void(const imageloader::LoadDlcRequest& /*in_load_request*/,
-                    base::OnceCallback<void(const std::string& /*mount_point*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveComponent,
-               bool(const std::string& /*in_name*/,
-                    bool* /*out_success*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveComponentAsync,
-               void(const std::string& /*in_name*/,
-                    base::OnceCallback<void(bool /*success*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetComponentMetadata,
-               bool(const std::string& /*in_name*/,
-                    std::map<std::string, std::string>* /*out_metadata*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetComponentMetadataAsync,
-               void(const std::string& /*in_name*/,
-                    base::OnceCallback<void(const std::map<std::string, std::string>& /*metadata*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UnmountComponent,
-               bool(const std::string& /*in_name*/,
-                    bool* /*out_success*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UnmountComponentAsync,
-               void(const std::string& /*in_name*/,
-                    base::OnceCallback<void(bool /*success*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(UnloadDlcImage,
-               bool(const std::string& /*in_id*/,
-                    const std::string& /*in_package*/,
-                    bool* /*out_success*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(UnloadDlcImageAsync,
-               void(const std::string& /*in_id*/,
-                    const std::string& /*in_package*/,
-                    base::OnceCallback<void(bool /*success*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              RegisterComponent,
+              (const std::string& /*in_name*/,
+               const std::string& /*in_version*/,
+               const std::string& /*in_component_folder_abs_path*/,
+               bool* /*out_success*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RegisterComponentAsync,
+              (const std::string& /*in_name*/,
+               const std::string& /*in_version*/,
+               const std::string& /*in_component_folder_abs_path*/,
+               base::OnceCallback<void(bool /*success*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetComponentVersion,
+              (const std::string& /*in_name*/,
+               std::string* /*out_version*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetComponentVersionAsync,
+              (const std::string& /*in_name*/,
+               base::OnceCallback<void(const std::string& /*version*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              LoadComponent,
+              (const std::string& /*in_name*/,
+               std::string* /*out_mount_point*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              LoadComponentAsync,
+              (const std::string& /*in_name*/,
+               base::OnceCallback<void(const std::string& /*mount_point*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              LoadComponentAtPath,
+              (const std::string& /*in_name*/,
+               const std::string& /*in_absolute_path*/,
+               std::string* /*out_mount_point*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              LoadComponentAtPathAsync,
+              (const std::string& /*in_name*/,
+               const std::string& /*in_absolute_path*/,
+               base::OnceCallback<void(const std::string& /*mount_point*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              LoadDlcImage,
+              (const std::string& /*in_id*/,
+               const std::string& /*in_package*/,
+               const std::string& /*in_a_or_b*/,
+               std::string* /*out_mount_point*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              LoadDlcImageAsync,
+              (const std::string& /*in_id*/,
+               const std::string& /*in_package*/,
+               const std::string& /*in_a_or_b*/,
+               base::OnceCallback<void(const std::string& /*mount_point*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              LoadDlc,
+              (const imageloader::LoadDlcRequest& /*in_load_request*/,
+               std::string* /*out_mount_point*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              LoadDlcAsync,
+              (const imageloader::LoadDlcRequest& /*in_load_request*/,
+               base::OnceCallback<void(const std::string& /*mount_point*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              RemoveComponent,
+              (const std::string& /*in_name*/,
+               bool* /*out_success*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RemoveComponentAsync,
+              (const std::string& /*in_name*/,
+               base::OnceCallback<void(bool /*success*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetComponentMetadata,
+              (const std::string& /*in_name*/,
+               (std::map<std::string, std::string>*) /*out_metadata*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetComponentMetadataAsync,
+              (const std::string& /*in_name*/,
+               (base::OnceCallback<void(const std::map<std::string, std::string>& /*metadata*/)>) /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              UnmountComponent,
+              (const std::string& /*in_name*/,
+               bool* /*out_success*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              UnmountComponentAsync,
+              (const std::string& /*in_name*/,
+               base::OnceCallback<void(bool /*success*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              UnloadDlcImage,
+              (const std::string& /*in_id*/,
+               const std::string& /*in_package*/,
+               bool* /*out_success*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              UnloadDlcImageAsync,
+              (const std::string& /*in_id*/,
+               const std::string& /*in_package*/,
+               base::OnceCallback<void(bool /*success*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org

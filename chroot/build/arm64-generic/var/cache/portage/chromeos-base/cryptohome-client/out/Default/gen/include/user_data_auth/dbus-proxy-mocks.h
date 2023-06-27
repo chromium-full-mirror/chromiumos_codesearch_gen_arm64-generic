@@ -28,378 +28,553 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
   UserDataAuthInterfaceProxyMock(const UserDataAuthInterfaceProxyMock&) = delete;
   UserDataAuthInterfaceProxyMock& operator=(const UserDataAuthInterfaceProxyMock&) = delete;
 
-  MOCK_METHOD4(IsMounted,
-               bool(const user_data_auth::IsMountedRequest& /*in_request*/,
-                    user_data_auth::IsMountedReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(IsMountedAsync,
-               void(const user_data_auth::IsMountedRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::IsMountedReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(Unmount,
-               bool(const user_data_auth::UnmountRequest& /*in_request*/,
-                    user_data_auth::UnmountReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UnmountAsync,
-               void(const user_data_auth::UnmountRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::UnmountReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(Remove,
-               bool(const user_data_auth::RemoveRequest& /*in_request*/,
-                    user_data_auth::RemoveReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveAsync,
-               void(const user_data_auth::RemoveRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::RemoveReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ListKeys,
-               bool(const user_data_auth::ListKeysRequest& /*in_request*/,
-                    user_data_auth::ListKeysReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ListKeysAsync,
-               void(const user_data_auth::ListKeysRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::ListKeysReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetWebAuthnSecret,
-               bool(const user_data_auth::GetWebAuthnSecretRequest& /*in_request*/,
-                    user_data_auth::GetWebAuthnSecretReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetWebAuthnSecretAsync,
-               void(const user_data_auth::GetWebAuthnSecretRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetWebAuthnSecretReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetWebAuthnSecretHash,
-               bool(const user_data_auth::GetWebAuthnSecretHashRequest& /*in_request*/,
-                    user_data_auth::GetWebAuthnSecretHashReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetWebAuthnSecretHashAsync,
-               void(const user_data_auth::GetWebAuthnSecretHashRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetWebAuthnSecretHashReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetHibernateSecret,
-               bool(const user_data_auth::GetHibernateSecretRequest& /*in_request*/,
-                    user_data_auth::GetHibernateSecretReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetHibernateSecretAsync,
-               void(const user_data_auth::GetHibernateSecretRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetHibernateSecretReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetEncryptionInfo,
-               bool(const user_data_auth::GetEncryptionInfoRequest& /*in_request*/,
-                    user_data_auth::GetEncryptionInfoReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetEncryptionInfoAsync,
-               void(const user_data_auth::GetEncryptionInfoRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetEncryptionInfoReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(StartMigrateToDircrypto,
-               bool(const user_data_auth::StartMigrateToDircryptoRequest& /*in_request*/,
-                    user_data_auth::StartMigrateToDircryptoReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(StartMigrateToDircryptoAsync,
-               void(const user_data_auth::StartMigrateToDircryptoRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::StartMigrateToDircryptoReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(NeedsDircryptoMigration,
-               bool(const user_data_auth::NeedsDircryptoMigrationRequest& /*in_request*/,
-                    user_data_auth::NeedsDircryptoMigrationReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(NeedsDircryptoMigrationAsync,
-               void(const user_data_auth::NeedsDircryptoMigrationRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::NeedsDircryptoMigrationReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetSupportedKeyPolicies,
-               bool(const user_data_auth::GetSupportedKeyPoliciesRequest& /*in_request*/,
-                    user_data_auth::GetSupportedKeyPoliciesReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetSupportedKeyPoliciesAsync,
-               void(const user_data_auth::GetSupportedKeyPoliciesRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetSupportedKeyPoliciesReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetAccountDiskUsage,
-               bool(const user_data_auth::GetAccountDiskUsageRequest& /*in_request*/,
-                    user_data_auth::GetAccountDiskUsageReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetAccountDiskUsageAsync,
-               void(const user_data_auth::GetAccountDiskUsageRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetAccountDiskUsageReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(StartAuthSession,
-               bool(const user_data_auth::StartAuthSessionRequest& /*in_request*/,
-                    user_data_auth::StartAuthSessionReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(StartAuthSessionAsync,
-               void(const user_data_auth::StartAuthSessionRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::StartAuthSessionReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InvalidateAuthSession,
-               bool(const user_data_auth::InvalidateAuthSessionRequest& /*in_request*/,
-                    user_data_auth::InvalidateAuthSessionReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InvalidateAuthSessionAsync,
-               void(const user_data_auth::InvalidateAuthSessionRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::InvalidateAuthSessionReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ExtendAuthSession,
-               bool(const user_data_auth::ExtendAuthSessionRequest& /*in_request*/,
-                    user_data_auth::ExtendAuthSessionReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ExtendAuthSessionAsync,
-               void(const user_data_auth::ExtendAuthSessionRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::ExtendAuthSessionReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetAuthSessionStatus,
-               bool(const user_data_auth::GetAuthSessionStatusRequest& /*in_request*/,
-                    user_data_auth::GetAuthSessionStatusReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetAuthSessionStatusAsync,
-               void(const user_data_auth::GetAuthSessionStatusRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetAuthSessionStatusReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(CreatePersistentUser,
-               bool(const user_data_auth::CreatePersistentUserRequest& /*in_request*/,
-                    user_data_auth::CreatePersistentUserReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(CreatePersistentUserAsync,
-               void(const user_data_auth::CreatePersistentUserRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::CreatePersistentUserReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(AuthenticateAuthFactor,
-               bool(const user_data_auth::AuthenticateAuthFactorRequest& /*in_request*/,
-                    user_data_auth::AuthenticateAuthFactorReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(AuthenticateAuthFactorAsync,
-               void(const user_data_auth::AuthenticateAuthFactorRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::AuthenticateAuthFactorReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PrepareGuestVault,
-               bool(const user_data_auth::PrepareGuestVaultRequest& /*in_request*/,
-                    user_data_auth::PrepareGuestVaultReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PrepareGuestVaultAsync,
-               void(const user_data_auth::PrepareGuestVaultRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::PrepareGuestVaultReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PrepareEphemeralVault,
-               bool(const user_data_auth::PrepareEphemeralVaultRequest& /*in_request*/,
-                    user_data_auth::PrepareEphemeralVaultReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PrepareEphemeralVaultAsync,
-               void(const user_data_auth::PrepareEphemeralVaultRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::PrepareEphemeralVaultReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PreparePersistentVault,
-               bool(const user_data_auth::PreparePersistentVaultRequest& /*in_request*/,
-                    user_data_auth::PreparePersistentVaultReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PreparePersistentVaultAsync,
-               void(const user_data_auth::PreparePersistentVaultRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::PreparePersistentVaultReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PrepareVaultForMigration,
-               bool(const user_data_auth::PrepareVaultForMigrationRequest& /*in_request*/,
-                    user_data_auth::PrepareVaultForMigrationReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PrepareVaultForMigrationAsync,
-               void(const user_data_auth::PrepareVaultForMigrationRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::PrepareVaultForMigrationReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(AddAuthFactor,
-               bool(const user_data_auth::AddAuthFactorRequest& /*in_request*/,
-                    user_data_auth::AddAuthFactorReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(AddAuthFactorAsync,
-               void(const user_data_auth::AddAuthFactorRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::AddAuthFactorReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UpdateAuthFactor,
-               bool(const user_data_auth::UpdateAuthFactorRequest& /*in_request*/,
-                    user_data_auth::UpdateAuthFactorReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UpdateAuthFactorAsync,
-               void(const user_data_auth::UpdateAuthFactorRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::UpdateAuthFactorReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UpdateAuthFactorMetadata,
-               bool(const user_data_auth::UpdateAuthFactorMetadataRequest& /*in_request*/,
-                    user_data_auth::UpdateAuthFactorMetadataReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UpdateAuthFactorMetadataAsync,
-               void(const user_data_auth::UpdateAuthFactorMetadataRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::UpdateAuthFactorMetadataReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveAuthFactor,
-               bool(const user_data_auth::RemoveAuthFactorRequest& /*in_request*/,
-                    user_data_auth::RemoveAuthFactorReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveAuthFactorAsync,
-               void(const user_data_auth::RemoveAuthFactorRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::RemoveAuthFactorReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ListAuthFactors,
-               bool(const user_data_auth::ListAuthFactorsRequest& /*in_request*/,
-                    user_data_auth::ListAuthFactorsReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ListAuthFactorsAsync,
-               void(const user_data_auth::ListAuthFactorsRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::ListAuthFactorsReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetAuthFactorExtendedInfo,
-               bool(const user_data_auth::GetAuthFactorExtendedInfoRequest& /*in_request*/,
-                    user_data_auth::GetAuthFactorExtendedInfoReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetAuthFactorExtendedInfoAsync,
-               void(const user_data_auth::GetAuthFactorExtendedInfoRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetAuthFactorExtendedInfoReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PrepareAuthFactor,
-               bool(const user_data_auth::PrepareAuthFactorRequest& /*in_request*/,
-                    user_data_auth::PrepareAuthFactorReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(PrepareAuthFactorAsync,
-               void(const user_data_auth::PrepareAuthFactorRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::PrepareAuthFactorReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(TerminateAuthFactor,
-               bool(const user_data_auth::TerminateAuthFactorRequest& /*in_request*/,
-                    user_data_auth::TerminateAuthFactorReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(TerminateAuthFactorAsync,
-               void(const user_data_auth::TerminateAuthFactorRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::TerminateAuthFactorReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetRecoveryRequest,
-               bool(const user_data_auth::GetRecoveryRequestRequest& /*in_request*/,
-                    user_data_auth::GetRecoveryRequestReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetRecoveryRequestAsync,
-               void(const user_data_auth::GetRecoveryRequestRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetRecoveryRequestReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ResetApplicationContainer,
-               bool(const user_data_auth::ResetApplicationContainerRequest& /*in_request*/,
-                    user_data_auth::ResetApplicationContainerReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ResetApplicationContainerAsync,
-               void(const user_data_auth::ResetApplicationContainerRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::ResetApplicationContainerReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(CreateVaultKeyset,
-               bool(const user_data_auth::CreateVaultKeysetRequest& /*in_request*/,
-                    user_data_auth::CreateVaultKeysetReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(CreateVaultKeysetAsync,
-               void(const user_data_auth::CreateVaultKeysetRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::CreateVaultKeysetReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
+  MOCK_METHOD(bool,
+              IsMounted,
+              (const user_data_auth::IsMountedRequest& /*in_request*/,
+               user_data_auth::IsMountedReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              IsMountedAsync,
+              (const user_data_auth::IsMountedRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::IsMountedReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              Unmount,
+              (const user_data_auth::UnmountRequest& /*in_request*/,
+               user_data_auth::UnmountReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              UnmountAsync,
+              (const user_data_auth::UnmountRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::UnmountReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              Remove,
+              (const user_data_auth::RemoveRequest& /*in_request*/,
+               user_data_auth::RemoveReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RemoveAsync,
+              (const user_data_auth::RemoveRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::RemoveReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ListKeys,
+              (const user_data_auth::ListKeysRequest& /*in_request*/,
+               user_data_auth::ListKeysReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ListKeysAsync,
+              (const user_data_auth::ListKeysRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::ListKeysReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetWebAuthnSecret,
+              (const user_data_auth::GetWebAuthnSecretRequest& /*in_request*/,
+               user_data_auth::GetWebAuthnSecretReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetWebAuthnSecretAsync,
+              (const user_data_auth::GetWebAuthnSecretRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetWebAuthnSecretReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetWebAuthnSecretHash,
+              (const user_data_auth::GetWebAuthnSecretHashRequest& /*in_request*/,
+               user_data_auth::GetWebAuthnSecretHashReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetWebAuthnSecretHashAsync,
+              (const user_data_auth::GetWebAuthnSecretHashRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetWebAuthnSecretHashReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetHibernateSecret,
+              (const user_data_auth::GetHibernateSecretRequest& /*in_request*/,
+               user_data_auth::GetHibernateSecretReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetHibernateSecretAsync,
+              (const user_data_auth::GetHibernateSecretRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetHibernateSecretReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetEncryptionInfo,
+              (const user_data_auth::GetEncryptionInfoRequest& /*in_request*/,
+               user_data_auth::GetEncryptionInfoReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetEncryptionInfoAsync,
+              (const user_data_auth::GetEncryptionInfoRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetEncryptionInfoReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              StartMigrateToDircrypto,
+              (const user_data_auth::StartMigrateToDircryptoRequest& /*in_request*/,
+               user_data_auth::StartMigrateToDircryptoReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              StartMigrateToDircryptoAsync,
+              (const user_data_auth::StartMigrateToDircryptoRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::StartMigrateToDircryptoReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              NeedsDircryptoMigration,
+              (const user_data_auth::NeedsDircryptoMigrationRequest& /*in_request*/,
+               user_data_auth::NeedsDircryptoMigrationReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              NeedsDircryptoMigrationAsync,
+              (const user_data_auth::NeedsDircryptoMigrationRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::NeedsDircryptoMigrationReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetSupportedKeyPolicies,
+              (const user_data_auth::GetSupportedKeyPoliciesRequest& /*in_request*/,
+               user_data_auth::GetSupportedKeyPoliciesReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetSupportedKeyPoliciesAsync,
+              (const user_data_auth::GetSupportedKeyPoliciesRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetSupportedKeyPoliciesReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetAccountDiskUsage,
+              (const user_data_auth::GetAccountDiskUsageRequest& /*in_request*/,
+               user_data_auth::GetAccountDiskUsageReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetAccountDiskUsageAsync,
+              (const user_data_auth::GetAccountDiskUsageRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetAccountDiskUsageReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              StartAuthSession,
+              (const user_data_auth::StartAuthSessionRequest& /*in_request*/,
+               user_data_auth::StartAuthSessionReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              StartAuthSessionAsync,
+              (const user_data_auth::StartAuthSessionRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::StartAuthSessionReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              InvalidateAuthSession,
+              (const user_data_auth::InvalidateAuthSessionRequest& /*in_request*/,
+               user_data_auth::InvalidateAuthSessionReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              InvalidateAuthSessionAsync,
+              (const user_data_auth::InvalidateAuthSessionRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::InvalidateAuthSessionReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ExtendAuthSession,
+              (const user_data_auth::ExtendAuthSessionRequest& /*in_request*/,
+               user_data_auth::ExtendAuthSessionReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ExtendAuthSessionAsync,
+              (const user_data_auth::ExtendAuthSessionRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::ExtendAuthSessionReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetAuthSessionStatus,
+              (const user_data_auth::GetAuthSessionStatusRequest& /*in_request*/,
+               user_data_auth::GetAuthSessionStatusReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetAuthSessionStatusAsync,
+              (const user_data_auth::GetAuthSessionStatusRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetAuthSessionStatusReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              CreatePersistentUser,
+              (const user_data_auth::CreatePersistentUserRequest& /*in_request*/,
+               user_data_auth::CreatePersistentUserReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              CreatePersistentUserAsync,
+              (const user_data_auth::CreatePersistentUserRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::CreatePersistentUserReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              AuthenticateAuthFactor,
+              (const user_data_auth::AuthenticateAuthFactorRequest& /*in_request*/,
+               user_data_auth::AuthenticateAuthFactorReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              AuthenticateAuthFactorAsync,
+              (const user_data_auth::AuthenticateAuthFactorRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::AuthenticateAuthFactorReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              PrepareGuestVault,
+              (const user_data_auth::PrepareGuestVaultRequest& /*in_request*/,
+               user_data_auth::PrepareGuestVaultReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              PrepareGuestVaultAsync,
+              (const user_data_auth::PrepareGuestVaultRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::PrepareGuestVaultReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              PrepareEphemeralVault,
+              (const user_data_auth::PrepareEphemeralVaultRequest& /*in_request*/,
+               user_data_auth::PrepareEphemeralVaultReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              PrepareEphemeralVaultAsync,
+              (const user_data_auth::PrepareEphemeralVaultRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::PrepareEphemeralVaultReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              PreparePersistentVault,
+              (const user_data_auth::PreparePersistentVaultRequest& /*in_request*/,
+               user_data_auth::PreparePersistentVaultReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              PreparePersistentVaultAsync,
+              (const user_data_auth::PreparePersistentVaultRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::PreparePersistentVaultReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              PrepareVaultForMigration,
+              (const user_data_auth::PrepareVaultForMigrationRequest& /*in_request*/,
+               user_data_auth::PrepareVaultForMigrationReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              PrepareVaultForMigrationAsync,
+              (const user_data_auth::PrepareVaultForMigrationRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::PrepareVaultForMigrationReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              AddAuthFactor,
+              (const user_data_auth::AddAuthFactorRequest& /*in_request*/,
+               user_data_auth::AddAuthFactorReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              AddAuthFactorAsync,
+              (const user_data_auth::AddAuthFactorRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::AddAuthFactorReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              UpdateAuthFactor,
+              (const user_data_auth::UpdateAuthFactorRequest& /*in_request*/,
+               user_data_auth::UpdateAuthFactorReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              UpdateAuthFactorAsync,
+              (const user_data_auth::UpdateAuthFactorRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::UpdateAuthFactorReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              UpdateAuthFactorMetadata,
+              (const user_data_auth::UpdateAuthFactorMetadataRequest& /*in_request*/,
+               user_data_auth::UpdateAuthFactorMetadataReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              UpdateAuthFactorMetadataAsync,
+              (const user_data_auth::UpdateAuthFactorMetadataRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::UpdateAuthFactorMetadataReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              RemoveAuthFactor,
+              (const user_data_auth::RemoveAuthFactorRequest& /*in_request*/,
+               user_data_auth::RemoveAuthFactorReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RemoveAuthFactorAsync,
+              (const user_data_auth::RemoveAuthFactorRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::RemoveAuthFactorReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ListAuthFactors,
+              (const user_data_auth::ListAuthFactorsRequest& /*in_request*/,
+               user_data_auth::ListAuthFactorsReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ListAuthFactorsAsync,
+              (const user_data_auth::ListAuthFactorsRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::ListAuthFactorsReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetAuthFactorExtendedInfo,
+              (const user_data_auth::GetAuthFactorExtendedInfoRequest& /*in_request*/,
+               user_data_auth::GetAuthFactorExtendedInfoReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetAuthFactorExtendedInfoAsync,
+              (const user_data_auth::GetAuthFactorExtendedInfoRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetAuthFactorExtendedInfoReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              PrepareAuthFactor,
+              (const user_data_auth::PrepareAuthFactorRequest& /*in_request*/,
+               user_data_auth::PrepareAuthFactorReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              PrepareAuthFactorAsync,
+              (const user_data_auth::PrepareAuthFactorRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::PrepareAuthFactorReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              TerminateAuthFactor,
+              (const user_data_auth::TerminateAuthFactorRequest& /*in_request*/,
+               user_data_auth::TerminateAuthFactorReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              TerminateAuthFactorAsync,
+              (const user_data_auth::TerminateAuthFactorRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::TerminateAuthFactorReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetRecoveryRequest,
+              (const user_data_auth::GetRecoveryRequestRequest& /*in_request*/,
+               user_data_auth::GetRecoveryRequestReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetRecoveryRequestAsync,
+              (const user_data_auth::GetRecoveryRequestRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetRecoveryRequestReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ResetApplicationContainer,
+              (const user_data_auth::ResetApplicationContainerRequest& /*in_request*/,
+               user_data_auth::ResetApplicationContainerReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ResetApplicationContainerAsync,
+              (const user_data_auth::ResetApplicationContainerRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::ResetApplicationContainerReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              CreateVaultKeyset,
+              (const user_data_auth::CreateVaultKeysetRequest& /*in_request*/,
+               user_data_auth::CreateVaultKeysetReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              CreateVaultKeysetAsync,
+              (const user_data_auth::CreateVaultKeysetRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::CreateVaultKeysetReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
   void RegisterDircryptoMigrationProgressSignalHandler(
     const base::RepeatingCallback<void(const user_data_auth::DircryptoMigrationProgress&)>& signal_callback,
-    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
     DoRegisterDircryptoMigrationProgressSignalHandler(signal_callback, &on_connected_callback);
   }
-  MOCK_METHOD2(DoRegisterDircryptoMigrationProgressSignalHandler,
-               void(const base::RepeatingCallback<void(const user_data_auth::DircryptoMigrationProgress&)>& /*signal_callback*/,
-                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+  MOCK_METHOD(void,
+              DoRegisterDircryptoMigrationProgressSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::DircryptoMigrationProgress&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
   void RegisterAuthFactorStatusUpdateSignalHandler(
     const base::RepeatingCallback<void(const user_data_auth::AuthFactorStatusUpdate&)>& signal_callback,
-    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
     DoRegisterAuthFactorStatusUpdateSignalHandler(signal_callback, &on_connected_callback);
   }
-  MOCK_METHOD2(DoRegisterAuthFactorStatusUpdateSignalHandler,
-               void(const base::RepeatingCallback<void(const user_data_auth::AuthFactorStatusUpdate&)>& /*signal_callback*/,
-                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+  MOCK_METHOD(void,
+              DoRegisterAuthFactorStatusUpdateSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::AuthFactorStatusUpdate&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
   void RegisterLowDiskSpaceSignalHandler(
     const base::RepeatingCallback<void(const user_data_auth::LowDiskSpace&)>& signal_callback,
-    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
     DoRegisterLowDiskSpaceSignalHandler(signal_callback, &on_connected_callback);
   }
-  MOCK_METHOD2(DoRegisterLowDiskSpaceSignalHandler,
-               void(const base::RepeatingCallback<void(const user_data_auth::LowDiskSpace&)>& /*signal_callback*/,
-                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+  MOCK_METHOD(void,
+              DoRegisterLowDiskSpaceSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::LowDiskSpace&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
   void RegisterAuthScanResultSignalHandler(
     const base::RepeatingCallback<void(const user_data_auth::AuthScanResult&)>& signal_callback,
-    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
     DoRegisterAuthScanResultSignalHandler(signal_callback, &on_connected_callback);
   }
-  MOCK_METHOD2(DoRegisterAuthScanResultSignalHandler,
-               void(const base::RepeatingCallback<void(const user_data_auth::AuthScanResult&)>& /*signal_callback*/,
-                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+  MOCK_METHOD(void,
+              DoRegisterAuthScanResultSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::AuthScanResult&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
   void RegisterPrepareAuthFactorProgressSignalHandler(
     const base::RepeatingCallback<void(const user_data_auth::PrepareAuthFactorProgress&)>& signal_callback,
-    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
     DoRegisterPrepareAuthFactorProgressSignalHandler(signal_callback, &on_connected_callback);
   }
-  MOCK_METHOD2(DoRegisterPrepareAuthFactorProgressSignalHandler,
-               void(const base::RepeatingCallback<void(const user_data_auth::PrepareAuthFactorProgress&)>& /*signal_callback*/,
-                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(void,
+              DoRegisterPrepareAuthFactorProgressSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::PrepareAuthFactorProgress&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org
@@ -414,72 +589,102 @@ class ArcQuotaProxyMock : public ArcQuotaProxyInterface {
   ArcQuotaProxyMock(const ArcQuotaProxyMock&) = delete;
   ArcQuotaProxyMock& operator=(const ArcQuotaProxyMock&) = delete;
 
-  MOCK_METHOD4(GetArcDiskFeatures,
-               bool(const user_data_auth::GetArcDiskFeaturesRequest& /*in_request*/,
-                    user_data_auth::GetArcDiskFeaturesReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetArcDiskFeaturesAsync,
-               void(const user_data_auth::GetArcDiskFeaturesRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetArcDiskFeaturesReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetCurrentSpaceForArcUid,
-               bool(const user_data_auth::GetCurrentSpaceForArcUidRequest& /*in_request*/,
-                    user_data_auth::GetCurrentSpaceForArcUidReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetCurrentSpaceForArcUidAsync,
-               void(const user_data_auth::GetCurrentSpaceForArcUidRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcUidReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetCurrentSpaceForArcGid,
-               bool(const user_data_auth::GetCurrentSpaceForArcGidRequest& /*in_request*/,
-                    user_data_auth::GetCurrentSpaceForArcGidReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetCurrentSpaceForArcGidAsync,
-               void(const user_data_auth::GetCurrentSpaceForArcGidRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcGidReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetCurrentSpaceForArcProjectId,
-               bool(const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& /*in_request*/,
-                    user_data_auth::GetCurrentSpaceForArcProjectIdReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetCurrentSpaceForArcProjectIdAsync,
-               void(const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcProjectIdReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(SetMediaRWDataFileProjectId,
-               bool(const base::ScopedFD& /*in_fd*/,
-                    const user_data_auth::SetMediaRWDataFileProjectIdRequest& /*in_request*/,
-                    user_data_auth::SetMediaRWDataFileProjectIdReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(SetMediaRWDataFileProjectIdAsync,
-               void(const base::ScopedFD& /*in_fd*/,
-                    const user_data_auth::SetMediaRWDataFileProjectIdRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectIdReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(SetMediaRWDataFileProjectInheritanceFlag,
-               bool(const base::ScopedFD& /*in_fd*/,
-                    const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& /*in_request*/,
-                    user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(SetMediaRWDataFileProjectInheritanceFlagAsync,
-               void(const base::ScopedFD& /*in_fd*/,
-                    const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              GetArcDiskFeatures,
+              (const user_data_auth::GetArcDiskFeaturesRequest& /*in_request*/,
+               user_data_auth::GetArcDiskFeaturesReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetArcDiskFeaturesAsync,
+              (const user_data_auth::GetArcDiskFeaturesRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetArcDiskFeaturesReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetCurrentSpaceForArcUid,
+              (const user_data_auth::GetCurrentSpaceForArcUidRequest& /*in_request*/,
+               user_data_auth::GetCurrentSpaceForArcUidReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetCurrentSpaceForArcUidAsync,
+              (const user_data_auth::GetCurrentSpaceForArcUidRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcUidReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetCurrentSpaceForArcGid,
+              (const user_data_auth::GetCurrentSpaceForArcGidRequest& /*in_request*/,
+               user_data_auth::GetCurrentSpaceForArcGidReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetCurrentSpaceForArcGidAsync,
+              (const user_data_auth::GetCurrentSpaceForArcGidRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcGidReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetCurrentSpaceForArcProjectId,
+              (const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& /*in_request*/,
+               user_data_auth::GetCurrentSpaceForArcProjectIdReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetCurrentSpaceForArcProjectIdAsync,
+              (const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetCurrentSpaceForArcProjectIdReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              SetMediaRWDataFileProjectId,
+              (const base::ScopedFD& /*in_fd*/,
+               const user_data_auth::SetMediaRWDataFileProjectIdRequest& /*in_request*/,
+               user_data_auth::SetMediaRWDataFileProjectIdReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetMediaRWDataFileProjectIdAsync,
+              (const base::ScopedFD& /*in_fd*/,
+               const user_data_auth::SetMediaRWDataFileProjectIdRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectIdReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              SetMediaRWDataFileProjectInheritanceFlag,
+              (const base::ScopedFD& /*in_fd*/,
+               const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& /*in_request*/,
+               user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetMediaRWDataFileProjectInheritanceFlagAsync,
+              (const base::ScopedFD& /*in_fd*/,
+               const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org
@@ -494,48 +699,68 @@ class CryptohomePkcs11InterfaceProxyMock : public CryptohomePkcs11InterfaceProxy
   CryptohomePkcs11InterfaceProxyMock(const CryptohomePkcs11InterfaceProxyMock&) = delete;
   CryptohomePkcs11InterfaceProxyMock& operator=(const CryptohomePkcs11InterfaceProxyMock&) = delete;
 
-  MOCK_METHOD4(Pkcs11IsTpmTokenReady,
-               bool(const user_data_auth::Pkcs11IsTpmTokenReadyRequest& /*in_request*/,
-                    user_data_auth::Pkcs11IsTpmTokenReadyReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(Pkcs11IsTpmTokenReadyAsync,
-               void(const user_data_auth::Pkcs11IsTpmTokenReadyRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::Pkcs11IsTpmTokenReadyReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(Pkcs11GetTpmTokenInfo,
-               bool(const user_data_auth::Pkcs11GetTpmTokenInfoRequest& /*in_request*/,
-                    user_data_auth::Pkcs11GetTpmTokenInfoReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(Pkcs11GetTpmTokenInfoAsync,
-               void(const user_data_auth::Pkcs11GetTpmTokenInfoRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::Pkcs11GetTpmTokenInfoReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(Pkcs11Terminate,
-               bool(const user_data_auth::Pkcs11TerminateRequest& /*in_request*/,
-                    user_data_auth::Pkcs11TerminateReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(Pkcs11TerminateAsync,
-               void(const user_data_auth::Pkcs11TerminateRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::Pkcs11TerminateReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(Pkcs11RestoreTpmTokens,
-               bool(const user_data_auth::Pkcs11RestoreTpmTokensRequest& /*in_request*/,
-                    user_data_auth::Pkcs11RestoreTpmTokensReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(Pkcs11RestoreTpmTokensAsync,
-               void(const user_data_auth::Pkcs11RestoreTpmTokensRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::Pkcs11RestoreTpmTokensReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              Pkcs11IsTpmTokenReady,
+              (const user_data_auth::Pkcs11IsTpmTokenReadyRequest& /*in_request*/,
+               user_data_auth::Pkcs11IsTpmTokenReadyReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              Pkcs11IsTpmTokenReadyAsync,
+              (const user_data_auth::Pkcs11IsTpmTokenReadyRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::Pkcs11IsTpmTokenReadyReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              Pkcs11GetTpmTokenInfo,
+              (const user_data_auth::Pkcs11GetTpmTokenInfoRequest& /*in_request*/,
+               user_data_auth::Pkcs11GetTpmTokenInfoReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              Pkcs11GetTpmTokenInfoAsync,
+              (const user_data_auth::Pkcs11GetTpmTokenInfoRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::Pkcs11GetTpmTokenInfoReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              Pkcs11Terminate,
+              (const user_data_auth::Pkcs11TerminateRequest& /*in_request*/,
+               user_data_auth::Pkcs11TerminateReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              Pkcs11TerminateAsync,
+              (const user_data_auth::Pkcs11TerminateRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::Pkcs11TerminateReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              Pkcs11RestoreTpmTokens,
+              (const user_data_auth::Pkcs11RestoreTpmTokensRequest& /*in_request*/,
+               user_data_auth::Pkcs11RestoreTpmTokensReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              Pkcs11RestoreTpmTokensAsync,
+              (const user_data_auth::Pkcs11RestoreTpmTokensRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::Pkcs11RestoreTpmTokensReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org
@@ -550,78 +775,113 @@ class InstallAttributesInterfaceProxyMock : public InstallAttributesInterfacePro
   InstallAttributesInterfaceProxyMock(const InstallAttributesInterfaceProxyMock&) = delete;
   InstallAttributesInterfaceProxyMock& operator=(const InstallAttributesInterfaceProxyMock&) = delete;
 
-  MOCK_METHOD4(InstallAttributesGet,
-               bool(const user_data_auth::InstallAttributesGetRequest& /*in_request*/,
-                    user_data_auth::InstallAttributesGetReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallAttributesGetAsync,
-               void(const user_data_auth::InstallAttributesGetRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::InstallAttributesGetReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallAttributesSet,
-               bool(const user_data_auth::InstallAttributesSetRequest& /*in_request*/,
-                    user_data_auth::InstallAttributesSetReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallAttributesSetAsync,
-               void(const user_data_auth::InstallAttributesSetRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::InstallAttributesSetReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallAttributesFinalize,
-               bool(const user_data_auth::InstallAttributesFinalizeRequest& /*in_request*/,
-                    user_data_auth::InstallAttributesFinalizeReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallAttributesFinalizeAsync,
-               void(const user_data_auth::InstallAttributesFinalizeRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::InstallAttributesFinalizeReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallAttributesGetStatus,
-               bool(const user_data_auth::InstallAttributesGetStatusRequest& /*in_request*/,
-                    user_data_auth::InstallAttributesGetStatusReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(InstallAttributesGetStatusAsync,
-               void(const user_data_auth::InstallAttributesGetStatusRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::InstallAttributesGetStatusReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetFirmwareManagementParameters,
-               bool(const user_data_auth::GetFirmwareManagementParametersRequest& /*in_request*/,
-                    user_data_auth::GetFirmwareManagementParametersReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetFirmwareManagementParametersAsync,
-               void(const user_data_auth::GetFirmwareManagementParametersRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetFirmwareManagementParametersReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveFirmwareManagementParameters,
-               bool(const user_data_auth::RemoveFirmwareManagementParametersRequest& /*in_request*/,
-                    user_data_auth::RemoveFirmwareManagementParametersReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveFirmwareManagementParametersAsync,
-               void(const user_data_auth::RemoveFirmwareManagementParametersRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::RemoveFirmwareManagementParametersReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(SetFirmwareManagementParameters,
-               bool(const user_data_auth::SetFirmwareManagementParametersRequest& /*in_request*/,
-                    user_data_auth::SetFirmwareManagementParametersReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(SetFirmwareManagementParametersAsync,
-               void(const user_data_auth::SetFirmwareManagementParametersRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::SetFirmwareManagementParametersReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              InstallAttributesGet,
+              (const user_data_auth::InstallAttributesGetRequest& /*in_request*/,
+               user_data_auth::InstallAttributesGetReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              InstallAttributesGetAsync,
+              (const user_data_auth::InstallAttributesGetRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::InstallAttributesGetReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              InstallAttributesSet,
+              (const user_data_auth::InstallAttributesSetRequest& /*in_request*/,
+               user_data_auth::InstallAttributesSetReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              InstallAttributesSetAsync,
+              (const user_data_auth::InstallAttributesSetRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::InstallAttributesSetReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              InstallAttributesFinalize,
+              (const user_data_auth::InstallAttributesFinalizeRequest& /*in_request*/,
+               user_data_auth::InstallAttributesFinalizeReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              InstallAttributesFinalizeAsync,
+              (const user_data_auth::InstallAttributesFinalizeRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::InstallAttributesFinalizeReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              InstallAttributesGetStatus,
+              (const user_data_auth::InstallAttributesGetStatusRequest& /*in_request*/,
+               user_data_auth::InstallAttributesGetStatusReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              InstallAttributesGetStatusAsync,
+              (const user_data_auth::InstallAttributesGetStatusRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::InstallAttributesGetStatusReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetFirmwareManagementParameters,
+              (const user_data_auth::GetFirmwareManagementParametersRequest& /*in_request*/,
+               user_data_auth::GetFirmwareManagementParametersReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetFirmwareManagementParametersAsync,
+              (const user_data_auth::GetFirmwareManagementParametersRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetFirmwareManagementParametersReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              RemoveFirmwareManagementParameters,
+              (const user_data_auth::RemoveFirmwareManagementParametersRequest& /*in_request*/,
+               user_data_auth::RemoveFirmwareManagementParametersReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RemoveFirmwareManagementParametersAsync,
+              (const user_data_auth::RemoveFirmwareManagementParametersRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::RemoveFirmwareManagementParametersReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              SetFirmwareManagementParameters,
+              (const user_data_auth::SetFirmwareManagementParametersRequest& /*in_request*/,
+               user_data_auth::SetFirmwareManagementParametersReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetFirmwareManagementParametersAsync,
+              (const user_data_auth::SetFirmwareManagementParametersRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::SetFirmwareManagementParametersReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org
@@ -636,68 +896,98 @@ class CryptohomeMiscInterfaceProxyMock : public CryptohomeMiscInterfaceProxyInte
   CryptohomeMiscInterfaceProxyMock(const CryptohomeMiscInterfaceProxyMock&) = delete;
   CryptohomeMiscInterfaceProxyMock& operator=(const CryptohomeMiscInterfaceProxyMock&) = delete;
 
-  MOCK_METHOD4(GetSystemSalt,
-               bool(const user_data_auth::GetSystemSaltRequest& /*in_request*/,
-                    user_data_auth::GetSystemSaltReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetSystemSaltAsync,
-               void(const user_data_auth::GetSystemSaltRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetSystemSaltReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UpdateCurrentUserActivityTimestamp,
-               bool(const user_data_auth::UpdateCurrentUserActivityTimestampRequest& /*in_request*/,
-                    user_data_auth::UpdateCurrentUserActivityTimestampReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UpdateCurrentUserActivityTimestampAsync,
-               void(const user_data_auth::UpdateCurrentUserActivityTimestampRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::UpdateCurrentUserActivityTimestampReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetSanitizedUsername,
-               bool(const user_data_auth::GetSanitizedUsernameRequest& /*in_request*/,
-                    user_data_auth::GetSanitizedUsernameReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetSanitizedUsernameAsync,
-               void(const user_data_auth::GetSanitizedUsernameRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetSanitizedUsernameReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetLoginStatus,
-               bool(const user_data_auth::GetLoginStatusRequest& /*in_request*/,
-                    user_data_auth::GetLoginStatusReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetLoginStatusAsync,
-               void(const user_data_auth::GetLoginStatusRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetLoginStatusReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(LockToSingleUserMountUntilReboot,
-               bool(const user_data_auth::LockToSingleUserMountUntilRebootRequest& /*in_request*/,
-                    user_data_auth::LockToSingleUserMountUntilRebootReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(LockToSingleUserMountUntilRebootAsync,
-               void(const user_data_auth::LockToSingleUserMountUntilRebootRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::LockToSingleUserMountUntilRebootReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetRsuDeviceId,
-               bool(const user_data_auth::GetRsuDeviceIdRequest& /*in_request*/,
-                    user_data_auth::GetRsuDeviceIdReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetRsuDeviceIdAsync,
-               void(const user_data_auth::GetRsuDeviceIdRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetRsuDeviceIdReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              GetSystemSalt,
+              (const user_data_auth::GetSystemSaltRequest& /*in_request*/,
+               user_data_auth::GetSystemSaltReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetSystemSaltAsync,
+              (const user_data_auth::GetSystemSaltRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetSystemSaltReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              UpdateCurrentUserActivityTimestamp,
+              (const user_data_auth::UpdateCurrentUserActivityTimestampRequest& /*in_request*/,
+               user_data_auth::UpdateCurrentUserActivityTimestampReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              UpdateCurrentUserActivityTimestampAsync,
+              (const user_data_auth::UpdateCurrentUserActivityTimestampRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::UpdateCurrentUserActivityTimestampReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetSanitizedUsername,
+              (const user_data_auth::GetSanitizedUsernameRequest& /*in_request*/,
+               user_data_auth::GetSanitizedUsernameReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetSanitizedUsernameAsync,
+              (const user_data_auth::GetSanitizedUsernameRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetSanitizedUsernameReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetLoginStatus,
+              (const user_data_auth::GetLoginStatusRequest& /*in_request*/,
+               user_data_auth::GetLoginStatusReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetLoginStatusAsync,
+              (const user_data_auth::GetLoginStatusRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetLoginStatusReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              LockToSingleUserMountUntilReboot,
+              (const user_data_auth::LockToSingleUserMountUntilRebootRequest& /*in_request*/,
+               user_data_auth::LockToSingleUserMountUntilRebootReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              LockToSingleUserMountUntilRebootAsync,
+              (const user_data_auth::LockToSingleUserMountUntilRebootRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::LockToSingleUserMountUntilRebootReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetRsuDeviceId,
+              (const user_data_auth::GetRsuDeviceIdRequest& /*in_request*/,
+               user_data_auth::GetRsuDeviceIdReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetRsuDeviceIdAsync,
+              (const user_data_auth::GetRsuDeviceIdRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetRsuDeviceIdReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org

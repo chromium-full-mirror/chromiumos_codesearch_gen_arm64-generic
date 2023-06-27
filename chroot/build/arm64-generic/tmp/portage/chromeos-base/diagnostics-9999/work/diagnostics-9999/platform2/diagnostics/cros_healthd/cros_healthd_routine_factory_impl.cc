@@ -12,9 +12,9 @@
 #include <base/logging.h>
 
 #include "diagnostics/cros_healthd/routines/ac_power/ac_power.h"
-#include "diagnostics/cros_healthd/routines/arc_dns_resolution/arc_dns_resolution.h"
-#include "diagnostics/cros_healthd/routines/arc_http/arc_http.h"
-#include "diagnostics/cros_healthd/routines/arc_ping/arc_ping.h"
+#include "diagnostics/cros_healthd/routines/android_network/arc_dns_resolution.h"
+#include "diagnostics/cros_healthd/routines/android_network/arc_http.h"
+#include "diagnostics/cros_healthd/routines/android_network/arc_ping.h"
 #include "diagnostics/cros_healthd/routines/audio/audio_set_gain.h"
 #include "diagnostics/cros_healthd/routines/audio/audio_set_volume.h"
 #include "diagnostics/cros_healthd/routines/battery_capacity/battery_capacity.h"
@@ -25,7 +25,6 @@
 #include "diagnostics/cros_healthd/routines/bluetooth/bluetooth_pairing.h"
 #include "diagnostics/cros_healthd/routines/bluetooth/bluetooth_power.h"
 #include "diagnostics/cros_healthd/routines/bluetooth/bluetooth_scanning.h"
-#include "diagnostics/cros_healthd/routines/emmc_lifetime/emmc_lifetime.h"
 #include "diagnostics/cros_healthd/routines/fingerprint/fingerprint.h"
 #include "diagnostics/cros_healthd/routines/fingerprint_alive/fingerprint_alive.h"
 #include "diagnostics/cros_healthd/routines/led_lit_up/led_lit_up.h"
@@ -47,12 +46,13 @@
 #include "diagnostics/cros_healthd/routines/network/lan_connectivity.h"
 #include "diagnostics/cros_healthd/routines/network/signal_strength.h"
 #include "diagnostics/cros_healthd/routines/network/video_conferencing.h"
-#include "diagnostics/cros_healthd/routines/nvme_self_test/nvme_self_test.h"
-#include "diagnostics/cros_healthd/routines/nvme_wear_level/nvme_wear_level.h"
 #include "diagnostics/cros_healthd/routines/power_button/power_button.h"
 #include "diagnostics/cros_healthd/routines/privacy_screen/privacy_screen.h"
 #include "diagnostics/cros_healthd/routines/sensor/sensitive_sensor.h"
-#include "diagnostics/cros_healthd/routines/smartctl_check/smartctl_check.h"
+#include "diagnostics/cros_healthd/routines/storage/emmc_lifetime.h"
+#include "diagnostics/cros_healthd/routines/storage/nvme_self_test.h"
+#include "diagnostics/cros_healthd/routines/storage/nvme_wear_level.h"
+#include "diagnostics/cros_healthd/routines/storage/smartctl_check.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 
 namespace diagnostics {

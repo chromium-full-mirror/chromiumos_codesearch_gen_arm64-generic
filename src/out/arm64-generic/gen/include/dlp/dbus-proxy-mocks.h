@@ -24,28 +24,38 @@ class DlpFilesPolicyServiceProxyMock : public DlpFilesPolicyServiceProxyInterfac
   DlpFilesPolicyServiceProxyMock(const DlpFilesPolicyServiceProxyMock&) = delete;
   DlpFilesPolicyServiceProxyMock& operator=(const DlpFilesPolicyServiceProxyMock&) = delete;
 
-  MOCK_METHOD4(IsDlpPolicyMatched,
-               bool(const std::vector<uint8_t>& /*in_request*/,
-                    std::vector<uint8_t>* /*out_response*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(IsDlpPolicyMatchedAsync,
-               void(const std::vector<uint8_t>& /*in_request*/,
-                    base::OnceCallback<void(const std::vector<uint8_t>& /*response*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(IsFilesTransferRestricted,
-               bool(const std::vector<uint8_t>& /*in_request*/,
-                    std::vector<uint8_t>* /*out_response*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(IsFilesTransferRestrictedAsync,
-               void(const std::vector<uint8_t>& /*in_request*/,
-                    base::OnceCallback<void(const std::vector<uint8_t>& /*response*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              IsDlpPolicyMatched,
+              (const std::vector<uint8_t>& /*in_request*/,
+               std::vector<uint8_t>* /*out_response*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              IsDlpPolicyMatchedAsync,
+              (const std::vector<uint8_t>& /*in_request*/,
+               base::OnceCallback<void(const std::vector<uint8_t>& /*response*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              IsFilesTransferRestricted,
+              (const std::vector<uint8_t>& /*in_request*/,
+               std::vector<uint8_t>* /*out_response*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              IsFilesTransferRestrictedAsync,
+              (const std::vector<uint8_t>& /*in_request*/,
+               base::OnceCallback<void(const std::vector<uint8_t>& /*response*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org

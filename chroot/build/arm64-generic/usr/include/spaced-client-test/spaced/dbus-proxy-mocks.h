@@ -24,44 +24,61 @@ class SpacedProxyMock : public SpacedProxyInterface {
   SpacedProxyMock(const SpacedProxyMock&) = delete;
   SpacedProxyMock& operator=(const SpacedProxyMock&) = delete;
 
-  MOCK_METHOD4(GetFreeDiskSpace,
-               bool(const std::string& /*in_path*/,
-                    int64_t* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetFreeDiskSpaceAsync,
-               void(const std::string& /*in_path*/,
-                    base::OnceCallback<void(int64_t /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetTotalDiskSpace,
-               bool(const std::string& /*in_path*/,
-                    int64_t* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetTotalDiskSpaceAsync,
-               void(const std::string& /*in_path*/,
-                    base::OnceCallback<void(int64_t /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(GetRootDeviceSize,
-               bool(int64_t* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(GetRootDeviceSizeAsync,
-               void(base::OnceCallback<void(int64_t /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
+  MOCK_METHOD(bool,
+              GetFreeDiskSpace,
+              (const std::string& /*in_path*/,
+               int64_t* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetFreeDiskSpaceAsync,
+              (const std::string& /*in_path*/,
+               base::OnceCallback<void(int64_t /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetTotalDiskSpace,
+              (const std::string& /*in_path*/,
+               int64_t* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetTotalDiskSpaceAsync,
+              (const std::string& /*in_path*/,
+               base::OnceCallback<void(int64_t /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetRootDeviceSize,
+              (int64_t* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetRootDeviceSizeAsync,
+              (base::OnceCallback<void(int64_t /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
   void RegisterStatefulDiskSpaceUpdateSignalHandler(
     const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& signal_callback,
-    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
     DoRegisterStatefulDiskSpaceUpdateSignalHandler(signal_callback, &on_connected_callback);
   }
-  MOCK_METHOD2(DoRegisterStatefulDiskSpaceUpdateSignalHandler,
-               void(const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& /*signal_callback*/,
-                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(void,
+              DoRegisterStatefulDiskSpaceUpdateSignalHandler,
+              (const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org

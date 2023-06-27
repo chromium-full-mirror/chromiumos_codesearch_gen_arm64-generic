@@ -25,19 +25,24 @@ class AdaptiveChargingProxyMock : public AdaptiveChargingProxyInterface {
   AdaptiveChargingProxyMock(const AdaptiveChargingProxyMock&) = delete;
   AdaptiveChargingProxyMock& operator=(const AdaptiveChargingProxyMock&) = delete;
 
-  MOCK_METHOD5(RequestAdaptiveChargingDecision,
-               bool(const std::vector<uint8_t>& /*in_serialized_example_proto*/,
-                    bool* /*out_status*/,
-                    std::vector<double>* /*out_result*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RequestAdaptiveChargingDecisionAsync,
-               void(const std::vector<uint8_t>& /*in_serialized_example_proto*/,
-                    base::OnceCallback<void(bool /*status*/, const std::vector<double>& /*result*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              RequestAdaptiveChargingDecision,
+              (const std::vector<uint8_t>& /*in_serialized_example_proto*/,
+               bool* /*out_status*/,
+               std::vector<double>* /*out_result*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RequestAdaptiveChargingDecisionAsync,
+              (const std::vector<uint8_t>& /*in_serialized_example_proto*/,
+               (base::OnceCallback<void(bool /*status*/, const std::vector<double>& /*result*/)>) /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace MachineLearning
 }  // namespace chromium

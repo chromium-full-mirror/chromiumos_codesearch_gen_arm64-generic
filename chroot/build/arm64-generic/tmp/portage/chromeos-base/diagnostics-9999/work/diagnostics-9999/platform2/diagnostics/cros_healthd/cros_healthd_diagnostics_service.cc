@@ -22,6 +22,8 @@
 
 #include "diagnostics/cros_healthd/routine_adapter.h"
 #include "diagnostics/cros_healthd/routines/diag_routine.h"
+#include "diagnostics/cros_healthd/system/ground_truth.h"
+#include "diagnostics/cros_healthd/system/ground_truth_constants.h"
 #include "diagnostics/cros_healthd/system/system_config.h"
 #include "diagnostics/cros_healthd/utils/callback_barrier.h"
 #include "diagnostics/cros_healthd/utils/metrics_utils.h"
@@ -136,6 +138,7 @@ CrosHealthdDiagnosticsService::CrosHealthdDiagnosticsService(
       routine_service_(routine_service) {
   DCHECK(context_);
   DCHECK(routine_factory_);
+  ground_truth_ = std::make_unique<GroundTruth>(context_);
 
   // Service is ready after available routines are populated.
   PopulateAvailableRoutines(
@@ -580,6 +583,18 @@ void CrosHealthdDiagnosticsService::RunAudioDriverRoutine(
              mojom::DiagnosticRoutineEnum::kAudioDriver, std::move(callback));
 }
 
+void CrosHealthdDiagnosticsService::RunUfsLifetimeRoutine(
+    RunUfsLifetimeRoutineCallback callback) {
+  auto ufs_lifetime_routine = std::make_unique<RoutineAdapter>(
+      mojom::RoutineArgument::Tag::kUfsLifetime);
+  routine_service_->CreateRoutine(
+      mojom::RoutineArgument::NewUfsLifetime(
+          mojom::UfsLifetimeRoutineArgument::New()),
+      ufs_lifetime_routine->BindNewPipeAndPassReceiver());
+  RunRoutine(std::move(ufs_lifetime_routine),
+             mojom::DiagnosticRoutineEnum::kUfsLifetime, std::move(callback));
+}
+
 void CrosHealthdDiagnosticsService::RunRoutine(
     std::unique_ptr<DiagnosticRoutine> routine,
     mojom::DiagnosticRoutineEnum routine_enum,
@@ -710,6 +725,10 @@ void CrosHealthdDiagnosticsService::PopulateAvailableRoutines(
 
   if (context_->system_config()->HasChromiumEC()) {
     available_routines_.insert(mojom::DiagnosticRoutineEnum::kLedLitUp);
+  }
+
+  if (ground_truth_->StorageType() == cros_config_value::kStorageTypeUfs) {
+    available_routines_.insert(mojom::DiagnosticRoutineEnum::kUfsLifetime);
   }
 }
 

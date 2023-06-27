@@ -24,19 +24,24 @@ class SmbFsProxyMock : public SmbFsProxyInterface {
   SmbFsProxyMock(const SmbFsProxyMock&) = delete;
   SmbFsProxyMock& operator=(const SmbFsProxyMock&) = delete;
 
-  MOCK_METHOD4(OpenIpcChannel,
-               bool(const std::string& /*in_identity*/,
-                    const base::ScopedFD& /*in_socket*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(OpenIpcChannelAsync,
-               void(const std::string& /*in_identity*/,
-                    const base::ScopedFD& /*in_socket*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              OpenIpcChannel,
+              (const std::string& /*in_identity*/,
+               const base::ScopedFD& /*in_socket*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              OpenIpcChannelAsync,
+              (const std::string& /*in_identity*/,
+               const base::ScopedFD& /*in_socket*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org

@@ -24,38 +24,53 @@ class RuntimeProbeProxyMock : public RuntimeProbeProxyInterface {
   RuntimeProbeProxyMock(const RuntimeProbeProxyMock&) = delete;
   RuntimeProbeProxyMock& operator=(const RuntimeProbeProxyMock&) = delete;
 
-  MOCK_METHOD4(ProbeCategories,
-               bool(const runtime_probe::ProbeRequest& /*in_request*/,
-                    runtime_probe::ProbeResult* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ProbeCategoriesAsync,
-               void(const runtime_probe::ProbeRequest& /*in_request*/,
-                    base::OnceCallback<void(const runtime_probe::ProbeResult& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetKnownComponents,
-               bool(const runtime_probe::GetKnownComponentsRequest& /*in_request*/,
-                    runtime_probe::GetKnownComponentsResult* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetKnownComponentsAsync,
-               void(const runtime_probe::GetKnownComponentsRequest& /*in_request*/,
-                    base::OnceCallback<void(const runtime_probe::GetKnownComponentsResult& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ProbeSsfcComponents,
-               bool(const runtime_probe::ProbeSsfcComponentsRequest& /*in_request*/,
-                    runtime_probe::ProbeSsfcComponentsResponse* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(ProbeSsfcComponentsAsync,
-               void(const runtime_probe::ProbeSsfcComponentsRequest& /*in_request*/,
-                    base::OnceCallback<void(const runtime_probe::ProbeSsfcComponentsResponse& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
+  MOCK_METHOD(bool,
+              ProbeCategories,
+              (const runtime_probe::ProbeRequest& /*in_request*/,
+               runtime_probe::ProbeResult* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ProbeCategoriesAsync,
+              (const runtime_probe::ProbeRequest& /*in_request*/,
+               base::OnceCallback<void(const runtime_probe::ProbeResult& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetKnownComponents,
+              (const runtime_probe::GetKnownComponentsRequest& /*in_request*/,
+               runtime_probe::GetKnownComponentsResult* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetKnownComponentsAsync,
+              (const runtime_probe::GetKnownComponentsRequest& /*in_request*/,
+               base::OnceCallback<void(const runtime_probe::GetKnownComponentsResult& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              ProbeSsfcComponents,
+              (const runtime_probe::ProbeSsfcComponentsRequest& /*in_request*/,
+               runtime_probe::ProbeSsfcComponentsResponse* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ProbeSsfcComponentsAsync,
+              (const runtime_probe::ProbeSsfcComponentsRequest& /*in_request*/,
+               base::OnceCallback<void(const runtime_probe::ProbeSsfcComponentsResponse& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
 };
 }  // namespace chromium
 }  // namespace org

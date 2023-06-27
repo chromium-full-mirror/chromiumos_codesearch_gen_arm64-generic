@@ -28,48 +28,77 @@ class Adapter1ProxyMock : public Adapter1ProxyInterface {
   Adapter1ProxyMock(const Adapter1ProxyMock&) = delete;
   Adapter1ProxyMock& operator=(const Adapter1ProxyMock&) = delete;
 
-  MOCK_METHOD2(StartDiscovery,
-               bool(brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(StartDiscoveryAsync,
-               void(base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD2(StopDiscovery,
-               bool(brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(StopDiscoveryAsync,
-               void(base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(RemoveDevice,
-               bool(const dbus::ObjectPath& /*in_device*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveDeviceAsync,
-               void(const dbus::ObjectPath& /*in_device*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(address, const std::string&());
-  MOCK_CONST_METHOD0(is_address_valid, bool());
-  MOCK_CONST_METHOD0(name, const std::string&());
-  MOCK_CONST_METHOD0(is_name_valid, bool());
-  MOCK_CONST_METHOD0(powered, bool());
-  MOCK_CONST_METHOD0(is_powered_valid, bool());
-  MOCK_METHOD2(set_powered, void(bool, base::OnceCallback<void(bool)>));
-  MOCK_CONST_METHOD0(discoverable, bool());
-  MOCK_CONST_METHOD0(is_discoverable_valid, bool());
-  MOCK_CONST_METHOD0(discovering, bool());
-  MOCK_CONST_METHOD0(is_discovering_valid, bool());
-  MOCK_CONST_METHOD0(uuids, const std::vector<std::string>&());
-  MOCK_CONST_METHOD0(is_uuids_valid, bool());
-  MOCK_CONST_METHOD0(modalias, const std::string&());
-  MOCK_CONST_METHOD0(is_modalias_valid, bool());
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
-  MOCK_METHOD1(SetPropertyChangedCallback,
-               void(const base::RepeatingCallback<void(Adapter1ProxyInterface*, const std::string&)>&));
+  MOCK_METHOD(bool,
+              StartDiscovery,
+              (brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              StartDiscoveryAsync,
+              (base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              StopDiscovery,
+              (brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              StopDiscoveryAsync,
+              (base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              RemoveDevice,
+              (const dbus::ObjectPath& /*in_device*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              RemoveDeviceAsync,
+              (const dbus::ObjectPath& /*in_device*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const std::string&, address, (), (const, override));
+  MOCK_METHOD(bool, is_address_valid, (), (const, override));
+
+  MOCK_METHOD(const std::string&, name, (), (const, override));
+  MOCK_METHOD(bool, is_name_valid, (), (const, override));
+
+  MOCK_METHOD(bool, powered, (), (const, override));
+  MOCK_METHOD(bool, is_powered_valid, (), (const, override));
+  MOCK_METHOD(void,
+              set_powered,
+              (bool, base::OnceCallback<void(bool)>),
+              (override));
+
+  MOCK_METHOD(bool, discoverable, (), (const, override));
+  MOCK_METHOD(bool, is_discoverable_valid, (), (const, override));
+
+  MOCK_METHOD(bool, discovering, (), (const, override));
+  MOCK_METHOD(bool, is_discovering_valid, (), (const, override));
+
+  MOCK_METHOD(const std::vector<std::string>&, uuids, (), (const, override));
+  MOCK_METHOD(bool, is_uuids_valid, (), (const, override));
+
+  MOCK_METHOD(const std::string&, modalias, (), (const, override));
+  MOCK_METHOD(bool, is_modalias_valid, (), (const, override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
+
+  MOCK_METHOD(void,
+              SetPropertyChangedCallback,
+              ((const base::RepeatingCallback<void(Adapter1ProxyInterface*,
+                                                   const std::string&)>&)),
+              (override));
 };
 }  // namespace bluez
 }  // namespace org
@@ -84,12 +113,17 @@ class AdminPolicyStatus1ProxyMock : public AdminPolicyStatus1ProxyInterface {
   AdminPolicyStatus1ProxyMock(const AdminPolicyStatus1ProxyMock&) = delete;
   AdminPolicyStatus1ProxyMock& operator=(const AdminPolicyStatus1ProxyMock&) = delete;
 
-  MOCK_CONST_METHOD0(service_allow_list, const std::vector<std::string>&());
-  MOCK_CONST_METHOD0(is_service_allow_list_valid, bool());
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
-  MOCK_METHOD1(SetPropertyChangedCallback,
-               void(const base::RepeatingCallback<void(AdminPolicyStatus1ProxyInterface*, const std::string&)>&));
+  MOCK_METHOD(const std::vector<std::string>&, service_allow_list, (), (const, override));
+  MOCK_METHOD(bool, is_service_allow_list_valid, (), (const, override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
+
+  MOCK_METHOD(void,
+              SetPropertyChangedCallback,
+              ((const base::RepeatingCallback<void(AdminPolicyStatus1ProxyInterface*,
+                                                   const std::string&)>&)),
+              (override));
 };
 }  // namespace bluez
 }  // namespace org
@@ -104,12 +138,17 @@ class Battery1ProxyMock : public Battery1ProxyInterface {
   Battery1ProxyMock(const Battery1ProxyMock&) = delete;
   Battery1ProxyMock& operator=(const Battery1ProxyMock&) = delete;
 
-  MOCK_CONST_METHOD0(percentage, uint8_t());
-  MOCK_CONST_METHOD0(is_percentage_valid, bool());
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
-  MOCK_METHOD1(SetPropertyChangedCallback,
-               void(const base::RepeatingCallback<void(Battery1ProxyInterface*, const std::string&)>&));
+  MOCK_METHOD(uint8_t, percentage, (), (const, override));
+  MOCK_METHOD(bool, is_percentage_valid, (), (const, override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
+
+  MOCK_METHOD(void,
+              SetPropertyChangedCallback,
+              ((const base::RepeatingCallback<void(Battery1ProxyInterface*,
+                                                   const std::string&)>&)),
+              (override));
 };
 }  // namespace bluez
 }  // namespace org
@@ -124,51 +163,81 @@ class Device1ProxyMock : public Device1ProxyInterface {
   Device1ProxyMock(const Device1ProxyMock&) = delete;
   Device1ProxyMock& operator=(const Device1ProxyMock&) = delete;
 
-  MOCK_METHOD2(Connect,
-               bool(brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(ConnectAsync,
-               void(base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD2(Pair,
-               bool(brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(PairAsync,
-               void(base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_CONST_METHOD0(address, const std::string&());
-  MOCK_CONST_METHOD0(is_address_valid, bool());
-  MOCK_CONST_METHOD0(alias, const std::string&());
-  MOCK_CONST_METHOD0(is_alias_valid, bool());
-  MOCK_METHOD2(set_alias, void(const std::string&, base::OnceCallback<void(bool)>));
-  MOCK_CONST_METHOD0(name, const std::string&());
-  MOCK_CONST_METHOD0(is_name_valid, bool());
-  MOCK_CONST_METHOD0(type, const std::string&());
-  MOCK_CONST_METHOD0(is_type_valid, bool());
-  MOCK_CONST_METHOD0(appearance, uint16_t());
-  MOCK_CONST_METHOD0(is_appearance_valid, bool());
-  MOCK_CONST_METHOD0(modalias, const std::string&());
-  MOCK_CONST_METHOD0(is_modalias_valid, bool());
-  MOCK_CONST_METHOD0(rssi, int16_t());
-  MOCK_CONST_METHOD0(is_rssi_valid, bool());
-  MOCK_CONST_METHOD0(mtu, uint16_t());
-  MOCK_CONST_METHOD0(is_mtu_valid, bool());
-  MOCK_CONST_METHOD0(uuids, const std::vector<std::string>&());
-  MOCK_CONST_METHOD0(is_uuids_valid, bool());
-  MOCK_CONST_METHOD0(bluetooth_class, uint32_t());
-  MOCK_CONST_METHOD0(is_bluetooth_class_valid, bool());
-  MOCK_CONST_METHOD0(paired, bool());
-  MOCK_CONST_METHOD0(is_paired_valid, bool());
-  MOCK_CONST_METHOD0(connected, bool());
-  MOCK_CONST_METHOD0(is_connected_valid, bool());
-  MOCK_CONST_METHOD0(adapter, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(is_adapter_valid, bool());
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
-  MOCK_METHOD1(SetPropertyChangedCallback,
-               void(const base::RepeatingCallback<void(Device1ProxyInterface*, const std::string&)>&));
+  MOCK_METHOD(bool,
+              Connect,
+              (brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              ConnectAsync,
+              (base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              Pair,
+              (brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              PairAsync,
+              (base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(const std::string&, address, (), (const, override));
+  MOCK_METHOD(bool, is_address_valid, (), (const, override));
+
+  MOCK_METHOD(const std::string&, alias, (), (const, override));
+  MOCK_METHOD(bool, is_alias_valid, (), (const, override));
+  MOCK_METHOD(void,
+              set_alias,
+              (const std::string&, base::OnceCallback<void(bool)>),
+              (override));
+
+  MOCK_METHOD(const std::string&, name, (), (const, override));
+  MOCK_METHOD(bool, is_name_valid, (), (const, override));
+
+  MOCK_METHOD(const std::string&, type, (), (const, override));
+  MOCK_METHOD(bool, is_type_valid, (), (const, override));
+
+  MOCK_METHOD(uint16_t, appearance, (), (const, override));
+  MOCK_METHOD(bool, is_appearance_valid, (), (const, override));
+
+  MOCK_METHOD(const std::string&, modalias, (), (const, override));
+  MOCK_METHOD(bool, is_modalias_valid, (), (const, override));
+
+  MOCK_METHOD(int16_t, rssi, (), (const, override));
+  MOCK_METHOD(bool, is_rssi_valid, (), (const, override));
+
+  MOCK_METHOD(uint16_t, mtu, (), (const, override));
+  MOCK_METHOD(bool, is_mtu_valid, (), (const, override));
+
+  MOCK_METHOD(const std::vector<std::string>&, uuids, (), (const, override));
+  MOCK_METHOD(bool, is_uuids_valid, (), (const, override));
+
+  MOCK_METHOD(uint32_t, bluetooth_class, (), (const, override));
+  MOCK_METHOD(bool, is_bluetooth_class_valid, (), (const, override));
+
+  MOCK_METHOD(bool, paired, (), (const, override));
+  MOCK_METHOD(bool, is_paired_valid, (), (const, override));
+
+  MOCK_METHOD(bool, connected, (), (const, override));
+  MOCK_METHOD(bool, is_connected_valid, (), (const, override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, adapter, (), (const, override));
+  MOCK_METHOD(bool, is_adapter_valid, (), (const, override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
+
+  MOCK_METHOD(void,
+              SetPropertyChangedCallback,
+              ((const base::RepeatingCallback<void(Device1ProxyInterface*,
+                                                   const std::string&)>&)),
+              (override));
 };
 }  // namespace bluez
 }  // namespace org
@@ -183,12 +252,17 @@ class LEAdvertisingManager1ProxyMock : public LEAdvertisingManager1ProxyInterfac
   LEAdvertisingManager1ProxyMock(const LEAdvertisingManager1ProxyMock&) = delete;
   LEAdvertisingManager1ProxyMock& operator=(const LEAdvertisingManager1ProxyMock&) = delete;
 
-  MOCK_CONST_METHOD0(supported_capabilities, const brillo::VariantDictionary&());
-  MOCK_CONST_METHOD0(is_supported_capabilities_valid, bool());
-  MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
-  MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
-  MOCK_METHOD1(SetPropertyChangedCallback,
-               void(const base::RepeatingCallback<void(LEAdvertisingManager1ProxyInterface*, const std::string&)>&));
+  MOCK_METHOD(const brillo::VariantDictionary&, supported_capabilities, (), (const, override));
+  MOCK_METHOD(bool, is_supported_capabilities_valid, (), (const, override));
+
+  MOCK_METHOD(const dbus::ObjectPath&, GetObjectPath, (), (const, override));
+  MOCK_METHOD(dbus::ObjectProxy*, GetObjectProxy, (), (const, override));
+
+  MOCK_METHOD(void,
+              SetPropertyChangedCallback,
+              ((const base::RepeatingCallback<void(LEAdvertisingManager1ProxyInterface*,
+                                                   const std::string&)>&)),
+              (override));
 };
 }  // namespace bluez
 }  // namespace org
