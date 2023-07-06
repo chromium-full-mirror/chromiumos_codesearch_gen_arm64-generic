@@ -438,7 +438,7 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     bool has_storage_type_in,
     VideoEncodeAcceleratorConfig::ContentType content_type_in,
     std::vector<::media::VideoEncodeAccelerator::Config::SpatialLayer> spatial_layers_in,
-    VideoEncodeAcceleratorConfig::InterLayerPredMode inter_layer_pred_in,
+    ::media::SVCInterLayerPredMode inter_layer_pred_in,
     bool require_low_delay_in,
     VideoEncodeAcceleratorConfig::EncoderType required_encoder_type_in)
     : input_format(std::move(input_format_in)),
@@ -604,7 +604,7 @@ void VideoEncodeAcceleratorConfig::WriteIntoTrace(
     dict.AddItem(
       "inter_layer_pred"), this->inter_layer_pred,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type VideoEncodeAcceleratorConfig::InterLayerPredMode>"
+      "<value of type ::media::SVCInterLayerPredMode>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

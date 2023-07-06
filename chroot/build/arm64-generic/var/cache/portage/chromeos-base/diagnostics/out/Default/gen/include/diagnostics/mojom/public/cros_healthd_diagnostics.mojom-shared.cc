@@ -219,6 +219,8 @@ NOINLINE static const char* DiagnosticRoutineUserMessageEnumToStringHelper(Diagn
       return "kUnknown";
     case DiagnosticRoutineUserMessageEnum::kCheckLedColor:
       return "kCheckLedColor";
+    case DiagnosticRoutineUserMessageEnum::kPressPowerButton:
+      return "kPressPowerButton";
     default:
       return nullptr;
   }

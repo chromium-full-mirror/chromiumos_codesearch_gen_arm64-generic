@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <arpa/inet.h>
 #include <ifaddrs.h>
 #include <linux/if_packet.h>
 #include <linux/in6.h>
@@ -35,32 +34,9 @@
 
 namespace patchpanel {
 
-// Returns the IPv4Address from the network-byte order uint32_t representation
-// of the IPv4 address.
-// TODO(b/279693340): Remove the function after all IPv4 address represented by
-// uint32_t are migrated to net_base::IPv4Address.
-net_base::IPv4Address ConvertUint32ToIPv4Address(uint32_t addr);
-
 // Adds a positive offset of the IPv4Address.
 net_base::IPv4Address AddOffset(const net_base::IPv4Address& addr,
                                 uint32_t offset);
-
-// Returns the network-byte order int32 representation of the IPv4 address given
-// byte per byte, most significant bytes first.
-BRILLO_EXPORT constexpr uint32_t Ipv4Addr(uint8_t b0,
-                                          uint8_t b1,
-                                          uint8_t b2,
-                                          uint8_t b3) {
-  // Use base::HostToNet32() to keep the function constexpr.
-  return base::HostToNet32(
-      (static_cast<uint32_t>(b0) << 24) | (static_cast<uint32_t>(b1) << 16) |
-      (static_cast<uint32_t>(b2) << 8) | static_cast<uint32_t>(b3));
-}
-
-// Returns the literal representation of the IPv4 address given in network byte
-// order, or the empty string if the input is invalid.
-BRILLO_EXPORT std::string IPv4AddressToString(uint32_t addr);
-BRILLO_EXPORT std::string IPv4AddressToString(std::vector<uint8_t> addr);
 
 // Returns a string representation of MAC address given.
 BRILLO_EXPORT std::string MacAddressToString(const MacAddress& addr);
@@ -112,10 +88,6 @@ BRILLO_EXPORT uint16_t Icmpv6Checksum(const uint8_t* icmp6_packet, size_t len);
 
 // Returns true if multicast forwarding should be enabled for this interface.
 BRILLO_EXPORT bool IsMulticastInterface(const std::string& ifname);
-
-// Returns the IP family from the string |ip_address|. If |ip_address| is
-// invalid, returns AF_UNSPEC (0).
-BRILLO_EXPORT sa_family_t GetIpFamily(const std::string& ip_address);
 
 }  // namespace patchpanel
 

@@ -100,9 +100,9 @@ void MissiveImpl::StartUp(scoped_refptr<dbus::Bus> bus,
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   analytics::Metrics::Initialize();
 
-  DCHECK(upload_client_factory_) << "May be called only once";
-  DCHECK(create_storage_factory_) << "May be called only once";
-  DCHECK(!args_) << "Can only be called once";
+  CHECK(upload_client_factory_) << "May be called only once";
+  CHECK(create_storage_factory_) << "May be called only once";
+  CHECK(!args_) << "Can only be called once";
   args_ = std::make_unique<SequencedMissiveArgs>(bus->GetDBusTaskRunner(),
                                                  feature_lib);
 
@@ -116,7 +116,7 @@ void MissiveImpl::StartUp(scoped_refptr<dbus::Bus> bus,
   }
   // A safeguard: reporting_storage_dir_ must not be empty upon finishing
   // starting up.
-  DCHECK(!reporting_storage_dir_.empty());
+  CHECK(!reporting_storage_dir_.empty());
 
   std::move(upload_client_factory_)
       .Run(bus, base::BindPostTaskToCurrentDefault(
@@ -152,7 +152,7 @@ void MissiveImpl::OnCollectionParameters(
   const auto& collection_parameters = collection_parameters_result.ValueOrDie();
   enqueuing_record_tallier_ = std::make_unique<EnqueuingRecordTallier>(
       collection_parameters.enqueuing_record_tallier);
-  DCHECK(!reporting_storage_dir_.empty())
+  CHECK(!reporting_storage_dir_.empty())
       << "Reporting storage dir must have been set upon startup.";
   analytics_registry_.Add("Storage",
                           std::make_unique<analytics::ResourceCollectorStorage>(
@@ -223,11 +223,15 @@ void MissiveImpl::CreateStorage(
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   // Create `Storage`.
   StorageModule::Create(
-      std::move(storage_options), parameters.legacy_storage_enabled,
-      base::BindPostTaskToCurrentDefault(
-          base::BindRepeating(&MissiveImpl::AsyncStartUpload, GetWeakPtr())),
-      queues_container_, encryption_module_, compression_module_,
-      signature_verification_dev_flag_, std::move(callback));
+      {.options = std::move(storage_options),
+       .legacy_storage_enabled = parameters.legacy_storage_enabled,
+       .queues_container = queues_container_,
+       .encryption_module = encryption_module_,
+       .compression_module = compression_module_,
+       .signature_verification_dev_flag = signature_verification_dev_flag_,
+       .async_start_upload_cb = base::BindPostTaskToCurrentDefault(
+           base::BindRepeating(&MissiveImpl::AsyncStartUpload, GetWeakPtr()))},
+      std::move(callback));
 }
 
 // static
@@ -272,7 +276,7 @@ void MissiveImpl::AsyncStartUploadInternal(
     UploaderInterface::UploadReason reason,
     UploaderInterface::UploaderInterfaceResultCb uploader_result_cb) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-  DCHECK(uploader_result_cb);
+  CHECK(uploader_result_cb);
   if (!is_enabled_) {
     std::move(uploader_result_cb)
         .Run(Status(error::FAILED_PRECONDITION, "Reporting is disabled"));
@@ -415,7 +419,7 @@ void MissiveImpl::HandleUploadResponse(
   }
   const auto& upload_response_value = upload_response.ValueOrDie();
   if (!upload_response_value.has_status()) {
-    DCHECK(!upload_response_value.disable())
+    CHECK(!upload_response_value.disable())
         << "Cannot disable reporting, no error status";
     return;
   }
@@ -423,7 +427,7 @@ void MissiveImpl::HandleUploadResponse(
     // Disable reporting based on the response from Chrome.
     // Note: there is no way to re-enable it after that, because we do not talk
     // to it anymore.
-    DCHECK(upload_response_value.has_status())
+    CHECK(upload_response_value.has_status())
         << "Disable signal should be accompanied by status";
     Status upload_status;
     upload_status.RestoreFrom(upload_response.ValueOrDie().status());

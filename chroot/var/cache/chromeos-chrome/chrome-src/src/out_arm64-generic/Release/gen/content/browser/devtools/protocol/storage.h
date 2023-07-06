@@ -1229,6 +1229,14 @@ public:
     virtual DispatchResponse SetSharedStorageTracking(bool in_enable) = 0;
     virtual DispatchResponse SetStorageBucketTracking(const String& in_storageKey, bool in_enable) = 0;
     virtual DispatchResponse DeleteStorageBucket(std::unique_ptr<protocol::Storage::StorageBucket> in_bucket) = 0;
+    class CONTENT_EXPORT SetAttributionReportingLocalTestingModeCallback {
+    public:
+        virtual void sendSuccess() = 0;
+        virtual void sendFailure(const DispatchResponse&) = 0;
+        virtual void fallThrough() = 0;
+        virtual ~SetAttributionReportingLocalTestingModeCallback() { }
+    };
+    virtual void SetAttributionReportingLocalTestingMode(bool in_enabled, std::unique_ptr<SetAttributionReportingLocalTestingModeCallback> callback) = 0;
 
     virtual DispatchResponse Disable()
     {

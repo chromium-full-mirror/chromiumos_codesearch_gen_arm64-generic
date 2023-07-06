@@ -326,6 +326,7 @@ class StartArcMiniInstanceRequest final :
     kEnablePrivacyHubForChromeFieldNumber = 17,
     kArcSwitchToKeymintFieldNumber = 18,
     kLcdDensityFieldNumber = 2,
+    kForceMaxAcquiredBuffersExperimentFieldNumber = 19,
   };
   // optional bool native_bridge_experiment = 1 [default = false];
   bool has_native_bridge_experiment() const;
@@ -561,6 +562,19 @@ class StartArcMiniInstanceRequest final :
   void _internal_set_lcd_density(int32_t value);
   public:
 
+  // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
+  bool has_force_max_acquired_buffers_experiment() const;
+  private:
+  bool _internal_has_force_max_acquired_buffers_experiment() const;
+  public:
+  void clear_force_max_acquired_buffers_experiment();
+  int32_t force_max_acquired_buffers_experiment() const;
+  void set_force_max_acquired_buffers_experiment(int32_t value);
+  private:
+  int32_t _internal_force_max_acquired_buffers_experiment() const;
+  void _internal_set_force_max_acquired_buffers_experiment(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:arc.StartArcMiniInstanceRequest)
  private:
   class _Internal;
@@ -589,6 +603,7 @@ class StartArcMiniInstanceRequest final :
     bool enable_privacy_hub_for_chrome_;
     bool arc_switch_to_keymint_;
     int32_t lcd_density_;
+    int32_t force_max_acquired_buffers_experiment_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_arc_2farc_2eproto;
@@ -1544,6 +1559,34 @@ inline void StartArcMiniInstanceRequest::_internal_set_arc_switch_to_keymint(boo
 inline void StartArcMiniInstanceRequest::set_arc_switch_to_keymint(bool value) {
   _internal_set_arc_switch_to_keymint(value);
   // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.arc_switch_to_keymint)
+}
+
+// optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
+inline bool StartArcMiniInstanceRequest::_internal_has_force_max_acquired_buffers_experiment() const {
+  bool value = (_impl_._has_bits_[0] & 0x00040000u) != 0;
+  return value;
+}
+inline bool StartArcMiniInstanceRequest::has_force_max_acquired_buffers_experiment() const {
+  return _internal_has_force_max_acquired_buffers_experiment();
+}
+inline void StartArcMiniInstanceRequest::clear_force_max_acquired_buffers_experiment() {
+  _impl_.force_max_acquired_buffers_experiment_ = -1;
+  _impl_._has_bits_[0] &= ~0x00040000u;
+}
+inline int32_t StartArcMiniInstanceRequest::_internal_force_max_acquired_buffers_experiment() const {
+  return _impl_.force_max_acquired_buffers_experiment_;
+}
+inline int32_t StartArcMiniInstanceRequest::force_max_acquired_buffers_experiment() const {
+  // @@protoc_insertion_point(field_get:arc.StartArcMiniInstanceRequest.force_max_acquired_buffers_experiment)
+  return _internal_force_max_acquired_buffers_experiment();
+}
+inline void StartArcMiniInstanceRequest::_internal_set_force_max_acquired_buffers_experiment(int32_t value) {
+  _impl_._has_bits_[0] |= 0x00040000u;
+  _impl_.force_max_acquired_buffers_experiment_ = value;
+}
+inline void StartArcMiniInstanceRequest::set_force_max_acquired_buffers_experiment(int32_t value) {
+  _internal_set_force_max_acquired_buffers_experiment(value);
+  // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.force_max_acquired_buffers_experiment)
 }
 
 // -------------------------------------------------------------------

@@ -469,16 +469,18 @@ bool NVRAMQuoteType_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NVRAMQuoteType_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NVRAMQuoteType_strings[6] = {};
 
 static const char NVRAMQuoteType_names[] =
   "BOARD_ID"
+  "G2F_CERT"
   "RMA_BYTES"
   "RSA_PUB_EK_CERT"
   "RSU_DEVICE_ID"
@@ -486,18 +488,20 @@ static const char NVRAMQuoteType_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NVRAMQuoteType_entries[] = {
   { {NVRAMQuoteType_names + 0, 8}, 0 },
-  { {NVRAMQuoteType_names + 8, 9}, 4 },
-  { {NVRAMQuoteType_names + 17, 15}, 2 },
-  { {NVRAMQuoteType_names + 32, 13}, 3 },
-  { {NVRAMQuoteType_names + 45, 7}, 1 },
+  { {NVRAMQuoteType_names + 8, 8}, 5 },
+  { {NVRAMQuoteType_names + 16, 9}, 4 },
+  { {NVRAMQuoteType_names + 25, 15}, 2 },
+  { {NVRAMQuoteType_names + 40, 13}, 3 },
+  { {NVRAMQuoteType_names + 53, 7}, 1 },
 };
 
 static const int NVRAMQuoteType_entries_by_number[] = {
   0, // 0 -> BOARD_ID
-  4, // 1 -> SN_BITS
-  2, // 2 -> RSA_PUB_EK_CERT
-  3, // 3 -> RSU_DEVICE_ID
-  1, // 4 -> RMA_BYTES
+  5, // 1 -> SN_BITS
+  3, // 2 -> RSA_PUB_EK_CERT
+  4, // 3 -> RSU_DEVICE_ID
+  2, // 4 -> RMA_BYTES
+  1, // 5 -> G2F_CERT
 };
 
 const std::string& NVRAMQuoteType_Name(
@@ -506,12 +510,12 @@ const std::string& NVRAMQuoteType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           NVRAMQuoteType_entries,
           NVRAMQuoteType_entries_by_number,
-          5, NVRAMQuoteType_strings);
+          6, NVRAMQuoteType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       NVRAMQuoteType_entries,
       NVRAMQuoteType_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      NVRAMQuoteType_strings[idx].get();
 }
@@ -519,7 +523,7 @@ bool NVRAMQuoteType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NVRAMQuoteType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      NVRAMQuoteType_entries, 5, name, &int_value);
+      NVRAMQuoteType_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<NVRAMQuoteType>(int_value);
   }

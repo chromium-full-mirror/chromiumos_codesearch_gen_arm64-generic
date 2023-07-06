@@ -30,6 +30,8 @@ NOINLINE static const char* VideoEncodeAcceleratorSupportedRateControlModeToStri
       return "kConstantMode";
     case VideoEncodeAcceleratorSupportedRateControlMode::kVariableMode:
       return "kVariableMode";
+    case VideoEncodeAcceleratorSupportedRateControlMode::kExternalMode:
+      return "kExternalMode";
     default:
       return nullptr;
   }
@@ -69,32 +71,6 @@ std::string VideoEncodeAcceleratorConfig_ContentTypeToString(VideoEncodeAccelera
 
 std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_ContentType value) {
   return os << VideoEncodeAcceleratorConfig_ContentTypeToString(value);
-}
-
-NOINLINE static const char* VideoEncodeAcceleratorConfig_InterLayerPredModeToStringHelper(VideoEncodeAcceleratorConfig_InterLayerPredMode value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case VideoEncodeAcceleratorConfig_InterLayerPredMode::kOff:
-      return "kOff";
-    case VideoEncodeAcceleratorConfig_InterLayerPredMode::kOn:
-      return "kOn";
-    case VideoEncodeAcceleratorConfig_InterLayerPredMode::kOnKeyPic:
-      return "kOnKeyPic";
-    default:
-      return nullptr;
-  }
-}
-
-std::string VideoEncodeAcceleratorConfig_InterLayerPredModeToString(VideoEncodeAcceleratorConfig_InterLayerPredMode value) {
-  const char *str = VideoEncodeAcceleratorConfig_InterLayerPredModeToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown VideoEncodeAcceleratorConfig_InterLayerPredMode value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_InterLayerPredMode value) {
-  return os << VideoEncodeAcceleratorConfig_InterLayerPredModeToString(value);
 }
 
 NOINLINE static const char* VideoEncodeAcceleratorConfig_StorageTypeToStringHelper(VideoEncodeAcceleratorConfig_StorageType value) {
@@ -582,7 +558,7 @@ bool VideoEncodeAcceleratorConfig_Data::Validate(
   }
 
 
-  if (!::media::mojom::internal::VideoEncodeAcceleratorConfig_InterLayerPredMode_Data
+  if (!::media::mojom::internal::SVCInterLayerPredMode_Data
         ::Validate(object->inter_layer_pred, validation_context))
     return false;
 
@@ -1370,16 +1346,6 @@ namespace perfetto {
 void TraceFormatTraits<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>::WriteIntoTrace(
    perfetto::TracedValue context, ::media::mojom::VideoEncodeAcceleratorConfig_ContentType value) {
   return std::move(context).WriteString(::media::mojom::VideoEncodeAcceleratorConfig_ContentTypeToString(value));
-}
-
-} // namespace perfetto
-
-namespace perfetto {
-
-// static
-void TraceFormatTraits<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode>::WriteIntoTrace(
-   perfetto::TracedValue context, ::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode value) {
-  return std::move(context).WriteString(::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredModeToString(value));
 }
 
 } // namespace perfetto

@@ -154,6 +154,9 @@ void ExperimentalDomain::DeleteStorageBucket(std::unique_ptr<DeleteStorageBucket
 void ExperimentalDomain::RunBounceTrackingMitigations(std::unique_ptr<RunBounceTrackingMitigationsParams> params, base::OnceCallback<void(std::unique_ptr<RunBounceTrackingMitigationsResult>)> callback) {
   dispatcher_->SendMessage("Storage.runBounceTrackingMitigations", params->Serialize(), base::BindOnce(&Domain::HandleRunBounceTrackingMitigationsResponse, std::move(callback)));
 }
+void ExperimentalDomain::SetAttributionReportingLocalTestingMode(std::unique_ptr<SetAttributionReportingLocalTestingModeParams> params, base::OnceCallback<void(std::unique_ptr<SetAttributionReportingLocalTestingModeResult>)> callback) {
+  dispatcher_->SendMessage("Storage.setAttributionReportingLocalTestingMode", params->Serialize(), base::BindOnce(&Domain::HandleSetAttributionReportingLocalTestingModeResponse, std::move(callback)));
+}
 
 
 // static
@@ -602,6 +605,21 @@ void Domain::HandleRunBounceTrackingMitigationsResponse(base::OnceCallback<void(
   }
   ErrorReporter errors;
   std::unique_ptr<RunBounceTrackingMitigationsResult> result = RunBounceTrackingMitigationsResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleSetAttributionReportingLocalTestingModeResponse(base::OnceCallback<void(std::unique_ptr<SetAttributionReportingLocalTestingModeResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<SetAttributionReportingLocalTestingModeResult> result = SetAttributionReportingLocalTestingModeResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }

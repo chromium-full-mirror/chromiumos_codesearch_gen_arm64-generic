@@ -2531,6 +2531,9 @@ PowerButtonObserver::IPCStableHashFunction PowerButtonObserver::MessageToMethodI
     case internal::kPowerButtonObserver_OnEvent_Name: {
       return &PowerButtonObserver::OnEvent_Sym::IPCStableHash;
     }
+    case internal::kPowerButtonObserver_OnConnectedToEventNode_Name: {
+      return &PowerButtonObserver::OnConnectedToEventNode_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -2544,11 +2547,15 @@ const char* PowerButtonObserver::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kPowerButtonObserver_OnEvent_Name:
             return "Receive ash::cros_healthd::mojom::PowerButtonObserver::OnEvent";
+      case internal::kPowerButtonObserver_OnConnectedToEventNode_Name:
+            return "Receive ash::cros_healthd::mojom::PowerButtonObserver::OnConnectedToEventNode";
     }
   } else {
     switch (message.name()) {
       case internal::kPowerButtonObserver_OnEvent_Name:
             return "Receive reply ash::cros_healthd::mojom::PowerButtonObserver::OnEvent";
+      case internal::kPowerButtonObserver_OnConnectedToEventNode_Name:
+            return "Receive reply ash::cros_healthd::mojom::PowerButtonObserver::OnConnectedToEventNode";
     }
   }
   return "Receive unknown mojo message";
@@ -2572,6 +2579,19 @@ uint32_t PowerButtonObserver::OnEvent_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::PowerButtonObserver::OnEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t PowerButtonObserver::OnConnectedToEventNode_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::PowerButtonObserver::OnConnectedToEventNode");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2621,6 +2641,36 @@ void PowerButtonObserverProxy::OnEvent(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void PowerButtonObserverProxy::OnConnectedToEventNode(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::PowerButtonObserver::OnConnectedToEventNode");
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kPowerButtonObserver_OnConnectedToEventNode_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PowerButtonObserver::Name_);
+  message.set_method_name("OnConnectedToEventNode");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool PowerButtonObserverStubDispatch::Accept(
     PowerButtonObserver* impl,
@@ -2652,6 +2702,28 @@ bool PowerButtonObserverStubDispatch::Accept(
 std::move(p_button_state));
       return true;
     }
+    case internal::kPowerButtonObserver_OnConnectedToEventNode_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data* params =
+          reinterpret_cast<internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      PowerButtonObserver_OnConnectedToEventNode_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PowerButtonObserver::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnConnectedToEventNode();
+      return true;
+    }
   }
   return false;
 }
@@ -2668,6 +2740,9 @@ bool PowerButtonObserverStubDispatch::AcceptWithResponder(
     case internal::kPowerButtonObserver_OnEvent_Name: {
       break;
     }
+    case internal::kPowerButtonObserver_OnConnectedToEventNode_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -2675,6 +2750,8 @@ bool PowerButtonObserverStubDispatch::AcceptWithResponder(
 
 static const mojo::internal::GenericValidationInfo kPowerButtonObserverValidationInfo[] = {
     {&internal::PowerButtonObserver_OnEvent_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -9636,6 +9713,9 @@ StylusObserverAsyncWaiter::~StylusObserverAsyncWaiter() = default;
 
 void PowerButtonObserverInterceptorForTesting::OnEvent(PowerButtonObserver::ButtonState button_state) {
   GetForwardingInterface()->OnEvent(std::move(button_state));
+}
+void PowerButtonObserverInterceptorForTesting::OnConnectedToEventNode() {
+  GetForwardingInterface()->OnConnectedToEventNode();
 }
 PowerButtonObserverAsyncWaiter::PowerButtonObserverAsyncWaiter(
     PowerButtonObserver* proxy) : proxy_(proxy) {}

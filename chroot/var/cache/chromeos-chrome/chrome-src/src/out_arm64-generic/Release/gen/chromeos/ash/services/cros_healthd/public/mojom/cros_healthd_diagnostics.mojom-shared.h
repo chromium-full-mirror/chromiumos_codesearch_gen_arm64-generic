@@ -190,8 +190,10 @@ enum class DiagnosticRoutineEnum : int32_t {
   kPowerButton = 44,
   
   kAudioDriver = 45,
+  
+  kUfsLifetime = 46,
   kMinValue = 0,
-  kMaxValue = 45,
+  kMaxValue = 46,
   kDefaultValue = 30
 };
 
@@ -384,7 +386,7 @@ inline NvmeSelfTestTypeEnum ToKnownEnumValue(NvmeSelfTestTypeEnum value) {
 }
 
 
-enum class LedName : int32_t {
+enum class DEPRECATED_LedName : int32_t {
   
   kUnmappedEnumField = 0,
   
@@ -402,20 +404,20 @@ enum class LedName : int32_t {
   kDefaultValue = 0
 };
 
- std::ostream& operator<<(std::ostream& os, LedName value);
-inline bool IsKnownEnumValue(LedName value) {
-  return internal::LedName_Data::IsKnownValue(
+ std::ostream& operator<<(std::ostream& os, DEPRECATED_LedName value);
+inline bool IsKnownEnumValue(DEPRECATED_LedName value) {
+  return internal::DEPRECATED_LedName_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
-inline LedName ToKnownEnumValue(LedName value) {
+inline DEPRECATED_LedName ToKnownEnumValue(DEPRECATED_LedName value) {
   if (IsKnownEnumValue(value)) {
     return value;
   }
-  return LedName::kDefaultValue;
+  return DEPRECATED_LedName::kDefaultValue;
 }
 
 
-enum class LedColor : int32_t {
+enum class DEPRECATED_LedColor : int32_t {
   
   kUnmappedEnumField = 0,
   
@@ -435,28 +437,28 @@ enum class LedColor : int32_t {
   kDefaultValue = 0
 };
 
- std::ostream& operator<<(std::ostream& os, LedColor value);
-inline bool IsKnownEnumValue(LedColor value) {
-  return internal::LedColor_Data::IsKnownValue(
+ std::ostream& operator<<(std::ostream& os, DEPRECATED_LedColor value);
+inline bool IsKnownEnumValue(DEPRECATED_LedColor value) {
+  return internal::DEPRECATED_LedColor_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
-inline LedColor ToKnownEnumValue(LedColor value) {
+inline DEPRECATED_LedColor ToKnownEnumValue(DEPRECATED_LedColor value) {
   if (IsKnownEnumValue(value)) {
     return value;
   }
-  return LedColor::kDefaultValue;
+  return DEPRECATED_LedColor::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
-class LedLitUpRoutineReplierInterfaceBase {};
+class DEPRECATED_LedLitUpRoutineReplierInterfaceBase {};
 
-using LedLitUpRoutineReplierPtrDataView =
-    mojo::InterfacePtrDataView<LedLitUpRoutineReplierInterfaceBase>;
-using LedLitUpRoutineReplierRequestDataView =
-    mojo::InterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
-using LedLitUpRoutineReplierAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<LedLitUpRoutineReplierInterfaceBase>;
-using LedLitUpRoutineReplierAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
+using DEPRECATED_LedLitUpRoutineReplierPtrDataView =
+    mojo::InterfacePtrDataView<DEPRECATED_LedLitUpRoutineReplierInterfaceBase>;
+using DEPRECATED_LedLitUpRoutineReplierRequestDataView =
+    mojo::InterfaceRequestDataView<DEPRECATED_LedLitUpRoutineReplierInterfaceBase>;
+using DEPRECATED_LedLitUpRoutineReplierAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<DEPRECATED_LedLitUpRoutineReplierInterfaceBase>;
+using DEPRECATED_LedLitUpRoutineReplierAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<DEPRECATED_LedLitUpRoutineReplierInterfaceBase>;
 
 
 class RunRoutineResponseDataView {
@@ -668,12 +670,12 @@ struct hash<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum> {};
 
 template <>
-struct hash<::ash::cros_healthd::mojom::LedName>
-    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::LedName> {};
+struct hash<::ash::cros_healthd::mojom::DEPRECATED_LedName>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DEPRECATED_LedName> {};
 
 template <>
-struct hash<::ash::cros_healthd::mojom::LedColor>
-    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::LedColor> {};
+struct hash<::ash::cros_healthd::mojom::DEPRECATED_LedColor>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DEPRECATED_LedColor> {};
 
 }  // namespace std
 
@@ -823,9 +825,9 @@ struct Serializer<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::LedName, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DEPRECATED_LedName, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::ash::cros_healthd::mojom::LedName, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::DEPRECATED_LedName, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -833,7 +835,7 @@ struct Serializer<::ash::cros_healthd::mojom::LedName, MaybeConstUserType> {
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::ash::cros_healthd::mojom::LedName>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::DEPRECATED_LedName>(input)), output);
   }
 };
 
@@ -843,9 +845,9 @@ struct Serializer<::ash::cros_healthd::mojom::LedName, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::LedColor, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DEPRECATED_LedColor, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::ash::cros_healthd::mojom::LedColor, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::DEPRECATED_LedColor, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -853,7 +855,7 @@ struct Serializer<::ash::cros_healthd::mojom::LedColor, MaybeConstUserType> {
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::ash::cros_healthd::mojom::LedColor>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::DEPRECATED_LedColor>(input)), output);
   }
 };
 
@@ -1191,8 +1193,8 @@ struct  TraceFormatTraits<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum> {
 namespace perfetto {
 
 template <>
-struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedName> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedName value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::DEPRECATED_LedName> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedName value);
 };
 
 } // namespace perfetto
@@ -1200,8 +1202,8 @@ struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedName> {
 namespace perfetto {
 
 template <>
-struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedColor> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedColor value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::DEPRECATED_LedColor> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedColor value);
 };
 
 } // namespace perfetto

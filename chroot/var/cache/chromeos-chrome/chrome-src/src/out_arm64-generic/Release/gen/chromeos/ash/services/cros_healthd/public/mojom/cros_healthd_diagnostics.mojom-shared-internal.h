@@ -82,6 +82,7 @@ struct DiagnosticRoutineEnum_Data {
       case 43:
       case 44:
       case 45:
+      case 46:
         return true;
     }
     return false;
@@ -261,7 +262,7 @@ struct NvmeSelfTestTypeEnum_Data {
   }
 };
 
-struct LedName_Data {
+struct DEPRECATED_LedName_Data {
  public:
   static bool constexpr kIsExtensible = true;
 
@@ -289,7 +290,7 @@ struct LedName_Data {
   }
 };
 
-struct LedColor_Data {
+struct DEPRECATED_LedColor_Data {
  public:
   static bool constexpr kIsExtensible = true;
 

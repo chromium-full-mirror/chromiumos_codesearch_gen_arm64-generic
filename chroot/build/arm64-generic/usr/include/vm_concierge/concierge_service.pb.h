@@ -1180,6 +1180,7 @@ class DiskImage final :
     kFlagsFieldNumber = 4,
     kWritableFieldNumber = 6,
     kDoMountFieldNumber = 7,
+    kODirectFieldNumber = 10,
     kImageTypeFieldNumber = 8,
     kBlockSizeFieldNumber = 9,
   };
@@ -1266,6 +1267,15 @@ class DiskImage final :
   void _internal_set_do_mount(bool value);
   public:
 
+  // bool o_direct = 10;
+  void clear_o_direct();
+  bool o_direct() const;
+  void set_o_direct(bool value);
+  private:
+  bool _internal_o_direct() const;
+  void _internal_set_o_direct(bool value);
+  public:
+
   // .vm_tools.concierge.DiskImageType image_type = 8;
   void clear_image_type();
   ::vm_tools::concierge::DiskImageType image_type() const;
@@ -1299,6 +1309,7 @@ class DiskImage final :
     uint64_t flags_;
     bool writable_;
     bool do_mount_;
+    bool o_direct_;
     int image_type_;
     uint32_t block_size_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -2701,8 +2712,9 @@ class StartArcVmRequest final :
     kUsapProfileFieldNumber = 38,
     kNativeBridgeExperimentFieldNumber = 39,
     kUreadaheadModeFieldNumber = 40,
-    kEnableVmmSwapFieldNumber = 43,
     kGuestZramMibFieldNumber = 44,
+    kEnableVmmSwapFieldNumber = 43,
+    kRootfsODirectFieldNumber = 45,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -3025,6 +3037,15 @@ class StartArcVmRequest final :
   void _internal_set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
   public:
 
+  // uint32 guest_zram_mib = 44;
+  void clear_guest_zram_mib();
+  uint32_t guest_zram_mib() const;
+  void set_guest_zram_mib(uint32_t value);
+  private:
+  uint32_t _internal_guest_zram_mib() const;
+  void _internal_set_guest_zram_mib(uint32_t value);
+  public:
+
   // bool enable_vmm_swap = 43;
   void clear_enable_vmm_swap();
   bool enable_vmm_swap() const;
@@ -3034,13 +3055,13 @@ class StartArcVmRequest final :
   void _internal_set_enable_vmm_swap(bool value);
   public:
 
-  // uint32 guest_zram_mib = 44;
-  void clear_guest_zram_mib();
-  uint32_t guest_zram_mib() const;
-  void set_guest_zram_mib(uint32_t value);
+  // bool rootfs_o_direct = 45;
+  void clear_rootfs_o_direct();
+  bool rootfs_o_direct() const;
+  void set_rootfs_o_direct(bool value);
   private:
-  uint32_t _internal_guest_zram_mib() const;
-  void _internal_set_guest_zram_mib(uint32_t value);
+  bool _internal_rootfs_o_direct() const;
+  void _internal_set_rootfs_o_direct(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
@@ -3082,8 +3103,9 @@ class StartArcVmRequest final :
     int usap_profile_;
     int native_bridge_experiment_;
     int ureadahead_mode_;
-    bool enable_vmm_swap_;
     uint32_t guest_zram_mib_;
+    bool enable_vmm_swap_;
+    bool rootfs_o_direct_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -14614,6 +14636,26 @@ inline void DiskImage::set_block_size(uint32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.DiskImage.block_size)
 }
 
+// bool o_direct = 10;
+inline void DiskImage::clear_o_direct() {
+  _impl_.o_direct_ = false;
+}
+inline bool DiskImage::_internal_o_direct() const {
+  return _impl_.o_direct_;
+}
+inline bool DiskImage::o_direct() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.DiskImage.o_direct)
+  return _internal_o_direct();
+}
+inline void DiskImage::_internal_set_o_direct(bool value) {
+  
+  _impl_.o_direct_ = value;
+}
+inline void DiskImage::set_o_direct(bool value) {
+  _internal_set_o_direct(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.DiskImage.o_direct)
+}
+
 // -------------------------------------------------------------------
 
 // VmInfo
@@ -16918,6 +16960,26 @@ inline void StartArcVmRequest::_internal_set_guest_zram_mib(uint32_t value) {
 inline void StartArcVmRequest::set_guest_zram_mib(uint32_t value) {
   _internal_set_guest_zram_mib(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.guest_zram_mib)
+}
+
+// bool rootfs_o_direct = 45;
+inline void StartArcVmRequest::clear_rootfs_o_direct() {
+  _impl_.rootfs_o_direct_ = false;
+}
+inline bool StartArcVmRequest::_internal_rootfs_o_direct() const {
+  return _impl_.rootfs_o_direct_;
+}
+inline bool StartArcVmRequest::rootfs_o_direct() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.rootfs_o_direct)
+  return _internal_rootfs_o_direct();
+}
+inline void StartArcVmRequest::_internal_set_rootfs_o_direct(bool value) {
+  
+  _impl_.rootfs_o_direct_ = value;
+}
+inline void StartArcVmRequest::set_rootfs_o_direct(bool value) {
+  _internal_set_rootfs_o_direct(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.rootfs_o_direct)
 }
 
 // -------------------------------------------------------------------

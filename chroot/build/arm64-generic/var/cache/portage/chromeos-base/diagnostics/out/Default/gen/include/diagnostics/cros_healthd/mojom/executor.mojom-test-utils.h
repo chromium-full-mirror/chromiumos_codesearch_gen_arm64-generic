@@ -144,6 +144,7 @@ class  StylusObserverAsyncWaiter {
 class  PowerButtonObserverInterceptorForTesting : public PowerButtonObserver {
   virtual PowerButtonObserver* GetForwardingInterface() = 0;
   void OnEvent(PowerButtonObserver::ButtonState button_state) override;
+  void OnConnectedToEventNode() override;
 };
 class  PowerButtonObserverAsyncWaiter {
  public:

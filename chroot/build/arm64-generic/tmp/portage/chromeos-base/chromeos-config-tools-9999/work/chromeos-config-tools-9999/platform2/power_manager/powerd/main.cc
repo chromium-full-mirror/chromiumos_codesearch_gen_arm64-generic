@@ -19,6 +19,7 @@
 #include <base/files/file_util.h>
 #include <base/logging.h>
 #include <base/memory/ptr_util.h>
+#include <base/message_loop/message_pump_libevent.h>
 #include <base/message_loop/message_pump_type.h>
 #include <base/run_loop.h>
 #include <base/strings/string_util.h>
@@ -30,7 +31,6 @@
 #include <brillo/vcsid.h>
 #include <cros_config/cros_config.h>
 #include <libec/charge_current_limit_set_command.h>
-#include <libec/ec_usb_endpoint.h>
 #include <libsar/sar_config_reader_delegate_impl.h>
 #include <metrics/metrics_library.h>
 #include <ml/dbus-proxies.h>
@@ -64,7 +64,6 @@
 #include "power_manager/powerd/system/dbus_wrapper.h"
 #include "power_manager/powerd/system/display/display_power_setter.h"
 #include "power_manager/powerd/system/display/display_watcher.h"
-#include "power_manager/powerd/system/ec_keyboard_backlight.h"
 #include "power_manager/powerd/system/event_device.h"
 #include "power_manager/powerd/system/external_ambient_light_sensor_factory_file.h"
 #include "power_manager/powerd/system/external_ambient_light_sensor_factory_mojo.h"
@@ -210,19 +209,6 @@ class DaemonDelegateImpl : public DaemonDelegate {
   std::unique_ptr<ec::EcCommandFactoryInterface> CreateEcCommandFactory()
       override {
     return std::make_unique<ec::EcCommandFactory>();
-  }
-
-  std::unique_ptr<ec::EcUsbEndpointInterface> CreateEcUsbEndpoint() override {
-    auto endpoint = std::make_unique<ec::EcUsbEndpoint>();
-    return endpoint->Init(ec::kUsbVidGoogle, ec::kUsbPidCrosEc)
-               ? std::move(endpoint)
-               : std::unique_ptr<ec::EcUsbEndpoint>();
-  }
-
-  std::unique_ptr<system::BacklightInterface> CreateEcKeyboardBacklight(
-      ec::EcUsbEndpointInterface* endpoint) override {
-    auto backlight = std::make_unique<system::EcKeyboardBacklight>();
-    return backlight->Init(endpoint) ? std::move(backlight) : nullptr;
   }
 
   std::unique_ptr<policy::BacklightController>
@@ -458,6 +444,7 @@ int main(int argc, char* argv[]) {
 
   brillo::FlagHelper::Init(argc, argv,
                            "powerd, the Chromium OS userspace power manager.");
+  base::MessagePumpLibevent::InitializeFeatures();
 
   CHECK(!FLAGS_log_dir.empty()) << "--log_dir is required";
   CHECK(!FLAGS_run_dir.empty()) << "--run_dir is required";

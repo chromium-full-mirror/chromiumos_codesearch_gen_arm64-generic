@@ -171,11 +171,12 @@ enum NVRAMQuoteType : int {
   SN_BITS = 1,
   RSA_PUB_EK_CERT = 2,
   RSU_DEVICE_ID = 3,
-  RMA_BYTES = 4
+  RMA_BYTES = 4,
+  G2F_CERT = 5
 };
 bool NVRAMQuoteType_IsValid(int value);
 constexpr NVRAMQuoteType NVRAMQuoteType_MIN = BOARD_ID;
-constexpr NVRAMQuoteType NVRAMQuoteType_MAX = RMA_BYTES;
+constexpr NVRAMQuoteType NVRAMQuoteType_MAX = G2F_CERT;
 constexpr int NVRAMQuoteType_ARRAYSIZE = NVRAMQuoteType_MAX + 1;
 
 const std::string& NVRAMQuoteType_Name(NVRAMQuoteType value);

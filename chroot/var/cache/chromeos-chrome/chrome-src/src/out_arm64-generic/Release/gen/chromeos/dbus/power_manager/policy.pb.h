@@ -1360,6 +1360,7 @@ class PowerManagementPolicy final :
     kUsbPowerShareFieldNumber = 22,
     kSendFeedbackIfUndimmedFieldNumber = 26,
     kAdaptiveChargingEnabledFieldNumber = 27,
+    kChargeLimitEnabledFieldNumber = 31,
     kAdaptiveChargingMinProbabilityFieldNumber = 29,
     kAdaptiveChargingMaxDelayPercentileFieldNumber = 30,
     kAdaptiveChargingHoldPercentFieldNumber = 28,
@@ -1732,6 +1733,19 @@ class PowerManagementPolicy final :
   void _internal_set_adaptive_charging_enabled(bool value);
   public:
 
+  // optional bool charge_limit_enabled = 31;
+  bool has_charge_limit_enabled() const;
+  private:
+  bool _internal_has_charge_limit_enabled() const;
+  public:
+  void clear_charge_limit_enabled();
+  bool charge_limit_enabled() const;
+  void set_charge_limit_enabled(bool value);
+  private:
+  bool _internal_charge_limit_enabled() const;
+  void _internal_set_charge_limit_enabled(bool value);
+  public:
+
   // optional double adaptive_charging_min_probability = 29;
   bool has_adaptive_charging_min_probability() const;
   private:
@@ -1806,6 +1820,7 @@ class PowerManagementPolicy final :
   bool usb_power_share_;
   bool send_feedback_if_undimmed_;
   bool adaptive_charging_enabled_;
+  bool charge_limit_enabled_;
   double adaptive_charging_min_probability_;
   double adaptive_charging_max_delay_percentile_;
   int32_t adaptive_charging_hold_percent_;
@@ -3810,7 +3825,7 @@ inline void PowerManagementPolicy::set_adaptive_charging_enabled(bool value) {
 
 // optional int32 adaptive_charging_hold_percent = 28;
 inline bool PowerManagementPolicy::_internal_has_adaptive_charging_hold_percent() const {
-  bool value = (_has_bits_[0] & 0x04000000u) != 0;
+  bool value = (_has_bits_[0] & 0x08000000u) != 0;
   return value;
 }
 inline bool PowerManagementPolicy::has_adaptive_charging_hold_percent() const {
@@ -3818,7 +3833,7 @@ inline bool PowerManagementPolicy::has_adaptive_charging_hold_percent() const {
 }
 inline void PowerManagementPolicy::clear_adaptive_charging_hold_percent() {
   adaptive_charging_hold_percent_ = 0;
-  _has_bits_[0] &= ~0x04000000u;
+  _has_bits_[0] &= ~0x08000000u;
 }
 inline int32_t PowerManagementPolicy::_internal_adaptive_charging_hold_percent() const {
   return adaptive_charging_hold_percent_;
@@ -3828,7 +3843,7 @@ inline int32_t PowerManagementPolicy::adaptive_charging_hold_percent() const {
   return _internal_adaptive_charging_hold_percent();
 }
 inline void PowerManagementPolicy::_internal_set_adaptive_charging_hold_percent(int32_t value) {
-  _has_bits_[0] |= 0x04000000u;
+  _has_bits_[0] |= 0x08000000u;
   adaptive_charging_hold_percent_ = value;
 }
 inline void PowerManagementPolicy::set_adaptive_charging_hold_percent(int32_t value) {
@@ -3838,7 +3853,7 @@ inline void PowerManagementPolicy::set_adaptive_charging_hold_percent(int32_t va
 
 // optional double adaptive_charging_min_probability = 29;
 inline bool PowerManagementPolicy::_internal_has_adaptive_charging_min_probability() const {
-  bool value = (_has_bits_[0] & 0x01000000u) != 0;
+  bool value = (_has_bits_[0] & 0x02000000u) != 0;
   return value;
 }
 inline bool PowerManagementPolicy::has_adaptive_charging_min_probability() const {
@@ -3846,7 +3861,7 @@ inline bool PowerManagementPolicy::has_adaptive_charging_min_probability() const
 }
 inline void PowerManagementPolicy::clear_adaptive_charging_min_probability() {
   adaptive_charging_min_probability_ = 0;
-  _has_bits_[0] &= ~0x01000000u;
+  _has_bits_[0] &= ~0x02000000u;
 }
 inline double PowerManagementPolicy::_internal_adaptive_charging_min_probability() const {
   return adaptive_charging_min_probability_;
@@ -3856,7 +3871,7 @@ inline double PowerManagementPolicy::adaptive_charging_min_probability() const {
   return _internal_adaptive_charging_min_probability();
 }
 inline void PowerManagementPolicy::_internal_set_adaptive_charging_min_probability(double value) {
-  _has_bits_[0] |= 0x01000000u;
+  _has_bits_[0] |= 0x02000000u;
   adaptive_charging_min_probability_ = value;
 }
 inline void PowerManagementPolicy::set_adaptive_charging_min_probability(double value) {
@@ -3866,7 +3881,7 @@ inline void PowerManagementPolicy::set_adaptive_charging_min_probability(double 
 
 // optional double adaptive_charging_max_delay_percentile = 30;
 inline bool PowerManagementPolicy::_internal_has_adaptive_charging_max_delay_percentile() const {
-  bool value = (_has_bits_[0] & 0x02000000u) != 0;
+  bool value = (_has_bits_[0] & 0x04000000u) != 0;
   return value;
 }
 inline bool PowerManagementPolicy::has_adaptive_charging_max_delay_percentile() const {
@@ -3874,7 +3889,7 @@ inline bool PowerManagementPolicy::has_adaptive_charging_max_delay_percentile() 
 }
 inline void PowerManagementPolicy::clear_adaptive_charging_max_delay_percentile() {
   adaptive_charging_max_delay_percentile_ = 0;
-  _has_bits_[0] &= ~0x02000000u;
+  _has_bits_[0] &= ~0x04000000u;
 }
 inline double PowerManagementPolicy::_internal_adaptive_charging_max_delay_percentile() const {
   return adaptive_charging_max_delay_percentile_;
@@ -3884,12 +3899,40 @@ inline double PowerManagementPolicy::adaptive_charging_max_delay_percentile() co
   return _internal_adaptive_charging_max_delay_percentile();
 }
 inline void PowerManagementPolicy::_internal_set_adaptive_charging_max_delay_percentile(double value) {
-  _has_bits_[0] |= 0x02000000u;
+  _has_bits_[0] |= 0x04000000u;
   adaptive_charging_max_delay_percentile_ = value;
 }
 inline void PowerManagementPolicy::set_adaptive_charging_max_delay_percentile(double value) {
   _internal_set_adaptive_charging_max_delay_percentile(value);
   // @@protoc_insertion_point(field_set:power_manager.PowerManagementPolicy.adaptive_charging_max_delay_percentile)
+}
+
+// optional bool charge_limit_enabled = 31;
+inline bool PowerManagementPolicy::_internal_has_charge_limit_enabled() const {
+  bool value = (_has_bits_[0] & 0x01000000u) != 0;
+  return value;
+}
+inline bool PowerManagementPolicy::has_charge_limit_enabled() const {
+  return _internal_has_charge_limit_enabled();
+}
+inline void PowerManagementPolicy::clear_charge_limit_enabled() {
+  charge_limit_enabled_ = false;
+  _has_bits_[0] &= ~0x01000000u;
+}
+inline bool PowerManagementPolicy::_internal_charge_limit_enabled() const {
+  return charge_limit_enabled_;
+}
+inline bool PowerManagementPolicy::charge_limit_enabled() const {
+  // @@protoc_insertion_point(field_get:power_manager.PowerManagementPolicy.charge_limit_enabled)
+  return _internal_charge_limit_enabled();
+}
+inline void PowerManagementPolicy::_internal_set_charge_limit_enabled(bool value) {
+  _has_bits_[0] |= 0x01000000u;
+  charge_limit_enabled_ = value;
+}
+inline void PowerManagementPolicy::set_charge_limit_enabled(bool value) {
+  _internal_set_charge_limit_enabled(value);
+  // @@protoc_insertion_point(field_set:power_manager.PowerManagementPolicy.charge_limit_enabled)
 }
 
 // -------------------------------------------------------------------

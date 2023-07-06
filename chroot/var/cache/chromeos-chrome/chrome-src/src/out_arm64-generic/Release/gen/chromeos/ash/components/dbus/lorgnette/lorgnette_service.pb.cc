@@ -258,7 +258,8 @@ PROTOBUF_CONSTEXPR StartScannerDiscoveryRequest::StartScannerDiscoveryRequest(
   : client_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , download_policy_(0)
 
-  , local_only_(false){}
+  , local_only_(false)
+  , preferred_only_(false){}
 struct StartScannerDiscoveryRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartScannerDiscoveryRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -4884,8 +4885,8 @@ StartScannerDiscoveryRequest::StartScannerDiscoveryRequest(const StartScannerDis
       GetArenaForAllocation());
   }
   ::memcpy(&download_policy_, &from.download_policy_,
-    static_cast<size_t>(reinterpret_cast<char*>(&local_only_) -
-    reinterpret_cast<char*>(&download_policy_)) + sizeof(local_only_));
+    static_cast<size_t>(reinterpret_cast<char*>(&preferred_only_) -
+    reinterpret_cast<char*>(&download_policy_)) + sizeof(preferred_only_));
   // @@protoc_insertion_point(copy_constructor:lorgnette.StartScannerDiscoveryRequest)
 }
 
@@ -4896,8 +4897,8 @@ client_id_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&download_policy_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&local_only_) -
-    reinterpret_cast<char*>(&download_policy_)) + sizeof(local_only_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&preferred_only_) -
+    reinterpret_cast<char*>(&download_policy_)) + sizeof(preferred_only_));
 }
 
 StartScannerDiscoveryRequest::~StartScannerDiscoveryRequest() {
@@ -4926,8 +4927,8 @@ void StartScannerDiscoveryRequest::Clear() {
 
   client_id_.ClearToEmpty();
   ::memset(&download_policy_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&local_only_) -
-      reinterpret_cast<char*>(&download_policy_)) + sizeof(local_only_));
+      reinterpret_cast<char*>(&preferred_only_) -
+      reinterpret_cast<char*>(&download_policy_)) + sizeof(preferred_only_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4960,6 +4961,14 @@ const char* StartScannerDiscoveryRequest::_InternalParse(const char* ptr, ::_pbi
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           local_only_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool preferred_only = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          preferred_only_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5016,6 +5025,12 @@ uint8_t* StartScannerDiscoveryRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_local_only(), target);
   }
 
+  // bool preferred_only = 4;
+  if (this->_internal_preferred_only() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_preferred_only(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -5050,6 +5065,11 @@ size_t StartScannerDiscoveryRequest::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool preferred_only = 4;
+  if (this->_internal_preferred_only() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -5079,6 +5099,9 @@ void StartScannerDiscoveryRequest::MergeFrom(const StartScannerDiscoveryRequest&
   if (from._internal_local_only() != 0) {
     _internal_set_local_only(from._internal_local_only());
   }
+  if (from._internal_preferred_only() != 0) {
+    _internal_set_preferred_only(from._internal_preferred_only());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -5103,8 +5126,8 @@ void StartScannerDiscoveryRequest::InternalSwap(StartScannerDiscoveryRequest* ot
       &other->client_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartScannerDiscoveryRequest, local_only_)
-      + sizeof(StartScannerDiscoveryRequest::local_only_)
+      PROTOBUF_FIELD_OFFSET(StartScannerDiscoveryRequest, preferred_only_)
+      + sizeof(StartScannerDiscoveryRequest::preferred_only_)
       - PROTOBUF_FIELD_OFFSET(StartScannerDiscoveryRequest, download_policy_)>(
           reinterpret_cast<char*>(&download_policy_),
           reinterpret_cast<char*>(&other->download_policy_));

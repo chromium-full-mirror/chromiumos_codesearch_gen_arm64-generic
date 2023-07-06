@@ -388,6 +388,7 @@ public:
     void setSharedStorageTracking(const crdtp::Dispatchable& dispatchable);
     void setStorageBucketTracking(const crdtp::Dispatchable& dispatchable);
     void deleteStorageBucket(const crdtp::Dispatchable& dispatchable);
+    void setAttributionReportingLocalTestingMode(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
 };
@@ -463,6 +464,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("resetSharedStorageBudget"),
           &DomainDispatcherImpl::resetSharedStorageBudget
+    },
+    {
+          crdtp::SpanFrom("setAttributionReportingLocalTestingMode"),
+          &DomainDispatcherImpl::setAttributionReportingLocalTestingMode
     },
     {
           crdtp::SpanFrom("setCookies"),
@@ -1800,6 +1805,56 @@ void DomainDispatcherImpl::deleteStorageBucket(const crdtp::Dispatchable& dispat
     if (weak->get())
         weak->get()->sendResponse(dispatchable.CallId(), response);
     return;
+}
+
+class SetAttributionReportingLocalTestingModeCallbackImpl : public Backend::SetAttributionReportingLocalTestingModeCallback, public DomainDispatcher::Callback {
+public:
+    SetAttributionReportingLocalTestingModeCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
+        : DomainDispatcher::Callback(std::move(backendImpl), callId,
+crdtp::SpanFrom("Storage.setAttributionReportingLocalTestingMode"), message) { }
+
+    void sendSuccess() override
+    {
+        crdtp::ObjectSerializer serializer;
+        sendIfActive(serializer.Finish(), DispatchResponse::Success());
+    }
+
+    void fallThrough() override
+    {
+        fallThroughIfActive();
+    }
+
+    void sendFailure(const DispatchResponse& response) override
+    {
+        DCHECK(response.IsError());
+        sendIfActive(nullptr, response);
+    }
+};
+
+namespace {
+
+struct setAttributionReportingLocalTestingModeParams : public crdtp::DeserializableProtocolObject<setAttributionReportingLocalTestingModeParams> {
+    bool enabled;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(setAttributionReportingLocalTestingModeParams)
+    CRDTP_DESERIALIZE_FIELD("enabled", enabled),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::setAttributionReportingLocalTestingMode(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    setAttributionReportingLocalTestingModeParams params;
+    if (!setAttributionReportingLocalTestingModeParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    m_backend->SetAttributionReportingLocalTestingMode(params.enabled, std::make_unique<SetAttributionReportingLocalTestingModeCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
 }
 
 namespace {

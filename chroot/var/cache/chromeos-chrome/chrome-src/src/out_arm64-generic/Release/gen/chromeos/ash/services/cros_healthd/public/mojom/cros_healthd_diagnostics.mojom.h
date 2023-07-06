@@ -40,17 +40,17 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
-class LedLitUpRoutineReplierProxy;
+class DEPRECATED_LedLitUpRoutineReplierProxy;
 
 template <typename ImplRefTraits>
-class LedLitUpRoutineReplierStub;
+class DEPRECATED_LedLitUpRoutineReplierStub;
 
-class LedLitUpRoutineReplierRequestValidator;
-class LedLitUpRoutineReplierResponseValidator;
+class DEPRECATED_LedLitUpRoutineReplierRequestValidator;
+class DEPRECATED_LedLitUpRoutineReplierResponseValidator;
 
 
-class LedLitUpRoutineReplier
-    : public LedLitUpRoutineReplierInterfaceBase {
+class DEPRECATED_LedLitUpRoutineReplier
+    : public DEPRECATED_LedLitUpRoutineReplierInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
 
@@ -61,14 +61,14 @@ class LedLitUpRoutineReplier
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
-  using Base_ = LedLitUpRoutineReplierInterfaceBase;
-  using Proxy_ = LedLitUpRoutineReplierProxy;
+  using Base_ = DEPRECATED_LedLitUpRoutineReplierInterfaceBase;
+  using Proxy_ = DEPRECATED_LedLitUpRoutineReplierProxy;
 
   template <typename ImplRefTraits>
-  using Stub_ = LedLitUpRoutineReplierStub<ImplRefTraits>;
+  using Stub_ = DEPRECATED_LedLitUpRoutineReplierStub<ImplRefTraits>;
 
-  using RequestValidator_ = LedLitUpRoutineReplierRequestValidator;
-  using ResponseValidator_ = LedLitUpRoutineReplierResponseValidator;
+  using RequestValidator_ = DEPRECATED_LedLitUpRoutineReplierRequestValidator;
+  using ResponseValidator_ = DEPRECATED_LedLitUpRoutineReplierResponseValidator;
   enum MethodMinVersions : uint32_t {
     kGetColorMatchedMinVersion = 0,
   };
@@ -80,7 +80,7 @@ class LedLitUpRoutineReplier
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~LedLitUpRoutineReplier() = default;
+  virtual ~DEPRECATED_LedLitUpRoutineReplier() = default;
 
 
   using GetColorMatchedCallback = base::OnceCallback<void(bool)>;
@@ -90,36 +90,36 @@ class LedLitUpRoutineReplier
 
 
 
-class  LedLitUpRoutineReplierProxy
-    : public LedLitUpRoutineReplier {
+class  DEPRECATED_LedLitUpRoutineReplierProxy
+    : public DEPRECATED_LedLitUpRoutineReplier {
  public:
-  using InterfaceType = LedLitUpRoutineReplier;
+  using InterfaceType = DEPRECATED_LedLitUpRoutineReplier;
 
-  explicit LedLitUpRoutineReplierProxy(mojo::MessageReceiverWithResponder* receiver);
+  explicit DEPRECATED_LedLitUpRoutineReplierProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void GetColorMatched(GetColorMatchedCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
 };
-class  LedLitUpRoutineReplierStubDispatch {
+class  DEPRECATED_LedLitUpRoutineReplierStubDispatch {
  public:
-  static bool Accept(LedLitUpRoutineReplier* impl, mojo::Message* message);
+  static bool Accept(DEPRECATED_LedLitUpRoutineReplier* impl, mojo::Message* message);
   static bool AcceptWithResponder(
-      LedLitUpRoutineReplier* impl,
+      DEPRECATED_LedLitUpRoutineReplier* impl,
       mojo::Message* message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
 };
 
 template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<LedLitUpRoutineReplier>>
-class LedLitUpRoutineReplierStub
+              mojo::RawPtrImplRefTraits<DEPRECATED_LedLitUpRoutineReplier>>
+class DEPRECATED_LedLitUpRoutineReplierStub
     : public mojo::MessageReceiverWithResponderStatus {
  public:
   using ImplPointerType = typename ImplRefTraits::PointerType;
 
-  LedLitUpRoutineReplierStub() = default;
-  ~LedLitUpRoutineReplierStub() override = default;
+  DEPRECATED_LedLitUpRoutineReplierStub() = default;
+  ~DEPRECATED_LedLitUpRoutineReplierStub() override = default;
 
   void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
   ImplPointerType& sink() { return sink_; }
@@ -127,7 +127,7 @@ class LedLitUpRoutineReplierStub
   bool Accept(mojo::Message* message) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return LedLitUpRoutineReplierStubDispatch::Accept(
+    return DEPRECATED_LedLitUpRoutineReplierStubDispatch::Accept(
         ImplRefTraits::GetRawPointer(&sink_), message);
   }
 
@@ -136,18 +136,18 @@ class LedLitUpRoutineReplierStub
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
+    return DEPRECATED_LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
  private:
   ImplPointerType sink_;
 };
-class  LedLitUpRoutineReplierRequestValidator : public mojo::MessageReceiver {
+class  DEPRECATED_LedLitUpRoutineReplierRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  LedLitUpRoutineReplierResponseValidator : public mojo::MessageReceiver {
+class  DEPRECATED_LedLitUpRoutineReplierResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

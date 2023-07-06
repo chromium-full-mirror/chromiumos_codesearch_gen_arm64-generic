@@ -1317,7 +1317,7 @@ class  CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data)");
-class  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data {
+class  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1328,14 +1328,14 @@ class  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data {
   mojo::internal::Interface_Data replier;
 
  private:
-  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data>;
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data>;
 
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data();
-  ~CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data() = delete;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data) == 24,
-              "Bad sizeof(CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data)");
-class  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data {
+static_assert(sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data) == 24,
+              "Bad sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1344,13 +1344,13 @@ class  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data {
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
-  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data>;
 
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data();
-  ~CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data() = delete;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data) == 16,
-              "Bad sizeof(CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data)");
+static_assert(sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data)");
 class  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1642,6 +1642,37 @@ class  CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data {
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data) == 8,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data)");
 class  CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -3978,12 +4009,12 @@ class CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParamsDataVi
 };
 
 
-class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ParamsDataView {
+class CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ParamsDataView {
  public:
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ParamsDataView() = default;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ParamsDataView() = default;
 
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ParamsDataView(
-      internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data* data,
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -3991,44 +4022,44 @@ class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadName(UserType* output) const {
     auto data_value = data_->name;
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedName>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DEPRECATED_LedName>(
         data_value, output);
   }
-  ::ash::cros_healthd::mojom::LedName name() const {
+  ::ash::cros_healthd::mojom::DEPRECATED_LedName name() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::ash::cros_healthd::mojom::LedName>(data_->name));
+          static_cast<::ash::cros_healthd::mojom::DEPRECATED_LedName>(data_->name));
   }
   template <typename UserType>
   [[nodiscard]] bool ReadColor(UserType* output) const {
     auto data_value = data_->color;
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedColor>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DEPRECATED_LedColor>(
         data_value, output);
   }
-  ::ash::cros_healthd::mojom::LedColor color() const {
+  ::ash::cros_healthd::mojom::DEPRECATED_LedColor color() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::ash::cros_healthd::mojom::LedColor>(data_->color));
+          static_cast<::ash::cros_healthd::mojom::DEPRECATED_LedColor>(data_->color));
   }
   template <typename UserType>
   UserType TakeReplier() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::LedLitUpRoutineReplierInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplierInterfaceBase>>(
             &data_->replier, &result, message_);
     DCHECK(ret);
     return result;
   }
  private:
-  internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data* data_ = nullptr;
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView {
+class CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParamsDataView {
  public:
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView() = default;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParamsDataView() = default;
 
-  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView(
-      internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data* data,
+  CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -4044,7 +4075,7 @@ class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data* data_ = nullptr;
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -4467,6 +4498,47 @@ class CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParamsDataView
   }
  private:
   internal::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data* data_ = nullptr;
+};
+
+
+class CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -5435,7 +5507,7 @@ inline void CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams
 
 
 
-inline void CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView::GetResponseDataView(
+inline void CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParamsDataView::GetResponseDataView(
     ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
   *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
@@ -5527,6 +5599,15 @@ inline void CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ResponseParamsDa
 
 
 inline void CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParamsDataView::GetResponseDataView(
     ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
   *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);

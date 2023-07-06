@@ -62,8 +62,6 @@ enum class VideoEncodeAcceleratorSupportedRateControlMode : int32_t;
 
 enum class VideoEncodeAcceleratorConfig_ContentType : int32_t;
 
-enum class VideoEncodeAcceleratorConfig_InterLayerPredMode : int32_t;
-
 enum class VideoEncodeAcceleratorConfig_StorageType : int32_t;
 
 enum class VideoEncodeAcceleratorConfig_EncoderType : int32_t;

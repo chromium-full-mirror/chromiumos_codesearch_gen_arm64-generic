@@ -186,16 +186,18 @@ bool BacklightBrightnessChange_Cause_IsValid(int value) {
     case 10:
     case 11:
     case 12:
+    case 13:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> BacklightBrightnessChange_Cause_strings[13] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> BacklightBrightnessChange_Cause_strings[14] = {};
 
 static const char BacklightBrightnessChange_Cause_names[] =
   "AMBIENT_LIGHT_CHANGED"
+  "BATTERY_SAVER_STATE_CHANGED"
   "EXTERNAL_POWER_CONNECTED"
   "EXTERNAL_POWER_DISCONNECTED"
   "FORCED_OFF"
@@ -211,34 +213,36 @@ static const char BacklightBrightnessChange_Cause_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry BacklightBrightnessChange_Cause_entries[] = {
   { {BacklightBrightnessChange_Cause_names + 0, 21}, 3 },
-  { {BacklightBrightnessChange_Cause_names + 21, 24}, 4 },
-  { {BacklightBrightnessChange_Cause_names + 45, 27}, 5 },
-  { {BacklightBrightnessChange_Cause_names + 72, 10}, 6 },
-  { {BacklightBrightnessChange_Cause_names + 82, 5}, 9 },
-  { {BacklightBrightnessChange_Cause_names + 87, 20}, 7 },
-  { {BacklightBrightnessChange_Cause_names + 107, 5}, 8 },
-  { {BacklightBrightnessChange_Cause_names + 112, 13}, 1 },
-  { {BacklightBrightnessChange_Cause_names + 125, 15}, 2 },
-  { {BacklightBrightnessChange_Cause_names + 140, 12}, 0 },
-  { {BacklightBrightnessChange_Cause_names + 152, 16}, 11 },
-  { {BacklightBrightnessChange_Cause_names + 168, 15}, 12 },
-  { {BacklightBrightnessChange_Cause_names + 183, 17}, 10 },
+  { {BacklightBrightnessChange_Cause_names + 21, 27}, 13 },
+  { {BacklightBrightnessChange_Cause_names + 48, 24}, 4 },
+  { {BacklightBrightnessChange_Cause_names + 72, 27}, 5 },
+  { {BacklightBrightnessChange_Cause_names + 99, 10}, 6 },
+  { {BacklightBrightnessChange_Cause_names + 109, 5}, 9 },
+  { {BacklightBrightnessChange_Cause_names + 114, 20}, 7 },
+  { {BacklightBrightnessChange_Cause_names + 134, 5}, 8 },
+  { {BacklightBrightnessChange_Cause_names + 139, 13}, 1 },
+  { {BacklightBrightnessChange_Cause_names + 152, 15}, 2 },
+  { {BacklightBrightnessChange_Cause_names + 167, 12}, 0 },
+  { {BacklightBrightnessChange_Cause_names + 179, 16}, 11 },
+  { {BacklightBrightnessChange_Cause_names + 195, 15}, 12 },
+  { {BacklightBrightnessChange_Cause_names + 210, 17}, 10 },
 };
 
 static const int BacklightBrightnessChange_Cause_entries_by_number[] = {
-  9, // 0 -> USER_REQUEST
-  7, // 1 -> USER_ACTIVITY
-  8, // 2 -> USER_INACTIVITY
+  10, // 0 -> USER_REQUEST
+  8, // 1 -> USER_ACTIVITY
+  9, // 2 -> USER_INACTIVITY
   0, // 3 -> AMBIENT_LIGHT_CHANGED
-  1, // 4 -> EXTERNAL_POWER_CONNECTED
-  2, // 5 -> EXTERNAL_POWER_DISCONNECTED
-  3, // 6 -> FORCED_OFF
-  5, // 7 -> NO_LONGER_FORCED_OFF
-  6, // 8 -> OTHER
-  4, // 9 -> MODEL
-  12, // 10 -> WAKE_NOTIFICATION
-  10, // 11 -> USER_TOGGLED_OFF
-  11, // 12 -> USER_TOGGLED_ON
+  2, // 4 -> EXTERNAL_POWER_CONNECTED
+  3, // 5 -> EXTERNAL_POWER_DISCONNECTED
+  4, // 6 -> FORCED_OFF
+  6, // 7 -> NO_LONGER_FORCED_OFF
+  7, // 8 -> OTHER
+  5, // 9 -> MODEL
+  13, // 10 -> WAKE_NOTIFICATION
+  11, // 11 -> USER_TOGGLED_OFF
+  12, // 12 -> USER_TOGGLED_ON
+  1, // 13 -> BATTERY_SAVER_STATE_CHANGED
 };
 
 const std::string& BacklightBrightnessChange_Cause_Name(
@@ -247,12 +251,12 @@ const std::string& BacklightBrightnessChange_Cause_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           BacklightBrightnessChange_Cause_entries,
           BacklightBrightnessChange_Cause_entries_by_number,
-          13, BacklightBrightnessChange_Cause_strings);
+          14, BacklightBrightnessChange_Cause_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       BacklightBrightnessChange_Cause_entries,
       BacklightBrightnessChange_Cause_entries_by_number,
-      13, value);
+      14, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      BacklightBrightnessChange_Cause_strings[idx].get();
 }
@@ -260,7 +264,7 @@ bool BacklightBrightnessChange_Cause_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BacklightBrightnessChange_Cause* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      BacklightBrightnessChange_Cause_entries, 13, name, &int_value);
+      BacklightBrightnessChange_Cause_entries, 14, name, &int_value);
   if (success) {
     *value = static_cast<BacklightBrightnessChange_Cause>(int_value);
   }
@@ -280,6 +284,7 @@ constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange::MODEL;
 constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange::WAKE_NOTIFICATION;
 constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange::USER_TOGGLED_OFF;
 constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange::USER_TOGGLED_ON;
+constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange::BATTERY_SAVER_STATE_CHANGED;
 constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange::Cause_MIN;
 constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange::Cause_MAX;
 constexpr int BacklightBrightnessChange::Cause_ARRAYSIZE;

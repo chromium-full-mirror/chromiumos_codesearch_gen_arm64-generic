@@ -2303,7 +2303,7 @@ CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data::CrosH
 
 
 // static
-bool CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data::Validate(
+bool CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2315,16 +2315,16 @@ bool CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data* object =
-      static_cast<const CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data*>(data);
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data*>(data);
 
 
-  if (!::ash::cros_healthd::mojom::internal::LedName_Data
+  if (!::ash::cros_healthd::mojom::internal::DEPRECATED_LedName_Data
         ::Validate(object->name, validation_context))
     return false;
 
 
-  if (!::ash::cros_healthd::mojom::internal::LedColor_Data
+  if (!::ash::cros_healthd::mojom::internal::DEPRECATED_LedColor_Data
         ::Validate(object->color, validation_context))
     return false;
 
@@ -2340,12 +2340,12 @@ bool CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data::Validate(
   return true;
 }
 
-CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data()
+CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data::Validate(
+bool CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2357,8 +2357,8 @@ bool CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data::Valid
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data* object =
-      static_cast<const CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data*>(data);
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->response, 1, validation_context)) {
@@ -2370,7 +2370,7 @@ bool CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data::Valid
   return true;
 }
 
-CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data()
+CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2862,6 +2862,59 @@ bool CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data::Va
 }
 
 CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data*>(data);
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->response, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->response, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

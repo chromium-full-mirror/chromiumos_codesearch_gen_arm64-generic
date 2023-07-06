@@ -59,7 +59,7 @@ constexpr uint32_t kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name = 34;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name = 35;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name = 36;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name = 37;
+constexpr uint32_t kCrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_Name = 37;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name = 38;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Name = 39;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name = 40;
@@ -69,6 +69,7 @@ constexpr uint32_t kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Na
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name = 44;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunPowerButtonRoutine_Name = 45;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunAudioDriverRoutine_Name = 46;
+constexpr uint32_t kCrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_Name = 47;
 constexpr uint32_t kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name = 0;
 constexpr uint32_t kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name = 1;
 constexpr uint32_t kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name = 2;

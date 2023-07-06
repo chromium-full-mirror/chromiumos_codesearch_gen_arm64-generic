@@ -1827,6 +1827,7 @@ class FileMetadata final :
   enum : int {
     kSourceUrlFieldNumber = 2,
     kPathFieldNumber = 3,
+    kReferrerUrlFieldNumber = 4,
     kInodeFieldNumber = 1,
   };
   // optional string source_url = 2;
@@ -1865,6 +1866,24 @@ class FileMetadata final :
   std::string* _internal_mutable_path();
   public:
 
+  // optional string referrer_url = 4;
+  bool has_referrer_url() const;
+  private:
+  bool _internal_has_referrer_url() const;
+  public:
+  void clear_referrer_url();
+  const std::string& referrer_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_referrer_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_referrer_url();
+  PROTOBUF_NODISCARD std::string* release_referrer_url();
+  void set_allocated_referrer_url(std::string* referrer_url);
+  private:
+  const std::string& _internal_referrer_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_referrer_url(const std::string& value);
+  std::string* _internal_mutable_referrer_url();
+  public:
+
   // optional uint64 inode = 1;
   bool has_inode() const;
   private:
@@ -1890,6 +1909,7 @@ class FileMetadata final :
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr source_url_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr referrer_url_;
     uint64_t inode_;
   };
   union { Impl_ _impl_; };
@@ -4490,7 +4510,7 @@ inline void RequestFileAccessResponse::set_allowed(bool value) {
 
 // optional uint64 inode = 1;
 inline bool FileMetadata::_internal_has_inode() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool FileMetadata::has_inode() const {
@@ -4498,7 +4518,7 @@ inline bool FileMetadata::has_inode() const {
 }
 inline void FileMetadata::clear_inode() {
   _impl_.inode_ = uint64_t{0u};
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 inline uint64_t FileMetadata::_internal_inode() const {
   return _impl_.inode_;
@@ -4508,7 +4528,7 @@ inline uint64_t FileMetadata::inode() const {
   return _internal_inode();
 }
 inline void FileMetadata::_internal_set_inode(uint64_t value) {
-  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x00000008u;
   _impl_.inode_ = value;
 }
 inline void FileMetadata::set_inode(uint64_t value) {
@@ -4650,6 +4670,74 @@ inline void FileMetadata::set_allocated_path(std::string* path) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:dlp.FileMetadata.path)
+}
+
+// optional string referrer_url = 4;
+inline bool FileMetadata::_internal_has_referrer_url() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool FileMetadata::has_referrer_url() const {
+  return _internal_has_referrer_url();
+}
+inline void FileMetadata::clear_referrer_url() {
+  _impl_.referrer_url_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& FileMetadata::referrer_url() const {
+  // @@protoc_insertion_point(field_get:dlp.FileMetadata.referrer_url)
+  return _internal_referrer_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void FileMetadata::set_referrer_url(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000004u;
+ _impl_.referrer_url_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:dlp.FileMetadata.referrer_url)
+}
+inline std::string* FileMetadata::mutable_referrer_url() {
+  std::string* _s = _internal_mutable_referrer_url();
+  // @@protoc_insertion_point(field_mutable:dlp.FileMetadata.referrer_url)
+  return _s;
+}
+inline const std::string& FileMetadata::_internal_referrer_url() const {
+  return _impl_.referrer_url_.Get();
+}
+inline void FileMetadata::_internal_set_referrer_url(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.referrer_url_.Set(value, GetArenaForAllocation());
+}
+inline std::string* FileMetadata::_internal_mutable_referrer_url() {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  return _impl_.referrer_url_.Mutable(GetArenaForAllocation());
+}
+inline std::string* FileMetadata::release_referrer_url() {
+  // @@protoc_insertion_point(field_release:dlp.FileMetadata.referrer_url)
+  if (!_internal_has_referrer_url()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  auto* p = _impl_.referrer_url_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.referrer_url_.IsDefault()) {
+    _impl_.referrer_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void FileMetadata::set_allocated_referrer_url(std::string* referrer_url) {
+  if (referrer_url != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+  _impl_.referrer_url_.SetAllocated(referrer_url, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.referrer_url_.IsDefault()) {
+    _impl_.referrer_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:dlp.FileMetadata.referrer_url)
 }
 
 // -------------------------------------------------------------------

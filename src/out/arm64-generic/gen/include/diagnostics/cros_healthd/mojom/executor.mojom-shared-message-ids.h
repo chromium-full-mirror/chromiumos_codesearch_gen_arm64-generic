@@ -31,6 +31,7 @@ constexpr uint32_t kStylusGarageObserver_OnRemove_Name = 1;
 constexpr uint32_t kStylusObserver_OnTouch_Name = 0;
 constexpr uint32_t kStylusObserver_OnConnected_Name = 1;
 constexpr uint32_t kPowerButtonObserver_OnEvent_Name = 0;
+constexpr uint32_t kPowerButtonObserver_OnConnectedToEventNode_Name = 1;
 constexpr uint32_t kVolumeButtonObserver_OnEvent_Name = 0;
 constexpr uint32_t kExecutor_ReadFile_Name = 0;
 constexpr uint32_t kExecutor_ReadFilePart_Name = 1;

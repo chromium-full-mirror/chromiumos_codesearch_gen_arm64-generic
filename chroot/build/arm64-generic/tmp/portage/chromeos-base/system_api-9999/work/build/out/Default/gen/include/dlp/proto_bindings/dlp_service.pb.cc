@@ -157,6 +157,7 @@ PROTOBUF_CONSTEXPR FileMetadata::FileMetadata(
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.source_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.referrer_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.inode_)*/uint64_t{0u}} {}
 struct FileMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FileMetadataDefaultTypeInternal()
@@ -2812,13 +2813,16 @@ class FileMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<FileMetadata>()._impl_._has_bits_);
   static void set_has_inode(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_source_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_path(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
+  }
+  static void set_has_referrer_url(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
 };
 
@@ -2836,6 +2840,7 @@ FileMetadata::FileMetadata(const FileMetadata& from)
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.source_url_){}
     , decltype(_impl_.path_){}
+    , decltype(_impl_.referrer_url_){}
     , decltype(_impl_.inode_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -2855,6 +2860,14 @@ FileMetadata::FileMetadata(const FileMetadata& from)
     _this->_impl_.path_.Set(from._internal_path(), 
       _this->GetArenaForAllocation());
   }
+  _impl_.referrer_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.referrer_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_referrer_url()) {
+    _this->_impl_.referrer_url_.Set(from._internal_referrer_url(), 
+      _this->GetArenaForAllocation());
+  }
   _this->_impl_.inode_ = from._impl_.inode_;
   // @@protoc_insertion_point(copy_constructor:dlp.FileMetadata)
 }
@@ -2868,6 +2881,7 @@ inline void FileMetadata::SharedCtor(
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.source_url_){}
     , decltype(_impl_.path_){}
+    , decltype(_impl_.referrer_url_){}
     , decltype(_impl_.inode_){uint64_t{0u}}
   };
   _impl_.source_url_.InitDefault();
@@ -2877,6 +2891,10 @@ inline void FileMetadata::SharedCtor(
   _impl_.path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.referrer_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.referrer_url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -2893,6 +2911,7 @@ inline void FileMetadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.source_url_.Destroy();
   _impl_.path_.Destroy();
+  _impl_.referrer_url_.Destroy();
 }
 
 void FileMetadata::SetCachedSize(int size) const {
@@ -2906,12 +2925,15 @@ void FileMetadata::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _impl_.source_url_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
       _impl_.path_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _impl_.referrer_url_.ClearNonDefaultToEmpty();
     }
   }
   _impl_.inode_ = uint64_t{0u};
@@ -2953,6 +2975,15 @@ const char* FileMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
+      // optional string referrer_url = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_referrer_url();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -2985,7 +3016,7 @@ uint8_t* FileMetadata::_InternalSerialize(
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 inode = 1;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_inode(), target);
   }
@@ -3000,6 +3031,12 @@ uint8_t* FileMetadata::_InternalSerialize(
   if (cached_has_bits & 0x00000002u) {
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_path(), target);
+  }
+
+  // optional string referrer_url = 4;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_referrer_url(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3019,7 +3056,7 @@ size_t FileMetadata::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional string source_url = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -3034,8 +3071,15 @@ size_t FileMetadata::ByteSizeLong() const {
           this->_internal_path());
     }
 
-    // optional uint64 inode = 1;
+    // optional string referrer_url = 4;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_referrer_url());
+    }
+
+    // optional uint64 inode = 1;
+    if (cached_has_bits & 0x00000008u) {
       total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_inode());
     }
 
@@ -3062,7 +3106,7 @@ void FileMetadata::MergeFrom(const FileMetadata& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_source_url(from._internal_source_url());
     }
@@ -3070,6 +3114,9 @@ void FileMetadata::MergeFrom(const FileMetadata& from) {
       _this->_internal_set_path(from._internal_path());
     }
     if (cached_has_bits & 0x00000004u) {
+      _this->_internal_set_referrer_url(from._internal_referrer_url());
+    }
+    if (cached_has_bits & 0x00000008u) {
       _this->_impl_.inode_ = from._impl_.inode_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
@@ -3101,6 +3148,10 @@ void FileMetadata::InternalSwap(FileMetadata* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.path_, lhs_arena,
       &other->_impl_.path_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.referrer_url_, lhs_arena,
+      &other->_impl_.referrer_url_, rhs_arena
   );
   swap(_impl_.inode_, other->_impl_.inode_);
 }

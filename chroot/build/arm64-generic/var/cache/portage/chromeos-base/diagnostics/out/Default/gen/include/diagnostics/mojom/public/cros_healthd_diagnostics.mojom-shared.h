@@ -289,8 +289,10 @@ enum class DiagnosticRoutineUserMessageEnum : int32_t {
   kPlugInACPower = 1,
   
   kCheckLedColor = 3,
+  
+  kPressPowerButton = 4,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 4,
   kDefaultValue = 2
 };
 

@@ -41,7 +41,10 @@ enum class EventCategory {
   kTouchpadButton,
   kTouchpadTouch,
   kTouchpadConnected,
-  kMaxValue = kTouchpadConnected,
+  kHdmi,
+  kStylusTouch,
+  kStylusConnected,
+  kMaxValue = kStylusConnected,
 };
 
 
@@ -352,6 +355,17 @@ enum class UsbEvent {
 const char* ToString(UsbEvent as_enum);
 UsbEvent ParseUsbEvent(base::StringPiece as_string);
 
+enum class HdmiEvent {
+  kNone = 0,
+  kConnected,
+  kDisconnected,
+  kMaxValue = kDisconnected,
+};
+
+
+const char* ToString(HdmiEvent as_enum);
+HdmiEvent ParseHdmiEvent(base::StringPiece as_string);
+
 enum class SdCardEvent {
   kNone = 0,
   kConnected,
@@ -513,6 +527,43 @@ struct UsbEventInfo {
   std::vector<std::string> categories;
 
   UsbEvent event;
+
+};
+
+struct HdmiEventInfo {
+  HdmiEventInfo();
+  ~HdmiEventInfo();
+  HdmiEventInfo(const HdmiEventInfo&) = delete;
+  HdmiEventInfo& operator=(const HdmiEventInfo&) = delete;
+  HdmiEventInfo(HdmiEventInfo&& rhs);
+  HdmiEventInfo& operator=(HdmiEventInfo&& rhs);
+
+  // Populates a HdmiEventInfo object from a base::Value& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, HdmiEventInfo& out);
+
+  // Populates a HdmiEventInfo object from a Dict& instance. Returns whether
+  // |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, HdmiEventInfo& out);
+
+  // Creates a deep copy of HdmiEventInfo.
+  HdmiEventInfo Clone() const;
+
+  // Creates a HdmiEventInfo object from a base::Value, or NULL on failure.
+  static std::unique_ptr<HdmiEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a HdmiEventInfo object from a base::Value::Dict, or nullopt on
+  // failure.
+  static absl::optional<HdmiEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a HdmiEventInfo object from a base::Value, or nullopt on failure.
+  static absl::optional<HdmiEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisHdmiEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  HdmiEvent event;
 
 };
 
@@ -841,6 +892,143 @@ struct TouchpadConnectedEventInfo {
 
 };
 
+struct StylusTouchPointInfo {
+  StylusTouchPointInfo();
+  ~StylusTouchPointInfo();
+  StylusTouchPointInfo(const StylusTouchPointInfo&) = delete;
+  StylusTouchPointInfo& operator=(const StylusTouchPointInfo&) = delete;
+  StylusTouchPointInfo(StylusTouchPointInfo&& rhs);
+  StylusTouchPointInfo& operator=(StylusTouchPointInfo&& rhs);
+
+  // Populates a StylusTouchPointInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, StylusTouchPointInfo& out);
+
+  // Populates a StylusTouchPointInfo object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, StylusTouchPointInfo& out);
+
+  // Creates a deep copy of StylusTouchPointInfo.
+  StylusTouchPointInfo Clone() const;
+
+  // Creates a StylusTouchPointInfo object from a base::Value, or NULL on
+  // failure.
+  static std::unique_ptr<StylusTouchPointInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a StylusTouchPointInfo object from a base::Value::Dict, or nullopt
+  // on failure.
+  static absl::optional<StylusTouchPointInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a StylusTouchPointInfo object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<StylusTouchPointInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisStylusTouchPointInfo object.
+  base::Value::Dict ToValue() const;
+
+  // The x position. The value ranges from 0 to |max_x| as defined in
+  // StylusConnectedEventInfo.
+  absl::optional<int> x;
+
+  // The y position. The value ranges from 0 to |max_y| as defined in
+  // StylusConnectedEventInfo.
+  absl::optional<int> y;
+
+  // The pressure applied to the touch contact. The value ranges from 0 to
+  // |max_pressure| as defined in StylusConnectedEventInfo.
+  absl::optional<int> pressure;
+
+};
+
+struct StylusTouchEventInfo {
+  StylusTouchEventInfo();
+  ~StylusTouchEventInfo();
+  StylusTouchEventInfo(const StylusTouchEventInfo&) = delete;
+  StylusTouchEventInfo& operator=(const StylusTouchEventInfo&) = delete;
+  StylusTouchEventInfo(StylusTouchEventInfo&& rhs);
+  StylusTouchEventInfo& operator=(StylusTouchEventInfo&& rhs);
+
+  // Populates a StylusTouchEventInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, StylusTouchEventInfo& out);
+
+  // Populates a StylusTouchEventInfo object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, StylusTouchEventInfo& out);
+
+  // Creates a deep copy of StylusTouchEventInfo.
+  StylusTouchEventInfo Clone() const;
+
+  // Creates a StylusTouchEventInfo object from a base::Value, or NULL on
+  // failure.
+  static std::unique_ptr<StylusTouchEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a StylusTouchEventInfo object from a base::Value::Dict, or nullopt
+  // on failure.
+  static absl::optional<StylusTouchEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a StylusTouchEventInfo object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<StylusTouchEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisStylusTouchEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  // The info of the stylus touch point. A null touch point means the stylus
+  // leaves the contact.
+  absl::optional<StylusTouchPointInfo> touch_point;
+
+};
+
+struct StylusConnectedEventInfo {
+  StylusConnectedEventInfo();
+  ~StylusConnectedEventInfo();
+  StylusConnectedEventInfo(const StylusConnectedEventInfo&) = delete;
+  StylusConnectedEventInfo& operator=(const StylusConnectedEventInfo&) = delete;
+  StylusConnectedEventInfo(StylusConnectedEventInfo&& rhs);
+  StylusConnectedEventInfo& operator=(StylusConnectedEventInfo&& rhs);
+
+  // Populates a StylusConnectedEventInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, StylusConnectedEventInfo& out);
+
+  // Populates a StylusConnectedEventInfo object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, StylusConnectedEventInfo& out);
+
+  // Creates a deep copy of StylusConnectedEventInfo.
+  StylusConnectedEventInfo Clone() const;
+
+  // Creates a StylusConnectedEventInfo object from a base::Value, or NULL on
+  // failure.
+  static std::unique_ptr<StylusConnectedEventInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a StylusConnectedEventInfo object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<StylusConnectedEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a StylusConnectedEventInfo object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<StylusConnectedEventInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisStylusConnectedEventInfo object.
+  base::Value::Dict ToValue() const;
+
+  // The maximum possible x position of touch points.
+  absl::optional<int> max_x;
+
+  // The maximum possible y position of touch points.
+  absl::optional<int> max_y;
+
+  // The maximum possible pressure of touch points, or 0 if pressure is not
+  // supported.
+  absl::optional<int> max_pressure;
+
+};
+
 
 //
 // Functions
@@ -950,6 +1138,13 @@ extern const char kEventName[];  // "os.events.onUsbEvent"
 base::Value::List Create(const UsbEventInfo& event_info);
 }  // namespace OnUsbEvent
 
+namespace OnHdmiEvent {
+
+extern const char kEventName[];  // "os.events.onHdmiEvent"
+
+base::Value::List Create(const HdmiEventInfo& event_info);
+}  // namespace OnHdmiEvent
+
 namespace OnSdCardEvent {
 
 extern const char kEventName[];  // "os.events.onSdCardEvent"
@@ -991,6 +1186,20 @@ extern const char kEventName[];  // "os.events.onTouchpadConnectedEvent"
 
 base::Value::List Create(const TouchpadConnectedEventInfo& event_info);
 }  // namespace OnTouchpadConnectedEvent
+
+namespace OnStylusTouchEvent {
+
+extern const char kEventName[];  // "os.events.onStylusTouchEvent"
+
+base::Value::List Create(const StylusTouchEventInfo& event_info);
+}  // namespace OnStylusTouchEvent
+
+namespace OnStylusConnectedEvent {
+
+extern const char kEventName[];  // "os.events.onStylusConnectedEvent"
+
+base::Value::List Create(const StylusConnectedEventInfo& event_info);
+}  // namespace OnStylusConnectedEvent
 
 }  // namespace os_events
 }  // namespace api

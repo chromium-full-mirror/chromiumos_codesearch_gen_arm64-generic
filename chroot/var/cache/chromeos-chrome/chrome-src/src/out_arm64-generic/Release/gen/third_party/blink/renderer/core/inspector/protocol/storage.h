@@ -1117,6 +1117,7 @@ public:
     virtual DispatchResponse setStorageBucketTracking(const String& in_storageKey, bool in_enable) = 0;
     virtual DispatchResponse deleteStorageBucket(std::unique_ptr<protocol::Storage::StorageBucket> in_bucket) = 0;
     virtual DispatchResponse runBounceTrackingMitigations(std::unique_ptr<protocol::Array<String>>* out_deletedSites) = 0;
+    virtual DispatchResponse setAttributionReportingLocalTestingMode(bool in_enabled) = 0;
 
     virtual DispatchResponse disable()
     {

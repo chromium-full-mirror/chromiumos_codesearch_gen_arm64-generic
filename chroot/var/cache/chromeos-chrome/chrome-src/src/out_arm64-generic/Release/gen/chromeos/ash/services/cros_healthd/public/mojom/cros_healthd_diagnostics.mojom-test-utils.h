@@ -15,24 +15,24 @@ namespace cros_healthd {
 namespace mojom {
 
 
-class  LedLitUpRoutineReplierInterceptorForTesting : public LedLitUpRoutineReplier {
-  virtual LedLitUpRoutineReplier* GetForwardingInterface() = 0;
+class  DEPRECATED_LedLitUpRoutineReplierInterceptorForTesting : public DEPRECATED_LedLitUpRoutineReplier {
+  virtual DEPRECATED_LedLitUpRoutineReplier* GetForwardingInterface() = 0;
   void GetColorMatched(GetColorMatchedCallback callback) override;
 };
-class  LedLitUpRoutineReplierAsyncWaiter {
+class  DEPRECATED_LedLitUpRoutineReplierAsyncWaiter {
  public:
-  explicit LedLitUpRoutineReplierAsyncWaiter(LedLitUpRoutineReplier* proxy);
+  explicit DEPRECATED_LedLitUpRoutineReplierAsyncWaiter(DEPRECATED_LedLitUpRoutineReplier* proxy);
 
-  LedLitUpRoutineReplierAsyncWaiter(const LedLitUpRoutineReplierAsyncWaiter&) = delete;
-  LedLitUpRoutineReplierAsyncWaiter& operator=(const LedLitUpRoutineReplierAsyncWaiter&) = delete;
+  DEPRECATED_LedLitUpRoutineReplierAsyncWaiter(const DEPRECATED_LedLitUpRoutineReplierAsyncWaiter&) = delete;
+  DEPRECATED_LedLitUpRoutineReplierAsyncWaiter& operator=(const DEPRECATED_LedLitUpRoutineReplierAsyncWaiter&) = delete;
 
-  ~LedLitUpRoutineReplierAsyncWaiter();
+  ~DEPRECATED_LedLitUpRoutineReplierAsyncWaiter();
   void GetColorMatched(
       bool* out_matched);
   bool GetColorMatched();
 
  private:
-  LedLitUpRoutineReplier* const proxy_;
+  DEPRECATED_LedLitUpRoutineReplier* const proxy_;
 };
 
 

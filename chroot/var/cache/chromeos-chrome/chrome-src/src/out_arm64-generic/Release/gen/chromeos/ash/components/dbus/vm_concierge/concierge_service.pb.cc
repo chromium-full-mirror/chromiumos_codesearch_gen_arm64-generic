@@ -46,6 +46,7 @@ PROTOBUF_CONSTEXPR DiskImage::DiskImage(
   , flags_(uint64_t{0u})
   , writable_(false)
   , do_mount_(false)
+  , o_direct_(false)
   , image_type_(0)
 
   , block_size_(0u){}
@@ -183,7 +184,9 @@ PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
 
   , ureadahead_mode_(0)
 
-  , enable_vmm_swap_(false){}
+  , guest_zram_mib_(0u)
+  , enable_vmm_swap_(false)
+  , rootfs_o_direct_(false){}
 struct StartArcVmRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartArcVmRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3164,6 +3167,14 @@ const char* DiskImage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
         } else
           goto handle_unusual;
         continue;
+      // bool o_direct = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          o_direct_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3264,6 +3275,12 @@ uint8_t* DiskImage::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(9, this->_internal_block_size(), target);
   }
 
+  // bool o_direct = 10;
+  if (this->_internal_o_direct() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_o_direct(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3323,6 +3340,11 @@ size_t DiskImage::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool o_direct = 10;
+  if (this->_internal_o_direct() != 0) {
+    total_size += 1 + 1;
+  }
+
   // .vm_tools.concierge.DiskImageType image_type = 8;
   if (this->_internal_image_type() != 0) {
     total_size += 1 +
@@ -3374,6 +3396,9 @@ void DiskImage::MergeFrom(const DiskImage& from) {
   }
   if (from._internal_do_mount() != 0) {
     _internal_set_do_mount(from._internal_do_mount());
+  }
+  if (from._internal_o_direct() != 0) {
+    _internal_set_o_direct(from._internal_o_direct());
   }
   if (from._internal_image_type() != 0) {
     _internal_set_image_type(from._internal_image_type());
@@ -5325,8 +5350,8 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     mini_instance_request_ = nullptr;
   }
   ::memcpy(&cpus_, &from.cpus_,
-    static_cast<size_t>(reinterpret_cast<char*>(&enable_vmm_swap_) -
-    reinterpret_cast<char*>(&cpus_)) + sizeof(enable_vmm_swap_));
+    static_cast<size_t>(reinterpret_cast<char*>(&rootfs_o_direct_) -
+    reinterpret_cast<char*>(&cpus_)) + sizeof(rootfs_o_direct_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartArcVmRequest)
 }
 
@@ -5345,8 +5370,8 @@ fstab_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&enable_vmm_swap_) -
-    reinterpret_cast<char*>(&vm_)) + sizeof(enable_vmm_swap_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&rootfs_o_direct_) -
+    reinterpret_cast<char*>(&vm_)) + sizeof(rootfs_o_direct_));
 }
 
 StartArcVmRequest::~StartArcVmRequest() {
@@ -5390,8 +5415,8 @@ void StartArcVmRequest::Clear() {
   }
   mini_instance_request_ = nullptr;
   ::memset(&cpus_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&enable_vmm_swap_) -
-      reinterpret_cast<char*>(&cpus_)) + sizeof(enable_vmm_swap_));
+      reinterpret_cast<char*>(&rootfs_o_direct_) -
+      reinterpret_cast<char*>(&cpus_)) + sizeof(rootfs_o_direct_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5573,7 +5598,7 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // int32 guest_zram_size = 32;
+      // int32 guest_zram_size = 32 [deprecated = true];
       case 32:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
           guest_zram_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
@@ -5648,7 +5673,7 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // bool enable_rw = 41;
+      // bool enable_rw = 41 [deprecated = true];
       case 41:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           enable_rw_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -5668,6 +5693,22 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
       case 43:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           enable_vmm_swap_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 guest_zram_mib = 44;
+      case 44:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          guest_zram_mib_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool rootfs_o_direct = 45;
+      case 45:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+          rootfs_o_direct_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5837,7 +5878,7 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(28, this->_internal_vm_memory_psi_period(), target);
   }
 
-  // int32 guest_zram_size = 32;
+  // int32 guest_zram_size = 32 [deprecated = true];
   if (this->_internal_guest_zram_size() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(32, this->_internal_guest_zram_size(), target);
@@ -5895,7 +5936,7 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
       40, this->_internal_ureadahead_mode(), target);
   }
 
-  // bool enable_rw = 41;
+  // bool enable_rw = 41 [deprecated = true];
   if (this->_internal_enable_rw() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(41, this->_internal_enable_rw(), target);
@@ -5911,6 +5952,18 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
   if (this->_internal_enable_vmm_swap() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(43, this->_internal_enable_vmm_swap(), target);
+  }
+
+  // uint32 guest_zram_mib = 44;
+  if (this->_internal_guest_zram_mib() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(44, this->_internal_guest_zram_mib(), target);
+  }
+
+  // bool rootfs_o_direct = 45;
+  if (this->_internal_rootfs_o_direct() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(45, this->_internal_rootfs_o_direct(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6046,7 +6099,7 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         this->_internal_vm_memory_psi_period());
   }
 
-  // int32 guest_zram_size = 32;
+  // int32 guest_zram_size = 32 [deprecated = true];
   if (this->_internal_guest_zram_size() != 0) {
     total_size += 2 +
       ::_pbi::WireFormatLite::Int32Size(
@@ -6084,7 +6137,7 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // bool enable_rw = 41;
+  // bool enable_rw = 41 [deprecated = true];
   if (this->_internal_enable_rw() != 0) {
     total_size += 2 + 1;
   }
@@ -6112,8 +6165,20 @@ size_t StartArcVmRequest::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_ureadahead_mode());
   }
 
+  // uint32 guest_zram_mib = 44;
+  if (this->_internal_guest_zram_mib() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::UInt32Size(
+        this->_internal_guest_zram_mib());
+  }
+
   // bool enable_vmm_swap = 43;
   if (this->_internal_enable_vmm_swap() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool rootfs_o_direct = 45;
+  if (this->_internal_rootfs_o_direct() != 0) {
     total_size += 2 + 1;
   }
 
@@ -6228,8 +6293,14 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_ureadahead_mode() != 0) {
     _internal_set_ureadahead_mode(from._internal_ureadahead_mode());
   }
+  if (from._internal_guest_zram_mib() != 0) {
+    _internal_set_guest_zram_mib(from._internal_guest_zram_mib());
+  }
   if (from._internal_enable_vmm_swap() != 0) {
     _internal_set_enable_vmm_swap(from._internal_enable_vmm_swap());
+  }
+  if (from._internal_rootfs_o_direct() != 0) {
+    _internal_set_rootfs_o_direct(from._internal_rootfs_o_direct());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -6264,8 +6335,8 @@ void StartArcVmRequest::InternalSwap(StartArcVmRequest* other) {
       &other->fstab_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, enable_vmm_swap_)
-      + sizeof(StartArcVmRequest::enable_vmm_swap_)
+      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, rootfs_o_direct_)
+      + sizeof(StartArcVmRequest::rootfs_o_direct_)
       - PROTOBUF_FIELD_OFFSET(StartArcVmRequest, vm_)>(
           reinterpret_cast<char*>(&vm_),
           reinterpret_cast<char*>(&other->vm_));

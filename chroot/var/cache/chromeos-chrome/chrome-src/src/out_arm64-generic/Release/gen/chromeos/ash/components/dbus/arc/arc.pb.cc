@@ -39,7 +39,8 @@ PROTOBUF_CONSTEXPR StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(
   , host_ureadahead_generation_(false)
   , enable_privacy_hub_for_chrome_(false)
   , arc_switch_to_keymint_(false)
-  , lcd_density_(-1){}
+  , lcd_density_(-1)
+  , force_max_acquired_buffers_experiment_(-1){}
 struct StartArcMiniInstanceRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartArcMiniInstanceRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -401,6 +402,9 @@ class StartArcMiniInstanceRequest::_Internal {
   static void set_has_arc_switch_to_keymint(HasBits* has_bits) {
     (*has_bits)[0] |= 65536u;
   }
+  static void set_has_force_max_acquired_buffers_experiment(HasBits* has_bits) {
+    (*has_bits)[0] |= 262144u;
+  }
 };
 
 StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -414,8 +418,8 @@ StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(const StartArcMiniInsta
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&native_bridge_experiment_, &from.native_bridge_experiment_,
-    static_cast<size_t>(reinterpret_cast<char*>(&lcd_density_) -
-    reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(lcd_density_));
+    static_cast<size_t>(reinterpret_cast<char*>(&force_max_acquired_buffers_experiment_) -
+    reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(force_max_acquired_buffers_experiment_));
   // @@protoc_insertion_point(copy_constructor:arc.StartArcMiniInstanceRequest)
 }
 
@@ -425,6 +429,7 @@ inline void StartArcMiniInstanceRequest::SharedCtor() {
     0, static_cast<size_t>(reinterpret_cast<char*>(&arc_switch_to_keymint_) -
     reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(arc_switch_to_keymint_));
 lcd_density_ = -1;
+force_max_acquired_buffers_experiment_ = -1;
 }
 
 StartArcMiniInstanceRequest::~StartArcMiniInstanceRequest() {
@@ -461,9 +466,10 @@ void StartArcMiniInstanceRequest::Clear() {
         reinterpret_cast<char*>(&enable_privacy_hub_for_chrome_) -
         reinterpret_cast<char*>(&disable_download_provider_)) + sizeof(enable_privacy_hub_for_chrome_));
   }
-  if (cached_has_bits & 0x00030000u) {
+  if (cached_has_bits & 0x00070000u) {
     arc_switch_to_keymint_ = false;
     lcd_density_ = -1;
+    force_max_acquired_buffers_experiment_ = -1;
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -646,6 +652,15 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::_pbi:
         } else
           goto handle_unusual;
         continue;
+      // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
+      case 19:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 152)) {
+          _Internal::set_has_force_max_acquired_buffers_experiment(&has_bits);
+          force_max_acquired_buffers_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -787,6 +802,12 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(18, this->_internal_arc_switch_to_keymint(), target);
   }
 
+  // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
+  if (cached_has_bits & 0x00040000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(19, this->_internal_force_max_acquired_buffers_experiment(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -890,7 +911,7 @@ size_t StartArcMiniInstanceRequest::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00030000u) {
+  if (cached_has_bits & 0x00070000u) {
     // optional bool arc_switch_to_keymint = 18 [default = false];
     if (cached_has_bits & 0x00010000u) {
       total_size += 2 + 1;
@@ -899,6 +920,13 @@ size_t StartArcMiniInstanceRequest::ByteSizeLong() const {
     // optional int32 lcd_density = 2 [default = -1];
     if (cached_has_bits & 0x00020000u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_lcd_density());
+    }
+
+    // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
+    if (cached_has_bits & 0x00040000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int32Size(
+          this->_internal_force_max_acquired_buffers_experiment());
     }
 
   }
@@ -977,12 +1005,15 @@ void StartArcMiniInstanceRequest::MergeFrom(const StartArcMiniInstanceRequest& f
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00030000u) {
+  if (cached_has_bits & 0x00070000u) {
     if (cached_has_bits & 0x00010000u) {
       arc_switch_to_keymint_ = from.arc_switch_to_keymint_;
     }
     if (cached_has_bits & 0x00020000u) {
       lcd_density_ = from.lcd_density_;
+    }
+    if (cached_has_bits & 0x00040000u) {
+      force_max_acquired_buffers_experiment_ = from.force_max_acquired_buffers_experiment_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1011,6 +1042,7 @@ void StartArcMiniInstanceRequest::InternalSwap(StartArcMiniInstanceRequest* othe
           reinterpret_cast<char*>(&native_bridge_experiment_),
           reinterpret_cast<char*>(&other->native_bridge_experiment_));
   swap(lcd_density_, other->lcd_density_);
+  swap(force_max_acquired_buffers_experiment_, other->force_max_acquired_buffers_experiment_);
 }
 
 std::string StartArcMiniInstanceRequest::GetTypeName() const {

@@ -79,6 +79,10 @@ namespace perfetto_pbzero_enum_ChromeSamplingProfilerSampleCollected {
 enum WriteStatus : int32_t;
 }  // namespace perfetto_pbzero_enum_ChromeSamplingProfilerSampleCollected
 using ChromeSamplingProfilerSampleCollected_WriteStatus = perfetto_pbzero_enum_ChromeSamplingProfilerSampleCollected::WriteStatus;
+namespace perfetto_pbzero_enum_ChromeTaskAnnotator {
+enum DelayPolicy : int32_t;
+}  // namespace perfetto_pbzero_enum_ChromeTaskAnnotator
+using ChromeTaskAnnotator_DelayPolicy = perfetto_pbzero_enum_ChromeTaskAnnotator::DelayPolicy;
 namespace perfetto_pbzero_enum_ChromeThreadPoolTask {
 enum ExecutionMode : int32_t;
 }  // namespace perfetto_pbzero_enum_ChromeThreadPoolTask
@@ -2176,6 +2180,35 @@ const char* FrameTreeNodeInfo_FrameType_Name(::perfetto::protos::pbzero::FrameTr
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
+namespace perfetto_pbzero_enum_ChromeTaskAnnotator {
+enum DelayPolicy : int32_t {
+  FLEXIBLE_NO_SOONER = 0,
+  FLEXIBLE_PREFER_EARLY = 1,
+  PRECISE = 2,
+};
+} // namespace perfetto_pbzero_enum_ChromeTaskAnnotator
+using ChromeTaskAnnotator_DelayPolicy = perfetto_pbzero_enum_ChromeTaskAnnotator::DelayPolicy;
+
+
+constexpr ChromeTaskAnnotator_DelayPolicy ChromeTaskAnnotator_DelayPolicy_MIN = ChromeTaskAnnotator_DelayPolicy::FLEXIBLE_NO_SOONER;
+constexpr ChromeTaskAnnotator_DelayPolicy ChromeTaskAnnotator_DelayPolicy_MAX = ChromeTaskAnnotator_DelayPolicy::PRECISE;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* ChromeTaskAnnotator_DelayPolicy_Name(::perfetto::protos::pbzero::ChromeTaskAnnotator_DelayPolicy value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::ChromeTaskAnnotator_DelayPolicy::FLEXIBLE_NO_SOONER:
+    return "FLEXIBLE_NO_SOONER";
+
+  case ::perfetto::protos::pbzero::ChromeTaskAnnotator_DelayPolicy::FLEXIBLE_PREFER_EARLY:
+    return "FLEXIBLE_PREFER_EARLY";
+
+  case ::perfetto::protos::pbzero::ChromeTaskAnnotator_DelayPolicy::PRECISE:
+    return "PRECISE";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
 namespace perfetto_pbzero_enum_BlinkTaskScope {
 enum TaskScopeType : int32_t {
   TASK_SCOPE_UNKNOWN = 0,
@@ -2224,6 +2257,253 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
+
+class WinRenderAudioFromSource_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/11, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  WinRenderAudioFromSource_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit WinRenderAudioFromSource_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit WinRenderAudioFromSource_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_iaudioclient_buffer_size_frames() const { return at<1>().valid(); }
+  uint32_t iaudioclient_buffer_size_frames() const { return at<1>().as_uint32(); }
+  bool has_iaudioclient_buffer_unfilled_frames() const { return at<2>().valid(); }
+  uint32_t iaudioclient_buffer_unfilled_frames() const { return at<2>().as_uint32(); }
+  bool has_packet_size_frames() const { return at<3>().valid(); }
+  uint32_t packet_size_frames() const { return at<3>().as_uint32(); }
+  bool has_num_written_frames() const { return at<4>().valid(); }
+  uint64_t num_written_frames() const { return at<4>().as_uint64(); }
+  bool has_num_played_out_frames() const { return at<5>().valid(); }
+  uint64_t num_played_out_frames() const { return at<5>().as_uint64(); }
+  bool has_iaudioclock_device_frequency() const { return at<6>().valid(); }
+  uint64_t iaudioclock_device_frequency() const { return at<6>().as_uint64(); }
+  bool has_iaudioclock_stream_position() const { return at<7>().valid(); }
+  uint64_t iaudioclock_stream_position() const { return at<7>().as_uint64(); }
+  bool has_iaudioclock_qpc_position() const { return at<8>().valid(); }
+  uint64_t iaudioclock_qpc_position() const { return at<8>().as_uint64(); }
+  bool has_iaudioclock_stream_position_increase_ms() const { return at<9>().valid(); }
+  int64_t iaudioclock_stream_position_increase_ms() const { return at<9>().as_int64(); }
+  bool has_iaudioclock_qpc_position_increase_ms() const { return at<10>().valid(); }
+  int64_t iaudioclock_qpc_position_increase_ms() const { return at<10>().as_int64(); }
+  bool has_playout_delay_ms() const { return at<11>().valid(); }
+  int64_t playout_delay_ms() const { return at<11>().as_int64(); }
+};
+
+class WinRenderAudioFromSource : public ::protozero::Message {
+ public:
+  using Decoder = WinRenderAudioFromSource_Decoder;
+  enum : int32_t {
+    kIaudioclientBufferSizeFramesFieldNumber = 1,
+    kIaudioclientBufferUnfilledFramesFieldNumber = 2,
+    kPacketSizeFramesFieldNumber = 3,
+    kNumWrittenFramesFieldNumber = 4,
+    kNumPlayedOutFramesFieldNumber = 5,
+    kIaudioclockDeviceFrequencyFieldNumber = 6,
+    kIaudioclockStreamPositionFieldNumber = 7,
+    kIaudioclockQpcPositionFieldNumber = 8,
+    kIaudioclockStreamPositionIncreaseMsFieldNumber = 9,
+    kIaudioclockQpcPositionIncreaseMsFieldNumber = 10,
+    kPlayoutDelayMsFieldNumber = 11,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.WinRenderAudioFromSource"; }
+
+
+  using FieldMetadata_IaudioclientBufferSizeFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_IaudioclientBufferSizeFrames kIaudioclientBufferSizeFrames{};
+  void set_iaudioclient_buffer_size_frames(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_IaudioclientBufferSizeFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_IaudioclientBufferUnfilledFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_IaudioclientBufferUnfilledFrames kIaudioclientBufferUnfilledFrames{};
+  void set_iaudioclient_buffer_unfilled_frames(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_IaudioclientBufferUnfilledFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PacketSizeFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_PacketSizeFrames kPacketSizeFrames{};
+  void set_packet_size_frames(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PacketSizeFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NumWrittenFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_NumWrittenFrames kNumWrittenFrames{};
+  void set_num_written_frames(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NumWrittenFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NumPlayedOutFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_NumPlayedOutFrames kNumPlayedOutFrames{};
+  void set_num_played_out_frames(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NumPlayedOutFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_IaudioclockDeviceFrequency =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_IaudioclockDeviceFrequency kIaudioclockDeviceFrequency{};
+  void set_iaudioclock_device_frequency(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_IaudioclockDeviceFrequency::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_IaudioclockStreamPosition =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_IaudioclockStreamPosition kIaudioclockStreamPosition{};
+  void set_iaudioclock_stream_position(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_IaudioclockStreamPosition::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_IaudioclockQpcPosition =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_IaudioclockQpcPosition kIaudioclockQpcPosition{};
+  void set_iaudioclock_qpc_position(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_IaudioclockQpcPosition::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_IaudioclockStreamPositionIncreaseMs =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_IaudioclockStreamPositionIncreaseMs kIaudioclockStreamPositionIncreaseMs{};
+  void set_iaudioclock_stream_position_increase_ms(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_IaudioclockStreamPositionIncreaseMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_IaudioclockQpcPositionIncreaseMs =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_IaudioclockQpcPositionIncreaseMs kIaudioclockQpcPositionIncreaseMs{};
+  void set_iaudioclock_qpc_position_increase_ms(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_IaudioclockQpcPositionIncreaseMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PlayoutDelayMs =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      WinRenderAudioFromSource>;
+
+  static constexpr FieldMetadata_PlayoutDelayMs kPlayoutDelayMs{};
+  void set_playout_delay_ms(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PlayoutDelayMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+};
 
 class ScrollDeltas_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/14, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
@@ -8143,7 +8423,7 @@ class ChromeBrowserContext : public ::protozero::Message {
   }
 };
 
-class ChromeTaskAnnotator_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class ChromeTaskAnnotator_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   ChromeTaskAnnotator_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ChromeTaskAnnotator_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -8152,6 +8432,8 @@ class ChromeTaskAnnotator_Decoder : public ::protozero::TypedProtoDecoder</*MAX_
   uint32_t ipc_hash() const { return at<1>().as_uint32(); }
   bool has_task_delay_us() const { return at<2>().valid(); }
   uint64_t task_delay_us() const { return at<2>().as_uint64(); }
+  bool has_delay_policy() const { return at<3>().valid(); }
+  int32_t delay_policy() const { return at<3>().as_int32(); }
 };
 
 class ChromeTaskAnnotator : public ::protozero::Message {
@@ -8160,9 +8442,18 @@ class ChromeTaskAnnotator : public ::protozero::Message {
   enum : int32_t {
     kIpcHashFieldNumber = 1,
     kTaskDelayUsFieldNumber = 2,
+    kDelayPolicyFieldNumber = 3,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ChromeTaskAnnotator"; }
 
+
+  using DelayPolicy = ::perfetto::protos::pbzero::ChromeTaskAnnotator_DelayPolicy;
+  static inline const char* DelayPolicy_Name(DelayPolicy value) {
+    return ::perfetto::protos::pbzero::ChromeTaskAnnotator_DelayPolicy_Name(value);
+  }
+  static inline const DelayPolicy FLEXIBLE_NO_SOONER = DelayPolicy::FLEXIBLE_NO_SOONER;
+  static inline const DelayPolicy FLEXIBLE_PREFER_EARLY = DelayPolicy::FLEXIBLE_PREFER_EARLY;
+  static inline const DelayPolicy PRECISE = DelayPolicy::PRECISE;
 
   using FieldMetadata_IpcHash =
     ::protozero::proto_utils::FieldMetadata<
@@ -8197,6 +8488,24 @@ class ChromeTaskAnnotator : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DelayPolicy =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::ChromeTaskAnnotator_DelayPolicy,
+      ChromeTaskAnnotator>;
+
+  static constexpr FieldMetadata_DelayPolicy kDelayPolicy{};
+  void set_delay_policy(::perfetto::protos::pbzero::ChromeTaskAnnotator_DelayPolicy value) {
+    static constexpr uint32_t field_id = FieldMetadata_DelayPolicy::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
         ::Append(*this, field_id, value);
   }
 };
@@ -9073,6 +9382,20 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_ScrollDeltas kScrollDeltas{};
   template <typename T = ScrollDeltas> T* set_scroll_deltas() {
     return BeginNestedMessage<T>(1047);
+  }
+
+
+  using FieldMetadata_WinRenderAudioFromSource =
+    ::protozero::proto_utils::FieldMetadata<
+      1048,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      WinRenderAudioFromSource,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_WinRenderAudioFromSource kWinRenderAudioFromSource{};
+  template <typename T = WinRenderAudioFromSource> T* set_win_render_audio_from_source() {
+    return BeginNestedMessage<T>(1048);
   }
 
 };

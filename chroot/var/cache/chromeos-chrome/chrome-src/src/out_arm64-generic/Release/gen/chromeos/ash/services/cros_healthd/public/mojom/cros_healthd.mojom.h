@@ -153,7 +153,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 12;
+  static constexpr uint32_t Version_ = 13;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -203,7 +203,7 @@ class CrosHealthdDiagnosticsService
     kRunFingerprintRoutineMinVersion = 3,
     kRunFingerprintAliveRoutineMinVersion = 3,
     kRunPrivacyScreenRoutineMinVersion = 4,
-    kRunLedLitUpRoutineMinVersion = 5,
+    kDEPRECATED_RunLedLitUpRoutineMinVersion = 5,
     kRunEmmcLifetimeRoutineMinVersion = 7,
     kRunAudioSetVolumeRoutineMinVersion = 8,
     kRunAudioSetGainRoutineMinVersion = 8,
@@ -213,6 +213,7 @@ class CrosHealthdDiagnosticsService
     kRunBluetoothPairingRoutineMinVersion = 9,
     kRunPowerButtonRoutineMinVersion = 11,
     kRunAudioDriverRoutineMinVersion = 12,
+    kRunUfsLifetimeRoutineMinVersion = 13,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -329,7 +330,7 @@ class CrosHealthdDiagnosticsService
   struct RunPrivacyScreenRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct RunLedLitUpRoutine_Sym {
+  struct DEPRECATED_RunLedLitUpRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunEmmcLifetimeRoutine_Sym {
@@ -357,6 +358,9 @@ class CrosHealthdDiagnosticsService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunAudioDriverRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunUfsLifetimeRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -548,9 +552,9 @@ class CrosHealthdDiagnosticsService
   virtual void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) = 0;
 
 
-  using RunLedLitUpRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  using DEPRECATED_RunLedLitUpRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) = 0;
+  virtual void DEPRECATED_RunLedLitUpRoutine(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> replier, DEPRECATED_RunLedLitUpRoutineCallback callback) = 0;
 
 
   using RunEmmcLifetimeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -596,6 +600,11 @@ class CrosHealthdDiagnosticsService
   using RunAudioDriverRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunAudioDriverRoutine(RunAudioDriverRoutineCallback callback) = 0;
+
+
+  using RunUfsLifetimeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunUfsLifetimeRoutine(RunUfsLifetimeRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -995,7 +1004,7 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) final;
   
-  void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) final;
+  void DEPRECATED_RunLedLitUpRoutine(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> replier, DEPRECATED_RunLedLitUpRoutineCallback callback) final;
   
   void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) final;
   
@@ -1014,6 +1023,8 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunPowerButtonRoutine(uint32_t timeout_seconds, RunPowerButtonRoutineCallback callback) final;
   
   void RunAudioDriverRoutine(RunAudioDriverRoutineCallback callback) final;
+  
+  void RunUfsLifetimeRoutine(RunUfsLifetimeRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

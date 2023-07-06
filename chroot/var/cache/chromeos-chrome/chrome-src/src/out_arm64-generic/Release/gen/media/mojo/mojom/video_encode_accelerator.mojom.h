@@ -2700,7 +2700,6 @@ class  VideoEncodeAcceleratorConfig {
   using DataView = VideoEncodeAcceleratorConfigDataView;
   using Data_ = internal::VideoEncodeAcceleratorConfig_Data;
   using ContentType = VideoEncodeAcceleratorConfig_ContentType;
-  using InterLayerPredMode = VideoEncodeAcceleratorConfig_InterLayerPredMode;
   using StorageType = VideoEncodeAcceleratorConfig_StorageType;
   using EncoderType = VideoEncodeAcceleratorConfig_EncoderType;
 
@@ -2739,7 +2738,7 @@ class  VideoEncodeAcceleratorConfig {
       bool has_storage_type,
       VideoEncodeAcceleratorConfig::ContentType content_type,
       std::vector<::media::VideoEncodeAccelerator::Config::SpatialLayer> spatial_layers,
-      VideoEncodeAcceleratorConfig::InterLayerPredMode inter_layer_pred,
+      ::media::SVCInterLayerPredMode inter_layer_pred,
       bool require_low_delay,
       VideoEncodeAcceleratorConfig::EncoderType required_encoder_type);
 
@@ -2849,7 +2848,7 @@ class  VideoEncodeAcceleratorConfig {
   
   std::vector<::media::VideoEncodeAccelerator::Config::SpatialLayer> spatial_layers;
   
-  VideoEncodeAcceleratorConfig::InterLayerPredMode inter_layer_pred;
+  ::media::SVCInterLayerPredMode inter_layer_pred;
   
   bool require_low_delay;
   

@@ -432,9 +432,9 @@ class StorageQueueTest
       // Decompress encrypted_wrapped_record if is was compressed.
       WrappedRecord wrapped_record;
       ASSERT_TRUE(encrypted_record.has_compression_information());
-      std::string decompressed_record = Decompression::DecompressRecord(
-          encrypted_record.encrypted_wrapped_record(),
-          encrypted_record.compression_information());
+      std::string decompressed_record =
+          test::DecompressRecord(encrypted_record.encrypted_wrapped_record(),
+                                 encrypted_record.compression_information());
       encrypted_record.set_encrypted_wrapped_record(decompressed_record);
       ASSERT_TRUE(wrapped_record.ParseFromString(
           encrypted_record.encrypted_wrapped_record()));
@@ -549,15 +549,15 @@ class StorageQueueTest
       }
 
       // Verify local elements are not included in Record.
-      DCHECK_EQ(wrapped_record.record().has_reserved_space(), 0);
-      DCHECK(!wrapped_record.record().needs_local_unencrypted_copy());
+      CHECK_EQ(wrapped_record.record().has_reserved_space(), 0);
+      CHECK(!wrapped_record.record().needs_local_unencrypted_copy());
 
       // Verify digest and its match.
       {
         std::string serialized_record;
         wrapped_record.record().SerializeToString(&serialized_record);
         const auto record_digest = crypto::SHA256HashString(serialized_record);
-        DCHECK_EQ(record_digest.size(), crypto::kSHA256Length);
+        CHECK_EQ(record_digest.size(), crypto::kSHA256Length);
         if (record_digest != wrapped_record.record_digest()) {
           sequence_bound_upload_
               .AsyncCall(&SequenceBoundUpload::DoUploadRecordFailure)
@@ -652,20 +652,22 @@ class StorageQueueTest
     test::TestEvent<StatusOr<scoped_refptr<StorageQueue>>>
         storage_queue_create_event;
     StorageQueue::Create(
-        /*generation_guid=*/"GENERATION_GUID", options,
-        base::BindRepeating(&StorageQueueTest::AsyncStartMockUploader,
-                            base::Unretained(this)),
-        base::BindRepeating(
-            [](scoped_refptr<StorageQueue> queue,
-               base::OnceCallback<void(std::queue<scoped_refptr<StorageQueue>>)>
-                   result_cb) {
-              // Returns empty candidates queue - no degradation allowed.
-              std::move(result_cb).Run({});
-            }),
-        test_encryption_module_,
-        CompressionModule::Create(/*is_enabled=*/true, kCompressionThreshold,
-                                  kCompressionType),
-        init_retry_cb, storage_queue_create_event.cb());
+        {.generation_guid = "GENERATION_GUID",
+         .options = options,
+         .async_start_upload_cb = base::BindRepeating(
+             &StorageQueueTest::AsyncStartMockUploader, base::Unretained(this)),
+         .degradation_candidates_cb = base::BindRepeating(
+             [](scoped_refptr<StorageQueue> queue,
+                base::OnceCallback<void(
+                    std::queue<scoped_refptr<StorageQueue>>)> result_cb) {
+               // Returns empty candidates queue - no degradation allowed.
+               std::move(result_cb).Run({});
+             }),
+         .encryption_module = test_encryption_module_,
+         .compression_module = CompressionModule::Create(
+             /*is_enabled=*/true, kCompressionThreshold, kCompressionType),
+         .init_retry_cb = init_retry_cb},
+        storage_queue_create_event.cb());
     return storage_queue_create_event.result();
   }
 
@@ -698,10 +700,16 @@ class StorageQueueTest
     // By default return OK status - no error injected.
     EXPECT_CALL(*inject, Call(_, _))
         .WillRepeatedly(WithoutArgs(Return(Status::StatusOK())));
-    storage_queue_->TestInjectErrorsForOperation(base::BindRepeating(
-        &::testing::MockFunction<Status(test::StorageQueueOperationKind,
-                                        int64_t)>::Call,
-        base::Unretained(inject.get())));
+    {
+      test::TestCallbackAutoWaiter waiter;
+      storage_queue_->TestInjectErrorsForOperation(
+          base::BindOnce(&test::TestCallbackAutoWaiter::Signal,
+                         base::Unretained(&waiter)),
+          base::BindRepeating(
+              &::testing::MockFunction<Status(test::StorageQueueOperationKind,
+                                              int64_t)>::Call,
+              base::Unretained(inject.get())));
+    }
     return inject;
   }
 
@@ -1791,7 +1799,11 @@ TEST_P(StorageQueueTest,
   ConfirmOrDie(/*sequencing_id=*/2);
 
   // Reset error injection.
-  storage_queue_->TestInjectErrorsForOperation();
+  {
+    test::TestCallbackAutoWaiter waiter;
+    storage_queue_->TestInjectErrorsForOperation(base::BindOnce(
+        &test::TestCallbackAutoWaiter::Signal, base::Unretained(&waiter)));
+  }
 
   {
     // Set uploader expectations.
@@ -2064,7 +2076,7 @@ TEST_P(StorageQueueTest, WriteAndImmediateUploadWithoutConfirmation) {
 
 TEST_P(StorageQueueTest, WriteEncryptFailure) {
   CreateTestStorageQueueOrDie(BuildStorageQueueOptionsPeriodic());
-  DCHECK(test_encryption_module_);
+  CHECK(test_encryption_module_);
   EXPECT_CALL(*test_encryption_module_, EncryptRecordImpl(_, _))
       .WillOnce(WithArg<1>(
           Invoke([](base::OnceCallback<void(StatusOr<EncryptedRecord>)> cb) {

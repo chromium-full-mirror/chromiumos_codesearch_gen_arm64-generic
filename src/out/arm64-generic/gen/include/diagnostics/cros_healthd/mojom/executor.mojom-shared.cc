@@ -975,6 +975,29 @@ PowerButtonObserver_OnEvent_Params_Data::PowerButtonObserver_OnEvent_Params_Data
 
 
 // static
+bool PowerButtonObserver_OnConnectedToEventNode_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PowerButtonObserver_OnConnectedToEventNode_Params_Data* object =
+      static_cast<const PowerButtonObserver_OnConnectedToEventNode_Params_Data*>(data);
+
+  return true;
+}
+
+PowerButtonObserver_OnConnectedToEventNode_Params_Data::PowerButtonObserver_OnConnectedToEventNode_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool VolumeButtonObserver_OnEvent_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

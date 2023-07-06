@@ -101,7 +101,7 @@ class TestUploadClient : public UploaderInterface {
       std::string serialized_record;
       wrapped_record.record().SerializeToString(&serialized_record);
       const auto record_digest = crypto::SHA256HashString(serialized_record);
-      DCHECK_EQ(record_digest.size(), crypto::kSHA256Length);
+      CHECK_EQ(record_digest.size(), crypto::kSHA256Length);
       ASSERT_THAT(record_digest, Eq(wrapped_record.record_digest()));
       // Store record digest for the next record in sequence to verify.
       last_record_digest_map_->emplace(
@@ -165,22 +165,26 @@ class StorageQueueStressTest : public ::testing::TestWithParam<size_t> {
     test::TestEvent<StatusOr<scoped_refptr<StorageQueue>>>
         storage_queue_create_event;
     StorageQueue::Create(
-        /*generation_guid=*/"GENERATION_GUID", options,
-        base::BindRepeating(&StorageQueueStressTest::AsyncStartTestUploader,
-                            base::Unretained(this)),
-        base::BindRepeating(
-            [](scoped_refptr<StorageQueue> queue,
-               base::OnceCallback<void(std::queue<scoped_refptr<StorageQueue>>)>
-                   result_cb) {
-              // Returns empty candidates queue - no degradation allowed.
-              std::move(result_cb).Run({});
-            }),
-        test_encryption_module,
-        base::MakeRefCounted<test::TestCompressionModule>(),
-        base::BindRepeating([](Status init_status, size_t retry_count)
-                                -> StatusOr<base::TimeDelta> {
-          return init_status;  // Do not allow initialization retries.
-        }),
+        {.generation_guid = "GENERATION_GUID",
+         .options = options,
+         .async_start_upload_cb = base::BindRepeating(
+             &StorageQueueStressTest::AsyncStartTestUploader,
+             base::Unretained(this)),
+         .degradation_candidates_cb = base::BindRepeating(
+             [](scoped_refptr<StorageQueue> queue,
+                base::OnceCallback<void(
+                    std::queue<scoped_refptr<StorageQueue>>)> result_cb) {
+               // Returns empty candidates queue - no degradation allowed.
+               std::move(result_cb).Run({});
+             }),
+         .encryption_module = test_encryption_module,
+         .compression_module =
+             base::MakeRefCounted<test::TestCompressionModule>(),
+         .init_retry_cb = base::BindRepeating(
+             [](Status init_status,
+                size_t retry_count) -> StatusOr<base::TimeDelta> {
+               return init_status;  // Do not allow initialization retries.
+             })},
         storage_queue_create_event.cb());
     StatusOr<scoped_refptr<StorageQueue>> storage_queue_result =
         storage_queue_create_event.result();

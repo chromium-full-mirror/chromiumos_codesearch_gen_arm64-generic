@@ -117,6 +117,8 @@ NOINLINE static const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kPowerButton";
     case DiagnosticRoutineEnum::kAudioDriver:
       return "kAudioDriver";
+    case DiagnosticRoutineEnum::kUfsLifetime:
+      return "kUfsLifetime";
     default:
       return nullptr;
   }
@@ -316,70 +318,70 @@ std::ostream& operator<<(std::ostream& os, NvmeSelfTestTypeEnum value) {
   return os << NvmeSelfTestTypeEnumToString(value);
 }
 
-NOINLINE static const char* LedNameToStringHelper(LedName value) {
+NOINLINE static const char* DEPRECATED_LedNameToStringHelper(DEPRECATED_LedName value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case LedName::kUnmappedEnumField:
+    case DEPRECATED_LedName::kUnmappedEnumField:
       return "kUnmappedEnumField";
-    case LedName::kBattery:
+    case DEPRECATED_LedName::kBattery:
       return "kBattery";
-    case LedName::kPower:
+    case DEPRECATED_LedName::kPower:
       return "kPower";
-    case LedName::kAdapter:
+    case DEPRECATED_LedName::kAdapter:
       return "kAdapter";
-    case LedName::kLeft:
+    case DEPRECATED_LedName::kLeft:
       return "kLeft";
-    case LedName::kRight:
+    case DEPRECATED_LedName::kRight:
       return "kRight";
     default:
       return nullptr;
   }
 }
 
-std::string LedNameToString(LedName value) {
-  const char *str = LedNameToStringHelper(value);
+std::string DEPRECATED_LedNameToString(DEPRECATED_LedName value) {
+  const char *str = DEPRECATED_LedNameToStringHelper(value);
   if (!str) {
-    return base::StringPrintf("Unknown LedName value: %i", static_cast<int32_t>(value));
+    return base::StringPrintf("Unknown DEPRECATED_LedName value: %i", static_cast<int32_t>(value));
   }
   return str;
 }
 
-std::ostream& operator<<(std::ostream& os, LedName value) {
-  return os << LedNameToString(value);
+std::ostream& operator<<(std::ostream& os, DEPRECATED_LedName value) {
+  return os << DEPRECATED_LedNameToString(value);
 }
 
-NOINLINE static const char* LedColorToStringHelper(LedColor value) {
+NOINLINE static const char* DEPRECATED_LedColorToStringHelper(DEPRECATED_LedColor value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case LedColor::kUnmappedEnumField:
+    case DEPRECATED_LedColor::kUnmappedEnumField:
       return "kUnmappedEnumField";
-    case LedColor::kRed:
+    case DEPRECATED_LedColor::kRed:
       return "kRed";
-    case LedColor::kGreen:
+    case DEPRECATED_LedColor::kGreen:
       return "kGreen";
-    case LedColor::kBlue:
+    case DEPRECATED_LedColor::kBlue:
       return "kBlue";
-    case LedColor::kYellow:
+    case DEPRECATED_LedColor::kYellow:
       return "kYellow";
-    case LedColor::kWhite:
+    case DEPRECATED_LedColor::kWhite:
       return "kWhite";
-    case LedColor::kAmber:
+    case DEPRECATED_LedColor::kAmber:
       return "kAmber";
     default:
       return nullptr;
   }
 }
 
-std::string LedColorToString(LedColor value) {
-  const char *str = LedColorToStringHelper(value);
+std::string DEPRECATED_LedColorToString(DEPRECATED_LedColor value) {
+  const char *str = DEPRECATED_LedColorToStringHelper(value);
   if (!str) {
-    return base::StringPrintf("Unknown LedColor value: %i", static_cast<int32_t>(value));
+    return base::StringPrintf("Unknown DEPRECATED_LedColor value: %i", static_cast<int32_t>(value));
   }
   return str;
 }
 
-std::ostream& operator<<(std::ostream& os, LedColor value) {
-  return os << LedColorToString(value);
+std::ostream& operator<<(std::ostream& os, DEPRECATED_LedColor value) {
+  return os << DEPRECATED_LedColorToString(value);
 }
 
 namespace internal {
@@ -573,7 +575,7 @@ RoutineUpdate_Data::RoutineUpdate_Data()
 
 
 // static
-bool LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate(
+bool DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -585,18 +587,18 @@ bool LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const LedLitUpRoutineReplier_GetColorMatched_Params_Data* object =
-      static_cast<const LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(data);
+  [[maybe_unused]] const DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data* object =
+      static_cast<const DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(data);
 
   return true;
 }
 
-LedLitUpRoutineReplier_GetColorMatched_Params_Data::LedLitUpRoutineReplier_GetColorMatched_Params_Data()
+DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate(
+bool DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -608,13 +610,13 @@ bool LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* object =
-      static_cast<const LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(data);
+  [[maybe_unused]] const DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* object =
+      static_cast<const DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(data);
 
   return true;
 }
 
-LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data()
+DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal
@@ -695,9 +697,9 @@ void TraceFormatTraits<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>::WriteI
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::ash::cros_healthd::mojom::LedName>::WriteIntoTrace(
-   perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedName value) {
-  return std::move(context).WriteString(::ash::cros_healthd::mojom::LedNameToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::DEPRECATED_LedName>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedName value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::DEPRECATED_LedNameToString(value));
 }
 
 } // namespace perfetto
@@ -705,9 +707,9 @@ void TraceFormatTraits<::ash::cros_healthd::mojom::LedName>::WriteIntoTrace(
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::ash::cros_healthd::mojom::LedColor>::WriteIntoTrace(
-   perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedColor value) {
-  return std::move(context).WriteString(::ash::cros_healthd::mojom::LedColorToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::DEPRECATED_LedColor>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedColor value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::DEPRECATED_LedColorToString(value));
 }
 
 } // namespace perfetto

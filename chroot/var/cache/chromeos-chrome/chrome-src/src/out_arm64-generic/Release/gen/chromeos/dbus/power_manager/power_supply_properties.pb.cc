@@ -59,12 +59,13 @@ PROTOBUF_CONSTEXPR PowerSupplyProperties::PowerSupplyProperties(
   , battery_charge_full_design_(0)
   , battery_charge_full_(0)
   , battery_voltage_min_design_(0)
+  , battery_charge_(0)
   , is_calculating_battery_time_(false)
   , supports_dual_role_devices_(false)
   , adaptive_charging_supported_(false)
   , adaptive_delaying_charge_(false)
   , adaptive_charging_heuristic_enabled_(false)
-  , battery_charge_(0)
+  , charge_limited_(false)
   , battery_current_(0)
   , preferred_minimum_external_power_(0)
   , battery_percent_(-1){}
@@ -836,7 +837,7 @@ class PowerSupplyProperties::_Internal {
     (*has_bits)[0] |= 512u;
   }
   static void set_has_battery_percent(HasBits* has_bits) {
-    (*has_bits)[0] |= 16777216u;
+    (*has_bits)[0] |= 33554432u;
   }
   static void set_has_battery_time_to_empty_sec(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
@@ -845,13 +846,13 @@ class PowerSupplyProperties::_Internal {
     (*has_bits)[0] |= 128u;
   }
   static void set_has_is_calculating_battery_time(HasBits* has_bits) {
-    (*has_bits)[0] |= 65536u;
+    (*has_bits)[0] |= 131072u;
   }
   static void set_has_battery_discharge_rate(HasBits* has_bits) {
     (*has_bits)[0] |= 1024u;
   }
   static void set_has_supports_dual_role_devices(HasBits* has_bits) {
-    (*has_bits)[0] |= 131072u;
+    (*has_bits)[0] |= 262144u;
   }
   static void set_has_battery_voltage(HasBits* has_bits) {
     (*has_bits)[0] |= 2048u;
@@ -875,13 +876,13 @@ class PowerSupplyProperties::_Internal {
     (*has_bits)[0] |= 32768u;
   }
   static void set_has_battery_charge(HasBits* has_bits) {
-    (*has_bits)[0] |= 2097152u;
+    (*has_bits)[0] |= 65536u;
   }
   static void set_has_battery_model_name(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
   static void set_has_battery_current(HasBits* has_bits) {
-    (*has_bits)[0] |= 4194304u;
+    (*has_bits)[0] |= 8388608u;
   }
   static void set_has_battery_technology(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
@@ -890,16 +891,19 @@ class PowerSupplyProperties::_Internal {
     (*has_bits)[0] |= 32u;
   }
   static void set_has_preferred_minimum_external_power(HasBits* has_bits) {
-    (*has_bits)[0] |= 8388608u;
+    (*has_bits)[0] |= 16777216u;
   }
   static void set_has_adaptive_charging_supported(HasBits* has_bits) {
-    (*has_bits)[0] |= 262144u;
-  }
-  static void set_has_adaptive_delaying_charge(HasBits* has_bits) {
     (*has_bits)[0] |= 524288u;
   }
-  static void set_has_adaptive_charging_heuristic_enabled(HasBits* has_bits) {
+  static void set_has_adaptive_delaying_charge(HasBits* has_bits) {
     (*has_bits)[0] |= 1048576u;
+  }
+  static void set_has_adaptive_charging_heuristic_enabled(HasBits* has_bits) {
+    (*has_bits)[0] |= 2097152u;
+  }
+  static void set_has_charge_limited(HasBits* has_bits) {
+    (*has_bits)[0] |= 4194304u;
   }
 };
 
@@ -1063,11 +1067,14 @@ void PowerSupplyProperties::Clear() {
         reinterpret_cast<char*>(&external_power_)) + sizeof(battery_voltage_min_design_));
   }
   if (cached_has_bits & 0x00ff0000u) {
-    ::memset(&is_calculating_battery_time_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&preferred_minimum_external_power_) -
-        reinterpret_cast<char*>(&is_calculating_battery_time_)) + sizeof(preferred_minimum_external_power_));
+    ::memset(&battery_charge_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&battery_current_) -
+        reinterpret_cast<char*>(&battery_charge_)) + sizeof(battery_current_));
   }
-  battery_percent_ = -1;
+  if (cached_has_bits & 0x03000000u) {
+    preferred_minimum_external_power_ = 0;
+    battery_percent_ = -1;
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1325,6 +1332,15 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
+      // optional bool charge_limited = 36;
+      case 36:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_charge_limited(&has_bits);
+          charge_limited_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1369,13 +1385,13 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   }
 
   // optional double battery_percent = 7 [default = -1];
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(7, this->_internal_battery_percent(), target);
   }
 
   // optional bool is_calculating_battery_time = 12 [default = false];
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(12, this->_internal_is_calculating_battery_time(), target);
   }
@@ -1415,7 +1431,7 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   }
 
   // optional bool supports_dual_role_devices = 19;
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(19, this->_internal_supports_dual_role_devices(), target);
   }
@@ -1463,7 +1479,7 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   }
 
   // optional double battery_charge = 27;
-  if (cached_has_bits & 0x00200000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(27, this->_internal_battery_charge(), target);
   }
@@ -1475,7 +1491,7 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   }
 
   // optional double battery_current = 29;
-  if (cached_has_bits & 0x00400000u) {
+  if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(29, this->_internal_battery_current(), target);
   }
@@ -1493,27 +1509,33 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   }
 
   // optional double preferred_minimum_external_power = 32;
-  if (cached_has_bits & 0x00800000u) {
+  if (cached_has_bits & 0x01000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(32, this->_internal_preferred_minimum_external_power(), target);
   }
 
   // optional bool adaptive_charging_supported = 33 [default = false];
-  if (cached_has_bits & 0x00040000u) {
+  if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(33, this->_internal_adaptive_charging_supported(), target);
   }
 
   // optional bool adaptive_delaying_charge = 34 [default = false];
-  if (cached_has_bits & 0x00080000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(34, this->_internal_adaptive_delaying_charge(), target);
   }
 
   // optional bool adaptive_charging_heuristic_enabled = 35;
-  if (cached_has_bits & 0x00100000u) {
+  if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(35, this->_internal_adaptive_charging_heuristic_enabled(), target);
+  }
+
+  // optional bool charge_limited = 36;
+  if (cached_has_bits & 0x00400000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(36, this->_internal_charge_limited(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1641,52 +1663,59 @@ size_t PowerSupplyProperties::ByteSizeLong() const {
 
   }
   if (cached_has_bits & 0x00ff0000u) {
-    // optional bool is_calculating_battery_time = 12 [default = false];
+    // optional double battery_charge = 27;
     if (cached_has_bits & 0x00010000u) {
+      total_size += 2 + 8;
+    }
+
+    // optional bool is_calculating_battery_time = 12 [default = false];
+    if (cached_has_bits & 0x00020000u) {
       total_size += 1 + 1;
     }
 
     // optional bool supports_dual_role_devices = 19;
-    if (cached_has_bits & 0x00020000u) {
-      total_size += 2 + 1;
-    }
-
-    // optional bool adaptive_charging_supported = 33 [default = false];
     if (cached_has_bits & 0x00040000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool adaptive_delaying_charge = 34 [default = false];
+    // optional bool adaptive_charging_supported = 33 [default = false];
     if (cached_has_bits & 0x00080000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool adaptive_charging_heuristic_enabled = 35;
+    // optional bool adaptive_delaying_charge = 34 [default = false];
     if (cached_has_bits & 0x00100000u) {
       total_size += 2 + 1;
     }
 
-    // optional double battery_charge = 27;
+    // optional bool adaptive_charging_heuristic_enabled = 35;
     if (cached_has_bits & 0x00200000u) {
-      total_size += 2 + 8;
+      total_size += 2 + 1;
+    }
+
+    // optional bool charge_limited = 36;
+    if (cached_has_bits & 0x00400000u) {
+      total_size += 2 + 1;
     }
 
     // optional double battery_current = 29;
-    if (cached_has_bits & 0x00400000u) {
-      total_size += 2 + 8;
-    }
-
-    // optional double preferred_minimum_external_power = 32;
     if (cached_has_bits & 0x00800000u) {
       total_size += 2 + 8;
     }
 
   }
-  // optional double battery_percent = 7 [default = -1];
-  if (cached_has_bits & 0x01000000u) {
-    total_size += 1 + 8;
-  }
+  if (cached_has_bits & 0x03000000u) {
+    // optional double preferred_minimum_external_power = 32;
+    if (cached_has_bits & 0x01000000u) {
+      total_size += 2 + 8;
+    }
 
+    // optional double battery_percent = 7 [default = -1];
+    if (cached_has_bits & 0x02000000u) {
+      total_size += 1 + 8;
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1765,33 +1794,39 @@ void PowerSupplyProperties::MergeFrom(const PowerSupplyProperties& from) {
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      is_calculating_battery_time_ = from.is_calculating_battery_time_;
-    }
-    if (cached_has_bits & 0x00020000u) {
-      supports_dual_role_devices_ = from.supports_dual_role_devices_;
-    }
-    if (cached_has_bits & 0x00040000u) {
-      adaptive_charging_supported_ = from.adaptive_charging_supported_;
-    }
-    if (cached_has_bits & 0x00080000u) {
-      adaptive_delaying_charge_ = from.adaptive_delaying_charge_;
-    }
-    if (cached_has_bits & 0x00100000u) {
-      adaptive_charging_heuristic_enabled_ = from.adaptive_charging_heuristic_enabled_;
-    }
-    if (cached_has_bits & 0x00200000u) {
       battery_charge_ = from.battery_charge_;
     }
+    if (cached_has_bits & 0x00020000u) {
+      is_calculating_battery_time_ = from.is_calculating_battery_time_;
+    }
+    if (cached_has_bits & 0x00040000u) {
+      supports_dual_role_devices_ = from.supports_dual_role_devices_;
+    }
+    if (cached_has_bits & 0x00080000u) {
+      adaptive_charging_supported_ = from.adaptive_charging_supported_;
+    }
+    if (cached_has_bits & 0x00100000u) {
+      adaptive_delaying_charge_ = from.adaptive_delaying_charge_;
+    }
+    if (cached_has_bits & 0x00200000u) {
+      adaptive_charging_heuristic_enabled_ = from.adaptive_charging_heuristic_enabled_;
+    }
     if (cached_has_bits & 0x00400000u) {
-      battery_current_ = from.battery_current_;
+      charge_limited_ = from.charge_limited_;
     }
     if (cached_has_bits & 0x00800000u) {
-      preferred_minimum_external_power_ = from.preferred_minimum_external_power_;
+      battery_current_ = from.battery_current_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x01000000u) {
-    _internal_set_battery_percent(from._internal_battery_percent());
+  if (cached_has_bits & 0x03000000u) {
+    if (cached_has_bits & 0x01000000u) {
+      preferred_minimum_external_power_ = from.preferred_minimum_external_power_;
+    }
+    if (cached_has_bits & 0x02000000u) {
+      battery_percent_ = from.battery_percent_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }

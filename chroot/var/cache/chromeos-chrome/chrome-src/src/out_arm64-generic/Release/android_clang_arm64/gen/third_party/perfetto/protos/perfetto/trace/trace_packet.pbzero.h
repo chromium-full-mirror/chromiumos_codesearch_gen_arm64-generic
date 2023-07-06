@@ -43,6 +43,7 @@ class HeapGraph;
 class InitialDisplayState;
 class InodeFileMap;
 class InternedData;
+class LayersSnapshotProto;
 class MemoryTrackerSnapshot;
 class ModuleSymbols;
 class NetworkPacketBundle;
@@ -73,6 +74,7 @@ class TracingServiceEvent;
 class TrackDescriptor;
 class TrackEvent;
 class TrackEventRangeOfInterest;
+class TransactionTraceEntry;
 class TranslationTable;
 class Trigger;
 class UiState;
@@ -239,6 +241,10 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes network_packet_bundle() const { return at<92>().as_bytes(); }
   bool has_track_event_range_of_interest() const { return at<90>().valid(); }
   ::protozero::ConstBytes track_event_range_of_interest() const { return at<90>().as_bytes(); }
+  bool has_surfaceflinger_layers_snapshot() const { return at<93>().valid(); }
+  ::protozero::ConstBytes surfaceflinger_layers_snapshot() const { return at<93>().as_bytes(); }
+  bool has_surfaceflinger_transactions() const { return at<94>().valid(); }
+  ::protozero::ConstBytes surfaceflinger_transactions() const { return at<94>().as_bytes(); }
   bool has_for_testing() const { return at<900>().valid(); }
   ::protozero::ConstBytes for_testing() const { return at<900>().as_bytes(); }
   bool has_trusted_uid() const { return at<3>().valid(); }
@@ -328,6 +334,8 @@ class TracePacket : public ::protozero::Message {
     kNetworkPacketFieldNumber = 88,
     kNetworkPacketBundleFieldNumber = 92,
     kTrackEventRangeOfInterestFieldNumber = 90,
+    kSurfaceflingerLayersSnapshotFieldNumber = 93,
+    kSurfaceflingerTransactionsFieldNumber = 94,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
     kTrustedPacketSequenceIdFieldNumber = 10,
@@ -1257,6 +1265,34 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_TrackEventRangeOfInterest kTrackEventRangeOfInterest{};
   template <typename T = TrackEventRangeOfInterest> T* set_track_event_range_of_interest() {
     return BeginNestedMessage<T>(90);
+  }
+
+
+  using FieldMetadata_SurfaceflingerLayersSnapshot =
+    ::protozero::proto_utils::FieldMetadata<
+      93,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      LayersSnapshotProto,
+      TracePacket>;
+
+  static constexpr FieldMetadata_SurfaceflingerLayersSnapshot kSurfaceflingerLayersSnapshot{};
+  template <typename T = LayersSnapshotProto> T* set_surfaceflinger_layers_snapshot() {
+    return BeginNestedMessage<T>(93);
+  }
+
+
+  using FieldMetadata_SurfaceflingerTransactions =
+    ::protozero::proto_utils::FieldMetadata<
+      94,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      TransactionTraceEntry,
+      TracePacket>;
+
+  static constexpr FieldMetadata_SurfaceflingerTransactions kSurfaceflingerTransactions{};
+  template <typename T = TransactionTraceEntry> T* set_surfaceflinger_transactions() {
+    return BeginNestedMessage<T>(94);
   }
 
 

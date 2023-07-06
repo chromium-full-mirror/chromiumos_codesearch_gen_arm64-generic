@@ -416,12 +416,16 @@ class PowerButtonObserver
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kOnEventMinVersion = 0,
+    kOnConnectedToEventNodeMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct OnEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnConnectedToEventNode_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -431,6 +435,9 @@ class PowerButtonObserver
 
   
   virtual void OnEvent(PowerButtonObserver::ButtonState button_state) = 0;
+
+  
+  virtual void OnConnectedToEventNode() = 0;
 };
 
 class VolumeButtonObserverProxy;
@@ -918,6 +925,8 @@ class  PowerButtonObserverProxy
   explicit PowerButtonObserverProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void OnEvent(PowerButtonObserver::ButtonState button_state) final;
+  
+  void OnConnectedToEventNode() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

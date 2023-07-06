@@ -389,6 +389,7 @@ public:
     void setStorageBucketTracking(const crdtp::Dispatchable& dispatchable);
     void deleteStorageBucket(const crdtp::Dispatchable& dispatchable);
     void runBounceTrackingMitigations(const crdtp::Dispatchable& dispatchable);
+    void setAttributionReportingLocalTestingMode(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
 };
@@ -468,6 +469,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("runBounceTrackingMitigations"),
           &DomainDispatcherImpl::runBounceTrackingMitigations
+    },
+    {
+          crdtp::SpanFrom("setAttributionReportingLocalTestingMode"),
+          &DomainDispatcherImpl::setAttributionReportingLocalTestingMode
     },
     {
           crdtp::SpanFrom("setCookies"),
@@ -1652,6 +1657,40 @@ void DomainDispatcherImpl::runBounceTrackingMitigations(const crdtp::Dispatchabl
         }
         weak->get()->sendResponse(dispatchable.CallId(), response, std::move(result));
       }
+    return;
+}
+
+namespace {
+
+struct setAttributionReportingLocalTestingModeParams : public crdtp::DeserializableProtocolObject<setAttributionReportingLocalTestingModeParams> {
+    bool enabled;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(setAttributionReportingLocalTestingModeParams)
+    CRDTP_DESERIALIZE_FIELD("enabled", enabled),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::setAttributionReportingLocalTestingMode(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    setAttributionReportingLocalTestingModeParams params;
+    if (!setAttributionReportingLocalTestingModeParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->setAttributionReportingLocalTestingMode(params.enabled);
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.setAttributionReportingLocalTestingMode"), dispatchable.Serialized());
+        return;
+    }
+    if (weak->get())
+        weak->get()->sendResponse(dispatchable.CallId(), response);
     return;
 }
 

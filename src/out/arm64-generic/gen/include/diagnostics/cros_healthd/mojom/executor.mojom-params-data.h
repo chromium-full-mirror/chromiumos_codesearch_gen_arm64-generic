@@ -326,6 +326,21 @@ class  PowerButtonObserver_OnEvent_Params_Data {
 };
 static_assert(sizeof(PowerButtonObserver_OnEvent_Params_Data) == 16,
               "Bad sizeof(PowerButtonObserver_OnEvent_Params_Data)");
+class  PowerButtonObserver_OnConnectedToEventNode_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PowerButtonObserver_OnConnectedToEventNode_Params_Data>;
+
+  PowerButtonObserver_OnConnectedToEventNode_Params_Data();
+  ~PowerButtonObserver_OnConnectedToEventNode_Params_Data() = delete;
+};
+static_assert(sizeof(PowerButtonObserver_OnConnectedToEventNode_Params_Data) == 8,
+              "Bad sizeof(PowerButtonObserver_OnConnectedToEventNode_Params_Data)");
 class  VolumeButtonObserver_OnEvent_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1671,6 +1686,21 @@ class PowerButtonObserver_OnEvent_ParamsDataView {
   }
  private:
   internal::PowerButtonObserver_OnEvent_Params_Data* data_ = nullptr;
+};
+
+
+class PowerButtonObserver_OnConnectedToEventNode_ParamsDataView {
+ public:
+  PowerButtonObserver_OnConnectedToEventNode_ParamsDataView() = default;
+
+  PowerButtonObserver_OnConnectedToEventNode_ParamsDataView(
+      internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PowerButtonObserver_OnConnectedToEventNode_Params_Data* data_ = nullptr;
 };
 
 
@@ -3315,6 +3345,8 @@ inline void StylusObserver_OnConnected_ParamsDataView::GetConnectedEventDataView
   auto pointer = data_->connected_event.Get();
   *output = ::ash::cros_healthd::mojom::StylusConnectedEventDataView(pointer, message_);
 }
+
+
 
 
 

@@ -127,6 +127,7 @@ PROTOBUF_CONSTEXPR PowerManagementPolicy::PowerManagementPolicy(
   , usb_power_share_(false)
   , send_feedback_if_undimmed_(false)
   , adaptive_charging_enabled_(false)
+  , charge_limit_enabled_(false)
   , adaptive_charging_min_probability_(0)
   , adaptive_charging_max_delay_percentile_(0)
   , adaptive_charging_hold_percent_(0){}
@@ -1981,13 +1982,16 @@ class PowerManagementPolicy::_Internal {
     (*has_bits)[0] |= 8388608u;
   }
   static void set_has_adaptive_charging_hold_percent(HasBits* has_bits) {
-    (*has_bits)[0] |= 67108864u;
+    (*has_bits)[0] |= 134217728u;
   }
   static void set_has_adaptive_charging_min_probability(HasBits* has_bits) {
-    (*has_bits)[0] |= 16777216u;
+    (*has_bits)[0] |= 33554432u;
   }
   static void set_has_adaptive_charging_max_delay_percentile(HasBits* has_bits) {
-    (*has_bits)[0] |= 33554432u;
+    (*has_bits)[0] |= 67108864u;
+  }
+  static void set_has_charge_limit_enabled(HasBits* has_bits) {
+    (*has_bits)[0] |= 16777216u;
   }
 };
 
@@ -2119,10 +2123,10 @@ void PowerManagementPolicy::Clear() {
         reinterpret_cast<char*>(&adaptive_charging_enabled_) -
         reinterpret_cast<char*>(&dim_wake_lock_)) + sizeof(adaptive_charging_enabled_));
   }
-  if (cached_has_bits & 0x07000000u) {
-    ::memset(&adaptive_charging_min_probability_, 0, static_cast<size_t>(
+  if (cached_has_bits & 0x0f000000u) {
+    ::memset(&charge_limit_enabled_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&adaptive_charging_hold_percent_) -
-        reinterpret_cast<char*>(&adaptive_charging_min_probability_)) + sizeof(adaptive_charging_hold_percent_));
+        reinterpret_cast<char*>(&charge_limit_enabled_)) + sizeof(adaptive_charging_hold_percent_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -2417,6 +2421,15 @@ const char* PowerManagementPolicy::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
+      // optional bool charge_limit_enabled = 31;
+      case 31:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 248)) {
+          _Internal::set_has_charge_limit_enabled(&has_bits);
+          charge_limit_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -2616,21 +2629,27 @@ uint8_t* PowerManagementPolicy::_InternalSerialize(
   }
 
   // optional int32 adaptive_charging_hold_percent = 28;
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x08000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(28, this->_internal_adaptive_charging_hold_percent(), target);
   }
 
   // optional double adaptive_charging_min_probability = 29;
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(29, this->_internal_adaptive_charging_min_probability(), target);
   }
 
   // optional double adaptive_charging_max_delay_percentile = 30;
-  if (cached_has_bits & 0x02000000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteDoubleToArray(30, this->_internal_adaptive_charging_max_delay_percentile(), target);
+  }
+
+  // optional bool charge_limit_enabled = 31;
+  if (cached_has_bits & 0x01000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(31, this->_internal_charge_limit_enabled(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2804,19 +2823,24 @@ size_t PowerManagementPolicy::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x07000000u) {
-    // optional double adaptive_charging_min_probability = 29;
+  if (cached_has_bits & 0x0f000000u) {
+    // optional bool charge_limit_enabled = 31;
     if (cached_has_bits & 0x01000000u) {
-      total_size += 2 + 8;
+      total_size += 2 + 1;
     }
 
-    // optional double adaptive_charging_max_delay_percentile = 30;
+    // optional double adaptive_charging_min_probability = 29;
     if (cached_has_bits & 0x02000000u) {
       total_size += 2 + 8;
     }
 
-    // optional int32 adaptive_charging_hold_percent = 28;
+    // optional double adaptive_charging_max_delay_percentile = 30;
     if (cached_has_bits & 0x04000000u) {
+      total_size += 2 + 8;
+    }
+
+    // optional int32 adaptive_charging_hold_percent = 28;
+    if (cached_has_bits & 0x08000000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int32Size(
           this->_internal_adaptive_charging_hold_percent());
@@ -2927,14 +2951,17 @@ void PowerManagementPolicy::MergeFrom(const PowerManagementPolicy& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x07000000u) {
+  if (cached_has_bits & 0x0f000000u) {
     if (cached_has_bits & 0x01000000u) {
-      adaptive_charging_min_probability_ = from.adaptive_charging_min_probability_;
+      charge_limit_enabled_ = from.charge_limit_enabled_;
     }
     if (cached_has_bits & 0x02000000u) {
-      adaptive_charging_max_delay_percentile_ = from.adaptive_charging_max_delay_percentile_;
+      adaptive_charging_min_probability_ = from.adaptive_charging_min_probability_;
     }
     if (cached_has_bits & 0x04000000u) {
+      adaptive_charging_max_delay_percentile_ = from.adaptive_charging_max_delay_percentile_;
+    }
+    if (cached_has_bits & 0x08000000u) {
       adaptive_charging_hold_percent_ = from.adaptive_charging_hold_percent_;
     }
     _has_bits_[0] |= cached_has_bits;

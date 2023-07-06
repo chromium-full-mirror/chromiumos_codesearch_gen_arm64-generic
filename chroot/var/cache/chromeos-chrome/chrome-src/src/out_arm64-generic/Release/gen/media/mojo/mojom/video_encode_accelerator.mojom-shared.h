@@ -218,8 +218,10 @@ enum class VideoEncodeAcceleratorSupportedRateControlMode : int32_t {
   kConstantMode = 1,
   
   kVariableMode = 2,
+  
+  kExternalMode = 3,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
 };
 
  std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorSupportedRateControlMode value);
@@ -241,24 +243,6 @@ enum class VideoEncodeAcceleratorConfig_ContentType : int32_t {
  std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_ContentType value);
 inline bool IsKnownEnumValue(VideoEncodeAcceleratorConfig_ContentType value) {
   return internal::VideoEncodeAcceleratorConfig_ContentType_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-
-
-enum class VideoEncodeAcceleratorConfig_InterLayerPredMode : int32_t {
-  
-  kOff = 0,
-  
-  kOn = 1,
-  
-  kOnKeyPic = 2,
-  kMinValue = 0,
-  kMaxValue = 2,
-};
-
- std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_InterLayerPredMode value);
-inline bool IsKnownEnumValue(VideoEncodeAcceleratorConfig_InterLayerPredMode value) {
-  return internal::VideoEncodeAcceleratorConfig_InterLayerPredMode_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -671,12 +655,12 @@ class VideoEncodeAcceleratorConfigDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadInterLayerPred(UserType* output) const {
     auto data_value = data_->inter_layer_pred;
-    return mojo::internal::Deserialize<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode>(
+    return mojo::internal::Deserialize<::media::mojom::SVCInterLayerPredMode>(
         data_value, output);
   }
-  VideoEncodeAcceleratorConfig_InterLayerPredMode inter_layer_pred() const {
+  ::media::mojom::SVCInterLayerPredMode inter_layer_pred() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode>(data_->inter_layer_pred));
+          static_cast<::media::mojom::SVCInterLayerPredMode>(data_->inter_layer_pred));
   }
   bool require_low_delay() const {
     return data_->require_low_delay;
@@ -1105,10 +1089,6 @@ struct hash<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>
     : public mojo::internal::EnumHashImpl<::media::mojom::VideoEncodeAcceleratorConfig_ContentType> {};
 
 template <>
-struct hash<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode>
-    : public mojo::internal::EnumHashImpl<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode> {};
-
-template <>
 struct hash<::media::mojom::VideoEncodeAcceleratorConfig_StorageType>
     : public mojo::internal::EnumHashImpl<::media::mojom::VideoEncodeAcceleratorConfig_StorageType> {};
 
@@ -1155,26 +1135,6 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorConfig_ContentType, Mayb
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::media::mojom::VideoEncodeAcceleratorConfig_ContentType>(input)), output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode>(input)), output);
   }
 };
 
@@ -1578,7 +1538,7 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorConfigDataView, MaybeCon
         fragment->spatial_layers.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null spatial_layers in VideoEncodeAcceleratorConfig struct");
-    mojo::internal::Serialize<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode>(
+    mojo::internal::Serialize<::media::mojom::SVCInterLayerPredMode>(
         Traits::inter_layer_pred(input), &fragment->inter_layer_pred);
     fragment->require_low_delay = Traits::require_low_delay(input);
     mojo::internal::Serialize<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType>(
@@ -2266,15 +2226,6 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::media::mojom::VideoEncodeAcceleratorConfig_ContentType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::VideoEncodeAcceleratorConfig_ContentType value);
-};
-
-} // namespace perfetto
-
-namespace perfetto {
-
-template <>
-struct  TraceFormatTraits<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode value);
 };
 
 } // namespace perfetto

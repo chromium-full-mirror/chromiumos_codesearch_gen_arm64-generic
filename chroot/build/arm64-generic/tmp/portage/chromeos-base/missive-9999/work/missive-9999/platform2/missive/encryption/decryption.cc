@@ -25,8 +25,7 @@
 #include "missive/util/status.h"
 #include "missive/util/statusor.h"
 
-namespace reporting {
-namespace test {
+namespace reporting::test {
 
 Decryptor::Handle::Handle(base::StringPiece shared_secret,
                           scoped_refptr<Decryptor> decryptor)
@@ -174,8 +173,8 @@ void Decryptor::RetrieveMatchingPrivateKey(
             DCHECK_CALLED_ON_VALID_SEQUENCE(decryptor->keys_sequence_checker_);
             auto key_info_it = decryptor->keys_.find(public_key_id);
             if (key_info_it != decryptor->keys_.end()) {
-              DCHECK_EQ(key_info_it->second.private_key.size(),
-                        static_cast<size_t>(kKeySize));
+              CHECK_EQ(key_info_it->second.private_key.size(),
+                       static_cast<size_t>(kKeySize));
             }
             // Schedule response on a generic thread pool.
             base::ThreadPool::PostTask(
@@ -198,5 +197,4 @@ StatusOr<scoped_refptr<Decryptor>> Decryptor::Create() {
   return base::WrapRefCounted(new Decryptor());
 }
 
-}  // namespace test
-}  // namespace reporting
+}  // namespace reporting::test
