@@ -134,6 +134,84 @@ CRDTP_BEGIN_SERIALIZER(StorageBucketInfo)
 CRDTP_END_SERIALIZER();
 
 
+namespace AttributionReportingSourceTypeEnum {
+const char Navigation[] = "navigation";
+const char Event[] = "event";
+} // namespace AttributionReportingSourceTypeEnum
+
+
+
+
+
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingFilterDataEntry)
+    CRDTP_DESERIALIZE_FIELD("key", m_key),
+    CRDTP_DESERIALIZE_FIELD("values", m_values),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingFilterDataEntry)
+    CRDTP_SERIALIZE_FIELD("key", m_key);
+    CRDTP_SERIALIZE_FIELD("values", m_values);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingAggregationKeysEntry)
+    CRDTP_DESERIALIZE_FIELD("key", m_key),
+    CRDTP_DESERIALIZE_FIELD("value", m_value),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingAggregationKeysEntry)
+    CRDTP_SERIALIZE_FIELD("key", m_key);
+    CRDTP_SERIALIZE_FIELD("value", m_value);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(AttributionReportingSourceRegistration)
+    CRDTP_DESERIALIZE_FIELD_OPT("aggregatableReportWindow", m_aggregatableReportWindow),
+    CRDTP_DESERIALIZE_FIELD("aggregationKeys", m_aggregationKeys),
+    CRDTP_DESERIALIZE_FIELD_OPT("debugKey", m_debugKey),
+    CRDTP_DESERIALIZE_FIELD("destinationSites", m_destinationSites),
+    CRDTP_DESERIALIZE_FIELD("eventId", m_eventId),
+    CRDTP_DESERIALIZE_FIELD_OPT("eventReportWindow", m_eventReportWindow),
+    CRDTP_DESERIALIZE_FIELD_OPT("expiry", m_expiry),
+    CRDTP_DESERIALIZE_FIELD("filterData", m_filterData),
+    CRDTP_DESERIALIZE_FIELD("priority", m_priority),
+    CRDTP_DESERIALIZE_FIELD("reportingOrigin", m_reportingOrigin),
+    CRDTP_DESERIALIZE_FIELD("sourceOrigin", m_sourceOrigin),
+    CRDTP_DESERIALIZE_FIELD("time", m_time),
+    CRDTP_DESERIALIZE_FIELD("type", m_type),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AttributionReportingSourceRegistration)
+    CRDTP_SERIALIZE_FIELD("time", m_time);
+    CRDTP_SERIALIZE_FIELD("expiry", m_expiry);
+    CRDTP_SERIALIZE_FIELD("eventReportWindow", m_eventReportWindow);
+    CRDTP_SERIALIZE_FIELD("aggregatableReportWindow", m_aggregatableReportWindow);
+    CRDTP_SERIALIZE_FIELD("type", m_type);
+    CRDTP_SERIALIZE_FIELD("sourceOrigin", m_sourceOrigin);
+    CRDTP_SERIALIZE_FIELD("reportingOrigin", m_reportingOrigin);
+    CRDTP_SERIALIZE_FIELD("destinationSites", m_destinationSites);
+    CRDTP_SERIALIZE_FIELD("eventId", m_eventId);
+    CRDTP_SERIALIZE_FIELD("priority", m_priority);
+    CRDTP_SERIALIZE_FIELD("filterData", m_filterData);
+    CRDTP_SERIALIZE_FIELD("aggregationKeys", m_aggregationKeys);
+    CRDTP_SERIALIZE_FIELD("debugKey", m_debugKey);
+CRDTP_END_SERIALIZER();
+
+
+namespace AttributionReportingSourceRegistrationResultEnum {
+const char Success[] = "success";
+const char InternalError[] = "internalError";
+const char InsufficientSourceCapacity[] = "insufficientSourceCapacity";
+const char InsufficientUniqueDestinationCapacity[] = "insufficientUniqueDestinationCapacity";
+const char ExcessiveReportingOrigins[] = "excessiveReportingOrigins";
+const char ProhibitedByBrowserPolicy[] = "prohibitedByBrowserPolicy";
+const char SuccessNoised[] = "successNoised";
+const char DestinationReportingLimitReached[] = "destinationReportingLimitReached";
+const char DestinationGlobalLimitReached[] = "destinationGlobalLimitReached";
+const char DestinationBothLimitsReached[] = "destinationBothLimitsReached";
+} // namespace AttributionReportingSourceRegistrationResultEnum
+
+
 // ------------- Enum values from params.
 
 
@@ -227,6 +305,16 @@ void Frontend::StorageBucketDeleted(const String& bucketId)
     crdtp::ObjectSerializer serializer;
     serializer.AddField(crdtp::MakeSpan("bucketId"), bucketId);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.storageBucketDeleted", serializer.Finish()));
+}
+
+void Frontend::AttributionReportingSourceRegistered(std::unique_ptr<protocol::Storage::AttributionReportingSourceRegistration> registration, const String& result)
+{
+    if (!frontend_channel_)
+        return;
+    crdtp::ObjectSerializer serializer;
+    serializer.AddField(crdtp::MakeSpan("registration"), registration);
+    serializer.AddField(crdtp::MakeSpan("result"), result);
+    frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.attributionReportingSourceRegistered", serializer.Finish()));
 }
 
 void Frontend::flush()

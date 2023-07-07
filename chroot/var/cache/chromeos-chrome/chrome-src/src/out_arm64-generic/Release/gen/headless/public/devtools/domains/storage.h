@@ -48,6 +48,9 @@ class HEADLESS_EXPORT ExperimentalObserver {
   virtual void OnSharedStorageAccessed(const SharedStorageAccessedParams& params) {}
   virtual void OnStorageBucketCreatedOrUpdated(const StorageBucketCreatedOrUpdatedParams& params) {}
   virtual void OnStorageBucketDeleted(const StorageBucketDeletedParams& params) {}
+  // TODO(crbug.com/1458532): Add other Attribution Reporting events, e.g.
+  // trigger registration.
+  virtual void OnAttributionReportingSourceRegistered(const AttributionReportingSourceRegisteredParams& params) {}
 };
 
 class HEADLESS_EXPORT Observer : public ExperimentalObserver {
@@ -68,6 +71,9 @@ class HEADLESS_EXPORT Observer : public ExperimentalObserver {
   virtual void OnSharedStorageAccessed(const SharedStorageAccessedParams& params) final {}
   virtual void OnStorageBucketCreatedOrUpdated(const StorageBucketCreatedOrUpdatedParams& params) final {}
   virtual void OnStorageBucketDeleted(const StorageBucketDeletedParams& params) final {}
+  // Experimental: TODO(crbug.com/1458532): Add other Attribution Reporting events, e.g.
+  // trigger registration.
+  virtual void OnAttributionReportingSourceRegistered(const AttributionReportingSourceRegisteredParams& params) final {}
 };
 
 class HEADLESS_EXPORT Domain {
@@ -119,6 +125,7 @@ class HEADLESS_EXPORT Domain {
   static void HandleDeleteStorageBucketResponse(base::OnceCallback<void(std::unique_ptr<DeleteStorageBucketResult>)> callback, const base::Value& response);
   static void HandleRunBounceTrackingMitigationsResponse(base::OnceCallback<void(std::unique_ptr<RunBounceTrackingMitigationsResult>)> callback, const base::Value& response);
   static void HandleSetAttributionReportingLocalTestingModeResponse(base::OnceCallback<void(std::unique_ptr<SetAttributionReportingLocalTestingModeResult>)> callback, const base::Value& response);
+  static void HandleSetAttributionReportingTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetAttributionReportingTrackingResult>)> callback, const base::Value& response);
 
   void DispatchCacheStorageContentUpdatedEvent(const base::Value& params);
   void DispatchCacheStorageListUpdatedEvent(const base::Value& params);
@@ -128,6 +135,7 @@ class HEADLESS_EXPORT Domain {
   void DispatchSharedStorageAccessedEvent(const base::Value& params);
   void DispatchStorageBucketCreatedOrUpdatedEvent(const base::Value& params);
   void DispatchStorageBucketDeletedEvent(const base::Value& params);
+  void DispatchAttributionReportingSourceRegisteredEvent(const base::Value& params);
 
   internal::MessageDispatcher* dispatcher_;  // Not owned.
   base::ObserverList<ExperimentalObserver>::Unchecked observers_;
@@ -248,6 +256,9 @@ class ExperimentalDomain : public Domain {
 
   // https://wicg.github.io/attribution-reporting-api/
   void SetAttributionReportingLocalTestingMode(std::unique_ptr<SetAttributionReportingLocalTestingModeParams> params, base::OnceCallback<void(std::unique_ptr<SetAttributionReportingLocalTestingModeResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetAttributionReportingLocalTestingModeResult>)>());
+
+  // Enables/disables issuing of Attribution Reporting events.
+  void SetAttributionReportingTracking(std::unique_ptr<SetAttributionReportingTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetAttributionReportingTrackingResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetAttributionReportingTrackingResult>)>());
 
 };
 

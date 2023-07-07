@@ -62,6 +62,10 @@ void Domain::RegisterEventHandlersIfNeeded() {
       "Storage.storageBucketDeleted",
       base::BindRepeating(&Domain::DispatchStorageBucketDeletedEvent,
                           base::Unretained(this)));
+  dispatcher_->RegisterEventHandler(
+      "Storage.attributionReportingSourceRegistered",
+      base::BindRepeating(&Domain::DispatchAttributionReportingSourceRegisteredEvent,
+                          base::Unretained(this)));
 }
 
 void ExperimentalDomain::GetStorageKeyForFrame(std::unique_ptr<GetStorageKeyForFrameParams> params, base::OnceCallback<void(std::unique_ptr<GetStorageKeyForFrameResult>)> callback) {
@@ -156,6 +160,9 @@ void ExperimentalDomain::RunBounceTrackingMitigations(std::unique_ptr<RunBounceT
 }
 void ExperimentalDomain::SetAttributionReportingLocalTestingMode(std::unique_ptr<SetAttributionReportingLocalTestingModeParams> params, base::OnceCallback<void(std::unique_ptr<SetAttributionReportingLocalTestingModeResult>)> callback) {
   dispatcher_->SendMessage("Storage.setAttributionReportingLocalTestingMode", params->Serialize(), base::BindOnce(&Domain::HandleSetAttributionReportingLocalTestingModeResponse, std::move(callback)));
+}
+void ExperimentalDomain::SetAttributionReportingTracking(std::unique_ptr<SetAttributionReportingTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetAttributionReportingTrackingResult>)> callback) {
+  dispatcher_->SendMessage("Storage.setAttributionReportingTracking", params->Serialize(), base::BindOnce(&Domain::HandleSetAttributionReportingTrackingResponse, std::move(callback)));
 }
 
 
@@ -624,6 +631,21 @@ void Domain::HandleSetAttributionReportingLocalTestingModeResponse(base::OnceCal
   std::move(callback).Run(std::move(result));
 }
 
+// static
+void Domain::HandleSetAttributionReportingTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetAttributionReportingTrackingResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<SetAttributionReportingTrackingResult> result = SetAttributionReportingTrackingResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
 void Domain::DispatchCacheStorageContentUpdatedEvent(const base::Value& params) {
   ErrorReporter errors;
   std::unique_ptr<CacheStorageContentUpdatedParams> parsed_params(CacheStorageContentUpdatedParams::Parse(params, &errors));
@@ -693,6 +715,15 @@ void Domain::DispatchStorageBucketDeletedEvent(const base::Value& params) {
   DCHECK(!errors.HasErrors()) << errors.ToString();
   for (ExperimentalObserver& observer : observers_) {
     observer.OnStorageBucketDeleted(*parsed_params);
+  }
+}
+
+void Domain::DispatchAttributionReportingSourceRegisteredEvent(const base::Value& params) {
+  ErrorReporter errors;
+  std::unique_ptr<AttributionReportingSourceRegisteredParams> parsed_params(AttributionReportingSourceRegisteredParams::Parse(params, &errors));
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  for (ExperimentalObserver& observer : observers_) {
+    observer.OnAttributionReportingSourceRegistered(*parsed_params);
   }
 }
 
