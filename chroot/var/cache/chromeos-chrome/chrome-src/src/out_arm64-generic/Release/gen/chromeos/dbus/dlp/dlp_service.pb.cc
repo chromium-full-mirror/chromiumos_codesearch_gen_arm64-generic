@@ -141,6 +141,7 @@ PROTOBUF_CONSTEXPR FileMetadata::FileMetadata(
     ::_pbi::ConstantInitialized)
   : source_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , path_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , referrer_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , inode_(uint64_t{0u}){}
 struct FileMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FileMetadataDefaultTypeInternal()
@@ -2654,13 +2655,16 @@ class FileMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<FileMetadata>()._has_bits_);
   static void set_has_inode(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_source_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_path(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
+  }
+  static void set_has_referrer_url(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
 };
 
@@ -2690,6 +2694,14 @@ FileMetadata::FileMetadata(const FileMetadata& from)
     path_.Set(from._internal_path(), 
       GetArenaForAllocation());
   }
+  referrer_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    referrer_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_referrer_url()) {
+    referrer_url_.Set(from._internal_referrer_url(), 
+      GetArenaForAllocation());
+  }
   inode_ = from.inode_;
   // @@protoc_insertion_point(copy_constructor:dlp.FileMetadata)
 }
@@ -2702,6 +2714,10 @@ source_url_.InitDefault();
 path_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   path_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+referrer_url_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  referrer_url_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 inode_ = uint64_t{0u};
 }
@@ -2719,6 +2735,7 @@ inline void FileMetadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   source_url_.Destroy();
   path_.Destroy();
+  referrer_url_.Destroy();
 }
 
 void FileMetadata::SetCachedSize(int size) const {
@@ -2732,12 +2749,15 @@ void FileMetadata::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       source_url_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
       path_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      referrer_url_.ClearNonDefaultToEmpty();
     }
   }
   inode_ = uint64_t{0u};
@@ -2779,6 +2799,15 @@ const char* FileMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
+      // optional string referrer_url = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_referrer_url();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -2811,7 +2840,7 @@ uint8_t* FileMetadata::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional uint64 inode = 1;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_inode(), target);
   }
@@ -2826,6 +2855,12 @@ uint8_t* FileMetadata::_InternalSerialize(
   if (cached_has_bits & 0x00000002u) {
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_path(), target);
+  }
+
+  // optional string referrer_url = 4;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_referrer_url(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2845,7 +2880,7 @@ size_t FileMetadata::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional string source_url = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -2860,8 +2895,15 @@ size_t FileMetadata::ByteSizeLong() const {
           this->_internal_path());
     }
 
-    // optional uint64 inode = 1;
+    // optional string referrer_url = 4;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_referrer_url());
+    }
+
+    // optional uint64 inode = 1;
+    if (cached_has_bits & 0x00000008u) {
       total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_inode());
     }
 
@@ -2887,7 +2929,7 @@ void FileMetadata::MergeFrom(const FileMetadata& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_source_url(from._internal_source_url());
     }
@@ -2895,6 +2937,9 @@ void FileMetadata::MergeFrom(const FileMetadata& from) {
       _internal_set_path(from._internal_path());
     }
     if (cached_has_bits & 0x00000004u) {
+      _internal_set_referrer_url(from._internal_referrer_url());
+    }
+    if (cached_has_bits & 0x00000008u) {
       inode_ = from.inode_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -2926,6 +2971,10 @@ void FileMetadata::InternalSwap(FileMetadata* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &path_, lhs_arena,
       &other->path_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &referrer_url_, lhs_arena,
+      &other->referrer_url_, rhs_arena
   );
   swap(inode_, other->inode_);
 }

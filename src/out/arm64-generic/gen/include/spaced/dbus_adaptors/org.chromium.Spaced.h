@@ -30,6 +30,21 @@ class SpacedInterface {
       const std::string& in_path) = 0;
   // Get the size of the root storage device.
   virtual int64_t GetRootDeviceSize() = 0;
+  // Returns whether the given path is mounted with quota option enabled.
+  virtual bool IsQuotaSupported(
+      const std::string& in_path) = 0;
+  // Returns the disk space currently used by the given UID.
+  virtual int64_t GetQuotaCurrentSpaceForUid(
+      const std::string& in_path,
+      uint32_t in_uid) = 0;
+  // Returns the disk space currently used by the given GID.
+  virtual int64_t GetQuotaCurrentSpaceForGid(
+      const std::string& in_path,
+      uint32_t in_gid) = 0;
+  // Returns the disk space currently used by the given project ID.
+  virtual int64_t GetQuotaCurrentSpaceForProjectId(
+      const std::string& in_path,
+      uint32_t in_project_id) = 0;
 };
 
 // Interface adaptor for org::chromium::Spaced.
@@ -55,6 +70,22 @@ class SpacedAdaptor {
         "GetRootDeviceSize",
         base::Unretained(interface_),
         &SpacedInterface::GetRootDeviceSize);
+    itf->AddSimpleMethodHandler(
+        "IsQuotaSupported",
+        base::Unretained(interface_),
+        &SpacedInterface::IsQuotaSupported);
+    itf->AddSimpleMethodHandler(
+        "GetQuotaCurrentSpaceForUid",
+        base::Unretained(interface_),
+        &SpacedInterface::GetQuotaCurrentSpaceForUid);
+    itf->AddSimpleMethodHandler(
+        "GetQuotaCurrentSpaceForGid",
+        base::Unretained(interface_),
+        &SpacedInterface::GetQuotaCurrentSpaceForGid);
+    itf->AddSimpleMethodHandler(
+        "GetQuotaCurrentSpaceForProjectId",
+        base::Unretained(interface_),
+        &SpacedInterface::GetQuotaCurrentSpaceForProjectId);
 
     signal_StatefulDiskSpaceUpdate_ = itf->RegisterSignalOfType<SignalStatefulDiskSpaceUpdateType>("StatefulDiskSpaceUpdate");
   }
@@ -82,6 +113,25 @@ class SpacedAdaptor {
         "      <arg name=\"reply\" type=\"x\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetRootDeviceSize\">\n"
+        "      <arg name=\"reply\" type=\"x\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"IsQuotaSupported\">\n"
+        "      <arg name=\"path\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"b\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetQuotaCurrentSpaceForUid\">\n"
+        "      <arg name=\"path\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"uid\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"x\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetQuotaCurrentSpaceForGid\">\n"
+        "      <arg name=\"path\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"gid\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"x\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetQuotaCurrentSpaceForProjectId\">\n"
+        "      <arg name=\"path\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"project_id\" type=\"u\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"x\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <signal name=\"StatefulDiskSpaceUpdate\">\n"

@@ -97,6 +97,54 @@ class CrosHealthdRoutinesService
   virtual void IsRoutineSupported(RoutineArgumentPtr routine_argument, IsRoutineSupportedCallback callback) = 0;
 };
 
+class LedLitUpRoutineReplierProxy;
+
+template <typename ImplRefTraits>
+class LedLitUpRoutineReplierStub;
+
+class LedLitUpRoutineReplierRequestValidator;
+class LedLitUpRoutineReplierResponseValidator;
+
+
+class LedLitUpRoutineReplier
+    : public LedLitUpRoutineReplierInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = LedLitUpRoutineReplierInterfaceBase;
+  using Proxy_ = LedLitUpRoutineReplierProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = LedLitUpRoutineReplierStub<ImplRefTraits>;
+
+  using RequestValidator_ = LedLitUpRoutineReplierRequestValidator;
+  using ResponseValidator_ = LedLitUpRoutineReplierResponseValidator;
+  enum MethodMinVersions : uint32_t {
+    kGetColorMatchedMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct GetColorMatched_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~LedLitUpRoutineReplier() = default;
+
+
+  using GetColorMatchedCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void GetColorMatched(GetColorMatchedCallback callback) = 0;
+};
+
 class RoutineControlProxy;
 
 template <typename ImplRefTraits>
@@ -223,6 +271,21 @@ class  CrosHealthdRoutinesServiceProxy
 
 
 
+class  LedLitUpRoutineReplierProxy
+    : public LedLitUpRoutineReplier {
+ public:
+  using InterfaceType = LedLitUpRoutineReplier;
+
+  explicit LedLitUpRoutineReplierProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void GetColorMatched(GetColorMatchedCallback callback) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  RoutineControlProxy
     : public RoutineControl {
  public:
@@ -289,6 +352,47 @@ class CrosHealthdRoutinesServiceStub
     if (ImplRefTraits::IsNull(sink_))
       return false;
     return CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  LedLitUpRoutineReplierStubDispatch {
+ public:
+  static bool Accept(LedLitUpRoutineReplier* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      LedLitUpRoutineReplier* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<LedLitUpRoutineReplier>>
+class LedLitUpRoutineReplierStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  LedLitUpRoutineReplierStub() = default;
+  ~LedLitUpRoutineReplierStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return LedLitUpRoutineReplierStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -381,6 +485,10 @@ class  CrosHealthdRoutinesServiceRequestValidator : public mojo::MessageReceiver
  public:
   bool Accept(mojo::Message* message) override;
 };
+class  LedLitUpRoutineReplierRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
 class  RoutineControlRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -390,6 +498,10 @@ class  RoutineObserverRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  CrosHealthdRoutinesServiceResponseValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  LedLitUpRoutineReplierResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -810,6 +922,7 @@ template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 
 
@@ -2211,6 +2324,142 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  LedLitUpRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<LedLitUpRoutineDetail, T>::value>;
+  using DataView = LedLitUpRoutineDetailDataView;
+  using Data_ = internal::LedLitUpRoutineDetail_Data;
+
+  template <typename... Args>
+  static LedLitUpRoutineDetailPtr New(Args&&... args) {
+    return LedLitUpRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static LedLitUpRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<LedLitUpRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, LedLitUpRoutineDetail>::Convert(*this);
+  }
+
+
+  LedLitUpRoutineDetail();
+
+
+  ~LedLitUpRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = LedLitUpRoutineDetailPtr>
+  LedLitUpRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        LedLitUpRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        LedLitUpRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::LedLitUpRoutineDetail_UnserializedMessageContext<
+            UserType, LedLitUpRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<LedLitUpRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return LedLitUpRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::LedLitUpRoutineDetail_UnserializedMessageContext<
+            UserType, LedLitUpRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<LedLitUpRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  RoutineArgument {
  public:
   using DataView = RoutineArgumentDataView;
@@ -2297,6 +2546,14 @@ class  RoutineArgument {
       VolumeButtonRoutineArgumentPtr volume_button) {
     auto result = RoutineArgumentPtr(absl::in_place);
     result->set_volume_button(std::move(volume_button));
+    return result;
+  }
+  // Construct an instance holding |led_lit_up|.
+  static RoutineArgumentPtr
+  NewLedLitUp(
+      LedLitUpRoutineArgumentPtr led_lit_up) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_led_lit_up(std::move(led_lit_up));
     return result;
   }
 
@@ -2449,6 +2706,18 @@ class  RoutineArgument {
   
   void set_volume_button(
       VolumeButtonRoutineArgumentPtr volume_button);
+  
+  bool is_led_lit_up() const { return tag_ == Tag::kLedLitUp; }
+
+  
+  LedLitUpRoutineArgumentPtr& get_led_lit_up() const {
+    CHECK(tag_ == Tag::kLedLitUp);
+    return *(data_.led_lit_up);
+  }
+
+  
+  void set_led_lit_up(
+      LedLitUpRoutineArgumentPtr led_lit_up);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2476,6 +2745,7 @@ class  RoutineArgument {
     CpuCacheRoutineArgumentPtr* cpu_cache;
     PrimeSearchRoutineArgumentPtr* prime_search;
     VolumeButtonRoutineArgumentPtr* volume_button;
+    LedLitUpRoutineArgumentPtr* led_lit_up;
   };
 
   static bool Validate(const void* data,
@@ -2740,6 +3010,14 @@ class  RoutineDetail {
     result->set_volume_button(std::move(volume_button));
     return result;
   }
+  // Construct an instance holding |led_lit_up|.
+  static RoutineDetailPtr
+  NewLedLitUp(
+      LedLitUpRoutineDetailPtr led_lit_up) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_led_lit_up(std::move(led_lit_up));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -2878,6 +3156,18 @@ class  RoutineDetail {
   
   void set_volume_button(
       VolumeButtonRoutineDetailPtr volume_button);
+  
+  bool is_led_lit_up() const { return tag_ == Tag::kLedLitUp; }
+
+  
+  LedLitUpRoutineDetailPtr& get_led_lit_up() const {
+    CHECK(tag_ == Tag::kLedLitUp);
+    return *(data_.led_lit_up);
+  }
+
+  
+  void set_led_lit_up(
+      LedLitUpRoutineDetailPtr led_lit_up);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2904,6 +3194,7 @@ class  RoutineDetail {
     CpuCacheRoutineDetailPtr* cpu_cache;
     PrimeSearchRoutineDetailPtr* prime_search;
     VolumeButtonRoutineDetailPtr* volume_button;
+    LedLitUpRoutineDetailPtr* led_lit_up;
   };
 
   static bool Validate(const void* data,
@@ -3631,6 +3922,149 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  LedLitUpRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<LedLitUpRoutineArgument, T>::value>;
+  using DataView = LedLitUpRoutineArgumentDataView;
+  using Data_ = internal::LedLitUpRoutineArgument_Data;
+
+  template <typename... Args>
+  static LedLitUpRoutineArgumentPtr New(Args&&... args) {
+    return LedLitUpRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static LedLitUpRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<LedLitUpRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, LedLitUpRoutineArgument>::Convert(*this);
+  }
+
+
+  LedLitUpRoutineArgument();
+
+  LedLitUpRoutineArgument(
+      LedName name,
+      LedColor color,
+      ::mojo::PendingRemote<LedLitUpRoutineReplier> replier);
+
+LedLitUpRoutineArgument(const LedLitUpRoutineArgument&) = delete;
+LedLitUpRoutineArgument& operator=(const LedLitUpRoutineArgument&) = delete;
+
+  ~LedLitUpRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = LedLitUpRoutineArgumentPtr>
+  LedLitUpRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        LedLitUpRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::LedLitUpRoutineArgument_UnserializedMessageContext<
+            UserType, LedLitUpRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<LedLitUpRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return LedLitUpRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::LedLitUpRoutineArgument_UnserializedMessageContext<
+            UserType, LedLitUpRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<LedLitUpRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  LedName name;
+  
+  LedColor color;
+  
+  ::mojo::PendingRemote<LedLitUpRoutineReplier> replier;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  RoutineState {
  public:
   template <typename T>
@@ -4215,6 +4649,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
 template <typename UnionPtrType>
 RoutineArgumentPtr RoutineArgument::Clone() const {
   switch (tag_) {
@@ -4245,6 +4680,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kVolumeButton:
       return NewVolumeButton(
           mojo::Clone(*data_.volume_button));
+    case Tag::kLedLitUp:
+      return NewLedLitUp(
+          mojo::Clone(*data_.led_lit_up));
   }
   return nullptr;
 }
@@ -4275,6 +4713,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.prime_search), *(other.data_.prime_search));
     case Tag::kVolumeButton:
       return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
+    case Tag::kLedLitUp:
+      return mojo::Equals(*(data_.led_lit_up), *(other.data_.led_lit_up));
   }
 
   return false;
@@ -4345,6 +4785,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kVolumeButton:
       return NewVolumeButton(
           mojo::Clone(*data_.volume_button));
+    case Tag::kLedLitUp:
+      return NewLedLitUp(
+          mojo::Clone(*data_.led_lit_up));
   }
   return nullptr;
 }
@@ -4373,6 +4816,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.prime_search), *(other.data_.prime_search));
     case Tag::kVolumeButton:
       return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
+    case Tag::kLedLitUp:
+      return mojo::Equals(*(data_.led_lit_up), *(other.data_.led_lit_up));
   }
 
   return false;
@@ -4557,6 +5002,42 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.timeout < rhs.timeout)
     return true;
   if (rhs.timeout < lhs.timeout)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+LedLitUpRoutineArgumentPtr LedLitUpRoutineArgument::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(color),
+      mojo::Clone(replier)
+  );
+}
+
+template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>*>
+bool LedLitUpRoutineArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->color, other_struct.color))
+    return false;
+  if (!mojo::Equals(this->replier, other_struct.replier))
+    return false;
+  return true;
+}
+
+template <typename T, LedLitUpRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.color < rhs.color)
+    return true;
+  if (rhs.color < lhs.color)
+    return false;
+  if (lhs.replier < rhs.replier)
+    return true;
+  if (rhs.replier < lhs.replier)
     return false;
   return false;
 }
@@ -4875,6 +5356,21 @@ template <typename T, VolumeButtonRoutineDetail::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
+template <typename StructPtrType>
+LedLitUpRoutineDetailPtr LedLitUpRoutineDetail::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>*>
+bool LedLitUpRoutineDetail::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, LedLitUpRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
 
 
 }  // namespace mojom
@@ -5006,6 +5502,31 @@ struct  StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::Da
   }
 
   static bool Read(::ash::cros_healthd::mojom::VolumeButtonRoutineArgument::DataView input, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::LedLitUpRoutineArgument::name) name(
+      const ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr& input) {
+    return input->name;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::LedLitUpRoutineArgument::color) color(
+      const ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr& input) {
+    return input->color;
+  }
+
+  static  decltype(::ash::cros_healthd::mojom::LedLitUpRoutineArgument::replier)& replier(
+       ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr& input) {
+    return input->replier;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::LedLitUpRoutineArgument::DataView input, ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr* output);
 };
 
 
@@ -5225,6 +5746,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetail::Data
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::LedLitUpRoutineDetail::DataView input, ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
                                         ::ash::cros_healthd::mojom::RoutineArgumentPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) { return !input; }
@@ -5268,6 +5799,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentPtr& volume_button(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_volume_button();
+  }
+
+  static  ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentPtr& led_lit_up( ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_led_lit_up();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -5344,6 +5879,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::VolumeButtonRoutineDetailPtr& volume_button(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_volume_button();
+  }
+
+  static const ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr& led_lit_up(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_led_lit_up();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

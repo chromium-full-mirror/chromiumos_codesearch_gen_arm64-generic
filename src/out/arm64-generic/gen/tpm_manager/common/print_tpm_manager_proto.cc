@@ -401,14 +401,6 @@ std::string GetProtoDebugStringWithIndent(const OwnershipTakenSignal& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  if (value.has_local_data()) {
-    output += indent + "  local_data: ";
-    base::StringAppendF(
-        &output, "%s",
-        GetProtoDebugStringWithIndent(value.local_data(), indent_size + 2)
-            .c_str());
-    output += "\n";
-  }
   output += indent + "}\n";
   return output;
 }

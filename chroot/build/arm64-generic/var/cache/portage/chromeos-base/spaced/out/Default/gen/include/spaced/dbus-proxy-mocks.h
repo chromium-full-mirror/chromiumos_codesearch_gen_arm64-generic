@@ -67,6 +67,72 @@ class SpacedProxyMock : public SpacedProxyInterface {
                int /*timeout_ms*/),
               (override));
 
+  MOCK_METHOD(bool,
+              IsQuotaSupported,
+              (const std::string& /*in_path*/,
+               bool* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              IsQuotaSupportedAsync,
+              (const std::string& /*in_path*/,
+               base::OnceCallback<void(bool /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetQuotaCurrentSpaceForUid,
+              (const std::string& /*in_path*/,
+               uint32_t /*in_uid*/,
+               int64_t* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetQuotaCurrentSpaceForUidAsync,
+              (const std::string& /*in_path*/,
+               uint32_t /*in_uid*/,
+               base::OnceCallback<void(int64_t /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetQuotaCurrentSpaceForGid,
+              (const std::string& /*in_path*/,
+               uint32_t /*in_gid*/,
+               int64_t* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetQuotaCurrentSpaceForGidAsync,
+              (const std::string& /*in_path*/,
+               uint32_t /*in_gid*/,
+               base::OnceCallback<void(int64_t /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              GetQuotaCurrentSpaceForProjectId,
+              (const std::string& /*in_path*/,
+               uint32_t /*in_project_id*/,
+               int64_t* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetQuotaCurrentSpaceForProjectIdAsync,
+              (const std::string& /*in_path*/,
+               uint32_t /*in_project_id*/,
+               base::OnceCallback<void(int64_t /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
   void RegisterStatefulDiskSpaceUpdateSignalHandler(
     const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {

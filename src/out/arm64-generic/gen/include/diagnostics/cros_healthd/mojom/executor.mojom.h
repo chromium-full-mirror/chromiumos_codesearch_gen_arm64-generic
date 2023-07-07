@@ -727,12 +727,12 @@ class Executor
 
   using SetLedColorCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
   
-  virtual void SetLedColor(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, SetLedColorCallback callback) = 0;
+  virtual void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) = 0;
 
 
   using ResetLedColorCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
   
-  virtual void ResetLedColor(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ResetLedColorCallback callback) = 0;
+  virtual void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) = 0;
 
 
   using GetHciDeviceConfigCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
@@ -982,9 +982,9 @@ class  ExecutorProxy
   
   void GetFingerprintInfo(GetFingerprintInfoCallback callback) final;
   
-  void SetLedColor(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, SetLedColorCallback callback) final;
+  void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) final;
   
-  void ResetLedColor(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ResetLedColorCallback callback) final;
+  void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) final;
   
   void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) final;
   

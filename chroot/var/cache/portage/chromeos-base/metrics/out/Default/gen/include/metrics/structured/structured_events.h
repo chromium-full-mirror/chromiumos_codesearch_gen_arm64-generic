@@ -1574,6 +1574,38 @@ class BRILLO_EXPORT WiFiLinkQualityReport final : public ::metrics::structured::
   WiFiLinkQualityReport& SetBTActivelyScanning(const int64_t value);
   int64_t GetBTActivelyScanningForTest() const;
 
+  static constexpr uint64_t kFCSErrorsNameHash = UINT64_C(1054309290706010308);
+  WiFiLinkQualityReport& SetFCSErrors(const int64_t value);
+  int64_t GetFCSErrorsForTest() const;
+
+  static constexpr uint64_t kRXMPDUSNameHash = UINT64_C(7242361842967303157);
+  WiFiLinkQualityReport& SetRXMPDUS(const int64_t value);
+  int64_t GetRXMPDUSForTest() const;
+
+  static constexpr uint64_t kInactiveTimeNameHash = UINT64_C(13930263786008228314);
+  WiFiLinkQualityReport& SetInactiveTime(const int64_t value);
+  int64_t GetInactiveTimeForTest() const;
+
+  static constexpr uint64_t kNoiseNameHash = UINT64_C(11180166612126374869);
+  WiFiLinkQualityReport& SetNoise(const int64_t value);
+  int64_t GetNoiseForTest() const;
+
+  static constexpr uint64_t kAckSignalAverageNameHash = UINT64_C(18290602591828021624);
+  WiFiLinkQualityReport& SetAckSignalAverage(const int64_t value);
+  int64_t GetAckSignalAverageForTest() const;
+
+  static constexpr uint64_t kLastAckSignalNameHash = UINT64_C(15383141423566269074);
+  WiFiLinkQualityReport& SetLastAckSignal(const int64_t value);
+  int64_t GetLastAckSignalForTest() const;
+
+  static constexpr uint64_t kSignalNameHash = UINT64_C(603458687981705476);
+  WiFiLinkQualityReport& SetSignal(const int64_t value);
+  int64_t GetSignalForTest() const;
+
+  static constexpr uint64_t kSignalAverageNameHash = UINT64_C(2147423454324391532);
+  WiFiLinkQualityReport& SetSignalAverage(const int64_t value);
+  int64_t GetSignalAverageForTest() const;
+
 };
 
 }  // namespace wi_fi

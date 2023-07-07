@@ -1131,27 +1131,6 @@ class OwnershipTakenSignal final :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kLocalDataFieldNumber = 1,
-  };
-  // optional .tpm_manager.LocalData local_data = 1;
-  bool has_local_data() const;
-  private:
-  bool _internal_has_local_data() const;
-  public:
-  void clear_local_data();
-  const ::tpm_manager::LocalData& local_data() const;
-  PROTOBUF_NODISCARD ::tpm_manager::LocalData* release_local_data();
-  ::tpm_manager::LocalData* mutable_local_data();
-  void set_allocated_local_data(::tpm_manager::LocalData* local_data);
-  private:
-  const ::tpm_manager::LocalData& _internal_local_data() const;
-  ::tpm_manager::LocalData* _internal_mutable_local_data();
-  public:
-  void unsafe_arena_set_allocated_local_data(
-      ::tpm_manager::LocalData* local_data);
-  ::tpm_manager::LocalData* unsafe_arena_release_local_data();
-
   // @@protoc_insertion_point(class_scope:tpm_manager.OwnershipTakenSignal)
  private:
   class _Internal;
@@ -1160,9 +1139,7 @@ class OwnershipTakenSignal final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::tpm_manager::LocalData* local_data_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_tpm_5fmanager_2eproto;
@@ -7420,96 +7397,6 @@ inline void LocalData::set_no_srk_auth(bool value) {
 // -------------------------------------------------------------------
 
 // OwnershipTakenSignal
-
-// optional .tpm_manager.LocalData local_data = 1;
-inline bool OwnershipTakenSignal::_internal_has_local_data() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.local_data_ != nullptr);
-  return value;
-}
-inline bool OwnershipTakenSignal::has_local_data() const {
-  return _internal_has_local_data();
-}
-inline void OwnershipTakenSignal::clear_local_data() {
-  if (_impl_.local_data_ != nullptr) _impl_.local_data_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000001u;
-}
-inline const ::tpm_manager::LocalData& OwnershipTakenSignal::_internal_local_data() const {
-  const ::tpm_manager::LocalData* p = _impl_.local_data_;
-  return p != nullptr ? *p : reinterpret_cast<const ::tpm_manager::LocalData&>(
-      ::tpm_manager::_LocalData_default_instance_);
-}
-inline const ::tpm_manager::LocalData& OwnershipTakenSignal::local_data() const {
-  // @@protoc_insertion_point(field_get:tpm_manager.OwnershipTakenSignal.local_data)
-  return _internal_local_data();
-}
-inline void OwnershipTakenSignal::unsafe_arena_set_allocated_local_data(
-    ::tpm_manager::LocalData* local_data) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.local_data_);
-  }
-  _impl_.local_data_ = local_data;
-  if (local_data) {
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tpm_manager.OwnershipTakenSignal.local_data)
-}
-inline ::tpm_manager::LocalData* OwnershipTakenSignal::release_local_data() {
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::tpm_manager::LocalData* temp = _impl_.local_data_;
-  _impl_.local_data_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::tpm_manager::LocalData* OwnershipTakenSignal::unsafe_arena_release_local_data() {
-  // @@protoc_insertion_point(field_release:tpm_manager.OwnershipTakenSignal.local_data)
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::tpm_manager::LocalData* temp = _impl_.local_data_;
-  _impl_.local_data_ = nullptr;
-  return temp;
-}
-inline ::tpm_manager::LocalData* OwnershipTakenSignal::_internal_mutable_local_data() {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  if (_impl_.local_data_ == nullptr) {
-    auto* p = CreateMaybeMessage<::tpm_manager::LocalData>(GetArenaForAllocation());
-    _impl_.local_data_ = p;
-  }
-  return _impl_.local_data_;
-}
-inline ::tpm_manager::LocalData* OwnershipTakenSignal::mutable_local_data() {
-  ::tpm_manager::LocalData* _msg = _internal_mutable_local_data();
-  // @@protoc_insertion_point(field_mutable:tpm_manager.OwnershipTakenSignal.local_data)
-  return _msg;
-}
-inline void OwnershipTakenSignal::set_allocated_local_data(::tpm_manager::LocalData* local_data) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.local_data_;
-  }
-  if (local_data) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(local_data);
-    if (message_arena != submessage_arena) {
-      local_data = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, local_data, submessage_arena);
-    }
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  _impl_.local_data_ = local_data;
-  // @@protoc_insertion_point(field_set_allocated:tpm_manager.OwnershipTakenSignal.local_data)
-}
 
 // -------------------------------------------------------------------
 

@@ -71,6 +71,68 @@ class SpacedProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Returns whether the given path is mounted with quota option enabled.
+  virtual bool IsQuotaSupported(
+      const std::string& in_path,
+      bool* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns whether the given path is mounted with quota option enabled.
+  virtual void IsQuotaSupportedAsync(
+      const std::string& in_path,
+      base::OnceCallback<void(bool /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the disk space currently used by the given UID.
+  virtual bool GetQuotaCurrentSpaceForUid(
+      const std::string& in_path,
+      uint32_t in_uid,
+      int64_t* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the disk space currently used by the given UID.
+  virtual void GetQuotaCurrentSpaceForUidAsync(
+      const std::string& in_path,
+      uint32_t in_uid,
+      base::OnceCallback<void(int64_t /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the disk space currently used by the given GID.
+  virtual bool GetQuotaCurrentSpaceForGid(
+      const std::string& in_path,
+      uint32_t in_gid,
+      int64_t* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the disk space currently used by the given GID.
+  virtual void GetQuotaCurrentSpaceForGidAsync(
+      const std::string& in_path,
+      uint32_t in_gid,
+      base::OnceCallback<void(int64_t /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the disk space currently used by the given project ID.
+  virtual bool GetQuotaCurrentSpaceForProjectId(
+      const std::string& in_path,
+      uint32_t in_project_id,
+      int64_t* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the disk space currently used by the given project ID.
+  virtual void GetQuotaCurrentSpaceForProjectIdAsync(
+      const std::string& in_path,
+      uint32_t in_project_id,
+      base::OnceCallback<void(int64_t /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterStatefulDiskSpaceUpdateSignalHandler(
       const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -216,6 +278,150 @@ class SpacedProxy final : public SpacedProxyInterface {
         "GetRootDeviceSize",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  // Returns whether the given path is mounted with quota option enabled.
+  bool IsQuotaSupported(
+      const std::string& in_path,
+      bool* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "IsQuotaSupported",
+        error,
+        in_path);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  // Returns whether the given path is mounted with quota option enabled.
+  void IsQuotaSupportedAsync(
+      const std::string& in_path,
+      base::OnceCallback<void(bool /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "IsQuotaSupported",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_path);
+  }
+
+  // Returns the disk space currently used by the given UID.
+  bool GetQuotaCurrentSpaceForUid(
+      const std::string& in_path,
+      uint32_t in_uid,
+      int64_t* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "GetQuotaCurrentSpaceForUid",
+        error,
+        in_path,
+        in_uid);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  // Returns the disk space currently used by the given UID.
+  void GetQuotaCurrentSpaceForUidAsync(
+      const std::string& in_path,
+      uint32_t in_uid,
+      base::OnceCallback<void(int64_t /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "GetQuotaCurrentSpaceForUid",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_path,
+        in_uid);
+  }
+
+  // Returns the disk space currently used by the given GID.
+  bool GetQuotaCurrentSpaceForGid(
+      const std::string& in_path,
+      uint32_t in_gid,
+      int64_t* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "GetQuotaCurrentSpaceForGid",
+        error,
+        in_path,
+        in_gid);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  // Returns the disk space currently used by the given GID.
+  void GetQuotaCurrentSpaceForGidAsync(
+      const std::string& in_path,
+      uint32_t in_gid,
+      base::OnceCallback<void(int64_t /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "GetQuotaCurrentSpaceForGid",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_path,
+        in_gid);
+  }
+
+  // Returns the disk space currently used by the given project ID.
+  bool GetQuotaCurrentSpaceForProjectId(
+      const std::string& in_path,
+      uint32_t in_project_id,
+      int64_t* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "GetQuotaCurrentSpaceForProjectId",
+        error,
+        in_path,
+        in_project_id);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  // Returns the disk space currently used by the given project ID.
+  void GetQuotaCurrentSpaceForProjectIdAsync(
+      const std::string& in_path,
+      uint32_t in_project_id,
+      base::OnceCallback<void(int64_t /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "GetQuotaCurrentSpaceForProjectId",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_path,
+        in_project_id);
   }
 
  private:

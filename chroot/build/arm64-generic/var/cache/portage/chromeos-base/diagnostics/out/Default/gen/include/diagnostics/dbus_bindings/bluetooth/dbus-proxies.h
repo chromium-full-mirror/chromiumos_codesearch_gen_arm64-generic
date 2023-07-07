@@ -604,6 +604,9 @@ class Device1ProxyInterface {
   static const char* AddressName() { return "Address"; }
   virtual const std::string& address() const = 0;
   virtual bool is_address_valid() const = 0;
+  static const char* AddressTypeName() { return "AddressType"; }
+  virtual const std::string& address_type() const = 0;
+  virtual bool is_address_type_valid() const = 0;
   static const char* AliasName() { return "Alias"; }
   virtual const std::string& alias() const = 0;
   virtual bool is_alias_valid() const = 0;
@@ -667,6 +670,7 @@ class Device1Proxy final : public Device1ProxyInterface {
                             "org.bluez.Device1",
                             callback} {
       RegisterProperty(AddressName(), &address);
+      RegisterProperty(AddressTypeName(), &address_type);
       RegisterProperty(AliasName(), &alias);
       RegisterProperty(NameName(), &name);
       RegisterProperty(TypeName(), &type);
@@ -684,6 +688,7 @@ class Device1Proxy final : public Device1ProxyInterface {
     PropertySet& operator=(const PropertySet&) = delete;
 
     brillo::dbus_utils::Property<std::string> address;
+    brillo::dbus_utils::Property<std::string> address_type;
     brillo::dbus_utils::Property<std::string> alias;
     brillo::dbus_utils::Property<std::string> name;
     brillo::dbus_utils::Property<std::string> type;
@@ -802,6 +807,14 @@ class Device1Proxy final : public Device1ProxyInterface {
 
   bool is_address_valid() const override {
     return property_set_->address.is_valid();
+  }
+
+  const std::string& address_type() const override {
+    return property_set_->address_type.value();
+  }
+
+  bool is_address_type_valid() const override {
+    return property_set_->address_type.is_valid();
   }
 
   const std::string& alias() const override {

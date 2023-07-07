@@ -2504,6 +2504,78 @@ int64_t WiFiLinkQualityReport::GetBTActivelyScanningForTest() const {
   return GetIntMetricForTest(kBTActivelyScanningNameHash);
 }
 
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetFCSErrors(const int64_t value) {
+  AddIntMetric(kFCSErrorsNameHash, value);
+  return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetFCSErrorsForTest() const {
+  return GetIntMetricForTest(kFCSErrorsNameHash);
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXMPDUS(const int64_t value) {
+  AddIntMetric(kRXMPDUSNameHash, value);
+  return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetRXMPDUSForTest() const {
+  return GetIntMetricForTest(kRXMPDUSNameHash);
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetInactiveTime(const int64_t value) {
+  AddIntMetric(kInactiveTimeNameHash, value);
+  return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetInactiveTimeForTest() const {
+  return GetIntMetricForTest(kInactiveTimeNameHash);
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetNoise(const int64_t value) {
+  AddIntMetric(kNoiseNameHash, value);
+  return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetNoiseForTest() const {
+  return GetIntMetricForTest(kNoiseNameHash);
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetAckSignalAverage(const int64_t value) {
+  AddIntMetric(kAckSignalAverageNameHash, value);
+  return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetAckSignalAverageForTest() const {
+  return GetIntMetricForTest(kAckSignalAverageNameHash);
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetLastAckSignal(const int64_t value) {
+  AddIntMetric(kLastAckSignalNameHash, value);
+  return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetLastAckSignalForTest() const {
+  return GetIntMetricForTest(kLastAckSignalNameHash);
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetSignal(const int64_t value) {
+  AddIntMetric(kSignalNameHash, value);
+  return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetSignalForTest() const {
+  return GetIntMetricForTest(kSignalNameHash);
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetSignalAverage(const int64_t value) {
+  AddIntMetric(kSignalAverageNameHash, value);
+  return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetSignalAverageForTest() const {
+  return GetIntMetricForTest(kSignalAverageNameHash);
+}
+
 }  // namespace wi_fi
 
 namespace test_project_one {

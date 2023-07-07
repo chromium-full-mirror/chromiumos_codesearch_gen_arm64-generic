@@ -53,6 +53,8 @@ class PrimeSearchRoutineArgumentDataView;
 
 class VolumeButtonRoutineArgumentDataView;
 
+class LedLitUpRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -80,6 +82,8 @@ class PrimeSearchRoutineDetailDataView;
 class MemtesterResultDataView;
 
 class VolumeButtonRoutineDetailDataView;
+
+class LedLitUpRoutineDetailDataView;
 
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
@@ -145,6 +149,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineArgumentDat
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::VolumeButtonRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::LedLitUpRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -243,6 +254,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::MemtesterResultDataView> {
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::VolumeButtonRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::LedLitUpRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -388,6 +406,70 @@ inline DiskReadTypeEnum ToKnownEnumValue(DiskReadTypeEnum value) {
 }
 
 
+enum class LedName : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kBattery = 1,
+  
+  kPower = 2,
+  
+  kAdapter = 3,
+  
+  kLeft = 4,
+  
+  kRight = 5,
+  kMinValue = 0,
+  kMaxValue = 5,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, LedName value);
+inline bool IsKnownEnumValue(LedName value) {
+  return internal::LedName_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline LedName ToKnownEnumValue(LedName value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return LedName::kDefaultValue;
+}
+
+
+enum class LedColor : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kRed = 1,
+  
+  kGreen = 2,
+  
+  kBlue = 3,
+  
+  kYellow = 4,
+  
+  kWhite = 5,
+  
+  kAmber = 6,
+  kMinValue = 0,
+  kMaxValue = 6,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, LedColor value);
+inline bool IsKnownEnumValue(LedColor value) {
+  return internal::LedColor_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline LedColor ToKnownEnumValue(LedColor value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return LedColor::kDefaultValue;
+}
+
+
 enum class VolumeButtonRoutineArgument_ButtonType : int32_t {
   
   kUnmappedEnumField = 0,
@@ -418,8 +500,10 @@ enum class RoutineStateWaiting_Reason : int32_t {
   kUnmappedEnumField = 0,
   
   kWaitingToBeScheduled = 1,
+  
+  kWaitingUserInput = 2,
   kMinValue = 0,
-  kMaxValue = 1,
+  kMaxValue = 2,
   kDefaultValue = 0
 };
 
@@ -445,6 +529,16 @@ using CrosHealthdRoutinesServiceAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdRoutinesServiceInterfaceBase>;
 using CrosHealthdRoutinesServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CrosHealthdRoutinesServiceInterfaceBase>;
+class LedLitUpRoutineReplierInterfaceBase {};
+
+using LedLitUpRoutineReplierPtrDataView =
+    mojo::InterfacePtrDataView<LedLitUpRoutineReplierInterfaceBase>;
+using LedLitUpRoutineReplierRequestDataView =
+    mojo::InterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
+using LedLitUpRoutineReplierAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<LedLitUpRoutineReplierInterfaceBase>;
+using LedLitUpRoutineReplierAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
 class RoutineControlInterfaceBase {};
 
 using RoutineControlPtrDataView =
@@ -697,6 +791,51 @@ class VolumeButtonRoutineArgumentDataView {
   }
  private:
   internal::VolumeButtonRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class LedLitUpRoutineArgumentDataView {
+ public:
+  LedLitUpRoutineArgumentDataView() = default;
+
+  LedLitUpRoutineArgumentDataView(
+      internal::LedLitUpRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) const {
+    auto data_value = data_->name;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedName>(
+        data_value, output);
+  }
+  LedName name() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LedName>(data_->name));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadColor(UserType* output) const {
+    auto data_value = data_->color;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedColor>(
+        data_value, output);
+  }
+  LedColor color() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LedColor>(data_->color));
+  }
+  template <typename UserType>
+  UserType TakeReplier() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::LedLitUpRoutineReplierInterfaceBase>>(
+            &data_->replier, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::LedLitUpRoutineArgument_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1020,6 +1159,21 @@ class VolumeButtonRoutineDetailDataView {
 };
 
 
+class LedLitUpRoutineDetailDataView {
+ public:
+  LedLitUpRoutineDetailDataView() = default;
+
+  LedLitUpRoutineDetailDataView(
+      internal::LedLitUpRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::LedLitUpRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class RoutineArgumentDataView {
  public:
   using Tag = internal::RoutineArgument_Data::RoutineArgument_Tag;
@@ -1130,6 +1284,17 @@ class RoutineArgumentDataView {
     CHECK(is_volume_button());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView>(
         data_->data.f_volume_button.Get(), output, message_);
+  }
+  bool is_led_lit_up() const { return data_->tag == Tag::kLedLitUp; }
+  inline void GetLedLitUpDataView(
+      LedLitUpRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLedLitUp(UserType* output) const {
+    
+    CHECK(is_led_lit_up());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView>(
+        data_->data.f_led_lit_up.Get(), output, message_);
   }
 
  private:
@@ -1315,6 +1480,17 @@ class RoutineDetailDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView>(
         data_->data.f_volume_button.Get(), output, message_);
   }
+  bool is_led_lit_up() const { return data_->tag == Tag::kLedLitUp; }
+  inline void GetLedLitUpDataView(
+      LedLitUpRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLedLitUp(UserType* output) const {
+    
+    CHECK(is_led_lit_up());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView>(
+        data_->data.f_led_lit_up.Get(), output, message_);
+  }
 
  private:
   internal::RoutineDetail_Data* data_ = nullptr;
@@ -1340,6 +1516,14 @@ struct hash<::ash::cros_healthd::mojom::RoutineControlExceptionEnum>
 template <>
 struct hash<::ash::cros_healthd::mojom::DiskReadTypeEnum>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DiskReadTypeEnum> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::LedName>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::LedName> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::LedColor>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::LedColor> {};
 
 template <>
 struct hash<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>
@@ -1408,6 +1592,46 @@ struct Serializer<::ash::cros_healthd::mojom::DiskReadTypeEnum, MaybeConstUserTy
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::DiskReadTypeEnum>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LedName, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::LedName, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::LedName>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LedColor, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::LedColor, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::LedColor>(input)), output);
   }
 };
 
@@ -1736,6 +1960,46 @@ struct Serializer<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataVie
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::LedLitUpRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::LedName>(
+        Traits::name(input), &fragment->name);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::LedColor>(
+        Traits::color(input), &fragment->color);
+    decltype(Traits::replier(input)) in_replier = Traits::replier(input);
+    mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::LedLitUpRoutineReplierInterfaceBase>>(
+        in_replier, &fragment->replier, &fragment.message());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        !mojo::internal::IsHandleOrInterfaceValid(fragment->replier),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+        "invalid replier in LedLitUpRoutineArgument struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::LedLitUpRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -2230,6 +2494,35 @@ struct Serializer<::ash::cros_healthd::mojom::VolumeButtonRoutineDetailDataView,
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::LedLitUpRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::LedLitUpRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView, UserType>;
@@ -2382,6 +2675,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null volume_button in RoutineArgument union");
         fragment->data.f_volume_button.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kLedLitUp: {
+        decltype(Traits::led_lit_up(input))
+            in_led_lit_up = Traits::led_lit_up(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_led_lit_up)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView>(
+            in_led_lit_up, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null led_lit_up in RoutineArgument union");
+        fragment->data.f_led_lit_up.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -2659,6 +2968,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kLedLitUp: {
+        decltype(Traits::led_lit_up(input))
+            in_led_lit_up = Traits::led_lit_up(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_led_lit_up)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView>(
+            in_led_lit_up, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null led_lit_up in RoutineDetail union");
+        fragment->data.f_led_lit_up.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -2723,6 +3048,8 @@ inline void VolumeButtonRoutineArgumentDataView::GetTimeoutDataView(
 }
 
 
+
+
 inline void RoutineStateDataView::GetStateUnionDataView(
     RoutineStateUnionDataView* output) {
   auto pointer = &data_->state_union;
@@ -2781,6 +3108,8 @@ inline void MemtesterResultDataView::GetFailedItemsDataView(
 
 
 
+
+
 inline void RoutineArgumentDataView::GetMemoryDataView(
     MemoryRoutineArgumentDataView* output) const {
   CHECK(is_memory());
@@ -2820,6 +3149,11 @@ inline void RoutineArgumentDataView::GetVolumeButtonDataView(
     VolumeButtonRoutineArgumentDataView* output) const {
   CHECK(is_volume_button());
   *output = VolumeButtonRoutineArgumentDataView(data_->data.f_volume_button.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetLedLitUpDataView(
+    LedLitUpRoutineArgumentDataView* output) const {
+  CHECK(is_led_lit_up());
+  *output = LedLitUpRoutineArgumentDataView(data_->data.f_led_lit_up.Get(), message_);
 }
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
@@ -2883,6 +3217,11 @@ inline void RoutineDetailDataView::GetVolumeButtonDataView(
   CHECK(is_volume_button());
   *output = VolumeButtonRoutineDetailDataView(data_->data.f_volume_button.Get(), message_);
 }
+inline void RoutineDetailDataView::GetLedLitUpDataView(
+    LedLitUpRoutineDetailDataView* output) const {
+  CHECK(is_led_lit_up());
+  *output = LedLitUpRoutineDetailDataView(data_->data.f_led_lit_up.Get(), message_);
+}
 
 
 }  // namespace mojom
@@ -2915,6 +3254,24 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedName> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::LedName value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedColor> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::LedColor value);
 };
 
 } // namespace perfetto

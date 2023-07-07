@@ -34,6 +34,7 @@ class DiskReadRoutineArgument_Data;
 class CpuCacheRoutineArgument_Data;
 class PrimeSearchRoutineArgument_Data;
 class VolumeButtonRoutineArgument_Data;
+class LedLitUpRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
@@ -48,6 +49,7 @@ class CpuCacheRoutineDetail_Data;
 class PrimeSearchRoutineDetail_Data;
 class MemtesterResult_Data;
 class VolumeButtonRoutineDetail_Data;
+class LedLitUpRoutineDetail_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
 class RoutineDetail_Data;
@@ -145,6 +147,63 @@ struct DiskReadTypeEnum_Data {
   }
 };
 
+struct LedName_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct LedColor_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct VolumeButtonRoutineArgument_ButtonType_Data {
  public:
   static bool constexpr kIsExtensible = true;
@@ -178,6 +237,7 @@ struct RoutineStateWaiting_Reason_Data {
     switch (value) {
       case 0:
       case 1:
+      case 2:
         return true;
     }
     return false;
@@ -243,6 +303,8 @@ class  RoutineArgument_Data {
     kPrimeSearch,
     
     kVolumeButton,
+    
+    kLedLitUp,
   };
 
   // A note on layout:
@@ -259,6 +321,7 @@ class  RoutineArgument_Data {
     mojo::internal::Pointer<internal::CpuCacheRoutineArgument_Data> f_cpu_cache;
     mojo::internal::Pointer<internal::PrimeSearchRoutineArgument_Data> f_prime_search;
     mojo::internal::Pointer<internal::VolumeButtonRoutineArgument_Data> f_volume_button;
+    mojo::internal::Pointer<internal::LedLitUpRoutineArgument_Data> f_led_lit_up;
     uint64_t unknown;
   };
 
@@ -372,6 +435,8 @@ class  RoutineDetail_Data {
     kPrimeSearch,
     
     kVolumeButton,
+    
+    kLedLitUp,
   };
 
   // A note on layout:
@@ -387,6 +452,7 @@ class  RoutineDetail_Data {
     mojo::internal::Pointer<internal::CpuCacheRoutineDetail_Data> f_cpu_cache;
     mojo::internal::Pointer<internal::PrimeSearchRoutineDetail_Data> f_prime_search;
     mojo::internal::Pointer<internal::VolumeButtonRoutineDetail_Data> f_volume_button;
+    mojo::internal::Pointer<internal::LedLitUpRoutineDetail_Data> f_led_lit_up;
     uint64_t unknown;
   };
 
@@ -784,6 +850,56 @@ struct VolumeButtonRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     VolumeButtonRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  LedLitUpRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t name;
+  int32_t color;
+  mojo::internal::Interface_Data replier;
+
+ private:
+  friend class mojo::internal::MessageFragment<LedLitUpRoutineArgument_Data>;
+
+  LedLitUpRoutineArgument_Data();
+  ~LedLitUpRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(LedLitUpRoutineArgument_Data) == 24,
+              "Bad sizeof(LedLitUpRoutineArgument_Data)");
+// Used by LedLitUpRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct LedLitUpRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  LedLitUpRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~LedLitUpRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<LedLitUpRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    LedLitUpRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -1462,6 +1578,53 @@ struct VolumeButtonRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     VolumeButtonRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  LedLitUpRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<LedLitUpRoutineDetail_Data>;
+
+  LedLitUpRoutineDetail_Data();
+  ~LedLitUpRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(LedLitUpRoutineDetail_Data) == 8,
+              "Bad sizeof(LedLitUpRoutineDetail_Data)");
+// Used by LedLitUpRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct LedLitUpRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  LedLitUpRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~LedLitUpRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<LedLitUpRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    LedLitUpRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

@@ -167,12 +167,12 @@ bool Delegate_SetLedColor_Params_Data::Validate(
       static_cast<const Delegate_SetLedColor_Params_Data*>(data);
 
 
-  if (!::ash::cros_healthd::mojom::internal::DEPRECATED_LedName_Data
+  if (!::ash::cros_healthd::mojom::internal::LedName_Data
         ::Validate(object->name, validation_context))
     return false;
 
 
-  if (!::ash::cros_healthd::mojom::internal::DEPRECATED_LedColor_Data
+  if (!::ash::cros_healthd::mojom::internal::LedColor_Data
         ::Validate(object->color, validation_context))
     return false;
 
@@ -230,7 +230,7 @@ bool Delegate_ResetLedColor_Params_Data::Validate(
       static_cast<const Delegate_ResetLedColor_Params_Data*>(data);
 
 
-  if (!::ash::cros_healthd::mojom::internal::DEPRECATED_LedName_Data
+  if (!::ash::cros_healthd::mojom::internal::LedName_Data
         ::Validate(object->name, validation_context))
     return false;
 

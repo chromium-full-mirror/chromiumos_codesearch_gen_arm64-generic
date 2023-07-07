@@ -1379,6 +1379,7 @@ class PowerManagementPolicy final :
     kAdaptiveChargingMinProbabilityFieldNumber = 29,
     kAdaptiveChargingMaxDelayPercentileFieldNumber = 30,
     kAdaptiveChargingHoldPercentFieldNumber = 28,
+    kHibernateDelaySecFieldNumber = 32,
   };
   // repeated .power_manager.PowerManagementPolicy.PeakShiftDayConfig peak_shift_day_configs = 20;
   int peak_shift_day_configs_size() const;
@@ -1800,6 +1801,19 @@ class PowerManagementPolicy final :
   void _internal_set_adaptive_charging_hold_percent(int32_t value);
   public:
 
+  // optional uint32 hibernate_delay_sec = 32;
+  bool has_hibernate_delay_sec() const;
+  private:
+  bool _internal_has_hibernate_delay_sec() const;
+  public:
+  void clear_hibernate_delay_sec();
+  uint32_t hibernate_delay_sec() const;
+  void set_hibernate_delay_sec(uint32_t value);
+  private:
+  uint32_t _internal_hibernate_delay_sec() const;
+  void _internal_set_hibernate_delay_sec(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:power_manager.PowerManagementPolicy)
  private:
   class _Internal;
@@ -1840,6 +1854,7 @@ class PowerManagementPolicy final :
     double adaptive_charging_min_probability_;
     double adaptive_charging_max_delay_percentile_;
     int32_t adaptive_charging_hold_percent_;
+    uint32_t hibernate_delay_sec_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_policy_2eproto;
@@ -3954,6 +3969,34 @@ inline void PowerManagementPolicy::_internal_set_charge_limit_enabled(bool value
 inline void PowerManagementPolicy::set_charge_limit_enabled(bool value) {
   _internal_set_charge_limit_enabled(value);
   // @@protoc_insertion_point(field_set:power_manager.PowerManagementPolicy.charge_limit_enabled)
+}
+
+// optional uint32 hibernate_delay_sec = 32;
+inline bool PowerManagementPolicy::_internal_has_hibernate_delay_sec() const {
+  bool value = (_impl_._has_bits_[0] & 0x10000000u) != 0;
+  return value;
+}
+inline bool PowerManagementPolicy::has_hibernate_delay_sec() const {
+  return _internal_has_hibernate_delay_sec();
+}
+inline void PowerManagementPolicy::clear_hibernate_delay_sec() {
+  _impl_.hibernate_delay_sec_ = 0u;
+  _impl_._has_bits_[0] &= ~0x10000000u;
+}
+inline uint32_t PowerManagementPolicy::_internal_hibernate_delay_sec() const {
+  return _impl_.hibernate_delay_sec_;
+}
+inline uint32_t PowerManagementPolicy::hibernate_delay_sec() const {
+  // @@protoc_insertion_point(field_get:power_manager.PowerManagementPolicy.hibernate_delay_sec)
+  return _internal_hibernate_delay_sec();
+}
+inline void PowerManagementPolicy::_internal_set_hibernate_delay_sec(uint32_t value) {
+  _impl_._has_bits_[0] |= 0x10000000u;
+  _impl_.hibernate_delay_sec_ = value;
+}
+inline void PowerManagementPolicy::set_hibernate_delay_sec(uint32_t value) {
+  _internal_set_hibernate_delay_sec(value);
+  // @@protoc_insertion_point(field_set:power_manager.PowerManagementPolicy.hibernate_delay_sec)
 }
 
 // -------------------------------------------------------------------

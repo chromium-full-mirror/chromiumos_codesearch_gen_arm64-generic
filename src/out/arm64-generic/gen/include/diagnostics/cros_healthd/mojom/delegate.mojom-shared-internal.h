@@ -13,6 +13,7 @@
 #include "diagnostics/cros_healthd/mojom/executor.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared-internal.h"
+#include "diagnostics/mojom/public/cros_healthd_routines.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

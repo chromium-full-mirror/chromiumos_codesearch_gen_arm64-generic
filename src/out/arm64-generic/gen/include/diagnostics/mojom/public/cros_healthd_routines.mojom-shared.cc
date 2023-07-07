@@ -137,6 +137,72 @@ std::ostream& operator<<(std::ostream& os, DiskReadTypeEnum value) {
   return os << DiskReadTypeEnumToString(value);
 }
 
+NOINLINE static const char* LedNameToStringHelper(LedName value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case LedName::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case LedName::kBattery:
+      return "kBattery";
+    case LedName::kPower:
+      return "kPower";
+    case LedName::kAdapter:
+      return "kAdapter";
+    case LedName::kLeft:
+      return "kLeft";
+    case LedName::kRight:
+      return "kRight";
+    default:
+      return nullptr;
+  }
+}
+
+std::string LedNameToString(LedName value) {
+  const char *str = LedNameToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown LedName value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, LedName value) {
+  return os << LedNameToString(value);
+}
+
+NOINLINE static const char* LedColorToStringHelper(LedColor value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case LedColor::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case LedColor::kRed:
+      return "kRed";
+    case LedColor::kGreen:
+      return "kGreen";
+    case LedColor::kBlue:
+      return "kBlue";
+    case LedColor::kYellow:
+      return "kYellow";
+    case LedColor::kWhite:
+      return "kWhite";
+    case LedColor::kAmber:
+      return "kAmber";
+    default:
+      return nullptr;
+  }
+}
+
+std::string LedColorToString(LedColor value) {
+  const char *str = LedColorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown LedColor value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, LedColor value) {
+  return os << LedColorToString(value);
+}
+
 NOINLINE static const char* VolumeButtonRoutineArgument_ButtonTypeToStringHelper(VolumeButtonRoutineArgument_ButtonType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -170,6 +236,8 @@ NOINLINE static const char* RoutineStateWaiting_ReasonToStringHelper(RoutineStat
       return "kUnmappedEnumField";
     case RoutineStateWaiting_Reason::kWaitingToBeScheduled:
       return "kWaitingToBeScheduled";
+    case RoutineStateWaiting_Reason::kWaitingUserInput:
+      return "kWaitingUserInput";
     default:
       return nullptr;
   }
@@ -296,6 +364,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kLedLitUp: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_led_lit_up, 10, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_led_lit_up, validation_context))
         return false;
       return true;
     }
@@ -486,6 +564,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kLedLitUp: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_led_lit_up, 9, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_led_lit_up, validation_context))
         return false;
       return true;
     }
@@ -715,6 +803,48 @@ bool VolumeButtonRoutineArgument_Data::Validate(
 }
 
 VolumeButtonRoutineArgument_Data::VolumeButtonRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LedLitUpRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LedLitUpRoutineArgument_Data* object =
+      static_cast<const LedLitUpRoutineArgument_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::LedName_Data
+        ::Validate(object->name, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::LedColor_Data
+        ::Validate(object->color, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->replier, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->replier,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+LedLitUpRoutineArgument_Data::LedLitUpRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1096,6 +1226,29 @@ VolumeButtonRoutineDetail_Data::VolumeButtonRoutineDetail_Data()
 
 
 // static
+bool LedLitUpRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LedLitUpRoutineDetail_Data* object =
+      static_cast<const LedLitUpRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+LedLitUpRoutineDetail_Data::LedLitUpRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1191,6 +1344,52 @@ bool CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data::Validate
 }
 
 CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data::CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LedLitUpRoutineReplier_GetColorMatched_Params_Data* object =
+      static_cast<const LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(data);
+
+  return true;
+}
+
+LedLitUpRoutineReplier_GetColorMatched_Params_Data::LedLitUpRoutineReplier_GetColorMatched_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* object =
+      static_cast<const LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1362,6 +1561,26 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DiskReadTypeEnumToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::LedName>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::LedName value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::LedNameToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::LedColor>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::LedColor value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::LedColorToString(value));
 }
 
 } // namespace perfetto

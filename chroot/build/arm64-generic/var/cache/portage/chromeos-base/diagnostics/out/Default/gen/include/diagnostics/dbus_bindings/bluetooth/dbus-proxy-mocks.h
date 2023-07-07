@@ -190,6 +190,9 @@ class Device1ProxyMock : public Device1ProxyInterface {
   MOCK_METHOD(const std::string&, address, (), (const, override));
   MOCK_METHOD(bool, is_address_valid, (), (const, override));
 
+  MOCK_METHOD(const std::string&, address_type, (), (const, override));
+  MOCK_METHOD(bool, is_address_type_valid, (), (const, override));
+
   MOCK_METHOD(const std::string&, alias, (), (const, override));
   MOCK_METHOD(bool, is_alias_valid, (), (const, override));
   MOCK_METHOD(void,

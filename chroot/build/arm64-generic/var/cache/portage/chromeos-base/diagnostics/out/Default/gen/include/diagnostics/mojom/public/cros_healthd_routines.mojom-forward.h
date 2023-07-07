@@ -40,6 +40,8 @@ class PrimeSearchRoutineArgumentDataView;
 
 class VolumeButtonRoutineArgumentDataView;
 
+class LedLitUpRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -68,6 +70,8 @@ class MemtesterResultDataView;
 
 class VolumeButtonRoutineDetailDataView;
 
+class LedLitUpRoutineDetailDataView;
+
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
 class RoutineDetailDataView;
@@ -77,6 +81,10 @@ enum class MemtesterTestItemEnum : int32_t;
 enum class RoutineControlExceptionEnum : int32_t;
 
 enum class DiskReadTypeEnum : int32_t;
+
+enum class LedName : int32_t;
+
+enum class LedColor : int32_t;
 
 enum class VolumeButtonRoutineArgument_ButtonType : int32_t;
 
@@ -104,6 +112,9 @@ using PrimeSearchRoutineArgumentPtr = mojo::StructPtr<PrimeSearchRoutineArgument
 
 class VolumeButtonRoutineArgument;
 using VolumeButtonRoutineArgumentPtr = mojo::StructPtr<VolumeButtonRoutineArgument>;
+
+class LedLitUpRoutineArgument;
+using LedLitUpRoutineArgumentPtr = mojo::StructPtr<LedLitUpRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -147,6 +158,9 @@ using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;
 class VolumeButtonRoutineDetail;
 using VolumeButtonRoutineDetailPtr = mojo::InlinedStructPtr<VolumeButtonRoutineDetail>;
 
+class LedLitUpRoutineDetail;
+using LedLitUpRoutineDetailPtr = mojo::InlinedStructPtr<LedLitUpRoutineDetail>;
+
 class RoutineArgument;
 
 using RoutineArgumentPtr = mojo::StructPtr<RoutineArgument>;
@@ -160,6 +174,8 @@ class RoutineDetail;
 using RoutineDetailPtr = mojo::StructPtr<RoutineDetail>;
 
 class CrosHealthdRoutinesService;
+
+class LedLitUpRoutineReplier;
 
 class RoutineControl;
 
