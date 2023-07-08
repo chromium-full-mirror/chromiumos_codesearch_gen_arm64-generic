@@ -68,8 +68,7 @@ struct LocalDataDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LocalDataDefaultTypeInternal _LocalData_default_instance_;
 PROTOBUF_CONSTEXPR OwnershipTakenSignal::OwnershipTakenSignal(
-    ::_pbi::ConstantInitialized)
-  : local_data_(nullptr){}
+    ::_pbi::ConstantInitialized){}
 struct OwnershipTakenSignalDefaultTypeInternal {
   PROTOBUF_CONSTEXPR OwnershipTakenSignalDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2088,17 +2087,8 @@ std::string LocalData::GetTypeName() const {
 
 class OwnershipTakenSignal::_Internal {
  public:
-  using HasBits = decltype(std::declval<OwnershipTakenSignal>()._has_bits_);
-  static const ::tpm_manager::LocalData& local_data(const OwnershipTakenSignal* msg);
-  static void set_has_local_data(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
 };
 
-const ::tpm_manager::LocalData&
-OwnershipTakenSignal::_Internal::local_data(const OwnershipTakenSignal* msg) {
-  return *msg->local_data_;
-}
 OwnershipTakenSignal::OwnershipTakenSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -2106,19 +2096,12 @@ OwnershipTakenSignal::OwnershipTakenSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena
   // @@protoc_insertion_point(arena_constructor:tpm_manager.OwnershipTakenSignal)
 }
 OwnershipTakenSignal::OwnershipTakenSignal(const OwnershipTakenSignal& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_local_data()) {
-    local_data_ = new ::tpm_manager::LocalData(*from.local_data_);
-  } else {
-    local_data_ = nullptr;
-  }
   // @@protoc_insertion_point(copy_constructor:tpm_manager.OwnershipTakenSignal)
 }
 
 inline void OwnershipTakenSignal::SharedCtor() {
-local_data_ = nullptr;
 }
 
 OwnershipTakenSignal::~OwnershipTakenSignal() {
@@ -2132,7 +2115,6 @@ OwnershipTakenSignal::~OwnershipTakenSignal() {
 
 inline void OwnershipTakenSignal::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete local_data_;
 }
 
 void OwnershipTakenSignal::SetCachedSize(int size) const {
@@ -2145,34 +2127,14 @@ void OwnershipTakenSignal::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(local_data_ != nullptr);
-    local_data_->Clear();
-  }
-  _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* OwnershipTakenSignal::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional .tpm_manager.LocalData local_data = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_local_data(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
       ctx->SetLastTag(tag);
@@ -2185,7 +2147,6 @@ const char* OwnershipTakenSignal::_InternalParse(const char* ptr, ::_pbi::ParseC
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2198,14 +2159,6 @@ uint8_t* OwnershipTakenSignal::_InternalSerialize(
   // @@protoc_insertion_point(serialize_to_array_start:tpm_manager.OwnershipTakenSignal)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
-
-  cached_has_bits = _has_bits_[0];
-  // optional .tpm_manager.LocalData local_data = 1;
-  if (cached_has_bits & 0x00000001u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::local_data(this),
-        _Internal::local_data(this).GetCachedSize(), target, stream);
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
@@ -2222,14 +2175,6 @@ size_t OwnershipTakenSignal::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // optional .tpm_manager.LocalData local_data = 1;
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *local_data_);
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -2251,9 +2196,6 @@ void OwnershipTakenSignal::MergeFrom(const OwnershipTakenSignal& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_local_data()) {
-    _internal_mutable_local_data()->::tpm_manager::LocalData::MergeFrom(from._internal_local_data());
-  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -2271,8 +2213,6 @@ bool OwnershipTakenSignal::IsInitialized() const {
 void OwnershipTakenSignal::InternalSwap(OwnershipTakenSignal* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(local_data_, other->local_data_);
 }
 
 std::string OwnershipTakenSignal::GetTypeName() const {

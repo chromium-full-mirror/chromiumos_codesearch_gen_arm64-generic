@@ -1011,6 +1011,15 @@ int64_t CellularConnectionAttempt::Getsubscription_error_seenForTest() const {
   return GetIntMetricForTest(ksubscription_error_seenNameHash);
 }
 
+CellularConnectionAttempt& CellularConnectionAttempt::Setconnection_apn_types(const int64_t value) {
+  AddIntMetric(kconnection_apn_typesNameHash, value);
+  return *this;
+}
+
+int64_t CellularConnectionAttempt::Getconnection_apn_typesForTest() const {
+  return GetIntMetricForTest(kconnection_apn_typesNameHash);
+}
+
 ModemFwdFwInstallResult::ModemFwdFwInstallResult() :
   ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
 ModemFwdFwInstallResult::~ModemFwdFwInstallResult() = default;
