@@ -83,6 +83,7 @@ namespace AttributionReportingSourceRegistrationResultEnum {
  extern const char DestinationReportingLimitReached[];
  extern const char DestinationGlobalLimitReached[];
  extern const char DestinationBothLimitsReached[];
+ extern const char ReportingOriginsPerSiteLimitReached[];
 } // namespace AttributionReportingSourceRegistrationResultEnum
 
 // ------------- Type and builder declarations.

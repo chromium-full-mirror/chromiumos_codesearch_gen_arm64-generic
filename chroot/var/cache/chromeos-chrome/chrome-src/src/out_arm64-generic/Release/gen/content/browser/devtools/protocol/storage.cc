@@ -316,6 +316,7 @@ const char SuccessNoised[] = "successNoised";
 const char DestinationReportingLimitReached[] = "destinationReportingLimitReached";
 const char DestinationGlobalLimitReached[] = "destinationGlobalLimitReached";
 const char DestinationBothLimitsReached[] = "destinationBothLimitsReached";
+const char ReportingOriginsPerSiteLimitReached[] = "reportingOriginsPerSiteLimitReached";
 } // namespace AttributionReportingSourceRegistrationResultEnum
 
 
