@@ -4,12 +4,10 @@
 
 #include "diagnostics/cros_healthd/fetchers/graphics_fetcher.h"
 
-#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include <base/functional/bind.h>
 #include <base/memory/ptr_util.h>
 #include <base/strings/string_split.h>
 
@@ -19,20 +17,6 @@
 namespace diagnostics {
 
 namespace mojom = ::ash::cros_healthd::mojom;
-
-mojom::GraphicsResultPtr GraphicsFetcher::FetchGraphicsInfo(
-    std::unique_ptr<EglManager> egl_manager) {
-  auto graphics_info = mojom::GraphicsInfo::New();
-
-  auto& gles_info = graphics_info->gles_info;
-  auto& egl_info = graphics_info->egl_info;
-  auto error = FetchGraphicsInfo(std::move(egl_manager), &gles_info, &egl_info);
-  if (error.has_value()) {
-    return mojom::GraphicsResult::NewError(std::move(error.value()));
-  }
-
-  return mojom::GraphicsResult::NewGraphicsInfo(std::move(graphics_info));
-}
 
 std::unique_ptr<EglManager> EglManager::Create() {
   auto egl_manager = base::WrapUnique(new EglManager());
@@ -98,39 +82,30 @@ mojom::GLESInfoPtr EglManager::FetchGLESInfo() {
 
 mojom::EGLInfoPtr EglManager::FetchEGLInfo() {
   auto egl_info = mojom::EGLInfo::New();
-  egl_info->version =
-      reinterpret_cast<const char*>(eglQueryString(egl_display_, EGL_VERSION));
-  egl_info->vendor =
-      reinterpret_cast<const char*>(eglQueryString(egl_display_, EGL_VENDOR));
-  egl_info->client_api = reinterpret_cast<const char*>(
-      eglQueryString(egl_display_, EGL_CLIENT_APIS));
-  std::string egl_extensions(reinterpret_cast<const char*>(
-      eglQueryString(egl_display_, EGL_EXTENSIONS)));
-  egl_info->extensions = base::SplitString(
-      egl_extensions, " ", base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
-
+  egl_info->version = eglQueryString(egl_display_, EGL_VERSION);
+  egl_info->vendor = eglQueryString(egl_display_, EGL_VENDOR);
+  egl_info->client_api = eglQueryString(egl_display_, EGL_CLIENT_APIS);
+  egl_info->extensions =
+      base::SplitString(eglQueryString(egl_display_, EGL_EXTENSIONS), " ",
+                        base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
   return egl_info;
 }
 
-std::optional<mojom::ProbeErrorPtr> GraphicsFetcher::FetchGraphicsInfo(
-    std::unique_ptr<EglManager> egl_manager,
-    mojom::GLESInfoPtr* out_gles_info,
-    mojom::EGLInfoPtr* out_egl_info) {
+mojom::GraphicsResultPtr FetchGraphicsInfo(
+    std::unique_ptr<EglManager> egl_manager) {
   if (!egl_manager) {
     egl_manager = EglManager::Create();
   }
   if (!egl_manager) {
-    return CreateAndLogProbeError(mojom::ErrorType::kSystemUtilityError,
-                                  "Failed to initialze EglManager.");
+    return mojom::GraphicsResult::NewError(
+        CreateAndLogProbeError(mojom::ErrorType::kSystemUtilityError,
+                               "Failed to initialze EglManager."));
   }
 
-  auto gles_info = egl_manager->FetchGLESInfo();
-  *out_gles_info = std::move(gles_info);
-
-  auto egl_info = egl_manager->FetchEGLInfo();
-  *out_egl_info = std::move(egl_info);
-
-  return std::nullopt;
+  auto graphics_info = mojom::GraphicsInfo::New();
+  graphics_info->gles_info = egl_manager->FetchGLESInfo();
+  graphics_info->egl_info = egl_manager->FetchEGLInfo();
+  return mojom::GraphicsResult::NewGraphicsInfo(std::move(graphics_info));
 }
 
 }  // namespace diagnostics
