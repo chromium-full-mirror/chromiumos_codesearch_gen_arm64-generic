@@ -73,13 +73,15 @@ namespace api {
 namespace software {
 
 enum Feature_Scope : int {
-  Feature_Scope_SCOPE_DEVICES_0 = 0,
-  Feature_Scope_SCOPE_DEVICES_1 = 1,
+  Feature_Scope_SCOPE_UNSPECIFIED = 0,
+  Feature_Scope_SCOPE_DEVICES_VALID_OFFSET = 1,
+  Feature_Scope_SCOPE_DEVICES_0 = 1,
+  Feature_Scope_SCOPE_DEVICES_1 = 2,
   Feature_Scope_Feature_Scope_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   Feature_Scope_Feature_Scope_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool Feature_Scope_IsValid(int value);
-constexpr Feature_Scope Feature_Scope_Scope_MIN = Feature_Scope_SCOPE_DEVICES_0;
+constexpr Feature_Scope Feature_Scope_Scope_MIN = Feature_Scope_SCOPE_UNSPECIFIED;
 constexpr Feature_Scope Feature_Scope_Scope_MAX = Feature_Scope_SCOPE_DEVICES_1;
 constexpr int Feature_Scope_Scope_ARRAYSIZE = Feature_Scope_Scope_MAX + 1;
 
@@ -98,14 +100,15 @@ inline bool Feature_Scope_Parse(
     Feature_Scope_descriptor(), name, value);
 }
 enum Feature_Usage : int {
-  Feature_Usage_USAGE_LOCAL = 0,
-  Feature_Usage_USAGE_CHROME = 1,
-  Feature_Usage_USAGE_ANDROID = 2,
+  Feature_Usage_USAGE_UNSPECIFIED = 0,
+  Feature_Usage_USAGE_LOCAL = 1,
+  Feature_Usage_USAGE_CHROME = 2,
+  Feature_Usage_USAGE_ANDROID = 3,
   Feature_Usage_Feature_Usage_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   Feature_Usage_Feature_Usage_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool Feature_Usage_IsValid(int value);
-constexpr Feature_Usage Feature_Usage_Usage_MIN = Feature_Usage_USAGE_LOCAL;
+constexpr Feature_Usage Feature_Usage_Usage_MIN = Feature_Usage_USAGE_UNSPECIFIED;
 constexpr Feature_Usage Feature_Usage_Usage_MAX = Feature_Usage_USAGE_ANDROID;
 constexpr int Feature_Usage_Usage_ARRAYSIZE = Feature_Usage_Usage_MAX + 1;
 
@@ -399,6 +402,10 @@ class Feature final :
   typedef Feature_Contact Contact;
 
   typedef Feature_Scope Scope;
+  static constexpr Scope SCOPE_UNSPECIFIED =
+    Feature_Scope_SCOPE_UNSPECIFIED;
+  static constexpr Scope SCOPE_DEVICES_VALID_OFFSET =
+    Feature_Scope_SCOPE_DEVICES_VALID_OFFSET;
   static constexpr Scope SCOPE_DEVICES_0 =
     Feature_Scope_SCOPE_DEVICES_0;
   static constexpr Scope SCOPE_DEVICES_1 =
@@ -429,6 +436,8 @@ class Feature final :
   }
 
   typedef Feature_Usage Usage;
+  static constexpr Usage USAGE_UNSPECIFIED =
+    Feature_Usage_USAGE_UNSPECIFIED;
   static constexpr Usage USAGE_LOCAL =
     Feature_Usage_USAGE_LOCAL;
   static constexpr Usage USAGE_CHROME =

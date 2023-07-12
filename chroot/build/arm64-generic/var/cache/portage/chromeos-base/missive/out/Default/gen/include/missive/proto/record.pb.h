@@ -63,6 +63,9 @@ extern SequenceInformationDefaultTypeInternal _SequenceInformation_default_insta
 class SignedEncryptionInfo;
 struct SignedEncryptionInfoDefaultTypeInternal;
 extern SignedEncryptionInfoDefaultTypeInternal _SignedEncryptionInfo_default_instance_;
+class SourceInfo;
+struct SourceInfoDefaultTypeInternal;
+extern SourceInfoDefaultTypeInternal _SourceInfo_default_instance_;
 class WrappedRecord;
 struct WrappedRecordDefaultTypeInternal;
 extern WrappedRecordDefaultTypeInternal _WrappedRecord_default_instance_;
@@ -74,10 +77,31 @@ template<> ::reporting::EncryptionInfo* Arena::CreateMaybeMessage<::reporting::E
 template<> ::reporting::Record* Arena::CreateMaybeMessage<::reporting::Record>(Arena*);
 template<> ::reporting::SequenceInformation* Arena::CreateMaybeMessage<::reporting::SequenceInformation>(Arena*);
 template<> ::reporting::SignedEncryptionInfo* Arena::CreateMaybeMessage<::reporting::SignedEncryptionInfo>(Arena*);
+template<> ::reporting::SourceInfo* Arena::CreateMaybeMessage<::reporting::SourceInfo>(Arena*);
 template<> ::reporting::WrappedRecord* Arena::CreateMaybeMessage<::reporting::WrappedRecord>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace reporting {
 
+enum SourceInfo_Source : int {
+  SourceInfo_Source_SOURCE_UNSPECIFIED = 0,
+  SourceInfo_Source_ASH = 1,
+  SourceInfo_Source_LACROS = 2
+};
+bool SourceInfo_Source_IsValid(int value);
+constexpr SourceInfo_Source SourceInfo_Source_Source_MIN = SourceInfo_Source_SOURCE_UNSPECIFIED;
+constexpr SourceInfo_Source SourceInfo_Source_Source_MAX = SourceInfo_Source_LACROS;
+constexpr int SourceInfo_Source_Source_ARRAYSIZE = SourceInfo_Source_Source_MAX + 1;
+
+const std::string& SourceInfo_Source_Name(SourceInfo_Source value);
+template<typename T>
+inline const std::string& SourceInfo_Source_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SourceInfo_Source>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SourceInfo_Source_Name.");
+  return SourceInfo_Source_Name(static_cast<SourceInfo_Source>(enum_t_value));
+}
+bool SourceInfo_Source_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SourceInfo_Source* value);
 enum CompressionInformation_CompressionAlgorithm : int {
   CompressionInformation_CompressionAlgorithm_COMPRESSION_NONE = 0,
   CompressionInformation_CompressionAlgorithm_COMPRESSION_SNAPPY = 1
@@ -211,6 +235,7 @@ class Record final :
   enum : int {
     kDataFieldNumber = 1,
     kDmTokenFieldNumber = 3,
+    kSourceInfoFieldNumber = 7,
     kTimestampUsFieldNumber = 4,
     kDestinationFieldNumber = 2,
     kNeedsLocalUnencryptedCopyFieldNumber = 6,
@@ -251,6 +276,24 @@ class Record final :
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_dm_token(const std::string& value);
   std::string* _internal_mutable_dm_token();
   public:
+
+  // optional .reporting.SourceInfo source_info = 7;
+  bool has_source_info() const;
+  private:
+  bool _internal_has_source_info() const;
+  public:
+  void clear_source_info();
+  const ::reporting::SourceInfo& source_info() const;
+  PROTOBUF_NODISCARD ::reporting::SourceInfo* release_source_info();
+  ::reporting::SourceInfo* mutable_source_info();
+  void set_allocated_source_info(::reporting::SourceInfo* source_info);
+  private:
+  const ::reporting::SourceInfo& _internal_source_info() const;
+  ::reporting::SourceInfo* _internal_mutable_source_info();
+  public:
+  void unsafe_arena_set_allocated_source_info(
+      ::reporting::SourceInfo* source_info);
+  ::reporting::SourceInfo* unsafe_arena_release_source_info();
 
   // optional int64 timestamp_us = 4;
   bool has_timestamp_us() const;
@@ -316,10 +359,201 @@ class Record final :
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dm_token_;
+    ::reporting::SourceInfo* source_info_;
     int64_t timestamp_us_;
     int destination_;
     bool needs_local_unencrypted_copy_;
     int64_t reserved_space_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_record_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SourceInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.SourceInfo) */ {
+ public:
+  inline SourceInfo() : SourceInfo(nullptr) {}
+  ~SourceInfo() override;
+  explicit PROTOBUF_CONSTEXPR SourceInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SourceInfo(const SourceInfo& from);
+  SourceInfo(SourceInfo&& from) noexcept
+    : SourceInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline SourceInfo& operator=(const SourceInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SourceInfo& operator=(SourceInfo&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const SourceInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SourceInfo* internal_default_instance() {
+    return reinterpret_cast<const SourceInfo*>(
+               &_SourceInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(SourceInfo& a, SourceInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SourceInfo* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SourceInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SourceInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SourceInfo>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SourceInfo& from);
+  void MergeFrom(const SourceInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SourceInfo* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "reporting.SourceInfo";
+  }
+  protected:
+  explicit SourceInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef SourceInfo_Source Source;
+  static constexpr Source SOURCE_UNSPECIFIED =
+    SourceInfo_Source_SOURCE_UNSPECIFIED;
+  static constexpr Source ASH =
+    SourceInfo_Source_ASH;
+  static constexpr Source LACROS =
+    SourceInfo_Source_LACROS;
+  static inline bool Source_IsValid(int value) {
+    return SourceInfo_Source_IsValid(value);
+  }
+  static constexpr Source Source_MIN =
+    SourceInfo_Source_Source_MIN;
+  static constexpr Source Source_MAX =
+    SourceInfo_Source_Source_MAX;
+  static constexpr int Source_ARRAYSIZE =
+    SourceInfo_Source_Source_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& Source_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, Source>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function Source_Name.");
+    return SourceInfo_Source_Name(enum_t_value);
+  }
+  static inline bool Source_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      Source* value) {
+    return SourceInfo_Source_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSourceVersionFieldNumber = 2,
+    kSourceFieldNumber = 1,
+  };
+  // optional string source_version = 2;
+  bool has_source_version() const;
+  private:
+  bool _internal_has_source_version() const;
+  public:
+  void clear_source_version();
+  const std::string& source_version() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_source_version(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_source_version();
+  PROTOBUF_NODISCARD std::string* release_source_version();
+  void set_allocated_source_version(std::string* source_version);
+  private:
+  const std::string& _internal_source_version() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_source_version(const std::string& value);
+  std::string* _internal_mutable_source_version();
+  public:
+
+  // optional .reporting.SourceInfo.Source source = 1;
+  bool has_source() const;
+  private:
+  bool _internal_has_source() const;
+  public:
+  void clear_source();
+  ::reporting::SourceInfo_Source source() const;
+  void set_source(::reporting::SourceInfo_Source value);
+  private:
+  ::reporting::SourceInfo_Source _internal_source() const;
+  void _internal_set_source(::reporting::SourceInfo_Source value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:reporting.SourceInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr source_version_;
+    int source_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_record_2eproto;
@@ -372,7 +606,7 @@ class WrappedRecord final :
                &_WrappedRecord_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(WrappedRecord& a, WrappedRecord& b) {
     a.Swap(&b);
@@ -559,7 +793,7 @@ class EncryptionInfo final :
                &_EncryptionInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(EncryptionInfo& a, EncryptionInfo& b) {
     a.Swap(&b);
@@ -721,7 +955,7 @@ class SequenceInformation final :
                &_SequenceInformation_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(SequenceInformation& a, SequenceInformation& b) {
     a.Swap(&b);
@@ -913,7 +1147,7 @@ class EncryptedRecord final :
                &_EncryptedRecord_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(EncryptedRecord& a, EncryptedRecord& b) {
     a.Swap(&b);
@@ -1180,7 +1414,7 @@ class CompressionInformation final :
                &_CompressionInformation_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(CompressionInformation& a, CompressionInformation& b) {
     a.Swap(&b);
@@ -1348,7 +1582,7 @@ class SignedEncryptionInfo final :
                &_SignedEncryptionInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(SignedEncryptionInfo& a, SignedEncryptionInfo& b) {
     a.Swap(&b);
@@ -1563,7 +1797,7 @@ inline void Record::set_allocated_data(std::string* data) {
 
 // optional .reporting.Destination destination = 2;
 inline bool Record::_internal_has_destination() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool Record::has_destination() const {
@@ -1571,7 +1805,7 @@ inline bool Record::has_destination() const {
 }
 inline void Record::clear_destination() {
   _impl_.destination_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000008u;
+  _impl_._has_bits_[0] &= ~0x00000010u;
 }
 inline ::reporting::Destination Record::_internal_destination() const {
   return static_cast< ::reporting::Destination >(_impl_.destination_);
@@ -1582,7 +1816,7 @@ inline ::reporting::Destination Record::destination() const {
 }
 inline void Record::_internal_set_destination(::reporting::Destination value) {
   assert(::reporting::Destination_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_._has_bits_[0] |= 0x00000010u;
   _impl_.destination_ = value;
 }
 inline void Record::set_destination(::reporting::Destination value) {
@@ -1660,7 +1894,7 @@ inline void Record::set_allocated_dm_token(std::string* dm_token) {
 
 // optional int64 timestamp_us = 4;
 inline bool Record::_internal_has_timestamp_us() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool Record::has_timestamp_us() const {
@@ -1668,7 +1902,7 @@ inline bool Record::has_timestamp_us() const {
 }
 inline void Record::clear_timestamp_us() {
   _impl_.timestamp_us_ = int64_t{0};
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 inline int64_t Record::_internal_timestamp_us() const {
   return _impl_.timestamp_us_;
@@ -1678,7 +1912,7 @@ inline int64_t Record::timestamp_us() const {
   return _internal_timestamp_us();
 }
 inline void Record::_internal_set_timestamp_us(int64_t value) {
-  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x00000008u;
   _impl_.timestamp_us_ = value;
 }
 inline void Record::set_timestamp_us(int64_t value) {
@@ -1688,7 +1922,7 @@ inline void Record::set_timestamp_us(int64_t value) {
 
 // optional int64 reserved_space = 5;
 inline bool Record::_internal_has_reserved_space() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
 inline bool Record::has_reserved_space() const {
@@ -1696,7 +1930,7 @@ inline bool Record::has_reserved_space() const {
 }
 inline void Record::clear_reserved_space() {
   _impl_.reserved_space_ = int64_t{0};
-  _impl_._has_bits_[0] &= ~0x00000020u;
+  _impl_._has_bits_[0] &= ~0x00000040u;
 }
 inline int64_t Record::_internal_reserved_space() const {
   return _impl_.reserved_space_;
@@ -1706,7 +1940,7 @@ inline int64_t Record::reserved_space() const {
   return _internal_reserved_space();
 }
 inline void Record::_internal_set_reserved_space(int64_t value) {
-  _impl_._has_bits_[0] |= 0x00000020u;
+  _impl_._has_bits_[0] |= 0x00000040u;
   _impl_.reserved_space_ = value;
 }
 inline void Record::set_reserved_space(int64_t value) {
@@ -1716,7 +1950,7 @@ inline void Record::set_reserved_space(int64_t value) {
 
 // optional bool needs_local_unencrypted_copy = 6;
 inline bool Record::_internal_has_needs_local_unencrypted_copy() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool Record::has_needs_local_unencrypted_copy() const {
@@ -1724,7 +1958,7 @@ inline bool Record::has_needs_local_unencrypted_copy() const {
 }
 inline void Record::clear_needs_local_unencrypted_copy() {
   _impl_.needs_local_unencrypted_copy_ = false;
-  _impl_._has_bits_[0] &= ~0x00000010u;
+  _impl_._has_bits_[0] &= ~0x00000020u;
 }
 inline bool Record::_internal_needs_local_unencrypted_copy() const {
   return _impl_.needs_local_unencrypted_copy_;
@@ -1734,12 +1968,203 @@ inline bool Record::needs_local_unencrypted_copy() const {
   return _internal_needs_local_unencrypted_copy();
 }
 inline void Record::_internal_set_needs_local_unencrypted_copy(bool value) {
-  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_._has_bits_[0] |= 0x00000020u;
   _impl_.needs_local_unencrypted_copy_ = value;
 }
 inline void Record::set_needs_local_unencrypted_copy(bool value) {
   _internal_set_needs_local_unencrypted_copy(value);
   // @@protoc_insertion_point(field_set:reporting.Record.needs_local_unencrypted_copy)
+}
+
+// optional .reporting.SourceInfo source_info = 7;
+inline bool Record::_internal_has_source_info() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.source_info_ != nullptr);
+  return value;
+}
+inline bool Record::has_source_info() const {
+  return _internal_has_source_info();
+}
+inline void Record::clear_source_info() {
+  if (_impl_.source_info_ != nullptr) _impl_.source_info_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline const ::reporting::SourceInfo& Record::_internal_source_info() const {
+  const ::reporting::SourceInfo* p = _impl_.source_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::reporting::SourceInfo&>(
+      ::reporting::_SourceInfo_default_instance_);
+}
+inline const ::reporting::SourceInfo& Record::source_info() const {
+  // @@protoc_insertion_point(field_get:reporting.Record.source_info)
+  return _internal_source_info();
+}
+inline void Record::unsafe_arena_set_allocated_source_info(
+    ::reporting::SourceInfo* source_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.source_info_);
+  }
+  _impl_.source_info_ = source_info;
+  if (source_info) {
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.Record.source_info)
+}
+inline ::reporting::SourceInfo* Record::release_source_info() {
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  ::reporting::SourceInfo* temp = _impl_.source_info_;
+  _impl_.source_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::reporting::SourceInfo* Record::unsafe_arena_release_source_info() {
+  // @@protoc_insertion_point(field_release:reporting.Record.source_info)
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  ::reporting::SourceInfo* temp = _impl_.source_info_;
+  _impl_.source_info_ = nullptr;
+  return temp;
+}
+inline ::reporting::SourceInfo* Record::_internal_mutable_source_info() {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  if (_impl_.source_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::reporting::SourceInfo>(GetArenaForAllocation());
+    _impl_.source_info_ = p;
+  }
+  return _impl_.source_info_;
+}
+inline ::reporting::SourceInfo* Record::mutable_source_info() {
+  ::reporting::SourceInfo* _msg = _internal_mutable_source_info();
+  // @@protoc_insertion_point(field_mutable:reporting.Record.source_info)
+  return _msg;
+}
+inline void Record::set_allocated_source_info(::reporting::SourceInfo* source_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.source_info_;
+  }
+  if (source_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(source_info);
+    if (message_arena != submessage_arena) {
+      source_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, source_info, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+  _impl_.source_info_ = source_info;
+  // @@protoc_insertion_point(field_set_allocated:reporting.Record.source_info)
+}
+
+// -------------------------------------------------------------------
+
+// SourceInfo
+
+// optional .reporting.SourceInfo.Source source = 1;
+inline bool SourceInfo::_internal_has_source() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool SourceInfo::has_source() const {
+  return _internal_has_source();
+}
+inline void SourceInfo::clear_source() {
+  _impl_.source_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline ::reporting::SourceInfo_Source SourceInfo::_internal_source() const {
+  return static_cast< ::reporting::SourceInfo_Source >(_impl_.source_);
+}
+inline ::reporting::SourceInfo_Source SourceInfo::source() const {
+  // @@protoc_insertion_point(field_get:reporting.SourceInfo.source)
+  return _internal_source();
+}
+inline void SourceInfo::_internal_set_source(::reporting::SourceInfo_Source value) {
+  assert(::reporting::SourceInfo_Source_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.source_ = value;
+}
+inline void SourceInfo::set_source(::reporting::SourceInfo_Source value) {
+  _internal_set_source(value);
+  // @@protoc_insertion_point(field_set:reporting.SourceInfo.source)
+}
+
+// optional string source_version = 2;
+inline bool SourceInfo::_internal_has_source_version() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool SourceInfo::has_source_version() const {
+  return _internal_has_source_version();
+}
+inline void SourceInfo::clear_source_version() {
+  _impl_.source_version_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& SourceInfo::source_version() const {
+  // @@protoc_insertion_point(field_get:reporting.SourceInfo.source_version)
+  return _internal_source_version();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SourceInfo::set_source_version(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000001u;
+ _impl_.source_version_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:reporting.SourceInfo.source_version)
+}
+inline std::string* SourceInfo::mutable_source_version() {
+  std::string* _s = _internal_mutable_source_version();
+  // @@protoc_insertion_point(field_mutable:reporting.SourceInfo.source_version)
+  return _s;
+}
+inline const std::string& SourceInfo::_internal_source_version() const {
+  return _impl_.source_version_.Get();
+}
+inline void SourceInfo::_internal_set_source_version(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.source_version_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SourceInfo::_internal_mutable_source_version() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.source_version_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SourceInfo::release_source_version() {
+  // @@protoc_insertion_point(field_release:reporting.SourceInfo.source_version)
+  if (!_internal_has_source_version()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* p = _impl_.source_version_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.source_version_.IsDefault()) {
+    _impl_.source_version_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void SourceInfo::set_allocated_source_version(std::string* source_version) {
+  if (source_version != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.source_version_.SetAllocated(source_version, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.source_version_.IsDefault()) {
+    _impl_.source_version_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:reporting.SourceInfo.source_version)
 }
 
 // -------------------------------------------------------------------
@@ -3054,6 +3479,8 @@ inline void SignedEncryptionInfo::set_allocated_signature(std::string* signature
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -3061,6 +3488,7 @@ inline void SignedEncryptionInfo::set_allocated_signature(std::string* signature
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::reporting::SourceInfo_Source> : ::std::true_type {};
 template <> struct is_proto_enum< ::reporting::CompressionInformation_CompressionAlgorithm> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE

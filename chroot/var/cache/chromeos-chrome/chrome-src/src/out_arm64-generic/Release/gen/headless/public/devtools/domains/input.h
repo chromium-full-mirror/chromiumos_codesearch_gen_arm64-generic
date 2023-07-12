@@ -65,6 +65,11 @@ class HEADLESS_EXPORT Domain {
   void DispatchTouchEvent(::headless::input::DispatchTouchEventType type, std::vector<std::unique_ptr<::headless::input::TouchPoint>> touch_points, base::OnceClosure callback = base::OnceClosure());
   void DispatchTouchEvent(std::unique_ptr<DispatchTouchEventParams> params, base::OnceClosure callback);
 
+  // Cancels any active dragging in the page.
+  void CancelDragging(std::unique_ptr<CancelDraggingParams> params, base::OnceCallback<void(std::unique_ptr<CancelDraggingResult>)> callback = base::OnceCallback<void(std::unique_ptr<CancelDraggingResult>)>());
+  void CancelDragging(base::OnceClosure callback = base::OnceClosure());
+  void CancelDragging(std::unique_ptr<CancelDraggingParams> params, base::OnceClosure callback);
+
   // Ignores input events (useful while auditing page).
   void SetIgnoreInputEvents(std::unique_ptr<SetIgnoreInputEventsParams> params, base::OnceCallback<void(std::unique_ptr<SetIgnoreInputEventsResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetIgnoreInputEventsResult>)>());
   void SetIgnoreInputEvents(bool ignore, base::OnceClosure callback = base::OnceClosure());
@@ -80,6 +85,7 @@ class HEADLESS_EXPORT Domain {
   static void HandleImeSetCompositionResponse(base::OnceCallback<void(std::unique_ptr<ImeSetCompositionResult>)> callback, const base::Value& response);
   static void HandleDispatchMouseEventResponse(base::OnceCallback<void(std::unique_ptr<DispatchMouseEventResult>)> callback, const base::Value& response);
   static void HandleDispatchTouchEventResponse(base::OnceCallback<void(std::unique_ptr<DispatchTouchEventResult>)> callback, const base::Value& response);
+  static void HandleCancelDraggingResponse(base::OnceCallback<void(std::unique_ptr<CancelDraggingResult>)> callback, const base::Value& response);
   static void HandleEmulateTouchFromMouseEventResponse(base::OnceCallback<void(std::unique_ptr<EmulateTouchFromMouseEventResult>)> callback, const base::Value& response);
   static void HandleSetIgnoreInputEventsResponse(base::OnceCallback<void(std::unique_ptr<SetIgnoreInputEventsResult>)> callback, const base::Value& response);
   static void HandleSetInterceptDragsResponse(base::OnceCallback<void(std::unique_ptr<SetInterceptDragsResult>)> callback, const base::Value& response);

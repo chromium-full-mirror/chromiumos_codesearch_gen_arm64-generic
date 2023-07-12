@@ -110,37 +110,40 @@ inline const std::string& PrintscanDebugSetCategoriesRequest_DebugLogCategory_Na
 }
 bool PrintscanDebugSetCategoriesRequest_DebugLogCategory_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PrintscanDebugSetCategoriesRequest_DebugLogCategory* value);
-enum CupsResult : int {
-  CUPS_RESULT_UNSPECIFIED = 0,
-  CUPS_RESULT_SUCCESS = 1,
-  CUPS_RESULT_FATAL = 2,
-  CUPS_RESULT_INVALID_PPD = 3,
-  CUPS_RESULT_LPADMIN_FAILURE = 4,
-  CUPS_RESULT_AUTOCONF_FAILURE = 5,
-  CUPS_RESULT_BAD_URI = 6,
-  CUPS_RESULT_IO_ERROR = 7,
-  CUPS_RESULT_MEMORY_ALLOC_ERROR = 8,
-  CUPS_RESULT_PRINTER_UNREACHABLE = 9,
-  CUPS_RESULT_PRINTER_WRONG_RESPONSE = 10,
-  CUPS_RESULT_PRINTER_NOT_AUTOCONF = 11,
-  CupsResult_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
-  CupsResult_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+enum AddPrinterResult : int {
+  ADD_PRINTER_RESULT_UNSPECIFIED = 0,
+  ADD_PRINTER_RESULT_SUCCESS = 1,
+  ADD_PRINTER_RESULT_CUPS_FATAL = 2,
+  ADD_PRINTER_RESULT_CUPS_INVALID_PPD = 3,
+  ADD_PRINTER_RESULT_CUPS_LPADMIN_FAILURE = 4,
+  ADD_PRINTER_RESULT_CUPS_AUTOCONF_FAILURE = 5,
+  ADD_PRINTER_RESULT_CUPS_BAD_URI = 6,
+  ADD_PRINTER_RESULT_CUPS_IO_ERROR = 7,
+  ADD_PRINTER_RESULT_CUPS_MEMORY_ALLOC_ERROR = 8,
+  ADD_PRINTER_RESULT_CUPS_PRINTER_UNREACHABLE = 9,
+  ADD_PRINTER_RESULT_CUPS_PRINTER_WRONG_RESPONSE = 10,
+  ADD_PRINTER_RESULT_CUPS_PRINTER_NOT_AUTOCONF = 11,
+  ADD_PRINTER_RESULT_DBUS_GENERIC = 12,
+  ADD_PRINTER_RESULT_DBUS_NO_REPLY = 13,
+  ADD_PRINTER_RESULT_DBUS_TIMEOUT = 14,
+  AddPrinterResult_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  AddPrinterResult_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
-bool CupsResult_IsValid(int value);
-constexpr CupsResult CupsResult_MIN = CUPS_RESULT_UNSPECIFIED;
-constexpr CupsResult CupsResult_MAX = CUPS_RESULT_PRINTER_NOT_AUTOCONF;
-constexpr int CupsResult_ARRAYSIZE = CupsResult_MAX + 1;
+bool AddPrinterResult_IsValid(int value);
+constexpr AddPrinterResult AddPrinterResult_MIN = ADD_PRINTER_RESULT_UNSPECIFIED;
+constexpr AddPrinterResult AddPrinterResult_MAX = ADD_PRINTER_RESULT_DBUS_TIMEOUT;
+constexpr int AddPrinterResult_ARRAYSIZE = AddPrinterResult_MAX + 1;
 
-const std::string& CupsResult_Name(CupsResult value);
+const std::string& AddPrinterResult_Name(AddPrinterResult value);
 template<typename T>
-inline const std::string& CupsResult_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, CupsResult>::value ||
+inline const std::string& AddPrinterResult_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, AddPrinterResult>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function CupsResult_Name.");
-  return CupsResult_Name(static_cast<CupsResult>(enum_t_value));
+    "Incorrect type passed to function AddPrinterResult_Name.");
+  return AddPrinterResult_Name(static_cast<AddPrinterResult>(enum_t_value));
 }
-bool CupsResult_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CupsResult* value);
+bool AddPrinterResult_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AddPrinterResult* value);
 // ===================================================================
 
 class CupsAddAutoConfiguredPrinterRequest final :
@@ -397,15 +400,15 @@ class CupsAddAutoConfiguredPrinterResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kResultFieldNumber = 1,
+    kResultFieldNumber = 2,
   };
-  // .printscanmgr.CupsResult result = 1;
+  // .printscanmgr.AddPrinterResult result = 2;
   void clear_result();
-  ::printscanmgr::CupsResult result() const;
-  void set_result(::printscanmgr::CupsResult value);
+  ::printscanmgr::AddPrinterResult result() const;
+  void set_result(::printscanmgr::AddPrinterResult value);
   private:
-  ::printscanmgr::CupsResult _internal_result() const;
-  void _internal_set_result(::printscanmgr::CupsResult value);
+  ::printscanmgr::AddPrinterResult _internal_result() const;
+  void _internal_set_result(::printscanmgr::AddPrinterResult value);
   public:
 
   // @@protoc_insertion_point(class_scope:printscanmgr.CupsAddAutoConfiguredPrinterResponse)
@@ -694,15 +697,15 @@ class CupsAddManuallyConfiguredPrinterResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kResultFieldNumber = 1,
+    kResultFieldNumber = 2,
   };
-  // .printscanmgr.CupsResult result = 1;
+  // .printscanmgr.AddPrinterResult result = 2;
   void clear_result();
-  ::printscanmgr::CupsResult result() const;
-  void set_result(::printscanmgr::CupsResult value);
+  ::printscanmgr::AddPrinterResult result() const;
+  void set_result(::printscanmgr::AddPrinterResult value);
   private:
-  ::printscanmgr::CupsResult _internal_result() const;
-  void _internal_set_result(::printscanmgr::CupsResult value);
+  ::printscanmgr::AddPrinterResult _internal_result() const;
+  void _internal_set_result(::printscanmgr::AddPrinterResult value);
   public:
 
   // @@protoc_insertion_point(class_scope:printscanmgr.CupsAddManuallyConfiguredPrinterResponse)
@@ -1677,22 +1680,22 @@ inline void CupsAddAutoConfiguredPrinterRequest::set_allocated_uri(std::string* 
 
 // CupsAddAutoConfiguredPrinterResponse
 
-// .printscanmgr.CupsResult result = 1;
+// .printscanmgr.AddPrinterResult result = 2;
 inline void CupsAddAutoConfiguredPrinterResponse::clear_result() {
   _impl_.result_ = 0;
 }
-inline ::printscanmgr::CupsResult CupsAddAutoConfiguredPrinterResponse::_internal_result() const {
-  return static_cast< ::printscanmgr::CupsResult >(_impl_.result_);
+inline ::printscanmgr::AddPrinterResult CupsAddAutoConfiguredPrinterResponse::_internal_result() const {
+  return static_cast< ::printscanmgr::AddPrinterResult >(_impl_.result_);
 }
-inline ::printscanmgr::CupsResult CupsAddAutoConfiguredPrinterResponse::result() const {
+inline ::printscanmgr::AddPrinterResult CupsAddAutoConfiguredPrinterResponse::result() const {
   // @@protoc_insertion_point(field_get:printscanmgr.CupsAddAutoConfiguredPrinterResponse.result)
   return _internal_result();
 }
-inline void CupsAddAutoConfiguredPrinterResponse::_internal_set_result(::printscanmgr::CupsResult value) {
+inline void CupsAddAutoConfiguredPrinterResponse::_internal_set_result(::printscanmgr::AddPrinterResult value) {
   
   _impl_.result_ = value;
 }
-inline void CupsAddAutoConfiguredPrinterResponse::set_result(::printscanmgr::CupsResult value) {
+inline void CupsAddAutoConfiguredPrinterResponse::set_result(::printscanmgr::AddPrinterResult value) {
   _internal_set_result(value);
   // @@protoc_insertion_point(field_set:printscanmgr.CupsAddAutoConfiguredPrinterResponse.result)
 }
@@ -1855,22 +1858,22 @@ inline void CupsAddManuallyConfiguredPrinterRequest::set_allocated_ppd_contents(
 
 // CupsAddManuallyConfiguredPrinterResponse
 
-// .printscanmgr.CupsResult result = 1;
+// .printscanmgr.AddPrinterResult result = 2;
 inline void CupsAddManuallyConfiguredPrinterResponse::clear_result() {
   _impl_.result_ = 0;
 }
-inline ::printscanmgr::CupsResult CupsAddManuallyConfiguredPrinterResponse::_internal_result() const {
-  return static_cast< ::printscanmgr::CupsResult >(_impl_.result_);
+inline ::printscanmgr::AddPrinterResult CupsAddManuallyConfiguredPrinterResponse::_internal_result() const {
+  return static_cast< ::printscanmgr::AddPrinterResult >(_impl_.result_);
 }
-inline ::printscanmgr::CupsResult CupsAddManuallyConfiguredPrinterResponse::result() const {
+inline ::printscanmgr::AddPrinterResult CupsAddManuallyConfiguredPrinterResponse::result() const {
   // @@protoc_insertion_point(field_get:printscanmgr.CupsAddManuallyConfiguredPrinterResponse.result)
   return _internal_result();
 }
-inline void CupsAddManuallyConfiguredPrinterResponse::_internal_set_result(::printscanmgr::CupsResult value) {
+inline void CupsAddManuallyConfiguredPrinterResponse::_internal_set_result(::printscanmgr::AddPrinterResult value) {
   
   _impl_.result_ = value;
 }
-inline void CupsAddManuallyConfiguredPrinterResponse::set_result(::printscanmgr::CupsResult value) {
+inline void CupsAddManuallyConfiguredPrinterResponse::set_result(::printscanmgr::AddPrinterResult value) {
   _internal_set_result(value);
   // @@protoc_insertion_point(field_set:printscanmgr.CupsAddManuallyConfiguredPrinterResponse.result)
 }
@@ -2181,7 +2184,7 @@ inline void PrintscanDebugSetCategoriesResponse::set_result(bool value) {
 PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::printscanmgr::PrintscanDebugSetCategoriesRequest_DebugLogCategory> : ::std::true_type {};
-template <> struct is_proto_enum< ::printscanmgr::CupsResult> : ::std::true_type {};
+template <> struct is_proto_enum< ::printscanmgr::AddPrinterResult> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

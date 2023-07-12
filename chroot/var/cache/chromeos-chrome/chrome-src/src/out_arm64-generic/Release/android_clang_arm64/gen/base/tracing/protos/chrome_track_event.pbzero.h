@@ -2258,6 +2258,316 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
+class MacAUHALStream_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/14, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  MacAUHALStream_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit MacAUHALStream_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit MacAUHALStream_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_input_buffer_size() const { return at<1>().valid(); }
+  int32_t input_buffer_size() const { return at<1>().as_int32(); }
+  bool has_output_buffer_size() const { return at<2>().valid(); }
+  uint32_t output_buffer_size() const { return at<2>().as_uint32(); }
+  bool has_sample_rate() const { return at<3>().valid(); }
+  int32_t sample_rate() const { return at<3>().as_int32(); }
+  bool has_os_request_playout_timeticks_us() const { return at<4>().valid(); }
+  int64_t os_request_playout_timeticks_us() const { return at<4>().as_int64(); }
+  bool has_source_request_frames() const { return at<5>().valid(); }
+  int32_t source_request_frames() const { return at<5>().as_int32(); }
+  bool has_source_request_playout_delay_us() const { return at<6>().valid(); }
+  int64_t source_request_playout_delay_us() const { return at<6>().as_int64(); }
+  bool has_source_request_playout_timeticks_us() const { return at<7>().valid(); }
+  int64_t source_request_playout_timeticks_us() const { return at<7>().as_int64(); }
+  bool has_source_request_current_timeticks_us() const { return at<8>().valid(); }
+  int64_t source_request_current_timeticks_us() const { return at<8>().as_int64(); }
+  bool has_hardware_latency_us() const { return at<9>().valid(); }
+  int64_t hardware_latency_us() const { return at<9>().as_int64(); }
+  bool has_audiotimestamp_host_time_valid() const { return at<10>().valid(); }
+  bool audiotimestamp_host_time_valid() const { return at<10>().as_bool(); }
+  bool has_audiotimestamp_mach_timeticks_us() const { return at<11>().valid(); }
+  int64_t audiotimestamp_mach_timeticks_us() const { return at<11>().as_int64(); }
+  bool has_audiotimestamp_sample_time_frames() const { return at<12>().valid(); }
+  double audiotimestamp_sample_time_frames() const { return at<12>().as_double(); }
+  bool has_audiotimestamp_last_sample_time_frames() const { return at<13>().valid(); }
+  double audiotimestamp_last_sample_time_frames() const { return at<13>().as_double(); }
+  bool has_lost_audio_duration_us() const { return at<14>().valid(); }
+  int64_t lost_audio_duration_us() const { return at<14>().as_int64(); }
+};
+
+class MacAUHALStream : public ::protozero::Message {
+ public:
+  using Decoder = MacAUHALStream_Decoder;
+  enum : int32_t {
+    kInputBufferSizeFieldNumber = 1,
+    kOutputBufferSizeFieldNumber = 2,
+    kSampleRateFieldNumber = 3,
+    kOsRequestPlayoutTimeticksUsFieldNumber = 4,
+    kSourceRequestFramesFieldNumber = 5,
+    kSourceRequestPlayoutDelayUsFieldNumber = 6,
+    kSourceRequestPlayoutTimeticksUsFieldNumber = 7,
+    kSourceRequestCurrentTimeticksUsFieldNumber = 8,
+    kHardwareLatencyUsFieldNumber = 9,
+    kAudiotimestampHostTimeValidFieldNumber = 10,
+    kAudiotimestampMachTimeticksUsFieldNumber = 11,
+    kAudiotimestampSampleTimeFramesFieldNumber = 12,
+    kAudiotimestampLastSampleTimeFramesFieldNumber = 13,
+    kLostAudioDurationUsFieldNumber = 14,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.MacAUHALStream"; }
+
+
+  using FieldMetadata_InputBufferSize =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_InputBufferSize kInputBufferSize{};
+  void set_input_buffer_size(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_InputBufferSize::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_OutputBufferSize =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_OutputBufferSize kOutputBufferSize{};
+  void set_output_buffer_size(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_OutputBufferSize::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SampleRate =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_SampleRate kSampleRate{};
+  void set_sample_rate(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SampleRate::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_OsRequestPlayoutTimeticksUs =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_OsRequestPlayoutTimeticksUs kOsRequestPlayoutTimeticksUs{};
+  void set_os_request_playout_timeticks_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_OsRequestPlayoutTimeticksUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SourceRequestFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_SourceRequestFrames kSourceRequestFrames{};
+  void set_source_request_frames(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceRequestFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SourceRequestPlayoutDelayUs =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_SourceRequestPlayoutDelayUs kSourceRequestPlayoutDelayUs{};
+  void set_source_request_playout_delay_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceRequestPlayoutDelayUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SourceRequestPlayoutTimeticksUs =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_SourceRequestPlayoutTimeticksUs kSourceRequestPlayoutTimeticksUs{};
+  void set_source_request_playout_timeticks_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceRequestPlayoutTimeticksUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SourceRequestCurrentTimeticksUs =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_SourceRequestCurrentTimeticksUs kSourceRequestCurrentTimeticksUs{};
+  void set_source_request_current_timeticks_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceRequestCurrentTimeticksUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_HardwareLatencyUs =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_HardwareLatencyUs kHardwareLatencyUs{};
+  void set_hardware_latency_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_HardwareLatencyUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_AudiotimestampHostTimeValid =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_AudiotimestampHostTimeValid kAudiotimestampHostTimeValid{};
+  void set_audiotimestamp_host_time_valid(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_AudiotimestampHostTimeValid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_AudiotimestampMachTimeticksUs =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_AudiotimestampMachTimeticksUs kAudiotimestampMachTimeticksUs{};
+  void set_audiotimestamp_mach_timeticks_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_AudiotimestampMachTimeticksUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_AudiotimestampSampleTimeFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      12,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kDouble,
+      double,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_AudiotimestampSampleTimeFrames kAudiotimestampSampleTimeFrames{};
+  void set_audiotimestamp_sample_time_frames(double value) {
+    static constexpr uint32_t field_id = FieldMetadata_AudiotimestampSampleTimeFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kDouble>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_AudiotimestampLastSampleTimeFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      13,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kDouble,
+      double,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_AudiotimestampLastSampleTimeFrames kAudiotimestampLastSampleTimeFrames{};
+  void set_audiotimestamp_last_sample_time_frames(double value) {
+    static constexpr uint32_t field_id = FieldMetadata_AudiotimestampLastSampleTimeFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kDouble>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LostAudioDurationUs =
+    ::protozero::proto_utils::FieldMetadata<
+      14,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      MacAUHALStream>;
+
+  static constexpr FieldMetadata_LostAudioDurationUs kLostAudioDurationUs{};
+  void set_lost_audio_duration_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LostAudioDurationUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+};
+
 class WinRenderAudioFromSource_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/11, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   WinRenderAudioFromSource_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
@@ -9396,6 +9706,20 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_WinRenderAudioFromSource kWinRenderAudioFromSource{};
   template <typename T = WinRenderAudioFromSource> T* set_win_render_audio_from_source() {
     return BeginNestedMessage<T>(1048);
+  }
+
+
+  using FieldMetadata_MacAuhalStream =
+    ::protozero::proto_utils::FieldMetadata<
+      1049,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      MacAUHALStream,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_MacAuhalStream kMacAuhalStream{};
+  template <typename T = MacAUHALStream> T* set_mac_auhal_stream() {
+    return BeginNestedMessage<T>(1049);
   }
 
 };

@@ -218,7 +218,7 @@ constexpr PrintscanDebugSetCategoriesRequest_DebugLogCategory PrintscanDebugSetC
 constexpr PrintscanDebugSetCategoriesRequest_DebugLogCategory PrintscanDebugSetCategoriesRequest::DebugLogCategory_MAX;
 constexpr int PrintscanDebugSetCategoriesRequest::DebugLogCategory_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-bool CupsResult_IsValid(int value) {
+bool AddPrinterResult_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
@@ -232,80 +232,92 @@ bool CupsResult_IsValid(int value) {
     case 9:
     case 10:
     case 11:
+    case 12:
+    case 13:
+    case 14:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CupsResult_strings[12] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AddPrinterResult_strings[15] = {};
 
-static const char CupsResult_names[] =
-  "CUPS_RESULT_AUTOCONF_FAILURE"
-  "CUPS_RESULT_BAD_URI"
-  "CUPS_RESULT_FATAL"
-  "CUPS_RESULT_INVALID_PPD"
-  "CUPS_RESULT_IO_ERROR"
-  "CUPS_RESULT_LPADMIN_FAILURE"
-  "CUPS_RESULT_MEMORY_ALLOC_ERROR"
-  "CUPS_RESULT_PRINTER_NOT_AUTOCONF"
-  "CUPS_RESULT_PRINTER_UNREACHABLE"
-  "CUPS_RESULT_PRINTER_WRONG_RESPONSE"
-  "CUPS_RESULT_SUCCESS"
-  "CUPS_RESULT_UNSPECIFIED";
+static const char AddPrinterResult_names[] =
+  "ADD_PRINTER_RESULT_CUPS_AUTOCONF_FAILURE"
+  "ADD_PRINTER_RESULT_CUPS_BAD_URI"
+  "ADD_PRINTER_RESULT_CUPS_FATAL"
+  "ADD_PRINTER_RESULT_CUPS_INVALID_PPD"
+  "ADD_PRINTER_RESULT_CUPS_IO_ERROR"
+  "ADD_PRINTER_RESULT_CUPS_LPADMIN_FAILURE"
+  "ADD_PRINTER_RESULT_CUPS_MEMORY_ALLOC_ERROR"
+  "ADD_PRINTER_RESULT_CUPS_PRINTER_NOT_AUTOCONF"
+  "ADD_PRINTER_RESULT_CUPS_PRINTER_UNREACHABLE"
+  "ADD_PRINTER_RESULT_CUPS_PRINTER_WRONG_RESPONSE"
+  "ADD_PRINTER_RESULT_DBUS_GENERIC"
+  "ADD_PRINTER_RESULT_DBUS_NO_REPLY"
+  "ADD_PRINTER_RESULT_DBUS_TIMEOUT"
+  "ADD_PRINTER_RESULT_SUCCESS"
+  "ADD_PRINTER_RESULT_UNSPECIFIED";
 
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CupsResult_entries[] = {
-  { {CupsResult_names + 0, 28}, 5 },
-  { {CupsResult_names + 28, 19}, 6 },
-  { {CupsResult_names + 47, 17}, 2 },
-  { {CupsResult_names + 64, 23}, 3 },
-  { {CupsResult_names + 87, 20}, 7 },
-  { {CupsResult_names + 107, 27}, 4 },
-  { {CupsResult_names + 134, 30}, 8 },
-  { {CupsResult_names + 164, 32}, 11 },
-  { {CupsResult_names + 196, 31}, 9 },
-  { {CupsResult_names + 227, 34}, 10 },
-  { {CupsResult_names + 261, 19}, 1 },
-  { {CupsResult_names + 280, 23}, 0 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AddPrinterResult_entries[] = {
+  { {AddPrinterResult_names + 0, 40}, 5 },
+  { {AddPrinterResult_names + 40, 31}, 6 },
+  { {AddPrinterResult_names + 71, 29}, 2 },
+  { {AddPrinterResult_names + 100, 35}, 3 },
+  { {AddPrinterResult_names + 135, 32}, 7 },
+  { {AddPrinterResult_names + 167, 39}, 4 },
+  { {AddPrinterResult_names + 206, 42}, 8 },
+  { {AddPrinterResult_names + 248, 44}, 11 },
+  { {AddPrinterResult_names + 292, 43}, 9 },
+  { {AddPrinterResult_names + 335, 46}, 10 },
+  { {AddPrinterResult_names + 381, 31}, 12 },
+  { {AddPrinterResult_names + 412, 32}, 13 },
+  { {AddPrinterResult_names + 444, 31}, 14 },
+  { {AddPrinterResult_names + 475, 26}, 1 },
+  { {AddPrinterResult_names + 501, 30}, 0 },
 };
 
-static const int CupsResult_entries_by_number[] = {
-  11, // 0 -> CUPS_RESULT_UNSPECIFIED
-  10, // 1 -> CUPS_RESULT_SUCCESS
-  2, // 2 -> CUPS_RESULT_FATAL
-  3, // 3 -> CUPS_RESULT_INVALID_PPD
-  5, // 4 -> CUPS_RESULT_LPADMIN_FAILURE
-  0, // 5 -> CUPS_RESULT_AUTOCONF_FAILURE
-  1, // 6 -> CUPS_RESULT_BAD_URI
-  4, // 7 -> CUPS_RESULT_IO_ERROR
-  6, // 8 -> CUPS_RESULT_MEMORY_ALLOC_ERROR
-  8, // 9 -> CUPS_RESULT_PRINTER_UNREACHABLE
-  9, // 10 -> CUPS_RESULT_PRINTER_WRONG_RESPONSE
-  7, // 11 -> CUPS_RESULT_PRINTER_NOT_AUTOCONF
+static const int AddPrinterResult_entries_by_number[] = {
+  14, // 0 -> ADD_PRINTER_RESULT_UNSPECIFIED
+  13, // 1 -> ADD_PRINTER_RESULT_SUCCESS
+  2, // 2 -> ADD_PRINTER_RESULT_CUPS_FATAL
+  3, // 3 -> ADD_PRINTER_RESULT_CUPS_INVALID_PPD
+  5, // 4 -> ADD_PRINTER_RESULT_CUPS_LPADMIN_FAILURE
+  0, // 5 -> ADD_PRINTER_RESULT_CUPS_AUTOCONF_FAILURE
+  1, // 6 -> ADD_PRINTER_RESULT_CUPS_BAD_URI
+  4, // 7 -> ADD_PRINTER_RESULT_CUPS_IO_ERROR
+  6, // 8 -> ADD_PRINTER_RESULT_CUPS_MEMORY_ALLOC_ERROR
+  8, // 9 -> ADD_PRINTER_RESULT_CUPS_PRINTER_UNREACHABLE
+  9, // 10 -> ADD_PRINTER_RESULT_CUPS_PRINTER_WRONG_RESPONSE
+  7, // 11 -> ADD_PRINTER_RESULT_CUPS_PRINTER_NOT_AUTOCONF
+  10, // 12 -> ADD_PRINTER_RESULT_DBUS_GENERIC
+  11, // 13 -> ADD_PRINTER_RESULT_DBUS_NO_REPLY
+  12, // 14 -> ADD_PRINTER_RESULT_DBUS_TIMEOUT
 };
 
-const std::string& CupsResult_Name(
-    CupsResult value) {
+const std::string& AddPrinterResult_Name(
+    AddPrinterResult value) {
   static const bool dummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          CupsResult_entries,
-          CupsResult_entries_by_number,
-          12, CupsResult_strings);
+          AddPrinterResult_entries,
+          AddPrinterResult_entries_by_number,
+          15, AddPrinterResult_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      CupsResult_entries,
-      CupsResult_entries_by_number,
-      12, value);
+      AddPrinterResult_entries,
+      AddPrinterResult_entries_by_number,
+      15, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     CupsResult_strings[idx].get();
+                     AddPrinterResult_strings[idx].get();
 }
-bool CupsResult_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CupsResult* value) {
+bool AddPrinterResult_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AddPrinterResult* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CupsResult_entries, 12, name, &int_value);
+      AddPrinterResult_entries, 15, name, &int_value);
   if (success) {
-    *value = static_cast<CupsResult>(int_value);
+    *value = static_cast<AddPrinterResult>(int_value);
   }
   return success;
 }
@@ -632,12 +644,12 @@ const char* CupsAddAutoConfiguredPrinterResponse::_InternalParse(const char* ptr
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .printscanmgr.CupsResult result = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+      // .printscanmgr.AddPrinterResult result = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          _internal_set_result(static_cast<::printscanmgr::CupsResult>(val));
+          _internal_set_result(static_cast<::printscanmgr::AddPrinterResult>(val));
         } else
           goto handle_unusual;
         continue;
@@ -670,11 +682,11 @@ uint8_t* CupsAddAutoConfiguredPrinterResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .printscanmgr.CupsResult result = 1;
+  // .printscanmgr.AddPrinterResult result = 2;
   if (this->_internal_result() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_result(), target);
+      2, this->_internal_result(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -693,7 +705,7 @@ size_t CupsAddAutoConfiguredPrinterResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .printscanmgr.CupsResult result = 1;
+  // .printscanmgr.AddPrinterResult result = 2;
   if (this->_internal_result() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_result());
@@ -1115,12 +1127,12 @@ const char* CupsAddManuallyConfiguredPrinterResponse::_InternalParse(const char*
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .printscanmgr.CupsResult result = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+      // .printscanmgr.AddPrinterResult result = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          _internal_set_result(static_cast<::printscanmgr::CupsResult>(val));
+          _internal_set_result(static_cast<::printscanmgr::AddPrinterResult>(val));
         } else
           goto handle_unusual;
         continue;
@@ -1153,11 +1165,11 @@ uint8_t* CupsAddManuallyConfiguredPrinterResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .printscanmgr.CupsResult result = 1;
+  // .printscanmgr.AddPrinterResult result = 2;
   if (this->_internal_result() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_result(), target);
+      2, this->_internal_result(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1176,7 +1188,7 @@ size_t CupsAddManuallyConfiguredPrinterResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .printscanmgr.CupsResult result = 1;
+  // .printscanmgr.AddPrinterResult result = 2;
   if (this->_internal_result() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_result());
