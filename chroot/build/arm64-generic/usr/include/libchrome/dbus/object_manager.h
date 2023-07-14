@@ -334,7 +334,7 @@ class CHROME_DBUS_EXPORT ObjectManager
   std::string service_name_owner_;
   std::string match_rule_;
   ObjectPath object_path_;
-  raw_ptr<ObjectProxy, DanglingUntriaged> object_proxy_;
+  raw_ptr<ObjectProxy, DanglingAcrossTasks> object_proxy_;
   bool setup_success_;
   bool cleanup_called_;
 
@@ -350,7 +350,7 @@ class CHROME_DBUS_EXPORT ObjectManager
     Object();
     ~Object();
 
-    raw_ptr<ObjectProxy, DanglingUntriaged> object_proxy;
+    raw_ptr<ObjectProxy, DanglingAcrossTasks> object_proxy;
 
     // Maps the name of an interface to the specific PropertySet structure
     // of that interface's properties.

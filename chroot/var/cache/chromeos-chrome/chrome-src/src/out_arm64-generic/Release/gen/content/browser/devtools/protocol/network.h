@@ -297,6 +297,7 @@ namespace ContentEncodingEnum {
 CONTENT_EXPORT extern const char Deflate[];
 CONTENT_EXPORT extern const char Gzip[];
 CONTENT_EXPORT extern const char Br[];
+CONTENT_EXPORT extern const char Zstd[];
 } // namespace ContentEncodingEnum
 
 namespace PrivateNetworkRequestPolicyEnum {
@@ -4169,7 +4170,7 @@ class CONTENT_EXPORT Frontend {
 public:
   explicit Frontend(FrontendChannel* frontend_channel) : frontend_channel_(frontend_channel) {}
     void LoadingFailed(const String& requestId, double timestamp, const String& type, const String& errorText, Maybe<bool> canceled = Maybe<bool>(), Maybe<String> blockedReason = Maybe<String>(), Maybe<protocol::Network::CorsErrorStatus> corsErrorStatus = Maybe<protocol::Network::CorsErrorStatus>());
-    void LoadingFinished(const String& requestId, double timestamp, double encodedDataLength, Maybe<bool> shouldReportCorbBlocking = Maybe<bool>());
+    void LoadingFinished(const String& requestId, double timestamp, double encodedDataLength);
     void RequestIntercepted(const String& interceptionId, std::unique_ptr<protocol::Network::Request> request, const String& frameId, const String& resourceType, bool isNavigationRequest, Maybe<bool> isDownload = Maybe<bool>(), Maybe<String> redirectUrl = Maybe<String>(), Maybe<protocol::Network::AuthChallenge> authChallenge = Maybe<protocol::Network::AuthChallenge>(), Maybe<String> responseErrorReason = Maybe<String>(), Maybe<int> responseStatusCode = Maybe<int>(), Maybe<protocol::Network::Headers> responseHeaders = Maybe<protocol::Network::Headers>(), Maybe<String> requestId = Maybe<String>());
     void RequestWillBeSent(const String& requestId, const String& loaderId, const String& documentURL, std::unique_ptr<protocol::Network::Request> request, double timestamp, double wallTime, std::unique_ptr<protocol::Network::Initiator> initiator, bool redirectHasExtraInfo, Maybe<protocol::Network::Response> redirectResponse = Maybe<protocol::Network::Response>(), Maybe<String> type = Maybe<String>(), Maybe<String> frameId = Maybe<String>(), Maybe<bool> hasUserGesture = Maybe<bool>());
     void SignedExchangeReceived(const String& requestId, std::unique_ptr<protocol::Network::SignedExchangeInfo> info);

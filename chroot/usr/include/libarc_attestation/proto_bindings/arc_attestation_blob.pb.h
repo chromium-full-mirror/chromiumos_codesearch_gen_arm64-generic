@@ -184,9 +184,10 @@ class CrOSVersionAttestationBlob final :
   enum : int {
     kTpmCertifyingKeyCertFieldNumber = 2,
     kKernelCmdlineQuoteFieldNumber = 3,
-    kKernelCmdlineContentFieldNumber = 4,
-    kLsbReleaseContentFieldNumber = 5,
-    kKernelAntirollbackQuoteFieldNumber = 6,
+    kKernelCmdlineQuoteSignatureFieldNumber = 4,
+    kKernelCmdlineContentFieldNumber = 5,
+    kLsbReleaseContentFieldNumber = 6,
+    kKernelAntirollbackQuoteFieldNumber = 7,
     kVersionFieldNumber = 1,
   };
   // bytes tpm_certifying_key_cert = 2;
@@ -217,7 +218,21 @@ class CrOSVersionAttestationBlob final :
   std::string* _internal_mutable_kernel_cmdline_quote();
   public:
 
-  // bytes kernel_cmdline_content = 4;
+  // bytes kernel_cmdline_quote_signature = 4;
+  void clear_kernel_cmdline_quote_signature();
+  const std::string& kernel_cmdline_quote_signature() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_kernel_cmdline_quote_signature(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_kernel_cmdline_quote_signature();
+  PROTOBUF_NODISCARD std::string* release_kernel_cmdline_quote_signature();
+  void set_allocated_kernel_cmdline_quote_signature(std::string* kernel_cmdline_quote_signature);
+  private:
+  const std::string& _internal_kernel_cmdline_quote_signature() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_kernel_cmdline_quote_signature(const std::string& value);
+  std::string* _internal_mutable_kernel_cmdline_quote_signature();
+  public:
+
+  // bytes kernel_cmdline_content = 5;
   void clear_kernel_cmdline_content();
   const std::string& kernel_cmdline_content() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -231,7 +246,7 @@ class CrOSVersionAttestationBlob final :
   std::string* _internal_mutable_kernel_cmdline_content();
   public:
 
-  // bytes lsb_release_content = 5;
+  // bytes lsb_release_content = 6;
   void clear_lsb_release_content();
   const std::string& lsb_release_content() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -245,7 +260,7 @@ class CrOSVersionAttestationBlob final :
   std::string* _internal_mutable_lsb_release_content();
   public:
 
-  // bytes kernel_antirollback_quote = 6;
+  // bytes kernel_antirollback_quote = 7;
   void clear_kernel_antirollback_quote();
   const std::string& kernel_antirollback_quote() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -278,6 +293,7 @@ class CrOSVersionAttestationBlob final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tpm_certifying_key_cert_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr kernel_cmdline_quote_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr kernel_cmdline_quote_signature_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr kernel_cmdline_content_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr lsb_release_content_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr kernel_antirollback_quote_;
@@ -557,7 +573,57 @@ inline void CrOSVersionAttestationBlob::set_allocated_kernel_cmdline_quote(std::
   // @@protoc_insertion_point(field_set_allocated:arc_attestation.CrOSVersionAttestationBlob.kernel_cmdline_quote)
 }
 
-// bytes kernel_cmdline_content = 4;
+// bytes kernel_cmdline_quote_signature = 4;
+inline void CrOSVersionAttestationBlob::clear_kernel_cmdline_quote_signature() {
+  _impl_.kernel_cmdline_quote_signature_.ClearToEmpty();
+}
+inline const std::string& CrOSVersionAttestationBlob::kernel_cmdline_quote_signature() const {
+  // @@protoc_insertion_point(field_get:arc_attestation.CrOSVersionAttestationBlob.kernel_cmdline_quote_signature)
+  return _internal_kernel_cmdline_quote_signature();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CrOSVersionAttestationBlob::set_kernel_cmdline_quote_signature(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.kernel_cmdline_quote_signature_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:arc_attestation.CrOSVersionAttestationBlob.kernel_cmdline_quote_signature)
+}
+inline std::string* CrOSVersionAttestationBlob::mutable_kernel_cmdline_quote_signature() {
+  std::string* _s = _internal_mutable_kernel_cmdline_quote_signature();
+  // @@protoc_insertion_point(field_mutable:arc_attestation.CrOSVersionAttestationBlob.kernel_cmdline_quote_signature)
+  return _s;
+}
+inline const std::string& CrOSVersionAttestationBlob::_internal_kernel_cmdline_quote_signature() const {
+  return _impl_.kernel_cmdline_quote_signature_.Get();
+}
+inline void CrOSVersionAttestationBlob::_internal_set_kernel_cmdline_quote_signature(const std::string& value) {
+  
+  _impl_.kernel_cmdline_quote_signature_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CrOSVersionAttestationBlob::_internal_mutable_kernel_cmdline_quote_signature() {
+  
+  return _impl_.kernel_cmdline_quote_signature_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CrOSVersionAttestationBlob::release_kernel_cmdline_quote_signature() {
+  // @@protoc_insertion_point(field_release:arc_attestation.CrOSVersionAttestationBlob.kernel_cmdline_quote_signature)
+  return _impl_.kernel_cmdline_quote_signature_.Release();
+}
+inline void CrOSVersionAttestationBlob::set_allocated_kernel_cmdline_quote_signature(std::string* kernel_cmdline_quote_signature) {
+  if (kernel_cmdline_quote_signature != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.kernel_cmdline_quote_signature_.SetAllocated(kernel_cmdline_quote_signature, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.kernel_cmdline_quote_signature_.IsDefault()) {
+    _impl_.kernel_cmdline_quote_signature_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:arc_attestation.CrOSVersionAttestationBlob.kernel_cmdline_quote_signature)
+}
+
+// bytes kernel_cmdline_content = 5;
 inline void CrOSVersionAttestationBlob::clear_kernel_cmdline_content() {
   _impl_.kernel_cmdline_content_.ClearToEmpty();
 }
@@ -607,7 +673,7 @@ inline void CrOSVersionAttestationBlob::set_allocated_kernel_cmdline_content(std
   // @@protoc_insertion_point(field_set_allocated:arc_attestation.CrOSVersionAttestationBlob.kernel_cmdline_content)
 }
 
-// bytes lsb_release_content = 5;
+// bytes lsb_release_content = 6;
 inline void CrOSVersionAttestationBlob::clear_lsb_release_content() {
   _impl_.lsb_release_content_.ClearToEmpty();
 }
@@ -657,7 +723,7 @@ inline void CrOSVersionAttestationBlob::set_allocated_lsb_release_content(std::s
   // @@protoc_insertion_point(field_set_allocated:arc_attestation.CrOSVersionAttestationBlob.lsb_release_content)
 }
 
-// bytes kernel_antirollback_quote = 6;
+// bytes kernel_antirollback_quote = 7;
 inline void CrOSVersionAttestationBlob::clear_kernel_antirollback_quote() {
   _impl_.kernel_antirollback_quote_.ClearToEmpty();
 }

@@ -1380,6 +1380,8 @@ class PowerManagementPolicy final :
     kAdaptiveChargingMaxDelayPercentileFieldNumber = 30,
     kAdaptiveChargingHoldPercentFieldNumber = 28,
     kHibernateDelaySecFieldNumber = 32,
+    kAdaptiveChargingMinFullOnAcRatioFieldNumber = 34,
+    kAdaptiveChargingMinDaysHistoryFieldNumber = 33,
   };
   // repeated .power_manager.PowerManagementPolicy.PeakShiftDayConfig peak_shift_day_configs = 20;
   int peak_shift_day_configs_size() const;
@@ -1814,6 +1816,32 @@ class PowerManagementPolicy final :
   void _internal_set_hibernate_delay_sec(uint32_t value);
   public:
 
+  // optional double adaptive_charging_min_full_on_ac_ratio = 34;
+  bool has_adaptive_charging_min_full_on_ac_ratio() const;
+  private:
+  bool _internal_has_adaptive_charging_min_full_on_ac_ratio() const;
+  public:
+  void clear_adaptive_charging_min_full_on_ac_ratio();
+  double adaptive_charging_min_full_on_ac_ratio() const;
+  void set_adaptive_charging_min_full_on_ac_ratio(double value);
+  private:
+  double _internal_adaptive_charging_min_full_on_ac_ratio() const;
+  void _internal_set_adaptive_charging_min_full_on_ac_ratio(double value);
+  public:
+
+  // optional int32 adaptive_charging_min_days_history = 33;
+  bool has_adaptive_charging_min_days_history() const;
+  private:
+  bool _internal_has_adaptive_charging_min_days_history() const;
+  public:
+  void clear_adaptive_charging_min_days_history();
+  int32_t adaptive_charging_min_days_history() const;
+  void set_adaptive_charging_min_days_history(int32_t value);
+  private:
+  int32_t _internal_adaptive_charging_min_days_history() const;
+  void _internal_set_adaptive_charging_min_days_history(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:power_manager.PowerManagementPolicy)
  private:
   class _Internal;
@@ -1855,6 +1883,8 @@ class PowerManagementPolicy final :
     double adaptive_charging_max_delay_percentile_;
     int32_t adaptive_charging_hold_percent_;
     uint32_t hibernate_delay_sec_;
+    double adaptive_charging_min_full_on_ac_ratio_;
+    int32_t adaptive_charging_min_days_history_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_policy_2eproto;
@@ -3997,6 +4027,62 @@ inline void PowerManagementPolicy::_internal_set_hibernate_delay_sec(uint32_t va
 inline void PowerManagementPolicy::set_hibernate_delay_sec(uint32_t value) {
   _internal_set_hibernate_delay_sec(value);
   // @@protoc_insertion_point(field_set:power_manager.PowerManagementPolicy.hibernate_delay_sec)
+}
+
+// optional int32 adaptive_charging_min_days_history = 33;
+inline bool PowerManagementPolicy::_internal_has_adaptive_charging_min_days_history() const {
+  bool value = (_impl_._has_bits_[0] & 0x40000000u) != 0;
+  return value;
+}
+inline bool PowerManagementPolicy::has_adaptive_charging_min_days_history() const {
+  return _internal_has_adaptive_charging_min_days_history();
+}
+inline void PowerManagementPolicy::clear_adaptive_charging_min_days_history() {
+  _impl_.adaptive_charging_min_days_history_ = 0;
+  _impl_._has_bits_[0] &= ~0x40000000u;
+}
+inline int32_t PowerManagementPolicy::_internal_adaptive_charging_min_days_history() const {
+  return _impl_.adaptive_charging_min_days_history_;
+}
+inline int32_t PowerManagementPolicy::adaptive_charging_min_days_history() const {
+  // @@protoc_insertion_point(field_get:power_manager.PowerManagementPolicy.adaptive_charging_min_days_history)
+  return _internal_adaptive_charging_min_days_history();
+}
+inline void PowerManagementPolicy::_internal_set_adaptive_charging_min_days_history(int32_t value) {
+  _impl_._has_bits_[0] |= 0x40000000u;
+  _impl_.adaptive_charging_min_days_history_ = value;
+}
+inline void PowerManagementPolicy::set_adaptive_charging_min_days_history(int32_t value) {
+  _internal_set_adaptive_charging_min_days_history(value);
+  // @@protoc_insertion_point(field_set:power_manager.PowerManagementPolicy.adaptive_charging_min_days_history)
+}
+
+// optional double adaptive_charging_min_full_on_ac_ratio = 34;
+inline bool PowerManagementPolicy::_internal_has_adaptive_charging_min_full_on_ac_ratio() const {
+  bool value = (_impl_._has_bits_[0] & 0x20000000u) != 0;
+  return value;
+}
+inline bool PowerManagementPolicy::has_adaptive_charging_min_full_on_ac_ratio() const {
+  return _internal_has_adaptive_charging_min_full_on_ac_ratio();
+}
+inline void PowerManagementPolicy::clear_adaptive_charging_min_full_on_ac_ratio() {
+  _impl_.adaptive_charging_min_full_on_ac_ratio_ = 0;
+  _impl_._has_bits_[0] &= ~0x20000000u;
+}
+inline double PowerManagementPolicy::_internal_adaptive_charging_min_full_on_ac_ratio() const {
+  return _impl_.adaptive_charging_min_full_on_ac_ratio_;
+}
+inline double PowerManagementPolicy::adaptive_charging_min_full_on_ac_ratio() const {
+  // @@protoc_insertion_point(field_get:power_manager.PowerManagementPolicy.adaptive_charging_min_full_on_ac_ratio)
+  return _internal_adaptive_charging_min_full_on_ac_ratio();
+}
+inline void PowerManagementPolicy::_internal_set_adaptive_charging_min_full_on_ac_ratio(double value) {
+  _impl_._has_bits_[0] |= 0x20000000u;
+  _impl_.adaptive_charging_min_full_on_ac_ratio_ = value;
+}
+inline void PowerManagementPolicy::set_adaptive_charging_min_full_on_ac_ratio(double value) {
+  _internal_set_adaptive_charging_min_full_on_ac_ratio(value);
+  // @@protoc_insertion_point(field_set:power_manager.PowerManagementPolicy.adaptive_charging_min_full_on_ac_ratio)
 }
 
 // -------------------------------------------------------------------

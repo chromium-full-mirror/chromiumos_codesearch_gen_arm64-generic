@@ -284,6 +284,7 @@ namespace ContentEncodingEnum {
 CORE_EXPORT extern const char Deflate[];
 CORE_EXPORT extern const char Gzip[];
 CORE_EXPORT extern const char Br[];
+CORE_EXPORT extern const char Zstd[];
 } // namespace ContentEncodingEnum
 
 namespace PrivateNetworkRequestPolicyEnum {
@@ -3627,7 +3628,7 @@ public:
     void dataReceived(const String& requestId, double timestamp, int dataLength, int encodedDataLength);
     void eventSourceMessageReceived(const String& requestId, double timestamp, const String& eventName, const String& eventId, const String& data);
     void loadingFailed(const String& requestId, double timestamp, const String& type, const String& errorText, Maybe<bool> canceled = Maybe<bool>(), Maybe<String> blockedReason = Maybe<String>(), Maybe<protocol::Network::CorsErrorStatus> corsErrorStatus = Maybe<protocol::Network::CorsErrorStatus>());
-    void loadingFinished(const String& requestId, double timestamp, double encodedDataLength, Maybe<bool> shouldReportCorbBlocking = Maybe<bool>());
+    void loadingFinished(const String& requestId, double timestamp, double encodedDataLength);
     void requestIntercepted(const String& interceptionId, std::unique_ptr<protocol::Network::Request> request, const String& frameId, const String& resourceType, bool isNavigationRequest, Maybe<bool> isDownload = Maybe<bool>(), Maybe<String> redirectUrl = Maybe<String>(), Maybe<protocol::Network::AuthChallenge> authChallenge = Maybe<protocol::Network::AuthChallenge>(), Maybe<String> responseErrorReason = Maybe<String>(), Maybe<int> responseStatusCode = Maybe<int>(), Maybe<protocol::Network::Headers> responseHeaders = Maybe<protocol::Network::Headers>(), Maybe<String> requestId = Maybe<String>());
     void requestServedFromCache(const String& requestId);
     void requestWillBeSent(const String& requestId, const String& loaderId, const String& documentURL, std::unique_ptr<protocol::Network::Request> request, double timestamp, double wallTime, std::unique_ptr<protocol::Network::Initiator> initiator, bool redirectHasExtraInfo, Maybe<protocol::Network::Response> redirectResponse = Maybe<protocol::Network::Response>(), Maybe<String> type = Maybe<String>(), Maybe<String> frameId = Maybe<String>(), Maybe<bool> hasUserGesture = Maybe<bool>());

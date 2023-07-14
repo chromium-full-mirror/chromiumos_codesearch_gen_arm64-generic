@@ -1746,13 +1746,14 @@ enum BackForwardCacheNotRestoredReason : int32_t {
   FENCED_FRAMES_EMBEDDER = 55,
   COOKIE_DISABLED = 56,
   HTTP_AUTH_REQUIRED = 57,
+  COOKIE_FLUSHED = 58,
 };
 } // namespace perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult
 using BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason = perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult::BackForwardCacheNotRestoredReason;
 
 
 constexpr BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason_MIN = BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason::NOT_MAIN_FRAME;
-constexpr BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason_MAX = BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason::HTTP_AUTH_REQUIRED;
+constexpr BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason_MAX = BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason::COOKIE_FLUSHED;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -1925,6 +1926,9 @@ const char* BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredRe
 
   case ::perfetto::protos::pbzero::BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason::HTTP_AUTH_REQUIRED:
     return "HTTP_AUTH_REQUIRED";
+
+  case ::perfetto::protos::pbzero::BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason::COOKIE_FLUSHED:
+    return "COOKIE_FLUSHED";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -5156,6 +5160,7 @@ class BackForwardCacheCanStoreDocumentResult : public ::protozero::Message {
   static inline const BackForwardCacheNotRestoredReason FENCED_FRAMES_EMBEDDER = BackForwardCacheNotRestoredReason::FENCED_FRAMES_EMBEDDER;
   static inline const BackForwardCacheNotRestoredReason COOKIE_DISABLED = BackForwardCacheNotRestoredReason::COOKIE_DISABLED;
   static inline const BackForwardCacheNotRestoredReason HTTP_AUTH_REQUIRED = BackForwardCacheNotRestoredReason::HTTP_AUTH_REQUIRED;
+  static inline const BackForwardCacheNotRestoredReason COOKIE_FLUSHED = BackForwardCacheNotRestoredReason::COOKIE_FLUSHED;
 
   using FieldMetadata_BackForwardCacheNotRestoredReason =
     ::protozero::proto_utils::FieldMetadata<

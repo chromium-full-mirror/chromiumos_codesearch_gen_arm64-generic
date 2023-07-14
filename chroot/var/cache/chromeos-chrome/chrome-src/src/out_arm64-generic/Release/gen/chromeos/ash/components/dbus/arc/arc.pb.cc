@@ -39,6 +39,7 @@ PROTOBUF_CONSTEXPR StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(
   , host_ureadahead_generation_(false)
   , enable_privacy_hub_for_chrome_(false)
   , arc_switch_to_keymint_(false)
+  , use_dev_caches_(false)
   , lcd_density_(-1)
   , force_max_acquired_buffers_experiment_(-1){}
 struct StartArcMiniInstanceRequestDefaultTypeInternal {
@@ -352,7 +353,7 @@ class StartArcMiniInstanceRequest::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_lcd_density(HasBits* has_bits) {
-    (*has_bits)[0] |= 131072u;
+    (*has_bits)[0] |= 262144u;
   }
   static void set_has_arc_file_picker_experiment(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
@@ -403,7 +404,10 @@ class StartArcMiniInstanceRequest::_Internal {
     (*has_bits)[0] |= 65536u;
   }
   static void set_has_force_max_acquired_buffers_experiment(HasBits* has_bits) {
-    (*has_bits)[0] |= 262144u;
+    (*has_bits)[0] |= 524288u;
+  }
+  static void set_has_use_dev_caches(HasBits* has_bits) {
+    (*has_bits)[0] |= 131072u;
   }
 };
 
@@ -426,8 +430,8 @@ StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(const StartArcMiniInsta
 inline void StartArcMiniInstanceRequest::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&native_bridge_experiment_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&arc_switch_to_keymint_) -
-    reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(arc_switch_to_keymint_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&use_dev_caches_) -
+    reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(use_dev_caches_));
 lcd_density_ = -1;
 force_max_acquired_buffers_experiment_ = -1;
 }
@@ -466,8 +470,10 @@ void StartArcMiniInstanceRequest::Clear() {
         reinterpret_cast<char*>(&enable_privacy_hub_for_chrome_) -
         reinterpret_cast<char*>(&disable_download_provider_)) + sizeof(enable_privacy_hub_for_chrome_));
   }
-  if (cached_has_bits & 0x00070000u) {
-    arc_switch_to_keymint_ = false;
+  if (cached_has_bits & 0x000f0000u) {
+    ::memset(&arc_switch_to_keymint_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&use_dev_caches_) -
+        reinterpret_cast<char*>(&arc_switch_to_keymint_)) + sizeof(use_dev_caches_));
     lcd_density_ = -1;
     force_max_acquired_buffers_experiment_ = -1;
   }
@@ -661,6 +667,15 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::_pbi:
         } else
           goto handle_unusual;
         continue;
+      // optional bool use_dev_caches = 20 [default = false];
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
+          _Internal::set_has_use_dev_caches(&has_bits);
+          use_dev_caches_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -699,7 +714,7 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
   }
 
   // optional int32 lcd_density = 2 [default = -1];
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_lcd_density(), target);
   }
@@ -803,9 +818,15 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
   }
 
   // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
-  if (cached_has_bits & 0x00040000u) {
+  if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(19, this->_internal_force_max_acquired_buffers_experiment(), target);
+  }
+
+  // optional bool use_dev_caches = 20 [default = false];
+  if (cached_has_bits & 0x00020000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(20, this->_internal_use_dev_caches(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -911,19 +932,24 @@ size_t StartArcMiniInstanceRequest::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00070000u) {
+  if (cached_has_bits & 0x000f0000u) {
     // optional bool arc_switch_to_keymint = 18 [default = false];
     if (cached_has_bits & 0x00010000u) {
       total_size += 2 + 1;
     }
 
-    // optional int32 lcd_density = 2 [default = -1];
+    // optional bool use_dev_caches = 20 [default = false];
     if (cached_has_bits & 0x00020000u) {
+      total_size += 2 + 1;
+    }
+
+    // optional int32 lcd_density = 2 [default = -1];
+    if (cached_has_bits & 0x00040000u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_lcd_density());
     }
 
     // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
-    if (cached_has_bits & 0x00040000u) {
+    if (cached_has_bits & 0x00080000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int32Size(
           this->_internal_force_max_acquired_buffers_experiment());
@@ -1005,14 +1031,17 @@ void StartArcMiniInstanceRequest::MergeFrom(const StartArcMiniInstanceRequest& f
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00070000u) {
+  if (cached_has_bits & 0x000f0000u) {
     if (cached_has_bits & 0x00010000u) {
       arc_switch_to_keymint_ = from.arc_switch_to_keymint_;
     }
     if (cached_has_bits & 0x00020000u) {
-      lcd_density_ = from.lcd_density_;
+      use_dev_caches_ = from.use_dev_caches_;
     }
     if (cached_has_bits & 0x00040000u) {
+      lcd_density_ = from.lcd_density_;
+    }
+    if (cached_has_bits & 0x00080000u) {
       force_max_acquired_buffers_experiment_ = from.force_max_acquired_buffers_experiment_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -1036,8 +1065,8 @@ void StartArcMiniInstanceRequest::InternalSwap(StartArcMiniInstanceRequest* othe
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, arc_switch_to_keymint_)
-      + sizeof(StartArcMiniInstanceRequest::arc_switch_to_keymint_)
+      PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, use_dev_caches_)
+      + sizeof(StartArcMiniInstanceRequest::use_dev_caches_)
       - PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, native_bridge_experiment_)>(
           reinterpret_cast<char*>(&native_bridge_experiment_),
           reinterpret_cast<char*>(&other->native_bridge_experiment_));

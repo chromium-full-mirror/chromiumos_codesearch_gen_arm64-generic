@@ -22,6 +22,7 @@ PROTOBUF_CONSTEXPR CrOSVersionAttestationBlob::CrOSVersionAttestationBlob(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.tpm_certifying_key_cert_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.kernel_cmdline_quote_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.kernel_cmdline_quote_signature_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.kernel_cmdline_content_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.lsb_release_content_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.kernel_antirollback_quote_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -121,6 +122,7 @@ CrOSVersionAttestationBlob::CrOSVersionAttestationBlob(const CrOSVersionAttestat
   new (&_impl_) Impl_{
       decltype(_impl_.tpm_certifying_key_cert_){}
     , decltype(_impl_.kernel_cmdline_quote_){}
+    , decltype(_impl_.kernel_cmdline_quote_signature_){}
     , decltype(_impl_.kernel_cmdline_content_){}
     , decltype(_impl_.lsb_release_content_){}
     , decltype(_impl_.kernel_antirollback_quote_){}
@@ -142,6 +144,14 @@ CrOSVersionAttestationBlob::CrOSVersionAttestationBlob(const CrOSVersionAttestat
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_kernel_cmdline_quote().empty()) {
     _this->_impl_.kernel_cmdline_quote_.Set(from._internal_kernel_cmdline_quote(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.kernel_cmdline_quote_signature_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.kernel_cmdline_quote_signature_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_kernel_cmdline_quote_signature().empty()) {
+    _this->_impl_.kernel_cmdline_quote_signature_.Set(from._internal_kernel_cmdline_quote_signature(), 
       _this->GetArenaForAllocation());
   }
   _impl_.kernel_cmdline_content_.InitDefault();
@@ -179,6 +189,7 @@ inline void CrOSVersionAttestationBlob::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.tpm_certifying_key_cert_){}
     , decltype(_impl_.kernel_cmdline_quote_){}
+    , decltype(_impl_.kernel_cmdline_quote_signature_){}
     , decltype(_impl_.kernel_cmdline_content_){}
     , decltype(_impl_.lsb_release_content_){}
     , decltype(_impl_.kernel_antirollback_quote_){}
@@ -192,6 +203,10 @@ inline void CrOSVersionAttestationBlob::SharedCtor(
   _impl_.kernel_cmdline_quote_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.kernel_cmdline_quote_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.kernel_cmdline_quote_signature_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.kernel_cmdline_quote_signature_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.kernel_cmdline_content_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -220,6 +235,7 @@ inline void CrOSVersionAttestationBlob::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.tpm_certifying_key_cert_.Destroy();
   _impl_.kernel_cmdline_quote_.Destroy();
+  _impl_.kernel_cmdline_quote_signature_.Destroy();
   _impl_.kernel_cmdline_content_.Destroy();
   _impl_.lsb_release_content_.Destroy();
   _impl_.kernel_antirollback_quote_.Destroy();
@@ -237,6 +253,7 @@ void CrOSVersionAttestationBlob::Clear() {
 
   _impl_.tpm_certifying_key_cert_.ClearToEmpty();
   _impl_.kernel_cmdline_quote_.ClearToEmpty();
+  _impl_.kernel_cmdline_quote_signature_.ClearToEmpty();
   _impl_.kernel_cmdline_content_.ClearToEmpty();
   _impl_.lsb_release_content_.ClearToEmpty();
   _impl_.kernel_antirollback_quote_.ClearToEmpty();
@@ -277,27 +294,36 @@ const char* CrOSVersionAttestationBlob::_InternalParse(const char* ptr, ::_pbi::
         } else
           goto handle_unusual;
         continue;
-      // bytes kernel_cmdline_content = 4;
+      // bytes kernel_cmdline_quote_signature = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_kernel_cmdline_quote_signature();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes kernel_cmdline_content = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_kernel_cmdline_content();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bytes lsb_release_content = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+      // bytes lsb_release_content = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_lsb_release_content();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bytes kernel_antirollback_quote = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+      // bytes kernel_antirollback_quote = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_kernel_antirollback_quote();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -352,22 +378,28 @@ uint8_t* CrOSVersionAttestationBlob::_InternalSerialize(
         3, this->_internal_kernel_cmdline_quote(), target);
   }
 
-  // bytes kernel_cmdline_content = 4;
+  // bytes kernel_cmdline_quote_signature = 4;
+  if (!this->_internal_kernel_cmdline_quote_signature().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_kernel_cmdline_quote_signature(), target);
+  }
+
+  // bytes kernel_cmdline_content = 5;
   if (!this->_internal_kernel_cmdline_content().empty()) {
     target = stream->WriteBytesMaybeAliased(
-        4, this->_internal_kernel_cmdline_content(), target);
+        5, this->_internal_kernel_cmdline_content(), target);
   }
 
-  // bytes lsb_release_content = 5;
+  // bytes lsb_release_content = 6;
   if (!this->_internal_lsb_release_content().empty()) {
     target = stream->WriteBytesMaybeAliased(
-        5, this->_internal_lsb_release_content(), target);
+        6, this->_internal_lsb_release_content(), target);
   }
 
-  // bytes kernel_antirollback_quote = 6;
+  // bytes kernel_antirollback_quote = 7;
   if (!this->_internal_kernel_antirollback_quote().empty()) {
     target = stream->WriteBytesMaybeAliased(
-        6, this->_internal_kernel_antirollback_quote(), target);
+        7, this->_internal_kernel_antirollback_quote(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -400,21 +432,28 @@ size_t CrOSVersionAttestationBlob::ByteSizeLong() const {
         this->_internal_kernel_cmdline_quote());
   }
 
-  // bytes kernel_cmdline_content = 4;
+  // bytes kernel_cmdline_quote_signature = 4;
+  if (!this->_internal_kernel_cmdline_quote_signature().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_kernel_cmdline_quote_signature());
+  }
+
+  // bytes kernel_cmdline_content = 5;
   if (!this->_internal_kernel_cmdline_content().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_kernel_cmdline_content());
   }
 
-  // bytes lsb_release_content = 5;
+  // bytes lsb_release_content = 6;
   if (!this->_internal_lsb_release_content().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_lsb_release_content());
   }
 
-  // bytes kernel_antirollback_quote = 6;
+  // bytes kernel_antirollback_quote = 7;
   if (!this->_internal_kernel_antirollback_quote().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
@@ -454,6 +493,9 @@ void CrOSVersionAttestationBlob::MergeFrom(const CrOSVersionAttestationBlob& fro
   if (!from._internal_kernel_cmdline_quote().empty()) {
     _this->_internal_set_kernel_cmdline_quote(from._internal_kernel_cmdline_quote());
   }
+  if (!from._internal_kernel_cmdline_quote_signature().empty()) {
+    _this->_internal_set_kernel_cmdline_quote_signature(from._internal_kernel_cmdline_quote_signature());
+  }
   if (!from._internal_kernel_cmdline_content().empty()) {
     _this->_internal_set_kernel_cmdline_content(from._internal_kernel_cmdline_content());
   }
@@ -492,6 +534,10 @@ void CrOSVersionAttestationBlob::InternalSwap(CrOSVersionAttestationBlob* other)
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.kernel_cmdline_quote_, lhs_arena,
       &other->_impl_.kernel_cmdline_quote_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.kernel_cmdline_quote_signature_, lhs_arena,
+      &other->_impl_.kernel_cmdline_quote_signature_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.kernel_cmdline_content_, lhs_arena,

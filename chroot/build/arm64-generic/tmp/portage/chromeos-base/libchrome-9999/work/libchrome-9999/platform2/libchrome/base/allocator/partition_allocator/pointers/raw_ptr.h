@@ -50,14 +50,12 @@
 
 #if BUILDFLAG(ENABLE_BACKUP_REF_PTR_SUPPORT)
 #include "base/allocator/partition_allocator/pointers/raw_ptr_backup_ref_impl.h"
-#endif
-
-#if BUILDFLAG(USE_ASAN_UNOWNED_PTR)
+#elif BUILDFLAG(USE_ASAN_UNOWNED_PTR)
 #include "base/allocator/partition_allocator/pointers/raw_ptr_asan_unowned_impl.h"
-#endif
-
-#if BUILDFLAG(USE_HOOKABLE_RAW_PTR)
+#elif BUILDFLAG(USE_HOOKABLE_RAW_PTR)
 #include "base/allocator/partition_allocator/pointers/raw_ptr_hookable_impl.h"
+#else
+#include "base/allocator/partition_allocator/pointers/raw_ptr_noop_impl.h"
 #endif
 
 namespace cc {
@@ -94,14 +92,10 @@ enum class RawPtrTraits : unsigned {
   // instead.
   kMayDangle = (1 << 0),
 
-#if BUILDFLAG(USE_ASAN_BACKUP_REF_PTR)
-  // Disables any hooks, by switching to NoOpImpl in that case.
+  // Disables any hooks, when building with BUILDFLAG(USE_HOOKABLE_RAW_PTR).
   //
   // Internal use only.
   kDisableHooks = (1 << 2),
-#else
-  kDisableHooks = kEmpty,
-#endif
 
   // Pointer arithmetic is discouraged and disabled by default.
   //
@@ -165,21 +159,6 @@ struct TraitsToImpl;
 
 }  // namespace raw_ptr_traits
 
-template <typename T, RawPtrTraits Traits = RawPtrTraits::kEmpty>
-class raw_ptr;
-
-}  // namespace base
-
-// This type is to be used internally, or in callbacks arguments when it is
-// known that they might receive dangling pointers. In any other cases, please
-// use one of:
-// - raw_ptr<T, DanglingUntriaged>
-// - raw_ptr<T, DisableDanglingPtrDetection>
-template <typename T, base::RawPtrTraits Traits = base::RawPtrTraits::kEmpty>
-using MayBeDangling = base::raw_ptr<T, Traits | base::RawPtrTraits::kMayDangle>;
-
-namespace base {
-
 struct RawPtrGlobalSettings {
   static void EnableExperimentalAsh() {
 #if BUILDFLAG(ENABLE_BACKUP_REF_PTR_SUPPORT)
@@ -195,108 +174,6 @@ struct RawPtrGlobalSettings {
 };
 
 namespace internal {
-
-struct RawPtrNoOpImpl {
-  static constexpr bool kMustZeroOnInit = false;
-  static constexpr bool kMustZeroOnMove = false;
-  static constexpr bool kMustZeroOnDestruct = false;
-
-  // Wraps a pointer.
-  template <typename T>
-  PA_ALWAYS_INLINE static constexpr T* WrapRawPtr(T* ptr) {
-    return ptr;
-  }
-
-  // Notifies the allocator when a wrapped pointer is being removed or replaced.
-  template <typename T>
-  PA_ALWAYS_INLINE static constexpr void ReleaseWrappedPtr(T*) {}
-
-  // Unwraps the pointer, while asserting that memory hasn't been freed. The
-  // function is allowed to crash on nullptr.
-  template <typename T>
-  PA_ALWAYS_INLINE static constexpr T* SafelyUnwrapPtrForDereference(
-      T* wrapped_ptr) {
-    return wrapped_ptr;
-  }
-
-  // Unwraps the pointer, while asserting that memory hasn't been freed. The
-  // function must handle nullptr gracefully.
-  template <typename T>
-  PA_ALWAYS_INLINE static constexpr T* SafelyUnwrapPtrForExtraction(
-      T* wrapped_ptr) {
-    return wrapped_ptr;
-  }
-
-  // Unwraps the pointer, without making an assertion on whether memory was
-  // freed or not.
-  template <typename T>
-  PA_ALWAYS_INLINE static constexpr T* UnsafelyUnwrapPtrForComparison(
-      T* wrapped_ptr) {
-    return wrapped_ptr;
-  }
-
-  // Upcasts the wrapped pointer.
-  template <typename To, typename From>
-  PA_ALWAYS_INLINE static constexpr To* Upcast(From* wrapped_ptr) {
-    static_assert(std::is_convertible<From*, To*>::value,
-                  "From must be convertible to To.");
-    // Note, this cast may change the address if upcasting to base that lies in
-    // the middle of the derived object.
-    return wrapped_ptr;
-  }
-
-  // Advance the wrapped pointer by `delta_elems`.
-  template <
-      typename T,
-      typename Z,
-      typename =
-          std::enable_if_t<partition_alloc::internal::is_offset_type<Z>, void>>
-  PA_ALWAYS_INLINE static constexpr T* Advance(T* wrapped_ptr, Z delta_elems) {
-    return wrapped_ptr + delta_elems;
-  }
-
-  // Retreat the wrapped pointer by `delta_elems`.
-  template <
-      typename T,
-      typename Z,
-      typename =
-          std::enable_if_t<partition_alloc::internal::is_offset_type<Z>, void>>
-  PA_ALWAYS_INLINE static constexpr T* Retreat(T* wrapped_ptr, Z delta_elems) {
-    return wrapped_ptr - delta_elems;
-  }
-
-  template <typename T>
-  PA_ALWAYS_INLINE static constexpr ptrdiff_t GetDeltaElems(T* wrapped_ptr1,
-                                                            T* wrapped_ptr2) {
-    return wrapped_ptr1 - wrapped_ptr2;
-  }
-
-  // Returns a copy of a wrapped pointer, without making an assertion on whether
-  // memory was freed or not.
-  template <typename T>
-  PA_ALWAYS_INLINE static constexpr T* Duplicate(T* wrapped_ptr) {
-    return wrapped_ptr;
-  }
-
-  // `WrapRawPtrForDuplication` and `UnsafelyUnwrapPtrForDuplication` are used
-  // to create a new raw_ptr<T> from another raw_ptr<T> of a different flavor.
-  template <typename T>
-  PA_ALWAYS_INLINE static constexpr T* WrapRawPtrForDuplication(T* ptr) {
-    return ptr;
-  }
-
-  template <typename T>
-  PA_ALWAYS_INLINE static constexpr T* UnsafelyUnwrapPtrForDuplication(
-      T* wrapped_ptr) {
-    return wrapped_ptr;
-  }
-
-  // This is for accounting only, used by unit tests.
-  PA_ALWAYS_INLINE constexpr static void IncrementSwapCountForTest() {}
-  PA_ALWAYS_INLINE constexpr static void IncrementLessCountForTest() {}
-  PA_ALWAYS_INLINE constexpr static void
-  IncrementPointerToMemberOperatorCountForTest() {}
-};
 
 // Wraps a raw_ptr/raw_ref implementation, with a class of the same interface
 // that provides accounting, for test purposes. raw_ptr/raw_ref that use it
@@ -491,18 +368,14 @@ struct TraitsToImpl {
       /*ExperimentalAsh=*/Contains(Traits, RawPtrTraits::kExperimentalAsh)>;
 
 #elif BUILDFLAG(USE_ASAN_UNOWNED_PTR)
-  using UnderlyingImpl = std::conditional_t<
-      Contains(Traits, RawPtrTraits::kMayDangle),
-      // No special bookkeeping required for this case,
-      // just treat these as ordinary pointers.
-      internal::RawPtrNoOpImpl,
-      internal::RawPtrAsanUnownedImpl<
-          Contains(Traits, RawPtrTraits::kAllowPtrArithmetic)>>;
+  using UnderlyingImpl = internal::RawPtrAsanUnownedImpl<
+      Contains(Traits, RawPtrTraits::kAllowPtrArithmetic),
+      Contains(Traits, RawPtrTraits::kMayDangle)>;
+
 #elif BUILDFLAG(USE_HOOKABLE_RAW_PTR)
-  using UnderlyingImpl =
-      std::conditional_t<Contains(Traits, RawPtrTraits::kDisableHooks),
-                         internal::RawPtrNoOpImpl,
-                         internal::RawPtrHookableImpl>;
+  using UnderlyingImpl = internal::RawPtrHookableImpl<
+      /*EnableHooks=*/!Contains(Traits, RawPtrTraits::kDisableHooks)>;
+
 #else
   using UnderlyingImpl = internal::RawPtrNoOpImpl;
 #endif
@@ -547,12 +420,13 @@ struct TraitsToImpl {
 // non-default move constructor/assignment. Thus, it's possible to get an error
 // where the pointer is not actually dangling, and have to work around the
 // compiler. We have not managed to construct such an example in Chromium yet.
-template <typename T, RawPtrTraits Traits>
+template <typename T, RawPtrTraits Traits = RawPtrTraits::kEmpty>
 class PA_TRIVIAL_ABI PA_GSL_POINTER raw_ptr {
  public:
   using Impl = typename raw_ptr_traits::TraitsToImpl<Traits>::Impl;
   // Needed to make gtest Pointee matcher work with raw_ptr.
   using element_type = T;
+  using DanglingType = raw_ptr<T, Traits | RawPtrTraits::kMayDangle>;
 
 #if !BUILDFLAG(USE_PARTITION_ALLOC)
   // See comment at top about `PA_RAW_PTR_CHECK()`.
@@ -916,9 +790,8 @@ class PA_TRIVIAL_ABI PA_GSL_POINTER raw_ptr {
   // variable (or worse, a field)! It's meant to be used as a temporary, to be
   // passed into a cleanup & freeing function, and destructed at the end of the
   // statement.
-  PA_ALWAYS_INLINE constexpr MayBeDangling<T, Traits>
-  ExtractAsDangling() noexcept {
-    MayBeDangling<T, Traits> res(std::move(*this));
+  PA_ALWAYS_INLINE constexpr DanglingType ExtractAsDangling() noexcept {
+    DanglingType res(std::move(*this));
     // Not all implementation clear the source pointer on move. Furthermore,
     // even for implemtantions that do, cross-kind conversions (that add
     // kMayDangle) fall back to a copy, instead of move. So do it here just in
@@ -1204,6 +1077,14 @@ constexpr auto ExperimentalAsh = base::RawPtrTraits::kExperimentalAsh;
 //
 // This is not meant to be added manually. You can ignore this flag.
 constexpr auto LeakedDanglingUntriaged = base::RawPtrTraits::kMayDangle;
+
+// Public verson used in callbacks arguments when it is known that they might
+// receive dangling pointers. In any other cases, please
+// use one of:
+// - raw_ptr<T, DanglingUntriaged>
+// - raw_ptr<T, DisableDanglingPtrDetection>
+template <typename T, base::RawPtrTraits Traits = base::RawPtrTraits::kEmpty>
+using MayBeDangling = base::raw_ptr<T, Traits | base::RawPtrTraits::kMayDangle>;
 
 namespace std {
 

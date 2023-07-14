@@ -136,7 +136,9 @@ PROTOBUF_CONSTEXPR PowerManagementPolicy::PowerManagementPolicy(
   , /*decltype(_impl_.adaptive_charging_min_probability_)*/0
   , /*decltype(_impl_.adaptive_charging_max_delay_percentile_)*/0
   , /*decltype(_impl_.adaptive_charging_hold_percent_)*/0
-  , /*decltype(_impl_.hibernate_delay_sec_)*/0u} {}
+  , /*decltype(_impl_.hibernate_delay_sec_)*/0u
+  , /*decltype(_impl_.adaptive_charging_min_full_on_ac_ratio_)*/0
+  , /*decltype(_impl_.adaptive_charging_min_days_history_)*/0} {}
 struct PowerManagementPolicyDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PowerManagementPolicyDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2077,6 +2079,12 @@ class PowerManagementPolicy::_Internal {
   static void set_has_hibernate_delay_sec(HasBits* has_bits) {
     (*has_bits)[0] |= 268435456u;
   }
+  static void set_has_adaptive_charging_min_days_history(HasBits* has_bits) {
+    (*has_bits)[0] |= 1073741824u;
+  }
+  static void set_has_adaptive_charging_min_full_on_ac_ratio(HasBits* has_bits) {
+    (*has_bits)[0] |= 536870912u;
+  }
 };
 
 const ::power_manager::PowerManagementPolicy_Delays&
@@ -2133,7 +2141,9 @@ PowerManagementPolicy::PowerManagementPolicy(const PowerManagementPolicy& from)
     , decltype(_impl_.adaptive_charging_min_probability_){}
     , decltype(_impl_.adaptive_charging_max_delay_percentile_){}
     , decltype(_impl_.adaptive_charging_hold_percent_){}
-    , decltype(_impl_.hibernate_delay_sec_){}};
+    , decltype(_impl_.hibernate_delay_sec_){}
+    , decltype(_impl_.adaptive_charging_min_full_on_ac_ratio_){}
+    , decltype(_impl_.adaptive_charging_min_days_history_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.reason_.InitDefault();
@@ -2154,8 +2164,8 @@ PowerManagementPolicy::PowerManagementPolicy(const PowerManagementPolicy& from)
     _this->_impl_.battery_charge_mode_ = new ::power_manager::PowerManagementPolicy_BatteryChargeMode(*from._impl_.battery_charge_mode_);
   }
   ::memcpy(&_impl_.ac_idle_action_, &from._impl_.ac_idle_action_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.hibernate_delay_sec_) -
-    reinterpret_cast<char*>(&_impl_.ac_idle_action_)) + sizeof(_impl_.hibernate_delay_sec_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.adaptive_charging_min_days_history_) -
+    reinterpret_cast<char*>(&_impl_.ac_idle_action_)) + sizeof(_impl_.adaptive_charging_min_days_history_));
   // @@protoc_insertion_point(copy_constructor:power_manager.PowerManagementPolicy)
 }
 
@@ -2197,6 +2207,8 @@ inline void PowerManagementPolicy::SharedCtor(
     , decltype(_impl_.adaptive_charging_max_delay_percentile_){0}
     , decltype(_impl_.adaptive_charging_hold_percent_){0}
     , decltype(_impl_.hibernate_delay_sec_){0u}
+    , decltype(_impl_.adaptive_charging_min_full_on_ac_ratio_){0}
+    , decltype(_impl_.adaptive_charging_min_days_history_){0}
   };
   _impl_.reason_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -2268,10 +2280,10 @@ void PowerManagementPolicy::Clear() {
         reinterpret_cast<char*>(&_impl_.adaptive_charging_enabled_) -
         reinterpret_cast<char*>(&_impl_.dim_wake_lock_)) + sizeof(_impl_.adaptive_charging_enabled_));
   }
-  if (cached_has_bits & 0x1f000000u) {
+  if (cached_has_bits & 0x7f000000u) {
     ::memset(&_impl_.charge_limit_enabled_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&_impl_.hibernate_delay_sec_) -
-        reinterpret_cast<char*>(&_impl_.charge_limit_enabled_)) + sizeof(_impl_.hibernate_delay_sec_));
+        reinterpret_cast<char*>(&_impl_.adaptive_charging_min_days_history_) -
+        reinterpret_cast<char*>(&_impl_.charge_limit_enabled_)) + sizeof(_impl_.adaptive_charging_min_days_history_));
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -2584,6 +2596,24 @@ const char* PowerManagementPolicy::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
+      // optional int32 adaptive_charging_min_days_history = 33;
+      case 33:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_adaptive_charging_min_days_history(&has_bits);
+          _impl_.adaptive_charging_min_days_history_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional double adaptive_charging_min_full_on_ac_ratio = 34;
+      case 34:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
+          _Internal::set_has_adaptive_charging_min_full_on_ac_ratio(&has_bits);
+          _impl_.adaptive_charging_min_full_on_ac_ratio_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -2812,6 +2842,18 @@ uint8_t* PowerManagementPolicy::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(32, this->_internal_hibernate_delay_sec(), target);
   }
 
+  // optional int32 adaptive_charging_min_days_history = 33;
+  if (cached_has_bits & 0x40000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(33, this->_internal_adaptive_charging_min_days_history(), target);
+  }
+
+  // optional double adaptive_charging_min_full_on_ac_ratio = 34;
+  if (cached_has_bits & 0x20000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(34, this->_internal_adaptive_charging_min_full_on_ac_ratio(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2983,7 +3025,7 @@ size_t PowerManagementPolicy::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x1f000000u) {
+  if (cached_has_bits & 0x7f000000u) {
     // optional bool charge_limit_enabled = 31;
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 + 1;
@@ -3011,6 +3053,18 @@ size_t PowerManagementPolicy::ByteSizeLong() const {
       total_size += 2 +
         ::_pbi::WireFormatLite::UInt32Size(
           this->_internal_hibernate_delay_sec());
+    }
+
+    // optional double adaptive_charging_min_full_on_ac_ratio = 34;
+    if (cached_has_bits & 0x20000000u) {
+      total_size += 2 + 8;
+    }
+
+    // optional int32 adaptive_charging_min_days_history = 33;
+    if (cached_has_bits & 0x40000000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int32Size(
+          this->_internal_adaptive_charging_min_days_history());
     }
 
   }
@@ -3122,7 +3176,7 @@ void PowerManagementPolicy::MergeFrom(const PowerManagementPolicy& from) {
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x1f000000u) {
+  if (cached_has_bits & 0x7f000000u) {
     if (cached_has_bits & 0x01000000u) {
       _this->_impl_.charge_limit_enabled_ = from._impl_.charge_limit_enabled_;
     }
@@ -3137,6 +3191,12 @@ void PowerManagementPolicy::MergeFrom(const PowerManagementPolicy& from) {
     }
     if (cached_has_bits & 0x10000000u) {
       _this->_impl_.hibernate_delay_sec_ = from._impl_.hibernate_delay_sec_;
+    }
+    if (cached_has_bits & 0x20000000u) {
+      _this->_impl_.adaptive_charging_min_full_on_ac_ratio_ = from._impl_.adaptive_charging_min_full_on_ac_ratio_;
+    }
+    if (cached_has_bits & 0x40000000u) {
+      _this->_impl_.adaptive_charging_min_days_history_ = from._impl_.adaptive_charging_min_days_history_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
@@ -3167,8 +3227,8 @@ void PowerManagementPolicy::InternalSwap(PowerManagementPolicy* other) {
       &other->_impl_.reason_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PowerManagementPolicy, _impl_.hibernate_delay_sec_)
-      + sizeof(PowerManagementPolicy::_impl_.hibernate_delay_sec_)
+      PROTOBUF_FIELD_OFFSET(PowerManagementPolicy, _impl_.adaptive_charging_min_days_history_)
+      + sizeof(PowerManagementPolicy::_impl_.adaptive_charging_min_days_history_)
       - PROTOBUF_FIELD_OFFSET(PowerManagementPolicy, _impl_.ac_delays_)>(
           reinterpret_cast<char*>(&_impl_.ac_delays_),
           reinterpret_cast<char*>(&other->_impl_.ac_delays_));

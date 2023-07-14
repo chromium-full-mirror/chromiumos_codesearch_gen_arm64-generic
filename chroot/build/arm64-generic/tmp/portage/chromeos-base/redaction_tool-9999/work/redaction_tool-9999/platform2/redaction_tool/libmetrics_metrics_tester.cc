@@ -15,11 +15,18 @@ std::unique_ptr<MetricsTester> MetricsTester::Create() {
 
 size_t LibMetricsMetricsTester::GetBucketCount(base::StringPiece histogram_name,
     int histogram_value) {
-  FakeMetricsLibrary *fake_metrics_library = dynamic_cast<FakeMetricsLibrary*>(
-      fake_metrics_library_->data.get());
   return base::ranges::count(
-      fake_metrics_library->GetCalls(std::string(histogram_name)),
+      fake_metrics_library()->GetCalls(std::string(histogram_name)),
       histogram_value);
+}
+
+size_t LibMetricsMetricsTester::GetNumBucketEntries(
+    base::StringPiece histogram_name) {
+  return fake_metrics_library()->NumCalls(std::string(histogram_name));
+}
+
+FakeMetricsLibrary* LibMetricsMetricsTester::fake_metrics_library() {
+  return dynamic_cast<FakeMetricsLibrary*>(fake_metrics_library_->data.get());
 }
 
 std::unique_ptr<RedactionToolMetricsRecorder>

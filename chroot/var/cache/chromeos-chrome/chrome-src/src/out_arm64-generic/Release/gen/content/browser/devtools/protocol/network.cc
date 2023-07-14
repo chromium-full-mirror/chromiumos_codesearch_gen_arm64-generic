@@ -744,6 +744,7 @@ namespace ContentEncodingEnum {
 const char Deflate[] = "deflate";
 const char Gzip[] = "gzip";
 const char Br[] = "br";
+const char Zstd[] = "zstd";
 } // namespace ContentEncodingEnum
 
 
@@ -977,7 +978,7 @@ void Frontend::LoadingFailed(const String& requestId, double timestamp, const St
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.loadingFailed", serializer.Finish()));
 }
 
-void Frontend::LoadingFinished(const String& requestId, double timestamp, double encodedDataLength, Maybe<bool> shouldReportCorbBlocking)
+void Frontend::LoadingFinished(const String& requestId, double timestamp, double encodedDataLength)
 {
     if (!frontend_channel_)
         return;
@@ -985,7 +986,6 @@ void Frontend::LoadingFinished(const String& requestId, double timestamp, double
     serializer.AddField(crdtp::MakeSpan("requestId"), requestId);
     serializer.AddField(crdtp::MakeSpan("timestamp"), timestamp);
     serializer.AddField(crdtp::MakeSpan("encodedDataLength"), encodedDataLength);
-    serializer.AddField(crdtp::MakeSpan("shouldReportCorbBlocking"), shouldReportCorbBlocking);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.loadingFinished", serializer.Finish()));
 }
 

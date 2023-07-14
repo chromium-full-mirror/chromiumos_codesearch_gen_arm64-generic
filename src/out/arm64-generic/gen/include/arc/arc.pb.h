@@ -325,6 +325,7 @@ class StartArcMiniInstanceRequest final :
     kHostUreadaheadGenerationFieldNumber = 16,
     kEnablePrivacyHubForChromeFieldNumber = 17,
     kArcSwitchToKeymintFieldNumber = 18,
+    kUseDevCachesFieldNumber = 20,
     kLcdDensityFieldNumber = 2,
     kForceMaxAcquiredBuffersExperimentFieldNumber = 19,
   };
@@ -549,6 +550,19 @@ class StartArcMiniInstanceRequest final :
   void _internal_set_arc_switch_to_keymint(bool value);
   public:
 
+  // optional bool use_dev_caches = 20 [default = false];
+  bool has_use_dev_caches() const;
+  private:
+  bool _internal_has_use_dev_caches() const;
+  public:
+  void clear_use_dev_caches();
+  bool use_dev_caches() const;
+  void set_use_dev_caches(bool value);
+  private:
+  bool _internal_use_dev_caches() const;
+  void _internal_set_use_dev_caches(bool value);
+  public:
+
   // optional int32 lcd_density = 2 [default = -1];
   bool has_lcd_density() const;
   private:
@@ -602,6 +616,7 @@ class StartArcMiniInstanceRequest final :
     bool host_ureadahead_generation_;
     bool enable_privacy_hub_for_chrome_;
     bool arc_switch_to_keymint_;
+    bool use_dev_caches_;
     int32_t lcd_density_;
     int32_t force_max_acquired_buffers_experiment_;
   };
@@ -1085,7 +1100,7 @@ inline void StartArcMiniInstanceRequest::set_native_bridge_experiment(bool value
 
 // optional int32 lcd_density = 2 [default = -1];
 inline bool StartArcMiniInstanceRequest::_internal_has_lcd_density() const {
-  bool value = (_impl_._has_bits_[0] & 0x00020000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00040000u) != 0;
   return value;
 }
 inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
@@ -1093,7 +1108,7 @@ inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
 }
 inline void StartArcMiniInstanceRequest::clear_lcd_density() {
   _impl_.lcd_density_ = -1;
-  _impl_._has_bits_[0] &= ~0x00020000u;
+  _impl_._has_bits_[0] &= ~0x00040000u;
 }
 inline int32_t StartArcMiniInstanceRequest::_internal_lcd_density() const {
   return _impl_.lcd_density_;
@@ -1103,7 +1118,7 @@ inline int32_t StartArcMiniInstanceRequest::lcd_density() const {
   return _internal_lcd_density();
 }
 inline void StartArcMiniInstanceRequest::_internal_set_lcd_density(int32_t value) {
-  _impl_._has_bits_[0] |= 0x00020000u;
+  _impl_._has_bits_[0] |= 0x00040000u;
   _impl_.lcd_density_ = value;
 }
 inline void StartArcMiniInstanceRequest::set_lcd_density(int32_t value) {
@@ -1563,7 +1578,7 @@ inline void StartArcMiniInstanceRequest::set_arc_switch_to_keymint(bool value) {
 
 // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
 inline bool StartArcMiniInstanceRequest::_internal_has_force_max_acquired_buffers_experiment() const {
-  bool value = (_impl_._has_bits_[0] & 0x00040000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00080000u) != 0;
   return value;
 }
 inline bool StartArcMiniInstanceRequest::has_force_max_acquired_buffers_experiment() const {
@@ -1571,7 +1586,7 @@ inline bool StartArcMiniInstanceRequest::has_force_max_acquired_buffers_experime
 }
 inline void StartArcMiniInstanceRequest::clear_force_max_acquired_buffers_experiment() {
   _impl_.force_max_acquired_buffers_experiment_ = -1;
-  _impl_._has_bits_[0] &= ~0x00040000u;
+  _impl_._has_bits_[0] &= ~0x00080000u;
 }
 inline int32_t StartArcMiniInstanceRequest::_internal_force_max_acquired_buffers_experiment() const {
   return _impl_.force_max_acquired_buffers_experiment_;
@@ -1581,12 +1596,40 @@ inline int32_t StartArcMiniInstanceRequest::force_max_acquired_buffers_experimen
   return _internal_force_max_acquired_buffers_experiment();
 }
 inline void StartArcMiniInstanceRequest::_internal_set_force_max_acquired_buffers_experiment(int32_t value) {
-  _impl_._has_bits_[0] |= 0x00040000u;
+  _impl_._has_bits_[0] |= 0x00080000u;
   _impl_.force_max_acquired_buffers_experiment_ = value;
 }
 inline void StartArcMiniInstanceRequest::set_force_max_acquired_buffers_experiment(int32_t value) {
   _internal_set_force_max_acquired_buffers_experiment(value);
   // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.force_max_acquired_buffers_experiment)
+}
+
+// optional bool use_dev_caches = 20 [default = false];
+inline bool StartArcMiniInstanceRequest::_internal_has_use_dev_caches() const {
+  bool value = (_impl_._has_bits_[0] & 0x00020000u) != 0;
+  return value;
+}
+inline bool StartArcMiniInstanceRequest::has_use_dev_caches() const {
+  return _internal_has_use_dev_caches();
+}
+inline void StartArcMiniInstanceRequest::clear_use_dev_caches() {
+  _impl_.use_dev_caches_ = false;
+  _impl_._has_bits_[0] &= ~0x00020000u;
+}
+inline bool StartArcMiniInstanceRequest::_internal_use_dev_caches() const {
+  return _impl_.use_dev_caches_;
+}
+inline bool StartArcMiniInstanceRequest::use_dev_caches() const {
+  // @@protoc_insertion_point(field_get:arc.StartArcMiniInstanceRequest.use_dev_caches)
+  return _internal_use_dev_caches();
+}
+inline void StartArcMiniInstanceRequest::_internal_set_use_dev_caches(bool value) {
+  _impl_._has_bits_[0] |= 0x00020000u;
+  _impl_.use_dev_caches_ = value;
+}
+inline void StartArcMiniInstanceRequest::set_use_dev_caches(bool value) {
+  _internal_set_use_dev_caches(value);
+  // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.use_dev_caches)
 }
 
 // -------------------------------------------------------------------

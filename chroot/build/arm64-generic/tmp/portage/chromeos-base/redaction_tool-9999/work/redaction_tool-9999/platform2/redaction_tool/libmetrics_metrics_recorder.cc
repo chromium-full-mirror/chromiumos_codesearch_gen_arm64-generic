@@ -5,6 +5,12 @@
 #include "redaction_tool/libmetrics_metrics_recorder.h"
 
 #include "base/notreached.h"
+#include "base/time/time.h"
+
+namespace {
+constexpr char kTimeSpentRedactingHistogram[] =
+    "Feedback.RedactionTool.TimeSpentRedactingCrash";
+}
 
 namespace redaction {
 
@@ -27,10 +33,21 @@ void LibMetricsMetricsRecorder::RecordCreditCardRedactionHistogram(
   metrics_library_->data->SendEnumToUMA(kCreditCardRedactionHistogram, step);
 }
 
+void LibMetricsMetricsRecorder::RecordTimeSpentRedactingHistogram(
+    base::TimeDelta elapsed_time) {
+  metrics_library_->data->SendTimeToUMA(kTimeSpentRedactingHistogram,
+      elapsed_time, base::Milliseconds(1), base::Minutes(3), 50);
+}
+
 std::unique_ptr<RedactionToolMetricsRecorder>
 RedactionToolMetricsRecorder::Create() {
   NOTREACHED_NORETURN() << "Don't use RedactionToolMetricsRecorder::Create() in"
     "CrOS code. Instantiate LibMetricsMetricsRecorder explicitly instead.";
+}
+
+base::StringPiece
+RedactionToolMetricsRecorder::GetTimeSpentRedactingHistogramNameForTesting() {
+  return kTimeSpentRedactingHistogram;
 }
 
 }  // namespace redaction

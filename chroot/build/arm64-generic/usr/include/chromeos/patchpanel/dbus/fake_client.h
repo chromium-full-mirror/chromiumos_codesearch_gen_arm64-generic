@@ -6,6 +6,7 @@
 #define PATCHPANEL_DBUS_FAKE_CLIENT_H_
 
 #include <memory>
+#include <optional>
 #include <set>
 #include <string>
 #include <utility>
@@ -34,14 +35,12 @@ class BRILLO_EXPORT FakeClient : public Client {
   std::vector<Client::VirtualDevice> NotifyArcVmStartup(uint32_t cid) override;
   bool NotifyArcVmShutdown(uint32_t cid) override;
 
-  bool NotifyTerminaVmStartup(uint32_t cid,
-                              Client::VirtualDevice* device,
-                              net_base::IPv4CIDR* container_subnet) override;
+  std::optional<Client::TerminaAllocation> NotifyTerminaVmStartup(
+      uint32_t cid) override;
   bool NotifyTerminaVmShutdown(uint32_t cid) override;
 
-  bool NotifyParallelsVmStartup(uint64_t vm_id,
-                                int subnet_index,
-                                Client::VirtualDevice* device) override;
+  std::optional<Client::ParallelsAllocation> NotifyParallelsVmStartup(
+      uint64_t vm_id, int subnet_index) override;
   bool NotifyParallelsVmShutdown(uint64_t vm_id) override;
 
   bool DefaultVpnRouting(const base::ScopedFD& socket) override;

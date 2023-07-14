@@ -212,7 +212,7 @@ void ReplyWithAuthFactorStatus(
 
   // Select which AuthFactorWithStatus to build based on user type.
   if (auth_session->ephemeral_user()) {
-    DCHECK(user_session);
+    CHECK(user_session);
     auth_factor_with_status = GetAuthFactorWithStatus(
         auth_session->obfuscated_username(), auth_factor_driver_manager,
         user_session->FindCredentialVerifier(auth_factor.label()));
@@ -304,8 +304,8 @@ void ReplyWithAuthenticationResult(
     base::OnceCallback<void(const user_data_auth::AuthenticateAuthFactorReply&)>
         on_done,
     CryptohomeStatus status) {
-  DCHECK(auth_session);
-  DCHECK(!on_done.is_null());
+  CHECK(auth_session);
+  CHECK(!on_done.is_null());
   user_data_auth::AuthenticateAuthFactorReply reply;
   for (AuthIntent auth_intent : auth_session->authorized_intents()) {
     reply.add_authorized_for(AuthIntentToProto(auth_intent));
@@ -529,7 +529,8 @@ bool UserDataAuth::Initialize(scoped_refptr<::dbus::Bus> mount_thread_bus) {
     default_auth_session_manager_ = std::make_unique<AuthSessionManager>(
         crypto_, platform_, sessions_, keyset_management_, auth_block_utility_,
         auth_factor_driver_manager_, auth_factor_manager_,
-        user_secret_stash_storage_, user_metadata_reader_.get());
+        user_secret_stash_storage_, user_metadata_reader_.get(),
+        &async_init_features_);
     auth_session_manager_ = default_auth_session_manager_.get();
   }
 
@@ -722,7 +723,6 @@ void UserDataAuth::InitializeFeatureLibrary() {
       return;
     }
   }
-  auth_session_manager_->set_features(&async_init_features_);
 }
 
 Features* UserDataAuth::GetFeatures() {
@@ -1220,7 +1220,7 @@ void UserDataAuth::InitializePkcs11(UserSession* session) {
   AssertOnMountThread();
 
   // We should not pass nullptr to this method.
-  DCHECK(session);
+  CHECK(session);
 
   bool still_mounted = false;
 
@@ -3093,6 +3093,24 @@ void UserDataAuth::ListAuthFactors(
     return;
   }
 
+  // Helper function to filter out types of auth factor that are supported
+  // internally but which should not be reported as supported in the public API.
+  auto IsPublicType = [](AuthFactorType type) {
+    switch (type) {
+      case AuthFactorType::kPassword:
+      case AuthFactorType::kPin:
+      case AuthFactorType::kCryptohomeRecovery:
+      case AuthFactorType::kKiosk:
+      case AuthFactorType::kSmartCard:
+      case AuthFactorType::kFingerprint:
+        return true;
+      case AuthFactorType::kLegacyFingerprint:
+      case AuthFactorType::kUnspecified:
+      default:
+        return false;
+    }
+  };
+
   std::vector<AuthFactorType> supported_auth_factors;
   if (is_persistent_user) {
     // Prepare the response for configured AuthFactors (with status) with all of
@@ -3111,11 +3129,14 @@ void UserDataAuth::ListAuthFactors(
 
     // Populate the response from the items in the AuthFactorMap.
     for (AuthFactorMap::ValueView item : auth_factor_map) {
-      auto auth_factor_with_status = GetAuthFactorWithStatus(
-          obfuscated_username, auth_factor_driver_manager_, item.auth_factor());
-      if (auth_factor_with_status.has_value()) {
-        *reply.add_configured_auth_factors_with_status() =
-            std::move(auth_factor_with_status.value());
+      if (IsPublicType(item.auth_factor().type())) {
+        auto auth_factor_with_status = GetAuthFactorWithStatus(
+            obfuscated_username, auth_factor_driver_manager_,
+            item.auth_factor());
+        if (auth_factor_with_status.has_value()) {
+          *reply.add_configured_auth_factors_with_status() =
+              std::move(auth_factor_with_status.value());
+        }
       }
     }
 
@@ -3150,7 +3171,7 @@ void UserDataAuth::ListAuthFactors(
     for (auto proto_type :
          PROTOBUF_ENUM_ALL_VALUES(user_data_auth::AuthFactorType)) {
       std::optional<AuthFactorType> type = AuthFactorTypeFromProto(proto_type);
-      if (!type) {
+      if (!type || !IsPublicType(*type)) {
         continue;
       }
       const AuthFactorDriver& factor_driver =
@@ -3168,11 +3189,13 @@ void UserDataAuth::ListAuthFactors(
     if (user_session) {
       for (const CredentialVerifier* verifier :
            user_session->GetCredentialVerifiers()) {
-        auto auth_factor_with_status = GetAuthFactorWithStatus(
-            obfuscated_username, auth_factor_driver_manager_, verifier);
-        if (auth_factor_with_status.has_value()) {
-          *reply.add_configured_auth_factors_with_status() =
-              std::move(auth_factor_with_status.value());
+        if (IsPublicType(verifier->auth_factor_type())) {
+          auto auth_factor_with_status = GetAuthFactorWithStatus(
+              obfuscated_username, auth_factor_driver_manager_, verifier);
+          if (auth_factor_with_status.has_value()) {
+            *reply.add_configured_auth_factors_with_status() =
+                std::move(auth_factor_with_status.value());
+          }
         }
       }
     }
@@ -3181,7 +3204,7 @@ void UserDataAuth::ListAuthFactors(
     for (auto proto_type :
          PROTOBUF_ENUM_ALL_VALUES(user_data_auth::AuthFactorType)) {
       std::optional<AuthFactorType> type = AuthFactorTypeFromProto(proto_type);
-      if (!type) {
+      if (!type || !IsPublicType(*type)) {
         continue;
       }
       const AuthFactorDriver& factor_driver =
@@ -3400,7 +3423,7 @@ void UserDataAuth::GetAuthSessionStatus(
 void UserDataAuth::GetAuthSessionStatusImpl(
     AuthSession* auth_session,
     user_data_auth::GetAuthSessionStatusReply& reply) {
-  DCHECK(auth_session);
+  CHECK(auth_session);
   // Default is invalid unless there is evidence otherwise.
   reply.set_status(user_data_auth::AUTH_SESSION_STATUS_INVALID_AUTH_SESSION);
 

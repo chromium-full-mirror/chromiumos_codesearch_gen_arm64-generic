@@ -5,17 +5,18 @@
 #ifndef SHILL_NET_RTNL_MESSAGE_H_
 #define SHILL_NET_RTNL_MESSAGE_H_
 
+#include <memory>
 #include <optional>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
 #include <base/containers/contains.h>
+#include <base/containers/span.h>
 #include <net-base/ip_address.h>
 #include <net-base/ipv6_address.h>
 
 #include "shill/net/byte_string.h"
-#include "shill/net/ip_address.h"
 #include "shill/net/shill_export.h"
 
 struct rtattr;
@@ -149,8 +150,9 @@ class SHILL_EXPORT RTNLMessage {
   // Packs the attribute map into a ByteString, with the proper alignment.
   static ByteString PackAttrs(const RTNLAttrMap& attrs);
 
-  // Empty constructor
-  RTNLMessage();
+  // Parse an RTNL message.  Returns nullptr on failure.
+  static std::unique_ptr<RTNLMessage> Decode(base::span<const uint8_t> data);
+
   // Build an RTNL message from arguments
   RTNLMessage(Type type,
               Mode mode,
@@ -158,16 +160,12 @@ class SHILL_EXPORT RTNLMessage {
               uint32_t seq,
               uint32_t pid,
               int32_t interface_index,
-              IPAddress::Family family);
+              sa_family_t family);
   RTNLMessage(const RTNLMessage&) = delete;
   RTNLMessage& operator=(const RTNLMessage&) = delete;
 
-  // Parse an RTNL message.  Returns true on success.
-  bool Decode(const uint8_t* data, size_t length);
   // Encode an RTNL message.  Returns empty ByteString on failure.
   ByteString Encode() const;
-  // Reset all fields.
-  void Reset();
 
   // Getters and setters
   Type type() const { return type_; }
@@ -177,7 +175,7 @@ class SHILL_EXPORT RTNLMessage {
   void set_seq(uint32_t seq) { seq_ = seq; }
   uint32_t pid() const { return pid_; }
   int32_t interface_index() const { return interface_index_; }
-  IPAddress::Family family() const { return family_; }
+  sa_family_t family() const { return family_; }
 
   static std::string ModeToString(Mode mode);
   static std::string TypeToString(Type type);
@@ -273,28 +271,22 @@ class SHILL_EXPORT RTNLMessage {
                        const ByteString& info_data);
 
  private:
-  SHILL_PRIVATE bool DecodeInternal(const uint8_t* data, size_t length);
-  SHILL_PRIVATE bool DecodeLink(const RTNLHeader* hdr,
-                                rtattr** attr_data,
-                                int* attr_length);
-  SHILL_PRIVATE bool DecodeAddress(const RTNLHeader* hdr,
-                                   rtattr** attr_data,
-                                   int* attr_length);
-  SHILL_PRIVATE bool DecodeRoute(const RTNLHeader* hdr,
-                                 rtattr** attr_data,
-                                 int* attr_length);
-  SHILL_PRIVATE bool DecodeRule(const RTNLHeader* hdr,
-                                rtattr** attr_data,
-                                int* attr_length);
-  SHILL_PRIVATE bool DecodeNdUserOption(const RTNLHeader* hdr,
-                                        rtattr** attr_data,
-                                        int* attr_length);
+  SHILL_PRIVATE static std::unique_ptr<RTNLMessage> DecodeLink(
+      Mode mode, const RTNLHeader* hdr);
+  SHILL_PRIVATE static std::unique_ptr<RTNLMessage> DecodeAddress(
+      Mode mode, const RTNLHeader* hdr);
+  SHILL_PRIVATE static std::unique_ptr<RTNLMessage> DecodeRoute(
+      Mode mode, const RTNLHeader* hdr);
+  SHILL_PRIVATE static std::unique_ptr<RTNLMessage> DecodeRule(
+      Mode mode, const RTNLHeader* hdr);
+  SHILL_PRIVATE static std::unique_ptr<RTNLMessage> DecodeNdUserOption(
+      Mode mode, const RTNLHeader* hdr);
+  SHILL_PRIVATE static std::unique_ptr<RTNLMessage> DecodeNeighbor(
+      Mode mode, const RTNLHeader* hdr);
+
   SHILL_PRIVATE bool ParseRdnssOption(const uint8_t* data,
                                       int length,
                                       uint32_t lifetime);
-  SHILL_PRIVATE bool DecodeNeighbor(const RTNLHeader* hdr,
-                                    rtattr** attr_data,
-                                    int* attr_length);
   SHILL_PRIVATE bool EncodeLink(RTNLHeader* hdr) const;
   SHILL_PRIVATE bool EncodeAddress(RTNLHeader* hdr) const;
   SHILL_PRIVATE bool EncodeRoute(RTNLHeader* hdr) const;
@@ -317,7 +309,7 @@ class SHILL_EXPORT RTNLMessage {
   // Corresponds to ifi_family (kTypeLink), ifa_family (kTypeAddress),
   // rtm_family (kTypeRoute and kTypeRule), ndm_family (kTypeNeighbor). Always
   // IPv6 for neighbor discovery options (kTypeRdnss, kTypeDnssl).
-  IPAddress::Family family_;
+  sa_family_t family_;
   // Details specific to a message type.
   LinkStatus link_status_;
   AddressStatus address_status_;

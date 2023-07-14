@@ -135,12 +135,14 @@ enum VmKernelLogRequest_VmType : int {
   VmKernelLogRequest_VmType_TERMINA = 1,
   VmKernelLogRequest_VmType_ARC_VM = 2,
   VmKernelLogRequest_VmType_PLUGIN_VM = 3,
+  VmKernelLogRequest_VmType_BOREALIS = 4,
+  VmKernelLogRequest_VmType_BRUSCHETTA = 5,
   VmKernelLogRequest_VmType_VmKernelLogRequest_VmType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   VmKernelLogRequest_VmType_VmKernelLogRequest_VmType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool VmKernelLogRequest_VmType_IsValid(int value);
 constexpr VmKernelLogRequest_VmType VmKernelLogRequest_VmType_VmType_MIN = VmKernelLogRequest_VmType_UNKNOWN;
-constexpr VmKernelLogRequest_VmType VmKernelLogRequest_VmType_VmType_MAX = VmKernelLogRequest_VmType_PLUGIN_VM;
+constexpr VmKernelLogRequest_VmType VmKernelLogRequest_VmType_VmType_MAX = VmKernelLogRequest_VmType_BRUSCHETTA;
 constexpr int VmKernelLogRequest_VmType_VmType_ARRAYSIZE = VmKernelLogRequest_VmType_VmType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* VmKernelLogRequest_VmType_descriptor();
@@ -1080,6 +1082,10 @@ class VmKernelLogRequest final :
     VmKernelLogRequest_VmType_ARC_VM;
   static constexpr VmType PLUGIN_VM =
     VmKernelLogRequest_VmType_PLUGIN_VM;
+  static constexpr VmType BOREALIS =
+    VmKernelLogRequest_VmType_BOREALIS;
+  static constexpr VmType BRUSCHETTA =
+    VmKernelLogRequest_VmType_BRUSCHETTA;
   static inline bool VmType_IsValid(int value) {
     return VmKernelLogRequest_VmType_IsValid(value);
   }

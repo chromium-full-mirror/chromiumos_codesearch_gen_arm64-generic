@@ -30,6 +30,7 @@ class LibMetricsMetricsRecorder : public RedactionToolMetricsRecorder {
   // redaction::RedactionToolMetricsRecorder:
   void RecordPIIRedactedHistogram(PIIType pii_type) override;
   void RecordCreditCardRedactionHistogram(CreditCardDetection step) override;
+  void RecordTimeSpentRedactingHistogram(base::TimeDelta elapsed_time) override;
 
  private:
   scoped_refptr<base::RefCountedData<std::unique_ptr<MetricsLibraryInterface>>>

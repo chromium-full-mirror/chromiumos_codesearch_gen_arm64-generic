@@ -45,7 +45,8 @@ AuthSessionManager::AuthSessionManager(
     AuthFactorDriverManager* auth_factor_driver_manager,
     AuthFactorManager* auth_factor_manager,
     UserSecretStashStorage* user_secret_stash_storage,
-    UserMetadataReader* user_metadata_reader)
+    UserMetadataReader* user_metadata_reader,
+    AsyncInitFeatures* features)
     : crypto_(crypto),
       platform_(platform),
       user_session_map_(user_session_map),
@@ -55,17 +56,18 @@ AuthSessionManager::AuthSessionManager(
       auth_factor_manager_(auth_factor_manager),
       user_secret_stash_storage_(user_secret_stash_storage),
       user_metadata_reader_(user_metadata_reader),
-      features_(nullptr) {
+      features_(features) {
   // Preconditions
-  DCHECK(crypto_);
-  DCHECK(platform_);
-  DCHECK(user_session_map_);
-  DCHECK(keyset_management_);
-  DCHECK(auth_block_utility_);
-  DCHECK(auth_factor_driver_manager_);
-  DCHECK(auth_factor_manager_);
-  DCHECK(user_secret_stash_storage_);
-  DCHECK(user_metadata_reader_);
+  CHECK(crypto_);
+  CHECK(platform_);
+  CHECK(user_session_map_);
+  CHECK(keyset_management_);
+  CHECK(auth_block_utility_);
+  CHECK(auth_factor_driver_manager_);
+  CHECK(auth_factor_manager_);
+  CHECK(user_secret_stash_storage_);
+  CHECK(user_metadata_reader_);
+  CHECK(features_);
 }
 
 CryptohomeStatusOr<InUseAuthSession> AuthSessionManager::CreateAuthSession(

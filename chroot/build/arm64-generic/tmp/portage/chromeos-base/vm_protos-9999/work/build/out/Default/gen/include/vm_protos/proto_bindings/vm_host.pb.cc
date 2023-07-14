@@ -177,30 +177,31 @@ const char descriptor_table_protodef_vm_5fhost_2eproto[] PROTOBUF_SECTION_VARIAB
   "er_start\020\001\022\016\n\ncore_start\020\002\022\027\n\023install_fe"
   "tch_image\020\003\022\025\n\021install_configure\020\004\022\020\n\014in"
   "stall_done\020\005\022\023\n\017install_success\020\006\022\023\n\017ins"
-  "tall_failure\020\007\"\274\001\n\022VmKernelLogRequest\0224\n"
+  "tall_failure\020\007\"\332\001\n\022VmKernelLogRequest\0224\n"
   "\007vm_type\030\001 \001(\0162#.vm_tools.VmKernelLogReq"
   "uest.VmType\022\013\n\003cid\030\002 \001(\005\022$\n\007records\030\003 \003("
-  "\0132\023.vm_tools.LogRecord\"=\n\006VmType\022\013\n\007UNKN"
+  "\0132\023.vm_tools.LogRecord\"[\n\006VmType\022\013\n\007UNKN"
   "OWN\020\000\022\013\n\007TERMINA\020\001\022\n\n\006ARC_VM\020\002\022\r\n\tPLUGIN"
-  "_VM\020\003*{\n\013LogSeverity\022\013\n\007MISSING\020\000\022\r\n\tEME"
-  "RGENCY\020\001\022\t\n\005ALERT\020\002\022\014\n\010CRITICAL\020\003\022\t\n\005ERR"
-  "OR\020\004\022\013\n\007WARNING\020\005\022\n\n\006NOTICE\020\006\022\010\n\004INFO\020\007\022"
-  "\t\n\005DEBUG\020\0102\222\001\n\014LogCollector\022A\n\021CollectKe"
-  "rnelLogs\022\024.vm_tools.LogRequest\032\026.vm_tool"
-  "s.EmptyMessage\022\?\n\017CollectUserLogs\022\024.vm_t"
-  "ools.LogRequest\032\026.vm_tools.EmptyMessage2"
-  "\221\001\n\017StartupListener\0229\n\007VmReady\022\026.vm_tool"
-  "s.EmptyMessage\032\026.vm_tools.EmptyMessage\022C"
-  "\n\017VmInstallStatus\022\030.vm_tools.VmInstallSt"
-  "ate\032\026.vm_tools.EmptyMessageB\037Z\032chromiumo"
-  "s/vm_tools/vm_rpc\370\001\001b\006proto3"
+  "_VM\020\003\022\014\n\010BOREALIS\020\004\022\016\n\nBRUSCHETTA\020\005*{\n\013L"
+  "ogSeverity\022\013\n\007MISSING\020\000\022\r\n\tEMERGENCY\020\001\022\t"
+  "\n\005ALERT\020\002\022\014\n\010CRITICAL\020\003\022\t\n\005ERROR\020\004\022\013\n\007WA"
+  "RNING\020\005\022\n\n\006NOTICE\020\006\022\010\n\004INFO\020\007\022\t\n\005DEBUG\020\010"
+  "2\222\001\n\014LogCollector\022A\n\021CollectKernelLogs\022\024"
+  ".vm_tools.LogRequest\032\026.vm_tools.EmptyMes"
+  "sage\022\?\n\017CollectUserLogs\022\024.vm_tools.LogRe"
+  "quest\032\026.vm_tools.EmptyMessage2\221\001\n\017Startu"
+  "pListener\0229\n\007VmReady\022\026.vm_tools.EmptyMes"
+  "sage\032\026.vm_tools.EmptyMessage\022C\n\017VmInstal"
+  "lStatus\022\030.vm_tools.VmInstallState\032\026.vm_t"
+  "ools.EmptyMessageB\037Z\032chromiumos/vm_tools"
+  "/vm_rpc\370\001\001b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_vm_5fhost_2eproto_deps[1] = {
   &::descriptor_table_common_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_vm_5fhost_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_vm_5fhost_2eproto = {
-    false, false, 1308, descriptor_table_protodef_vm_5fhost_2eproto,
+    false, false, 1338, descriptor_table_protodef_vm_5fhost_2eproto,
     "vm_host.proto",
     &descriptor_table_vm_5fhost_2eproto_once, descriptor_table_vm_5fhost_2eproto_deps, 1, 5,
     schemas, file_default_instances, TableStruct_vm_5fhost_2eproto::offsets,
@@ -282,6 +283,8 @@ bool VmKernelLogRequest_VmType_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
+    case 5:
       return true;
     default:
       return false;
@@ -293,6 +296,8 @@ constexpr VmKernelLogRequest_VmType VmKernelLogRequest::UNKNOWN;
 constexpr VmKernelLogRequest_VmType VmKernelLogRequest::TERMINA;
 constexpr VmKernelLogRequest_VmType VmKernelLogRequest::ARC_VM;
 constexpr VmKernelLogRequest_VmType VmKernelLogRequest::PLUGIN_VM;
+constexpr VmKernelLogRequest_VmType VmKernelLogRequest::BOREALIS;
+constexpr VmKernelLogRequest_VmType VmKernelLogRequest::BRUSCHETTA;
 constexpr VmKernelLogRequest_VmType VmKernelLogRequest::VmType_MIN;
 constexpr VmKernelLogRequest_VmType VmKernelLogRequest::VmType_MAX;
 constexpr int VmKernelLogRequest::VmType_ARRAYSIZE;

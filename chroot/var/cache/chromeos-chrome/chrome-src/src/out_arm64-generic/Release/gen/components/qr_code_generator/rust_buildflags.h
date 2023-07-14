@@ -6,6 +6,6 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
-#define BUILDFLAG_INTERNAL_BUILD_RUST_QR() (0)
+#define BUILDFLAG_INTERNAL_ENABLE_RUST_QR() (0)
 
 #endif  // COMPONENTS_QR_CODE_GENERATOR_RUST_BUILDFLAGS_H_

@@ -2491,44 +2491,104 @@ class TerminaVmStartupResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDeviceFieldNumber = 1,
-    kContainerSubnetFieldNumber = 2,
+    kTapDeviceIfnameFieldNumber = 1,
+    kIpv4AddressFieldNumber = 3,
+    kGatewayIpv4AddressFieldNumber = 4,
+    kContainerIpv4AddressFieldNumber = 6,
+    kIpv4SubnetFieldNumber = 2,
+    kContainerIpv4SubnetFieldNumber = 5,
   };
-  // .patchpanel.NetworkDevice device = 1;
-  bool has_device() const;
+  // string tap_device_ifname = 1;
+  void clear_tap_device_ifname();
+  const std::string& tap_device_ifname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_tap_device_ifname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_tap_device_ifname();
+  PROTOBUF_NODISCARD std::string* release_tap_device_ifname();
+  void set_allocated_tap_device_ifname(std::string* tap_device_ifname);
   private:
-  bool _internal_has_device() const;
+  const std::string& _internal_tap_device_ifname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_tap_device_ifname(const std::string& value);
+  std::string* _internal_mutable_tap_device_ifname();
   public:
-  void clear_device();
-  const ::patchpanel::NetworkDevice& device() const;
-  PROTOBUF_NODISCARD ::patchpanel::NetworkDevice* release_device();
-  ::patchpanel::NetworkDevice* mutable_device();
-  void set_allocated_device(::patchpanel::NetworkDevice* device);
-  private:
-  const ::patchpanel::NetworkDevice& _internal_device() const;
-  ::patchpanel::NetworkDevice* _internal_mutable_device();
-  public:
-  void unsafe_arena_set_allocated_device(
-      ::patchpanel::NetworkDevice* device);
-  ::patchpanel::NetworkDevice* unsafe_arena_release_device();
 
-  // .patchpanel.IPv4Subnet container_subnet = 2;
-  bool has_container_subnet() const;
+  // bytes ipv4_address = 3;
+  void clear_ipv4_address();
+  const std::string& ipv4_address() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_ipv4_address(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_ipv4_address();
+  PROTOBUF_NODISCARD std::string* release_ipv4_address();
+  void set_allocated_ipv4_address(std::string* ipv4_address);
   private:
-  bool _internal_has_container_subnet() const;
+  const std::string& _internal_ipv4_address() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_ipv4_address(const std::string& value);
+  std::string* _internal_mutable_ipv4_address();
   public:
-  void clear_container_subnet();
-  const ::patchpanel::IPv4Subnet& container_subnet() const;
-  PROTOBUF_NODISCARD ::patchpanel::IPv4Subnet* release_container_subnet();
-  ::patchpanel::IPv4Subnet* mutable_container_subnet();
-  void set_allocated_container_subnet(::patchpanel::IPv4Subnet* container_subnet);
+
+  // bytes gateway_ipv4_address = 4;
+  void clear_gateway_ipv4_address();
+  const std::string& gateway_ipv4_address() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_gateway_ipv4_address(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_gateway_ipv4_address();
+  PROTOBUF_NODISCARD std::string* release_gateway_ipv4_address();
+  void set_allocated_gateway_ipv4_address(std::string* gateway_ipv4_address);
   private:
-  const ::patchpanel::IPv4Subnet& _internal_container_subnet() const;
-  ::patchpanel::IPv4Subnet* _internal_mutable_container_subnet();
+  const std::string& _internal_gateway_ipv4_address() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_gateway_ipv4_address(const std::string& value);
+  std::string* _internal_mutable_gateway_ipv4_address();
   public:
-  void unsafe_arena_set_allocated_container_subnet(
-      ::patchpanel::IPv4Subnet* container_subnet);
-  ::patchpanel::IPv4Subnet* unsafe_arena_release_container_subnet();
+
+  // bytes container_ipv4_address = 6;
+  void clear_container_ipv4_address();
+  const std::string& container_ipv4_address() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_container_ipv4_address(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_container_ipv4_address();
+  PROTOBUF_NODISCARD std::string* release_container_ipv4_address();
+  void set_allocated_container_ipv4_address(std::string* container_ipv4_address);
+  private:
+  const std::string& _internal_container_ipv4_address() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_ipv4_address(const std::string& value);
+  std::string* _internal_mutable_container_ipv4_address();
+  public:
+
+  // .patchpanel.IPv4Subnet ipv4_subnet = 2;
+  bool has_ipv4_subnet() const;
+  private:
+  bool _internal_has_ipv4_subnet() const;
+  public:
+  void clear_ipv4_subnet();
+  const ::patchpanel::IPv4Subnet& ipv4_subnet() const;
+  PROTOBUF_NODISCARD ::patchpanel::IPv4Subnet* release_ipv4_subnet();
+  ::patchpanel::IPv4Subnet* mutable_ipv4_subnet();
+  void set_allocated_ipv4_subnet(::patchpanel::IPv4Subnet* ipv4_subnet);
+  private:
+  const ::patchpanel::IPv4Subnet& _internal_ipv4_subnet() const;
+  ::patchpanel::IPv4Subnet* _internal_mutable_ipv4_subnet();
+  public:
+  void unsafe_arena_set_allocated_ipv4_subnet(
+      ::patchpanel::IPv4Subnet* ipv4_subnet);
+  ::patchpanel::IPv4Subnet* unsafe_arena_release_ipv4_subnet();
+
+  // .patchpanel.IPv4Subnet container_ipv4_subnet = 5;
+  bool has_container_ipv4_subnet() const;
+  private:
+  bool _internal_has_container_ipv4_subnet() const;
+  public:
+  void clear_container_ipv4_subnet();
+  const ::patchpanel::IPv4Subnet& container_ipv4_subnet() const;
+  PROTOBUF_NODISCARD ::patchpanel::IPv4Subnet* release_container_ipv4_subnet();
+  ::patchpanel::IPv4Subnet* mutable_container_ipv4_subnet();
+  void set_allocated_container_ipv4_subnet(::patchpanel::IPv4Subnet* container_ipv4_subnet);
+  private:
+  const ::patchpanel::IPv4Subnet& _internal_container_ipv4_subnet() const;
+  ::patchpanel::IPv4Subnet* _internal_mutable_container_ipv4_subnet();
+  public:
+  void unsafe_arena_set_allocated_container_ipv4_subnet(
+      ::patchpanel::IPv4Subnet* container_ipv4_subnet);
+  ::patchpanel::IPv4Subnet* unsafe_arena_release_container_ipv4_subnet();
 
   // @@protoc_insertion_point(class_scope:patchpanel.TerminaVmStartupResponse)
  private:
@@ -2538,8 +2598,12 @@ class TerminaVmStartupResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::patchpanel::NetworkDevice* device_;
-    ::patchpanel::IPv4Subnet* container_subnet_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tap_device_ifname_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ipv4_address_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr gateway_ipv4_address_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_ipv4_address_;
+    ::patchpanel::IPv4Subnet* ipv4_subnet_;
+    ::patchpanel::IPv4Subnet* container_ipv4_subnet_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3038,25 +3102,55 @@ class ParallelsVmStartupResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDeviceFieldNumber = 1,
+    kTapDeviceIfnameFieldNumber = 1,
+    kIpv4AddressFieldNumber = 3,
+    kIpv4SubnetFieldNumber = 2,
   };
-  // .patchpanel.NetworkDevice device = 1;
-  bool has_device() const;
+  // string tap_device_ifname = 1;
+  void clear_tap_device_ifname();
+  const std::string& tap_device_ifname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_tap_device_ifname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_tap_device_ifname();
+  PROTOBUF_NODISCARD std::string* release_tap_device_ifname();
+  void set_allocated_tap_device_ifname(std::string* tap_device_ifname);
   private:
-  bool _internal_has_device() const;
+  const std::string& _internal_tap_device_ifname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_tap_device_ifname(const std::string& value);
+  std::string* _internal_mutable_tap_device_ifname();
   public:
-  void clear_device();
-  const ::patchpanel::NetworkDevice& device() const;
-  PROTOBUF_NODISCARD ::patchpanel::NetworkDevice* release_device();
-  ::patchpanel::NetworkDevice* mutable_device();
-  void set_allocated_device(::patchpanel::NetworkDevice* device);
+
+  // bytes ipv4_address = 3;
+  void clear_ipv4_address();
+  const std::string& ipv4_address() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_ipv4_address(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_ipv4_address();
+  PROTOBUF_NODISCARD std::string* release_ipv4_address();
+  void set_allocated_ipv4_address(std::string* ipv4_address);
   private:
-  const ::patchpanel::NetworkDevice& _internal_device() const;
-  ::patchpanel::NetworkDevice* _internal_mutable_device();
+  const std::string& _internal_ipv4_address() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_ipv4_address(const std::string& value);
+  std::string* _internal_mutable_ipv4_address();
   public:
-  void unsafe_arena_set_allocated_device(
-      ::patchpanel::NetworkDevice* device);
-  ::patchpanel::NetworkDevice* unsafe_arena_release_device();
+
+  // .patchpanel.IPv4Subnet ipv4_subnet = 2;
+  bool has_ipv4_subnet() const;
+  private:
+  bool _internal_has_ipv4_subnet() const;
+  public:
+  void clear_ipv4_subnet();
+  const ::patchpanel::IPv4Subnet& ipv4_subnet() const;
+  PROTOBUF_NODISCARD ::patchpanel::IPv4Subnet* release_ipv4_subnet();
+  ::patchpanel::IPv4Subnet* mutable_ipv4_subnet();
+  void set_allocated_ipv4_subnet(::patchpanel::IPv4Subnet* ipv4_subnet);
+  private:
+  const ::patchpanel::IPv4Subnet& _internal_ipv4_subnet() const;
+  ::patchpanel::IPv4Subnet* _internal_mutable_ipv4_subnet();
+  public:
+  void unsafe_arena_set_allocated_ipv4_subnet(
+      ::patchpanel::IPv4Subnet* ipv4_subnet);
+  ::patchpanel::IPv4Subnet* unsafe_arena_release_ipv4_subnet();
 
   // @@protoc_insertion_point(class_scope:patchpanel.ParallelsVmStartupResponse)
  private:
@@ -3066,7 +3160,9 @@ class ParallelsVmStartupResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::patchpanel::NetworkDevice* device_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tap_device_ifname_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ipv4_address_;
+    ::patchpanel::IPv4Subnet* ipv4_subnet_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -9117,135 +9213,95 @@ inline void TerminaVmStartupRequest::set_cid(uint32_t value) {
 
 // TerminaVmStartupResponse
 
-// .patchpanel.NetworkDevice device = 1;
-inline bool TerminaVmStartupResponse::_internal_has_device() const {
-  return this != internal_default_instance() && _impl_.device_ != nullptr;
+// string tap_device_ifname = 1;
+inline void TerminaVmStartupResponse::clear_tap_device_ifname() {
+  _impl_.tap_device_ifname_.ClearToEmpty();
 }
-inline bool TerminaVmStartupResponse::has_device() const {
-  return _internal_has_device();
+inline const std::string& TerminaVmStartupResponse::tap_device_ifname() const {
+  // @@protoc_insertion_point(field_get:patchpanel.TerminaVmStartupResponse.tap_device_ifname)
+  return _internal_tap_device_ifname();
 }
-inline void TerminaVmStartupResponse::clear_device() {
-  if (GetArenaForAllocation() == nullptr && _impl_.device_ != nullptr) {
-    delete _impl_.device_;
-  }
-  _impl_.device_ = nullptr;
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void TerminaVmStartupResponse::set_tap_device_ifname(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.tap_device_ifname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.TerminaVmStartupResponse.tap_device_ifname)
 }
-inline const ::patchpanel::NetworkDevice& TerminaVmStartupResponse::_internal_device() const {
-  const ::patchpanel::NetworkDevice* p = _impl_.device_;
-  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::NetworkDevice&>(
-      ::patchpanel::_NetworkDevice_default_instance_);
+inline std::string* TerminaVmStartupResponse::mutable_tap_device_ifname() {
+  std::string* _s = _internal_mutable_tap_device_ifname();
+  // @@protoc_insertion_point(field_mutable:patchpanel.TerminaVmStartupResponse.tap_device_ifname)
+  return _s;
 }
-inline const ::patchpanel::NetworkDevice& TerminaVmStartupResponse::device() const {
-  // @@protoc_insertion_point(field_get:patchpanel.TerminaVmStartupResponse.device)
-  return _internal_device();
+inline const std::string& TerminaVmStartupResponse::_internal_tap_device_ifname() const {
+  return _impl_.tap_device_ifname_.Get();
 }
-inline void TerminaVmStartupResponse::unsafe_arena_set_allocated_device(
-    ::patchpanel::NetworkDevice* device) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.device_);
-  }
-  _impl_.device_ = device;
-  if (device) {
+inline void TerminaVmStartupResponse::_internal_set_tap_device_ifname(const std::string& value) {
+  
+  _impl_.tap_device_ifname_.Set(value, GetArenaForAllocation());
+}
+inline std::string* TerminaVmStartupResponse::_internal_mutable_tap_device_ifname() {
+  
+  return _impl_.tap_device_ifname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* TerminaVmStartupResponse::release_tap_device_ifname() {
+  // @@protoc_insertion_point(field_release:patchpanel.TerminaVmStartupResponse.tap_device_ifname)
+  return _impl_.tap_device_ifname_.Release();
+}
+inline void TerminaVmStartupResponse::set_allocated_tap_device_ifname(std::string* tap_device_ifname) {
+  if (tap_device_ifname != nullptr) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.TerminaVmStartupResponse.device)
-}
-inline ::patchpanel::NetworkDevice* TerminaVmStartupResponse::release_device() {
-  
-  ::patchpanel::NetworkDevice* temp = _impl_.device_;
-  _impl_.device_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  _impl_.tap_device_ifname_.SetAllocated(tap_device_ifname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.tap_device_ifname_.IsDefault()) {
+    _impl_.tap_device_ifname_.Set("", GetArenaForAllocation());
   }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::patchpanel::NetworkDevice* TerminaVmStartupResponse::unsafe_arena_release_device() {
-  // @@protoc_insertion_point(field_release:patchpanel.TerminaVmStartupResponse.device)
-  
-  ::patchpanel::NetworkDevice* temp = _impl_.device_;
-  _impl_.device_ = nullptr;
-  return temp;
-}
-inline ::patchpanel::NetworkDevice* TerminaVmStartupResponse::_internal_mutable_device() {
-  
-  if (_impl_.device_ == nullptr) {
-    auto* p = CreateMaybeMessage<::patchpanel::NetworkDevice>(GetArenaForAllocation());
-    _impl_.device_ = p;
-  }
-  return _impl_.device_;
-}
-inline ::patchpanel::NetworkDevice* TerminaVmStartupResponse::mutable_device() {
-  ::patchpanel::NetworkDevice* _msg = _internal_mutable_device();
-  // @@protoc_insertion_point(field_mutable:patchpanel.TerminaVmStartupResponse.device)
-  return _msg;
-}
-inline void TerminaVmStartupResponse::set_allocated_device(::patchpanel::NetworkDevice* device) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.device_;
-  }
-  if (device) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device);
-    if (message_arena != submessage_arena) {
-      device = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, device, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.device_ = device;
-  // @@protoc_insertion_point(field_set_allocated:patchpanel.TerminaVmStartupResponse.device)
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.TerminaVmStartupResponse.tap_device_ifname)
 }
 
-// .patchpanel.IPv4Subnet container_subnet = 2;
-inline bool TerminaVmStartupResponse::_internal_has_container_subnet() const {
-  return this != internal_default_instance() && _impl_.container_subnet_ != nullptr;
+// .patchpanel.IPv4Subnet ipv4_subnet = 2;
+inline bool TerminaVmStartupResponse::_internal_has_ipv4_subnet() const {
+  return this != internal_default_instance() && _impl_.ipv4_subnet_ != nullptr;
 }
-inline bool TerminaVmStartupResponse::has_container_subnet() const {
-  return _internal_has_container_subnet();
+inline bool TerminaVmStartupResponse::has_ipv4_subnet() const {
+  return _internal_has_ipv4_subnet();
 }
-inline void TerminaVmStartupResponse::clear_container_subnet() {
-  if (GetArenaForAllocation() == nullptr && _impl_.container_subnet_ != nullptr) {
-    delete _impl_.container_subnet_;
+inline void TerminaVmStartupResponse::clear_ipv4_subnet() {
+  if (GetArenaForAllocation() == nullptr && _impl_.ipv4_subnet_ != nullptr) {
+    delete _impl_.ipv4_subnet_;
   }
-  _impl_.container_subnet_ = nullptr;
+  _impl_.ipv4_subnet_ = nullptr;
 }
-inline const ::patchpanel::IPv4Subnet& TerminaVmStartupResponse::_internal_container_subnet() const {
-  const ::patchpanel::IPv4Subnet* p = _impl_.container_subnet_;
+inline const ::patchpanel::IPv4Subnet& TerminaVmStartupResponse::_internal_ipv4_subnet() const {
+  const ::patchpanel::IPv4Subnet* p = _impl_.ipv4_subnet_;
   return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::IPv4Subnet&>(
       ::patchpanel::_IPv4Subnet_default_instance_);
 }
-inline const ::patchpanel::IPv4Subnet& TerminaVmStartupResponse::container_subnet() const {
-  // @@protoc_insertion_point(field_get:patchpanel.TerminaVmStartupResponse.container_subnet)
-  return _internal_container_subnet();
+inline const ::patchpanel::IPv4Subnet& TerminaVmStartupResponse::ipv4_subnet() const {
+  // @@protoc_insertion_point(field_get:patchpanel.TerminaVmStartupResponse.ipv4_subnet)
+  return _internal_ipv4_subnet();
 }
-inline void TerminaVmStartupResponse::unsafe_arena_set_allocated_container_subnet(
-    ::patchpanel::IPv4Subnet* container_subnet) {
+inline void TerminaVmStartupResponse::unsafe_arena_set_allocated_ipv4_subnet(
+    ::patchpanel::IPv4Subnet* ipv4_subnet) {
   if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.container_subnet_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ipv4_subnet_);
   }
-  _impl_.container_subnet_ = container_subnet;
-  if (container_subnet) {
+  _impl_.ipv4_subnet_ = ipv4_subnet;
+  if (ipv4_subnet) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.TerminaVmStartupResponse.container_subnet)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.TerminaVmStartupResponse.ipv4_subnet)
 }
-inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::release_container_subnet() {
+inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::release_ipv4_subnet() {
   
-  ::patchpanel::IPv4Subnet* temp = _impl_.container_subnet_;
-  _impl_.container_subnet_ = nullptr;
+  ::patchpanel::IPv4Subnet* temp = _impl_.ipv4_subnet_;
+  _impl_.ipv4_subnet_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
   temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -9257,44 +9313,284 @@ inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::release_container_sub
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::unsafe_arena_release_container_subnet() {
-  // @@protoc_insertion_point(field_release:patchpanel.TerminaVmStartupResponse.container_subnet)
+inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::unsafe_arena_release_ipv4_subnet() {
+  // @@protoc_insertion_point(field_release:patchpanel.TerminaVmStartupResponse.ipv4_subnet)
   
-  ::patchpanel::IPv4Subnet* temp = _impl_.container_subnet_;
-  _impl_.container_subnet_ = nullptr;
+  ::patchpanel::IPv4Subnet* temp = _impl_.ipv4_subnet_;
+  _impl_.ipv4_subnet_ = nullptr;
   return temp;
 }
-inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::_internal_mutable_container_subnet() {
+inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::_internal_mutable_ipv4_subnet() {
   
-  if (_impl_.container_subnet_ == nullptr) {
+  if (_impl_.ipv4_subnet_ == nullptr) {
     auto* p = CreateMaybeMessage<::patchpanel::IPv4Subnet>(GetArenaForAllocation());
-    _impl_.container_subnet_ = p;
+    _impl_.ipv4_subnet_ = p;
   }
-  return _impl_.container_subnet_;
+  return _impl_.ipv4_subnet_;
 }
-inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::mutable_container_subnet() {
-  ::patchpanel::IPv4Subnet* _msg = _internal_mutable_container_subnet();
-  // @@protoc_insertion_point(field_mutable:patchpanel.TerminaVmStartupResponse.container_subnet)
+inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::mutable_ipv4_subnet() {
+  ::patchpanel::IPv4Subnet* _msg = _internal_mutable_ipv4_subnet();
+  // @@protoc_insertion_point(field_mutable:patchpanel.TerminaVmStartupResponse.ipv4_subnet)
   return _msg;
 }
-inline void TerminaVmStartupResponse::set_allocated_container_subnet(::patchpanel::IPv4Subnet* container_subnet) {
+inline void TerminaVmStartupResponse::set_allocated_ipv4_subnet(::patchpanel::IPv4Subnet* ipv4_subnet) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete _impl_.container_subnet_;
+    delete _impl_.ipv4_subnet_;
   }
-  if (container_subnet) {
+  if (ipv4_subnet) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(container_subnet);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ipv4_subnet);
     if (message_arena != submessage_arena) {
-      container_subnet = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, container_subnet, submessage_arena);
+      ipv4_subnet = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ipv4_subnet, submessage_arena);
     }
     
   } else {
     
   }
-  _impl_.container_subnet_ = container_subnet;
-  // @@protoc_insertion_point(field_set_allocated:patchpanel.TerminaVmStartupResponse.container_subnet)
+  _impl_.ipv4_subnet_ = ipv4_subnet;
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.TerminaVmStartupResponse.ipv4_subnet)
+}
+
+// bytes ipv4_address = 3;
+inline void TerminaVmStartupResponse::clear_ipv4_address() {
+  _impl_.ipv4_address_.ClearToEmpty();
+}
+inline const std::string& TerminaVmStartupResponse::ipv4_address() const {
+  // @@protoc_insertion_point(field_get:patchpanel.TerminaVmStartupResponse.ipv4_address)
+  return _internal_ipv4_address();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void TerminaVmStartupResponse::set_ipv4_address(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.ipv4_address_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.TerminaVmStartupResponse.ipv4_address)
+}
+inline std::string* TerminaVmStartupResponse::mutable_ipv4_address() {
+  std::string* _s = _internal_mutable_ipv4_address();
+  // @@protoc_insertion_point(field_mutable:patchpanel.TerminaVmStartupResponse.ipv4_address)
+  return _s;
+}
+inline const std::string& TerminaVmStartupResponse::_internal_ipv4_address() const {
+  return _impl_.ipv4_address_.Get();
+}
+inline void TerminaVmStartupResponse::_internal_set_ipv4_address(const std::string& value) {
+  
+  _impl_.ipv4_address_.Set(value, GetArenaForAllocation());
+}
+inline std::string* TerminaVmStartupResponse::_internal_mutable_ipv4_address() {
+  
+  return _impl_.ipv4_address_.Mutable(GetArenaForAllocation());
+}
+inline std::string* TerminaVmStartupResponse::release_ipv4_address() {
+  // @@protoc_insertion_point(field_release:patchpanel.TerminaVmStartupResponse.ipv4_address)
+  return _impl_.ipv4_address_.Release();
+}
+inline void TerminaVmStartupResponse::set_allocated_ipv4_address(std::string* ipv4_address) {
+  if (ipv4_address != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.ipv4_address_.SetAllocated(ipv4_address, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.ipv4_address_.IsDefault()) {
+    _impl_.ipv4_address_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.TerminaVmStartupResponse.ipv4_address)
+}
+
+// bytes gateway_ipv4_address = 4;
+inline void TerminaVmStartupResponse::clear_gateway_ipv4_address() {
+  _impl_.gateway_ipv4_address_.ClearToEmpty();
+}
+inline const std::string& TerminaVmStartupResponse::gateway_ipv4_address() const {
+  // @@protoc_insertion_point(field_get:patchpanel.TerminaVmStartupResponse.gateway_ipv4_address)
+  return _internal_gateway_ipv4_address();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void TerminaVmStartupResponse::set_gateway_ipv4_address(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.gateway_ipv4_address_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.TerminaVmStartupResponse.gateway_ipv4_address)
+}
+inline std::string* TerminaVmStartupResponse::mutable_gateway_ipv4_address() {
+  std::string* _s = _internal_mutable_gateway_ipv4_address();
+  // @@protoc_insertion_point(field_mutable:patchpanel.TerminaVmStartupResponse.gateway_ipv4_address)
+  return _s;
+}
+inline const std::string& TerminaVmStartupResponse::_internal_gateway_ipv4_address() const {
+  return _impl_.gateway_ipv4_address_.Get();
+}
+inline void TerminaVmStartupResponse::_internal_set_gateway_ipv4_address(const std::string& value) {
+  
+  _impl_.gateway_ipv4_address_.Set(value, GetArenaForAllocation());
+}
+inline std::string* TerminaVmStartupResponse::_internal_mutable_gateway_ipv4_address() {
+  
+  return _impl_.gateway_ipv4_address_.Mutable(GetArenaForAllocation());
+}
+inline std::string* TerminaVmStartupResponse::release_gateway_ipv4_address() {
+  // @@protoc_insertion_point(field_release:patchpanel.TerminaVmStartupResponse.gateway_ipv4_address)
+  return _impl_.gateway_ipv4_address_.Release();
+}
+inline void TerminaVmStartupResponse::set_allocated_gateway_ipv4_address(std::string* gateway_ipv4_address) {
+  if (gateway_ipv4_address != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.gateway_ipv4_address_.SetAllocated(gateway_ipv4_address, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.gateway_ipv4_address_.IsDefault()) {
+    _impl_.gateway_ipv4_address_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.TerminaVmStartupResponse.gateway_ipv4_address)
+}
+
+// .patchpanel.IPv4Subnet container_ipv4_subnet = 5;
+inline bool TerminaVmStartupResponse::_internal_has_container_ipv4_subnet() const {
+  return this != internal_default_instance() && _impl_.container_ipv4_subnet_ != nullptr;
+}
+inline bool TerminaVmStartupResponse::has_container_ipv4_subnet() const {
+  return _internal_has_container_ipv4_subnet();
+}
+inline void TerminaVmStartupResponse::clear_container_ipv4_subnet() {
+  if (GetArenaForAllocation() == nullptr && _impl_.container_ipv4_subnet_ != nullptr) {
+    delete _impl_.container_ipv4_subnet_;
+  }
+  _impl_.container_ipv4_subnet_ = nullptr;
+}
+inline const ::patchpanel::IPv4Subnet& TerminaVmStartupResponse::_internal_container_ipv4_subnet() const {
+  const ::patchpanel::IPv4Subnet* p = _impl_.container_ipv4_subnet_;
+  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::IPv4Subnet&>(
+      ::patchpanel::_IPv4Subnet_default_instance_);
+}
+inline const ::patchpanel::IPv4Subnet& TerminaVmStartupResponse::container_ipv4_subnet() const {
+  // @@protoc_insertion_point(field_get:patchpanel.TerminaVmStartupResponse.container_ipv4_subnet)
+  return _internal_container_ipv4_subnet();
+}
+inline void TerminaVmStartupResponse::unsafe_arena_set_allocated_container_ipv4_subnet(
+    ::patchpanel::IPv4Subnet* container_ipv4_subnet) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.container_ipv4_subnet_);
+  }
+  _impl_.container_ipv4_subnet_ = container_ipv4_subnet;
+  if (container_ipv4_subnet) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.TerminaVmStartupResponse.container_ipv4_subnet)
+}
+inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::release_container_ipv4_subnet() {
+  
+  ::patchpanel::IPv4Subnet* temp = _impl_.container_ipv4_subnet_;
+  _impl_.container_ipv4_subnet_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::unsafe_arena_release_container_ipv4_subnet() {
+  // @@protoc_insertion_point(field_release:patchpanel.TerminaVmStartupResponse.container_ipv4_subnet)
+  
+  ::patchpanel::IPv4Subnet* temp = _impl_.container_ipv4_subnet_;
+  _impl_.container_ipv4_subnet_ = nullptr;
+  return temp;
+}
+inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::_internal_mutable_container_ipv4_subnet() {
+  
+  if (_impl_.container_ipv4_subnet_ == nullptr) {
+    auto* p = CreateMaybeMessage<::patchpanel::IPv4Subnet>(GetArenaForAllocation());
+    _impl_.container_ipv4_subnet_ = p;
+  }
+  return _impl_.container_ipv4_subnet_;
+}
+inline ::patchpanel::IPv4Subnet* TerminaVmStartupResponse::mutable_container_ipv4_subnet() {
+  ::patchpanel::IPv4Subnet* _msg = _internal_mutable_container_ipv4_subnet();
+  // @@protoc_insertion_point(field_mutable:patchpanel.TerminaVmStartupResponse.container_ipv4_subnet)
+  return _msg;
+}
+inline void TerminaVmStartupResponse::set_allocated_container_ipv4_subnet(::patchpanel::IPv4Subnet* container_ipv4_subnet) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.container_ipv4_subnet_;
+  }
+  if (container_ipv4_subnet) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(container_ipv4_subnet);
+    if (message_arena != submessage_arena) {
+      container_ipv4_subnet = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, container_ipv4_subnet, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.container_ipv4_subnet_ = container_ipv4_subnet;
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.TerminaVmStartupResponse.container_ipv4_subnet)
+}
+
+// bytes container_ipv4_address = 6;
+inline void TerminaVmStartupResponse::clear_container_ipv4_address() {
+  _impl_.container_ipv4_address_.ClearToEmpty();
+}
+inline const std::string& TerminaVmStartupResponse::container_ipv4_address() const {
+  // @@protoc_insertion_point(field_get:patchpanel.TerminaVmStartupResponse.container_ipv4_address)
+  return _internal_container_ipv4_address();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void TerminaVmStartupResponse::set_container_ipv4_address(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.container_ipv4_address_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.TerminaVmStartupResponse.container_ipv4_address)
+}
+inline std::string* TerminaVmStartupResponse::mutable_container_ipv4_address() {
+  std::string* _s = _internal_mutable_container_ipv4_address();
+  // @@protoc_insertion_point(field_mutable:patchpanel.TerminaVmStartupResponse.container_ipv4_address)
+  return _s;
+}
+inline const std::string& TerminaVmStartupResponse::_internal_container_ipv4_address() const {
+  return _impl_.container_ipv4_address_.Get();
+}
+inline void TerminaVmStartupResponse::_internal_set_container_ipv4_address(const std::string& value) {
+  
+  _impl_.container_ipv4_address_.Set(value, GetArenaForAllocation());
+}
+inline std::string* TerminaVmStartupResponse::_internal_mutable_container_ipv4_address() {
+  
+  return _impl_.container_ipv4_address_.Mutable(GetArenaForAllocation());
+}
+inline std::string* TerminaVmStartupResponse::release_container_ipv4_address() {
+  // @@protoc_insertion_point(field_release:patchpanel.TerminaVmStartupResponse.container_ipv4_address)
+  return _impl_.container_ipv4_address_.Release();
+}
+inline void TerminaVmStartupResponse::set_allocated_container_ipv4_address(std::string* container_ipv4_address) {
+  if (container_ipv4_address != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.container_ipv4_address_.SetAllocated(container_ipv4_address, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.container_ipv4_address_.IsDefault()) {
+    _impl_.container_ipv4_address_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.TerminaVmStartupResponse.container_ipv4_address)
 }
 
 // -------------------------------------------------------------------
@@ -9373,45 +9669,95 @@ inline void ParallelsVmStartupRequest::set_subnet_index(int32_t value) {
 
 // ParallelsVmStartupResponse
 
-// .patchpanel.NetworkDevice device = 1;
-inline bool ParallelsVmStartupResponse::_internal_has_device() const {
-  return this != internal_default_instance() && _impl_.device_ != nullptr;
+// string tap_device_ifname = 1;
+inline void ParallelsVmStartupResponse::clear_tap_device_ifname() {
+  _impl_.tap_device_ifname_.ClearToEmpty();
 }
-inline bool ParallelsVmStartupResponse::has_device() const {
-  return _internal_has_device();
+inline const std::string& ParallelsVmStartupResponse::tap_device_ifname() const {
+  // @@protoc_insertion_point(field_get:patchpanel.ParallelsVmStartupResponse.tap_device_ifname)
+  return _internal_tap_device_ifname();
 }
-inline void ParallelsVmStartupResponse::clear_device() {
-  if (GetArenaForAllocation() == nullptr && _impl_.device_ != nullptr) {
-    delete _impl_.device_;
-  }
-  _impl_.device_ = nullptr;
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ParallelsVmStartupResponse::set_tap_device_ifname(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.tap_device_ifname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.ParallelsVmStartupResponse.tap_device_ifname)
 }
-inline const ::patchpanel::NetworkDevice& ParallelsVmStartupResponse::_internal_device() const {
-  const ::patchpanel::NetworkDevice* p = _impl_.device_;
-  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::NetworkDevice&>(
-      ::patchpanel::_NetworkDevice_default_instance_);
+inline std::string* ParallelsVmStartupResponse::mutable_tap_device_ifname() {
+  std::string* _s = _internal_mutable_tap_device_ifname();
+  // @@protoc_insertion_point(field_mutable:patchpanel.ParallelsVmStartupResponse.tap_device_ifname)
+  return _s;
 }
-inline const ::patchpanel::NetworkDevice& ParallelsVmStartupResponse::device() const {
-  // @@protoc_insertion_point(field_get:patchpanel.ParallelsVmStartupResponse.device)
-  return _internal_device();
+inline const std::string& ParallelsVmStartupResponse::_internal_tap_device_ifname() const {
+  return _impl_.tap_device_ifname_.Get();
 }
-inline void ParallelsVmStartupResponse::unsafe_arena_set_allocated_device(
-    ::patchpanel::NetworkDevice* device) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.device_);
-  }
-  _impl_.device_ = device;
-  if (device) {
+inline void ParallelsVmStartupResponse::_internal_set_tap_device_ifname(const std::string& value) {
+  
+  _impl_.tap_device_ifname_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ParallelsVmStartupResponse::_internal_mutable_tap_device_ifname() {
+  
+  return _impl_.tap_device_ifname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ParallelsVmStartupResponse::release_tap_device_ifname() {
+  // @@protoc_insertion_point(field_release:patchpanel.ParallelsVmStartupResponse.tap_device_ifname)
+  return _impl_.tap_device_ifname_.Release();
+}
+inline void ParallelsVmStartupResponse::set_allocated_tap_device_ifname(std::string* tap_device_ifname) {
+  if (tap_device_ifname != nullptr) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.ParallelsVmStartupResponse.device)
+  _impl_.tap_device_ifname_.SetAllocated(tap_device_ifname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.tap_device_ifname_.IsDefault()) {
+    _impl_.tap_device_ifname_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.ParallelsVmStartupResponse.tap_device_ifname)
 }
-inline ::patchpanel::NetworkDevice* ParallelsVmStartupResponse::release_device() {
+
+// .patchpanel.IPv4Subnet ipv4_subnet = 2;
+inline bool ParallelsVmStartupResponse::_internal_has_ipv4_subnet() const {
+  return this != internal_default_instance() && _impl_.ipv4_subnet_ != nullptr;
+}
+inline bool ParallelsVmStartupResponse::has_ipv4_subnet() const {
+  return _internal_has_ipv4_subnet();
+}
+inline void ParallelsVmStartupResponse::clear_ipv4_subnet() {
+  if (GetArenaForAllocation() == nullptr && _impl_.ipv4_subnet_ != nullptr) {
+    delete _impl_.ipv4_subnet_;
+  }
+  _impl_.ipv4_subnet_ = nullptr;
+}
+inline const ::patchpanel::IPv4Subnet& ParallelsVmStartupResponse::_internal_ipv4_subnet() const {
+  const ::patchpanel::IPv4Subnet* p = _impl_.ipv4_subnet_;
+  return p != nullptr ? *p : reinterpret_cast<const ::patchpanel::IPv4Subnet&>(
+      ::patchpanel::_IPv4Subnet_default_instance_);
+}
+inline const ::patchpanel::IPv4Subnet& ParallelsVmStartupResponse::ipv4_subnet() const {
+  // @@protoc_insertion_point(field_get:patchpanel.ParallelsVmStartupResponse.ipv4_subnet)
+  return _internal_ipv4_subnet();
+}
+inline void ParallelsVmStartupResponse::unsafe_arena_set_allocated_ipv4_subnet(
+    ::patchpanel::IPv4Subnet* ipv4_subnet) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ipv4_subnet_);
+  }
+  _impl_.ipv4_subnet_ = ipv4_subnet;
+  if (ipv4_subnet) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.ParallelsVmStartupResponse.ipv4_subnet)
+}
+inline ::patchpanel::IPv4Subnet* ParallelsVmStartupResponse::release_ipv4_subnet() {
   
-  ::patchpanel::NetworkDevice* temp = _impl_.device_;
-  _impl_.device_ = nullptr;
+  ::patchpanel::IPv4Subnet* temp = _impl_.ipv4_subnet_;
+  _impl_.ipv4_subnet_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
   temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -9423,44 +9769,94 @@ inline ::patchpanel::NetworkDevice* ParallelsVmStartupResponse::release_device()
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::patchpanel::NetworkDevice* ParallelsVmStartupResponse::unsafe_arena_release_device() {
-  // @@protoc_insertion_point(field_release:patchpanel.ParallelsVmStartupResponse.device)
+inline ::patchpanel::IPv4Subnet* ParallelsVmStartupResponse::unsafe_arena_release_ipv4_subnet() {
+  // @@protoc_insertion_point(field_release:patchpanel.ParallelsVmStartupResponse.ipv4_subnet)
   
-  ::patchpanel::NetworkDevice* temp = _impl_.device_;
-  _impl_.device_ = nullptr;
+  ::patchpanel::IPv4Subnet* temp = _impl_.ipv4_subnet_;
+  _impl_.ipv4_subnet_ = nullptr;
   return temp;
 }
-inline ::patchpanel::NetworkDevice* ParallelsVmStartupResponse::_internal_mutable_device() {
+inline ::patchpanel::IPv4Subnet* ParallelsVmStartupResponse::_internal_mutable_ipv4_subnet() {
   
-  if (_impl_.device_ == nullptr) {
-    auto* p = CreateMaybeMessage<::patchpanel::NetworkDevice>(GetArenaForAllocation());
-    _impl_.device_ = p;
+  if (_impl_.ipv4_subnet_ == nullptr) {
+    auto* p = CreateMaybeMessage<::patchpanel::IPv4Subnet>(GetArenaForAllocation());
+    _impl_.ipv4_subnet_ = p;
   }
-  return _impl_.device_;
+  return _impl_.ipv4_subnet_;
 }
-inline ::patchpanel::NetworkDevice* ParallelsVmStartupResponse::mutable_device() {
-  ::patchpanel::NetworkDevice* _msg = _internal_mutable_device();
-  // @@protoc_insertion_point(field_mutable:patchpanel.ParallelsVmStartupResponse.device)
+inline ::patchpanel::IPv4Subnet* ParallelsVmStartupResponse::mutable_ipv4_subnet() {
+  ::patchpanel::IPv4Subnet* _msg = _internal_mutable_ipv4_subnet();
+  // @@protoc_insertion_point(field_mutable:patchpanel.ParallelsVmStartupResponse.ipv4_subnet)
   return _msg;
 }
-inline void ParallelsVmStartupResponse::set_allocated_device(::patchpanel::NetworkDevice* device) {
+inline void ParallelsVmStartupResponse::set_allocated_ipv4_subnet(::patchpanel::IPv4Subnet* ipv4_subnet) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete _impl_.device_;
+    delete _impl_.ipv4_subnet_;
   }
-  if (device) {
+  if (ipv4_subnet) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ipv4_subnet);
     if (message_arena != submessage_arena) {
-      device = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, device, submessage_arena);
+      ipv4_subnet = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ipv4_subnet, submessage_arena);
     }
     
   } else {
     
   }
-  _impl_.device_ = device;
-  // @@protoc_insertion_point(field_set_allocated:patchpanel.ParallelsVmStartupResponse.device)
+  _impl_.ipv4_subnet_ = ipv4_subnet;
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.ParallelsVmStartupResponse.ipv4_subnet)
+}
+
+// bytes ipv4_address = 3;
+inline void ParallelsVmStartupResponse::clear_ipv4_address() {
+  _impl_.ipv4_address_.ClearToEmpty();
+}
+inline const std::string& ParallelsVmStartupResponse::ipv4_address() const {
+  // @@protoc_insertion_point(field_get:patchpanel.ParallelsVmStartupResponse.ipv4_address)
+  return _internal_ipv4_address();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ParallelsVmStartupResponse::set_ipv4_address(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.ipv4_address_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:patchpanel.ParallelsVmStartupResponse.ipv4_address)
+}
+inline std::string* ParallelsVmStartupResponse::mutable_ipv4_address() {
+  std::string* _s = _internal_mutable_ipv4_address();
+  // @@protoc_insertion_point(field_mutable:patchpanel.ParallelsVmStartupResponse.ipv4_address)
+  return _s;
+}
+inline const std::string& ParallelsVmStartupResponse::_internal_ipv4_address() const {
+  return _impl_.ipv4_address_.Get();
+}
+inline void ParallelsVmStartupResponse::_internal_set_ipv4_address(const std::string& value) {
+  
+  _impl_.ipv4_address_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ParallelsVmStartupResponse::_internal_mutable_ipv4_address() {
+  
+  return _impl_.ipv4_address_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ParallelsVmStartupResponse::release_ipv4_address() {
+  // @@protoc_insertion_point(field_release:patchpanel.ParallelsVmStartupResponse.ipv4_address)
+  return _impl_.ipv4_address_.Release();
+}
+inline void ParallelsVmStartupResponse::set_allocated_ipv4_address(std::string* ipv4_address) {
+  if (ipv4_address != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.ipv4_address_.SetAllocated(ipv4_address, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.ipv4_address_.IsDefault()) {
+    _impl_.ipv4_address_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.ParallelsVmStartupResponse.ipv4_address)
 }
 
 // -------------------------------------------------------------------

@@ -489,7 +489,14 @@ public:
         virtual ~DispatchTouchEventCallback() { }
     };
     virtual void DispatchTouchEvent(const String& in_type, std::unique_ptr<protocol::Array<protocol::Input::TouchPoint>> in_touchPoints, Maybe<int> in_modifiers, Maybe<double> in_timestamp, std::unique_ptr<DispatchTouchEventCallback> callback) = 0;
-    virtual DispatchResponse CancelDragging() = 0;
+    class CONTENT_EXPORT CancelDraggingCallback {
+    public:
+        virtual void sendSuccess() = 0;
+        virtual void sendFailure(const DispatchResponse&) = 0;
+        virtual void fallThrough() = 0;
+        virtual ~CancelDraggingCallback() { }
+    };
+    virtual void CancelDragging(std::unique_ptr<CancelDraggingCallback> callback) = 0;
     virtual DispatchResponse EmulateTouchFromMouseEvent(const String& in_type, int in_x, int in_y, const String& in_button, Maybe<double> in_timestamp, Maybe<double> in_deltaX, Maybe<double> in_deltaY, Maybe<int> in_modifiers, Maybe<int> in_clickCount) = 0;
     virtual DispatchResponse SetIgnoreInputEvents(bool in_ignore) = 0;
     virtual DispatchResponse SetInterceptDrags(bool in_enabled) = 0;

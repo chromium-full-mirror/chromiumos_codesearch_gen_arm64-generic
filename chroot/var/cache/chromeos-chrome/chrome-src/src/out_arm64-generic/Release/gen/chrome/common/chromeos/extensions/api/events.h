@@ -29,6 +29,9 @@ namespace os_events {
 // Types
 //
 
+// Note: Please update documentation as well when this interface is changed. The
+// documentation lives here: //docs/telemetry_extension/api_overview.md.
+// LINT.IfChange
 enum class EventCategory {
   kNone = 0,
   kAudioJack,

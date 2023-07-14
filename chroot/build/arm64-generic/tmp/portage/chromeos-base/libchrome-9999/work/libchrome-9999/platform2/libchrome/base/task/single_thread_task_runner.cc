@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 #include "base/task/single_thread_task_runner.h"
-#include "base/threading/thread_task_runner_handle.h"
 
 #include <memory>
 #include <utility>
@@ -15,8 +14,6 @@
 #include "base/functional/bind.h"
 #include "base/lazy_instance.h"
 #include "base/run_loop.h"
-#include "base/threading/sequenced_task_runner_handle.h"
-#include "base/threading/thread_local.h"
 #include "third_party/abseil-cpp/absl/base/attributes.h"
 
 namespace base {
