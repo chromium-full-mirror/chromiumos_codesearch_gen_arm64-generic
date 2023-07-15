@@ -120,7 +120,7 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_feature_5fmanagement_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\030feature_management.proto\022*chromiumos.f"
-  "eature_management.api.software\"\202\004\n\007Featu"
+  "eature_management.api.software\"\336\003\n\007Featu"
   "re\022\014\n\004name\030\001 \001(\t\022M\n\010contacts\030\002 \003(\0132;.chr"
   "omiumos.feature_management.api.software."
   "Feature.Contact\022\025\n\rfeature_level\030\003 \001(\r\022I"
@@ -128,20 +128,19 @@ const char descriptor_table_protodef_feature_5fmanagement_2eproto[] PROTOBUF_SEC
   "gement.api.software.Feature.Scope\022I\n\006usa"
   "ges\030\005 \003(\01629.chromiumos.feature_managemen"
   "t.api.software.Feature.Usage\022\017\n\007release\030"
-  "\006 \001(\r\032\030\n\007Contact\022\r\n\005email\030\001 \001(\t\"l\n\005Scope"
-  "\022\025\n\021SCOPE_UNSPECIFIED\020\000\022\036\n\032SCOPE_DEVICES"
-  "_VALID_OFFSET\020\001\022\023\n\017SCOPE_DEVICES_0\020\001\022\023\n\017"
-  "SCOPE_DEVICES_1\020\002\032\002\020\001\"T\n\005Usage\022\025\n\021USAGE_"
-  "UNSPECIFIED\020\000\022\017\n\013USAGE_LOCAL\020\001\022\020\n\014USAGE_"
-  "CHROME\020\002\022\021\n\rUSAGE_ANDROID\020\003\"V\n\rFeatureBu"
-  "ndle\022E\n\010features\030\001 \003(\01323.chromiumos.feat"
-  "ure_management.api.software.FeatureB\?Z=g"
-  "o.chromium.org/chromiumos/feature_manage"
-  "ment/go/api/softwareb\006proto3"
+  "\006 \001(\r\032\030\n\007Contact\022\r\n\005email\030\001 \001(\t\"H\n\005Scope"
+  "\022\025\n\021SCOPE_UNSPECIFIED\020\000\022\023\n\017SCOPE_DEVICES"
+  "_0\020\001\022\023\n\017SCOPE_DEVICES_1\020\002\"T\n\005Usage\022\025\n\021US"
+  "AGE_UNSPECIFIED\020\000\022\017\n\013USAGE_LOCAL\020\001\022\020\n\014US"
+  "AGE_CHROME\020\002\022\021\n\rUSAGE_ANDROID\020\003\"V\n\rFeatu"
+  "reBundle\022E\n\010features\030\001 \003(\01323.chromiumos."
+  "feature_management.api.software.FeatureB"
+  "\?Z=go.chromium.org/chromiumos/feature_ma"
+  "nagement/go/api/softwareb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_feature_5fmanagement_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_feature_5fmanagement_2eproto = {
-    false, false, 748, descriptor_table_protodef_feature_5fmanagement_2eproto,
+    false, false, 712, descriptor_table_protodef_feature_5fmanagement_2eproto,
     "feature_management.proto",
     &descriptor_table_feature_5fmanagement_2eproto_once, nullptr, 0, 3,
     schemas, file_default_instances, TableStruct_feature_5fmanagement_2eproto::offsets,
@@ -175,7 +174,6 @@ bool Feature_Scope_IsValid(int value) {
 
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr Feature_Scope Feature::SCOPE_UNSPECIFIED;
-constexpr Feature_Scope Feature::SCOPE_DEVICES_VALID_OFFSET;
 constexpr Feature_Scope Feature::SCOPE_DEVICES_0;
 constexpr Feature_Scope Feature::SCOPE_DEVICES_1;
 constexpr Feature_Scope Feature::Scope_MIN;

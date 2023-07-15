@@ -74,7 +74,6 @@ namespace software {
 
 enum Feature_Scope : int {
   Feature_Scope_SCOPE_UNSPECIFIED = 0,
-  Feature_Scope_SCOPE_DEVICES_VALID_OFFSET = 1,
   Feature_Scope_SCOPE_DEVICES_0 = 1,
   Feature_Scope_SCOPE_DEVICES_1 = 2,
   Feature_Scope_Feature_Scope_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
@@ -404,8 +403,6 @@ class Feature final :
   typedef Feature_Scope Scope;
   static constexpr Scope SCOPE_UNSPECIFIED =
     Feature_Scope_SCOPE_UNSPECIFIED;
-  static constexpr Scope SCOPE_DEVICES_VALID_OFFSET =
-    Feature_Scope_SCOPE_DEVICES_VALID_OFFSET;
   static constexpr Scope SCOPE_DEVICES_0 =
     Feature_Scope_SCOPE_DEVICES_0;
   static constexpr Scope SCOPE_DEVICES_1 =

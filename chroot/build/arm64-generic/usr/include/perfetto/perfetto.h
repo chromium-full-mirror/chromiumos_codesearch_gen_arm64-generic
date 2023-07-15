@@ -134296,13 +134296,14 @@ enum ProcessType : int32_t {
   PROCESS_SERVICE_RECORDING = 38,
   PROCESS_SERVICE_SHAPEDETECTION = 39,
   PROCESS_RENDERER_EXTENSION = 40,
+  PROCESS_SERVICE_MEDIA_FOUNDATION = 41,
 };
 } // namespace perfetto_pbzero_enum_ChromeProcessDescriptor
 using ChromeProcessDescriptor_ProcessType = perfetto_pbzero_enum_ChromeProcessDescriptor::ProcessType;
 
 
 constexpr ChromeProcessDescriptor_ProcessType ChromeProcessDescriptor_ProcessType_MIN = ChromeProcessDescriptor_ProcessType::PROCESS_UNSPECIFIED;
-constexpr ChromeProcessDescriptor_ProcessType ChromeProcessDescriptor_ProcessType_MAX = ChromeProcessDescriptor_ProcessType::PROCESS_RENDERER_EXTENSION;
+constexpr ChromeProcessDescriptor_ProcessType ChromeProcessDescriptor_ProcessType_MAX = ChromeProcessDescriptor_ProcessType::PROCESS_SERVICE_MEDIA_FOUNDATION;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -134430,6 +134431,9 @@ const char* ChromeProcessDescriptor_ProcessType_Name(::perfetto::protos::pbzero:
 
   case ::perfetto::protos::pbzero::ChromeProcessDescriptor_ProcessType::PROCESS_RENDERER_EXTENSION:
     return "PROCESS_RENDERER_EXTENSION";
+
+  case ::perfetto::protos::pbzero::ChromeProcessDescriptor_ProcessType::PROCESS_SERVICE_MEDIA_FOUNDATION:
+    return "PROCESS_SERVICE_MEDIA_FOUNDATION";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -134509,6 +134513,7 @@ class ChromeProcessDescriptor : public ::protozero::Message {
   static inline const ProcessType PROCESS_SERVICE_RECORDING = ProcessType::PROCESS_SERVICE_RECORDING;
   static inline const ProcessType PROCESS_SERVICE_SHAPEDETECTION = ProcessType::PROCESS_SERVICE_SHAPEDETECTION;
   static inline const ProcessType PROCESS_RENDERER_EXTENSION = ProcessType::PROCESS_RENDERER_EXTENSION;
+  static inline const ProcessType PROCESS_SERVICE_MEDIA_FOUNDATION = ProcessType::PROCESS_SERVICE_MEDIA_FOUNDATION;
 
   using FieldMetadata_ProcessType =
     ::protozero::proto_utils::FieldMetadata<
@@ -144665,6 +144670,7 @@ enum ChromeProcessDescriptor_ProcessType : int {
   ChromeProcessDescriptor_ProcessType_PROCESS_SERVICE_RECORDING = 38,
   ChromeProcessDescriptor_ProcessType_PROCESS_SERVICE_SHAPEDETECTION = 39,
   ChromeProcessDescriptor_ProcessType_PROCESS_RENDERER_EXTENSION = 40,
+  ChromeProcessDescriptor_ProcessType_PROCESS_SERVICE_MEDIA_FOUNDATION = 41,
 };
 
 class PERFETTO_EXPORT_COMPONENT ChromeProcessDescriptor : public ::protozero::CppMessageObj {
@@ -144711,8 +144717,9 @@ class PERFETTO_EXPORT_COMPONENT ChromeProcessDescriptor : public ::protozero::Cp
   static constexpr auto PROCESS_SERVICE_RECORDING = ChromeProcessDescriptor_ProcessType_PROCESS_SERVICE_RECORDING;
   static constexpr auto PROCESS_SERVICE_SHAPEDETECTION = ChromeProcessDescriptor_ProcessType_PROCESS_SERVICE_SHAPEDETECTION;
   static constexpr auto PROCESS_RENDERER_EXTENSION = ChromeProcessDescriptor_ProcessType_PROCESS_RENDERER_EXTENSION;
+  static constexpr auto PROCESS_SERVICE_MEDIA_FOUNDATION = ChromeProcessDescriptor_ProcessType_PROCESS_SERVICE_MEDIA_FOUNDATION;
   static constexpr auto ProcessType_MIN = ChromeProcessDescriptor_ProcessType_PROCESS_UNSPECIFIED;
-  static constexpr auto ProcessType_MAX = ChromeProcessDescriptor_ProcessType_PROCESS_RENDERER_EXTENSION;
+  static constexpr auto ProcessType_MAX = ChromeProcessDescriptor_ProcessType_PROCESS_SERVICE_MEDIA_FOUNDATION;
   enum FieldNumbers {
     kProcessTypeFieldNumber = 1,
     kProcessPriorityFieldNumber = 2,

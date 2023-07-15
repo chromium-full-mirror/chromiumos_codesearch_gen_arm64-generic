@@ -3,7 +3,7 @@
  * BRLTTY - A background process providing access to the console screen (when in
  *          text mode) for a blind person using a refreshable braille display.
  *
- * Copyright (C) 1995-2021 by The BRLTTY Developers.
+ * Copyright (C) 1995-2022 by The BRLTTY Developers.
  *
  * BRLTTY comes with ABSOLUTELY NO WARRANTY.
  *
@@ -25,19 +25,19 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Define this to be a string containing the copyright notice. */
-#define PACKAGE_COPYRIGHT "© 1995-2021 by The BRLTTY Developers"
+#define PACKAGE_COPYRIGHT "© 1995-2022 by The BRLTTY Developers"
 
 /* Define this to be a string containing the full name of the package. */
 #define PACKAGE_NAME "BRLTTY"
 
 /* Define this to be a string containing the version of the package. */
-#define PACKAGE_VERSION "6.3"
+#define PACKAGE_VERSION "6.5"
 
 /* Define this to be a string containing the full name and version of the package. */
-#define PACKAGE_STRING "BRLTTY 6.3"
+#define PACKAGE_STRING "BRLTTY 6.5"
 
 /* Define this to be a string containing the URL of the home page of the package. */
-#define PACKAGE_URL "http://brltty.app/"
+#define PACKAGE_URL "https://brltty.app/"
 
 /* Define this to be a string containing the short name of the package. */
 #define PACKAGE_TARNAME "brltty"
@@ -173,6 +173,10 @@ extern "C" {
 #define USE_PKG_BLUETOOTH_LINUX 1
 /* #undef USE_PKG_BLUETOOTH_WINDOWS */
 
+/* Define only one of the following HID I/O packages. */
+/* #undef USE_PKG_HID_NONE */
+#define USE_PKG_HID_LINUX 1
+
 /* Define only one of the following I/O ports packages. */
 #define USE_PKG_PORTS_NONE 1
 /* #undef USE_PKG_PORTS_GLIBC */
@@ -231,6 +235,9 @@ extern "C" {
 
 /* Define this if the function pause exists. */
 #define HAVE_PAUSE 1
+
+/* Define this if the function readlink exists. */
+#define HAVE_READLINK 1
 
 /* Define this if the function realpath exists. */
 #define HAVE_REALPATH 1
@@ -394,6 +401,9 @@ extern "C" {
 /* Define this if the header file X11/keysym.h exists. */
 /* #undef HAVE_X11_KEYSYM_H */
 
+/* Define this if the function XSetIOErrorExitHandler exists.  */
+/* #undef HAVE_XSETIOERROREXITHANDLER */
+
 /* Define this if the function atspi_get_a11y_bus exists in atspi2. */
 /* #undef HAVE_ATSPI_GET_A11Y_BUS */
 
@@ -463,17 +473,23 @@ extern "C" {
 /* Define this if the compiler doesn't fully support the inline keyword. */
 /* #undef inline */
 
-/* Define this if the printf format attribute is supported. */
-#define HAVE_ATTRIBUTE_FORMAT_PRINTF 1
+/* Define this if the packed variable attribute is supported. */
+#define HAVE_VAR_ATTRIBUTE_PACKED 1
 
-/* Define this if the noreturn attribute is supported. */
-#define HAVE_ATTRIBUTE_NORETURN 1
+/* Define this if the unused variable attribute is supported. */
+#define HAVE_VAR_ATTRIBUTE_UNUSED 1
 
-/* Define this if the packed attribute is supported. */
-#define HAVE_ATTRIBUTE_PACKED 1
+/* Define this if the format function attribute is supported. */
+#define HAVE_FUNC_ATTRIBUTE_FORMAT 1
 
-/* Define this if the unused attribute is supported. */
-#define HAVE_ATTRIBUTE_UNUSED 1
+/* Define this if the format_arg function attribute is supported. */
+#define HAVE_FUNC_ATTRIBUTE_FORMAT_ARG 1
+
+/* Define this if the noreturn function attribute is supported. */
+#define HAVE_FUNC_ATTRIBUTE_NORETURN 1
+
+/* Define this if the unused function attribute is supported. */
+#define HAVE_FUNC_ATTRIBUTE_UNUSED 1
 
 /* Define this if the __alignof__ operator is supported. */
 #define HAVE_OPERATOR_ALIGNOF 1
@@ -536,7 +552,7 @@ extern "C" {
 #define PRIVILEGE_PARAMETERS ""
 
 /* Define this to be a string containing a list of the braille driver codes. */
-#define BRAILLE_DRIVER_CODES "al at ba bc bd bl bm bn cb ce cn ec eu fa fs hd hm ht hw ir ic lt mb md mm mn mt np pg pm sk tn ts tt vd vo vr vs bg"
+#define BRAILLE_DRIVER_CODES "al at ba bc bd bl bm bn cb ce cn dp ec eu fa fs hd hm ht hw ir ic lt mb md mm mn mt np pg pm sk tn ts tt vd vo vr vs bg"
 
 /* Define this to be a string containing the default parameters for the braille driver(s). */
 #define BRAILLE_PARAMETERS ""
@@ -557,7 +573,7 @@ extern "C" {
 /* #undef SPEECH_PARAMETERS */
 
 /* Define this to be a string containing a list of the screen driver codes. */
-#define SCREEN_DRIVER_CODES "lx sc a2"
+#define SCREEN_DRIVER_CODES "lx sc"
 
 /* Define this to be a string containing the default screen driver code. */
 #define DEFAULT_SCREEN_DRIVER "lx"
@@ -565,14 +581,14 @@ extern "C" {
 /* Define this to be a string containing the default parameters for the screen driver(s). */
 #define SCREEN_PARAMETERS ""
 
-/* Define this to be a string containing the path to the default text table. */
+/* Define this to be a string containing the name of the default text table. */
 #define TEXT_TABLE "en-nabcc"
 
-/* Define this to be a string containing the path to the default attributes table. */
-#define ATTRIBUTES_TABLE "left_right"
+/* Define this to be a string containing the name of the default contraction table. */
+#define CONTRACTION_TABLE "none"
 
-/* Define this to include contraction table support. */
-/* #undef ENABLE_CONTRACTED_BRAILLE */
+/* Define this to be a string containing the name of the default attributes table. */
+#define ATTRIBUTES_TABLE "left_right"
 
 /* Define this to include speech synthesizer and text-to-speech engine support. */
 /* #undef ENABLE_SPEECH_SUPPORT */
@@ -619,11 +635,11 @@ extern "C" {
 /* Define this to be a string containing the subdirectory for text tables. */
 #define TEXT_TABLES_SUBDIRECTORY "Text"
 
-/* Define this to be a string containing the subdirectory for attributes tables. */
-#define ATTRIBUTES_TABLES_SUBDIRECTORY "Attributes"
-
 /* Define this to be a string containing the subdirectory for contraction tables. */
 #define CONTRACTION_TABLES_SUBDIRECTORY "Contraction"
+
+/* Define this to be a string containing the subdirectory for attributes tables. */
+#define ATTRIBUTES_TABLES_SUBDIRECTORY "Attributes"
 
 /* Define this to be a string containing the subdirectory for keyboard tables. */
 #define KEYBOARD_TABLES_SUBDIRECTORY "Keyboard"
@@ -637,17 +653,17 @@ extern "C" {
 /* Define this to be a string containing the extension for text subtables. */
 #define TEXT_SUBTABLE_EXTENSION ".tti"
 
-/* Define this to be a string containing the extension for attributes tables. */
-#define ATTRIBUTES_TABLE_EXTENSION ".atb"
-
-/* Define this to be a string containing the extension for attributes subtables. */
-#define ATTRIBUTES_SUBTABLE_EXTENSION ".ati"
-
 /* Define this to be a string containing the extension for contraction tables. */
 #define CONTRACTION_TABLE_EXTENSION ".ctb"
 
 /* Define this to be a string containing the extension for contraction subtables. */
 #define CONTRACTION_SUBTABLE_EXTENSION ".cti"
+
+/* Define this to be a string containing the extension for attributes tables. */
+#define ATTRIBUTES_TABLE_EXTENSION ".atb"
+
+/* Define this to be a string containing the extension for attributes subtables. */
+#define ATTRIBUTES_SUBTABLE_EXTENSION ".ati"
 
 /* Define this to be a string containing the extension for key tables. */
 #define KEY_TABLE_EXTENSION ".ktb"
