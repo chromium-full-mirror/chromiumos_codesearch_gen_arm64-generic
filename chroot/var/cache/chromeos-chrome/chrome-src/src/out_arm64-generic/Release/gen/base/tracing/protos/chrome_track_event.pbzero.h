@@ -2262,6 +2262,290 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
+class LinuxPulseOutput_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  LinuxPulseOutput_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit LinuxPulseOutput_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit LinuxPulseOutput_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_source_request_playout_delay_us() const { return at<1>().valid(); }
+  int64_t source_request_playout_delay_us() const { return at<1>().as_int64(); }
+  bool has_sample_rate() const { return at<2>().valid(); }
+  int32_t sample_rate() const { return at<2>().as_int32(); }
+  bool has_input_buffer_size_frames() const { return at<3>().valid(); }
+  int32_t input_buffer_size_frames() const { return at<3>().as_int32(); }
+  bool has_stream_request_bytes() const { return at<4>().valid(); }
+  uint32_t stream_request_bytes() const { return at<4>().as_uint32(); }
+  bool has_frame_size_bytes() const { return at<5>().valid(); }
+  uint32_t frame_size_bytes() const { return at<5>().as_uint32(); }
+};
+
+class LinuxPulseOutput : public ::protozero::Message {
+ public:
+  using Decoder = LinuxPulseOutput_Decoder;
+  enum : int32_t {
+    kSourceRequestPlayoutDelayUsFieldNumber = 1,
+    kSampleRateFieldNumber = 2,
+    kInputBufferSizeFramesFieldNumber = 3,
+    kStreamRequestBytesFieldNumber = 4,
+    kFrameSizeBytesFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.LinuxPulseOutput"; }
+
+
+  using FieldMetadata_SourceRequestPlayoutDelayUs =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      LinuxPulseOutput>;
+
+  static constexpr FieldMetadata_SourceRequestPlayoutDelayUs kSourceRequestPlayoutDelayUs{};
+  void set_source_request_playout_delay_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceRequestPlayoutDelayUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SampleRate =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      LinuxPulseOutput>;
+
+  static constexpr FieldMetadata_SampleRate kSampleRate{};
+  void set_sample_rate(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SampleRate::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_InputBufferSizeFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      LinuxPulseOutput>;
+
+  static constexpr FieldMetadata_InputBufferSizeFrames kInputBufferSizeFrames{};
+  void set_input_buffer_size_frames(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_InputBufferSizeFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_StreamRequestBytes =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      LinuxPulseOutput>;
+
+  static constexpr FieldMetadata_StreamRequestBytes kStreamRequestBytes{};
+  void set_stream_request_bytes(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_StreamRequestBytes::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FrameSizeBytes =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      LinuxPulseOutput>;
+
+  static constexpr FieldMetadata_FrameSizeBytes kFrameSizeBytes{};
+  void set_frame_size_bytes(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FrameSizeBytes::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class LinuxAlsaOutput_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  LinuxAlsaOutput_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit LinuxAlsaOutput_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit LinuxAlsaOutput_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_source_request_playout_delay_us() const { return at<1>().valid(); }
+  int64_t source_request_playout_delay_us() const { return at<1>().as_int64(); }
+  bool has_forward_bytes() const { return at<2>().valid(); }
+  int32_t forward_bytes() const { return at<2>().as_int32(); }
+  bool has_sample_rate() const { return at<3>().valid(); }
+  int32_t sample_rate() const { return at<3>().as_int32(); }
+  bool has_getcurrentdelay_pcm_delay_frames() const { return at<4>().valid(); }
+  int32_t getcurrentdelay_pcm_delay_frames() const { return at<4>().as_int32(); }
+  bool has_getcurrentdelay_alsa_buffer_frames() const { return at<5>().valid(); }
+  int32_t getcurrentdelay_alsa_buffer_frames() const { return at<5>().as_int32(); }
+  bool has_getcurrentdelay_available_frames() const { return at<6>().valid(); }
+  int32_t getcurrentdelay_available_frames() const { return at<6>().as_int32(); }
+  bool has_getcurrentdelay_final_delay_frames() const { return at<7>().valid(); }
+  int32_t getcurrentdelay_final_delay_frames() const { return at<7>().as_int32(); }
+};
+
+class LinuxAlsaOutput : public ::protozero::Message {
+ public:
+  using Decoder = LinuxAlsaOutput_Decoder;
+  enum : int32_t {
+    kSourceRequestPlayoutDelayUsFieldNumber = 1,
+    kForwardBytesFieldNumber = 2,
+    kSampleRateFieldNumber = 3,
+    kGetcurrentdelayPcmDelayFramesFieldNumber = 4,
+    kGetcurrentdelayAlsaBufferFramesFieldNumber = 5,
+    kGetcurrentdelayAvailableFramesFieldNumber = 6,
+    kGetcurrentdelayFinalDelayFramesFieldNumber = 7,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.LinuxAlsaOutput"; }
+
+
+  using FieldMetadata_SourceRequestPlayoutDelayUs =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      LinuxAlsaOutput>;
+
+  static constexpr FieldMetadata_SourceRequestPlayoutDelayUs kSourceRequestPlayoutDelayUs{};
+  void set_source_request_playout_delay_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceRequestPlayoutDelayUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ForwardBytes =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      LinuxAlsaOutput>;
+
+  static constexpr FieldMetadata_ForwardBytes kForwardBytes{};
+  void set_forward_bytes(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ForwardBytes::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SampleRate =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      LinuxAlsaOutput>;
+
+  static constexpr FieldMetadata_SampleRate kSampleRate{};
+  void set_sample_rate(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SampleRate::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_GetcurrentdelayPcmDelayFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      LinuxAlsaOutput>;
+
+  static constexpr FieldMetadata_GetcurrentdelayPcmDelayFrames kGetcurrentdelayPcmDelayFrames{};
+  void set_getcurrentdelay_pcm_delay_frames(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_GetcurrentdelayPcmDelayFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_GetcurrentdelayAlsaBufferFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      LinuxAlsaOutput>;
+
+  static constexpr FieldMetadata_GetcurrentdelayAlsaBufferFrames kGetcurrentdelayAlsaBufferFrames{};
+  void set_getcurrentdelay_alsa_buffer_frames(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_GetcurrentdelayAlsaBufferFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_GetcurrentdelayAvailableFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      LinuxAlsaOutput>;
+
+  static constexpr FieldMetadata_GetcurrentdelayAvailableFrames kGetcurrentdelayAvailableFrames{};
+  void set_getcurrentdelay_available_frames(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_GetcurrentdelayAvailableFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_GetcurrentdelayFinalDelayFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      LinuxAlsaOutput>;
+
+  static constexpr FieldMetadata_GetcurrentdelayFinalDelayFrames kGetcurrentdelayFinalDelayFrames{};
+  void set_getcurrentdelay_final_delay_frames(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_GetcurrentdelayFinalDelayFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+};
+
 class MacAUHALStream_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/14, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   MacAUHALStream_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
@@ -9725,6 +10009,34 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_MacAuhalStream kMacAuhalStream{};
   template <typename T = MacAUHALStream> T* set_mac_auhal_stream() {
     return BeginNestedMessage<T>(1049);
+  }
+
+
+  using FieldMetadata_LinuxAlsaOutput =
+    ::protozero::proto_utils::FieldMetadata<
+      1050,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      LinuxAlsaOutput,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_LinuxAlsaOutput kLinuxAlsaOutput{};
+  template <typename T = LinuxAlsaOutput> T* set_linux_alsa_output() {
+    return BeginNestedMessage<T>(1050);
+  }
+
+
+  using FieldMetadata_LinuxPulseOutput =
+    ::protozero::proto_utils::FieldMetadata<
+      1051,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      LinuxPulseOutput,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_LinuxPulseOutput kLinuxPulseOutput{};
+  template <typename T = LinuxPulseOutput> T* set_linux_pulse_output() {
+    return BeginNestedMessage<T>(1051);
   }
 
 };
