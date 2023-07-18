@@ -57,6 +57,22 @@ class MockEcCommandFactory : public ec::EcCommandFactoryInterface {
               DisplayStateOfChargeCommand,
               (),
               (override));
+  MOCK_METHOD(std::unique_ptr<ec::FpGetNonceCommand>,
+              FpGetNonceCommand,
+              (),
+              (override));
+  MOCK_METHOD(std::unique_ptr<ec::FpSetNonceContextCommand>,
+              FpSetNonceContextCommand,
+              (const brillo::Blob& nonce,
+               const brillo::Blob& encrypted_user_id,
+               const brillo::Blob& iv),
+              (override));
+  MOCK_METHOD(std::unique_ptr<ec::FpReadMatchSecretWithPubkeyCommand>,
+              FpReadMatchSecretWithPubkeyCommand,
+              (uint16_t index,
+               const brillo::Blob& pk_in_x,
+               const brillo::Blob& pk_in_y),
+              (override));
 };
 
 }  // namespace ec

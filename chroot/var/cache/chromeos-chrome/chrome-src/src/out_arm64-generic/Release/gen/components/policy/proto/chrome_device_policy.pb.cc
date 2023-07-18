@@ -1844,6 +1844,30 @@ struct DeviceReportXDREventsProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceReportXDREventsProtoDefaultTypeInternal _DeviceReportXDREventsProto_default_instance_;
+PROTOBUF_CONSTEXPR DeviceLowBatterySoundProto::DeviceLowBatterySoundProto(
+    ::_pbi::ConstantInitialized)
+  : enabled_(false){}
+struct DeviceLowBatterySoundProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeviceLowBatterySoundProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DeviceLowBatterySoundProtoDefaultTypeInternal() {}
+  union {
+    DeviceLowBatterySoundProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceLowBatterySoundProtoDefaultTypeInternal _DeviceLowBatterySoundProto_default_instance_;
+PROTOBUF_CONSTEXPR DeviceChargingSoundsProto::DeviceChargingSoundsProto(
+    ::_pbi::ConstantInitialized)
+  : enabled_(false){}
+struct DeviceChargingSoundsProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeviceChargingSoundsProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DeviceChargingSoundsProtoDefaultTypeInternal() {}
+  union {
+    DeviceChargingSoundsProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceChargingSoundsProtoDefaultTypeInternal _DeviceChargingSoundsProto_default_instance_;
 PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
     ::_pbi::ConstantInitialized)
   : device_policy_refresh_rate_(nullptr)
@@ -1990,7 +2014,9 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , device_screensaver_login_screen_images_(nullptr)
   , device_system_aec_enabled_(nullptr)
   , device_login_screen_geolocation_access_level_(nullptr)
-  , device_login_screen_webhid_allow_devices_for_urls_(nullptr){}
+  , device_login_screen_webhid_allow_devices_for_urls_(nullptr)
+  , device_low_battery_sound_(nullptr)
+  , device_charging_sounds_(nullptr){}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -34467,6 +34493,366 @@ std::string DeviceReportXDREventsProto::GetTypeName() const {
 
 // ===================================================================
 
+class DeviceLowBatterySoundProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<DeviceLowBatterySoundProto>()._has_bits_);
+  static void set_has_enabled(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+DeviceLowBatterySoundProto::DeviceLowBatterySoundProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceLowBatterySoundProto)
+}
+DeviceLowBatterySoundProto::DeviceLowBatterySoundProto(const DeviceLowBatterySoundProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  enabled_ = from.enabled_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceLowBatterySoundProto)
+}
+
+inline void DeviceLowBatterySoundProto::SharedCtor() {
+enabled_ = false;
+}
+
+DeviceLowBatterySoundProto::~DeviceLowBatterySoundProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.DeviceLowBatterySoundProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DeviceLowBatterySoundProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void DeviceLowBatterySoundProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DeviceLowBatterySoundProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceLowBatterySoundProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  enabled_ = false;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DeviceLowBatterySoundProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bool enabled = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_enabled(&has_bits);
+          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DeviceLowBatterySoundProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceLowBatterySoundProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bool enabled = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceLowBatterySoundProto)
+  return target;
+}
+
+size_t DeviceLowBatterySoundProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceLowBatterySoundProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional bool enabled = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeviceLowBatterySoundProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DeviceLowBatterySoundProto*>(
+      &from));
+}
+
+void DeviceLowBatterySoundProto::MergeFrom(const DeviceLowBatterySoundProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceLowBatterySoundProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_enabled()) {
+    _internal_set_enabled(from._internal_enabled());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DeviceLowBatterySoundProto::CopyFrom(const DeviceLowBatterySoundProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceLowBatterySoundProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeviceLowBatterySoundProto::IsInitialized() const {
+  return true;
+}
+
+void DeviceLowBatterySoundProto::InternalSwap(DeviceLowBatterySoundProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(enabled_, other->enabled_);
+}
+
+std::string DeviceLowBatterySoundProto::GetTypeName() const {
+  return "enterprise_management.DeviceLowBatterySoundProto";
+}
+
+
+// ===================================================================
+
+class DeviceChargingSoundsProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<DeviceChargingSoundsProto>()._has_bits_);
+  static void set_has_enabled(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+DeviceChargingSoundsProto::DeviceChargingSoundsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceChargingSoundsProto)
+}
+DeviceChargingSoundsProto::DeviceChargingSoundsProto(const DeviceChargingSoundsProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  enabled_ = from.enabled_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceChargingSoundsProto)
+}
+
+inline void DeviceChargingSoundsProto::SharedCtor() {
+enabled_ = false;
+}
+
+DeviceChargingSoundsProto::~DeviceChargingSoundsProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.DeviceChargingSoundsProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DeviceChargingSoundsProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void DeviceChargingSoundsProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DeviceChargingSoundsProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceChargingSoundsProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  enabled_ = false;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DeviceChargingSoundsProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bool enabled = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_enabled(&has_bits);
+          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DeviceChargingSoundsProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceChargingSoundsProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bool enabled = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceChargingSoundsProto)
+  return target;
+}
+
+size_t DeviceChargingSoundsProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceChargingSoundsProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional bool enabled = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeviceChargingSoundsProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DeviceChargingSoundsProto*>(
+      &from));
+}
+
+void DeviceChargingSoundsProto::MergeFrom(const DeviceChargingSoundsProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceChargingSoundsProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_enabled()) {
+    _internal_set_enabled(from._internal_enabled());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DeviceChargingSoundsProto::CopyFrom(const DeviceChargingSoundsProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceChargingSoundsProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeviceChargingSoundsProto::IsInitialized() const {
+  return true;
+}
+
+void DeviceChargingSoundsProto::InternalSwap(DeviceChargingSoundsProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(enabled_, other->enabled_);
+}
+
+std::string DeviceChargingSoundsProto::GetTypeName() const {
+  return "enterprise_management.DeviceChargingSoundsProto";
+}
+
+
+// ===================================================================
+
 class ChromeDeviceSettingsProto::_Internal {
  public:
   using HasBits = decltype(std::declval<ChromeDeviceSettingsProto>()._has_bits_);
@@ -35050,6 +35436,14 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_login_screen_webhid_allow_devices_for_urls(HasBits* has_bits) {
     (*has_bits)[4] |= 65536u;
   }
+  static const ::enterprise_management::DeviceLowBatterySoundProto& device_low_battery_sound(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_low_battery_sound(HasBits* has_bits) {
+    (*has_bits)[4] |= 131072u;
+  }
+  static const ::enterprise_management::DeviceChargingSoundsProto& device_charging_sounds(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_charging_sounds(HasBits* has_bits) {
+    (*has_bits)[4] |= 262144u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -35631,6 +36025,14 @@ ChromeDeviceSettingsProto::_Internal::device_login_screen_geolocation_access_lev
 const ::enterprise_management::StringPolicyProto&
 ChromeDeviceSettingsProto::_Internal::device_login_screen_webhid_allow_devices_for_urls(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_login_screen_webhid_allow_devices_for_urls_;
+}
+const ::enterprise_management::DeviceLowBatterySoundProto&
+ChromeDeviceSettingsProto::_Internal::device_low_battery_sound(const ChromeDeviceSettingsProto* msg) {
+  return *msg->device_low_battery_sound_;
+}
+const ::enterprise_management::DeviceChargingSoundsProto&
+ChromeDeviceSettingsProto::_Internal::device_charging_sounds(const ChromeDeviceSettingsProto* msg) {
+  return *msg->device_charging_sounds_;
 }
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (device_login_screen_system_info_enforced_ != nullptr) device_login_screen_system_info_enforced_->Clear();
@@ -36427,14 +36829,24 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   } else {
     device_login_screen_webhid_allow_devices_for_urls_ = nullptr;
   }
+  if (from._internal_has_device_low_battery_sound()) {
+    device_low_battery_sound_ = new ::enterprise_management::DeviceLowBatterySoundProto(*from.device_low_battery_sound_);
+  } else {
+    device_low_battery_sound_ = nullptr;
+  }
+  if (from._internal_has_device_charging_sounds()) {
+    device_charging_sounds_ = new ::enterprise_management::DeviceChargingSoundsProto(*from.device_charging_sounds_);
+  } else {
+    device_charging_sounds_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
 inline void ChromeDeviceSettingsProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_policy_refresh_rate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&device_login_screen_webhid_allow_devices_for_urls_) -
-    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_login_screen_webhid_allow_devices_for_urls_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&device_charging_sounds_) -
+    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_charging_sounds_));
 }
 
 ChromeDeviceSettingsProto::~ChromeDeviceSettingsProto() {
@@ -36593,6 +37005,8 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete device_system_aec_enabled_;
   if (this != internal_default_instance()) delete device_login_screen_geolocation_access_level_;
   if (this != internal_default_instance()) delete device_login_screen_webhid_allow_devices_for_urls_;
+  if (this != internal_default_instance()) delete device_low_battery_sound_;
+  if (this != internal_default_instance()) delete device_charging_sounds_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -37222,9 +37636,19 @@ void ChromeDeviceSettingsProto::Clear() {
       device_login_screen_geolocation_access_level_->Clear();
     }
   }
-  if (cached_has_bits & 0x00010000u) {
-    GOOGLE_DCHECK(device_login_screen_webhid_allow_devices_for_urls_ != nullptr);
-    device_login_screen_webhid_allow_devices_for_urls_->Clear();
+  if (cached_has_bits & 0x00070000u) {
+    if (cached_has_bits & 0x00010000u) {
+      GOOGLE_DCHECK(device_login_screen_webhid_allow_devices_for_urls_ != nullptr);
+      device_login_screen_webhid_allow_devices_for_urls_->Clear();
+    }
+    if (cached_has_bits & 0x00020000u) {
+      GOOGLE_DCHECK(device_low_battery_sound_ != nullptr);
+      device_low_battery_sound_->Clear();
+    }
+    if (cached_has_bits & 0x00040000u) {
+      GOOGLE_DCHECK(device_charging_sounds_ != nullptr);
+      device_charging_sounds_->Clear();
+    }
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -38396,6 +38820,22 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.DeviceLowBatterySoundProto device_low_battery_sound = 149;
+      case 149:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_low_battery_sound(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.DeviceChargingSoundsProto device_charging_sounds = 150;
+      case 150:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 178)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_charging_sounds(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -39443,6 +39883,20 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(148, _Internal::device_login_screen_webhid_allow_devices_for_urls(this),
         _Internal::device_login_screen_webhid_allow_devices_for_urls(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.DeviceLowBatterySoundProto device_low_battery_sound = 149;
+  if (cached_has_bits & 0x00020000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(149, _Internal::device_low_battery_sound(this),
+        _Internal::device_low_battery_sound(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.DeviceChargingSoundsProto device_charging_sounds = 150;
+  if (cached_has_bits & 0x00040000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(150, _Internal::device_charging_sounds(this),
+        _Internal::device_charging_sounds(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -40510,13 +40964,29 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
-  // optional .enterprise_management.StringPolicyProto device_login_screen_webhid_allow_devices_for_urls = 148;
-  if (cached_has_bits & 0x00010000u) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *device_login_screen_webhid_allow_devices_for_urls_);
-  }
+  if (cached_has_bits & 0x00070000u) {
+    // optional .enterprise_management.StringPolicyProto device_login_screen_webhid_allow_devices_for_urls = 148;
+    if (cached_has_bits & 0x00010000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *device_login_screen_webhid_allow_devices_for_urls_);
+    }
 
+    // optional .enterprise_management.DeviceLowBatterySoundProto device_low_battery_sound = 149;
+    if (cached_has_bits & 0x00020000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *device_low_battery_sound_);
+    }
+
+    // optional .enterprise_management.DeviceChargingSoundsProto device_charging_sounds = 150;
+    if (cached_has_bits & 0x00040000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *device_charging_sounds_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -41010,8 +41480,16 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_device_login_screen_geolocation_access_level()->::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto::MergeFrom(from._internal_device_login_screen_geolocation_access_level());
     }
   }
-  if (cached_has_bits & 0x00010000u) {
-    _internal_mutable_device_login_screen_webhid_allow_devices_for_urls()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_device_login_screen_webhid_allow_devices_for_urls());
+  if (cached_has_bits & 0x00070000u) {
+    if (cached_has_bits & 0x00010000u) {
+      _internal_mutable_device_login_screen_webhid_allow_devices_for_urls()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_device_login_screen_webhid_allow_devices_for_urls());
+    }
+    if (cached_has_bits & 0x00020000u) {
+      _internal_mutable_device_low_battery_sound()->::enterprise_management::DeviceLowBatterySoundProto::MergeFrom(from._internal_device_low_battery_sound());
+    }
+    if (cached_has_bits & 0x00040000u) {
+      _internal_mutable_device_charging_sounds()->::enterprise_management::DeviceChargingSoundsProto::MergeFrom(from._internal_device_charging_sounds());
+    }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -41036,8 +41514,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_has_bits_[3], other->_has_bits_[3]);
   swap(_has_bits_[4], other->_has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_login_screen_webhid_allow_devices_for_urls_)
-      + sizeof(ChromeDeviceSettingsProto::device_login_screen_webhid_allow_devices_for_urls_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_charging_sounds_)
+      + sizeof(ChromeDeviceSettingsProto::device_charging_sounds_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->device_policy_refresh_rate_));
@@ -41606,6 +42084,14 @@ Arena::CreateMaybeMessage< ::enterprise_management::EncryptedReportingPipelineCo
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceReportXDREventsProto*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceReportXDREventsProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DeviceReportXDREventsProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceLowBatterySoundProto*
+Arena::CreateMaybeMessage< ::enterprise_management::DeviceLowBatterySoundProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::DeviceLowBatterySoundProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceChargingSoundsProto*
+Arena::CreateMaybeMessage< ::enterprise_management::DeviceChargingSoundsProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::DeviceChargingSoundsProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::ChromeDeviceSettingsProto*
 Arena::CreateMaybeMessage< ::enterprise_management::ChromeDeviceSettingsProto >(Arena* arena) {
