@@ -1073,6 +1073,67 @@ int64_t HermesOp::Gethome_mccmncForTest() const {
 
 }  // namespace cellular
 
+namespace rollback_enterprise {
+
+RollbackPolicyActivated::RollbackPolicyActivated() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+RollbackPolicyActivated::~RollbackPolicyActivated() = default;
+RollbackPolicyActivated& RollbackPolicyActivated::Setorigin_chromeos_version_major(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackPolicyActivated::Getorigin_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_majorNameHash);
+}
+
+RollbackPolicyActivated& RollbackPolicyActivated::Setorigin_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackPolicyActivated::Getorigin_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_minorNameHash);
+}
+
+RollbackPolicyActivated& RollbackPolicyActivated::Setorigin_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(korigin_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackPolicyActivated::Getorigin_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(korigin_chromeos_version_patchNameHash);
+}
+
+RollbackPolicyActivated& RollbackPolicyActivated::Settarget_chromeos_version_major(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_majorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackPolicyActivated::Gettarget_chromeos_version_majorForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_majorNameHash);
+}
+
+RollbackPolicyActivated& RollbackPolicyActivated::Settarget_chromeos_version_minor(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_minorNameHash, value);
+  return *this;
+}
+
+int64_t RollbackPolicyActivated::Gettarget_chromeos_version_minorForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_minorNameHash);
+}
+
+RollbackPolicyActivated& RollbackPolicyActivated::Settarget_chromeos_version_patch(const int64_t value) {
+  AddIntMetric(ktarget_chromeos_version_patchNameHash, value);
+  return *this;
+}
+
+int64_t RollbackPolicyActivated::Gettarget_chromeos_version_patchForTest() const {
+  return GetIntMetricForTest(ktarget_chromeos_version_patchNameHash);
+}
+
+}  // namespace rollback_enterprise
+
 namespace rmad {
 
 ShimlessRmaReport::ShimlessRmaReport() :

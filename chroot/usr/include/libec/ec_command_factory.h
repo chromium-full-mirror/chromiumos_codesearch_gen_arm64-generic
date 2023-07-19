@@ -17,6 +17,9 @@
 #include "libec/fingerprint/fp_frame_command.h"
 #include "libec/fingerprint/fp_get_nonce_command.h"
 #include "libec/fingerprint/fp_info_command.h"
+#include "libec/fingerprint/fp_pairing_key_keygen_command.h"
+#include "libec/fingerprint/fp_pairing_key_load_command.h"
+#include "libec/fingerprint/fp_pairing_key_wrap_command.h"
 #include "libec/fingerprint/fp_read_match_secret_with_pubkey_command.h"
 #include "libec/fingerprint/fp_seed_command.h"
 #include "libec/fingerprint/fp_set_nonce_context_command.h"
@@ -110,6 +113,29 @@ class EcCommandFactoryInterface {
                 "All commands created by this class should derive from "
                 "EcCommandInterface");
 
+  virtual std::unique_ptr<ec::FpPairingKeyKeygenCommand>
+  FpPairingKeyKeygenCommand() = 0;
+  static_assert(
+      std::is_base_of<EcCommandInterface, ec::FpPairingKeyKeygenCommand>::value,
+      "All commands created by this class should derive from "
+      "EcCommandInterface");
+
+  virtual std::unique_ptr<ec::FpPairingKeyLoadCommand> FpPairingKeyLoadCommand(
+      const brillo::Blob& encrypted_pairing_key) = 0;
+  static_assert(
+      std::is_base_of<EcCommandInterface, ec::FpPairingKeyLoadCommand>::value,
+      "All commands created by this class should derive from "
+      "EcCommandInterface");
+
+  virtual std::unique_ptr<ec::FpPairingKeyWrapCommand> FpPairingKeyWrapCommand(
+      const brillo::Blob& pub_x,
+      const brillo::Blob& pub_y,
+      const brillo::Blob& encrypted_priv) = 0;
+  static_assert(
+      std::is_base_of<EcCommandInterface, ec::FpPairingKeyWrapCommand>::value,
+      "All commands created by this class should derive from "
+      "EcCommandInterface");
+
   // TODO(b/144956297): Add factory methods for all of the EC
   // commands we use so that we can easily mock them for testing.
 };
@@ -161,6 +187,17 @@ class BRILLO_EXPORT EcCommandFactory : public EcCommandFactoryInterface {
   FpReadMatchSecretWithPubkeyCommand(uint16_t index,
                                      const brillo::Blob& pk_in_x,
                                      const brillo::Blob& pk_in_y) override;
+
+  std::unique_ptr<ec::FpPairingKeyKeygenCommand> FpPairingKeyKeygenCommand()
+      override;
+
+  std::unique_ptr<ec::FpPairingKeyLoadCommand> FpPairingKeyLoadCommand(
+      const brillo::Blob& encrypted_pairing_key) override;
+
+  std::unique_ptr<ec::FpPairingKeyWrapCommand> FpPairingKeyWrapCommand(
+      const brillo::Blob& pub_x,
+      const brillo::Blob& pub_y,
+      const brillo::Blob& encrypted_priv) override;
 };
 
 }  // namespace ec

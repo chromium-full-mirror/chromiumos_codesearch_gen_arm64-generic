@@ -73,6 +73,20 @@ class MockEcCommandFactory : public ec::EcCommandFactoryInterface {
                const brillo::Blob& pk_in_x,
                const brillo::Blob& pk_in_y),
               (override));
+  MOCK_METHOD(std::unique_ptr<ec::FpPairingKeyKeygenCommand>,
+              FpPairingKeyKeygenCommand,
+              (),
+              (override));
+  MOCK_METHOD(std::unique_ptr<ec::FpPairingKeyLoadCommand>,
+              FpPairingKeyLoadCommand,
+              (const brillo::Blob& encrypted_pairing_key),
+              (override));
+  MOCK_METHOD(std::unique_ptr<ec::FpPairingKeyWrapCommand>,
+              FpPairingKeyWrapCommand,
+              (const brillo::Blob& pub_x,
+               const brillo::Blob& pub_y,
+               const brillo::Blob& encrypted_priv),
+              (override));
 };
 
 }  // namespace ec
