@@ -24,6 +24,7 @@
 namespace dbus {
 
 class Bus;
+class Error;
 class ErrorResponse;
 class MethodCall;
 class Response;
@@ -112,7 +113,11 @@ class CHROME_DBUS_EXPORT ObjectProxy
   virtual std::unique_ptr<Response> CallMethodAndBlockWithErrorDetails(
       MethodCall* method_call,
       int timeout_ms,
-      ScopedDBusError* error);
+      Error* error);
+  virtual std::unique_ptr<Response> CallMethodAndBlockWithErrorDetails(
+      MethodCall* method_call,
+      int timeout_ms,
+      ScopedDBusError* scoped_error);
 
   // Calls the method of the remote object and blocks until the response
   // is returned. Returns NULL on error.

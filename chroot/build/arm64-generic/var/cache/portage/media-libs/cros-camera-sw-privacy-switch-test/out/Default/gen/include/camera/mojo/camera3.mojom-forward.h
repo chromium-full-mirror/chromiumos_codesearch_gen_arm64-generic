@@ -72,6 +72,8 @@ enum class Camera3StreamBufferReqStatus : int32_t;
 enum class Camera3RequestTemplate : int32_t;
 
 enum class Camera3DeviceOps_BufferType : int32_t;
+
+constexpr uint64_t NO_BUFFER_BUFFER_ID = 0xFFFFFFFFFFFFFFFFULL;
 class CropRotateScaleInfo;
 using CropRotateScaleInfoPtr = mojo::InlinedStructPtr<CropRotateScaleInfo>;
 

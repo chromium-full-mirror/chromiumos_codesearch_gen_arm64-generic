@@ -2479,6 +2479,7 @@ class GetFilesSourcesRequest final :
 
   enum : int {
     kFilesInodesFieldNumber = 1,
+    kFilesPathsFieldNumber = 2,
   };
   // repeated uint64 files_inodes = 1;
   int files_inodes_size() const;
@@ -2502,6 +2503,30 @@ class GetFilesSourcesRequest final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
       mutable_files_inodes();
 
+  // repeated string files_paths = 2;
+  int files_paths_size() const;
+  private:
+  int _internal_files_paths_size() const;
+  public:
+  void clear_files_paths();
+  const std::string& files_paths(int index) const;
+  std::string* mutable_files_paths(int index);
+  void set_files_paths(int index, const std::string& value);
+  void set_files_paths(int index, std::string&& value);
+  void set_files_paths(int index, const char* value);
+  void set_files_paths(int index, const char* value, size_t size);
+  std::string* add_files_paths();
+  void add_files_paths(const std::string& value);
+  void add_files_paths(std::string&& value);
+  void add_files_paths(const char* value);
+  void add_files_paths(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& files_paths() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_files_paths();
+  private:
+  const std::string& _internal_files_paths(int index) const;
+  std::string* _internal_add_files_paths();
+  public:
+
   // @@protoc_insertion_point(class_scope:dlp.GetFilesSourcesRequest)
  private:
   class _Internal;
@@ -2511,6 +2536,7 @@ class GetFilesSourcesRequest final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t > files_inodes_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> files_paths_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5038,6 +5064,81 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint64_t >*
 GetFilesSourcesRequest::mutable_files_inodes() {
   // @@protoc_insertion_point(field_mutable_list:dlp.GetFilesSourcesRequest.files_inodes)
   return _internal_mutable_files_inodes();
+}
+
+// repeated string files_paths = 2;
+inline int GetFilesSourcesRequest::_internal_files_paths_size() const {
+  return _impl_.files_paths_.size();
+}
+inline int GetFilesSourcesRequest::files_paths_size() const {
+  return _internal_files_paths_size();
+}
+inline void GetFilesSourcesRequest::clear_files_paths() {
+  _impl_.files_paths_.Clear();
+}
+inline std::string* GetFilesSourcesRequest::add_files_paths() {
+  std::string* _s = _internal_add_files_paths();
+  // @@protoc_insertion_point(field_add_mutable:dlp.GetFilesSourcesRequest.files_paths)
+  return _s;
+}
+inline const std::string& GetFilesSourcesRequest::_internal_files_paths(int index) const {
+  return _impl_.files_paths_.Get(index);
+}
+inline const std::string& GetFilesSourcesRequest::files_paths(int index) const {
+  // @@protoc_insertion_point(field_get:dlp.GetFilesSourcesRequest.files_paths)
+  return _internal_files_paths(index);
+}
+inline std::string* GetFilesSourcesRequest::mutable_files_paths(int index) {
+  // @@protoc_insertion_point(field_mutable:dlp.GetFilesSourcesRequest.files_paths)
+  return _impl_.files_paths_.Mutable(index);
+}
+inline void GetFilesSourcesRequest::set_files_paths(int index, const std::string& value) {
+  _impl_.files_paths_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:dlp.GetFilesSourcesRequest.files_paths)
+}
+inline void GetFilesSourcesRequest::set_files_paths(int index, std::string&& value) {
+  _impl_.files_paths_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:dlp.GetFilesSourcesRequest.files_paths)
+}
+inline void GetFilesSourcesRequest::set_files_paths(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.files_paths_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:dlp.GetFilesSourcesRequest.files_paths)
+}
+inline void GetFilesSourcesRequest::set_files_paths(int index, const char* value, size_t size) {
+  _impl_.files_paths_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:dlp.GetFilesSourcesRequest.files_paths)
+}
+inline std::string* GetFilesSourcesRequest::_internal_add_files_paths() {
+  return _impl_.files_paths_.Add();
+}
+inline void GetFilesSourcesRequest::add_files_paths(const std::string& value) {
+  _impl_.files_paths_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:dlp.GetFilesSourcesRequest.files_paths)
+}
+inline void GetFilesSourcesRequest::add_files_paths(std::string&& value) {
+  _impl_.files_paths_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:dlp.GetFilesSourcesRequest.files_paths)
+}
+inline void GetFilesSourcesRequest::add_files_paths(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.files_paths_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:dlp.GetFilesSourcesRequest.files_paths)
+}
+inline void GetFilesSourcesRequest::add_files_paths(const char* value, size_t size) {
+  _impl_.files_paths_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:dlp.GetFilesSourcesRequest.files_paths)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+GetFilesSourcesRequest::files_paths() const {
+  // @@protoc_insertion_point(field_list:dlp.GetFilesSourcesRequest.files_paths)
+  return _impl_.files_paths_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+GetFilesSourcesRequest::mutable_files_paths() {
+  // @@protoc_insertion_point(field_mutable_list:dlp.GetFilesSourcesRequest.files_paths)
+  return &_impl_.files_paths_;
 }
 
 // -------------------------------------------------------------------

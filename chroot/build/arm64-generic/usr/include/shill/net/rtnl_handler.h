@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include <base/containers/span.h>
 #include <base/functional/callback.h>
 #include <base/lazy_instance.h>
 #include <base/memory/ref_counted.h>
@@ -20,6 +21,7 @@
 #include <gtest/gtest_prod.h>  // for FRIEND_TEST
 #include <net-base/ip_address.h>
 
+#include "shill/net/byte_string.h"
 #include "shill/net/io_handler_factory.h"
 #include "shill/net/rtnl_listener.h"
 #include "shill/net/rtnl_message.h"
@@ -126,7 +128,7 @@ class SHILL_EXPORT RTNLHandler {
   // IFLA_INFO_DATA if not empty. Returns false on sending failures.
   virtual bool AddInterface(const std::string& interface_name,
                             const std::string& link_kind,
-                            const ByteString& link_info_data,
+                            base::span<const uint8_t> link_info_data,
                             ResponseCallback response_callback);
 
   // Sends an RTNL message. If the message is successfully sent, and |seq| is

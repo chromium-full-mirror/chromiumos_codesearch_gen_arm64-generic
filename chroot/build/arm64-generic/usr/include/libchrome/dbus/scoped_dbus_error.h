@@ -21,12 +21,16 @@ class CHROME_DBUS_EXPORT ScopedDBusError {
 
   DBusError* get() { return &error_; }
   bool is_set() const;
-  const char* name() { return error_.name; }
-  const char* message() { return error_.message; }
+  const char* name() const { return error_.name; }
+  const char* message() const { return error_.message; }
 
  private:
   DBusError error_;
 };
+
+namespace internal {
+using ScopedDBusError = ScopedDBusError;
+}
 
 }  // namespace dbus
 

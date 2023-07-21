@@ -126,12 +126,13 @@ enum AddPrinterResult : int {
   ADD_PRINTER_RESULT_DBUS_GENERIC = 12,
   ADD_PRINTER_RESULT_DBUS_NO_REPLY = 13,
   ADD_PRINTER_RESULT_DBUS_TIMEOUT = 14,
+  ADD_PRINTER_RESULT_DBUS_ENCODING_FAILURE = 15,
   AddPrinterResult_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   AddPrinterResult_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool AddPrinterResult_IsValid(int value);
 constexpr AddPrinterResult AddPrinterResult_MIN = ADD_PRINTER_RESULT_UNSPECIFIED;
-constexpr AddPrinterResult AddPrinterResult_MAX = ADD_PRINTER_RESULT_DBUS_TIMEOUT;
+constexpr AddPrinterResult AddPrinterResult_MAX = ADD_PRINTER_RESULT_DBUS_ENCODING_FAILURE;
 constexpr int AddPrinterResult_ARRAYSIZE = AddPrinterResult_MAX + 1;
 
 const std::string& AddPrinterResult_Name(AddPrinterResult value);

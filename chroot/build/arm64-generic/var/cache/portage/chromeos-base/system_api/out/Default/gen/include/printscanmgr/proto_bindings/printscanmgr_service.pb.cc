@@ -235,13 +235,14 @@ bool AddPrinterResult_IsValid(int value) {
     case 12:
     case 13:
     case 14:
+    case 15:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AddPrinterResult_strings[15] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AddPrinterResult_strings[16] = {};
 
 static const char AddPrinterResult_names[] =
   "ADD_PRINTER_RESULT_CUPS_AUTOCONF_FAILURE"
@@ -254,6 +255,7 @@ static const char AddPrinterResult_names[] =
   "ADD_PRINTER_RESULT_CUPS_PRINTER_NOT_AUTOCONF"
   "ADD_PRINTER_RESULT_CUPS_PRINTER_UNREACHABLE"
   "ADD_PRINTER_RESULT_CUPS_PRINTER_WRONG_RESPONSE"
+  "ADD_PRINTER_RESULT_DBUS_ENCODING_FAILURE"
   "ADD_PRINTER_RESULT_DBUS_GENERIC"
   "ADD_PRINTER_RESULT_DBUS_NO_REPLY"
   "ADD_PRINTER_RESULT_DBUS_TIMEOUT"
@@ -271,16 +273,17 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AddPrinterResult_entri
   { {AddPrinterResult_names + 248, 44}, 11 },
   { {AddPrinterResult_names + 292, 43}, 9 },
   { {AddPrinterResult_names + 335, 46}, 10 },
-  { {AddPrinterResult_names + 381, 31}, 12 },
-  { {AddPrinterResult_names + 412, 32}, 13 },
-  { {AddPrinterResult_names + 444, 31}, 14 },
-  { {AddPrinterResult_names + 475, 26}, 1 },
-  { {AddPrinterResult_names + 501, 30}, 0 },
+  { {AddPrinterResult_names + 381, 40}, 15 },
+  { {AddPrinterResult_names + 421, 31}, 12 },
+  { {AddPrinterResult_names + 452, 32}, 13 },
+  { {AddPrinterResult_names + 484, 31}, 14 },
+  { {AddPrinterResult_names + 515, 26}, 1 },
+  { {AddPrinterResult_names + 541, 30}, 0 },
 };
 
 static const int AddPrinterResult_entries_by_number[] = {
-  14, // 0 -> ADD_PRINTER_RESULT_UNSPECIFIED
-  13, // 1 -> ADD_PRINTER_RESULT_SUCCESS
+  15, // 0 -> ADD_PRINTER_RESULT_UNSPECIFIED
+  14, // 1 -> ADD_PRINTER_RESULT_SUCCESS
   2, // 2 -> ADD_PRINTER_RESULT_CUPS_FATAL
   3, // 3 -> ADD_PRINTER_RESULT_CUPS_INVALID_PPD
   5, // 4 -> ADD_PRINTER_RESULT_CUPS_LPADMIN_FAILURE
@@ -291,9 +294,10 @@ static const int AddPrinterResult_entries_by_number[] = {
   8, // 9 -> ADD_PRINTER_RESULT_CUPS_PRINTER_UNREACHABLE
   9, // 10 -> ADD_PRINTER_RESULT_CUPS_PRINTER_WRONG_RESPONSE
   7, // 11 -> ADD_PRINTER_RESULT_CUPS_PRINTER_NOT_AUTOCONF
-  10, // 12 -> ADD_PRINTER_RESULT_DBUS_GENERIC
-  11, // 13 -> ADD_PRINTER_RESULT_DBUS_NO_REPLY
-  12, // 14 -> ADD_PRINTER_RESULT_DBUS_TIMEOUT
+  11, // 12 -> ADD_PRINTER_RESULT_DBUS_GENERIC
+  12, // 13 -> ADD_PRINTER_RESULT_DBUS_NO_REPLY
+  13, // 14 -> ADD_PRINTER_RESULT_DBUS_TIMEOUT
+  10, // 15 -> ADD_PRINTER_RESULT_DBUS_ENCODING_FAILURE
 };
 
 const std::string& AddPrinterResult_Name(
@@ -302,12 +306,12 @@ const std::string& AddPrinterResult_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           AddPrinterResult_entries,
           AddPrinterResult_entries_by_number,
-          15, AddPrinterResult_strings);
+          16, AddPrinterResult_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       AddPrinterResult_entries,
       AddPrinterResult_entries_by_number,
-      15, value);
+      16, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      AddPrinterResult_strings[idx].get();
 }
@@ -315,7 +319,7 @@ bool AddPrinterResult_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AddPrinterResult* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      AddPrinterResult_entries, 15, name, &int_value);
+      AddPrinterResult_entries, 16, name, &int_value);
   if (success) {
     *value = static_cast<AddPrinterResult>(int_value);
   }

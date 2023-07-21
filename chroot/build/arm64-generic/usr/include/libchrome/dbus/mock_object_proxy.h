@@ -25,6 +25,10 @@ class MockObjectProxy : public ObjectProxy {
   MOCK_METHOD3(CallMethodAndBlockWithErrorDetails,
                std::unique_ptr<Response>(MethodCall* method_call,
                                          int timeout_ms,
+                                         Error* error));
+  MOCK_METHOD3(CallMethodAndBlockWithErrorDetails,
+               std::unique_ptr<Response>(MethodCall* method_call,
+                                         int timeout_ms,
                                          ScopedDBusError* error));
   MOCK_METHOD2(CallMethodAndBlock,
                std::unique_ptr<Response>(MethodCall* method_call,

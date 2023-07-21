@@ -6,8 +6,10 @@
 #include <utility>
 #include <vector>
 
+#include <base/files/file_util.h>
 #include <base/strings/stringprintf.h>
 
+#include "diagnostics/base/file_utils.h"
 #include "diagnostics/cros_healthd/system/ground_truth.h"
 #include "diagnostics/cros_healthd/system/ground_truth_constants.h"
 #include "diagnostics/mojom/public/cros_healthd.mojom.h"
@@ -44,6 +46,7 @@ GroundTruth::~GroundTruth() = default;
 mojom::SupportStatusPtr GroundTruth::GetEventSupportStatus(
     mojom::EventCategoryEnum category) {
   // Please update docs/event_supportability.md.
+  // Add "NO_IFTTT=<reason>" in the commit message if it's not applicable.
   // LINT.IfChange
   switch (category) {
     // UnmappedEnumField.
@@ -149,7 +152,7 @@ mojom::SupportStatusPtr GroundTruth::GetEventSupportStatus(
           nullptr));
     }
   }
-  // LINT.ThenChange(//docs/event_supportability.md)
+  // LINT.ThenChange(//diagnostics/docs/event_supportability.md)
 }
 
 void GroundTruth::IsEventSupported(
@@ -162,6 +165,7 @@ void GroundTruth::IsEventSupported(
 mojom::SupportStatusPtr GroundTruth::GetRoutineSupportStatus(
     mojom::RoutineArgumentPtr routine_arg) {
   // Please update docs/routine_supportability.md.
+  // Add "NO_IFTTT=<reason>" in the commit message if it's not applicable.
   // LINT.IfChange
   switch (routine_arg->which()) {
     // UnrecognizedArgument.
@@ -221,11 +225,16 @@ mojom::SupportStatusPtr GroundTruth::GetRoutineSupportStatus(
                                 side_volume_button_region),
           nullptr));
     }
-    // TODO(b/274762028): Check if the device has CrosEC.
-    case mojom::RoutineArgument::Tag::kLedLitUp:
-      return mojom::SupportStatus::NewSupported(mojom::Supported::New());
+    case mojom::RoutineArgument::Tag::kLedLitUp: {
+      if (HasCrosEC()) {
+        return mojom::SupportStatus::NewSupported(mojom::Supported::New());
+      } else {
+        return mojom::SupportStatus::NewUnsupported(mojom::Unsupported::New(
+            "Not supported on a non-CrosEC device", nullptr));
+      }
+    }
   }
-  // LINT.ThenChange(//docs/routine_supportability.md)
+  // LINT.ThenChange(//diagnostics/docs/routine_supportability.md)
 }
 
 void GroundTruth::IsRoutineSupported(
@@ -273,6 +282,10 @@ std::string GroundTruth::SideVolumeButtonRegion() {
 std::string GroundTruth::StorageType() {
   return ReadCrosConfig(cros_config_path::kHardwareProperties,
                         cros_config_property::kStorageType);
+}
+
+bool GroundTruth::HasCrosEC() {
+  return base::PathExists(GetRootedPath(kCrosEcSysPath));
 }
 
 std::string GroundTruth::ReadCrosConfig(const std::string& path,

@@ -65,23 +65,27 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 bool EnterpriseRollbackEvent_IsValid(int value) {
   switch (value) {
     case 0:
+    case 1:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> EnterpriseRollbackEvent_strings[1] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> EnterpriseRollbackEvent_strings[2] = {};
 
 static const char EnterpriseRollbackEvent_names[] =
-  "EVENT_UNSPECIFIED";
+  "EVENT_UNSPECIFIED"
+  "ROLLBACK_POLICY_ACTIVATED";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry EnterpriseRollbackEvent_entries[] = {
   { {EnterpriseRollbackEvent_names + 0, 17}, 0 },
+  { {EnterpriseRollbackEvent_names + 17, 25}, 1 },
 };
 
 static const int EnterpriseRollbackEvent_entries_by_number[] = {
   0, // 0 -> EVENT_UNSPECIFIED
+  1, // 1 -> ROLLBACK_POLICY_ACTIVATED
 };
 
 const std::string& EnterpriseRollbackEvent_Name(
@@ -90,12 +94,12 @@ const std::string& EnterpriseRollbackEvent_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           EnterpriseRollbackEvent_entries,
           EnterpriseRollbackEvent_entries_by_number,
-          1, EnterpriseRollbackEvent_strings);
+          2, EnterpriseRollbackEvent_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       EnterpriseRollbackEvent_entries,
       EnterpriseRollbackEvent_entries_by_number,
-      1, value);
+      2, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      EnterpriseRollbackEvent_strings[idx].get();
 }
@@ -103,7 +107,7 @@ bool EnterpriseRollbackEvent_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EnterpriseRollbackEvent* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      EnterpriseRollbackEvent_entries, 1, name, &int_value);
+      EnterpriseRollbackEvent_entries, 2, name, &int_value);
   if (success) {
     *value = static_cast<EnterpriseRollbackEvent>(int_value);
   }

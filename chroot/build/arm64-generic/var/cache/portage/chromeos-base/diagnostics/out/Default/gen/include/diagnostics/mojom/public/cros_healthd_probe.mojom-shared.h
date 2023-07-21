@@ -1533,8 +1533,18 @@ enum class PsrEvent_EventType : int32_t {
   kPrtcFailure = 4,
   
   kSvnIncrease = 5,
+  
+  kMissing = 6,
+  
+  kInvalid = 7,
+  
+  kCsmeDamState = 8,
+  
+  kCsmeUnlockState = 9,
+  
+  kFwVersionChanged = 10,
   kMinValue = 0,
-  kMaxValue = 5,
+  kMaxValue = 10,
   kDefaultValue = 0
 };
 

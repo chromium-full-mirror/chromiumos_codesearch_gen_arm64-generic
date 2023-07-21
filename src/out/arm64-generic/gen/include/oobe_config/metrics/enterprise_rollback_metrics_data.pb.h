@@ -59,12 +59,13 @@ PROTOBUF_NAMESPACE_CLOSE
 
 enum EnterpriseRollbackEvent : int {
   EVENT_UNSPECIFIED = 0,
+  ROLLBACK_POLICY_ACTIVATED = 1,
   EnterpriseRollbackEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   EnterpriseRollbackEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool EnterpriseRollbackEvent_IsValid(int value);
 constexpr EnterpriseRollbackEvent EnterpriseRollbackEvent_MIN = EVENT_UNSPECIFIED;
-constexpr EnterpriseRollbackEvent EnterpriseRollbackEvent_MAX = EVENT_UNSPECIFIED;
+constexpr EnterpriseRollbackEvent EnterpriseRollbackEvent_MAX = ROLLBACK_POLICY_ACTIVATED;
 constexpr int EnterpriseRollbackEvent_ARRAYSIZE = EnterpriseRollbackEvent_MAX + 1;
 
 const std::string& EnterpriseRollbackEvent_Name(EnterpriseRollbackEvent value);
