@@ -67,40 +67,58 @@ public:
         static const char* EchoToConsole;
     }; // RecordModeEnum
 
-    bool HasRecordMode() { return m_recordMode.isJust(); }
-    String GetRecordMode(const String& defaultValue) { return m_recordMode.isJust() ? m_recordMode.fromJust() : defaultValue; }
+    bool HasRecordMode() { return m_recordMode.has_value(); }
+    String GetRecordMode(const String& defaultValue) const {
+       return m_recordMode.value_or(defaultValue);
+    }
     void SetRecordMode(const String& value) { m_recordMode = value; }
 
-    bool HasTraceBufferSizeInKb() { return m_traceBufferSizeInKb.isJust(); }
-    double GetTraceBufferSizeInKb(double defaultValue) { return m_traceBufferSizeInKb.isJust() ? m_traceBufferSizeInKb.fromJust() : defaultValue; }
+    bool HasTraceBufferSizeInKb() { return m_traceBufferSizeInKb.has_value(); }
+    double GetTraceBufferSizeInKb(double defaultValue) const {
+       return m_traceBufferSizeInKb.value_or(defaultValue);
+    }
     void SetTraceBufferSizeInKb(double value) { m_traceBufferSizeInKb = value; }
 
-    bool HasEnableSampling() { return m_enableSampling.isJust(); }
-    bool GetEnableSampling(bool defaultValue) { return m_enableSampling.isJust() ? m_enableSampling.fromJust() : defaultValue; }
+    bool HasEnableSampling() { return m_enableSampling.has_value(); }
+    bool GetEnableSampling(bool defaultValue) const {
+       return m_enableSampling.value_or(defaultValue);
+    }
     void SetEnableSampling(bool value) { m_enableSampling = value; }
 
-    bool HasEnableSystrace() { return m_enableSystrace.isJust(); }
-    bool GetEnableSystrace(bool defaultValue) { return m_enableSystrace.isJust() ? m_enableSystrace.fromJust() : defaultValue; }
+    bool HasEnableSystrace() { return m_enableSystrace.has_value(); }
+    bool GetEnableSystrace(bool defaultValue) const {
+       return m_enableSystrace.value_or(defaultValue);
+    }
     void SetEnableSystrace(bool value) { m_enableSystrace = value; }
 
-    bool HasEnableArgumentFilter() { return m_enableArgumentFilter.isJust(); }
-    bool GetEnableArgumentFilter(bool defaultValue) { return m_enableArgumentFilter.isJust() ? m_enableArgumentFilter.fromJust() : defaultValue; }
+    bool HasEnableArgumentFilter() { return m_enableArgumentFilter.has_value(); }
+    bool GetEnableArgumentFilter(bool defaultValue) const {
+       return m_enableArgumentFilter.value_or(defaultValue);
+    }
     void SetEnableArgumentFilter(bool value) { m_enableArgumentFilter = value; }
 
-    bool HasIncludedCategories() { return m_includedCategories.isJust(); }
-    protocol::Array<String>* GetIncludedCategories(protocol::Array<String>* defaultValue) { return m_includedCategories.isJust() ? m_includedCategories.fromJust() : defaultValue; }
+    bool HasIncludedCategories() { return m_includedCategories.has_value(); }
+    protocol::Array<String>* GetIncludedCategories(protocol::Array<String>* defaultValue) {
+       return m_includedCategories.has_value() ? &m_includedCategories.value() : defaultValue;
+    }
     void SetIncludedCategories(std::unique_ptr<protocol::Array<String>> value) { m_includedCategories = std::move(value); }
 
-    bool HasExcludedCategories() { return m_excludedCategories.isJust(); }
-    protocol::Array<String>* GetExcludedCategories(protocol::Array<String>* defaultValue) { return m_excludedCategories.isJust() ? m_excludedCategories.fromJust() : defaultValue; }
+    bool HasExcludedCategories() { return m_excludedCategories.has_value(); }
+    protocol::Array<String>* GetExcludedCategories(protocol::Array<String>* defaultValue) {
+       return m_excludedCategories.has_value() ? &m_excludedCategories.value() : defaultValue;
+    }
     void SetExcludedCategories(std::unique_ptr<protocol::Array<String>> value) { m_excludedCategories = std::move(value); }
 
-    bool HasSyntheticDelays() { return m_syntheticDelays.isJust(); }
-    protocol::Array<String>* GetSyntheticDelays(protocol::Array<String>* defaultValue) { return m_syntheticDelays.isJust() ? m_syntheticDelays.fromJust() : defaultValue; }
+    bool HasSyntheticDelays() { return m_syntheticDelays.has_value(); }
+    protocol::Array<String>* GetSyntheticDelays(protocol::Array<String>* defaultValue) {
+       return m_syntheticDelays.has_value() ? &m_syntheticDelays.value() : defaultValue;
+    }
     void SetSyntheticDelays(std::unique_ptr<protocol::Array<String>> value) { m_syntheticDelays = std::move(value); }
 
-    bool HasMemoryDumpConfig() { return m_memoryDumpConfig.isJust(); }
-    protocol::Tracing::MemoryDumpConfig* GetMemoryDumpConfig(protocol::Tracing::MemoryDumpConfig* defaultValue) { return m_memoryDumpConfig.isJust() ? m_memoryDumpConfig.fromJust() : defaultValue; }
+    bool HasMemoryDumpConfig() { return m_memoryDumpConfig.has_value(); }
+    protocol::Tracing::MemoryDumpConfig* GetMemoryDumpConfig(protocol::Tracing::MemoryDumpConfig* defaultValue) {
+       return m_memoryDumpConfig.has_value() ? &m_memoryDumpConfig.value() : defaultValue;
+    }
     void SetMemoryDumpConfig(std::unique_ptr<protocol::Tracing::MemoryDumpConfig> value) { m_memoryDumpConfig = std::move(value); }
 
     template<int STATE>

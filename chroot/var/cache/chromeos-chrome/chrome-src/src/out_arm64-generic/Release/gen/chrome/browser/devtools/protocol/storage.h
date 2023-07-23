@@ -230,32 +230,46 @@ class  SharedStorageAccessParams : public ::crdtp::ProtocolObject<SharedStorageA
 public:
     ~SharedStorageAccessParams() override { }
 
-    bool HasScriptSourceUrl() { return m_scriptSourceUrl.isJust(); }
-    String GetScriptSourceUrl(const String& defaultValue) { return m_scriptSourceUrl.isJust() ? m_scriptSourceUrl.fromJust() : defaultValue; }
+    bool HasScriptSourceUrl() { return m_scriptSourceUrl.has_value(); }
+    String GetScriptSourceUrl(const String& defaultValue) const {
+       return m_scriptSourceUrl.value_or(defaultValue);
+    }
     void SetScriptSourceUrl(const String& value) { m_scriptSourceUrl = value; }
 
-    bool HasOperationName() { return m_operationName.isJust(); }
-    String GetOperationName(const String& defaultValue) { return m_operationName.isJust() ? m_operationName.fromJust() : defaultValue; }
+    bool HasOperationName() { return m_operationName.has_value(); }
+    String GetOperationName(const String& defaultValue) const {
+       return m_operationName.value_or(defaultValue);
+    }
     void SetOperationName(const String& value) { m_operationName = value; }
 
-    bool HasSerializedData() { return m_serializedData.isJust(); }
-    String GetSerializedData(const String& defaultValue) { return m_serializedData.isJust() ? m_serializedData.fromJust() : defaultValue; }
+    bool HasSerializedData() { return m_serializedData.has_value(); }
+    String GetSerializedData(const String& defaultValue) const {
+       return m_serializedData.value_or(defaultValue);
+    }
     void SetSerializedData(const String& value) { m_serializedData = value; }
 
-    bool HasUrlsWithMetadata() { return m_urlsWithMetadata.isJust(); }
-    protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>* GetUrlsWithMetadata(protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>* defaultValue) { return m_urlsWithMetadata.isJust() ? m_urlsWithMetadata.fromJust() : defaultValue; }
+    bool HasUrlsWithMetadata() { return m_urlsWithMetadata.has_value(); }
+    protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>* GetUrlsWithMetadata(protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>* defaultValue) {
+       return m_urlsWithMetadata.has_value() ? &m_urlsWithMetadata.value() : defaultValue;
+    }
     void SetUrlsWithMetadata(std::unique_ptr<protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>> value) { m_urlsWithMetadata = std::move(value); }
 
-    bool HasKey() { return m_key.isJust(); }
-    String GetKey(const String& defaultValue) { return m_key.isJust() ? m_key.fromJust() : defaultValue; }
+    bool HasKey() { return m_key.has_value(); }
+    String GetKey(const String& defaultValue) const {
+       return m_key.value_or(defaultValue);
+    }
     void SetKey(const String& value) { m_key = value; }
 
-    bool HasValue() { return m_value.isJust(); }
-    String GetValue(const String& defaultValue) { return m_value.isJust() ? m_value.fromJust() : defaultValue; }
+    bool HasValue() { return m_value.has_value(); }
+    String GetValue(const String& defaultValue) const {
+       return m_value.value_or(defaultValue);
+    }
     void SetValue(const String& value) { m_value = value; }
 
-    bool HasIgnoreIfPresent() { return m_ignoreIfPresent.isJust(); }
-    bool GetIgnoreIfPresent(bool defaultValue) { return m_ignoreIfPresent.isJust() ? m_ignoreIfPresent.fromJust() : defaultValue; }
+    bool HasIgnoreIfPresent() { return m_ignoreIfPresent.has_value(); }
+    bool GetIgnoreIfPresent(bool defaultValue) const {
+       return m_ignoreIfPresent.value_or(defaultValue);
+    }
     void SetIgnoreIfPresent(bool value) { m_ignoreIfPresent = value; }
 
     template<int STATE>
@@ -355,8 +369,10 @@ public:
     String GetStorageKey() { return m_storageKey; }
     void SetStorageKey(const String& value) { m_storageKey = value; }
 
-    bool HasName() { return m_name.isJust(); }
-    String GetName(const String& defaultValue) { return m_name.isJust() ? m_name.fromJust() : defaultValue; }
+    bool HasName() { return m_name.has_value(); }
+    String GetName(const String& defaultValue) const {
+       return m_name.value_or(defaultValue);
+    }
     void SetName(const String& value) { m_name = value; }
 
     template<int STATE>
@@ -681,16 +697,22 @@ public:
     double GetTime() { return m_time; }
     void SetTime(double value) { m_time = value; }
 
-    bool HasExpiry() { return m_expiry.isJust(); }
-    int GetExpiry(int defaultValue) { return m_expiry.isJust() ? m_expiry.fromJust() : defaultValue; }
+    bool HasExpiry() { return m_expiry.has_value(); }
+    int GetExpiry(int defaultValue) const {
+       return m_expiry.value_or(defaultValue);
+    }
     void SetExpiry(int value) { m_expiry = value; }
 
-    bool HasEventReportWindow() { return m_eventReportWindow.isJust(); }
-    int GetEventReportWindow(int defaultValue) { return m_eventReportWindow.isJust() ? m_eventReportWindow.fromJust() : defaultValue; }
+    bool HasEventReportWindow() { return m_eventReportWindow.has_value(); }
+    int GetEventReportWindow(int defaultValue) const {
+       return m_eventReportWindow.value_or(defaultValue);
+    }
     void SetEventReportWindow(int value) { m_eventReportWindow = value; }
 
-    bool HasAggregatableReportWindow() { return m_aggregatableReportWindow.isJust(); }
-    int GetAggregatableReportWindow(int defaultValue) { return m_aggregatableReportWindow.isJust() ? m_aggregatableReportWindow.fromJust() : defaultValue; }
+    bool HasAggregatableReportWindow() { return m_aggregatableReportWindow.has_value(); }
+    int GetAggregatableReportWindow(int defaultValue) const {
+       return m_aggregatableReportWindow.value_or(defaultValue);
+    }
     void SetAggregatableReportWindow(int value) { m_aggregatableReportWindow = value; }
 
     String GetType() { return m_type; }
@@ -717,8 +739,10 @@ public:
     protocol::Array<protocol::Storage::AttributionReportingAggregationKeysEntry>* GetAggregationKeys() { return m_aggregationKeys.get(); }
     void SetAggregationKeys(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregationKeysEntry>> value) { m_aggregationKeys = std::move(value); }
 
-    bool HasDebugKey() { return m_debugKey.isJust(); }
-    String GetDebugKey(const String& defaultValue) { return m_debugKey.isJust() ? m_debugKey.fromJust() : defaultValue; }
+    bool HasDebugKey() { return m_debugKey.has_value(); }
+    String GetDebugKey(const String& defaultValue) const {
+       return m_debugKey.value_or(defaultValue);
+    }
     void SetDebugKey(const String& value) { m_debugKey = value; }
 
     template<int STATE>

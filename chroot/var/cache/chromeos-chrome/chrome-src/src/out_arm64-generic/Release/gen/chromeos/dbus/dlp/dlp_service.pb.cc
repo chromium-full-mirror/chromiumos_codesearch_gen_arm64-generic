@@ -192,7 +192,8 @@ struct IsDlpPolicyMatchedResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IsDlpPolicyMatchedResponseDefaultTypeInternal _IsDlpPolicyMatchedResponse_default_instance_;
 PROTOBUF_CONSTEXPR GetFilesSourcesRequest::GetFilesSourcesRequest(
     ::_pbi::ConstantInitialized)
-  : files_inodes_(){}
+  : files_inodes_()
+  , files_paths_(){}
 struct GetFilesSourcesRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetFilesSourcesRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3613,13 +3614,15 @@ class GetFilesSourcesRequest::_Internal {
 GetFilesSourcesRequest::GetFilesSourcesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  files_inodes_(arena) {
+  files_inodes_(arena),
+  files_paths_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:dlp.GetFilesSourcesRequest)
 }
 GetFilesSourcesRequest::GetFilesSourcesRequest(const GetFilesSourcesRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      files_inodes_(from.files_inodes_) {
+      files_inodes_(from.files_inodes_),
+      files_paths_(from.files_paths_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:dlp.GetFilesSourcesRequest)
 }
@@ -3651,6 +3654,7 @@ void GetFilesSourcesRequest::Clear() {
   (void) cached_has_bits;
 
   files_inodes_.Clear();
+  files_paths_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3673,6 +3677,20 @@ const char* GetFilesSourcesRequest::_InternalParse(const char* ptr, ::_pbi::Pars
         } else if (static_cast<uint8_t>(tag) == 10) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt64Parser(_internal_mutable_files_inodes(), ptr, ctx);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string files_paths = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_files_paths();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -3711,6 +3729,12 @@ uint8_t* GetFilesSourcesRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_files_inodes(i), target);
   }
 
+  // repeated string files_paths = 2;
+  for (int i = 0, n = this->_internal_files_paths_size(); i < n; i++) {
+    const auto& s = this->_internal_files_paths(i);
+    target = stream->WriteString(2, s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3736,6 +3760,14 @@ size_t GetFilesSourcesRequest::ByteSizeLong() const {
     total_size += data_size;
   }
 
+  // repeated string files_paths = 2;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(files_paths_.size());
+  for (int i = 0, n = files_paths_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      files_paths_.Get(i));
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3757,6 +3789,7 @@ void GetFilesSourcesRequest::MergeFrom(const GetFilesSourcesRequest& from) {
   (void) cached_has_bits;
 
   files_inodes_.MergeFrom(from.files_inodes_);
+  files_paths_.MergeFrom(from.files_paths_);
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -3775,6 +3808,7 @@ void GetFilesSourcesRequest::InternalSwap(GetFilesSourcesRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   files_inodes_.InternalSwap(&other->files_inodes_);
+  files_paths_.InternalSwap(&other->files_paths_);
 }
 
 std::string GetFilesSourcesRequest::GetTypeName() const {

@@ -261,8 +261,10 @@ public:
     String getRenderUrl() { return m_renderUrl; }
     void setRenderUrl(const String& value) { m_renderUrl = value; }
 
-    bool hasMetadata() { return m_metadata.isJust(); }
-    String getMetadata(const String& defaultValue) { return m_metadata.isJust() ? m_metadata.fromJust() : defaultValue; }
+    bool hasMetadata() { return m_metadata.has_value(); }
+    String getMetadata(const String& defaultValue) const {
+       return m_metadata.value_or(defaultValue);
+    }
     void setMetadata(const String& value) { m_metadata = value; }
 
     template<int STATE>
@@ -338,27 +340,37 @@ public:
     String getJoiningOrigin() { return m_joiningOrigin; }
     void setJoiningOrigin(const String& value) { m_joiningOrigin = value; }
 
-    bool hasBiddingUrl() { return m_biddingUrl.isJust(); }
-    String getBiddingUrl(const String& defaultValue) { return m_biddingUrl.isJust() ? m_biddingUrl.fromJust() : defaultValue; }
+    bool hasBiddingUrl() { return m_biddingUrl.has_value(); }
+    String getBiddingUrl(const String& defaultValue) const {
+       return m_biddingUrl.value_or(defaultValue);
+    }
     void setBiddingUrl(const String& value) { m_biddingUrl = value; }
 
-    bool hasBiddingWasmHelperUrl() { return m_biddingWasmHelperUrl.isJust(); }
-    String getBiddingWasmHelperUrl(const String& defaultValue) { return m_biddingWasmHelperUrl.isJust() ? m_biddingWasmHelperUrl.fromJust() : defaultValue; }
+    bool hasBiddingWasmHelperUrl() { return m_biddingWasmHelperUrl.has_value(); }
+    String getBiddingWasmHelperUrl(const String& defaultValue) const {
+       return m_biddingWasmHelperUrl.value_or(defaultValue);
+    }
     void setBiddingWasmHelperUrl(const String& value) { m_biddingWasmHelperUrl = value; }
 
-    bool hasUpdateUrl() { return m_updateUrl.isJust(); }
-    String getUpdateUrl(const String& defaultValue) { return m_updateUrl.isJust() ? m_updateUrl.fromJust() : defaultValue; }
+    bool hasUpdateUrl() { return m_updateUrl.has_value(); }
+    String getUpdateUrl(const String& defaultValue) const {
+       return m_updateUrl.value_or(defaultValue);
+    }
     void setUpdateUrl(const String& value) { m_updateUrl = value; }
 
-    bool hasTrustedBiddingSignalsUrl() { return m_trustedBiddingSignalsUrl.isJust(); }
-    String getTrustedBiddingSignalsUrl(const String& defaultValue) { return m_trustedBiddingSignalsUrl.isJust() ? m_trustedBiddingSignalsUrl.fromJust() : defaultValue; }
+    bool hasTrustedBiddingSignalsUrl() { return m_trustedBiddingSignalsUrl.has_value(); }
+    String getTrustedBiddingSignalsUrl(const String& defaultValue) const {
+       return m_trustedBiddingSignalsUrl.value_or(defaultValue);
+    }
     void setTrustedBiddingSignalsUrl(const String& value) { m_trustedBiddingSignalsUrl = value; }
 
     protocol::Array<String>* getTrustedBiddingSignalsKeys() { return m_trustedBiddingSignalsKeys.get(); }
     void setTrustedBiddingSignalsKeys(std::unique_ptr<protocol::Array<String>> value) { m_trustedBiddingSignalsKeys = std::move(value); }
 
-    bool hasUserBiddingSignals() { return m_userBiddingSignals.isJust(); }
-    String getUserBiddingSignals(const String& defaultValue) { return m_userBiddingSignals.isJust() ? m_userBiddingSignals.fromJust() : defaultValue; }
+    bool hasUserBiddingSignals() { return m_userBiddingSignals.has_value(); }
+    String getUserBiddingSignals(const String& defaultValue) const {
+       return m_userBiddingSignals.value_or(defaultValue);
+    }
     void setUserBiddingSignals(const String& value) { m_userBiddingSignals = value; }
 
     protocol::Array<protocol::Storage::InterestGroupAd>* getAds() { return m_ads.get(); }
@@ -802,32 +814,46 @@ class CORE_EXPORT SharedStorageAccessParams : public ::crdtp::ProtocolObject<Sha
 public:
     ~SharedStorageAccessParams() override { }
 
-    bool hasScriptSourceUrl() { return m_scriptSourceUrl.isJust(); }
-    String getScriptSourceUrl(const String& defaultValue) { return m_scriptSourceUrl.isJust() ? m_scriptSourceUrl.fromJust() : defaultValue; }
+    bool hasScriptSourceUrl() { return m_scriptSourceUrl.has_value(); }
+    String getScriptSourceUrl(const String& defaultValue) const {
+       return m_scriptSourceUrl.value_or(defaultValue);
+    }
     void setScriptSourceUrl(const String& value) { m_scriptSourceUrl = value; }
 
-    bool hasOperationName() { return m_operationName.isJust(); }
-    String getOperationName(const String& defaultValue) { return m_operationName.isJust() ? m_operationName.fromJust() : defaultValue; }
+    bool hasOperationName() { return m_operationName.has_value(); }
+    String getOperationName(const String& defaultValue) const {
+       return m_operationName.value_or(defaultValue);
+    }
     void setOperationName(const String& value) { m_operationName = value; }
 
-    bool hasSerializedData() { return m_serializedData.isJust(); }
-    String getSerializedData(const String& defaultValue) { return m_serializedData.isJust() ? m_serializedData.fromJust() : defaultValue; }
+    bool hasSerializedData() { return m_serializedData.has_value(); }
+    String getSerializedData(const String& defaultValue) const {
+       return m_serializedData.value_or(defaultValue);
+    }
     void setSerializedData(const String& value) { m_serializedData = value; }
 
-    bool hasUrlsWithMetadata() { return m_urlsWithMetadata.isJust(); }
-    protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>* getUrlsWithMetadata(protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>* defaultValue) { return m_urlsWithMetadata.isJust() ? m_urlsWithMetadata.fromJust() : defaultValue; }
+    bool hasUrlsWithMetadata() { return m_urlsWithMetadata.has_value(); }
+    protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>* getUrlsWithMetadata(protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>* defaultValue) {
+       return m_urlsWithMetadata.has_value() ? &m_urlsWithMetadata.value() : defaultValue;
+    }
     void setUrlsWithMetadata(std::unique_ptr<protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>> value) { m_urlsWithMetadata = std::move(value); }
 
-    bool hasKey() { return m_key.isJust(); }
-    String getKey(const String& defaultValue) { return m_key.isJust() ? m_key.fromJust() : defaultValue; }
+    bool hasKey() { return m_key.has_value(); }
+    String getKey(const String& defaultValue) const {
+       return m_key.value_or(defaultValue);
+    }
     void setKey(const String& value) { m_key = value; }
 
-    bool hasValue() { return m_value.isJust(); }
-    String getValue(const String& defaultValue) { return m_value.isJust() ? m_value.fromJust() : defaultValue; }
+    bool hasValue() { return m_value.has_value(); }
+    String getValue(const String& defaultValue) const {
+       return m_value.value_or(defaultValue);
+    }
     void setValue(const String& value) { m_value = value; }
 
-    bool hasIgnoreIfPresent() { return m_ignoreIfPresent.isJust(); }
-    bool getIgnoreIfPresent(bool defaultValue) { return m_ignoreIfPresent.isJust() ? m_ignoreIfPresent.fromJust() : defaultValue; }
+    bool hasIgnoreIfPresent() { return m_ignoreIfPresent.has_value(); }
+    bool getIgnoreIfPresent(bool defaultValue) const {
+       return m_ignoreIfPresent.value_or(defaultValue);
+    }
     void setIgnoreIfPresent(bool value) { m_ignoreIfPresent = value; }
 
     template<int STATE>
@@ -927,8 +953,10 @@ public:
     String getStorageKey() { return m_storageKey; }
     void setStorageKey(const String& value) { m_storageKey = value; }
 
-    bool hasName() { return m_name.isJust(); }
-    String getName(const String& defaultValue) { return m_name.isJust() ? m_name.fromJust() : defaultValue; }
+    bool hasName() { return m_name.has_value(); }
+    String getName(const String& defaultValue) const {
+       return m_name.value_or(defaultValue);
+    }
     void setName(const String& value) { m_name = value; }
 
     template<int STATE>
@@ -1253,16 +1281,22 @@ public:
     double getTime() { return m_time; }
     void setTime(double value) { m_time = value; }
 
-    bool hasExpiry() { return m_expiry.isJust(); }
-    int getExpiry(int defaultValue) { return m_expiry.isJust() ? m_expiry.fromJust() : defaultValue; }
+    bool hasExpiry() { return m_expiry.has_value(); }
+    int getExpiry(int defaultValue) const {
+       return m_expiry.value_or(defaultValue);
+    }
     void setExpiry(int value) { m_expiry = value; }
 
-    bool hasEventReportWindow() { return m_eventReportWindow.isJust(); }
-    int getEventReportWindow(int defaultValue) { return m_eventReportWindow.isJust() ? m_eventReportWindow.fromJust() : defaultValue; }
+    bool hasEventReportWindow() { return m_eventReportWindow.has_value(); }
+    int getEventReportWindow(int defaultValue) const {
+       return m_eventReportWindow.value_or(defaultValue);
+    }
     void setEventReportWindow(int value) { m_eventReportWindow = value; }
 
-    bool hasAggregatableReportWindow() { return m_aggregatableReportWindow.isJust(); }
-    int getAggregatableReportWindow(int defaultValue) { return m_aggregatableReportWindow.isJust() ? m_aggregatableReportWindow.fromJust() : defaultValue; }
+    bool hasAggregatableReportWindow() { return m_aggregatableReportWindow.has_value(); }
+    int getAggregatableReportWindow(int defaultValue) const {
+       return m_aggregatableReportWindow.value_or(defaultValue);
+    }
     void setAggregatableReportWindow(int value) { m_aggregatableReportWindow = value; }
 
     String getType() { return m_type; }
@@ -1289,8 +1323,10 @@ public:
     protocol::Array<protocol::Storage::AttributionReportingAggregationKeysEntry>* getAggregationKeys() { return m_aggregationKeys.get(); }
     void setAggregationKeys(std::unique_ptr<protocol::Array<protocol::Storage::AttributionReportingAggregationKeysEntry>> value) { m_aggregationKeys = std::move(value); }
 
-    bool hasDebugKey() { return m_debugKey.isJust(); }
-    String getDebugKey(const String& defaultValue) { return m_debugKey.isJust() ? m_debugKey.fromJust() : defaultValue; }
+    bool hasDebugKey() { return m_debugKey.has_value(); }
+    String getDebugKey(const String& defaultValue) const {
+       return m_debugKey.value_or(defaultValue);
+    }
     void setDebugKey(const String& value) { m_debugKey = value; }
 
     template<int STATE>

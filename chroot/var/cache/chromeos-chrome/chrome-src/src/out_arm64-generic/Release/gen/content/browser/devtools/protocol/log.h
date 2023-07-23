@@ -63,35 +63,49 @@ public:
         static const char* Cors;
     }; // CategoryEnum
 
-    bool HasCategory() { return m_category.isJust(); }
-    String GetCategory(const String& defaultValue) { return m_category.isJust() ? m_category.fromJust() : defaultValue; }
+    bool HasCategory() { return m_category.has_value(); }
+    String GetCategory(const String& defaultValue) const {
+       return m_category.value_or(defaultValue);
+    }
     void SetCategory(const String& value) { m_category = value; }
 
     double GetTimestamp() { return m_timestamp; }
     void SetTimestamp(double value) { m_timestamp = value; }
 
-    bool HasUrl() { return m_url.isJust(); }
-    String GetUrl(const String& defaultValue) { return m_url.isJust() ? m_url.fromJust() : defaultValue; }
+    bool HasUrl() { return m_url.has_value(); }
+    String GetUrl(const String& defaultValue) const {
+       return m_url.value_or(defaultValue);
+    }
     void SetUrl(const String& value) { m_url = value; }
 
-    bool HasLineNumber() { return m_lineNumber.isJust(); }
-    int GetLineNumber(int defaultValue) { return m_lineNumber.isJust() ? m_lineNumber.fromJust() : defaultValue; }
+    bool HasLineNumber() { return m_lineNumber.has_value(); }
+    int GetLineNumber(int defaultValue) const {
+       return m_lineNumber.value_or(defaultValue);
+    }
     void SetLineNumber(int value) { m_lineNumber = value; }
 
-    bool HasStackTrace() { return m_stackTrace.isJust(); }
-    protocol::Runtime::StackTrace* GetStackTrace(protocol::Runtime::StackTrace* defaultValue) { return m_stackTrace.isJust() ? m_stackTrace.fromJust() : defaultValue; }
+    bool HasStackTrace() { return m_stackTrace.has_value(); }
+    protocol::Runtime::StackTrace* GetStackTrace(protocol::Runtime::StackTrace* defaultValue) {
+       return m_stackTrace.has_value() ? &m_stackTrace.value() : defaultValue;
+    }
     void SetStackTrace(std::unique_ptr<protocol::Runtime::StackTrace> value) { m_stackTrace = std::move(value); }
 
-    bool HasNetworkRequestId() { return m_networkRequestId.isJust(); }
-    String GetNetworkRequestId(const String& defaultValue) { return m_networkRequestId.isJust() ? m_networkRequestId.fromJust() : defaultValue; }
+    bool HasNetworkRequestId() { return m_networkRequestId.has_value(); }
+    String GetNetworkRequestId(const String& defaultValue) const {
+       return m_networkRequestId.value_or(defaultValue);
+    }
     void SetNetworkRequestId(const String& value) { m_networkRequestId = value; }
 
-    bool HasWorkerId() { return m_workerId.isJust(); }
-    String GetWorkerId(const String& defaultValue) { return m_workerId.isJust() ? m_workerId.fromJust() : defaultValue; }
+    bool HasWorkerId() { return m_workerId.has_value(); }
+    String GetWorkerId(const String& defaultValue) const {
+       return m_workerId.value_or(defaultValue);
+    }
     void SetWorkerId(const String& value) { m_workerId = value; }
 
-    bool HasArgs() { return m_args.isJust(); }
-    protocol::Array<protocol::Runtime::RemoteObject>* GetArgs(protocol::Array<protocol::Runtime::RemoteObject>* defaultValue) { return m_args.isJust() ? m_args.fromJust() : defaultValue; }
+    bool HasArgs() { return m_args.has_value(); }
+    protocol::Array<protocol::Runtime::RemoteObject>* GetArgs(protocol::Array<protocol::Runtime::RemoteObject>* defaultValue) {
+       return m_args.has_value() ? &m_args.value() : defaultValue;
+    }
     void SetArgs(std::unique_ptr<protocol::Array<protocol::Runtime::RemoteObject>> value) { m_args = std::move(value); }
 
     template<int STATE>

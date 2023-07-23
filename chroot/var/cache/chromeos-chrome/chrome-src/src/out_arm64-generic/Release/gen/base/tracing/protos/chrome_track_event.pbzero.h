@@ -5039,7 +5039,7 @@ class ProcessSingleton : public ::protozero::Message {
   }
 };
 
-class EventLatency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class EventLatency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   EventLatency_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit EventLatency_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -5050,6 +5050,8 @@ class EventLatency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   bool has_high_latency() const { return at<2>().as_bool(); }
   bool has_high_latency_stage() const { return at<3>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstChars> high_latency_stage() const { return GetRepeated<::protozero::ConstChars>(3); }
+  bool has_event_latency_id() const { return at<4>().valid(); }
+  int64_t event_latency_id() const { return at<4>().as_int64(); }
 };
 
 class EventLatency : public ::protozero::Message {
@@ -5059,6 +5061,7 @@ class EventLatency : public ::protozero::Message {
     kEventTypeFieldNumber = 1,
     kHasHighLatencyFieldNumber = 2,
     kHighLatencyStageFieldNumber = 3,
+    kEventLatencyIdFieldNumber = 4,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.EventLatency"; }
 
@@ -5153,6 +5156,24 @@ class EventLatency : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_EventLatencyId =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      EventLatency>;
+
+  static constexpr FieldMetadata_EventLatencyId kEventLatencyId{};
+  void set_event_latency_id(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_EventLatencyId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
         ::Append(*this, field_id, value);
   }
 };

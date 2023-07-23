@@ -64,35 +64,49 @@ public:
         static const char* Cors;
     }; // CategoryEnum
 
-    bool hasCategory() { return m_category.isJust(); }
-    String getCategory(const String& defaultValue) { return m_category.isJust() ? m_category.fromJust() : defaultValue; }
+    bool hasCategory() { return m_category.has_value(); }
+    String getCategory(const String& defaultValue) const {
+       return m_category.value_or(defaultValue);
+    }
     void setCategory(const String& value) { m_category = value; }
 
     double getTimestamp() { return m_timestamp; }
     void setTimestamp(double value) { m_timestamp = value; }
 
-    bool hasUrl() { return m_url.isJust(); }
-    String getUrl(const String& defaultValue) { return m_url.isJust() ? m_url.fromJust() : defaultValue; }
+    bool hasUrl() { return m_url.has_value(); }
+    String getUrl(const String& defaultValue) const {
+       return m_url.value_or(defaultValue);
+    }
     void setUrl(const String& value) { m_url = value; }
 
-    bool hasLineNumber() { return m_lineNumber.isJust(); }
-    int getLineNumber(int defaultValue) { return m_lineNumber.isJust() ? m_lineNumber.fromJust() : defaultValue; }
+    bool hasLineNumber() { return m_lineNumber.has_value(); }
+    int getLineNumber(int defaultValue) const {
+       return m_lineNumber.value_or(defaultValue);
+    }
     void setLineNumber(int value) { m_lineNumber = value; }
 
-    bool hasStackTrace() { return m_stackTrace.isJust(); }
-    v8_inspector::protocol::Runtime::API::StackTrace* getStackTrace(v8_inspector::protocol::Runtime::API::StackTrace* defaultValue) { return m_stackTrace.isJust() ? m_stackTrace.fromJust() : defaultValue; }
+    bool hasStackTrace() { return m_stackTrace.has_value(); }
+    v8_inspector::protocol::Runtime::API::StackTrace* getStackTrace(v8_inspector::protocol::Runtime::API::StackTrace* defaultValue) {
+       return m_stackTrace.has_value() ? &m_stackTrace.value() : defaultValue;
+    }
     void setStackTrace(std::unique_ptr<v8_inspector::protocol::Runtime::API::StackTrace> value) { m_stackTrace = std::move(value); }
 
-    bool hasNetworkRequestId() { return m_networkRequestId.isJust(); }
-    String getNetworkRequestId(const String& defaultValue) { return m_networkRequestId.isJust() ? m_networkRequestId.fromJust() : defaultValue; }
+    bool hasNetworkRequestId() { return m_networkRequestId.has_value(); }
+    String getNetworkRequestId(const String& defaultValue) const {
+       return m_networkRequestId.value_or(defaultValue);
+    }
     void setNetworkRequestId(const String& value) { m_networkRequestId = value; }
 
-    bool hasWorkerId() { return m_workerId.isJust(); }
-    String getWorkerId(const String& defaultValue) { return m_workerId.isJust() ? m_workerId.fromJust() : defaultValue; }
+    bool hasWorkerId() { return m_workerId.has_value(); }
+    String getWorkerId(const String& defaultValue) const {
+       return m_workerId.value_or(defaultValue);
+    }
     void setWorkerId(const String& value) { m_workerId = value; }
 
-    bool hasArgs() { return m_args.isJust(); }
-    protocol::Array<v8_inspector::protocol::Runtime::API::RemoteObject>* getArgs(protocol::Array<v8_inspector::protocol::Runtime::API::RemoteObject>* defaultValue) { return m_args.isJust() ? m_args.fromJust() : defaultValue; }
+    bool hasArgs() { return m_args.has_value(); }
+    protocol::Array<v8_inspector::protocol::Runtime::API::RemoteObject>* getArgs(protocol::Array<v8_inspector::protocol::Runtime::API::RemoteObject>* defaultValue) {
+       return m_args.has_value() ? &m_args.value() : defaultValue;
+    }
     void setArgs(std::unique_ptr<protocol::Array<v8_inspector::protocol::Runtime::API::RemoteObject>> value) { m_args = std::move(value); }
 
     template<int STATE>

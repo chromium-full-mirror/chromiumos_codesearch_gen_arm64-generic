@@ -103,40 +103,58 @@ public:
     double GetY() { return m_y; }
     void SetY(double value) { m_y = value; }
 
-    bool HasRadiusX() { return m_radiusX.isJust(); }
-    double GetRadiusX(double defaultValue) { return m_radiusX.isJust() ? m_radiusX.fromJust() : defaultValue; }
+    bool HasRadiusX() { return m_radiusX.has_value(); }
+    double GetRadiusX(double defaultValue) const {
+       return m_radiusX.value_or(defaultValue);
+    }
     void SetRadiusX(double value) { m_radiusX = value; }
 
-    bool HasRadiusY() { return m_radiusY.isJust(); }
-    double GetRadiusY(double defaultValue) { return m_radiusY.isJust() ? m_radiusY.fromJust() : defaultValue; }
+    bool HasRadiusY() { return m_radiusY.has_value(); }
+    double GetRadiusY(double defaultValue) const {
+       return m_radiusY.value_or(defaultValue);
+    }
     void SetRadiusY(double value) { m_radiusY = value; }
 
-    bool HasRotationAngle() { return m_rotationAngle.isJust(); }
-    double GetRotationAngle(double defaultValue) { return m_rotationAngle.isJust() ? m_rotationAngle.fromJust() : defaultValue; }
+    bool HasRotationAngle() { return m_rotationAngle.has_value(); }
+    double GetRotationAngle(double defaultValue) const {
+       return m_rotationAngle.value_or(defaultValue);
+    }
     void SetRotationAngle(double value) { m_rotationAngle = value; }
 
-    bool HasForce() { return m_force.isJust(); }
-    double GetForce(double defaultValue) { return m_force.isJust() ? m_force.fromJust() : defaultValue; }
+    bool HasForce() { return m_force.has_value(); }
+    double GetForce(double defaultValue) const {
+       return m_force.value_or(defaultValue);
+    }
     void SetForce(double value) { m_force = value; }
 
-    bool HasTangentialPressure() { return m_tangentialPressure.isJust(); }
-    double GetTangentialPressure(double defaultValue) { return m_tangentialPressure.isJust() ? m_tangentialPressure.fromJust() : defaultValue; }
+    bool HasTangentialPressure() { return m_tangentialPressure.has_value(); }
+    double GetTangentialPressure(double defaultValue) const {
+       return m_tangentialPressure.value_or(defaultValue);
+    }
     void SetTangentialPressure(double value) { m_tangentialPressure = value; }
 
-    bool HasTiltX() { return m_tiltX.isJust(); }
-    int GetTiltX(int defaultValue) { return m_tiltX.isJust() ? m_tiltX.fromJust() : defaultValue; }
+    bool HasTiltX() { return m_tiltX.has_value(); }
+    int GetTiltX(int defaultValue) const {
+       return m_tiltX.value_or(defaultValue);
+    }
     void SetTiltX(int value) { m_tiltX = value; }
 
-    bool HasTiltY() { return m_tiltY.isJust(); }
-    int GetTiltY(int defaultValue) { return m_tiltY.isJust() ? m_tiltY.fromJust() : defaultValue; }
+    bool HasTiltY() { return m_tiltY.has_value(); }
+    int GetTiltY(int defaultValue) const {
+       return m_tiltY.value_or(defaultValue);
+    }
     void SetTiltY(int value) { m_tiltY = value; }
 
-    bool HasTwist() { return m_twist.isJust(); }
-    int GetTwist(int defaultValue) { return m_twist.isJust() ? m_twist.fromJust() : defaultValue; }
+    bool HasTwist() { return m_twist.has_value(); }
+    int GetTwist(int defaultValue) const {
+       return m_twist.value_or(defaultValue);
+    }
     void SetTwist(int value) { m_twist = value; }
 
-    bool HasId() { return m_id.isJust(); }
-    double GetId(double defaultValue) { return m_id.isJust() ? m_id.fromJust() : defaultValue; }
+    bool HasId() { return m_id.has_value(); }
+    double GetId(double defaultValue) const {
+       return m_id.value_or(defaultValue);
+    }
     void SetId(double value) { m_id = value; }
 
     template<int STATE>
@@ -273,12 +291,16 @@ public:
     String GetData() { return m_data; }
     void SetData(const String& value) { m_data = value; }
 
-    bool HasTitle() { return m_title.isJust(); }
-    String GetTitle(const String& defaultValue) { return m_title.isJust() ? m_title.fromJust() : defaultValue; }
+    bool HasTitle() { return m_title.has_value(); }
+    String GetTitle(const String& defaultValue) const {
+       return m_title.value_or(defaultValue);
+    }
     void SetTitle(const String& value) { m_title = value; }
 
-    bool HasBaseURL() { return m_baseURL.isJust(); }
-    String GetBaseURL(const String& defaultValue) { return m_baseURL.isJust() ? m_baseURL.fromJust() : defaultValue; }
+    bool HasBaseURL() { return m_baseURL.has_value(); }
+    String GetBaseURL(const String& defaultValue) const {
+       return m_baseURL.value_or(defaultValue);
+    }
     void SetBaseURL(const String& value) { m_baseURL = value; }
 
     template<int STATE>
@@ -361,8 +383,10 @@ public:
     protocol::Array<protocol::Input::DragDataItem>* GetItems() { return m_items.get(); }
     void SetItems(std::unique_ptr<protocol::Array<protocol::Input::DragDataItem>> value) { m_items = std::move(value); }
 
-    bool HasFiles() { return m_files.isJust(); }
-    protocol::Array<String>* GetFiles(protocol::Array<String>* defaultValue) { return m_files.isJust() ? m_files.fromJust() : defaultValue; }
+    bool HasFiles() { return m_files.has_value(); }
+    protocol::Array<String>* GetFiles(protocol::Array<String>* defaultValue) {
+       return m_files.has_value() ? &m_files.value() : defaultValue;
+    }
     void SetFiles(std::unique_ptr<protocol::Array<String>> value) { m_files = std::move(value); }
 
     int GetDragOperationsMask() { return m_dragOperationsMask; }

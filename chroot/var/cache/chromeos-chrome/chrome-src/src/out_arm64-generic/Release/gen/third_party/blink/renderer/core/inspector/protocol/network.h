@@ -624,8 +624,10 @@ class CORE_EXPORT PostDataEntry : public ::crdtp::ProtocolObject<PostDataEntry> 
 public:
     ~PostDataEntry() override { }
 
-    bool hasBytes() { return m_bytes.isJust(); }
-    Binary getBytes(const Binary& defaultValue) { return m_bytes.isJust() ? m_bytes.fromJust() : defaultValue; }
+    bool hasBytes() { return m_bytes.has_value(); }
+    Binary getBytes(const Binary& defaultValue) const {
+       return m_bytes.value_or(defaultValue);
+    }
     void setBytes(const Binary& value) { m_bytes = value; }
 
     template<int STATE>
@@ -683,8 +685,10 @@ public:
     String getUrl() { return m_url; }
     void setUrl(const String& value) { m_url = value; }
 
-    bool hasUrlFragment() { return m_urlFragment.isJust(); }
-    String getUrlFragment(const String& defaultValue) { return m_urlFragment.isJust() ? m_urlFragment.fromJust() : defaultValue; }
+    bool hasUrlFragment() { return m_urlFragment.has_value(); }
+    String getUrlFragment(const String& defaultValue) const {
+       return m_urlFragment.value_or(defaultValue);
+    }
     void setUrlFragment(const String& value) { m_urlFragment = value; }
 
     String getMethod() { return m_method; }
@@ -693,20 +697,28 @@ public:
     protocol::Network::Headers* getHeaders() { return m_headers.get(); }
     void setHeaders(std::unique_ptr<protocol::Network::Headers> value) { m_headers = std::move(value); }
 
-    bool hasPostData() { return m_postData.isJust(); }
-    String getPostData(const String& defaultValue) { return m_postData.isJust() ? m_postData.fromJust() : defaultValue; }
+    bool hasPostData() { return m_postData.has_value(); }
+    String getPostData(const String& defaultValue) const {
+       return m_postData.value_or(defaultValue);
+    }
     void setPostData(const String& value) { m_postData = value; }
 
-    bool hasHasPostData() { return m_hasPostData.isJust(); }
-    bool getHasPostData(bool defaultValue) { return m_hasPostData.isJust() ? m_hasPostData.fromJust() : defaultValue; }
+    bool hasHasPostData() { return m_hasPostData.has_value(); }
+    bool getHasPostData(bool defaultValue) const {
+       return m_hasPostData.value_or(defaultValue);
+    }
     void setHasPostData(bool value) { m_hasPostData = value; }
 
-    bool hasPostDataEntries() { return m_postDataEntries.isJust(); }
-    protocol::Array<protocol::Network::PostDataEntry>* getPostDataEntries(protocol::Array<protocol::Network::PostDataEntry>* defaultValue) { return m_postDataEntries.isJust() ? m_postDataEntries.fromJust() : defaultValue; }
+    bool hasPostDataEntries() { return m_postDataEntries.has_value(); }
+    protocol::Array<protocol::Network::PostDataEntry>* getPostDataEntries(protocol::Array<protocol::Network::PostDataEntry>* defaultValue) {
+       return m_postDataEntries.has_value() ? &m_postDataEntries.value() : defaultValue;
+    }
     void setPostDataEntries(std::unique_ptr<protocol::Array<protocol::Network::PostDataEntry>> value) { m_postDataEntries = std::move(value); }
 
-    bool hasMixedContentType() { return m_mixedContentType.isJust(); }
-    String getMixedContentType(const String& defaultValue) { return m_mixedContentType.isJust() ? m_mixedContentType.fromJust() : defaultValue; }
+    bool hasMixedContentType() { return m_mixedContentType.has_value(); }
+    String getMixedContentType(const String& defaultValue) const {
+       return m_mixedContentType.value_or(defaultValue);
+    }
     void setMixedContentType(const String& value) { m_mixedContentType = value; }
 
     String getInitialPriority() { return m_initialPriority; }
@@ -726,16 +738,22 @@ public:
     String getReferrerPolicy() { return m_referrerPolicy; }
     void setReferrerPolicy(const String& value) { m_referrerPolicy = value; }
 
-    bool hasIsLinkPreload() { return m_isLinkPreload.isJust(); }
-    bool getIsLinkPreload(bool defaultValue) { return m_isLinkPreload.isJust() ? m_isLinkPreload.fromJust() : defaultValue; }
+    bool hasIsLinkPreload() { return m_isLinkPreload.has_value(); }
+    bool getIsLinkPreload(bool defaultValue) const {
+       return m_isLinkPreload.value_or(defaultValue);
+    }
     void setIsLinkPreload(bool value) { m_isLinkPreload = value; }
 
-    bool hasTrustTokenParams() { return m_trustTokenParams.isJust(); }
-    protocol::Network::TrustTokenParams* getTrustTokenParams(protocol::Network::TrustTokenParams* defaultValue) { return m_trustTokenParams.isJust() ? m_trustTokenParams.fromJust() : defaultValue; }
+    bool hasTrustTokenParams() { return m_trustTokenParams.has_value(); }
+    protocol::Network::TrustTokenParams* getTrustTokenParams(protocol::Network::TrustTokenParams* defaultValue) {
+       return m_trustTokenParams.has_value() ? &m_trustTokenParams.value() : defaultValue;
+    }
     void setTrustTokenParams(std::unique_ptr<protocol::Network::TrustTokenParams> value) { m_trustTokenParams = std::move(value); }
 
-    bool hasIsSameSite() { return m_isSameSite.isJust(); }
-    bool getIsSameSite(bool defaultValue) { return m_isSameSite.isJust() ? m_isSameSite.fromJust() : defaultValue; }
+    bool hasIsSameSite() { return m_isSameSite.has_value(); }
+    bool getIsSameSite(bool defaultValue) const {
+       return m_isSameSite.value_or(defaultValue);
+    }
     void setIsSameSite(bool value) { m_isSameSite = value; }
 
     template<int STATE>
@@ -1032,15 +1050,19 @@ public:
     String getKeyExchange() { return m_keyExchange; }
     void setKeyExchange(const String& value) { m_keyExchange = value; }
 
-    bool hasKeyExchangeGroup() { return m_keyExchangeGroup.isJust(); }
-    String getKeyExchangeGroup(const String& defaultValue) { return m_keyExchangeGroup.isJust() ? m_keyExchangeGroup.fromJust() : defaultValue; }
+    bool hasKeyExchangeGroup() { return m_keyExchangeGroup.has_value(); }
+    String getKeyExchangeGroup(const String& defaultValue) const {
+       return m_keyExchangeGroup.value_or(defaultValue);
+    }
     void setKeyExchangeGroup(const String& value) { m_keyExchangeGroup = value; }
 
     String getCipher() { return m_cipher; }
     void setCipher(const String& value) { m_cipher = value; }
 
-    bool hasMac() { return m_mac.isJust(); }
-    String getMac(const String& defaultValue) { return m_mac.isJust() ? m_mac.fromJust() : defaultValue; }
+    bool hasMac() { return m_mac.has_value(); }
+    String getMac(const String& defaultValue) const {
+       return m_mac.value_or(defaultValue);
+    }
     void setMac(const String& value) { m_mac = value; }
 
     int getCertificateId() { return m_certificateId; }
@@ -1067,8 +1089,10 @@ public:
     String getCertificateTransparencyCompliance() { return m_certificateTransparencyCompliance; }
     void setCertificateTransparencyCompliance(const String& value) { m_certificateTransparencyCompliance = value; }
 
-    bool hasServerSignatureAlgorithm() { return m_serverSignatureAlgorithm.isJust(); }
-    int getServerSignatureAlgorithm(int defaultValue) { return m_serverSignatureAlgorithm.isJust() ? m_serverSignatureAlgorithm.fromJust() : defaultValue; }
+    bool hasServerSignatureAlgorithm() { return m_serverSignatureAlgorithm.has_value(); }
+    int getServerSignatureAlgorithm(int defaultValue) const {
+       return m_serverSignatureAlgorithm.value_or(defaultValue);
+    }
     void setServerSignatureAlgorithm(int value) { m_serverSignatureAlgorithm = value; }
 
     bool getEncryptedClientHello() { return m_encryptedClientHello; }
@@ -1332,8 +1356,10 @@ public:
     String getRefreshPolicy() { return m_refreshPolicy; }
     void setRefreshPolicy(const String& value) { m_refreshPolicy = value; }
 
-    bool hasIssuers() { return m_issuers.isJust(); }
-    protocol::Array<String>* getIssuers(protocol::Array<String>* defaultValue) { return m_issuers.isJust() ? m_issuers.fromJust() : defaultValue; }
+    bool hasIssuers() { return m_issuers.has_value(); }
+    protocol::Array<String>* getIssuers(protocol::Array<String>* defaultValue) {
+       return m_issuers.has_value() ? &m_issuers.value() : defaultValue;
+    }
     void setIssuers(std::unique_ptr<protocol::Array<String>> value) { m_issuers = std::move(value); }
 
     template<int STATE>
@@ -1418,19 +1444,25 @@ public:
     protocol::Network::Headers* getHeaders() { return m_headers.get(); }
     void setHeaders(std::unique_ptr<protocol::Network::Headers> value) { m_headers = std::move(value); }
 
-    bool hasHeadersText() { return m_headersText.isJust(); }
-    String getHeadersText(const String& defaultValue) { return m_headersText.isJust() ? m_headersText.fromJust() : defaultValue; }
+    bool hasHeadersText() { return m_headersText.has_value(); }
+    String getHeadersText(const String& defaultValue) const {
+       return m_headersText.value_or(defaultValue);
+    }
     void setHeadersText(const String& value) { m_headersText = value; }
 
     String getMimeType() { return m_mimeType; }
     void setMimeType(const String& value) { m_mimeType = value; }
 
-    bool hasRequestHeaders() { return m_requestHeaders.isJust(); }
-    protocol::Network::Headers* getRequestHeaders(protocol::Network::Headers* defaultValue) { return m_requestHeaders.isJust() ? m_requestHeaders.fromJust() : defaultValue; }
+    bool hasRequestHeaders() { return m_requestHeaders.has_value(); }
+    protocol::Network::Headers* getRequestHeaders(protocol::Network::Headers* defaultValue) {
+       return m_requestHeaders.has_value() ? &m_requestHeaders.value() : defaultValue;
+    }
     void setRequestHeaders(std::unique_ptr<protocol::Network::Headers> value) { m_requestHeaders = std::move(value); }
 
-    bool hasRequestHeadersText() { return m_requestHeadersText.isJust(); }
-    String getRequestHeadersText(const String& defaultValue) { return m_requestHeadersText.isJust() ? m_requestHeadersText.fromJust() : defaultValue; }
+    bool hasRequestHeadersText() { return m_requestHeadersText.has_value(); }
+    String getRequestHeadersText(const String& defaultValue) const {
+       return m_requestHeadersText.value_or(defaultValue);
+    }
     void setRequestHeadersText(const String& value) { m_requestHeadersText = value; }
 
     bool getConnectionReused() { return m_connectionReused; }
@@ -1439,58 +1471,82 @@ public:
     double getConnectionId() { return m_connectionId; }
     void setConnectionId(double value) { m_connectionId = value; }
 
-    bool hasRemoteIPAddress() { return m_remoteIPAddress.isJust(); }
-    String getRemoteIPAddress(const String& defaultValue) { return m_remoteIPAddress.isJust() ? m_remoteIPAddress.fromJust() : defaultValue; }
+    bool hasRemoteIPAddress() { return m_remoteIPAddress.has_value(); }
+    String getRemoteIPAddress(const String& defaultValue) const {
+       return m_remoteIPAddress.value_or(defaultValue);
+    }
     void setRemoteIPAddress(const String& value) { m_remoteIPAddress = value; }
 
-    bool hasRemotePort() { return m_remotePort.isJust(); }
-    int getRemotePort(int defaultValue) { return m_remotePort.isJust() ? m_remotePort.fromJust() : defaultValue; }
+    bool hasRemotePort() { return m_remotePort.has_value(); }
+    int getRemotePort(int defaultValue) const {
+       return m_remotePort.value_or(defaultValue);
+    }
     void setRemotePort(int value) { m_remotePort = value; }
 
-    bool hasFromDiskCache() { return m_fromDiskCache.isJust(); }
-    bool getFromDiskCache(bool defaultValue) { return m_fromDiskCache.isJust() ? m_fromDiskCache.fromJust() : defaultValue; }
+    bool hasFromDiskCache() { return m_fromDiskCache.has_value(); }
+    bool getFromDiskCache(bool defaultValue) const {
+       return m_fromDiskCache.value_or(defaultValue);
+    }
     void setFromDiskCache(bool value) { m_fromDiskCache = value; }
 
-    bool hasFromServiceWorker() { return m_fromServiceWorker.isJust(); }
-    bool getFromServiceWorker(bool defaultValue) { return m_fromServiceWorker.isJust() ? m_fromServiceWorker.fromJust() : defaultValue; }
+    bool hasFromServiceWorker() { return m_fromServiceWorker.has_value(); }
+    bool getFromServiceWorker(bool defaultValue) const {
+       return m_fromServiceWorker.value_or(defaultValue);
+    }
     void setFromServiceWorker(bool value) { m_fromServiceWorker = value; }
 
-    bool hasFromPrefetchCache() { return m_fromPrefetchCache.isJust(); }
-    bool getFromPrefetchCache(bool defaultValue) { return m_fromPrefetchCache.isJust() ? m_fromPrefetchCache.fromJust() : defaultValue; }
+    bool hasFromPrefetchCache() { return m_fromPrefetchCache.has_value(); }
+    bool getFromPrefetchCache(bool defaultValue) const {
+       return m_fromPrefetchCache.value_or(defaultValue);
+    }
     void setFromPrefetchCache(bool value) { m_fromPrefetchCache = value; }
 
     double getEncodedDataLength() { return m_encodedDataLength; }
     void setEncodedDataLength(double value) { m_encodedDataLength = value; }
 
-    bool hasTiming() { return m_timing.isJust(); }
-    protocol::Network::ResourceTiming* getTiming(protocol::Network::ResourceTiming* defaultValue) { return m_timing.isJust() ? m_timing.fromJust() : defaultValue; }
+    bool hasTiming() { return m_timing.has_value(); }
+    protocol::Network::ResourceTiming* getTiming(protocol::Network::ResourceTiming* defaultValue) {
+       return m_timing.has_value() ? &m_timing.value() : defaultValue;
+    }
     void setTiming(std::unique_ptr<protocol::Network::ResourceTiming> value) { m_timing = std::move(value); }
 
-    bool hasServiceWorkerResponseSource() { return m_serviceWorkerResponseSource.isJust(); }
-    String getServiceWorkerResponseSource(const String& defaultValue) { return m_serviceWorkerResponseSource.isJust() ? m_serviceWorkerResponseSource.fromJust() : defaultValue; }
+    bool hasServiceWorkerResponseSource() { return m_serviceWorkerResponseSource.has_value(); }
+    String getServiceWorkerResponseSource(const String& defaultValue) const {
+       return m_serviceWorkerResponseSource.value_or(defaultValue);
+    }
     void setServiceWorkerResponseSource(const String& value) { m_serviceWorkerResponseSource = value; }
 
-    bool hasResponseTime() { return m_responseTime.isJust(); }
-    double getResponseTime(double defaultValue) { return m_responseTime.isJust() ? m_responseTime.fromJust() : defaultValue; }
+    bool hasResponseTime() { return m_responseTime.has_value(); }
+    double getResponseTime(double defaultValue) const {
+       return m_responseTime.value_or(defaultValue);
+    }
     void setResponseTime(double value) { m_responseTime = value; }
 
-    bool hasCacheStorageCacheName() { return m_cacheStorageCacheName.isJust(); }
-    String getCacheStorageCacheName(const String& defaultValue) { return m_cacheStorageCacheName.isJust() ? m_cacheStorageCacheName.fromJust() : defaultValue; }
+    bool hasCacheStorageCacheName() { return m_cacheStorageCacheName.has_value(); }
+    String getCacheStorageCacheName(const String& defaultValue) const {
+       return m_cacheStorageCacheName.value_or(defaultValue);
+    }
     void setCacheStorageCacheName(const String& value) { m_cacheStorageCacheName = value; }
 
-    bool hasProtocol() { return m_protocol.isJust(); }
-    String getProtocol(const String& defaultValue) { return m_protocol.isJust() ? m_protocol.fromJust() : defaultValue; }
+    bool hasProtocol() { return m_protocol.has_value(); }
+    String getProtocol(const String& defaultValue) const {
+       return m_protocol.value_or(defaultValue);
+    }
     void setProtocol(const String& value) { m_protocol = value; }
 
-    bool hasAlternateProtocolUsage() { return m_alternateProtocolUsage.isJust(); }
-    String getAlternateProtocolUsage(const String& defaultValue) { return m_alternateProtocolUsage.isJust() ? m_alternateProtocolUsage.fromJust() : defaultValue; }
+    bool hasAlternateProtocolUsage() { return m_alternateProtocolUsage.has_value(); }
+    String getAlternateProtocolUsage(const String& defaultValue) const {
+       return m_alternateProtocolUsage.value_or(defaultValue);
+    }
     void setAlternateProtocolUsage(const String& value) { m_alternateProtocolUsage = value; }
 
     String getSecurityState() { return m_securityState; }
     void setSecurityState(const String& value) { m_securityState = value; }
 
-    bool hasSecurityDetails() { return m_securityDetails.isJust(); }
-    protocol::Network::SecurityDetails* getSecurityDetails(protocol::Network::SecurityDetails* defaultValue) { return m_securityDetails.isJust() ? m_securityDetails.fromJust() : defaultValue; }
+    bool hasSecurityDetails() { return m_securityDetails.has_value(); }
+    protocol::Network::SecurityDetails* getSecurityDetails(protocol::Network::SecurityDetails* defaultValue) {
+       return m_securityDetails.has_value() ? &m_securityDetails.value() : defaultValue;
+    }
     void setSecurityDetails(std::unique_ptr<protocol::Network::SecurityDetails> value) { m_securityDetails = std::move(value); }
 
     template<int STATE>
@@ -1794,16 +1850,22 @@ public:
     protocol::Network::Headers* getHeaders() { return m_headers.get(); }
     void setHeaders(std::unique_ptr<protocol::Network::Headers> value) { m_headers = std::move(value); }
 
-    bool hasHeadersText() { return m_headersText.isJust(); }
-    String getHeadersText(const String& defaultValue) { return m_headersText.isJust() ? m_headersText.fromJust() : defaultValue; }
+    bool hasHeadersText() { return m_headersText.has_value(); }
+    String getHeadersText(const String& defaultValue) const {
+       return m_headersText.value_or(defaultValue);
+    }
     void setHeadersText(const String& value) { m_headersText = value; }
 
-    bool hasRequestHeaders() { return m_requestHeaders.isJust(); }
-    protocol::Network::Headers* getRequestHeaders(protocol::Network::Headers* defaultValue) { return m_requestHeaders.isJust() ? m_requestHeaders.fromJust() : defaultValue; }
+    bool hasRequestHeaders() { return m_requestHeaders.has_value(); }
+    protocol::Network::Headers* getRequestHeaders(protocol::Network::Headers* defaultValue) {
+       return m_requestHeaders.has_value() ? &m_requestHeaders.value() : defaultValue;
+    }
     void setRequestHeaders(std::unique_ptr<protocol::Network::Headers> value) { m_requestHeaders = std::move(value); }
 
-    bool hasRequestHeadersText() { return m_requestHeadersText.isJust(); }
-    String getRequestHeadersText(const String& defaultValue) { return m_requestHeadersText.isJust() ? m_requestHeadersText.fromJust() : defaultValue; }
+    bool hasRequestHeadersText() { return m_requestHeadersText.has_value(); }
+    String getRequestHeadersText(const String& defaultValue) const {
+       return m_requestHeadersText.value_or(defaultValue);
+    }
     void setRequestHeadersText(const String& value) { m_requestHeadersText = value; }
 
     template<int STATE>
@@ -1995,24 +2057,34 @@ public:
     String getType() { return m_type; }
     void setType(const String& value) { m_type = value; }
 
-    bool hasStack() { return m_stack.isJust(); }
-    v8_inspector::protocol::Runtime::API::StackTrace* getStack(v8_inspector::protocol::Runtime::API::StackTrace* defaultValue) { return m_stack.isJust() ? m_stack.fromJust() : defaultValue; }
+    bool hasStack() { return m_stack.has_value(); }
+    v8_inspector::protocol::Runtime::API::StackTrace* getStack(v8_inspector::protocol::Runtime::API::StackTrace* defaultValue) {
+       return m_stack.has_value() ? &m_stack.value() : defaultValue;
+    }
     void setStack(std::unique_ptr<v8_inspector::protocol::Runtime::API::StackTrace> value) { m_stack = std::move(value); }
 
-    bool hasUrl() { return m_url.isJust(); }
-    String getUrl(const String& defaultValue) { return m_url.isJust() ? m_url.fromJust() : defaultValue; }
+    bool hasUrl() { return m_url.has_value(); }
+    String getUrl(const String& defaultValue) const {
+       return m_url.value_or(defaultValue);
+    }
     void setUrl(const String& value) { m_url = value; }
 
-    bool hasLineNumber() { return m_lineNumber.isJust(); }
-    double getLineNumber(double defaultValue) { return m_lineNumber.isJust() ? m_lineNumber.fromJust() : defaultValue; }
+    bool hasLineNumber() { return m_lineNumber.has_value(); }
+    double getLineNumber(double defaultValue) const {
+       return m_lineNumber.value_or(defaultValue);
+    }
     void setLineNumber(double value) { m_lineNumber = value; }
 
-    bool hasColumnNumber() { return m_columnNumber.isJust(); }
-    double getColumnNumber(double defaultValue) { return m_columnNumber.isJust() ? m_columnNumber.fromJust() : defaultValue; }
+    bool hasColumnNumber() { return m_columnNumber.has_value(); }
+    double getColumnNumber(double defaultValue) const {
+       return m_columnNumber.value_or(defaultValue);
+    }
     void setColumnNumber(double value) { m_columnNumber = value; }
 
-    bool hasRequestId() { return m_requestId.isJust(); }
-    String getRequestId(const String& defaultValue) { return m_requestId.isJust() ? m_requestId.fromJust() : defaultValue; }
+    bool hasRequestId() { return m_requestId.has_value(); }
+    String getRequestId(const String& defaultValue) const {
+       return m_requestId.value_or(defaultValue);
+    }
     void setRequestId(const String& value) { m_requestId = value; }
 
     template<int STATE>
@@ -2131,8 +2203,10 @@ public:
     bool getSession() { return m_session; }
     void setSession(bool value) { m_session = value; }
 
-    bool hasSameSite() { return m_sameSite.isJust(); }
-    String getSameSite(const String& defaultValue) { return m_sameSite.isJust() ? m_sameSite.fromJust() : defaultValue; }
+    bool hasSameSite() { return m_sameSite.has_value(); }
+    String getSameSite(const String& defaultValue) const {
+       return m_sameSite.value_or(defaultValue);
+    }
     void setSameSite(const String& value) { m_sameSite = value; }
 
     String getPriority() { return m_priority; }
@@ -2147,12 +2221,16 @@ public:
     int getSourcePort() { return m_sourcePort; }
     void setSourcePort(int value) { m_sourcePort = value; }
 
-    bool hasPartitionKey() { return m_partitionKey.isJust(); }
-    String getPartitionKey(const String& defaultValue) { return m_partitionKey.isJust() ? m_partitionKey.fromJust() : defaultValue; }
+    bool hasPartitionKey() { return m_partitionKey.has_value(); }
+    String getPartitionKey(const String& defaultValue) const {
+       return m_partitionKey.value_or(defaultValue);
+    }
     void setPartitionKey(const String& value) { m_partitionKey = value; }
 
-    bool hasPartitionKeyOpaque() { return m_partitionKeyOpaque.isJust(); }
-    bool getPartitionKeyOpaque(bool defaultValue) { return m_partitionKeyOpaque.isJust() ? m_partitionKeyOpaque.fromJust() : defaultValue; }
+    bool hasPartitionKeyOpaque() { return m_partitionKeyOpaque.has_value(); }
+    bool getPartitionKeyOpaque(bool defaultValue) const {
+       return m_partitionKeyOpaque.value_or(defaultValue);
+    }
     void setPartitionKeyOpaque(bool value) { m_partitionKeyOpaque = value; }
 
     template<int STATE>
@@ -2351,8 +2429,10 @@ public:
     String getCookieLine() { return m_cookieLine; }
     void setCookieLine(const String& value) { m_cookieLine = value; }
 
-    bool hasCookie() { return m_cookie.isJust(); }
-    protocol::Network::Cookie* getCookie(protocol::Network::Cookie* defaultValue) { return m_cookie.isJust() ? m_cookie.fromJust() : defaultValue; }
+    bool hasCookie() { return m_cookie.has_value(); }
+    protocol::Network::Cookie* getCookie(protocol::Network::Cookie* defaultValue) {
+       return m_cookie.has_value() ? &m_cookie.value() : defaultValue;
+    }
     void setCookie(std::unique_ptr<protocol::Network::Cookie> value) { m_cookie = std::move(value); }
 
     template<int STATE>
@@ -2500,52 +2580,76 @@ public:
     String getValue() { return m_value; }
     void setValue(const String& value) { m_value = value; }
 
-    bool hasUrl() { return m_url.isJust(); }
-    String getUrl(const String& defaultValue) { return m_url.isJust() ? m_url.fromJust() : defaultValue; }
+    bool hasUrl() { return m_url.has_value(); }
+    String getUrl(const String& defaultValue) const {
+       return m_url.value_or(defaultValue);
+    }
     void setUrl(const String& value) { m_url = value; }
 
-    bool hasDomain() { return m_domain.isJust(); }
-    String getDomain(const String& defaultValue) { return m_domain.isJust() ? m_domain.fromJust() : defaultValue; }
+    bool hasDomain() { return m_domain.has_value(); }
+    String getDomain(const String& defaultValue) const {
+       return m_domain.value_or(defaultValue);
+    }
     void setDomain(const String& value) { m_domain = value; }
 
-    bool hasPath() { return m_path.isJust(); }
-    String getPath(const String& defaultValue) { return m_path.isJust() ? m_path.fromJust() : defaultValue; }
+    bool hasPath() { return m_path.has_value(); }
+    String getPath(const String& defaultValue) const {
+       return m_path.value_or(defaultValue);
+    }
     void setPath(const String& value) { m_path = value; }
 
-    bool hasSecure() { return m_secure.isJust(); }
-    bool getSecure(bool defaultValue) { return m_secure.isJust() ? m_secure.fromJust() : defaultValue; }
+    bool hasSecure() { return m_secure.has_value(); }
+    bool getSecure(bool defaultValue) const {
+       return m_secure.value_or(defaultValue);
+    }
     void setSecure(bool value) { m_secure = value; }
 
-    bool hasHttpOnly() { return m_httpOnly.isJust(); }
-    bool getHttpOnly(bool defaultValue) { return m_httpOnly.isJust() ? m_httpOnly.fromJust() : defaultValue; }
+    bool hasHttpOnly() { return m_httpOnly.has_value(); }
+    bool getHttpOnly(bool defaultValue) const {
+       return m_httpOnly.value_or(defaultValue);
+    }
     void setHttpOnly(bool value) { m_httpOnly = value; }
 
-    bool hasSameSite() { return m_sameSite.isJust(); }
-    String getSameSite(const String& defaultValue) { return m_sameSite.isJust() ? m_sameSite.fromJust() : defaultValue; }
+    bool hasSameSite() { return m_sameSite.has_value(); }
+    String getSameSite(const String& defaultValue) const {
+       return m_sameSite.value_or(defaultValue);
+    }
     void setSameSite(const String& value) { m_sameSite = value; }
 
-    bool hasExpires() { return m_expires.isJust(); }
-    double getExpires(double defaultValue) { return m_expires.isJust() ? m_expires.fromJust() : defaultValue; }
+    bool hasExpires() { return m_expires.has_value(); }
+    double getExpires(double defaultValue) const {
+       return m_expires.value_or(defaultValue);
+    }
     void setExpires(double value) { m_expires = value; }
 
-    bool hasPriority() { return m_priority.isJust(); }
-    String getPriority(const String& defaultValue) { return m_priority.isJust() ? m_priority.fromJust() : defaultValue; }
+    bool hasPriority() { return m_priority.has_value(); }
+    String getPriority(const String& defaultValue) const {
+       return m_priority.value_or(defaultValue);
+    }
     void setPriority(const String& value) { m_priority = value; }
 
-    bool hasSameParty() { return m_sameParty.isJust(); }
-    bool getSameParty(bool defaultValue) { return m_sameParty.isJust() ? m_sameParty.fromJust() : defaultValue; }
+    bool hasSameParty() { return m_sameParty.has_value(); }
+    bool getSameParty(bool defaultValue) const {
+       return m_sameParty.value_or(defaultValue);
+    }
     void setSameParty(bool value) { m_sameParty = value; }
 
-    bool hasSourceScheme() { return m_sourceScheme.isJust(); }
-    String getSourceScheme(const String& defaultValue) { return m_sourceScheme.isJust() ? m_sourceScheme.fromJust() : defaultValue; }
+    bool hasSourceScheme() { return m_sourceScheme.has_value(); }
+    String getSourceScheme(const String& defaultValue) const {
+       return m_sourceScheme.value_or(defaultValue);
+    }
     void setSourceScheme(const String& value) { m_sourceScheme = value; }
 
-    bool hasSourcePort() { return m_sourcePort.isJust(); }
-    int getSourcePort(int defaultValue) { return m_sourcePort.isJust() ? m_sourcePort.fromJust() : defaultValue; }
+    bool hasSourcePort() { return m_sourcePort.has_value(); }
+    int getSourcePort(int defaultValue) const {
+       return m_sourcePort.value_or(defaultValue);
+    }
     void setSourcePort(int value) { m_sourcePort = value; }
 
-    bool hasPartitionKey() { return m_partitionKey.isJust(); }
-    String getPartitionKey(const String& defaultValue) { return m_partitionKey.isJust() ? m_partitionKey.fromJust() : defaultValue; }
+    bool hasPartitionKey() { return m_partitionKey.has_value(); }
+    String getPartitionKey(const String& defaultValue) const {
+       return m_partitionKey.value_or(defaultValue);
+    }
     void setPartitionKey(const String& value) { m_partitionKey = value; }
 
     template<int STATE>
@@ -2700,8 +2804,10 @@ public:
         static const char* Proxy;
     }; // SourceEnum
 
-    bool hasSource() { return m_source.isJust(); }
-    String getSource(const String& defaultValue) { return m_source.isJust() ? m_source.fromJust() : defaultValue; }
+    bool hasSource() { return m_source.has_value(); }
+    String getSource(const String& defaultValue) const {
+       return m_source.value_or(defaultValue);
+    }
     void setSource(const String& value) { m_source = value; }
 
     String getOrigin() { return m_origin; }
@@ -2801,12 +2907,16 @@ public:
     String getIntegrity() { return m_integrity; }
     void setIntegrity(const String& value) { m_integrity = value; }
 
-    bool hasCertUrl() { return m_certUrl.isJust(); }
-    String getCertUrl(const String& defaultValue) { return m_certUrl.isJust() ? m_certUrl.fromJust() : defaultValue; }
+    bool hasCertUrl() { return m_certUrl.has_value(); }
+    String getCertUrl(const String& defaultValue) const {
+       return m_certUrl.value_or(defaultValue);
+    }
     void setCertUrl(const String& value) { m_certUrl = value; }
 
-    bool hasCertSha256() { return m_certSha256.isJust(); }
-    String getCertSha256(const String& defaultValue) { return m_certSha256.isJust() ? m_certSha256.fromJust() : defaultValue; }
+    bool hasCertSha256() { return m_certSha256.has_value(); }
+    String getCertSha256(const String& defaultValue) const {
+       return m_certSha256.value_or(defaultValue);
+    }
     void setCertSha256(const String& value) { m_certSha256 = value; }
 
     String getValidityUrl() { return m_validityUrl; }
@@ -2818,8 +2928,10 @@ public:
     int getExpires() { return m_expires; }
     void setExpires(int value) { m_expires = value; }
 
-    bool hasCertificates() { return m_certificates.isJust(); }
-    protocol::Array<String>* getCertificates(protocol::Array<String>* defaultValue) { return m_certificates.isJust() ? m_certificates.fromJust() : defaultValue; }
+    bool hasCertificates() { return m_certificates.has_value(); }
+    protocol::Array<String>* getCertificates(protocol::Array<String>* defaultValue) {
+       return m_certificates.has_value() ? &m_certificates.value() : defaultValue;
+    }
     void setCertificates(std::unique_ptr<protocol::Array<String>> value) { m_certificates = std::move(value); }
 
     template<int STATE>
@@ -3053,12 +3165,16 @@ public:
     String getMessage() { return m_message; }
     void setMessage(const String& value) { m_message = value; }
 
-    bool hasSignatureIndex() { return m_signatureIndex.isJust(); }
-    int getSignatureIndex(int defaultValue) { return m_signatureIndex.isJust() ? m_signatureIndex.fromJust() : defaultValue; }
+    bool hasSignatureIndex() { return m_signatureIndex.has_value(); }
+    int getSignatureIndex(int defaultValue) const {
+       return m_signatureIndex.value_or(defaultValue);
+    }
     void setSignatureIndex(int value) { m_signatureIndex = value; }
 
-    bool hasErrorField() { return m_errorField.isJust(); }
-    String getErrorField(const String& defaultValue) { return m_errorField.isJust() ? m_errorField.fromJust() : defaultValue; }
+    bool hasErrorField() { return m_errorField.has_value(); }
+    String getErrorField(const String& defaultValue) const {
+       return m_errorField.value_or(defaultValue);
+    }
     void setErrorField(const String& value) { m_errorField = value; }
 
     template<int STATE>
@@ -3132,16 +3248,22 @@ public:
     protocol::Network::Response* getOuterResponse() { return m_outerResponse.get(); }
     void setOuterResponse(std::unique_ptr<protocol::Network::Response> value) { m_outerResponse = std::move(value); }
 
-    bool hasHeader() { return m_header.isJust(); }
-    protocol::Network::SignedExchangeHeader* getHeader(protocol::Network::SignedExchangeHeader* defaultValue) { return m_header.isJust() ? m_header.fromJust() : defaultValue; }
+    bool hasHeader() { return m_header.has_value(); }
+    protocol::Network::SignedExchangeHeader* getHeader(protocol::Network::SignedExchangeHeader* defaultValue) {
+       return m_header.has_value() ? &m_header.value() : defaultValue;
+    }
     void setHeader(std::unique_ptr<protocol::Network::SignedExchangeHeader> value) { m_header = std::move(value); }
 
-    bool hasSecurityDetails() { return m_securityDetails.isJust(); }
-    protocol::Network::SecurityDetails* getSecurityDetails(protocol::Network::SecurityDetails* defaultValue) { return m_securityDetails.isJust() ? m_securityDetails.fromJust() : defaultValue; }
+    bool hasSecurityDetails() { return m_securityDetails.has_value(); }
+    protocol::Network::SecurityDetails* getSecurityDetails(protocol::Network::SecurityDetails* defaultValue) {
+       return m_securityDetails.has_value() ? &m_securityDetails.value() : defaultValue;
+    }
     void setSecurityDetails(std::unique_ptr<protocol::Network::SecurityDetails> value) { m_securityDetails = std::move(value); }
 
-    bool hasErrors() { return m_errors.isJust(); }
-    protocol::Array<protocol::Network::SignedExchangeError>* getErrors(protocol::Array<protocol::Network::SignedExchangeError>* defaultValue) { return m_errors.isJust() ? m_errors.fromJust() : defaultValue; }
+    bool hasErrors() { return m_errors.has_value(); }
+    protocol::Array<protocol::Network::SignedExchangeError>* getErrors(protocol::Array<protocol::Network::SignedExchangeError>* defaultValue) {
+       return m_errors.has_value() ? &m_errors.value() : defaultValue;
+    }
     void setErrors(std::unique_ptr<protocol::Array<protocol::Network::SignedExchangeError>> value) { m_errors = std::move(value); }
 
     template<int STATE>
