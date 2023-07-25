@@ -523,6 +523,21 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
                int /*timeout_ms*/),
               (override));
 
+  MOCK_METHOD(bool,
+              GetArcDiskFeatures,
+              (const user_data_auth::GetArcDiskFeaturesRequest& /*in_request*/,
+               user_data_auth::GetArcDiskFeaturesReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetArcDiskFeaturesAsync,
+              (const user_data_auth::GetArcDiskFeaturesRequest& /*in_request*/,
+               base::OnceCallback<void(const user_data_auth::GetArcDiskFeaturesReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
   void RegisterDircryptoMigrationProgressSignalHandler(
     const base::RepeatingCallback<void(const user_data_auth::DircryptoMigrationProgress&)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {

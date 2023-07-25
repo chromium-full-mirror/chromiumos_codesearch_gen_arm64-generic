@@ -125,6 +125,9 @@ class UserDataAuthInterfaceInterface {
   virtual void CreateVaultKeyset(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::CreateVaultKeysetReply>> response,
       const user_data_auth::CreateVaultKeysetRequest& in_request) = 0;
+  virtual void GetArcDiskFeatures(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetArcDiskFeaturesReply>> response,
+      const user_data_auth::GetArcDiskFeaturesRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::UserDataAuthInterface.
@@ -270,6 +273,10 @@ class UserDataAuthInterfaceAdaptor {
         "CreateVaultKeyset",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::CreateVaultKeyset);
+    itf->AddMethodHandler(
+        "GetArcDiskFeatures",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::GetArcDiskFeatures);
 
     signal_DircryptoMigrationProgress_ = itf->RegisterSignalOfType<SignalDircryptoMigrationProgressType>("DircryptoMigrationProgress");
     signal_AuthFactorStatusUpdate_ = itf->RegisterSignalOfType<SignalAuthFactorStatusUpdateType>("AuthFactorStatusUpdate");
@@ -445,6 +452,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"CreateVaultKeyset\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetArcDiskFeatures\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

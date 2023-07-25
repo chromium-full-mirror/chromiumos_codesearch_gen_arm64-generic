@@ -13306,11 +13306,11 @@ class  DisplayInfo {
   DisplayInfo();
 
   explicit DisplayInfo(
-      EmbeddedDisplayInfoPtr edp_info);
+      EmbeddedDisplayInfoPtr embedded_display);
 
   DisplayInfo(
-      EmbeddedDisplayInfoPtr edp_info,
-      absl::optional<std::vector<ExternalDisplayInfoPtr>> dp_infos);
+      EmbeddedDisplayInfoPtr embedded_display,
+      absl::optional<std::vector<ExternalDisplayInfoPtr>> external_displays);
 
 DisplayInfo(const DisplayInfo&) = delete;
 DisplayInfo& operator=(const DisplayInfo&) = delete;
@@ -13390,9 +13390,9 @@ DisplayInfo& operator=(const DisplayInfo&) = delete;
   }
 
   
-  EmbeddedDisplayInfoPtr edp_info;
+  EmbeddedDisplayInfoPtr embedded_display;
   
-  absl::optional<std::vector<ExternalDisplayInfoPtr>> dp_infos;
+  absl::optional<std::vector<ExternalDisplayInfoPtr>> external_displays;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -18713,29 +18713,29 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 DisplayInfoPtr DisplayInfo::Clone() const {
   return New(
-      mojo::Clone(edp_info),
-      mojo::Clone(dp_infos)
+      mojo::Clone(embedded_display),
+      mojo::Clone(external_displays)
   );
 }
 
 template <typename T, DisplayInfo::EnableIfSame<T>*>
 bool DisplayInfo::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->edp_info, other_struct.edp_info))
+  if (!mojo::Equals(this->embedded_display, other_struct.embedded_display))
     return false;
-  if (!mojo::Equals(this->dp_infos, other_struct.dp_infos))
+  if (!mojo::Equals(this->external_displays, other_struct.external_displays))
     return false;
   return true;
 }
 
 template <typename T, DisplayInfo::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.edp_info < rhs.edp_info)
+  if (lhs.embedded_display < rhs.embedded_display)
     return true;
-  if (rhs.edp_info < lhs.edp_info)
+  if (rhs.embedded_display < lhs.embedded_display)
     return false;
-  if (lhs.dp_infos < rhs.dp_infos)
+  if (lhs.external_displays < rhs.external_displays)
     return true;
-  if (rhs.dp_infos < lhs.dp_infos)
+  if (rhs.external_displays < lhs.external_displays)
     return false;
   return false;
 }
@@ -21476,14 +21476,14 @@ struct  StructTraits<::ash::cros_healthd::mojom::DisplayInfo::DataView,
   static bool IsNull(const ::ash::cros_healthd::mojom::DisplayInfoPtr& input) { return !input; }
   static void SetToNull(::ash::cros_healthd::mojom::DisplayInfoPtr* output) { output->reset(); }
 
-  static const decltype(::ash::cros_healthd::mojom::DisplayInfo::edp_info)& edp_info(
+  static const decltype(::ash::cros_healthd::mojom::DisplayInfo::embedded_display)& embedded_display(
       const ::ash::cros_healthd::mojom::DisplayInfoPtr& input) {
-    return input->edp_info;
+    return input->embedded_display;
   }
 
-  static const decltype(::ash::cros_healthd::mojom::DisplayInfo::dp_infos)& dp_infos(
+  static const decltype(::ash::cros_healthd::mojom::DisplayInfo::external_displays)& external_displays(
       const ::ash::cros_healthd::mojom::DisplayInfoPtr& input) {
-    return input->dp_infos;
+    return input->external_displays;
   }
 
   static bool Read(::ash::cros_healthd::mojom::DisplayInfo::DataView input, ::ash::cros_healthd::mojom::DisplayInfoPtr* output);

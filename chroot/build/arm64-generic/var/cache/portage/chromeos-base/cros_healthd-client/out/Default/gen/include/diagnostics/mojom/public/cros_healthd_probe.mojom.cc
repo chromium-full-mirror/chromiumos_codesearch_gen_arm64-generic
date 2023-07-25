@@ -5082,19 +5082,19 @@ bool EGLInfo::Validate(
   return Data_::Validate(data, validation_context);
 }
 DisplayInfo::DisplayInfo()
-    : edp_info(),
-      dp_infos() {}
+    : embedded_display(),
+      external_displays() {}
 
 DisplayInfo::DisplayInfo(
-    EmbeddedDisplayInfoPtr edp_info_in)
-    : edp_info(std::move(edp_info_in)),
-      dp_infos() {}
+    EmbeddedDisplayInfoPtr embedded_display_in)
+    : embedded_display(std::move(embedded_display_in)),
+      external_displays() {}
 
 DisplayInfo::DisplayInfo(
-    EmbeddedDisplayInfoPtr edp_info_in,
-    absl::optional<std::vector<ExternalDisplayInfoPtr>> dp_infos_in)
-    : edp_info(std::move(edp_info_in)),
-      dp_infos(std::move(dp_infos_in)) {}
+    EmbeddedDisplayInfoPtr embedded_display_in,
+    absl::optional<std::vector<ExternalDisplayInfoPtr>> external_displays_in)
+    : embedded_display(std::move(embedded_display_in)),
+      external_displays(std::move(external_displays_in)) {}
 
 DisplayInfo::~DisplayInfo() = default;
 
@@ -5103,7 +5103,7 @@ void DisplayInfo::WriteIntoTrace(
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "edp_info"), this->edp_info,
+      "embedded_display"), this->embedded_display,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type EmbeddedDisplayInfoPtr>"
 #else
@@ -5112,7 +5112,7 @@ void DisplayInfo::WriteIntoTrace(
     );
   perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "dp_infos"), this->dp_infos,
+      "external_displays"), this->external_displays,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type absl::optional<std::vector<ExternalDisplayInfoPtr>>>"
 #else
@@ -9535,9 +9535,9 @@ bool StructTraits<::ash::cros_healthd::mojom::DisplayInfo::DataView, ::ash::cros
   bool success = true;
   ::ash::cros_healthd::mojom::DisplayInfoPtr result(::ash::cros_healthd::mojom::DisplayInfo::New());
   
-      if (success && !input.ReadEdpInfo(&result->edp_info))
+      if (success && !input.ReadEmbeddedDisplay(&result->embedded_display))
         success = false;
-      if (success && !input.ReadDpInfos(&result->dp_infos))
+      if (success && !input.ReadExternalDisplays(&result->external_displays))
         success = false;
   *output = std::move(result);
   return success;

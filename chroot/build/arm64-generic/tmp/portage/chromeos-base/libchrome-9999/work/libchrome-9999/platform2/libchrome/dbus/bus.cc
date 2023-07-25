@@ -674,7 +674,7 @@ DBusMessage* Bus::SendWithReplyAndBlock(DBusMessage* request,
     CHECK(e.IsValid());
     if (error) {
       dbus_error_init(error);
-      dbus_set_error_const(error, e.name().c_str(), e.message().c_str());
+      dbus_set_error(error, e.name().c_str(), "%s", e.message().c_str());
     }
     return nullptr;
   }
@@ -777,7 +777,7 @@ void Bus::AddMatch(const std::string& match_rule, DBusError* error) {
   AddMatch(match_rule, &e);
   if (error && e.IsValid()) {
     dbus_error_init(error);
-    dbus_set_error_const(error, e.name().c_str(), e.message().c_str());
+    dbus_set_error(error, e.name().c_str(), "%s", e.message().c_str());
   }
 }
 
@@ -813,7 +813,7 @@ bool Bus::RemoveMatch(const std::string& match_rule, DBusError* error) {
   bool result = RemoveMatch(match_rule, &e);
   if (error && e.IsValid()) {
     dbus_error_init(error);
-    dbus_set_error_const(error, e.name().c_str(), e.message().c_str());
+    dbus_set_error(error, e.name().c_str(), "%s", e.message().c_str());
   }
   return result;
 }

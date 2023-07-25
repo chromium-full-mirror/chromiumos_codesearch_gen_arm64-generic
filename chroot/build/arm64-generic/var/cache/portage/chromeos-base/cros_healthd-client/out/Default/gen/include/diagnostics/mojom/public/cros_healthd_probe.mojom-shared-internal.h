@@ -5350,8 +5350,8 @@ class  DisplayInfo_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::EmbeddedDisplayInfo_Data> edp_info;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ExternalDisplayInfo_Data>>> dp_infos;
+  mojo::internal::Pointer<internal::EmbeddedDisplayInfo_Data> embedded_display;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ExternalDisplayInfo_Data>>> external_displays;
 
  private:
   friend class mojo::internal::MessageFragment<DisplayInfo_Data>;

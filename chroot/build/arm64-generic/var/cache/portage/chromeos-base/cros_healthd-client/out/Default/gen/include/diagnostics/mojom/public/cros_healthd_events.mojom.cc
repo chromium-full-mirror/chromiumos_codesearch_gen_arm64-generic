@@ -615,31 +615,31 @@ bool TouchpadConnectedEvent::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-HdmiEventInfo::HdmiEventInfo()
+ExternalDisplayEventInfo::ExternalDisplayEventInfo()
     : state(),
       display_info() {}
 
-HdmiEventInfo::HdmiEventInfo(
-    HdmiEventInfo::State state_in)
+ExternalDisplayEventInfo::ExternalDisplayEventInfo(
+    ExternalDisplayEventInfo::State state_in)
     : state(std::move(state_in)),
       display_info() {}
 
-HdmiEventInfo::HdmiEventInfo(
-    HdmiEventInfo::State state_in,
+ExternalDisplayEventInfo::ExternalDisplayEventInfo(
+    ExternalDisplayEventInfo::State state_in,
     ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr display_info_in)
     : state(std::move(state_in)),
       display_info(std::move(display_info_in)) {}
 
-HdmiEventInfo::~HdmiEventInfo() = default;
+ExternalDisplayEventInfo::~ExternalDisplayEventInfo() = default;
 
-void HdmiEventInfo::WriteIntoTrace(
+void ExternalDisplayEventInfo::WriteIntoTrace(
     perfetto_libchrome::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type HdmiEventInfo::State>"
+      "<value of type ExternalDisplayEventInfo::State>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -655,7 +655,7 @@ void HdmiEventInfo::WriteIntoTrace(
     );
 }
 
-bool HdmiEventInfo::Validate(
+bool ExternalDisplayEventInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -1360,15 +1360,15 @@ void EventInfo::set_touchpad_event_info(
         std::move(touchpad_event_info));
   }
 }
-void EventInfo::set_hdmi_event_info(
-    HdmiEventInfoPtr hdmi_event_info) {
-  if (tag_ == Tag::kHdmiEventInfo) {
-    *(data_.hdmi_event_info) = std::move(hdmi_event_info);
+void EventInfo::set_external_display_event_info(
+    ExternalDisplayEventInfoPtr external_display_event_info) {
+  if (tag_ == Tag::kExternalDisplayEventInfo) {
+    *(data_.external_display_event_info) = std::move(external_display_event_info);
   } else {
     DestroyActive();
-    tag_ = Tag::kHdmiEventInfo;
-    data_.hdmi_event_info = new HdmiEventInfoPtr(
-        std::move(hdmi_event_info));
+    tag_ = Tag::kExternalDisplayEventInfo;
+    data_.external_display_event_info = new ExternalDisplayEventInfoPtr(
+        std::move(external_display_event_info));
   }
 }
 void EventInfo::set_touchscreen_event_info(
@@ -1462,9 +1462,9 @@ void EventInfo::DestroyActive() {
 
       delete data_.touchpad_event_info;
       break;
-    case Tag::kHdmiEventInfo:
+    case Tag::kExternalDisplayEventInfo:
 
-      delete data_.hdmi_event_info;
+      delete data_.external_display_event_info;
       break;
     case Tag::kTouchscreenEventInfo:
 
@@ -4094,11 +4094,11 @@ bool StructTraits<::ash::cros_healthd::mojom::TouchpadConnectedEvent::DataView, 
 
 
 // static
-bool StructTraits<::ash::cros_healthd::mojom::HdmiEventInfo::DataView, ::ash::cros_healthd::mojom::HdmiEventInfoPtr>::Read(
-    ::ash::cros_healthd::mojom::HdmiEventInfo::DataView input,
-    ::ash::cros_healthd::mojom::HdmiEventInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::ExternalDisplayEventInfo::DataView, ::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::ExternalDisplayEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr* output) {
   bool success = true;
-  ::ash::cros_healthd::mojom::HdmiEventInfoPtr result(::ash::cros_healthd::mojom::HdmiEventInfo::New());
+  ::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr result(::ash::cros_healthd::mojom::ExternalDisplayEventInfo::New());
   
       if (success && !input.ReadState(&result->state))
         success = false;
@@ -4467,13 +4467,13 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
           std::move(result_touchpad_event_info));
       break;
     }
-    case Tag::kHdmiEventInfo: {
-      ::ash::cros_healthd::mojom::HdmiEventInfoPtr result_hdmi_event_info;
-      if (!input.ReadHdmiEventInfo(&result_hdmi_event_info))
+    case Tag::kExternalDisplayEventInfo: {
+      ::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr result_external_display_event_info;
+      if (!input.ReadExternalDisplayEventInfo(&result_external_display_event_info))
         return false;
 
-      *output = UnionType::NewHdmiEventInfo(
-          std::move(result_hdmi_event_info));
+      *output = UnionType::NewExternalDisplayEventInfo(
+          std::move(result_external_display_event_info));
       break;
     }
     case Tag::kTouchscreenEventInfo: {

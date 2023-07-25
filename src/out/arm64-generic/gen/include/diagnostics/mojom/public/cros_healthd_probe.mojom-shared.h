@@ -5240,34 +5240,34 @@ class DisplayInfoDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetEdpInfoDataView(
+  inline void GetEmbeddedDisplayDataView(
       EmbeddedDisplayInfoDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadEdpInfo(UserType* output) {
+  [[nodiscard]] bool ReadEmbeddedDisplay(UserType* output) {
     
-    auto* pointer = data_->edp_info.Get();
+    auto* pointer = data_->embedded_display.Get();
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EmbeddedDisplayInfoDataView>(
         pointer, output, message_);
   }
-  inline void GetDpInfosDataView(
+  inline void GetExternalDisplaysDataView(
       mojo::ArrayDataView<ExternalDisplayInfoDataView>* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadDpInfos(UserType* output) {
+  [[nodiscard]] bool ReadExternalDisplays(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
         mojo::ArrayDataView<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>, UserType>(),
-    "Attempting to read the optional `dp_infos` field into a type which "
+    "Attempting to read the optional `external_displays` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadDpInfos` instead "
-    "of `ReadDpInfos if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadExternalDisplays` instead "
+    "of `ReadExternalDisplays if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
-                    ? data_->dp_infos.Get() : nullptr;
+                    ? data_->external_displays.Get() : nullptr;
     return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>>(
         pointer, output, message_);
   }
@@ -11958,28 +11958,28 @@ struct Serializer<::ash::cros_healthd::mojom::DisplayInfoDataView, MaybeConstUse
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::edp_info(input)) in_edp_info = Traits::edp_info(input);
+    decltype(Traits::embedded_display(input)) in_embedded_display = Traits::embedded_display(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->edp_info)::BaseType> edp_info_fragment(
+        typename decltype(fragment->embedded_display)::BaseType> embedded_display_fragment(
             fragment.message());
     mojo::internal::Serialize<::ash::cros_healthd::mojom::EmbeddedDisplayInfoDataView>(
-        in_edp_info, edp_info_fragment);
-    fragment->edp_info.Set(
-        edp_info_fragment.is_null() ? nullptr : edp_info_fragment.data());
+        in_embedded_display, embedded_display_fragment);
+    fragment->embedded_display.Set(
+        embedded_display_fragment.is_null() ? nullptr : embedded_display_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->edp_info.is_null(),
+        fragment->embedded_display.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null edp_info in DisplayInfo struct");
-    decltype(Traits::dp_infos(input)) in_dp_infos = Traits::dp_infos(input);
+        "null embedded_display in DisplayInfo struct");
+    decltype(Traits::external_displays(input)) in_external_displays = Traits::external_displays(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->dp_infos)::BaseType>
-        dp_infos_fragment(fragment.message());
-    constexpr const mojo::internal::ContainerValidateParams& dp_infos_validate_params =
+        typename decltype(fragment->external_displays)::BaseType>
+        external_displays_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& external_displays_validate_params =
         mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>>(
-        in_dp_infos, dp_infos_fragment, &dp_infos_validate_params);
-    fragment->dp_infos.Set(
-        dp_infos_fragment.is_null() ? nullptr : dp_infos_fragment.data());
+        in_external_displays, external_displays_fragment, &external_displays_validate_params);
+    fragment->external_displays.Set(
+        external_displays_fragment.is_null() ? nullptr : external_displays_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::DisplayInfo_Data* input,
@@ -15825,15 +15825,15 @@ inline void EGLInfoDataView::GetExtensionsDataView(
 }
 
 
-inline void DisplayInfoDataView::GetEdpInfoDataView(
+inline void DisplayInfoDataView::GetEmbeddedDisplayDataView(
     EmbeddedDisplayInfoDataView* output) {
-  auto pointer = data_->edp_info.Get();
+  auto pointer = data_->embedded_display.Get();
   *output = EmbeddedDisplayInfoDataView(pointer, message_);
 }
-inline void DisplayInfoDataView::GetDpInfosDataView(
+inline void DisplayInfoDataView::GetExternalDisplaysDataView(
     mojo::ArrayDataView<ExternalDisplayInfoDataView>* output) {
   auto pointer = data_->header_.version >= 1
-                 ? data_->dp_infos.Get() : nullptr;
+                 ? data_->external_displays.Get() : nullptr;
   *output = mojo::ArrayDataView<ExternalDisplayInfoDataView>(pointer, message_);
 }
 

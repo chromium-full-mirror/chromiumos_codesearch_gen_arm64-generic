@@ -162,8 +162,8 @@ std::unique_ptr<Response> ObjectProxy::CallMethodAndBlockWithErrorDetails(
   auto response = CallMethodAndBlockWithErrorDetails(method_call, timeout_ms, &error);
   if (error.IsValid()) {
     dbus_error_init(scoped_error->get());
-    dbus_set_error_const(scoped_error->get(), error.name().c_str(),
-                         error.message().c_str());
+    dbus_set_error(scoped_error->get(), error.name().c_str(),
+                         "%s", error.message().c_str());
   }
   return response;
 }
