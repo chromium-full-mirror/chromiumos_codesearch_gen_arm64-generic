@@ -10,29 +10,25 @@
 #include <memory>
 #include <vector>
 
-#include <base/check.h>
-#include <base/check_op.h>
 #include <base/files/file_path.h>
 #include <base/files/file_util.h>
 #include <base/functional/bind.h>
 #include <base/functional/callback_helpers.h>
-#include <base/logging.h>
 #include <base/stl_util.h>
 #include <base/strings/string_number_conversions.h>
 #include <base/time/time.h>
 #include <brillo/cryptohome.h>
-#include <brillo/process/process_mock.h>
 #include <brillo/secure_blob.h>
 #include <chromeos/constants/cryptohome.h>
 #include <gtest/gtest.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 #include <libhwsec-foundation/error/testing_helper.h>
-#include <policy/libpolicy.h>
 
 #include "cryptohome/filesystem_layout.h"
 #include "cryptohome/mock_platform.h"
-#include "cryptohome/mock_vault_keyset.h"
+#include "cryptohome/platform.h"
 #include "cryptohome/storage/encrypted_container/fake_encrypted_container_factory.h"
+#include "cryptohome/storage/error_test_helpers.h"
 #include "cryptohome/storage/file_system_keyset.h"
 #include "cryptohome/storage/keyring/fake_keyring.h"
 #include "cryptohome/storage/mount_constants.h"
@@ -54,7 +50,8 @@ using ::testing::InSequence;
 using ::testing::NiceMock;
 using ::testing::Pointee;
 using ::testing::Return;
-using ::testing::SetArgPointee;
+using ::testing::StartsWith;
+
 struct Attributes {
   mode_t mode;
   uid_t uid;
@@ -90,6 +87,8 @@ constexpr char kSomeDaemon[] = "some_daemon";
 constexpr Attributes kSomeDaemonAttributes{01735, 12, 27};
 constexpr char kAnotherDaemon[] = "another_daemon";
 constexpr Attributes kAnotherDaemonAttributes{0600, 0, 0};
+
+constexpr char kDevLoopPrefix[] = "/dev/loop-1";
 
 MATCHER_P(DirCryptoReferenceMatcher, reference, "") {
   if (reference.reference != arg.reference) {
@@ -425,7 +424,6 @@ class MountHelperTest : public ::testing::Test {
     std::unique_ptr<EncryptedContainerFactory> container_factory =
         std::make_unique<FakeEncryptedContainerFactory>(
             &platform_, std::make_unique<FakeKeyring>());
-
     mount_helper_ = std::make_unique<MountHelper>(
         true /* legacy_mount */, true /* bind_mount_downloads */, &platform_);
   }
@@ -832,7 +830,7 @@ TEST_F(MountHelperTest, IsFirstMountComplete_False) {
   // VerifyFS(kUser, MountType::DIR_CRYPTO, /*expect_present=*/false);
 }
 
-TEST_F(MountHelperTest, IsFirstMountComplete_True) {
+TEST_F(MountHelperTest, Dircrypto_IsFirstMountComplete_True) {
   const base::FilePath kSkelFile{"skel_file"};
   const std::string kSkelFileContent{"skel_content"};
   const base::FilePath kVaultFile{"vault_file"};
@@ -904,6 +902,57 @@ TEST_F(MountHelperTest, Dmcrypt_MountUnmount) {
   mount_helper_->UnmountAll();
   VerifyFS(kUser, MountType::DMCRYPT, /*expect_present=*/false,
            /*downloads_bind_mount=*/true);
+}
+
+TEST_F(MountHelperTest, Ecryptfs_IsFirstMountComplete_True) {
+  const base::FilePath kSkelFile{"skel_file"};
+  const std::string kSkelFileContent{"skel_content"};
+  const base::FilePath kVaultFile{"vault_file"};
+  const std::string kVaultFileContent{"vault_content"};
+  const FileSystemKeyset keyset = FileSystemKeyset::CreateRandom();
+  const ObfuscatedUsername obfuscated_username =
+      brillo::cryptohome::home::SanitizeUserName(kUser);
+  // Ensure that bind_mount_downloads is false.
+  mount_helper_ = std::make_unique<MountHelper>(
+      true /* legacy_mount */, false /* bind_mount_downloads */, &platform_);
+
+  SetHomedir(kUser);
+  ASSERT_THAT(mount_helper_->PerformMount(
+                  MountType::ECRYPTFS, kUser,
+                  SecureBlobToHex(keyset.KeyReference().fek_sig),
+                  SecureBlobToHex(keyset.KeyReference().fnek_sig)),
+              IsOk());
+  VerifyFS(kUser, MountType::ECRYPTFS, /*expect_present=*/true,
+           /*downloads_bind_mount=*/false);
+  // Add a file to vault.
+
+  auto test_file_path = GetUserMountDirectory(obfuscated_username)
+                            .Append(kUserHomeSuffix)
+                            .Append(kVaultFile);
+  ASSERT_TRUE(platform_.WriteStringToFile(test_file_path, kVaultFileContent));
+  mount_helper_->UnmountAll();
+
+  // Add a file to skel dir.
+  ASSERT_TRUE(platform_.WriteStringToFile(
+      base::FilePath(kEtcSkel).Append(kSkelFile), kSkelFileContent));
+
+  // Ensure that bind_mount_downloads is false.
+  mount_helper_ = std::make_unique<MountHelper>(
+      true /* legacy_mount */, false /* bind_mount_downloads */, &platform_);
+
+  ASSERT_THAT(mount_helper_->PerformMount(
+                  MountType::ECRYPTFS, kUser,
+                  SecureBlobToHex(keyset.KeyReference().fek_sig),
+                  SecureBlobToHex(keyset.KeyReference().fnek_sig)),
+              IsOk());
+  VerifyFS(kUser, MountType::ECRYPTFS, /*expect_present=*/true,
+           /*downloads_bind_mount=*/false);
+
+  std::string result;
+  ASSERT_TRUE(platform_.ReadFileToString(test_file_path, &result));
+  ASSERT_THAT(result, kVaultFileContent);
+
+  mount_helper_->UnmountAll();
 }
 
 class DownloadsBindMountMigrationTest : public MountHelperTest {
@@ -1229,6 +1278,95 @@ TEST_F(
   ASSERT_FALSE(platform_.IsDirectoryMounted(downloads_in_my_files_));
   ASSERT_TRUE(ExpectFileContentsCorrect(test_downloads_file_path));
   ASSERT_TRUE(ExpectFileContentsCorrect(test_downloads_in_my_files_file_path));
+}
+
+}  // namespace
+
+class MountHelperEphemeral : public ::testing::Test {
+ public:
+  const Username kUser{"someuser"};
+
+  MountHelperEphemeral() = default;
+
+  void SetUp() override {
+    ASSERT_NO_FATAL_FAILURE(PrepareDirectoryStructure(&platform_));
+    mount_helper_ = std::make_unique<MountHelper>(
+        true /* legacy_mount */, true /* bind_mount_downloads */, &platform_);
+  }
+
+ protected:
+  // Protected for trivial access.
+  NiceMock<MockPlatform> platform_;
+  std::unique_ptr<MountHelper> mount_helper_;
+  struct statvfs ephemeral_statvfs_;
+
+  base::FilePath EphemeralBackingFile(const Username& username) {
+    const ObfuscatedUsername obfuscated_username =
+        brillo::cryptohome::home::SanitizeUserName(username);
+    return base::FilePath(kEphemeralCryptohomeDir)
+        .Append(kSparseFileDir)
+        .Append(*obfuscated_username);
+  }
+
+  base::FilePath EphemeralMountPoint(const Username& username) {
+    const ObfuscatedUsername obfuscated_username =
+        brillo::cryptohome::home::SanitizeUserName(username);
+    return base::FilePath(kEphemeralCryptohomeDir)
+        .Append(kEphemeralMountDir)
+        .Append(*obfuscated_username);
+  }
+
+  void VerifyFS(const Username& username, bool expect_present) {
+    ASSERT_NO_FATAL_FAILURE(CheckRootAndDaemonStoreMounts(
+        &platform_, username, EphemeralMountPoint(username), expect_present));
+    ASSERT_NO_FATAL_FAILURE(CheckUserMountPoints(
+        &platform_, username, EphemeralMountPoint(username), expect_present));
+
+    const std::vector<base::FilePath> user_vault_and_mounts{
+        EphemeralMountPoint(username).Append(kUserHomeSuffix),
+        base::FilePath(kHomeChronosUser),
+        brillo::cryptohome::home::GetUserPath(username),
+        ChronosHashPath(username),
+    };
+
+    for (const auto& base_path : user_vault_and_mounts) {
+      ASSERT_NO_FATAL_FAILURE(
+          CheckUserMountPaths(&platform_, base_path, expect_present, true));
+      ASSERT_NO_FATAL_FAILURE(CheckSkel(&platform_, base_path, expect_present));
+    }
+  }
+};
+
+namespace {
+
+TEST_F(MountHelperEphemeral, EphemeralMount) {
+  EXPECT_CALL(platform_, SetSELinuxContext(EphemeralMountPoint(kUser), _))
+      .WillOnce(Return(true));
+  const ObfuscatedUsername obfuscated_username =
+      brillo::cryptohome::home::SanitizeUserName(kUser);
+  ASSERT_THAT(mount_helper_->PerformEphemeralMount(
+                  kUser, base::FilePath(kDevLoopPrefix)),
+              IsOk());
+
+  VerifyFS(kUser, /*expect_present=*/true);
+
+  mount_helper_->UnmountAll();
+
+  VerifyFS(kUser, /*expect_present=*/false);
+}
+
+TEST_F(MountHelperEphemeral, EphemeralMount_EnsureUserMountFailure) {
+  // Checks that when ephemeral mount fails to ensure mount points.
+  EXPECT_CALL(platform_, Mount(Property(&base::FilePath::value,
+                                        StartsWith(kDevLoopPrefix)),
+                               EphemeralMountPoint(kUser), _, _, _))
+      .WillOnce(Return(false));
+
+  ASSERT_THAT(mount_helper_->PerformEphemeralMount(
+                  kUser, base::FilePath(kDevLoopPrefix)),
+              storage::testing::IsError(MOUNT_ERROR_FATAL));
+
+  VerifyFS(kUser, /*expect_present=*/false);
 }
 
 }  // namespace

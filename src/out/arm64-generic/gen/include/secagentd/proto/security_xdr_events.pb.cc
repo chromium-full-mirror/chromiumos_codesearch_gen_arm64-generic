@@ -381,6 +381,66 @@ struct NetworkSocketListenEventDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NetworkSocketListenEventDefaultTypeInternal _NetworkSocketListenEvent_default_instance_;
+PROTOBUF_CONSTEXPR XdrAuthenticateEvent::XdrAuthenticateEvent(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.batched_events_)*/{}
+  , /*decltype(_impl_.common_)*/nullptr} {}
+struct XdrAuthenticateEventDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR XdrAuthenticateEventDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~XdrAuthenticateEventDefaultTypeInternal() {}
+  union {
+    XdrAuthenticateEvent _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 XdrAuthenticateEventDefaultTypeInternal _XdrAuthenticateEvent_default_instance_;
+PROTOBUF_CONSTEXPR AuthenticateEventAtomicVariant::AuthenticateEventAtomicVariant(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.common_)*/nullptr
+  , /*decltype(_impl_.variant_type_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
+struct AuthenticateEventAtomicVariantDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthenticateEventAtomicVariantDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthenticateEventAtomicVariantDefaultTypeInternal() {}
+  union {
+    AuthenticateEventAtomicVariant _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateEventAtomicVariantDefaultTypeInternal _AuthenticateEventAtomicVariant_default_instance_;
+PROTOBUF_CONSTEXPR AuthenticateEvent::AuthenticateEvent(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.authentication_)*/nullptr} {}
+struct AuthenticateEventDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthenticateEventDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthenticateEventDefaultTypeInternal() {}
+  union {
+    AuthenticateEvent _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateEventDefaultTypeInternal _AuthenticateEvent_default_instance_;
+PROTOBUF_CONSTEXPR Authentication::Authentication(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.auth_factor_)*/{}
+  , /*decltype(_impl_.num_failed_attempts_)*/uint64_t{0u}} {}
+struct AuthenticationDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthenticationDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthenticationDefaultTypeInternal() {}
+  union {
+    Authentication _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticationDefaultTypeInternal _Authentication_default_instance_;
 }  // namespace reporting
 }  // namespace cros_xdr
 namespace cros_xdr {
@@ -769,6 +829,77 @@ bool SocketType_Parse(
       SocketType_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<SocketType>(int_value);
+  }
+  return success;
+}
+bool AuthenticationType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AuthenticationType_strings[7] = {};
+
+static const char AuthenticationType_names[] =
+  "FINGERPRINT"
+  "KIOSK"
+  "ONLINE_RECOVERY"
+  "PASSWORD"
+  "PIN"
+  "SMART_CARD"
+  "UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AuthenticationType_entries[] = {
+  { {AuthenticationType_names + 0, 11}, 6 },
+  { {AuthenticationType_names + 11, 5}, 4 },
+  { {AuthenticationType_names + 16, 15}, 3 },
+  { {AuthenticationType_names + 31, 8}, 1 },
+  { {AuthenticationType_names + 39, 3}, 2 },
+  { {AuthenticationType_names + 42, 10}, 5 },
+  { {AuthenticationType_names + 52, 7}, 0 },
+};
+
+static const int AuthenticationType_entries_by_number[] = {
+  6, // 0 -> UNKNOWN
+  3, // 1 -> PASSWORD
+  4, // 2 -> PIN
+  2, // 3 -> ONLINE_RECOVERY
+  1, // 4 -> KIOSK
+  5, // 5 -> SMART_CARD
+  0, // 6 -> FINGERPRINT
+};
+
+const std::string& AuthenticationType_Name(
+    AuthenticationType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          AuthenticationType_entries,
+          AuthenticationType_entries_by_number,
+          7, AuthenticationType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      AuthenticationType_entries,
+      AuthenticationType_entries_by_number,
+      7, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     AuthenticationType_strings[idx].get();
+}
+bool AuthenticationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthenticationType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      AuthenticationType_entries, 7, name, &int_value);
+  if (success) {
+    *value = static_cast<AuthenticationType>(int_value);
   }
   return success;
 }
@@ -8321,6 +8452,1227 @@ std::string NetworkSocketListenEvent::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class XdrAuthenticateEvent::_Internal {
+ public:
+  using HasBits = decltype(std::declval<XdrAuthenticateEvent>()._impl_._has_bits_);
+  static const ::cros_xdr::reporting::CommonEventDataFields& common(const XdrAuthenticateEvent* msg);
+  static void set_has_common(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::cros_xdr::reporting::CommonEventDataFields&
+XdrAuthenticateEvent::_Internal::common(const XdrAuthenticateEvent* msg) {
+  return *msg->_impl_.common_;
+}
+XdrAuthenticateEvent::XdrAuthenticateEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.XdrAuthenticateEvent)
+}
+XdrAuthenticateEvent::XdrAuthenticateEvent(const XdrAuthenticateEvent& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  XdrAuthenticateEvent* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.batched_events_){from._impl_.batched_events_}
+    , decltype(_impl_.common_){nullptr}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_common()) {
+    _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventDataFields(*from._impl_.common_);
+  }
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.XdrAuthenticateEvent)
+}
+
+inline void XdrAuthenticateEvent::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.batched_events_){arena}
+    , decltype(_impl_.common_){nullptr}
+  };
+}
+
+XdrAuthenticateEvent::~XdrAuthenticateEvent() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.XdrAuthenticateEvent)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void XdrAuthenticateEvent::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.batched_events_.~RepeatedPtrField();
+  if (this != internal_default_instance()) delete _impl_.common_;
+}
+
+void XdrAuthenticateEvent::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void XdrAuthenticateEvent::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.XdrAuthenticateEvent)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.batched_events_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    _impl_.common_->Clear();
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* XdrAuthenticateEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .cros_xdr.reporting.AuthenticateEventAtomicVariant batched_events = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_batched_events(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* XdrAuthenticateEvent::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.XdrAuthenticateEvent)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::common(this),
+        _Internal::common(this).GetCachedSize(), target, stream);
+  }
+
+  // repeated .cros_xdr.reporting.AuthenticateEventAtomicVariant batched_events = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_batched_events_size()); i < n; i++) {
+    const auto& repfield = this->_internal_batched_events(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.XdrAuthenticateEvent)
+  return target;
+}
+
+size_t XdrAuthenticateEvent::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.XdrAuthenticateEvent)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .cros_xdr.reporting.AuthenticateEventAtomicVariant batched_events = 2;
+  total_size += 1UL * this->_internal_batched_events_size();
+  for (const auto& msg : this->_impl_.batched_events_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.common_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void XdrAuthenticateEvent::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const XdrAuthenticateEvent*>(
+      &from));
+}
+
+void XdrAuthenticateEvent::MergeFrom(const XdrAuthenticateEvent& from) {
+  XdrAuthenticateEvent* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.XdrAuthenticateEvent)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.batched_events_.MergeFrom(from._impl_.batched_events_);
+  if (from._internal_has_common()) {
+    _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventDataFields::MergeFrom(
+        from._internal_common());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void XdrAuthenticateEvent::CopyFrom(const XdrAuthenticateEvent& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.XdrAuthenticateEvent)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool XdrAuthenticateEvent::IsInitialized() const {
+  return true;
+}
+
+void XdrAuthenticateEvent::InternalSwap(XdrAuthenticateEvent* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.batched_events_.InternalSwap(&other->_impl_.batched_events_);
+  swap(_impl_.common_, other->_impl_.common_);
+}
+
+std::string XdrAuthenticateEvent::GetTypeName() const {
+  return "cros_xdr.reporting.XdrAuthenticateEvent";
+}
+
+
+// ===================================================================
+
+class AuthenticateEventAtomicVariant::_Internal {
+ public:
+  using HasBits = decltype(std::declval<AuthenticateEventAtomicVariant>()._impl_._has_bits_);
+  static const ::cros_xdr::reporting::CommonEventVariantDataFields& common(const AuthenticateEventAtomicVariant* msg);
+  static void set_has_common(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::cros_xdr::reporting::AuthenticateEvent& logon(const AuthenticateEventAtomicVariant* msg);
+  static const ::cros_xdr::reporting::AuthenticateEvent& logoff(const AuthenticateEventAtomicVariant* msg);
+  static const ::cros_xdr::reporting::AuthenticateEvent& unlock(const AuthenticateEventAtomicVariant* msg);
+  static const ::cros_xdr::reporting::AuthenticateEvent& lock(const AuthenticateEventAtomicVariant* msg);
+  static const ::cros_xdr::reporting::AuthenticateEvent& failure(const AuthenticateEventAtomicVariant* msg);
+};
+
+const ::cros_xdr::reporting::CommonEventVariantDataFields&
+AuthenticateEventAtomicVariant::_Internal::common(const AuthenticateEventAtomicVariant* msg) {
+  return *msg->_impl_.common_;
+}
+const ::cros_xdr::reporting::AuthenticateEvent&
+AuthenticateEventAtomicVariant::_Internal::logon(const AuthenticateEventAtomicVariant* msg) {
+  return *msg->_impl_.variant_type_.logon_;
+}
+const ::cros_xdr::reporting::AuthenticateEvent&
+AuthenticateEventAtomicVariant::_Internal::logoff(const AuthenticateEventAtomicVariant* msg) {
+  return *msg->_impl_.variant_type_.logoff_;
+}
+const ::cros_xdr::reporting::AuthenticateEvent&
+AuthenticateEventAtomicVariant::_Internal::unlock(const AuthenticateEventAtomicVariant* msg) {
+  return *msg->_impl_.variant_type_.unlock_;
+}
+const ::cros_xdr::reporting::AuthenticateEvent&
+AuthenticateEventAtomicVariant::_Internal::lock(const AuthenticateEventAtomicVariant* msg) {
+  return *msg->_impl_.variant_type_.lock_;
+}
+const ::cros_xdr::reporting::AuthenticateEvent&
+AuthenticateEventAtomicVariant::_Internal::failure(const AuthenticateEventAtomicVariant* msg) {
+  return *msg->_impl_.variant_type_.failure_;
+}
+void AuthenticateEventAtomicVariant::set_allocated_logon(::cros_xdr::reporting::AuthenticateEvent* logon) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_variant_type();
+  if (logon) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(logon);
+    if (message_arena != submessage_arena) {
+      logon = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, logon, submessage_arena);
+    }
+    set_has_logon();
+    _impl_.variant_type_.logon_ = logon;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.AuthenticateEventAtomicVariant.logon)
+}
+void AuthenticateEventAtomicVariant::set_allocated_logoff(::cros_xdr::reporting::AuthenticateEvent* logoff) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_variant_type();
+  if (logoff) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(logoff);
+    if (message_arena != submessage_arena) {
+      logoff = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, logoff, submessage_arena);
+    }
+    set_has_logoff();
+    _impl_.variant_type_.logoff_ = logoff;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.AuthenticateEventAtomicVariant.logoff)
+}
+void AuthenticateEventAtomicVariant::set_allocated_unlock(::cros_xdr::reporting::AuthenticateEvent* unlock) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_variant_type();
+  if (unlock) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(unlock);
+    if (message_arena != submessage_arena) {
+      unlock = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, unlock, submessage_arena);
+    }
+    set_has_unlock();
+    _impl_.variant_type_.unlock_ = unlock;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.AuthenticateEventAtomicVariant.unlock)
+}
+void AuthenticateEventAtomicVariant::set_allocated_lock(::cros_xdr::reporting::AuthenticateEvent* lock) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_variant_type();
+  if (lock) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(lock);
+    if (message_arena != submessage_arena) {
+      lock = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, lock, submessage_arena);
+    }
+    set_has_lock();
+    _impl_.variant_type_.lock_ = lock;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.AuthenticateEventAtomicVariant.lock)
+}
+void AuthenticateEventAtomicVariant::set_allocated_failure(::cros_xdr::reporting::AuthenticateEvent* failure) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_variant_type();
+  if (failure) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(failure);
+    if (message_arena != submessage_arena) {
+      failure = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, failure, submessage_arena);
+    }
+    set_has_failure();
+    _impl_.variant_type_.failure_ = failure;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.AuthenticateEventAtomicVariant.failure)
+}
+AuthenticateEventAtomicVariant::AuthenticateEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.AuthenticateEventAtomicVariant)
+}
+AuthenticateEventAtomicVariant::AuthenticateEventAtomicVariant(const AuthenticateEventAtomicVariant& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthenticateEventAtomicVariant* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.common_){nullptr}
+    , decltype(_impl_.variant_type_){}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_common()) {
+    _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventVariantDataFields(*from._impl_.common_);
+  }
+  clear_has_variant_type();
+  switch (from.variant_type_case()) {
+    case kLogon: {
+      _this->_internal_mutable_logon()->::cros_xdr::reporting::AuthenticateEvent::MergeFrom(
+          from._internal_logon());
+      break;
+    }
+    case kLogoff: {
+      _this->_internal_mutable_logoff()->::cros_xdr::reporting::AuthenticateEvent::MergeFrom(
+          from._internal_logoff());
+      break;
+    }
+    case kUnlock: {
+      _this->_internal_mutable_unlock()->::cros_xdr::reporting::AuthenticateEvent::MergeFrom(
+          from._internal_unlock());
+      break;
+    }
+    case kLock: {
+      _this->_internal_mutable_lock()->::cros_xdr::reporting::AuthenticateEvent::MergeFrom(
+          from._internal_lock());
+      break;
+    }
+    case kFailure: {
+      _this->_internal_mutable_failure()->::cros_xdr::reporting::AuthenticateEvent::MergeFrom(
+          from._internal_failure());
+      break;
+    }
+    case VARIANT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.AuthenticateEventAtomicVariant)
+}
+
+inline void AuthenticateEventAtomicVariant::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.common_){nullptr}
+    , decltype(_impl_.variant_type_){}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_variant_type();
+}
+
+AuthenticateEventAtomicVariant::~AuthenticateEventAtomicVariant() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.AuthenticateEventAtomicVariant)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AuthenticateEventAtomicVariant::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.common_;
+  if (has_variant_type()) {
+    clear_variant_type();
+  }
+}
+
+void AuthenticateEventAtomicVariant::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void AuthenticateEventAtomicVariant::clear_variant_type() {
+// @@protoc_insertion_point(one_of_clear_start:cros_xdr.reporting.AuthenticateEventAtomicVariant)
+  switch (variant_type_case()) {
+    case kLogon: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.variant_type_.logon_;
+      }
+      break;
+    }
+    case kLogoff: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.variant_type_.logoff_;
+      }
+      break;
+    }
+    case kUnlock: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.variant_type_.unlock_;
+      }
+      break;
+    }
+    case kLock: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.variant_type_.lock_;
+      }
+      break;
+    }
+    case kFailure: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.variant_type_.failure_;
+      }
+      break;
+    }
+    case VARIANT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = VARIANT_TYPE_NOT_SET;
+}
+
+
+void AuthenticateEventAtomicVariant::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.AuthenticateEventAtomicVariant)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    _impl_.common_->Clear();
+  }
+  clear_variant_type();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AuthenticateEventAtomicVariant::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.AuthenticateEvent logon = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_logon(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.AuthenticateEvent logoff = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_logoff(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.AuthenticateEvent unlock = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_unlock(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.AuthenticateEvent lock = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_lock(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.AuthenticateEvent failure = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_failure(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AuthenticateEventAtomicVariant::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.AuthenticateEventAtomicVariant)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::common(this),
+        _Internal::common(this).GetCachedSize(), target, stream);
+  }
+
+  switch (variant_type_case()) {
+    case kLogon: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, _Internal::logon(this),
+          _Internal::logon(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kLogoff: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(3, _Internal::logoff(this),
+          _Internal::logoff(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kUnlock: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(4, _Internal::unlock(this),
+          _Internal::unlock(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kLock: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(5, _Internal::lock(this),
+          _Internal::lock(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kFailure: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(6, _Internal::failure(this),
+          _Internal::failure(this).GetCachedSize(), target, stream);
+      break;
+    }
+    default: ;
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.AuthenticateEventAtomicVariant)
+  return target;
+}
+
+size_t AuthenticateEventAtomicVariant::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.AuthenticateEventAtomicVariant)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.common_);
+  }
+
+  switch (variant_type_case()) {
+    // .cros_xdr.reporting.AuthenticateEvent logon = 2;
+    case kLogon: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.variant_type_.logon_);
+      break;
+    }
+    // .cros_xdr.reporting.AuthenticateEvent logoff = 3;
+    case kLogoff: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.variant_type_.logoff_);
+      break;
+    }
+    // .cros_xdr.reporting.AuthenticateEvent unlock = 4;
+    case kUnlock: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.variant_type_.unlock_);
+      break;
+    }
+    // .cros_xdr.reporting.AuthenticateEvent lock = 5;
+    case kLock: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.variant_type_.lock_);
+      break;
+    }
+    // .cros_xdr.reporting.AuthenticateEvent failure = 6;
+    case kFailure: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.variant_type_.failure_);
+      break;
+    }
+    case VARIANT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AuthenticateEventAtomicVariant::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthenticateEventAtomicVariant*>(
+      &from));
+}
+
+void AuthenticateEventAtomicVariant::MergeFrom(const AuthenticateEventAtomicVariant& from) {
+  AuthenticateEventAtomicVariant* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.AuthenticateEventAtomicVariant)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_common()) {
+    _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventVariantDataFields::MergeFrom(
+        from._internal_common());
+  }
+  switch (from.variant_type_case()) {
+    case kLogon: {
+      _this->_internal_mutable_logon()->::cros_xdr::reporting::AuthenticateEvent::MergeFrom(
+          from._internal_logon());
+      break;
+    }
+    case kLogoff: {
+      _this->_internal_mutable_logoff()->::cros_xdr::reporting::AuthenticateEvent::MergeFrom(
+          from._internal_logoff());
+      break;
+    }
+    case kUnlock: {
+      _this->_internal_mutable_unlock()->::cros_xdr::reporting::AuthenticateEvent::MergeFrom(
+          from._internal_unlock());
+      break;
+    }
+    case kLock: {
+      _this->_internal_mutable_lock()->::cros_xdr::reporting::AuthenticateEvent::MergeFrom(
+          from._internal_lock());
+      break;
+    }
+    case kFailure: {
+      _this->_internal_mutable_failure()->::cros_xdr::reporting::AuthenticateEvent::MergeFrom(
+          from._internal_failure());
+      break;
+    }
+    case VARIANT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AuthenticateEventAtomicVariant::CopyFrom(const AuthenticateEventAtomicVariant& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.AuthenticateEventAtomicVariant)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AuthenticateEventAtomicVariant::IsInitialized() const {
+  return true;
+}
+
+void AuthenticateEventAtomicVariant::InternalSwap(AuthenticateEventAtomicVariant* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.common_, other->_impl_.common_);
+  swap(_impl_.variant_type_, other->_impl_.variant_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
+}
+
+std::string AuthenticateEventAtomicVariant::GetTypeName() const {
+  return "cros_xdr.reporting.AuthenticateEventAtomicVariant";
+}
+
+
+// ===================================================================
+
+class AuthenticateEvent::_Internal {
+ public:
+  using HasBits = decltype(std::declval<AuthenticateEvent>()._impl_._has_bits_);
+  static const ::cros_xdr::reporting::Authentication& authentication(const AuthenticateEvent* msg);
+  static void set_has_authentication(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::cros_xdr::reporting::Authentication&
+AuthenticateEvent::_Internal::authentication(const AuthenticateEvent* msg) {
+  return *msg->_impl_.authentication_;
+}
+AuthenticateEvent::AuthenticateEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.AuthenticateEvent)
+}
+AuthenticateEvent::AuthenticateEvent(const AuthenticateEvent& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthenticateEvent* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.authentication_){nullptr}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_authentication()) {
+    _this->_impl_.authentication_ = new ::cros_xdr::reporting::Authentication(*from._impl_.authentication_);
+  }
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.AuthenticateEvent)
+}
+
+inline void AuthenticateEvent::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.authentication_){nullptr}
+  };
+}
+
+AuthenticateEvent::~AuthenticateEvent() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.AuthenticateEvent)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AuthenticateEvent::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.authentication_;
+}
+
+void AuthenticateEvent::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void AuthenticateEvent::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.AuthenticateEvent)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(_impl_.authentication_ != nullptr);
+    _impl_.authentication_->Clear();
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AuthenticateEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .cros_xdr.reporting.Authentication authentication = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_authentication(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AuthenticateEvent::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.AuthenticateEvent)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .cros_xdr.reporting.Authentication authentication = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::authentication(this),
+        _Internal::authentication(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.AuthenticateEvent)
+  return target;
+}
+
+size_t AuthenticateEvent::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.AuthenticateEvent)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .cros_xdr.reporting.Authentication authentication = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.authentication_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AuthenticateEvent::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthenticateEvent*>(
+      &from));
+}
+
+void AuthenticateEvent::MergeFrom(const AuthenticateEvent& from) {
+  AuthenticateEvent* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.AuthenticateEvent)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_authentication()) {
+    _this->_internal_mutable_authentication()->::cros_xdr::reporting::Authentication::MergeFrom(
+        from._internal_authentication());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AuthenticateEvent::CopyFrom(const AuthenticateEvent& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.AuthenticateEvent)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AuthenticateEvent::IsInitialized() const {
+  return true;
+}
+
+void AuthenticateEvent::InternalSwap(AuthenticateEvent* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.authentication_, other->_impl_.authentication_);
+}
+
+std::string AuthenticateEvent::GetTypeName() const {
+  return "cros_xdr.reporting.AuthenticateEvent";
+}
+
+
+// ===================================================================
+
+class Authentication::_Internal {
+ public:
+  using HasBits = decltype(std::declval<Authentication>()._impl_._has_bits_);
+  static void set_has_num_failed_attempts(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+Authentication::Authentication(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.Authentication)
+}
+Authentication::Authentication(const Authentication& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Authentication* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.auth_factor_){from._impl_.auth_factor_}
+    , decltype(_impl_.num_failed_attempts_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.num_failed_attempts_ = from._impl_.num_failed_attempts_;
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.Authentication)
+}
+
+inline void Authentication::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.auth_factor_){arena}
+    , decltype(_impl_.num_failed_attempts_){uint64_t{0u}}
+  };
+}
+
+Authentication::~Authentication() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.Authentication)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Authentication::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.auth_factor_.~RepeatedField();
+}
+
+void Authentication::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void Authentication::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.Authentication)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.auth_factor_.Clear();
+  _impl_.num_failed_attempts_ = uint64_t{0u};
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* Authentication::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .cros_xdr.reporting.AuthenticationType auth_factor = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+            CHK_(ptr);
+            if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::AuthenticationType_IsValid(val))) {
+              _internal_add_auth_factor(static_cast<::cros_xdr::reporting::AuthenticationType>(val));
+            } else {
+              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+            }
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<8>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 10) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_auth_factor(), ptr, ctx, ::cros_xdr::reporting::AuthenticationType_IsValid, &_internal_metadata_, 1);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint64 num_failed_attempts = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_num_failed_attempts(&has_bits);
+          _impl_.num_failed_attempts_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Authentication::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.Authentication)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .cros_xdr.reporting.AuthenticationType auth_factor = 1;
+  for (int i = 0, n = this->_internal_auth_factor_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_auth_factor(i), target);
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional uint64 num_failed_attempts = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_num_failed_attempts(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.Authentication)
+  return target;
+}
+
+size_t Authentication::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.Authentication)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .cros_xdr.reporting.AuthenticationType auth_factor = 1;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_auth_factor_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_auth_factor(static_cast<int>(i)));
+    }
+    total_size += (1UL * count) + data_size;
+  }
+
+  // optional uint64 num_failed_attempts = 2;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_num_failed_attempts());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Authentication::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const Authentication*>(
+      &from));
+}
+
+void Authentication::MergeFrom(const Authentication& from) {
+  Authentication* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.Authentication)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.auth_factor_.MergeFrom(from._impl_.auth_factor_);
+  if (from._internal_has_num_failed_attempts()) {
+    _this->_internal_set_num_failed_attempts(from._internal_num_failed_attempts());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void Authentication::CopyFrom(const Authentication& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.Authentication)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Authentication::IsInitialized() const {
+  return true;
+}
+
+void Authentication::InternalSwap(Authentication* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.auth_factor_.InternalSwap(&other->_impl_.auth_factor_);
+  swap(_impl_.num_failed_attempts_, other->_impl_.num_failed_attempts_);
+}
+
+std::string Authentication::GetTypeName() const {
+  return "cros_xdr.reporting.Authentication";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace reporting
 }  // namespace cros_xdr
@@ -8408,6 +9760,22 @@ Arena::CreateMaybeMessage< ::cros_xdr::reporting::Socket >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::NetworkSocketListenEvent*
 Arena::CreateMaybeMessage< ::cros_xdr::reporting::NetworkSocketListenEvent >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cros_xdr::reporting::NetworkSocketListenEvent >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::XdrAuthenticateEvent*
+Arena::CreateMaybeMessage< ::cros_xdr::reporting::XdrAuthenticateEvent >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::XdrAuthenticateEvent >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::AuthenticateEventAtomicVariant*
+Arena::CreateMaybeMessage< ::cros_xdr::reporting::AuthenticateEventAtomicVariant >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::AuthenticateEventAtomicVariant >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::AuthenticateEvent*
+Arena::CreateMaybeMessage< ::cros_xdr::reporting::AuthenticateEvent >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::AuthenticateEvent >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::Authentication*
+Arena::CreateMaybeMessage< ::cros_xdr::reporting::Authentication >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::Authentication >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

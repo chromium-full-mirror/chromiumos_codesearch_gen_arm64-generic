@@ -158,7 +158,8 @@ PROTOBUF_CONSTEXPR FileMetadata::FileMetadata(
   , /*decltype(_impl_.source_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.referrer_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.inode_)*/uint64_t{0u}} {}
+  , /*decltype(_impl_.inode_)*/uint64_t{0u}
+  , /*decltype(_impl_.crtime_)*/uint64_t{0u}} {}
 struct FileMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FileMetadataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2825,6 +2826,9 @@ class FileMetadata::_Internal {
   static void set_has_referrer_url(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static void set_has_crtime(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
 };
 
 FileMetadata::FileMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -2842,7 +2846,8 @@ FileMetadata::FileMetadata(const FileMetadata& from)
     , decltype(_impl_.source_url_){}
     , decltype(_impl_.path_){}
     , decltype(_impl_.referrer_url_){}
-    , decltype(_impl_.inode_){}};
+    , decltype(_impl_.inode_){}
+    , decltype(_impl_.crtime_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.source_url_.InitDefault();
@@ -2869,7 +2874,9 @@ FileMetadata::FileMetadata(const FileMetadata& from)
     _this->_impl_.referrer_url_.Set(from._internal_referrer_url(), 
       _this->GetArenaForAllocation());
   }
-  _this->_impl_.inode_ = from._impl_.inode_;
+  ::memcpy(&_impl_.inode_, &from._impl_.inode_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.crtime_) -
+    reinterpret_cast<char*>(&_impl_.inode_)) + sizeof(_impl_.crtime_));
   // @@protoc_insertion_point(copy_constructor:dlp.FileMetadata)
 }
 
@@ -2884,6 +2891,7 @@ inline void FileMetadata::SharedCtor(
     , decltype(_impl_.path_){}
     , decltype(_impl_.referrer_url_){}
     , decltype(_impl_.inode_){uint64_t{0u}}
+    , decltype(_impl_.crtime_){uint64_t{0u}}
   };
   _impl_.source_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -2937,7 +2945,11 @@ void FileMetadata::Clear() {
       _impl_.referrer_url_.ClearNonDefaultToEmpty();
     }
   }
-  _impl_.inode_ = uint64_t{0u};
+  if (cached_has_bits & 0x00000018u) {
+    ::memset(&_impl_.inode_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.crtime_) -
+        reinterpret_cast<char*>(&_impl_.inode_)) + sizeof(_impl_.crtime_));
+  }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -2981,6 +2993,15 @@ const char* FileMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_referrer_url();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint64 crtime = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _Internal::set_has_crtime(&has_bits);
+          _impl_.crtime_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3040,6 +3061,12 @@ uint8_t* FileMetadata::_InternalSerialize(
         4, this->_internal_referrer_url(), target);
   }
 
+  // optional uint64 crtime = 5;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_crtime(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3057,7 +3084,7 @@ size_t FileMetadata::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional string source_url = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -3084,6 +3111,11 @@ size_t FileMetadata::ByteSizeLong() const {
       total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_inode());
     }
 
+    // optional uint64 crtime = 5;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_crtime());
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -3107,7 +3139,7 @@ void FileMetadata::MergeFrom(const FileMetadata& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_source_url(from._internal_source_url());
     }
@@ -3119,6 +3151,9 @@ void FileMetadata::MergeFrom(const FileMetadata& from) {
     }
     if (cached_has_bits & 0x00000008u) {
       _this->_impl_.inode_ = from._impl_.inode_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      _this->_impl_.crtime_ = from._impl_.crtime_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
@@ -3154,7 +3189,12 @@ void FileMetadata::InternalSwap(FileMetadata* other) {
       &_impl_.referrer_url_, lhs_arena,
       &other->_impl_.referrer_url_, rhs_arena
   );
-  swap(_impl_.inode_, other->_impl_.inode_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FileMetadata, _impl_.crtime_)
+      + sizeof(FileMetadata::_impl_.crtime_)
+      - PROTOBUF_FIELD_OFFSET(FileMetadata, _impl_.inode_)>(
+          reinterpret_cast<char*>(&_impl_.inode_),
+          reinterpret_cast<char*>(&other->_impl_.inode_));
 }
 
 std::string FileMetadata::GetTypeName() const {

@@ -71,8 +71,6 @@ using ::testing::SetArgPointee;
 using ::testing::StartsWith;
 
 namespace {
-constexpr int kEphemeralVFSFragmentSize = 1 << 10;
-constexpr int kEphemeralVFSSize = 1 << 12;
 
 struct Attributes {
   mode_t mode;
@@ -737,12 +735,11 @@ class PersistentSystemTest : public ::testing::Test {
 
 namespace {
 
-TEST_F(PersistentSystemTest, Ecryptfs_MountPristineTouchFileUnmountMountAgain) {
-  // Verify mount and unmount of ecryptfs vault and file preservation.
-  const std::string kContent{"some_content"};
-  const base::FilePath kFile{"some_file"};
+TEST_F(PersistentSystemTest, NoEcryptfsMountWhenForcedDircrypto) {
+  // Verify force_dircrypto flag prohibits ecryptfs mounts.
   const FileSystemKeyset keyset = FileSystemKeyset::CreateRandom();
-  const CryptohomeVault::Options options = {
+
+  CryptohomeVault::Options options = {
       .force_type = EncryptedContainerType::kEcryptfs,
   };
 
@@ -751,29 +748,15 @@ TEST_F(PersistentSystemTest, Ecryptfs_MountPristineTouchFileUnmountMountAgain) {
   VerifyFS(kUser, MountType::ECRYPTFS, /*expect_present=*/true,
            /*downloads_bind_mount=*/true);
 
-  ASSERT_TRUE(platform_.WriteStringToFile(
-      base::FilePath(kHomeChronosUser).Append(kFile), kContent));
-
   ASSERT_TRUE(mount_->UnmountCryptohome());
   VerifyFS(kUser, MountType::ECRYPTFS, /*expect_present=*/false,
            /*downloads_bind_mount=*/true);
 
-  ASSERT_FALSE(
-      platform_.FileExists(base::FilePath(kHomeChronosUser).Append(kFile)));
-
-  MockPreclearKeyring(/*success=*/true);
-  ASSERT_THAT(mount_->MountCryptohome(kUser, keyset, options), IsOk());
-  VerifyFS(kUser, MountType::ECRYPTFS, /*expect_present=*/true,
-           /*downloads_bind_mount=*/true);
-
-  std::string result;
-  ASSERT_TRUE(platform_.ReadFileToString(
-      base::FilePath(kHomeChronosUser).Append(kFile), &result));
-  ASSERT_THAT(result, kContent);
-
-  ASSERT_TRUE(mount_->UnmountCryptohome());
-  VerifyFS(kUser, MountType::ECRYPTFS, /*expect_present=*/false,
-           /*downloads_bind_mount=*/true);
+  options = {
+      .block_ecryptfs = true,
+  };
+  ASSERT_THAT(mount_->MountCryptohome(kUser, keyset, options),
+              IsError(MOUNT_ERROR_OLD_ENCRYPTION));
 }
 
 TEST_F(PersistentSystemTest, MigrateEcryptfsToFscrypt) {
@@ -1030,8 +1013,6 @@ class EphemeralSystemTest : public ::testing::Test {
     mount_ =
         new Mount(&platform_, homedirs_.get(), /*legacy_mount=*/true,
                   /*bind_mount_downloads=*/true, /*use_local_mounter=*/true);
-
-    SetupVFSMock();
   }
 
  protected:
@@ -1109,36 +1090,9 @@ class EphemeralSystemTest : public ::testing::Test {
                                            expected_ephemeral_mount_map));
     }
   }
-
-  void SetupVFSMock() {
-    ephemeral_statvfs_ = {0};
-    ephemeral_statvfs_.f_frsize = kEphemeralVFSFragmentSize;
-    ephemeral_statvfs_.f_blocks = kEphemeralVFSSize / kEphemeralVFSFragmentSize;
-
-    ON_CALL(platform_, StatVFS(base::FilePath(kEphemeralCryptohomeDir), _))
-        .WillByDefault(
-            DoAll(SetArgPointee<1>(ephemeral_statvfs_), Return(true)));
-  }
 };
 
 namespace {
-
-TEST_F(EphemeralSystemTest, EphemeralMount) {
-  EXPECT_CALL(platform_, FormatExt4(Property(&base::FilePath::value,
-                                             StartsWith(kDevLoopPrefix)),
-                                    _, _))
-      .WillOnce(Return(true));
-  EXPECT_CALL(platform_, SetSELinuxContext(EphemeralMountPoint(kUser), _))
-      .WillOnce(Return(true));
-
-  ASSERT_THAT(mount_->MountEphemeralCryptohome(kUser), IsOk());
-
-  VerifyFS(kUser, /*expect_present=*/true);
-
-  ASSERT_TRUE(mount_->UnmountCryptohome());
-
-  VerifyFS(kUser, /*expect_present=*/false);
-}
 
 TEST_F(EphemeralSystemTest, EpmeneralMount_VFSFailure) {
   // Checks the case when ephemeral statvfs call fails.

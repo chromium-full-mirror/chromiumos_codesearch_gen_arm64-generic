@@ -52,6 +52,30 @@ extern GetFirmwareManagementParametersReplyDefaultTypeInternal _GetFirmwareManag
 class GetFirmwareManagementParametersRequest;
 struct GetFirmwareManagementParametersRequestDefaultTypeInternal;
 extern GetFirmwareManagementParametersRequestDefaultTypeInternal _GetFirmwareManagementParametersRequest_default_instance_;
+class InstallAttributesFinalizeReply;
+struct InstallAttributesFinalizeReplyDefaultTypeInternal;
+extern InstallAttributesFinalizeReplyDefaultTypeInternal _InstallAttributesFinalizeReply_default_instance_;
+class InstallAttributesFinalizeRequest;
+struct InstallAttributesFinalizeRequestDefaultTypeInternal;
+extern InstallAttributesFinalizeRequestDefaultTypeInternal _InstallAttributesFinalizeRequest_default_instance_;
+class InstallAttributesGetReply;
+struct InstallAttributesGetReplyDefaultTypeInternal;
+extern InstallAttributesGetReplyDefaultTypeInternal _InstallAttributesGetReply_default_instance_;
+class InstallAttributesGetRequest;
+struct InstallAttributesGetRequestDefaultTypeInternal;
+extern InstallAttributesGetRequestDefaultTypeInternal _InstallAttributesGetRequest_default_instance_;
+class InstallAttributesGetStatusReply;
+struct InstallAttributesGetStatusReplyDefaultTypeInternal;
+extern InstallAttributesGetStatusReplyDefaultTypeInternal _InstallAttributesGetStatusReply_default_instance_;
+class InstallAttributesGetStatusRequest;
+struct InstallAttributesGetStatusRequestDefaultTypeInternal;
+extern InstallAttributesGetStatusRequestDefaultTypeInternal _InstallAttributesGetStatusRequest_default_instance_;
+class InstallAttributesSetReply;
+struct InstallAttributesSetReplyDefaultTypeInternal;
+extern InstallAttributesSetReplyDefaultTypeInternal _InstallAttributesSetReply_default_instance_;
+class InstallAttributesSetRequest;
+struct InstallAttributesSetRequestDefaultTypeInternal;
+extern InstallAttributesSetRequestDefaultTypeInternal _InstallAttributesSetRequest_default_instance_;
 class RemoveFirmwareManagementParametersReply;
 struct RemoveFirmwareManagementParametersReplyDefaultTypeInternal;
 extern RemoveFirmwareManagementParametersReplyDefaultTypeInternal _RemoveFirmwareManagementParametersReply_default_instance_;
@@ -69,6 +93,14 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::device_management::FirmwareManagementParameters* Arena::CreateMaybeMessage<::device_management::FirmwareManagementParameters>(Arena*);
 template<> ::device_management::GetFirmwareManagementParametersReply* Arena::CreateMaybeMessage<::device_management::GetFirmwareManagementParametersReply>(Arena*);
 template<> ::device_management::GetFirmwareManagementParametersRequest* Arena::CreateMaybeMessage<::device_management::GetFirmwareManagementParametersRequest>(Arena*);
+template<> ::device_management::InstallAttributesFinalizeReply* Arena::CreateMaybeMessage<::device_management::InstallAttributesFinalizeReply>(Arena*);
+template<> ::device_management::InstallAttributesFinalizeRequest* Arena::CreateMaybeMessage<::device_management::InstallAttributesFinalizeRequest>(Arena*);
+template<> ::device_management::InstallAttributesGetReply* Arena::CreateMaybeMessage<::device_management::InstallAttributesGetReply>(Arena*);
+template<> ::device_management::InstallAttributesGetRequest* Arena::CreateMaybeMessage<::device_management::InstallAttributesGetRequest>(Arena*);
+template<> ::device_management::InstallAttributesGetStatusReply* Arena::CreateMaybeMessage<::device_management::InstallAttributesGetStatusReply>(Arena*);
+template<> ::device_management::InstallAttributesGetStatusRequest* Arena::CreateMaybeMessage<::device_management::InstallAttributesGetStatusRequest>(Arena*);
+template<> ::device_management::InstallAttributesSetReply* Arena::CreateMaybeMessage<::device_management::InstallAttributesSetReply>(Arena*);
+template<> ::device_management::InstallAttributesSetRequest* Arena::CreateMaybeMessage<::device_management::InstallAttributesSetRequest>(Arena*);
 template<> ::device_management::RemoveFirmwareManagementParametersReply* Arena::CreateMaybeMessage<::device_management::RemoveFirmwareManagementParametersReply>(Arena*);
 template<> ::device_management::RemoveFirmwareManagementParametersRequest* Arena::CreateMaybeMessage<::device_management::RemoveFirmwareManagementParametersRequest>(Arena*);
 template<> ::device_management::SetFirmwareManagementParametersReply* Arena::CreateMaybeMessage<::device_management::SetFirmwareManagementParametersReply>(Arena*);
@@ -102,7 +134,1120 @@ inline const std::string& DeviceManagementErrorCode_Name(T enum_t_value) {
 }
 bool DeviceManagementErrorCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceManagementErrorCode* value);
+enum InstallAttributesState : int {
+  UNKNOWN = 0,
+  TPM_NOT_OWNED = 1,
+  FIRST_INSTALL = 2,
+  VALID = 3,
+  INVALID = 4,
+  InstallAttributesState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  InstallAttributesState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool InstallAttributesState_IsValid(int value);
+constexpr InstallAttributesState InstallAttributesState_MIN = UNKNOWN;
+constexpr InstallAttributesState InstallAttributesState_MAX = INVALID;
+constexpr int InstallAttributesState_ARRAYSIZE = InstallAttributesState_MAX + 1;
+
+const std::string& InstallAttributesState_Name(InstallAttributesState value);
+template<typename T>
+inline const std::string& InstallAttributesState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, InstallAttributesState>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function InstallAttributesState_Name.");
+  return InstallAttributesState_Name(static_cast<InstallAttributesState>(enum_t_value));
+}
+bool InstallAttributesState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, InstallAttributesState* value);
 // ===================================================================
+
+class InstallAttributesGetRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.InstallAttributesGetRequest) */ {
+ public:
+  inline InstallAttributesGetRequest() : InstallAttributesGetRequest(nullptr) {}
+  ~InstallAttributesGetRequest() override;
+  explicit PROTOBUF_CONSTEXPR InstallAttributesGetRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallAttributesGetRequest(const InstallAttributesGetRequest& from);
+  InstallAttributesGetRequest(InstallAttributesGetRequest&& from) noexcept
+    : InstallAttributesGetRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallAttributesGetRequest& operator=(const InstallAttributesGetRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallAttributesGetRequest& operator=(InstallAttributesGetRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallAttributesGetRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallAttributesGetRequest* internal_default_instance() {
+    return reinterpret_cast<const InstallAttributesGetRequest*>(
+               &_InstallAttributesGetRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(InstallAttributesGetRequest& a, InstallAttributesGetRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallAttributesGetRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallAttributesGetRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallAttributesGetRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallAttributesGetRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallAttributesGetRequest& from);
+  void MergeFrom(const InstallAttributesGetRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallAttributesGetRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "device_management.InstallAttributesGetRequest";
+  }
+  protected:
+  explicit InstallAttributesGetRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // @@protoc_insertion_point(class_scope:device_management.InstallAttributesGetRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InstallAttributesGetReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.InstallAttributesGetReply) */ {
+ public:
+  inline InstallAttributesGetReply() : InstallAttributesGetReply(nullptr) {}
+  ~InstallAttributesGetReply() override;
+  explicit PROTOBUF_CONSTEXPR InstallAttributesGetReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallAttributesGetReply(const InstallAttributesGetReply& from);
+  InstallAttributesGetReply(InstallAttributesGetReply&& from) noexcept
+    : InstallAttributesGetReply() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallAttributesGetReply& operator=(const InstallAttributesGetReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallAttributesGetReply& operator=(InstallAttributesGetReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallAttributesGetReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallAttributesGetReply* internal_default_instance() {
+    return reinterpret_cast<const InstallAttributesGetReply*>(
+               &_InstallAttributesGetReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(InstallAttributesGetReply& a, InstallAttributesGetReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallAttributesGetReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallAttributesGetReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallAttributesGetReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallAttributesGetReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallAttributesGetReply& from);
+  void MergeFrom(const InstallAttributesGetReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallAttributesGetReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "device_management.InstallAttributesGetReply";
+  }
+  protected:
+  explicit InstallAttributesGetReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kValueFieldNumber = 2,
+    kErrorFieldNumber = 1,
+  };
+  // bytes value = 2;
+  void clear_value();
+  const std::string& value() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_value(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_value();
+  PROTOBUF_NODISCARD std::string* release_value();
+  void set_allocated_value(std::string* value);
+  private:
+  const std::string& _internal_value() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_value(const std::string& value);
+  std::string* _internal_mutable_value();
+  public:
+
+  // .device_management.DeviceManagementErrorCode error = 1;
+  void clear_error();
+  ::device_management::DeviceManagementErrorCode error() const;
+  void set_error(::device_management::DeviceManagementErrorCode value);
+  private:
+  ::device_management::DeviceManagementErrorCode _internal_error() const;
+  void _internal_set_error(::device_management::DeviceManagementErrorCode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:device_management.InstallAttributesGetReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr value_;
+    int error_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InstallAttributesSetRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.InstallAttributesSetRequest) */ {
+ public:
+  inline InstallAttributesSetRequest() : InstallAttributesSetRequest(nullptr) {}
+  ~InstallAttributesSetRequest() override;
+  explicit PROTOBUF_CONSTEXPR InstallAttributesSetRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallAttributesSetRequest(const InstallAttributesSetRequest& from);
+  InstallAttributesSetRequest(InstallAttributesSetRequest&& from) noexcept
+    : InstallAttributesSetRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallAttributesSetRequest& operator=(const InstallAttributesSetRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallAttributesSetRequest& operator=(InstallAttributesSetRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallAttributesSetRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallAttributesSetRequest* internal_default_instance() {
+    return reinterpret_cast<const InstallAttributesSetRequest*>(
+               &_InstallAttributesSetRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(InstallAttributesSetRequest& a, InstallAttributesSetRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallAttributesSetRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallAttributesSetRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallAttributesSetRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallAttributesSetRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallAttributesSetRequest& from);
+  void MergeFrom(const InstallAttributesSetRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallAttributesSetRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "device_management.InstallAttributesSetRequest";
+  }
+  protected:
+  explicit InstallAttributesSetRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kValueFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // bytes value = 2;
+  void clear_value();
+  const std::string& value() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_value(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_value();
+  PROTOBUF_NODISCARD std::string* release_value();
+  void set_allocated_value(std::string* value);
+  private:
+  const std::string& _internal_value() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_value(const std::string& value);
+  std::string* _internal_mutable_value();
+  public:
+
+  // @@protoc_insertion_point(class_scope:device_management.InstallAttributesSetRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr value_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InstallAttributesSetReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.InstallAttributesSetReply) */ {
+ public:
+  inline InstallAttributesSetReply() : InstallAttributesSetReply(nullptr) {}
+  ~InstallAttributesSetReply() override;
+  explicit PROTOBUF_CONSTEXPR InstallAttributesSetReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallAttributesSetReply(const InstallAttributesSetReply& from);
+  InstallAttributesSetReply(InstallAttributesSetReply&& from) noexcept
+    : InstallAttributesSetReply() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallAttributesSetReply& operator=(const InstallAttributesSetReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallAttributesSetReply& operator=(InstallAttributesSetReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallAttributesSetReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallAttributesSetReply* internal_default_instance() {
+    return reinterpret_cast<const InstallAttributesSetReply*>(
+               &_InstallAttributesSetReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(InstallAttributesSetReply& a, InstallAttributesSetReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallAttributesSetReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallAttributesSetReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallAttributesSetReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallAttributesSetReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallAttributesSetReply& from);
+  void MergeFrom(const InstallAttributesSetReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallAttributesSetReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "device_management.InstallAttributesSetReply";
+  }
+  protected:
+  explicit InstallAttributesSetReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorFieldNumber = 1,
+  };
+  // .device_management.DeviceManagementErrorCode error = 1;
+  void clear_error();
+  ::device_management::DeviceManagementErrorCode error() const;
+  void set_error(::device_management::DeviceManagementErrorCode value);
+  private:
+  ::device_management::DeviceManagementErrorCode _internal_error() const;
+  void _internal_set_error(::device_management::DeviceManagementErrorCode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:device_management.InstallAttributesSetReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int error_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InstallAttributesFinalizeRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.InstallAttributesFinalizeRequest) */ {
+ public:
+  inline InstallAttributesFinalizeRequest() : InstallAttributesFinalizeRequest(nullptr) {}
+  ~InstallAttributesFinalizeRequest() override;
+  explicit PROTOBUF_CONSTEXPR InstallAttributesFinalizeRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallAttributesFinalizeRequest(const InstallAttributesFinalizeRequest& from);
+  InstallAttributesFinalizeRequest(InstallAttributesFinalizeRequest&& from) noexcept
+    : InstallAttributesFinalizeRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallAttributesFinalizeRequest& operator=(const InstallAttributesFinalizeRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallAttributesFinalizeRequest& operator=(InstallAttributesFinalizeRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallAttributesFinalizeRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallAttributesFinalizeRequest* internal_default_instance() {
+    return reinterpret_cast<const InstallAttributesFinalizeRequest*>(
+               &_InstallAttributesFinalizeRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(InstallAttributesFinalizeRequest& a, InstallAttributesFinalizeRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallAttributesFinalizeRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallAttributesFinalizeRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallAttributesFinalizeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallAttributesFinalizeRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallAttributesFinalizeRequest& from);
+  void MergeFrom(const InstallAttributesFinalizeRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallAttributesFinalizeRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "device_management.InstallAttributesFinalizeRequest";
+  }
+  protected:
+  explicit InstallAttributesFinalizeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:device_management.InstallAttributesFinalizeRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InstallAttributesFinalizeReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.InstallAttributesFinalizeReply) */ {
+ public:
+  inline InstallAttributesFinalizeReply() : InstallAttributesFinalizeReply(nullptr) {}
+  ~InstallAttributesFinalizeReply() override;
+  explicit PROTOBUF_CONSTEXPR InstallAttributesFinalizeReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallAttributesFinalizeReply(const InstallAttributesFinalizeReply& from);
+  InstallAttributesFinalizeReply(InstallAttributesFinalizeReply&& from) noexcept
+    : InstallAttributesFinalizeReply() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallAttributesFinalizeReply& operator=(const InstallAttributesFinalizeReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallAttributesFinalizeReply& operator=(InstallAttributesFinalizeReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallAttributesFinalizeReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallAttributesFinalizeReply* internal_default_instance() {
+    return reinterpret_cast<const InstallAttributesFinalizeReply*>(
+               &_InstallAttributesFinalizeReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(InstallAttributesFinalizeReply& a, InstallAttributesFinalizeReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallAttributesFinalizeReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallAttributesFinalizeReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallAttributesFinalizeReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallAttributesFinalizeReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallAttributesFinalizeReply& from);
+  void MergeFrom(const InstallAttributesFinalizeReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallAttributesFinalizeReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "device_management.InstallAttributesFinalizeReply";
+  }
+  protected:
+  explicit InstallAttributesFinalizeReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorFieldNumber = 1,
+  };
+  // .device_management.DeviceManagementErrorCode error = 1;
+  void clear_error();
+  ::device_management::DeviceManagementErrorCode error() const;
+  void set_error(::device_management::DeviceManagementErrorCode value);
+  private:
+  ::device_management::DeviceManagementErrorCode _internal_error() const;
+  void _internal_set_error(::device_management::DeviceManagementErrorCode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:device_management.InstallAttributesFinalizeReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int error_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InstallAttributesGetStatusRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.InstallAttributesGetStatusRequest) */ {
+ public:
+  inline InstallAttributesGetStatusRequest() : InstallAttributesGetStatusRequest(nullptr) {}
+  ~InstallAttributesGetStatusRequest() override;
+  explicit PROTOBUF_CONSTEXPR InstallAttributesGetStatusRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallAttributesGetStatusRequest(const InstallAttributesGetStatusRequest& from);
+  InstallAttributesGetStatusRequest(InstallAttributesGetStatusRequest&& from) noexcept
+    : InstallAttributesGetStatusRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallAttributesGetStatusRequest& operator=(const InstallAttributesGetStatusRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallAttributesGetStatusRequest& operator=(InstallAttributesGetStatusRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallAttributesGetStatusRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallAttributesGetStatusRequest* internal_default_instance() {
+    return reinterpret_cast<const InstallAttributesGetStatusRequest*>(
+               &_InstallAttributesGetStatusRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(InstallAttributesGetStatusRequest& a, InstallAttributesGetStatusRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallAttributesGetStatusRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallAttributesGetStatusRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallAttributesGetStatusRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallAttributesGetStatusRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallAttributesGetStatusRequest& from);
+  void MergeFrom(const InstallAttributesGetStatusRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallAttributesGetStatusRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "device_management.InstallAttributesGetStatusRequest";
+  }
+  protected:
+  explicit InstallAttributesGetStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:device_management.InstallAttributesGetStatusRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InstallAttributesGetStatusReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.InstallAttributesGetStatusReply) */ {
+ public:
+  inline InstallAttributesGetStatusReply() : InstallAttributesGetStatusReply(nullptr) {}
+  ~InstallAttributesGetStatusReply() override;
+  explicit PROTOBUF_CONSTEXPR InstallAttributesGetStatusReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallAttributesGetStatusReply(const InstallAttributesGetStatusReply& from);
+  InstallAttributesGetStatusReply(InstallAttributesGetStatusReply&& from) noexcept
+    : InstallAttributesGetStatusReply() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallAttributesGetStatusReply& operator=(const InstallAttributesGetStatusReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallAttributesGetStatusReply& operator=(InstallAttributesGetStatusReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallAttributesGetStatusReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallAttributesGetStatusReply* internal_default_instance() {
+    return reinterpret_cast<const InstallAttributesGetStatusReply*>(
+               &_InstallAttributesGetStatusReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(InstallAttributesGetStatusReply& a, InstallAttributesGetStatusReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallAttributesGetStatusReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallAttributesGetStatusReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallAttributesGetStatusReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallAttributesGetStatusReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallAttributesGetStatusReply& from);
+  void MergeFrom(const InstallAttributesGetStatusReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallAttributesGetStatusReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "device_management.InstallAttributesGetStatusReply";
+  }
+  protected:
+  explicit InstallAttributesGetStatusReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorFieldNumber = 1,
+    kCountFieldNumber = 2,
+    kIsSecureFieldNumber = 3,
+    kStateFieldNumber = 4,
+  };
+  // .device_management.DeviceManagementErrorCode error = 1;
+  void clear_error();
+  ::device_management::DeviceManagementErrorCode error() const;
+  void set_error(::device_management::DeviceManagementErrorCode value);
+  private:
+  ::device_management::DeviceManagementErrorCode _internal_error() const;
+  void _internal_set_error(::device_management::DeviceManagementErrorCode value);
+  public:
+
+  // int32 count = 2;
+  void clear_count();
+  int32_t count() const;
+  void set_count(int32_t value);
+  private:
+  int32_t _internal_count() const;
+  void _internal_set_count(int32_t value);
+  public:
+
+  // bool is_secure = 3;
+  void clear_is_secure();
+  bool is_secure() const;
+  void set_is_secure(bool value);
+  private:
+  bool _internal_is_secure() const;
+  void _internal_set_is_secure(bool value);
+  public:
+
+  // .device_management.InstallAttributesState state = 4;
+  void clear_state();
+  ::device_management::InstallAttributesState state() const;
+  void set_state(::device_management::InstallAttributesState value);
+  private:
+  ::device_management::InstallAttributesState _internal_state() const;
+  void _internal_set_state(::device_management::InstallAttributesState value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:device_management.InstallAttributesGetStatusReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int error_;
+    int32_t count_;
+    bool is_secure_;
+    int state_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
 
 class FirmwareManagementParameters final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.FirmwareManagementParameters) */ {
@@ -143,7 +1288,7 @@ class FirmwareManagementParameters final :
                &_FirmwareManagementParameters_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    8;
 
   friend void swap(FirmwareManagementParameters& a, FirmwareManagementParameters& b) {
     a.Swap(&b);
@@ -289,7 +1434,7 @@ class GetFirmwareManagementParametersRequest final :
                &_GetFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    9;
 
   friend void swap(GetFirmwareManagementParametersRequest& a, GetFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -406,7 +1551,7 @@ class GetFirmwareManagementParametersReply final :
                &_GetFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    10;
 
   friend void swap(GetFirmwareManagementParametersReply& a, GetFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -556,7 +1701,7 @@ class RemoveFirmwareManagementParametersRequest final :
                &_RemoveFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    11;
 
   friend void swap(RemoveFirmwareManagementParametersRequest& a, RemoveFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -673,7 +1818,7 @@ class RemoveFirmwareManagementParametersReply final :
                &_RemoveFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    12;
 
   friend void swap(RemoveFirmwareManagementParametersReply& a, RemoveFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -803,7 +1948,7 @@ class SetFirmwareManagementParametersRequest final :
                &_SetFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    13;
 
   friend void swap(SetFirmwareManagementParametersRequest& a, SetFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -942,7 +2087,7 @@ class SetFirmwareManagementParametersReply final :
                &_SetFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    14;
 
   friend void swap(SetFirmwareManagementParametersReply& a, SetFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -1040,6 +2185,378 @@ class SetFirmwareManagementParametersReply final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// InstallAttributesGetRequest
+
+// string name = 1;
+inline void InstallAttributesGetRequest::clear_name() {
+  _impl_.name_.ClearToEmpty();
+}
+inline const std::string& InstallAttributesGetRequest::name() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesGetRequest.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InstallAttributesGetRequest::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesGetRequest.name)
+}
+inline std::string* InstallAttributesGetRequest::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:device_management.InstallAttributesGetRequest.name)
+  return _s;
+}
+inline const std::string& InstallAttributesGetRequest::_internal_name() const {
+  return _impl_.name_.Get();
+}
+inline void InstallAttributesGetRequest::_internal_set_name(const std::string& value) {
+  
+  _impl_.name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InstallAttributesGetRequest::_internal_mutable_name() {
+  
+  return _impl_.name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InstallAttributesGetRequest::release_name() {
+  // @@protoc_insertion_point(field_release:device_management.InstallAttributesGetRequest.name)
+  return _impl_.name_.Release();
+}
+inline void InstallAttributesGetRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.name_.IsDefault()) {
+    _impl_.name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:device_management.InstallAttributesGetRequest.name)
+}
+
+// -------------------------------------------------------------------
+
+// InstallAttributesGetReply
+
+// .device_management.DeviceManagementErrorCode error = 1;
+inline void InstallAttributesGetReply::clear_error() {
+  _impl_.error_ = 0;
+}
+inline ::device_management::DeviceManagementErrorCode InstallAttributesGetReply::_internal_error() const {
+  return static_cast< ::device_management::DeviceManagementErrorCode >(_impl_.error_);
+}
+inline ::device_management::DeviceManagementErrorCode InstallAttributesGetReply::error() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesGetReply.error)
+  return _internal_error();
+}
+inline void InstallAttributesGetReply::_internal_set_error(::device_management::DeviceManagementErrorCode value) {
+  
+  _impl_.error_ = value;
+}
+inline void InstallAttributesGetReply::set_error(::device_management::DeviceManagementErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesGetReply.error)
+}
+
+// bytes value = 2;
+inline void InstallAttributesGetReply::clear_value() {
+  _impl_.value_.ClearToEmpty();
+}
+inline const std::string& InstallAttributesGetReply::value() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesGetReply.value)
+  return _internal_value();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InstallAttributesGetReply::set_value(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.value_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesGetReply.value)
+}
+inline std::string* InstallAttributesGetReply::mutable_value() {
+  std::string* _s = _internal_mutable_value();
+  // @@protoc_insertion_point(field_mutable:device_management.InstallAttributesGetReply.value)
+  return _s;
+}
+inline const std::string& InstallAttributesGetReply::_internal_value() const {
+  return _impl_.value_.Get();
+}
+inline void InstallAttributesGetReply::_internal_set_value(const std::string& value) {
+  
+  _impl_.value_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InstallAttributesGetReply::_internal_mutable_value() {
+  
+  return _impl_.value_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InstallAttributesGetReply::release_value() {
+  // @@protoc_insertion_point(field_release:device_management.InstallAttributesGetReply.value)
+  return _impl_.value_.Release();
+}
+inline void InstallAttributesGetReply::set_allocated_value(std::string* value) {
+  if (value != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.value_.SetAllocated(value, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.value_.IsDefault()) {
+    _impl_.value_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:device_management.InstallAttributesGetReply.value)
+}
+
+// -------------------------------------------------------------------
+
+// InstallAttributesSetRequest
+
+// string name = 1;
+inline void InstallAttributesSetRequest::clear_name() {
+  _impl_.name_.ClearToEmpty();
+}
+inline const std::string& InstallAttributesSetRequest::name() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesSetRequest.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InstallAttributesSetRequest::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesSetRequest.name)
+}
+inline std::string* InstallAttributesSetRequest::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:device_management.InstallAttributesSetRequest.name)
+  return _s;
+}
+inline const std::string& InstallAttributesSetRequest::_internal_name() const {
+  return _impl_.name_.Get();
+}
+inline void InstallAttributesSetRequest::_internal_set_name(const std::string& value) {
+  
+  _impl_.name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InstallAttributesSetRequest::_internal_mutable_name() {
+  
+  return _impl_.name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InstallAttributesSetRequest::release_name() {
+  // @@protoc_insertion_point(field_release:device_management.InstallAttributesSetRequest.name)
+  return _impl_.name_.Release();
+}
+inline void InstallAttributesSetRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.name_.IsDefault()) {
+    _impl_.name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:device_management.InstallAttributesSetRequest.name)
+}
+
+// bytes value = 2;
+inline void InstallAttributesSetRequest::clear_value() {
+  _impl_.value_.ClearToEmpty();
+}
+inline const std::string& InstallAttributesSetRequest::value() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesSetRequest.value)
+  return _internal_value();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InstallAttributesSetRequest::set_value(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.value_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesSetRequest.value)
+}
+inline std::string* InstallAttributesSetRequest::mutable_value() {
+  std::string* _s = _internal_mutable_value();
+  // @@protoc_insertion_point(field_mutable:device_management.InstallAttributesSetRequest.value)
+  return _s;
+}
+inline const std::string& InstallAttributesSetRequest::_internal_value() const {
+  return _impl_.value_.Get();
+}
+inline void InstallAttributesSetRequest::_internal_set_value(const std::string& value) {
+  
+  _impl_.value_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InstallAttributesSetRequest::_internal_mutable_value() {
+  
+  return _impl_.value_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InstallAttributesSetRequest::release_value() {
+  // @@protoc_insertion_point(field_release:device_management.InstallAttributesSetRequest.value)
+  return _impl_.value_.Release();
+}
+inline void InstallAttributesSetRequest::set_allocated_value(std::string* value) {
+  if (value != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.value_.SetAllocated(value, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.value_.IsDefault()) {
+    _impl_.value_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:device_management.InstallAttributesSetRequest.value)
+}
+
+// -------------------------------------------------------------------
+
+// InstallAttributesSetReply
+
+// .device_management.DeviceManagementErrorCode error = 1;
+inline void InstallAttributesSetReply::clear_error() {
+  _impl_.error_ = 0;
+}
+inline ::device_management::DeviceManagementErrorCode InstallAttributesSetReply::_internal_error() const {
+  return static_cast< ::device_management::DeviceManagementErrorCode >(_impl_.error_);
+}
+inline ::device_management::DeviceManagementErrorCode InstallAttributesSetReply::error() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesSetReply.error)
+  return _internal_error();
+}
+inline void InstallAttributesSetReply::_internal_set_error(::device_management::DeviceManagementErrorCode value) {
+  
+  _impl_.error_ = value;
+}
+inline void InstallAttributesSetReply::set_error(::device_management::DeviceManagementErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesSetReply.error)
+}
+
+// -------------------------------------------------------------------
+
+// InstallAttributesFinalizeRequest
+
+// -------------------------------------------------------------------
+
+// InstallAttributesFinalizeReply
+
+// .device_management.DeviceManagementErrorCode error = 1;
+inline void InstallAttributesFinalizeReply::clear_error() {
+  _impl_.error_ = 0;
+}
+inline ::device_management::DeviceManagementErrorCode InstallAttributesFinalizeReply::_internal_error() const {
+  return static_cast< ::device_management::DeviceManagementErrorCode >(_impl_.error_);
+}
+inline ::device_management::DeviceManagementErrorCode InstallAttributesFinalizeReply::error() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesFinalizeReply.error)
+  return _internal_error();
+}
+inline void InstallAttributesFinalizeReply::_internal_set_error(::device_management::DeviceManagementErrorCode value) {
+  
+  _impl_.error_ = value;
+}
+inline void InstallAttributesFinalizeReply::set_error(::device_management::DeviceManagementErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesFinalizeReply.error)
+}
+
+// -------------------------------------------------------------------
+
+// InstallAttributesGetStatusRequest
+
+// -------------------------------------------------------------------
+
+// InstallAttributesGetStatusReply
+
+// .device_management.DeviceManagementErrorCode error = 1;
+inline void InstallAttributesGetStatusReply::clear_error() {
+  _impl_.error_ = 0;
+}
+inline ::device_management::DeviceManagementErrorCode InstallAttributesGetStatusReply::_internal_error() const {
+  return static_cast< ::device_management::DeviceManagementErrorCode >(_impl_.error_);
+}
+inline ::device_management::DeviceManagementErrorCode InstallAttributesGetStatusReply::error() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesGetStatusReply.error)
+  return _internal_error();
+}
+inline void InstallAttributesGetStatusReply::_internal_set_error(::device_management::DeviceManagementErrorCode value) {
+  
+  _impl_.error_ = value;
+}
+inline void InstallAttributesGetStatusReply::set_error(::device_management::DeviceManagementErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesGetStatusReply.error)
+}
+
+// int32 count = 2;
+inline void InstallAttributesGetStatusReply::clear_count() {
+  _impl_.count_ = 0;
+}
+inline int32_t InstallAttributesGetStatusReply::_internal_count() const {
+  return _impl_.count_;
+}
+inline int32_t InstallAttributesGetStatusReply::count() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesGetStatusReply.count)
+  return _internal_count();
+}
+inline void InstallAttributesGetStatusReply::_internal_set_count(int32_t value) {
+  
+  _impl_.count_ = value;
+}
+inline void InstallAttributesGetStatusReply::set_count(int32_t value) {
+  _internal_set_count(value);
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesGetStatusReply.count)
+}
+
+// bool is_secure = 3;
+inline void InstallAttributesGetStatusReply::clear_is_secure() {
+  _impl_.is_secure_ = false;
+}
+inline bool InstallAttributesGetStatusReply::_internal_is_secure() const {
+  return _impl_.is_secure_;
+}
+inline bool InstallAttributesGetStatusReply::is_secure() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesGetStatusReply.is_secure)
+  return _internal_is_secure();
+}
+inline void InstallAttributesGetStatusReply::_internal_set_is_secure(bool value) {
+  
+  _impl_.is_secure_ = value;
+}
+inline void InstallAttributesGetStatusReply::set_is_secure(bool value) {
+  _internal_set_is_secure(value);
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesGetStatusReply.is_secure)
+}
+
+// .device_management.InstallAttributesState state = 4;
+inline void InstallAttributesGetStatusReply::clear_state() {
+  _impl_.state_ = 0;
+}
+inline ::device_management::InstallAttributesState InstallAttributesGetStatusReply::_internal_state() const {
+  return static_cast< ::device_management::InstallAttributesState >(_impl_.state_);
+}
+inline ::device_management::InstallAttributesState InstallAttributesGetStatusReply::state() const {
+  // @@protoc_insertion_point(field_get:device_management.InstallAttributesGetStatusReply.state)
+  return _internal_state();
+}
+inline void InstallAttributesGetStatusReply::_internal_set_state(::device_management::InstallAttributesState value) {
+  
+  _impl_.state_ = value;
+}
+inline void InstallAttributesGetStatusReply::set_state(::device_management::InstallAttributesState value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:device_management.InstallAttributesGetStatusReply.state)
+}
+
+// -------------------------------------------------------------------
+
 // FirmwareManagementParameters
 
 // uint32 flags = 1;
@@ -1391,6 +2908,22 @@ inline void SetFirmwareManagementParametersReply::set_error(::device_management:
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -1399,6 +2932,7 @@ inline void SetFirmwareManagementParametersReply::set_error(::device_management:
 PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::device_management::DeviceManagementErrorCode> : ::std::true_type {};
+template <> struct is_proto_enum< ::device_management::InstallAttributesState> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 
