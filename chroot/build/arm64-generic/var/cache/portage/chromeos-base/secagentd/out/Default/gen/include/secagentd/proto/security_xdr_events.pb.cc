@@ -431,6 +431,7 @@ PROTOBUF_CONSTEXPR Authentication::Authentication(
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.auth_factor_)*/{}
+  , /*decltype(_impl_._auth_factor_cached_byte_size_)*/{0}
   , /*decltype(_impl_.num_failed_attempts_)*/uint64_t{0u}} {}
 struct AuthenticationDefaultTypeInternal {
   PROTOBUF_CONSTEXPR AuthenticationDefaultTypeInternal()
@@ -702,6 +703,89 @@ constexpr NetworkFlow_ApplicationProtocol NetworkFlow::ApplicationProtocol_MIN;
 constexpr NetworkFlow_ApplicationProtocol NetworkFlow::ApplicationProtocol_MAX;
 constexpr int NetworkFlow::ApplicationProtocol_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool Authentication_AuthenticationType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Authentication_AuthenticationType_strings[7] = {};
+
+static const char Authentication_AuthenticationType_names[] =
+  "AUTH_FINGERPRINT"
+  "AUTH_KIOSK"
+  "AUTH_ONLINE_RECOVERY"
+  "AUTH_PASSWORD"
+  "AUTH_PIN"
+  "AUTH_SMART_CARD"
+  "AUTH_TYPE_UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Authentication_AuthenticationType_entries[] = {
+  { {Authentication_AuthenticationType_names + 0, 16}, 6 },
+  { {Authentication_AuthenticationType_names + 16, 10}, 4 },
+  { {Authentication_AuthenticationType_names + 26, 20}, 3 },
+  { {Authentication_AuthenticationType_names + 46, 13}, 1 },
+  { {Authentication_AuthenticationType_names + 59, 8}, 2 },
+  { {Authentication_AuthenticationType_names + 67, 15}, 5 },
+  { {Authentication_AuthenticationType_names + 82, 17}, 0 },
+};
+
+static const int Authentication_AuthenticationType_entries_by_number[] = {
+  6, // 0 -> AUTH_TYPE_UNKNOWN
+  3, // 1 -> AUTH_PASSWORD
+  4, // 2 -> AUTH_PIN
+  2, // 3 -> AUTH_ONLINE_RECOVERY
+  1, // 4 -> AUTH_KIOSK
+  5, // 5 -> AUTH_SMART_CARD
+  0, // 6 -> AUTH_FINGERPRINT
+};
+
+const std::string& Authentication_AuthenticationType_Name(
+    Authentication_AuthenticationType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          Authentication_AuthenticationType_entries,
+          Authentication_AuthenticationType_entries_by_number,
+          7, Authentication_AuthenticationType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      Authentication_AuthenticationType_entries,
+      Authentication_AuthenticationType_entries_by_number,
+      7, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     Authentication_AuthenticationType_strings[idx].get();
+}
+bool Authentication_AuthenticationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Authentication_AuthenticationType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      Authentication_AuthenticationType_entries, 7, name, &int_value);
+  if (success) {
+    *value = static_cast<Authentication_AuthenticationType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr Authentication_AuthenticationType Authentication::AUTH_TYPE_UNKNOWN;
+constexpr Authentication_AuthenticationType Authentication::AUTH_PASSWORD;
+constexpr Authentication_AuthenticationType Authentication::AUTH_PIN;
+constexpr Authentication_AuthenticationType Authentication::AUTH_ONLINE_RECOVERY;
+constexpr Authentication_AuthenticationType Authentication::AUTH_KIOSK;
+constexpr Authentication_AuthenticationType Authentication::AUTH_SMART_CARD;
+constexpr Authentication_AuthenticationType Authentication::AUTH_FINGERPRINT;
+constexpr Authentication_AuthenticationType Authentication::AuthenticationType_MIN;
+constexpr Authentication_AuthenticationType Authentication::AuthenticationType_MAX;
+constexpr int Authentication::AuthenticationType_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool NetworkProtocol_IsValid(int value) {
   switch (value) {
     case 0:
@@ -829,77 +913,6 @@ bool SocketType_Parse(
       SocketType_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<SocketType>(int_value);
-  }
-  return success;
-}
-bool AuthenticationType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-      return true;
-    default:
-      return false;
-  }
-}
-
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AuthenticationType_strings[7] = {};
-
-static const char AuthenticationType_names[] =
-  "FINGERPRINT"
-  "KIOSK"
-  "ONLINE_RECOVERY"
-  "PASSWORD"
-  "PIN"
-  "SMART_CARD"
-  "UNKNOWN";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AuthenticationType_entries[] = {
-  { {AuthenticationType_names + 0, 11}, 6 },
-  { {AuthenticationType_names + 11, 5}, 4 },
-  { {AuthenticationType_names + 16, 15}, 3 },
-  { {AuthenticationType_names + 31, 8}, 1 },
-  { {AuthenticationType_names + 39, 3}, 2 },
-  { {AuthenticationType_names + 42, 10}, 5 },
-  { {AuthenticationType_names + 52, 7}, 0 },
-};
-
-static const int AuthenticationType_entries_by_number[] = {
-  6, // 0 -> UNKNOWN
-  3, // 1 -> PASSWORD
-  4, // 2 -> PIN
-  2, // 3 -> ONLINE_RECOVERY
-  1, // 4 -> KIOSK
-  5, // 5 -> SMART_CARD
-  0, // 6 -> FINGERPRINT
-};
-
-const std::string& AuthenticationType_Name(
-    AuthenticationType value) {
-  static const bool dummy =
-      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          AuthenticationType_entries,
-          AuthenticationType_entries_by_number,
-          7, AuthenticationType_strings);
-  (void) dummy;
-  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      AuthenticationType_entries,
-      AuthenticationType_entries_by_number,
-      7, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     AuthenticationType_strings[idx].get();
-}
-bool AuthenticationType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthenticationType* value) {
-  int int_value;
-  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      AuthenticationType_entries, 7, name, &int_value);
-  if (success) {
-    *value = static_cast<AuthenticationType>(int_value);
   }
   return success;
 }
@@ -9459,6 +9472,7 @@ Authentication::Authentication(const Authentication& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.auth_factor_){from._impl_.auth_factor_}
+    , /*decltype(_impl_._auth_factor_cached_byte_size_)*/{0}
     , decltype(_impl_.num_failed_attempts_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -9474,6 +9488,7 @@ inline void Authentication::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.auth_factor_){arena}
+    , /*decltype(_impl_._auth_factor_cached_byte_size_)*/{0}
     , decltype(_impl_.num_failed_attempts_){uint64_t{0u}}
   };
 }
@@ -9515,24 +9530,19 @@ const char* Authentication::_InternalParse(const char* ptr, ::_pbi::ParseContext
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated .cros_xdr.reporting.AuthenticationType auth_factor = 1;
+      // repeated .cros_xdr.reporting.Authentication.AuthenticationType auth_factor = 1 [packed = true];
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-            CHK_(ptr);
-            if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::AuthenticationType_IsValid(val))) {
-              _internal_add_auth_factor(static_cast<::cros_xdr::reporting::AuthenticationType>(val));
-            } else {
-              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
-            }
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<8>(ptr));
-        } else if (static_cast<uint8_t>(tag) == 10) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_auth_factor(), ptr, ctx, ::cros_xdr::reporting::AuthenticationType_IsValid, &_internal_metadata_, 1);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_auth_factor(), ptr, ctx, ::cros_xdr::reporting::Authentication_AuthenticationType_IsValid, &_internal_metadata_, 1);
           CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 8) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::Authentication_AuthenticationType_IsValid(val))) {
+            _internal_add_auth_factor(static_cast<::cros_xdr::reporting::Authentication_AuthenticationType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -9575,11 +9585,13 @@ uint8_t* Authentication::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .cros_xdr.reporting.AuthenticationType auth_factor = 1;
-  for (int i = 0, n = this->_internal_auth_factor_size(); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        1, this->_internal_auth_factor(i), target);
+  // repeated .cros_xdr.reporting.Authentication.AuthenticationType auth_factor = 1 [packed = true];
+  {
+    int byte_size = _impl_._auth_factor_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          1, _impl_.auth_factor_, byte_size, target);
+    }
   }
 
   cached_has_bits = _impl_._has_bits_[0];
@@ -9605,14 +9617,21 @@ size_t Authentication::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .cros_xdr.reporting.AuthenticationType auth_factor = 1;
+  // repeated .cros_xdr.reporting.Authentication.AuthenticationType auth_factor = 1 [packed = true];
   {
     size_t data_size = 0;
     unsigned int count = static_cast<unsigned int>(this->_internal_auth_factor_size());for (unsigned int i = 0; i < count; i++) {
       data_size += ::_pbi::WireFormatLite::EnumSize(
         this->_internal_auth_factor(static_cast<int>(i)));
     }
-    total_size += (1UL * count) + data_size;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._auth_factor_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
   }
 
   // optional uint64 num_failed_attempts = 2;

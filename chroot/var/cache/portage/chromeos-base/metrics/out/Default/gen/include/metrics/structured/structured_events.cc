@@ -566,6 +566,15 @@ double BluetoothHfpPacketLoss::GetPacketLossRatioForTest() const {
   return GetDoubleMetricForTest(kPacketLossRatioNameHash);
 }
 
+BluetoothHfpPacketLoss& BluetoothHfpPacketLoss::SetCodecType(const int64_t value) {
+  AddIntMetric(kCodecTypeNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothHfpPacketLoss::GetCodecTypeForTest() const {
+  return GetIntMetricForTest(kCodecTypeNameHash);
+}
+
 }  // namespace bluetooth
 
 namespace bluetooth_device {

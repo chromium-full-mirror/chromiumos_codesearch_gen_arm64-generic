@@ -531,12 +531,15 @@ enum DownstreamNetworkResult : int {
   INTERFACE_USED = 2,
   ERROR = 3,
   DHCP_SERVER_FAILURE = 4,
+  UPSTREAM_UNKNOWN = 5,
+  DATAPATH_ERROR = 6,
+  INVALID_REQUEST = 7,
   DownstreamNetworkResult_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   DownstreamNetworkResult_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool DownstreamNetworkResult_IsValid(int value);
 constexpr DownstreamNetworkResult DownstreamNetworkResult_MIN = SUCCESS;
-constexpr DownstreamNetworkResult DownstreamNetworkResult_MAX = DHCP_SERVER_FAILURE;
+constexpr DownstreamNetworkResult DownstreamNetworkResult_MAX = INVALID_REQUEST;
 constexpr int DownstreamNetworkResult_ARRAYSIZE = DownstreamNetworkResult_MAX + 1;
 
 const std::string& DownstreamNetworkResult_Name(DownstreamNetworkResult value);

@@ -44,7 +44,7 @@ enum class EventCategory {
   kTouchpadButton,
   kTouchpadTouch,
   kTouchpadConnected,
-  kHdmi,
+  kExternalDisplay,
   kStylusTouch,
   kStylusConnected,
   kMaxValue = kStylusConnected,
@@ -358,7 +358,7 @@ enum class UsbEvent {
 const char* ToString(UsbEvent as_enum);
 UsbEvent ParseUsbEvent(base::StringPiece as_string);
 
-enum class HdmiEvent {
+enum class ExternalDisplayEvent {
   kNone = 0,
   kConnected,
   kDisconnected,
@@ -366,8 +366,8 @@ enum class HdmiEvent {
 };
 
 
-const char* ToString(HdmiEvent as_enum);
-HdmiEvent ParseHdmiEvent(base::StringPiece as_string);
+const char* ToString(ExternalDisplayEvent as_enum);
+ExternalDisplayEvent ParseExternalDisplayEvent(base::StringPiece as_string);
 
 enum class SdCardEvent {
   kNone = 0,
@@ -533,40 +533,42 @@ struct UsbEventInfo {
 
 };
 
-struct HdmiEventInfo {
-  HdmiEventInfo();
-  ~HdmiEventInfo();
-  HdmiEventInfo(const HdmiEventInfo&) = delete;
-  HdmiEventInfo& operator=(const HdmiEventInfo&) = delete;
-  HdmiEventInfo(HdmiEventInfo&& rhs);
-  HdmiEventInfo& operator=(HdmiEventInfo&& rhs);
+struct ExternalDisplayEventInfo {
+  ExternalDisplayEventInfo();
+  ~ExternalDisplayEventInfo();
+  ExternalDisplayEventInfo(const ExternalDisplayEventInfo&) = delete;
+  ExternalDisplayEventInfo& operator=(const ExternalDisplayEventInfo&) = delete;
+  ExternalDisplayEventInfo(ExternalDisplayEventInfo&& rhs);
+  ExternalDisplayEventInfo& operator=(ExternalDisplayEventInfo&& rhs);
 
-  // Populates a HdmiEventInfo object from a base::Value& instance. Returns
+  // Populates a ExternalDisplayEventInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, ExternalDisplayEventInfo& out);
+
+  // Populates a ExternalDisplayEventInfo object from a Dict& instance. Returns
   // whether |out| was successfully populated.
-  static bool Populate(const base::Value& value, HdmiEventInfo& out);
+  static bool Populate(const base::Value::Dict& value, ExternalDisplayEventInfo& out);
 
-  // Populates a HdmiEventInfo object from a Dict& instance. Returns whether
-  // |out| was successfully populated.
-  static bool Populate(const base::Value::Dict& value, HdmiEventInfo& out);
+  // Creates a deep copy of ExternalDisplayEventInfo.
+  ExternalDisplayEventInfo Clone() const;
 
-  // Creates a deep copy of HdmiEventInfo.
-  HdmiEventInfo Clone() const;
-
-  // Creates a HdmiEventInfo object from a base::Value, or NULL on failure.
-  static std::unique_ptr<HdmiEventInfo> FromValueDeprecated(const base::Value& value);
-
-  // Creates a HdmiEventInfo object from a base::Value::Dict, or nullopt on
+  // Creates a ExternalDisplayEventInfo object from a base::Value, or NULL on
   // failure.
-  static absl::optional<HdmiEventInfo> FromValue(const base::Value::Dict& value);
+  static std::unique_ptr<ExternalDisplayEventInfo> FromValueDeprecated(const base::Value& value);
 
-  // Creates a HdmiEventInfo object from a base::Value, or nullopt on failure.
-  static absl::optional<HdmiEventInfo> FromValue(const base::Value& value);
+  // Creates a ExternalDisplayEventInfo object from a base::Value::Dict, or
+  // nullopt on failure.
+  static absl::optional<ExternalDisplayEventInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a ExternalDisplayEventInfo object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<ExternalDisplayEventInfo> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
-  // thisHdmiEventInfo object.
+  // thisExternalDisplayEventInfo object.
   base::Value::Dict ToValue() const;
 
-  HdmiEvent event;
+  ExternalDisplayEvent event;
 
 };
 
@@ -1141,12 +1143,12 @@ extern const char kEventName[];  // "os.events.onUsbEvent"
 base::Value::List Create(const UsbEventInfo& event_info);
 }  // namespace OnUsbEvent
 
-namespace OnHdmiEvent {
+namespace OnExternalDisplayEvent {
 
-extern const char kEventName[];  // "os.events.onHdmiEvent"
+extern const char kEventName[];  // "os.events.onExternalDisplayEvent"
 
-base::Value::List Create(const HdmiEventInfo& event_info);
-}  // namespace OnHdmiEvent
+base::Value::List Create(const ExternalDisplayEventInfo& event_info);
+}  // namespace OnExternalDisplayEvent
 
 namespace OnSdCardEvent {
 

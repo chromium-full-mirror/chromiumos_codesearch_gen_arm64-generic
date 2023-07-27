@@ -1802,6 +1802,7 @@ class FileMetadata final :
     kPathFieldNumber = 3,
     kReferrerUrlFieldNumber = 4,
     kInodeFieldNumber = 1,
+    kCrtimeFieldNumber = 5,
   };
   // optional string source_url = 2;
   bool has_source_url() const;
@@ -1870,6 +1871,19 @@ class FileMetadata final :
   void _internal_set_inode(uint64_t value);
   public:
 
+  // optional uint64 crtime = 5;
+  bool has_crtime() const;
+  private:
+  bool _internal_has_crtime() const;
+  public:
+  void clear_crtime();
+  uint64_t crtime() const;
+  void set_crtime(uint64_t value);
+  private:
+  uint64_t _internal_crtime() const;
+  void _internal_set_crtime(uint64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:dlp.FileMetadata)
  private:
   class _Internal;
@@ -1883,6 +1897,7 @@ class FileMetadata final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr referrer_url_;
   uint64_t inode_;
+  uint64_t crtime_;
   friend struct ::TableStruct_dlp_5fservice_2eproto;
 };
 // -------------------------------------------------------------------
@@ -4707,6 +4722,34 @@ inline void FileMetadata::set_allocated_referrer_url(std::string* referrer_url) 
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:dlp.FileMetadata.referrer_url)
+}
+
+// optional uint64 crtime = 5;
+inline bool FileMetadata::_internal_has_crtime() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool FileMetadata::has_crtime() const {
+  return _internal_has_crtime();
+}
+inline void FileMetadata::clear_crtime() {
+  crtime_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline uint64_t FileMetadata::_internal_crtime() const {
+  return crtime_;
+}
+inline uint64_t FileMetadata::crtime() const {
+  // @@protoc_insertion_point(field_get:dlp.FileMetadata.crtime)
+  return _internal_crtime();
+}
+inline void FileMetadata::_internal_set_crtime(uint64_t value) {
+  _has_bits_[0] |= 0x00000010u;
+  crtime_ = value;
+}
+inline void FileMetadata::set_crtime(uint64_t value) {
+  _internal_set_crtime(value);
+  // @@protoc_insertion_point(field_set:dlp.FileMetadata.crtime)
 }
 
 // -------------------------------------------------------------------

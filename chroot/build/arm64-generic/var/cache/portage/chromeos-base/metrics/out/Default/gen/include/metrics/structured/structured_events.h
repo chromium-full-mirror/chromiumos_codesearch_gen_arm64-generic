@@ -370,6 +370,10 @@ class BRILLO_EXPORT BluetoothHfpPacketLoss final : public ::metrics::structured:
   BluetoothHfpPacketLoss& SetPacketLossRatio(const double value);
   double GetPacketLossRatioForTest() const;
 
+  static constexpr uint64_t kCodecTypeNameHash = UINT64_C(14126569640026065743);
+  BluetoothHfpPacketLoss& SetCodecType(const int64_t value);
+  int64_t GetCodecTypeForTest() const;
+
 };
 
 }  // namespace bluetooth

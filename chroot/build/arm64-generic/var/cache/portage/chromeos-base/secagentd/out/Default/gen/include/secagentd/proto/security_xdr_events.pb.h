@@ -232,6 +232,30 @@ inline const std::string& NetworkFlow_ApplicationProtocol_Name(T enum_t_value) {
 }
 bool NetworkFlow_ApplicationProtocol_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NetworkFlow_ApplicationProtocol* value);
+enum Authentication_AuthenticationType : int {
+  Authentication_AuthenticationType_AUTH_TYPE_UNKNOWN = 0,
+  Authentication_AuthenticationType_AUTH_PASSWORD = 1,
+  Authentication_AuthenticationType_AUTH_PIN = 2,
+  Authentication_AuthenticationType_AUTH_ONLINE_RECOVERY = 3,
+  Authentication_AuthenticationType_AUTH_KIOSK = 4,
+  Authentication_AuthenticationType_AUTH_SMART_CARD = 5,
+  Authentication_AuthenticationType_AUTH_FINGERPRINT = 6
+};
+bool Authentication_AuthenticationType_IsValid(int value);
+constexpr Authentication_AuthenticationType Authentication_AuthenticationType_AuthenticationType_MIN = Authentication_AuthenticationType_AUTH_TYPE_UNKNOWN;
+constexpr Authentication_AuthenticationType Authentication_AuthenticationType_AuthenticationType_MAX = Authentication_AuthenticationType_AUTH_FINGERPRINT;
+constexpr int Authentication_AuthenticationType_AuthenticationType_ARRAYSIZE = Authentication_AuthenticationType_AuthenticationType_MAX + 1;
+
+const std::string& Authentication_AuthenticationType_Name(Authentication_AuthenticationType value);
+template<typename T>
+inline const std::string& Authentication_AuthenticationType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, Authentication_AuthenticationType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function Authentication_AuthenticationType_Name.");
+  return Authentication_AuthenticationType_Name(static_cast<Authentication_AuthenticationType>(enum_t_value));
+}
+bool Authentication_AuthenticationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Authentication_AuthenticationType* value);
 enum NetworkProtocol : int {
   NETWORK_PROTOCOL_UNKNOWN = 0,
   TCP = 1,
@@ -277,30 +301,6 @@ inline const std::string& SocketType_Name(T enum_t_value) {
 }
 bool SocketType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SocketType* value);
-enum AuthenticationType : int {
-  UNKNOWN = 0,
-  PASSWORD = 1,
-  PIN = 2,
-  ONLINE_RECOVERY = 3,
-  KIOSK = 4,
-  SMART_CARD = 5,
-  FINGERPRINT = 6
-};
-bool AuthenticationType_IsValid(int value);
-constexpr AuthenticationType AuthenticationType_MIN = UNKNOWN;
-constexpr AuthenticationType AuthenticationType_MAX = FINGERPRINT;
-constexpr int AuthenticationType_ARRAYSIZE = AuthenticationType_MAX + 1;
-
-const std::string& AuthenticationType_Name(AuthenticationType value);
-template<typename T>
-inline const std::string& AuthenticationType_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, AuthenticationType>::value ||
-    ::std::is_integral<T>::value,
-    "Incorrect type passed to function AuthenticationType_Name.");
-  return AuthenticationType_Name(static_cast<AuthenticationType>(enum_t_value));
-}
-bool AuthenticationType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthenticationType* value);
 // ===================================================================
 
 class CommonEventDataFields final :
@@ -5494,26 +5494,62 @@ class Authentication final :
 
   // nested types ----------------------------------------------------
 
+  typedef Authentication_AuthenticationType AuthenticationType;
+  static constexpr AuthenticationType AUTH_TYPE_UNKNOWN =
+    Authentication_AuthenticationType_AUTH_TYPE_UNKNOWN;
+  static constexpr AuthenticationType AUTH_PASSWORD =
+    Authentication_AuthenticationType_AUTH_PASSWORD;
+  static constexpr AuthenticationType AUTH_PIN =
+    Authentication_AuthenticationType_AUTH_PIN;
+  static constexpr AuthenticationType AUTH_ONLINE_RECOVERY =
+    Authentication_AuthenticationType_AUTH_ONLINE_RECOVERY;
+  static constexpr AuthenticationType AUTH_KIOSK =
+    Authentication_AuthenticationType_AUTH_KIOSK;
+  static constexpr AuthenticationType AUTH_SMART_CARD =
+    Authentication_AuthenticationType_AUTH_SMART_CARD;
+  static constexpr AuthenticationType AUTH_FINGERPRINT =
+    Authentication_AuthenticationType_AUTH_FINGERPRINT;
+  static inline bool AuthenticationType_IsValid(int value) {
+    return Authentication_AuthenticationType_IsValid(value);
+  }
+  static constexpr AuthenticationType AuthenticationType_MIN =
+    Authentication_AuthenticationType_AuthenticationType_MIN;
+  static constexpr AuthenticationType AuthenticationType_MAX =
+    Authentication_AuthenticationType_AuthenticationType_MAX;
+  static constexpr int AuthenticationType_ARRAYSIZE =
+    Authentication_AuthenticationType_AuthenticationType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& AuthenticationType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, AuthenticationType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function AuthenticationType_Name.");
+    return Authentication_AuthenticationType_Name(enum_t_value);
+  }
+  static inline bool AuthenticationType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      AuthenticationType* value) {
+    return Authentication_AuthenticationType_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kAuthFactorFieldNumber = 1,
     kNumFailedAttemptsFieldNumber = 2,
   };
-  // repeated .cros_xdr.reporting.AuthenticationType auth_factor = 1;
+  // repeated .cros_xdr.reporting.Authentication.AuthenticationType auth_factor = 1 [packed = true];
   int auth_factor_size() const;
   private:
   int _internal_auth_factor_size() const;
   public:
   void clear_auth_factor();
   private:
-  ::cros_xdr::reporting::AuthenticationType _internal_auth_factor(int index) const;
-  void _internal_add_auth_factor(::cros_xdr::reporting::AuthenticationType value);
+  ::cros_xdr::reporting::Authentication_AuthenticationType _internal_auth_factor(int index) const;
+  void _internal_add_auth_factor(::cros_xdr::reporting::Authentication_AuthenticationType value);
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_auth_factor();
   public:
-  ::cros_xdr::reporting::AuthenticationType auth_factor(int index) const;
-  void set_auth_factor(int index, ::cros_xdr::reporting::AuthenticationType value);
-  void add_auth_factor(::cros_xdr::reporting::AuthenticationType value);
+  ::cros_xdr::reporting::Authentication_AuthenticationType auth_factor(int index) const;
+  void set_auth_factor(int index, ::cros_xdr::reporting::Authentication_AuthenticationType value);
+  void add_auth_factor(::cros_xdr::reporting::Authentication_AuthenticationType value);
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& auth_factor() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_auth_factor();
 
@@ -5541,6 +5577,7 @@ class Authentication final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> auth_factor_;
+    mutable std::atomic<int> _auth_factor_cached_byte_size_;
     uint64_t num_failed_attempts_;
   };
   union { Impl_ _impl_; };
@@ -11626,7 +11663,7 @@ inline void AuthenticateEvent::set_allocated_authentication(::cros_xdr::reportin
 
 // Authentication
 
-// repeated .cros_xdr.reporting.AuthenticationType auth_factor = 1;
+// repeated .cros_xdr.reporting.Authentication.AuthenticationType auth_factor = 1 [packed = true];
 inline int Authentication::_internal_auth_factor_size() const {
   return _impl_.auth_factor_.size();
 }
@@ -11636,23 +11673,23 @@ inline int Authentication::auth_factor_size() const {
 inline void Authentication::clear_auth_factor() {
   _impl_.auth_factor_.Clear();
 }
-inline ::cros_xdr::reporting::AuthenticationType Authentication::_internal_auth_factor(int index) const {
-  return static_cast< ::cros_xdr::reporting::AuthenticationType >(_impl_.auth_factor_.Get(index));
+inline ::cros_xdr::reporting::Authentication_AuthenticationType Authentication::_internal_auth_factor(int index) const {
+  return static_cast< ::cros_xdr::reporting::Authentication_AuthenticationType >(_impl_.auth_factor_.Get(index));
 }
-inline ::cros_xdr::reporting::AuthenticationType Authentication::auth_factor(int index) const {
+inline ::cros_xdr::reporting::Authentication_AuthenticationType Authentication::auth_factor(int index) const {
   // @@protoc_insertion_point(field_get:cros_xdr.reporting.Authentication.auth_factor)
   return _internal_auth_factor(index);
 }
-inline void Authentication::set_auth_factor(int index, ::cros_xdr::reporting::AuthenticationType value) {
-  assert(::cros_xdr::reporting::AuthenticationType_IsValid(value));
+inline void Authentication::set_auth_factor(int index, ::cros_xdr::reporting::Authentication_AuthenticationType value) {
+  assert(::cros_xdr::reporting::Authentication_AuthenticationType_IsValid(value));
   _impl_.auth_factor_.Set(index, value);
   // @@protoc_insertion_point(field_set:cros_xdr.reporting.Authentication.auth_factor)
 }
-inline void Authentication::_internal_add_auth_factor(::cros_xdr::reporting::AuthenticationType value) {
-  assert(::cros_xdr::reporting::AuthenticationType_IsValid(value));
+inline void Authentication::_internal_add_auth_factor(::cros_xdr::reporting::Authentication_AuthenticationType value) {
+  assert(::cros_xdr::reporting::Authentication_AuthenticationType_IsValid(value));
   _impl_.auth_factor_.Add(value);
 }
-inline void Authentication::add_auth_factor(::cros_xdr::reporting::AuthenticationType value) {
+inline void Authentication::add_auth_factor(::cros_xdr::reporting::Authentication_AuthenticationType value) {
   _internal_add_auth_factor(value);
   // @@protoc_insertion_point(field_add:cros_xdr.reporting.Authentication.auth_factor)
 }
@@ -11762,9 +11799,9 @@ template <> struct is_proto_enum< ::cros_xdr::reporting::TcbAttributes_SecurityC
 template <> struct is_proto_enum< ::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot> : ::std::true_type {};
 template <> struct is_proto_enum< ::cros_xdr::reporting::NetworkFlow_Direction> : ::std::true_type {};
 template <> struct is_proto_enum< ::cros_xdr::reporting::NetworkFlow_ApplicationProtocol> : ::std::true_type {};
+template <> struct is_proto_enum< ::cros_xdr::reporting::Authentication_AuthenticationType> : ::std::true_type {};
 template <> struct is_proto_enum< ::cros_xdr::reporting::NetworkProtocol> : ::std::true_type {};
 template <> struct is_proto_enum< ::cros_xdr::reporting::SocketType> : ::std::true_type {};
-template <> struct is_proto_enum< ::cros_xdr::reporting::AuthenticationType> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

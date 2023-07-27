@@ -674,6 +674,16 @@ class  SodaConfig {
       OptionalBool enable_formatting,
       SodaRecognitionMode recognition_mode);
 
+  SodaConfig(
+      uint32_t channel_count,
+      uint32_t sample_rate,
+      const std::string& api_key,
+      const std::string& library_dlc_path,
+      const std::string& language_dlc_path,
+      OptionalBool enable_formatting,
+      SodaRecognitionMode recognition_mode,
+      bool mask_offensive_words);
+
 
   ~SodaConfig();
 
@@ -764,6 +774,8 @@ class  SodaConfig {
   OptionalBool enable_formatting;
   
   SodaRecognitionMode recognition_mode;
+  
+  bool mask_offensive_words;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -1590,7 +1602,8 @@ SodaConfigPtr SodaConfig::Clone() const {
       mojo::Clone(library_dlc_path),
       mojo::Clone(language_dlc_path),
       mojo::Clone(enable_formatting),
-      mojo::Clone(recognition_mode)
+      mojo::Clone(recognition_mode),
+      mojo::Clone(mask_offensive_words)
   );
 }
 
@@ -1609,6 +1622,8 @@ bool SodaConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->enable_formatting, other_struct.enable_formatting))
     return false;
   if (!mojo::Equals(this->recognition_mode, other_struct.recognition_mode))
+    return false;
+  if (!mojo::Equals(this->mask_offensive_words, other_struct.mask_offensive_words))
     return false;
   return true;
 }
@@ -1642,6 +1657,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.recognition_mode < rhs.recognition_mode)
     return true;
   if (rhs.recognition_mode < lhs.recognition_mode)
+    return false;
+  if (lhs.mask_offensive_words < rhs.mask_offensive_words)
+    return true;
+  if (rhs.mask_offensive_words < lhs.mask_offensive_words)
     return false;
   return false;
 }
@@ -1916,6 +1935,11 @@ struct  StructTraits<::chromeos::machine_learning::mojom::SodaConfig::DataView,
   static decltype(::chromeos::machine_learning::mojom::SodaConfig::recognition_mode) recognition_mode(
       const ::chromeos::machine_learning::mojom::SodaConfigPtr& input) {
     return input->recognition_mode;
+  }
+
+  static decltype(::chromeos::machine_learning::mojom::SodaConfig::mask_offensive_words) mask_offensive_words(
+      const ::chromeos::machine_learning::mojom::SodaConfigPtr& input) {
+    return input->mask_offensive_words;
   }
 
   static bool Read(::chromeos::machine_learning::mojom::SodaConfig::DataView input, ::chromeos::machine_learning::mojom::SodaConfigPtr* output);

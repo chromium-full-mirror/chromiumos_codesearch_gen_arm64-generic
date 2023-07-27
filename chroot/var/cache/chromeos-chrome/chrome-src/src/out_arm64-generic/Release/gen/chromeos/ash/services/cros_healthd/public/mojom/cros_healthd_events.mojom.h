@@ -2171,67 +2171,67 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  HdmiEventInfo {
+class  ExternalDisplayEventInfo {
  public:
   template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<HdmiEventInfo, T>::value>;
-  using DataView = HdmiEventInfoDataView;
-  using Data_ = internal::HdmiEventInfo_Data;
-  using State = HdmiEventInfo_State;
+  using EnableIfSame = std::enable_if_t<std::is_same<ExternalDisplayEventInfo, T>::value>;
+  using DataView = ExternalDisplayEventInfoDataView;
+  using Data_ = internal::ExternalDisplayEventInfo_Data;
+  using State = ExternalDisplayEventInfo_State;
 
   template <typename... Args>
-  static HdmiEventInfoPtr New(Args&&... args) {
-    return HdmiEventInfoPtr(
+  static ExternalDisplayEventInfoPtr New(Args&&... args) {
+    return ExternalDisplayEventInfoPtr(
         absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
-  static HdmiEventInfoPtr From(const U& u) {
-    return mojo::TypeConverter<HdmiEventInfoPtr, U>::Convert(u);
+  static ExternalDisplayEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ExternalDisplayEventInfoPtr, U>::Convert(u);
   }
 
   template <typename U>
   U To() const {
-    return mojo::TypeConverter<U, HdmiEventInfo>::Convert(*this);
+    return mojo::TypeConverter<U, ExternalDisplayEventInfo>::Convert(*this);
   }
 
 
-  HdmiEventInfo();
+  ExternalDisplayEventInfo();
 
-  explicit HdmiEventInfo(
-      HdmiEventInfo::State state);
+  explicit ExternalDisplayEventInfo(
+      ExternalDisplayEventInfo::State state);
 
 
-  ~HdmiEventInfo();
+  ~ExternalDisplayEventInfo();
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
   // constructor/assignment are available for members.
-  template <typename StructPtrType = HdmiEventInfoPtr>
-  HdmiEventInfoPtr Clone() const;
+  template <typename StructPtrType = ExternalDisplayEventInfoPtr>
+  ExternalDisplayEventInfoPtr Clone() const;
 
   // Equals() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Equals() or == operator
   // are available for members.
-  template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+  template <typename T, ExternalDisplayEventInfo::EnableIfSame<T>* = nullptr>
   bool Equals(const T& other) const;
 
-  template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+  template <typename T, ExternalDisplayEventInfo::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
 
-  template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+  template <typename T, ExternalDisplayEventInfo::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
   size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
-        HdmiEventInfo::DataView, std::vector<uint8_t>>(input);
+        ExternalDisplayEventInfo::DataView, std::vector<uint8_t>>(input);
   }
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
     return mojo::internal::SerializeAsMessageImpl<
-        HdmiEventInfo::DataView>(input);
+        ExternalDisplayEventInfo::DataView>(input);
   }
 
   // The returned Message is serialized only if the message is moved
@@ -2241,8 +2241,8 @@ class  HdmiEventInfo {
   template <typename UserType>
   static mojo::Message WrapAsMessage(UserType input) {
     return mojo::Message(std::make_unique<
-        internal::HdmiEventInfo_UnserializedMessageContext<
-            UserType, HdmiEventInfo::DataView>>(0, 0, std::move(input)),
+        internal::ExternalDisplayEventInfo_UnserializedMessageContext<
+            UserType, ExternalDisplayEventInfo::DataView>>(0, 0, std::move(input)),
         MOJO_CREATE_MESSAGE_FLAG_NONE);
   }
 
@@ -2251,14 +2251,14 @@ class  HdmiEventInfo {
                           size_t data_num_bytes,
                           UserType* output) {
     mojo::Message message;
-    return mojo::internal::DeserializeImpl<HdmiEventInfo::DataView>(
+    return mojo::internal::DeserializeImpl<ExternalDisplayEventInfo::DataView>(
         message, data, data_num_bytes, output, Validate);
   }
 
   template <typename UserType>
   static bool Deserialize(const std::vector<uint8_t>& input,
                           UserType* output) {
-    return HdmiEventInfo::Deserialize(
+    return ExternalDisplayEventInfo::Deserialize(
         input.size() == 0 ? nullptr : &input.front(), input.size(), output);
   }
 
@@ -2266,19 +2266,19 @@ class  HdmiEventInfo {
   static bool DeserializeFromMessage(mojo::Message input,
                                      UserType* output) {
     auto context = input.TakeUnserializedContext<
-        internal::HdmiEventInfo_UnserializedMessageContext<
-            UserType, HdmiEventInfo::DataView>>();
+        internal::ExternalDisplayEventInfo_UnserializedMessageContext<
+            UserType, ExternalDisplayEventInfo::DataView>>();
     if (context) {
       *output = std::move(context->TakeData());
       return true;
     }
     input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<HdmiEventInfo::DataView>(
+    return mojo::internal::DeserializeImpl<ExternalDisplayEventInfo::DataView>(
         input, input.payload(), input.payload_num_bytes(), output, Validate);
   }
 
   
-  HdmiEventInfo::State state;
+  ExternalDisplayEventInfo::State state;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2291,20 +2291,20 @@ class  HdmiEventInfo {
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+template <typename T, ExternalDisplayEventInfo::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+template <typename T, ExternalDisplayEventInfo::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+template <typename T, ExternalDisplayEventInfo::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+template <typename T, ExternalDisplayEventInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -3332,12 +3332,12 @@ class  EventInfo {
     result->set_touchpad_event_info(std::move(touchpad_event_info));
     return result;
   }
-  // Construct an instance holding |hdmi_event_info|.
+  // Construct an instance holding |external_display_event_info|.
   static EventInfoPtr
-  NewHdmiEventInfo(
-      HdmiEventInfoPtr hdmi_event_info) {
+  NewExternalDisplayEventInfo(
+      ExternalDisplayEventInfoPtr external_display_event_info) {
     auto result = EventInfoPtr(absl::in_place);
-    result->set_hdmi_event_info(std::move(hdmi_event_info));
+    result->set_external_display_event_info(std::move(external_display_event_info));
     return result;
   }
   // Construct an instance holding |touchscreen_event_info|.
@@ -3547,17 +3547,17 @@ class  EventInfo {
   void set_touchpad_event_info(
       TouchpadEventInfoPtr touchpad_event_info);
   
-  bool is_hdmi_event_info() const { return tag_ == Tag::kHdmiEventInfo; }
+  bool is_external_display_event_info() const { return tag_ == Tag::kExternalDisplayEventInfo; }
 
   
-  HdmiEventInfoPtr& get_hdmi_event_info() const {
-    CHECK(tag_ == Tag::kHdmiEventInfo);
-    return *(data_.hdmi_event_info);
+  ExternalDisplayEventInfoPtr& get_external_display_event_info() const {
+    CHECK(tag_ == Tag::kExternalDisplayEventInfo);
+    return *(data_.external_display_event_info);
   }
 
   
-  void set_hdmi_event_info(
-      HdmiEventInfoPtr hdmi_event_info);
+  void set_external_display_event_info(
+      ExternalDisplayEventInfoPtr external_display_event_info);
   
   bool is_touchscreen_event_info() const { return tag_ == Tag::kTouchscreenEventInfo; }
 
@@ -3635,7 +3635,7 @@ class  EventInfo {
     SdCardEventInfoPtr* sd_card_event_info;
     ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr* keyboard_diagnostic_event_info;
     TouchpadEventInfoPtr* touchpad_event_info;
-    HdmiEventInfoPtr* hdmi_event_info;
+    ExternalDisplayEventInfoPtr* external_display_event_info;
     TouchscreenEventInfoPtr* touchscreen_event_info;
     StylusGarageEventInfoPtr* stylus_garage_event_info;
     StylusEventInfoPtr* stylus_event_info;
@@ -5146,9 +5146,9 @@ EventInfoPtr EventInfo::Clone() const {
     case Tag::kTouchpadEventInfo:
       return NewTouchpadEventInfo(
           mojo::Clone(*data_.touchpad_event_info));
-    case Tag::kHdmiEventInfo:
-      return NewHdmiEventInfo(
-          mojo::Clone(*data_.hdmi_event_info));
+    case Tag::kExternalDisplayEventInfo:
+      return NewExternalDisplayEventInfo(
+          mojo::Clone(*data_.external_display_event_info));
     case Tag::kTouchscreenEventInfo:
       return NewTouchscreenEventInfo(
           mojo::Clone(*data_.touchscreen_event_info));
@@ -5195,8 +5195,8 @@ bool EventInfo::Equals(const T& other) const {
       return mojo::Equals(*(data_.keyboard_diagnostic_event_info), *(other.data_.keyboard_diagnostic_event_info));
     case Tag::kTouchpadEventInfo:
       return mojo::Equals(*(data_.touchpad_event_info), *(other.data_.touchpad_event_info));
-    case Tag::kHdmiEventInfo:
-      return mojo::Equals(*(data_.hdmi_event_info), *(other.data_.hdmi_event_info));
+    case Tag::kExternalDisplayEventInfo:
+      return mojo::Equals(*(data_.external_display_event_info), *(other.data_.external_display_event_info));
     case Tag::kTouchscreenEventInfo:
       return mojo::Equals(*(data_.touchscreen_event_info), *(other.data_.touchscreen_event_info));
     case Tag::kStylusGarageEventInfo:
@@ -5579,20 +5579,20 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
-HdmiEventInfoPtr HdmiEventInfo::Clone() const {
+ExternalDisplayEventInfoPtr ExternalDisplayEventInfo::Clone() const {
   return New(
       mojo::Clone(state)
   );
 }
 
-template <typename T, HdmiEventInfo::EnableIfSame<T>*>
-bool HdmiEventInfo::Equals(const T& other_struct) const {
+template <typename T, ExternalDisplayEventInfo::EnableIfSame<T>*>
+bool ExternalDisplayEventInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->state, other_struct.state))
     return false;
   return true;
 }
 
-template <typename T, HdmiEventInfo::EnableIfSame<T>*>
+template <typename T, ExternalDisplayEventInfo::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.state < rhs.state)
     return true;
@@ -6118,17 +6118,17 @@ struct  StructTraits<::ash::cros_healthd::mojom::TouchpadConnectedEvent::DataVie
 
 
 template <>
-struct  StructTraits<::ash::cros_healthd::mojom::HdmiEventInfo::DataView,
-                                         ::ash::cros_healthd::mojom::HdmiEventInfoPtr> {
-  static bool IsNull(const ::ash::cros_healthd::mojom::HdmiEventInfoPtr& input) { return !input; }
-  static void SetToNull(::ash::cros_healthd::mojom::HdmiEventInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::ExternalDisplayEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr* output) { output->reset(); }
 
-  static decltype(::ash::cros_healthd::mojom::HdmiEventInfo::state) state(
-      const ::ash::cros_healthd::mojom::HdmiEventInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ExternalDisplayEventInfo::state) state(
+      const ::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr& input) {
     return input->state;
   }
 
-  static bool Read(::ash::cros_healthd::mojom::HdmiEventInfo::DataView input, ::ash::cros_healthd::mojom::HdmiEventInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::ExternalDisplayEventInfo::DataView input, ::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr* output);
 };
 
 
@@ -6443,8 +6443,8 @@ struct  UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView,
     return input->get_touchpad_event_info();
   }
 
-  static const ::ash::cros_healthd::mojom::HdmiEventInfoPtr& hdmi_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
-    return input->get_hdmi_event_info();
+  static const ::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr& external_display_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_external_display_event_info();
   }
 
   static const ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr& touchscreen_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {

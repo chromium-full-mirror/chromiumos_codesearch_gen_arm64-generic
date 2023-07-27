@@ -78,8 +78,6 @@ class RoutineDetailDataView;
 
 enum class MemtesterTestItemEnum : int32_t;
 
-enum class RoutineControlExceptionEnum : int32_t;
-
 enum class DiskReadTypeEnum : int32_t;
 
 enum class LedName : int32_t;

@@ -518,16 +518,6 @@ class Camera3CallbackOps_RequestStreamBuffers_ResponseParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadReturnedBufReqs(UserType* output) {
     
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferRetDataView>, UserType>(),
-    "Attempting to read the optional `returned_buf_reqs` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadReturnedBufReqs` instead "
-    "of `ReadReturnedBufReqs if you're fine with null values being "
-    "silently ignored in this case.");
     auto* pointer = data_->returned_buf_reqs.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferRetDataView>>(
         pointer, output, message_);

@@ -96,32 +96,6 @@ struct MemtesterTestItemEnum_Data {
   }
 };
 
-struct RoutineControlExceptionEnum_Data {
- public:
-  static bool constexpr kIsExtensible = true;
-
-  static bool IsKnownValue(int32_t value) {
-    switch (value) {
-      case 0:
-      case 1:
-      case 2:
-      case 3:
-        return true;
-    }
-    return false;
-  }
-
-  static bool Validate(int32_t value,
-                       mojo::internal::ValidationContext* validation_context) {
-    if (kIsExtensible || IsKnownValue(value))
-      return true;
-
-    ReportValidationError(validation_context,
-                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
-    return false;
-  }
-};
-
 struct DiskReadTypeEnum_Data {
  public:
   static bool constexpr kIsExtensible = true;

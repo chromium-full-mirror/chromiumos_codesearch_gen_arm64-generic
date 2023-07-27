@@ -83,34 +83,6 @@ std::ostream& operator<<(std::ostream& os, MemtesterTestItemEnum value) {
   return os << MemtesterTestItemEnumToString(value);
 }
 
-NOINLINE static const char* RoutineControlExceptionEnumToStringHelper(RoutineControlExceptionEnum value) {
-  // Defined in a helper function to ensure that Clang generates a lookup table.
-  switch(value) {
-    case RoutineControlExceptionEnum::kMojoDisconnectWithoutReason:
-      return "kMojoDisconnectWithoutReason";
-    case RoutineControlExceptionEnum::kUnmappedEnumField:
-      return "kUnmappedEnumField";
-    case RoutineControlExceptionEnum::kNotSupported:
-      return "kNotSupported";
-    case RoutineControlExceptionEnum::kRuntimeError:
-      return "kRuntimeError";
-    default:
-      return nullptr;
-  }
-}
-
-std::string RoutineControlExceptionEnumToString(RoutineControlExceptionEnum value) {
-  const char *str = RoutineControlExceptionEnumToStringHelper(value);
-  if (!str) {
-    return base::StringPrintf("Unknown RoutineControlExceptionEnum value: %i", static_cast<int32_t>(value));
-  }
-  return str;
-}
-
-std::ostream& operator<<(std::ostream& os, RoutineControlExceptionEnum value) {
-  return os << RoutineControlExceptionEnumToString(value);
-}
-
 NOINLINE static const char* DiskReadTypeEnumToStringHelper(DiskReadTypeEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -1541,16 +1513,6 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::MemtesterTestItemEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::MemtesterTestItemEnumToString(value));
-}
-
-} // namespace perfetto
-
-namespace perfetto_libchrome {
-
-// static
-void TraceFormatTraits<::ash::cros_healthd::mojom::RoutineControlExceptionEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::RoutineControlExceptionEnum value) {
-  return std::move(context).WriteString(::ash::cros_healthd::mojom::RoutineControlExceptionEnumToString(value));
 }
 
 } // namespace perfetto

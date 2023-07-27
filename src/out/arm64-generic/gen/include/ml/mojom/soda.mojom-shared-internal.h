@@ -207,6 +207,8 @@ class  SodaConfig_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> language_dlc_path;
   int32_t enable_formatting;
   int32_t recognition_mode;
+  uint8_t mask_offensive_words : 1;
+  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<SodaConfig_Data>;
@@ -214,7 +216,7 @@ class  SodaConfig_Data {
   SodaConfig_Data();
   ~SodaConfig_Data() = delete;
 };
-static_assert(sizeof(SodaConfig_Data) == 48,
+static_assert(sizeof(SodaConfig_Data) == 56,
               "Bad sizeof(SodaConfig_Data)");
 // Used by SodaConfig::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -1560,35 +1560,47 @@ bool DownstreamNetworkResult_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
+    case 6:
+    case 7:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DownstreamNetworkResult_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DownstreamNetworkResult_strings[8] = {};
 
 static const char DownstreamNetworkResult_names[] =
+  "DATAPATH_ERROR"
   "DHCP_SERVER_FAILURE"
   "ERROR"
   "INTERFACE_USED"
   "INVALID_ARGUMENT"
-  "SUCCESS";
+  "INVALID_REQUEST"
+  "SUCCESS"
+  "UPSTREAM_UNKNOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DownstreamNetworkResult_entries[] = {
-  { {DownstreamNetworkResult_names + 0, 19}, 4 },
-  { {DownstreamNetworkResult_names + 19, 5}, 3 },
-  { {DownstreamNetworkResult_names + 24, 14}, 2 },
-  { {DownstreamNetworkResult_names + 38, 16}, 1 },
-  { {DownstreamNetworkResult_names + 54, 7}, 0 },
+  { {DownstreamNetworkResult_names + 0, 14}, 6 },
+  { {DownstreamNetworkResult_names + 14, 19}, 4 },
+  { {DownstreamNetworkResult_names + 33, 5}, 3 },
+  { {DownstreamNetworkResult_names + 38, 14}, 2 },
+  { {DownstreamNetworkResult_names + 52, 16}, 1 },
+  { {DownstreamNetworkResult_names + 68, 15}, 7 },
+  { {DownstreamNetworkResult_names + 83, 7}, 0 },
+  { {DownstreamNetworkResult_names + 90, 16}, 5 },
 };
 
 static const int DownstreamNetworkResult_entries_by_number[] = {
-  4, // 0 -> SUCCESS
-  3, // 1 -> INVALID_ARGUMENT
-  2, // 2 -> INTERFACE_USED
-  1, // 3 -> ERROR
-  0, // 4 -> DHCP_SERVER_FAILURE
+  6, // 0 -> SUCCESS
+  4, // 1 -> INVALID_ARGUMENT
+  3, // 2 -> INTERFACE_USED
+  2, // 3 -> ERROR
+  1, // 4 -> DHCP_SERVER_FAILURE
+  7, // 5 -> UPSTREAM_UNKNOWN
+  0, // 6 -> DATAPATH_ERROR
+  5, // 7 -> INVALID_REQUEST
 };
 
 const std::string& DownstreamNetworkResult_Name(
@@ -1597,12 +1609,12 @@ const std::string& DownstreamNetworkResult_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           DownstreamNetworkResult_entries,
           DownstreamNetworkResult_entries_by_number,
-          5, DownstreamNetworkResult_strings);
+          8, DownstreamNetworkResult_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       DownstreamNetworkResult_entries,
       DownstreamNetworkResult_entries_by_number,
-      5, value);
+      8, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      DownstreamNetworkResult_strings[idx].get();
 }
@@ -1610,7 +1622,7 @@ bool DownstreamNetworkResult_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DownstreamNetworkResult* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      DownstreamNetworkResult_entries, 5, name, &int_value);
+      DownstreamNetworkResult_entries, 8, name, &int_value);
   if (success) {
     *value = static_cast<DownstreamNetworkResult>(int_value);
   }

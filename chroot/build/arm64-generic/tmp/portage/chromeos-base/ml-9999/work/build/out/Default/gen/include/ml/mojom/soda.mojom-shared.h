@@ -306,6 +306,11 @@ class SodaConfigDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::chromeos::machine_learning::mojom::SodaRecognitionMode>(data_->recognition_mode));
   }
+  bool mask_offensive_words() const {
+    if (data_->header_.version < 4)
+      return bool{};
+    return data_->mask_offensive_words;
+  }
  private:
   internal::SodaConfig_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -849,6 +854,7 @@ struct Serializer<::chromeos::machine_learning::mojom::SodaConfigDataView, Maybe
         Traits::enable_formatting(input), &fragment->enable_formatting);
     mojo::internal::Serialize<::chromeos::machine_learning::mojom::SodaRecognitionMode>(
         Traits::recognition_mode(input), &fragment->recognition_mode);
+    fragment->mask_offensive_words = Traits::mask_offensive_words(input);
   }
 
   static bool Deserialize(::chromeos::machine_learning::mojom::internal::SodaConfig_Data* input,

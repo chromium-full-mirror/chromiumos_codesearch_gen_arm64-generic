@@ -39,7 +39,7 @@ class TouchpadButtonEvent_Data;
 class TouchPointInfo_Data;
 class TouchpadTouchEvent_Data;
 class TouchpadConnectedEvent_Data;
-class HdmiEventInfo_Data;
+class ExternalDisplayEventInfo_Data;
 class TouchscreenTouchEvent_Data;
 class TouchscreenConnectedEvent_Data;
 class StylusGarageEventInfo_Data;
@@ -351,7 +351,7 @@ struct SdCardEventInfo_State_Data {
   }
 };
 
-struct HdmiEventInfo_State_Data {
+struct ExternalDisplayEventInfo_State_Data {
  public:
   static bool constexpr kIsExtensible = true;
 
@@ -648,7 +648,7 @@ class  EventInfo_Data {
     
     kTouchpadEventInfo,
     
-    kHdmiEventInfo,
+    kExternalDisplayEventInfo,
     
     kTouchscreenEventInfo,
     
@@ -675,7 +675,7 @@ class  EventInfo_Data {
     mojo::internal::Pointer<internal::SdCardEventInfo_Data> f_sd_card_event_info;
     mojo::internal::Pointer<::ash::diagnostics::mojom::internal::KeyboardDiagnosticEventInfo_Data> f_keyboard_diagnostic_event_info;
     mojo::internal::Pointer<internal::TouchpadEventInfo_Data> f_touchpad_event_info;
-    mojo::internal::Pointer<internal::HdmiEventInfo_Data> f_hdmi_event_info;
+    mojo::internal::Pointer<internal::ExternalDisplayEventInfo_Data> f_external_display_event_info;
     mojo::internal::Pointer<internal::TouchscreenEventInfo_Data> f_touchscreen_event_info;
     mojo::internal::Pointer<internal::StylusGarageEventInfo_Data> f_stylus_garage_event_info;
     mojo::internal::Pointer<internal::StylusEventInfo_Data> f_stylus_event_info;
@@ -1289,7 +1289,7 @@ struct TouchpadConnectedEvent_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     TouchpadConnectedEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  HdmiEventInfo_Data {
+class  ExternalDisplayEventInfo_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1299,27 +1299,27 @@ class  HdmiEventInfo_Data {
   uint8_t padfinal_[4];
 
  private:
-  friend class mojo::internal::MessageFragment<HdmiEventInfo_Data>;
+  friend class mojo::internal::MessageFragment<ExternalDisplayEventInfo_Data>;
 
-  HdmiEventInfo_Data();
-  ~HdmiEventInfo_Data() = delete;
+  ExternalDisplayEventInfo_Data();
+  ~ExternalDisplayEventInfo_Data() = delete;
 };
-static_assert(sizeof(HdmiEventInfo_Data) == 16,
-              "Bad sizeof(HdmiEventInfo_Data)");
-// Used by HdmiEventInfo::WrapAsMessage to lazily serialize the struct.
+static_assert(sizeof(ExternalDisplayEventInfo_Data) == 16,
+              "Bad sizeof(ExternalDisplayEventInfo_Data)");
+// Used by ExternalDisplayEventInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
-struct HdmiEventInfo_UnserializedMessageContext
+struct ExternalDisplayEventInfo_UnserializedMessageContext
     : public mojo::internal::UnserializedMessageContext {
  public:
   static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
 
-  HdmiEventInfo_UnserializedMessageContext(
+  ExternalDisplayEventInfo_UnserializedMessageContext(
     uint32_t message_name,
     uint32_t message_flags,
     UserType input)
       : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
       , user_data_(std::move(input)) {}
-  ~HdmiEventInfo_UnserializedMessageContext() override = default;
+  ~ExternalDisplayEventInfo_UnserializedMessageContext() override = default;
 
   UserType TakeData() {
     return std::move(user_data_);
@@ -1328,7 +1328,7 @@ struct HdmiEventInfo_UnserializedMessageContext
  private:
   // mojo::internal::UnserializedMessageContext:
   void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<HdmiEventInfo_Data> fragment(message);
+    mojo::internal::MessageFragment<ExternalDisplayEventInfo_Data> fragment(message);
     mojo::internal::Serialize<DataView>(user_data_, fragment);
   }
 
@@ -1337,7 +1337,7 @@ struct HdmiEventInfo_UnserializedMessageContext
 
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
-    HdmiEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+    ExternalDisplayEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  TouchscreenTouchEvent_Data {
  public:
   static bool Validate(const void* data,

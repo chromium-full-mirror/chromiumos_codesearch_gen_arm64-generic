@@ -5154,18 +5154,18 @@ bool DisplayInfo_Data::Validate(
       static_cast<const DisplayInfo_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->edp_info, 1, validation_context)) {
+          object->embedded_display, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->edp_info, validation_context))
+  if (!mojo::internal::ValidateStruct(object->embedded_display, validation_context))
     return false;
   if (object->header_.version < 1)
     return true;
 
-  constexpr const mojo::internal::ContainerValidateParams& dp_infos_validate_params =
+  constexpr const mojo::internal::ContainerValidateParams& external_displays_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->dp_infos, validation_context,
-                                         &dp_infos_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->external_displays, validation_context,
+                                         &external_displays_validate_params)) {
     return false;
   }
 

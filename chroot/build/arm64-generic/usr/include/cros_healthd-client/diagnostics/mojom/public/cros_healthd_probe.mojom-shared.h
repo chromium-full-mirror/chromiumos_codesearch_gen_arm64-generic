@@ -4092,6 +4092,11 @@ class PsrInfoDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::PsrEventDataView>>(
         pointer, output, message_);
   }
+  bool is_supported() const {
+    if (data_->header_.version < 1)
+      return bool{};
+    return data_->is_supported;
+  }
  private:
   internal::PsrInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -10735,6 +10740,7 @@ struct Serializer<::ash::cros_healthd::mojom::PsrInfoDataView, MaybeConstUserTyp
         fragment->events.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null events in PsrInfo struct");
+    fragment->is_supported = Traits::is_supported(input);
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::PsrInfo_Data* input,

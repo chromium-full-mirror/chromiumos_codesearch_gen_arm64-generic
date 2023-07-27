@@ -763,6 +763,29 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool SetHfpMicSrEnabled(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void SetHfpMicSrEnabledAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Tells whether the system can potentially support hfp mic sr.
+  virtual bool IsHfpMicSrSupported(
+      bool* out_supported,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Tells whether the system can potentially support hfp mic sr.
+  virtual void IsHfpMicSrSupportedAsync(
+      base::OnceCallback<void(bool /*supported*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool SetPlayerPlaybackStatus(
       const std::string& in_status,
       brillo::ErrorPtr* error,
@@ -2682,6 +2705,65 @@ class ControlProxy final : public ControlProxyInterface {
         dbus_object_proxy_,
         "org.chromium.cras.Control",
         "GetForceSrBtEnabled",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  bool SetHfpMicSrEnabled(
+      bool in_enabled,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SetHfpMicSrEnabled",
+        error,
+        in_enabled);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void SetHfpMicSrEnabledAsync(
+      bool in_enabled,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SetHfpMicSrEnabled",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_enabled);
+  }
+
+  // Tells whether the system can potentially support hfp mic sr.
+  bool IsHfpMicSrSupported(
+      bool* out_supported,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "IsHfpMicSrSupported",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_supported);
+  }
+
+  // Tells whether the system can potentially support hfp mic sr.
+  void IsHfpMicSrSupportedAsync(
+      base::OnceCallback<void(bool /*supported*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "IsHfpMicSrSupported",
         std::move(success_callback),
         std::move(error_callback));
   }

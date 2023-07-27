@@ -54,7 +54,8 @@ SodaConfig::SodaConfig()
       library_dlc_path(),
       language_dlc_path(),
       enable_formatting(OptionalBool::kTrue),
-      recognition_mode(SodaRecognitionMode::kCaption) {}
+      recognition_mode(SodaRecognitionMode::kCaption),
+      mask_offensive_words(false) {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -68,7 +69,8 @@ SodaConfig::SodaConfig(
       library_dlc_path(std::move(library_dlc_path_in)),
       language_dlc_path(std::move(language_dlc_path_in)),
       enable_formatting(OptionalBool::kTrue),
-      recognition_mode(SodaRecognitionMode::kCaption) {}
+      recognition_mode(SodaRecognitionMode::kCaption),
+      mask_offensive_words(false) {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -83,7 +85,8 @@ SodaConfig::SodaConfig(
       library_dlc_path(std::move(library_dlc_path_in)),
       language_dlc_path(std::move(language_dlc_path_in)),
       enable_formatting(std::move(enable_formatting_in)),
-      recognition_mode(SodaRecognitionMode::kCaption) {}
+      recognition_mode(SodaRecognitionMode::kCaption),
+      mask_offensive_words(false) {}
 
 SodaConfig::SodaConfig(
     uint32_t channel_count_in,
@@ -99,7 +102,26 @@ SodaConfig::SodaConfig(
       library_dlc_path(std::move(library_dlc_path_in)),
       language_dlc_path(std::move(language_dlc_path_in)),
       enable_formatting(std::move(enable_formatting_in)),
-      recognition_mode(std::move(recognition_mode_in)) {}
+      recognition_mode(std::move(recognition_mode_in)),
+      mask_offensive_words(false) {}
+
+SodaConfig::SodaConfig(
+    uint32_t channel_count_in,
+    uint32_t sample_rate_in,
+    const std::string& api_key_in,
+    const std::string& library_dlc_path_in,
+    const std::string& language_dlc_path_in,
+    OptionalBool enable_formatting_in,
+    SodaRecognitionMode recognition_mode_in,
+    bool mask_offensive_words_in)
+    : channel_count(std::move(channel_count_in)),
+      sample_rate(std::move(sample_rate_in)),
+      api_key(std::move(api_key_in)),
+      library_dlc_path(std::move(library_dlc_path_in)),
+      language_dlc_path(std::move(language_dlc_path_in)),
+      enable_formatting(std::move(enable_formatting_in)),
+      recognition_mode(std::move(recognition_mode_in)),
+      mask_offensive_words(std::move(mask_offensive_words_in)) {}
 
 SodaConfig::~SodaConfig() = default;
 size_t SodaConfig::Hash(size_t seed) const {
@@ -110,6 +132,7 @@ size_t SodaConfig::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->language_dlc_path);
   seed = mojo::internal::Hash(seed, this->enable_formatting);
   seed = mojo::internal::Hash(seed, this->recognition_mode);
+  seed = mojo::internal::Hash(seed, this->mask_offensive_words);
   return seed;
 }
 
@@ -175,6 +198,15 @@ void SodaConfig::WriteIntoTrace(
       "recognition_mode"), this->recognition_mode,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type SodaRecognitionMode>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "mask_offensive_words"), this->mask_offensive_words,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1359,6 +1391,8 @@ bool StructTraits<::chromeos::machine_learning::mojom::SodaConfig::DataView, ::c
         success = false;
       if (success && !input.ReadRecognitionMode(&result->recognition_mode))
         success = false;
+      if (success)
+        result->mask_offensive_words = input.mask_offensive_words();
   *output = std::move(result);
   return success;
 }

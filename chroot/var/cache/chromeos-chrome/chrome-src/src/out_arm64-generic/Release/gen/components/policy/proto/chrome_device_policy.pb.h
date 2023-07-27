@@ -24333,6 +24333,8 @@ kDeviceLoginScreenGeolocationAccessLevelFieldNumber = 147,
 kDeviceLoginScreenWebhidAllowDevicesForUrlsFieldNumber = 148,
 kDeviceLowBatterySoundFieldNumber = 149,
 kDeviceChargingSoundsFieldNumber = 150,
+kDeviceAuthenticationUrlBlocklistFieldNumber = 151,
+kDeviceAuthenticationUrlAllowlistFieldNumber = 152,
 };
 // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
 bool has_device_policy_refresh_rate() const;
@@ -26980,6 +26982,42 @@ void unsafe_arena_set_allocated_device_charging_sounds(
 ::enterprise_management::DeviceChargingSoundsProto* device_charging_sounds);
 ::enterprise_management::DeviceChargingSoundsProto* unsafe_arena_release_device_charging_sounds();
 
+// optional .enterprise_management.StringListPolicyProto device_authentication_url_blocklist = 151;
+bool has_device_authentication_url_blocklist() const;
+private:
+bool _internal_has_device_authentication_url_blocklist() const;
+public:
+void clear_device_authentication_url_blocklist();
+const ::enterprise_management::StringListPolicyProto& device_authentication_url_blocklist() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_device_authentication_url_blocklist();
+::enterprise_management::StringListPolicyProto* mutable_device_authentication_url_blocklist();
+void set_allocated_device_authentication_url_blocklist(::enterprise_management::StringListPolicyProto* device_authentication_url_blocklist);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_device_authentication_url_blocklist() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_device_authentication_url_blocklist();
+public:
+void unsafe_arena_set_allocated_device_authentication_url_blocklist(
+::enterprise_management::StringListPolicyProto* device_authentication_url_blocklist);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_device_authentication_url_blocklist();
+
+// optional .enterprise_management.StringListPolicyProto device_authentication_url_allowlist = 152;
+bool has_device_authentication_url_allowlist() const;
+private:
+bool _internal_has_device_authentication_url_allowlist() const;
+public:
+void clear_device_authentication_url_allowlist();
+const ::enterprise_management::StringListPolicyProto& device_authentication_url_allowlist() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_device_authentication_url_allowlist();
+::enterprise_management::StringListPolicyProto* mutable_device_authentication_url_allowlist();
+void set_allocated_device_authentication_url_allowlist(::enterprise_management::StringListPolicyProto* device_authentication_url_allowlist);
+private:
+const ::enterprise_management::StringListPolicyProto& _internal_device_authentication_url_allowlist() const;
+::enterprise_management::StringListPolicyProto* _internal_mutable_device_authentication_url_allowlist();
+public:
+void unsafe_arena_set_allocated_device_authentication_url_allowlist(
+::enterprise_management::StringListPolicyProto* device_authentication_url_allowlist);
+::enterprise_management::StringListPolicyProto* unsafe_arena_release_device_authentication_url_allowlist();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
 private:
 class _Internal;
@@ -27136,6 +27174,8 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::StringPolicyProto* device_login_screen_webhid_allow_devices_for_urls_;
 ::enterprise_management::DeviceLowBatterySoundProto* device_low_battery_sound_;
 ::enterprise_management::DeviceChargingSoundsProto* device_charging_sounds_;
+::enterprise_management::StringListPolicyProto* device_authentication_url_blocklist_;
+::enterprise_management::StringListPolicyProto* device_authentication_url_allowlist_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // ===================================================================
@@ -53043,6 +53083,180 @@ _has_bits_[4] &= ~0x00040000u;
 }
 device_charging_sounds_ = device_charging_sounds;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_charging_sounds)
+}
+
+// optional .enterprise_management.StringListPolicyProto device_authentication_url_blocklist = 151;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_authentication_url_blocklist() const {
+bool value = (_has_bits_[4] & 0x00080000u) != 0;
+PROTOBUF_ASSUME(!value || device_authentication_url_blocklist_ != nullptr);
+return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_authentication_url_blocklist() const {
+return _internal_has_device_authentication_url_blocklist();
+}
+inline const ::enterprise_management::StringListPolicyProto& ChromeDeviceSettingsProto::_internal_device_authentication_url_blocklist() const {
+const ::enterprise_management::StringListPolicyProto* p = device_authentication_url_blocklist_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& ChromeDeviceSettingsProto::device_authentication_url_blocklist() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_blocklist)
+return _internal_device_authentication_url_blocklist();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_authentication_url_blocklist(
+::enterprise_management::StringListPolicyProto* device_authentication_url_blocklist) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_authentication_url_blocklist_);
+}
+device_authentication_url_blocklist_ = device_authentication_url_blocklist;
+if (device_authentication_url_blocklist) {
+_has_bits_[4] |= 0x00080000u;
+} else {
+_has_bits_[4] &= ~0x00080000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_blocklist)
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::release_device_authentication_url_blocklist() {
+_has_bits_[4] &= ~0x00080000u;
+::enterprise_management::StringListPolicyProto* temp = device_authentication_url_blocklist_;
+device_authentication_url_blocklist_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_authentication_url_blocklist() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_blocklist)
+_has_bits_[4] &= ~0x00080000u;
+::enterprise_management::StringListPolicyProto* temp = device_authentication_url_blocklist_;
+device_authentication_url_blocklist_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_device_authentication_url_blocklist() {
+_has_bits_[4] |= 0x00080000u;
+if (device_authentication_url_blocklist_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+device_authentication_url_blocklist_ = p;
+}
+return device_authentication_url_blocklist_;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::mutable_device_authentication_url_blocklist() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_device_authentication_url_blocklist();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_blocklist)
+return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_authentication_url_blocklist(::enterprise_management::StringListPolicyProto* device_authentication_url_blocklist) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_authentication_url_blocklist_);
+}
+if (device_authentication_url_blocklist) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_authentication_url_blocklist));
+if (message_arena != submessage_arena) {
+device_authentication_url_blocklist = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, device_authentication_url_blocklist, submessage_arena);
+}
+_has_bits_[4] |= 0x00080000u;
+} else {
+_has_bits_[4] &= ~0x00080000u;
+}
+device_authentication_url_blocklist_ = device_authentication_url_blocklist;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_blocklist)
+}
+
+// optional .enterprise_management.StringListPolicyProto device_authentication_url_allowlist = 152;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_authentication_url_allowlist() const {
+bool value = (_has_bits_[4] & 0x00100000u) != 0;
+PROTOBUF_ASSUME(!value || device_authentication_url_allowlist_ != nullptr);
+return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_authentication_url_allowlist() const {
+return _internal_has_device_authentication_url_allowlist();
+}
+inline const ::enterprise_management::StringListPolicyProto& ChromeDeviceSettingsProto::_internal_device_authentication_url_allowlist() const {
+const ::enterprise_management::StringListPolicyProto* p = device_authentication_url_allowlist_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& ChromeDeviceSettingsProto::device_authentication_url_allowlist() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_allowlist)
+return _internal_device_authentication_url_allowlist();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_authentication_url_allowlist(
+::enterprise_management::StringListPolicyProto* device_authentication_url_allowlist) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_authentication_url_allowlist_);
+}
+device_authentication_url_allowlist_ = device_authentication_url_allowlist;
+if (device_authentication_url_allowlist) {
+_has_bits_[4] |= 0x00100000u;
+} else {
+_has_bits_[4] &= ~0x00100000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_allowlist)
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::release_device_authentication_url_allowlist() {
+_has_bits_[4] &= ~0x00100000u;
+::enterprise_management::StringListPolicyProto* temp = device_authentication_url_allowlist_;
+device_authentication_url_allowlist_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_authentication_url_allowlist() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_allowlist)
+_has_bits_[4] &= ~0x00100000u;
+::enterprise_management::StringListPolicyProto* temp = device_authentication_url_allowlist_;
+device_authentication_url_allowlist_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_device_authentication_url_allowlist() {
+_has_bits_[4] |= 0x00100000u;
+if (device_authentication_url_allowlist_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+device_authentication_url_allowlist_ = p;
+}
+return device_authentication_url_allowlist_;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::mutable_device_authentication_url_allowlist() {
+::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_device_authentication_url_allowlist();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_allowlist)
+return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_authentication_url_allowlist(::enterprise_management::StringListPolicyProto* device_authentication_url_allowlist) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_authentication_url_allowlist_);
+}
+if (device_authentication_url_allowlist) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_authentication_url_allowlist));
+if (message_arena != submessage_arena) {
+device_authentication_url_allowlist = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, device_authentication_url_allowlist, submessage_arena);
+}
+_has_bits_[4] |= 0x00100000u;
+} else {
+_has_bits_[4] &= ~0x00100000u;
+}
+device_authentication_url_allowlist_ = device_authentication_url_allowlist;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_allowlist)
 }
 
 #ifdef __GNUC__

@@ -354,33 +354,6 @@ inline MemtesterTestItemEnum ToKnownEnumValue(MemtesterTestItemEnum value) {
 }
 
 
-enum class RoutineControlExceptionEnum : int32_t {
-  
-  kUnmappedEnumField = 1,
-  
-  kMojoDisconnectWithoutReason = 0,
-  
-  kNotSupported = 2,
-  
-  kRuntimeError = 3,
-  kMinValue = 0,
-  kMaxValue = 3,
-  kDefaultValue = 1
-};
-
- std::ostream& operator<<(std::ostream& os, RoutineControlExceptionEnum value);
-inline bool IsKnownEnumValue(RoutineControlExceptionEnum value) {
-  return internal::RoutineControlExceptionEnum_Data::IsKnownValue(
-      static_cast<int32_t>(value));
-}
-inline RoutineControlExceptionEnum ToKnownEnumValue(RoutineControlExceptionEnum value) {
-  if (IsKnownEnumValue(value)) {
-    return value;
-  }
-  return RoutineControlExceptionEnum::kDefaultValue;
-}
-
-
 enum class DiskReadTypeEnum : int32_t {
   
   kUnmappedEnumField = 0,
@@ -1510,10 +1483,6 @@ struct hash<::ash::cros_healthd::mojom::MemtesterTestItemEnum>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::MemtesterTestItemEnum> {};
 
 template <>
-struct hash<::ash::cros_healthd::mojom::RoutineControlExceptionEnum>
-    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::RoutineControlExceptionEnum> {};
-
-template <>
 struct hash<::ash::cros_healthd::mojom::DiskReadTypeEnum>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DiskReadTypeEnum> {};
 
@@ -1552,26 +1521,6 @@ struct Serializer<::ash::cros_healthd::mojom::MemtesterTestItemEnum, MaybeConstU
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::MemtesterTestItemEnum>(input)), output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::ash::cros_healthd::mojom::RoutineControlExceptionEnum, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::ash::cros_healthd::mojom::RoutineControlExceptionEnum, UserType>;
-
-  static void Serialize(UserType input, int32_t* output) {
-    *output = static_cast<int32_t>(Traits::ToMojom(input));
-  }
-
-  static bool Deserialize(int32_t input, UserType* output) {
-    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::ash::cros_healthd::mojom::RoutineControlExceptionEnum>(input)), output);
   }
 };
 
@@ -3236,15 +3185,6 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::MemtesterTestItemEnum value);
-};
-
-} // namespace perfetto
-
-namespace perfetto_libchrome {
-
-template <>
-struct  TraceFormatTraits<::ash::cros_healthd::mojom::RoutineControlExceptionEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::RoutineControlExceptionEnum value);
 };
 
 } // namespace perfetto

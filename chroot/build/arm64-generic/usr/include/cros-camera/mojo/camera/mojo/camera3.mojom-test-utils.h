@@ -30,7 +30,7 @@ class  Camera3CallbackOpsAsyncWaiter {
 
   ~Camera3CallbackOpsAsyncWaiter();
   void RequestStreamBuffers(
-      std::vector<Camera3BufferRequestPtr> buffer_reqs, Camera3BufferRequestStatus* out_result, absl::optional<std::vector<Camera3StreamBufferRetPtr>>* out_returned_buf_reqs);
+      std::vector<Camera3BufferRequestPtr> buffer_reqs, Camera3BufferRequestStatus* out_result, std::vector<Camera3StreamBufferRetPtr>* out_returned_buf_reqs);
   
 
  private:

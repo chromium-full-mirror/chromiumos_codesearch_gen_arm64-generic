@@ -600,6 +600,33 @@ class ControlProxyMock : public ControlProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              SetHfpMicSrEnabled,
+              (bool /*in_enabled*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetHfpMicSrEnabledAsync,
+              (bool /*in_enabled*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              IsHfpMicSrSupported,
+              (bool* /*out_supported*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              IsHfpMicSrSupportedAsync,
+              (base::OnceCallback<void(bool /*supported*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               SetPlayerPlaybackStatus,
               (const std::string& /*in_status*/,
                brillo::ErrorPtr* /*error*/,
