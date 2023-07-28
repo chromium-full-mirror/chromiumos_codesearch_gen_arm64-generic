@@ -46,16 +46,252 @@
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
+  data_.unrecognizedArgument = bool();
+}
+
+RoutineArgument::~RoutineArgument() {
+  DestroyActive();
+}
+
+
+void RoutineArgument::set_unrecognizedArgument(
+    bool unrecognizedArgument) {
+  if (tag_ != Tag::kUnrecognizedArgument) {
+    DestroyActive();
+    tag_ = Tag::kUnrecognizedArgument;
+  }
+  data_.unrecognizedArgument = unrecognizedArgument;
+}
+
+void RoutineArgument::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnrecognizedArgument:
+
+      break;
+  }
+}
+size_t RoutineArgument::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kUnrecognizedArgument:
+      return mojo::internal::Hash(seed, data_.unrecognizedArgument);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool RoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 const char CrosHealthdRoutinesService::Name_[] = "ash.cros_healthd.mojom.CrosHealthdRoutinesService";
 
 CrosHealthdRoutinesService::IPCStableHashFunction CrosHealthdRoutinesService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kCrosHealthdRoutinesService_CreateRoutine_Name: {
+      return &CrosHealthdRoutinesService::CreateRoutine_Sym::IPCStableHash;
+    }
+  }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
 }
 
 
 const char* CrosHealthdRoutinesService::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kCrosHealthdRoutinesService_CreateRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdRoutinesService::CreateRoutine";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kCrosHealthdRoutinesService_CreateRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdRoutinesService::CreateRoutine";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CrosHealthdRoutinesService::CreateRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdRoutinesService::CreateRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+CrosHealthdRoutinesServiceProxy::CrosHealthdRoutinesServiceProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void CrosHealthdRoutinesServiceProxy::CreateRoutine(
+    RoutineArgumentPtr in_routine_argument, ::mojo::PendingReceiver<RoutineControl> in_routine_receiver, ::mojo::PendingRemote<RoutineObserver> in_routine_observer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdRoutinesService::CreateRoutine", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("routine_argument"), in_routine_argument,
+                        "<value of type RoutineArgumentPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("routine_receiver"), in_routine_receiver,
+                        "<value of type ::mojo::PendingReceiver<RoutineControl>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("routine_observer"), in_routine_observer,
+                        "<value of type ::mojo::PendingRemote<RoutineObserver>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdRoutinesService_CreateRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->routine_argument)>
+      routine_argument_fragment(params.message());
+  routine_argument_fragment.Claim(&params->routine_argument);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineArgumentDataView>(
+      in_routine_argument, routine_argument_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->routine_argument.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null routine_argument in CrosHealthdRoutinesService.CreateRoutine request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::RoutineControlInterfaceBase>>(
+      in_routine_receiver, &params->routine_receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->routine_receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid routine_receiver in CrosHealthdRoutinesService.CreateRoutine request");
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::RoutineObserverInterfaceBase>>(
+      in_routine_observer, &params->routine_observer, &params.message());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdRoutinesService::Name_);
+  message.set_method_name("CreateRoutine");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool CrosHealthdRoutinesServiceStubDispatch::Accept(
+    CrosHealthdRoutinesService* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kCrosHealthdRoutinesService_CreateRoutine_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data* params =
+          reinterpret_cast<internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      RoutineArgumentPtr p_routine_argument{};
+      ::mojo::PendingReceiver<RoutineControl> p_routine_receiver{};
+      ::mojo::PendingRemote<RoutineObserver> p_routine_observer{};
+      CrosHealthdRoutinesService_CreateRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadRoutineArgument(&p_routine_argument))
+        success = false;
+      if (success) {
+        p_routine_receiver =
+            input_data_view.TakeRoutineReceiver<decltype(p_routine_receiver)>();
+      }
+      if (success) {
+        p_routine_observer =
+            input_data_view.TakeRoutineObserver<decltype(p_routine_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdRoutinesService::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->CreateRoutine(
+std::move(p_routine_argument), 
+std::move(p_routine_receiver), 
+std::move(p_routine_observer));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
+    CrosHealthdRoutinesService* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kCrosHealthdRoutinesService_CreateRoutine_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+
+static const mojo::internal::GenericValidationInfo kCrosHealthdRoutinesServiceValidationInfo[] = {
+    {&internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool CrosHealthdRoutinesServiceRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdRoutinesService::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdRoutinesServiceValidationInfo);
+}
+
+const char RoutineControl::Name_[] = "ash.cros_healthd.mojom.RoutineControl";
+
+RoutineControl::IPCStableHashFunction RoutineControl::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* RoutineControl::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   return "Receive unknown mojo message";
 #else
@@ -71,20 +307,20 @@ const char* CrosHealthdRoutinesService::MessageToMethodName_(mojo::Message& mess
 #if !BUILDFLAG(IS_FUCHSIA)
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-CrosHealthdRoutinesServiceProxy::CrosHealthdRoutinesServiceProxy(mojo::MessageReceiverWithResponder* receiver)
+RoutineControlProxy::RoutineControlProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
 // static
-bool CrosHealthdRoutinesServiceStubDispatch::Accept(
-    CrosHealthdRoutinesService* impl,
+bool RoutineControlStubDispatch::Accept(
+    RoutineControl* impl,
     mojo::Message* message) {
   return false;
 }
 
 // static
-bool CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
-    CrosHealthdRoutinesService* impl,
+bool RoutineControlStubDispatch::AcceptWithResponder(
+    RoutineControl* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   return false;
@@ -92,8 +328,59 @@ bool CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
 
 
 
-bool CrosHealthdRoutinesServiceRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::ash::cros_healthd::mojom::CrosHealthdRoutinesService::Name_;
+bool RoutineControlRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::RoutineControl::Name_;
+  return mojo::internal::ValidateRequestGeneric(message, name, {});
+}
+
+const char RoutineObserver::Name_[] = "ash.cros_healthd.mojom.RoutineObserver";
+
+RoutineObserver::IPCStableHashFunction RoutineObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* RoutineObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+RoutineObserverProxy::RoutineObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+// static
+bool RoutineObserverStubDispatch::Accept(
+    RoutineObserver* impl,
+    mojo::Message* message) {
+  return false;
+}
+
+// static
+bool RoutineObserverStubDispatch::AcceptWithResponder(
+    RoutineObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  return false;
+}
+
+
+
+bool RoutineObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::RoutineObserver::Name_;
   return mojo::internal::ValidateRequestGeneric(message, name, {});
 }
 
@@ -105,6 +392,26 @@ bool CrosHealthdRoutinesServiceRequestValidator::Accept(mojo::Message* message) 
 
 
 namespace mojo {
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::cros_healthd::mojom::RoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::RoutineArgumentPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::RoutineArgument;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnrecognizedArgument: {
+      *output = UnionType::NewUnrecognizedArgument(input.unrecognizedArgument());
+      break;
+    }
+    default:
+
+      *output = UnionType::NewUnrecognizedArgument({});
+      return true;
+  }
+  return true;
+}
 
 }  // namespace mojo
 
@@ -118,10 +425,29 @@ namespace cros_healthd {
 namespace mojom {
 
 
+void CrosHealthdRoutinesServiceInterceptorForTesting::CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) {
+  GetForwardingInterface()->CreateRoutine(std::move(routine_argument), std::move(routine_receiver), std::move(routine_observer));
+}
 CrosHealthdRoutinesServiceAsyncWaiter::CrosHealthdRoutinesServiceAsyncWaiter(
     CrosHealthdRoutinesService* proxy) : proxy_(proxy) {}
 
 CrosHealthdRoutinesServiceAsyncWaiter::~CrosHealthdRoutinesServiceAsyncWaiter() = default;
+
+
+
+
+RoutineControlAsyncWaiter::RoutineControlAsyncWaiter(
+    RoutineControl* proxy) : proxy_(proxy) {}
+
+RoutineControlAsyncWaiter::~RoutineControlAsyncWaiter() = default;
+
+
+
+
+RoutineObserverAsyncWaiter::RoutineObserverAsyncWaiter(
+    RoutineObserver* proxy) : proxy_(proxy) {}
+
+RoutineObserverAsyncWaiter::~RoutineObserverAsyncWaiter() = default;
 
 
 

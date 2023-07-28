@@ -22,8 +22,78 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
+class  CrosHealthdRoutinesService_CreateRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  internal::RoutineArgument_Data routine_argument;
+  mojo::internal::Handle_Data routine_receiver;
+  mojo::internal::Interface_Data routine_observer;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdRoutinesService_CreateRoutine_Params_Data>;
+
+  CrosHealthdRoutinesService_CreateRoutine_Params_Data();
+  ~CrosHealthdRoutinesService_CreateRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdRoutinesService_CreateRoutine_Params_Data) == 40,
+              "Bad sizeof(CrosHealthdRoutinesService_CreateRoutine_Params_Data)");
 
 }  // namespace internal
+
+
+class CrosHealthdRoutinesService_CreateRoutine_ParamsDataView {
+ public:
+  CrosHealthdRoutinesService_CreateRoutine_ParamsDataView() = default;
+
+  CrosHealthdRoutinesService_CreateRoutine_ParamsDataView(
+      internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetRoutineArgumentDataView(
+      RoutineArgumentDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRoutineArgument(UserType* output) {
+    
+    auto* pointer = !data_->routine_argument.is_null() ? &data_->routine_argument : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineArgumentDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakeRoutineReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::RoutineControlInterfaceBase>>(
+            &data_->routine_receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeRoutineObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::RoutineObserverInterfaceBase>>(
+            &data_->routine_observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+inline void CrosHealthdRoutinesService_CreateRoutine_ParamsDataView::GetRoutineArgumentDataView(
+    RoutineArgumentDataView* output) {
+  auto pointer = &data_->routine_argument;
+  *output = RoutineArgumentDataView(pointer, message_);
+}
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash

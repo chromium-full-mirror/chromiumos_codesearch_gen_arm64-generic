@@ -26,8 +26,58 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
+class RoutineArgument_Data;
 
 #pragma pack(push, 1)
+
+
+class  RoutineArgument_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  RoutineArgument_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~RoutineArgument_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<RoutineArgument_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class RoutineArgument_Tag : uint32_t {
+
+    
+    kUnrecognizedArgument,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_unrecognizedArgument : 1;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  RoutineArgument_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(RoutineArgument_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(RoutineArgument_Data)");
 
 #pragma pack(pop)
 

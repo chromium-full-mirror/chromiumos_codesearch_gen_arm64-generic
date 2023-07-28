@@ -689,6 +689,16 @@ NOINLINE static const char* PsrEvent_EventTypeToStringHelper(PsrEvent_EventType 
       return "kPrtcFailure";
     case PsrEvent_EventType::kSvnIncrease:
       return "kSvnIncrease";
+    case PsrEvent_EventType::kMissing:
+      return "kMissing";
+    case PsrEvent_EventType::kInvalid:
+      return "kInvalid";
+    case PsrEvent_EventType::kCsmeDamState:
+      return "kCsmeDamState";
+    case PsrEvent_EventType::kCsmeUnlockState:
+      return "kCsmeUnlockState";
+    case PsrEvent_EventType::kFwVersionChanged:
+      return "kFwVersionChanged";
     default:
       return nullptr;
   }

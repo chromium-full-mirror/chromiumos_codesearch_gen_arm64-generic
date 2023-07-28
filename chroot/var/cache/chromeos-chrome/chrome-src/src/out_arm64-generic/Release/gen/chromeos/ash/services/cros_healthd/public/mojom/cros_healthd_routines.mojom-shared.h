@@ -37,6 +37,7 @@
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+class RoutineArgumentDataView;
 
 
 }  // namespace mojom
@@ -45,6 +46,13 @@ namespace mojom {
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineArgument_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
 
 }  // namespace internal
 }  // namespace mojo
@@ -64,6 +72,56 @@ using CrosHealthdRoutinesServiceAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdRoutinesServiceInterfaceBase>;
 using CrosHealthdRoutinesServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CrosHealthdRoutinesServiceInterfaceBase>;
+class RoutineControlInterfaceBase {};
+
+using RoutineControlPtrDataView =
+    mojo::InterfacePtrDataView<RoutineControlInterfaceBase>;
+using RoutineControlRequestDataView =
+    mojo::InterfaceRequestDataView<RoutineControlInterfaceBase>;
+using RoutineControlAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<RoutineControlInterfaceBase>;
+using RoutineControlAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<RoutineControlInterfaceBase>;
+class RoutineObserverInterfaceBase {};
+
+using RoutineObserverPtrDataView =
+    mojo::InterfacePtrDataView<RoutineObserverInterfaceBase>;
+using RoutineObserverRequestDataView =
+    mojo::InterfaceRequestDataView<RoutineObserverInterfaceBase>;
+using RoutineObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<RoutineObserverInterfaceBase>;
+using RoutineObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<RoutineObserverInterfaceBase>;
+
+
+class RoutineArgumentDataView {
+ public:
+  using Tag = internal::RoutineArgument_Data::RoutineArgument_Tag;
+
+  RoutineArgumentDataView() = default;
+
+  RoutineArgumentDataView(
+      internal::RoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_unrecognizedArgument() const { return data_->tag == Tag::kUnrecognizedArgument; }
+  bool unrecognizedArgument() const {
+    CHECK(is_unrecognizedArgument());
+    return data_->data.f_unrecognizedArgument;
+  }
+
+ private:
+  internal::RoutineArgument_Data* data_ = nullptr;
+};
+
 
 
 }  // namespace mojom
@@ -76,12 +134,60 @@ namespace std {
 
 namespace mojo {
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::RoutineArgument_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kUnrecognizedArgument: {
+        decltype(Traits::unrecognizedArgument(input))
+            in_unrecognizedArgument = Traits::unrecognizedArgument(input);
+        fragment->data.f_unrecognizedArgument = in_unrecognizedArgument;
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::RoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
 
 
 }  // namespace mojom

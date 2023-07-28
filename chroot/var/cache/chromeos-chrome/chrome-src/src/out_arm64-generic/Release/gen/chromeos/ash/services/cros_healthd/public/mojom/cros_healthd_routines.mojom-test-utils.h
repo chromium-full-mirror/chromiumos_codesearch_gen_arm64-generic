@@ -17,6 +17,7 @@ namespace mojom {
 
 class  CrosHealthdRoutinesServiceInterceptorForTesting : public CrosHealthdRoutinesService {
   virtual CrosHealthdRoutinesService* GetForwardingInterface() = 0;
+  void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) override;
 };
 class  CrosHealthdRoutinesServiceAsyncWaiter {
  public:
@@ -29,6 +30,40 @@ class  CrosHealthdRoutinesServiceAsyncWaiter {
 
  private:
   CrosHealthdRoutinesService* const proxy_;
+};
+
+
+class  RoutineControlInterceptorForTesting : public RoutineControl {
+  virtual RoutineControl* GetForwardingInterface() = 0;
+};
+class  RoutineControlAsyncWaiter {
+ public:
+  explicit RoutineControlAsyncWaiter(RoutineControl* proxy);
+
+  RoutineControlAsyncWaiter(const RoutineControlAsyncWaiter&) = delete;
+  RoutineControlAsyncWaiter& operator=(const RoutineControlAsyncWaiter&) = delete;
+
+  ~RoutineControlAsyncWaiter();
+
+ private:
+  RoutineControl* const proxy_;
+};
+
+
+class  RoutineObserverInterceptorForTesting : public RoutineObserver {
+  virtual RoutineObserver* GetForwardingInterface() = 0;
+};
+class  RoutineObserverAsyncWaiter {
+ public:
+  explicit RoutineObserverAsyncWaiter(RoutineObserver* proxy);
+
+  RoutineObserverAsyncWaiter(const RoutineObserverAsyncWaiter&) = delete;
+  RoutineObserverAsyncWaiter& operator=(const RoutineObserverAsyncWaiter&) = delete;
+
+  ~RoutineObserverAsyncWaiter();
+
+ private:
+  RoutineObserver* const proxy_;
 };
 
 

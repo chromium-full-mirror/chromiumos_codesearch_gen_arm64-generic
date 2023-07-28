@@ -58,7 +58,7 @@ class CrosHealthdRoutinesService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -71,13 +71,96 @@ class CrosHealthdRoutinesService
   using RequestValidator_ = CrosHealthdRoutinesServiceRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
+    kCreateRoutineMinVersion = 1,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct CreateRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~CrosHealthdRoutinesService() = default;
+
+  
+  virtual void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) = 0;
+};
+
+class RoutineControlProxy;
+
+template <typename ImplRefTraits>
+class RoutineControlStub;
+
+class RoutineControlRequestValidator;
+
+
+class RoutineControl
+    : public RoutineControlInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = RoutineControlInterfaceBase;
+  using Proxy_ = RoutineControlProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = RoutineControlStub<ImplRefTraits>;
+
+  using RequestValidator_ = RoutineControlRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
 #endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~CrosHealthdRoutinesService() = default;
+  virtual ~RoutineControl() = default;
+};
+
+class RoutineObserverProxy;
+
+template <typename ImplRefTraits>
+class RoutineObserverStub;
+
+class RoutineObserverRequestValidator;
+
+
+class RoutineObserver
+    : public RoutineObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = RoutineObserverInterfaceBase;
+  using Proxy_ = RoutineObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = RoutineObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = RoutineObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~RoutineObserver() = default;
 };
 
 
@@ -88,6 +171,34 @@ class  CrosHealthdRoutinesServiceProxy
   using InterfaceType = CrosHealthdRoutinesService;
 
   explicit CrosHealthdRoutinesServiceProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  RoutineControlProxy
+    : public RoutineControl {
+ public:
+  using InterfaceType = RoutineControl;
+
+  explicit RoutineControlProxy(mojo::MessageReceiverWithResponder* receiver);
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  RoutineObserverProxy
+    : public RoutineObserver {
+ public:
+  using InterfaceType = RoutineObserver;
+
+  explicit RoutineObserverProxy(mojo::MessageReceiverWithResponder* receiver);
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -133,7 +244,97 @@ class CrosHealthdRoutinesServiceStub
  private:
   ImplPointerType sink_;
 };
+class  RoutineControlStubDispatch {
+ public:
+  static bool Accept(RoutineControl* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      RoutineControl* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<RoutineControl>>
+class RoutineControlStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  RoutineControlStub() = default;
+  ~RoutineControlStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return RoutineControlStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return RoutineControlStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  RoutineObserverStubDispatch {
+ public:
+  static bool Accept(RoutineObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      RoutineObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<RoutineObserver>>
+class RoutineObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  RoutineObserverStub() = default;
+  ~RoutineObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return RoutineObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return RoutineObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  CrosHealthdRoutinesServiceRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  RoutineControlRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  RoutineObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -142,11 +343,159 @@ class  CrosHealthdRoutinesServiceRequestValidator : public mojo::MessageReceiver
 
 
 
+class  RoutineArgument {
+ public:
+  using DataView = RoutineArgumentDataView;
+  using Data_ = internal::RoutineArgument_Data;
+  using Tag = Data_::RoutineArgument_Tag;
+
+  template <typename... Args>
+  static RoutineArgumentPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |unrecognizedArgument|.
+  static RoutineArgumentPtr
+  NewUnrecognizedArgument(
+      bool unrecognizedArgument) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_unrecognizedArgument(std::move(unrecognizedArgument));
+    return result;
+  }
+
+  template <typename U>
+  static RoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineArgument>::Convert(*this);
+  }
+
+  RoutineArgument();
+  ~RoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = RoutineArgumentPtr>
+  RoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineArgument>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineArgument>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_unrecognizedArgument() const { return tag_ == Tag::kUnrecognizedArgument; }
+
+  
+  bool get_unrecognizedArgument() const {
+    CHECK(tag_ == Tag::kUnrecognizedArgument);
+    return data_.unrecognizedArgument;
+  }
+
+  
+  void set_unrecognizedArgument(
+      bool unrecognizedArgument);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineArgument::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<RoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    bool unrecognizedArgument;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+template <typename UnionPtrType>
+RoutineArgumentPtr RoutineArgument::Clone() const {
+  switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return NewUnrecognizedArgument(
+          mojo::Clone(data_.unrecognizedArgument));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, RoutineArgument>::value>::type*>
+bool RoutineArgument::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
+  }
+
+  return false;
+}
+
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
 
 namespace mojo {
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
+                                        ::ash::cros_healthd::mojom::RoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineArgumentPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::RoutineArgument::Tag GetTag(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->which();
+  }
+
+  static  bool unrecognizedArgument(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_unrecognizedArgument();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
+};
 
 }  // namespace mojo
 

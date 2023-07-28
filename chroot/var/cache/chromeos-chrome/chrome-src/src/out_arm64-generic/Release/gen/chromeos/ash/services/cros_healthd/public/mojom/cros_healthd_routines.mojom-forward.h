@@ -9,7 +9,7 @@
 
 
 
-
+#include "mojo/public/cpp/bindings/struct_forward.h"
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
@@ -23,7 +23,16 @@
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+class RoutineArgumentDataView;
+class RoutineArgument;
+
+using RoutineArgumentPtr = mojo::InlinedStructPtr<RoutineArgument>;
+
 class CrosHealthdRoutinesService;
+
+class RoutineControl;
+
+class RoutineObserver;
 
 
 

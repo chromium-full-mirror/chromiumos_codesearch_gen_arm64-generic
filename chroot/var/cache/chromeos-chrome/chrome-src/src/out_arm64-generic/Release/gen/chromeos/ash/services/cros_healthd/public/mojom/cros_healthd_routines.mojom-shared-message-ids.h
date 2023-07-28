@@ -15,6 +15,7 @@ namespace mojom {
 namespace internal {
 
 
+constexpr uint32_t kCrosHealthdRoutinesService_CreateRoutine_Name = 0;
 
 }  // namespace internal
 }  // namespace mojom

@@ -4,20 +4,108 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_routines.mojom-shared.h"
 
 // Used to support stream output operator for enums.
 // TODO(dcheng): Consider omitting this somehow if not needed.
+#include <ostream>
+#include <utility>
 
+#include "base/strings/stringprintf.h"
+#include "mojo/public/cpp/bindings/lib/validate_params.h"
+#include "mojo/public/cpp/bindings/lib/validation_errors.h"
+#include "mojo/public/cpp/bindings/lib/validation_util.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
+#include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_routines.mojom-params-data.h"
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
 namespace internal {
+// static
+bool RoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const RoutineArgument_Data* object = static_cast<const RoutineArgument_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case RoutineArgument_Tag::kUnrecognizedArgument: {
+
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
+
+
+// static
+bool CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdRoutinesService_CreateRoutine_Params_Data* object =
+      static_cast<const CrosHealthdRoutinesService_CreateRoutine_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->routine_argument, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->routine_argument, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->routine_receiver, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->routine_receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterface(object->routine_observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+CrosHealthdRoutinesService_CreateRoutine_Params_Data::CrosHealthdRoutinesService_CreateRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
-
-// Includes removed due to no code being generated.
