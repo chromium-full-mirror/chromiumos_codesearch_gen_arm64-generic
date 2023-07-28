@@ -1295,6 +1295,11 @@ class RoutineStateUnionDataView {
   }
 
   Tag tag() const { return data_->tag; }
+  bool is_unrecognizedArgument() const { return data_->tag == Tag::kUnrecognizedArgument; }
+  bool unrecognizedArgument() const {
+    CHECK(is_unrecognizedArgument());
+    return data_->data.f_unrecognizedArgument;
+  }
   bool is_initialized() const { return data_->tag == Tag::kInitialized; }
   inline void GetInitializedDataView(
       RoutineStateInitializedDataView* output) const;
@@ -1365,6 +1370,11 @@ class RoutineDetailDataView {
   }
 
   Tag tag() const { return data_->tag; }
+  bool is_unrecognizedArgument() const { return data_->tag == Tag::kUnrecognizedArgument; }
+  bool unrecognizedArgument() const {
+    CHECK(is_unrecognizedArgument());
+    return data_->data.f_unrecognizedArgument;
+  }
   bool is_memory() const { return data_->tag == Tag::kMemory; }
   inline void GetMemoryDataView(
       MemoryRoutineDetailDataView* output) const;
@@ -2684,6 +2694,12 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineStateUnionDataView, MaybeCo
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::RoutineStateUnionDataView::Tag::kUnrecognizedArgument: {
+        decltype(Traits::unrecognizedArgument(input))
+            in_unrecognizedArgument = Traits::unrecognizedArgument(input);
+        fragment->data.f_unrecognizedArgument = in_unrecognizedArgument;
+        break;
+      }
       case ::ash::cros_healthd::mojom::RoutineStateUnionDataView::Tag::kInitialized: {
         decltype(Traits::initialized(input))
             in_initialized = Traits::initialized(input);
@@ -2789,6 +2805,12 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kUnrecognizedArgument: {
+        decltype(Traits::unrecognizedArgument(input))
+            in_unrecognizedArgument = Traits::unrecognizedArgument(input);
+        fragment->data.f_unrecognizedArgument = in_unrecognizedArgument;
+        break;
+      }
       case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kMemory: {
         decltype(Traits::memory(input))
             in_memory = Traits::memory(input);

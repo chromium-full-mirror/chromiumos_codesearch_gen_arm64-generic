@@ -89,7 +89,7 @@ class CrosHealthdRoutinesService
   virtual ~CrosHealthdRoutinesService() = default;
 
   
-  virtual void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver) = 0;
+  virtual void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) = 0;
 
 
   using IsRoutineSupportedCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::SupportStatusPtr)>;
@@ -176,7 +176,6 @@ class RoutineControl
   using ResponseValidator_ = RoutineControlResponseValidator;
   enum MethodMinVersions : uint32_t {
     kGetStateMinVersion = 0,
-    kAddObserverMinVersion = 0,
     kStartMinVersion = 0,
   };
 
@@ -184,9 +183,6 @@ class RoutineControl
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct GetState_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct AddObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct Start_Sym {
@@ -199,9 +195,6 @@ class RoutineControl
   using GetStateCallback = base::OnceCallback<void(RoutineStatePtr)>;
   
   virtual void GetState(GetStateCallback callback) = 0;
-
-  
-  virtual void AddObserver(::mojo::PendingRemote<RoutineObserver> observer) = 0;
 
   
   virtual void Start() = 0;
@@ -261,7 +254,7 @@ class  CrosHealthdRoutinesServiceProxy
 
   explicit CrosHealthdRoutinesServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver) final;
+  void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) final;
   
   void IsRoutineSupported(RoutineArgumentPtr routine_argument, IsRoutineSupportedCallback callback) final;
 
@@ -294,8 +287,6 @@ class  RoutineControlProxy
   explicit RoutineControlProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void GetState(GetStateCallback callback) final;
-  
-  void AddObserver(::mojo::PendingRemote<RoutineObserver> observer) final;
   
   void Start() final;
 
@@ -2774,6 +2765,14 @@ class  RoutineStateUnion {
         "definition.");
     return nullptr;
   }
+  // Construct an instance holding |unrecognizedArgument|.
+  static RoutineStateUnionPtr
+  NewUnrecognizedArgument(
+      bool unrecognizedArgument) {
+    auto result = RoutineStateUnionPtr(absl::in_place);
+    result->set_unrecognizedArgument(std::move(unrecognizedArgument));
+    return result;
+  }
   // Construct an instance holding |initialized|.
   static RoutineStateUnionPtr
   NewInitialized(
@@ -2849,6 +2848,18 @@ class  RoutineStateUnion {
 
 
   
+  bool is_unrecognizedArgument() const { return tag_ == Tag::kUnrecognizedArgument; }
+
+  
+  bool get_unrecognizedArgument() const {
+    CHECK(tag_ == Tag::kUnrecognizedArgument);
+    return data_.unrecognizedArgument;
+  }
+
+  
+  void set_unrecognizedArgument(
+      bool unrecognizedArgument);
+  
   bool is_initialized() const { return tag_ == Tag::kInitialized; }
 
   
@@ -2914,6 +2925,7 @@ class  RoutineStateUnion {
   union Union_ {
     Union_() = default;
     ~Union_() = default;
+    bool unrecognizedArgument;
     RoutineStateInitializedPtr* initialized;
     RoutineStateRunningPtr* running;
     RoutineStateWaitingPtr* waiting;
@@ -2945,6 +2957,14 @@ class  RoutineDetail {
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
     return nullptr;
+  }
+  // Construct an instance holding |unrecognizedArgument|.
+  static RoutineDetailPtr
+  NewUnrecognizedArgument(
+      bool unrecognizedArgument) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_unrecognizedArgument(std::move(unrecognizedArgument));
+    return result;
   }
   // Construct an instance holding |memory|.
   static RoutineDetailPtr
@@ -3060,6 +3080,18 @@ class  RoutineDetail {
   }
 
 
+  
+  bool is_unrecognizedArgument() const { return tag_ == Tag::kUnrecognizedArgument; }
+
+  
+  bool get_unrecognizedArgument() const {
+    CHECK(tag_ == Tag::kUnrecognizedArgument);
+    return data_.unrecognizedArgument;
+  }
+
+  
+  void set_unrecognizedArgument(
+      bool unrecognizedArgument);
   
   bool is_memory() const { return tag_ == Tag::kMemory; }
 
@@ -3186,6 +3218,7 @@ class  RoutineDetail {
   union Union_ {
     Union_() = default;
     ~Union_() = default;
+    bool unrecognizedArgument;
     MemoryRoutineDetailPtr* memory;
     AudioDriverRoutineDetailPtr* audio_driver;
     CpuStressRoutineDetailPtr* cpu_stress;
@@ -4722,6 +4755,9 @@ bool RoutineArgument::Equals(const T& other) const {
 template <typename UnionPtrType>
 RoutineStateUnionPtr RoutineStateUnion::Clone() const {
   switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return NewUnrecognizedArgument(
+          mojo::Clone(data_.unrecognizedArgument));
     case Tag::kInitialized:
       return NewInitialized(
           mojo::Clone(*data_.initialized));
@@ -4746,6 +4782,8 @@ bool RoutineStateUnion::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
     case Tag::kInitialized:
       return mojo::Equals(*(data_.initialized), *(other.data_.initialized));
     case Tag::kRunning:
@@ -4761,6 +4799,9 @@ bool RoutineStateUnion::Equals(const T& other) const {
 template <typename UnionPtrType>
 RoutineDetailPtr RoutineDetail::Clone() const {
   switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return NewUnrecognizedArgument(
+          mojo::Clone(data_.unrecognizedArgument));
     case Tag::kMemory:
       return NewMemory(
           mojo::Clone(*data_.memory));
@@ -4800,6 +4841,8 @@ bool RoutineDetail::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
     case Tag::kMemory:
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
     case Tag::kAudioDriver:
@@ -5819,6 +5862,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineStateUnion::DataView,
     return input->which();
   }
 
+  static  bool unrecognizedArgument(const ::ash::cros_healthd::mojom::RoutineStateUnionPtr& input) {
+    return input->get_unrecognizedArgument();
+  }
+
   static const ::ash::cros_healthd::mojom::RoutineStateInitializedPtr& initialized(const ::ash::cros_healthd::mojom::RoutineStateUnionPtr& input) {
     return input->get_initialized();
   }
@@ -5847,6 +5894,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static ::ash::cros_healthd::mojom::RoutineDetail::Tag GetTag(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->which();
+  }
+
+  static  bool unrecognizedArgument(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_unrecognizedArgument();
   }
 
   static const ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr& memory(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {

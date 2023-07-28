@@ -409,12 +409,14 @@ class SessionManagerInterfaceProxyMock : public SessionManagerInterfaceProxyInte
 
   MOCK_METHOD(bool,
               StartRemoteDeviceWipe,
-              (brillo::ErrorPtr* /*error*/,
+              (const std::vector<uint8_t>& /*in_signed_command*/,
+               brillo::ErrorPtr* /*error*/,
                int /*timeout_ms*/),
               (override));
   MOCK_METHOD(void,
               StartRemoteDeviceWipeAsync,
-              (base::OnceCallback<void()> /*success_callback*/,
+              (const std::vector<uint8_t>& /*in_signed_command*/,
+               base::OnceCallback<void()> /*success_callback*/,
                base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                int /*timeout_ms*/),
               (override));

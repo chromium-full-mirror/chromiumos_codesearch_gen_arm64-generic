@@ -1034,6 +1034,11 @@ std::string GetProtoDebugStringWithIndent(const GetVersionInfoReply& value,
             .c_str());
     output += "\n";
   }
+  if (value.has_rw_version()) {
+    output += indent + "  rw_version: ";
+    base::StringAppendF(&output, "%s", value.rw_version().c_str());
+    output += "\n";
+  }
   output += indent + "}\n";
   return output;
 }

@@ -28,6 +28,7 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include "components/reporting/proto/synced/health.pb.h"
 #include "components/reporting/proto/synced/record_constants.pb.h"
 #include "components/reporting/proto/synced/record.pb.h"
 #include "components/reporting/proto/synced/status.pb.h"
@@ -204,6 +205,7 @@ class EnqueueRecordRequest final :
   enum : int {
     kRecordFieldNumber = 1,
     kPriorityFieldNumber = 2,
+    kHealthDataLoggingEnabledFieldNumber = 3,
   };
   // optional .reporting.Record record = 1;
   bool has_record() const;
@@ -236,6 +238,19 @@ class EnqueueRecordRequest final :
   void _internal_set_priority(::reporting::Priority value);
   public:
 
+  // optional bool health_data_logging_enabled = 3 [default = false];
+  bool has_health_data_logging_enabled() const;
+  private:
+  bool _internal_has_health_data_logging_enabled() const;
+  public:
+  void clear_health_data_logging_enabled();
+  bool health_data_logging_enabled() const;
+  void set_health_data_logging_enabled(bool value);
+  private:
+  bool _internal_health_data_logging_enabled() const;
+  void _internal_set_health_data_logging_enabled(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:reporting.EnqueueRecordRequest)
  private:
   class _Internal;
@@ -247,6 +262,7 @@ class EnqueueRecordRequest final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::reporting::Record* record_;
   int priority_;
+  bool health_data_logging_enabled_;
   friend struct ::TableStruct_components_2freporting_2fproto_2fsynced_2finterface_2eproto;
 };
 // -------------------------------------------------------------------
@@ -789,6 +805,7 @@ class UploadEncryptedRecordRequest final :
 
   enum : int {
     kEncryptedRecordFieldNumber = 1,
+    kHealthDataFieldNumber = 5,
     kRemainingStorageCapacityFieldNumber = 3,
     kNewEventsRateFieldNumber = 4,
     kNeedEncryptionKeysFieldNumber = 2,
@@ -810,6 +827,24 @@ class UploadEncryptedRecordRequest final :
   ::reporting::EncryptedRecord* add_encrypted_record();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::reporting::EncryptedRecord >&
       encrypted_record() const;
+
+  // optional .reporting.ERPHealthData health_data = 5;
+  bool has_health_data() const;
+  private:
+  bool _internal_has_health_data() const;
+  public:
+  void clear_health_data();
+  const ::reporting::ERPHealthData& health_data() const;
+  PROTOBUF_NODISCARD ::reporting::ERPHealthData* release_health_data();
+  ::reporting::ERPHealthData* mutable_health_data();
+  void set_allocated_health_data(::reporting::ERPHealthData* health_data);
+  private:
+  const ::reporting::ERPHealthData& _internal_health_data() const;
+  ::reporting::ERPHealthData* _internal_mutable_health_data();
+  public:
+  void unsafe_arena_set_allocated_health_data(
+      ::reporting::ERPHealthData* health_data);
+  ::reporting::ERPHealthData* unsafe_arena_release_health_data();
 
   // optional uint64 remaining_storage_capacity = 3;
   bool has_remaining_storage_capacity() const;
@@ -860,6 +895,7 @@ class UploadEncryptedRecordRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::reporting::EncryptedRecord > encrypted_record_;
+  ::reporting::ERPHealthData* health_data_;
   uint64_t remaining_storage_capacity_;
   uint64_t new_events_rate_;
   bool need_encryption_keys_;
@@ -979,6 +1015,7 @@ class UploadEncryptedRecordResponse final :
   enum : int {
     kStatusFieldNumber = 1,
     kDisableFieldNumber = 2,
+    kHealthDataLoggingEnabledFieldNumber = 3,
   };
   // optional .reporting.StatusProto status = 1;
   bool has_status() const;
@@ -1011,6 +1048,19 @@ class UploadEncryptedRecordResponse final :
   void _internal_set_disable(bool value);
   public:
 
+  // optional bool health_data_logging_enabled = 3 [default = false];
+  bool has_health_data_logging_enabled() const;
+  private:
+  bool _internal_has_health_data_logging_enabled() const;
+  public:
+  void clear_health_data_logging_enabled();
+  bool health_data_logging_enabled() const;
+  void set_health_data_logging_enabled(bool value);
+  private:
+  bool _internal_health_data_logging_enabled() const;
+  void _internal_set_health_data_logging_enabled(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:reporting.UploadEncryptedRecordResponse)
  private:
   class _Internal;
@@ -1022,6 +1072,7 @@ class UploadEncryptedRecordResponse final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::reporting::StatusProto* status_;
   bool disable_;
+  bool health_data_logging_enabled_;
   friend struct ::TableStruct_components_2freporting_2fproto_2fsynced_2finterface_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1742,6 +1793,34 @@ inline void EnqueueRecordRequest::set_priority(::reporting::Priority value) {
   // @@protoc_insertion_point(field_set:reporting.EnqueueRecordRequest.priority)
 }
 
+// optional bool health_data_logging_enabled = 3 [default = false];
+inline bool EnqueueRecordRequest::_internal_has_health_data_logging_enabled() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool EnqueueRecordRequest::has_health_data_logging_enabled() const {
+  return _internal_has_health_data_logging_enabled();
+}
+inline void EnqueueRecordRequest::clear_health_data_logging_enabled() {
+  health_data_logging_enabled_ = false;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline bool EnqueueRecordRequest::_internal_health_data_logging_enabled() const {
+  return health_data_logging_enabled_;
+}
+inline bool EnqueueRecordRequest::health_data_logging_enabled() const {
+  // @@protoc_insertion_point(field_get:reporting.EnqueueRecordRequest.health_data_logging_enabled)
+  return _internal_health_data_logging_enabled();
+}
+inline void EnqueueRecordRequest::_internal_set_health_data_logging_enabled(bool value) {
+  _has_bits_[0] |= 0x00000004u;
+  health_data_logging_enabled_ = value;
+}
+inline void EnqueueRecordRequest::set_health_data_logging_enabled(bool value) {
+  _internal_set_health_data_logging_enabled(value);
+  // @@protoc_insertion_point(field_set:reporting.EnqueueRecordRequest.health_data_logging_enabled)
+}
+
 // -------------------------------------------------------------------
 
 // EnqueueRecordResponse
@@ -2000,7 +2079,7 @@ UploadEncryptedRecordRequest::encrypted_record() const {
 
 // optional bool need_encryption_keys = 2;
 inline bool UploadEncryptedRecordRequest::_internal_has_need_encryption_keys() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool UploadEncryptedRecordRequest::has_need_encryption_keys() const {
@@ -2008,7 +2087,7 @@ inline bool UploadEncryptedRecordRequest::has_need_encryption_keys() const {
 }
 inline void UploadEncryptedRecordRequest::clear_need_encryption_keys() {
   need_encryption_keys_ = false;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline bool UploadEncryptedRecordRequest::_internal_need_encryption_keys() const {
   return need_encryption_keys_;
@@ -2018,7 +2097,7 @@ inline bool UploadEncryptedRecordRequest::need_encryption_keys() const {
   return _internal_need_encryption_keys();
 }
 inline void UploadEncryptedRecordRequest::_internal_set_need_encryption_keys(bool value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   need_encryption_keys_ = value;
 }
 inline void UploadEncryptedRecordRequest::set_need_encryption_keys(bool value) {
@@ -2028,7 +2107,7 @@ inline void UploadEncryptedRecordRequest::set_need_encryption_keys(bool value) {
 
 // optional uint64 remaining_storage_capacity = 3;
 inline bool UploadEncryptedRecordRequest::_internal_has_remaining_storage_capacity() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool UploadEncryptedRecordRequest::has_remaining_storage_capacity() const {
@@ -2036,7 +2115,7 @@ inline bool UploadEncryptedRecordRequest::has_remaining_storage_capacity() const
 }
 inline void UploadEncryptedRecordRequest::clear_remaining_storage_capacity() {
   remaining_storage_capacity_ = uint64_t{0u};
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline uint64_t UploadEncryptedRecordRequest::_internal_remaining_storage_capacity() const {
   return remaining_storage_capacity_;
@@ -2046,7 +2125,7 @@ inline uint64_t UploadEncryptedRecordRequest::remaining_storage_capacity() const
   return _internal_remaining_storage_capacity();
 }
 inline void UploadEncryptedRecordRequest::_internal_set_remaining_storage_capacity(uint64_t value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   remaining_storage_capacity_ = value;
 }
 inline void UploadEncryptedRecordRequest::set_remaining_storage_capacity(uint64_t value) {
@@ -2056,7 +2135,7 @@ inline void UploadEncryptedRecordRequest::set_remaining_storage_capacity(uint64_
 
 // optional uint64 new_events_rate = 4;
 inline bool UploadEncryptedRecordRequest::_internal_has_new_events_rate() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool UploadEncryptedRecordRequest::has_new_events_rate() const {
@@ -2064,7 +2143,7 @@ inline bool UploadEncryptedRecordRequest::has_new_events_rate() const {
 }
 inline void UploadEncryptedRecordRequest::clear_new_events_rate() {
   new_events_rate_ = uint64_t{0u};
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline uint64_t UploadEncryptedRecordRequest::_internal_new_events_rate() const {
   return new_events_rate_;
@@ -2074,12 +2153,99 @@ inline uint64_t UploadEncryptedRecordRequest::new_events_rate() const {
   return _internal_new_events_rate();
 }
 inline void UploadEncryptedRecordRequest::_internal_set_new_events_rate(uint64_t value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   new_events_rate_ = value;
 }
 inline void UploadEncryptedRecordRequest::set_new_events_rate(uint64_t value) {
   _internal_set_new_events_rate(value);
   // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordRequest.new_events_rate)
+}
+
+// optional .reporting.ERPHealthData health_data = 5;
+inline bool UploadEncryptedRecordRequest::_internal_has_health_data() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || health_data_ != nullptr);
+  return value;
+}
+inline bool UploadEncryptedRecordRequest::has_health_data() const {
+  return _internal_has_health_data();
+}
+inline const ::reporting::ERPHealthData& UploadEncryptedRecordRequest::_internal_health_data() const {
+  const ::reporting::ERPHealthData* p = health_data_;
+  return p != nullptr ? *p : reinterpret_cast<const ::reporting::ERPHealthData&>(
+      ::reporting::_ERPHealthData_default_instance_);
+}
+inline const ::reporting::ERPHealthData& UploadEncryptedRecordRequest::health_data() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadEncryptedRecordRequest.health_data)
+  return _internal_health_data();
+}
+inline void UploadEncryptedRecordRequest::unsafe_arena_set_allocated_health_data(
+    ::reporting::ERPHealthData* health_data) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(health_data_);
+  }
+  health_data_ = health_data;
+  if (health_data) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.UploadEncryptedRecordRequest.health_data)
+}
+inline ::reporting::ERPHealthData* UploadEncryptedRecordRequest::release_health_data() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::reporting::ERPHealthData* temp = health_data_;
+  health_data_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::reporting::ERPHealthData* UploadEncryptedRecordRequest::unsafe_arena_release_health_data() {
+  // @@protoc_insertion_point(field_release:reporting.UploadEncryptedRecordRequest.health_data)
+  _has_bits_[0] &= ~0x00000001u;
+  ::reporting::ERPHealthData* temp = health_data_;
+  health_data_ = nullptr;
+  return temp;
+}
+inline ::reporting::ERPHealthData* UploadEncryptedRecordRequest::_internal_mutable_health_data() {
+  _has_bits_[0] |= 0x00000001u;
+  if (health_data_ == nullptr) {
+    auto* p = CreateMaybeMessage<::reporting::ERPHealthData>(GetArenaForAllocation());
+    health_data_ = p;
+  }
+  return health_data_;
+}
+inline ::reporting::ERPHealthData* UploadEncryptedRecordRequest::mutable_health_data() {
+  ::reporting::ERPHealthData* _msg = _internal_mutable_health_data();
+  // @@protoc_insertion_point(field_mutable:reporting.UploadEncryptedRecordRequest.health_data)
+  return _msg;
+}
+inline void UploadEncryptedRecordRequest::set_allocated_health_data(::reporting::ERPHealthData* health_data) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(health_data_);
+  }
+  if (health_data) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(health_data));
+    if (message_arena != submessage_arena) {
+      health_data = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, health_data, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  health_data_ = health_data;
+  // @@protoc_insertion_point(field_set_allocated:reporting.UploadEncryptedRecordRequest.health_data)
 }
 
 // -------------------------------------------------------------------
@@ -2199,6 +2365,34 @@ inline void UploadEncryptedRecordResponse::_internal_set_disable(bool value) {
 inline void UploadEncryptedRecordResponse::set_disable(bool value) {
   _internal_set_disable(value);
   // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordResponse.disable)
+}
+
+// optional bool health_data_logging_enabled = 3 [default = false];
+inline bool UploadEncryptedRecordResponse::_internal_has_health_data_logging_enabled() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool UploadEncryptedRecordResponse::has_health_data_logging_enabled() const {
+  return _internal_has_health_data_logging_enabled();
+}
+inline void UploadEncryptedRecordResponse::clear_health_data_logging_enabled() {
+  health_data_logging_enabled_ = false;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline bool UploadEncryptedRecordResponse::_internal_health_data_logging_enabled() const {
+  return health_data_logging_enabled_;
+}
+inline bool UploadEncryptedRecordResponse::health_data_logging_enabled() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadEncryptedRecordResponse.health_data_logging_enabled)
+  return _internal_health_data_logging_enabled();
+}
+inline void UploadEncryptedRecordResponse::_internal_set_health_data_logging_enabled(bool value) {
+  _has_bits_[0] |= 0x00000004u;
+  health_data_logging_enabled_ = value;
+}
+inline void UploadEncryptedRecordResponse::set_health_data_logging_enabled(bool value) {
+  _internal_set_health_data_logging_enabled(value);
+  // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordResponse.health_data_logging_enabled)
 }
 
 // -------------------------------------------------------------------

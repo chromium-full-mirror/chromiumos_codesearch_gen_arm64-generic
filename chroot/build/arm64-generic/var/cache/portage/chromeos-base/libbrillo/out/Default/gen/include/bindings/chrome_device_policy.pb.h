@@ -98,6 +98,9 @@ extern DeviceBatteryChargeModeProtoDefaultTypeInternal _DeviceBatteryChargeModeP
 class DeviceBootOnAcProto;
 struct DeviceBootOnAcProtoDefaultTypeInternal;
 extern DeviceBootOnAcProtoDefaultTypeInternal _DeviceBootOnAcProto_default_instance_;
+class DeviceChargingSoundsProto;
+struct DeviceChargingSoundsProtoDefaultTypeInternal;
+extern DeviceChargingSoundsProtoDefaultTypeInternal _DeviceChargingSoundsProto_default_instance_;
 class DeviceCrostiniArcAdbSideloadingAllowedProto;
 struct DeviceCrostiniArcAdbSideloadingAllowedProtoDefaultTypeInternal;
 extern DeviceCrostiniArcAdbSideloadingAllowedProtoDefaultTypeInternal _DeviceCrostiniArcAdbSideloadingAllowedProto_default_instance_;
@@ -167,6 +170,9 @@ extern DeviceLoginScreenWebUILazyLoadingProtoDefaultTypeInternal _DeviceLoginScr
 class DeviceLoginScreenWebUsbAllowDevicesForUrlsProto;
 struct DeviceLoginScreenWebUsbAllowDevicesForUrlsProtoDefaultTypeInternal;
 extern DeviceLoginScreenWebUsbAllowDevicesForUrlsProtoDefaultTypeInternal _DeviceLoginScreenWebUsbAllowDevicesForUrlsProto_default_instance_;
+class DeviceLowBatterySoundProto;
+struct DeviceLowBatterySoundProtoDefaultTypeInternal;
+extern DeviceLowBatterySoundProtoDefaultTypeInternal _DeviceLowBatterySoundProto_default_instance_;
 class DeviceMachinePasswordChangeRateProto;
 struct DeviceMachinePasswordChangeRateProtoDefaultTypeInternal;
 extern DeviceMachinePasswordChangeRateProtoDefaultTypeInternal _DeviceMachinePasswordChangeRateProto_default_instance_;
@@ -484,6 +490,7 @@ template<> ::enterprise_management::DeviceAllowedBluetoothServicesProto* Arena::
 template<> ::enterprise_management::DeviceAuthDataCacheLifetimeProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceAuthDataCacheLifetimeProto>(Arena*);
 template<> ::enterprise_management::DeviceBatteryChargeModeProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceBatteryChargeModeProto>(Arena*);
 template<> ::enterprise_management::DeviceBootOnAcProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceBootOnAcProto>(Arena*);
+template<> ::enterprise_management::DeviceChargingSoundsProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceChargingSoundsProto>(Arena*);
 template<> ::enterprise_management::DeviceCrostiniArcAdbSideloadingAllowedProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceCrostiniArcAdbSideloadingAllowedProto>(Arena*);
 template<> ::enterprise_management::DeviceDebugPacketCaptureAllowedProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceDebugPacketCaptureAllowedProto>(Arena*);
 template<> ::enterprise_management::DeviceDisplayResolutionProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceDisplayResolutionProto>(Arena*);
@@ -507,6 +514,7 @@ template<> ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto
 template<> ::enterprise_management::DeviceLoginScreenPrivacyScreenEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceLoginScreenPrivacyScreenEnabledProto>(Arena*);
 template<> ::enterprise_management::DeviceLoginScreenWebUILazyLoadingProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceLoginScreenWebUILazyLoadingProto>(Arena*);
 template<> ::enterprise_management::DeviceLoginScreenWebUsbAllowDevicesForUrlsProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceLoginScreenWebUsbAllowDevicesForUrlsProto>(Arena*);
+template<> ::enterprise_management::DeviceLowBatterySoundProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceLowBatterySoundProto>(Arena*);
 template<> ::enterprise_management::DeviceMachinePasswordChangeRateProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceMachinePasswordChangeRateProto>(Arena*);
 template<> ::enterprise_management::DeviceNativePrintersAccessModeProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceNativePrintersAccessModeProto>(Arena*);
 template<> ::enterprise_management::DeviceNativePrintersBlacklistProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceNativePrintersBlacklistProto>(Arena*);
@@ -24206,6 +24214,290 @@ class DeviceReportXDREventsProto final :
 };
 // -------------------------------------------------------------------
 
+class DeviceLowBatterySoundProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceLowBatterySoundProto) */ {
+ public:
+  inline DeviceLowBatterySoundProto() : DeviceLowBatterySoundProto(nullptr) {}
+  ~DeviceLowBatterySoundProto() override;
+  explicit PROTOBUF_CONSTEXPR DeviceLowBatterySoundProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeviceLowBatterySoundProto(const DeviceLowBatterySoundProto& from);
+  DeviceLowBatterySoundProto(DeviceLowBatterySoundProto&& from) noexcept
+    : DeviceLowBatterySoundProto() {
+    *this = ::std::move(from);
+  }
+
+  inline DeviceLowBatterySoundProto& operator=(const DeviceLowBatterySoundProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeviceLowBatterySoundProto& operator=(DeviceLowBatterySoundProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const DeviceLowBatterySoundProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeviceLowBatterySoundProto* internal_default_instance() {
+    return reinterpret_cast<const DeviceLowBatterySoundProto*>(
+               &_DeviceLowBatterySoundProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    139;
+
+  friend void swap(DeviceLowBatterySoundProto& a, DeviceLowBatterySoundProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeviceLowBatterySoundProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeviceLowBatterySoundProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DeviceLowBatterySoundProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DeviceLowBatterySoundProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DeviceLowBatterySoundProto& from);
+  void MergeFrom(const DeviceLowBatterySoundProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DeviceLowBatterySoundProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "enterprise_management.DeviceLowBatterySoundProto";
+  }
+  protected:
+  explicit DeviceLowBatterySoundProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEnabledFieldNumber = 1,
+  };
+  // optional bool enabled = 1;
+  bool has_enabled() const;
+  private:
+  bool _internal_has_enabled() const;
+  public:
+  void clear_enabled();
+  bool enabled() const;
+  void set_enabled(bool value);
+  private:
+  bool _internal_enabled() const;
+  void _internal_set_enabled(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:enterprise_management.DeviceLowBatterySoundProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    bool enabled_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeviceChargingSoundsProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceChargingSoundsProto) */ {
+ public:
+  inline DeviceChargingSoundsProto() : DeviceChargingSoundsProto(nullptr) {}
+  ~DeviceChargingSoundsProto() override;
+  explicit PROTOBUF_CONSTEXPR DeviceChargingSoundsProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeviceChargingSoundsProto(const DeviceChargingSoundsProto& from);
+  DeviceChargingSoundsProto(DeviceChargingSoundsProto&& from) noexcept
+    : DeviceChargingSoundsProto() {
+    *this = ::std::move(from);
+  }
+
+  inline DeviceChargingSoundsProto& operator=(const DeviceChargingSoundsProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeviceChargingSoundsProto& operator=(DeviceChargingSoundsProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const DeviceChargingSoundsProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeviceChargingSoundsProto* internal_default_instance() {
+    return reinterpret_cast<const DeviceChargingSoundsProto*>(
+               &_DeviceChargingSoundsProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    140;
+
+  friend void swap(DeviceChargingSoundsProto& a, DeviceChargingSoundsProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeviceChargingSoundsProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeviceChargingSoundsProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DeviceChargingSoundsProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DeviceChargingSoundsProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DeviceChargingSoundsProto& from);
+  void MergeFrom(const DeviceChargingSoundsProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DeviceChargingSoundsProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "enterprise_management.DeviceChargingSoundsProto";
+  }
+  protected:
+  explicit DeviceChargingSoundsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEnabledFieldNumber = 1,
+  };
+  // optional bool enabled = 1;
+  bool has_enabled() const;
+  private:
+  bool _internal_has_enabled() const;
+  public:
+  void clear_enabled();
+  bool enabled() const;
+  void set_enabled(bool value);
+  private:
+  bool _internal_enabled() const;
+  void _internal_set_enabled(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:enterprise_management.DeviceChargingSoundsProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    bool enabled_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ChromeDeviceSettingsProto final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.ChromeDeviceSettingsProto) */ {
  public:
@@ -24252,7 +24544,7 @@ class ChromeDeviceSettingsProto final :
                &_ChromeDeviceSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    139;
+    141;
 
   friend void swap(ChromeDeviceSettingsProto& a, ChromeDeviceSettingsProto& b) {
     a.Swap(&b);
@@ -24461,6 +24753,10 @@ class ChromeDeviceSettingsProto final :
     kDeviceSystemAecEnabledFieldNumber = 146,
     kDeviceLoginScreenGeolocationAccessLevelFieldNumber = 147,
     kDeviceLoginScreenWebhidAllowDevicesForUrlsFieldNumber = 148,
+    kDeviceLowBatterySoundFieldNumber = 149,
+    kDeviceChargingSoundsFieldNumber = 150,
+    kDeviceAuthenticationUrlBlocklistFieldNumber = 151,
+    kDeviceAuthenticationUrlAllowlistFieldNumber = 152,
   };
   // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
   bool has_device_policy_refresh_rate() const;
@@ -27072,6 +27368,78 @@ class ChromeDeviceSettingsProto final :
       ::enterprise_management::StringPolicyProto* device_login_screen_webhid_allow_devices_for_urls);
   ::enterprise_management::StringPolicyProto* unsafe_arena_release_device_login_screen_webhid_allow_devices_for_urls();
 
+  // optional .enterprise_management.DeviceLowBatterySoundProto device_low_battery_sound = 149;
+  bool has_device_low_battery_sound() const;
+  private:
+  bool _internal_has_device_low_battery_sound() const;
+  public:
+  void clear_device_low_battery_sound();
+  const ::enterprise_management::DeviceLowBatterySoundProto& device_low_battery_sound() const;
+  PROTOBUF_NODISCARD ::enterprise_management::DeviceLowBatterySoundProto* release_device_low_battery_sound();
+  ::enterprise_management::DeviceLowBatterySoundProto* mutable_device_low_battery_sound();
+  void set_allocated_device_low_battery_sound(::enterprise_management::DeviceLowBatterySoundProto* device_low_battery_sound);
+  private:
+  const ::enterprise_management::DeviceLowBatterySoundProto& _internal_device_low_battery_sound() const;
+  ::enterprise_management::DeviceLowBatterySoundProto* _internal_mutable_device_low_battery_sound();
+  public:
+  void unsafe_arena_set_allocated_device_low_battery_sound(
+      ::enterprise_management::DeviceLowBatterySoundProto* device_low_battery_sound);
+  ::enterprise_management::DeviceLowBatterySoundProto* unsafe_arena_release_device_low_battery_sound();
+
+  // optional .enterprise_management.DeviceChargingSoundsProto device_charging_sounds = 150;
+  bool has_device_charging_sounds() const;
+  private:
+  bool _internal_has_device_charging_sounds() const;
+  public:
+  void clear_device_charging_sounds();
+  const ::enterprise_management::DeviceChargingSoundsProto& device_charging_sounds() const;
+  PROTOBUF_NODISCARD ::enterprise_management::DeviceChargingSoundsProto* release_device_charging_sounds();
+  ::enterprise_management::DeviceChargingSoundsProto* mutable_device_charging_sounds();
+  void set_allocated_device_charging_sounds(::enterprise_management::DeviceChargingSoundsProto* device_charging_sounds);
+  private:
+  const ::enterprise_management::DeviceChargingSoundsProto& _internal_device_charging_sounds() const;
+  ::enterprise_management::DeviceChargingSoundsProto* _internal_mutable_device_charging_sounds();
+  public:
+  void unsafe_arena_set_allocated_device_charging_sounds(
+      ::enterprise_management::DeviceChargingSoundsProto* device_charging_sounds);
+  ::enterprise_management::DeviceChargingSoundsProto* unsafe_arena_release_device_charging_sounds();
+
+  // optional .enterprise_management.StringListPolicyProto device_authentication_url_blocklist = 151;
+  bool has_device_authentication_url_blocklist() const;
+  private:
+  bool _internal_has_device_authentication_url_blocklist() const;
+  public:
+  void clear_device_authentication_url_blocklist();
+  const ::enterprise_management::StringListPolicyProto& device_authentication_url_blocklist() const;
+  PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_device_authentication_url_blocklist();
+  ::enterprise_management::StringListPolicyProto* mutable_device_authentication_url_blocklist();
+  void set_allocated_device_authentication_url_blocklist(::enterprise_management::StringListPolicyProto* device_authentication_url_blocklist);
+  private:
+  const ::enterprise_management::StringListPolicyProto& _internal_device_authentication_url_blocklist() const;
+  ::enterprise_management::StringListPolicyProto* _internal_mutable_device_authentication_url_blocklist();
+  public:
+  void unsafe_arena_set_allocated_device_authentication_url_blocklist(
+      ::enterprise_management::StringListPolicyProto* device_authentication_url_blocklist);
+  ::enterprise_management::StringListPolicyProto* unsafe_arena_release_device_authentication_url_blocklist();
+
+  // optional .enterprise_management.StringListPolicyProto device_authentication_url_allowlist = 152;
+  bool has_device_authentication_url_allowlist() const;
+  private:
+  bool _internal_has_device_authentication_url_allowlist() const;
+  public:
+  void clear_device_authentication_url_allowlist();
+  const ::enterprise_management::StringListPolicyProto& device_authentication_url_allowlist() const;
+  PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_device_authentication_url_allowlist();
+  ::enterprise_management::StringListPolicyProto* mutable_device_authentication_url_allowlist();
+  void set_allocated_device_authentication_url_allowlist(::enterprise_management::StringListPolicyProto* device_authentication_url_allowlist);
+  private:
+  const ::enterprise_management::StringListPolicyProto& _internal_device_authentication_url_allowlist() const;
+  ::enterprise_management::StringListPolicyProto* _internal_mutable_device_authentication_url_allowlist();
+  public:
+  void unsafe_arena_set_allocated_device_authentication_url_allowlist(
+      ::enterprise_management::StringListPolicyProto* device_authentication_url_allowlist);
+  ::enterprise_management::StringListPolicyProto* unsafe_arena_release_device_authentication_url_allowlist();
+
   // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
  private:
   class _Internal;
@@ -27227,6 +27595,10 @@ class ChromeDeviceSettingsProto final :
     ::enterprise_management::DeviceSystemAecEnabledProto* device_system_aec_enabled_;
     ::enterprise_management::DeviceLoginScreenGeolocationAccessLevelProto* device_login_screen_geolocation_access_level_;
     ::enterprise_management::StringPolicyProto* device_login_screen_webhid_allow_devices_for_urls_;
+    ::enterprise_management::DeviceLowBatterySoundProto* device_low_battery_sound_;
+    ::enterprise_management::DeviceChargingSoundsProto* device_charging_sounds_;
+    ::enterprise_management::StringListPolicyProto* device_authentication_url_blocklist_;
+    ::enterprise_management::StringListPolicyProto* device_authentication_url_allowlist_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
@@ -39883,6 +40255,70 @@ inline void DeviceReportXDREventsProto::_internal_set_enabled(bool value) {
 inline void DeviceReportXDREventsProto::set_enabled(bool value) {
   _internal_set_enabled(value);
   // @@protoc_insertion_point(field_set:enterprise_management.DeviceReportXDREventsProto.enabled)
+}
+
+// -------------------------------------------------------------------
+
+// DeviceLowBatterySoundProto
+
+// optional bool enabled = 1;
+inline bool DeviceLowBatterySoundProto::_internal_has_enabled() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool DeviceLowBatterySoundProto::has_enabled() const {
+  return _internal_has_enabled();
+}
+inline void DeviceLowBatterySoundProto::clear_enabled() {
+  _impl_.enabled_ = false;
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline bool DeviceLowBatterySoundProto::_internal_enabled() const {
+  return _impl_.enabled_;
+}
+inline bool DeviceLowBatterySoundProto::enabled() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceLowBatterySoundProto.enabled)
+  return _internal_enabled();
+}
+inline void DeviceLowBatterySoundProto::_internal_set_enabled(bool value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.enabled_ = value;
+}
+inline void DeviceLowBatterySoundProto::set_enabled(bool value) {
+  _internal_set_enabled(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceLowBatterySoundProto.enabled)
+}
+
+// -------------------------------------------------------------------
+
+// DeviceChargingSoundsProto
+
+// optional bool enabled = 1;
+inline bool DeviceChargingSoundsProto::_internal_has_enabled() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool DeviceChargingSoundsProto::has_enabled() const {
+  return _internal_has_enabled();
+}
+inline void DeviceChargingSoundsProto::clear_enabled() {
+  _impl_.enabled_ = false;
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline bool DeviceChargingSoundsProto::_internal_enabled() const {
+  return _impl_.enabled_;
+}
+inline bool DeviceChargingSoundsProto::enabled() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceChargingSoundsProto.enabled)
+  return _internal_enabled();
+}
+inline void DeviceChargingSoundsProto::_internal_set_enabled(bool value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.enabled_ = value;
+}
+inline void DeviceChargingSoundsProto::set_enabled(bool value) {
+  _internal_set_enabled(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceChargingSoundsProto.enabled)
 }
 
 // -------------------------------------------------------------------
@@ -52894,9 +53330,367 @@ inline void ChromeDeviceSettingsProto::set_allocated_device_login_screen_webhid_
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_webhid_allow_devices_for_urls)
 }
 
+// optional .enterprise_management.DeviceLowBatterySoundProto device_low_battery_sound = 149;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_low_battery_sound() const {
+  bool value = (_impl_._has_bits_[4] & 0x00020000u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.device_low_battery_sound_ != nullptr);
+  return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_low_battery_sound() const {
+  return _internal_has_device_low_battery_sound();
+}
+inline void ChromeDeviceSettingsProto::clear_device_low_battery_sound() {
+  if (_impl_.device_low_battery_sound_ != nullptr) _impl_.device_low_battery_sound_->Clear();
+  _impl_._has_bits_[4] &= ~0x00020000u;
+}
+inline const ::enterprise_management::DeviceLowBatterySoundProto& ChromeDeviceSettingsProto::_internal_device_low_battery_sound() const {
+  const ::enterprise_management::DeviceLowBatterySoundProto* p = _impl_.device_low_battery_sound_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceLowBatterySoundProto&>(
+      ::enterprise_management::_DeviceLowBatterySoundProto_default_instance_);
+}
+inline const ::enterprise_management::DeviceLowBatterySoundProto& ChromeDeviceSettingsProto::device_low_battery_sound() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_low_battery_sound)
+  return _internal_device_low_battery_sound();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_low_battery_sound(
+    ::enterprise_management::DeviceLowBatterySoundProto* device_low_battery_sound) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.device_low_battery_sound_);
+  }
+  _impl_.device_low_battery_sound_ = device_low_battery_sound;
+  if (device_low_battery_sound) {
+    _impl_._has_bits_[4] |= 0x00020000u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00020000u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_low_battery_sound)
+}
+inline ::enterprise_management::DeviceLowBatterySoundProto* ChromeDeviceSettingsProto::release_device_low_battery_sound() {
+  _impl_._has_bits_[4] &= ~0x00020000u;
+  ::enterprise_management::DeviceLowBatterySoundProto* temp = _impl_.device_low_battery_sound_;
+  _impl_.device_low_battery_sound_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::DeviceLowBatterySoundProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_low_battery_sound() {
+  // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_low_battery_sound)
+  _impl_._has_bits_[4] &= ~0x00020000u;
+  ::enterprise_management::DeviceLowBatterySoundProto* temp = _impl_.device_low_battery_sound_;
+  _impl_.device_low_battery_sound_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::DeviceLowBatterySoundProto* ChromeDeviceSettingsProto::_internal_mutable_device_low_battery_sound() {
+  _impl_._has_bits_[4] |= 0x00020000u;
+  if (_impl_.device_low_battery_sound_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::DeviceLowBatterySoundProto>(GetArenaForAllocation());
+    _impl_.device_low_battery_sound_ = p;
+  }
+  return _impl_.device_low_battery_sound_;
+}
+inline ::enterprise_management::DeviceLowBatterySoundProto* ChromeDeviceSettingsProto::mutable_device_low_battery_sound() {
+  ::enterprise_management::DeviceLowBatterySoundProto* _msg = _internal_mutable_device_low_battery_sound();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_low_battery_sound)
+  return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_low_battery_sound(::enterprise_management::DeviceLowBatterySoundProto* device_low_battery_sound) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.device_low_battery_sound_;
+  }
+  if (device_low_battery_sound) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_low_battery_sound);
+    if (message_arena != submessage_arena) {
+      device_low_battery_sound = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, device_low_battery_sound, submessage_arena);
+    }
+    _impl_._has_bits_[4] |= 0x00020000u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00020000u;
+  }
+  _impl_.device_low_battery_sound_ = device_low_battery_sound;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_low_battery_sound)
+}
+
+// optional .enterprise_management.DeviceChargingSoundsProto device_charging_sounds = 150;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_charging_sounds() const {
+  bool value = (_impl_._has_bits_[4] & 0x00040000u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.device_charging_sounds_ != nullptr);
+  return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_charging_sounds() const {
+  return _internal_has_device_charging_sounds();
+}
+inline void ChromeDeviceSettingsProto::clear_device_charging_sounds() {
+  if (_impl_.device_charging_sounds_ != nullptr) _impl_.device_charging_sounds_->Clear();
+  _impl_._has_bits_[4] &= ~0x00040000u;
+}
+inline const ::enterprise_management::DeviceChargingSoundsProto& ChromeDeviceSettingsProto::_internal_device_charging_sounds() const {
+  const ::enterprise_management::DeviceChargingSoundsProto* p = _impl_.device_charging_sounds_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceChargingSoundsProto&>(
+      ::enterprise_management::_DeviceChargingSoundsProto_default_instance_);
+}
+inline const ::enterprise_management::DeviceChargingSoundsProto& ChromeDeviceSettingsProto::device_charging_sounds() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_charging_sounds)
+  return _internal_device_charging_sounds();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_charging_sounds(
+    ::enterprise_management::DeviceChargingSoundsProto* device_charging_sounds) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.device_charging_sounds_);
+  }
+  _impl_.device_charging_sounds_ = device_charging_sounds;
+  if (device_charging_sounds) {
+    _impl_._has_bits_[4] |= 0x00040000u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00040000u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_charging_sounds)
+}
+inline ::enterprise_management::DeviceChargingSoundsProto* ChromeDeviceSettingsProto::release_device_charging_sounds() {
+  _impl_._has_bits_[4] &= ~0x00040000u;
+  ::enterprise_management::DeviceChargingSoundsProto* temp = _impl_.device_charging_sounds_;
+  _impl_.device_charging_sounds_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::DeviceChargingSoundsProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_charging_sounds() {
+  // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_charging_sounds)
+  _impl_._has_bits_[4] &= ~0x00040000u;
+  ::enterprise_management::DeviceChargingSoundsProto* temp = _impl_.device_charging_sounds_;
+  _impl_.device_charging_sounds_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::DeviceChargingSoundsProto* ChromeDeviceSettingsProto::_internal_mutable_device_charging_sounds() {
+  _impl_._has_bits_[4] |= 0x00040000u;
+  if (_impl_.device_charging_sounds_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::DeviceChargingSoundsProto>(GetArenaForAllocation());
+    _impl_.device_charging_sounds_ = p;
+  }
+  return _impl_.device_charging_sounds_;
+}
+inline ::enterprise_management::DeviceChargingSoundsProto* ChromeDeviceSettingsProto::mutable_device_charging_sounds() {
+  ::enterprise_management::DeviceChargingSoundsProto* _msg = _internal_mutable_device_charging_sounds();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_charging_sounds)
+  return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_charging_sounds(::enterprise_management::DeviceChargingSoundsProto* device_charging_sounds) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.device_charging_sounds_;
+  }
+  if (device_charging_sounds) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_charging_sounds);
+    if (message_arena != submessage_arena) {
+      device_charging_sounds = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, device_charging_sounds, submessage_arena);
+    }
+    _impl_._has_bits_[4] |= 0x00040000u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00040000u;
+  }
+  _impl_.device_charging_sounds_ = device_charging_sounds;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_charging_sounds)
+}
+
+// optional .enterprise_management.StringListPolicyProto device_authentication_url_blocklist = 151;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_authentication_url_blocklist() const {
+  bool value = (_impl_._has_bits_[4] & 0x00080000u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.device_authentication_url_blocklist_ != nullptr);
+  return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_authentication_url_blocklist() const {
+  return _internal_has_device_authentication_url_blocklist();
+}
+inline const ::enterprise_management::StringListPolicyProto& ChromeDeviceSettingsProto::_internal_device_authentication_url_blocklist() const {
+  const ::enterprise_management::StringListPolicyProto* p = _impl_.device_authentication_url_blocklist_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+      ::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& ChromeDeviceSettingsProto::device_authentication_url_blocklist() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_blocklist)
+  return _internal_device_authentication_url_blocklist();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_authentication_url_blocklist(
+    ::enterprise_management::StringListPolicyProto* device_authentication_url_blocklist) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.device_authentication_url_blocklist_);
+  }
+  _impl_.device_authentication_url_blocklist_ = device_authentication_url_blocklist;
+  if (device_authentication_url_blocklist) {
+    _impl_._has_bits_[4] |= 0x00080000u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00080000u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_blocklist)
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::release_device_authentication_url_blocklist() {
+  _impl_._has_bits_[4] &= ~0x00080000u;
+  ::enterprise_management::StringListPolicyProto* temp = _impl_.device_authentication_url_blocklist_;
+  _impl_.device_authentication_url_blocklist_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_authentication_url_blocklist() {
+  // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_blocklist)
+  _impl_._has_bits_[4] &= ~0x00080000u;
+  ::enterprise_management::StringListPolicyProto* temp = _impl_.device_authentication_url_blocklist_;
+  _impl_.device_authentication_url_blocklist_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_device_authentication_url_blocklist() {
+  _impl_._has_bits_[4] |= 0x00080000u;
+  if (_impl_.device_authentication_url_blocklist_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+    _impl_.device_authentication_url_blocklist_ = p;
+  }
+  return _impl_.device_authentication_url_blocklist_;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::mutable_device_authentication_url_blocklist() {
+  ::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_device_authentication_url_blocklist();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_blocklist)
+  return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_authentication_url_blocklist(::enterprise_management::StringListPolicyProto* device_authentication_url_blocklist) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.device_authentication_url_blocklist_);
+  }
+  if (device_authentication_url_blocklist) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_authentication_url_blocklist));
+    if (message_arena != submessage_arena) {
+      device_authentication_url_blocklist = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, device_authentication_url_blocklist, submessage_arena);
+    }
+    _impl_._has_bits_[4] |= 0x00080000u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00080000u;
+  }
+  _impl_.device_authentication_url_blocklist_ = device_authentication_url_blocklist;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_blocklist)
+}
+
+// optional .enterprise_management.StringListPolicyProto device_authentication_url_allowlist = 152;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_authentication_url_allowlist() const {
+  bool value = (_impl_._has_bits_[4] & 0x00100000u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.device_authentication_url_allowlist_ != nullptr);
+  return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_authentication_url_allowlist() const {
+  return _internal_has_device_authentication_url_allowlist();
+}
+inline const ::enterprise_management::StringListPolicyProto& ChromeDeviceSettingsProto::_internal_device_authentication_url_allowlist() const {
+  const ::enterprise_management::StringListPolicyProto* p = _impl_.device_authentication_url_allowlist_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+      ::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& ChromeDeviceSettingsProto::device_authentication_url_allowlist() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_allowlist)
+  return _internal_device_authentication_url_allowlist();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_authentication_url_allowlist(
+    ::enterprise_management::StringListPolicyProto* device_authentication_url_allowlist) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.device_authentication_url_allowlist_);
+  }
+  _impl_.device_authentication_url_allowlist_ = device_authentication_url_allowlist;
+  if (device_authentication_url_allowlist) {
+    _impl_._has_bits_[4] |= 0x00100000u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00100000u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_allowlist)
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::release_device_authentication_url_allowlist() {
+  _impl_._has_bits_[4] &= ~0x00100000u;
+  ::enterprise_management::StringListPolicyProto* temp = _impl_.device_authentication_url_allowlist_;
+  _impl_.device_authentication_url_allowlist_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_authentication_url_allowlist() {
+  // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_allowlist)
+  _impl_._has_bits_[4] &= ~0x00100000u;
+  ::enterprise_management::StringListPolicyProto* temp = _impl_.device_authentication_url_allowlist_;
+  _impl_.device_authentication_url_allowlist_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_device_authentication_url_allowlist() {
+  _impl_._has_bits_[4] |= 0x00100000u;
+  if (_impl_.device_authentication_url_allowlist_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+    _impl_.device_authentication_url_allowlist_ = p;
+  }
+  return _impl_.device_authentication_url_allowlist_;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::mutable_device_authentication_url_allowlist() {
+  ::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_device_authentication_url_allowlist();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_allowlist)
+  return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_authentication_url_allowlist(::enterprise_management::StringListPolicyProto* device_authentication_url_allowlist) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.device_authentication_url_allowlist_);
+  }
+  if (device_authentication_url_allowlist) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_authentication_url_allowlist));
+    if (message_arena != submessage_arena) {
+      device_authentication_url_allowlist = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, device_authentication_url_allowlist, submessage_arena);
+    }
+    _impl_._has_bits_[4] |= 0x00100000u;
+  } else {
+    _impl_._has_bits_[4] &= ~0x00100000u;
+  }
+  _impl_.device_authentication_url_allowlist_ = device_authentication_url_allowlist;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_authentication_url_allowlist)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

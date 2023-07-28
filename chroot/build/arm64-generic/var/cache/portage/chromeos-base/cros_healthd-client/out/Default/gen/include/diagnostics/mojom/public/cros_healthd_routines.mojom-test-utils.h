@@ -17,7 +17,7 @@ namespace mojom {
 
 class  CrosHealthdRoutinesServiceInterceptorForTesting : public CrosHealthdRoutinesService {
   virtual CrosHealthdRoutinesService* GetForwardingInterface() = 0;
-  void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver) override;
+  void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) override;
   void IsRoutineSupported(RoutineArgumentPtr routine_argument, IsRoutineSupportedCallback callback) override;
 };
 class  CrosHealthdRoutinesServiceAsyncWaiter {
@@ -61,7 +61,6 @@ class  LedLitUpRoutineReplierAsyncWaiter {
 class  RoutineControlInterceptorForTesting : public RoutineControl {
   virtual RoutineControl* GetForwardingInterface() = 0;
   void GetState(GetStateCallback callback) override;
-  void AddObserver(::mojo::PendingRemote<RoutineObserver> observer) override;
   void Start() override;
 };
 class  RoutineControlAsyncWaiter {

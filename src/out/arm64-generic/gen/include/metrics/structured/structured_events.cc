@@ -2657,6 +2657,110 @@ int64_t WiFiLinkQualityReport::GetSignalAverageForTest() const {
 
 }  // namespace wi_fi
 
+namespace audio_peripheral_info {
+
+Info::Info() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+Info::~Info() = default;
+Info& Info::SetType(const int64_t value) {
+  AddIntMetric(kTypeNameHash, value);
+  return *this;
+}
+
+int64_t Info::GetTypeForTest() const {
+  return GetIntMetricForTest(kTypeNameHash);
+}
+
+Info& Info::SetVendorId(const int64_t value) {
+  AddIntMetric(kVendorIdNameHash, value);
+  return *this;
+}
+
+int64_t Info::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
+Info& Info::SetProductId(const int64_t value) {
+  AddIntMetric(kProductIdNameHash, value);
+  return *this;
+}
+
+int64_t Info::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
+}  // namespace audio_peripheral_info
+
+namespace audio_peripheral {
+
+Close::Close() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+Close::~Close() = default;
+Close& Close::SetType(const int64_t value) {
+  AddIntMetric(kTypeNameHash, value);
+  return *this;
+}
+
+int64_t Close::GetTypeForTest() const {
+  return GetIntMetricForTest(kTypeNameHash);
+}
+
+Close& Close::SetVendorId(const int64_t value) {
+  AddIntMetric(kVendorIdNameHash, value);
+  return *this;
+}
+
+int64_t Close::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
+Close& Close::SetProductId(const int64_t value) {
+  AddIntMetric(kProductIdNameHash, value);
+  return *this;
+}
+
+int64_t Close::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
+Close& Close::SetDeviceRuntime(const int64_t value) {
+  AddIntMetric(kDeviceRuntimeNameHash, value);
+  return *this;
+}
+
+int64_t Close::GetDeviceRuntimeForTest() const {
+  return GetIntMetricForTest(kDeviceRuntimeNameHash);
+}
+
+Close& Close::SetSamplingRate(const int64_t value) {
+  AddIntMetric(kSamplingRateNameHash, value);
+  return *this;
+}
+
+int64_t Close::GetSamplingRateForTest() const {
+  return GetIntMetricForTest(kSamplingRateNameHash);
+}
+
+Close& Close::SetChannel(const int64_t value) {
+  AddIntMetric(kChannelNameHash, value);
+  return *this;
+}
+
+int64_t Close::GetChannelForTest() const {
+  return GetIntMetricForTest(kChannelNameHash);
+}
+
+Close& Close::SetPCMFormat(const int64_t value) {
+  AddIntMetric(kPCMFormatNameHash, value);
+  return *this;
+}
+
+int64_t Close::GetPCMFormatForTest() const {
+  return GetIntMetricForTest(kPCMFormatNameHash);
+}
+
+}  // namespace audio_peripheral
+
 namespace test_project_one {
 
 TestEventOne::TestEventOne() :

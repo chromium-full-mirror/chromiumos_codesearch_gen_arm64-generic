@@ -379,6 +379,7 @@ PROTOBUF_CONSTEXPR GetVersionInfoReply::GetVersionInfoReply(
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.vendor_specific_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.rw_version_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.status_)*/0
   , /*decltype(_impl_.family_)*/0u
   , /*decltype(_impl_.spec_level_)*/uint64_t{0u}
@@ -7098,28 +7099,31 @@ class GetVersionInfoReply::_Internal {
  public:
   using HasBits = decltype(std::declval<GetVersionInfoReply>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
-  static void set_has_family(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static void set_has_spec_level(HasBits* has_bits) {
+  static void set_has_family(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
-  static void set_has_manufacturer(HasBits* has_bits) {
+  static void set_has_spec_level(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
-  static void set_has_tpm_model(HasBits* has_bits) {
+  static void set_has_manufacturer(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
-  static void set_has_firmware_version(HasBits* has_bits) {
+  static void set_has_tpm_model(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
+  }
+  static void set_has_firmware_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
   }
   static void set_has_vendor_specific(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_gsc_version(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
+    (*has_bits)[0] |= 256u;
+  }
+  static void set_has_rw_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
   }
 };
 
@@ -7136,6 +7140,7 @@ GetVersionInfoReply::GetVersionInfoReply(const GetVersionInfoReply& from)
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.vendor_specific_){}
+    , decltype(_impl_.rw_version_){}
     , decltype(_impl_.status_){}
     , decltype(_impl_.family_){}
     , decltype(_impl_.spec_level_){}
@@ -7153,6 +7158,14 @@ GetVersionInfoReply::GetVersionInfoReply(const GetVersionInfoReply& from)
     _this->_impl_.vendor_specific_.Set(from._internal_vendor_specific(), 
       _this->GetArenaForAllocation());
   }
+  _impl_.rw_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.rw_version_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_rw_version()) {
+    _this->_impl_.rw_version_.Set(from._internal_rw_version(), 
+      _this->GetArenaForAllocation());
+  }
   ::memcpy(&_impl_.status_, &from._impl_.status_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.gsc_version_) -
     reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.gsc_version_));
@@ -7167,6 +7180,7 @@ inline void GetVersionInfoReply::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.vendor_specific_){}
+    , decltype(_impl_.rw_version_){}
     , decltype(_impl_.status_){0}
     , decltype(_impl_.family_){0u}
     , decltype(_impl_.spec_level_){uint64_t{0u}}
@@ -7178,6 +7192,10 @@ inline void GetVersionInfoReply::SharedCtor(
   _impl_.vendor_specific_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.vendor_specific_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.rw_version_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.rw_version_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -7193,6 +7211,7 @@ GetVersionInfoReply::~GetVersionInfoReply() {
 inline void GetVersionInfoReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.vendor_specific_.Destroy();
+  _impl_.rw_version_.Destroy();
 }
 
 void GetVersionInfoReply::SetCachedSize(int size) const {
@@ -7206,14 +7225,20 @@ void GetVersionInfoReply::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    _impl_.vendor_specific_.ClearNonDefaultToEmpty();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _impl_.vendor_specific_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _impl_.rw_version_.ClearNonDefaultToEmpty();
+    }
   }
-  if (cached_has_bits & 0x000000feu) {
+  if (cached_has_bits & 0x000000fcu) {
     ::memset(&_impl_.status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&_impl_.gsc_version_) -
-        reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.gsc_version_));
+        reinterpret_cast<char*>(&_impl_.firmware_version_) -
+        reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.firmware_version_));
   }
+  _impl_.gsc_version_ = 0;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -7305,6 +7330,15 @@ const char* GetVersionInfoReply::_InternalParse(const char* ptr, ::_pbi::ParseCo
         } else
           goto handle_unusual;
         continue;
+      // optional string rw_version = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          auto str = _internal_mutable_rw_version();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -7337,38 +7371,38 @@ uint8_t* GetVersionInfoReply::_InternalSerialize(
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional .tpm_manager.TpmManagerStatus status = 1;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
   }
 
   // optional uint32 family = 2;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_family(), target);
   }
 
   // optional uint64 spec_level = 3;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_spec_level(), target);
   }
 
   // optional uint32 manufacturer = 4;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_manufacturer(), target);
   }
 
   // optional uint32 tpm_model = 5;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_tpm_model(), target);
   }
 
   // optional uint64 firmware_version = 6;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(6, this->_internal_firmware_version(), target);
   }
@@ -7380,10 +7414,16 @@ uint8_t* GetVersionInfoReply::_InternalSerialize(
   }
 
   // optional .tpm_manager.GscVersion gsc_version = 8;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       8, this->_internal_gsc_version(), target);
+  }
+
+  // optional string rw_version = 9;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        9, this->_internal_rw_version(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -7411,44 +7451,51 @@ size_t GetVersionInfoReply::ByteSizeLong() const {
           this->_internal_vendor_specific());
     }
 
-    // optional .tpm_manager.TpmManagerStatus status = 1;
+    // optional string rw_version = 9;
     if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_rw_version());
+    }
+
+    // optional .tpm_manager.TpmManagerStatus status = 1;
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
     }
 
     // optional uint32 family = 2;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_family());
     }
 
     // optional uint64 spec_level = 3;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_spec_level());
     }
 
     // optional uint32 manufacturer = 4;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_manufacturer());
     }
 
     // optional uint32 tpm_model = 5;
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tpm_model());
     }
 
     // optional uint64 firmware_version = 6;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_firmware_version());
     }
 
-    // optional .tpm_manager.GscVersion gsc_version = 8;
-    if (cached_has_bits & 0x00000080u) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_gsc_version());
-    }
-
   }
+  // optional .tpm_manager.GscVersion gsc_version = 8;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_gsc_version());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -7476,27 +7523,30 @@ void GetVersionInfoReply::MergeFrom(const GetVersionInfoReply& from) {
       _this->_internal_set_vendor_specific(from._internal_vendor_specific());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_impl_.status_ = from._impl_.status_;
+      _this->_internal_set_rw_version(from._internal_rw_version());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_impl_.family_ = from._impl_.family_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
     if (cached_has_bits & 0x00000008u) {
-      _this->_impl_.spec_level_ = from._impl_.spec_level_;
+      _this->_impl_.family_ = from._impl_.family_;
     }
     if (cached_has_bits & 0x00000010u) {
-      _this->_impl_.manufacturer_ = from._impl_.manufacturer_;
+      _this->_impl_.spec_level_ = from._impl_.spec_level_;
     }
     if (cached_has_bits & 0x00000020u) {
-      _this->_impl_.tpm_model_ = from._impl_.tpm_model_;
+      _this->_impl_.manufacturer_ = from._impl_.manufacturer_;
     }
     if (cached_has_bits & 0x00000040u) {
-      _this->_impl_.firmware_version_ = from._impl_.firmware_version_;
+      _this->_impl_.tpm_model_ = from._impl_.tpm_model_;
     }
     if (cached_has_bits & 0x00000080u) {
-      _this->_impl_.gsc_version_ = from._impl_.gsc_version_;
+      _this->_impl_.firmware_version_ = from._impl_.firmware_version_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000100u) {
+    _this->_internal_set_gsc_version(from._internal_gsc_version());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -7521,6 +7571,10 @@ void GetVersionInfoReply::InternalSwap(GetVersionInfoReply* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.vendor_specific_, lhs_arena,
       &other->_impl_.vendor_specific_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.rw_version_, lhs_arena,
+      &other->_impl_.rw_version_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(GetVersionInfoReply, _impl_.gsc_version_)

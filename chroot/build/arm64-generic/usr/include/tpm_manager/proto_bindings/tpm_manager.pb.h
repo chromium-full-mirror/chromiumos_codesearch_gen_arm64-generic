@@ -4391,6 +4391,7 @@ class GetVersionInfoReply final :
 
   enum : int {
     kVendorSpecificFieldNumber = 7,
+    kRwVersionFieldNumber = 9,
     kStatusFieldNumber = 1,
     kFamilyFieldNumber = 2,
     kSpecLevelFieldNumber = 3,
@@ -4415,6 +4416,24 @@ class GetVersionInfoReply final :
   const std::string& _internal_vendor_specific() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_vendor_specific(const std::string& value);
   std::string* _internal_mutable_vendor_specific();
+  public:
+
+  // optional string rw_version = 9;
+  bool has_rw_version() const;
+  private:
+  bool _internal_has_rw_version() const;
+  public:
+  void clear_rw_version();
+  const std::string& rw_version() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_rw_version(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_rw_version();
+  PROTOBUF_NODISCARD std::string* release_rw_version();
+  void set_allocated_rw_version(std::string* rw_version);
+  private:
+  const std::string& _internal_rw_version() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_rw_version(const std::string& value);
+  std::string* _internal_mutable_rw_version();
   public:
 
   // optional .tpm_manager.TpmManagerStatus status = 1;
@@ -4519,6 +4538,7 @@ class GetVersionInfoReply final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vendor_specific_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rw_version_;
     int status_;
     uint32_t family_;
     uint64_t spec_level_;
@@ -9106,7 +9126,7 @@ inline void GetTpmNonsensitiveStatusReply::set_is_srk_default_auth(bool value) {
 
 // optional .tpm_manager.TpmManagerStatus status = 1;
 inline bool GetVersionInfoReply::_internal_has_status() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool GetVersionInfoReply::has_status() const {
@@ -9114,7 +9134,7 @@ inline bool GetVersionInfoReply::has_status() const {
 }
 inline void GetVersionInfoReply::clear_status() {
   _impl_.status_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
 inline ::tpm_manager::TpmManagerStatus GetVersionInfoReply::_internal_status() const {
   return static_cast< ::tpm_manager::TpmManagerStatus >(_impl_.status_);
@@ -9125,7 +9145,7 @@ inline ::tpm_manager::TpmManagerStatus GetVersionInfoReply::status() const {
 }
 inline void GetVersionInfoReply::_internal_set_status(::tpm_manager::TpmManagerStatus value) {
   assert(::tpm_manager::TpmManagerStatus_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_._has_bits_[0] |= 0x00000004u;
   _impl_.status_ = value;
 }
 inline void GetVersionInfoReply::set_status(::tpm_manager::TpmManagerStatus value) {
@@ -9135,7 +9155,7 @@ inline void GetVersionInfoReply::set_status(::tpm_manager::TpmManagerStatus valu
 
 // optional uint32 family = 2;
 inline bool GetVersionInfoReply::_internal_has_family() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool GetVersionInfoReply::has_family() const {
@@ -9143,7 +9163,7 @@ inline bool GetVersionInfoReply::has_family() const {
 }
 inline void GetVersionInfoReply::clear_family() {
   _impl_.family_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000004u;
+  _impl_._has_bits_[0] &= ~0x00000008u;
 }
 inline uint32_t GetVersionInfoReply::_internal_family() const {
   return _impl_.family_;
@@ -9153,7 +9173,7 @@ inline uint32_t GetVersionInfoReply::family() const {
   return _internal_family();
 }
 inline void GetVersionInfoReply::_internal_set_family(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_._has_bits_[0] |= 0x00000008u;
   _impl_.family_ = value;
 }
 inline void GetVersionInfoReply::set_family(uint32_t value) {
@@ -9163,7 +9183,7 @@ inline void GetVersionInfoReply::set_family(uint32_t value) {
 
 // optional uint64 spec_level = 3;
 inline bool GetVersionInfoReply::_internal_has_spec_level() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool GetVersionInfoReply::has_spec_level() const {
@@ -9171,7 +9191,7 @@ inline bool GetVersionInfoReply::has_spec_level() const {
 }
 inline void GetVersionInfoReply::clear_spec_level() {
   _impl_.spec_level_ = uint64_t{0u};
-  _impl_._has_bits_[0] &= ~0x00000008u;
+  _impl_._has_bits_[0] &= ~0x00000010u;
 }
 inline uint64_t GetVersionInfoReply::_internal_spec_level() const {
   return _impl_.spec_level_;
@@ -9181,7 +9201,7 @@ inline uint64_t GetVersionInfoReply::spec_level() const {
   return _internal_spec_level();
 }
 inline void GetVersionInfoReply::_internal_set_spec_level(uint64_t value) {
-  _impl_._has_bits_[0] |= 0x00000008u;
+  _impl_._has_bits_[0] |= 0x00000010u;
   _impl_.spec_level_ = value;
 }
 inline void GetVersionInfoReply::set_spec_level(uint64_t value) {
@@ -9191,7 +9211,7 @@ inline void GetVersionInfoReply::set_spec_level(uint64_t value) {
 
 // optional uint32 manufacturer = 4;
 inline bool GetVersionInfoReply::_internal_has_manufacturer() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool GetVersionInfoReply::has_manufacturer() const {
@@ -9199,7 +9219,7 @@ inline bool GetVersionInfoReply::has_manufacturer() const {
 }
 inline void GetVersionInfoReply::clear_manufacturer() {
   _impl_.manufacturer_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000010u;
+  _impl_._has_bits_[0] &= ~0x00000020u;
 }
 inline uint32_t GetVersionInfoReply::_internal_manufacturer() const {
   return _impl_.manufacturer_;
@@ -9209,7 +9229,7 @@ inline uint32_t GetVersionInfoReply::manufacturer() const {
   return _internal_manufacturer();
 }
 inline void GetVersionInfoReply::_internal_set_manufacturer(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_._has_bits_[0] |= 0x00000020u;
   _impl_.manufacturer_ = value;
 }
 inline void GetVersionInfoReply::set_manufacturer(uint32_t value) {
@@ -9219,7 +9239,7 @@ inline void GetVersionInfoReply::set_manufacturer(uint32_t value) {
 
 // optional uint32 tpm_model = 5;
 inline bool GetVersionInfoReply::_internal_has_tpm_model() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
 inline bool GetVersionInfoReply::has_tpm_model() const {
@@ -9227,7 +9247,7 @@ inline bool GetVersionInfoReply::has_tpm_model() const {
 }
 inline void GetVersionInfoReply::clear_tpm_model() {
   _impl_.tpm_model_ = 0u;
-  _impl_._has_bits_[0] &= ~0x00000020u;
+  _impl_._has_bits_[0] &= ~0x00000040u;
 }
 inline uint32_t GetVersionInfoReply::_internal_tpm_model() const {
   return _impl_.tpm_model_;
@@ -9237,7 +9257,7 @@ inline uint32_t GetVersionInfoReply::tpm_model() const {
   return _internal_tpm_model();
 }
 inline void GetVersionInfoReply::_internal_set_tpm_model(uint32_t value) {
-  _impl_._has_bits_[0] |= 0x00000020u;
+  _impl_._has_bits_[0] |= 0x00000040u;
   _impl_.tpm_model_ = value;
 }
 inline void GetVersionInfoReply::set_tpm_model(uint32_t value) {
@@ -9247,7 +9267,7 @@ inline void GetVersionInfoReply::set_tpm_model(uint32_t value) {
 
 // optional uint64 firmware_version = 6;
 inline bool GetVersionInfoReply::_internal_has_firmware_version() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool GetVersionInfoReply::has_firmware_version() const {
@@ -9255,7 +9275,7 @@ inline bool GetVersionInfoReply::has_firmware_version() const {
 }
 inline void GetVersionInfoReply::clear_firmware_version() {
   _impl_.firmware_version_ = uint64_t{0u};
-  _impl_._has_bits_[0] &= ~0x00000040u;
+  _impl_._has_bits_[0] &= ~0x00000080u;
 }
 inline uint64_t GetVersionInfoReply::_internal_firmware_version() const {
   return _impl_.firmware_version_;
@@ -9265,7 +9285,7 @@ inline uint64_t GetVersionInfoReply::firmware_version() const {
   return _internal_firmware_version();
 }
 inline void GetVersionInfoReply::_internal_set_firmware_version(uint64_t value) {
-  _impl_._has_bits_[0] |= 0x00000040u;
+  _impl_._has_bits_[0] |= 0x00000080u;
   _impl_.firmware_version_ = value;
 }
 inline void GetVersionInfoReply::set_firmware_version(uint64_t value) {
@@ -9343,7 +9363,7 @@ inline void GetVersionInfoReply::set_allocated_vendor_specific(std::string* vend
 
 // optional .tpm_manager.GscVersion gsc_version = 8;
 inline bool GetVersionInfoReply::_internal_has_gsc_version() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000080u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool GetVersionInfoReply::has_gsc_version() const {
@@ -9351,7 +9371,7 @@ inline bool GetVersionInfoReply::has_gsc_version() const {
 }
 inline void GetVersionInfoReply::clear_gsc_version() {
   _impl_.gsc_version_ = 0;
-  _impl_._has_bits_[0] &= ~0x00000080u;
+  _impl_._has_bits_[0] &= ~0x00000100u;
 }
 inline ::tpm_manager::GscVersion GetVersionInfoReply::_internal_gsc_version() const {
   return static_cast< ::tpm_manager::GscVersion >(_impl_.gsc_version_);
@@ -9362,12 +9382,80 @@ inline ::tpm_manager::GscVersion GetVersionInfoReply::gsc_version() const {
 }
 inline void GetVersionInfoReply::_internal_set_gsc_version(::tpm_manager::GscVersion value) {
   assert(::tpm_manager::GscVersion_IsValid(value));
-  _impl_._has_bits_[0] |= 0x00000080u;
+  _impl_._has_bits_[0] |= 0x00000100u;
   _impl_.gsc_version_ = value;
 }
 inline void GetVersionInfoReply::set_gsc_version(::tpm_manager::GscVersion value) {
   _internal_set_gsc_version(value);
   // @@protoc_insertion_point(field_set:tpm_manager.GetVersionInfoReply.gsc_version)
+}
+
+// optional string rw_version = 9;
+inline bool GetVersionInfoReply::_internal_has_rw_version() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool GetVersionInfoReply::has_rw_version() const {
+  return _internal_has_rw_version();
+}
+inline void GetVersionInfoReply::clear_rw_version() {
+  _impl_.rw_version_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& GetVersionInfoReply::rw_version() const {
+  // @@protoc_insertion_point(field_get:tpm_manager.GetVersionInfoReply.rw_version)
+  return _internal_rw_version();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetVersionInfoReply::set_rw_version(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000002u;
+ _impl_.rw_version_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:tpm_manager.GetVersionInfoReply.rw_version)
+}
+inline std::string* GetVersionInfoReply::mutable_rw_version() {
+  std::string* _s = _internal_mutable_rw_version();
+  // @@protoc_insertion_point(field_mutable:tpm_manager.GetVersionInfoReply.rw_version)
+  return _s;
+}
+inline const std::string& GetVersionInfoReply::_internal_rw_version() const {
+  return _impl_.rw_version_.Get();
+}
+inline void GetVersionInfoReply::_internal_set_rw_version(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.rw_version_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetVersionInfoReply::_internal_mutable_rw_version() {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  return _impl_.rw_version_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetVersionInfoReply::release_rw_version() {
+  // @@protoc_insertion_point(field_release:tpm_manager.GetVersionInfoReply.rw_version)
+  if (!_internal_has_rw_version()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  auto* p = _impl_.rw_version_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.rw_version_.IsDefault()) {
+    _impl_.rw_version_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void GetVersionInfoReply::set_allocated_rw_version(std::string* rw_version) {
+  if (rw_version != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  _impl_.rw_version_.SetAllocated(rw_version, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.rw_version_.IsDefault()) {
+    _impl_.rw_version_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:tpm_manager.GetVersionInfoReply.rw_version)
 }
 
 // -------------------------------------------------------------------

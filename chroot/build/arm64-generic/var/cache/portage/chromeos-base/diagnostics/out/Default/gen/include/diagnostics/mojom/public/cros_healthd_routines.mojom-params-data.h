@@ -30,6 +30,7 @@ class  CrosHealthdRoutinesService_CreateRoutine_Params_Data {
   mojo::internal::StructHeader header_;
   internal::RoutineArgument_Data routine_argument;
   mojo::internal::Handle_Data routine_receiver;
+  mojo::internal::Interface_Data routine_observer;
   uint8_t padfinal_[4];
 
  private:
@@ -38,7 +39,7 @@ class  CrosHealthdRoutinesService_CreateRoutine_Params_Data {
   CrosHealthdRoutinesService_CreateRoutine_Params_Data();
   ~CrosHealthdRoutinesService_CreateRoutine_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdRoutinesService_CreateRoutine_Params_Data) == 32,
+static_assert(sizeof(CrosHealthdRoutinesService_CreateRoutine_Params_Data) == 40,
               "Bad sizeof(CrosHealthdRoutinesService_CreateRoutine_Params_Data)");
 class  CrosHealthdRoutinesService_IsRoutineSupported_Params_Data {
  public:
@@ -135,22 +136,6 @@ class  RoutineControl_GetState_ResponseParams_Data {
 };
 static_assert(sizeof(RoutineControl_GetState_ResponseParams_Data) == 16,
               "Bad sizeof(RoutineControl_GetState_ResponseParams_Data)");
-class  RoutineControl_AddObserver_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Interface_Data observer;
-
- private:
-  friend class mojo::internal::MessageFragment<RoutineControl_AddObserver_Params_Data>;
-
-  RoutineControl_AddObserver_Params_Data();
-  ~RoutineControl_AddObserver_Params_Data() = delete;
-};
-static_assert(sizeof(RoutineControl_AddObserver_Params_Data) == 16,
-              "Bad sizeof(RoutineControl_AddObserver_Params_Data)");
 class  RoutineControl_Start_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -212,6 +197,15 @@ class CrosHealthdRoutinesService_CreateRoutine_ParamsDataView {
     bool ret =
         mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::RoutineControlInterfaceBase>>(
             &data_->routine_receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeRoutineObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::RoutineObserverInterfaceBase>>(
+            &data_->routine_observer, &result, message_);
     DCHECK(ret);
     return result;
   }
@@ -347,31 +341,6 @@ class RoutineControl_GetState_ResponseParamsDataView {
 };
 
 
-class RoutineControl_AddObserver_ParamsDataView {
- public:
-  RoutineControl_AddObserver_ParamsDataView() = default;
-
-  RoutineControl_AddObserver_ParamsDataView(
-      internal::RoutineControl_AddObserver_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  UserType TakeObserver() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::RoutineObserverInterfaceBase>>(
-            &data_->observer, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
- private:
-  internal::RoutineControl_AddObserver_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
 class RoutineControl_Start_ParamsDataView {
  public:
   RoutineControl_Start_ParamsDataView() = default;
@@ -444,8 +413,6 @@ inline void RoutineControl_GetState_ResponseParamsDataView::GetStateDataView(
   auto pointer = data_->state.Get();
   *output = RoutineStateDataView(pointer, message_);
 }
-
-
 
 
 

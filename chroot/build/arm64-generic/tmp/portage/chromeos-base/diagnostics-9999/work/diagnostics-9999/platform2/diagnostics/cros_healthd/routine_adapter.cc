@@ -4,14 +4,18 @@
 
 #include "diagnostics/cros_healthd/routine_adapter.h"
 
+#include <algorithm>
 #include <cstdint>
 #include <memory>
 #include <string>
+#include <tuple>
 #include <utility>
 
 #include <base/json/json_writer.h>
 #include <base/strings/string_number_conversions.h>
 #include <base/values.h>
+#include <base/check.h>
+#include <base/notreached.h>
 #include <mojo/public/cpp/bindings/remote_set.h>
 #include <mojo/public/cpp/system/handle.h>
 #include <mojo/public/cpp/bindings/pending_receiver.h>
@@ -118,14 +122,30 @@ RoutineAdapter::RoutineAdapter(
 
 RoutineAdapter::~RoutineAdapter() = default;
 
-mojo::PendingReceiver<mojom::RoutineControl>
-RoutineAdapter::BindNewPipeAndPassReceiver() {
+void RoutineAdapter::SetupAdapter(
+    mojom::RoutineArgumentPtr arg,
+    mojom::CrosHealthdRoutinesService* routine_service) {
+  CHECK(routine_service);
+  auto adapter = std::make_unique<RoutineAdapter>(arg->which());
+
   mojo::PendingReceiver<mojom::RoutineControl> pending_receiver =
       routine_control_.BindNewPipeAndPassReceiver();
-  routine_control_->AddObserver(observer_receiver_.BindNewPipeAndPassRemote());
   routine_control_.set_disconnect_with_reason_handler(base::BindRepeating(
       &RoutineAdapter::OnRoutineDisconnect, weak_ptr_factory_.GetWeakPtr()));
-  return pending_receiver;
+
+  routine_service->CreateRoutine(std::move(arg), std::move(pending_receiver),
+                                 observer_receiver_.BindNewPipeAndPassRemote());
+}
+
+std::tuple<mojo::PendingReceiver<ash::cros_healthd::mojom::RoutineControl>,
+           mojo::PendingRemote<ash::cros_healthd::mojom::RoutineObserver>>
+RoutineAdapter::SetupRoutineControlAndObserver() {
+  mojo::PendingReceiver<mojom::RoutineControl> pending_receiver =
+      routine_control_.BindNewPipeAndPassReceiver();
+  routine_control_.set_disconnect_with_reason_handler(base::BindOnce(
+      &RoutineAdapter::OnRoutineDisconnect, weak_ptr_factory_.GetWeakPtr()));
+  return std::make_tuple(std::move(pending_receiver),
+                         observer_receiver_.BindNewPipeAndPassRemote());
 }
 
 void RoutineAdapter::OnRoutineStateChange(mojom::RoutineStatePtr state) {
@@ -196,6 +216,10 @@ void RoutineAdapter::PopulateStatusUpdate(
   response->progress_percent = cached_state_->percentage;
 
   switch (cached_state_->state_union->which()) {
+    case mojom::RoutineStateUnion::Tag::kUnrecognizedArgument: {
+      NOTREACHED_NORETURN() << "Got unrecognized RoutineState";
+      break;
+    }
     case mojom::RoutineStateUnion::Tag::kInitialized: {
       auto update = mojom::NonInteractiveRoutineUpdate::New();
       update->status = mojom::DiagnosticRoutineStatusEnum::kRunning;

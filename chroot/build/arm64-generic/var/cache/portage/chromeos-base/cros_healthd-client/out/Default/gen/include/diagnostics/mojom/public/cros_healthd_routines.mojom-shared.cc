@@ -382,10 +382,14 @@ bool RoutineStateUnion_Data::Validate(
 
   switch (object->tag) {
 
+    case RoutineStateUnion_Tag::kUnrecognizedArgument: {
+
+      return true;
+    }
     case RoutineStateUnion_Tag::kInitialized: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_initialized, 1, validation_context)) {
+              object->data.f_initialized, 2, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_initialized, validation_context))
@@ -395,7 +399,7 @@ bool RoutineStateUnion_Data::Validate(
     case RoutineStateUnion_Tag::kRunning: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_running, 2, validation_context)) {
+              object->data.f_running, 3, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_running, validation_context))
@@ -405,7 +409,7 @@ bool RoutineStateUnion_Data::Validate(
     case RoutineStateUnion_Tag::kWaiting: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_waiting, 3, validation_context)) {
+              object->data.f_waiting, 4, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_waiting, validation_context))
@@ -415,7 +419,7 @@ bool RoutineStateUnion_Data::Validate(
     case RoutineStateUnion_Tag::kFinished: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_finished, 4, validation_context)) {
+              object->data.f_finished, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_finished, validation_context))
@@ -459,10 +463,14 @@ bool RoutineDetail_Data::Validate(
 
   switch (object->tag) {
 
+    case RoutineDetail_Tag::kUnrecognizedArgument: {
+
+      return true;
+    }
     case RoutineDetail_Tag::kMemory: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_memory, 1, validation_context)) {
+              object->data.f_memory, 2, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_memory, validation_context))
@@ -472,7 +480,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kAudioDriver: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_audio_driver, 2, validation_context)) {
+              object->data.f_audio_driver, 3, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_audio_driver, validation_context))
@@ -482,7 +490,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kCpuStress: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_stress, 3, validation_context)) {
+              object->data.f_cpu_stress, 4, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_cpu_stress, validation_context))
@@ -492,7 +500,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kUfsLifetime: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_ufs_lifetime, 4, validation_context)) {
+              object->data.f_ufs_lifetime, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_ufs_lifetime, validation_context))
@@ -502,7 +510,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kDiskRead: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_disk_read, 5, validation_context)) {
+              object->data.f_disk_read, 6, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_disk_read, validation_context))
@@ -512,7 +520,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kCpuCache: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_cpu_cache, 6, validation_context)) {
+              object->data.f_cpu_cache, 7, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_cpu_cache, validation_context))
@@ -522,7 +530,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kPrimeSearch: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_prime_search, 7, validation_context)) {
+              object->data.f_prime_search, 8, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_prime_search, validation_context))
@@ -532,7 +540,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kVolumeButton: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_volume_button, 8, validation_context)) {
+              object->data.f_volume_button, 9, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_volume_button, validation_context))
@@ -542,7 +550,7 @@ bool RoutineDetail_Data::Validate(
     case RoutineDetail_Tag::kLedLitUp: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_led_lit_up, 9, validation_context)) {
+              object->data.f_led_lit_up, 10, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_led_lit_up, validation_context))
@@ -1227,7 +1235,7 @@ bool CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -1248,6 +1256,11 @@ bool CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->routine_receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterface(object->routine_observer,
                                                  validation_context)) {
     return false;
   }
@@ -1415,38 +1428,6 @@ bool RoutineControl_GetState_ResponseParams_Data::Validate(
 }
 
 RoutineControl_GetState_ResponseParams_Data::RoutineControl_GetState_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool RoutineControl_AddObserver_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const RoutineControl_AddObserver_Params_Data* object =
-      static_cast<const RoutineControl_AddObserver_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->observer, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
-                                                 validation_context)) {
-    return false;
-  }
-
-  return true;
-}
-
-RoutineControl_AddObserver_Params_Data::RoutineControl_AddObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

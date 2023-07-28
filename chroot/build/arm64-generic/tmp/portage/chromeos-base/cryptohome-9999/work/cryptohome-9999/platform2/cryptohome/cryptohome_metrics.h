@@ -15,8 +15,8 @@
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_factor/auth_factor.h"
 #include "cryptohome/data_migrator/metrics.h"
-#include "cryptohome/le_credential_manager.h"
 #include "cryptohome/migration_type.h"
+#include "cryptohome/pinweaver_manager/le_credential_manager.h"
 
 namespace cryptohome {
 
@@ -114,6 +114,8 @@ enum TimerType {
   kUSSMigrationTimer = 21,
   kVaultSetupTimer = 22,
   kSELinuxRelabelTimer = 23,
+  kStoreUserPolicyTimer = 24,
+  kLoadUserPolicyTimer = 25,
   kNumTimerTypes  // For the number of timer types.
 };
 

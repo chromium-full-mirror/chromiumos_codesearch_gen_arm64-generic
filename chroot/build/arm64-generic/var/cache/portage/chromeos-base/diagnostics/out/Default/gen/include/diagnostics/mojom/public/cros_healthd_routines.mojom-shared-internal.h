@@ -336,6 +336,8 @@ class  RoutineStateUnion_Data {
   enum class RoutineStateUnion_Tag : uint32_t {
 
     
+    kUnrecognizedArgument,
+    
     kInitialized,
     
     kRunning,
@@ -350,6 +352,7 @@ class  RoutineStateUnion_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
+    uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::RoutineStateInitialized_Data> f_initialized;
     mojo::internal::Pointer<internal::RoutineStateRunning_Data> f_running;
     mojo::internal::Pointer<internal::RoutineStateWaiting_Data> f_waiting;
@@ -394,6 +397,8 @@ class  RoutineDetail_Data {
   enum class RoutineDetail_Tag : uint32_t {
 
     
+    kUnrecognizedArgument,
+    
     kMemory,
     
     kAudioDriver,
@@ -418,6 +423,7 @@ class  RoutineDetail_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
+    uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::MemoryRoutineDetail_Data> f_memory;
     mojo::internal::Pointer<internal::AudioDriverRoutineDetail_Data> f_audio_driver;
     mojo::internal::Pointer<internal::CpuStressRoutineDetail_Data> f_cpu_stress;
