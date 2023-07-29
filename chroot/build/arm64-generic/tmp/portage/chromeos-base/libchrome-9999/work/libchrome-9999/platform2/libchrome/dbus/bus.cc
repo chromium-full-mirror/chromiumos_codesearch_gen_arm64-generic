@@ -664,23 +664,6 @@ base::expected<std::unique_ptr<Response>, Error> Bus::SendWithReplyAndBlock(
   return base::ok(Response::FromRawMessage(reply));
 }
 
-DBusMessage* Bus::SendWithReplyAndBlock(DBusMessage* request,
-                                        int timeout_ms,
-                                        DBusError* error) {
-  base::expected<std::unique_ptr<Response>, Error> result =
-      SendWithReplyAndBlock(request, timeout_ms);
-  if (!result.has_value()) {
-    Error e = std::move(result.error());
-    CHECK(e.IsValid());
-    if (error) {
-      dbus_error_init(error);
-      dbus_set_error(error, e.name().c_str(), "%s", e.message().c_str());
-    }
-    return nullptr;
-  }
-  return result.value()->raw_message();
-}
-
 void Bus::SendWithReply(DBusMessage* request,
                         DBusPendingCall** pending_call,
                         int timeout_ms) {
@@ -772,15 +755,6 @@ void Bus::AddMatch(const std::string& match_rule, Error* error) {
   match_rules_added_[match_rule] = 1;
 }
 
-void Bus::AddMatch(const std::string& match_rule, DBusError* error) {
-  Error e;
-  AddMatch(match_rule, &e);
-  if (error && e.IsValid()) {
-    dbus_error_init(error);
-    dbus_set_error(error, e.name().c_str(), "%s", e.message().c_str());
-  }
-}
-
 bool Bus::RemoveMatch(const std::string& match_rule, Error* error) {
   DCHECK(connection_);
   DCHECK(error);
@@ -806,16 +780,6 @@ bool Bus::RemoveMatch(const std::string& match_rule, Error* error) {
     match_rules_added_.erase(match_rule);
   }
   return true;
-}
-
-bool Bus::RemoveMatch(const std::string& match_rule, DBusError* error) {
-  Error e;
-  bool result = RemoveMatch(match_rule, &e);
-  if (error && e.IsValid()) {
-    dbus_error_init(error);
-    dbus_set_error(error, e.name().c_str(), "%s", e.message().c_str());
-  }
-  return result;
 }
 
 bool Bus::TryRegisterObjectPath(const ObjectPath& object_path,

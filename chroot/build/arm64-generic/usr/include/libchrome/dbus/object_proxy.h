@@ -28,7 +28,6 @@ class Error;
 class ErrorResponse;
 class MethodCall;
 class Response;
-class ScopedDBusError;
 class Signal;
 
 // ObjectProxy is used to communicate with remote objects, mainly for
@@ -114,10 +113,6 @@ class CHROME_DBUS_EXPORT ObjectProxy
       MethodCall* method_call,
       int timeout_ms,
       Error* error);
-  virtual std::unique_ptr<Response> CallMethodAndBlockWithErrorDetails(
-      MethodCall* method_call,
-      int timeout_ms,
-      ScopedDBusError* scoped_error);
 
   // Calls the method of the remote object and blocks until the response
   // is returned. Returns NULL on error.
@@ -125,6 +120,8 @@ class CHROME_DBUS_EXPORT ObjectProxy
   // BLOCKING CALL.
   virtual std::unique_ptr<Response> CallMethodAndBlock(MethodCall* method_call,
                                                        int timeout_ms);
+  virtual std::unique_ptr<Response> CallMethodAndBlockDeprecated(
+      MethodCall* method_call, int timeout_ms);
 
   // Requests to call the method of the remote object.
   //

@@ -154,21 +154,14 @@ std::unique_ptr<Response> ObjectProxy::CallMethodAndBlockWithErrorDetails(
   return std::move(result.value());
 }
 
-std::unique_ptr<Response> ObjectProxy::CallMethodAndBlockWithErrorDetails(
+std::unique_ptr<Response> ObjectProxy::CallMethodAndBlock(
     MethodCall* method_call,
-    int timeout_ms,
-    ScopedDBusError* scoped_error) {
+    int timeout_ms) {
   Error error;
-  auto response = CallMethodAndBlockWithErrorDetails(method_call, timeout_ms, &error);
-  if (error.IsValid()) {
-    dbus_error_init(scoped_error->get());
-    dbus_set_error(scoped_error->get(), error.name().c_str(),
-                         "%s", error.message().c_str());
-  }
-  return response;
+  return CallMethodAndBlockWithErrorDetails(method_call, timeout_ms, &error);
 }
 
-std::unique_ptr<Response> ObjectProxy::CallMethodAndBlock(
+std::unique_ptr<Response> ObjectProxy::CallMethodAndBlockDeprecated(
     MethodCall* method_call,
     int timeout_ms) {
   Error error;

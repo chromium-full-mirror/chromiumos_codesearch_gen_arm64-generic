@@ -454,10 +454,6 @@ class CHROME_DBUS_EXPORT Bus : public base::RefCountedThreadSafe<Bus> {
   // BLOCKING CALL.
   virtual base::expected<std::unique_ptr<Response>, Error>
   SendWithReplyAndBlock(DBusMessage* request, int timeout_ms);
-  virtual DBusMessage* SendWithReplyAndBlock(DBusMessage* request,
-                                             int timeout_ms,
-                                             DBusError* error);
-
 
   // Requests to send a message to the bus. The reply is handled with
   // |pending_call| at a later time.
@@ -516,7 +512,6 @@ class CHROME_DBUS_EXPORT Bus : public base::RefCountedThreadSafe<Bus> {
   //
   // BLOCKING CALL.
   virtual void AddMatch(const std::string& match_rule, Error* error);
-  virtual void AddMatch(const std::string& match_rule, DBusError* error);
 
   // Removes the match rule previously added by AddMatch().
   // Returns false if the requested match rule is unknown or has already been
@@ -528,7 +523,6 @@ class CHROME_DBUS_EXPORT Bus : public base::RefCountedThreadSafe<Bus> {
   //
   // BLOCKING CALL.
   virtual bool RemoveMatch(const std::string& match_rule, Error* error);
-  virtual bool RemoveMatch(const std::string& match_rule, DBusError* error);
 
   // Tries to register the object path. Returns true on success.
   // Returns false if the object path is already registered.

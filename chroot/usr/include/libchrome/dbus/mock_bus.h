@@ -47,9 +47,6 @@ class MockBus : public Bus {
       SendWithReplyAndBlock,
       base::expected<std::unique_ptr<Response>, Error>(DBusMessage* request,
                                                        int timeout_ms));
-  MOCK_METHOD3(SendWithReplyAndBlock, DBusMessage*(DBusMessage* request,
-                                                   int timeout_ms,
-                                                   DBusError* error));
   MOCK_METHOD3(SendWithReply, void(DBusMessage* request,
                                    DBusPendingCall** pending_call,
                                    int timeout_ms));
