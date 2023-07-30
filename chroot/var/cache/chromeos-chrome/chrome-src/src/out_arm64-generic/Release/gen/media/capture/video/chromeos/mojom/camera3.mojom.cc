@@ -1571,7 +1571,7 @@ class Camera3CallbackOps_RequestStreamBuffers_ProxyToResponder : public ::mojo::
 #endif
 
   void Run(
-      Camera3BufferRequestStatus in_result, absl::optional<std::vector<Camera3StreamBufferRetPtr>> in_returned_buf_reqs);
+      Camera3BufferRequestStatus in_result, std::vector<Camera3StreamBufferRetPtr> in_returned_buf_reqs);
 };
 
 bool Camera3CallbackOps_RequestStreamBuffers_ForwardToCallback::Accept(
@@ -1585,7 +1585,7 @@ bool Camera3CallbackOps_RequestStreamBuffers_ForwardToCallback::Accept(
   
   bool success = true;
   Camera3BufferRequestStatus p_result{};
-  absl::optional<std::vector<Camera3StreamBufferRetPtr>> p_returned_buf_reqs{};
+  std::vector<Camera3StreamBufferRetPtr> p_returned_buf_reqs{};
   Camera3CallbackOps_RequestStreamBuffers_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1607,7 +1607,7 @@ std::move(p_returned_buf_reqs));
 }
 
 void Camera3CallbackOps_RequestStreamBuffers_ProxyToResponder::Run(
-    Camera3BufferRequestStatus in_result, absl::optional<std::vector<Camera3StreamBufferRetPtr>> in_returned_buf_reqs) {
+    Camera3BufferRequestStatus in_result, std::vector<Camera3StreamBufferRetPtr> in_returned_buf_reqs) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::Camera3CallbackOps::RequestStreamBuffers", "async_response_parameters",
@@ -1618,7 +1618,7 @@ void Camera3CallbackOps_RequestStreamBuffers_ProxyToResponder::Run(
                         "<value of type Camera3BufferRequestStatus>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("returned_buf_reqs"), in_returned_buf_reqs,
-                        "<value of type absl::optional<std::vector<Camera3StreamBufferRetPtr>>>");
+                        "<value of type std::vector<Camera3StreamBufferRetPtr>>");
    });
 #endif
   
@@ -1643,6 +1643,10 @@ void Camera3CallbackOps_RequestStreamBuffers_ProxyToResponder::Run(
       in_returned_buf_reqs, returned_buf_reqs_fragment, &returned_buf_reqs_validate_params);
   params->returned_buf_reqs.Set(
       returned_buf_reqs_fragment.is_null() ? nullptr : returned_buf_reqs_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->returned_buf_reqs.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null returned_buf_reqs in ");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Camera3CallbackOps::Name_);
@@ -4429,17 +4433,17 @@ Camera3CallbackOpsAsyncWaiter::Camera3CallbackOpsAsyncWaiter(
 Camera3CallbackOpsAsyncWaiter::~Camera3CallbackOpsAsyncWaiter() = default;
 
 void Camera3CallbackOpsAsyncWaiter::RequestStreamBuffers(
-    std::vector<Camera3BufferRequestPtr> buffer_reqs, Camera3BufferRequestStatus* out_result, absl::optional<std::vector<Camera3StreamBufferRetPtr>>* out_returned_buf_reqs) {
+    std::vector<Camera3BufferRequestPtr> buffer_reqs, Camera3BufferRequestStatus* out_result, std::vector<Camera3StreamBufferRetPtr>* out_returned_buf_reqs) {
   base::RunLoop loop;
   proxy_->RequestStreamBuffers(std::move(buffer_reqs),
       base::BindOnce(
           [](base::RunLoop* loop,
              Camera3BufferRequestStatus* out_result
 ,
-             absl::optional<std::vector<Camera3StreamBufferRetPtr>>* out_returned_buf_reqs
+             std::vector<Camera3StreamBufferRetPtr>* out_returned_buf_reqs
 ,
              Camera3BufferRequestStatus result,
-             absl::optional<std::vector<Camera3StreamBufferRetPtr>> returned_buf_reqs) {*out_result = std::move(result);*out_returned_buf_reqs = std::move(returned_buf_reqs);
+             std::vector<Camera3StreamBufferRetPtr> returned_buf_reqs) {*out_result = std::move(result);*out_returned_buf_reqs = std::move(returned_buf_reqs);
             loop->Quit();
           },
           &loop,

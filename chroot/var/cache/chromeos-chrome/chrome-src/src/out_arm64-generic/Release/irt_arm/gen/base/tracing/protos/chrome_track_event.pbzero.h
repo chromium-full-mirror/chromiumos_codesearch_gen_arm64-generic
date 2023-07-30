@@ -908,13 +908,14 @@ enum QueueName : int32_t {
   IO_USER_BLOCKING_DEFERRABLE_TQ = 53,
   UI_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ = 54,
   IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ = 55,
+  V8_LOW_PRIORITY_TQ = 56,
 };
 } // namespace perfetto_pbzero_enum_SequenceManagerTask
 using SequenceManagerTask_QueueName = perfetto_pbzero_enum_SequenceManagerTask::QueueName;
 
 
 constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MIN = SequenceManagerTask_QueueName::UNKNOWN_TQ;
-constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MAX = SequenceManagerTask_QueueName::IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ;
+constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MAX = SequenceManagerTask_QueueName::V8_LOW_PRIORITY_TQ;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -1087,6 +1088,9 @@ const char* SequenceManagerTask_QueueName_Name(::perfetto::protos::pbzero::Seque
 
   case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ:
     return "IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::V8_LOW_PRIORITY_TQ:
+    return "V8_LOW_PRIORITY_TQ";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -1418,13 +1422,14 @@ enum TaskType : int32_t {
   TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION = 81,
   TASK_TYPE_STORAGE = 82,
   TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING = 83,
+  TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY = 84,
 };
 } // namespace perfetto_pbzero_enum_RendererMainThreadTaskExecution
 using RendererMainThreadTaskExecution_TaskType = perfetto_pbzero_enum_RendererMainThreadTaskExecution::TaskType;
 
 
 constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MIN = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_UNKNOWN;
-constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MAX = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING;
+constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MAX = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -1651,6 +1656,9 @@ const char* RendererMainThreadTaskExecution_TaskType_Name(::perfetto::protos::pb
 
   case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING:
     return "TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING";
+
+  case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY:
+    return "TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -4717,6 +4725,7 @@ class SequenceManagerTask : public ::protozero::Message {
   static inline const QueueName IO_USER_BLOCKING_DEFERRABLE_TQ = QueueName::IO_USER_BLOCKING_DEFERRABLE_TQ;
   static inline const QueueName UI_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ = QueueName::UI_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ;
   static inline const QueueName IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ = QueueName::IO_BEFORE_UNLOAD_BROWSER_RESPONSE_TQ;
+  static inline const QueueName V8_LOW_PRIORITY_TQ = QueueName::V8_LOW_PRIORITY_TQ;
 
   using FieldMetadata_Priority =
     ::protozero::proto_utils::FieldMetadata<
@@ -5039,7 +5048,7 @@ class ProcessSingleton : public ::protozero::Message {
   }
 };
 
-class EventLatency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class EventLatency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   EventLatency_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit EventLatency_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -5052,6 +5061,8 @@ class EventLatency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   ::protozero::RepeatedFieldIterator<::protozero::ConstChars> high_latency_stage() const { return GetRepeated<::protozero::ConstChars>(3); }
   bool has_event_latency_id() const { return at<4>().valid(); }
   int64_t event_latency_id() const { return at<4>().as_int64(); }
+  bool has_is_janky_scrolled_frame() const { return at<5>().valid(); }
+  bool is_janky_scrolled_frame() const { return at<5>().as_bool(); }
 };
 
 class EventLatency : public ::protozero::Message {
@@ -5062,6 +5073,7 @@ class EventLatency : public ::protozero::Message {
     kHasHighLatencyFieldNumber = 2,
     kHighLatencyStageFieldNumber = 3,
     kEventLatencyIdFieldNumber = 4,
+    kIsJankyScrolledFrameFieldNumber = 5,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.EventLatency"; }
 
@@ -5174,6 +5186,24 @@ class EventLatency : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_IsJankyScrolledFrame =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      EventLatency>;
+
+  static constexpr FieldMetadata_IsJankyScrolledFrame kIsJankyScrolledFrame{};
+  void set_is_janky_scrolled_frame(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_IsJankyScrolledFrame::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };
@@ -5291,6 +5321,7 @@ class RendererMainThreadTaskExecution : public ::protozero::Message {
   static inline const TaskType TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION = TaskType::TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION;
   static inline const TaskType TASK_TYPE_STORAGE = TaskType::TASK_TYPE_STORAGE;
   static inline const TaskType TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING = TaskType::TASK_TYPE_NETWORKING_UNFREEZABLE_IMAGE_LOADING;
+  static inline const TaskType TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY = TaskType::TASK_TYPE_MAIN_THREAD_TASK_QUEUE_V8_LOW_PRIORITY;
   static inline const FrameType FRAME_TYPE_UNSPECIFIED = FrameType::FRAME_TYPE_UNSPECIFIED;
   static inline const FrameType FRAME_TYPE_MAIN_FRAME = FrameType::FRAME_TYPE_MAIN_FRAME;
   static inline const FrameType FRAME_TYPE_SAME_ORIGIN_SUBFRAME = FrameType::FRAME_TYPE_SAME_ORIGIN_SUBFRAME;

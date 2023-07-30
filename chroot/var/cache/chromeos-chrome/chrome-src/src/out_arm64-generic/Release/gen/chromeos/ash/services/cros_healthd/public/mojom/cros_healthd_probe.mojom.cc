@@ -3088,7 +3088,8 @@ PsrInfo::PsrInfo()
       s4_counter(),
       s3_counter(),
       warm_reset_counter(),
-      events() {}
+      events(),
+      is_supported() {}
 
 PsrInfo::PsrInfo(
     PsrInfo::LogState log_state_in,
@@ -3120,7 +3121,42 @@ PsrInfo::PsrInfo(
       s4_counter(std::move(s4_counter_in)),
       s3_counter(std::move(s3_counter_in)),
       warm_reset_counter(std::move(warm_reset_counter_in)),
-      events(std::move(events_in)) {}
+      events(std::move(events_in)),
+      is_supported() {}
+
+PsrInfo::PsrInfo(
+    PsrInfo::LogState log_state_in,
+    const std::string& uuid_in,
+    const std::string& upid_in,
+    uint32_t log_start_date_in,
+    const std::string& oem_name_in,
+    const std::string& oem_make_in,
+    const std::string& oem_model_in,
+    const std::string& manufacture_country_in,
+    const std::string& oem_data_in,
+    uint32_t uptime_seconds_in,
+    uint32_t s5_counter_in,
+    uint32_t s4_counter_in,
+    uint32_t s3_counter_in,
+    uint32_t warm_reset_counter_in,
+    std::vector<PsrEventPtr> events_in,
+    bool is_supported_in)
+    : log_state(std::move(log_state_in)),
+      uuid(std::move(uuid_in)),
+      upid(std::move(upid_in)),
+      log_start_date(std::move(log_start_date_in)),
+      oem_name(std::move(oem_name_in)),
+      oem_make(std::move(oem_make_in)),
+      oem_model(std::move(oem_model_in)),
+      manufacture_country(std::move(manufacture_country_in)),
+      oem_data(std::move(oem_data_in)),
+      uptime_seconds(std::move(uptime_seconds_in)),
+      s5_counter(std::move(s5_counter_in)),
+      s4_counter(std::move(s4_counter_in)),
+      s3_counter(std::move(s3_counter_in)),
+      warm_reset_counter(std::move(warm_reset_counter_in)),
+      events(std::move(events_in)),
+      is_supported(std::move(is_supported_in)) {}
 
 PsrInfo::~PsrInfo() = default;
 
@@ -3258,6 +3294,15 @@ void PsrInfo::WriteIntoTrace(
       "events"), this->events,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::vector<PsrEventPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_supported"), this->is_supported,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8923,6 +8968,8 @@ bool StructTraits<::ash::cros_healthd::mojom::PsrInfo::DataView, ::ash::cros_hea
         result->warm_reset_counter = input.warm_reset_counter();
       if (success && !input.ReadEvents(&result->events))
         success = false;
+      if (success)
+        result->is_supported = input.is_supported();
   *output = std::move(result);
   return success;
 }

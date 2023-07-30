@@ -45,6 +45,8 @@ constexpr uint32_t CAMERA_DEVICE_API_VERSION_3_3 = 0x303U;
 constexpr uint32_t CAMERA_DEVICE_API_VERSION_3_4 = 0x304U;
 
 constexpr uint32_t CAMERA_DEVICE_API_VERSION_3_5 = 0x305U;
+
+constexpr uint32_t CAMERA_DEVICE_API_VERSION_3_6 = 0x306U;
 class CameraResourceCost;
 using CameraResourceCostPtr = mojo::InlinedStructPtr<CameraResourceCost>;
 

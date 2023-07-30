@@ -10581,6 +10581,24 @@ class  PsrInfo {
       uint32_t warm_reset_counter,
       std::vector<PsrEventPtr> events);
 
+  PsrInfo(
+      PsrInfo::LogState log_state,
+      const std::string& uuid,
+      const std::string& upid,
+      uint32_t log_start_date,
+      const std::string& oem_name,
+      const std::string& oem_make,
+      const std::string& oem_model,
+      const std::string& manufacture_country,
+      const std::string& oem_data,
+      uint32_t uptime_seconds,
+      uint32_t s5_counter,
+      uint32_t s4_counter,
+      uint32_t s3_counter,
+      uint32_t warm_reset_counter,
+      std::vector<PsrEventPtr> events,
+      bool is_supported);
+
 PsrInfo(const PsrInfo&) = delete;
 PsrInfo& operator=(const PsrInfo&) = delete;
 
@@ -10688,6 +10706,8 @@ PsrInfo& operator=(const PsrInfo&) = delete;
   uint32_t warm_reset_counter;
   
   std::vector<PsrEventPtr> events;
+  
+  bool is_supported;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -17489,7 +17509,8 @@ PsrInfoPtr PsrInfo::Clone() const {
       mojo::Clone(s4_counter),
       mojo::Clone(s3_counter),
       mojo::Clone(warm_reset_counter),
-      mojo::Clone(events)
+      mojo::Clone(events),
+      mojo::Clone(is_supported)
   );
 }
 
@@ -17524,6 +17545,8 @@ bool PsrInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->warm_reset_counter, other_struct.warm_reset_counter))
     return false;
   if (!mojo::Equals(this->events, other_struct.events))
+    return false;
+  if (!mojo::Equals(this->is_supported, other_struct.is_supported))
     return false;
   return true;
 }
@@ -17589,6 +17612,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.events < rhs.events)
     return true;
   if (rhs.events < lhs.events)
+    return false;
+  if (lhs.is_supported < rhs.is_supported)
+    return true;
+  if (rhs.is_supported < lhs.is_supported)
     return false;
   return false;
 }
@@ -20638,6 +20665,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::PsrInfo::DataView,
   static const decltype(::ash::cros_healthd::mojom::PsrInfo::events)& events(
       const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
     return input->events;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::PsrInfo::is_supported) is_supported(
+      const ::ash::cros_healthd::mojom::PsrInfoPtr& input) {
+    return input->is_supported;
   }
 
   static bool Read(::ash::cros_healthd::mojom::PsrInfo::DataView input, ::ash::cros_healthd::mojom::PsrInfoPtr* output);

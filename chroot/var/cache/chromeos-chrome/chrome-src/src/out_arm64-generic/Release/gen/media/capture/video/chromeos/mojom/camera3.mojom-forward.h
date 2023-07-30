@@ -92,6 +92,8 @@ constexpr uint32_t GRALLOC_USAGE_HW_CAMERA_READ = 0x00040000U;
 constexpr uint32_t GRALLOC_USAGE_FORCE_I420 = 0x10000000U;
 
 constexpr uint32_t GRALLOC_USAGE_STILL_CAPTURE = 0x20000000U;
+
+constexpr uint64_t NO_BUFFER_BUFFER_ID = 0xFFFFFFFFFFFFFFFFULL;
 class CropRotateScaleInfo;
 using CropRotateScaleInfoPtr = mojo::InlinedStructPtr<CropRotateScaleInfo>;
 

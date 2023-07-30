@@ -1069,6 +1069,10 @@ bool Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data::Validate(
         ::Validate(object->result, validation_context))
     return false;
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->returned_buf_reqs, 2, validation_context)) {
+    return false;
+  }
   constexpr const mojo::internal::ContainerValidateParams& returned_buf_reqs_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->returned_buf_reqs, validation_context,

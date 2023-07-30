@@ -102,7 +102,7 @@ class Camera3CallbackOps
   virtual void Notify(Camera3NotifyMsgPtr msg) = 0;
 
 
-  using RequestStreamBuffersCallback = base::OnceCallback<void(Camera3BufferRequestStatus, absl::optional<std::vector<Camera3StreamBufferRetPtr>>)>;
+  using RequestStreamBuffersCallback = base::OnceCallback<void(Camera3BufferRequestStatus, std::vector<Camera3StreamBufferRetPtr>)>;
   
   virtual void RequestStreamBuffers(std::vector<Camera3BufferRequestPtr> buffer_reqs, RequestStreamBuffersCallback callback) = 0;
 

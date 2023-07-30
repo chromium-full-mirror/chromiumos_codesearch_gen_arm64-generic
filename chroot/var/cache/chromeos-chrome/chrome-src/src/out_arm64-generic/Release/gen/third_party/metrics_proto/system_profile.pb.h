@@ -749,6 +749,26 @@ inline const std::string& SystemProfileProto_ClientSideSamplingStatus_Name(T enu
 }
 bool SystemProfileProto_ClientSideSamplingStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_ClientSideSamplingStatus* value);
+enum SystemProfileProto_MetricsFilteringStatus : int {
+  SystemProfileProto_MetricsFilteringStatus_METRICS_UNKNOWN = 0,
+  SystemProfileProto_MetricsFilteringStatus_METRICS_ALL = 1,
+  SystemProfileProto_MetricsFilteringStatus_METRICS_ONLY_CRITICAL = 2
+};
+bool SystemProfileProto_MetricsFilteringStatus_IsValid(int value);
+constexpr SystemProfileProto_MetricsFilteringStatus SystemProfileProto_MetricsFilteringStatus_MetricsFilteringStatus_MIN = SystemProfileProto_MetricsFilteringStatus_METRICS_UNKNOWN;
+constexpr SystemProfileProto_MetricsFilteringStatus SystemProfileProto_MetricsFilteringStatus_MetricsFilteringStatus_MAX = SystemProfileProto_MetricsFilteringStatus_METRICS_ONLY_CRITICAL;
+constexpr int SystemProfileProto_MetricsFilteringStatus_MetricsFilteringStatus_ARRAYSIZE = SystemProfileProto_MetricsFilteringStatus_MetricsFilteringStatus_MAX + 1;
+
+const std::string& SystemProfileProto_MetricsFilteringStatus_Name(SystemProfileProto_MetricsFilteringStatus value);
+template<typename T>
+inline const std::string& SystemProfileProto_MetricsFilteringStatus_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SystemProfileProto_MetricsFilteringStatus>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SystemProfileProto_MetricsFilteringStatus_Name.");
+  return SystemProfileProto_MetricsFilteringStatus_Name(static_cast<SystemProfileProto_MetricsFilteringStatus>(enum_t_value));
+}
+bool SystemProfileProto_MetricsFilteringStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_MetricsFilteringStatus* value);
 enum SystemProfileProto_InstallerPackage : int {
   SystemProfileProto_InstallerPackage_INSTALLER_PACKAGE_UNKNOWN = 0,
   SystemProfileProto_InstallerPackage_INSTALLER_PACKAGE_NONE = 1,
@@ -770,6 +790,27 @@ inline const std::string& SystemProfileProto_InstallerPackage_Name(T enum_t_valu
 }
 bool SystemProfileProto_InstallerPackage_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_InstallerPackage* value);
+enum SystemProfileProto_LTSChannel : int {
+  SystemProfileProto_LTSChannel_LTS_CHANNEL_UNKNOWN = 0,
+  SystemProfileProto_LTSChannel_LTS_CHANNEL_STABLE = 1,
+  SystemProfileProto_LTSChannel_LTS_CHANNEL_LTC = 2,
+  SystemProfileProto_LTSChannel_LTS_CHANNEL_LTS = 3
+};
+bool SystemProfileProto_LTSChannel_IsValid(int value);
+constexpr SystemProfileProto_LTSChannel SystemProfileProto_LTSChannel_LTSChannel_MIN = SystemProfileProto_LTSChannel_LTS_CHANNEL_UNKNOWN;
+constexpr SystemProfileProto_LTSChannel SystemProfileProto_LTSChannel_LTSChannel_MAX = SystemProfileProto_LTSChannel_LTS_CHANNEL_LTS;
+constexpr int SystemProfileProto_LTSChannel_LTSChannel_ARRAYSIZE = SystemProfileProto_LTSChannel_LTSChannel_MAX + 1;
+
+const std::string& SystemProfileProto_LTSChannel_Name(SystemProfileProto_LTSChannel value);
+template<typename T>
+inline const std::string& SystemProfileProto_LTSChannel_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SystemProfileProto_LTSChannel>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SystemProfileProto_LTSChannel_Name.");
+  return SystemProfileProto_LTSChannel_Name(static_cast<SystemProfileProto_LTSChannel>(enum_t_value));
+}
+bool SystemProfileProto_LTSChannel_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_LTSChannel* value);
 // ===================================================================
 
 class SystemProfileProto_ClonedInstallInfo final :
@@ -7148,6 +7189,34 @@ class SystemProfileProto final :
     return SystemProfileProto_ClientSideSamplingStatus_Parse(name, value);
   }
 
+  typedef SystemProfileProto_MetricsFilteringStatus MetricsFilteringStatus;
+  static constexpr MetricsFilteringStatus METRICS_UNKNOWN =
+    SystemProfileProto_MetricsFilteringStatus_METRICS_UNKNOWN;
+  static constexpr MetricsFilteringStatus METRICS_ALL =
+    SystemProfileProto_MetricsFilteringStatus_METRICS_ALL;
+  static constexpr MetricsFilteringStatus METRICS_ONLY_CRITICAL =
+    SystemProfileProto_MetricsFilteringStatus_METRICS_ONLY_CRITICAL;
+  static inline bool MetricsFilteringStatus_IsValid(int value) {
+    return SystemProfileProto_MetricsFilteringStatus_IsValid(value);
+  }
+  static constexpr MetricsFilteringStatus MetricsFilteringStatus_MIN =
+    SystemProfileProto_MetricsFilteringStatus_MetricsFilteringStatus_MIN;
+  static constexpr MetricsFilteringStatus MetricsFilteringStatus_MAX =
+    SystemProfileProto_MetricsFilteringStatus_MetricsFilteringStatus_MAX;
+  static constexpr int MetricsFilteringStatus_ARRAYSIZE =
+    SystemProfileProto_MetricsFilteringStatus_MetricsFilteringStatus_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& MetricsFilteringStatus_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, MetricsFilteringStatus>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function MetricsFilteringStatus_Name.");
+    return SystemProfileProto_MetricsFilteringStatus_Name(enum_t_value);
+  }
+  static inline bool MetricsFilteringStatus_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      MetricsFilteringStatus* value) {
+    return SystemProfileProto_MetricsFilteringStatus_Parse(name, value);
+  }
+
   typedef SystemProfileProto_InstallerPackage InstallerPackage;
   static constexpr InstallerPackage INSTALLER_PACKAGE_UNKNOWN =
     SystemProfileProto_InstallerPackage_INSTALLER_PACKAGE_UNKNOWN;
@@ -7176,6 +7245,36 @@ class SystemProfileProto final :
   static inline bool InstallerPackage_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
       InstallerPackage* value) {
     return SystemProfileProto_InstallerPackage_Parse(name, value);
+  }
+
+  typedef SystemProfileProto_LTSChannel LTSChannel;
+  static constexpr LTSChannel LTS_CHANNEL_UNKNOWN =
+    SystemProfileProto_LTSChannel_LTS_CHANNEL_UNKNOWN;
+  static constexpr LTSChannel LTS_CHANNEL_STABLE =
+    SystemProfileProto_LTSChannel_LTS_CHANNEL_STABLE;
+  static constexpr LTSChannel LTS_CHANNEL_LTC =
+    SystemProfileProto_LTSChannel_LTS_CHANNEL_LTC;
+  static constexpr LTSChannel LTS_CHANNEL_LTS =
+    SystemProfileProto_LTSChannel_LTS_CHANNEL_LTS;
+  static inline bool LTSChannel_IsValid(int value) {
+    return SystemProfileProto_LTSChannel_IsValid(value);
+  }
+  static constexpr LTSChannel LTSChannel_MIN =
+    SystemProfileProto_LTSChannel_LTSChannel_MIN;
+  static constexpr LTSChannel LTSChannel_MAX =
+    SystemProfileProto_LTSChannel_LTSChannel_MAX;
+  static constexpr int LTSChannel_ARRAYSIZE =
+    SystemProfileProto_LTSChannel_LTSChannel_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& LTSChannel_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, LTSChannel>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function LTSChannel_Name.");
+    return SystemProfileProto_LTSChannel_Name(enum_t_value);
+  }
+  static inline bool LTSChannel_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      LTSChannel* value) {
+    return SystemProfileProto_LTSChannel_Parse(name, value);
   }
 
   // accessors -------------------------------------------------------
@@ -7220,6 +7319,8 @@ class SystemProfileProto final :
     kPseudoLowEntropySourceFieldNumber = 37,
     kAppPackageNameAllowlistFilterFieldNumber = 42,
     kClientSideSamplingStatusFieldNumber = 43,
+    kMetricsFilteringStatusFieldNumber = 44,
+    kLtsChannelFieldNumber = 45,
   };
   // repeated .metrics.SystemProfileProto.FieldTrial field_trial = 9;
   int field_trial_size() const;
@@ -7851,6 +7952,32 @@ class SystemProfileProto final :
   void _internal_set_client_side_sampling_status(::metrics::SystemProfileProto_ClientSideSamplingStatus value);
   public:
 
+  // optional .metrics.SystemProfileProto.MetricsFilteringStatus metrics_filtering_status = 44;
+  bool has_metrics_filtering_status() const;
+  private:
+  bool _internal_has_metrics_filtering_status() const;
+  public:
+  void clear_metrics_filtering_status();
+  ::metrics::SystemProfileProto_MetricsFilteringStatus metrics_filtering_status() const;
+  void set_metrics_filtering_status(::metrics::SystemProfileProto_MetricsFilteringStatus value);
+  private:
+  ::metrics::SystemProfileProto_MetricsFilteringStatus _internal_metrics_filtering_status() const;
+  void _internal_set_metrics_filtering_status(::metrics::SystemProfileProto_MetricsFilteringStatus value);
+  public:
+
+  // optional .metrics.SystemProfileProto.LTSChannel lts_channel = 45;
+  bool has_lts_channel() const;
+  private:
+  bool _internal_has_lts_channel() const;
+  public:
+  void clear_lts_channel();
+  ::metrics::SystemProfileProto_LTSChannel lts_channel() const;
+  void set_lts_channel(::metrics::SystemProfileProto_LTSChannel value);
+  private:
+  ::metrics::SystemProfileProto_LTSChannel _internal_lts_channel() const;
+  void _internal_set_lts_channel(::metrics::SystemProfileProto_LTSChannel value);
+  public:
+
   // @@protoc_insertion_point(class_scope:metrics.SystemProfileProto)
  private:
   class _Internal;
@@ -7858,7 +7985,7 @@ class SystemProfileProto final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<2> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::SystemProfileProto_FieldTrial > field_trial_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::SystemProfileProto_ExternalAudioVideoDevice > external_audio_video_device_;
@@ -7899,6 +8026,8 @@ class SystemProfileProto final :
   int32_t pseudo_low_entropy_source_;
   int app_package_name_allowlist_filter_;
   int client_side_sampling_status_;
+  int metrics_filtering_status_;
+  int lts_channel_;
   friend struct ::TableStruct_system_5fprofile_2eproto;
 };
 // ===================================================================
@@ -15995,6 +16124,35 @@ inline void SystemProfileProto::set_client_side_sampling_status(::metrics::Syste
   // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.client_side_sampling_status)
 }
 
+// optional .metrics.SystemProfileProto.MetricsFilteringStatus metrics_filtering_status = 44;
+inline bool SystemProfileProto::_internal_has_metrics_filtering_status() const {
+  bool value = (_has_bits_[1] & 0x00000001u) != 0;
+  return value;
+}
+inline bool SystemProfileProto::has_metrics_filtering_status() const {
+  return _internal_has_metrics_filtering_status();
+}
+inline void SystemProfileProto::clear_metrics_filtering_status() {
+  metrics_filtering_status_ = 0;
+  _has_bits_[1] &= ~0x00000001u;
+}
+inline ::metrics::SystemProfileProto_MetricsFilteringStatus SystemProfileProto::_internal_metrics_filtering_status() const {
+  return static_cast< ::metrics::SystemProfileProto_MetricsFilteringStatus >(metrics_filtering_status_);
+}
+inline ::metrics::SystemProfileProto_MetricsFilteringStatus SystemProfileProto::metrics_filtering_status() const {
+  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.metrics_filtering_status)
+  return _internal_metrics_filtering_status();
+}
+inline void SystemProfileProto::_internal_set_metrics_filtering_status(::metrics::SystemProfileProto_MetricsFilteringStatus value) {
+  assert(::metrics::SystemProfileProto_MetricsFilteringStatus_IsValid(value));
+  _has_bits_[1] |= 0x00000001u;
+  metrics_filtering_status_ = value;
+}
+inline void SystemProfileProto::set_metrics_filtering_status(::metrics::SystemProfileProto_MetricsFilteringStatus value) {
+  _internal_set_metrics_filtering_status(value);
+  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.metrics_filtering_status)
+}
+
 // optional .metrics.SystemProfileProto.InstallerPackage installer_package = 35;
 inline bool SystemProfileProto::_internal_has_installer_package() const {
   bool value = (_has_bits_[0] & 0x10000000u) != 0;
@@ -16204,6 +16362,35 @@ inline void SystemProfileProto::set_allocated_demo_mode_dimensions(::metrics::Sy
   // @@protoc_insertion_point(field_set_allocated:metrics.SystemProfileProto.demo_mode_dimensions)
 }
 
+// optional .metrics.SystemProfileProto.LTSChannel lts_channel = 45;
+inline bool SystemProfileProto::_internal_has_lts_channel() const {
+  bool value = (_has_bits_[1] & 0x00000002u) != 0;
+  return value;
+}
+inline bool SystemProfileProto::has_lts_channel() const {
+  return _internal_has_lts_channel();
+}
+inline void SystemProfileProto::clear_lts_channel() {
+  lts_channel_ = 0;
+  _has_bits_[1] &= ~0x00000002u;
+}
+inline ::metrics::SystemProfileProto_LTSChannel SystemProfileProto::_internal_lts_channel() const {
+  return static_cast< ::metrics::SystemProfileProto_LTSChannel >(lts_channel_);
+}
+inline ::metrics::SystemProfileProto_LTSChannel SystemProfileProto::lts_channel() const {
+  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.lts_channel)
+  return _internal_lts_channel();
+}
+inline void SystemProfileProto::_internal_set_lts_channel(::metrics::SystemProfileProto_LTSChannel value) {
+  assert(::metrics::SystemProfileProto_LTSChannel_IsValid(value));
+  _has_bits_[1] |= 0x00000002u;
+  lts_channel_ = value;
+}
+inline void SystemProfileProto::set_lts_channel(::metrics::SystemProfileProto_LTSChannel value) {
+  _internal_set_lts_channel(value);
+  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.lts_channel)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
@@ -16284,7 +16471,9 @@ template <> struct is_proto_enum< ::metrics::SystemProfileProto_AntiVirusState> 
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_ComponentId> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_AppPackageNameAllowlistFilter> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_ClientSideSamplingStatus> : ::std::true_type {};
+template <> struct is_proto_enum< ::metrics::SystemProfileProto_MetricsFilteringStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_InstallerPackage> : ::std::true_type {};
+template <> struct is_proto_enum< ::metrics::SystemProfileProto_LTSChannel> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

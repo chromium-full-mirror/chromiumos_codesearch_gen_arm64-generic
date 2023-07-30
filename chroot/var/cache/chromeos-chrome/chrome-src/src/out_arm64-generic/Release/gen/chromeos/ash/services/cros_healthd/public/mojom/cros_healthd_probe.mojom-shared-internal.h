@@ -4148,7 +4148,8 @@ class  PsrInfo_Data {
   uint32_t s4_counter;
   uint32_t s3_counter;
   uint32_t warm_reset_counter;
-  uint8_t pad13_[4];
+  uint8_t is_supported : 1;
+  uint8_t pad14_[3];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::PsrEvent_Data>>> events;
 
  private:
