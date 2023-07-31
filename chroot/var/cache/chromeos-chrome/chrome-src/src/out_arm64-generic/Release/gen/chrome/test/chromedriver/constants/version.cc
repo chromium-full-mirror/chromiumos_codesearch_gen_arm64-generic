@@ -8,7 +8,7 @@
 
 // Version Information
 
-const char kChromeDriverVersion[] = "117.0.5917.0 (cf7972fa5395b70337e022bffdb0e59475c81a46-refs/branch-heads/5917@{#1})";
+const char kChromeDriverVersion[] = "117.0.5920.0 (704a78e8810f13e9248caa336470c81cf91d1e59-refs/branch-heads/5920@{#1})";
 
 // Branding Information
 
