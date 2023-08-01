@@ -33,8 +33,8 @@ struct StateDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StateDefaultTypeInternal _State_default_instance_;
 PROTOBUF_CONSTEXPR LogManifest_Entry::LogManifest_Entry(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.offset_)*/0
-  , /*decltype(_impl_.count_)*/0
+    /*decltype(_impl_.count_)*/int64_t{0}
+  , /*decltype(_impl_.offset_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct LogManifest_EntryDefaultTypeInternal {
   PROTOBUF_CONSTEXPR LogManifest_EntryDefaultTypeInternal()
@@ -373,14 +373,14 @@ LogManifest_Entry::LogManifest_Entry(const LogManifest_Entry& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   LogManifest_Entry* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.offset_){}
-    , decltype(_impl_.count_){}
+      decltype(_impl_.count_){}
+    , decltype(_impl_.offset_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&_impl_.offset_, &from._impl_.offset_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.count_) -
-    reinterpret_cast<char*>(&_impl_.offset_)) + sizeof(_impl_.count_));
+  ::memcpy(&_impl_.count_, &from._impl_.count_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.offset_) -
+    reinterpret_cast<char*>(&_impl_.count_)) + sizeof(_impl_.offset_));
   // @@protoc_insertion_point(copy_constructor:minios.LogManifest.Entry)
 }
 
@@ -389,8 +389,8 @@ inline void LogManifest_Entry::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.offset_){0}
-    , decltype(_impl_.count_){0}
+      decltype(_impl_.count_){int64_t{0}}
+    , decltype(_impl_.offset_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -418,9 +418,9 @@ void LogManifest_Entry::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.offset_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.count_) -
-      reinterpret_cast<char*>(&_impl_.offset_)) + sizeof(_impl_.count_));
+  ::memset(&_impl_.count_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.offset_) -
+      reinterpret_cast<char*>(&_impl_.count_)) + sizeof(_impl_.offset_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -438,10 +438,10 @@ const char* LogManifest_Entry::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // int32 count = 2;
+      // int64 count = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -481,10 +481,10 @@ uint8_t* LogManifest_Entry::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_offset(), target);
   }
 
-  // int32 count = 2;
+  // int64 count = 2;
   if (this->_internal_count() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_count(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_count(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -503,14 +503,14 @@ size_t LogManifest_Entry::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // int64 count = 2;
+  if (this->_internal_count() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_count());
+  }
+
   // int32 offset = 1;
   if (this->_internal_offset() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_offset());
-  }
-
-  // int32 count = 2;
-  if (this->_internal_count() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_count());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -534,11 +534,11 @@ void LogManifest_Entry::MergeFrom(const LogManifest_Entry& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_offset() != 0) {
-    _this->_internal_set_offset(from._internal_offset());
-  }
   if (from._internal_count() != 0) {
     _this->_internal_set_count(from._internal_count());
+  }
+  if (from._internal_offset() != 0) {
+    _this->_internal_set_offset(from._internal_offset());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -558,11 +558,11 @@ void LogManifest_Entry::InternalSwap(LogManifest_Entry* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(LogManifest_Entry, _impl_.count_)
-      + sizeof(LogManifest_Entry::_impl_.count_)
-      - PROTOBUF_FIELD_OFFSET(LogManifest_Entry, _impl_.offset_)>(
-          reinterpret_cast<char*>(&_impl_.offset_),
-          reinterpret_cast<char*>(&other->_impl_.offset_));
+      PROTOBUF_FIELD_OFFSET(LogManifest_Entry, _impl_.offset_)
+      + sizeof(LogManifest_Entry::_impl_.offset_)
+      - PROTOBUF_FIELD_OFFSET(LogManifest_Entry, _impl_.count_)>(
+          reinterpret_cast<char*>(&_impl_.count_),
+          reinterpret_cast<char*>(&other->_impl_.count_));
 }
 
 std::string LogManifest_Entry::GetTypeName() const {

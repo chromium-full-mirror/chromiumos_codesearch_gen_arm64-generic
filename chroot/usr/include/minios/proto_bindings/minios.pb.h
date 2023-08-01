@@ -375,9 +375,18 @@ class LogManifest_Entry final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kOffsetFieldNumber = 1,
     kCountFieldNumber = 2,
+    kOffsetFieldNumber = 1,
   };
+  // int64 count = 2;
+  void clear_count();
+  int64_t count() const;
+  void set_count(int64_t value);
+  private:
+  int64_t _internal_count() const;
+  void _internal_set_count(int64_t value);
+  public:
+
   // int32 offset = 1;
   void clear_offset();
   int32_t offset() const;
@@ -385,15 +394,6 @@ class LogManifest_Entry final :
   private:
   int32_t _internal_offset() const;
   void _internal_set_offset(int32_t value);
-  public:
-
-  // int32 count = 2;
-  void clear_count();
-  int32_t count() const;
-  void set_count(int32_t value);
-  private:
-  int32_t _internal_count() const;
-  void _internal_set_count(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:minios.LogManifest.Entry)
@@ -404,8 +404,8 @@ class LogManifest_Entry final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    int64_t count_;
     int32_t offset_;
-    int32_t count_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -607,22 +607,22 @@ inline void LogManifest_Entry::set_offset(int32_t value) {
   // @@protoc_insertion_point(field_set:minios.LogManifest.Entry.offset)
 }
 
-// int32 count = 2;
+// int64 count = 2;
 inline void LogManifest_Entry::clear_count() {
-  _impl_.count_ = 0;
+  _impl_.count_ = int64_t{0};
 }
-inline int32_t LogManifest_Entry::_internal_count() const {
+inline int64_t LogManifest_Entry::_internal_count() const {
   return _impl_.count_;
 }
-inline int32_t LogManifest_Entry::count() const {
+inline int64_t LogManifest_Entry::count() const {
   // @@protoc_insertion_point(field_get:minios.LogManifest.Entry.count)
   return _internal_count();
 }
-inline void LogManifest_Entry::_internal_set_count(int32_t value) {
+inline void LogManifest_Entry::_internal_set_count(int64_t value) {
   
   _impl_.count_ = value;
 }
-inline void LogManifest_Entry::set_count(int32_t value) {
+inline void LogManifest_Entry::set_count(int64_t value) {
   _internal_set_count(value);
   // @@protoc_insertion_point(field_set:minios.LogManifest.Entry.count)
 }

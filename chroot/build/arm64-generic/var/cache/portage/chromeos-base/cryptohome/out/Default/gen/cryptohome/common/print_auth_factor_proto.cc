@@ -443,6 +443,13 @@ std::string GetProtoDebugStringWithIndent(
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
+  output += indent + "  mediator_pub_key: ";
+  base::StringAppendF(&output, "%s",
+                      base::HexEncode(value.mediator_pub_key().data(),
+                                      value.mediator_pub_key().size())
+                          .c_str());
+  output += "\n";
+
   output += indent + "}\n";
   return output;
 }

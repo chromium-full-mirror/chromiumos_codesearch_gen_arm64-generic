@@ -52,7 +52,9 @@ struct PinMetadata {};
 
 namespace cryptohome::auth_factor {
 
-struct CryptohomeRecoveryMetadata {};
+struct CryptohomeRecoveryMetadata {
+  brillo::Blob mediator_pub_key;
+};
 
 }  // namespace cryptohome::auth_factor
 

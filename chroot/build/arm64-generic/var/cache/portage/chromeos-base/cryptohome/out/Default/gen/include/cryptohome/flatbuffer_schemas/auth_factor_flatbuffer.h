@@ -127,10 +127,11 @@ struct ToFlatBuffer<::cryptohome::auth_factor::CryptohomeRecoveryMetadata> {
       flatbuffers::FlatBufferBuilder* builder,
       const ::cryptohome::auth_factor::CryptohomeRecoveryMetadata& object)
       const {
-    return ::cryptohome::auth_factor::_serialized_::
-        CreateCryptohomeRecoveryMetadata(*builder
+    auto mediator_pub_key =
+        ToFlatBuffer<brillo::Blob>()(builder, object.mediator_pub_key);
 
-        );
+    return ::cryptohome::auth_factor::_serialized_::
+        CreateCryptohomeRecoveryMetadata(*builder, mediator_pub_key);
   }
 };
 
@@ -147,7 +148,8 @@ struct FromFlatBuffer<::cryptohome::auth_factor::CryptohomeRecoveryMetadata> {
       return ::cryptohome::auth_factor::CryptohomeRecoveryMetadata();
     }
     return ::cryptohome::auth_factor::CryptohomeRecoveryMetadata{
-
+        .mediator_pub_key =
+            FromFlatBuffer<brillo::Blob>()(object->mediator_pub_key()),
     };
   }
 };

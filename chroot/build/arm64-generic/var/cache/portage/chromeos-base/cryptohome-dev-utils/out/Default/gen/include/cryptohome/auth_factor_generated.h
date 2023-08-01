@@ -301,8 +301,16 @@ inline flatbuffers::Offset<PinMetadata> CreatePinMetadata(
 
 struct CryptohomeRecoveryMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef CryptohomeRecoveryMetadataBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_MEDIATOR_PUB_KEY = 4
+  };
+  const flatbuffers::Vector<uint8_t> *mediator_pub_key() const {
+    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_MEDIATOR_PUB_KEY);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_MEDIATOR_PUB_KEY) &&
+           verifier.VerifyVector(mediator_pub_key()) &&
            verifier.EndTable();
   }
 };
@@ -311,6 +319,9 @@ struct CryptohomeRecoveryMetadataBuilder {
   typedef CryptohomeRecoveryMetadata Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
+  void add_mediator_pub_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> mediator_pub_key) {
+    fbb_.AddOffset(CryptohomeRecoveryMetadata::VT_MEDIATOR_PUB_KEY, mediator_pub_key);
+  }
   explicit CryptohomeRecoveryMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -323,9 +334,20 @@ struct CryptohomeRecoveryMetadataBuilder {
 };
 
 inline flatbuffers::Offset<CryptohomeRecoveryMetadata> CreateCryptohomeRecoveryMetadata(
-    flatbuffers::FlatBufferBuilder &_fbb) {
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> mediator_pub_key = 0) {
   CryptohomeRecoveryMetadataBuilder builder_(_fbb);
+  builder_.add_mediator_pub_key(mediator_pub_key);
   return builder_.Finish();
+}
+
+inline flatbuffers::Offset<CryptohomeRecoveryMetadata> CreateCryptohomeRecoveryMetadataDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<uint8_t> *mediator_pub_key = nullptr) {
+  auto mediator_pub_key__ = mediator_pub_key ? _fbb.CreateVector<uint8_t>(*mediator_pub_key) : 0;
+  return cryptohome::auth_factor::_serialized_::CreateCryptohomeRecoveryMetadata(
+      _fbb,
+      mediator_pub_key__);
 }
 
 struct KioskMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
