@@ -25,7 +25,6 @@ namespace {
 
 namespace mojom = ::ash::cros_healthd::mojom;
 using ::testing::_;
-using ::testing::Invoke;
 using ::testing::WithArg;
 
 const char kDisplayUtilInitializationError[] =
@@ -70,14 +69,10 @@ class PrivacyScreenRoutineTest : public ::testing::Test {
   }
 
   void RunRoutineAndWaitUntilFinished() {
-    base::RunLoop run_loop;
     routine()->Start();
-    base::SequencedTaskRunner::GetCurrentDefault()->PostDelayedTask(
-        FROM_HERE, run_loop.QuitClosure(),
-        // Privacy screen routine should be finished within 1 second. Set 2
-        // seconds as a safe timeout.
-        base::Milliseconds(2000));
-    run_loop.Run();
+    // Privacy screen routine should be finished within 1 second. Set 2 seconds
+    // as a safe timeout.
+    task_environment_.FastForwardBy(base::Seconds(2));
   }
 
   mojom::RoutineUpdatePtr GetUpdate() {
@@ -101,15 +96,16 @@ class PrivacyScreenRoutineTest : public ::testing::Test {
             : std::make_optional(kDisplayUtilInitializationError);
     EXPECT_CALL(*context_.mock_executor(), GetPrivacyScreenInfo(_))
         .WillRepeatedly(WithArg<0>(
-            Invoke([=](MockExecutor::GetPrivacyScreenInfoCallback callback) {
+            [=](MockExecutor::GetPrivacyScreenInfoCallback callback) {
               std::move(callback).Run(privacy_screen_supported,
                                       privacy_screen_enabled, error_message);
-            })));
+            }));
   }
 
   MockContext context_;
   std::unique_ptr<PrivacyScreenRoutine> routine_;
-  base::test::TaskEnvironment task_environment_;
+  base::test::TaskEnvironment task_environment_{
+      base::test::TaskEnvironment::TimeSource::MOCK_TIME};
 };
 
 // Test that routine error occurs if display_util fails to be initialized.

@@ -25,7 +25,6 @@ namespace mojom = ::ash::cros_healthd::mojom;
 
 using ::testing::_;
 using ::testing::DoAll;
-using ::testing::Invoke;
 using ::testing::Return;
 using ::testing::WithArg;
 
@@ -61,9 +60,9 @@ class AudioSetVolumeRoutineTest : public testing::Test {
 
   void SetSetOutputNodeVolumeError() {
     EXPECT_CALL(*mock_cras_proxy(), SetOutputNodeVolume(_, _, _, _))
-        .WillOnce(DoAll(WithArg<2>(Invoke([](brillo::ErrorPtr* error) {
+        .WillOnce(DoAll(WithArg<2>([](brillo::ErrorPtr* error) {
                           *error = brillo::Error::Create(FROM_HERE, "", "", "");
-                        })),
+                        }),
                         Return(false)));
   }
 
@@ -76,12 +75,7 @@ class AudioSetVolumeRoutineTest : public testing::Test {
   void RunRoutineAndWaitUntilFinished() {
     base::RunLoop run_loop;
     routine_->Start();
-    base::SequencedTaskRunner::GetCurrentDefault()->PostDelayedTask(
-        FROM_HERE, run_loop.QuitClosure(),
-        // This routine should be finished within 1 second. Set 2 seconds as a
-        // safe timeout.
-        base::Milliseconds(2000));
-    run_loop.Run();
+    run_loop.RunUntilIdle();
   }
 
   MockContext mock_context_;
