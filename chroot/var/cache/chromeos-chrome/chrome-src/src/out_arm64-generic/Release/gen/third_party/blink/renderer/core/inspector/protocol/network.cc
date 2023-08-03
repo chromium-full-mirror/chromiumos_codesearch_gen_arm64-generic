@@ -566,6 +566,7 @@ const char SchemefulSameSiteUnspecifiedTreatedAsLax[] = "SchemefulSameSiteUnspec
 const char SamePartyFromCrossPartyContext[] = "SamePartyFromCrossPartyContext";
 const char SamePartyConflictsWithOtherAttributes[] = "SamePartyConflictsWithOtherAttributes";
 const char NameValuePairExceedsMaxSize[] = "NameValuePairExceedsMaxSize";
+const char DisallowedCharacter[] = "DisallowedCharacter";
 } // namespace SetCookieBlockedReasonEnum
 
 

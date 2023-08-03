@@ -251,6 +251,7 @@ CORE_EXPORT extern const char SchemefulSameSiteUnspecifiedTreatedAsLax[];
 CORE_EXPORT extern const char SamePartyFromCrossPartyContext[];
 CORE_EXPORT extern const char SamePartyConflictsWithOtherAttributes[];
 CORE_EXPORT extern const char NameValuePairExceedsMaxSize[];
+CORE_EXPORT extern const char DisallowedCharacter[];
 } // namespace SetCookieBlockedReasonEnum
 
 namespace CookieBlockedReasonEnum {
