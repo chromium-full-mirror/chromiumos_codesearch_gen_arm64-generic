@@ -519,7 +519,7 @@ class ManagerProxy final : public ManagerProxyInterface {
 
  private:
   scoped_refptr<dbus::Bus> bus_;
-  const std::string service_name_{"org.chromium.lorgnette.Manager"};
+  const std::string service_name_{"org.chromium.lorgnette"};
   const dbus::ObjectPath object_path_{"/org/chromium/lorgnette/Manager"};
   dbus::ObjectProxy* dbus_object_proxy_;
 

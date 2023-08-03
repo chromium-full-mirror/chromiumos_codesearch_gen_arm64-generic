@@ -400,7 +400,6 @@ UserDataAuth::UserDataAuth()
       fscrypt_v2_(false),
       legacy_mount_(true),
       bind_mount_downloads_(true),
-      migrate_to_user_secret_stash_(false),
       default_arc_disk_quota_(nullptr),
       arc_disk_quota_(nullptr),
       default_features_(nullptr),
@@ -3159,14 +3158,9 @@ void UserDataAuth::ListAuthFactors(
     // Prepare the response for configured AuthFactors (with status) with all of
     // the auth factors from the disk.
     // Load the AuthFactorMap.
-    bool migrate_to_user_secret_stash = false;
-    if (default_features_) {
-      migrate_to_user_secret_stash =
-          default_features_->IsFeatureEnabled(Features::kUSSMigration);
-    }
     AuthFactorVaultKeysetConverter converter(keyset_management_);
     AuthFactorMap auth_factor_map = auth_factor_manager_->LoadAllAuthFactors(
-        obfuscated_username, migrate_to_user_secret_stash, converter);
+        obfuscated_username, converter);
 
     // Populate the response from the items in the AuthFactorMap.
     for (AuthFactorMap::ValueView item : auth_factor_map) {

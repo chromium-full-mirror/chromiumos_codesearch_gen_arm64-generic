@@ -8,6 +8,7 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "absl/status/statusor.h"
 #include "base/files/file_path.h"
@@ -18,6 +19,11 @@
 #include "session_manager/dbus-proxies.h"
 
 namespace secagentd {
+
+static constexpr char kStarted[] = "started";
+static constexpr char kStopping[] = "stopping";
+static constexpr char kStopped[] = "stopped";
+
 namespace testing {
 class DeviceUserTestFixture;
 }  // namespace testing
@@ -25,6 +31,14 @@ class DeviceUserTestFixture;
 class DeviceUserInterface : public base::RefCounted<DeviceUserInterface> {
  public:
   virtual void RegisterSessionChangeHandler() = 0;
+  virtual void RegisterScreenLockedHandler(
+      base::RepeatingClosure signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+  virtual void RegisterScreenUnlockedHandler(
+      base::RepeatingClosure signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+  virtual void RegisterSessionChangeListener(
+      base::RepeatingCallback<void(const std::string&)> cb) = 0;
   virtual std::string GetDeviceUser() = 0;
 
   virtual ~DeviceUserInterface() = default;
@@ -46,6 +60,17 @@ class DeviceUser : public DeviceUserInterface {
   // Start monitoring for login/out events.
   // Called when XDR reporting becomes enabled.
   void RegisterSessionChangeHandler() override;
+  // Registers for signal when the screen is locked.
+  void RegisterScreenLockedHandler(
+      base::RepeatingClosure signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override;
+  // Registers for signal when the screen is Unlocked.
+  void RegisterScreenUnlockedHandler(
+      base::RepeatingClosure signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override;
+  // Registers a callback to be notified when the session state changes.
+  void RegisterSessionChangeListener(
+      base::RepeatingCallback<void(const std::string&)> cb) override;
   // Retrieves the current device user.
   std::string GetDeviceUser() override;
 
@@ -85,6 +110,8 @@ class DeviceUser : public DeviceUserInterface {
   base::WeakPtrFactory<DeviceUser> weak_ptr_factory_;
   std::unique_ptr<org::chromium::SessionManagerInterfaceProxyInterface>
       session_manager_;
+  std::vector<base::RepeatingCallback<void(const std::string&)>>
+      session_change_listeners_;
   std::string device_user_ = "";
   std::string device_id_ = "";
   const base::FilePath root_path_;

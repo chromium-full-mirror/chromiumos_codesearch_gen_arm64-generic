@@ -770,6 +770,17 @@ class Modem3gppProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool SetCarrierLock(
+      const std::vector<uint8_t>& in_data,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void SetCarrierLockAsync(
+      const std::vector<uint8_t>& in_data,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool SetPacketServiceState(
       uint32_t in_state,
       brillo::ErrorPtr* error,
@@ -1091,6 +1102,36 @@ class Modem3gppProxy final : public Modem3gppProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_properties);
+  }
+
+  bool SetCarrierLock(
+      const std::vector<uint8_t>& in_data,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.ModemManager1.Modem.Modem3gpp",
+        "SetCarrierLock",
+        error,
+        in_data);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void SetCarrierLockAsync(
+      const std::vector<uint8_t>& in_data,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.ModemManager1.Modem.Modem3gpp",
+        "SetCarrierLock",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_data);
   }
 
   bool SetPacketServiceState(

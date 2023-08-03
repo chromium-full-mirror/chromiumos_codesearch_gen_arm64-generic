@@ -62,6 +62,12 @@ extern CreateCredentialReplyDefaultTypeInternal _CreateCredentialReply_default_i
 class CreateCredentialRequest;
 struct CreateCredentialRequestDefaultTypeInternal;
 extern CreateCredentialRequestDefaultTypeInternal _CreateCredentialRequest_default_instance_;
+class DeleteCredentialReply;
+struct DeleteCredentialReplyDefaultTypeInternal;
+extern DeleteCredentialReplyDefaultTypeInternal _DeleteCredentialReply_default_instance_;
+class DeleteCredentialRequest;
+struct DeleteCredentialRequestDefaultTypeInternal;
+extern DeleteCredentialRequestDefaultTypeInternal _DeleteCredentialRequest_default_instance_;
 class EnrollScanDone;
 struct EnrollScanDoneDefaultTypeInternal;
 extern EnrollScanDoneDefaultTypeInternal _EnrollScanDone_default_instance_;
@@ -85,6 +91,8 @@ template<> ::biod::AuthenticateCredentialRequest* Arena::CreateMaybeMessage<::bi
 template<> ::biod::BiometricsManagerStatusChanged* Arena::CreateMaybeMessage<::biod::BiometricsManagerStatusChanged>(Arena*);
 template<> ::biod::CreateCredentialReply* Arena::CreateMaybeMessage<::biod::CreateCredentialReply>(Arena*);
 template<> ::biod::CreateCredentialRequest* Arena::CreateMaybeMessage<::biod::CreateCredentialRequest>(Arena*);
+template<> ::biod::DeleteCredentialReply* Arena::CreateMaybeMessage<::biod::DeleteCredentialReply>(Arena*);
+template<> ::biod::DeleteCredentialRequest* Arena::CreateMaybeMessage<::biod::DeleteCredentialRequest>(Arena*);
 template<> ::biod::EnrollScanDone* Arena::CreateMaybeMessage<::biod::EnrollScanDone>(Arena*);
 template<> ::biod::FingerprintMessage* Arena::CreateMaybeMessage<::biod::FingerprintMessage>(Arena*);
 template<> ::biod::FpPublicKey* Arena::CreateMaybeMessage<::biod::FpPublicKey>(Arena*);
@@ -143,6 +151,28 @@ inline const std::string& AuthenticateCredentialReply_AuthenticateCredentialStat
 }
 bool AuthenticateCredentialReply_AuthenticateCredentialStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthenticateCredentialReply_AuthenticateCredentialStatus* value);
+enum DeleteCredentialReply_DeleteCredentialStatus : int {
+  DeleteCredentialReply_DeleteCredentialStatus_UNKNOWN = 0,
+  DeleteCredentialReply_DeleteCredentialStatus_SUCCESS = 1,
+  DeleteCredentialReply_DeleteCredentialStatus_INCORRECT_STATE = 2,
+  DeleteCredentialReply_DeleteCredentialStatus_NOT_EXIST = 3,
+  DeleteCredentialReply_DeleteCredentialStatus_DELETION_FAILED = 4
+};
+bool DeleteCredentialReply_DeleteCredentialStatus_IsValid(int value);
+constexpr DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply_DeleteCredentialStatus_DeleteCredentialStatus_MIN = DeleteCredentialReply_DeleteCredentialStatus_UNKNOWN;
+constexpr DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply_DeleteCredentialStatus_DeleteCredentialStatus_MAX = DeleteCredentialReply_DeleteCredentialStatus_DELETION_FAILED;
+constexpr int DeleteCredentialReply_DeleteCredentialStatus_DeleteCredentialStatus_ARRAYSIZE = DeleteCredentialReply_DeleteCredentialStatus_DeleteCredentialStatus_MAX + 1;
+
+const std::string& DeleteCredentialReply_DeleteCredentialStatus_Name(DeleteCredentialReply_DeleteCredentialStatus value);
+template<typename T>
+inline const std::string& DeleteCredentialReply_DeleteCredentialStatus_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, DeleteCredentialReply_DeleteCredentialStatus>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function DeleteCredentialReply_DeleteCredentialStatus_Name.");
+  return DeleteCredentialReply_DeleteCredentialStatus_Name(static_cast<DeleteCredentialReply_DeleteCredentialStatus>(enum_t_value));
+}
+bool DeleteCredentialReply_DeleteCredentialStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeleteCredentialReply_DeleteCredentialStatus* value);
 // ===================================================================
 
 class FingerprintMessage final :
@@ -2219,6 +2249,327 @@ class AuthenticateCredentialReply final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_messages_2eproto;
 };
+// -------------------------------------------------------------------
+
+class DeleteCredentialRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:biod.DeleteCredentialRequest) */ {
+ public:
+  inline DeleteCredentialRequest() : DeleteCredentialRequest(nullptr) {}
+  ~DeleteCredentialRequest() override;
+  explicit PROTOBUF_CONSTEXPR DeleteCredentialRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteCredentialRequest(const DeleteCredentialRequest& from);
+  DeleteCredentialRequest(DeleteCredentialRequest&& from) noexcept
+    : DeleteCredentialRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteCredentialRequest& operator=(const DeleteCredentialRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteCredentialRequest& operator=(DeleteCredentialRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const DeleteCredentialRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteCredentialRequest* internal_default_instance() {
+    return reinterpret_cast<const DeleteCredentialRequest*>(
+               &_DeleteCredentialRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(DeleteCredentialRequest& a, DeleteCredentialRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteCredentialRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteCredentialRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DeleteCredentialRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DeleteCredentialRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DeleteCredentialRequest& from);
+  void MergeFrom(const DeleteCredentialRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DeleteCredentialRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "biod.DeleteCredentialRequest";
+  }
+  protected:
+  explicit DeleteCredentialRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRecordIdFieldNumber = 1,
+  };
+  // optional string record_id = 1;
+  bool has_record_id() const;
+  private:
+  bool _internal_has_record_id() const;
+  public:
+  void clear_record_id();
+  const std::string& record_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_record_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_record_id();
+  PROTOBUF_NODISCARD std::string* release_record_id();
+  void set_allocated_record_id(std::string* record_id);
+  private:
+  const std::string& _internal_record_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_record_id(const std::string& value);
+  std::string* _internal_mutable_record_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:biod.DeleteCredentialRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr record_id_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_messages_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteCredentialReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:biod.DeleteCredentialReply) */ {
+ public:
+  inline DeleteCredentialReply() : DeleteCredentialReply(nullptr) {}
+  ~DeleteCredentialReply() override;
+  explicit PROTOBUF_CONSTEXPR DeleteCredentialReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteCredentialReply(const DeleteCredentialReply& from);
+  DeleteCredentialReply(DeleteCredentialReply&& from) noexcept
+    : DeleteCredentialReply() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteCredentialReply& operator=(const DeleteCredentialReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteCredentialReply& operator=(DeleteCredentialReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const DeleteCredentialReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteCredentialReply* internal_default_instance() {
+    return reinterpret_cast<const DeleteCredentialReply*>(
+               &_DeleteCredentialReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(DeleteCredentialReply& a, DeleteCredentialReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteCredentialReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteCredentialReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DeleteCredentialReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DeleteCredentialReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DeleteCredentialReply& from);
+  void MergeFrom(const DeleteCredentialReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DeleteCredentialReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "biod.DeleteCredentialReply";
+  }
+  protected:
+  explicit DeleteCredentialReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialStatus;
+  static constexpr DeleteCredentialStatus UNKNOWN =
+    DeleteCredentialReply_DeleteCredentialStatus_UNKNOWN;
+  static constexpr DeleteCredentialStatus SUCCESS =
+    DeleteCredentialReply_DeleteCredentialStatus_SUCCESS;
+  static constexpr DeleteCredentialStatus INCORRECT_STATE =
+    DeleteCredentialReply_DeleteCredentialStatus_INCORRECT_STATE;
+  static constexpr DeleteCredentialStatus NOT_EXIST =
+    DeleteCredentialReply_DeleteCredentialStatus_NOT_EXIST;
+  static constexpr DeleteCredentialStatus DELETION_FAILED =
+    DeleteCredentialReply_DeleteCredentialStatus_DELETION_FAILED;
+  static inline bool DeleteCredentialStatus_IsValid(int value) {
+    return DeleteCredentialReply_DeleteCredentialStatus_IsValid(value);
+  }
+  static constexpr DeleteCredentialStatus DeleteCredentialStatus_MIN =
+    DeleteCredentialReply_DeleteCredentialStatus_DeleteCredentialStatus_MIN;
+  static constexpr DeleteCredentialStatus DeleteCredentialStatus_MAX =
+    DeleteCredentialReply_DeleteCredentialStatus_DeleteCredentialStatus_MAX;
+  static constexpr int DeleteCredentialStatus_ARRAYSIZE =
+    DeleteCredentialReply_DeleteCredentialStatus_DeleteCredentialStatus_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& DeleteCredentialStatus_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, DeleteCredentialStatus>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function DeleteCredentialStatus_Name.");
+    return DeleteCredentialReply_DeleteCredentialStatus_Name(enum_t_value);
+  }
+  static inline bool DeleteCredentialStatus_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      DeleteCredentialStatus* value) {
+    return DeleteCredentialReply_DeleteCredentialStatus_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStatusFieldNumber = 1,
+  };
+  // optional .biod.DeleteCredentialReply.DeleteCredentialStatus status = 1;
+  bool has_status() const;
+  private:
+  bool _internal_has_status() const;
+  public:
+  void clear_status();
+  ::biod::DeleteCredentialReply_DeleteCredentialStatus status() const;
+  void set_status(::biod::DeleteCredentialReply_DeleteCredentialStatus value);
+  private:
+  ::biod::DeleteCredentialReply_DeleteCredentialStatus _internal_status() const;
+  void _internal_set_status(::biod::DeleteCredentialReply_DeleteCredentialStatus value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:biod.DeleteCredentialReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    int status_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_messages_2eproto;
+};
 // ===================================================================
 
 
@@ -4132,9 +4483,118 @@ inline void AuthenticateCredentialReply::set_allocated_record_id(std::string* re
   // @@protoc_insertion_point(field_set_allocated:biod.AuthenticateCredentialReply.record_id)
 }
 
+// -------------------------------------------------------------------
+
+// DeleteCredentialRequest
+
+// optional string record_id = 1;
+inline bool DeleteCredentialRequest::_internal_has_record_id() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool DeleteCredentialRequest::has_record_id() const {
+  return _internal_has_record_id();
+}
+inline void DeleteCredentialRequest::clear_record_id() {
+  _impl_.record_id_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& DeleteCredentialRequest::record_id() const {
+  // @@protoc_insertion_point(field_get:biod.DeleteCredentialRequest.record_id)
+  return _internal_record_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DeleteCredentialRequest::set_record_id(ArgT0&& arg0, ArgT... args) {
+ _impl_._has_bits_[0] |= 0x00000001u;
+ _impl_.record_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:biod.DeleteCredentialRequest.record_id)
+}
+inline std::string* DeleteCredentialRequest::mutable_record_id() {
+  std::string* _s = _internal_mutable_record_id();
+  // @@protoc_insertion_point(field_mutable:biod.DeleteCredentialRequest.record_id)
+  return _s;
+}
+inline const std::string& DeleteCredentialRequest::_internal_record_id() const {
+  return _impl_.record_id_.Get();
+}
+inline void DeleteCredentialRequest::_internal_set_record_id(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.record_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DeleteCredentialRequest::_internal_mutable_record_id() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.record_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DeleteCredentialRequest::release_record_id() {
+  // @@protoc_insertion_point(field_release:biod.DeleteCredentialRequest.record_id)
+  if (!_internal_has_record_id()) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* p = _impl_.record_id_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.record_id_.IsDefault()) {
+    _impl_.record_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void DeleteCredentialRequest::set_allocated_record_id(std::string* record_id) {
+  if (record_id != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.record_id_.SetAllocated(record_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.record_id_.IsDefault()) {
+    _impl_.record_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:biod.DeleteCredentialRequest.record_id)
+}
+
+// -------------------------------------------------------------------
+
+// DeleteCredentialReply
+
+// optional .biod.DeleteCredentialReply.DeleteCredentialStatus status = 1;
+inline bool DeleteCredentialReply::_internal_has_status() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool DeleteCredentialReply::has_status() const {
+  return _internal_has_status();
+}
+inline void DeleteCredentialReply::clear_status() {
+  _impl_.status_ = 0;
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline ::biod::DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply::_internal_status() const {
+  return static_cast< ::biod::DeleteCredentialReply_DeleteCredentialStatus >(_impl_.status_);
+}
+inline ::biod::DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply::status() const {
+  // @@protoc_insertion_point(field_get:biod.DeleteCredentialReply.status)
+  return _internal_status();
+}
+inline void DeleteCredentialReply::_internal_set_status(::biod::DeleteCredentialReply_DeleteCredentialStatus value) {
+  assert(::biod::DeleteCredentialReply_DeleteCredentialStatus_IsValid(value));
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.status_ = value;
+}
+inline void DeleteCredentialReply::set_status(::biod::DeleteCredentialReply_DeleteCredentialStatus value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:biod.DeleteCredentialReply.status)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -4164,6 +4624,7 @@ PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::biod::CreateCredentialReply_CreateCredentialStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::biod::AuthenticateCredentialReply_AuthenticateCredentialStatus> : ::std::true_type {};
+template <> struct is_proto_enum< ::biod::DeleteCredentialReply_DeleteCredentialStatus> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

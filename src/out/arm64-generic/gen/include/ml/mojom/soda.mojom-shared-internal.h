@@ -208,6 +208,7 @@ class  SodaConfig_Data {
   int32_t enable_formatting;
   int32_t recognition_mode;
   uint8_t mask_offensive_words : 1;
+  uint8_t speaker_change_detection : 1;
   uint8_t padfinal_[7];
 
  private:

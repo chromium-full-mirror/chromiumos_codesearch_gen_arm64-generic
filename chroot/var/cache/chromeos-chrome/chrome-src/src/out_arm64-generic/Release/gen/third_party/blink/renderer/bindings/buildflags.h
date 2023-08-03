@@ -6,6 +6,6 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
-#define BUILDFLAG_INTERNAL_ENABLE_V8_COMPILE_HINTS() (1)
+#define BUILDFLAG_INTERNAL_PRODUCE_V8_COMPILE_HINTS() (1)
 
 #endif  // THIRD_PARTY_BLINK_RENDERER_BINDINGS_BUILDFLAGS_H_

@@ -40,6 +40,7 @@ namespace testing {
 class AgentPluginTestFixture;
 class ProcessPluginTestFixture;
 class NetworkPluginTestFixture;
+class AuthenticationPluginTestFixture;
 }  // namespace testing
 
 class PluginInterface {
@@ -288,6 +289,42 @@ class ProcessPlugin : public PluginInterface {
   scoped_refptr<BpfSkeletonFactoryInterface> factory_;
   std::unique_ptr<BpfSkeletonInterface> skeleton_wrapper_;
   std::unique_ptr<BatchSenderType> batch_sender_;
+};
+
+class AuthenticationPlugin : public PluginInterface {
+ public:
+  AuthenticationPlugin(
+      scoped_refptr<MessageSenderInterface> message_sender,
+      scoped_refptr<PoliciesFeaturesBrokerInterface> policies_features_broker,
+      scoped_refptr<DeviceUserInterface> device_user,
+      uint32_t batch_interval_s);
+  // Starts reporting user authentication events.
+  absl::Status Activate() override;
+  absl::Status Deactivate() override;
+  bool IsActive() const override;
+  std::string GetName() const override;
+
+ private:
+  friend class testing::AuthenticationPluginTestFixture;
+
+  // Fills the common field for the protos.
+  void FillCommon(cros_xdr::reporting::AuthenticateEventAtomicVariant* proto);
+  // Creates and sends a screen Lock event.
+  void HandleScreenLock();
+  // Creates and sends a screen Unlock event.
+  void HandleScreenUnlock();
+  // Logs error if registration fails.
+  void HandleRegistrationResult(const std::string& interface,
+                                const std::string& signal,
+                                bool success);
+  // Creates and sends a login/out event based on the state.
+  void HandleSessionStateChange(const std::string& state);
+
+  base::WeakPtrFactory<AuthenticationPlugin> weak_ptr_factory_;
+  scoped_refptr<MessageSenderInterface> message_sender_;
+  scoped_refptr<PoliciesFeaturesBrokerInterface> policies_features_broker_;
+  scoped_refptr<DeviceUserInterface> device_user_;
+  bool is_active_{false};
 };
 
 class AgentPlugin : public PluginInterface {

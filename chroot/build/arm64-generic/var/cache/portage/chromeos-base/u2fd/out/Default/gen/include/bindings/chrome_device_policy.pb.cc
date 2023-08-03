@@ -259,6 +259,7 @@ PROTOBUF_CONSTEXPR DeviceReportingProto::DeviceReportingProto(
   , /*decltype(_impl_.report_crd_sessions_)*/false
   , /*decltype(_impl_.report_peripherals_)*/false
   , /*decltype(_impl_.report_network_events_)*/false
+  , /*decltype(_impl_.report_runtime_counters_)*/false
   , /*decltype(_impl_.device_activity_heartbeat_enabled_)*/false
   , /*decltype(_impl_.report_network_configuration_)*/true
   , /*decltype(_impl_.report_network_status_)*/true
@@ -275,7 +276,8 @@ PROTOBUF_CONSTEXPR DeviceReportingProto::DeviceReportingProto(
   , /*decltype(_impl_.report_network_telemetry_collection_rate_ms_)*/int64_t{3600000}
   , /*decltype(_impl_.report_network_telemetry_event_checking_rate_ms_)*/int64_t{600000}
   , /*decltype(_impl_.report_device_audio_status_checking_rate_ms_)*/int64_t{600000}
-  , /*decltype(_impl_.device_activity_heartbeat_collection_rate_ms_)*/int64_t{900000}} {}
+  , /*decltype(_impl_.device_activity_heartbeat_collection_rate_ms_)*/int64_t{900000}
+  , /*decltype(_impl_.device_report_runtime_counters_checking_rate_ms_)*/int64_t{86400000}} {}
 struct DeviceReportingProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceReportingProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -7147,28 +7149,28 @@ class DeviceReportingProto::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceReportingProto>()._impl_._has_bits_);
   static void set_has_report_version_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 268435456u;
-  }
-  static void set_has_report_activity_times(HasBits* has_bits) {
     (*has_bits)[0] |= 536870912u;
   }
-  static void set_has_report_boot_mode(HasBits* has_bits) {
+  static void set_has_report_activity_times(HasBits* has_bits) {
     (*has_bits)[0] |= 1073741824u;
+  }
+  static void set_has_report_boot_mode(HasBits* has_bits) {
+    (*has_bits)[0] |= 2147483648u;
   }
   static void set_has_report_location(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_report_network_interfaces(HasBits* has_bits) {
-    (*has_bits)[0] |= 2147483648u;
-  }
-  static void set_has_report_users(HasBits* has_bits) {
     (*has_bits)[1] |= 1u;
   }
-  static void set_has_report_hardware_status(HasBits* has_bits) {
+  static void set_has_report_users(HasBits* has_bits) {
     (*has_bits)[1] |= 2u;
   }
-  static void set_has_report_session_status(HasBits* has_bits) {
+  static void set_has_report_hardware_status(HasBits* has_bits) {
     (*has_bits)[1] |= 4u;
+  }
+  static void set_has_report_session_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 8u;
   }
   static void set_has_report_os_update_status(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
@@ -7225,13 +7227,13 @@ class DeviceReportingProto::_Internal {
     (*has_bits)[0] |= 524288u;
   }
   static void set_has_report_audio_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 8u;
+    (*has_bits)[1] |= 16u;
   }
   static void set_has_report_network_configuration(HasBits* has_bits) {
-    (*has_bits)[0] |= 33554432u;
+    (*has_bits)[0] |= 67108864u;
   }
   static void set_has_report_network_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 67108864u;
+    (*has_bits)[0] |= 134217728u;
   }
   static void set_has_report_security_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1048576u;
@@ -7245,30 +7247,36 @@ class DeviceReportingProto::_Internal {
   static void set_has_report_network_events(HasBits* has_bits) {
     (*has_bits)[0] |= 8388608u;
   }
+  static void set_has_report_runtime_counters(HasBits* has_bits) {
+    (*has_bits)[0] |= 16777216u;
+  }
   static void set_has_device_status_frequency(HasBits* has_bits) {
-    (*has_bits)[1] |= 16u;
-  }
-  static void set_has_enable_granular_reporting(HasBits* has_bits) {
-    (*has_bits)[0] |= 134217728u;
-  }
-  static void set_has_report_network_telemetry_collection_rate_ms(HasBits* has_bits) {
     (*has_bits)[1] |= 32u;
   }
-  static void set_has_report_network_telemetry_event_checking_rate_ms(HasBits* has_bits) {
+  static void set_has_enable_granular_reporting(HasBits* has_bits) {
+    (*has_bits)[0] |= 268435456u;
+  }
+  static void set_has_report_network_telemetry_collection_rate_ms(HasBits* has_bits) {
     (*has_bits)[1] |= 64u;
   }
-  static void set_has_report_device_audio_status_checking_rate_ms(HasBits* has_bits) {
+  static void set_has_report_network_telemetry_event_checking_rate_ms(HasBits* has_bits) {
     (*has_bits)[1] |= 128u;
+  }
+  static void set_has_report_device_audio_status_checking_rate_ms(HasBits* has_bits) {
+    (*has_bits)[1] |= 256u;
+  }
+  static void set_has_device_report_runtime_counters_checking_rate_ms(HasBits* has_bits) {
+    (*has_bits)[1] |= 1024u;
   }
   static const ::enterprise_management::StringList& report_signal_strength_event_driven_telemetry(const DeviceReportingProto* msg);
   static void set_has_report_signal_strength_event_driven_telemetry(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_device_activity_heartbeat_enabled(HasBits* has_bits) {
-    (*has_bits)[0] |= 16777216u;
+    (*has_bits)[0] |= 33554432u;
   }
   static void set_has_device_activity_heartbeat_collection_rate_ms(HasBits* has_bits) {
-    (*has_bits)[1] |= 256u;
+    (*has_bits)[1] |= 512u;
   }
 };
 
@@ -7316,6 +7324,7 @@ DeviceReportingProto::DeviceReportingProto(const DeviceReportingProto& from)
     , decltype(_impl_.report_crd_sessions_){}
     , decltype(_impl_.report_peripherals_){}
     , decltype(_impl_.report_network_events_){}
+    , decltype(_impl_.report_runtime_counters_){}
     , decltype(_impl_.device_activity_heartbeat_enabled_){}
     , decltype(_impl_.report_network_configuration_){}
     , decltype(_impl_.report_network_status_){}
@@ -7332,15 +7341,16 @@ DeviceReportingProto::DeviceReportingProto(const DeviceReportingProto& from)
     , decltype(_impl_.report_network_telemetry_collection_rate_ms_){}
     , decltype(_impl_.report_network_telemetry_event_checking_rate_ms_){}
     , decltype(_impl_.report_device_audio_status_checking_rate_ms_){}
-    , decltype(_impl_.device_activity_heartbeat_collection_rate_ms_){}};
+    , decltype(_impl_.device_activity_heartbeat_collection_rate_ms_){}
+    , decltype(_impl_.device_report_runtime_counters_checking_rate_ms_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_report_signal_strength_event_driven_telemetry()) {
     _this->_impl_.report_signal_strength_event_driven_telemetry_ = new ::enterprise_management::StringList(*from._impl_.report_signal_strength_event_driven_telemetry_);
   }
   ::memcpy(&_impl_.report_location_, &from._impl_.report_location_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.device_activity_heartbeat_collection_rate_ms_) -
-    reinterpret_cast<char*>(&_impl_.report_location_)) + sizeof(_impl_.device_activity_heartbeat_collection_rate_ms_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.device_report_runtime_counters_checking_rate_ms_) -
+    reinterpret_cast<char*>(&_impl_.report_location_)) + sizeof(_impl_.device_report_runtime_counters_checking_rate_ms_));
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceReportingProto)
 }
 
@@ -7375,6 +7385,7 @@ inline void DeviceReportingProto::SharedCtor(
     , decltype(_impl_.report_crd_sessions_){false}
     , decltype(_impl_.report_peripherals_){false}
     , decltype(_impl_.report_network_events_){false}
+    , decltype(_impl_.report_runtime_counters_){false}
     , decltype(_impl_.device_activity_heartbeat_enabled_){false}
     , decltype(_impl_.report_network_configuration_){true}
     , decltype(_impl_.report_network_status_){true}
@@ -7392,6 +7403,7 @@ inline void DeviceReportingProto::SharedCtor(
     , decltype(_impl_.report_network_telemetry_event_checking_rate_ms_){int64_t{600000}}
     , decltype(_impl_.report_device_audio_status_checking_rate_ms_){int64_t{600000}}
     , decltype(_impl_.device_activity_heartbeat_collection_rate_ms_){int64_t{900000}}
+    , decltype(_impl_.device_report_runtime_counters_checking_rate_ms_){int64_t{86400000}}
   };
 }
 
@@ -7440,17 +7452,19 @@ void DeviceReportingProto::Clear() {
         reinterpret_cast<char*>(&_impl_.report_vpd_info_)) + sizeof(_impl_.report_network_events_));
   }
   if (cached_has_bits & 0xff000000u) {
-    _impl_.device_activity_heartbeat_enabled_ = false;
+    ::memset(&_impl_.report_runtime_counters_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.device_activity_heartbeat_enabled_) -
+        reinterpret_cast<char*>(&_impl_.report_runtime_counters_)) + sizeof(_impl_.device_activity_heartbeat_enabled_));
     _impl_.report_network_configuration_ = true;
     _impl_.report_network_status_ = true;
     _impl_.enable_granular_reporting_ = true;
     _impl_.report_version_info_ = true;
     _impl_.report_activity_times_ = true;
     _impl_.report_boot_mode_ = true;
-    _impl_.report_network_interfaces_ = true;
   }
   cached_has_bits = _impl_._has_bits_[1];
   if (cached_has_bits & 0x000000ffu) {
+    _impl_.report_network_interfaces_ = true;
     _impl_.report_users_ = true;
     _impl_.report_hardware_status_ = true;
     _impl_.report_session_status_ = true;
@@ -7458,9 +7472,12 @@ void DeviceReportingProto::Clear() {
     _impl_.device_status_frequency_ = int64_t{10800000};
     _impl_.report_network_telemetry_collection_rate_ms_ = int64_t{3600000};
     _impl_.report_network_telemetry_event_checking_rate_ms_ = int64_t{600000};
-    _impl_.report_device_audio_status_checking_rate_ms_ = int64_t{600000};
   }
-  _impl_.device_activity_heartbeat_collection_rate_ms_ = int64_t{900000};
+  if (cached_has_bits & 0x00000700u) {
+    _impl_.report_device_audio_status_checking_rate_ms_ = int64_t{600000};
+    _impl_.device_activity_heartbeat_collection_rate_ms_ = int64_t{900000};
+    _impl_.device_report_runtime_counters_checking_rate_ms_ = int64_t{86400000};
+  }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -7839,6 +7856,24 @@ const char* DeviceReportingProto::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional bool report_runtime_counters = 42 [default = false];
+      case 42:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          _Internal::set_has_report_runtime_counters(&_impl_._has_bits_);
+          _impl_.report_runtime_counters_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int64 device_report_runtime_counters_checking_rate_ms = 43 [default = 86400000];
+      case 43:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          _Internal::set_has_device_report_runtime_counters_checking_rate_ms(&_impl_._has_bits_);
+          _impl_.device_report_runtime_counters_checking_rate_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -7870,19 +7905,19 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bool report_version_info = 1 [default = true];
-  if (cached_has_bits & 0x10000000u) {
+  if (cached_has_bits & 0x20000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_report_version_info(), target);
   }
 
   // optional bool report_activity_times = 2 [default = true];
-  if (cached_has_bits & 0x20000000u) {
+  if (cached_has_bits & 0x40000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_report_activity_times(), target);
   }
 
   // optional bool report_boot_mode = 3 [default = true];
-  if (cached_has_bits & 0x40000000u) {
+  if (cached_has_bits & 0x80000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_report_boot_mode(), target);
   }
@@ -7893,33 +7928,33 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_report_location(), target);
   }
 
+  cached_has_bits = _impl_._has_bits_[1];
   // optional bool report_network_interfaces = 5 [default = true, deprecated = true];
-  if (cached_has_bits & 0x80000000u) {
+  if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_report_network_interfaces(), target);
   }
 
-  cached_has_bits = _impl_._has_bits_[1];
   // optional bool report_users = 6 [default = true];
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_report_users(), target);
   }
 
   // optional bool report_hardware_status = 7 [default = true, deprecated = true];
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_report_hardware_status(), target);
   }
 
   // optional bool report_session_status = 8 [default = true];
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_report_session_status(), target);
   }
 
   // optional int64 device_status_frequency = 9 [default = 10800000];
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(9, this->_internal_device_status_frequency(), target);
   }
@@ -8035,20 +8070,20 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
 
   cached_has_bits = _impl_._has_bits_[1];
   // optional bool report_audio_status = 28 [default = true];
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(28, this->_internal_report_audio_status(), target);
   }
 
   cached_has_bits = _impl_._has_bits_[0];
   // optional bool report_network_configuration = 29 [default = true];
-  if (cached_has_bits & 0x02000000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(29, this->_internal_report_network_configuration(), target);
   }
 
   // optional bool report_network_status = 30 [default = true];
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x08000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(30, this->_internal_report_network_status(), target);
   }
@@ -8060,26 +8095,26 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
   }
 
   // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
-  if (cached_has_bits & 0x08000000u) {
+  if (cached_has_bits & 0x10000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(32, this->_internal_enable_granular_reporting(), target);
   }
 
   cached_has_bits = _impl_._has_bits_[1];
   // optional int64 report_network_telemetry_collection_rate_ms = 33 [default = 3600000];
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(33, this->_internal_report_network_telemetry_collection_rate_ms(), target);
   }
 
   // optional int64 report_network_telemetry_event_checking_rate_ms = 34 [default = 600000];
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(34, this->_internal_report_network_telemetry_event_checking_rate_ms(), target);
   }
 
   // optional int64 report_device_audio_status_checking_rate_ms = 35 [default = 600000];
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(35, this->_internal_report_device_audio_status_checking_rate_ms(), target);
   }
@@ -8105,14 +8140,14 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
   }
 
   // optional bool device_activity_heartbeat_enabled = 39 [default = false];
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(39, this->_internal_device_activity_heartbeat_enabled(), target);
   }
 
   cached_has_bits = _impl_._has_bits_[1];
   // optional int64 device_activity_heartbeat_collection_rate_ms = 40 [default = 900000];
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(40, this->_internal_device_activity_heartbeat_collection_rate_ms(), target);
   }
@@ -8122,6 +8157,19 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
   if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(41, this->_internal_report_network_events(), target);
+  }
+
+  // optional bool report_runtime_counters = 42 [default = false];
+  if (cached_has_bits & 0x01000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(42, this->_internal_report_runtime_counters(), target);
+  }
+
+  cached_has_bits = _impl_._has_bits_[1];
+  // optional int64 device_report_runtime_counters_checking_rate_ms = 43 [default = 86400000];
+  if (cached_has_bits & 0x00000400u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(43, this->_internal_device_report_runtime_counters_checking_rate_ms(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -8270,42 +8318,42 @@ size_t DeviceReportingProto::ByteSizeLong() const {
 
   }
   if (cached_has_bits & 0xff000000u) {
-    // optional bool device_activity_heartbeat_enabled = 39 [default = false];
+    // optional bool report_runtime_counters = 42 [default = false];
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_network_configuration = 29 [default = true];
+    // optional bool device_activity_heartbeat_enabled = 39 [default = false];
     if (cached_has_bits & 0x02000000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_network_status = 30 [default = true];
+    // optional bool report_network_configuration = 29 [default = true];
     if (cached_has_bits & 0x04000000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
+    // optional bool report_network_status = 30 [default = true];
     if (cached_has_bits & 0x08000000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_version_info = 1 [default = true];
+    // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
     if (cached_has_bits & 0x10000000u) {
-      total_size += 1 + 1;
+      total_size += 2 + 1;
     }
 
-    // optional bool report_activity_times = 2 [default = true];
+    // optional bool report_version_info = 1 [default = true];
     if (cached_has_bits & 0x20000000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_boot_mode = 3 [default = true];
+    // optional bool report_activity_times = 2 [default = true];
     if (cached_has_bits & 0x40000000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_network_interfaces = 5 [default = true, deprecated = true];
+    // optional bool report_boot_mode = 3 [default = true];
     if (cached_has_bits & 0x80000000u) {
       total_size += 1 + 1;
     }
@@ -8313,60 +8361,74 @@ size_t DeviceReportingProto::ByteSizeLong() const {
   }
   cached_has_bits = _impl_._has_bits_[1];
   if (cached_has_bits & 0x000000ffu) {
-    // optional bool report_users = 6 [default = true];
+    // optional bool report_network_interfaces = 5 [default = true, deprecated = true];
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_hardware_status = 7 [default = true, deprecated = true];
+    // optional bool report_users = 6 [default = true];
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_session_status = 8 [default = true];
+    // optional bool report_hardware_status = 7 [default = true, deprecated = true];
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_audio_status = 28 [default = true];
+    // optional bool report_session_status = 8 [default = true];
     if (cached_has_bits & 0x00000008u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool report_audio_status = 28 [default = true];
+    if (cached_has_bits & 0x00000010u) {
       total_size += 2 + 1;
     }
 
     // optional int64 device_status_frequency = 9 [default = 10800000];
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_device_status_frequency());
     }
 
     // optional int64 report_network_telemetry_collection_rate_ms = 33 [default = 3600000];
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_report_network_telemetry_collection_rate_ms());
     }
 
     // optional int64 report_network_telemetry_event_checking_rate_ms = 34 [default = 600000];
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_report_network_telemetry_event_checking_rate_ms());
     }
 
+  }
+  if (cached_has_bits & 0x00000700u) {
     // optional int64 report_device_audio_status_checking_rate_ms = 35 [default = 600000];
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_report_device_audio_status_checking_rate_ms());
     }
 
-  }
-  // optional int64 device_activity_heartbeat_collection_rate_ms = 40 [default = 900000];
-  if (cached_has_bits & 0x00000100u) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::Int64Size(
-        this->_internal_device_activity_heartbeat_collection_rate_ms());
-  }
+    // optional int64 device_activity_heartbeat_collection_rate_ms = 40 [default = 900000];
+    if (cached_has_bits & 0x00000200u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int64Size(
+          this->_internal_device_activity_heartbeat_collection_rate_ms());
+    }
 
+    // optional int64 device_report_runtime_counters_checking_rate_ms = 43 [default = 86400000];
+    if (cached_has_bits & 0x00000400u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int64Size(
+          this->_internal_device_report_runtime_counters_checking_rate_ms());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -8473,61 +8535,70 @@ void DeviceReportingProto::MergeFrom(const DeviceReportingProto& from) {
   }
   if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
-      _this->_impl_.device_activity_heartbeat_enabled_ = from._impl_.device_activity_heartbeat_enabled_;
+      _this->_impl_.report_runtime_counters_ = from._impl_.report_runtime_counters_;
     }
     if (cached_has_bits & 0x02000000u) {
-      _this->_impl_.report_network_configuration_ = from._impl_.report_network_configuration_;
+      _this->_impl_.device_activity_heartbeat_enabled_ = from._impl_.device_activity_heartbeat_enabled_;
     }
     if (cached_has_bits & 0x04000000u) {
-      _this->_impl_.report_network_status_ = from._impl_.report_network_status_;
+      _this->_impl_.report_network_configuration_ = from._impl_.report_network_configuration_;
     }
     if (cached_has_bits & 0x08000000u) {
-      _this->_impl_.enable_granular_reporting_ = from._impl_.enable_granular_reporting_;
+      _this->_impl_.report_network_status_ = from._impl_.report_network_status_;
     }
     if (cached_has_bits & 0x10000000u) {
-      _this->_impl_.report_version_info_ = from._impl_.report_version_info_;
+      _this->_impl_.enable_granular_reporting_ = from._impl_.enable_granular_reporting_;
     }
     if (cached_has_bits & 0x20000000u) {
-      _this->_impl_.report_activity_times_ = from._impl_.report_activity_times_;
+      _this->_impl_.report_version_info_ = from._impl_.report_version_info_;
     }
     if (cached_has_bits & 0x40000000u) {
-      _this->_impl_.report_boot_mode_ = from._impl_.report_boot_mode_;
+      _this->_impl_.report_activity_times_ = from._impl_.report_activity_times_;
     }
     if (cached_has_bits & 0x80000000u) {
-      _this->_impl_.report_network_interfaces_ = from._impl_.report_network_interfaces_;
+      _this->_impl_.report_boot_mode_ = from._impl_.report_boot_mode_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   cached_has_bits = from._impl_._has_bits_[1];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_impl_.report_users_ = from._impl_.report_users_;
+      _this->_impl_.report_network_interfaces_ = from._impl_.report_network_interfaces_;
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_impl_.report_hardware_status_ = from._impl_.report_hardware_status_;
+      _this->_impl_.report_users_ = from._impl_.report_users_;
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_impl_.report_session_status_ = from._impl_.report_session_status_;
+      _this->_impl_.report_hardware_status_ = from._impl_.report_hardware_status_;
     }
     if (cached_has_bits & 0x00000008u) {
-      _this->_impl_.report_audio_status_ = from._impl_.report_audio_status_;
+      _this->_impl_.report_session_status_ = from._impl_.report_session_status_;
     }
     if (cached_has_bits & 0x00000010u) {
-      _this->_impl_.device_status_frequency_ = from._impl_.device_status_frequency_;
+      _this->_impl_.report_audio_status_ = from._impl_.report_audio_status_;
     }
     if (cached_has_bits & 0x00000020u) {
-      _this->_impl_.report_network_telemetry_collection_rate_ms_ = from._impl_.report_network_telemetry_collection_rate_ms_;
+      _this->_impl_.device_status_frequency_ = from._impl_.device_status_frequency_;
     }
     if (cached_has_bits & 0x00000040u) {
-      _this->_impl_.report_network_telemetry_event_checking_rate_ms_ = from._impl_.report_network_telemetry_event_checking_rate_ms_;
+      _this->_impl_.report_network_telemetry_collection_rate_ms_ = from._impl_.report_network_telemetry_collection_rate_ms_;
     }
     if (cached_has_bits & 0x00000080u) {
-      _this->_impl_.report_device_audio_status_checking_rate_ms_ = from._impl_.report_device_audio_status_checking_rate_ms_;
+      _this->_impl_.report_network_telemetry_event_checking_rate_ms_ = from._impl_.report_network_telemetry_event_checking_rate_ms_;
     }
     _this->_impl_._has_bits_[1] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00000100u) {
-    _this->_internal_set_device_activity_heartbeat_collection_rate_ms(from._internal_device_activity_heartbeat_collection_rate_ms());
+  if (cached_has_bits & 0x00000700u) {
+    if (cached_has_bits & 0x00000100u) {
+      _this->_impl_.report_device_audio_status_checking_rate_ms_ = from._impl_.report_device_audio_status_checking_rate_ms_;
+    }
+    if (cached_has_bits & 0x00000200u) {
+      _this->_impl_.device_activity_heartbeat_collection_rate_ms_ = from._impl_.device_activity_heartbeat_collection_rate_ms_;
+    }
+    if (cached_has_bits & 0x00000400u) {
+      _this->_impl_.device_report_runtime_counters_checking_rate_ms_ = from._impl_.device_report_runtime_counters_checking_rate_ms_;
+    }
+    _this->_impl_._has_bits_[1] |= cached_has_bits;
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -8570,6 +8641,7 @@ void DeviceReportingProto::InternalSwap(DeviceReportingProto* other) {
   swap(_impl_.report_network_telemetry_event_checking_rate_ms_, other->_impl_.report_network_telemetry_event_checking_rate_ms_);
   swap(_impl_.report_device_audio_status_checking_rate_ms_, other->_impl_.report_device_audio_status_checking_rate_ms_);
   swap(_impl_.device_activity_heartbeat_collection_rate_ms_, other->_impl_.device_activity_heartbeat_collection_rate_ms_);
+  swap(_impl_.device_report_runtime_counters_checking_rate_ms_, other->_impl_.device_report_runtime_counters_checking_rate_ms_);
 }
 
 std::string DeviceReportingProto::GetTypeName() const {
