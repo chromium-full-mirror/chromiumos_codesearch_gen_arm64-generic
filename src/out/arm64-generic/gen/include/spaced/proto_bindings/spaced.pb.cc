@@ -18,6 +18,34 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace spaced {
+PROTOBUF_CONSTEXPR SetProjectIdReply::SetProjectIdReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.success_)*/false
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SetProjectIdReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SetProjectIdReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SetProjectIdReplyDefaultTypeInternal() {}
+  union {
+    SetProjectIdReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetProjectIdReplyDefaultTypeInternal _SetProjectIdReply_default_instance_;
+PROTOBUF_CONSTEXPR SetProjectInheritanceFlagReply::SetProjectInheritanceFlagReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.success_)*/false
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SetProjectInheritanceFlagReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SetProjectInheritanceFlagReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SetProjectInheritanceFlagReplyDefaultTypeInternal() {}
+  union {
+    SetProjectInheritanceFlagReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetProjectInheritanceFlagReplyDefaultTypeInternal _SetProjectInheritanceFlagReply_default_instance_;
 PROTOBUF_CONSTEXPR StatefulDiskSpaceUpdate::StatefulDiskSpaceUpdate(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.free_space_bytes_)*/int64_t{0}
@@ -93,6 +121,432 @@ bool StatefulDiskSpaceState_Parse(
   }
   return success;
 }
+
+// ===================================================================
+
+class SetProjectIdReply::_Internal {
+ public:
+};
+
+SetProjectIdReply::SetProjectIdReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:spaced.SetProjectIdReply)
+}
+SetProjectIdReply::SetProjectIdReply(const SetProjectIdReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetProjectIdReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.success_){}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&_impl_.success_, &from._impl_.success_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.error_) -
+    reinterpret_cast<char*>(&_impl_.success_)) + sizeof(_impl_.error_));
+  // @@protoc_insertion_point(copy_constructor:spaced.SetProjectIdReply)
+}
+
+inline void SetProjectIdReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.success_){false}
+    , decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SetProjectIdReply::~SetProjectIdReply() {
+  // @@protoc_insertion_point(destructor:spaced.SetProjectIdReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SetProjectIdReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SetProjectIdReply::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SetProjectIdReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:spaced.SetProjectIdReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.success_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.error_) -
+      reinterpret_cast<char*>(&_impl_.success_)) + sizeof(_impl_.error_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* SetProjectIdReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 error = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SetProjectIdReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:spaced.SetProjectIdReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  // int32 error = 2;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_error(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:spaced.SetProjectIdReply)
+  return target;
+}
+
+size_t SetProjectIdReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:spaced.SetProjectIdReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // int32 error = 2;
+  if (this->_internal_error() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SetProjectIdReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SetProjectIdReply*>(
+      &from));
+}
+
+void SetProjectIdReply::MergeFrom(const SetProjectIdReply& from) {
+  SetProjectIdReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:spaced.SetProjectIdReply)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_success() != 0) {
+    _this->_internal_set_success(from._internal_success());
+  }
+  if (from._internal_error() != 0) {
+    _this->_internal_set_error(from._internal_error());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SetProjectIdReply::CopyFrom(const SetProjectIdReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:spaced.SetProjectIdReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SetProjectIdReply::IsInitialized() const {
+  return true;
+}
+
+void SetProjectIdReply::InternalSwap(SetProjectIdReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SetProjectIdReply, _impl_.error_)
+      + sizeof(SetProjectIdReply::_impl_.error_)
+      - PROTOBUF_FIELD_OFFSET(SetProjectIdReply, _impl_.success_)>(
+          reinterpret_cast<char*>(&_impl_.success_),
+          reinterpret_cast<char*>(&other->_impl_.success_));
+}
+
+std::string SetProjectIdReply::GetTypeName() const {
+  return "spaced.SetProjectIdReply";
+}
+
+
+// ===================================================================
+
+class SetProjectInheritanceFlagReply::_Internal {
+ public:
+};
+
+SetProjectInheritanceFlagReply::SetProjectInheritanceFlagReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:spaced.SetProjectInheritanceFlagReply)
+}
+SetProjectInheritanceFlagReply::SetProjectInheritanceFlagReply(const SetProjectInheritanceFlagReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetProjectInheritanceFlagReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.success_){}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&_impl_.success_, &from._impl_.success_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.error_) -
+    reinterpret_cast<char*>(&_impl_.success_)) + sizeof(_impl_.error_));
+  // @@protoc_insertion_point(copy_constructor:spaced.SetProjectInheritanceFlagReply)
+}
+
+inline void SetProjectInheritanceFlagReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.success_){false}
+    , decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SetProjectInheritanceFlagReply::~SetProjectInheritanceFlagReply() {
+  // @@protoc_insertion_point(destructor:spaced.SetProjectInheritanceFlagReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SetProjectInheritanceFlagReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SetProjectInheritanceFlagReply::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SetProjectInheritanceFlagReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:spaced.SetProjectInheritanceFlagReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.success_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.error_) -
+      reinterpret_cast<char*>(&_impl_.success_)) + sizeof(_impl_.error_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* SetProjectInheritanceFlagReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 error = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SetProjectInheritanceFlagReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:spaced.SetProjectInheritanceFlagReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  // int32 error = 2;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_error(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:spaced.SetProjectInheritanceFlagReply)
+  return target;
+}
+
+size_t SetProjectInheritanceFlagReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:spaced.SetProjectInheritanceFlagReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // int32 error = 2;
+  if (this->_internal_error() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SetProjectInheritanceFlagReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const SetProjectInheritanceFlagReply*>(
+      &from));
+}
+
+void SetProjectInheritanceFlagReply::MergeFrom(const SetProjectInheritanceFlagReply& from) {
+  SetProjectInheritanceFlagReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:spaced.SetProjectInheritanceFlagReply)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_success() != 0) {
+    _this->_internal_set_success(from._internal_success());
+  }
+  if (from._internal_error() != 0) {
+    _this->_internal_set_error(from._internal_error());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SetProjectInheritanceFlagReply::CopyFrom(const SetProjectInheritanceFlagReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:spaced.SetProjectInheritanceFlagReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SetProjectInheritanceFlagReply::IsInitialized() const {
+  return true;
+}
+
+void SetProjectInheritanceFlagReply::InternalSwap(SetProjectInheritanceFlagReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SetProjectInheritanceFlagReply, _impl_.error_)
+      + sizeof(SetProjectInheritanceFlagReply::_impl_.error_)
+      - PROTOBUF_FIELD_OFFSET(SetProjectInheritanceFlagReply, _impl_.success_)>(
+          reinterpret_cast<char*>(&_impl_.success_),
+          reinterpret_cast<char*>(&other->_impl_.success_));
+}
+
+std::string SetProjectInheritanceFlagReply::GetTypeName() const {
+  return "spaced.SetProjectInheritanceFlagReply";
+}
+
 
 // ===================================================================
 
@@ -313,6 +767,14 @@ std::string StatefulDiskSpaceUpdate::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace spaced
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::spaced::SetProjectIdReply*
+Arena::CreateMaybeMessage< ::spaced::SetProjectIdReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::spaced::SetProjectIdReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::spaced::SetProjectInheritanceFlagReply*
+Arena::CreateMaybeMessage< ::spaced::SetProjectInheritanceFlagReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::spaced::SetProjectInheritanceFlagReply >(arena);
+}
 template<> PROTOBUF_NOINLINE ::spaced::StatefulDiskSpaceUpdate*
 Arena::CreateMaybeMessage< ::spaced::StatefulDiskSpaceUpdate >(Arena* arena) {
   return Arena::CreateMessageInternal< ::spaced::StatefulDiskSpaceUpdate >(arena);

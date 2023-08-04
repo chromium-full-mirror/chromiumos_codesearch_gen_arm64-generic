@@ -45,6 +45,14 @@ class SpacedInterface {
   virtual int64_t GetQuotaCurrentSpaceForProjectId(
       const std::string& in_path,
       uint32_t in_project_id) = 0;
+  // Sets the project ID to the given file.
+  virtual spaced::SetProjectIdReply SetProjectId(
+      const base::ScopedFD& in_fd,
+      uint32_t in_project_id) = 0;
+  // Sets the project inheritance flag to the given file.
+  virtual spaced::SetProjectInheritanceFlagReply SetProjectInheritanceFlag(
+      const base::ScopedFD& in_fd,
+      bool in_enable) = 0;
 };
 
 // Interface adaptor for org::chromium::Spaced.
@@ -86,6 +94,14 @@ class SpacedAdaptor {
         "GetQuotaCurrentSpaceForProjectId",
         base::Unretained(interface_),
         &SpacedInterface::GetQuotaCurrentSpaceForProjectId);
+    itf->AddSimpleMethodHandler(
+        "SetProjectId",
+        base::Unretained(interface_),
+        &SpacedInterface::SetProjectId);
+    itf->AddSimpleMethodHandler(
+        "SetProjectInheritanceFlag",
+        base::Unretained(interface_),
+        &SpacedInterface::SetProjectInheritanceFlag);
 
     signal_StatefulDiskSpaceUpdate_ = itf->RegisterSignalOfType<SignalStatefulDiskSpaceUpdateType>("StatefulDiskSpaceUpdate");
   }
@@ -133,6 +149,16 @@ class SpacedAdaptor {
         "      <arg name=\"path\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"project_id\" type=\"u\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"x\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"SetProjectId\">\n"
+        "      <arg name=\"fd\" type=\"h\" direction=\"in\"/>\n"
+        "      <arg name=\"project_id\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"SetProjectInheritanceFlag\">\n"
+        "      <arg name=\"fd\" type=\"h\" direction=\"in\"/>\n"
+        "      <arg name=\"enable\" type=\"b\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <signal name=\"StatefulDiskSpaceUpdate\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"

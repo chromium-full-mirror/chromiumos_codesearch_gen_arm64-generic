@@ -274,6 +274,13 @@ CryptohomeStatus AuthenticateCredentialStatusToCryptohomeStatus(
           CRYPTOHOME_ERR_LOC(kLocBiometricsProcessorMatchCredentialNoRecords),
           ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
           user_data_auth::CRYPTOHOME_ERROR_KEY_NOT_FOUND);
+    case biod::AuthenticateCredentialReply::MATCH_FAILED:
+      // Match failed can often be resolved by a retry, for situations like user
+      // lifting up the finger too early.
+      return MakeStatus<CryptohomeError>(
+          CRYPTOHOME_ERR_LOC(kLocBiometricsProcessorMatchCredentialMatchFailed),
+          ErrorActionSet(PrimaryAction::kIncorrectAuth),
+          user_data_auth::CRYPTOHOME_ERROR_FINGERPRINT_RETRY_REQUIRED);
     // Other error codes shouldn't usually happen.
     default:
       return MakeStatus<CryptohomeError>(
@@ -473,10 +480,12 @@ void BiometricsCommandProcessorImpl::EndAuthenticateSession() {
 }
 
 void BiometricsCommandProcessorImpl::DeleteCredential(
+    ObfuscatedUsername obfuscated_username,
     const std::string& record_id,
     base::OnceCallback<void(BiometricsCommandProcessor::DeleteResult)>
         on_done) {
   biod::DeleteCredentialRequest request;
+  request.set_user_id(std::move(*obfuscated_username));
   request.set_record_id(record_id);
   proxy_->DeleteCredential(
       request,

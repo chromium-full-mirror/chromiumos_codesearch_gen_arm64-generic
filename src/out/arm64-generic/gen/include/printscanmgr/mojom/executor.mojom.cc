@@ -99,27 +99,6 @@ uint32_t Executor::RestartUpstartJob_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
-bool Executor::RestartUpstartJob(UpstartJob job, bool* out_success, std::string* out_errorMsg) {
-  NOTREACHED();
-  return false;
-}
-class Executor_RestartUpstartJob_HandleSyncResponse
-    : public mojo::MessageReceiver {
- public:
-  Executor_RestartUpstartJob_HandleSyncResponse(
-      bool* result, bool* out_success, std::string* out_errorMsg)
-      : result_(result), out_success_(out_success), out_errorMsg_(out_errorMsg) {
-    DCHECK(!*result_);
-  }
-
-  Executor_RestartUpstartJob_HandleSyncResponse(const Executor_RestartUpstartJob_HandleSyncResponse&) = delete;
-  Executor_RestartUpstartJob_HandleSyncResponse& operator=(const Executor_RestartUpstartJob_HandleSyncResponse&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  bool* result_;
-  bool* out_success_;
-  std::string* out_errorMsg_;};
 
 class Executor_RestartUpstartJob_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -139,64 +118,6 @@ class Executor_RestartUpstartJob_ForwardToCallback
 
 ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
-}
-bool ExecutorProxy::RestartUpstartJob(
-    UpstartJob param_job, bool* out_param_success, std::string* out_param_errorMsg) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_BEGIN1(
-    "mojom", "Call printscanmgr::mojom::Executor::RestartUpstartJob (sync)", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("job"), param_job,
-                        "<value of type UpstartJob>");
-   });
-#else
-  TRACE_EVENT0("mojom", "Executor::RestartUpstartJob");
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = true;
-  const bool kAllowInterrupt =
-      true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kExecutor_RestartUpstartJob_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::printscanmgr::mojom::internal::Executor_RestartUpstartJob_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<::printscanmgr::mojom::UpstartJob>(
-      param_job, &params->job);
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(Executor::Name_);
-  message.set_method_name("RestartUpstartJob");
-#endif
-
-  bool result = false;
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new Executor_RestartUpstartJob_HandleSyncResponse(
-          &result, out_param_success, out_param_errorMsg));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT_END1(
-    "mojom", "Executor::RestartUpstartJob", "sync_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("success"), out_param_success,
-                        "<value of type bool>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("errorMsg"), out_param_errorMsg,
-                        "<value of type const std::string&>");
-   });
-#endif
-  return result;
 }
 
 void ExecutorProxy::RestartUpstartJob(
@@ -373,35 +294,6 @@ void Executor_RestartUpstartJob_ProxyToResponder::Run(
   // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
-}
-bool Executor_RestartUpstartJob_HandleSyncResponse::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::Executor_RestartUpstartJob_ResponseParams_Data* params =
-      reinterpret_cast<internal::Executor_RestartUpstartJob_ResponseParams_Data*>(
-          message->mutable_payload());
-  
-  bool success = true;
-  bool p_success{};
-  std::string p_errorMsg{};
-  Executor_RestartUpstartJob_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_success = input_data_view.success();
-  if (success && !input_data_view.ReadErrorMsg(&p_errorMsg))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 0, true);
-    return false;
-  }
-  *out_success_ = std::move(p_success);
-  *out_errorMsg_ = std::move(p_errorMsg);
-  *result_ = true;
-  return true;
 }
 
 // static

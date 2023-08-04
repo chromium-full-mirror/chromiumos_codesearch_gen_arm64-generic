@@ -196,6 +196,7 @@ PROTOBUF_CONSTEXPR DeleteCredentialRequest::DeleteCredentialRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.user_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.record_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct DeleteCredentialRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeleteCredentialRequestDefaultTypeInternal()
@@ -3796,8 +3797,11 @@ std::string AuthenticateCredentialReply::GetTypeName() const {
 class DeleteCredentialRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<DeleteCredentialRequest>()._impl_._has_bits_);
-  static void set_has_record_id(HasBits* has_bits) {
+  static void set_has_user_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
+  }
+  static void set_has_record_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
   }
 };
 
@@ -3813,9 +3817,18 @@ DeleteCredentialRequest::DeleteCredentialRequest(const DeleteCredentialRequest& 
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.user_id_){}
     , decltype(_impl_.record_id_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.user_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.user_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_user_id()) {
+    _this->_impl_.user_id_.Set(from._internal_user_id(), 
+      _this->GetArenaForAllocation());
+  }
   _impl_.record_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.record_id_.Set("", GetArenaForAllocation());
@@ -3834,8 +3847,13 @@ inline void DeleteCredentialRequest::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.user_id_){}
     , decltype(_impl_.record_id_){}
   };
+  _impl_.user_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.user_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.record_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.record_id_.Set("", GetArenaForAllocation());
@@ -3853,6 +3871,7 @@ DeleteCredentialRequest::~DeleteCredentialRequest() {
 
 inline void DeleteCredentialRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.user_id_.Destroy();
   _impl_.record_id_.Destroy();
 }
 
@@ -3867,8 +3886,13 @@ void DeleteCredentialRequest::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    _impl_.record_id_.ClearNonDefaultToEmpty();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _impl_.user_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _impl_.record_id_.ClearNonDefaultToEmpty();
+    }
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -3881,9 +3905,18 @@ const char* DeleteCredentialRequest::_InternalParse(const char* ptr, ::_pbi::Par
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional string record_id = 1;
+      // optional string user_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_user_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string record_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_record_id();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -3921,10 +3954,16 @@ uint8_t* DeleteCredentialRequest::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // optional string record_id = 1;
+  // optional string user_id = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_record_id(), target);
+        1, this->_internal_user_id(), target);
+  }
+
+  // optional string record_id = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_record_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3943,14 +3982,23 @@ size_t DeleteCredentialRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional string record_id = 1;
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_record_id());
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional string user_id = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_user_id());
+    }
 
+    // optional string record_id = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_record_id());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3972,8 +4020,14 @@ void DeleteCredentialRequest::MergeFrom(const DeleteCredentialRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_record_id()) {
-    _this->_internal_set_record_id(from._internal_record_id());
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_set_user_id(from._internal_user_id());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_set_record_id(from._internal_record_id());
+    }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -3995,6 +4049,10 @@ void DeleteCredentialRequest::InternalSwap(DeleteCredentialRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.user_id_, lhs_arena,
+      &other->_impl_.user_id_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.record_id_, lhs_arena,
       &other->_impl_.record_id_, rhs_arena

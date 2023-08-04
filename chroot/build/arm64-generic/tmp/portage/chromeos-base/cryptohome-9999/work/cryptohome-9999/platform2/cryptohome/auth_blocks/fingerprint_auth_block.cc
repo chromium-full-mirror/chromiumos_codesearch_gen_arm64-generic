@@ -60,7 +60,7 @@ constexpr struct {
 } kDefaultDelaySchedule[] = {
     {5, kInfiniteDelay},
 };
-constexpr base::TimeDelta kExpirationLockout = base::Days(14);
+constexpr base::TimeDelta kExpirationLockout = base::Days(1);
 
 std::vector<hwsec::OperationPolicySetting> GetValidPoliciesOfUser(
     const ObfuscatedUsername& obfuscated_username) {
@@ -390,8 +390,10 @@ void FingerprintAuthBlock::SelectFactor(const AuthInput& auth_input,
                      std::move(auth_factors), *auth_input.rate_limiter_label));
 }
 
-void FingerprintAuthBlock::PrepareForRemoval(const AuthBlockState& state,
-                                             StatusCallback callback) {
+void FingerprintAuthBlock::PrepareForRemoval(
+    const ObfuscatedUsername& obfuscated_username,
+    const AuthBlockState& state,
+    StatusCallback callback) {
   auto* fp_state = std::get_if<FingerprintAuthBlockState>(&state.state);
   if (!fp_state) {
     LOG(ERROR) << "Failed to get AuthBlockState in fingerprint auth block.";
@@ -410,7 +412,7 @@ void FingerprintAuthBlock::PrepareForRemoval(const AuthBlockState& state,
     return;
   }
   service_->DeleteCredential(
-      fp_state->template_id,
+      obfuscated_username, fp_state->template_id,
       base::BindOnce(&FingerprintAuthBlock::OnDeleteCredentialReply,
                      weak_factory_.GetWeakPtr(), *fp_state,
                      std::move(callback)));

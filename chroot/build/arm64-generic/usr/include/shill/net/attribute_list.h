@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include <base/containers/span.h>
 #include <base/functional/bind.h>
 #include <base/functional/callback.h>
 
@@ -55,7 +56,7 @@ class SHILL_EXPORT AttributeList : public base::RefCounted<AttributeList> {
                               const ByteString& value);
 
   // Initializes the attribute |id| from the data in |value|.
-  bool InitAttributeFromValue(int id, const ByteString& value);
+  bool InitAttributeFromValue(int id, base::span<const uint8_t> value);
 
   // Prints the attribute list with each attribute using no less than 1 line.
   // |indent| indicates the amout of leading spaces to be printed (useful for
@@ -66,7 +67,7 @@ class SHILL_EXPORT AttributeList : public base::RefCounted<AttributeList> {
   // for each attribute.  If |method| returns false, the travesal is terminated
   // and false is returned.  If a malformed attribute entry is encountered,
   // this method also returns false.
-  static bool IterateAttributes(const ByteString& payload,
+  static bool IterateAttributes(base::span<const uint8_t> payload,
                                 size_t offset,
                                 const AttributeMethod& method);
 
@@ -123,8 +124,8 @@ class SHILL_EXPORT AttributeList : public base::RefCounted<AttributeList> {
   bool CreateRawAttribute(int id, const char* id_string);
   // |value| should point to the data (after the |nlattr| header, if there is
   // one).
-  bool SetRawAttributeValue(int id, ByteString value);
-  bool GetRawAttributeValue(int id, ByteString* output) const;
+  bool SetRawAttributeValue(int id, base::span<const uint8_t> value);
+  bool GetRawAttributeValue(int id, std::vector<uint8_t>* output) const;
 
   // This retrieves a string from any kind of attribute.
   bool GetAttributeAsString(int id, std::string* value) const;

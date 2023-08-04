@@ -58,9 +58,6 @@ class Executor
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static inline constexpr uint32_t kSyncMethodOrdinals[] = {
-    0
-  };
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = ExecutorInterfaceBase;
@@ -84,10 +81,6 @@ class Executor
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~Executor() = default;
 
-  // Sync method. This signature is used by the client side; the service side
-  // should implement the signature with callback below.
-  
-  virtual bool RestartUpstartJob(UpstartJob job, bool* out_success, std::string* out_errorMsg);
 
   using RestartUpstartJobCallback = base::OnceCallback<void(bool, const std::string&)>;
   
@@ -102,8 +95,6 @@ class  ExecutorProxy
   using InterfaceType = Executor;
 
   explicit ExecutorProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  bool RestartUpstartJob(UpstartJob job, bool* out_success, std::string* out_errorMsg) final;
   
   void RestartUpstartJob(UpstartJob job, RestartUpstartJobCallback callback) final;
 

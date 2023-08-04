@@ -133,6 +133,40 @@ class SpacedProxyMock : public SpacedProxyInterface {
                int /*timeout_ms*/),
               (override));
 
+  MOCK_METHOD(bool,
+              SetProjectId,
+              (const base::ScopedFD& /*in_fd*/,
+               uint32_t /*in_project_id*/,
+               spaced::SetProjectIdReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetProjectIdAsync,
+              (const base::ScopedFD& /*in_fd*/,
+               uint32_t /*in_project_id*/,
+               base::OnceCallback<void(const spaced::SetProjectIdReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              SetProjectInheritanceFlag,
+              (const base::ScopedFD& /*in_fd*/,
+               bool /*in_enable*/,
+               spaced::SetProjectInheritanceFlagReply* /*out_reply*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              SetProjectInheritanceFlagAsync,
+              (const base::ScopedFD& /*in_fd*/,
+               bool /*in_enable*/,
+               base::OnceCallback<void(const spaced::SetProjectInheritanceFlagReply& /*reply*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
   void RegisterStatefulDiskSpaceUpdateSignalHandler(
     const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {

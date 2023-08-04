@@ -133,6 +133,38 @@ class SpacedProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Sets the project ID to the given file.
+  virtual bool SetProjectId(
+      const base::ScopedFD& in_fd,
+      uint32_t in_project_id,
+      spaced::SetProjectIdReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Sets the project ID to the given file.
+  virtual void SetProjectIdAsync(
+      const base::ScopedFD& in_fd,
+      uint32_t in_project_id,
+      base::OnceCallback<void(const spaced::SetProjectIdReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Sets the project inheritance flag to the given file.
+  virtual bool SetProjectInheritanceFlag(
+      const base::ScopedFD& in_fd,
+      bool in_enable,
+      spaced::SetProjectInheritanceFlagReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Sets the project inheritance flag to the given file.
+  virtual void SetProjectInheritanceFlagAsync(
+      const base::ScopedFD& in_fd,
+      bool in_enable,
+      base::OnceCallback<void(const spaced::SetProjectInheritanceFlagReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterStatefulDiskSpaceUpdateSignalHandler(
       const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -422,6 +454,80 @@ class SpacedProxy final : public SpacedProxyInterface {
         std::move(error_callback),
         in_path,
         in_project_id);
+  }
+
+  // Sets the project ID to the given file.
+  bool SetProjectId(
+      const base::ScopedFD& in_fd,
+      uint32_t in_project_id,
+      spaced::SetProjectIdReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "SetProjectId",
+        error,
+        in_fd,
+        in_project_id);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  // Sets the project ID to the given file.
+  void SetProjectIdAsync(
+      const base::ScopedFD& in_fd,
+      uint32_t in_project_id,
+      base::OnceCallback<void(const spaced::SetProjectIdReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "SetProjectId",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_fd,
+        in_project_id);
+  }
+
+  // Sets the project inheritance flag to the given file.
+  bool SetProjectInheritanceFlag(
+      const base::ScopedFD& in_fd,
+      bool in_enable,
+      spaced::SetProjectInheritanceFlagReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "SetProjectInheritanceFlag",
+        error,
+        in_fd,
+        in_enable);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  // Sets the project inheritance flag to the given file.
+  void SetProjectInheritanceFlagAsync(
+      const base::ScopedFD& in_fd,
+      bool in_enable,
+      base::OnceCallback<void(const spaced::SetProjectInheritanceFlagReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "SetProjectInheritanceFlag",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_fd,
+        in_enable);
   }
 
  private:
