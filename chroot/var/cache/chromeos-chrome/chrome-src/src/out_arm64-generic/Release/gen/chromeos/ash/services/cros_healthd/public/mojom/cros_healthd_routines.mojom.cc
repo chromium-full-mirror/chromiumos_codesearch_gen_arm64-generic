@@ -46,6 +46,165 @@
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+RoutineState::RoutineState()
+    : percentage(),
+      state_union() {}
+
+RoutineState::RoutineState(
+    uint8_t percentage_in,
+    RoutineStateUnionPtr state_union_in)
+    : percentage(std::move(percentage_in)),
+      state_union(std::move(state_union_in)) {}
+
+RoutineState::~RoutineState() = default;
+
+void RoutineState::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "percentage"), this->percentage,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state_union"), this->state_union,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type RoutineStateUnionPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool RoutineState::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+RoutineStateInitialized::RoutineStateInitialized() {}
+
+RoutineStateInitialized::~RoutineStateInitialized() = default;
+size_t RoutineStateInitialized::Hash(size_t seed) const {
+  return seed;
+}
+
+void RoutineStateInitialized::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool RoutineStateInitialized::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+RoutineStateRunning::RoutineStateRunning() {}
+
+RoutineStateRunning::~RoutineStateRunning() = default;
+size_t RoutineStateRunning::Hash(size_t seed) const {
+  return seed;
+}
+
+void RoutineStateRunning::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool RoutineStateRunning::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+RoutineStateWaiting::RoutineStateWaiting()
+    : reason(),
+      message() {}
+
+RoutineStateWaiting::RoutineStateWaiting(
+    RoutineStateWaiting::Reason reason_in,
+    const std::string& message_in)
+    : reason(std::move(reason_in)),
+      message(std::move(message_in)) {}
+
+RoutineStateWaiting::~RoutineStateWaiting() = default;
+size_t RoutineStateWaiting::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->reason);
+  seed = mojo::internal::Hash(seed, this->message);
+  return seed;
+}
+
+void RoutineStateWaiting::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "reason"), this->reason,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type RoutineStateWaiting::Reason>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "message"), this->message,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool RoutineStateWaiting::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+RoutineStateFinished::RoutineStateFinished()
+    : has_passed(),
+      detail() {}
+
+RoutineStateFinished::RoutineStateFinished(
+    bool has_passed_in,
+    RoutineDetailPtr detail_in)
+    : has_passed(std::move(has_passed_in)),
+      detail(std::move(detail_in)) {}
+
+RoutineStateFinished::~RoutineStateFinished() = default;
+
+void RoutineStateFinished::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "has_passed"), this->has_passed,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "detail"), this->detail,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type RoutineDetailPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool RoutineStateFinished::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -85,6 +244,141 @@ size_t RoutineArgument::Hash(size_t seed) const {
 }
 
 bool RoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+RoutineStateUnion::RoutineStateUnion() : tag_(Tag::kUnrecognizedArgument) {
+  data_.unrecognizedArgument = bool();
+}
+
+RoutineStateUnion::~RoutineStateUnion() {
+  DestroyActive();
+}
+
+
+void RoutineStateUnion::set_unrecognizedArgument(
+    bool unrecognizedArgument) {
+  if (tag_ != Tag::kUnrecognizedArgument) {
+    DestroyActive();
+    tag_ = Tag::kUnrecognizedArgument;
+  }
+  data_.unrecognizedArgument = unrecognizedArgument;
+}
+void RoutineStateUnion::set_initialized(
+    RoutineStateInitializedPtr initialized) {
+  if (tag_ == Tag::kInitialized) {
+    *(data_.initialized) = std::move(initialized);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kInitialized;
+    data_.initialized = new RoutineStateInitializedPtr(
+        std::move(initialized));
+  }
+}
+void RoutineStateUnion::set_running(
+    RoutineStateRunningPtr running) {
+  if (tag_ == Tag::kRunning) {
+    *(data_.running) = std::move(running);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kRunning;
+    data_.running = new RoutineStateRunningPtr(
+        std::move(running));
+  }
+}
+void RoutineStateUnion::set_waiting(
+    RoutineStateWaitingPtr waiting) {
+  if (tag_ == Tag::kWaiting) {
+    *(data_.waiting) = std::move(waiting);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kWaiting;
+    data_.waiting = new RoutineStateWaitingPtr(
+        std::move(waiting));
+  }
+}
+void RoutineStateUnion::set_finished(
+    RoutineStateFinishedPtr finished) {
+  if (tag_ == Tag::kFinished) {
+    *(data_.finished) = std::move(finished);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFinished;
+    data_.finished = new RoutineStateFinishedPtr(
+        std::move(finished));
+  }
+}
+
+void RoutineStateUnion::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnrecognizedArgument:
+
+      break;
+    case Tag::kInitialized:
+
+      delete data_.initialized;
+      break;
+    case Tag::kRunning:
+
+      delete data_.running;
+      break;
+    case Tag::kWaiting:
+
+      delete data_.waiting;
+      break;
+    case Tag::kFinished:
+
+      delete data_.finished;
+      break;
+  }
+}
+
+bool RoutineStateUnion::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+RoutineDetail::RoutineDetail() : tag_(Tag::kUnrecognizedArgument) {
+  data_.unrecognizedArgument = bool();
+}
+
+RoutineDetail::~RoutineDetail() {
+  DestroyActive();
+}
+
+
+void RoutineDetail::set_unrecognizedArgument(
+    bool unrecognizedArgument) {
+  if (tag_ != Tag::kUnrecognizedArgument) {
+    DestroyActive();
+    tag_ = Tag::kUnrecognizedArgument;
+  }
+  data_.unrecognizedArgument = unrecognizedArgument;
+}
+
+void RoutineDetail::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnrecognizedArgument:
+
+      break;
+  }
+}
+size_t RoutineDetail::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kUnrecognizedArgument:
+      return mojo::internal::Hash(seed, data_.unrecognizedArgument);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool RoutineDetail::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
@@ -286,6 +580,14 @@ const char RoutineControl::Name_[] = "ash.cros_healthd.mojom.RoutineControl";
 
 RoutineControl::IPCStableHashFunction RoutineControl::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kRoutineControl_GetState_Name: {
+      return &RoutineControl::GetState_Sym::IPCStableHash;
+    }
+    case internal::kRoutineControl_Start_Name: {
+      return &RoutineControl::Start_Sym::IPCStableHash;
+    }
+  }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
 }
@@ -293,6 +595,22 @@ RoutineControl::IPCStableHashFunction RoutineControl::MessageToMethodInfo_(mojo:
 
 const char* RoutineControl::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kRoutineControl_GetState_Name:
+            return "Receive ash::cros_healthd::mojom::RoutineControl::GetState";
+      case internal::kRoutineControl_Start_Name:
+            return "Receive ash::cros_healthd::mojom::RoutineControl::Start";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kRoutineControl_GetState_Name:
+            return "Receive reply ash::cros_healthd::mojom::RoutineControl::GetState";
+      case internal::kRoutineControl_Start_Name:
+            return "Receive reply ash::cros_healthd::mojom::RoutineControl::Start";
+    }
+  }
   return "Receive unknown mojo message";
 #else
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
@@ -305,16 +623,274 @@ const char* RoutineControl::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
+uint32_t RoutineControl::GetState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::RoutineControl::GetState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t RoutineControl::Start_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::RoutineControl::Start");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
+
+class RoutineControl_GetState_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  RoutineControl_GetState_ForwardToCallback(
+      RoutineControl::GetStateCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  RoutineControl_GetState_ForwardToCallback(const RoutineControl_GetState_ForwardToCallback&) = delete;
+  RoutineControl_GetState_ForwardToCallback& operator=(const RoutineControl_GetState_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  RoutineControl::GetStateCallback callback_;
+};
 
 RoutineControlProxy::RoutineControlProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
+}
+
+void RoutineControlProxy::GetState(
+    GetStateCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::RoutineControl::GetState");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::RoutineControl_GetState_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RoutineControl::Name_);
+  message.set_method_name("GetState");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new RoutineControl_GetState_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void RoutineControlProxy::Start(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::RoutineControl::Start");
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kRoutineControl_Start_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::RoutineControl_Start_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RoutineControl::Name_);
+  message.set_method_name("Start");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+class RoutineControl_GetState_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static RoutineControl::GetStateCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<RoutineControl_GetState_ProxyToResponder> proxy(
+        new RoutineControl_GetState_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&RoutineControl_GetState_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~RoutineControl_GetState_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  RoutineControl_GetState_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "RoutineControl::GetStateCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      RoutineStatePtr in_state);
+};
+
+bool RoutineControl_GetState_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::RoutineControl_GetState_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::RoutineControl_GetState_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  RoutineStatePtr p_state{};
+  RoutineControl_GetState_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadState(&p_state))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        RoutineControl::Name_, 0, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_state));
+  return true;
+}
+
+void RoutineControl_GetState_ProxyToResponder::Run(
+    RoutineStatePtr in_state) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::RoutineControl::GetState", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("state"), in_state,
+                        "<value of type RoutineStatePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kRoutineControl_GetState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::RoutineControl_GetState_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->state)::BaseType> state_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineStateDataView>(
+      in_state, state_fragment);
+  params->state.Set(
+      state_fragment.is_null() ? nullptr : state_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->state.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null state in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RoutineControl::Name_);
+  message.set_method_name("GetState");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
 }
 
 // static
 bool RoutineControlStubDispatch::Accept(
     RoutineControl* impl,
     mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kRoutineControl_GetState_Name: {
+      break;
+    }
+    case internal::kRoutineControl_Start_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::RoutineControl_Start_Params_Data* params =
+          reinterpret_cast<internal::RoutineControl_Start_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      RoutineControl_Start_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            RoutineControl::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->Start();
+      return true;
+    }
+  }
   return false;
 }
 
@@ -323,20 +899,68 @@ bool RoutineControlStubDispatch::AcceptWithResponder(
     RoutineControl* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kRoutineControl_GetState_Name: {
+
+      internal::RoutineControl_GetState_Params_Data* params =
+          reinterpret_cast<
+              internal::RoutineControl_GetState_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      RoutineControl_GetState_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            RoutineControl::Name_, 0, false);
+        return false;
+      }
+      RoutineControl::GetStateCallback callback =
+          RoutineControl_GetState_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetState(std::move(callback));
+      return true;
+    }
+    case internal::kRoutineControl_Start_Name: {
+      break;
+    }
+  }
   return false;
 }
 
 
+static const mojo::internal::GenericValidationInfo kRoutineControlValidationInfo[] = {
+    {&internal::RoutineControl_GetState_Params_Data::Validate,
+     &internal::RoutineControl_GetState_ResponseParams_Data::Validate},
+    {&internal::RoutineControl_Start_Params_Data::Validate,
+     nullptr /* no response */},
+};
 
 bool RoutineControlRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::ash::cros_healthd::mojom::RoutineControl::Name_;
-  return mojo::internal::ValidateRequestGeneric(message, name, {});
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kRoutineControlValidationInfo);
 }
 
+bool RoutineControlResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::RoutineControl::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kRoutineControlValidationInfo);
+}
 const char RoutineObserver::Name_[] = "ash.cros_healthd.mojom.RoutineObserver";
 
 RoutineObserver::IPCStableHashFunction RoutineObserver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kRoutineObserver_OnRoutineStateChange_Name: {
+      return &RoutineObserver::OnRoutineStateChange_Sym::IPCStableHash;
+    }
+  }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
 }
@@ -344,6 +968,18 @@ RoutineObserver::IPCStableHashFunction RoutineObserver::MessageToMethodInfo_(moj
 
 const char* RoutineObserver::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kRoutineObserver_OnRoutineStateChange_Name:
+            return "Receive ash::cros_healthd::mojom::RoutineObserver::OnRoutineStateChange";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kRoutineObserver_OnRoutineStateChange_Name:
+            return "Receive reply ash::cros_healthd::mojom::RoutineObserver::OnRoutineStateChange";
+    }
+  }
   return "Receive unknown mojo message";
 #else
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
@@ -356,16 +992,105 @@ const char* RoutineObserver::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
+uint32_t RoutineObserver::OnRoutineStateChange_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::RoutineObserver::OnRoutineStateChange");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 RoutineObserverProxy::RoutineObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
+void RoutineObserverProxy::OnRoutineStateChange(
+    RoutineStatePtr in_state) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::RoutineObserver::OnRoutineStateChange", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("state"), in_state,
+                        "<value of type RoutineStatePtr>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kRoutineObserver_OnRoutineStateChange_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::RoutineObserver_OnRoutineStateChange_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->state)::BaseType> state_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineStateDataView>(
+      in_state, state_fragment);
+  params->state.Set(
+      state_fragment.is_null() ? nullptr : state_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->state.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null state in RoutineObserver.OnRoutineStateChange request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(RoutineObserver::Name_);
+  message.set_method_name("OnRoutineStateChange");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool RoutineObserverStubDispatch::Accept(
     RoutineObserver* impl,
     mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kRoutineObserver_OnRoutineStateChange_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::RoutineObserver_OnRoutineStateChange_Params_Data* params =
+          reinterpret_cast<internal::RoutineObserver_OnRoutineStateChange_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      RoutineStatePtr p_state{};
+      RoutineObserver_OnRoutineStateChange_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadState(&p_state))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            RoutineObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnRoutineStateChange(
+std::move(p_state));
+      return true;
+    }
+  }
   return false;
 }
 
@@ -374,14 +1099,26 @@ bool RoutineObserverStubDispatch::AcceptWithResponder(
     RoutineObserver* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kRoutineObserver_OnRoutineStateChange_Name: {
+      break;
+    }
+  }
   return false;
 }
 
 
+static const mojo::internal::GenericValidationInfo kRoutineObserverValidationInfo[] = {
+    {&internal::RoutineObserver_OnRoutineStateChange_Params_Data::Validate,
+     nullptr /* no response */},
+};
 
 bool RoutineObserverRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::ash::cros_healthd::mojom::RoutineObserver::Name_;
-  return mojo::internal::ValidateRequestGeneric(message, name, {});
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kRoutineObserverValidationInfo);
 }
 
 
@@ -392,6 +1129,78 @@ bool RoutineObserverRequestValidator::Accept(mojo::Message* message) {
 
 
 namespace mojo {
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineState::DataView input,
+    ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::RoutineStatePtr result(::ash::cros_healthd::mojom::RoutineState::New());
+  
+      if (success)
+        result->percentage = input.percentage();
+      if (success && !input.ReadStateUnion(&result->state_union))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::RoutineStateInitialized::DataView, ::ash::cros_healthd::mojom::RoutineStateInitializedPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineStateInitialized::DataView input,
+    ::ash::cros_healthd::mojom::RoutineStateInitializedPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::RoutineStateInitializedPtr result(::ash::cros_healthd::mojom::RoutineStateInitialized::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::RoutineStateRunning::DataView, ::ash::cros_healthd::mojom::RoutineStateRunningPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineStateRunning::DataView input,
+    ::ash::cros_healthd::mojom::RoutineStateRunningPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::RoutineStateRunningPtr result(::ash::cros_healthd::mojom::RoutineStateRunning::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::RoutineStateWaiting::DataView, ::ash::cros_healthd::mojom::RoutineStateWaitingPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineStateWaiting::DataView input,
+    ::ash::cros_healthd::mojom::RoutineStateWaitingPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::RoutineStateWaitingPtr result(::ash::cros_healthd::mojom::RoutineStateWaiting::New());
+  
+      if (success && !input.ReadReason(&result->reason))
+        success = false;
+      if (success && !input.ReadMessage(&result->message))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::RoutineStateFinished::DataView, ::ash::cros_healthd::mojom::RoutineStateFinishedPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineStateFinished::DataView input,
+    ::ash::cros_healthd::mojom::RoutineStateFinishedPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::RoutineStateFinishedPtr result(::ash::cros_healthd::mojom::RoutineStateFinished::New());
+  
+      if (success)
+        result->has_passed = input.has_passed();
+      if (success && !input.ReadDetail(&result->detail))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
 
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::cros_healthd::mojom::RoutineArgumentPtr>::Read(
@@ -409,6 +1218,80 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewUnrecognizedArgument({});
       return true;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::RoutineStateUnion::DataView, ::ash::cros_healthd::mojom::RoutineStateUnionPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineStateUnion::DataView input,
+    ::ash::cros_healthd::mojom::RoutineStateUnionPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::RoutineStateUnion;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnrecognizedArgument: {
+      *output = UnionType::NewUnrecognizedArgument(input.unrecognizedArgument());
+      break;
+    }
+    case Tag::kInitialized: {
+      ::ash::cros_healthd::mojom::RoutineStateInitializedPtr result_initialized;
+      if (!input.ReadInitialized(&result_initialized))
+        return false;
+
+      *output = UnionType::NewInitialized(
+          std::move(result_initialized));
+      break;
+    }
+    case Tag::kRunning: {
+      ::ash::cros_healthd::mojom::RoutineStateRunningPtr result_running;
+      if (!input.ReadRunning(&result_running))
+        return false;
+
+      *output = UnionType::NewRunning(
+          std::move(result_running));
+      break;
+    }
+    case Tag::kWaiting: {
+      ::ash::cros_healthd::mojom::RoutineStateWaitingPtr result_waiting;
+      if (!input.ReadWaiting(&result_waiting))
+        return false;
+
+      *output = UnionType::NewWaiting(
+          std::move(result_waiting));
+      break;
+    }
+    case Tag::kFinished: {
+      ::ash::cros_healthd::mojom::RoutineStateFinishedPtr result_finished;
+      if (!input.ReadFinished(&result_finished))
+        return false;
+
+      *output = UnionType::NewFinished(
+          std::move(result_finished));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cros_healthd::mojom::RoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::RoutineDetailPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::RoutineDetail;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnrecognizedArgument: {
+      *output = UnionType::NewUnrecognizedArgument(input.unrecognizedArgument());
+      break;
+    }
+    default:
+
+      return false;
   }
   return true;
 }
@@ -436,14 +1319,46 @@ CrosHealthdRoutinesServiceAsyncWaiter::~CrosHealthdRoutinesServiceAsyncWaiter() 
 
 
 
+void RoutineControlInterceptorForTesting::GetState(GetStateCallback callback) {
+  GetForwardingInterface()->GetState(std::move(callback));
+}
+void RoutineControlInterceptorForTesting::Start() {
+  GetForwardingInterface()->Start();
+}
 RoutineControlAsyncWaiter::RoutineControlAsyncWaiter(
     RoutineControl* proxy) : proxy_(proxy) {}
 
 RoutineControlAsyncWaiter::~RoutineControlAsyncWaiter() = default;
 
+void RoutineControlAsyncWaiter::GetState(
+    RoutineStatePtr* out_state) {
+  base::RunLoop loop;
+  proxy_->GetState(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             RoutineStatePtr* out_state
+,
+             RoutineStatePtr state) {*out_state = std::move(state);
+            loop->Quit();
+          },
+          &loop,
+          out_state));
+  loop.Run();
+}
+
+RoutineStatePtr RoutineControlAsyncWaiter::GetState(
+    ) {
+  RoutineStatePtr async_wait_result;
+  GetState(&async_wait_result);
+  return async_wait_result;
+}
 
 
 
+
+void RoutineObserverInterceptorForTesting::OnRoutineStateChange(RoutineStatePtr state) {
+  GetForwardingInterface()->OnRoutineStateChange(std::move(state));
+}
 RoutineObserverAsyncWaiter::RoutineObserverAsyncWaiter(
     RoutineObserver* proxy) : proxy_(proxy) {}
 

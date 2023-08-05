@@ -533,6 +533,95 @@ struct UsbEventInfo {
 
 };
 
+// An enumeration of display input type.
+enum class DisplayInputType {
+  kNone = 0,
+  kUnknown,
+  kDigital,
+  kAnalog,
+  kMaxValue = kAnalog,
+};
+
+
+const char* ToString(DisplayInputType as_enum);
+DisplayInputType ParseDisplayInputType(base::StringPiece as_string);
+
+struct ExternalDisplayInfo {
+  ExternalDisplayInfo();
+  ~ExternalDisplayInfo();
+  ExternalDisplayInfo(const ExternalDisplayInfo&) = delete;
+  ExternalDisplayInfo& operator=(const ExternalDisplayInfo&) = delete;
+  ExternalDisplayInfo(ExternalDisplayInfo&& rhs);
+  ExternalDisplayInfo& operator=(ExternalDisplayInfo&& rhs);
+
+  // Populates a ExternalDisplayInfo object from a base::Value& instance.
+  // Returns whether |out| was successfully populated.
+  static bool Populate(const base::Value& value, ExternalDisplayInfo& out);
+
+  // Populates a ExternalDisplayInfo object from a Dict& instance. Returns
+  // whether |out| was successfully populated.
+  static bool Populate(const base::Value::Dict& value, ExternalDisplayInfo& out);
+
+  // Creates a deep copy of ExternalDisplayInfo.
+  ExternalDisplayInfo Clone() const;
+
+  // Creates a ExternalDisplayInfo object from a base::Value, or NULL on
+  // failure.
+  static std::unique_ptr<ExternalDisplayInfo> FromValueDeprecated(const base::Value& value);
+
+  // Creates a ExternalDisplayInfo object from a base::Value::Dict, or nullopt
+  // on failure.
+  static absl::optional<ExternalDisplayInfo> FromValue(const base::Value::Dict& value);
+
+  // Creates a ExternalDisplayInfo object from a base::Value, or nullopt on
+  // failure.
+  static absl::optional<ExternalDisplayInfo> FromValue(const base::Value& value);
+
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisExternalDisplayInfo object.
+  base::Value::Dict ToValue() const;
+
+  // Display width in millimeters.
+  absl::optional<int> display_width;
+
+  // Display height in millimeters.
+  absl::optional<int> display_height;
+
+  // Horizontal resolution.
+  absl::optional<int> resolution_horizontal;
+
+  // Vertical resolution.
+  absl::optional<int> resolution_vertical;
+
+  // Refresh rate.
+  absl::optional<double> refresh_rate;
+
+  // Three letter manufacturer ID.
+  absl::optional<std::string> manufacturer;
+
+  // Manufacturer product code.
+  absl::optional<int> model_id;
+
+  // 32 bits serial number.
+  absl::optional<int> serial_number;
+
+  // Week of manufacture.
+  absl::optional<int> manufacture_week;
+
+  // Year of manufacture.
+  absl::optional<int> manufacture_year;
+
+  // EDID version.
+  absl::optional<std::string> edid_version;
+
+  // Digital or analog input.
+  DisplayInputType input_type;
+
+  // Name of display product.
+  absl::optional<std::string> display_name;
+
+};
+
 struct ExternalDisplayEventInfo {
   ExternalDisplayEventInfo();
   ~ExternalDisplayEventInfo();
@@ -569,6 +658,8 @@ struct ExternalDisplayEventInfo {
   base::Value::Dict ToValue() const;
 
   ExternalDisplayEvent event;
+
+  absl::optional<ExternalDisplayInfo> display_info;
 
 };
 

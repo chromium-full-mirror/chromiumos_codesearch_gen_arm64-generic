@@ -110,6 +110,7 @@ CORE_EXPORT extern const char DestinationReportingLimitReached[];
 CORE_EXPORT extern const char DestinationGlobalLimitReached[];
 CORE_EXPORT extern const char DestinationBothLimitsReached[];
 CORE_EXPORT extern const char ReportingOriginsPerSiteLimitReached[];
+CORE_EXPORT extern const char ExceedsMaxChannelCapacity[];
 } // namespace AttributionReportingSourceRegistrationResultEnum
 
 // ------------- Type and builder declarations.

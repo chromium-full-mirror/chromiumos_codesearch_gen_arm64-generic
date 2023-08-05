@@ -16,6 +16,9 @@ namespace internal {
 
 
 constexpr uint32_t kCrosHealthdRoutinesService_CreateRoutine_Name = 0;
+constexpr uint32_t kRoutineControl_GetState_Name = 0;
+constexpr uint32_t kRoutineControl_Start_Name = 1;
+constexpr uint32_t kRoutineObserver_OnRoutineStateChange_Name = 0;
 
 }  // namespace internal
 }  // namespace mojom

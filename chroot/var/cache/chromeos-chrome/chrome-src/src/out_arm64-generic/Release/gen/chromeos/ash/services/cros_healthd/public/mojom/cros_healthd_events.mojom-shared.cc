@@ -1214,8 +1214,12 @@ bool ExternalDisplayEventInfo_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 16 },
+    { 1, 24 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1228,12 +1232,17 @@ bool ExternalDisplayEventInfo_Data::Validate(
   if (!::ash::cros_healthd::mojom::internal::ExternalDisplayEventInfo_State_Data
         ::Validate(object->state, validation_context))
     return false;
+  if (object->header_.version < 1)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->display_info, validation_context))
+    return false;
 
   return true;
 }
 
 ExternalDisplayEventInfo_Data::ExternalDisplayEventInfo_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static

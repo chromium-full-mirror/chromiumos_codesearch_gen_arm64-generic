@@ -37,7 +37,19 @@
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+class RoutineStateDataView;
+
+class RoutineStateInitializedDataView;
+
+class RoutineStateRunningDataView;
+
+class RoutineStateWaitingDataView;
+
+class RoutineStateFinishedDataView;
+
 class RoutineArgumentDataView;
+class RoutineStateUnionDataView;
+class RoutineDetailDataView;
 
 
 }  // namespace mojom
@@ -48,8 +60,57 @@ namespace mojo {
 namespace internal {
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineState_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateInitializedDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineStateInitialized_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateRunningDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineStateRunning_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateWaitingDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineStateWaiting_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateFinishedDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineStateFinished_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::RoutineArgument_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateUnionDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineStateUnion_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineDetail_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -61,6 +122,31 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView> {
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
+
+enum class RoutineStateWaiting_Reason : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kWaitingToBeScheduled = 1,
+  
+  kWaitingUserInput = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, RoutineStateWaiting_Reason value);
+inline bool IsKnownEnumValue(RoutineStateWaiting_Reason value) {
+  return internal::RoutineStateWaiting_Reason_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline RoutineStateWaiting_Reason ToKnownEnumValue(RoutineStateWaiting_Reason value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return RoutineStateWaiting_Reason::kDefaultValue;
+}
 // Interface base classes. They are used for type safety check.
 class CrosHealthdRoutinesServiceInterfaceBase {};
 
@@ -94,6 +180,140 @@ using RoutineObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<RoutineObserverInterfaceBase>;
 
 
+class RoutineStateDataView {
+ public:
+  RoutineStateDataView() = default;
+
+  RoutineStateDataView(
+      internal::RoutineState_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint8_t percentage() const {
+    return data_->percentage;
+  }
+  inline void GetStateUnionDataView(
+      RoutineStateUnionDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStateUnion(UserType* output) {
+    
+    auto* pointer = !data_->state_union.is_null() ? &data_->state_union : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineStateUnionDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RoutineState_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class RoutineStateInitializedDataView {
+ public:
+  RoutineStateInitializedDataView() = default;
+
+  RoutineStateInitializedDataView(
+      internal::RoutineStateInitialized_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::RoutineStateInitialized_Data* data_ = nullptr;
+};
+
+
+class RoutineStateRunningDataView {
+ public:
+  RoutineStateRunningDataView() = default;
+
+  RoutineStateRunningDataView(
+      internal::RoutineStateRunning_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::RoutineStateRunning_Data* data_ = nullptr;
+};
+
+
+class RoutineStateWaitingDataView {
+ public:
+  RoutineStateWaitingDataView() = default;
+
+  RoutineStateWaitingDataView(
+      internal::RoutineStateWaiting_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadReason(UserType* output) const {
+    auto data_value = data_->reason;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>(
+        data_value, output);
+  }
+  RoutineStateWaiting_Reason reason() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>(data_->reason));
+  }
+  inline void GetMessageDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMessage(UserType* output) {
+    
+    auto* pointer = data_->message.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RoutineStateWaiting_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class RoutineStateFinishedDataView {
+ public:
+  RoutineStateFinishedDataView() = default;
+
+  RoutineStateFinishedDataView(
+      internal::RoutineStateFinished_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  bool has_passed() const {
+    return data_->has_passed;
+  }
+  inline void GetDetailDataView(
+      RoutineDetailDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDetail(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::RoutineDetailDataView, UserType>(),
+    "Attempting to read the optional `detail` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadDetail` instead "
+    "of `ReadDetail if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = !data_->detail.is_null() ? &data_->detail : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineDetailDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RoutineStateFinished_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class RoutineArgumentDataView {
  public:
   using Tag = internal::RoutineArgument_Data::RoutineArgument_Tag;
@@ -124,15 +344,321 @@ class RoutineArgumentDataView {
 
 
 
+class RoutineStateUnionDataView {
+ public:
+  using Tag = internal::RoutineStateUnion_Data::RoutineStateUnion_Tag;
+
+  RoutineStateUnionDataView() = default;
+
+  RoutineStateUnionDataView(
+      internal::RoutineStateUnion_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_unrecognizedArgument() const { return data_->tag == Tag::kUnrecognizedArgument; }
+  bool unrecognizedArgument() const {
+    CHECK(is_unrecognizedArgument());
+    return data_->data.f_unrecognizedArgument;
+  }
+  bool is_initialized() const { return data_->tag == Tag::kInitialized; }
+  inline void GetInitializedDataView(
+      RoutineStateInitializedDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInitialized(UserType* output) const {
+    
+    CHECK(is_initialized());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineStateInitializedDataView>(
+        data_->data.f_initialized.Get(), output, message_);
+  }
+  bool is_running() const { return data_->tag == Tag::kRunning; }
+  inline void GetRunningDataView(
+      RoutineStateRunningDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRunning(UserType* output) const {
+    
+    CHECK(is_running());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineStateRunningDataView>(
+        data_->data.f_running.Get(), output, message_);
+  }
+  bool is_waiting() const { return data_->tag == Tag::kWaiting; }
+  inline void GetWaitingDataView(
+      RoutineStateWaitingDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadWaiting(UserType* output) const {
+    
+    CHECK(is_waiting());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineStateWaitingDataView>(
+        data_->data.f_waiting.Get(), output, message_);
+  }
+  bool is_finished() const { return data_->tag == Tag::kFinished; }
+  inline void GetFinishedDataView(
+      RoutineStateFinishedDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFinished(UserType* output) const {
+    
+    CHECK(is_finished());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineStateFinishedDataView>(
+        data_->data.f_finished.Get(), output, message_);
+  }
+
+ private:
+  internal::RoutineStateUnion_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class RoutineDetailDataView {
+ public:
+  using Tag = internal::RoutineDetail_Data::RoutineDetail_Tag;
+
+  RoutineDetailDataView() = default;
+
+  RoutineDetailDataView(
+      internal::RoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_unrecognizedArgument() const { return data_->tag == Tag::kUnrecognizedArgument; }
+  bool unrecognizedArgument() const {
+    CHECK(is_unrecognizedArgument());
+    return data_->data.f_unrecognizedArgument;
+  }
+
+ private:
+  internal::RoutineDetail_Data* data_ = nullptr;
+};
+
+
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
 
 namespace std {
 
+template <>
+struct hash<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::RoutineStateDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::RoutineStateDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::RoutineState_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->percentage = Traits::percentage(input);
+    decltype(Traits::state_union(input)) in_state_union = Traits::state_union(input);
+    mojo::internal::MessageFragment<decltype(fragment->state_union)>
+        state_union_fragment(fragment.message());
+    state_union_fragment.Claim(&fragment->state_union);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineStateUnionDataView>(
+        in_state_union, state_union_fragment, true);
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->state_union.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null state_union in RoutineState struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineState_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::RoutineStateDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::RoutineStateInitializedDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::RoutineStateInitializedDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::RoutineStateInitialized_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineStateInitialized_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::RoutineStateInitializedDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::RoutineStateRunningDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::RoutineStateRunningDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::RoutineStateRunning_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineStateRunning_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::RoutineStateRunningDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::RoutineStateWaitingDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::RoutineStateWaitingDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::RoutineStateWaiting_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>(
+        Traits::reason(input), &fragment->reason);
+    decltype(Traits::message(input)) in_message = Traits::message(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->message)::BaseType> message_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_message, message_fragment);
+    fragment->message.Set(
+        message_fragment.is_null() ? nullptr : message_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->message.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null message in RoutineStateWaiting struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineStateWaiting_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::RoutineStateWaitingDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::RoutineStateFinishedDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::RoutineStateFinishedDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::RoutineStateFinished_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->has_passed = Traits::has_passed(input);
+    decltype(Traits::detail(input)) in_detail = Traits::detail(input);
+    mojo::internal::MessageFragment<decltype(fragment->detail)>
+        detail_fragment(fragment.message());
+    detail_fragment.Claim(&fragment->detail);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineDetailDataView>(
+        in_detail, detail_fragment, true);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineStateFinished_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::RoutineStateFinishedDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -181,12 +707,217 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::RoutineStateUnionDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::RoutineStateUnionDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::RoutineStateUnion_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::RoutineStateUnionDataView::Tag::kUnrecognizedArgument: {
+        decltype(Traits::unrecognizedArgument(input))
+            in_unrecognizedArgument = Traits::unrecognizedArgument(input);
+        fragment->data.f_unrecognizedArgument = in_unrecognizedArgument;
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineStateUnionDataView::Tag::kInitialized: {
+        decltype(Traits::initialized(input))
+            in_initialized = Traits::initialized(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_initialized)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineStateInitializedDataView>(
+            in_initialized, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null initialized in RoutineStateUnion union");
+        fragment->data.f_initialized.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineStateUnionDataView::Tag::kRunning: {
+        decltype(Traits::running(input))
+            in_running = Traits::running(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_running)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineStateRunningDataView>(
+            in_running, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null running in RoutineStateUnion union");
+        fragment->data.f_running.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineStateUnionDataView::Tag::kWaiting: {
+        decltype(Traits::waiting(input))
+            in_waiting = Traits::waiting(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_waiting)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineStateWaitingDataView>(
+            in_waiting, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null waiting in RoutineStateUnion union");
+        fragment->data.f_waiting.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineStateUnionDataView::Tag::kFinished: {
+        decltype(Traits::finished(input))
+            in_finished = Traits::finished(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_finished)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineStateFinishedDataView>(
+            in_finished, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null finished in RoutineStateUnion union");
+        fragment->data.f_finished.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineStateUnion_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::RoutineStateUnionDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::RoutineDetailDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::RoutineDetail_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kUnrecognizedArgument: {
+        decltype(Traits::unrecognizedArgument(input))
+            in_unrecognizedArgument = Traits::unrecognizedArgument(input);
+        fragment->data.f_unrecognizedArgument = in_unrecognizedArgument;
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::RoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
+inline void RoutineStateDataView::GetStateUnionDataView(
+    RoutineStateUnionDataView* output) {
+  auto pointer = &data_->state_union;
+  *output = RoutineStateUnionDataView(pointer, message_);
+}
+
+
+
+
+
+
+inline void RoutineStateWaitingDataView::GetMessageDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->message.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void RoutineStateFinishedDataView::GetDetailDataView(
+    RoutineDetailDataView* output) {
+  auto pointer = &data_->detail;
+  *output = RoutineDetailDataView(pointer, message_);
+}
+
+
+
+inline void RoutineStateUnionDataView::GetInitializedDataView(
+    RoutineStateInitializedDataView* output) const {
+  CHECK(is_initialized());
+  *output = RoutineStateInitializedDataView(data_->data.f_initialized.Get(), message_);
+}
+inline void RoutineStateUnionDataView::GetRunningDataView(
+    RoutineStateRunningDataView* output) const {
+  CHECK(is_running());
+  *output = RoutineStateRunningDataView(data_->data.f_running.Get(), message_);
+}
+inline void RoutineStateUnionDataView::GetWaitingDataView(
+    RoutineStateWaitingDataView* output) const {
+  CHECK(is_waiting());
+  *output = RoutineStateWaitingDataView(data_->data.f_waiting.Get(), message_);
+}
+inline void RoutineStateUnionDataView::GetFinishedDataView(
+    RoutineStateFinishedDataView* output) const {
+  CHECK(is_finished());
+  *output = RoutineStateFinishedDataView(data_->data.f_finished.Get(), message_);
+}
 
 
 
@@ -196,5 +927,14 @@ namespace mojom {
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::RoutineStateWaiting_Reason value);
+};
+
+} // namespace perfetto
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_ROUTINES_MOJOM_SHARED_H_

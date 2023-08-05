@@ -35,6 +35,8 @@ class  CrosHealthdRoutinesServiceAsyncWaiter {
 
 class  RoutineControlInterceptorForTesting : public RoutineControl {
   virtual RoutineControl* GetForwardingInterface() = 0;
+  void GetState(GetStateCallback callback) override;
+  void Start() override;
 };
 class  RoutineControlAsyncWaiter {
  public:
@@ -44,6 +46,9 @@ class  RoutineControlAsyncWaiter {
   RoutineControlAsyncWaiter& operator=(const RoutineControlAsyncWaiter&) = delete;
 
   ~RoutineControlAsyncWaiter();
+  void GetState(
+      RoutineStatePtr* out_state);
+  RoutineStatePtr GetState();
 
  private:
   RoutineControl* const proxy_;
@@ -52,6 +57,7 @@ class  RoutineControlAsyncWaiter {
 
 class  RoutineObserverInterceptorForTesting : public RoutineObserver {
   virtual RoutineObserver* GetForwardingInterface() = 0;
+  void OnRoutineStateChange(RoutineStatePtr state) override;
 };
 class  RoutineObserverAsyncWaiter {
  public:

@@ -22,6 +22,32 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
+NOINLINE static const char* RoutineStateWaiting_ReasonToStringHelper(RoutineStateWaiting_Reason value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case RoutineStateWaiting_Reason::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case RoutineStateWaiting_Reason::kWaitingToBeScheduled:
+      return "kWaitingToBeScheduled";
+    case RoutineStateWaiting_Reason::kWaitingUserInput:
+      return "kWaitingUserInput";
+    default:
+      return nullptr;
+  }
+}
+
+std::string RoutineStateWaiting_ReasonToString(RoutineStateWaiting_Reason value) {
+  const char *str = RoutineStateWaiting_ReasonToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown RoutineStateWaiting_Reason value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, RoutineStateWaiting_Reason value) {
+  return os << RoutineStateWaiting_ReasonToString(value);
+}
+
 namespace internal {
 // static
 bool RoutineArgument_Data::Validate(
@@ -60,6 +86,269 @@ bool RoutineArgument_Data::Validate(
     }
   }
 }
+// static
+bool RoutineStateUnion_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const RoutineStateUnion_Data* object = static_cast<const RoutineStateUnion_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case RoutineStateUnion_Tag::kUnrecognizedArgument: {
+
+      return true;
+    }
+    case RoutineStateUnion_Tag::kInitialized: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_initialized, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_initialized, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineStateUnion_Tag::kRunning: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_running, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_running, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineStateUnion_Tag::kWaiting: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_waiting, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_waiting, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineStateUnion_Tag::kFinished: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_finished, 5, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_finished, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in RoutineStateUnion");
+      return false;
+    }
+  }
+}
+// static
+bool RoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const RoutineDetail_Data* object = static_cast<const RoutineDetail_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case RoutineDetail_Tag::kUnrecognizedArgument: {
+
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in RoutineDetail");
+      return false;
+    }
+  }
+}
+
+
+// static
+bool RoutineState_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RoutineState_Data* object =
+      static_cast<const RoutineState_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->state_union, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->state_union, validation_context))
+    return false;
+
+  return true;
+}
+
+RoutineState_Data::RoutineState_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RoutineStateInitialized_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RoutineStateInitialized_Data* object =
+      static_cast<const RoutineStateInitialized_Data*>(data);
+
+  return true;
+}
+
+RoutineStateInitialized_Data::RoutineStateInitialized_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RoutineStateRunning_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RoutineStateRunning_Data* object =
+      static_cast<const RoutineStateRunning_Data*>(data);
+
+  return true;
+}
+
+RoutineStateRunning_Data::RoutineStateRunning_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RoutineStateWaiting_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RoutineStateWaiting_Data* object =
+      static_cast<const RoutineStateWaiting_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::RoutineStateWaiting_Reason_Data
+        ::Validate(object->reason, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->message, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->message, validation_context,
+                                         &message_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+RoutineStateWaiting_Data::RoutineStateWaiting_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RoutineStateFinished_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RoutineStateFinished_Data* object =
+      static_cast<const RoutineStateFinished_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnion(object->detail, validation_context))
+    return false;
+
+  return true;
+}
+
+RoutineStateFinished_Data::RoutineStateFinished_Data()
+    : header_({sizeof(*this), 0}) {}
 
 
 // static
@@ -105,7 +394,123 @@ bool CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate(
 CrosHealthdRoutinesService_CreateRoutine_Params_Data::CrosHealthdRoutinesService_CreateRoutine_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool RoutineControl_GetState_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RoutineControl_GetState_Params_Data* object =
+      static_cast<const RoutineControl_GetState_Params_Data*>(data);
+
+  return true;
+}
+
+RoutineControl_GetState_Params_Data::RoutineControl_GetState_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RoutineControl_GetState_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RoutineControl_GetState_ResponseParams_Data* object =
+      static_cast<const RoutineControl_GetState_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->state, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+RoutineControl_GetState_ResponseParams_Data::RoutineControl_GetState_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RoutineControl_Start_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RoutineControl_Start_Params_Data* object =
+      static_cast<const RoutineControl_Start_Params_Data*>(data);
+
+  return true;
+}
+
+RoutineControl_Start_Params_Data::RoutineControl_Start_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool RoutineObserver_OnRoutineStateChange_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RoutineObserver_OnRoutineStateChange_Params_Data* object =
+      static_cast<const RoutineObserver_OnRoutineStateChange_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->state, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+RoutineObserver_OnRoutineStateChange_Params_Data::RoutineObserver_OnRoutineStateChange_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::RoutineStateWaiting_Reason value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::RoutineStateWaiting_ReasonToString(value));
+}
+
+} // namespace perfetto

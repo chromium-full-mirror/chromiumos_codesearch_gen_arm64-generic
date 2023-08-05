@@ -135,7 +135,7 @@ class TouchpadConnectedEvent;
 using TouchpadConnectedEventPtr = mojo::StructPtr<TouchpadConnectedEvent>;
 
 class ExternalDisplayEventInfo;
-using ExternalDisplayEventInfoPtr = mojo::InlinedStructPtr<ExternalDisplayEventInfo>;
+using ExternalDisplayEventInfoPtr = mojo::StructPtr<ExternalDisplayEventInfo>;
 
 class TouchscreenTouchEvent;
 using TouchscreenTouchEventPtr = mojo::StructPtr<TouchscreenTouchEvent>;

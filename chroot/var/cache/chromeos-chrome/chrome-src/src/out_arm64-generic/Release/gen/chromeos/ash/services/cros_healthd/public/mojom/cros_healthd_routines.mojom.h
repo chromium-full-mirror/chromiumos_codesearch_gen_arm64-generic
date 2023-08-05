@@ -93,6 +93,7 @@ template <typename ImplRefTraits>
 class RoutineControlStub;
 
 class RoutineControlRequestValidator;
+class RoutineControlResponseValidator;
 
 
 class RoutineControl
@@ -103,7 +104,7 @@ class RoutineControl
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -114,15 +115,31 @@ class RoutineControl
   using Stub_ = RoutineControlStub<ImplRefTraits>;
 
   using RequestValidator_ = RoutineControlRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = RoutineControlResponseValidator;
   enum MethodMinVersions : uint32_t {
+    kGetStateMinVersion = 1,
+    kStartMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct GetState_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Start_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~RoutineControl() = default;
+
+
+  using GetStateCallback = base::OnceCallback<void(RoutineStatePtr)>;
+  
+  virtual void GetState(GetStateCallback callback) = 0;
+
+  
+  virtual void Start() = 0;
 };
 
 class RoutineObserverProxy;
@@ -141,7 +158,7 @@ class RoutineObserver
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -154,13 +171,20 @@ class RoutineObserver
   using RequestValidator_ = RoutineObserverRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
+    kOnRoutineStateChangeMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct OnRoutineStateChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~RoutineObserver() = default;
+
+  
+  virtual void OnRoutineStateChange(RoutineStatePtr state) = 0;
 };
 
 
@@ -186,6 +210,10 @@ class  RoutineControlProxy
   using InterfaceType = RoutineControl;
 
   explicit RoutineControlProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void GetState(GetStateCallback callback) final;
+  
+  void Start() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -199,6 +227,8 @@ class  RoutineObserverProxy
   using InterfaceType = RoutineObserver;
 
   explicit RoutineObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnRoutineStateChange(RoutineStatePtr state) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -338,6 +368,429 @@ class  RoutineObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+class  RoutineControlResponseValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+
+
+
+
+
+
+class  RoutineStateInitialized {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<RoutineStateInitialized, T>::value>;
+  using DataView = RoutineStateInitializedDataView;
+  using Data_ = internal::RoutineStateInitialized_Data;
+
+  template <typename... Args>
+  static RoutineStateInitializedPtr New(Args&&... args) {
+    return RoutineStateInitializedPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static RoutineStateInitializedPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineStateInitializedPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineStateInitialized>::Convert(*this);
+  }
+
+
+  RoutineStateInitialized();
+
+
+  ~RoutineStateInitialized();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = RoutineStateInitializedPtr>
+  RoutineStateInitializedPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, RoutineStateInitialized::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, RoutineStateInitialized::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RoutineStateInitialized::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        RoutineStateInitialized::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineStateInitialized::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::RoutineStateInitialized_UnserializedMessageContext<
+            UserType, RoutineStateInitialized::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<RoutineStateInitialized::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return RoutineStateInitialized::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::RoutineStateInitialized_UnserializedMessageContext<
+            UserType, RoutineStateInitialized::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<RoutineStateInitialized::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, RoutineStateInitialized::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, RoutineStateInitialized::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, RoutineStateInitialized::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, RoutineStateInitialized::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  RoutineStateRunning {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<RoutineStateRunning, T>::value>;
+  using DataView = RoutineStateRunningDataView;
+  using Data_ = internal::RoutineStateRunning_Data;
+
+  template <typename... Args>
+  static RoutineStateRunningPtr New(Args&&... args) {
+    return RoutineStateRunningPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static RoutineStateRunningPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineStateRunningPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineStateRunning>::Convert(*this);
+  }
+
+
+  RoutineStateRunning();
+
+
+  ~RoutineStateRunning();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = RoutineStateRunningPtr>
+  RoutineStateRunningPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        RoutineStateRunning::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineStateRunning::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::RoutineStateRunning_UnserializedMessageContext<
+            UserType, RoutineStateRunning::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<RoutineStateRunning::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return RoutineStateRunning::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::RoutineStateRunning_UnserializedMessageContext<
+            UserType, RoutineStateRunning::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<RoutineStateRunning::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, RoutineStateRunning::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  RoutineStateWaiting {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<RoutineStateWaiting, T>::value>;
+  using DataView = RoutineStateWaitingDataView;
+  using Data_ = internal::RoutineStateWaiting_Data;
+  using Reason = RoutineStateWaiting_Reason;
+
+  template <typename... Args>
+  static RoutineStateWaitingPtr New(Args&&... args) {
+    return RoutineStateWaitingPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static RoutineStateWaitingPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineStateWaitingPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineStateWaiting>::Convert(*this);
+  }
+
+
+  RoutineStateWaiting();
+
+  RoutineStateWaiting(
+      RoutineStateWaiting::Reason reason,
+      const std::string& message);
+
+
+  ~RoutineStateWaiting();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = RoutineStateWaitingPtr>
+  RoutineStateWaitingPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        RoutineStateWaiting::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineStateWaiting::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::RoutineStateWaiting_UnserializedMessageContext<
+            UserType, RoutineStateWaiting::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<RoutineStateWaiting::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return RoutineStateWaiting::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::RoutineStateWaiting_UnserializedMessageContext<
+            UserType, RoutineStateWaiting::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<RoutineStateWaiting::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  RoutineStateWaiting::Reason reason;
+  
+  std::string message;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, RoutineStateWaiting::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 
 
 
@@ -447,6 +900,598 @@ class  RoutineArgument {
   Union_ data_;
 };
 
+
+
+class  RoutineStateUnion {
+ public:
+  using DataView = RoutineStateUnionDataView;
+  using Data_ = internal::RoutineStateUnion_Data;
+  using Tag = Data_::RoutineStateUnion_Tag;
+
+  template <typename... Args>
+  static RoutineStateUnionPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |unrecognizedArgument|.
+  static RoutineStateUnionPtr
+  NewUnrecognizedArgument(
+      bool unrecognizedArgument) {
+    auto result = RoutineStateUnionPtr(absl::in_place);
+    result->set_unrecognizedArgument(std::move(unrecognizedArgument));
+    return result;
+  }
+  // Construct an instance holding |initialized|.
+  static RoutineStateUnionPtr
+  NewInitialized(
+      RoutineStateInitializedPtr initialized) {
+    auto result = RoutineStateUnionPtr(absl::in_place);
+    result->set_initialized(std::move(initialized));
+    return result;
+  }
+  // Construct an instance holding |running|.
+  static RoutineStateUnionPtr
+  NewRunning(
+      RoutineStateRunningPtr running) {
+    auto result = RoutineStateUnionPtr(absl::in_place);
+    result->set_running(std::move(running));
+    return result;
+  }
+  // Construct an instance holding |waiting|.
+  static RoutineStateUnionPtr
+  NewWaiting(
+      RoutineStateWaitingPtr waiting) {
+    auto result = RoutineStateUnionPtr(absl::in_place);
+    result->set_waiting(std::move(waiting));
+    return result;
+  }
+  // Construct an instance holding |finished|.
+  static RoutineStateUnionPtr
+  NewFinished(
+      RoutineStateFinishedPtr finished) {
+    auto result = RoutineStateUnionPtr(absl::in_place);
+    result->set_finished(std::move(finished));
+    return result;
+  }
+
+  template <typename U>
+  static RoutineStateUnionPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineStateUnionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineStateUnion>::Convert(*this);
+  }
+
+  RoutineStateUnion();
+  ~RoutineStateUnion();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  RoutineStateUnion(const RoutineStateUnion& other) = delete;
+  RoutineStateUnion& operator=(const RoutineStateUnion& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = RoutineStateUnionPtr>
+  RoutineStateUnionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineStateUnion>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineStateUnion>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_unrecognizedArgument() const { return tag_ == Tag::kUnrecognizedArgument; }
+
+  
+  bool get_unrecognizedArgument() const {
+    CHECK(tag_ == Tag::kUnrecognizedArgument);
+    return data_.unrecognizedArgument;
+  }
+
+  
+  void set_unrecognizedArgument(
+      bool unrecognizedArgument);
+  
+  bool is_initialized() const { return tag_ == Tag::kInitialized; }
+
+  
+  RoutineStateInitializedPtr& get_initialized() const {
+    CHECK(tag_ == Tag::kInitialized);
+    return *(data_.initialized);
+  }
+
+  
+  void set_initialized(
+      RoutineStateInitializedPtr initialized);
+  
+  bool is_running() const { return tag_ == Tag::kRunning; }
+
+  
+  RoutineStateRunningPtr& get_running() const {
+    CHECK(tag_ == Tag::kRunning);
+    return *(data_.running);
+  }
+
+  
+  void set_running(
+      RoutineStateRunningPtr running);
+  
+  bool is_waiting() const { return tag_ == Tag::kWaiting; }
+
+  
+  RoutineStateWaitingPtr& get_waiting() const {
+    CHECK(tag_ == Tag::kWaiting);
+    return *(data_.waiting);
+  }
+
+  
+  void set_waiting(
+      RoutineStateWaitingPtr waiting);
+  
+  bool is_finished() const { return tag_ == Tag::kFinished; }
+
+  
+  RoutineStateFinishedPtr& get_finished() const {
+    CHECK(tag_ == Tag::kFinished);
+    return *(data_.finished);
+  }
+
+  
+  void set_finished(
+      RoutineStateFinishedPtr finished);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineStateUnion::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<RoutineStateUnion::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    bool unrecognizedArgument;
+    RoutineStateInitializedPtr* initialized;
+    RoutineStateRunningPtr* running;
+    RoutineStateWaitingPtr* waiting;
+    RoutineStateFinishedPtr* finished;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+class  RoutineDetail {
+ public:
+  using DataView = RoutineDetailDataView;
+  using Data_ = internal::RoutineDetail_Data;
+  using Tag = Data_::RoutineDetail_Tag;
+
+  template <typename... Args>
+  static RoutineDetailPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |unrecognizedArgument|.
+  static RoutineDetailPtr
+  NewUnrecognizedArgument(
+      bool unrecognizedArgument) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_unrecognizedArgument(std::move(unrecognizedArgument));
+    return result;
+  }
+
+  template <typename U>
+  static RoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineDetail>::Convert(*this);
+  }
+
+  RoutineDetail();
+  ~RoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = RoutineDetailPtr>
+  RoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineDetail>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, RoutineDetail>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_unrecognizedArgument() const { return tag_ == Tag::kUnrecognizedArgument; }
+
+  
+  bool get_unrecognizedArgument() const {
+    CHECK(tag_ == Tag::kUnrecognizedArgument);
+    return data_.unrecognizedArgument;
+  }
+
+  
+  void set_unrecognizedArgument(
+      bool unrecognizedArgument);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineDetail::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<RoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    bool unrecognizedArgument;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
+
+
+class  RoutineState {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<RoutineState, T>::value>;
+  using DataView = RoutineStateDataView;
+  using Data_ = internal::RoutineState_Data;
+
+  template <typename... Args>
+  static RoutineStatePtr New(Args&&... args) {
+    return RoutineStatePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static RoutineStatePtr From(const U& u) {
+    return mojo::TypeConverter<RoutineStatePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineState>::Convert(*this);
+  }
+
+
+  RoutineState();
+
+  RoutineState(
+      uint8_t percentage,
+      RoutineStateUnionPtr state_union);
+
+RoutineState(const RoutineState&) = delete;
+RoutineState& operator=(const RoutineState&) = delete;
+
+  ~RoutineState();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = RoutineStatePtr>
+  RoutineStatePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, RoutineState::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, RoutineState::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RoutineState::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        RoutineState::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineState::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::RoutineState_UnserializedMessageContext<
+            UserType, RoutineState::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<RoutineState::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return RoutineState::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::RoutineState_UnserializedMessageContext<
+            UserType, RoutineState::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<RoutineState::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint8_t percentage;
+  
+  RoutineStateUnionPtr state_union;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, RoutineState::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, RoutineState::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, RoutineState::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, RoutineState::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+
+class  RoutineStateFinished {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<RoutineStateFinished, T>::value>;
+  using DataView = RoutineStateFinishedDataView;
+  using Data_ = internal::RoutineStateFinished_Data;
+
+  template <typename... Args>
+  static RoutineStateFinishedPtr New(Args&&... args) {
+    return RoutineStateFinishedPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static RoutineStateFinishedPtr From(const U& u) {
+    return mojo::TypeConverter<RoutineStateFinishedPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, RoutineStateFinished>::Convert(*this);
+  }
+
+
+  RoutineStateFinished();
+
+  RoutineStateFinished(
+      bool has_passed,
+      RoutineDetailPtr detail);
+
+RoutineStateFinished(const RoutineStateFinished&) = delete;
+RoutineStateFinished& operator=(const RoutineStateFinished&) = delete;
+
+  ~RoutineStateFinished();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = RoutineStateFinishedPtr>
+  RoutineStateFinishedPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, RoutineStateFinished::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, RoutineStateFinished::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, RoutineStateFinished::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        RoutineStateFinished::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        RoutineStateFinished::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::RoutineStateFinished_UnserializedMessageContext<
+            UserType, RoutineStateFinished::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<RoutineStateFinished::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return RoutineStateFinished::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::RoutineStateFinished_UnserializedMessageContext<
+            UserType, RoutineStateFinished::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<RoutineStateFinished::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool has_passed;
+  
+  RoutineDetailPtr detail;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, RoutineStateFinished::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, RoutineStateFinished::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, RoutineStateFinished::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, RoutineStateFinished::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename UnionPtrType>
 RoutineArgumentPtr RoutineArgument::Clone() const {
   switch (tag_) {
@@ -471,6 +1516,191 @@ bool RoutineArgument::Equals(const T& other) const {
 
   return false;
 }
+template <typename UnionPtrType>
+RoutineStateUnionPtr RoutineStateUnion::Clone() const {
+  switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return NewUnrecognizedArgument(
+          mojo::Clone(data_.unrecognizedArgument));
+    case Tag::kInitialized:
+      return NewInitialized(
+          mojo::Clone(*data_.initialized));
+    case Tag::kRunning:
+      return NewRunning(
+          mojo::Clone(*data_.running));
+    case Tag::kWaiting:
+      return NewWaiting(
+          mojo::Clone(*data_.waiting));
+    case Tag::kFinished:
+      return NewFinished(
+          mojo::Clone(*data_.finished));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, RoutineStateUnion>::value>::type*>
+bool RoutineStateUnion::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
+    case Tag::kInitialized:
+      return mojo::Equals(*(data_.initialized), *(other.data_.initialized));
+    case Tag::kRunning:
+      return mojo::Equals(*(data_.running), *(other.data_.running));
+    case Tag::kWaiting:
+      return mojo::Equals(*(data_.waiting), *(other.data_.waiting));
+    case Tag::kFinished:
+      return mojo::Equals(*(data_.finished), *(other.data_.finished));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+RoutineDetailPtr RoutineDetail::Clone() const {
+  switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return NewUnrecognizedArgument(
+          mojo::Clone(data_.unrecognizedArgument));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, RoutineDetail>::value>::type*>
+bool RoutineDetail::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
+  }
+
+  return false;
+}
+template <typename StructPtrType>
+RoutineStatePtr RoutineState::Clone() const {
+  return New(
+      mojo::Clone(percentage),
+      mojo::Clone(state_union)
+  );
+}
+
+template <typename T, RoutineState::EnableIfSame<T>*>
+bool RoutineState::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->percentage, other_struct.percentage))
+    return false;
+  if (!mojo::Equals(this->state_union, other_struct.state_union))
+    return false;
+  return true;
+}
+
+template <typename T, RoutineState::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.percentage < rhs.percentage)
+    return true;
+  if (rhs.percentage < lhs.percentage)
+    return false;
+  if (lhs.state_union < rhs.state_union)
+    return true;
+  if (rhs.state_union < lhs.state_union)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+RoutineStateInitializedPtr RoutineStateInitialized::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, RoutineStateInitialized::EnableIfSame<T>*>
+bool RoutineStateInitialized::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, RoutineStateInitialized::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
+RoutineStateRunningPtr RoutineStateRunning::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, RoutineStateRunning::EnableIfSame<T>*>
+bool RoutineStateRunning::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, RoutineStateRunning::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
+RoutineStateWaitingPtr RoutineStateWaiting::Clone() const {
+  return New(
+      mojo::Clone(reason),
+      mojo::Clone(message)
+  );
+}
+
+template <typename T, RoutineStateWaiting::EnableIfSame<T>*>
+bool RoutineStateWaiting::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->reason, other_struct.reason))
+    return false;
+  if (!mojo::Equals(this->message, other_struct.message))
+    return false;
+  return true;
+}
+
+template <typename T, RoutineStateWaiting::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.reason < rhs.reason)
+    return true;
+  if (rhs.reason < lhs.reason)
+    return false;
+  if (lhs.message < rhs.message)
+    return true;
+  if (rhs.message < lhs.message)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+RoutineStateFinishedPtr RoutineStateFinished::Clone() const {
+  return New(
+      mojo::Clone(has_passed),
+      mojo::Clone(detail)
+  );
+}
+
+template <typename T, RoutineStateFinished::EnableIfSame<T>*>
+bool RoutineStateFinished::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->has_passed, other_struct.has_passed))
+    return false;
+  if (!mojo::Equals(this->detail, other_struct.detail))
+    return false;
+  return true;
+}
+
+template <typename T, RoutineStateFinished::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.has_passed < rhs.has_passed)
+    return true;
+  if (rhs.has_passed < lhs.has_passed)
+    return false;
+  if (lhs.detail < rhs.detail)
+    return true;
+  if (rhs.detail < lhs.detail)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -478,6 +1708,86 @@ bool RoutineArgument::Equals(const T& other) const {
 }  // namespace ash
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView,
+                                         ::ash::cros_healthd::mojom::RoutineStatePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineStatePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineStatePtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::RoutineState::percentage) percentage(
+      const ::ash::cros_healthd::mojom::RoutineStatePtr& input) {
+    return input->percentage;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::RoutineState::state_union)& state_union(
+      const ::ash::cros_healthd::mojom::RoutineStatePtr& input) {
+    return input->state_union;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineState::DataView input, ::ash::cros_healthd::mojom::RoutineStatePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::RoutineStateInitialized::DataView,
+                                         ::ash::cros_healthd::mojom::RoutineStateInitializedPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineStateInitializedPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineStateInitializedPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineStateInitialized::DataView input, ::ash::cros_healthd::mojom::RoutineStateInitializedPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::RoutineStateRunning::DataView,
+                                         ::ash::cros_healthd::mojom::RoutineStateRunningPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineStateRunningPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineStateRunningPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineStateRunning::DataView input, ::ash::cros_healthd::mojom::RoutineStateRunningPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::RoutineStateWaiting::DataView,
+                                         ::ash::cros_healthd::mojom::RoutineStateWaitingPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineStateWaitingPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineStateWaitingPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::RoutineStateWaiting::reason) reason(
+      const ::ash::cros_healthd::mojom::RoutineStateWaitingPtr& input) {
+    return input->reason;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::RoutineStateWaiting::message)& message(
+      const ::ash::cros_healthd::mojom::RoutineStateWaitingPtr& input) {
+    return input->message;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineStateWaiting::DataView input, ::ash::cros_healthd::mojom::RoutineStateWaitingPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::RoutineStateFinished::DataView,
+                                         ::ash::cros_healthd::mojom::RoutineStateFinishedPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineStateFinishedPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineStateFinishedPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::RoutineStateFinished::has_passed) has_passed(
+      const ::ash::cros_healthd::mojom::RoutineStateFinishedPtr& input) {
+    return input->has_passed;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::RoutineStateFinished::detail)& detail(
+      const ::ash::cros_healthd::mojom::RoutineStateFinishedPtr& input) {
+    return input->detail;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineStateFinished::DataView input, ::ash::cros_healthd::mojom::RoutineStateFinishedPtr* output);
+};
 
 
 template <>
@@ -495,6 +1805,58 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::RoutineStateUnion::DataView,
+                                        ::ash::cros_healthd::mojom::RoutineStateUnionPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineStateUnionPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineStateUnionPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::RoutineStateUnion::Tag GetTag(const ::ash::cros_healthd::mojom::RoutineStateUnionPtr& input) {
+    return input->which();
+  }
+
+  static  bool unrecognizedArgument(const ::ash::cros_healthd::mojom::RoutineStateUnionPtr& input) {
+    return input->get_unrecognizedArgument();
+  }
+
+  static const ::ash::cros_healthd::mojom::RoutineStateInitializedPtr& initialized(const ::ash::cros_healthd::mojom::RoutineStateUnionPtr& input) {
+    return input->get_initialized();
+  }
+
+  static const ::ash::cros_healthd::mojom::RoutineStateRunningPtr& running(const ::ash::cros_healthd::mojom::RoutineStateUnionPtr& input) {
+    return input->get_running();
+  }
+
+  static const ::ash::cros_healthd::mojom::RoutineStateWaitingPtr& waiting(const ::ash::cros_healthd::mojom::RoutineStateUnionPtr& input) {
+    return input->get_waiting();
+  }
+
+  static const ::ash::cros_healthd::mojom::RoutineStateFinishedPtr& finished(const ::ash::cros_healthd::mojom::RoutineStateUnionPtr& input) {
+    return input->get_finished();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineStateUnion::DataView input, ::ash::cros_healthd::mojom::RoutineStateUnionPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
+                                        ::ash::cros_healthd::mojom::RoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineDetailPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::RoutineDetail::Tag GetTag(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->which();
+  }
+
+  static  bool unrecognizedArgument(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_unrecognizedArgument();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);
 };
 
 }  // namespace mojo

@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "ash/system/diagnostics/mojom/input.mojom-shared-internal.h"
+#include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom-shared-internal.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
@@ -1296,7 +1297,8 @@ class  ExternalDisplayEventInfo_Data {
 
   mojo::internal::StructHeader header_;
   int32_t state;
-  uint8_t padfinal_[4];
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::ExternalDisplayInfo_Data> display_info;
 
  private:
   friend class mojo::internal::MessageFragment<ExternalDisplayEventInfo_Data>;
@@ -1304,7 +1306,7 @@ class  ExternalDisplayEventInfo_Data {
   ExternalDisplayEventInfo_Data();
   ~ExternalDisplayEventInfo_Data() = delete;
 };
-static_assert(sizeof(ExternalDisplayEventInfo_Data) == 16,
+static_assert(sizeof(ExternalDisplayEventInfo_Data) == 24,
               "Bad sizeof(ExternalDisplayEventInfo_Data)");
 // Used by ExternalDisplayEventInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -41,6 +41,68 @@ class  CrosHealthdRoutinesService_CreateRoutine_Params_Data {
 };
 static_assert(sizeof(CrosHealthdRoutinesService_CreateRoutine_Params_Data) == 40,
               "Bad sizeof(CrosHealthdRoutinesService_CreateRoutine_Params_Data)");
+class  RoutineControl_GetState_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<RoutineControl_GetState_Params_Data>;
+
+  RoutineControl_GetState_Params_Data();
+  ~RoutineControl_GetState_Params_Data() = delete;
+};
+static_assert(sizeof(RoutineControl_GetState_Params_Data) == 8,
+              "Bad sizeof(RoutineControl_GetState_Params_Data)");
+class  RoutineControl_GetState_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::RoutineState_Data> state;
+
+ private:
+  friend class mojo::internal::MessageFragment<RoutineControl_GetState_ResponseParams_Data>;
+
+  RoutineControl_GetState_ResponseParams_Data();
+  ~RoutineControl_GetState_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(RoutineControl_GetState_ResponseParams_Data) == 16,
+              "Bad sizeof(RoutineControl_GetState_ResponseParams_Data)");
+class  RoutineControl_Start_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<RoutineControl_Start_Params_Data>;
+
+  RoutineControl_Start_Params_Data();
+  ~RoutineControl_Start_Params_Data() = delete;
+};
+static_assert(sizeof(RoutineControl_Start_Params_Data) == 8,
+              "Bad sizeof(RoutineControl_Start_Params_Data)");
+class  RoutineObserver_OnRoutineStateChange_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::RoutineState_Data> state;
+
+ private:
+  friend class mojo::internal::MessageFragment<RoutineObserver_OnRoutineStateChange_Params_Data>;
+
+  RoutineObserver_OnRoutineStateChange_Params_Data();
+  ~RoutineObserver_OnRoutineStateChange_Params_Data() = delete;
+};
+static_assert(sizeof(RoutineObserver_OnRoutineStateChange_Params_Data) == 16,
+              "Bad sizeof(RoutineObserver_OnRoutineStateChange_Params_Data)");
 
 }  // namespace internal
 
@@ -88,10 +150,110 @@ class CrosHealthdRoutinesService_CreateRoutine_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class RoutineControl_GetState_ParamsDataView {
+ public:
+  RoutineControl_GetState_ParamsDataView() = default;
+
+  RoutineControl_GetState_ParamsDataView(
+      internal::RoutineControl_GetState_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::RoutineControl_GetState_Params_Data* data_ = nullptr;
+};
+
+
+class RoutineControl_GetState_ResponseParamsDataView {
+ public:
+  RoutineControl_GetState_ResponseParamsDataView() = default;
+
+  RoutineControl_GetState_ResponseParamsDataView(
+      internal::RoutineControl_GetState_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetStateDataView(
+      RoutineStateDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) {
+    
+    auto* pointer = data_->state.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineStateDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RoutineControl_GetState_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class RoutineControl_Start_ParamsDataView {
+ public:
+  RoutineControl_Start_ParamsDataView() = default;
+
+  RoutineControl_Start_ParamsDataView(
+      internal::RoutineControl_Start_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::RoutineControl_Start_Params_Data* data_ = nullptr;
+};
+
+
+class RoutineObserver_OnRoutineStateChange_ParamsDataView {
+ public:
+  RoutineObserver_OnRoutineStateChange_ParamsDataView() = default;
+
+  RoutineObserver_OnRoutineStateChange_ParamsDataView(
+      internal::RoutineObserver_OnRoutineStateChange_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetStateDataView(
+      RoutineStateDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) {
+    
+    auto* pointer = data_->state.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineStateDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::RoutineObserver_OnRoutineStateChange_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 inline void CrosHealthdRoutinesService_CreateRoutine_ParamsDataView::GetRoutineArgumentDataView(
     RoutineArgumentDataView* output) {
   auto pointer = &data_->routine_argument;
   *output = RoutineArgumentDataView(pointer, message_);
+}
+
+
+
+
+inline void RoutineControl_GetState_ResponseParamsDataView::GetStateDataView(
+    RoutineStateDataView* output) {
+  auto pointer = data_->state.Get();
+  *output = RoutineStateDataView(pointer, message_);
+}
+
+
+
+
+inline void RoutineObserver_OnRoutineStateChange_ParamsDataView::GetStateDataView(
+    RoutineStateDataView* output) {
+  auto pointer = data_->state.Get();
+  *output = RoutineStateDataView(pointer, message_);
 }
 
 }  // namespace mojom

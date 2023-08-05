@@ -615,17 +615,21 @@ bool TouchpadConnectedEvent::Validate(
   return Data_::Validate(data, validation_context);
 }
 ExternalDisplayEventInfo::ExternalDisplayEventInfo()
-    : state() {}
+    : state(),
+      display_info() {}
 
 ExternalDisplayEventInfo::ExternalDisplayEventInfo(
     ExternalDisplayEventInfo::State state_in)
-    : state(std::move(state_in)) {}
+    : state(std::move(state_in)),
+      display_info() {}
+
+ExternalDisplayEventInfo::ExternalDisplayEventInfo(
+    ExternalDisplayEventInfo::State state_in,
+    ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr display_info_in)
+    : state(std::move(state_in)),
+      display_info(std::move(display_info_in)) {}
 
 ExternalDisplayEventInfo::~ExternalDisplayEventInfo() = default;
-size_t ExternalDisplayEventInfo::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->state);
-  return seed;
-}
 
 void ExternalDisplayEventInfo::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -635,6 +639,15 @@ void ExternalDisplayEventInfo::WriteIntoTrace(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ExternalDisplayEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "display_info"), this->display_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4087,6 +4100,8 @@ bool StructTraits<::ash::cros_healthd::mojom::ExternalDisplayEventInfo::DataView
   ::ash::cros_healthd::mojom::ExternalDisplayEventInfoPtr result(::ash::cros_healthd::mojom::ExternalDisplayEventInfo::New());
   
       if (success && !input.ReadState(&result->state))
+        success = false;
+      if (success && !input.ReadDisplayInfo(&result->display_info))
         success = false;
   *output = std::move(result);
   return success;

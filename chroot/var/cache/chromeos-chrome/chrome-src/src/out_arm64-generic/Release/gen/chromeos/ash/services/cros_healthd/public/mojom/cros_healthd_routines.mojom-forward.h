@@ -7,13 +7,14 @@
 #ifndef CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_ROUTINES_MOJOM_FORWARD_H_
 #define CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_ROUTINES_MOJOM_FORWARD_H_
 
-
+#include <stdint.h>
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
+#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -23,10 +24,47 @@
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+class RoutineStateDataView;
+
+class RoutineStateInitializedDataView;
+
+class RoutineStateRunningDataView;
+
+class RoutineStateWaitingDataView;
+
+class RoutineStateFinishedDataView;
+
 class RoutineArgumentDataView;
+class RoutineStateUnionDataView;
+class RoutineDetailDataView;
+
+enum class RoutineStateWaiting_Reason : int32_t;
+class RoutineState;
+using RoutineStatePtr = mojo::StructPtr<RoutineState>;
+
+class RoutineStateInitialized;
+using RoutineStateInitializedPtr = mojo::InlinedStructPtr<RoutineStateInitialized>;
+
+class RoutineStateRunning;
+using RoutineStateRunningPtr = mojo::InlinedStructPtr<RoutineStateRunning>;
+
+class RoutineStateWaiting;
+using RoutineStateWaitingPtr = mojo::InlinedStructPtr<RoutineStateWaiting>;
+
+class RoutineStateFinished;
+using RoutineStateFinishedPtr = mojo::StructPtr<RoutineStateFinished>;
+
 class RoutineArgument;
 
 using RoutineArgumentPtr = mojo::InlinedStructPtr<RoutineArgument>;
+
+class RoutineStateUnion;
+
+using RoutineStateUnionPtr = mojo::StructPtr<RoutineStateUnion>;
+
+class RoutineDetail;
+
+using RoutineDetailPtr = mojo::InlinedStructPtr<RoutineDetail>;
 
 class CrosHealthdRoutinesService;
 

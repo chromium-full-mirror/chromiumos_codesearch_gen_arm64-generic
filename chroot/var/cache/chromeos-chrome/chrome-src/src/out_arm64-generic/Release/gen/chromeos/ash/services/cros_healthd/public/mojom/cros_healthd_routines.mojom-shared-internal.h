@@ -26,7 +26,39 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
+class RoutineState_Data;
+class RoutineStateInitialized_Data;
+class RoutineStateRunning_Data;
+class RoutineStateWaiting_Data;
+class RoutineStateFinished_Data;
 class RoutineArgument_Data;
+class RoutineStateUnion_Data;
+class RoutineDetail_Data;
+
+struct RoutineStateWaiting_Reason_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 #pragma pack(push, 1)
 
@@ -78,6 +110,360 @@ class  RoutineArgument_Data {
 };
 static_assert(sizeof(RoutineArgument_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(RoutineArgument_Data)");
+
+
+class  RoutineStateUnion_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  RoutineStateUnion_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~RoutineStateUnion_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<RoutineStateUnion_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class RoutineStateUnion_Tag : uint32_t {
+
+    
+    kUnrecognizedArgument,
+    
+    kInitialized,
+    
+    kRunning,
+    
+    kWaiting,
+    
+    kFinished,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_unrecognizedArgument : 1;
+    mojo::internal::Pointer<internal::RoutineStateInitialized_Data> f_initialized;
+    mojo::internal::Pointer<internal::RoutineStateRunning_Data> f_running;
+    mojo::internal::Pointer<internal::RoutineStateWaiting_Data> f_waiting;
+    mojo::internal::Pointer<internal::RoutineStateFinished_Data> f_finished;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  RoutineStateUnion_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(RoutineStateUnion_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(RoutineStateUnion_Data)");
+
+
+class  RoutineDetail_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  RoutineDetail_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~RoutineDetail_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<RoutineDetail_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class RoutineDetail_Tag : uint32_t {
+
+    
+    kUnrecognizedArgument,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_unrecognizedArgument : 1;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  RoutineDetail_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(RoutineDetail_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(RoutineDetail_Data)");
+class  RoutineState_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t percentage;
+  uint8_t pad0_[7];
+  internal::RoutineStateUnion_Data state_union;
+
+ private:
+  friend class mojo::internal::MessageFragment<RoutineState_Data>;
+
+  RoutineState_Data();
+  ~RoutineState_Data() = delete;
+};
+static_assert(sizeof(RoutineState_Data) == 32,
+              "Bad sizeof(RoutineState_Data)");
+// Used by RoutineState::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct RoutineState_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  RoutineState_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~RoutineState_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<RoutineState_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    RoutineState_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  RoutineStateInitialized_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<RoutineStateInitialized_Data>;
+
+  RoutineStateInitialized_Data();
+  ~RoutineStateInitialized_Data() = delete;
+};
+static_assert(sizeof(RoutineStateInitialized_Data) == 8,
+              "Bad sizeof(RoutineStateInitialized_Data)");
+// Used by RoutineStateInitialized::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct RoutineStateInitialized_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  RoutineStateInitialized_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~RoutineStateInitialized_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<RoutineStateInitialized_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    RoutineStateInitialized_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  RoutineStateRunning_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<RoutineStateRunning_Data>;
+
+  RoutineStateRunning_Data();
+  ~RoutineStateRunning_Data() = delete;
+};
+static_assert(sizeof(RoutineStateRunning_Data) == 8,
+              "Bad sizeof(RoutineStateRunning_Data)");
+// Used by RoutineStateRunning::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct RoutineStateRunning_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  RoutineStateRunning_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~RoutineStateRunning_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<RoutineStateRunning_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    RoutineStateRunning_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  RoutineStateWaiting_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t reason;
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<mojo::internal::String_Data> message;
+
+ private:
+  friend class mojo::internal::MessageFragment<RoutineStateWaiting_Data>;
+
+  RoutineStateWaiting_Data();
+  ~RoutineStateWaiting_Data() = delete;
+};
+static_assert(sizeof(RoutineStateWaiting_Data) == 24,
+              "Bad sizeof(RoutineStateWaiting_Data)");
+// Used by RoutineStateWaiting::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct RoutineStateWaiting_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  RoutineStateWaiting_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~RoutineStateWaiting_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<RoutineStateWaiting_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    RoutineStateWaiting_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  RoutineStateFinished_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t has_passed : 1;
+  uint8_t pad0_[7];
+  internal::RoutineDetail_Data detail;
+
+ private:
+  friend class mojo::internal::MessageFragment<RoutineStateFinished_Data>;
+
+  RoutineStateFinished_Data();
+  ~RoutineStateFinished_Data() = delete;
+};
+static_assert(sizeof(RoutineStateFinished_Data) == 32,
+              "Bad sizeof(RoutineStateFinished_Data)");
+// Used by RoutineStateFinished::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct RoutineStateFinished_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  RoutineStateFinished_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~RoutineStateFinished_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<RoutineStateFinished_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    RoutineStateFinished_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 
