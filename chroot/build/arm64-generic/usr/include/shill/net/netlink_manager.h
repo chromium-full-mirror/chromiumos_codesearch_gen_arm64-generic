@@ -59,10 +59,11 @@
 #include <map>
 #include <memory>
 #include <queue>
-#include <set>
 #include <string>
+#include <vector>
 
 #include <base/cancelable_callback.h>
+#include <base/containers/span.h>
 #include <base/functional/bind.h>
 #include <base/lazy_instance.h>
 #include <base/time/time.h>
@@ -302,18 +303,19 @@ class SHILL_EXPORT NetlinkManager {
   struct NetlinkPendingMessage {
     NetlinkPendingMessage(uint32_t sequence_number_arg,
                           bool is_dump_request_arg,
-                          ByteString message_string_arg,
+                          base::span<const uint8_t> message_string_arg,
                           NetlinkResponseHandlerRefPtr handler_arg)
         : retries_left(kMaxNlMessageRetries),
           sequence_number(sequence_number_arg),
           is_dump_request(is_dump_request_arg),
-          message_string(message_string_arg),
+          message_string(
+              {std::begin(message_string_arg), std::end(message_string_arg)}),
           handler(handler_arg) {}
 
     int retries_left;
     uint32_t sequence_number;
     bool is_dump_request;
-    ByteString message_string;
+    std::vector<uint8_t> message_string;
     NetlinkResponseHandlerRefPtr handler;
     uint32_t last_received_error;
   };
@@ -327,7 +329,7 @@ class SHILL_EXPORT NetlinkManager {
   static constexpr base::TimeDelta kPendingDumpTimeout = base::Seconds(1);
   static constexpr base::TimeDelta kNlMessageRetryDelay =
       base::Milliseconds(300);
-  static const int kMaxNlMessageRetries;                // NOLINT
+  static const int kMaxNlMessageRetries;
 
   // Returns the file descriptor of socket used to read wifi data.
   int file_descriptor() const;
