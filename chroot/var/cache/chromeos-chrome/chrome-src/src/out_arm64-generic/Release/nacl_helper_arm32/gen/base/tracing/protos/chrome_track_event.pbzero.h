@@ -2619,23 +2619,23 @@ class FrameSinkId_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   FrameSinkId_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FrameSinkId_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit FrameSinkId_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
-  bool has_client_id() const { return at<1>().valid(); }
-  uint32_t client_id() const { return at<1>().as_uint32(); }
-  bool has_sink_id() const { return at<2>().valid(); }
-  uint32_t sink_id() const { return at<2>().as_uint32(); }
+  bool has_frame_sink_client_id() const { return at<1>().valid(); }
+  uint32_t frame_sink_client_id() const { return at<1>().as_uint32(); }
+  bool has_frame_sink_id() const { return at<2>().valid(); }
+  uint32_t frame_sink_id() const { return at<2>().as_uint32(); }
 };
 
 class FrameSinkId : public ::protozero::Message {
  public:
   using Decoder = FrameSinkId_Decoder;
   enum : int32_t {
-    kClientIdFieldNumber = 1,
-    kSinkIdFieldNumber = 2,
+    kFrameSinkClientIdFieldNumber = 1,
+    kFrameSinkIdFieldNumber = 2,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FrameSinkId"; }
 
 
-  using FieldMetadata_ClientId =
+  using FieldMetadata_FrameSinkClientId =
     ::protozero::proto_utils::FieldMetadata<
       1,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
@@ -2643,9 +2643,9 @@ class FrameSinkId : public ::protozero::Message {
       uint32_t,
       FrameSinkId>;
 
-  static constexpr FieldMetadata_ClientId kClientId{};
-  void set_client_id(uint32_t value) {
-    static constexpr uint32_t field_id = FieldMetadata_ClientId::kFieldId;
+  static constexpr FieldMetadata_FrameSinkClientId kFrameSinkClientId{};
+  void set_frame_sink_client_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FrameSinkClientId::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -2653,7 +2653,7 @@ class FrameSinkId : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
-  using FieldMetadata_SinkId =
+  using FieldMetadata_FrameSinkId =
     ::protozero::proto_utils::FieldMetadata<
       2,
       ::protozero::proto_utils::RepetitionType::kNotRepeated,
@@ -2661,9 +2661,9 @@ class FrameSinkId : public ::protozero::Message {
       uint32_t,
       FrameSinkId>;
 
-  static constexpr FieldMetadata_SinkId kSinkId{};
-  void set_sink_id(uint32_t value) {
-    static constexpr uint32_t field_id = FieldMetadata_SinkId::kFieldId;
+  static constexpr FieldMetadata_FrameSinkId kFrameSinkId{};
+  void set_frame_sink_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FrameSinkId::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
