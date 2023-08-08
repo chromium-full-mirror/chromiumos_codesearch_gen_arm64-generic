@@ -20894,6 +20894,7 @@ class PERFETTO_EXPORT_COMPONENT CommitDataRequest_ChunksToMove : public ::protoz
     kPageFieldNumber = 1,
     kChunkFieldNumber = 2,
     kTargetBufferFieldNumber = 3,
+    kDataFieldNumber = 4,
   };
 
   CommitDataRequest_ChunksToMove();
@@ -20922,16 +20923,22 @@ class PERFETTO_EXPORT_COMPONENT CommitDataRequest_ChunksToMove : public ::protoz
   uint32_t target_buffer() const { return target_buffer_; }
   void set_target_buffer(uint32_t value) { target_buffer_ = value; _has_field_.set(3); }
 
+  bool has_data() const { return _has_field_[4]; }
+  const std::string& data() const { return data_; }
+  void set_data(const std::string& value) { data_ = value; _has_field_.set(4); }
+  void set_data(const void* p, size_t s) { data_.assign(reinterpret_cast<const char*>(p), s); _has_field_.set(4); }
+
  private:
   uint32_t page_{};
   uint32_t chunk_{};
   uint32_t target_buffer_{};
+  std::string data_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<4> _has_field_{};
+  std::bitset<5> _has_field_{};
 };
 
 }  // namespace perfetto
@@ -24348,7 +24355,7 @@ class CommitDataRequest_ChunkToPatch_Patch : public ::protozero::Message {
   }
 };
 
-class CommitDataRequest_ChunksToMove_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class CommitDataRequest_ChunksToMove_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   CommitDataRequest_ChunksToMove_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit CommitDataRequest_ChunksToMove_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -24359,6 +24366,8 @@ class CommitDataRequest_ChunksToMove_Decoder : public ::protozero::TypedProtoDec
   uint32_t chunk() const { return at<2>().as_uint32(); }
   bool has_target_buffer() const { return at<3>().valid(); }
   uint32_t target_buffer() const { return at<3>().as_uint32(); }
+  bool has_data() const { return at<4>().valid(); }
+  ::protozero::ConstBytes data() const { return at<4>().as_bytes(); }
 };
 
 class CommitDataRequest_ChunksToMove : public ::protozero::Message {
@@ -24368,6 +24377,7 @@ class CommitDataRequest_ChunksToMove : public ::protozero::Message {
     kPageFieldNumber = 1,
     kChunkFieldNumber = 2,
     kTargetBufferFieldNumber = 3,
+    kDataFieldNumber = 4,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.CommitDataRequest.ChunksToMove"; }
 
@@ -24423,6 +24433,30 @@ class CommitDataRequest_ChunksToMove : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Data =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBytes,
+      std::string,
+      CommitDataRequest_ChunksToMove>;
+
+  static constexpr FieldMetadata_Data kData{};
+  void set_data(const uint8_t* data, size_t size) {
+    AppendBytes(FieldMetadata_Data::kFieldId, data, size);
+  }
+  void set_data(::protozero::ConstBytes bytes) {
+    AppendBytes(FieldMetadata_Data::kFieldId, bytes.data, bytes.size);
+  }
+  void set_data(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Data::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBytes>
         ::Append(*this, field_id, value);
   }
 };
@@ -149378,6 +149412,7 @@ class PERFETTO_EXPORT_COMPONENT InitializeConnectionResponse : public ::protozer
   enum FieldNumbers {
     kUsingShmemProvidedByProducerFieldNumber = 1,
     kDirectSmbPatchingSupportedFieldNumber = 2,
+    kUseShmemEmulationFieldNumber = 3,
   };
 
   InitializeConnectionResponse();
@@ -149402,15 +149437,20 @@ class PERFETTO_EXPORT_COMPONENT InitializeConnectionResponse : public ::protozer
   bool direct_smb_patching_supported() const { return direct_smb_patching_supported_; }
   void set_direct_smb_patching_supported(bool value) { direct_smb_patching_supported_ = value; _has_field_.set(2); }
 
+  bool has_use_shmem_emulation() const { return _has_field_[3]; }
+  bool use_shmem_emulation() const { return use_shmem_emulation_; }
+  void set_use_shmem_emulation(bool value) { use_shmem_emulation_ = value; _has_field_.set(3); }
+
  private:
   bool using_shmem_provided_by_producer_{};
   bool direct_smb_patching_supported_{};
+  bool use_shmem_emulation_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<3> _has_field_{};
+  std::bitset<4> _has_field_{};
 };
 
 
