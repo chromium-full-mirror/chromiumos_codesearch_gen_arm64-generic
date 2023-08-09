@@ -18604,18 +18604,11 @@ class TrackEventDataSource
     }                                                                          \
   } while (false)
 
+// This internal macro is unused from the repo now, but some improper usage
+// remain outside of the repo.
+// TODO(b/294800182): Remove this.
 #define PERFETTO_INTERNAL_TRACK_EVENT(...) \
   PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(TraceForCategory, ##__VA_ARGS__)
-
-#if PERFETTO_ENABLE_LEGACY_TRACE_EVENTS
-#define PERFETTO_INTERNAL_LEGACY_TRACK_EVENT(...)                   \
-  PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(TraceForCategoryLegacy, \
-                                            ##__VA_ARGS__)
-
-#define PERFETTO_INTERNAL_LEGACY_TRACK_EVENT_WITH_ID(...)                 \
-  PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(TraceForCategoryLegacyWithId, \
-                                            ##__VA_ARGS__)
-#endif  // PERFETTO_ENABLE_LEGACY_TRACE_EVENTS
 
 // C++17 doesn't like a move constructor being defined for the EventFinalizer
 // class but C++11 and MSVC doesn't compile without it being defined so support
@@ -18665,8 +18658,8 @@ class TrackEventDataSource
   PERFETTO_INTERNAL_SCOPED_EVENT_FINALIZER(category)                       \
   PERFETTO_UID(scoped_event) {                                             \
     [&]() {                                                                \
-      PERFETTO_INTERNAL_LEGACY_TRACK_EVENT_WITH_ID(                        \
-          category, name,                                                  \
+      PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(                           \
+          TraceForCategoryLegacyWithId, category, name,                    \
           ::perfetto::protos::pbzero::TrackEvent::TYPE_SLICE_BEGIN, track, \
           'B', flags, thread_id, id, ##__VA_ARGS__);                       \
       return 0;                                                            \
@@ -18674,7 +18667,8 @@ class TrackEventDataSource
   }
 #endif  // PERFETTO_ENABLE_LEGACY_TRACE_EVENTS
 
-#if PERFETTO_BUILDFLAG(PERFETTO_COMPILER_GCC)
+#if PERFETTO_BUILDFLAG(PERFETTO_COMPILER_GCC) || \
+    PERFETTO_BUILDFLAG(PERFETTO_COMPILER_MSVC)
 // On GCC versions <9 there's a bug that prevents using captured constant
 // variables in constexpr evaluation inside a lambda:
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82643
@@ -19073,15 +19067,16 @@ constexpr bool IsDynamicCategory(const ::perfetto::DynamicCategory&) {
 //   TRACE_EVENT("category", "Name", perfetto::Track(1234),
 //               "arg", value, "arg2", value2);
 //
-#define TRACE_EVENT_BEGIN(category, name, ...)                  \
-  PERFETTO_INTERNAL_TRACK_EVENT(                                \
-      category, ::perfetto::internal::DecayEventNameType(name), \
+#define TRACE_EVENT_BEGIN(category, name, ...)        \
+  PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(          \
+      TraceForCategory, category,                     \
+      ::perfetto::internal::DecayEventNameType(name), \
       ::perfetto::protos::pbzero::TrackEvent::TYPE_SLICE_BEGIN, ##__VA_ARGS__)
 
 // End a slice under |category|.
-#define TRACE_EVENT_END(category, ...) \
-  PERFETTO_INTERNAL_TRACK_EVENT(       \
-      category, /*name=*/nullptr,      \
+#define TRACE_EVENT_END(category, ...)              \
+  PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(        \
+      TraceForCategory, category, /*name=*/nullptr, \
       ::perfetto::protos::pbzero::TrackEvent::TYPE_SLICE_END, ##__VA_ARGS__)
 
 // Begin a slice which gets automatically closed when going out of scope.
@@ -19090,9 +19085,10 @@ constexpr bool IsDynamicCategory(const ::perfetto::DynamicCategory&) {
       category, ::perfetto::internal::DecayEventNameType(name), ##__VA_ARGS__)
 
 // Emit a slice which has zero duration.
-#define TRACE_EVENT_INSTANT(category, name, ...)                \
-  PERFETTO_INTERNAL_TRACK_EVENT(                                \
-      category, ::perfetto::internal::DecayEventNameType(name), \
+#define TRACE_EVENT_INSTANT(category, name, ...)      \
+  PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(          \
+      TraceForCategory, category,                     \
+      ::perfetto::internal::DecayEventNameType(name), \
       ::perfetto::protos::pbzero::TrackEvent::TYPE_INSTANT, ##__VA_ARGS__)
 
 // Efficiently determine if the given static or dynamic trace category or
@@ -19138,8 +19134,8 @@ constexpr bool IsDynamicCategory(const ::perfetto::DynamicCategory&) {
 //   TRACE_COUNTER("category", "MyCounter", timestamp, value);
 //
 #define TRACE_COUNTER(category, track, ...)                 \
-  PERFETTO_INTERNAL_TRACK_EVENT(                            \
-      category, /*name=*/nullptr,                           \
+  PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(                \
+      TraceForCategory, category, /*name=*/nullptr,         \
       ::perfetto::protos::pbzero::TrackEvent::TYPE_COUNTER, \
       ::perfetto::CounterTrack(track), ##__VA_ARGS__)
 
@@ -19475,22 +19471,25 @@ ConvertThreadId(const PerfettoLegacyCurrentThreadId&);
 // below.
 #define PERFETTO_INTERNAL_LEGACY_EVENT_ON_TRACK(phase, category, name, track, \
                                                 ...)                          \
-  PERFETTO_INTERNAL_TRACK_EVENT(                                              \
-      category, ::perfetto::internal::DecayEventNameType(name),               \
+  PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(                                  \
+      TraceForCategory, category,                                             \
+      ::perfetto::internal::DecayEventNameType(name),                         \
       ::perfetto::internal::TrackEventLegacy::PhaseToType(phase), track,      \
       ##__VA_ARGS__);
 
 #define PERFETTO_INTERNAL_LEGACY_EVENT_WITH_FLAGS_ON_TRACK(              \
     phase, category, name, track, flags, ...)                            \
-  PERFETTO_INTERNAL_LEGACY_TRACK_EVENT(                                  \
-      category, ::perfetto::internal::DecayEventNameType(name),          \
+  PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(                             \
+      TraceForCategoryLegacy, category,                                  \
+      ::perfetto::internal::DecayEventNameType(name),                    \
       ::perfetto::internal::TrackEventLegacy::PhaseToType(phase), track, \
       phase, flags, ##__VA_ARGS__);
 
 #define PERFETTO_INTERNAL_LEGACY_EVENT_WITH_ID_ON_TRACK(                 \
     phase, category, name, track, flags, thread_id, id, ...)             \
-  PERFETTO_INTERNAL_LEGACY_TRACK_EVENT_WITH_ID(                          \
-      category, ::perfetto::internal::DecayEventNameType(name),          \
+  PERFETTO_INTERNAL_TRACK_EVENT_WITH_METHOD(                             \
+      TraceForCategoryLegacyWithId, category,                            \
+      ::perfetto::internal::DecayEventNameType(name),                    \
       ::perfetto::internal::TrackEventLegacy::PhaseToType(phase), track, \
       phase, flags, thread_id, id, ##__VA_ARGS__);
 
@@ -54860,7 +54859,7 @@ class LayerProto_MetadataEntry : public ::protozero::Message {
   }
 };
 
-class DisplayProto_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class DisplayProto_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   DisplayProto_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit DisplayProto_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -54879,6 +54878,10 @@ class DisplayProto_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   ::protozero::ConstBytes transform() const { return at<6>().as_bytes(); }
   bool has_is_virtual() const { return at<7>().valid(); }
   bool is_virtual() const { return at<7>().as_bool(); }
+  bool has_dpi_x() const { return at<8>().valid(); }
+  double dpi_x() const { return at<8>().as_double(); }
+  bool has_dpi_y() const { return at<9>().valid(); }
+  double dpi_y() const { return at<9>().as_double(); }
 };
 
 class DisplayProto : public ::protozero::Message {
@@ -54892,6 +54895,8 @@ class DisplayProto : public ::protozero::Message {
     kLayerStackSpaceRectFieldNumber = 5,
     kTransformFieldNumber = 6,
     kIsVirtualFieldNumber = 7,
+    kDpiXFieldNumber = 8,
+    kDpiYFieldNumber = 9,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.DisplayProto"; }
 
@@ -55013,6 +55018,42 @@ class DisplayProto : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DpiX =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kDouble,
+      double,
+      DisplayProto>;
+
+  static constexpr FieldMetadata_DpiX kDpiX{};
+  void set_dpi_x(double value) {
+    static constexpr uint32_t field_id = FieldMetadata_DpiX::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kDouble>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DpiY =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kDouble,
+      double,
+      DisplayProto>;
+
+  static constexpr FieldMetadata_DpiY kDpiY{};
+  void set_dpi_y(double value) {
+    static constexpr uint32_t field_id = FieldMetadata_DpiY::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kDouble>
         ::Append(*this, field_id, value);
   }
 };
