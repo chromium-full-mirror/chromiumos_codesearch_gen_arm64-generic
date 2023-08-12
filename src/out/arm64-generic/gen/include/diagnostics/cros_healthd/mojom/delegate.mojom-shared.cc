@@ -18,6 +18,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "diagnostics/cros_healthd/mojom/delegate.mojom-params-data.h"
+#include "diagnostics/mojom/external/time_mojom_traits.h"
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
@@ -808,6 +809,13 @@ bool Delegate_RunPrimeSearch_Params_Data::Validate(
   [[maybe_unused]] const Delegate_RunPrimeSearch_Params_Data* object =
       static_cast<const Delegate_RunPrimeSearch_Params_Data*>(data);
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->exec_duration, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
   return true;
 }
 
@@ -867,6 +875,59 @@ bool Delegate_MonitorVolumeButton_Params_Data::Validate(
 }
 
 Delegate_MonitorVolumeButton_Params_Data::Delegate_MonitorVolumeButton_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_RunFloatingPoint_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_RunFloatingPoint_Params_Data* object =
+      static_cast<const Delegate_RunFloatingPoint_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->exec_duration, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+Delegate_RunFloatingPoint_Params_Data::Delegate_RunFloatingPoint_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_RunFloatingPoint_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_RunFloatingPoint_ResponseParams_Data* object =
+      static_cast<const Delegate_RunFloatingPoint_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+Delegate_RunFloatingPoint_ResponseParams_Data::Delegate_RunFloatingPoint_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

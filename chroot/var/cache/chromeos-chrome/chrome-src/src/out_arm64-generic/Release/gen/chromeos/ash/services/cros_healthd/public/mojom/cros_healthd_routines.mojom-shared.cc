@@ -22,6 +22,66 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
+NOINLINE static const char* MemtesterTestItemEnumToStringHelper(MemtesterTestItemEnum value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case MemtesterTestItemEnum::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case MemtesterTestItemEnum::kUnknown:
+      return "kUnknown";
+    case MemtesterTestItemEnum::kStuckAddress:
+      return "kStuckAddress";
+    case MemtesterTestItemEnum::kCompareAND:
+      return "kCompareAND";
+    case MemtesterTestItemEnum::kCompareDIV:
+      return "kCompareDIV";
+    case MemtesterTestItemEnum::kCompareMUL:
+      return "kCompareMUL";
+    case MemtesterTestItemEnum::kCompareOR:
+      return "kCompareOR";
+    case MemtesterTestItemEnum::kCompareSUB:
+      return "kCompareSUB";
+    case MemtesterTestItemEnum::kCompareXOR:
+      return "kCompareXOR";
+    case MemtesterTestItemEnum::kSequentialIncrement:
+      return "kSequentialIncrement";
+    case MemtesterTestItemEnum::kBitFlip:
+      return "kBitFlip";
+    case MemtesterTestItemEnum::kBitSpread:
+      return "kBitSpread";
+    case MemtesterTestItemEnum::kBlockSequential:
+      return "kBlockSequential";
+    case MemtesterTestItemEnum::kCheckerboard:
+      return "kCheckerboard";
+    case MemtesterTestItemEnum::kRandomValue:
+      return "kRandomValue";
+    case MemtesterTestItemEnum::kSolidBits:
+      return "kSolidBits";
+    case MemtesterTestItemEnum::kWalkingOnes:
+      return "kWalkingOnes";
+    case MemtesterTestItemEnum::kWalkingZeroes:
+      return "kWalkingZeroes";
+    case MemtesterTestItemEnum::k8BitWrites:
+      return "k8BitWrites";
+    case MemtesterTestItemEnum::k16BitWrites:
+      return "k16BitWrites";
+    default:
+      return nullptr;
+  }
+}
+
+std::string MemtesterTestItemEnumToString(MemtesterTestItemEnum value) {
+  const char *str = MemtesterTestItemEnumToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown MemtesterTestItemEnum value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, MemtesterTestItemEnum value) {
+  return os << MemtesterTestItemEnumToString(value);
+}
+
 NOINLINE static const char* RoutineStateWaiting_ReasonToStringHelper(RoutineStateWaiting_Reason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -78,6 +138,16 @@ bool RoutineArgument_Data::Validate(
 
     case RoutineArgument_Tag::kUnrecognizedArgument: {
 
+      return true;
+    }
+    case RoutineArgument_Tag::kMemory: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_memory, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_memory, validation_context))
+        return false;
       return true;
     }
     default: {
@@ -198,6 +268,16 @@ bool RoutineDetail_Data::Validate(
 
       return true;
     }
+    case RoutineDetail_Tag::kMemory: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_memory, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_memory, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(
@@ -208,6 +288,29 @@ bool RoutineDetail_Data::Validate(
     }
   }
 }
+
+
+// static
+bool MemoryRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MemoryRoutineArgument_Data* object =
+      static_cast<const MemoryRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+MemoryRoutineArgument_Data::MemoryRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
 
 
 // static
@@ -348,6 +451,81 @@ bool RoutineStateFinished_Data::Validate(
 }
 
 RoutineStateFinished_Data::RoutineStateFinished_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MemoryRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MemoryRoutineDetail_Data* object =
+      static_cast<const MemoryRoutineDetail_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+MemoryRoutineDetail_Data::MemoryRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool MemtesterResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const MemtesterResult_Data* object =
+      static_cast<const MemtesterResult_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->passed_items, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& passed_items_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->passed_items, validation_context,
+                                         &passed_items_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->failed_items, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& failed_items_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->failed_items, validation_context,
+                                         &failed_items_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+MemtesterResult_Data::MemtesterResult_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -504,6 +682,16 @@ RoutineObserver_OnRoutineStateChange_Params_Data::RoutineObserver_OnRoutineState
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::MemtesterTestItemEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::MemtesterTestItemEnumToString(value));
+}
+
+} // namespace perfetto
 
 namespace perfetto {
 

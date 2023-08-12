@@ -66,6 +66,7 @@ constexpr uint32_t kExecutor_FetchCrashFromCrashSender_Name = 29;
 constexpr uint32_t kExecutor_MonitorPowerButton_Name = 30;
 constexpr uint32_t kExecutor_RunPrimeSearch_Name = 31;
 constexpr uint32_t kExecutor_MonitorVolumeButton_Name = 32;
+constexpr uint32_t kExecutor_RunFloatingPoint_Name = 33;
 
 }  // namespace internal
 }  // namespace mojom

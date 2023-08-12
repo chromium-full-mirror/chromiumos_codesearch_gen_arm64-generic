@@ -8,6 +8,8 @@
 #define DIAGNOSTICS_CROS_HEALTHD_MOJOM_DELEGATE_MOJOM_IMPORT_HEADERS_H_
 #include "diagnostics/cros_healthd/mojom/executor.mojom.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom-import-headers.h"
+#include "diagnostics/mojom/external/time.mojom.h"
+#include "diagnostics/mojom/external/time.mojom-import-headers.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-import-headers.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"

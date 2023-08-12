@@ -55,6 +55,8 @@ class VolumeButtonRoutineArgumentDataView;
 
 class LedLitUpRoutineArgumentDataView;
 
+class FloatingPointRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -78,6 +80,8 @@ class DiskReadRoutineDetailDataView;
 class CpuCacheRoutineDetailDataView;
 
 class PrimeSearchRoutineDetailDataView;
+
+class FloatingPointRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
@@ -156,6 +160,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgumentDa
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::LedLitUpRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::FloatingPointRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -240,6 +251,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuCacheRoutineDetailDataView
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::PrimeSearchRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::FloatingPointRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -813,6 +831,42 @@ class LedLitUpRoutineArgumentDataView {
 };
 
 
+class FloatingPointRoutineArgumentDataView {
+ public:
+  FloatingPointRoutineArgumentDataView() = default;
+
+  FloatingPointRoutineArgumentDataView(
+      internal::FloatingPointRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+    "Attempting to read the optional `exec_duration` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadExecDuration` instead "
+    "of `ReadExecDuration if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::FloatingPointRoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class RoutineStateDataView {
  public:
   RoutineStateDataView() = default;
@@ -1081,6 +1135,21 @@ class PrimeSearchRoutineDetailDataView {
 };
 
 
+class FloatingPointRoutineDetailDataView {
+ public:
+  FloatingPointRoutineDetailDataView() = default;
+
+  FloatingPointRoutineDetailDataView(
+      internal::FloatingPointRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::FloatingPointRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class MemtesterResultDataView {
  public:
   MemtesterResultDataView() = default;
@@ -1268,6 +1337,17 @@ class RoutineArgumentDataView {
     CHECK(is_led_lit_up());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView>(
         data_->data.f_led_lit_up.Get(), output, message_);
+  }
+  bool is_floating_point() const { return data_->tag == Tag::kFloatingPoint; }
+  inline void GetFloatingPointDataView(
+      FloatingPointRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFloatingPoint(UserType* output) const {
+    
+    CHECK(is_floating_point());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView>(
+        data_->data.f_floating_point.Get(), output, message_);
   }
 
  private:
@@ -1473,6 +1553,17 @@ class RoutineDetailDataView {
     CHECK(is_led_lit_up());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedLitUpRoutineDetailDataView>(
         data_->data.f_led_lit_up.Get(), output, message_);
+  }
+  bool is_floating_point() const { return data_->tag == Tag::kFloatingPoint; }
+  inline void GetFloatingPointDataView(
+      FloatingPointRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFloatingPoint(UserType* output) const {
+    
+    CHECK(is_floating_point());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView>(
+        data_->data.f_floating_point.Get(), output, message_);
   }
 
  private:
@@ -1969,6 +2060,43 @@ struct Serializer<::ash::cros_healthd::mojom::LedLitUpRoutineArgumentDataView, M
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::FloatingPointRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::exec_duration(input)) in_exec_duration = Traits::exec_duration(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->exec_duration)::BaseType> exec_duration_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        in_exec_duration, exec_duration_fragment);
+    fragment->exec_duration.Set(
+        exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::FloatingPointRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::RoutineStateDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::RoutineStateDataView, UserType>;
@@ -2367,6 +2495,35 @@ struct Serializer<::ash::cros_healthd::mojom::PrimeSearchRoutineDetailDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::FloatingPointRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::FloatingPointRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::MemtesterResultDataView, UserType>;
@@ -2650,6 +2807,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null led_lit_up in RoutineArgument union");
         fragment->data.f_led_lit_up.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kFloatingPoint: {
+        decltype(Traits::floating_point(input))
+            in_floating_point = Traits::floating_point(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_floating_point)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::FloatingPointRoutineArgumentDataView>(
+            in_floating_point, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null floating_point in RoutineArgument union");
+        fragment->data.f_floating_point.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -2955,6 +3128,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kFloatingPoint: {
+        decltype(Traits::floating_point(input))
+            in_floating_point = Traits::floating_point(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_floating_point)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::FloatingPointRoutineDetailDataView>(
+            in_floating_point, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null floating_point in RoutineDetail union");
+        fragment->data.f_floating_point.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -3021,6 +3210,13 @@ inline void VolumeButtonRoutineArgumentDataView::GetTimeoutDataView(
 
 
 
+inline void FloatingPointRoutineArgumentDataView::GetExecDurationDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+
+
 inline void RoutineStateDataView::GetStateUnionDataView(
     RoutineStateUnionDataView* output) {
   auto pointer = &data_->state_union;
@@ -3051,6 +3247,8 @@ inline void MemoryRoutineDetailDataView::GetResultDataView(
   auto pointer = data_->result.Get();
   *output = MemtesterResultDataView(pointer, message_);
 }
+
+
 
 
 
@@ -3126,6 +3324,11 @@ inline void RoutineArgumentDataView::GetLedLitUpDataView(
   CHECK(is_led_lit_up());
   *output = LedLitUpRoutineArgumentDataView(data_->data.f_led_lit_up.Get(), message_);
 }
+inline void RoutineArgumentDataView::GetFloatingPointDataView(
+    FloatingPointRoutineArgumentDataView* output) const {
+  CHECK(is_floating_point());
+  *output = FloatingPointRoutineArgumentDataView(data_->data.f_floating_point.Get(), message_);
+}
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
     RoutineStateInitializedDataView* output) const {
@@ -3192,6 +3395,11 @@ inline void RoutineDetailDataView::GetLedLitUpDataView(
     LedLitUpRoutineDetailDataView* output) const {
   CHECK(is_led_lit_up());
   *output = LedLitUpRoutineDetailDataView(data_->data.f_led_lit_up.Get(), message_);
+}
+inline void RoutineDetailDataView::GetFloatingPointDataView(
+    FloatingPointRoutineDetailDataView* output) const {
+  CHECK(is_floating_point());
+  *output = FloatingPointRoutineDetailDataView(data_->data.f_floating_point.Get(), message_);
 }
 
 

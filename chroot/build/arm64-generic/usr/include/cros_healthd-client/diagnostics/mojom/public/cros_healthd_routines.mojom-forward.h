@@ -42,6 +42,8 @@ class VolumeButtonRoutineArgumentDataView;
 
 class LedLitUpRoutineArgumentDataView;
 
+class FloatingPointRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -65,6 +67,8 @@ class DiskReadRoutineDetailDataView;
 class CpuCacheRoutineDetailDataView;
 
 class PrimeSearchRoutineDetailDataView;
+
+class FloatingPointRoutineDetailDataView;
 
 class MemtesterResultDataView;
 
@@ -114,6 +118,9 @@ using VolumeButtonRoutineArgumentPtr = mojo::StructPtr<VolumeButtonRoutineArgume
 class LedLitUpRoutineArgument;
 using LedLitUpRoutineArgumentPtr = mojo::StructPtr<LedLitUpRoutineArgument>;
 
+class FloatingPointRoutineArgument;
+using FloatingPointRoutineArgumentPtr = mojo::StructPtr<FloatingPointRoutineArgument>;
+
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
 
@@ -149,6 +156,9 @@ using CpuCacheRoutineDetailPtr = mojo::InlinedStructPtr<CpuCacheRoutineDetail>;
 
 class PrimeSearchRoutineDetail;
 using PrimeSearchRoutineDetailPtr = mojo::InlinedStructPtr<PrimeSearchRoutineDetail>;
+
+class FloatingPointRoutineDetail;
+using FloatingPointRoutineDetailPtr = mojo::InlinedStructPtr<FloatingPointRoutineDetail>;
 
 class MemtesterResult;
 using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;

@@ -40,6 +40,7 @@
 
 #include "diagnostics/cros_healthd/mojom/delegate.mojom-import-headers.h"
 #include "diagnostics/cros_healthd/mojom/delegate.mojom-test-utils.h"
+#include "diagnostics/mojom/external/time_mojom_traits.h"
 
 
 
@@ -105,6 +106,9 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_MonitorVolumeButton_Name: {
       return &Delegate::MonitorVolumeButton_Sym::IPCStableHash;
     }
+    case internal::kDelegate_RunFloatingPoint_Name: {
+      return &Delegate::RunFloatingPoint_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -152,6 +156,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::RunPrimeSearch";
       case internal::kDelegate_MonitorVolumeButton_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorVolumeButton";
+      case internal::kDelegate_RunFloatingPoint_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::RunFloatingPoint";
     }
   } else {
     switch (message.name()) {
@@ -191,6 +197,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::RunPrimeSearch";
       case internal::kDelegate_MonitorVolumeButton_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorVolumeButton";
+      case internal::kDelegate_RunFloatingPoint_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::RunFloatingPoint";
     }
   }
   return "Receive unknown mojo message";
@@ -439,6 +447,19 @@ uint32_t Delegate::MonitorVolumeButton_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Delegate::RunFloatingPoint_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::RunFloatingPoint");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Delegate_GetFingerprintFrame_ForwardToCallback
@@ -615,6 +636,22 @@ class Delegate_RunPrimeSearch_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Delegate::RunPrimeSearchCallback callback_;
+};
+
+class Delegate_RunFloatingPoint_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_RunFloatingPoint_ForwardToCallback(
+      Delegate::RunFloatingPointCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_RunFloatingPoint_ForwardToCallback(const Delegate_RunFloatingPoint_ForwardToCallback&) = delete;
+  Delegate_RunFloatingPoint_ForwardToCallback& operator=(const Delegate_RunFloatingPoint_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::RunFloatingPointCallback callback_;
 };
 
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1222,15 +1259,15 @@ void DelegateProxy::MonitorPowerButton(
 }
 
 void DelegateProxy::RunPrimeSearch(
-    uint32_t in_duration_sec, uint64_t in_max_num, RunPrimeSearchCallback callback) {
+    base::TimeDelta in_exec_duration, uint64_t in_max_num, RunPrimeSearchCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::RunPrimeSearch", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("duration_sec"), in_duration_sec,
-                        "<value of type uint32_t>");
+           dict.AddItem("exec_duration"), in_exec_duration,
+                        "<value of type base::TimeDelta>");
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("max_num"), in_max_num,
                         "<value of type uint64_t>");
@@ -1251,7 +1288,17 @@ void DelegateProxy::RunPrimeSearch(
       ::ash::cros_healthd::mojom::internal::Delegate_RunPrimeSearch_Params_Data> params(
           message);
   params.Allocate();
-  params->duration_sec = in_duration_sec;
+  mojo::internal::MessageFragment<
+      typename decltype(params->exec_duration)::BaseType> exec_duration_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+      in_exec_duration, exec_duration_fragment);
+  params->exec_duration.Set(
+      exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->exec_duration.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null exec_duration in Delegate.RunPrimeSearch request");
   params->max_num = in_max_num;
 
 #if defined(ENABLE_IPC_FUZZER)
@@ -1305,6 +1352,55 @@ void DelegateProxy::MonitorVolumeButton(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DelegateProxy::RunFloatingPoint(
+    base::TimeDelta in_exec_duration, RunFloatingPointCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::RunFloatingPoint", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("exec_duration"), in_exec_duration,
+                        "<value of type base::TimeDelta>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_RunFloatingPoint_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_RunFloatingPoint_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->exec_duration)::BaseType> exec_duration_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+      in_exec_duration, exec_duration_fragment);
+  params->exec_duration.Set(
+      exec_duration_fragment.is_null() ? nullptr : exec_duration_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->exec_duration.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null exec_duration in Delegate.RunFloatingPoint request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("RunFloatingPoint");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_RunFloatingPoint_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class Delegate_GetFingerprintFrame_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -2756,6 +2852,124 @@ void Delegate_RunPrimeSearch_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Delegate_RunFloatingPoint_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::RunFloatingPointCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_RunFloatingPoint_ProxyToResponder> proxy(
+        new Delegate_RunFloatingPoint_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_RunFloatingPoint_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_RunFloatingPoint_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_RunFloatingPoint_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::RunFloatingPointCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_passed);
+};
+
+bool Delegate_RunFloatingPoint_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_RunFloatingPoint_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_RunFloatingPoint_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_passed{};
+  Delegate_RunFloatingPoint_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_passed = input_data_view.passed();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 18, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_passed));
+  return true;
+}
+
+void Delegate_RunFloatingPoint_ProxyToResponder::Run(
+    bool in_passed) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::RunFloatingPoint", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("passed"), in_passed,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_RunFloatingPoint_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_RunFloatingPoint_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->passed = in_passed;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("RunFloatingPoint");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool DelegateStubDispatch::Accept(
@@ -2990,6 +3204,9 @@ std::move(p_observer));
       impl->MonitorVolumeButton(
 std::move(p_observer));
       return true;
+    }
+    case internal::kDelegate_RunFloatingPoint_Name: {
+      break;
     }
   }
   return false;
@@ -3296,12 +3513,12 @@ std::move(p_name), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_duration_sec{};
+      base::TimeDelta p_exec_duration{};
       uint64_t p_max_num{};
       Delegate_RunPrimeSearch_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_duration_sec = input_data_view.duration_sec();
+      if (success && !input_data_view.ReadExecDuration(&p_exec_duration))
+        success = false;
       if (success)
         p_max_num = input_data_view.max_num();
       if (!success) {
@@ -3317,12 +3534,41 @@ std::move(p_name), std::move(callback));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->RunPrimeSearch(
-std::move(p_duration_sec), 
+std::move(p_exec_duration), 
 std::move(p_max_num), std::move(callback));
       return true;
     }
     case internal::kDelegate_MonitorVolumeButton_Name: {
       break;
+    }
+    case internal::kDelegate_RunFloatingPoint_Name: {
+
+      internal::Delegate_RunFloatingPoint_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_RunFloatingPoint_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      base::TimeDelta p_exec_duration{};
+      Delegate_RunFloatingPoint_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadExecDuration(&p_exec_duration))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 18, false);
+        return false;
+      }
+      Delegate::RunFloatingPointCallback callback =
+          Delegate_RunFloatingPoint_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunFloatingPoint(
+std::move(p_exec_duration), std::move(callback));
+      return true;
     }
   }
   return false;
@@ -3366,6 +3612,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      &internal::Delegate_RunPrimeSearch_ResponseParams_Data::Validate},
     {&internal::Delegate_MonitorVolumeButton_Params_Data::Validate,
      nullptr /* no response */},
+    {&internal::Delegate_RunFloatingPoint_Params_Data::Validate,
+     &internal::Delegate_RunFloatingPoint_ResponseParams_Data::Validate},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -3446,11 +3694,14 @@ void DelegateInterceptorForTesting::FetchDisplayInfo(FetchDisplayInfoCallback ca
 void DelegateInterceptorForTesting::MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) {
   GetForwardingInterface()->MonitorPowerButton(std::move(observer));
 }
-void DelegateInterceptorForTesting::RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, RunPrimeSearchCallback callback) {
-  GetForwardingInterface()->RunPrimeSearch(std::move(duration_sec), std::move(max_num), std::move(callback));
+void DelegateInterceptorForTesting::RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, RunPrimeSearchCallback callback) {
+  GetForwardingInterface()->RunPrimeSearch(std::move(exec_duration), std::move(max_num), std::move(callback));
 }
 void DelegateInterceptorForTesting::MonitorVolumeButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver> observer) {
   GetForwardingInterface()->MonitorVolumeButton(std::move(observer));
+}
+void DelegateInterceptorForTesting::RunFloatingPoint(base::TimeDelta exec_duration, RunFloatingPointCallback callback) {
+  GetForwardingInterface()->RunFloatingPoint(std::move(exec_duration), std::move(callback));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
@@ -3687,9 +3938,9 @@ void DelegateAsyncWaiter::FetchDisplayInfo(
 }
 
 void DelegateAsyncWaiter::RunPrimeSearch(
-    uint32_t duration_sec, uint64_t max_num, bool* out_passed) {
+    base::TimeDelta exec_duration, uint64_t max_num, bool* out_passed) {
   base::RunLoop loop;
-  proxy_->RunPrimeSearch(std::move(duration_sec),std::move(max_num),
+  proxy_->RunPrimeSearch(std::move(exec_duration),std::move(max_num),
       base::BindOnce(
           [](base::RunLoop* loop,
              bool* out_passed
@@ -3703,9 +3954,32 @@ void DelegateAsyncWaiter::RunPrimeSearch(
 }
 
 bool DelegateAsyncWaiter::RunPrimeSearch(
-    uint32_t duration_sec, uint64_t max_num) {
+    base::TimeDelta exec_duration, uint64_t max_num) {
   bool async_wait_result;
-  RunPrimeSearch(std::move(duration_sec),std::move(max_num),&async_wait_result);
+  RunPrimeSearch(std::move(exec_duration),std::move(max_num),&async_wait_result);
+  return async_wait_result;
+}
+
+void DelegateAsyncWaiter::RunFloatingPoint(
+    base::TimeDelta exec_duration, bool* out_passed) {
+  base::RunLoop loop;
+  proxy_->RunFloatingPoint(std::move(exec_duration),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_passed
+,
+             bool passed) {*out_passed = std::move(passed);
+            loop->Quit();
+          },
+          &loop,
+          out_passed));
+  loop.Run();
+}
+
+bool DelegateAsyncWaiter::RunFloatingPoint(
+    base::TimeDelta exec_duration) {
+  bool async_wait_result;
+  RunFloatingPoint(std::move(exec_duration),&async_wait_result);
   return async_wait_result;
 }
 

@@ -10756,6 +10756,10 @@ template <typename, const internal::TrackEventCategoryRegistry*>
 class TrackEventDataSource;
 }  // namespace internal
 
+namespace shlib {
+class TrackEvent;
+}  // namespace shlib
+
 namespace test {
 class DataSourceInternalForTest;
 }  // namespace test
@@ -11151,6 +11155,7 @@ class DataSource : public DataSourceBase {
 
  private:
   friend ::perfetto::test::DataSourceInternalForTest;
+  friend ::perfetto::shlib::TrackEvent;
   // Traits for customizing the behavior of a specific trace point.
   struct DefaultTracePointTraits {
     // By default, every call to DataSource::Trace() will record trace events
@@ -14689,6 +14694,7 @@ class PERFETTO_EXPORT_COMPONENT TrackRegistry {
 
   static void InitializeInstance();
   static void ResetForTesting();
+  static uint64_t ComputeProcessUuid();
   static TrackRegistry* Get() { return instance_; }
 
   void EraseTrack(Track);
@@ -19321,8 +19327,15 @@ class TrackEventInternedDataIndex
   static size_t Get(EventContext* ctx,
                     const ValueType& value,
                     Args&&... add_args) {
+    return Get(ctx->incremental_state_, value, std::forward<Args>(add_args)...);
+  }
+
+  template <typename... Args>
+  static size_t Get(internal::TrackEventIncrementalState* incremental_state,
+                    const ValueType& value,
+                    Args&&... add_args) {
     // First check if the value exists in the dictionary.
-    auto index_for_field = GetOrCreateIndexForField(ctx->incremental_state_);
+    auto index_for_field = GetOrCreateIndexForField(incremental_state);
     size_t iid;
     if (PERFETTO_LIKELY(index_for_field->index_.LookUpOrInsert(&iid, value))) {
       PERFETTO_DCHECK(iid);
@@ -19333,9 +19346,9 @@ class TrackEventInternedDataIndex
     // the heap buffered message (which is committed to the trace when the
     // packet ends).
     PERFETTO_DCHECK(iid);
-    InternedDataType::Add(
-        ctx->incremental_state_->serialized_interned_data.get(), iid,
-        std::move(value), std::forward<Args>(add_args)...);
+    InternedDataType::Add(incremental_state->serialized_interned_data.get(),
+                          iid, std::move(value),
+                          std::forward<Args>(add_args)...);
     return iid;
   }
 

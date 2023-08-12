@@ -8,6 +8,8 @@
 #include <memory>
 #include <string>
 
+#include "base/types/expected.h"
+#include "dbus/error.h"
 #include "dbus/message.h"
 #include "dbus/object_path.h"
 #include "dbus/object_proxy.h"
@@ -22,11 +24,15 @@ class MockObjectProxy : public ObjectProxy {
                   const std::string& service_name,
                   const ObjectPath& object_path);
 
+  MOCK_METHOD2(
+      CallMethodAndBlock,
+      base::expected<std::unique_ptr<Response>, Error>(MethodCall* method_call,
+                                                       int timeout_ms));
   MOCK_METHOD3(CallMethodAndBlockWithErrorDetails,
                std::unique_ptr<Response>(MethodCall* method_call,
                                          int timeout_ms,
                                          Error* error));
-  MOCK_METHOD2(CallMethodAndBlock,
+  MOCK_METHOD2(CallMethodAndBlockDeprecated,
                std::unique_ptr<Response>(MethodCall* method_call,
                                          int timeout_ms));
 

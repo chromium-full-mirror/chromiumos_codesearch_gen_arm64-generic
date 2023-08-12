@@ -349,6 +349,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       return true;
     }
+    case RoutineArgument_Tag::kFloatingPoint: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_floating_point, 11, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_floating_point, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       return true;
@@ -554,6 +564,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_led_lit_up, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kFloatingPoint: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_floating_point, 11, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_floating_point, validation_context))
         return false;
       return true;
     }
@@ -825,6 +845,32 @@ bool LedLitUpRoutineArgument_Data::Validate(
 }
 
 LedLitUpRoutineArgument_Data::LedLitUpRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool FloatingPointRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FloatingPointRoutineArgument_Data* object =
+      static_cast<const FloatingPointRoutineArgument_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  return true;
+}
+
+FloatingPointRoutineArgument_Data::FloatingPointRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1138,6 +1184,29 @@ PrimeSearchRoutineDetail_Data::PrimeSearchRoutineDetail_Data()
 
 
 // static
+bool FloatingPointRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FloatingPointRoutineDetail_Data* object =
+      static_cast<const FloatingPointRoutineDetail_Data*>(data);
+
+  return true;
+}
+
+FloatingPointRoutineDetail_Data::FloatingPointRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool MemtesterResult_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1273,7 +1342,7 @@ CrosHealthdRoutinesService_CreateRoutine_Params_Data::CrosHealthdRoutinesService
 
 
 // static
-bool CrosHealthdRoutinesService_IsRoutineSupported_Params_Data::Validate(
+bool CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1285,8 +1354,8 @@ bool CrosHealthdRoutinesService_IsRoutineSupported_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdRoutinesService_IsRoutineSupported_Params_Data* object =
-      static_cast<const CrosHealthdRoutinesService_IsRoutineSupported_Params_Data*>(data);
+  [[maybe_unused]] const CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data* object =
+      static_cast<const CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data*>(data);
 
   if (!mojo::internal::ValidateInlinedUnionNonNullable(
           object->routine_argument, 1, validation_context)) {
@@ -1298,12 +1367,12 @@ bool CrosHealthdRoutinesService_IsRoutineSupported_Params_Data::Validate(
   return true;
 }
 
-CrosHealthdRoutinesService_IsRoutineSupported_Params_Data::CrosHealthdRoutinesService_IsRoutineSupported_Params_Data()
+CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data::Validate(
+bool CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1315,8 +1384,8 @@ bool CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data::Validate
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data* object =
-      static_cast<const CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data*>(data);
+  [[maybe_unused]] const CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data* object =
+      static_cast<const CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidateInlinedUnionNonNullable(
           object->status, 1, validation_context)) {
@@ -1328,7 +1397,7 @@ bool CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data::Validate
   return true;
 }
 
-CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data::CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data()
+CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

@@ -2610,7 +2610,7 @@ bool Executor_RunPrimeSearch_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -2618,6 +2618,13 @@ bool Executor_RunPrimeSearch_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const Executor_RunPrimeSearch_Params_Data* object =
       static_cast<const Executor_RunPrimeSearch_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->exec_duration, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->process_control, 3, validation_context)) {
@@ -2696,6 +2703,68 @@ bool Executor_MonitorVolumeButton_Params_Data::Validate(
 }
 
 Executor_MonitorVolumeButton_Params_Data::Executor_MonitorVolumeButton_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_RunFloatingPoint_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RunFloatingPoint_Params_Data* object =
+      static_cast<const Executor_RunFloatingPoint_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->exec_duration, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->exec_duration, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->process_control, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->process_control,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_RunFloatingPoint_Params_Data::Executor_RunFloatingPoint_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_RunFloatingPoint_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_RunFloatingPoint_ResponseParams_Data* object =
+      static_cast<const Executor_RunFloatingPoint_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+Executor_RunFloatingPoint_ResponseParams_Data::Executor_RunFloatingPoint_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

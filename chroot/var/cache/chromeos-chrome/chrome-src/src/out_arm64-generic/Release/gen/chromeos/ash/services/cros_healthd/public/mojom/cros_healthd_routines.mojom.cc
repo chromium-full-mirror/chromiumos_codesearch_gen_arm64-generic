@@ -46,6 +46,34 @@
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+MemoryRoutineArgument::MemoryRoutineArgument()
+    : max_testing_mem_kib() {}
+
+MemoryRoutineArgument::MemoryRoutineArgument(
+    absl::optional<uint32_t> max_testing_mem_kib_in)
+    : max_testing_mem_kib(std::move(max_testing_mem_kib_in)) {}
+
+MemoryRoutineArgument::~MemoryRoutineArgument() = default;
+
+void MemoryRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_testing_mem_kib"), this->max_testing_mem_kib,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<uint32_t>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool MemoryRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -205,6 +233,86 @@ bool RoutineStateFinished::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+MemoryRoutineDetail::MemoryRoutineDetail()
+    : bytes_tested(),
+      result() {}
+
+MemoryRoutineDetail::MemoryRoutineDetail(
+    uint64_t bytes_tested_in,
+    MemtesterResultPtr result_in)
+    : bytes_tested(std::move(bytes_tested_in)),
+      result(std::move(result_in)) {}
+
+MemoryRoutineDetail::~MemoryRoutineDetail() = default;
+
+void MemoryRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bytes_tested"), this->bytes_tested,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "result"), this->result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type MemtesterResultPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool MemoryRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+MemtesterResult::MemtesterResult()
+    : passed_items(),
+      failed_items() {}
+
+MemtesterResult::MemtesterResult(
+    std::vector<MemtesterTestItemEnum> passed_items_in,
+    std::vector<MemtesterTestItemEnum> failed_items_in)
+    : passed_items(std::move(passed_items_in)),
+      failed_items(std::move(failed_items_in)) {}
+
+MemtesterResult::~MemtesterResult() = default;
+
+void MemtesterResult::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "passed_items"), this->passed_items,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<MemtesterTestItemEnum>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "failed_items"), this->failed_items,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<MemtesterTestItemEnum>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool MemtesterResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -222,6 +330,17 @@ void RoutineArgument::set_unrecognizedArgument(
   }
   data_.unrecognizedArgument = unrecognizedArgument;
 }
+void RoutineArgument::set_memory(
+    MemoryRoutineArgumentPtr memory) {
+  if (tag_ == Tag::kMemory) {
+    *(data_.memory) = std::move(memory);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kMemory;
+    data_.memory = new MemoryRoutineArgumentPtr(
+        std::move(memory));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -229,17 +348,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kUnrecognizedArgument:
 
       break;
-  }
-}
-size_t RoutineArgument::Hash(size_t seed) const {
-  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
-  switch (tag_) {
+    case Tag::kMemory:
 
-    case Tag::kUnrecognizedArgument:
-      return mojo::internal::Hash(seed, data_.unrecognizedArgument);
-    default:
-      NOTREACHED();
-      return seed;
+      delete data_.memory;
+      break;
   }
 }
 
@@ -357,6 +469,17 @@ void RoutineDetail::set_unrecognizedArgument(
   }
   data_.unrecognizedArgument = unrecognizedArgument;
 }
+void RoutineDetail::set_memory(
+    MemoryRoutineDetailPtr memory) {
+  if (tag_ == Tag::kMemory) {
+    *(data_.memory) = std::move(memory);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kMemory;
+    data_.memory = new MemoryRoutineDetailPtr(
+        std::move(memory));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -364,17 +487,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kUnrecognizedArgument:
 
       break;
-  }
-}
-size_t RoutineDetail::Hash(size_t seed) const {
-  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
-  switch (tag_) {
+    case Tag::kMemory:
 
-    case Tag::kUnrecognizedArgument:
-      return mojo::internal::Hash(seed, data_.unrecognizedArgument);
-    default:
-      NOTREACHED();
-      return seed;
+      delete data_.memory;
+      break;
   }
 }
 
@@ -1132,6 +1248,21 @@ namespace mojo {
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView, ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr result(::ash::cros_healthd::mojom::MemoryRoutineArgument::New());
+  
+      if (success) {
+        result->max_testing_mem_kib = input.max_testing_mem_kib();
+      }
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -1202,6 +1333,38 @@ bool StructTraits<::ash::cros_healthd::mojom::RoutineStateFinished::DataView, ::
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::MemoryRoutineDetail::DataView, ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::MemoryRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr result(::ash::cros_healthd::mojom::MemoryRoutineDetail::New());
+  
+      if (success)
+        result->bytes_tested = input.bytes_tested();
+      if (success && !input.ReadResult(&result->result))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::cros_healthd::mojom::MemtesterResultPtr>::Read(
+    ::ash::cros_healthd::mojom::MemtesterResult::DataView input,
+    ::ash::cros_healthd::mojom::MemtesterResultPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::MemtesterResultPtr result(::ash::cros_healthd::mojom::MemtesterResult::New());
+  
+      if (success && !input.ReadPassedItems(&result->passed_items))
+        success = false;
+      if (success && !input.ReadFailedItems(&result->failed_items))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::cros_healthd::mojom::RoutineArgumentPtr>::Read(
     ::ash::cros_healthd::mojom::RoutineArgument::DataView input,
@@ -1212,6 +1375,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
   switch (input.tag()) {
     case Tag::kUnrecognizedArgument: {
       *output = UnionType::NewUnrecognizedArgument(input.unrecognizedArgument());
+      break;
+    }
+    case Tag::kMemory: {
+      ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr result_memory;
+      if (!input.ReadMemory(&result_memory))
+        return false;
+
+      *output = UnionType::NewMemory(
+          std::move(result_memory));
       break;
     }
     default:
@@ -1287,6 +1459,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
   switch (input.tag()) {
     case Tag::kUnrecognizedArgument: {
       *output = UnionType::NewUnrecognizedArgument(input.unrecognizedArgument());
+      break;
+    }
+    case Tag::kMemory: {
+      ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr result_memory;
+      if (!input.ReadMemory(&result_memory))
+        return false;
+
+      *output = UnionType::NewMemory(
+          std::move(result_memory));
       break;
     }
     default:

@@ -25,6 +25,7 @@
 
 #include "diagnostics/cros_healthd/mojom/delegate.mojom-shared-internal.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom-shared.h"
+#include "diagnostics/mojom/external/time.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-shared.h"

@@ -41,7 +41,7 @@ class  CrosHealthdRoutinesService_CreateRoutine_Params_Data {
 };
 static_assert(sizeof(CrosHealthdRoutinesService_CreateRoutine_Params_Data) == 40,
               "Bad sizeof(CrosHealthdRoutinesService_CreateRoutine_Params_Data)");
-class  CrosHealthdRoutinesService_IsRoutineSupported_Params_Data {
+class  CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -50,14 +50,14 @@ class  CrosHealthdRoutinesService_IsRoutineSupported_Params_Data {
   internal::RoutineArgument_Data routine_argument;
 
  private:
-  friend class mojo::internal::MessageFragment<CrosHealthdRoutinesService_IsRoutineSupported_Params_Data>;
+  friend class mojo::internal::MessageFragment<CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data>;
 
-  CrosHealthdRoutinesService_IsRoutineSupported_Params_Data();
-  ~CrosHealthdRoutinesService_IsRoutineSupported_Params_Data() = delete;
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data();
+  ~CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdRoutinesService_IsRoutineSupported_Params_Data) == 24,
-              "Bad sizeof(CrosHealthdRoutinesService_IsRoutineSupported_Params_Data)");
-class  CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data {
+static_assert(sizeof(CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data) == 24,
+              "Bad sizeof(CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data)");
+class  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -66,13 +66,13 @@ class  CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data {
   ::ash::cros_healthd::mojom::internal::SupportStatus_Data status;
 
  private:
-  friend class mojo::internal::MessageFragment<CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data>;
 
-  CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data();
-  ~CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data() = delete;
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data();
+  ~CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data) == 24,
-              "Bad sizeof(CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data)");
+static_assert(sizeof(CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data) == 24,
+              "Bad sizeof(CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data)");
 class  LedLitUpRoutineReplier_GetColorMatched_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -215,12 +215,12 @@ class CrosHealthdRoutinesService_CreateRoutine_ParamsDataView {
 };
 
 
-class CrosHealthdRoutinesService_IsRoutineSupported_ParamsDataView {
+class CrosHealthdRoutinesService_IsRoutineArgumentSupported_ParamsDataView {
  public:
-  CrosHealthdRoutinesService_IsRoutineSupported_ParamsDataView() = default;
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ParamsDataView() = default;
 
-  CrosHealthdRoutinesService_IsRoutineSupported_ParamsDataView(
-      internal::CrosHealthdRoutinesService_IsRoutineSupported_Params_Data* data,
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ParamsDataView(
+      internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -236,17 +236,17 @@ class CrosHealthdRoutinesService_IsRoutineSupported_ParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::CrosHealthdRoutinesService_IsRoutineSupported_Params_Data* data_ = nullptr;
+  internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class CrosHealthdRoutinesService_IsRoutineSupported_ResponseParamsDataView {
+class CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParamsDataView {
  public:
-  CrosHealthdRoutinesService_IsRoutineSupported_ResponseParamsDataView() = default;
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParamsDataView() = default;
 
-  CrosHealthdRoutinesService_IsRoutineSupported_ResponseParamsDataView(
-      internal::CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data* data,
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParamsDataView(
+      internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -262,7 +262,7 @@ class CrosHealthdRoutinesService_IsRoutineSupported_ResponseParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data* data_ = nullptr;
+  internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -388,14 +388,14 @@ inline void CrosHealthdRoutinesService_CreateRoutine_ParamsDataView::GetRoutineA
 }
 
 
-inline void CrosHealthdRoutinesService_IsRoutineSupported_ParamsDataView::GetRoutineArgumentDataView(
+inline void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ParamsDataView::GetRoutineArgumentDataView(
     RoutineArgumentDataView* output) {
   auto pointer = &data_->routine_argument;
   *output = RoutineArgumentDataView(pointer, message_);
 }
 
 
-inline void CrosHealthdRoutinesService_IsRoutineSupported_ResponseParamsDataView::GetStatusDataView(
+inline void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParamsDataView::GetStatusDataView(
     ::ash::cros_healthd::mojom::SupportStatusDataView* output) {
   auto pointer = &data_->status;
   *output = ::ash::cros_healthd::mojom::SupportStatusDataView(pointer, message_);

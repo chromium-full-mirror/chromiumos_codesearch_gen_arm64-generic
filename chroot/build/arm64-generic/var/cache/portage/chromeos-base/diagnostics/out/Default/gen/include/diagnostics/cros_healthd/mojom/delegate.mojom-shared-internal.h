@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom-shared-internal.h"
+#include "diagnostics/mojom/external/time.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-shared-internal.h"

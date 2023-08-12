@@ -26,14 +26,59 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
+class MemoryRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
 class RoutineStateWaiting_Data;
 class RoutineStateFinished_Data;
+class MemoryRoutineDetail_Data;
+class MemtesterResult_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
 class RoutineDetail_Data;
+
+struct MemtesterTestItemEnum_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+      case 15:
+      case 16:
+      case 17:
+      case 18:
+      case 19:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 struct RoutineStateWaiting_Reason_Data {
  public:
@@ -93,6 +138,8 @@ class  RoutineArgument_Data {
 
     
     kUnrecognizedArgument,
+    
+    kMemory,
   };
 
   // A note on layout:
@@ -101,6 +148,7 @@ class  RoutineArgument_Data {
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
     uint8_t f_unrecognizedArgument : 1;
+    mojo::internal::Pointer<internal::MemoryRoutineArgument_Data> f_memory;
     uint64_t unknown;
   };
 
@@ -203,6 +251,8 @@ class  RoutineDetail_Data {
 
     
     kUnrecognizedArgument,
+    
+    kMemory,
   };
 
   // A note on layout:
@@ -211,6 +261,7 @@ class  RoutineDetail_Data {
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
     uint8_t f_unrecognizedArgument : 1;
+    mojo::internal::Pointer<internal::MemoryRoutineDetail_Data> f_memory;
     uint64_t unknown;
   };
 
@@ -220,6 +271,56 @@ class  RoutineDetail_Data {
 };
 static_assert(sizeof(RoutineDetail_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(RoutineDetail_Data)");
+class  MemoryRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t max_testing_mem_kib_$flag : 1;
+  uint8_t pad0_[3];
+  uint32_t max_testing_mem_kib_$value;
+
+ private:
+  friend class mojo::internal::MessageFragment<MemoryRoutineArgument_Data>;
+
+  MemoryRoutineArgument_Data();
+  ~MemoryRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(MemoryRoutineArgument_Data) == 16,
+              "Bad sizeof(MemoryRoutineArgument_Data)");
+// Used by MemoryRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct MemoryRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  MemoryRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~MemoryRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<MemoryRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    MemoryRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -464,6 +565,104 @@ struct RoutineStateFinished_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     RoutineStateFinished_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  MemoryRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t bytes_tested;
+  mojo::internal::Pointer<internal::MemtesterResult_Data> result;
+
+ private:
+  friend class mojo::internal::MessageFragment<MemoryRoutineDetail_Data>;
+
+  MemoryRoutineDetail_Data();
+  ~MemoryRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(MemoryRoutineDetail_Data) == 24,
+              "Bad sizeof(MemoryRoutineDetail_Data)");
+// Used by MemoryRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct MemoryRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  MemoryRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~MemoryRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<MemoryRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    MemoryRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  MemtesterResult_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> passed_items;
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> failed_items;
+
+ private:
+  friend class mojo::internal::MessageFragment<MemtesterResult_Data>;
+
+  MemtesterResult_Data();
+  ~MemtesterResult_Data() = delete;
+};
+static_assert(sizeof(MemtesterResult_Data) == 24,
+              "Bad sizeof(MemtesterResult_Data)");
+// Used by MemtesterResult::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct MemtesterResult_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  MemtesterResult_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~MemtesterResult_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<MemtesterResult_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    MemtesterResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

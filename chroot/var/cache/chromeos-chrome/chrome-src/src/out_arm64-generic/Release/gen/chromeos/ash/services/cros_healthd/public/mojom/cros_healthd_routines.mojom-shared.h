@@ -37,6 +37,8 @@
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+class MemoryRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -46,6 +48,10 @@ class RoutineStateRunningDataView;
 class RoutineStateWaitingDataView;
 
 class RoutineStateFinishedDataView;
+
+class MemoryRoutineDetailDataView;
+
+class MemtesterResultDataView;
 
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
@@ -58,6 +64,13 @@ class RoutineDetailDataView;
 
 namespace mojo {
 namespace internal {
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::MemoryRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
 
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateDataView> {
@@ -95,6 +108,20 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineStateFinishedDataView>
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::MemoryRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::MemtesterResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::MemtesterResult_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::RoutineArgument_Data;
   using DataAsArrayElement = Data;
@@ -122,6 +149,65 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineDetailDataView> {
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
+
+enum class MemtesterTestItemEnum : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kUnknown = 1,
+  
+  kStuckAddress = 2,
+  
+  kCompareAND = 3,
+  
+  kCompareDIV = 4,
+  
+  kCompareMUL = 5,
+  
+  kCompareOR = 6,
+  
+  kCompareSUB = 7,
+  
+  kCompareXOR = 8,
+  
+  kSequentialIncrement = 9,
+  
+  kBitFlip = 10,
+  
+  kBitSpread = 11,
+  
+  kBlockSequential = 12,
+  
+  kCheckerboard = 13,
+  
+  kRandomValue = 14,
+  
+  kSolidBits = 15,
+  
+  kWalkingOnes = 16,
+  
+  kWalkingZeroes = 17,
+  
+  k8BitWrites = 18,
+  
+  k16BitWrites = 19,
+  kMinValue = 0,
+  kMaxValue = 19,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, MemtesterTestItemEnum value);
+inline bool IsKnownEnumValue(MemtesterTestItemEnum value) {
+  return internal::MemtesterTestItemEnum_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline MemtesterTestItemEnum ToKnownEnumValue(MemtesterTestItemEnum value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return MemtesterTestItemEnum::kDefaultValue;
+}
 
 
 enum class RoutineStateWaiting_Reason : int32_t {
@@ -178,6 +264,27 @@ using RoutineObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<RoutineObserverInterfaceBase>;
 using RoutineObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<RoutineObserverInterfaceBase>;
+
+
+class MemoryRoutineArgumentDataView {
+ public:
+  MemoryRoutineArgumentDataView() = default;
+
+  MemoryRoutineArgumentDataView(
+      internal::MemoryRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  absl::optional<uint32_t> max_testing_mem_kib() const {
+
+    return data_->max_testing_mem_kib_$flag
+        ? absl::make_optional(data_->max_testing_mem_kib_$value)
+        : absl::nullopt;
+  }
+ private:
+  internal::MemoryRoutineArgument_Data* data_ = nullptr;
+};
 
 
 class RoutineStateDataView {
@@ -314,6 +421,71 @@ static_assert(
 };
 
 
+class MemoryRoutineDetailDataView {
+ public:
+  MemoryRoutineDetailDataView() = default;
+
+  MemoryRoutineDetailDataView(
+      internal::MemoryRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t bytes_tested() const {
+    return data_->bytes_tested;
+  }
+  inline void GetResultDataView(
+      MemtesterResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemtesterResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::MemoryRoutineDetail_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class MemtesterResultDataView {
+ public:
+  MemtesterResultDataView() = default;
+
+  MemtesterResultDataView(
+      internal::MemtesterResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPassedItemsDataView(
+      mojo::ArrayDataView<MemtesterTestItemEnum>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPassedItems(UserType* output) {
+    
+    auto* pointer = data_->passed_items.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::MemtesterTestItemEnum>>(
+        pointer, output, message_);
+  }
+  inline void GetFailedItemsDataView(
+      mojo::ArrayDataView<MemtesterTestItemEnum>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFailedItems(UserType* output) {
+    
+    auto* pointer = data_->failed_items.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::MemtesterTestItemEnum>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::MemtesterResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class RoutineArgumentDataView {
  public:
   using Tag = internal::RoutineArgument_Data::RoutineArgument_Tag;
@@ -323,7 +495,7 @@ class RoutineArgumentDataView {
   RoutineArgumentDataView(
       internal::RoutineArgument_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const {
     // For inlined unions, |data_| is always non-null. In that case we need to
@@ -337,9 +509,21 @@ class RoutineArgumentDataView {
     CHECK(is_unrecognizedArgument());
     return data_->data.f_unrecognizedArgument;
   }
+  bool is_memory() const { return data_->tag == Tag::kMemory; }
+  inline void GetMemoryDataView(
+      MemoryRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMemory(UserType* output) const {
+    
+    CHECK(is_memory());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView>(
+        data_->data.f_memory.Get(), output, message_);
+  }
 
  private:
   internal::RoutineArgument_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -428,7 +612,7 @@ class RoutineDetailDataView {
   RoutineDetailDataView(
       internal::RoutineDetail_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const {
     // For inlined unions, |data_| is always non-null. In that case we need to
@@ -442,9 +626,21 @@ class RoutineDetailDataView {
     CHECK(is_unrecognizedArgument());
     return data_->data.f_unrecognizedArgument;
   }
+  bool is_memory() const { return data_->tag == Tag::kMemory; }
+  inline void GetMemoryDataView(
+      MemoryRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMemory(UserType* output) const {
+    
+    CHECK(is_memory());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView>(
+        data_->data.f_memory.Get(), output, message_);
+  }
 
  private:
   internal::RoutineDetail_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -456,12 +652,36 @@ class RoutineDetailDataView {
 namespace std {
 
 template <>
+struct hash<::ash::cros_healthd::mojom::MemtesterTestItemEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::MemtesterTestItemEnum> {};
+
+template <>
 struct hash<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason> {};
 
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::MemtesterTestItemEnum, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::MemtesterTestItemEnum>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -478,6 +698,39 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason, MaybeC
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::MemoryRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->max_testing_mem_kib_$flag = Traits::max_testing_mem_kib(input).has_value();
+    if (Traits::max_testing_mem_kib(input).has_value()) {
+      fragment->max_testing_mem_kib_$value = Traits::max_testing_mem_kib(input).value();
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::MemoryRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
   }
 };
 
@@ -664,6 +917,105 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineStateFinishedDataView, Mayb
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::MemoryRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->bytes_tested = Traits::bytes_tested(input);
+    decltype(Traits::result(input)) in_result = Traits::result(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->result)::BaseType> result_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::MemtesterResultDataView>(
+        in_result, result_fragment);
+    fragment->result.Set(
+        result_fragment.is_null() ? nullptr : result_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->result.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null result in MemoryRoutineDetail struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::MemoryRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::MemoryRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::MemtesterResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::MemtesterResultDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::MemtesterResult_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::passed_items(input)) in_passed_items = Traits::passed_items(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->passed_items)::BaseType>
+        passed_items_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& passed_items_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::MemtesterTestItemEnum>>(
+        in_passed_items, passed_items_fragment, &passed_items_validate_params);
+    fragment->passed_items.Set(
+        passed_items_fragment.is_null() ? nullptr : passed_items_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->passed_items.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null passed_items in MemtesterResult struct");
+    decltype(Traits::failed_items(input)) in_failed_items = Traits::failed_items(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->failed_items)::BaseType>
+        failed_items_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& failed_items_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::MemtesterTestItemEnum_Data::Validate>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::MemtesterTestItemEnum>>(
+        in_failed_items, failed_items_fragment, &failed_items_validate_params);
+    fragment->failed_items.Set(
+        failed_items_fragment.is_null() ? nullptr : failed_items_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->failed_items.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null failed_items in MemtesterResult struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::MemtesterResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::MemtesterResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView, UserType>;
@@ -689,6 +1041,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
         decltype(Traits::unrecognizedArgument(input))
             in_unrecognizedArgument = Traits::unrecognizedArgument(input);
         fragment->data.f_unrecognizedArgument = in_unrecognizedArgument;
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kMemory: {
+        decltype(Traits::memory(input))
+            in_memory = Traits::memory(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_memory)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::MemoryRoutineArgumentDataView>(
+            in_memory, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null memory in RoutineArgument union");
+        fragment->data.f_memory.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
     }
@@ -849,6 +1217,22 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
         fragment->data.f_unrecognizedArgument = in_unrecognizedArgument;
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kMemory: {
+        decltype(Traits::memory(input))
+            in_memory = Traits::memory(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_memory)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::MemoryRoutineDetailDataView>(
+            in_memory, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null memory in RoutineDetail union");
+        fragment->data.f_memory.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -871,6 +1255,8 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
+
 
 inline void RoutineStateDataView::GetStateUnionDataView(
     RoutineStateUnionDataView* output) {
@@ -897,6 +1283,30 @@ inline void RoutineStateFinishedDataView::GetDetailDataView(
 }
 
 
+inline void MemoryRoutineDetailDataView::GetResultDataView(
+    MemtesterResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = MemtesterResultDataView(pointer, message_);
+}
+
+
+inline void MemtesterResultDataView::GetPassedItemsDataView(
+    mojo::ArrayDataView<MemtesterTestItemEnum>* output) {
+  auto pointer = data_->passed_items.Get();
+  *output = mojo::ArrayDataView<MemtesterTestItemEnum>(pointer, message_);
+}
+inline void MemtesterResultDataView::GetFailedItemsDataView(
+    mojo::ArrayDataView<MemtesterTestItemEnum>* output) {
+  auto pointer = data_->failed_items.Get();
+  *output = mojo::ArrayDataView<MemtesterTestItemEnum>(pointer, message_);
+}
+
+
+inline void RoutineArgumentDataView::GetMemoryDataView(
+    MemoryRoutineArgumentDataView* output) const {
+  CHECK(is_memory());
+  *output = MemoryRoutineArgumentDataView(data_->data.f_memory.Get(), message_);
+}
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
     RoutineStateInitializedDataView* output) const {
@@ -919,6 +1329,11 @@ inline void RoutineStateUnionDataView::GetFinishedDataView(
   *output = RoutineStateFinishedDataView(data_->data.f_finished.Get(), message_);
 }
 
+inline void RoutineDetailDataView::GetMemoryDataView(
+    MemoryRoutineDetailDataView* output) const {
+  CHECK(is_memory());
+  *output = MemoryRoutineDetailDataView(data_->data.f_memory.Get(), message_);
+}
 
 
 }  // namespace mojom
@@ -927,6 +1342,15 @@ inline void RoutineStateUnionDataView::GetFinishedDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::MemtesterTestItemEnum value);
+};
+
+} // namespace perfetto
 
 namespace perfetto {
 

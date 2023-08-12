@@ -98,8 +98,8 @@ int CheckV2RoutineSupportStatus(mojom::RoutineArgumentPtr argument) {
       cros_healthd_routines_service_);
 
   MojoResponseWaiter<mojom::SupportStatusPtr> waiter;
-  cros_healthd_routines_service_->IsRoutineSupported(std::move(argument),
-                                                     waiter.CreateCallback());
+  cros_healthd_routines_service_->IsRoutineArgumentSupported(
+      std::move(argument), waiter.CreateCallback());
   OutputSupportStatus(waiter.WaitForResponse());
 
   return EXIT_SUCCESS;
@@ -276,6 +276,20 @@ int LedLitUpMain(int argc, char** argv) {
   argument->replier = replier.BindNewPipdAndPassRemote();
 
   COMMON_V2_ROUTINE_MAIN(LedLitUp);
+}
+
+int FloatingPointV2Main(int argc, char** argv) {
+  DEFINE_uint32(length_seconds, 60,
+                "Number of seconds to run the routine for.");
+  COMMON_V2_ROUTINE_FLAGS("Floating Point V2 routine")
+  base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
+
+  auto argument = mojom::FloatingPointRoutineArgument::New();
+  if (command_line->HasSwitch("length_seconds")) {
+    argument->exec_duration = base::Seconds(FLAGS_length_seconds);
+  }
+
+  COMMON_V2_ROUTINE_MAIN(FloatingPoint);
 }
 
 #define COMMON_LEGACY_ROUTINE_FLAGS                                            \
@@ -789,6 +803,7 @@ const std::map<std::string, int (*)(int, char**)> routine_to_fp_mapping{
     {"prime_search_v2", PrimeSearchV2Main},
     {"volume_button", VolumeButtonMain},
     {"led_lit_up", LedLitUpMain},
+    {"floating_point_v2", FloatingPointV2Main},
     // V1 routines.
     {"battery_capacity", BatteryCapacityMain},
     {"battery_health", BatteryHealthMain},

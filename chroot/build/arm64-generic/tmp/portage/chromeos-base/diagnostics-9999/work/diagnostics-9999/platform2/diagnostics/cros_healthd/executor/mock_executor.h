@@ -158,7 +158,7 @@ class MockExecutor final : public ash::cros_healthd::mojom::Executor {
               (override));
   MOCK_METHOD(void,
               RunPrimeSearch,
-              (uint32_t duration_sec,
+              (base::TimeDelta exec_duration,
                uint64_t max_num,
                mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>
                    process_control_receiver,
@@ -170,6 +170,13 @@ class MockExecutor final : public ash::cros_healthd::mojom::Executor {
                    ash::cros_healthd::mojom::VolumeButtonObserver> observer,
                mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>
                    process_control),
+              (override));
+  MOCK_METHOD(void,
+              RunFloatingPoint,
+              (base::TimeDelta exec_duration,
+               mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl>
+                   process_control_receiver,
+               RunFloatingPointCallback callback),
               (override));
 };
 

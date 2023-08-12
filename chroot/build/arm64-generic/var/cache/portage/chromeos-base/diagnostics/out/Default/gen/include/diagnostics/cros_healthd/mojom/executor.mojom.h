@@ -552,6 +552,7 @@ class Executor
     kMonitorPowerButtonMinVersion = 0,
     kRunPrimeSearchMinVersion = 0,
     kMonitorVolumeButtonMinVersion = 0,
+    kRunFloatingPointMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -654,6 +655,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MonitorVolumeButton_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunFloatingPoint_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -801,10 +805,15 @@ class Executor
 
   using RunPrimeSearchCallback = base::OnceCallback<void(bool)>;
   
-  virtual void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) = 0;
+  virtual void RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) = 0;
 
   
   virtual void MonitorVolumeButton(::mojo::PendingRemote<VolumeButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
+
+
+  using RunFloatingPointCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void RunFloatingPoint(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunFloatingPointCallback callback) = 0;
 };
 
 
@@ -1018,9 +1027,11 @@ class  ExecutorProxy
   
   void MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
   
-  void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) final;
+  void RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) final;
   
   void MonitorVolumeButton(::mojo::PendingRemote<VolumeButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
+  
+  void RunFloatingPoint(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunFloatingPointCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

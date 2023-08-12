@@ -73,7 +73,7 @@ class CrosHealthdRoutinesService
   using ResponseValidator_ = CrosHealthdRoutinesServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kCreateRoutineMinVersion = 0,
-    kIsRoutineSupportedMinVersion = 1,
+    kIsRoutineArgumentSupportedMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -82,7 +82,7 @@ class CrosHealthdRoutinesService
   struct CreateRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct IsRoutineSupported_Sym {
+  struct IsRoutineArgumentSupported_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -92,9 +92,9 @@ class CrosHealthdRoutinesService
   virtual void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) = 0;
 
 
-  using IsRoutineSupportedCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::SupportStatusPtr)>;
+  using IsRoutineArgumentSupportedCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::SupportStatusPtr)>;
   
-  virtual void IsRoutineSupported(RoutineArgumentPtr routine_argument, IsRoutineSupportedCallback callback) = 0;
+  virtual void IsRoutineArgumentSupported(RoutineArgumentPtr routine_argument, IsRoutineArgumentSupportedCallback callback) = 0;
 };
 
 class LedLitUpRoutineReplierProxy;
@@ -256,7 +256,7 @@ class  CrosHealthdRoutinesServiceProxy
   
   void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) final;
   
-  void IsRoutineSupported(RoutineArgumentPtr routine_argument, IsRoutineSupportedCallback callback) final;
+  void IsRoutineArgumentSupported(RoutineArgumentPtr routine_argument, IsRoutineArgumentSupportedCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -913,6 +913,7 @@ template <typename T, UfsLifetimeRoutineArgument::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 
 
@@ -2178,6 +2179,142 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  FloatingPointRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FloatingPointRoutineDetail, T>::value>;
+  using DataView = FloatingPointRoutineDetailDataView;
+  using Data_ = internal::FloatingPointRoutineDetail_Data;
+
+  template <typename... Args>
+  static FloatingPointRoutineDetailPtr New(Args&&... args) {
+    return FloatingPointRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FloatingPointRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<FloatingPointRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FloatingPointRoutineDetail>::Convert(*this);
+  }
+
+
+  FloatingPointRoutineDetail();
+
+
+  ~FloatingPointRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FloatingPointRoutineDetailPtr>
+  FloatingPointRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FloatingPointRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FloatingPointRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FloatingPointRoutineDetail_UnserializedMessageContext<
+            UserType, FloatingPointRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FloatingPointRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FloatingPointRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FloatingPointRoutineDetail_UnserializedMessageContext<
+            UserType, FloatingPointRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FloatingPointRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  VolumeButtonRoutineDetail {
  public:
@@ -2547,6 +2684,14 @@ class  RoutineArgument {
     result->set_led_lit_up(std::move(led_lit_up));
     return result;
   }
+  // Construct an instance holding |floating_point|.
+  static RoutineArgumentPtr
+  NewFloatingPoint(
+      FloatingPointRoutineArgumentPtr floating_point) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_floating_point(std::move(floating_point));
+    return result;
+  }
 
   template <typename U>
   static RoutineArgumentPtr From(const U& u) {
@@ -2709,6 +2854,18 @@ class  RoutineArgument {
   
   void set_led_lit_up(
       LedLitUpRoutineArgumentPtr led_lit_up);
+  
+  bool is_floating_point() const { return tag_ == Tag::kFloatingPoint; }
+
+  
+  FloatingPointRoutineArgumentPtr& get_floating_point() const {
+    CHECK(tag_ == Tag::kFloatingPoint);
+    return *(data_.floating_point);
+  }
+
+  
+  void set_floating_point(
+      FloatingPointRoutineArgumentPtr floating_point);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2737,6 +2894,7 @@ class  RoutineArgument {
     PrimeSearchRoutineArgumentPtr* prime_search;
     VolumeButtonRoutineArgumentPtr* volume_button;
     LedLitUpRoutineArgumentPtr* led_lit_up;
+    FloatingPointRoutineArgumentPtr* floating_point;
   };
 
   static bool Validate(const void* data,
@@ -3038,6 +3196,14 @@ class  RoutineDetail {
     result->set_led_lit_up(std::move(led_lit_up));
     return result;
   }
+  // Construct an instance holding |floating_point|.
+  static RoutineDetailPtr
+  NewFloatingPoint(
+      FloatingPointRoutineDetailPtr floating_point) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_floating_point(std::move(floating_point));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -3200,6 +3366,18 @@ class  RoutineDetail {
   
   void set_led_lit_up(
       LedLitUpRoutineDetailPtr led_lit_up);
+  
+  bool is_floating_point() const { return tag_ == Tag::kFloatingPoint; }
+
+  
+  FloatingPointRoutineDetailPtr& get_floating_point() const {
+    CHECK(tag_ == Tag::kFloatingPoint);
+    return *(data_.floating_point);
+  }
+
+  
+  void set_floating_point(
+      FloatingPointRoutineDetailPtr floating_point);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -3228,6 +3406,7 @@ class  RoutineDetail {
     PrimeSearchRoutineDetailPtr* prime_search;
     VolumeButtonRoutineDetailPtr* volume_button;
     LedLitUpRoutineDetailPtr* led_lit_up;
+    FloatingPointRoutineDetailPtr* floating_point;
   };
 
   static bool Validate(const void* data,
@@ -4098,6 +4277,146 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  FloatingPointRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FloatingPointRoutineArgument, T>::value>;
+  using DataView = FloatingPointRoutineArgumentDataView;
+  using Data_ = internal::FloatingPointRoutineArgument_Data;
+
+  template <typename... Args>
+  static FloatingPointRoutineArgumentPtr New(Args&&... args) {
+    return FloatingPointRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FloatingPointRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<FloatingPointRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FloatingPointRoutineArgument>::Convert(*this);
+  }
+
+
+  FloatingPointRoutineArgument();
+
+  explicit FloatingPointRoutineArgument(
+      absl::optional<base::TimeDelta> exec_duration);
+
+
+  ~FloatingPointRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FloatingPointRoutineArgumentPtr>
+  FloatingPointRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FloatingPointRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FloatingPointRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, FloatingPointRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FloatingPointRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FloatingPointRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FloatingPointRoutineArgument_UnserializedMessageContext<
+            UserType, FloatingPointRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FloatingPointRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FloatingPointRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FloatingPointRoutineArgument_UnserializedMessageContext<
+            UserType, FloatingPointRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FloatingPointRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  absl::optional<base::TimeDelta> exec_duration;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FloatingPointRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FloatingPointRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FloatingPointRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FloatingPointRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  RoutineState {
  public:
   template <typename T>
@@ -4542,6 +4861,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  MemtesterResult {
  public:
   template <typename T>
@@ -4716,6 +5036,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kLedLitUp:
       return NewLedLitUp(
           mojo::Clone(*data_.led_lit_up));
+    case Tag::kFloatingPoint:
+      return NewFloatingPoint(
+          mojo::Clone(*data_.floating_point));
   }
   return nullptr;
 }
@@ -4748,6 +5071,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
     case Tag::kLedLitUp:
       return mojo::Equals(*(data_.led_lit_up), *(other.data_.led_lit_up));
+    case Tag::kFloatingPoint:
+      return mojo::Equals(*(data_.floating_point), *(other.data_.floating_point));
   }
 
   return false;
@@ -4829,6 +5154,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kLedLitUp:
       return NewLedLitUp(
           mojo::Clone(*data_.led_lit_up));
+    case Tag::kFloatingPoint:
+      return NewFloatingPoint(
+          mojo::Clone(*data_.floating_point));
   }
   return nullptr;
 }
@@ -4861,6 +5189,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.volume_button), *(other.data_.volume_button));
     case Tag::kLedLitUp:
       return mojo::Equals(*(data_.led_lit_up), *(other.data_.led_lit_up));
+    case Tag::kFloatingPoint:
+      return mojo::Equals(*(data_.floating_point), *(other.data_.floating_point));
   }
 
   return false;
@@ -5081,6 +5411,28 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.replier < rhs.replier)
     return true;
   if (rhs.replier < lhs.replier)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+FloatingPointRoutineArgumentPtr FloatingPointRoutineArgument::Clone() const {
+  return New(
+      mojo::Clone(exec_duration)
+  );
+}
+
+template <typename T, FloatingPointRoutineArgument::EnableIfSame<T>*>
+bool FloatingPointRoutineArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->exec_duration, other_struct.exec_duration))
+    return false;
+  return true;
+}
+
+template <typename T, FloatingPointRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.exec_duration < rhs.exec_duration)
+    return true;
+  if (rhs.exec_duration < lhs.exec_duration)
     return false;
   return false;
 }
@@ -5356,6 +5708,21 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+FloatingPointRoutineDetailPtr FloatingPointRoutineDetail::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>*>
+bool FloatingPointRoutineDetail::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, FloatingPointRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
 MemtesterResultPtr MemtesterResult::Clone() const {
   return New(
       mojo::Clone(passed_items),
@@ -5574,6 +5941,21 @@ struct  StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgument::DataVi
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::FloatingPointRoutineArgument::exec_duration)& exec_duration(
+      const ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr& input) {
+    return input->exec_duration;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::FloatingPointRoutineArgument::DataView input, ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView,
                                          ::ash::cros_healthd::mojom::RoutineStatePtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::RoutineStatePtr& input) { return !input; }
@@ -5759,6 +6141,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::DataV
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::FloatingPointRoutineDetail::DataView input, ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
                                          ::ash::cros_healthd::mojom::MemtesterResultPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) { return !input; }
@@ -5848,6 +6240,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
     return input->get_led_lit_up();
   }
 
+  static const ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr& floating_point(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_floating_point();
+  }
+
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
 };
 
@@ -5934,6 +6330,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::LedLitUpRoutineDetailPtr& led_lit_up(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_led_lit_up();
+  }
+
+  static const ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr& floating_point(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_floating_point();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

@@ -377,6 +377,146 @@ class  RoutineControlResponseValidator : public mojo::MessageReceiver {
 
 
 
+class  MemoryRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<MemoryRoutineArgument, T>::value>;
+  using DataView = MemoryRoutineArgumentDataView;
+  using Data_ = internal::MemoryRoutineArgument_Data;
+
+  template <typename... Args>
+  static MemoryRoutineArgumentPtr New(Args&&... args) {
+    return MemoryRoutineArgumentPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static MemoryRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<MemoryRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, MemoryRoutineArgument>::Convert(*this);
+  }
+
+
+  MemoryRoutineArgument();
+
+  explicit MemoryRoutineArgument(
+      absl::optional<uint32_t> max_testing_mem_kib);
+
+
+  ~MemoryRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = MemoryRoutineArgumentPtr>
+  MemoryRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, MemoryRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, MemoryRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, MemoryRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        MemoryRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        MemoryRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::MemoryRoutineArgument_UnserializedMessageContext<
+            UserType, MemoryRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<MemoryRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return MemoryRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::MemoryRoutineArgument_UnserializedMessageContext<
+            UserType, MemoryRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<MemoryRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  absl::optional<uint32_t> max_testing_mem_kib;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, MemoryRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, MemoryRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, MemoryRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, MemoryRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineStateInitialized {
  public:
@@ -796,6 +936,8 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
 class  RoutineArgument {
  public:
   using DataView = RoutineArgumentDataView;
@@ -820,6 +962,14 @@ class  RoutineArgument {
     result->set_unrecognizedArgument(std::move(unrecognizedArgument));
     return result;
   }
+  // Construct an instance holding |memory|.
+  static RoutineArgumentPtr
+  NewMemory(
+      MemoryRoutineArgumentPtr memory) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_memory(std::move(memory));
+    return result;
+  }
 
   template <typename U>
   static RoutineArgumentPtr From(const U& u) {
@@ -833,6 +983,10 @@ class  RoutineArgument {
 
   RoutineArgument();
   ~RoutineArgument();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  RoutineArgument(const RoutineArgument& other) = delete;
+  RoutineArgument& operator=(const RoutineArgument& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -852,7 +1006,6 @@ class  RoutineArgument {
             typename std::enable_if<std::is_same<
                 T, RoutineArgument>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
 
   Tag which() const {
     return tag_;
@@ -871,6 +1024,18 @@ class  RoutineArgument {
   
   void set_unrecognizedArgument(
       bool unrecognizedArgument);
+  
+  bool is_memory() const { return tag_ == Tag::kMemory; }
+
+  
+  MemoryRoutineArgumentPtr& get_memory() const {
+    CHECK(tag_ == Tag::kMemory);
+    return *(data_.memory);
+  }
+
+  
+  void set_memory(
+      MemoryRoutineArgumentPtr memory);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -890,6 +1055,7 @@ class  RoutineArgument {
     Union_() = default;
     ~Union_() = default;
     bool unrecognizedArgument;
+    MemoryRoutineArgumentPtr* memory;
   };
 
   static bool Validate(const void* data,
@@ -1119,6 +1285,14 @@ class  RoutineDetail {
     result->set_unrecognizedArgument(std::move(unrecognizedArgument));
     return result;
   }
+  // Construct an instance holding |memory|.
+  static RoutineDetailPtr
+  NewMemory(
+      MemoryRoutineDetailPtr memory) {
+    auto result = RoutineDetailPtr(absl::in_place);
+    result->set_memory(std::move(memory));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -1132,6 +1306,10 @@ class  RoutineDetail {
 
   RoutineDetail();
   ~RoutineDetail();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  RoutineDetail(const RoutineDetail& other) = delete;
+  RoutineDetail& operator=(const RoutineDetail& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -1151,7 +1329,6 @@ class  RoutineDetail {
             typename std::enable_if<std::is_same<
                 T, RoutineDetail>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
 
   Tag which() const {
     return tag_;
@@ -1170,6 +1347,18 @@ class  RoutineDetail {
   
   void set_unrecognizedArgument(
       bool unrecognizedArgument);
+  
+  bool is_memory() const { return tag_ == Tag::kMemory; }
+
+  
+  MemoryRoutineDetailPtr& get_memory() const {
+    CHECK(tag_ == Tag::kMemory);
+    return *(data_.memory);
+  }
+
+  
+  void set_memory(
+      MemoryRoutineDetailPtr memory);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1189,6 +1378,7 @@ class  RoutineDetail {
     Union_() = default;
     ~Union_() = default;
     bool unrecognizedArgument;
+    MemoryRoutineDetailPtr* memory;
   };
 
   static bool Validate(const void* data,
@@ -1198,6 +1388,7 @@ class  RoutineDetail {
   Tag tag_;
   Union_ data_;
 };
+
 
 
 
@@ -1492,12 +1683,303 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+class  MemoryRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<MemoryRoutineDetail, T>::value>;
+  using DataView = MemoryRoutineDetailDataView;
+  using Data_ = internal::MemoryRoutineDetail_Data;
+
+  template <typename... Args>
+  static MemoryRoutineDetailPtr New(Args&&... args) {
+    return MemoryRoutineDetailPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static MemoryRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<MemoryRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, MemoryRoutineDetail>::Convert(*this);
+  }
+
+
+  MemoryRoutineDetail();
+
+  MemoryRoutineDetail(
+      uint64_t bytes_tested,
+      MemtesterResultPtr result);
+
+MemoryRoutineDetail(const MemoryRoutineDetail&) = delete;
+MemoryRoutineDetail& operator=(const MemoryRoutineDetail&) = delete;
+
+  ~MemoryRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = MemoryRoutineDetailPtr>
+  MemoryRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, MemoryRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, MemoryRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, MemoryRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        MemoryRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        MemoryRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::MemoryRoutineDetail_UnserializedMessageContext<
+            UserType, MemoryRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<MemoryRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return MemoryRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::MemoryRoutineDetail_UnserializedMessageContext<
+            UserType, MemoryRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<MemoryRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t bytes_tested;
+  
+  MemtesterResultPtr result;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, MemoryRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, MemoryRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, MemoryRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, MemoryRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  MemtesterResult {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<MemtesterResult, T>::value>;
+  using DataView = MemtesterResultDataView;
+  using Data_ = internal::MemtesterResult_Data;
+
+  template <typename... Args>
+  static MemtesterResultPtr New(Args&&... args) {
+    return MemtesterResultPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static MemtesterResultPtr From(const U& u) {
+    return mojo::TypeConverter<MemtesterResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, MemtesterResult>::Convert(*this);
+  }
+
+
+  MemtesterResult();
+
+  MemtesterResult(
+      std::vector<MemtesterTestItemEnum> passed_items,
+      std::vector<MemtesterTestItemEnum> failed_items);
+
+
+  ~MemtesterResult();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = MemtesterResultPtr>
+  MemtesterResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, MemtesterResult::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, MemtesterResult::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, MemtesterResult::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        MemtesterResult::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        MemtesterResult::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::MemtesterResult_UnserializedMessageContext<
+            UserType, MemtesterResult::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<MemtesterResult::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return MemtesterResult::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::MemtesterResult_UnserializedMessageContext<
+            UserType, MemtesterResult::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<MemtesterResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<MemtesterTestItemEnum> passed_items;
+  
+  std::vector<MemtesterTestItemEnum> failed_items;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, MemtesterResult::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, MemtesterResult::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, MemtesterResult::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, MemtesterResult::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename UnionPtrType>
 RoutineArgumentPtr RoutineArgument::Clone() const {
   switch (tag_) {
     case Tag::kUnrecognizedArgument:
       return NewUnrecognizedArgument(
           mojo::Clone(data_.unrecognizedArgument));
+    case Tag::kMemory:
+      return NewMemory(
+          mojo::Clone(*data_.memory));
   }
   return nullptr;
 }
@@ -1512,6 +1994,8 @@ bool RoutineArgument::Equals(const T& other) const {
   switch (tag_) {
     case Tag::kUnrecognizedArgument:
       return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
+    case Tag::kMemory:
+      return mojo::Equals(*(data_.memory), *(other.data_.memory));
   }
 
   return false;
@@ -1566,6 +2050,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kUnrecognizedArgument:
       return NewUnrecognizedArgument(
           mojo::Clone(data_.unrecognizedArgument));
+    case Tag::kMemory:
+      return NewMemory(
+          mojo::Clone(*data_.memory));
   }
   return nullptr;
 }
@@ -1580,8 +2067,32 @@ bool RoutineDetail::Equals(const T& other) const {
   switch (tag_) {
     case Tag::kUnrecognizedArgument:
       return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
+    case Tag::kMemory:
+      return mojo::Equals(*(data_.memory), *(other.data_.memory));
   }
 
+  return false;
+}
+template <typename StructPtrType>
+MemoryRoutineArgumentPtr MemoryRoutineArgument::Clone() const {
+  return New(
+      mojo::Clone(max_testing_mem_kib)
+  );
+}
+
+template <typename T, MemoryRoutineArgument::EnableIfSame<T>*>
+bool MemoryRoutineArgument::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->max_testing_mem_kib, other_struct.max_testing_mem_kib))
+    return false;
+  return true;
+}
+
+template <typename T, MemoryRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.max_testing_mem_kib < rhs.max_testing_mem_kib)
+    return true;
+  if (rhs.max_testing_mem_kib < lhs.max_testing_mem_kib)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -1701,6 +2212,64 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+MemoryRoutineDetailPtr MemoryRoutineDetail::Clone() const {
+  return New(
+      mojo::Clone(bytes_tested),
+      mojo::Clone(result)
+  );
+}
+
+template <typename T, MemoryRoutineDetail::EnableIfSame<T>*>
+bool MemoryRoutineDetail::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->bytes_tested, other_struct.bytes_tested))
+    return false;
+  if (!mojo::Equals(this->result, other_struct.result))
+    return false;
+  return true;
+}
+
+template <typename T, MemoryRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.bytes_tested < rhs.bytes_tested)
+    return true;
+  if (rhs.bytes_tested < lhs.bytes_tested)
+    return false;
+  if (lhs.result < rhs.result)
+    return true;
+  if (rhs.result < lhs.result)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+MemtesterResultPtr MemtesterResult::Clone() const {
+  return New(
+      mojo::Clone(passed_items),
+      mojo::Clone(failed_items)
+  );
+}
+
+template <typename T, MemtesterResult::EnableIfSame<T>*>
+bool MemtesterResult::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->passed_items, other_struct.passed_items))
+    return false;
+  if (!mojo::Equals(this->failed_items, other_struct.failed_items))
+    return false;
+  return true;
+}
+
+template <typename T, MemtesterResult::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.passed_items < rhs.passed_items)
+    return true;
+  if (rhs.passed_items < lhs.passed_items)
+    return false;
+  if (lhs.failed_items < rhs.failed_items)
+    return true;
+  if (rhs.failed_items < lhs.failed_items)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -1708,6 +2277,21 @@ bool operator<(const T& lhs, const T& rhs) {
 }  // namespace ash
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::MemoryRoutineArgument::max_testing_mem_kib) max_testing_mem_kib(
+      const ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr& input) {
+    return input->max_testing_mem_kib;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::MemoryRoutineArgument::DataView input, ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr* output);
+};
 
 
 template <>
@@ -1791,6 +2375,46 @@ struct  StructTraits<::ash::cros_healthd::mojom::RoutineStateFinished::DataView,
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::MemoryRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::MemoryRoutineDetailPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::MemoryRoutineDetail::bytes_tested) bytes_tested(
+      const ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr& input) {
+    return input->bytes_tested;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::MemoryRoutineDetail::result)& result(
+      const ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr& input) {
+    return input->result;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::MemoryRoutineDetail::DataView input, ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView,
+                                         ::ash::cros_healthd::mojom::MemtesterResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::MemtesterResultPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::MemtesterResult::passed_items)& passed_items(
+      const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) {
+    return input->passed_items;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::MemtesterResult::failed_items)& failed_items(
+      const ::ash::cros_healthd::mojom::MemtesterResultPtr& input) {
+    return input->failed_items;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::MemtesterResult::DataView input, ::ash::cros_healthd::mojom::MemtesterResultPtr* output);
+};
+
+
+template <>
 struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
                                         ::ash::cros_healthd::mojom::RoutineArgumentPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) { return !input; }
@@ -1802,6 +2426,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static  bool unrecognizedArgument(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_unrecognizedArgument();
+  }
+
+  static const ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr& memory(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_memory();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -1854,6 +2482,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static  bool unrecognizedArgument(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_unrecognizedArgument();
+  }
+
+  static const ::ash::cros_healthd::mojom::MemoryRoutineDetailPtr& memory(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_memory();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

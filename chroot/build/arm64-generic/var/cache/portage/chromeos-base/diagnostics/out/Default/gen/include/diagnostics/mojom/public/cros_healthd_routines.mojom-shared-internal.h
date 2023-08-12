@@ -35,6 +35,7 @@ class CpuCacheRoutineArgument_Data;
 class PrimeSearchRoutineArgument_Data;
 class VolumeButtonRoutineArgument_Data;
 class LedLitUpRoutineArgument_Data;
+class FloatingPointRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
@@ -47,6 +48,7 @@ class UfsLifetimeRoutineDetail_Data;
 class DiskReadRoutineDetail_Data;
 class CpuCacheRoutineDetail_Data;
 class PrimeSearchRoutineDetail_Data;
+class FloatingPointRoutineDetail_Data;
 class MemtesterResult_Data;
 class VolumeButtonRoutineDetail_Data;
 class LedLitUpRoutineDetail_Data;
@@ -279,6 +281,8 @@ class  RoutineArgument_Data {
     kVolumeButton,
     
     kLedLitUp,
+    
+    kFloatingPoint,
   };
 
   // A note on layout:
@@ -296,6 +300,7 @@ class  RoutineArgument_Data {
     mojo::internal::Pointer<internal::PrimeSearchRoutineArgument_Data> f_prime_search;
     mojo::internal::Pointer<internal::VolumeButtonRoutineArgument_Data> f_volume_button;
     mojo::internal::Pointer<internal::LedLitUpRoutineArgument_Data> f_led_lit_up;
+    mojo::internal::Pointer<internal::FloatingPointRoutineArgument_Data> f_floating_point;
     uint64_t unknown;
   };
 
@@ -416,6 +421,8 @@ class  RoutineDetail_Data {
     kVolumeButton,
     
     kLedLitUp,
+    
+    kFloatingPoint,
   };
 
   // A note on layout:
@@ -433,6 +440,7 @@ class  RoutineDetail_Data {
     mojo::internal::Pointer<internal::PrimeSearchRoutineDetail_Data> f_prime_search;
     mojo::internal::Pointer<internal::VolumeButtonRoutineDetail_Data> f_volume_button;
     mojo::internal::Pointer<internal::LedLitUpRoutineDetail_Data> f_led_lit_up;
+    mojo::internal::Pointer<internal::FloatingPointRoutineDetail_Data> f_floating_point;
     uint64_t unknown;
   };
 
@@ -880,6 +888,54 @@ struct LedLitUpRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     LedLitUpRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  FloatingPointRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::external::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<FloatingPointRoutineArgument_Data>;
+
+  FloatingPointRoutineArgument_Data();
+  ~FloatingPointRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(FloatingPointRoutineArgument_Data) == 16,
+              "Bad sizeof(FloatingPointRoutineArgument_Data)");
+// Used by FloatingPointRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FloatingPointRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FloatingPointRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FloatingPointRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FloatingPointRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FloatingPointRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -1462,6 +1518,53 @@ struct PrimeSearchRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     PrimeSearchRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  FloatingPointRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<FloatingPointRoutineDetail_Data>;
+
+  FloatingPointRoutineDetail_Data();
+  ~FloatingPointRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(FloatingPointRoutineDetail_Data) == 8,
+              "Bad sizeof(FloatingPointRoutineDetail_Data)");
+// Used by FloatingPointRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FloatingPointRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FloatingPointRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FloatingPointRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FloatingPointRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FloatingPointRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  MemtesterResult_Data {
  public:
   static bool Validate(const void* data,

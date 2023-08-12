@@ -450,8 +450,7 @@ class  Delegate_RunPrimeSearch_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint32_t duration_sec;
-  uint8_t pad0_[4];
+  mojo::internal::Pointer<::ash::cros_healthd::external::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
   uint64_t max_num;
 
  private:
@@ -495,6 +494,39 @@ class  Delegate_MonitorVolumeButton_Params_Data {
 };
 static_assert(sizeof(Delegate_MonitorVolumeButton_Params_Data) == 16,
               "Bad sizeof(Delegate_MonitorVolumeButton_Params_Data)");
+class  Delegate_RunFloatingPoint_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::external::mojo_base::mojom::internal::TimeDelta_Data> exec_duration;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_RunFloatingPoint_Params_Data>;
+
+  Delegate_RunFloatingPoint_Params_Data();
+  ~Delegate_RunFloatingPoint_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_RunFloatingPoint_Params_Data) == 16,
+              "Bad sizeof(Delegate_RunFloatingPoint_Params_Data)");
+class  Delegate_RunFloatingPoint_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t passed : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_RunFloatingPoint_ResponseParams_Data>;
+
+  Delegate_RunFloatingPoint_ResponseParams_Data();
+  ~Delegate_RunFloatingPoint_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_RunFloatingPoint_ResponseParams_Data) == 16,
+              "Bad sizeof(Delegate_RunFloatingPoint_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1217,17 +1249,25 @@ class Delegate_RunPrimeSearch_ParamsDataView {
   Delegate_RunPrimeSearch_ParamsDataView(
       internal::Delegate_RunPrimeSearch_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  uint32_t duration_sec() const {
-    return data_->duration_sec;
+  inline void GetExecDurationDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
   }
   uint64_t max_num() const {
     return data_->max_num;
   }
  private:
   internal::Delegate_RunPrimeSearch_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -1271,6 +1311,50 @@ class Delegate_MonitorVolumeButton_ParamsDataView {
  private:
   internal::Delegate_MonitorVolumeButton_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_RunFloatingPoint_ParamsDataView {
+ public:
+  Delegate_RunFloatingPoint_ParamsDataView() = default;
+
+  Delegate_RunFloatingPoint_ParamsDataView(
+      internal::Delegate_RunFloatingPoint_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetExecDurationDataView(
+      ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExecDuration(UserType* output) {
+    
+    auto* pointer = data_->exec_duration.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_RunFloatingPoint_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class Delegate_RunFloatingPoint_ResponseParamsDataView {
+ public:
+  Delegate_RunFloatingPoint_ResponseParamsDataView() = default;
+
+  Delegate_RunFloatingPoint_ResponseParamsDataView(
+      internal::Delegate_RunFloatingPoint_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool passed() const {
+    return data_->passed;
+  }
+ private:
+  internal::Delegate_RunFloatingPoint_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -1390,8 +1474,22 @@ inline void Delegate_FetchDisplayInfo_ResponseParamsDataView::GetResultDataView(
 
 
 
+inline void Delegate_RunPrimeSearch_ParamsDataView::GetExecDurationDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
 
 
+
+
+
+
+inline void Delegate_RunFloatingPoint_ParamsDataView::GetExecDurationDataView(
+    ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView* output) {
+  auto pointer = data_->exec_duration.Get();
+  *output = ::ash::cros_healthd::external::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
 
 
 

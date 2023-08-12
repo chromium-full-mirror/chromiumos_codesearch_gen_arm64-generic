@@ -33,8 +33,9 @@ class  DelegateInterceptorForTesting : public Delegate {
   void GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) override;
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
   void MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) override;
-  void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, RunPrimeSearchCallback callback) override;
+  void RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, RunPrimeSearchCallback callback) override;
   void MonitorVolumeButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver> observer) override;
+  void RunFloatingPoint(base::TimeDelta exec_duration, RunFloatingPointCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -75,8 +76,11 @@ class  DelegateAsyncWaiter {
       ::ash::cros_healthd::mojom::DisplayResultPtr* out_result);
   ::ash::cros_healthd::mojom::DisplayResultPtr FetchDisplayInfo();
   void RunPrimeSearch(
-      uint32_t duration_sec, uint64_t max_num, bool* out_passed);
-  bool RunPrimeSearch(uint32_t duration_sec, uint64_t max_num);
+      base::TimeDelta exec_duration, uint64_t max_num, bool* out_passed);
+  bool RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num);
+  void RunFloatingPoint(
+      base::TimeDelta exec_duration, bool* out_passed);
+  bool RunFloatingPoint(base::TimeDelta exec_duration);
 
  private:
   Delegate* const proxy_;

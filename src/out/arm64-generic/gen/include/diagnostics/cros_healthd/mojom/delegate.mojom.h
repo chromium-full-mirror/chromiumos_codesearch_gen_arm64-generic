@@ -26,6 +26,7 @@
 #include "diagnostics/cros_healthd/mojom/delegate.mojom-shared.h"
 #include "diagnostics/cros_healthd/mojom/delegate.mojom-forward.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom-forward.h"
+#include "diagnostics/mojom/external/time.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_routines.mojom-forward.h"
@@ -92,6 +93,7 @@ class Delegate
     kMonitorPowerButtonMinVersion = 0,
     kRunPrimeSearchMinVersion = 0,
     kMonitorVolumeButtonMinVersion = 0,
+    kRunFloatingPointMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -149,6 +151,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MonitorVolumeButton_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunFloatingPoint_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -225,10 +230,15 @@ class Delegate
 
   using RunPrimeSearchCallback = base::OnceCallback<void(bool)>;
   
-  virtual void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, RunPrimeSearchCallback callback) = 0;
+  virtual void RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, RunPrimeSearchCallback callback) = 0;
 
   
   virtual void MonitorVolumeButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver> observer) = 0;
+
+
+  using RunFloatingPointCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void RunFloatingPoint(base::TimeDelta exec_duration, RunFloatingPointCallback callback) = 0;
 };
 
 
@@ -272,9 +282,11 @@ class  DelegateProxy
   
   void MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) final;
   
-  void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, RunPrimeSearchCallback callback) final;
+  void RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, RunPrimeSearchCallback callback) final;
   
   void MonitorVolumeButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver> observer) final;
+  
+  void RunFloatingPoint(base::TimeDelta exec_duration, RunFloatingPointCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

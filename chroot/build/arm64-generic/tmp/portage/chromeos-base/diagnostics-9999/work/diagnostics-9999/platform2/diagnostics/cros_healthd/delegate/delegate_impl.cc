@@ -32,6 +32,7 @@
 #include "diagnostics/cros_healthd/delegate/constants.h"
 #include "diagnostics/cros_healthd/delegate/fetchers/boot_performance.h"
 #include "diagnostics/cros_healthd/delegate/fetchers/display_fetcher.h"
+#include "diagnostics/cros_healthd/delegate/routines/floating_point_accuracy.h"
 #include "diagnostics/cros_healthd/delegate/routines/prime_number_search.h"
 #include "diagnostics/cros_healthd/delegate/utils/display_utils.h"
 #include "diagnostics/cros_healthd/delegate/utils/evdev_utils.h"
@@ -275,7 +276,7 @@ void DelegateImpl::MonitorAudioJack(
   auto delegate = std::make_unique<EvdevAudioJackObserver>(std::move(observer));
   // Long-run method. The following object keeps alive until the process
   // terminates.
-  new EvdevUtil(std::move(delegate));
+  new EvdevUtil(std::move(delegate), /*allow_multiple_devices*/ true);
 }
 
 void DelegateImpl::MonitorTouchpad(
@@ -485,11 +486,10 @@ void DelegateImpl::MonitorPowerButton(
   new EvdevUtil(std::move(delegate), /*allow_multiple_devices*/ true);
 }
 
-void DelegateImpl::RunPrimeSearch(uint32_t duration_sec,
+void DelegateImpl::RunPrimeSearch(base::TimeDelta exec_duration,
                                   uint64_t max_num,
                                   RunPrimeSearchCallback callback) {
-  base::TimeTicks end_time =
-      base::TimeTicks::Now() + base::Seconds(duration_sec);
+  base::TimeTicks end_time = base::TimeTicks::Now() + exec_duration;
   max_num = std::clamp(max_num, static_cast<uint64_t>(2),
                        PrimeNumberSearchDelegate::kMaxPrimeNumber);
 
@@ -513,6 +513,22 @@ void DelegateImpl::MonitorVolumeButton(
   // Long-run method. The following object keeps alive until the process
   // terminates.
   new EvdevUtil(std::move(delegate), /*allow_multiple_devices*/ true);
+}
+
+void DelegateImpl::RunFloatingPoint(base::TimeDelta exec_duration,
+                                    RunPrimeSearchCallback callback) {
+  base::TimeTicks end_time = base::TimeTicks::Now() + exec_duration;
+
+  auto floating_point_accuracy =
+      std::make_unique<diagnostics::FloatingPointAccuracyDelegate>();
+
+  while (base::TimeTicks::Now() < end_time) {
+    if (!floating_point_accuracy->Run()) {
+      std::move(callback).Run(false);
+      return;
+    }
+  }
+  std::move(callback).Run(true);
 }
 
 }  // namespace diagnostics

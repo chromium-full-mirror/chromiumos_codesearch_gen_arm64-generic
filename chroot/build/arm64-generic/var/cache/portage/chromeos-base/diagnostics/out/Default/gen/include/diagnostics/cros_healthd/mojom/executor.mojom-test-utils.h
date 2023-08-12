@@ -211,8 +211,9 @@ class  ExecutorInterceptorForTesting : public Executor {
   void FetchDisplayInfo(FetchDisplayInfoCallback callback) override;
   void FetchCrashFromCrashSender(FetchCrashFromCrashSenderCallback callback) override;
   void MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
-  void RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) override;
+  void RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) override;
   void MonitorVolumeButton(::mojo::PendingRemote<VolumeButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
+  void RunFloatingPoint(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunFloatingPointCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -286,8 +287,11 @@ class  ExecutorAsyncWaiter {
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr FetchCrashFromCrashSender();
   void RunPrimeSearch(
-      uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, bool* out_passed);
-  bool RunPrimeSearch(uint32_t duration_sec, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control);
+      base::TimeDelta exec_duration, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, bool* out_passed);
+  bool RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control);
+  void RunFloatingPoint(
+      base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, bool* out_passed);
+  bool RunFloatingPoint(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control);
 
  private:
   Executor* const proxy_;

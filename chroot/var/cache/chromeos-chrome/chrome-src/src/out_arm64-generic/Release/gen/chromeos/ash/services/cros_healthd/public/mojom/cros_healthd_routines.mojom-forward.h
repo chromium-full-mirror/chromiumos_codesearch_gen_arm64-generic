@@ -24,6 +24,8 @@
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+class MemoryRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -34,11 +36,20 @@ class RoutineStateWaitingDataView;
 
 class RoutineStateFinishedDataView;
 
+class MemoryRoutineDetailDataView;
+
+class MemtesterResultDataView;
+
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
 class RoutineDetailDataView;
 
+enum class MemtesterTestItemEnum : int32_t;
+
 enum class RoutineStateWaiting_Reason : int32_t;
+class MemoryRoutineArgument;
+using MemoryRoutineArgumentPtr = mojo::InlinedStructPtr<MemoryRoutineArgument>;
+
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
 
@@ -54,9 +65,15 @@ using RoutineStateWaitingPtr = mojo::InlinedStructPtr<RoutineStateWaiting>;
 class RoutineStateFinished;
 using RoutineStateFinishedPtr = mojo::StructPtr<RoutineStateFinished>;
 
+class MemoryRoutineDetail;
+using MemoryRoutineDetailPtr = mojo::StructPtr<MemoryRoutineDetail>;
+
+class MemtesterResult;
+using MemtesterResultPtr = mojo::StructPtr<MemtesterResult>;
+
 class RoutineArgument;
 
-using RoutineArgumentPtr = mojo::InlinedStructPtr<RoutineArgument>;
+using RoutineArgumentPtr = mojo::StructPtr<RoutineArgument>;
 
 class RoutineStateUnion;
 
@@ -64,7 +81,7 @@ using RoutineStateUnionPtr = mojo::StructPtr<RoutineStateUnion>;
 
 class RoutineDetail;
 
-using RoutineDetailPtr = mojo::InlinedStructPtr<RoutineDetail>;
+using RoutineDetailPtr = mojo::StructPtr<RoutineDetail>;
 
 class CrosHealthdRoutinesService;
 

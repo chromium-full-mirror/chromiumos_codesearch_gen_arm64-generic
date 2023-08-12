@@ -337,6 +337,34 @@ bool LedLitUpRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+FloatingPointRoutineArgument::FloatingPointRoutineArgument()
+    : exec_duration() {}
+
+FloatingPointRoutineArgument::FloatingPointRoutineArgument(
+    absl::optional<base::TimeDelta> exec_duration_in)
+    : exec_duration(std::move(exec_duration_in)) {}
+
+FloatingPointRoutineArgument::~FloatingPointRoutineArgument() = default;
+
+void FloatingPointRoutineArgument::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "exec_duration"), this->exec_duration,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<base::TimeDelta>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FloatingPointRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -707,6 +735,23 @@ bool PrimeSearchRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+FloatingPointRoutineDetail::FloatingPointRoutineDetail() {}
+
+FloatingPointRoutineDetail::~FloatingPointRoutineDetail() = default;
+size_t FloatingPointRoutineDetail::Hash(size_t seed) const {
+  return seed;
+}
+
+void FloatingPointRoutineDetail::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool FloatingPointRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 MemtesterResult::MemtesterResult()
     : passed_items(),
       failed_items() {}
@@ -897,6 +942,17 @@ void RoutineArgument::set_led_lit_up(
         std::move(led_lit_up));
   }
 }
+void RoutineArgument::set_floating_point(
+    FloatingPointRoutineArgumentPtr floating_point) {
+  if (tag_ == Tag::kFloatingPoint) {
+    *(data_.floating_point) = std::move(floating_point);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFloatingPoint;
+    data_.floating_point = new FloatingPointRoutineArgumentPtr(
+        std::move(floating_point));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -939,6 +995,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kLedLitUp:
 
       delete data_.led_lit_up;
+      break;
+    case Tag::kFloatingPoint:
+
+      delete data_.floating_point;
       break;
   }
 }
@@ -1156,6 +1216,17 @@ void RoutineDetail::set_led_lit_up(
         std::move(led_lit_up));
   }
 }
+void RoutineDetail::set_floating_point(
+    FloatingPointRoutineDetailPtr floating_point) {
+  if (tag_ == Tag::kFloatingPoint) {
+    *(data_.floating_point) = std::move(floating_point);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kFloatingPoint;
+    data_.floating_point = new FloatingPointRoutineDetailPtr(
+        std::move(floating_point));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -1199,6 +1270,10 @@ void RoutineDetail::DestroyActive() {
 
       delete data_.led_lit_up;
       break;
+    case Tag::kFloatingPoint:
+
+      delete data_.floating_point;
+      break;
   }
 }
 
@@ -1215,8 +1290,8 @@ CrosHealthdRoutinesService::IPCStableHashFunction CrosHealthdRoutinesService::Me
     case internal::kCrosHealthdRoutinesService_CreateRoutine_Name: {
       return &CrosHealthdRoutinesService::CreateRoutine_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdRoutinesService_IsRoutineSupported_Name: {
-      return &CrosHealthdRoutinesService::IsRoutineSupported_Sym::IPCStableHash;
+    case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name: {
+      return &CrosHealthdRoutinesService::IsRoutineArgumentSupported_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -1231,15 +1306,15 @@ const char* CrosHealthdRoutinesService::MessageToMethodName_(mojo::Message& mess
     switch (message.name()) {
       case internal::kCrosHealthdRoutinesService_CreateRoutine_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdRoutinesService::CreateRoutine";
-      case internal::kCrosHealthdRoutinesService_IsRoutineSupported_Name:
-            return "Receive ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineSupported";
+      case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineArgumentSupported";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdRoutinesService_CreateRoutine_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdRoutinesService::CreateRoutine";
-      case internal::kCrosHealthdRoutinesService_IsRoutineSupported_Name:
-            return "Receive reply ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineSupported";
+      case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineArgumentSupported";
     }
   }
   return "Receive unknown mojo message";
@@ -1267,7 +1342,7 @@ uint32_t CrosHealthdRoutinesService::CreateRoutine_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CrosHealthdRoutinesService::IsRoutineSupported_Sym::IPCStableHash() {
+uint32_t CrosHealthdRoutinesService::IsRoutineArgumentSupported_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -1275,27 +1350,27 @@ uint32_t CrosHealthdRoutinesService::IsRoutineSupported_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineSupported");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineArgumentSupported");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-class CrosHealthdRoutinesService_IsRoutineSupported_ForwardToCallback
+class CrosHealthdRoutinesService_IsRoutineArgumentSupported_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
-  CrosHealthdRoutinesService_IsRoutineSupported_ForwardToCallback(
-      CrosHealthdRoutinesService::IsRoutineSupportedCallback callback
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ForwardToCallback(
+      CrosHealthdRoutinesService::IsRoutineArgumentSupportedCallback callback
       ) : callback_(std::move(callback)) {
   }
 
-  CrosHealthdRoutinesService_IsRoutineSupported_ForwardToCallback(const CrosHealthdRoutinesService_IsRoutineSupported_ForwardToCallback&) = delete;
-  CrosHealthdRoutinesService_IsRoutineSupported_ForwardToCallback& operator=(const CrosHealthdRoutinesService_IsRoutineSupported_ForwardToCallback&) = delete;
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ForwardToCallback(const CrosHealthdRoutinesService_IsRoutineArgumentSupported_ForwardToCallback&) = delete;
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ForwardToCallback& operator=(const CrosHealthdRoutinesService_IsRoutineArgumentSupported_ForwardToCallback&) = delete;
 
   bool Accept(mojo::Message* message) override;
  private:
-  CrosHealthdRoutinesService::IsRoutineSupportedCallback callback_;
+  CrosHealthdRoutinesService::IsRoutineArgumentSupportedCallback callback_;
 };
 
 CrosHealthdRoutinesServiceProxy::CrosHealthdRoutinesServiceProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1362,11 +1437,11 @@ void CrosHealthdRoutinesServiceProxy::CreateRoutine(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void CrosHealthdRoutinesServiceProxy::IsRoutineSupported(
-    RoutineArgumentPtr in_routine_argument, IsRoutineSupportedCallback callback) {
+void CrosHealthdRoutinesServiceProxy::IsRoutineArgumentSupported(
+    RoutineArgumentPtr in_routine_argument, IsRoutineArgumentSupportedCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineSupported", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineArgumentSupported", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -1384,9 +1459,9 @@ void CrosHealthdRoutinesServiceProxy::IsRoutineSupported(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_IsRoutineSupported_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_IsRoutineSupported_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<decltype(params->routine_argument)>
@@ -1397,30 +1472,30 @@ void CrosHealthdRoutinesServiceProxy::IsRoutineSupported(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->routine_argument.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null routine_argument in CrosHealthdRoutinesService.IsRoutineSupported request");
+      "null routine_argument in CrosHealthdRoutinesService.IsRoutineArgumentSupported request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdRoutinesService::Name_);
-  message.set_method_name("IsRoutineSupported");
+  message.set_method_name("IsRoutineArgumentSupported");
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
-      new CrosHealthdRoutinesService_IsRoutineSupported_ForwardToCallback(
+      new CrosHealthdRoutinesService_IsRoutineArgumentSupported_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
-class CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+class CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
-  static CrosHealthdRoutinesService::IsRoutineSupportedCallback CreateCallback(
+  static CrosHealthdRoutinesService::IsRoutineArgumentSupportedCallback CreateCallback(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder> proxy(
-        new CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder(
+    std::unique_ptr<CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder> proxy(
+        new CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder(
             message, std::move(responder)));
-    return base::BindOnce(&CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder::Run,
+    return base::BindOnce(&CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder::Run,
                           std::move(proxy));
   }
 
-  ~CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder() {
+  ~CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder() {
 #if DCHECK_IS_ON()
     if (responder_) {
       // If we're being destroyed without being run, we want to ensure the
@@ -1437,7 +1512,7 @@ class CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder : public ::
   }
 
  private:
-  CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder(
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder(
       ::mojo::Message& message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
       : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
@@ -1446,7 +1521,7 @@ class CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder : public ::
 #if DCHECK_IS_ON()
   static void OnIsConnectedComplete(bool connected) {
     DCHECK(!connected)
-        << "CrosHealthdRoutinesService::IsRoutineSupportedCallback was destroyed without "
+        << "CrosHealthdRoutinesService::IsRoutineArgumentSupportedCallback was destroyed without "
         << "first either being run or its corresponding binding being closed. "
         << "It is an error to drop response callbacks which still correspond "
         << "to an open interface pipe.";
@@ -1457,18 +1532,18 @@ class CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder : public ::
       ::ash::cros_healthd::mojom::SupportStatusPtr in_status);
 };
 
-bool CrosHealthdRoutinesService_IsRoutineSupported_ForwardToCallback::Accept(
+bool CrosHealthdRoutinesService_IsRoutineArgumentSupported_ForwardToCallback::Accept(
     mojo::Message* message) {
 
   DCHECK(message->is_serialized());
-  internal::CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data* params =
+  internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data* params =
       reinterpret_cast<
-          internal::CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data*>(
+          internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data*>(
               message->mutable_payload());
   
   bool success = true;
   ::ash::cros_healthd::mojom::SupportStatusPtr p_status{};
-  CrosHealthdRoutinesService_IsRoutineSupported_ResponseParamsDataView input_data_view(params, message);
+  CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
     success = false;
@@ -1485,11 +1560,11 @@ std::move(p_status));
   return true;
 }
 
-void CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder::Run(
+void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder::Run(
     ::ash::cros_healthd::mojom::SupportStatusPtr in_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineSupported", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineArgumentSupported", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -1503,9 +1578,9 @@ void CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder::Run(
       ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosHealthdRoutinesService_IsRoutineSupported_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<decltype(params->status)>
@@ -1520,7 +1595,7 @@ void CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder::Run(
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdRoutinesService::Name_);
-  message.set_method_name("IsRoutineSupported");
+  message.set_method_name("IsRoutineArgumentSupported");
 #endif
 
   message.set_request_id(request_id_);
@@ -1578,7 +1653,7 @@ std::move(p_routine_receiver),
 std::move(p_routine_observer));
       return true;
     }
-    case internal::kCrosHealthdRoutinesService_IsRoutineSupported_Name: {
+    case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name: {
       break;
     }
   }
@@ -1597,16 +1672,16 @@ bool CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
     case internal::kCrosHealthdRoutinesService_CreateRoutine_Name: {
       break;
     }
-    case internal::kCrosHealthdRoutinesService_IsRoutineSupported_Name: {
+    case internal::kCrosHealthdRoutinesService_IsRoutineArgumentSupported_Name: {
 
-      internal::CrosHealthdRoutinesService_IsRoutineSupported_Params_Data* params =
+      internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data* params =
           reinterpret_cast<
-              internal::CrosHealthdRoutinesService_IsRoutineSupported_Params_Data*>(
+              internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
       RoutineArgumentPtr p_routine_argument{};
-      CrosHealthdRoutinesService_IsRoutineSupported_ParamsDataView input_data_view(params, message);
+      CrosHealthdRoutinesService_IsRoutineArgumentSupported_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRoutineArgument(&p_routine_argument))
         success = false;
@@ -1617,12 +1692,12 @@ bool CrosHealthdRoutinesServiceStubDispatch::AcceptWithResponder(
             CrosHealthdRoutinesService::Name_, 1, false);
         return false;
       }
-      CrosHealthdRoutinesService::IsRoutineSupportedCallback callback =
-          CrosHealthdRoutinesService_IsRoutineSupported_ProxyToResponder::CreateCallback(
+      CrosHealthdRoutinesService::IsRoutineArgumentSupportedCallback callback =
+          CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder::CreateCallback(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->IsRoutineSupported(
+      impl->IsRoutineArgumentSupported(
 std::move(p_routine_argument), std::move(callback));
       return true;
     }
@@ -1634,8 +1709,8 @@ std::move(p_routine_argument), std::move(callback));
 static const mojo::internal::GenericValidationInfo kCrosHealthdRoutinesServiceValidationInfo[] = {
     {&internal::CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdRoutinesService_IsRoutineSupported_Params_Data::Validate,
-     &internal::CrosHealthdRoutinesService_IsRoutineSupported_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_Params_Data::Validate,
+     &internal::CrosHealthdRoutinesService_IsRoutineArgumentSupported_ResponseParams_Data::Validate},
 };
 
 bool CrosHealthdRoutinesServiceRequestValidator::Accept(mojo::Message* message) {
@@ -2627,6 +2702,20 @@ bool StructTraits<::ash::cros_healthd::mojom::LedLitUpRoutineArgument::DataView,
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineArgument::DataView, ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::FloatingPointRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr result(::ash::cros_healthd::mojom::FloatingPointRoutineArgument::New());
+  
+      if (success && !input.ReadExecDuration(&result->exec_duration))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -2797,6 +2886,18 @@ bool StructTraits<::ash::cros_healthd::mojom::PrimeSearchRoutineDetail::DataView
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::FloatingPointRoutineDetail::DataView, ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::FloatingPointRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr result(::ash::cros_healthd::mojom::FloatingPointRoutineDetail::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::MemtesterResult::DataView, ::ash::cros_healthd::mojom::MemtesterResultPtr>::Read(
     ::ash::cros_healthd::mojom::MemtesterResult::DataView input,
     ::ash::cros_healthd::mojom::MemtesterResultPtr* output) {
@@ -2926,6 +3027,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewLedLitUp(
           std::move(result_led_lit_up));
+      break;
+    }
+    case Tag::kFloatingPoint: {
+      ::ash::cros_healthd::mojom::FloatingPointRoutineArgumentPtr result_floating_point;
+      if (!input.ReadFloatingPoint(&result_floating_point))
+        return false;
+
+      *output = UnionType::NewFloatingPoint(
+          std::move(result_floating_point));
       break;
     }
     default:
@@ -3084,6 +3194,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
           std::move(result_led_lit_up));
       break;
     }
+    case Tag::kFloatingPoint: {
+      ::ash::cros_healthd::mojom::FloatingPointRoutineDetailPtr result_floating_point;
+      if (!input.ReadFloatingPoint(&result_floating_point))
+        return false;
+
+      *output = UnionType::NewFloatingPoint(
+          std::move(result_floating_point));
+      break;
+    }
     default:
 
       return false;
@@ -3106,18 +3225,18 @@ namespace mojom {
 void CrosHealthdRoutinesServiceInterceptorForTesting::CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) {
   GetForwardingInterface()->CreateRoutine(std::move(routine_argument), std::move(routine_receiver), std::move(routine_observer));
 }
-void CrosHealthdRoutinesServiceInterceptorForTesting::IsRoutineSupported(RoutineArgumentPtr routine_argument, IsRoutineSupportedCallback callback) {
-  GetForwardingInterface()->IsRoutineSupported(std::move(routine_argument), std::move(callback));
+void CrosHealthdRoutinesServiceInterceptorForTesting::IsRoutineArgumentSupported(RoutineArgumentPtr routine_argument, IsRoutineArgumentSupportedCallback callback) {
+  GetForwardingInterface()->IsRoutineArgumentSupported(std::move(routine_argument), std::move(callback));
 }
 CrosHealthdRoutinesServiceAsyncWaiter::CrosHealthdRoutinesServiceAsyncWaiter(
     CrosHealthdRoutinesService* proxy) : proxy_(proxy) {}
 
 CrosHealthdRoutinesServiceAsyncWaiter::~CrosHealthdRoutinesServiceAsyncWaiter() = default;
 
-void CrosHealthdRoutinesServiceAsyncWaiter::IsRoutineSupported(
+void CrosHealthdRoutinesServiceAsyncWaiter::IsRoutineArgumentSupported(
     RoutineArgumentPtr routine_argument, ::ash::cros_healthd::mojom::SupportStatusPtr* out_status) {
   base::RunLoop loop;
-  proxy_->IsRoutineSupported(std::move(routine_argument),
+  proxy_->IsRoutineArgumentSupported(std::move(routine_argument),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::cros_healthd::mojom::SupportStatusPtr* out_status
@@ -3130,10 +3249,10 @@ void CrosHealthdRoutinesServiceAsyncWaiter::IsRoutineSupported(
   loop.Run();
 }
 
-::ash::cros_healthd::mojom::SupportStatusPtr CrosHealthdRoutinesServiceAsyncWaiter::IsRoutineSupported(
+::ash::cros_healthd::mojom::SupportStatusPtr CrosHealthdRoutinesServiceAsyncWaiter::IsRoutineArgumentSupported(
     RoutineArgumentPtr routine_argument) {
   ::ash::cros_healthd::mojom::SupportStatusPtr async_wait_result;
-  IsRoutineSupported(std::move(routine_argument),&async_wait_result);
+  IsRoutineArgumentSupported(std::move(routine_argument),&async_wait_result);
   return async_wait_result;
 }
 
