@@ -48,6 +48,7 @@ template <typename ImplRefTraits>
 class CrosHealthdRoutinesServiceStub;
 
 class CrosHealthdRoutinesServiceRequestValidator;
+class CrosHealthdRoutinesServiceResponseValidator;
 
 
 class CrosHealthdRoutinesService
@@ -58,7 +59,7 @@ class CrosHealthdRoutinesService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 1;
+  static constexpr uint32_t Version_ = 2;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -69,9 +70,10 @@ class CrosHealthdRoutinesService
   using Stub_ = CrosHealthdRoutinesServiceStub<ImplRefTraits>;
 
   using RequestValidator_ = CrosHealthdRoutinesServiceRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = CrosHealthdRoutinesServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
     kCreateRoutineMinVersion = 1,
+    kIsRoutineArgumentSupportedMinVersion = 2,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -80,11 +82,19 @@ class CrosHealthdRoutinesService
   struct CreateRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct IsRoutineArgumentSupported_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosHealthdRoutinesService() = default;
 
   
   virtual void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) = 0;
+
+
+  using IsRoutineArgumentSupportedCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::SupportStatusPtr)>;
+  
+  virtual void IsRoutineArgumentSupported(RoutineArgumentPtr routine_argument, IsRoutineArgumentSupportedCallback callback) = 0;
 };
 
 class RoutineControlProxy;
@@ -197,6 +207,8 @@ class  CrosHealthdRoutinesServiceProxy
   explicit CrosHealthdRoutinesServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) final;
+  
+  void IsRoutineArgumentSupported(RoutineArgumentPtr routine_argument, IsRoutineArgumentSupportedCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -365,6 +377,10 @@ class  RoutineControlRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  RoutineObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  CrosHealthdRoutinesServiceResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
