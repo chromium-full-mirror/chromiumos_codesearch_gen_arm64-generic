@@ -156,7 +156,8 @@ struct PinMetadataDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PinMetadataDefaultTypeInternal _PinMetadata_default_instance_;
 PROTOBUF_CONSTEXPR CryptohomeRecoveryMetadata::CryptohomeRecoveryMetadata(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized)
+  : mediator_pub_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct CryptohomeRecoveryMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CryptohomeRecoveryMetadataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3137,10 +3138,22 @@ CryptohomeRecoveryMetadata::CryptohomeRecoveryMetadata(::PROTOBUF_NAMESPACE_ID::
 CryptohomeRecoveryMetadata::CryptohomeRecoveryMetadata(const CryptohomeRecoveryMetadata& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  mediator_pub_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mediator_pub_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mediator_pub_key().empty()) {
+    mediator_pub_key_.Set(from._internal_mediator_pub_key(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:user_data_auth.CryptohomeRecoveryMetadata)
 }
 
 inline void CryptohomeRecoveryMetadata::SharedCtor() {
+mediator_pub_key_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mediator_pub_key_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CryptohomeRecoveryMetadata::~CryptohomeRecoveryMetadata() {
@@ -3154,6 +3167,7 @@ CryptohomeRecoveryMetadata::~CryptohomeRecoveryMetadata() {
 
 inline void CryptohomeRecoveryMetadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  mediator_pub_key_.Destroy();
 }
 
 void CryptohomeRecoveryMetadata::SetCachedSize(int size) const {
@@ -3166,6 +3180,7 @@ void CryptohomeRecoveryMetadata::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  mediator_pub_key_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3174,6 +3189,20 @@ const char* CryptohomeRecoveryMetadata::_InternalParse(const char* ptr, ::_pbi::
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bytes mediator_pub_key = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_mediator_pub_key();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
       ctx->SetLastTag(tag);
@@ -3199,6 +3228,12 @@ uint8_t* CryptohomeRecoveryMetadata::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // bytes mediator_pub_key = 1;
+  if (!this->_internal_mediator_pub_key().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_mediator_pub_key(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3214,6 +3249,13 @@ size_t CryptohomeRecoveryMetadata::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // bytes mediator_pub_key = 1;
+  if (!this->_internal_mediator_pub_key().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_mediator_pub_key());
+  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -3235,6 +3277,9 @@ void CryptohomeRecoveryMetadata::MergeFrom(const CryptohomeRecoveryMetadata& fro
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_mediator_pub_key().empty()) {
+    _internal_set_mediator_pub_key(from._internal_mediator_pub_key());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -3251,7 +3296,13 @@ bool CryptohomeRecoveryMetadata::IsInitialized() const {
 
 void CryptohomeRecoveryMetadata::InternalSwap(CryptohomeRecoveryMetadata* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mediator_pub_key_, lhs_arena,
+      &other->mediator_pub_key_, rhs_arena
+  );
 }
 
 std::string CryptohomeRecoveryMetadata::GetTypeName() const {

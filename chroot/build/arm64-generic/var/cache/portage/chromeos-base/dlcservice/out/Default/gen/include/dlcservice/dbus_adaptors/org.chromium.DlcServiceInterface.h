@@ -43,6 +43,10 @@ class DlcServiceInterfaceInterface {
   virtual bool Purge(
       brillo::ErrorPtr* error,
       const std::string& in_id) = 0;
+  // Create DLC slots and load deployed DLC image into the slots.
+  virtual bool Deploy(
+      brillo::ErrorPtr* error,
+      const std::string& in_id) = 0;
   // Returns a list of installed Downloadable Content (DLC) IDs that are
   // installed.
   virtual bool GetInstalled(
@@ -104,6 +108,10 @@ class DlcServiceInterfaceAdaptor {
         base::Unretained(interface_),
         &DlcServiceInterfaceInterface::Purge);
     itf->AddSimpleMethodHandlerWithError(
+        "Deploy",
+        base::Unretained(interface_),
+        &DlcServiceInterfaceInterface::Deploy);
+    itf->AddSimpleMethodHandlerWithError(
         "GetInstalled",
         base::Unretained(interface_),
         &DlcServiceInterfaceInterface::GetInstalled);
@@ -159,6 +167,9 @@ class DlcServiceInterfaceAdaptor {
         "      <arg name=\"id\" type=\"s\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"Purge\">\n"
+        "      <arg name=\"id\" type=\"s\" direction=\"in\"/>\n"
+        "    </method>\n"
+        "    <method name=\"Deploy\">\n"
         "      <arg name=\"id\" type=\"s\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"GetInstalled\">\n"

@@ -97,6 +97,20 @@ class DlcServiceInterfaceProxyMock : public DlcServiceInterfaceProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              Deploy,
+              (const std::string& /*in_id*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              DeployAsync,
+              (const std::string& /*in_id*/,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               GetInstalled,
               (std::vector<std::string>* /*out_ids*/,
                brillo::ErrorPtr* /*error*/,

@@ -2004,6 +2004,23 @@ class CryptohomeRecoveryMetadata final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kMediatorPubKeyFieldNumber = 1,
+  };
+  // bytes mediator_pub_key = 1;
+  void clear_mediator_pub_key();
+  const std::string& mediator_pub_key() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mediator_pub_key(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mediator_pub_key();
+  PROTOBUF_NODISCARD std::string* release_mediator_pub_key();
+  void set_allocated_mediator_pub_key(std::string* mediator_pub_key);
+  private:
+  const std::string& _internal_mediator_pub_key() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mediator_pub_key(const std::string& value);
+  std::string* _internal_mutable_mediator_pub_key();
+  public:
+
   // @@protoc_insertion_point(class_scope:user_data_auth.CryptohomeRecoveryMetadata)
  private:
   class _Internal;
@@ -2011,6 +2028,7 @@ class CryptohomeRecoveryMetadata final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mediator_pub_key_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_5ffactor_2eproto;
 };
@@ -4249,6 +4267,56 @@ inline void PinMetadata::set_auth_locked(bool value) {
 // -------------------------------------------------------------------
 
 // CryptohomeRecoveryMetadata
+
+// bytes mediator_pub_key = 1;
+inline void CryptohomeRecoveryMetadata::clear_mediator_pub_key() {
+  mediator_pub_key_.ClearToEmpty();
+}
+inline const std::string& CryptohomeRecoveryMetadata::mediator_pub_key() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CryptohomeRecoveryMetadata.mediator_pub_key)
+  return _internal_mediator_pub_key();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CryptohomeRecoveryMetadata::set_mediator_pub_key(ArgT0&& arg0, ArgT... args) {
+ 
+ mediator_pub_key_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.CryptohomeRecoveryMetadata.mediator_pub_key)
+}
+inline std::string* CryptohomeRecoveryMetadata::mutable_mediator_pub_key() {
+  std::string* _s = _internal_mutable_mediator_pub_key();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.CryptohomeRecoveryMetadata.mediator_pub_key)
+  return _s;
+}
+inline const std::string& CryptohomeRecoveryMetadata::_internal_mediator_pub_key() const {
+  return mediator_pub_key_.Get();
+}
+inline void CryptohomeRecoveryMetadata::_internal_set_mediator_pub_key(const std::string& value) {
+  
+  mediator_pub_key_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CryptohomeRecoveryMetadata::_internal_mutable_mediator_pub_key() {
+  
+  return mediator_pub_key_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CryptohomeRecoveryMetadata::release_mediator_pub_key() {
+  // @@protoc_insertion_point(field_release:user_data_auth.CryptohomeRecoveryMetadata.mediator_pub_key)
+  return mediator_pub_key_.Release();
+}
+inline void CryptohomeRecoveryMetadata::set_allocated_mediator_pub_key(std::string* mediator_pub_key) {
+  if (mediator_pub_key != nullptr) {
+    
+  } else {
+    
+  }
+  mediator_pub_key_.SetAllocated(mediator_pub_key, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mediator_pub_key_.IsDefault()) {
+    mediator_pub_key_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryMetadata.mediator_pub_key)
+}
 
 // -------------------------------------------------------------------
 

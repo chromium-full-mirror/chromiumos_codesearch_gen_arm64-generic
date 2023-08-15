@@ -177,6 +177,32 @@ struct AuthenticateCredentialReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateCredentialReplyDefaultTypeInternal _AuthenticateCredentialReply_default_instance_;
+PROTOBUF_CONSTEXPR DeleteCredentialRequest::DeleteCredentialRequest(
+    ::_pbi::ConstantInitialized)
+  : user_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , record_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+struct DeleteCredentialRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeleteCredentialRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DeleteCredentialRequestDefaultTypeInternal() {}
+  union {
+    DeleteCredentialRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeleteCredentialRequestDefaultTypeInternal _DeleteCredentialRequest_default_instance_;
+PROTOBUF_CONSTEXPR DeleteCredentialReply::DeleteCredentialReply(
+    ::_pbi::ConstantInitialized)
+  : status_(0)
+{}
+struct DeleteCredentialReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeleteCredentialReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DeleteCredentialReplyDefaultTypeInternal() {}
+  union {
+    DeleteCredentialReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeleteCredentialReplyDefaultTypeInternal _DeleteCredentialReply_default_instance_;
 }  // namespace biod
 namespace biod {
 bool CreateCredentialReply_CreateCredentialStatus_IsValid(int value) {
@@ -354,6 +380,79 @@ constexpr AuthenticateCredentialReply_AuthenticateCredentialStatus AuthenticateC
 constexpr AuthenticateCredentialReply_AuthenticateCredentialStatus AuthenticateCredentialReply::AuthenticateCredentialStatus_MIN;
 constexpr AuthenticateCredentialReply_AuthenticateCredentialStatus AuthenticateCredentialReply::AuthenticateCredentialStatus_MAX;
 constexpr int AuthenticateCredentialReply::AuthenticateCredentialStatus_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool DeleteCredentialReply_DeleteCredentialStatus_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeleteCredentialReply_DeleteCredentialStatus_strings[5] = {};
+
+static const char DeleteCredentialReply_DeleteCredentialStatus_names[] =
+  "DELETION_FAILED"
+  "INCORRECT_STATE"
+  "NOT_EXIST"
+  "SUCCESS"
+  "UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeleteCredentialReply_DeleteCredentialStatus_entries[] = {
+  { {DeleteCredentialReply_DeleteCredentialStatus_names + 0, 15}, 4 },
+  { {DeleteCredentialReply_DeleteCredentialStatus_names + 15, 15}, 2 },
+  { {DeleteCredentialReply_DeleteCredentialStatus_names + 30, 9}, 3 },
+  { {DeleteCredentialReply_DeleteCredentialStatus_names + 39, 7}, 1 },
+  { {DeleteCredentialReply_DeleteCredentialStatus_names + 46, 7}, 0 },
+};
+
+static const int DeleteCredentialReply_DeleteCredentialStatus_entries_by_number[] = {
+  4, // 0 -> UNKNOWN
+  3, // 1 -> SUCCESS
+  1, // 2 -> INCORRECT_STATE
+  2, // 3 -> NOT_EXIST
+  0, // 4 -> DELETION_FAILED
+};
+
+const std::string& DeleteCredentialReply_DeleteCredentialStatus_Name(
+    DeleteCredentialReply_DeleteCredentialStatus value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DeleteCredentialReply_DeleteCredentialStatus_entries,
+          DeleteCredentialReply_DeleteCredentialStatus_entries_by_number,
+          5, DeleteCredentialReply_DeleteCredentialStatus_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DeleteCredentialReply_DeleteCredentialStatus_entries,
+      DeleteCredentialReply_DeleteCredentialStatus_entries_by_number,
+      5, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DeleteCredentialReply_DeleteCredentialStatus_strings[idx].get();
+}
+bool DeleteCredentialReply_DeleteCredentialStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeleteCredentialReply_DeleteCredentialStatus* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DeleteCredentialReply_DeleteCredentialStatus_entries, 5, name, &int_value);
+  if (success) {
+    *value = static_cast<DeleteCredentialReply_DeleteCredentialStatus>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply::UNKNOWN;
+constexpr DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply::SUCCESS;
+constexpr DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply::INCORRECT_STATE;
+constexpr DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply::NOT_EXIST;
+constexpr DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply::DELETION_FAILED;
+constexpr DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply::DeleteCredentialStatus_MIN;
+constexpr DeleteCredentialReply_DeleteCredentialStatus DeleteCredentialReply::DeleteCredentialStatus_MAX;
+constexpr int DeleteCredentialReply::DeleteCredentialStatus_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 
 // ===================================================================
@@ -3501,6 +3600,448 @@ std::string AuthenticateCredentialReply::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class DeleteCredentialRequest::_Internal {
+ public:
+  using HasBits = decltype(std::declval<DeleteCredentialRequest>()._has_bits_);
+  static void set_has_user_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_record_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+DeleteCredentialRequest::DeleteCredentialRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:biod.DeleteCredentialRequest)
+}
+DeleteCredentialRequest::DeleteCredentialRequest(const DeleteCredentialRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  user_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_user_id()) {
+    user_id_.Set(from._internal_user_id(), 
+      GetArenaForAllocation());
+  }
+  record_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    record_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_record_id()) {
+    record_id_.Set(from._internal_record_id(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:biod.DeleteCredentialRequest)
+}
+
+inline void DeleteCredentialRequest::SharedCtor() {
+user_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+record_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  record_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+DeleteCredentialRequest::~DeleteCredentialRequest() {
+  // @@protoc_insertion_point(destructor:biod.DeleteCredentialRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DeleteCredentialRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  user_id_.Destroy();
+  record_id_.Destroy();
+}
+
+void DeleteCredentialRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DeleteCredentialRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.DeleteCredentialRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      user_id_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      record_id_.ClearNonDefaultToEmpty();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DeleteCredentialRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string user_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_user_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string record_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_record_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DeleteCredentialRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.DeleteCredentialRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string user_id = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_user_id(), target);
+  }
+
+  // optional string record_id = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_record_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.DeleteCredentialRequest)
+  return target;
+}
+
+size_t DeleteCredentialRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.DeleteCredentialRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string user_id = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_user_id());
+    }
+
+    // optional string record_id = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_record_id());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeleteCredentialRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DeleteCredentialRequest*>(
+      &from));
+}
+
+void DeleteCredentialRequest::MergeFrom(const DeleteCredentialRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.DeleteCredentialRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_user_id(from._internal_user_id());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_record_id(from._internal_record_id());
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DeleteCredentialRequest::CopyFrom(const DeleteCredentialRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.DeleteCredentialRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeleteCredentialRequest::IsInitialized() const {
+  return true;
+}
+
+void DeleteCredentialRequest::InternalSwap(DeleteCredentialRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &user_id_, lhs_arena,
+      &other->user_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &record_id_, lhs_arena,
+      &other->record_id_, rhs_arena
+  );
+}
+
+std::string DeleteCredentialRequest::GetTypeName() const {
+  return "biod.DeleteCredentialRequest";
+}
+
+
+// ===================================================================
+
+class DeleteCredentialReply::_Internal {
+ public:
+  using HasBits = decltype(std::declval<DeleteCredentialReply>()._has_bits_);
+  static void set_has_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+DeleteCredentialReply::DeleteCredentialReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:biod.DeleteCredentialReply)
+}
+DeleteCredentialReply::DeleteCredentialReply(const DeleteCredentialReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  status_ = from.status_;
+  // @@protoc_insertion_point(copy_constructor:biod.DeleteCredentialReply)
+}
+
+inline void DeleteCredentialReply::SharedCtor() {
+status_ = 0;
+}
+
+DeleteCredentialReply::~DeleteCredentialReply() {
+  // @@protoc_insertion_point(destructor:biod.DeleteCredentialReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DeleteCredentialReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void DeleteCredentialReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DeleteCredentialReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.DeleteCredentialReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  status_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DeleteCredentialReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .biod.DeleteCredentialReply.DeleteCredentialStatus status = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::biod::DeleteCredentialReply_DeleteCredentialStatus_IsValid(val))) {
+            _internal_set_status(static_cast<::biod::DeleteCredentialReply_DeleteCredentialStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DeleteCredentialReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.DeleteCredentialReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .biod.DeleteCredentialReply.DeleteCredentialStatus status = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_status(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.DeleteCredentialReply)
+  return target;
+}
+
+size_t DeleteCredentialReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.DeleteCredentialReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .biod.DeleteCredentialReply.DeleteCredentialStatus status = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeleteCredentialReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DeleteCredentialReply*>(
+      &from));
+}
+
+void DeleteCredentialReply::MergeFrom(const DeleteCredentialReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.DeleteCredentialReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_status()) {
+    _internal_set_status(from._internal_status());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DeleteCredentialReply::CopyFrom(const DeleteCredentialReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.DeleteCredentialReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeleteCredentialReply::IsInitialized() const {
+  return true;
+}
+
+void DeleteCredentialReply::InternalSwap(DeleteCredentialReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(status_, other->status_);
+}
+
+std::string DeleteCredentialReply::GetTypeName() const {
+  return "biod.DeleteCredentialReply";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace biod
 PROTOBUF_NAMESPACE_OPEN
@@ -3547,6 +4088,14 @@ Arena::CreateMaybeMessage< ::biod::AuthenticateCredentialRequest >(Arena* arena)
 template<> PROTOBUF_NOINLINE ::biod::AuthenticateCredentialReply*
 Arena::CreateMaybeMessage< ::biod::AuthenticateCredentialReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::AuthenticateCredentialReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::biod::DeleteCredentialRequest*
+Arena::CreateMaybeMessage< ::biod::DeleteCredentialRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::DeleteCredentialRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::biod::DeleteCredentialReply*
+Arena::CreateMaybeMessage< ::biod::DeleteCredentialReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::DeleteCredentialReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
