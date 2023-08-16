@@ -16,6 +16,7 @@
 #include <variant>
 #include <vector>
 
+#include <absl/cleanup/cleanup.h>
 #include <base/check.h>
 #include <base/check_op.h>
 #include <base/containers/flat_set.h>
@@ -1716,14 +1717,20 @@ void AuthSession::ResaveUssWithFactorRemoved(
     return;
   }
 
+  // At any step after this point if we fail in updating the USS we still report
+  // OkStatus as the final result. The AuthFactor itself is already gone and so
+  // no matter how the rest of the cleanup goes the removal has happened.
+
+  auto uss_snapshot = user_secret_stash_->TakeSnapshot();
+  absl::Cleanup revert_uss = [this, &uss_snapshot]() {
+    user_secret_stash_->RestoreSnapshot(std::move(uss_snapshot));
+  };
   status = RemoveAuthFactorFromUssInMemory(auth_factor_label);
   if (!status.ok()) {
-    std::move(on_done).Run(
-        MakeStatus<CryptohomeError>(
-            CRYPTOHOME_ERR_LOC(
-                kLocAuthSessionRemoveFromUssFailedInRemoveAuthFactor),
-            user_data_auth::CRYPTOHOME_REMOVE_CREDENTIALS_FAILED)
-            .Wrap(std::move(status)));
+    LOG(ERROR) << "AuthSession: Failed to remove the auth factor from the "
+                  "in-memory USS: "
+               << status;
+    std::move(on_done).Run(OkStatus<CryptohomeError>());
     return;
   }
 
@@ -1733,11 +1740,7 @@ void AuthSession::ResaveUssWithFactorRemoved(
   if (!encrypted_uss_container.ok()) {
     LOG(ERROR) << "AuthSession: Failed to encrypt user secret stash after auth "
                   "factor removal.";
-    std::move(on_done).Run(
-        MakeStatus<CryptohomeError>(
-            CRYPTOHOME_ERR_LOC(kLocAuthSessionEncryptFailedInRemoveAuthFactor),
-            user_data_auth::CRYPTOHOME_REMOVE_CREDENTIALS_FAILED)
-            .Wrap(std::move(encrypted_uss_container).err_status()));
+    std::move(on_done).Run(OkStatus<CryptohomeError>());
     return;
   }
 
@@ -1746,14 +1749,10 @@ void AuthSession::ResaveUssWithFactorRemoved(
   if (!status.ok()) {
     LOG(ERROR) << "AuthSession: Failed to persist user secret stash after auth "
                   "factor removal.";
-    std::move(on_done).Run(
-        MakeStatus<CryptohomeError>(
-            CRYPTOHOME_ERR_LOC(
-                kLocAuthSessionPersistUSSFailedInRemoveAuthFactor),
-            user_data_auth::CRYPTOHOME_REMOVE_CREDENTIALS_FAILED)
-            .Wrap(std::move(status)));
+    std::move(on_done).Run(OkStatus<CryptohomeError>());
+    return;
   }
-
+  std::move(revert_uss).Cancel();
   std::move(on_done).Run(OkStatus<CryptohomeError>());
 }
 
@@ -2710,8 +2709,7 @@ void AuthSession::PersistAuthFactorToUserSecretStash(
     std::unique_ptr<AuthBlockState> auth_block_state) {
   CryptohomeStatus status = PersistAuthFactorToUserSecretStashImpl(
       auth_factor_type, auth_factor_label, auth_factor_metadata, auth_input,
-      std::move(auth_session_performance_timer),
-      OverwriteExistingKeyBlock::kDisabled, std::move(callback_error),
+      std::move(auth_session_performance_timer), std::move(callback_error),
       std::move(key_blobs), std::move(auth_block_state));
 
   std::move(on_done).Run(std::move(status));
@@ -2732,8 +2730,7 @@ void AuthSession::PersistAuthFactorToUserSecretStashOnMigration(
   // backup VaultKeyset logic.
   CryptohomeStatus status = PersistAuthFactorToUserSecretStashImpl(
       auth_factor_type, auth_factor_label, auth_factor_metadata, auth_input,
-      std::move(auth_session_performance_timer),
-      OverwriteExistingKeyBlock::kEnabled, std::move(callback_error),
+      std::move(auth_session_performance_timer), std::move(callback_error),
       std::move(key_blobs), std::move(auth_block_state));
   if (!status.ok()) {
     LOG(ERROR) << "USS migration of VaultKeyset with label "
@@ -2769,7 +2766,6 @@ CryptohomeStatus AuthSession::PersistAuthFactorToUserSecretStashImpl(
     const AuthFactorMetadata& auth_factor_metadata,
     const AuthInput& auth_input,
     std::unique_ptr<AuthSessionPerformanceTimer> auth_session_performance_timer,
-    OverwriteExistingKeyBlock clobber_uss_key_block,
     CryptohomeStatus callback_error,
     std::unique_ptr<KeyBlobs> key_blobs,
     std::unique_ptr<AuthBlockState> auth_block_state) {
@@ -2798,8 +2794,15 @@ CryptohomeStatus AuthSession::PersistAuthFactorToUserSecretStashImpl(
       std::make_unique<AuthFactor>(auth_factor_type, auth_factor_label,
                                    auth_factor_metadata, *auth_block_state);
 
-  CryptohomeStatus status = AddAuthFactorToUssInMemory(*auth_factor, *key_blobs,
-                                                       clobber_uss_key_block);
+  // Grab a snapshot of the USS that will be reverted if these changes fail.
+  auto uss_snapshot = user_secret_stash_->TakeSnapshot();
+  absl::Cleanup revert_uss = [this, &uss_snapshot]() {
+    user_secret_stash_->RestoreSnapshot(std::move(uss_snapshot));
+  };
+
+  // Add the factor into the USS.
+  CryptohomeStatus status = AddAuthFactorToUssInMemory(
+      *auth_factor, *key_blobs, OverwriteExistingKeyBlock::kEnabled);
   if (!status.ok()) {
     return MakeStatus<CryptohomeError>(
                CRYPTOHOME_ERR_LOC(kLocAuthSessionAddToUssFailedInPersistToUSS),
@@ -2854,18 +2857,14 @@ CryptohomeStatus AuthSession::PersistAuthFactorToUserSecretStashImpl(
                user_data_auth::CRYPTOHOME_ADD_CREDENTIALS_FAILED)
         .Wrap(std::move(status));
   }
+  std::move(revert_uss).Cancel();
 
   // If a USS only factor is added backup keysets should be removed.
   if (!IsFactorTypeSupportedByVk(auth_factor_type)) {
     CryptohomeStatus cleanup_status = CleanUpAllBackupKeysets(
         *keyset_management_, obfuscated_username_, auth_factor_map_);
     if (!cleanup_status.ok()) {
-      LOG(ERROR) << "Cleaning up backup keysets failed.";
-      return (MakeStatus<CryptohomeError>(
-                  CRYPTOHOME_ERR_LOC(
-                      kLocAuthSessionCleanupBackupFailedInAddauthFactor),
-                  user_data_auth::CRYPTOHOME_ADD_CREDENTIALS_FAILED)
-                  .Wrap(std::move(cleanup_status).err_status()));
+      LOG(ERROR) << "Cleaning up backup keysets failed: " << cleanup_status;
     }
   }
 
@@ -3053,6 +3052,17 @@ void AuthSession::AuthForDecrypt::AddAuthFactor(
   on_done = WrapCallbackWithMetricsReporting(
       std::move(on_done), auth_factor_type,
       kCryptohomeErrorAddAuthFactorErrorBucket);
+
+  // You cannot add an auth factor with a label if one already exists.
+  if (session_->auth_factor_map_.Find(auth_factor_label)) {
+    LOG(ERROR) << "Cannot add a new auth factor when one already exists: "
+               << auth_factor_label;
+    std::move(on_done).Run(MakeStatus<CryptohomeError>(
+        CRYPTOHOME_ERR_LOC(kLocAuthSessionFactorAlreadyExistsInAddAuthFactor),
+        ErrorActionSet({PossibleAction::kDevCheckUnexpectedState}),
+        user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT));
+    return;
+  }
 
   CryptohomeStatusOr<AuthInput> auth_input_status =
       session_->CreateAuthInputForAdding(request.auth_input(), auth_factor_type,

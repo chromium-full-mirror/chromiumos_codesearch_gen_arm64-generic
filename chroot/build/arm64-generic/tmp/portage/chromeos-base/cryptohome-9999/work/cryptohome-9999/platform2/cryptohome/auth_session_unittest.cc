@@ -49,6 +49,7 @@
 #include "cryptohome/crypto_error.h"
 #include "cryptohome/error/cryptohome_error.h"
 #include "cryptohome/fake_features.h"
+#include "cryptohome/filesystem_layout.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/flatbuffer_schemas/auth_factor.h"
 #include "cryptohome/key_objects.h"
@@ -87,8 +88,10 @@ using hwsec_foundation::status::MakeStatus;
 using hwsec_foundation::status::OkStatus;
 using hwsec_foundation::status::StatusChain;
 using ::testing::_;
+using ::testing::AtLeast;
 using ::testing::ByMove;
 using ::testing::DoAll;
+using ::testing::DoDefault;
 using ::testing::ElementsAre;
 using ::testing::Eq;
 using ::testing::Field;
@@ -2349,6 +2352,75 @@ TEST_F(AuthSessionWithUssExperimentTest,
   EXPECT_THAT(stored_factors, IsEmpty());
 }
 
+// Test the new auth factor failure path when asynchronous key creation succeeds
+// but when writing to USS fails.
+TEST_F(AuthSessionWithUssExperimentTest,
+       AddPasswordAuthFactorViaAsyncUssFailsOnWriteFailure) {
+  // Setup.
+  AuthSession auth_session({.username = kFakeUsername,
+                            .is_ephemeral_user = false,
+                            .intent = AuthIntent::kDecrypt,
+                            .auth_factor_status_update_timer =
+                                std::make_unique<base::WallClockTimer>(),
+                            .user_exists = false,
+                            .auth_factor_map = AuthFactorMap()},
+                           backing_apis_);
+
+  // Creating the user.
+  EXPECT_TRUE(auth_session.OnUserCreated().ok());
+  EXPECT_TRUE(auth_session.has_user_secret_stash());
+
+  // Test.
+  // Setting the expectation that the auth block utility will create key blobs
+  // but then writing to USS will fail.
+  EXPECT_CALL(auth_block_utility_, SelectAuthBlockTypeForCreation(_))
+      .WillRepeatedly(ReturnValue(AuthBlockType::kTpmBoundToPcr));
+  EXPECT_CALL(auth_block_utility_,
+              CreateKeyBlobsWithAuthBlock(AuthBlockType::kTpmBoundToPcr, _, _))
+      .WillOnce([this](AuthBlockType, const AuthInput&,
+                       AuthBlock::CreateCallback create_callback) {
+        // Make an arbitrary auth block state, but schedule it to run later to
+        // simulate an proper async key creation.
+        auto key_blobs = std::make_unique<KeyBlobs>();
+        key_blobs->vkk_key = brillo::SecureBlob("fake vkk key");
+        auto auth_block_state = std::make_unique<AuthBlockState>();
+        auth_block_state->state = TpmBoundToPcrAuthBlockState();
+        task_runner_->PostTask(
+            FROM_HERE,
+            base::BindOnce(std::move(create_callback),
+                           OkStatus<CryptohomeCryptoError>(),
+                           std::move(key_blobs), std::move(auth_block_state)));
+      });
+  EXPECT_CALL(platform_, WriteFileAtomicDurable(_, _, _))
+      .WillRepeatedly(DoDefault());
+  EXPECT_CALL(platform_,
+              WriteFileAtomicDurable(
+                  UserSecretStashPath(SanitizeUserName(kFakeUsername),
+                                      kUserSecretStashDefaultSlot),
+                  _, _))
+      .Times(AtLeast(1))
+      .WillRepeatedly(Return(false));
+  // Calling AddAuthFactor.
+  user_data_auth::AddAuthFactorRequest request;
+  request.set_auth_session_id(auth_session.serialized_token());
+  request.mutable_auth_factor()->set_type(
+      user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
+  request.mutable_auth_factor()->set_label(kFakeLabel);
+  request.mutable_auth_factor()->mutable_password_metadata();
+  request.mutable_auth_input()->mutable_password_input()->set_secret(kFakePass);
+
+  TestFuture<CryptohomeStatus> add_future;
+  auth_session.GetAuthForDecrypt()->AddAuthFactor(request,
+                                                  add_future.GetCallback());
+
+  // Verify.
+  ASSERT_THAT(add_future.Get(), NotOk());
+  UserSession* user_session = FindOrCreateUserSession(kFakeUsername);
+  EXPECT_THAT(user_session->GetCredentialVerifiers(), IsEmpty());
+  ASSERT_EQ(add_future.Get()->local_legacy_error(),
+            user_data_auth::CRYPTOHOME_ADD_CREDENTIALS_FAILED);
+}
+
 // Test that a new auth factor and a pin can be added to the newly created user,
 // in case the UserSecretStash experiment is on.
 TEST_F(AuthSessionWithUssExperimentTest, AddPasswordAndPinAuthFactorViaUss) {
@@ -3868,6 +3940,97 @@ TEST_F(AuthSessionWithUssExperimentTest, RemoveAuthFactor) {
                           Pair(kFakePinLabel, AuthFactorType::kPin)));
   EXPECT_THAT(auth_session.auth_factor_map().Find(kFakeLabel), Optional(_));
   EXPECT_THAT(auth_session.auth_factor_map().Find(kFakePinLabel), Optional(_));
+
+  // Test.
+
+  // Calling RemoveAuthFactor for pin.
+  user_data_auth::RemoveAuthFactorRequest request;
+  request.set_auth_session_id(auth_session.serialized_token());
+  request.set_auth_factor_label(kFakePinLabel);
+
+  TestFuture<CryptohomeStatus> remove_future;
+  auth_session.GetAuthForDecrypt()->RemoveAuthFactor(
+      request, remove_future.GetCallback());
+
+  EXPECT_THAT(remove_future.Get(), IsOk());
+
+  // Only password is available.
+  std::map<std::string, AuthFactorType> stored_factors_1 =
+      auth_factor_manager_.ListAuthFactors(SanitizeUserName(kFakeUsername));
+  EXPECT_THAT(stored_factors_1,
+              ElementsAre(Pair(kFakeLabel, AuthFactorType::kPassword)));
+  EXPECT_THAT(auth_session.auth_factor_map().Find(kFakeLabel), Optional(_));
+  EXPECT_THAT(auth_session.auth_factor_map().Find(kFakePinLabel),
+              Eq(std::nullopt));
+
+  // Calling AuthenticateAuthFactor for password succeeds.
+  error = AuthenticatePasswordAuthFactor(kFakePass, auth_session);
+  EXPECT_EQ(error, user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+
+  // Calling AuthenticateAuthFactor for pin fails.
+  std::vector<std::string> auth_factor_labels{kFakePinLabel};
+  user_data_auth::AuthInput auth_input_proto;
+  auth_input_proto.mutable_pin_input()->set_secret(kFakePin);
+  AuthenticateTestFuture authenticate_future;
+  auth_session.AuthenticateAuthFactor(
+      ToAuthenticateRequest(auth_factor_labels, auth_input_proto),
+      authenticate_future.GetCallback());
+
+  // Verify.
+  auto& [action, status] = authenticate_future.Get();
+  EXPECT_EQ(action.action_type, AuthSession::PostAuthActionType::kNone);
+  EXPECT_THAT(status, NotOk());
+  EXPECT_EQ(status->local_legacy_error(),
+            user_data_auth::CRYPTOHOME_ERROR_KEY_NOT_FOUND);
+  // The verifier still uses the password.
+  UserSession* user_session = FindOrCreateUserSession(kFakeUsername);
+  EXPECT_THAT(user_session->GetCredentialVerifiers(),
+              UnorderedElementsAre(
+                  IsVerifierPtrWithLabelAndPassword(kFakeLabel, kFakePass)));
+}
+
+TEST_F(AuthSessionWithUssExperimentTest,
+       RemoveAuthFactorPartialRemoveIsStillOk) {
+  // Setup.
+  AuthSession auth_session({.username = kFakeUsername,
+                            .is_ephemeral_user = false,
+                            .intent = AuthIntent::kDecrypt,
+                            .auth_factor_status_update_timer =
+                                std::make_unique<base::WallClockTimer>(),
+                            .user_exists = false,
+                            .auth_factor_map = AuthFactorMap()},
+                           backing_apis_);
+  // Creating the user.
+  EXPECT_TRUE(auth_session.OnUserCreated().ok());
+  EXPECT_TRUE(auth_session.has_user_secret_stash());
+
+  user_data_auth::CryptohomeErrorCode error =
+      user_data_auth::CRYPTOHOME_ERROR_NOT_SET;
+
+  error = AddPasswordAuthFactor(kFakeLabel, kFakePass, /*first_factor=*/true,
+                                auth_session);
+  EXPECT_EQ(error, user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  error = AddPinAuthFactor(kFakePin, auth_session);
+  EXPECT_EQ(error, user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+
+  // Both password and pin are available.
+  std::map<std::string, AuthFactorType> stored_factors =
+      auth_factor_manager_.ListAuthFactors(SanitizeUserName(kFakeUsername));
+  EXPECT_THAT(stored_factors,
+              ElementsAre(Pair(kFakeLabel, AuthFactorType::kPassword),
+                          Pair(kFakePinLabel, AuthFactorType::kPin)));
+  EXPECT_THAT(auth_session.auth_factor_map().Find(kFakeLabel), Optional(_));
+  EXPECT_THAT(auth_session.auth_factor_map().Find(kFakePinLabel), Optional(_));
+
+  // Disable the writing of the USS file. This shouldn't cause the remove
+  // operation to fail.
+  EXPECT_CALL(platform_,
+              WriteFileAtomicDurable(
+                  UserSecretStashPath(SanitizeUserName(kFakeUsername),
+                                      kUserSecretStashDefaultSlot),
+                  _, _))
+      .Times(AtLeast(1))
+      .WillRepeatedly(Return(false));
 
   // Test.
 
