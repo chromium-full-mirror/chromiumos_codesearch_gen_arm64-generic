@@ -56,6 +56,36 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Starts a session with the scanner specified in |request| and returns the
+  // current scanner configuration.
+  virtual bool OpenScanner(
+      const ::lorgnette::OpenScannerRequest& in_request,
+      ::lorgnette::OpenScannerResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Starts a session with the scanner specified in |request| and returns the
+  // current scanner configuration.
+  virtual void OpenScannerAsync(
+      const ::lorgnette::OpenScannerRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::OpenScannerResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Close a previously opened scanner handle identified by |request|.
+  virtual bool CloseScanner(
+      const ::lorgnette::CloseScannerRequest& in_request,
+      ::lorgnette::CloseScannerResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Close a previously opened scanner handle identified by |request|.
+  virtual void CloseScannerAsync(
+      const ::lorgnette::CloseScannerRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::CloseScannerResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Sets up a multi-page scan job.
   // Initiates a connection to the scanner and prepares for scanning. Once
   // called, the client can call GetNextImage to fetch image data.
@@ -291,6 +321,74 @@ class ManagerProxy final : public ManagerProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_device_name);
+  }
+
+  // Starts a session with the scanner specified in |request| and returns the
+  // current scanner configuration.
+  bool OpenScanner(
+      const ::lorgnette::OpenScannerRequest& in_request,
+      ::lorgnette::OpenScannerResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "OpenScanner",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  // Starts a session with the scanner specified in |request| and returns the
+  // current scanner configuration.
+  void OpenScannerAsync(
+      const ::lorgnette::OpenScannerRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::OpenScannerResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "OpenScanner",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  // Close a previously opened scanner handle identified by |request|.
+  bool CloseScanner(
+      const ::lorgnette::CloseScannerRequest& in_request,
+      ::lorgnette::CloseScannerResponse* out_response,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "CloseScanner",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_response);
+  }
+
+  // Close a previously opened scanner handle identified by |request|.
+  void CloseScannerAsync(
+      const ::lorgnette::CloseScannerRequest& in_request,
+      base::OnceCallback<void(const ::lorgnette::CloseScannerResponse& /*response*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.lorgnette.Manager",
+        "CloseScanner",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
   }
 
   // Sets up a multi-page scan job.

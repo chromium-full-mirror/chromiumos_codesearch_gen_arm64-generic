@@ -1080,6 +1080,36 @@ int64_t HermesOp::Gethome_mccmncForTest() const {
   return GetIntMetricForTest(khome_mccmncNameHash);
 }
 
+PowerOptimization::PowerOptimization() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+PowerOptimization::~PowerOptimization() = default;
+PowerOptimization& PowerOptimization::Setpower_state(const int64_t value) {
+  AddIntMetric(kpower_stateNameHash, value);
+  return *this;
+}
+
+int64_t PowerOptimization::Getpower_stateForTest() const {
+  return GetIntMetricForTest(kpower_stateNameHash);
+}
+
+PowerOptimization& PowerOptimization::Setreason(const int64_t value) {
+  AddIntMetric(kreasonNameHash, value);
+  return *this;
+}
+
+int64_t PowerOptimization::GetreasonForTest() const {
+  return GetIntMetricForTest(kreasonNameHash);
+}
+
+PowerOptimization& PowerOptimization::Setsince_last_online_hours(const int64_t value) {
+  AddIntMetric(ksince_last_online_hoursNameHash, value);
+  return *this;
+}
+
+int64_t PowerOptimization::Getsince_last_online_hoursForTest() const {
+  return GetIntMetricForTest(ksince_last_online_hoursNameHash);
+}
+
 }  // namespace cellular
 
 namespace rollback_enterprise {

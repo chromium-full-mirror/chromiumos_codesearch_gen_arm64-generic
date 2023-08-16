@@ -125,6 +125,31 @@ struct InstallAttributesGetStatusReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallAttributesGetStatusReplyDefaultTypeInternal _InstallAttributesGetStatusReply_default_instance_;
+PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusRequest::EnterpriseOwnedGetStatusRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
+struct EnterpriseOwnedGetStatusRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~EnterpriseOwnedGetStatusRequestDefaultTypeInternal() {}
+  union {
+    EnterpriseOwnedGetStatusRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnterpriseOwnedGetStatusRequestDefaultTypeInternal _EnterpriseOwnedGetStatusRequest_default_instance_;
+PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusReply::EnterpriseOwnedGetStatusReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct EnterpriseOwnedGetStatusReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~EnterpriseOwnedGetStatusReplyDefaultTypeInternal() {}
+  union {
+    EnterpriseOwnedGetStatusReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnterpriseOwnedGetStatusReplyDefaultTypeInternal _EnterpriseOwnedGetStatusReply_default_instance_;
 PROTOBUF_CONSTEXPR FirmwareManagementParameters::FirmwareManagementParameters(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.developer_key_hash_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -227,13 +252,14 @@ bool DeviceManagementErrorCode_IsValid(int value) {
     case 4:
     case 5:
     case 6:
+    case 7:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceManagementErrorCode_strings[7] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceManagementErrorCode_strings[8] = {};
 
 static const char DeviceManagementErrorCode_names[] =
   "DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE"
@@ -242,6 +268,7 @@ static const char DeviceManagementErrorCode_names[] =
   "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED"
   "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_GET_FAILED"
   "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_SET_FAILED"
+  "DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED"
   "DEVICE_MANAGEMENT_ERROR_NOT_SET";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceManagementErrorCode_entries[] = {
@@ -251,17 +278,19 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceManagementErrorC
   { {DeviceManagementErrorCode_names + 197, 58}, 6 },
   { {DeviceManagementErrorCode_names + 255, 53}, 4 },
   { {DeviceManagementErrorCode_names + 308, 53}, 5 },
-  { {DeviceManagementErrorCode_names + 361, 31}, 0 },
+  { {DeviceManagementErrorCode_names + 361, 45}, 7 },
+  { {DeviceManagementErrorCode_names + 406, 31}, 0 },
 };
 
 static const int DeviceManagementErrorCode_entries_by_number[] = {
-  6, // 0 -> DEVICE_MANAGEMENT_ERROR_NOT_SET
+  7, // 0 -> DEVICE_MANAGEMENT_ERROR_NOT_SET
   2, // 1 -> DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_INVALID
   1, // 2 -> DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_STORE
   0, // 3 -> DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE
   4, // 4 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_GET_FAILED
   5, // 5 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_SET_FAILED
   3, // 6 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED
+  6, // 7 -> DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED
 };
 
 const std::string& DeviceManagementErrorCode_Name(
@@ -270,12 +299,12 @@ const std::string& DeviceManagementErrorCode_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           DeviceManagementErrorCode_entries,
           DeviceManagementErrorCode_entries_by_number,
-          7, DeviceManagementErrorCode_strings);
+          8, DeviceManagementErrorCode_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       DeviceManagementErrorCode_entries,
       DeviceManagementErrorCode_entries_by_number,
-      7, value);
+      8, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      DeviceManagementErrorCode_strings[idx].get();
 }
@@ -283,7 +312,7 @@ bool DeviceManagementErrorCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceManagementErrorCode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      DeviceManagementErrorCode_entries, 7, name, &int_value);
+      DeviceManagementErrorCode_entries, 8, name, &int_value);
   if (success) {
     *value = static_cast<DeviceManagementErrorCode>(int_value);
   }
@@ -1969,6 +1998,337 @@ std::string InstallAttributesGetStatusReply::GetTypeName() const {
 
 // ===================================================================
 
+class EnterpriseOwnedGetStatusRequest::_Internal {
+ public:
+};
+
+EnterpriseOwnedGetStatusRequest::EnterpriseOwnedGetStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:device_management.EnterpriseOwnedGetStatusRequest)
+}
+EnterpriseOwnedGetStatusRequest::EnterpriseOwnedGetStatusRequest(const EnterpriseOwnedGetStatusRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  EnterpriseOwnedGetStatusRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:device_management.EnterpriseOwnedGetStatusRequest)
+}
+
+inline void EnterpriseOwnedGetStatusRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+EnterpriseOwnedGetStatusRequest::~EnterpriseOwnedGetStatusRequest() {
+  // @@protoc_insertion_point(destructor:device_management.EnterpriseOwnedGetStatusRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void EnterpriseOwnedGetStatusRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void EnterpriseOwnedGetStatusRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void EnterpriseOwnedGetStatusRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:device_management.EnterpriseOwnedGetStatusRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* EnterpriseOwnedGetStatusRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* EnterpriseOwnedGetStatusRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:device_management.EnterpriseOwnedGetStatusRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:device_management.EnterpriseOwnedGetStatusRequest)
+  return target;
+}
+
+size_t EnterpriseOwnedGetStatusRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:device_management.EnterpriseOwnedGetStatusRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void EnterpriseOwnedGetStatusRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const EnterpriseOwnedGetStatusRequest*>(
+      &from));
+}
+
+void EnterpriseOwnedGetStatusRequest::MergeFrom(const EnterpriseOwnedGetStatusRequest& from) {
+  EnterpriseOwnedGetStatusRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:device_management.EnterpriseOwnedGetStatusRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void EnterpriseOwnedGetStatusRequest::CopyFrom(const EnterpriseOwnedGetStatusRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:device_management.EnterpriseOwnedGetStatusRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool EnterpriseOwnedGetStatusRequest::IsInitialized() const {
+  return true;
+}
+
+void EnterpriseOwnedGetStatusRequest::InternalSwap(EnterpriseOwnedGetStatusRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string EnterpriseOwnedGetStatusRequest::GetTypeName() const {
+  return "device_management.EnterpriseOwnedGetStatusRequest";
+}
+
+
+// ===================================================================
+
+class EnterpriseOwnedGetStatusReply::_Internal {
+ public:
+};
+
+EnterpriseOwnedGetStatusReply::EnterpriseOwnedGetStatusReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:device_management.EnterpriseOwnedGetStatusReply)
+}
+EnterpriseOwnedGetStatusReply::EnterpriseOwnedGetStatusReply(const EnterpriseOwnedGetStatusReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  EnterpriseOwnedGetStatusReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.error_ = from._impl_.error_;
+  // @@protoc_insertion_point(copy_constructor:device_management.EnterpriseOwnedGetStatusReply)
+}
+
+inline void EnterpriseOwnedGetStatusReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+EnterpriseOwnedGetStatusReply::~EnterpriseOwnedGetStatusReply() {
+  // @@protoc_insertion_point(destructor:device_management.EnterpriseOwnedGetStatusReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void EnterpriseOwnedGetStatusReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void EnterpriseOwnedGetStatusReply::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void EnterpriseOwnedGetStatusReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:device_management.EnterpriseOwnedGetStatusReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.error_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* EnterpriseOwnedGetStatusReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .device_management.DeviceManagementErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::device_management::DeviceManagementErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* EnterpriseOwnedGetStatusReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:device_management.EnterpriseOwnedGetStatusReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .device_management.DeviceManagementErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:device_management.EnterpriseOwnedGetStatusReply)
+  return target;
+}
+
+size_t EnterpriseOwnedGetStatusReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:device_management.EnterpriseOwnedGetStatusReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .device_management.DeviceManagementErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void EnterpriseOwnedGetStatusReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const EnterpriseOwnedGetStatusReply*>(
+      &from));
+}
+
+void EnterpriseOwnedGetStatusReply::MergeFrom(const EnterpriseOwnedGetStatusReply& from) {
+  EnterpriseOwnedGetStatusReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:device_management.EnterpriseOwnedGetStatusReply)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_error() != 0) {
+    _this->_internal_set_error(from._internal_error());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void EnterpriseOwnedGetStatusReply::CopyFrom(const EnterpriseOwnedGetStatusReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:device_management.EnterpriseOwnedGetStatusReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool EnterpriseOwnedGetStatusReply::IsInitialized() const {
+  return true;
+}
+
+void EnterpriseOwnedGetStatusReply::InternalSwap(EnterpriseOwnedGetStatusReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.error_, other->_impl_.error_);
+}
+
+std::string EnterpriseOwnedGetStatusReply::GetTypeName() const {
+  return "device_management.EnterpriseOwnedGetStatusReply";
+}
+
+
+// ===================================================================
+
 class FirmwareManagementParameters::_Internal {
  public:
 };
@@ -3314,6 +3674,14 @@ Arena::CreateMaybeMessage< ::device_management::InstallAttributesGetStatusReques
 template<> PROTOBUF_NOINLINE ::device_management::InstallAttributesGetStatusReply*
 Arena::CreateMaybeMessage< ::device_management::InstallAttributesGetStatusReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::device_management::InstallAttributesGetStatusReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::device_management::EnterpriseOwnedGetStatusRequest*
+Arena::CreateMaybeMessage< ::device_management::EnterpriseOwnedGetStatusRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::device_management::EnterpriseOwnedGetStatusRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::device_management::EnterpriseOwnedGetStatusReply*
+Arena::CreateMaybeMessage< ::device_management::EnterpriseOwnedGetStatusReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::device_management::EnterpriseOwnedGetStatusReply >(arena);
 }
 template<> PROTOBUF_NOINLINE ::device_management::FirmwareManagementParameters*
 Arena::CreateMaybeMessage< ::device_management::FirmwareManagementParameters >(Arena* arena) {

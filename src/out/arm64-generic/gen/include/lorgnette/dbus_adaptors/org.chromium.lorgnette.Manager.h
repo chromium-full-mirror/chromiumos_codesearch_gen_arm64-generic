@@ -31,6 +31,13 @@ class ManagerInterface {
       brillo::ErrorPtr* error,
       const std::string& in_device_name,
       ::lorgnette::ScannerCapabilities* out_capabilities) = 0;
+  // Starts a session with the scanner specified in |request| and returns the
+  // current scanner configuration.
+  virtual ::lorgnette::OpenScannerResponse OpenScanner(
+      const ::lorgnette::OpenScannerRequest& in_request) = 0;
+  // Close a previously opened scanner handle identified by |request|.
+  virtual ::lorgnette::CloseScannerResponse CloseScanner(
+      const ::lorgnette::CloseScannerRequest& in_request) = 0;
   // Sets up a multi-page scan job.
   // Initiates a connection to the scanner and prepares for scanning. Once
   // called, the client can call GetNextImage to fetch image data.
@@ -83,6 +90,14 @@ class ManagerAdaptor {
         "GetScannerCapabilities",
         base::Unretained(interface_),
         &ManagerInterface::GetScannerCapabilities);
+    itf->AddSimpleMethodHandler(
+        "OpenScanner",
+        base::Unretained(interface_),
+        &ManagerInterface::OpenScanner);
+    itf->AddSimpleMethodHandler(
+        "CloseScanner",
+        base::Unretained(interface_),
+        &ManagerInterface::CloseScanner);
     itf->AddSimpleMethodHandler(
         "StartScan",
         base::Unretained(interface_),
@@ -138,6 +153,14 @@ class ManagerAdaptor {
         "    <method name=\"GetScannerCapabilities\">\n"
         "      <arg name=\"device_name\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"capabilities\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"OpenScanner\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"CloseScanner\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"response\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"StartScan\">\n"
         "      <arg name=\"start_scan_request\" type=\"ay\" direction=\"in\"/>\n"

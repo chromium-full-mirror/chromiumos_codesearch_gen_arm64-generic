@@ -43,6 +43,12 @@ struct TableStruct_device_5fmanagement_5finterface_2eproto {
   static const uint32_t offsets[];
 };
 namespace device_management {
+class EnterpriseOwnedGetStatusReply;
+struct EnterpriseOwnedGetStatusReplyDefaultTypeInternal;
+extern EnterpriseOwnedGetStatusReplyDefaultTypeInternal _EnterpriseOwnedGetStatusReply_default_instance_;
+class EnterpriseOwnedGetStatusRequest;
+struct EnterpriseOwnedGetStatusRequestDefaultTypeInternal;
+extern EnterpriseOwnedGetStatusRequestDefaultTypeInternal _EnterpriseOwnedGetStatusRequest_default_instance_;
 class FirmwareManagementParameters;
 struct FirmwareManagementParametersDefaultTypeInternal;
 extern FirmwareManagementParametersDefaultTypeInternal _FirmwareManagementParameters_default_instance_;
@@ -90,6 +96,8 @@ struct SetFirmwareManagementParametersRequestDefaultTypeInternal;
 extern SetFirmwareManagementParametersRequestDefaultTypeInternal _SetFirmwareManagementParametersRequest_default_instance_;
 }  // namespace device_management
 PROTOBUF_NAMESPACE_OPEN
+template<> ::device_management::EnterpriseOwnedGetStatusReply* Arena::CreateMaybeMessage<::device_management::EnterpriseOwnedGetStatusReply>(Arena*);
+template<> ::device_management::EnterpriseOwnedGetStatusRequest* Arena::CreateMaybeMessage<::device_management::EnterpriseOwnedGetStatusRequest>(Arena*);
 template<> ::device_management::FirmwareManagementParameters* Arena::CreateMaybeMessage<::device_management::FirmwareManagementParameters>(Arena*);
 template<> ::device_management::GetFirmwareManagementParametersReply* Arena::CreateMaybeMessage<::device_management::GetFirmwareManagementParametersReply>(Arena*);
 template<> ::device_management::GetFirmwareManagementParametersRequest* Arena::CreateMaybeMessage<::device_management::GetFirmwareManagementParametersRequest>(Arena*);
@@ -116,12 +124,13 @@ enum DeviceManagementErrorCode : int {
   DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_GET_FAILED = 4,
   DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_SET_FAILED = 5,
   DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED = 6,
+  DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED = 7,
   DeviceManagementErrorCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   DeviceManagementErrorCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool DeviceManagementErrorCode_IsValid(int value);
 constexpr DeviceManagementErrorCode DeviceManagementErrorCode_MIN = DEVICE_MANAGEMENT_ERROR_NOT_SET;
-constexpr DeviceManagementErrorCode DeviceManagementErrorCode_MAX = DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED;
+constexpr DeviceManagementErrorCode DeviceManagementErrorCode_MAX = DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED;
 constexpr int DeviceManagementErrorCode_ARRAYSIZE = DeviceManagementErrorCode_MAX + 1;
 
 const std::string& DeviceManagementErrorCode_Name(DeviceManagementErrorCode value);
@@ -1249,6 +1258,253 @@ class InstallAttributesGetStatusReply final :
 };
 // -------------------------------------------------------------------
 
+class EnterpriseOwnedGetStatusRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.EnterpriseOwnedGetStatusRequest) */ {
+ public:
+  inline EnterpriseOwnedGetStatusRequest() : EnterpriseOwnedGetStatusRequest(nullptr) {}
+  ~EnterpriseOwnedGetStatusRequest() override;
+  explicit PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  EnterpriseOwnedGetStatusRequest(const EnterpriseOwnedGetStatusRequest& from);
+  EnterpriseOwnedGetStatusRequest(EnterpriseOwnedGetStatusRequest&& from) noexcept
+    : EnterpriseOwnedGetStatusRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline EnterpriseOwnedGetStatusRequest& operator=(const EnterpriseOwnedGetStatusRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EnterpriseOwnedGetStatusRequest& operator=(EnterpriseOwnedGetStatusRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const EnterpriseOwnedGetStatusRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const EnterpriseOwnedGetStatusRequest* internal_default_instance() {
+    return reinterpret_cast<const EnterpriseOwnedGetStatusRequest*>(
+               &_EnterpriseOwnedGetStatusRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(EnterpriseOwnedGetStatusRequest& a, EnterpriseOwnedGetStatusRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EnterpriseOwnedGetStatusRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EnterpriseOwnedGetStatusRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  EnterpriseOwnedGetStatusRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<EnterpriseOwnedGetStatusRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const EnterpriseOwnedGetStatusRequest& from);
+  void MergeFrom(const EnterpriseOwnedGetStatusRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EnterpriseOwnedGetStatusRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "device_management.EnterpriseOwnedGetStatusRequest";
+  }
+  protected:
+  explicit EnterpriseOwnedGetStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:device_management.EnterpriseOwnedGetStatusRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class EnterpriseOwnedGetStatusReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.EnterpriseOwnedGetStatusReply) */ {
+ public:
+  inline EnterpriseOwnedGetStatusReply() : EnterpriseOwnedGetStatusReply(nullptr) {}
+  ~EnterpriseOwnedGetStatusReply() override;
+  explicit PROTOBUF_CONSTEXPR EnterpriseOwnedGetStatusReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  EnterpriseOwnedGetStatusReply(const EnterpriseOwnedGetStatusReply& from);
+  EnterpriseOwnedGetStatusReply(EnterpriseOwnedGetStatusReply&& from) noexcept
+    : EnterpriseOwnedGetStatusReply() {
+    *this = ::std::move(from);
+  }
+
+  inline EnterpriseOwnedGetStatusReply& operator=(const EnterpriseOwnedGetStatusReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EnterpriseOwnedGetStatusReply& operator=(EnterpriseOwnedGetStatusReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const EnterpriseOwnedGetStatusReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const EnterpriseOwnedGetStatusReply* internal_default_instance() {
+    return reinterpret_cast<const EnterpriseOwnedGetStatusReply*>(
+               &_EnterpriseOwnedGetStatusReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(EnterpriseOwnedGetStatusReply& a, EnterpriseOwnedGetStatusReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EnterpriseOwnedGetStatusReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EnterpriseOwnedGetStatusReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  EnterpriseOwnedGetStatusReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<EnterpriseOwnedGetStatusReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const EnterpriseOwnedGetStatusReply& from);
+  void MergeFrom(const EnterpriseOwnedGetStatusReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EnterpriseOwnedGetStatusReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "device_management.EnterpriseOwnedGetStatusReply";
+  }
+  protected:
+  explicit EnterpriseOwnedGetStatusReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorFieldNumber = 1,
+  };
+  // .device_management.DeviceManagementErrorCode error = 1;
+  void clear_error();
+  ::device_management::DeviceManagementErrorCode error() const;
+  void set_error(::device_management::DeviceManagementErrorCode value);
+  private:
+  ::device_management::DeviceManagementErrorCode _internal_error() const;
+  void _internal_set_error(::device_management::DeviceManagementErrorCode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:device_management.EnterpriseOwnedGetStatusReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int error_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_device_5fmanagement_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
 class FirmwareManagementParameters final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:device_management.FirmwareManagementParameters) */ {
  public:
@@ -1288,7 +1544,7 @@ class FirmwareManagementParameters final :
                &_FirmwareManagementParameters_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(FirmwareManagementParameters& a, FirmwareManagementParameters& b) {
     a.Swap(&b);
@@ -1434,7 +1690,7 @@ class GetFirmwareManagementParametersRequest final :
                &_GetFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(GetFirmwareManagementParametersRequest& a, GetFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -1551,7 +1807,7 @@ class GetFirmwareManagementParametersReply final :
                &_GetFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(GetFirmwareManagementParametersReply& a, GetFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -1701,7 +1957,7 @@ class RemoveFirmwareManagementParametersRequest final :
                &_RemoveFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(RemoveFirmwareManagementParametersRequest& a, RemoveFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -1818,7 +2074,7 @@ class RemoveFirmwareManagementParametersReply final :
                &_RemoveFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(RemoveFirmwareManagementParametersReply& a, RemoveFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -1948,7 +2204,7 @@ class SetFirmwareManagementParametersRequest final :
                &_SetFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(SetFirmwareManagementParametersRequest& a, SetFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -2087,7 +2343,7 @@ class SetFirmwareManagementParametersReply final :
                &_SetFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(SetFirmwareManagementParametersReply& a, SetFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -2557,6 +2813,34 @@ inline void InstallAttributesGetStatusReply::set_state(::device_management::Inst
 
 // -------------------------------------------------------------------
 
+// EnterpriseOwnedGetStatusRequest
+
+// -------------------------------------------------------------------
+
+// EnterpriseOwnedGetStatusReply
+
+// .device_management.DeviceManagementErrorCode error = 1;
+inline void EnterpriseOwnedGetStatusReply::clear_error() {
+  _impl_.error_ = 0;
+}
+inline ::device_management::DeviceManagementErrorCode EnterpriseOwnedGetStatusReply::_internal_error() const {
+  return static_cast< ::device_management::DeviceManagementErrorCode >(_impl_.error_);
+}
+inline ::device_management::DeviceManagementErrorCode EnterpriseOwnedGetStatusReply::error() const {
+  // @@protoc_insertion_point(field_get:device_management.EnterpriseOwnedGetStatusReply.error)
+  return _internal_error();
+}
+inline void EnterpriseOwnedGetStatusReply::_internal_set_error(::device_management::DeviceManagementErrorCode value) {
+  
+  _impl_.error_ = value;
+}
+inline void EnterpriseOwnedGetStatusReply::set_error(::device_management::DeviceManagementErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:device_management.EnterpriseOwnedGetStatusReply.error)
+}
+
+// -------------------------------------------------------------------
+
 // FirmwareManagementParameters
 
 // uint32 flags = 1;
@@ -2896,6 +3180,10 @@ inline void SetFirmwareManagementParametersReply::set_error(::device_management:
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

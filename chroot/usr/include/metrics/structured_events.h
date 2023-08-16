@@ -691,6 +691,31 @@ class BRILLO_EXPORT HermesOp final : public ::metrics::structured::EventBase {
 
 };
 
+class BRILLO_EXPORT PowerOptimization final : public ::metrics::structured::EventBase {
+ public:
+  PowerOptimization();
+  ~PowerOptimization() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(9839464646807007331);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(8206859287963243715);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kpower_stateNameHash = UINT64_C(4857203660928778686);
+  PowerOptimization& Setpower_state(const int64_t value);
+  int64_t Getpower_stateForTest() const;
+
+  static constexpr uint64_t kreasonNameHash = UINT64_C(4665351902015124161);
+  PowerOptimization& Setreason(const int64_t value);
+  int64_t GetreasonForTest() const;
+
+  static constexpr uint64_t ksince_last_online_hoursNameHash = UINT64_C(4304618572768993805);
+  PowerOptimization& Setsince_last_online_hours(const int64_t value);
+  int64_t Getsince_last_online_hoursForTest() const;
+
+};
+
 }  // namespace cellular
 
 namespace rollback_enterprise {

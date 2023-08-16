@@ -54,6 +54,36 @@ class ManagerProxyMock : public ManagerProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              OpenScanner,
+              (const ::lorgnette::OpenScannerRequest& /*in_request*/,
+               ::lorgnette::OpenScannerResponse* /*out_response*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              OpenScannerAsync,
+              (const ::lorgnette::OpenScannerRequest& /*in_request*/,
+               base::OnceCallback<void(const ::lorgnette::OpenScannerResponse& /*response*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
+              CloseScanner,
+              (const ::lorgnette::CloseScannerRequest& /*in_request*/,
+               ::lorgnette::CloseScannerResponse* /*out_response*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              CloseScannerAsync,
+              (const ::lorgnette::CloseScannerRequest& /*in_request*/,
+               base::OnceCallback<void(const ::lorgnette::CloseScannerResponse& /*response*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               StartScan,
               (const ::lorgnette::StartScanRequest& /*in_start_scan_request*/,
                ::lorgnette::StartScanResponse* /*out_start_scan_response*/,
