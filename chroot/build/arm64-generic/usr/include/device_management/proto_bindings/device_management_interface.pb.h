@@ -125,12 +125,13 @@ enum DeviceManagementErrorCode : int {
   DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_SET_FAILED = 5,
   DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED = 6,
   DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED = 7,
+  DEVICE_MANAGEMENT_ERROR_TPM_DEFEND_LOCK = 8,
   DeviceManagementErrorCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   DeviceManagementErrorCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool DeviceManagementErrorCode_IsValid(int value);
 constexpr DeviceManagementErrorCode DeviceManagementErrorCode_MIN = DEVICE_MANAGEMENT_ERROR_NOT_SET;
-constexpr DeviceManagementErrorCode DeviceManagementErrorCode_MAX = DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED;
+constexpr DeviceManagementErrorCode DeviceManagementErrorCode_MAX = DEVICE_MANAGEMENT_ERROR_TPM_DEFEND_LOCK;
 constexpr int DeviceManagementErrorCode_ARRAYSIZE = DeviceManagementErrorCode_MAX + 1;
 
 const std::string& DeviceManagementErrorCode_Name(DeviceManagementErrorCode value);

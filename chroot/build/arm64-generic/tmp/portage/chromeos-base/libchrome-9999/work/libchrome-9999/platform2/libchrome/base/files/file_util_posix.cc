@@ -628,7 +628,7 @@ bool ExecutableExistsInPath(Environment* env,
 #endif  // !BUILDFLAG(IS_FUCHSIA)
 
 #if !BUILDFLAG(IS_APPLE)
-// This is implemented in file_util_mac.mm for Mac.
+// This is implemented in file_util_apple.mm for Mac.
 bool GetTempDir(FilePath* path) {
   const char* tmp = getenv("TMPDIR");
   if (tmp) {
@@ -645,7 +645,7 @@ bool GetTempDir(FilePath* path) {
 }
 #endif  // !BUILDFLAG(IS_APPLE)
 
-#if !BUILDFLAG(IS_APPLE)  // Mac implementation is in file_util_mac.mm.
+#if !BUILDFLAG(IS_APPLE)  // Mac implementation is in file_util_apple.mm.
 FilePath GetHomeDir() {
 #if BUILDFLAG(IS_CHROMEOS)
   if (SysInfo::IsRunningOnChromeOS()) {

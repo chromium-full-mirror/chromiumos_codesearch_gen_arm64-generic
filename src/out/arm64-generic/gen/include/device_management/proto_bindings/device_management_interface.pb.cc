@@ -253,13 +253,14 @@ bool DeviceManagementErrorCode_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceManagementErrorCode_strings[8] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceManagementErrorCode_strings[9] = {};
 
 static const char DeviceManagementErrorCode_names[] =
   "DEVICE_MANAGEMENT_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE"
@@ -269,7 +270,8 @@ static const char DeviceManagementErrorCode_names[] =
   "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_GET_FAILED"
   "DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_SET_FAILED"
   "DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED"
-  "DEVICE_MANAGEMENT_ERROR_NOT_SET";
+  "DEVICE_MANAGEMENT_ERROR_NOT_SET"
+  "DEVICE_MANAGEMENT_ERROR_TPM_DEFEND_LOCK";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceManagementErrorCode_entries[] = {
   { {DeviceManagementErrorCode_names + 0, 68}, 3 },
@@ -280,6 +282,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceManagementErrorC
   { {DeviceManagementErrorCode_names + 308, 53}, 5 },
   { {DeviceManagementErrorCode_names + 361, 45}, 7 },
   { {DeviceManagementErrorCode_names + 406, 31}, 0 },
+  { {DeviceManagementErrorCode_names + 437, 39}, 8 },
 };
 
 static const int DeviceManagementErrorCode_entries_by_number[] = {
@@ -291,6 +294,7 @@ static const int DeviceManagementErrorCode_entries_by_number[] = {
   5, // 5 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_SET_FAILED
   3, // 6 -> DEVICE_MANAGEMENT_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED
   6, // 7 -> DEVICE_MANAGEMENT_ERROR_NOT_ENTERPRISED_OWNED
+  8, // 8 -> DEVICE_MANAGEMENT_ERROR_TPM_DEFEND_LOCK
 };
 
 const std::string& DeviceManagementErrorCode_Name(
@@ -299,12 +303,12 @@ const std::string& DeviceManagementErrorCode_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           DeviceManagementErrorCode_entries,
           DeviceManagementErrorCode_entries_by_number,
-          8, DeviceManagementErrorCode_strings);
+          9, DeviceManagementErrorCode_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       DeviceManagementErrorCode_entries,
       DeviceManagementErrorCode_entries_by_number,
-      8, value);
+      9, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      DeviceManagementErrorCode_strings[idx].get();
 }
@@ -312,7 +316,7 @@ bool DeviceManagementErrorCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceManagementErrorCode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      DeviceManagementErrorCode_entries, 8, name, &int_value);
+      DeviceManagementErrorCode_entries, 9, name, &int_value);
   if (success) {
     *value = static_cast<DeviceManagementErrorCode>(int_value);
   }
