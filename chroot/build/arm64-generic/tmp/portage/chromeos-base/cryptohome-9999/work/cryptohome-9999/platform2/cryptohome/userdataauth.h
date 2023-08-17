@@ -43,6 +43,7 @@
 #include "cryptohome/features.h"
 #include "cryptohome/fingerprint_manager.h"
 #include "cryptohome/firmware_management_parameters.h"
+#include "cryptohome/flatbuffer_schemas/user_policy.h"
 #include "cryptohome/install_attributes.h"
 #include "cryptohome/key_challenge_service_factory.h"
 #include "cryptohome/key_challenge_service_factory_impl.h"
@@ -54,6 +55,7 @@
 #include "cryptohome/storage/cryptohome_vault_factory.h"
 #include "cryptohome/storage/homedirs.h"
 #include "cryptohome/storage/mount_factory.h"
+#include "cryptohome/user_policy_file.h"
 #include "cryptohome/user_secret_stash/storage.h"
 #include "cryptohome/user_secret_stash/user_metadata.h"
 #include "cryptohome/user_session/user_session.h"
@@ -480,11 +482,8 @@ class UserDataAuth {
     auth_factor_manager_ = value;
   }
 
-  // Override |user_secret_stash_storage_| for testing purpose
-  void set_user_secret_stash_storage_for_testing(
-      UserSecretStashStorage* value) {
-    user_secret_stash_storage_ = value;
-  }
+  // Override |uss_storage_| for testing purpose
+  void set_uss_storage_for_testing(UssStorage* value) { uss_storage_ = value; }
 
   void set_user_session_map_for_testing(UserSessionMap* user_session_map) {
     sessions_ = user_session_map;
@@ -753,6 +752,12 @@ class UserDataAuth {
   // This create a dbus connection whose origin thread is UserDataAuth's mount
   // thread.
   void CreateMountThreadDBus();
+
+  // This will load the policy file for the |obfuscated_username|. If the policy
+  // file is not found or could not be loaded, an empty file is saved in place
+  // of it as the default user policy file.
+  CryptohomeStatusOr<UserPolicyFile*> LoadUserPolicyFile(
+      const ObfuscatedUsername& obfuscated_username);
 
   // =============== Mount Related Utilities ===============
 
@@ -1025,6 +1030,10 @@ class UserDataAuth {
   // The default Fingerprint Manager object for fingerprint authentication.
   std::unique_ptr<FingerprintManager> default_fingerprint_manager_;
 
+  // Each user has a user policy file. If the file could not be found, it will
+  // be created with default settings. The user policy file is loaded lazily.
+  std::map<ObfuscatedUsername, UserPolicyFile> user_policy_files_;
+
   // The actual Fingerprint Manager object that is used by this class, but
   // can be overridden for testing.
   FingerprintManager* fingerprint_manager_;
@@ -1131,10 +1140,10 @@ class UserDataAuth {
   AuthFactorManager* auth_factor_manager_ = nullptr;
 
   // User secret stash storage helper.
-  std::unique_ptr<UserSecretStashStorage> default_user_secret_stash_storage_;
-  // Usually set to |default_user_secret_stash_storage_|, but can be overridden
+  std::unique_ptr<UssStorage> default_uss_storage_;
+  // Usually set to |default_uss_storage_|, but can be overridden
   // for tests.
-  UserSecretStashStorage* user_secret_stash_storage_ = nullptr;
+  UssStorage* uss_storage_ = nullptr;
 
   // User metadata helper, wrapped around the USS storage.
   std::unique_ptr<UserMetadataReader> user_metadata_reader_;

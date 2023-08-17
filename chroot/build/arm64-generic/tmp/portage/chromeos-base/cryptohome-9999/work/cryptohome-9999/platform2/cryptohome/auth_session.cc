@@ -45,6 +45,7 @@
 #include "cryptohome/auth_factor/auth_factor_prepare_purpose.h"
 #include "cryptohome/auth_factor/auth_factor_storage_type.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
+#include "cryptohome/auth_factor/flatbuffer.h"
 #include "cryptohome/auth_factor/protobuf.h"
 #include "cryptohome/auth_factor/types/interface.h"
 #include "cryptohome/auth_factor/with_driver.h"
@@ -69,6 +70,7 @@
 #include "cryptohome/platform.h"
 #include "cryptohome/signature_sealing/structures_proto.h"
 #include "cryptohome/storage/file_system_keyset.h"
+#include "cryptohome/user_policy_file.h"
 #include "cryptohome/user_secret_stash/migrator.h"
 #include "cryptohome/user_secret_stash/storage.h"
 #include "cryptohome/user_secret_stash/user_secret_stash.h"
@@ -334,6 +336,22 @@ WrapCallbackWithMetricsReporting(
                         auth_factor_type, std::move(bucket_name));
 }
 
+std::optional<SerializedUserAuthFactorTypePolicy>
+GetAuthFactorPolicyFromUserPolicy(
+    const std::optional<SerializedUserPolicy>& user_policy,
+    AuthFactorType auth_factor_type) {
+  if (!user_policy.has_value()) {
+    return std::nullopt;
+  }
+  for (auto policy : user_policy->auth_factor_type_policy) {
+    if (policy.type != std::nullopt &&
+        policy.type == SerializeAuthFactorType(auth_factor_type)) {
+      return policy;
+    }
+  }
+  return std::nullopt;
+}
+
 }  // namespace
 
 std::unique_ptr<AuthSession> AuthSession::Create(Username account_id,
@@ -417,7 +435,7 @@ AuthSession::AuthSession(Params params, BackingApis backing_apis)
       auth_block_utility_(backing_apis.auth_block_utility),
       auth_factor_driver_manager_(backing_apis.auth_factor_driver_manager),
       auth_factor_manager_(backing_apis.auth_factor_manager),
-      user_secret_stash_storage_(backing_apis.user_secret_stash_storage),
+      uss_storage_(backing_apis.user_secret_stash_storage),
       user_metadata_reader_(backing_apis.user_metadata_reader),
       features_(backing_apis.features),
       converter_(keyset_management_),
@@ -436,7 +454,7 @@ AuthSession::AuthSession(Params params, BackingApis backing_apis)
   CHECK(keyset_management_);
   CHECK(auth_block_utility_);
   CHECK(auth_factor_manager_);
-  CHECK(user_secret_stash_storage_);
+  CHECK(uss_storage_);
   CHECK(features_);
   auth_factor_map_.ReportAuthFactorBackingStoreMetrics();
   RecordAuthSessionStart();
@@ -538,6 +556,16 @@ void AuthSession::SendAuthFactorStatusUpdateSignal() {
     LOG(ERROR) << "Auth factor status update callback has not been set.";
     return;
   }
+  UserPolicyFile user_policy_file(platform_,
+                                  GetUserPolicyPath(obfuscated_username_));
+  if (!user_policy_file.LoadFromFile().ok()) {
+    LOG(ERROR) << "Couldn't load user policy from file, attempting to create "
+                  "an empty default file in SendAuthFactorWithStatusUpdate";
+    user_policy_file.UpdateUserPolicy(
+        SerializedUserPolicy({.auth_factor_type_policy = {}}));
+  }
+  auto user_policy = user_policy_file.GetUserPolicy();
+
   for (AuthFactorMap::ValueView item : auth_factor_map_) {
     const AuthFactor& auth_factor = item.auth_factor();
     AuthFactorDriver& driver =
@@ -552,11 +580,14 @@ void AuthSession::SendAuthFactorStatusUpdateSignal() {
     if (!auth_factor_proto) {
       continue;
     }
+
     user_data_auth::AuthFactorWithStatus auth_factor_with_status;
     *auth_factor_with_status.mutable_auth_factor() =
         std::move(*auth_factor_proto);
-    auto supported_intents = GetSupportedIntents(
-        obfuscated_username_, auth_factor, *auth_factor_driver_manager_);
+    base::flat_set<AuthIntent> supported_intents = GetFullAuthSupportedIntents(
+        obfuscated_username_, auth_factor, *auth_factor_driver_manager_,
+        GetAuthFactorPolicyFromUserPolicy(user_policy, auth_factor.type()));
+
     for (const auto& auth_intent : supported_intents) {
       auth_factor_with_status.add_available_for_intents(
           AuthIntentToProto(auth_intent));
@@ -786,8 +817,7 @@ void AuthSession::MigrateToUssDuringUpdateVaultKeyset(
     // FilesystemKeyset is the same for all VaultKeysets hence the session's
     // |file_system_keyset_| is what we need for the migrator.
     migrator.MigrateVaultKeysetToUss(
-        *user_secret_stash_storage_, auth_factor_label,
-        file_system_keyset_.value(),
+        *uss_storage_, auth_factor_label, file_system_keyset_.value(),
         base::BindOnce(&AuthSession::OnMigrationUssCreatedForUpdate,
                        weak_factory_.GetWeakPtr(), auth_factor_type,
                        auth_factor_label, auth_factor_metadata, auth_input,
@@ -969,8 +999,7 @@ void AuthSession::LoadVaultKeysetAndFsKeys(
     UssMigrator migrator(username_);
 
     migrator.MigrateVaultKeysetToUss(
-        *user_secret_stash_storage_, vault_keyset_->GetLabel(),
-        file_system_keyset_.value(),
+        *uss_storage_, vault_keyset_->GetLabel(), file_system_keyset_.value(),
         base::BindOnce(
             &AuthSession::OnMigrationUssCreated, weak_factory_.GetWeakPtr(),
             auth_block_type_for_resaved_vk, request_auth_factor_type, metadata,
@@ -1107,7 +1136,7 @@ bool AuthSession::PersistResetSecretToUss() {
   }
 
   // Persist the USS.
-  if (!user_secret_stash_storage_
+  if (!uss_storage_
            ->Persist(encrypted_uss_container.value(), obfuscated_username_)
            .ok()) {
     LOG(ERROR) << "Failed to persist user secret stash after "
@@ -1744,8 +1773,8 @@ void AuthSession::ResaveUssWithFactorRemoved(
     return;
   }
 
-  status = user_secret_stash_storage_->Persist(encrypted_uss_container.value(),
-                                               obfuscated_username_);
+  status = uss_storage_->Persist(encrypted_uss_container.value(),
+                                 obfuscated_username_);
   if (!status.ok()) {
     LOG(ERROR) << "AuthSession: Failed to persist user secret stash after auth "
                   "factor removal.";
@@ -2033,8 +2062,7 @@ void AuthSession::ResaveUssWithFactorUpdated(
   // chance of ending in an inconsistent state on the disk: a created/updated
   // USS and a missing auth factor (note that we're using file system syncs to
   // have best-effort ordering guarantee).
-  status = user_secret_stash_storage_->Persist(encrypted_uss_container,
-                                               obfuscated_username_);
+  status = uss_storage_->Persist(encrypted_uss_container, obfuscated_username_);
   if (!status.ok()) {
     LOG(ERROR)
         << "Failed to persist user secret stash after auth factor creation";
@@ -2845,8 +2873,8 @@ CryptohomeStatus AuthSession::PersistAuthFactorToUserSecretStashImpl(
   // chance of ending in an inconsistent state on the disk: a created/updated
   // USS and a missing auth factor (note that we're using file system syncs to
   // have best-effort ordering guarantee).
-  status = user_secret_stash_storage_->Persist(encrypted_uss_container.value(),
-                                               obfuscated_username_);
+  status = uss_storage_->Persist(encrypted_uss_container.value(),
+                                 obfuscated_username_);
   if (!status.ok()) {
     LOG(ERROR) << "Failed to persist user secret stash after the creation of "
                   "auth factor with label: "
@@ -3365,7 +3393,7 @@ void AuthSession::LoadUSSMainKeyAndFsKeyset(
 
   // Load the USS container with the encrypted payload.
   CryptohomeStatusOr<brillo::Blob> encrypted_uss =
-      user_secret_stash_storage_->LoadPersisted(obfuscated_username_);
+      uss_storage_->LoadPersisted(obfuscated_username_);
   if (!encrypted_uss.ok()) {
     LOG(ERROR) << "Failed to load the user secret stash";
     std::move(on_done).Run(

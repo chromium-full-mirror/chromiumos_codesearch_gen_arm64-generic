@@ -4504,6 +4504,51 @@ static_assert(
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableDoubleDataView>(
         pointer, output, message_);
   }
+  absl::optional<double> power_on_to_kernel_seconds() const {
+    if (data_->header_.version < 2) {
+      return absl::nullopt;
+    }
+
+    return data_->power_on_to_kernel_seconds_$flag
+        ? absl::make_optional(data_->power_on_to_kernel_seconds_$value)
+        : absl::nullopt;
+  }
+  absl::optional<double> kernel_to_pre_startup_seconds() const {
+    if (data_->header_.version < 2) {
+      return absl::nullopt;
+    }
+
+    return data_->kernel_to_pre_startup_seconds_$flag
+        ? absl::make_optional(data_->kernel_to_pre_startup_seconds_$value)
+        : absl::nullopt;
+  }
+  absl::optional<double> kernel_to_post_startup_seconds() const {
+    if (data_->header_.version < 2) {
+      return absl::nullopt;
+    }
+
+    return data_->kernel_to_post_startup_seconds_$flag
+        ? absl::make_optional(data_->kernel_to_post_startup_seconds_$value)
+        : absl::nullopt;
+  }
+  absl::optional<double> startup_to_chrome_exec_seconds() const {
+    if (data_->header_.version < 2) {
+      return absl::nullopt;
+    }
+
+    return data_->startup_to_chrome_exec_seconds_$flag
+        ? absl::make_optional(data_->startup_to_chrome_exec_seconds_$value)
+        : absl::nullopt;
+  }
+  absl::optional<double> chrome_exec_to_login_seconds() const {
+    if (data_->header_.version < 2) {
+      return absl::nullopt;
+    }
+
+    return data_->chrome_exec_to_login_seconds_$flag
+        ? absl::make_optional(data_->chrome_exec_to_login_seconds_$value)
+        : absl::nullopt;
+  }
  private:
   internal::BootPerformanceInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -11175,6 +11220,26 @@ struct Serializer<::ash::cros_healthd::mojom::BootPerformanceInfoDataView, Maybe
         in_tpm_initialization_seconds, tpm_initialization_seconds_fragment);
     fragment->tpm_initialization_seconds.Set(
         tpm_initialization_seconds_fragment.is_null() ? nullptr : tpm_initialization_seconds_fragment.data());
+    fragment->power_on_to_kernel_seconds_$flag = Traits::power_on_to_kernel_seconds(input).has_value();
+    if (Traits::power_on_to_kernel_seconds(input).has_value()) {
+      fragment->power_on_to_kernel_seconds_$value = Traits::power_on_to_kernel_seconds(input).value();
+    }
+    fragment->kernel_to_pre_startup_seconds_$flag = Traits::kernel_to_pre_startup_seconds(input).has_value();
+    if (Traits::kernel_to_pre_startup_seconds(input).has_value()) {
+      fragment->kernel_to_pre_startup_seconds_$value = Traits::kernel_to_pre_startup_seconds(input).value();
+    }
+    fragment->kernel_to_post_startup_seconds_$flag = Traits::kernel_to_post_startup_seconds(input).has_value();
+    if (Traits::kernel_to_post_startup_seconds(input).has_value()) {
+      fragment->kernel_to_post_startup_seconds_$value = Traits::kernel_to_post_startup_seconds(input).value();
+    }
+    fragment->startup_to_chrome_exec_seconds_$flag = Traits::startup_to_chrome_exec_seconds(input).has_value();
+    if (Traits::startup_to_chrome_exec_seconds(input).has_value()) {
+      fragment->startup_to_chrome_exec_seconds_$value = Traits::startup_to_chrome_exec_seconds(input).value();
+    }
+    fragment->chrome_exec_to_login_seconds_$flag = Traits::chrome_exec_to_login_seconds(input).has_value();
+    if (Traits::chrome_exec_to_login_seconds(input).has_value()) {
+      fragment->chrome_exec_to_login_seconds_$value = Traits::chrome_exec_to_login_seconds(input).value();
+    }
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::BootPerformanceInfo_Data* input,

@@ -1998,6 +1998,21 @@ struct PrepareAuthFactorProgressDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrepareAuthFactorProgressDefaultTypeInternal _PrepareAuthFactorProgress_default_instance_;
+PROTOBUF_CONSTEXPR AuthenticateAuthFactorCompleted::AuthenticateAuthFactorCompleted(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.error_info_)*/nullptr
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_.auth_factor_type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct AuthenticateAuthFactorCompletedDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthenticateAuthFactorCompletedDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthenticateAuthFactorCompletedDefaultTypeInternal() {}
+  union {
+    AuthenticateAuthFactorCompleted _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateAuthFactorCompletedDefaultTypeInternal _AuthenticateAuthFactorCompleted_default_instance_;
 }  // namespace user_data_auth
 namespace user_data_auth {
 bool GetRecoveryRequestRequest_UserType_IsValid(int value) {
@@ -35157,6 +35172,266 @@ std::string PrepareAuthFactorProgress::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class AuthenticateAuthFactorCompleted::_Internal {
+ public:
+  static const ::user_data_auth::CryptohomeErrorInfo& error_info(const AuthenticateAuthFactorCompleted* msg);
+};
+
+const ::user_data_auth::CryptohomeErrorInfo&
+AuthenticateAuthFactorCompleted::_Internal::error_info(const AuthenticateAuthFactorCompleted* msg) {
+  return *msg->_impl_.error_info_;
+}
+AuthenticateAuthFactorCompleted::AuthenticateAuthFactorCompleted(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.AuthenticateAuthFactorCompleted)
+}
+AuthenticateAuthFactorCompleted::AuthenticateAuthFactorCompleted(const AuthenticateAuthFactorCompleted& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthenticateAuthFactorCompleted* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_info_){nullptr}
+    , decltype(_impl_.error_){}
+    , decltype(_impl_.auth_factor_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_error_info()) {
+    _this->_impl_.error_info_ = new ::user_data_auth::CryptohomeErrorInfo(*from._impl_.error_info_);
+  }
+  ::memcpy(&_impl_.error_, &from._impl_.error_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.auth_factor_type_) -
+    reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.auth_factor_type_));
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.AuthenticateAuthFactorCompleted)
+}
+
+inline void AuthenticateAuthFactorCompleted::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_info_){nullptr}
+    , decltype(_impl_.error_){0}
+    , decltype(_impl_.auth_factor_type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+AuthenticateAuthFactorCompleted::~AuthenticateAuthFactorCompleted() {
+  // @@protoc_insertion_point(destructor:user_data_auth.AuthenticateAuthFactorCompleted)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AuthenticateAuthFactorCompleted::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.error_info_;
+}
+
+void AuthenticateAuthFactorCompleted::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void AuthenticateAuthFactorCompleted::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.AuthenticateAuthFactorCompleted)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.error_info_ != nullptr) {
+    delete _impl_.error_info_;
+  }
+  _impl_.error_info_ = nullptr;
+  ::memset(&_impl_.error_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.auth_factor_type_) -
+      reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.auth_factor_type_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AuthenticateAuthFactorCompleted::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.CryptohomeErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthFactorType auth_factor_type = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_auth_factor_type(static_cast<::user_data_auth::AuthFactorType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AuthenticateAuthFactorCompleted::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.AuthenticateAuthFactorCompleted)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  if (this->_internal_has_error_info()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::error_info(this),
+        _Internal::error_info(this).GetCachedSize(), target, stream);
+  }
+
+  // .user_data_auth.AuthFactorType auth_factor_type = 3;
+  if (this->_internal_auth_factor_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_auth_factor_type(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.AuthenticateAuthFactorCompleted)
+  return target;
+}
+
+size_t AuthenticateAuthFactorCompleted::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.AuthenticateAuthFactorCompleted)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  if (this->_internal_has_error_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.error_info_);
+  }
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  // .user_data_auth.AuthFactorType auth_factor_type = 3;
+  if (this->_internal_auth_factor_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_auth_factor_type());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AuthenticateAuthFactorCompleted::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthenticateAuthFactorCompleted*>(
+      &from));
+}
+
+void AuthenticateAuthFactorCompleted::MergeFrom(const AuthenticateAuthFactorCompleted& from) {
+  AuthenticateAuthFactorCompleted* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.AuthenticateAuthFactorCompleted)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_error_info()) {
+    _this->_internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(
+        from._internal_error_info());
+  }
+  if (from._internal_error() != 0) {
+    _this->_internal_set_error(from._internal_error());
+  }
+  if (from._internal_auth_factor_type() != 0) {
+    _this->_internal_set_auth_factor_type(from._internal_auth_factor_type());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AuthenticateAuthFactorCompleted::CopyFrom(const AuthenticateAuthFactorCompleted& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.AuthenticateAuthFactorCompleted)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AuthenticateAuthFactorCompleted::IsInitialized() const {
+  return true;
+}
+
+void AuthenticateAuthFactorCompleted::InternalSwap(AuthenticateAuthFactorCompleted* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(AuthenticateAuthFactorCompleted, _impl_.auth_factor_type_)
+      + sizeof(AuthenticateAuthFactorCompleted::_impl_.auth_factor_type_)
+      - PROTOBUF_FIELD_OFFSET(AuthenticateAuthFactorCompleted, _impl_.error_info_)>(
+          reinterpret_cast<char*>(&_impl_.error_info_),
+          reinterpret_cast<char*>(&other->_impl_.error_info_));
+}
+
+std::string AuthenticateAuthFactorCompleted::GetTypeName() const {
+  return "user_data_auth.AuthenticateAuthFactorCompleted";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace user_data_auth
 PROTOBUF_NAMESPACE_OPEN
@@ -35727,6 +36002,10 @@ Arena::CreateMaybeMessage< ::user_data_auth::PrepareAuthFactorForAuthProgress >(
 template<> PROTOBUF_NOINLINE ::user_data_auth::PrepareAuthFactorProgress*
 Arena::CreateMaybeMessage< ::user_data_auth::PrepareAuthFactorProgress >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::PrepareAuthFactorProgress >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::AuthenticateAuthFactorCompleted*
+Arena::CreateMaybeMessage< ::user_data_auth::AuthenticateAuthFactorCompleted >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::AuthenticateAuthFactorCompleted >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

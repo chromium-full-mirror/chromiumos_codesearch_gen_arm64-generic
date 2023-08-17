@@ -29,15 +29,6 @@ namespace {
 
 namespace mojom = ::ash::cros_healthd::mojom;
 
-base::Value::Dict GetErrorDict(brillo::Error* error) {
-  base::Value::Dict out_error;
-  if (error) {
-    out_error.Set("code", error->GetCode());
-    out_error.Set("message", error->GetMessage());
-  }
-  return out_error;
-}
-
 }  // namespace
 
 BluetoothPairingRoutine::BluetoothPairingRoutine(
@@ -272,8 +263,12 @@ void BluetoothPairingRoutine::OnDeviceAdded(
 
   const auto& address_type = device->address_type();
   output_dict_.Set("address_type", address_type);
-  output_dict_.Set("is_address_valid",
-                   ValidatePeripheralAddress(address, address_type));
+  const auto& [is_address_valid, failed_manufacturer_id] =
+      ValidatePeripheralAddress(address, address_type);
+  output_dict_.Set("is_address_valid", is_address_valid);
+  if (failed_manufacturer_id.has_value()) {
+    output_dict_.Set("failed_manufacturer_id", failed_manufacturer_id.value());
+  }
 
   if (device->is_bluetooth_class_valid()) {
     output_dict_.Set("bluetooth_class",
@@ -345,12 +340,14 @@ void BluetoothPairingRoutine::HandleError(brillo::Error* error) {
                        "Bluetooth routine failed to remove target peripheral.");
       break;
     case TestStep::kBasebandConnection:
-      output_dict_.Set("connect_error", GetErrorDict(error));
+      if (error)
+        output_dict_.Set("connect_error", error->GetCode());
       SetResultAndStop(mojom::DiagnosticRoutineStatusEnum::kFailed,
                        kBluetoothRoutineFailedCreateBasebandConnection);
       break;
     case TestStep::kPairTargetDevice:
-      output_dict_.Set("pair_error", GetErrorDict(error));
+      if (error)
+        output_dict_.Set("pair_error", error->GetCode());
       SetResultAndStop(mojom::DiagnosticRoutineStatusEnum::kFailed,
                        kBluetoothRoutineFailedFinishPairing);
       break;

@@ -3946,7 +3946,12 @@ BootPerformanceInfo::BootPerformanceInfo()
       shutdown_seconds(),
       shutdown_timestamp(),
       shutdown_reason(),
-      tpm_initialization_seconds() {}
+      tpm_initialization_seconds(),
+      power_on_to_kernel_seconds(),
+      kernel_to_pre_startup_seconds(),
+      kernel_to_post_startup_seconds(),
+      startup_to_chrome_exec_seconds(),
+      chrome_exec_to_login_seconds() {}
 
 BootPerformanceInfo::BootPerformanceInfo(
     double boot_up_seconds_in,
@@ -3959,7 +3964,12 @@ BootPerformanceInfo::BootPerformanceInfo(
       shutdown_seconds(std::move(shutdown_seconds_in)),
       shutdown_timestamp(std::move(shutdown_timestamp_in)),
       shutdown_reason(std::move(shutdown_reason_in)),
-      tpm_initialization_seconds() {}
+      tpm_initialization_seconds(),
+      power_on_to_kernel_seconds(),
+      kernel_to_pre_startup_seconds(),
+      kernel_to_post_startup_seconds(),
+      startup_to_chrome_exec_seconds(),
+      chrome_exec_to_login_seconds() {}
 
 BootPerformanceInfo::BootPerformanceInfo(
     double boot_up_seconds_in,
@@ -3973,7 +3983,36 @@ BootPerformanceInfo::BootPerformanceInfo(
       shutdown_seconds(std::move(shutdown_seconds_in)),
       shutdown_timestamp(std::move(shutdown_timestamp_in)),
       shutdown_reason(std::move(shutdown_reason_in)),
-      tpm_initialization_seconds(std::move(tpm_initialization_seconds_in)) {}
+      tpm_initialization_seconds(std::move(tpm_initialization_seconds_in)),
+      power_on_to_kernel_seconds(),
+      kernel_to_pre_startup_seconds(),
+      kernel_to_post_startup_seconds(),
+      startup_to_chrome_exec_seconds(),
+      chrome_exec_to_login_seconds() {}
+
+BootPerformanceInfo::BootPerformanceInfo(
+    double boot_up_seconds_in,
+    double boot_up_timestamp_in,
+    double shutdown_seconds_in,
+    double shutdown_timestamp_in,
+    const std::string& shutdown_reason_in,
+    ::ash::cros_healthd::mojom::NullableDoublePtr tpm_initialization_seconds_in,
+    absl::optional<double> power_on_to_kernel_seconds_in,
+    absl::optional<double> kernel_to_pre_startup_seconds_in,
+    absl::optional<double> kernel_to_post_startup_seconds_in,
+    absl::optional<double> startup_to_chrome_exec_seconds_in,
+    absl::optional<double> chrome_exec_to_login_seconds_in)
+    : boot_up_seconds(std::move(boot_up_seconds_in)),
+      boot_up_timestamp(std::move(boot_up_timestamp_in)),
+      shutdown_seconds(std::move(shutdown_seconds_in)),
+      shutdown_timestamp(std::move(shutdown_timestamp_in)),
+      shutdown_reason(std::move(shutdown_reason_in)),
+      tpm_initialization_seconds(std::move(tpm_initialization_seconds_in)),
+      power_on_to_kernel_seconds(std::move(power_on_to_kernel_seconds_in)),
+      kernel_to_pre_startup_seconds(std::move(kernel_to_pre_startup_seconds_in)),
+      kernel_to_post_startup_seconds(std::move(kernel_to_post_startup_seconds_in)),
+      startup_to_chrome_exec_seconds(std::move(startup_to_chrome_exec_seconds_in)),
+      chrome_exec_to_login_seconds(std::move(chrome_exec_to_login_seconds_in)) {}
 
 BootPerformanceInfo::~BootPerformanceInfo() = default;
 
@@ -4030,6 +4069,51 @@ void BootPerformanceInfo::WriteIntoTrace(
       "tpm_initialization_seconds"), this->tpm_initialization_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::ash::cros_healthd::mojom::NullableDoublePtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "power_on_to_kernel_seconds"), this->power_on_to_kernel_seconds,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<double>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "kernel_to_pre_startup_seconds"), this->kernel_to_pre_startup_seconds,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<double>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "kernel_to_post_startup_seconds"), this->kernel_to_post_startup_seconds,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<double>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "startup_to_chrome_exec_seconds"), this->startup_to_chrome_exec_seconds,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<double>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "chrome_exec_to_login_seconds"), this->chrome_exec_to_login_seconds,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -9272,6 +9356,21 @@ bool StructTraits<::ash::cros_healthd::mojom::BootPerformanceInfo::DataView, ::a
         success = false;
       if (success && !input.ReadTpmInitializationSeconds(&result->tpm_initialization_seconds))
         success = false;
+      if (success) {
+        result->power_on_to_kernel_seconds = input.power_on_to_kernel_seconds();
+      }
+      if (success) {
+        result->kernel_to_pre_startup_seconds = input.kernel_to_pre_startup_seconds();
+      }
+      if (success) {
+        result->kernel_to_post_startup_seconds = input.kernel_to_post_startup_seconds();
+      }
+      if (success) {
+        result->startup_to_chrome_exec_seconds = input.startup_to_chrome_exec_seconds();
+      }
+      if (success) {
+        result->chrome_exec_to_login_seconds = input.chrome_exec_to_login_seconds();
+      }
   *output = std::move(result);
   return success;
 }
