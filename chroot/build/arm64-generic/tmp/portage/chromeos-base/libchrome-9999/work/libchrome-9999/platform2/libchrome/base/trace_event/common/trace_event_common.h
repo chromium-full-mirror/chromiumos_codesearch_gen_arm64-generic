@@ -208,9 +208,6 @@
 #include "base/time/time.h"
 #include "build/build_config.h"
 
-// Enable legacy trace event macros (e.g., TRACE_EVENT{0,1,2}).
-#define PERFETTO_ENABLE_LEGACY_TRACE_EVENTS 1
-
 // Macros for reading the current trace time (bypassing any virtual time
 // overrides).
 #define TRACE_TIME_TICKS_NOW() ::base::subtle::TimeTicksNowIgnoringOverride()
@@ -223,8 +220,8 @@
 
 // Declare debug annotation converters for base time types, so they can be
 // passed as trace event arguments.
-// TODO(skyostil): Serialize timestamps using perfetto_libchrome::TracedValue instead.
-namespace perfetto_libchrome {
+// TODO(skyostil): Serialize timestamps using perfetto::TracedValue instead.
+namespace perfetto {
 namespace protos {
 namespace pbzero {
 class DebugAnnotation;
@@ -245,16 +242,16 @@ WriteDebugAnnotation(protos::pbzero::DebugAnnotation* annotation, ::base::Time);
 #include "third_party/perfetto/include/perfetto/tracing/track_event.h"
 #include "third_party/perfetto/include/perfetto/tracing/track_event_legacy.h"
 
-namespace perfetto_libchrome {
+namespace perfetto {
 namespace legacy {
 
 template <>
-perfetto_libchrome::ThreadTrack BASE_EXPORT
+perfetto::ThreadTrack BASE_EXPORT
 ConvertThreadId(const ::base::PlatformThreadId& thread);
 
 #if BUILDFLAG(IS_WIN)
 template <>
-perfetto_libchrome::ThreadTrack BASE_EXPORT ConvertThreadId(const int& thread);
+perfetto::ThreadTrack BASE_EXPORT ConvertThreadId(const int& thread);
 #endif  // BUILDFLAG(IS_WIN)
 
 }  // namespace legacy

@@ -697,56 +697,56 @@ inline void ModelInfoDataView::GetOutputTensorInfoDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::ModelFormat> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::ModelFormat value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ml::model_loader::mojom::ModelFormat value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::DevicePreference> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::DevicePreference value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ml::model_loader::mojom::DevicePreference value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::DataType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::DataType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ml::model_loader::mojom::DataType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::LoadModelResult> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::LoadModelResult value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ml::model_loader::mojom::LoadModelResult value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::CreateModelLoaderResult> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::CreateModelLoaderResult value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ml::model_loader::mojom::CreateModelLoaderResult value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::ComputeResult> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::ComputeResult value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ml::model_loader::mojom::ComputeResult value);
 };
 
 } // namespace perfetto

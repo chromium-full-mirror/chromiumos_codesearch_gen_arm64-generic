@@ -876,10 +876,10 @@ std::string Value::Dict::DebugString() const {
 }
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
-void Value::Dict::WriteIntoTrace(perfetto_libchrome::TracedValue context) const {
-  perfetto_libchrome::TracedDictionary dict = std::move(context).WriteDictionary();
+void Value::Dict::WriteIntoTrace(perfetto::TracedValue context) const {
+  perfetto::TracedDictionary dict = std::move(context).WriteDictionary();
   for (auto kv : *this) {
-    dict.Add(perfetto_libchrome::DynamicString(kv.first), kv.second);
+    dict.Add(perfetto::DynamicString(kv.first), kv.second);
   }
 }
 #endif  // BUILDFLAG(ENABLE_BASE_TRACING)
@@ -1199,8 +1199,8 @@ std::string Value::List::DebugString() const {
 }
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
-void Value::List::WriteIntoTrace(perfetto_libchrome::TracedValue context) const {
-  perfetto_libchrome::TracedArray array = std::move(context).WriteArray();
+void Value::List::WriteIntoTrace(perfetto::TracedValue context) const {
+  perfetto::TracedArray array = std::move(context).WriteArray();
   for (const auto& item : *this) {
     array.Append(item);
   }
@@ -1308,7 +1308,7 @@ std::string Value::DebugString() const {
 }
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
-void Value::WriteIntoTrace(perfetto_libchrome::TracedValue context) const {
+void Value::WriteIntoTrace(perfetto::TracedValue context) const {
   Visit([&](const auto& member) {
     using T = std::decay_t<decltype(member)>;
     if constexpr (std::is_same_v<T, absl::monostate>) {

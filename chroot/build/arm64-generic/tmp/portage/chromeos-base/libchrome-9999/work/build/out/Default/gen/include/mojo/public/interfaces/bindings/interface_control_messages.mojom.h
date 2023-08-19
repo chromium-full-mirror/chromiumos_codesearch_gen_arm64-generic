@@ -148,7 +148,7 @@ class  QueryVersion {
 
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -289,7 +289,7 @@ class  QueryVersionResult {
   uint32_t version;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -425,7 +425,7 @@ class  FlushForTesting {
 
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -567,7 +567,7 @@ class  RequireVersion {
   uint32_t version;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -708,7 +708,7 @@ class  EnableIdleTracking {
   int64_t timeout_in_microseconds;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -844,7 +844,7 @@ class  MessageAck {
 
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -980,7 +980,7 @@ class  NotifyIdle {
 
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1539,7 +1539,7 @@ RunMessageParams& operator=(const RunMessageParams&) = delete;
   RunInputPtr input;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1681,7 +1681,7 @@ RunResponseMessageParams& operator=(const RunResponseMessageParams&) = delete;
   RunOutputPtr output;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1827,7 +1827,7 @@ RunOrClosePipeMessageParams& operator=(const RunOrClosePipeMessageParams&) = del
   RunOrClosePipeInputPtr input;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

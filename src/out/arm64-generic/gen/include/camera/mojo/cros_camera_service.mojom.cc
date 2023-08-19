@@ -297,9 +297,9 @@ void CameraHalDispatcherProxy::RegisterServer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalDispatcher::RegisterServer", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("server"), in_server,
                         "<value of type ::mojo::PendingRemote<CameraHalServer>>");
    });
@@ -340,9 +340,9 @@ void CameraHalDispatcherProxy::RegisterClient(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalDispatcher::RegisterClient", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client"), in_client,
                         "<value of type ::mojo::PendingRemote<CameraHalClient>>");
    });
@@ -383,9 +383,9 @@ void CameraHalDispatcherProxy::GetMjpegDecodeAccelerator(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalDispatcher::GetMjpegDecodeAccelerator", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("jda_receiver"), in_jda_receiver,
                         "<value of type ::mojo::PendingReceiver<::cros::mojom::MjpegDecodeAccelerator>>");
    });
@@ -426,9 +426,9 @@ void CameraHalDispatcherProxy::GetJpegEncodeAccelerator(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalDispatcher::GetJpegEncodeAccelerator", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("jea_receiver"), in_jea_receiver,
                         "<value of type ::mojo::PendingReceiver<::cros::mojom::JpegEncodeAccelerator>>");
    });
@@ -469,12 +469,12 @@ void CameraHalDispatcherProxy::RegisterServerWithToken(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalDispatcher::RegisterServerWithToken", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("server"), in_server,
                         "<value of type ::mojo::PendingRemote<CameraHalServer>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("auth_token"), in_auth_token,
                         "<value of type ::mojo_base::mojom::UnguessableTokenPtr>");
    });
@@ -527,15 +527,15 @@ void CameraHalDispatcherProxy::RegisterClientWithToken(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalDispatcher::RegisterClientWithToken", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client"), in_client,
                         "<value of type ::mojo::PendingRemote<CameraHalClient>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type CameraClientType>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("auth_token"), in_auth_token,
                         "<value of type ::mojo_base::mojom::UnguessableTokenPtr>");
    });
@@ -590,12 +590,12 @@ void CameraHalDispatcherProxy::RegisterSensorClientWithToken(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client"), in_client,
                         "<value of type ::mojo::PendingRemote<::cros::mojom::SensorHalClient>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("auth_token"), in_auth_token,
                         "<value of type ::mojo_base::mojom::UnguessableTokenPtr>");
    });
@@ -648,12 +648,12 @@ void CameraHalDispatcherProxy::BindServiceToMojoServiceManager(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalDispatcher::BindServiceToMojoServiceManager", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service_name"), in_service_name,
                         "<value of type const std::string&>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
                         "<value of type ::mojo::ScopedMessagePipeHandle>");
    });
@@ -787,12 +787,12 @@ void CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::CameraHalDispatcher::RegisterServerWithToken", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type int32_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("callbacks"), in_callbacks,
                         "<value of type ::mojo::PendingRemote<CameraHalServerCallbacks>>");
    });
@@ -914,9 +914,9 @@ void CameraHalDispatcher_RegisterClientWithToken_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::CameraHalDispatcher::RegisterClientWithToken", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type int32_t>");
    });
@@ -1032,9 +1032,9 @@ void CameraHalDispatcher_RegisterSensorClientWithToken_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type int32_t>");
    });
@@ -1627,12 +1627,12 @@ void CameraHalServerProxy::CreateChannel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalServer::CreateChannel", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("camera_module_receiver"), in_camera_module_receiver,
                         "<value of type ::mojo::PendingReceiver<::cros::mojom::CameraModule>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type CameraClientType>");
    });
@@ -1675,9 +1675,9 @@ void CameraHalServerProxy::SetTracingEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalServer::SetTracingEnabled", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("enabled"), in_enabled,
                         "<value of type bool>");
    });
@@ -1713,9 +1713,9 @@ void CameraHalServerProxy::SetAutoFramingState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalServer::SetAutoFramingState", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type CameraAutoFramingState>");
    });
@@ -1783,9 +1783,9 @@ void CameraHalServerProxy::SetCameraSWPrivacySwitchState(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type CameraPrivacySwitchState>");
    });
@@ -1853,9 +1853,9 @@ void CameraHalServerProxy::SetCameraEffect(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalServer::SetCameraEffect", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("config"), in_config,
                         "<value of type ::cros::mojom::EffectsConfigPtr>");
    });
@@ -1978,9 +1978,9 @@ void CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::CameraHalServer::GetCameraSWPrivacySwitchState", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type CameraPrivacySwitchState>");
    });
@@ -2097,9 +2097,9 @@ void CameraHalServer_GetAutoFramingSupported_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::CameraHalServer::GetAutoFramingSupported", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("supported"), in_supported,
                         "<value of type bool>");
    });
@@ -2215,9 +2215,9 @@ void CameraHalServer_SetCameraEffect_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::CameraHalServer::SetCameraEffect", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type SetEffectResult>");
    });
@@ -2616,15 +2616,15 @@ void CameraHalServerCallbacksProxy::CameraDeviceActivityChange(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalServerCallbacks::CameraDeviceActivityChange", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("camera_id"), in_camera_id,
                         "<value of type int32_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("opened"), in_opened,
                         "<value of type bool>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type CameraClientType>");
    });
@@ -2663,12 +2663,12 @@ void CameraHalServerCallbacksProxy::CameraPrivacySwitchStateChange(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalServerCallbacks::CameraPrivacySwitchStateChange", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type CameraPrivacySwitchState>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("camera_id"), in_camera_id,
                         "<value of type int32_t>");
    });
@@ -2706,9 +2706,9 @@ void CameraHalServerCallbacksProxy::CameraSWPrivacySwitchStateChange(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type CameraPrivacySwitchState>");
    });
@@ -2940,9 +2940,9 @@ void CameraHalClientProxy::SetUpChannel(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraHalClient::SetUpChannel", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("camera_module"), in_camera_module,
                         "<value of type ::mojo::PendingRemote<::cros::mojom::CameraModule>>");
    });

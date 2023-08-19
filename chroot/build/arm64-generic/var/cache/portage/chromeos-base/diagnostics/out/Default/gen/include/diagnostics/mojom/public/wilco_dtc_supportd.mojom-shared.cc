@@ -567,31 +567,31 @@ WilcoDtcSupportdClient_GetCrosHealthdProbeService_Params_Data::WilcoDtcSupportdC
 }  // namespace wilco_dtc_supportd
 }  // namespace chromeos
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestHttpMethod>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestHttpMethod value) {
+   perfetto::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestHttpMethod value) {
   return std::move(context).WriteString(::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestHttpMethodToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestStatus>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestStatus value) {
+   perfetto::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestStatus value) {
   return std::move(context).WriteString(::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestStatusToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdEvent>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdEvent value) {
+   perfetto::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdEvent value) {
   return std::move(context).WriteString(::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdEventToString(value));
 }
 

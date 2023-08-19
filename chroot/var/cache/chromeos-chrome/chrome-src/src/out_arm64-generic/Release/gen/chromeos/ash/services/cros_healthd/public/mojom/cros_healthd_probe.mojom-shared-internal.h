@@ -4570,6 +4570,17 @@ class  BootPerformanceInfo_Data {
   double shutdown_timestamp;
   mojo::internal::Pointer<mojo::internal::String_Data> shutdown_reason;
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableDouble_Data> tpm_initialization_seconds;
+  uint8_t power_on_to_kernel_seconds_$flag : 1;
+  uint8_t kernel_to_pre_startup_seconds_$flag : 1;
+  uint8_t kernel_to_post_startup_seconds_$flag : 1;
+  uint8_t startup_to_chrome_exec_seconds_$flag : 1;
+  uint8_t chrome_exec_to_login_seconds_$flag : 1;
+  uint8_t pad10_[7];
+  double power_on_to_kernel_seconds_$value;
+  double kernel_to_pre_startup_seconds_$value;
+  double kernel_to_post_startup_seconds_$value;
+  double startup_to_chrome_exec_seconds_$value;
+  double chrome_exec_to_login_seconds_$value;
 
  private:
   friend class mojo::internal::MessageFragment<BootPerformanceInfo_Data>;
@@ -4577,7 +4588,7 @@ class  BootPerformanceInfo_Data {
   BootPerformanceInfo_Data();
   ~BootPerformanceInfo_Data() = delete;
 };
-static_assert(sizeof(BootPerformanceInfo_Data) == 56,
+static_assert(sizeof(BootPerformanceInfo_Data) == 104,
               "Bad sizeof(BootPerformanceInfo_Data)");
 // Used by BootPerformanceInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

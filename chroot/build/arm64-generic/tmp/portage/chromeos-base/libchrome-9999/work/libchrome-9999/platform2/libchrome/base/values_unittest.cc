@@ -2122,25 +2122,25 @@ TEST(ValuesTest, MutableGetString) {
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
 TEST(ValuesTest, TracingSupport) {
-  EXPECT_EQ(perfetto_libchrome::TracedValueToString(Value(false)), "false");
-  EXPECT_EQ(perfetto_libchrome::TracedValueToString(Value(1)), "1");
-  EXPECT_EQ(perfetto_libchrome::TracedValueToString(Value(1.5)), "1.5");
-  EXPECT_EQ(perfetto_libchrome::TracedValueToString(Value("value")), "value");
-  EXPECT_EQ(perfetto_libchrome::TracedValueToString(Value(Value::Type::NONE)), "<none>");
+  EXPECT_EQ(perfetto::TracedValueToString(Value(false)), "false");
+  EXPECT_EQ(perfetto::TracedValueToString(Value(1)), "1");
+  EXPECT_EQ(perfetto::TracedValueToString(Value(1.5)), "1.5");
+  EXPECT_EQ(perfetto::TracedValueToString(Value("value")), "value");
+  EXPECT_EQ(perfetto::TracedValueToString(Value(Value::Type::NONE)), "<none>");
   {
     Value::List list;
-    EXPECT_EQ(perfetto_libchrome::TracedValueToString(list), "{}");
+    EXPECT_EQ(perfetto::TracedValueToString(list), "{}");
     list.Append(2);
     list.Append(3);
-    EXPECT_EQ(perfetto_libchrome::TracedValueToString(list), "[2,3]");
-    EXPECT_EQ(perfetto_libchrome::TracedValueToString(Value(std::move(list))), "[2,3]");
+    EXPECT_EQ(perfetto::TracedValueToString(list), "[2,3]");
+    EXPECT_EQ(perfetto::TracedValueToString(Value(std::move(list))), "[2,3]");
   }
   {
     Value::Dict dict;
-    EXPECT_EQ(perfetto_libchrome::TracedValueToString(dict), "{}");
+    EXPECT_EQ(perfetto::TracedValueToString(dict), "{}");
     dict.Set("key", "value");
-    EXPECT_EQ(perfetto_libchrome::TracedValueToString(dict), "{key:value}");
-    EXPECT_EQ(perfetto_libchrome::TracedValueToString(Value(std::move(dict))),
+    EXPECT_EQ(perfetto::TracedValueToString(dict), "{key:value}");
+    EXPECT_EQ(perfetto::TracedValueToString(Value(std::move(dict))),
               "{key:value}");
   }
 }

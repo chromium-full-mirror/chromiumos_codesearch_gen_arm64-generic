@@ -546,21 +546,21 @@ HandwritingRecognizer_Recognize_ResponseParams_Data::HandwritingRecognizer_Recog
 }  // namespace machine_learning
 }  // namespace chromeos
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::LoadHandwritingModelResult>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::LoadHandwritingModelResult value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::LoadHandwritingModelResult value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::LoadHandwritingModelResultToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::HandwritingRecognizerResult_Status>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::HandwritingRecognizerResult_Status value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::HandwritingRecognizerResult_Status value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::HandwritingRecognizerResult_StatusToString(value));
 }
 

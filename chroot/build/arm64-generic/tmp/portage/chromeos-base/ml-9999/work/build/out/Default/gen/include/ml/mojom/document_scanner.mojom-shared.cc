@@ -376,11 +376,11 @@ DocumentScanner_DoPostProcessing_ResponseParams_Data::DocumentScanner_DoPostProc
 }  // namespace machine_learning
 }  // namespace chromeos
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::DocumentScannerResultStatus>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::DocumentScannerResultStatus value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::DocumentScannerResultStatus value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::DocumentScannerResultStatusToString(value));
 }
 

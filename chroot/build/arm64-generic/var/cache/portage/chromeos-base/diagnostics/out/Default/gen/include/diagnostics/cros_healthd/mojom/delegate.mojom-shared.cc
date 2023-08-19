@@ -930,6 +930,70 @@ bool Delegate_RunFloatingPoint_ResponseParams_Data::Validate(
 Delegate_RunFloatingPoint_ResponseParams_Data::Delegate_RunFloatingPoint_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Delegate_GetAllFanSpeed_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_GetAllFanSpeed_Params_Data* object =
+      static_cast<const Delegate_GetAllFanSpeed_Params_Data*>(data);
+
+  return true;
+}
+
+Delegate_GetAllFanSpeed_Params_Data::Delegate_GetAllFanSpeed_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_GetAllFanSpeed_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_GetAllFanSpeed_ResponseParams_Data* object =
+      static_cast<const Delegate_GetAllFanSpeed_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->fan_rpms, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& fan_rpms_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->fan_rpms, validation_context,
+                                         &fan_rpms_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Delegate_GetAllFanSpeed_ResponseParams_Data::Delegate_GetAllFanSpeed_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd

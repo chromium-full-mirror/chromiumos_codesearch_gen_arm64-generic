@@ -3410,56 +3410,56 @@ inline void RoutineDetailDataView::GetFloatingPointDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::MemtesterTestItemEnum value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::MemtesterTestItemEnum value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedName> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::LedName value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedName value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedColor> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::LedColor value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedColor value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::RoutineStateWaiting_Reason value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::RoutineStateWaiting_Reason value);
 };
 
 } // namespace perfetto

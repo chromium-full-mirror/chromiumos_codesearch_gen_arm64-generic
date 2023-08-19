@@ -64,9 +64,9 @@ size_t ServiceStatus::Hash(size_t seed) const {
 }
 
 void ServiceStatus::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "network_health_bound"), this->network_health_bound,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -75,7 +75,7 @@ void ServiceStatus::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "network_diagnostics_bound"), this->network_diagnostics_bound,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -275,9 +275,9 @@ void CrosHealthdServiceFactoryProxy::GetDiagnosticsService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetDiagnosticsService", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
                         "<value of type ::mojo::PendingReceiver<CrosHealthdDiagnosticsService>>");
    });
@@ -318,9 +318,9 @@ void CrosHealthdServiceFactoryProxy::GetEventService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetEventService", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
                         "<value of type ::mojo::PendingReceiver<CrosHealthdEventService>>");
    });
@@ -361,9 +361,9 @@ void CrosHealthdServiceFactoryProxy::GetProbeService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetProbeService", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
                         "<value of type ::mojo::PendingReceiver<CrosHealthdProbeService>>");
    });
@@ -404,9 +404,9 @@ void CrosHealthdServiceFactoryProxy::SendNetworkHealthService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkHealthService", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("remote"), in_remote,
                         "<value of type ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkHealthService>>");
    });
@@ -447,9 +447,9 @@ void CrosHealthdServiceFactoryProxy::SendNetworkDiagnosticsRoutines(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkDiagnosticsRoutines", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("network_diagnostics_routines"), in_network_diagnostics_routines,
                         "<value of type ::mojo::PendingRemote<::chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines>>");
    });
@@ -490,9 +490,9 @@ void CrosHealthdServiceFactoryProxy::GetSystemService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetSystemService", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
                         "<value of type ::mojo::PendingReceiver<CrosHealthdSystemService>>");
    });
@@ -533,9 +533,9 @@ void CrosHealthdServiceFactoryProxy::SendChromiumDataCollector(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendChromiumDataCollector", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("remote"), in_remote,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector>>");
    });
@@ -2636,15 +2636,15 @@ void CrosHealthdDiagnosticsServiceProxy::GetRoutineUpdate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("id"), in_id,
                         "<value of type int32_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("command"), in_command,
                         "<value of type ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("include_output"), in_include_output,
                         "<value of type bool>");
    });
@@ -2684,9 +2684,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunUrandomRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
@@ -2791,9 +2791,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("percentage_used_threshold"), in_percentage_used_threshold,
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
@@ -2836,12 +2836,12 @@ void CrosHealthdDiagnosticsServiceProxy::RunAcPowerRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("expected_status"), in_expected_status,
                         "<value of type ::ash::cros_healthd::mojom::AcPowerStatusEnum>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("expected_power_type"), in_expected_power_type,
                         "<value of type const absl::optional<std::string>&>");
    });
@@ -2886,9 +2886,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunCpuCacheRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
@@ -2931,9 +2931,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunCpuStressRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
@@ -2976,9 +2976,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunFloatingPointAccuracyRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
@@ -3021,9 +3021,9 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunNvmeWearLevelRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("wear_level_threshold"), in_wear_level_threshold,
                         "<value of type uint32_t>");
    });
@@ -3060,9 +3060,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeWearLevelRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("wear_level_threshold"), in_wear_level_threshold,
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
@@ -3105,9 +3105,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeSelfTestRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("nvme_self_test_type"), in_nvme_self_test_type,
                         "<value of type ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>");
    });
@@ -3145,15 +3145,15 @@ void CrosHealthdDiagnosticsServiceProxy::RunDiskReadRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
                         "<value of type uint32_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("file_size_mb"), in_file_size_mb,
                         "<value of type uint32_t>");
    });
@@ -3193,9 +3193,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunPrimeSearchRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
@@ -3238,12 +3238,12 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryDischargeRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
                         "<value of type uint32_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("maximum_discharge_percent_allowed"), in_maximum_discharge_percent_allowed,
                         "<value of type uint32_t>");
    });
@@ -3281,12 +3281,12 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryChargeRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
                         "<value of type uint32_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("minimum_charge_percent_required"), in_minimum_charge_percent_required,
                         "<value of type uint32_t>");
    });
@@ -3324,9 +3324,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunMemoryRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("max_testing_mem_kib"), in_max_testing_mem_kib,
                         "<value of type absl::optional<uint32_t>>");
    });
@@ -3707,9 +3707,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunVideoConferencingRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("stun_server_hostname"), in_stun_server_hostname,
                         "<value of type const absl::optional<std::string>&>");
    });
@@ -3938,9 +3938,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunPrivacyScreenRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("target_state"), in_target_state,
                         "<value of type bool>");
    });
@@ -3977,15 +3977,15 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunLedLitUpRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("name"), in_name,
                         "<value of type ::ash::cros_healthd::mojom::DEPRECATED_LedName>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("color"), in_color,
                         "<value of type ::ash::cros_healthd::mojom::DEPRECATED_LedColor>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("replier"), in_replier,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier>>");
    });
@@ -4062,15 +4062,15 @@ void CrosHealthdDiagnosticsServiceProxy::RunAudioSetVolumeRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("node_id"), in_node_id,
                         "<value of type uint64_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("volume"), in_volume,
                         "<value of type uint8_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("mute_on"), in_mute_on,
                         "<value of type bool>");
    });
@@ -4109,15 +4109,15 @@ void CrosHealthdDiagnosticsServiceProxy::RunAudioSetGainRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetGainRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("node_id"), in_node_id,
                         "<value of type uint64_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("gain"), in_gain,
                         "<value of type uint8_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("deprecated_mute_on"), in_deprecated_mute_on,
                         "<value of type bool>");
    });
@@ -4218,9 +4218,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunBluetoothScanningRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
                         "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
@@ -4263,9 +4263,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunBluetoothPairingRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("peripheral_id"), in_peripheral_id,
                         "<value of type const std::string&>");
    });
@@ -4312,9 +4312,9 @@ void CrosHealthdDiagnosticsServiceProxy::RunPowerButtonRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPowerButtonRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("timeout_seconds"), in_timeout_seconds,
                         "<value of type uint32_t>");
    });
@@ -4489,9 +4489,9 @@ void CrosHealthdDiagnosticsService_GetAvailableRoutines_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("available_routines"), in_available_routines,
                         "<value of type const std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>&>");
    });
@@ -4619,9 +4619,9 @@ void CrosHealthdDiagnosticsService_GetRoutineUpdate_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("routine_update"), in_routine_update,
                         "<value of type ::ash::cros_healthd::mojom::RoutineUpdatePtr>");
    });
@@ -4747,9 +4747,9 @@ void CrosHealthdDiagnosticsService_RunUrandomRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -4875,9 +4875,9 @@ void CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ProxyToResponder::R
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -5003,9 +5003,9 @@ void CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ProxyToResponder::Run
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -5131,9 +5131,9 @@ void CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ProxyToResponder::Run
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -5259,9 +5259,9 @@ void CrosHealthdDiagnosticsService_RunAcPowerRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -5387,9 +5387,9 @@ void CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -5515,9 +5515,9 @@ void CrosHealthdDiagnosticsService_RunCpuStressRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -5643,9 +5643,9 @@ void CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ProxyToRespon
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -5771,9 +5771,9 @@ void CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToRes
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -5899,9 +5899,9 @@ void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ProxyToResponder::Run
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -6027,9 +6027,9 @@ void CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -6155,9 +6155,9 @@ void CrosHealthdDiagnosticsService_RunDiskReadRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -6283,9 +6283,9 @@ void CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -6411,9 +6411,9 @@ void CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ProxyToResponder::
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -6539,9 +6539,9 @@ void CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ProxyToResponder::Run
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -6667,9 +6667,9 @@ void CrosHealthdDiagnosticsService_RunMemoryRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -6795,9 +6795,9 @@ void CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ProxyToResponder::R
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -6923,9 +6923,9 @@ void CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ProxyToResponder::Ru
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -7051,9 +7051,9 @@ void CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ProxyToResponder
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -7179,9 +7179,9 @@ void CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ProxyToResp
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -7307,9 +7307,9 @@ void CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ProxyToResponder
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -7435,9 +7435,9 @@ void CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -7563,9 +7563,9 @@ void CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ProxyToResponder::Run
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -7691,9 +7691,9 @@ void CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ProxyToResponder::Run
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -7819,9 +7819,9 @@ void CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -7947,9 +7947,9 @@ void CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ProxyToResponder::Run
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -8075,9 +8075,9 @@ void CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -8203,9 +8203,9 @@ void CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ProxyToResponder:
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -8331,9 +8331,9 @@ void CrosHealthdDiagnosticsService_RunArcHttpRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -8459,9 +8459,9 @@ void CrosHealthdDiagnosticsService_RunArcPingRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -8587,9 +8587,9 @@ void CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ProxyToResponder::
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -8715,9 +8715,9 @@ void CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ProxyToResponder::R
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSensitiveSensorRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -8843,9 +8843,9 @@ void CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -8971,9 +8971,9 @@ void CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder::
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -9099,9 +9099,9 @@ void CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ProxyToResponder::Run
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -9227,9 +9227,9 @@ void CrosHealthdDiagnosticsService_DEPRECATED_RunLedLitUpRoutine_ProxyToResponde
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunLedLitUpRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -9355,9 +9355,9 @@ void CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -9483,9 +9483,9 @@ void CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ProxyToResponder::Ru
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -9611,9 +9611,9 @@ void CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetGainRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -9739,9 +9739,9 @@ void CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder::Ru
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -9867,9 +9867,9 @@ void CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -9995,9 +9995,9 @@ void CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder:
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -10123,9 +10123,9 @@ void CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder::
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -10251,9 +10251,9 @@ void CrosHealthdDiagnosticsService_RunPowerButtonRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPowerButtonRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -10379,9 +10379,9 @@ void CrosHealthdDiagnosticsService_RunAudioDriverRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioDriverRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -10507,9 +10507,9 @@ void CrosHealthdDiagnosticsService_RunUfsLifetimeRoutine_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUfsLifetimeRoutine", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
@@ -12416,9 +12416,9 @@ void CrosHealthdEventServiceProxy::AddBluetoothObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver>>");
    });
@@ -12459,9 +12459,9 @@ void CrosHealthdEventServiceProxy::AddLidObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver>>");
    });
@@ -12502,9 +12502,9 @@ void CrosHealthdEventServiceProxy::AddPowerObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver>>");
    });
@@ -12545,9 +12545,9 @@ void CrosHealthdEventServiceProxy::AddNetworkObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver>>");
    });
@@ -12588,9 +12588,9 @@ void CrosHealthdEventServiceProxy::AddAudioObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver>>");
    });
@@ -12631,9 +12631,9 @@ void CrosHealthdEventServiceProxy::AddThunderboltObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver>>");
    });
@@ -12674,9 +12674,9 @@ void CrosHealthdEventServiceProxy::AddUsbObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver>>");
    });
@@ -12717,12 +12717,12 @@ void CrosHealthdEventServiceProxy::AddEventObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("category"), in_category,
                         "<value of type ::ash::cros_healthd::mojom::EventCategoryEnum>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver>>");
    });
@@ -12765,9 +12765,9 @@ void CrosHealthdEventServiceProxy::IsEventSupported(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::IsEventSupported", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("category"), in_category,
                         "<value of type ::ash::cros_healthd::mojom::EventCategoryEnum>");
    });
@@ -12881,9 +12881,9 @@ void CrosHealthdEventService_IsEventSupported_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdEventService::IsEventSupported", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("status"), in_status,
                         "<value of type ::ash::cros_healthd::mojom::SupportStatusPtr>");
    });
@@ -13415,9 +13415,9 @@ void CrosHealthdProbeServiceProxy::ProbeProcessInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("process_id"), in_process_id,
                         "<value of type uint32_t>");
    });
@@ -13454,9 +13454,9 @@ void CrosHealthdProbeServiceProxy::ProbeTelemetryInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("categories"), in_categories,
                         "<value of type const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>&>");
    });
@@ -13505,12 +13505,12 @@ void CrosHealthdProbeServiceProxy::ProbeMultipleProcessInfo(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeMultipleProcessInfo", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("process_ids"), in_process_ids,
                         "<value of type const absl::optional<std::vector<uint32_t>>&>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("ignore_single_process_error"), in_ignore_single_process_error,
                         "<value of type bool>");
    });
@@ -13632,9 +13632,9 @@ void CrosHealthdProbeService_ProbeProcessInfo_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("process_info"), in_process_info,
                         "<value of type ::ash::cros_healthd::mojom::ProcessResultPtr>");
    });
@@ -13758,9 +13758,9 @@ void CrosHealthdProbeService_ProbeTelemetryInfo_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("telemetry_info"), in_telemetry_info,
                         "<value of type ::ash::cros_healthd::mojom::TelemetryInfoPtr>");
    });
@@ -13886,9 +13886,9 @@ void CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeMultipleProcessInfo", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("multiple_process_info"), in_multiple_process_info,
                         "<value of type ::ash::cros_healthd::mojom::MultipleProcessResultPtr>");
    });
@@ -14261,9 +14261,9 @@ void CrosHealthdSystemService_GetServiceStatus_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ServiceStatusPtr>");
    });
@@ -14513,9 +14513,9 @@ void WilcoEcServiceControllerProxy::AddEcObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::WilcoEcServiceController::AddEcObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver>>");
    });
@@ -14556,9 +14556,9 @@ void WilcoEcServiceControllerProxy::GetEcTelemetry(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("payload_string"), in_payload_string,
                         "<value of type const std::string&>");
    });
@@ -14741,9 +14741,9 @@ void WilcoEcServiceController_GetEcTelemetry_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr>");
    });

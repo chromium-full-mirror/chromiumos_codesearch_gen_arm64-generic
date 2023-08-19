@@ -11716,6 +11716,19 @@ class  BootPerformanceInfo {
       const std::string& shutdown_reason,
       ::ash::cros_healthd::mojom::NullableDoublePtr tpm_initialization_seconds);
 
+  BootPerformanceInfo(
+      double boot_up_seconds,
+      double boot_up_timestamp,
+      double shutdown_seconds,
+      double shutdown_timestamp,
+      const std::string& shutdown_reason,
+      ::ash::cros_healthd::mojom::NullableDoublePtr tpm_initialization_seconds,
+      absl::optional<double> power_on_to_kernel_seconds,
+      absl::optional<double> kernel_to_pre_startup_seconds,
+      absl::optional<double> kernel_to_post_startup_seconds,
+      absl::optional<double> startup_to_chrome_exec_seconds,
+      absl::optional<double> chrome_exec_to_login_seconds);
+
 BootPerformanceInfo(const BootPerformanceInfo&) = delete;
 BootPerformanceInfo& operator=(const BootPerformanceInfo&) = delete;
 
@@ -11805,6 +11818,16 @@ BootPerformanceInfo& operator=(const BootPerformanceInfo&) = delete;
   std::string shutdown_reason;
   
   ::ash::cros_healthd::mojom::NullableDoublePtr tpm_initialization_seconds;
+  
+  absl::optional<double> power_on_to_kernel_seconds;
+  
+  absl::optional<double> kernel_to_pre_startup_seconds;
+  
+  absl::optional<double> kernel_to_post_startup_seconds;
+  
+  absl::optional<double> startup_to_chrome_exec_seconds;
+  
+  absl::optional<double> chrome_exec_to_login_seconds;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -17956,7 +17979,12 @@ BootPerformanceInfoPtr BootPerformanceInfo::Clone() const {
       mojo::Clone(shutdown_seconds),
       mojo::Clone(shutdown_timestamp),
       mojo::Clone(shutdown_reason),
-      mojo::Clone(tpm_initialization_seconds)
+      mojo::Clone(tpm_initialization_seconds),
+      mojo::Clone(power_on_to_kernel_seconds),
+      mojo::Clone(kernel_to_pre_startup_seconds),
+      mojo::Clone(kernel_to_post_startup_seconds),
+      mojo::Clone(startup_to_chrome_exec_seconds),
+      mojo::Clone(chrome_exec_to_login_seconds)
   );
 }
 
@@ -17973,6 +18001,16 @@ bool BootPerformanceInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->shutdown_reason, other_struct.shutdown_reason))
     return false;
   if (!mojo::Equals(this->tpm_initialization_seconds, other_struct.tpm_initialization_seconds))
+    return false;
+  if (!mojo::Equals(this->power_on_to_kernel_seconds, other_struct.power_on_to_kernel_seconds))
+    return false;
+  if (!mojo::Equals(this->kernel_to_pre_startup_seconds, other_struct.kernel_to_pre_startup_seconds))
+    return false;
+  if (!mojo::Equals(this->kernel_to_post_startup_seconds, other_struct.kernel_to_post_startup_seconds))
+    return false;
+  if (!mojo::Equals(this->startup_to_chrome_exec_seconds, other_struct.startup_to_chrome_exec_seconds))
+    return false;
+  if (!mojo::Equals(this->chrome_exec_to_login_seconds, other_struct.chrome_exec_to_login_seconds))
     return false;
   return true;
 }
@@ -18002,6 +18040,26 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.tpm_initialization_seconds < rhs.tpm_initialization_seconds)
     return true;
   if (rhs.tpm_initialization_seconds < lhs.tpm_initialization_seconds)
+    return false;
+  if (lhs.power_on_to_kernel_seconds < rhs.power_on_to_kernel_seconds)
+    return true;
+  if (rhs.power_on_to_kernel_seconds < lhs.power_on_to_kernel_seconds)
+    return false;
+  if (lhs.kernel_to_pre_startup_seconds < rhs.kernel_to_pre_startup_seconds)
+    return true;
+  if (rhs.kernel_to_pre_startup_seconds < lhs.kernel_to_pre_startup_seconds)
+    return false;
+  if (lhs.kernel_to_post_startup_seconds < rhs.kernel_to_post_startup_seconds)
+    return true;
+  if (rhs.kernel_to_post_startup_seconds < lhs.kernel_to_post_startup_seconds)
+    return false;
+  if (lhs.startup_to_chrome_exec_seconds < rhs.startup_to_chrome_exec_seconds)
+    return true;
+  if (rhs.startup_to_chrome_exec_seconds < lhs.startup_to_chrome_exec_seconds)
+    return false;
+  if (lhs.chrome_exec_to_login_seconds < rhs.chrome_exec_to_login_seconds)
+    return true;
+  if (rhs.chrome_exec_to_login_seconds < lhs.chrome_exec_to_login_seconds)
     return false;
   return false;
 }
@@ -20940,6 +20998,31 @@ struct  StructTraits<::ash::cros_healthd::mojom::BootPerformanceInfo::DataView,
   static const decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::tpm_initialization_seconds)& tpm_initialization_seconds(
       const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
     return input->tpm_initialization_seconds;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::power_on_to_kernel_seconds) power_on_to_kernel_seconds(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+    return input->power_on_to_kernel_seconds;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::kernel_to_pre_startup_seconds) kernel_to_pre_startup_seconds(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+    return input->kernel_to_pre_startup_seconds;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::kernel_to_post_startup_seconds) kernel_to_post_startup_seconds(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+    return input->kernel_to_post_startup_seconds;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::startup_to_chrome_exec_seconds) startup_to_chrome_exec_seconds(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+    return input->startup_to_chrome_exec_seconds;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::chrome_exec_to_login_seconds) chrome_exec_to_login_seconds(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+    return input->chrome_exec_to_login_seconds;
   }
 
   static bool Read(::ash::cros_healthd::mojom::BootPerformanceInfo::DataView input, ::ash::cros_healthd::mojom::BootPerformanceInfoPtr* output);

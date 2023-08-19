@@ -1060,11 +1060,11 @@ inline void TextEntityDataDataView::GetStringValueDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::AnnotationUsecase> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::AnnotationUsecase value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::machine_learning::mojom::AnnotationUsecase value);
 };
 
 } // namespace perfetto

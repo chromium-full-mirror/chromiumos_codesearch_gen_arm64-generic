@@ -223,61 +223,61 @@ namespace internal {
 }  // namespace network_config
 }  // namespace chromeos
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_config::mojom::ConnectionStateType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_config::mojom::ConnectionStateType value) {
+   perfetto::TracedValue context, ::chromeos::network_config::mojom::ConnectionStateType value) {
   return std::move(context).WriteString(::chromeos::network_config::mojom::ConnectionStateTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_config::mojom::DeviceStateType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_config::mojom::DeviceStateType value) {
+   perfetto::TracedValue context, ::chromeos::network_config::mojom::DeviceStateType value) {
   return std::move(context).WriteString(::chromeos::network_config::mojom::DeviceStateTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_config::mojom::NetworkType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_config::mojom::NetworkType value) {
+   perfetto::TracedValue context, ::chromeos::network_config::mojom::NetworkType value) {
   return std::move(context).WriteString(::chromeos::network_config::mojom::NetworkTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_config::mojom::OncSource>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_config::mojom::OncSource value) {
+   perfetto::TracedValue context, ::chromeos::network_config::mojom::OncSource value) {
   return std::move(context).WriteString(::chromeos::network_config::mojom::OncSourceToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_config::mojom::PolicySource>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_config::mojom::PolicySource value) {
+   perfetto::TracedValue context, ::chromeos::network_config::mojom::PolicySource value) {
   return std::move(context).WriteString(::chromeos::network_config::mojom::PolicySourceToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_config::mojom::PortalState>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_config::mojom::PortalState value) {
+   perfetto::TracedValue context, ::chromeos::network_config::mojom::PortalState value) {
   return std::move(context).WriteString(::chromeos::network_config::mojom::PortalStateToString(value));
 }
 

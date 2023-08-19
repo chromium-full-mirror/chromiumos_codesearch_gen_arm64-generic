@@ -64,9 +64,9 @@ BitstreamBuffer::BitstreamBuffer(
 BitstreamBuffer::~BitstreamBuffer() = default;
 
 void BitstreamBuffer::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bitstream_id"), this->bitstream_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -75,7 +75,7 @@ void BitstreamBuffer::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "handle_fd"), this->handle_fd,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -84,7 +84,7 @@ void BitstreamBuffer::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "offset"), this->offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -93,7 +93,7 @@ void BitstreamBuffer::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bytes_used"), this->bytes_used,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -131,9 +131,9 @@ size_t Picture::Hash(size_t seed) const {
 }
 
 void Picture::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "picture_buffer_id"), this->picture_buffer_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -142,7 +142,7 @@ void Picture::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bitstream_id"), this->bitstream_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -151,7 +151,7 @@ void Picture::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "crop_rect"), this->crop_rect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -185,9 +185,9 @@ size_t PictureBufferFormat::Hash(size_t seed) const {
 }
 
 void PictureBufferFormat::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "min_num_buffers"), this->min_num_buffers,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -196,7 +196,7 @@ void PictureBufferFormat::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "coded_size"), this->coded_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -230,9 +230,9 @@ size_t VideoDecodeAcceleratorConfig::Hash(size_t seed) const {
 }
 
 void VideoDecodeAcceleratorConfig::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "profile"), this->profile,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -241,7 +241,7 @@ void VideoDecodeAcceleratorConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "secure_mode"), this->secure_mode,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -271,9 +271,9 @@ size_t BufferModifier::Hash(size_t seed) const {
 }
 
 void BufferModifier::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "val"), this->val,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -521,12 +521,12 @@ void VideoDecodeAcceleratorProxy::Initialize(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecodeAccelerator::Initialize", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("config"), in_config,
                         "<value of type VideoDecodeAcceleratorConfigPtr>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client"), in_client,
                         "<value of type ::mojo::PendingRemote<VideoDecodeClient>>");
    });
@@ -579,9 +579,9 @@ void VideoDecodeAcceleratorProxy::Decode(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecodeAccelerator::Decode", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("bitstream_buffer"), in_bitstream_buffer,
                         "<value of type BitstreamBufferPtr>");
    });
@@ -627,9 +627,9 @@ void VideoDecodeAcceleratorProxy::AssignPictureBuffers(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecodeAccelerator::AssignPictureBuffers", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("count"), in_count,
                         "<value of type uint32_t>");
    });
@@ -665,21 +665,21 @@ void VideoDecodeAcceleratorProxy::ImportBufferForPicture(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecodeAccelerator::ImportBufferForPicture", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("picture_buffer_id"), in_picture_buffer_id,
                         "<value of type int32_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("format"), in_format,
                         "<value of type ::arc::mojom::HalPixelFormat>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("handle_fd"), in_handle_fd,
                         "<value of type ::mojo::ScopedHandle>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("planes"), in_planes,
                         "<value of type std::vector<::arc::mojom::VideoFramePlanePtr>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("modifier"), in_modifier,
                         "<value of type BufferModifierPtr>");
    });
@@ -743,9 +743,9 @@ void VideoDecodeAcceleratorProxy::ReusePictureBuffer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecodeAccelerator::ReusePictureBuffer", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("picture_buffer_id"), in_picture_buffer_id,
                         "<value of type int32_t>");
    });
@@ -919,9 +919,9 @@ void VideoDecodeAccelerator_Initialize_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::VideoDecodeAccelerator::Initialize", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type VideoDecodeAccelerator::Result>");
    });
@@ -1038,9 +1038,9 @@ void VideoDecodeAccelerator_Reset_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::VideoDecodeAccelerator::Reset", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type VideoDecodeAccelerator::Result>");
    });
@@ -1157,9 +1157,9 @@ void VideoDecodeAccelerator_Flush_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::VideoDecodeAccelerator::Flush", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type VideoDecodeAccelerator::Result>");
    });
@@ -1597,9 +1597,9 @@ void VideoDecodeClientProxy::PictureReady(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecodeClient::PictureReady", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("picture"), in_picture,
                         "<value of type PicturePtr>");
    });
@@ -1645,9 +1645,9 @@ void VideoDecodeClientProxy::NotifyEndOfBitstreamBuffer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecodeClient::NotifyEndOfBitstreamBuffer", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("bitstream_id"), in_bitstream_id,
                         "<value of type int32_t>");
    });
@@ -1683,9 +1683,9 @@ void VideoDecodeClientProxy::NotifyError(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecodeClient::NotifyError", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("error"), in_error,
                         "<value of type VideoDecodeAccelerator::Result>");
    });
@@ -1722,12 +1722,12 @@ void VideoDecodeClientProxy::ProvidePictureBuffers(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecodeClient::ProvidePictureBuffers", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("format"), in_format,
                         "<value of type PictureBufferFormatPtr>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("visible_rect"), in_visible_rect,
                         "<value of type ::arc::mojom::RectPtr>");
    });

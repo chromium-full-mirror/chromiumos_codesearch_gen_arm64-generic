@@ -130,12 +130,12 @@ void NetworkEventsObserverProxy::OnConnectionStateChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::network_health::mojom::NetworkEventsObserver::OnConnectionStateChanged", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("guid"), in_guid,
                         "<value of type const std::string&>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type ::chromeos::network_health::mojom::NetworkState>");
    });
@@ -183,12 +183,12 @@ void NetworkEventsObserverProxy::OnSignalStrengthChanged(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::network_health::mojom::NetworkEventsObserver::OnSignalStrengthChanged", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("guid"), in_guid,
                         "<value of type const std::string&>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("signal_strength"), in_signal_strength,
                         "<value of type ::chromeos::network_health::mojom::UInt32ValuePtr>");
    });
@@ -477,9 +477,9 @@ void NetworkHealthServiceProxy::AddObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::network_health::mojom::NetworkHealthService::AddObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<NetworkEventsObserver>>");
    });
@@ -658,9 +658,9 @@ void NetworkHealthService_GetNetworkList_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::network_health::mojom::NetworkHealthService::GetNetworkList", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("networks"), in_networks,
                         "<value of type std::vector<::chromeos::network_health::mojom::NetworkPtr>>");
    });
@@ -788,9 +788,9 @@ void NetworkHealthService_GetHealthSnapshot_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::network_health::mojom::NetworkHealthService::GetHealthSnapshot", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type ::chromeos::network_health::mojom::NetworkHealthStatePtr>");
    });

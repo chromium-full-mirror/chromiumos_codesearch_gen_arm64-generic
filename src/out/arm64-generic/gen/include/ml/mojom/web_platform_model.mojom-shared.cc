@@ -463,61 +463,61 @@ Model_Compute_ResponseParams_Data::Model_Compute_ResponseParams_Data()
 }  // namespace model_loader
 }  // namespace ml
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ml::model_loader::mojom::ModelFormat>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::ModelFormat value) {
+   perfetto::TracedValue context, ::ml::model_loader::mojom::ModelFormat value) {
   return std::move(context).WriteString(::ml::model_loader::mojom::ModelFormatToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ml::model_loader::mojom::DevicePreference>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::DevicePreference value) {
+   perfetto::TracedValue context, ::ml::model_loader::mojom::DevicePreference value) {
   return std::move(context).WriteString(::ml::model_loader::mojom::DevicePreferenceToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ml::model_loader::mojom::DataType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::DataType value) {
+   perfetto::TracedValue context, ::ml::model_loader::mojom::DataType value) {
   return std::move(context).WriteString(::ml::model_loader::mojom::DataTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ml::model_loader::mojom::LoadModelResult>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::LoadModelResult value) {
+   perfetto::TracedValue context, ::ml::model_loader::mojom::LoadModelResult value) {
   return std::move(context).WriteString(::ml::model_loader::mojom::LoadModelResultToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ml::model_loader::mojom::CreateModelLoaderResult>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::CreateModelLoaderResult value) {
+   perfetto::TracedValue context, ::ml::model_loader::mojom::CreateModelLoaderResult value) {
   return std::move(context).WriteString(::ml::model_loader::mojom::CreateModelLoaderResultToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ml::model_loader::mojom::ComputeResult>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::ComputeResult value) {
+   perfetto::TracedValue context, ::ml::model_loader::mojom::ComputeResult value) {
   return std::move(context).WriteString(::ml::model_loader::mojom::ComputeResultToString(value));
 }
 

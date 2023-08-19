@@ -64,9 +64,9 @@ size_t RunRoutineResponse::Hash(size_t seed) const {
 }
 
 void RunRoutineResponse::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -75,7 +75,7 @@ void RunRoutineResponse::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -105,9 +105,9 @@ size_t InteractiveRoutineUpdate::Hash(size_t seed) const {
 }
 
 void InteractiveRoutineUpdate::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "user_message"), this->user_message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -141,9 +141,9 @@ size_t NonInteractiveRoutineUpdate::Hash(size_t seed) const {
 }
 
 void NonInteractiveRoutineUpdate::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -152,7 +152,7 @@ void NonInteractiveRoutineUpdate::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status_message"), this->status_message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -184,9 +184,9 @@ RoutineUpdate::RoutineUpdate(
 RoutineUpdate::~RoutineUpdate() = default;
 
 void RoutineUpdate::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "progress_percent"), this->progress_percent,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -195,7 +195,7 @@ void RoutineUpdate::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "output"), this->output,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -204,7 +204,7 @@ void RoutineUpdate::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "routine_update_union"), this->routine_update_union,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -471,9 +471,9 @@ void DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier::GetColorMatched", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("matched"), in_matched,
                         "<value of type bool>");
    });

@@ -122,7 +122,7 @@ class BASE_EXPORT TaskQueueImpl {
       RepeatingCallback<void(const Task&, TaskQueue::TaskTiming*, LazyNow*)>;
   using OnTaskPostedHandler = RepeatingCallback<void(const Task&)>;
   using TaskExecutionTraceLogger =
-      RepeatingCallback<void(perfetto_libchrome::EventContext&, const Task&)>;
+      RepeatingCallback<void(perfetto::EventContext&, const Task&)>;
 
   // May be called from any thread.
   scoped_refptr<SingleThreadTaskRunner> CreateTaskRunner(

@@ -111,11 +111,11 @@ Executor_RestartUpstartJob_ResponseParams_Data::Executor_RestartUpstartJob_Respo
 }  // namespace mojom
 }  // namespace printscanmgr
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::printscanmgr::mojom::UpstartJob>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::printscanmgr::mojom::UpstartJob value) {
+   perfetto::TracedValue context, ::printscanmgr::mojom::UpstartJob value) {
   return std::move(context).WriteString(::printscanmgr::mojom::UpstartJobToString(value));
 }
 

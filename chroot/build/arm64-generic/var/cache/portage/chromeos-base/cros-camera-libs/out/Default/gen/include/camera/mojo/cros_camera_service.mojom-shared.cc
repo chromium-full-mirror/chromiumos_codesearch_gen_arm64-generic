@@ -909,41 +909,41 @@ CameraHalClient_SetUpChannel_Params_Data::CameraHalClient_SetUpChannel_Params_Da
 }  // namespace mojom
 }  // namespace cros
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::CameraClientType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::CameraClientType value) {
+   perfetto::TracedValue context, ::cros::mojom::CameraClientType value) {
   return std::move(context).WriteString(::cros::mojom::CameraClientTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::CameraPrivacySwitchState>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::CameraPrivacySwitchState value) {
+   perfetto::TracedValue context, ::cros::mojom::CameraPrivacySwitchState value) {
   return std::move(context).WriteString(::cros::mojom::CameraPrivacySwitchStateToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::CameraAutoFramingState>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::CameraAutoFramingState value) {
+   perfetto::TracedValue context, ::cros::mojom::CameraAutoFramingState value) {
   return std::move(context).WriteString(::cros::mojom::CameraAutoFramingStateToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::SetEffectResult>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::SetEffectResult value) {
+   perfetto::TracedValue context, ::cros::mojom::SetEffectResult value) {
   return std::move(context).WriteString(::cros::mojom::SetEffectResultToString(value));
 }
 

@@ -34,6 +34,7 @@ constexpr uint32_t kDelegate_MonitorPowerButton_Name = 15;
 constexpr uint32_t kDelegate_RunPrimeSearch_Name = 16;
 constexpr uint32_t kDelegate_MonitorVolumeButton_Name = 17;
 constexpr uint32_t kDelegate_RunFloatingPoint_Name = 18;
+constexpr uint32_t kDelegate_GetAllFanSpeed_Name = 19;
 
 }  // namespace internal
 }  // namespace mojom

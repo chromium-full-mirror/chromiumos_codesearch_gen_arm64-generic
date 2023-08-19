@@ -132,11 +132,11 @@ namespace mojom {
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::DecodeError> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::DecodeError value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::DecodeError value);
 };
 
 } // namespace perfetto

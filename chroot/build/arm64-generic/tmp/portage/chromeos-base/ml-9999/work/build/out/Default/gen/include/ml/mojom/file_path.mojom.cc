@@ -59,9 +59,9 @@ size_t FilePath::Hash(size_t seed) const {
 }
 
 void FilePath::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "path"), this->path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

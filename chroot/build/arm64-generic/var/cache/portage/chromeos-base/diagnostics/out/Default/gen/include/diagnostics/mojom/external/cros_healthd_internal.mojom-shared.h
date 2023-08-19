@@ -396,11 +396,11 @@ inline void InputDeviceDataView::GetSysfsPathDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType value);
 };
 
 } // namespace perfetto

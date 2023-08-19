@@ -115,7 +115,7 @@ std::string Location::ToString() const {
   return StringPrintf("pc:%p", program_counter_);
 }
 
-void Location::WriteIntoTrace(perfetto_libchrome::TracedValue context) const {
+void Location::WriteIntoTrace(perfetto::TracedValue context) const {
   auto dict = std::move(context).WriteDictionary();
   dict.Add("function_name", function_name_);
   dict.Add("file_name", file_name_);

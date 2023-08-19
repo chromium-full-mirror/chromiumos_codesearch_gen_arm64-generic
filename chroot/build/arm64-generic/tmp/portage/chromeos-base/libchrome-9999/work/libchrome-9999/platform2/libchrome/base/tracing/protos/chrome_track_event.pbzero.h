@@ -7,7 +7,7 @@
 #include "third_party/perfetto/include/perfetto/protozero/message.h"
 #include "third_party/perfetto/protos/perfetto/trace/track_event/track_event.pbzero.h"
 
-namespace perfetto_libchrome {
+namespace perfetto {
 namespace protos {
 namespace pbzero {
 
@@ -23,7 +23,7 @@ enum MemoryPressureLevel {
   MEMORY_PRESSURE_LEVEL_CRITICAL = 2,
 };
 
-class ChromeTrackEvent : public ::perfetto_libchrome::protos::pbzero::TrackEvent {
+class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
 public:
   template <typename T = ChromeTaskPostedToDisabledQueue>
   T *set_chrome_task_posted_to_disabled_queue() {
@@ -45,7 +45,7 @@ public:
   }
 };
 
-class ChromeTaskPostedToDisabledQueue : public ::protozero_libchrome::Message {
+class ChromeTaskPostedToDisabledQueue : public ::protozero::Message {
 public:
   void set_task_queue_name(std::string) {}
   void set_time_since_disabled_ms(uint64_t) {}
@@ -53,7 +53,7 @@ public:
   void set_source_location_iid(uint64_t) {}
 };
 
-class ChromeThreadPoolTask : public ::protozero_libchrome::Message {
+class ChromeThreadPoolTask : public ::protozero::Message {
 public:
   using Priority = int32_t;
   using ExecutionMode = int32_t;
@@ -78,7 +78,7 @@ public:
   void set_sequence_token(uint64_t) {}
 };
 
-class ChromeTaskAnnotator : public ::protozero_libchrome::Message {
+class ChromeTaskAnnotator : public ::protozero::Message {
 public:
   enum DelayPolicy {
     FLEXIBLE_NO_SOONER = 0,
@@ -91,13 +91,13 @@ public:
   void set_delay_policy(DelayPolicy) {}
 };
 
-class ChromeMemoryPressureNotification : public ::protozero_libchrome::Message {
+class ChromeMemoryPressureNotification : public ::protozero::Message {
 public:
-  void set_level(::perfetto_libchrome::protos::pbzero::MemoryPressureLevel) {}
+  void set_level(::perfetto::protos::pbzero::MemoryPressureLevel) {}
   void set_creation_location_iid(uint64_t) {}
 };
 
-class SequenceManagerTask : public ::protozero_libchrome::Message {
+class SequenceManagerTask : public ::protozero::Message {
 public:
   enum Priority {
     UNKNOWN = 0,

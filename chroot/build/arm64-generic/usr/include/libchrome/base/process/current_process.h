@@ -31,7 +31,7 @@ class CurrentProcessForTest;
 }  // namespace test
 
 using CurrentProcessType =
-    perfetto_libchrome::protos::pbzero::ChromeProcessDescriptor::ProcessType;
+    perfetto::protos::pbzero::ChromeProcessDescriptor::ProcessType;
 
 // These values are persisted to logs. Entries should not be renumbered and
 // numeric values should never be reused.

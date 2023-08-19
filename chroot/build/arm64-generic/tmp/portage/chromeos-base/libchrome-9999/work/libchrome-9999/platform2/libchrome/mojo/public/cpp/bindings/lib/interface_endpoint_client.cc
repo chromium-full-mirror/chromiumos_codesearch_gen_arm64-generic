@@ -710,7 +710,7 @@ bool InterfaceEndpointClient::HandleIncomingMessage(Message* message) {
 void InterfaceEndpointClient::NotifyError(
     const absl::optional<DisconnectReason>& reason) {
   TRACE_EVENT("toplevel", "Closed mojo endpoint",
-              [&](perfetto_libchrome::EventContext& ctx) {
+              [&](perfetto::EventContext& ctx) {
                 auto* info = ctx.event()->set_chrome_mojo_event_info();
                 info->set_mojo_interface_tag(interface_name_);
               });
@@ -888,8 +888,8 @@ void InterfaceEndpointClient::OnAssociationEvent(
 
 bool InterfaceEndpointClient::HandleValidatedMessage(Message* message) {
   TRACE_EVENT("toplevel",
-              perfetto_libchrome::StaticString{method_name_callback_(*message)},
-              [&](perfetto_libchrome::EventContext& ctx) {
+              perfetto::StaticString{method_name_callback_(*message)},
+              [&](perfetto::EventContext& ctx) {
                 auto* info = ctx.event()->set_chrome_mojo_event_info();
 #if BUILDFLAG(IS_ANDROID) && defined(ARCH_CPU_ARM64)
                 // ARM64 Android - set the interface tag unconditionally.
@@ -930,7 +930,7 @@ bool InterfaceEndpointClient::HandleValidatedMessage(Message* message) {
                 if (!*flow_enabled)
                   return;
 
-                perfetto_libchrome::Flow::Global(message->GetTraceId())(ctx);
+                perfetto::Flow::Global(message->GetTraceId())(ctx);
               });
 
   DCHECK_EQ(handle_.id(), message->interface_id());

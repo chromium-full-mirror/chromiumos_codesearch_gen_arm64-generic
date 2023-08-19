@@ -183,7 +183,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) override;
   void ReadFilePart(Executor::File file_enum, uint64_t begin, absl::optional<uint64_t> size, ReadFilePartCallback callback) override;
   void GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) override;
-  void GetFanSpeed(GetFanSpeedCallback callback) override;
+  void GetAllFanSpeed(GetAllFanSpeedCallback callback) override;
   void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) override;
   void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) override;
   void RunMemtesterV2(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) override;
@@ -232,9 +232,9 @@ class  ExecutorAsyncWaiter {
   void GetFileInfo(
       Executor::File file_enum, FileInfoPtr* out_info);
   FileInfoPtr GetFileInfo(Executor::File file_enum);
-  void GetFanSpeed(
-      ExecutedProcessResultPtr* out_result);
-  ExecutedProcessResultPtr GetFanSpeed();
+  void GetAllFanSpeed(
+      std::vector<uint32_t>* out_fan_rpms, absl::optional<std::string>* out_err);
+  
   void RunIw(
       Executor::IwCommand cmd, const std::string& interface_name, ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr RunIw(Executor::IwCommand cmd, const std::string& interface_name);

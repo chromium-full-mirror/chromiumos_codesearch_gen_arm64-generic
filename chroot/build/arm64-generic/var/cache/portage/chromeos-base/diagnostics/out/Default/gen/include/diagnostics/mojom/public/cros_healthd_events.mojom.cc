@@ -85,9 +85,9 @@ UsbEventInfo::UsbEventInfo(
 UsbEventInfo::~UsbEventInfo() = default;
 
 void UsbEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vendor"), this->vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -96,7 +96,7 @@ void UsbEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -105,7 +105,7 @@ void UsbEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vid"), this->vid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -114,7 +114,7 @@ void UsbEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "pid"), this->pid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -123,7 +123,7 @@ void UsbEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "categories"), this->categories,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,7 +132,7 @@ void UsbEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -162,9 +162,9 @@ size_t ThunderboltEventInfo::Hash(size_t seed) const {
 }
 
 void ThunderboltEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -194,9 +194,9 @@ size_t LidEventInfo::Hash(size_t seed) const {
 }
 
 void LidEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -226,9 +226,9 @@ size_t BluetoothEventInfo::Hash(size_t seed) const {
 }
 
 void BluetoothEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -258,9 +258,9 @@ size_t PowerEventInfo::Hash(size_t seed) const {
 }
 
 void PowerEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -290,9 +290,9 @@ size_t AudioEventInfo::Hash(size_t seed) const {
 }
 
 void AudioEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -331,9 +331,9 @@ size_t AudioJackEventInfo::Hash(size_t seed) const {
 }
 
 void AudioJackEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -342,7 +342,7 @@ void AudioJackEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_type"), this->device_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -372,9 +372,9 @@ size_t SdCardEventInfo::Hash(size_t seed) const {
 }
 
 void SdCardEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -408,9 +408,9 @@ size_t TouchpadButtonEvent::Hash(size_t seed) const {
 }
 
 void TouchpadButtonEvent::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "button"), this->button,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -419,7 +419,7 @@ void TouchpadButtonEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "pressed"), this->pressed,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -460,9 +460,9 @@ TouchPointInfo::TouchPointInfo(
 TouchPointInfo::~TouchPointInfo() = default;
 
 void TouchPointInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "tracking_id"), this->tracking_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -471,7 +471,7 @@ void TouchPointInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "x"), this->x,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -480,7 +480,7 @@ void TouchPointInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "y"), this->y,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -489,7 +489,7 @@ void TouchPointInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "pressure"), this->pressure,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -498,7 +498,7 @@ void TouchPointInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "touch_major"), this->touch_major,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -507,7 +507,7 @@ void TouchPointInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "touch_minor"), this->touch_minor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -533,9 +533,9 @@ TouchpadTouchEvent::TouchpadTouchEvent(
 TouchpadTouchEvent::~TouchpadTouchEvent() = default;
 
 void TouchpadTouchEvent::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "touch_points"), this->touch_points,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -570,9 +570,9 @@ TouchpadConnectedEvent::TouchpadConnectedEvent(
 TouchpadConnectedEvent::~TouchpadConnectedEvent() = default;
 
 void TouchpadConnectedEvent::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_x"), this->max_x,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -581,7 +581,7 @@ void TouchpadConnectedEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_y"), this->max_y,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -590,7 +590,7 @@ void TouchpadConnectedEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_pressure"), this->max_pressure,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -599,7 +599,7 @@ void TouchpadConnectedEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "buttons"), this->buttons,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -633,9 +633,9 @@ ExternalDisplayEventInfo::ExternalDisplayEventInfo(
 ExternalDisplayEventInfo::~ExternalDisplayEventInfo() = default;
 
 void ExternalDisplayEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -644,7 +644,7 @@ void ExternalDisplayEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "display_info"), this->display_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -670,9 +670,9 @@ TouchscreenTouchEvent::TouchscreenTouchEvent(
 TouchscreenTouchEvent::~TouchscreenTouchEvent() = default;
 
 void TouchscreenTouchEvent::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "touch_points"), this->touch_points,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -710,9 +710,9 @@ size_t TouchscreenConnectedEvent::Hash(size_t seed) const {
 }
 
 void TouchscreenConnectedEvent::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_x"), this->max_x,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -721,7 +721,7 @@ void TouchscreenConnectedEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_y"), this->max_y,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -730,7 +730,7 @@ void TouchscreenConnectedEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_pressure"), this->max_pressure,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -760,9 +760,9 @@ size_t StylusGarageEventInfo::Hash(size_t seed) const {
 }
 
 void StylusGarageEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -794,9 +794,9 @@ StylusTouchPointInfo::StylusTouchPointInfo(
 StylusTouchPointInfo::~StylusTouchPointInfo() = default;
 
 void StylusTouchPointInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "x"), this->x,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -805,7 +805,7 @@ void StylusTouchPointInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "y"), this->y,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -814,7 +814,7 @@ void StylusTouchPointInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "pressure"), this->pressure,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -840,9 +840,9 @@ StylusTouchEvent::StylusTouchEvent(
 StylusTouchEvent::~StylusTouchEvent() = default;
 
 void StylusTouchEvent::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "touch_point"), this->touch_point,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -880,9 +880,9 @@ size_t StylusConnectedEvent::Hash(size_t seed) const {
 }
 
 void StylusConnectedEvent::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_x"), this->max_x,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -891,7 +891,7 @@ void StylusConnectedEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_y"), this->max_y,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -900,7 +900,7 @@ void StylusConnectedEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_pressure"), this->max_pressure,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -932,9 +932,9 @@ CrashUploadInfo::CrashUploadInfo(
 CrashUploadInfo::~CrashUploadInfo() = default;
 
 void CrashUploadInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "crash_report_id"), this->crash_report_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -943,7 +943,7 @@ void CrashUploadInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "creation_time"), this->creation_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -952,7 +952,7 @@ void CrashUploadInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "offset"), this->offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -987,9 +987,9 @@ CrashEventInfo::CrashEventInfo(
 CrashEventInfo::~CrashEventInfo() = default;
 
 void CrashEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "crash_type"), this->crash_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -998,7 +998,7 @@ void CrashEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "local_id"), this->local_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1007,7 +1007,7 @@ void CrashEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "capture_time"), this->capture_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1016,7 +1016,7 @@ void CrashEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "upload_info"), this->upload_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3310,9 +3310,9 @@ void CrosHealthdUsbObserverProxy::OnAdd(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("info"), in_info,
                         "<value of type UsbEventInfoPtr>");
    });
@@ -3358,9 +3358,9 @@ void CrosHealthdUsbObserverProxy::OnRemove(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("info"), in_info,
                         "<value of type UsbEventInfoPtr>");
    });
@@ -3782,9 +3782,9 @@ void EventObserverProxy::OnEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::EventObserver::OnEvent", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("info"), in_info,
                         "<value of type EventInfoPtr>");
    });

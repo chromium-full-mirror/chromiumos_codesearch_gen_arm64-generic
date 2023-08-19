@@ -725,41 +725,41 @@ SodaRecognizer_MarkDone_Params_Data::SodaRecognizer_MarkDone_Params_Data()
 }  // namespace machine_learning
 }  // namespace chromeos
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::OptionalBool>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::OptionalBool value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::OptionalBool value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::OptionalBoolToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::SodaRecognitionMode>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::SodaRecognitionMode value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::SodaRecognitionMode value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::SodaRecognitionModeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::EndpointerType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointerType value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::EndpointerType value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::EndpointerTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::EndpointReason>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointReason value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::EndpointReason value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::EndpointReasonToString(value));
 }
 

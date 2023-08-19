@@ -64,9 +64,9 @@ DocumentScannerConfig::DocumentScannerConfig(
 DocumentScannerConfig::~DocumentScannerConfig() = default;
 
 void DocumentScannerConfig::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "deprecated_library_dlc_path"), this->deprecated_library_dlc_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -75,7 +75,7 @@ void DocumentScannerConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "library_dlc_path"), this->library_dlc_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -104,9 +104,9 @@ DetectCornersResult::DetectCornersResult(
 DetectCornersResult::~DetectCornersResult() = default;
 
 void DetectCornersResult::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -115,7 +115,7 @@ void DetectCornersResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "corners"), this->corners,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -144,9 +144,9 @@ DoPostProcessingResult::DoPostProcessingResult(
 DoPostProcessingResult::~DoPostProcessingResult() = default;
 
 void DoPostProcessingResult::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -155,7 +155,7 @@ void DoPostProcessingResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "processed_jpeg_image"), this->processed_jpeg_image,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -323,9 +323,9 @@ void DocumentScannerProxy::DetectCornersFromNV12Image(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("nv12_image"), in_nv12_image,
                         "<value of type ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr>");
    });
@@ -372,9 +372,9 @@ void DocumentScannerProxy::DetectCornersFromJPEGImage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("jpeg_image"), in_jpeg_image,
                         "<value of type ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr>");
    });
@@ -421,15 +421,15 @@ void DocumentScannerProxy::DoPostProcessing(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("jpeg_image"), in_jpeg_image,
                         "<value of type ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("corners"), in_corners,
                         "<value of type std::vector<::gfx::mojom::PointFPtr>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("rotation"), in_rotation,
                         "<value of type ::chromeos::machine_learning::mojom::Rotation>");
    });
@@ -567,9 +567,9 @@ void DocumentScanner_DetectCornersFromNV12Image_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type DetectCornersResultPtr>");
    });
@@ -695,9 +695,9 @@ void DocumentScanner_DetectCornersFromJPEGImage_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type DetectCornersResultPtr>");
    });
@@ -823,9 +823,9 @@ void DocumentScanner_DoPostProcessing_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type DoPostProcessingResultPtr>");
    });

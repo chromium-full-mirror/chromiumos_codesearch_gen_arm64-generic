@@ -304,38 +304,38 @@ namespace mojom {
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraClientType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::CameraClientType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::CameraClientType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraPrivacySwitchState> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::CameraPrivacySwitchState value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::CameraPrivacySwitchState value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraAutoFramingState> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::CameraAutoFramingState value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::CameraAutoFramingState value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::SetEffectResult> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::SetEffectResult value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::SetEffectResult value);
 };
 
 } // namespace perfetto

@@ -3815,6 +3815,7 @@ class ConnectNamespaceRequest final :
     kPidFieldNumber = 1,
     kAllowUserTrafficFieldNumber = 3,
     kRouteOnVpnFieldNumber = 4,
+    kStaticIpv6FieldNumber = 6,
     kTrafficSourceFieldNumber = 5,
   };
   // string outbound_physical_device = 2;
@@ -3858,6 +3859,15 @@ class ConnectNamespaceRequest final :
   void _internal_set_route_on_vpn(bool value);
   public:
 
+  // bool static_ipv6 = 6;
+  void clear_static_ipv6();
+  bool static_ipv6() const;
+  void set_static_ipv6(bool value);
+  private:
+  bool _internal_static_ipv6() const;
+  void _internal_set_static_ipv6(bool value);
+  public:
+
   // .patchpanel.TrafficCounter.Source traffic_source = 5;
   void clear_traffic_source();
   ::patchpanel::TrafficCounter_Source traffic_source() const;
@@ -3879,6 +3889,7 @@ class ConnectNamespaceRequest final :
     int32_t pid_;
     bool allow_user_traffic_;
     bool route_on_vpn_;
+    bool static_ipv6_;
     int traffic_source_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -10070,6 +10081,26 @@ inline void ConnectNamespaceRequest::_internal_set_traffic_source(::patchpanel::
 inline void ConnectNamespaceRequest::set_traffic_source(::patchpanel::TrafficCounter_Source value) {
   _internal_set_traffic_source(value);
   // @@protoc_insertion_point(field_set:patchpanel.ConnectNamespaceRequest.traffic_source)
+}
+
+// bool static_ipv6 = 6;
+inline void ConnectNamespaceRequest::clear_static_ipv6() {
+  _impl_.static_ipv6_ = false;
+}
+inline bool ConnectNamespaceRequest::_internal_static_ipv6() const {
+  return _impl_.static_ipv6_;
+}
+inline bool ConnectNamespaceRequest::static_ipv6() const {
+  // @@protoc_insertion_point(field_get:patchpanel.ConnectNamespaceRequest.static_ipv6)
+  return _internal_static_ipv6();
+}
+inline void ConnectNamespaceRequest::_internal_set_static_ipv6(bool value) {
+  
+  _impl_.static_ipv6_ = value;
+}
+inline void ConnectNamespaceRequest::set_static_ipv6(bool value) {
+  _internal_set_static_ipv6(value);
+  // @@protoc_insertion_point(field_set:patchpanel.ConnectNamespaceRequest.static_ipv6)
 }
 
 // -------------------------------------------------------------------

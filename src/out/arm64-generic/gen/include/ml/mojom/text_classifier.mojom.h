@@ -294,7 +294,7 @@ class  CodepointSpan {
   uint32_t end_offset;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -438,7 +438,7 @@ class  TextLanguage {
   float confidence;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -721,7 +721,7 @@ TextEntity& operator=(const TextEntity&) = delete;
   TextEntityDataPtr data;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -869,7 +869,7 @@ TextAnnotation& operator=(const TextAnnotation&) = delete;
   std::vector<TextEntityPtr> entities;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1039,7 +1039,7 @@ class  TextAnnotationRequest {
   bool trigger_dictionary_on_beginner_words;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1195,7 +1195,7 @@ REMOVED_TextSuggestSelectionRequest& operator=(const REMOVED_TextSuggestSelectio
   AnnotationUsecase annotation_usecase;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

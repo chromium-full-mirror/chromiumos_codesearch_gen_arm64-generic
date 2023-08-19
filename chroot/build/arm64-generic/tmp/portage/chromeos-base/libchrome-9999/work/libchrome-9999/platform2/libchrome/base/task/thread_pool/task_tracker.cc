@@ -40,8 +40,8 @@ namespace internal {
 namespace {
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
-using perfetto_libchrome::protos::pbzero::ChromeThreadPoolTask;
-using perfetto_libchrome::protos::pbzero::ChromeTrackEvent;
+using perfetto::protos::pbzero::ChromeThreadPoolTask;
+using perfetto::protos::pbzero::ChromeTrackEvent;
 #endif  // BUILDFLAG(ENABLE_BASE_TRACING)
 
 constexpr const char* kExecutionModeString[] = {"parallel", "sequenced",
@@ -98,7 +98,7 @@ ChromeThreadPoolTask::ShutdownBehavior ShutdownBehaviorToProto(
 }
 #endif  //  BUILDFLAG(ENABLE_BASE_TRACING)
 
-auto EmitThreadPoolTraceEventMetadata(perfetto_libchrome::EventContext& ctx,
+auto EmitThreadPoolTraceEventMetadata(perfetto::EventContext& ctx,
                                       const TaskTraits& traits,
                                       TaskSource* task_source,
                                       const SequenceToken& token) {
@@ -109,7 +109,7 @@ auto EmitThreadPoolTraceEventMetadata(perfetto_libchrome::EventContext& ctx,
 
   if (!*scheduler_category_enabled)
     return;
-  auto* task = ctx.event<perfetto_libchrome::protos::pbzero::ChromeTrackEvent>()
+  auto* task = ctx.event<perfetto::protos::pbzero::ChromeTrackEvent>()
                    ->set_thread_pool_task();
   task->set_task_priority(TaskPriorityToProto(traits.priority()));
   task->set_execution_mode(ExecutionModeToProto(task_source->execution_mode()));
@@ -641,7 +641,7 @@ void TaskTracker::RunTaskImpl(Task& task,
                               TaskSource* task_source,
                               const SequenceToken& token) {
   task_annotator_.RunTask(
-      "ThreadPool_RunTask", task, [&](perfetto_libchrome::EventContext& ctx) {
+      "ThreadPool_RunTask", task, [&](perfetto::EventContext& ctx) {
         EmitThreadPoolTraceEventMetadata(ctx, traits, task_source, token);
       });
 }

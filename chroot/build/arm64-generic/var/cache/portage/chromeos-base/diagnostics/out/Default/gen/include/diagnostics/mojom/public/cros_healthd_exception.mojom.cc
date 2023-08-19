@@ -64,9 +64,9 @@ size_t Exception::Hash(size_t seed) const {
 }
 
 void Exception::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "reason"), this->reason,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -75,7 +75,7 @@ void Exception::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "debug_message"), this->debug_message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -99,7 +99,7 @@ size_t Supported::Hash(size_t seed) const {
 }
 
 void Supported::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -121,9 +121,9 @@ Unsupported::Unsupported(
 Unsupported::~Unsupported() = default;
 
 void Unsupported::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "debug_message"), this->debug_message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,7 +132,7 @@ void Unsupported::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "reason"), this->reason,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

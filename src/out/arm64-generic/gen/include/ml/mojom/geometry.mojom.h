@@ -154,7 +154,7 @@ class  Point {
   int32_t y;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -298,7 +298,7 @@ class  PointF {
   float y;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -445,7 +445,7 @@ class  Point3F {
   float z;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -589,7 +589,7 @@ class  Size {
   int32_t height;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -733,7 +733,7 @@ class  SizeF {
   float height;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -883,7 +883,7 @@ class  Rect {
   int32_t height;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1033,7 +1033,7 @@ class  RectF {
   float height;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1183,7 +1183,7 @@ class  Insets {
   int32_t right;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1333,7 +1333,7 @@ class  InsetsF {
   float right;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1477,7 +1477,7 @@ class  Vector2d {
   int32_t y;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1621,7 +1621,7 @@ class  Vector2dF {
   float y;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1768,7 +1768,7 @@ class  Vector3dF {
   float z;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1912,7 +1912,7 @@ class  ScrollOffset {
   float y;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -2062,7 +2062,7 @@ class  Quaternion {
   double w;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

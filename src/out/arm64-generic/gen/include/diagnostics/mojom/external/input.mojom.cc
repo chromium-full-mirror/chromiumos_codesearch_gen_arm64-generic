@@ -83,9 +83,9 @@ KeyboardInfo::KeyboardInfo(
 KeyboardInfo::~KeyboardInfo() = default;
 
 void KeyboardInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -94,7 +94,7 @@ void KeyboardInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "connection_type"), this->connection_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -103,7 +103,7 @@ void KeyboardInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -112,7 +112,7 @@ void KeyboardInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "physical_layout"), this->physical_layout,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -121,7 +121,7 @@ void KeyboardInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "mechanical_layout"), this->mechanical_layout,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -130,7 +130,7 @@ void KeyboardInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "region_code"), this->region_code,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -139,7 +139,7 @@ void KeyboardInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "number_pad_present"), this->number_pad_present,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -148,7 +148,7 @@ void KeyboardInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "top_row_keys"), this->top_row_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -157,7 +157,7 @@ void KeyboardInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "top_right_key"), this->top_right_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -166,7 +166,7 @@ void KeyboardInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "has_assistant_key"), this->has_assistant_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -198,9 +198,9 @@ KeyboardDiagnosticEventInfo::KeyboardDiagnosticEventInfo(
 KeyboardDiagnosticEventInfo::~KeyboardDiagnosticEventInfo() = default;
 
 void KeyboardDiagnosticEventInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "keyboard_info"), this->keyboard_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -209,7 +209,7 @@ void KeyboardDiagnosticEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "tested_keys"), this->tested_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -218,7 +218,7 @@ void KeyboardDiagnosticEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "tested_top_row_keys"), this->tested_top_row_keys,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

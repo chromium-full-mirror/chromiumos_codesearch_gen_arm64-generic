@@ -135,11 +135,11 @@ CameraMetadata_Data::CameraMetadata_Data()
 }  // namespace mojom
 }  // namespace cros
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::EntryType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::EntryType value) {
+   perfetto::TracedValue context, ::cros::mojom::EntryType value) {
   return std::move(context).WriteString(::cros::mojom::EntryTypeToString(value));
 }
 

@@ -290,7 +290,7 @@ class  GraphExecutorOptions {
   GpuDelegateApi gpu_delegate_api;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -431,7 +431,7 @@ class  BuiltinModelSpec {
   BuiltinModelId id;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -585,7 +585,7 @@ class  FlatBufferModelSpec {
   std::string metrics_model_name;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

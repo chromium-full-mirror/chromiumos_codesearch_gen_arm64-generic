@@ -64,9 +64,9 @@ DmaBufPlane::DmaBufPlane(
 DmaBufPlane::~DmaBufPlane() = default;
 
 void DmaBufPlane::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "fd_handle"), this->fd_handle,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -75,7 +75,7 @@ void DmaBufPlane::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "stride"), this->stride,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -84,7 +84,7 @@ void DmaBufPlane::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "offset"), this->offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -93,7 +93,7 @@ void DmaBufPlane::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "size"), this->size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -146,9 +146,9 @@ DmaBufVideoFrame::DmaBufVideoFrame(
 DmaBufVideoFrame::~DmaBufVideoFrame() = default;
 
 void DmaBufVideoFrame::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "format"), this->format,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -157,7 +157,7 @@ void DmaBufVideoFrame::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "coded_width"), this->coded_width,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -166,7 +166,7 @@ void DmaBufVideoFrame::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "coded_height"), this->coded_height,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -175,7 +175,7 @@ void DmaBufVideoFrame::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "planes"), this->planes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -184,7 +184,7 @@ void DmaBufVideoFrame::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "has_modifier"), this->has_modifier,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -193,7 +193,7 @@ void DmaBufVideoFrame::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "modifier"), this->modifier,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

@@ -181,12 +181,12 @@ void VideoProtectedBufferAllocatorProxy::AllocateProtectedSharedMemory(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoProtectedBufferAllocator::AllocateProtectedSharedMemory", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("handle_fd"), in_handle_fd,
                         "<value of type ::mojo::ScopedHandle>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("size"), in_size,
                         "<value of type uint64_t>");
    });
@@ -229,15 +229,15 @@ void VideoProtectedBufferAllocatorProxy::AllocateProtectedNativePixmap(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoProtectedBufferAllocator::AllocateProtectedNativePixmap", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("handle_fd"), in_handle_fd,
                         "<value of type ::mojo::ScopedHandle>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("pixel_format"), in_pixel_format,
                         "<value of type ::arc::mojom::HalPixelFormat>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("picture_size"), in_picture_size,
                         "<value of type ::arc::mojom::SizePtr>");
    });
@@ -292,9 +292,9 @@ void VideoProtectedBufferAllocatorProxy::ReleaseProtectedBuffer(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoProtectedBufferAllocator::ReleaseProtectedBuffer", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("handle_fd"), in_handle_fd,
                         "<value of type ::mojo::ScopedHandle>");
    });
@@ -411,9 +411,9 @@ void VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ProxyToResponde
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::VideoProtectedBufferAllocator::AllocateProtectedSharedMemory", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type bool>");
    });
@@ -529,9 +529,9 @@ void VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ProxyToResponde
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::VideoProtectedBufferAllocator::AllocateProtectedNativePixmap", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type bool>");
    });

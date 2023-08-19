@@ -126,12 +126,12 @@ void WilcoDtcSupportdServiceFactoryProxy::GetService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdServiceFactory::GetService", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
                         "<value of type ::mojo::PendingReceiver<WilcoDtcSupportdService>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client"), in_client,
                         "<value of type ::mojo::PendingRemote<WilcoDtcSupportdClient>>");
    });
@@ -457,9 +457,9 @@ void WilcoDtcSupportdServiceProxy::SendUiMessageToWilcoDtc(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdService::SendUiMessageToWilcoDtc", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("json_message"), in_json_message,
                         "<value of type ::mojo::ScopedHandle>");
    });
@@ -607,9 +607,9 @@ void WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdService::SendUiMessageToWilcoDtc", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response_json_message"), in_response_json_message,
                         "<value of type ::mojo::ScopedHandle>");
    });
@@ -953,18 +953,18 @@ void WilcoDtcSupportdClientProxy::PerformWebRequest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::PerformWebRequest", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("http_method"), in_http_method,
                         "<value of type WilcoDtcSupportdWebRequestHttpMethod>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("url"), in_url,
                         "<value of type ::mojo::ScopedHandle>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("headers"), in_headers,
                         "<value of type std::vector<::mojo::ScopedHandle>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request_body"), in_request_body,
                         "<value of type ::mojo::ScopedHandle>");
    });
@@ -1023,9 +1023,9 @@ void WilcoDtcSupportdClientProxy::SendWilcoDtcMessageToUi(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::SendWilcoDtcMessageToUi", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("json_message"), in_json_message,
                         "<value of type ::mojo::ScopedHandle>");
    });
@@ -1098,9 +1098,9 @@ void WilcoDtcSupportdClientProxy::HandleEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::HandleEvent", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("event"), in_event,
                         "<value of type WilcoDtcSupportdEvent>");
    });
@@ -1137,9 +1137,9 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdDiagnosticsService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetCrosHealthdDiagnosticsService", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
                         "<value of type ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService>>");
    });
@@ -1180,9 +1180,9 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdProbeService(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetCrosHealthdProbeService", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
                         "<value of type ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService>>");
    });
@@ -1307,15 +1307,15 @@ void WilcoDtcSupportdClient_PerformWebRequest_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::PerformWebRequest", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("status"), in_status,
                         "<value of type WilcoDtcSupportdWebRequestStatus>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("http_status"), in_http_status,
                         "<value of type int32_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response_body"), in_response_body,
                         "<value of type ::mojo::ScopedHandle>");
    });
@@ -1435,9 +1435,9 @@ void WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::SendWilcoDtcMessageToUi", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response_json_message"), in_response_json_message,
                         "<value of type ::mojo::ScopedHandle>");
    });
@@ -1554,9 +1554,9 @@ void WilcoDtcSupportdClient_GetConfigurationData_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetConfigurationData", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("json_configuration_data"), in_json_configuration_data,
                         "<value of type const std::string&>");
    });

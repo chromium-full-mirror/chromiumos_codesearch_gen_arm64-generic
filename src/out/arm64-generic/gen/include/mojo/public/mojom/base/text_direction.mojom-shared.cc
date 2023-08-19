@@ -53,11 +53,11 @@ namespace internal {
 }  // namespace mojom
 }  // namespace mojo_base
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::mojo_base::mojom::TextDirection>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::mojo_base::mojom::TextDirection value) {
+   perfetto::TracedValue context, ::mojo_base::mojom::TextDirection value) {
   return std::move(context).WriteString(::mojo_base::mojom::TextDirectionToString(value));
 }
 

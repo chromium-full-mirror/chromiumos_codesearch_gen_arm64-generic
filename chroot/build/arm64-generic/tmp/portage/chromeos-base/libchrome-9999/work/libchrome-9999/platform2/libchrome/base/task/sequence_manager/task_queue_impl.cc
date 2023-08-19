@@ -328,7 +328,7 @@ void TaskQueueImpl::UnregisterTaskQueue() {
 }
 
 const char* TaskQueueImpl::GetName() const {
-  return perfetto_libchrome::protos::pbzero::SequenceManagerTask::QueueName_Name(name_);
+  return perfetto::protos::pbzero::SequenceManagerTask::QueueName_Name(name_);
 }
 
 QueueName TaskQueueImpl::GetProtoName() const {
@@ -1471,8 +1471,8 @@ void TaskQueueImpl::ReportIpcTaskQueued(
     const base::TimeDelta& time_since_disabled) {
   TRACE_EVENT_INSTANT(
       TRACE_DISABLED_BY_DEFAULT("lifecycles"), "task_posted_to_disabled_queue",
-      [&](perfetto_libchrome::EventContext ctx) {
-        auto* proto = ctx.event<perfetto_libchrome::protos::pbzero::ChromeTrackEvent>()
+      [&](perfetto::EventContext ctx) {
+        auto* proto = ctx.event<perfetto::protos::pbzero::ChromeTrackEvent>()
                           ->set_chrome_task_posted_to_disabled_queue();
         proto->set_time_since_disabled_ms(
             checked_cast<uint64_t>(time_since_disabled.InMilliseconds()));

@@ -271,11 +271,11 @@ JpegEncodeAccelerator_EncodeWithDmaBuf_ResponseParams_Data::JpegEncodeAccelerato
 }  // namespace mojom
 }  // namespace cros
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::EncodeStatus>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::EncodeStatus value) {
+   perfetto::TracedValue context, ::cros::mojom::EncodeStatus value) {
   return std::move(context).WriteString(::cros::mojom::EncodeStatusToString(value));
 }
 

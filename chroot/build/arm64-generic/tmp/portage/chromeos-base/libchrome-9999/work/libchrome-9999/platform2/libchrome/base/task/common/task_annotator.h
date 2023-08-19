@@ -60,7 +60,7 @@ class BASE_EXPORT TaskAnnotator {
   // Called to indicate that a task is about to be queued to run in the future,
   // giving one last chance for this TaskAnnotator to add metadata to
   // |pending_task| before it is moved into the queue.
-  void WillQueueTask(perfetto_libchrome::StaticString trace_event_name,
+  void WillQueueTask(perfetto::StaticString trace_event_name,
                      PendingTask* pending_task);
 
   // Creates a process-wide unique ID to represent this task in trace events.
@@ -75,12 +75,12 @@ class BASE_EXPORT TaskAnnotator {
   // are used (i.e. lambdas are invoked) before this function exits, so it's
   // safe to pass reference-capturing lambdas here.
   template <typename... Args>
-  void RunTask(perfetto_libchrome::StaticString event_name,
+  void RunTask(perfetto::StaticString event_name,
                PendingTask& pending_task,
                Args&&... args) {
     TRACE_EVENT(
         "toplevel", event_name,
-        [&](perfetto_libchrome::EventContext& ctx) {
+        [&](perfetto::EventContext& ctx) {
           EmitTaskLocation(ctx, pending_task);
           MaybeEmitDelayAndPolicy(ctx, pending_task);
           MaybeEmitIncomingTaskFlow(ctx, pending_task);
@@ -105,17 +105,17 @@ class BASE_EXPORT TaskAnnotator {
 #if BUILDFLAG(ENABLE_BASE_TRACING)
   // TRACE_EVENT argument helper, writing the task location data into
   // EventContext.
-  static void EmitTaskLocation(perfetto_libchrome::EventContext& ctx,
+  static void EmitTaskLocation(perfetto::EventContext& ctx,
                                const PendingTask& task);
-  static void MaybeEmitDelayAndPolicy(perfetto_libchrome::EventContext& ctx,
+  static void MaybeEmitDelayAndPolicy(perfetto::EventContext& ctx,
                                       const PendingTask& task);
 
   // TRACE_EVENT argument helper, writing the incoming task flow information
   // into EventContext if toplevel.flow category is enabled.
-  void MaybeEmitIncomingTaskFlow(perfetto_libchrome::EventContext& ctx,
+  void MaybeEmitIncomingTaskFlow(perfetto::EventContext& ctx,
                                  const PendingTask& task) const;
 
-  void MaybeEmitIPCHash(perfetto_libchrome::EventContext& ctx,
+  void MaybeEmitIPCHash(perfetto::EventContext& ctx,
                         const PendingTask& task) const;
 #endif  //  BUILDFLAG(ENABLE_BASE_TRACING)
 };
@@ -169,7 +169,7 @@ class BASE_EXPORT [[maybe_unused, nodiscard]] TaskAnnotator::LongTaskTracker {
   bool is_interesting_task = false;
 
  private:
-  void EmitReceivedIPCDetails(perfetto_libchrome::EventContext& ctx);
+  void EmitReceivedIPCDetails(perfetto::EventContext& ctx);
 
   const AutoReset<LongTaskTracker*> resetter_;
 

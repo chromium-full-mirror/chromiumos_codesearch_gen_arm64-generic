@@ -96,64 +96,64 @@ namespace base {
 namespace trace_event {
 
 struct BASE_EXPORT InternedSourceLocation
-    : public perfetto_libchrome::TrackEventInternedDataIndex<
+    : public perfetto::TrackEventInternedDataIndex<
           InternedSourceLocation,
-          perfetto_libchrome::protos::pbzero::InternedData::kSourceLocationsFieldNumber,
+          perfetto::protos::pbzero::InternedData::kSourceLocationsFieldNumber,
           TraceSourceLocation> {
-  static void Add(perfetto_libchrome::protos::pbzero::InternedData* interned_data,
+  static void Add(perfetto::protos::pbzero::InternedData* interned_data,
                   size_t iid,
                   const TraceSourceLocation& location);
-  using perfetto_libchrome::TrackEventInternedDataIndex<
+  using perfetto::TrackEventInternedDataIndex<
       InternedSourceLocation,
-      perfetto_libchrome::protos::pbzero::InternedData::kSourceLocationsFieldNumber,
+      perfetto::protos::pbzero::InternedData::kSourceLocationsFieldNumber,
       TraceSourceLocation>::Get;
-  static size_t Get(perfetto_libchrome::EventContext* ctx, const Location& location) {
-    return perfetto_libchrome::TrackEventInternedDataIndex<
+  static size_t Get(perfetto::EventContext* ctx, const Location& location) {
+    return perfetto::TrackEventInternedDataIndex<
         InternedSourceLocation,
-        perfetto_libchrome::protos::pbzero::InternedData::kSourceLocationsFieldNumber,
+        perfetto::protos::pbzero::InternedData::kSourceLocationsFieldNumber,
         TraceSourceLocation>::Get(ctx, TraceSourceLocation(location));
   }
 };
 
 struct BASE_EXPORT InternedLogMessage
-    : public perfetto_libchrome::TrackEventInternedDataIndex<
+    : public perfetto::TrackEventInternedDataIndex<
           InternedLogMessage,
-          perfetto_libchrome::protos::pbzero::InternedData::kLogMessageBodyFieldNumber,
+          perfetto::protos::pbzero::InternedData::kLogMessageBodyFieldNumber,
           std::string> {
-  static void Add(perfetto_libchrome::protos::pbzero::InternedData* interned_data,
+  static void Add(perfetto::protos::pbzero::InternedData* interned_data,
                   size_t iid,
                   const std::string& log_message);
 };
 
 struct BASE_EXPORT InternedBuildId
-    : public perfetto_libchrome::TrackEventInternedDataIndex<
+    : public perfetto::TrackEventInternedDataIndex<
           InternedBuildId,
-          perfetto_libchrome::protos::pbzero::InternedData::kBuildIdsFieldNumber,
+          perfetto::protos::pbzero::InternedData::kBuildIdsFieldNumber,
           std::string> {
-  static void Add(perfetto_libchrome::protos::pbzero::InternedData* interned_data,
+  static void Add(perfetto::protos::pbzero::InternedData* interned_data,
                   size_t iid,
                   const std::string& build_id);
 };
 
 struct BASE_EXPORT InternedMappingPath
-    : public perfetto_libchrome::TrackEventInternedDataIndex<
+    : public perfetto::TrackEventInternedDataIndex<
           InternedMappingPath,
-          perfetto_libchrome::protos::pbzero::InternedData::kMappingPathsFieldNumber,
+          perfetto::protos::pbzero::InternedData::kMappingPathsFieldNumber,
           std::string> {
-  static void Add(perfetto_libchrome::protos::pbzero::InternedData* interned_data,
+  static void Add(perfetto::protos::pbzero::InternedData* interned_data,
                   size_t iid,
                   const std::string& mapping_path);
 };
 
 struct BASE_EXPORT InternedMapping
-    : public perfetto_libchrome::TrackEventInternedDataIndex<
+    : public perfetto::TrackEventInternedDataIndex<
           InternedMapping,
-          perfetto_libchrome::protos::pbzero::InternedData::kMappingsFieldNumber,
+          perfetto::protos::pbzero::InternedData::kMappingsFieldNumber,
           const base::ModuleCache::Module*> {
   // We need a custom implementation here to plumb EventContext to Add.
-  static size_t Get(perfetto_libchrome::EventContext* ctx,
+  static size_t Get(perfetto::EventContext* ctx,
                     const base::ModuleCache::Module* module);
-  static void Add(perfetto_libchrome::EventContext* ctx,
+  static void Add(perfetto::EventContext* ctx,
                   size_t iid,
                   const base::ModuleCache::Module* module);
 };
@@ -161,16 +161,16 @@ struct BASE_EXPORT InternedMapping
 // Interns an unsymbolized source code location + all it's "dependencies", i.e.
 // module, strings used in the module definition, and so on.
 struct BASE_EXPORT InternedUnsymbolizedSourceLocation
-    : public perfetto_libchrome::TrackEventInternedDataIndex<
+    : public perfetto::TrackEventInternedDataIndex<
           InternedUnsymbolizedSourceLocation,
-          perfetto_libchrome::protos::pbzero::InternedData::
+          perfetto::protos::pbzero::InternedData::
               kUnsymbolizedSourceLocationsFieldNumber,
           uintptr_t> {
   // We need a custom Get implementation to use ModuleCache, and to return
   // a nullopt if a module for the given address cannot be found.
-  static absl::optional<size_t> Get(perfetto_libchrome::EventContext* ctx,
+  static absl::optional<size_t> Get(perfetto::EventContext* ctx,
                                     uintptr_t address);
-  static void Add(perfetto_libchrome::protos::pbzero::InternedData* interned_data,
+  static void Add(perfetto::protos::pbzero::InternedData* interned_data,
                   size_t iid,
                   const UnsymbolizedSourceLocation& location);
 

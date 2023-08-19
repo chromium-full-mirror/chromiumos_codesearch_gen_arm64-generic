@@ -784,7 +784,7 @@ std::string TraceConfig::ToTraceOptionsString() const {
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
 std::string TraceConfig::ToPerfettoTrackEventConfigRaw(
     bool privacy_filtering_enabled) const {
-  perfetto_libchrome::protos::gen::TrackEventConfig te_cfg;
+  perfetto::protos::gen::TrackEventConfig te_cfg;
   // If no categories are explicitly enabled, enable the default ones.
   // Otherwise only matching categories are enabled.
   if (!category_filter_.included_categories().empty())

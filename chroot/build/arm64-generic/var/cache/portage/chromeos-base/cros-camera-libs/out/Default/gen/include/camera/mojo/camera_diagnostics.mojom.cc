@@ -64,9 +64,9 @@ CameraDiagnosticsFrame::CameraDiagnosticsFrame(
 CameraDiagnosticsFrame::~CameraDiagnosticsFrame() = default;
 
 void CameraDiagnosticsFrame::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "data_handle"), this->data_handle,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -75,7 +75,7 @@ void CameraDiagnosticsFrame::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "data_size"), this->data_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -84,7 +84,7 @@ void CameraDiagnosticsFrame::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "width"), this->width,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -93,7 +93,7 @@ void CameraDiagnosticsFrame::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "height"), this->height,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -281,9 +281,9 @@ void CameraDiagnosticsProxy::SetYuvAnalysisEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraDiagnostics::SetYuvAnalysisEnabled", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type bool>");
    });
@@ -350,9 +350,9 @@ void CameraDiagnosticsProxy::AnalyzeYuvFrame(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::CameraDiagnostics::AnalyzeYuvFrame", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("buffer"), in_buffer,
                         "<value of type CameraDiagnosticsFramePtr>");
    });
@@ -506,9 +506,9 @@ void CameraDiagnostics_GetYuvAnalysisEnabled_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::CameraDiagnostics::GetYuvAnalysisEnabled", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type bool>");
    });
@@ -624,9 +624,9 @@ void CameraDiagnostics_AnalyzeYuvFrame_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::CameraDiagnostics::AnalyzeYuvFrame", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
                         "<value of type Response>");
    });
@@ -743,9 +743,9 @@ void CameraDiagnostics_GetDiagnosticsResult_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::CameraDiagnostics::GetDiagnosticsResult", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type uint32_t>");
    });

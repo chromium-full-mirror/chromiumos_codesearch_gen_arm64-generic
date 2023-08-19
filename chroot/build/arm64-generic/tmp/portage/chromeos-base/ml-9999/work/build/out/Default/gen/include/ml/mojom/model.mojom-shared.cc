@@ -390,31 +390,31 @@ Model_CreateGraphExecutor_ResponseParams_Data::Model_CreateGraphExecutor_Respons
 }  // namespace machine_learning
 }  // namespace chromeos
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::BuiltinModelId>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::BuiltinModelId value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::BuiltinModelId value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::BuiltinModelIdToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::GpuDelegateApi>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::GpuDelegateApi value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::GpuDelegateApi value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::GpuDelegateApiToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::CreateGraphExecutorResult>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::CreateGraphExecutorResult value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::CreateGraphExecutorResult value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::CreateGraphExecutorResultToString(value));
 }
 

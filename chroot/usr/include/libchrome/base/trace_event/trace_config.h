@@ -277,7 +277,7 @@ class BASE_EXPORT TraceConfig {
   std::string ToTraceOptionsString() const;
 
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
-  // Write the serialized perfetto_libchrome::TrackEventConfig corresponding to this
+  // Write the serialized perfetto::TrackEventConfig corresponding to this
   // TraceConfig.
   std::string ToPerfettoTrackEventConfigRaw(
       bool privacy_filtering_enabled) const;

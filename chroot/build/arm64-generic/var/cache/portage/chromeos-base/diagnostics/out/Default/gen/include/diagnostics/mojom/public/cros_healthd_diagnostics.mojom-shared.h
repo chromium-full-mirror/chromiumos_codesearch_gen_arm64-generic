@@ -1129,83 +1129,83 @@ inline void RoutineUpdateUnionDataView::GetNoninteractiveUpdateDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineEnum value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineEnum value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::AcPowerStatusEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::AcPowerStatusEnum value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::AcPowerStatusEnum value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::DEPRECATED_LedName> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedName value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedName value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::DEPRECATED_LedColor> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedColor value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedColor value);
 };
 
 } // namespace perfetto

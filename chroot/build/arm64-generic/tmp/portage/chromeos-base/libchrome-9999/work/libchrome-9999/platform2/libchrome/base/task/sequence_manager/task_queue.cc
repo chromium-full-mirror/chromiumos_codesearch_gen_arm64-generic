@@ -211,10 +211,10 @@ bool TaskQueue::BlockedByFence() const {
 }
 
 const char* TaskQueue::GetName() const {
-  return perfetto_libchrome::protos::pbzero::SequenceManagerTask::QueueName_Name(name_);
+  return perfetto::protos::pbzero::SequenceManagerTask::QueueName_Name(name_);
 }
 
-void TaskQueue::WriteIntoTrace(perfetto_libchrome::TracedValue context) const {
+void TaskQueue::WriteIntoTrace(perfetto::TracedValue context) const {
   auto dict = std::move(context).WriteDictionary();
   dict.Add("name", name_);
 }

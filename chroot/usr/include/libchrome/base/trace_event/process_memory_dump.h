@@ -26,7 +26,7 @@
 #define COUNT_RESIDENT_BYTES_SUPPORTED
 #endif
 
-namespace perfetto_libchrome {
+namespace perfetto {
 namespace protos {
 namespace pbzero {
 class MemoryTrackerSnapshot;
@@ -239,7 +239,7 @@ class BASE_EXPORT ProcessMemoryDump {
   void SerializeAllocatorDumpsInto(TracedValue* value) const;
 
   void SerializeAllocatorDumpsInto(
-      perfetto_libchrome::protos::pbzero::MemoryTrackerSnapshot* memory_snapshot,
+      perfetto::protos::pbzero::MemoryTrackerSnapshot* memory_snapshot,
       const base::ProcessId pid) const;
 
   const MemoryDumpArgs& dump_args() const { return dump_args_; }

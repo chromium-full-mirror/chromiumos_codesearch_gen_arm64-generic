@@ -765,29 +765,29 @@ inline void BitrateDataView::GetVariableDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::arc::mojom::VideoFrameStorageType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::arc::mojom::VideoFrameStorageType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::VideoFrameStorageType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::arc::mojom::VideoEncodeAccelerator_Error> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::arc::mojom::VideoEncodeAccelerator_Error value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::VideoEncodeAccelerator_Error value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::arc::mojom::VideoEncodeAccelerator_Result> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::arc::mojom::VideoEncodeAccelerator_Result value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::VideoEncodeAccelerator_Result value);
 };
 
 } // namespace perfetto

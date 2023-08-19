@@ -182,7 +182,7 @@ class  KeyboardInfo {
   bool has_assistant_key;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -330,7 +330,7 @@ KeyboardDiagnosticEventInfo& operator=(const KeyboardDiagnosticEventInfo&) = del
   std::vector<uint32_t> tested_top_row_keys;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

@@ -275,29 +275,29 @@ namespace mojom {
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestHttpMethod> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestHttpMethod value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestHttpMethod value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestStatus> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestStatus value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdWebRequestStatus value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdEvent> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdEvent value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdEvent value);
 };
 
 } // namespace perfetto

@@ -785,56 +785,56 @@ inline void KeyboardDiagnosticEventInfoDataView::GetTestedTopRowKeysDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::diagnostics::mojom::ConnectionType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::ConnectionType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::diagnostics::mojom::ConnectionType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::diagnostics::mojom::PhysicalLayout> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::PhysicalLayout value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::diagnostics::mojom::PhysicalLayout value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::diagnostics::mojom::MechanicalLayout> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::MechanicalLayout value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::diagnostics::mojom::MechanicalLayout value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::diagnostics::mojom::NumberPadPresence> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::NumberPadPresence value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::diagnostics::mojom::NumberPadPresence value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::diagnostics::mojom::TopRowKey> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::TopRowKey value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::diagnostics::mojom::TopRowKey value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::diagnostics::mojom::TopRightKey> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::TopRightKey value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::diagnostics::mojom::TopRightKey value);
 };
 
 } // namespace perfetto

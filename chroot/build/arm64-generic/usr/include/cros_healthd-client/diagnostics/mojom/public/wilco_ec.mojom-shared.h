@@ -456,29 +456,29 @@ inline void GetEcTelemetryResponseDataView::GetPayloadDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::EcEvent_Reason> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::EcEvent_Reason value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::EcEvent_Reason value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::EcEvent_Type> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::EcEvent_Type value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::EcEvent_Type value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status value);
 };
 
 } // namespace perfetto

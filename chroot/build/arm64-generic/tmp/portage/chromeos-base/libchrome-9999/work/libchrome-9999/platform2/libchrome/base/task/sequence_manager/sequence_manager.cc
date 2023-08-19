@@ -12,11 +12,11 @@ namespace sequence_manager {
 namespace {
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
-perfetto_libchrome::protos::pbzero::SequenceManagerTask::Priority
+perfetto::protos::pbzero::SequenceManagerTask::Priority
 DefaultTaskPriorityToProto(TaskQueue::QueuePriority priority) {
   DCHECK_EQ(priority, static_cast<TaskQueue::QueuePriority>(
                           TaskQueue::DefaultQueuePriority::kNormalPriority));
-  return perfetto_libchrome::protos::pbzero::SequenceManagerTask::Priority::
+  return perfetto::protos::pbzero::SequenceManagerTask::Priority::
       NORMAL_PRIORITY;
 }
 #endif
@@ -83,7 +83,7 @@ SequenceManager::PrioritySettings::PrioritySettings(
 #endif
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
-perfetto_libchrome::protos::pbzero::SequenceManagerTask::Priority
+perfetto::protos::pbzero::SequenceManagerTask::Priority
 SequenceManager::PrioritySettings::TaskPriorityToProto(
     TaskQueue::QueuePriority priority) const {
   // `proto_priority_converter_` will be null in some unit tests, but those

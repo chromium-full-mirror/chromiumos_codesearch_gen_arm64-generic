@@ -55,9 +55,9 @@ IPAddress::IPAddress(
 IPAddress::~IPAddress() = default;
 
 void IPAddress::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "address_bytes"), this->address_bytes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

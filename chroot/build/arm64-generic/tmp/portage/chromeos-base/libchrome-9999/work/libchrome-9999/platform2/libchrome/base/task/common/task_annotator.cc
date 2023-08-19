@@ -69,9 +69,9 @@ TaskAnnotator::LongTaskTracker* GetCurrentLongTaskTracker() {
 }
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
-perfetto_libchrome::protos::pbzero::ChromeTaskAnnotator::DelayPolicy ToProtoEnum(
+perfetto::protos::pbzero::ChromeTaskAnnotator::DelayPolicy ToProtoEnum(
     subtle::DelayPolicy type) {
-  using ProtoType = perfetto_libchrome::protos::pbzero::ChromeTaskAnnotator::DelayPolicy;
+  using ProtoType = perfetto::protos::pbzero::ChromeTaskAnnotator::DelayPolicy;
   switch (type) {
     case subtle::DelayPolicy::kFlexibleNoSooner:
       return ProtoType::FLEXIBLE_NO_SOONER;
@@ -117,12 +117,12 @@ void TaskAnnotator::MarkCurrentTaskAsInterestingForTracing() {
 TaskAnnotator::TaskAnnotator() = default;
 TaskAnnotator::~TaskAnnotator() = default;
 
-void TaskAnnotator::WillQueueTask(perfetto_libchrome::StaticString trace_event_name,
+void TaskAnnotator::WillQueueTask(perfetto::StaticString trace_event_name,
                                   PendingTask* pending_task) {
   DCHECK(pending_task);
   TRACE_EVENT_INSTANT(
       "toplevel.flow", trace_event_name,
-      perfetto_libchrome::Flow::ProcessScoped(GetTaskTraceID(*pending_task)));
+      perfetto::Flow::ProcessScoped(GetTaskTraceID(*pending_task)));
 
   DCHECK(!pending_task->task_backtrace[0])
       << "Task backtrace was already set, task posted twice??";
@@ -251,7 +251,7 @@ void TaskAnnotator::ClearObserverForTesting() {
 #if BUILDFLAG(ENABLE_BASE_TRACING)
 // TRACE_EVENT argument helper, writing the task location data into
 // EventContext.
-void TaskAnnotator::EmitTaskLocation(perfetto_libchrome::EventContext& ctx,
+void TaskAnnotator::EmitTaskLocation(perfetto::EventContext& ctx,
                                      const PendingTask& task) {
   ctx.event()->set_task_execution()->set_posted_from_iid(
       base::trace_event::InternedSourceLocation::Get(&ctx, task.posted_from));
@@ -259,30 +259,30 @@ void TaskAnnotator::EmitTaskLocation(perfetto_libchrome::EventContext& ctx,
 
 // TRACE_EVENT argument helper, writing the incoming task flow information
 // into EventContext if toplevel.flow category is enabled.
-void TaskAnnotator::MaybeEmitIncomingTaskFlow(perfetto_libchrome::EventContext& ctx,
+void TaskAnnotator::MaybeEmitIncomingTaskFlow(perfetto::EventContext& ctx,
                                               const PendingTask& task) const {
   static const uint8_t* flow_enabled =
       TRACE_EVENT_API_GET_CATEGORY_GROUP_ENABLED("toplevel.flow");
   if (!*flow_enabled)
     return;
 
-  perfetto_libchrome::TerminatingFlow::ProcessScoped(GetTaskTraceID(task))(ctx);
+  perfetto::TerminatingFlow::ProcessScoped(GetTaskTraceID(task))(ctx);
 }
 
 // static
-void TaskAnnotator::MaybeEmitDelayAndPolicy(perfetto_libchrome::EventContext& ctx,
+void TaskAnnotator::MaybeEmitDelayAndPolicy(perfetto::EventContext& ctx,
                                             const PendingTask& task) {
   if (task.delayed_run_time.is_null()) {
     return;
   }
-  auto* event = ctx.event<perfetto_libchrome::protos::pbzero::ChromeTrackEvent>();
+  auto* event = ctx.event<perfetto::protos::pbzero::ChromeTrackEvent>();
   auto* annotator = event->set_chrome_task_annotator();
   annotator->set_task_delay_us(static_cast<uint64_t>(
       (task.delayed_run_time - task.queue_time).InMicroseconds()));
   annotator->set_delay_policy(ToProtoEnum(task.delay_policy));
 }
 
-void TaskAnnotator::MaybeEmitIPCHash(perfetto_libchrome::EventContext& ctx,
+void TaskAnnotator::MaybeEmitIPCHash(perfetto::EventContext& ctx,
                                      const PendingTask& task) const {
   static const uint8_t* toplevel_ipc_enabled =
       TRACE_EVENT_API_GET_CATEGORY_GROUP_ENABLED(
@@ -290,7 +290,7 @@ void TaskAnnotator::MaybeEmitIPCHash(perfetto_libchrome::EventContext& ctx,
   if (!*toplevel_ipc_enabled)
     return;
 
-  auto* event = ctx.event<perfetto_libchrome::protos::pbzero::ChromeTrackEvent>();
+  auto* event = ctx.event<perfetto::protos::pbzero::ChromeTrackEvent>();
   auto* annotator = event->set_chrome_task_annotator();
   annotator->set_ipc_hash(task.ipc_hash);
 }
@@ -349,13 +349,13 @@ TaskAnnotator::LongTaskTracker::~LongTaskTracker() {
 
   if ((task_end_time_ - task_start_time_) >= kMaxTaskDurationTimeDelta) {
     TRACE_EVENT_BEGIN("scheduler.long_tasks", "LongTaskTracker",
-                      perfetto_libchrome::Track::ThreadScoped(task_annotator_),
-                      task_start_time_, [&](perfetto_libchrome::EventContext& ctx) {
+                      perfetto::Track::ThreadScoped(task_annotator_),
+                      task_start_time_, [&](perfetto::EventContext& ctx) {
                         TaskAnnotator::EmitTaskLocation(ctx, pending_task_);
                         EmitReceivedIPCDetails(ctx);
                       });
     TRACE_EVENT_END("scheduler.long_tasks",
-                    perfetto_libchrome::Track::ThreadScoped(task_annotator_),
+                    perfetto::Track::ThreadScoped(task_annotator_),
                     task_end_time_);
   }
 }
@@ -374,7 +374,7 @@ void TaskAnnotator::LongTaskTracker::SetIpcDetails(const char* interface_name,
 }
 
 void TaskAnnotator::LongTaskTracker::EmitReceivedIPCDetails(
-    perfetto_libchrome::EventContext& ctx) {
+    perfetto::EventContext& ctx) {
   if (!ipc_interface_name_ || !ipc_hash_ || !ipc_method_info_)
     return;
 #if BUILDFLAG(ENABLE_BASE_TRACING) && !BUILDFLAG(IS_NACL)
@@ -409,9 +409,9 @@ void TaskAnnotator::LongTaskTracker::MaybeTraceInterestingTaskDetails() {
     // Record the equivalent of a delayed instant trace event, acting as the
     // start of the flow between task queue time and task execution start time.
     TRACE_EVENT_INSTANT("scheduler.long_tasks", "InterestingTask_QueueingTime",
-                        perfetto_libchrome::Track::ThreadScoped(task_annotator_),
+                        perfetto::Track::ThreadScoped(task_annotator_),
                         pending_task_.queue_time,
-                        perfetto_libchrome::Flow::ProcessScoped(
+                        perfetto::Flow::ProcessScoped(
                             task_annotator_->GetTaskTraceID(pending_task_)));
 
     // Record the equivalent of a top-level event with enough IPC information
@@ -419,16 +419,16 @@ void TaskAnnotator::LongTaskTracker::MaybeTraceInterestingTaskDetails() {
     // termination of the event above, aka the start of task execution.
     TRACE_EVENT_BEGIN(
         "scheduler.long_tasks", "InterestingTask_ProcessingTime",
-        perfetto_libchrome::Track::ThreadScoped(task_annotator_), task_start_time_,
-        [&](perfetto_libchrome::EventContext& ctx) {
-          perfetto_libchrome::TerminatingFlow::ProcessScoped(
+        perfetto::Track::ThreadScoped(task_annotator_), task_start_time_,
+        [&](perfetto::EventContext& ctx) {
+          perfetto::TerminatingFlow::ProcessScoped(
               task_annotator_->GetTaskTraceID(pending_task_))(ctx);
           auto* info = ctx.event()->set_chrome_mojo_event_info();
           info->set_mojo_interface_tag(ipc_interface_name_);
         });
 
     TRACE_EVENT_END("scheduler.long_tasks",
-                    perfetto_libchrome::Track::ThreadScoped(task_annotator_),
+                    perfetto::Track::ThreadScoped(task_annotator_),
                     task_end_time_);
   }
 }

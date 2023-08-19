@@ -624,11 +624,11 @@ VideoDecodeClient_ProvidePictureBuffers_Params_Data::VideoDecodeClient_ProvidePi
 }  // namespace mojom
 }  // namespace arc
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::arc::mojom::VideoDecodeAccelerator_Result>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::arc::mojom::VideoDecodeAccelerator_Result value) {
+   perfetto::TracedValue context, ::arc::mojom::VideoDecodeAccelerator_Result value) {
   return std::move(context).WriteString(::arc::mojom::VideoDecodeAccelerator_ResultToString(value));
 }
 

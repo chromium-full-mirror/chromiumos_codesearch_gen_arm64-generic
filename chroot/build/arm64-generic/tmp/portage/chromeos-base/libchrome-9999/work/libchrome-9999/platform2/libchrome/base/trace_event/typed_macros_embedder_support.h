@@ -21,8 +21,8 @@ namespace trace_event {
 // the event lambda has emitted any typed event arguments).
 class BASE_EXPORT TrackEventHandle {
  public:
-  using TrackEvent = perfetto_libchrome::protos::pbzero::TrackEvent;
-  using IncrementalState = perfetto_libchrome::internal::TrackEventIncrementalState;
+  using TrackEvent = perfetto::protos::pbzero::TrackEvent;
+  using IncrementalState = perfetto::internal::TrackEventIncrementalState;
 
   class BASE_EXPORT CompletionListener {
    public:
@@ -69,8 +69,8 @@ class BASE_EXPORT TrackEventHandle {
 // base has emitted all data into the packet).
 class BASE_EXPORT TracePacketHandle {
  public:
-  using TracePacket = perfetto_libchrome::protos::pbzero::TracePacket;
-  using PerfettoPacketHandle = protozero_libchrome::MessageHandle<TracePacket>;
+  using TracePacket = perfetto::protos::pbzero::TracePacket;
+  using PerfettoPacketHandle = protozero::MessageHandle<TracePacket>;
 
   class BASE_EXPORT CompletionListener {
    public:

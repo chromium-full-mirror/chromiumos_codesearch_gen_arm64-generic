@@ -695,11 +695,11 @@ inline void NetworkHealthStateDataView::GetNetworksDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::network_health::mojom::NetworkState> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::network_health::mojom::NetworkState value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::network_health::mojom::NetworkState value);
 };
 
 } // namespace perfetto

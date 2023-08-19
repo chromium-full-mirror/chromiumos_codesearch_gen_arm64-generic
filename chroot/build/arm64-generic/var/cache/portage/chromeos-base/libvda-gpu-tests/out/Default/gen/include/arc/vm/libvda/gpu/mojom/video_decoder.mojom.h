@@ -551,7 +551,7 @@ Buffer& operator=(const Buffer&) = delete;
   uint32_t offset;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -697,7 +697,7 @@ VideoDecoderConfig& operator=(const VideoDecoderConfig&) = delete;
   ::arc::mojom::SizePtr coded_size;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

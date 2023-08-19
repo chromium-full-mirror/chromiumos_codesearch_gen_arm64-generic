@@ -198,41 +198,41 @@ EffectsConfig_Data::EffectsConfig_Data()
 }  // namespace mojom
 }  // namespace cros
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::CameraEffect>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::CameraEffect value) {
+   perfetto::TracedValue context, ::cros::mojom::CameraEffect value) {
   return std::move(context).WriteString(::cros::mojom::CameraEffectToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::GpuApi>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::GpuApi value) {
+   perfetto::TracedValue context, ::cros::mojom::GpuApi value) {
   return std::move(context).WriteString(::cros::mojom::GpuApiToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::BlurLevel>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::BlurLevel value) {
+   perfetto::TracedValue context, ::cros::mojom::BlurLevel value) {
   return std::move(context).WriteString(::cros::mojom::BlurLevelToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::SegmentationModel>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::SegmentationModel value) {
+   perfetto::TracedValue context, ::cros::mojom::SegmentationModel value) {
   return std::move(context).WriteString(::cros::mojom::SegmentationModelToString(value));
 }
 

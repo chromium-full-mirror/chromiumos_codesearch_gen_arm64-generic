@@ -629,21 +629,21 @@ ServiceObserver_OnServiceEvent_Params_Data::ServiceObserver_OnServiceEvent_Param
 }  // namespace mojo_service_manager
 }  // namespace chromeos
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::mojo_service_manager::mojom::ErrorCode>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::mojo_service_manager::mojom::ErrorCode value) {
+   perfetto::TracedValue context, ::chromeos::mojo_service_manager::mojom::ErrorCode value) {
   return std::move(context).WriteString(::chromeos::mojo_service_manager::mojom::ErrorCodeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::mojo_service_manager::mojom::ServiceEvent_Type>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::mojo_service_manager::mojom::ServiceEvent_Type value) {
+   perfetto::TracedValue context, ::chromeos::mojo_service_manager::mojom::ServiceEvent_Type value) {
   return std::move(context).WriteString(::chromeos::mojo_service_manager::mojom::ServiceEvent_TypeToString(value));
 }
 

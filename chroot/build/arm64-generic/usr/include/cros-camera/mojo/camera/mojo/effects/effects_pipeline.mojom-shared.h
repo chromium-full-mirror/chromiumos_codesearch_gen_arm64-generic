@@ -455,38 +455,38 @@ inline void EffectsConfigDataView::GetBackgroundFilepathDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraEffect> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::CameraEffect value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::CameraEffect value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::GpuApi> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::GpuApi value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::GpuApi value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::BlurLevel> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::BlurLevel value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::BlurLevel value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::SegmentationModel> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::SegmentationModel value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::SegmentationModel value);
 };
 
 } // namespace perfetto

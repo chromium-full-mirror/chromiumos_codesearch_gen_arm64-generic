@@ -34,7 +34,7 @@
 #endif
 
 #if BUILDFLAG(IS_APPLE)
-#include "base/mac/scoped_nsautorelease_pool.h"
+#include "base/apple/scoped_nsautorelease_pool.h"
 #endif
 
 #if BUILDFLAG(USE_PARTITION_ALLOC_AS_MALLOC) && \
@@ -214,7 +214,7 @@ void WorkerThread::WakeUp() {
   DCHECK(!join_called_for_testing_.IsSet());
   DCHECK(!should_exit_.IsSet());
   TRACE_EVENT_INSTANT("wakeup.flow", "WorkerThread::WakeUp",
-                      perfetto_libchrome::Flow::FromPointer(this));
+                      perfetto::Flow::FromPointer(this));
   wake_up_event_.Signal();
 }
 
@@ -437,12 +437,12 @@ void WorkerThread::RunWorker() {
     PERFETTO_INTERNAL_ADD_EMPTY_EVENT();
     delegate_->WaitForWork(&wake_up_event_);
     TRACE_EVENT_BEGIN("base", "WorkerThread active",
-                      perfetto_libchrome::TerminatingFlow::FromPointer(this));
+                      perfetto::TerminatingFlow::FromPointer(this));
   }
   bool got_work_this_wakeup = false;
   while (!ShouldExit()) {
 #if BUILDFLAG(IS_APPLE)
-    mac::ScopedNSAutoreleasePool autorelease_pool;
+    apple::ScopedNSAutoreleasePool autorelease_pool;
 #endif
     absl::optional<WatchHangsInScope> hang_watch_scope;
     if (watch_for_hangs)
@@ -470,7 +470,7 @@ void WorkerThread::RunWorker() {
       got_work_this_wakeup = false;
 
       TRACE_EVENT_BEGIN("base", "WorkerThread active",
-                        perfetto_libchrome::TerminatingFlow::FromPointer(this));
+                        perfetto::TerminatingFlow::FromPointer(this));
       continue;
     }
 

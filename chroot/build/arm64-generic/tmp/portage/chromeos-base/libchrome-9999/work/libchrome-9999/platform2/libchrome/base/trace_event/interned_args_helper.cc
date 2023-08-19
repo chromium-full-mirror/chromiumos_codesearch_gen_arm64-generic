@@ -16,7 +16,7 @@ namespace trace_event {
 
 //  static
 void InternedSourceLocation::Add(
-    perfetto_libchrome::protos::pbzero::InternedData* interned_data,
+    perfetto::protos::pbzero::InternedData* interned_data,
     size_t iid,
     const TraceSourceLocation& location) {
   auto* msg = interned_data->add_source_locations();
@@ -37,7 +37,7 @@ void InternedSourceLocation::Add(
 
 // static
 void InternedLogMessage::Add(
-    perfetto_libchrome::protos::pbzero::InternedData* interned_data,
+    perfetto::protos::pbzero::InternedData* interned_data,
     size_t iid,
     const std::string& log_message) {
   auto* msg = interned_data->add_log_message_body();
@@ -46,7 +46,7 @@ void InternedLogMessage::Add(
 }
 
 // static
-void InternedBuildId::Add(perfetto_libchrome::protos::pbzero::InternedData* interned_data,
+void InternedBuildId::Add(perfetto::protos::pbzero::InternedData* interned_data,
                           size_t iid,
                           const std::string& build_id) {
   auto* msg = interned_data->add_build_ids();
@@ -56,7 +56,7 @@ void InternedBuildId::Add(perfetto_libchrome::protos::pbzero::InternedData* inte
 
 // static
 void InternedMappingPath::Add(
-    perfetto_libchrome::protos::pbzero::InternedData* interned_data,
+    perfetto::protos::pbzero::InternedData* interned_data,
     size_t iid,
     const std::string& mapping_path) {
   auto* msg = interned_data->add_mapping_paths();
@@ -65,7 +65,7 @@ void InternedMappingPath::Add(
 }
 
 // static
-size_t InternedMapping::Get(perfetto_libchrome::EventContext* ctx,
+size_t InternedMapping::Get(perfetto::EventContext* ctx,
                             const base::ModuleCache::Module* module) {
   auto* index_for_field = GetOrCreateIndexForField(ctx->GetIncrementalState());
   size_t iid;
@@ -77,7 +77,7 @@ size_t InternedMapping::Get(perfetto_libchrome::EventContext* ctx,
 }
 
 // static
-void InternedMapping::Add(perfetto_libchrome::EventContext* ctx,
+void InternedMapping::Add(perfetto::EventContext* ctx,
                           size_t iid,
                           const base::ModuleCache::Module* module) {
   // TODO(b/270470700): Remove TransformModuleIDToSymbolServerFormat on all
@@ -96,7 +96,7 @@ void InternedMapping::Add(perfetto_libchrome::EventContext* ctx,
 
 // static
 absl::optional<size_t> InternedUnsymbolizedSourceLocation::Get(
-    perfetto_libchrome::EventContext* ctx,
+    perfetto::EventContext* ctx,
     uintptr_t address) {
   auto* index_for_field = GetOrCreateIndexForField(ctx->GetIncrementalState());
   const base::ModuleCache::Module* module =
@@ -118,7 +118,7 @@ absl::optional<size_t> InternedUnsymbolizedSourceLocation::Get(
 
 // static
 void InternedUnsymbolizedSourceLocation::Add(
-    perfetto_libchrome::protos::pbzero::InternedData* interned_data,
+    perfetto::protos::pbzero::InternedData* interned_data,
     size_t iid,
     const UnsymbolizedSourceLocation& location) {
   auto* msg = interned_data->add_unsymbolized_source_locations();

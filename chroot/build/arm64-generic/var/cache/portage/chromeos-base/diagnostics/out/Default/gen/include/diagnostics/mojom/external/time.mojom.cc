@@ -58,9 +58,9 @@ Time::Time(
 Time::~Time() = default;
 
 void Time::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "internal_value"), this->internal_value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -86,9 +86,9 @@ TimeDelta::TimeDelta(
 TimeDelta::~TimeDelta() = default;
 
 void TimeDelta::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "microseconds"), this->microseconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -118,9 +118,9 @@ size_t TimeTicks::Hash(size_t seed) const {
 }
 
 void TimeTicks::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "internal_value"), this->internal_value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

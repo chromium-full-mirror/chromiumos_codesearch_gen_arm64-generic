@@ -48,7 +48,7 @@
         /* field. As described in macros.h we shouldn't need it in our */     \
         /* end state.                                                  */     \
         TRACING_INTERNAL_ADD_TRACE_EVENT(TRACE_EVENT_PHASE_END, category, "", \
-                                         [](perfetto_libchrome::EventContext) {});      \
+                                         [](perfetto::EventContext) {});      \
       }                                                                       \
     } event;                                                                  \
   } BASE_UNIQUIFY(scoped_event){[&]() {                                       \
@@ -79,7 +79,7 @@
 
 namespace trace_event_internal {
 
-extern BASE_EXPORT const perfetto_libchrome::Track kDefaultTrack;
+extern BASE_EXPORT const perfetto::Track kDefaultTrack;
 
 // The perfetto client library does not use event names for
 // TRACE_EVENT_PHASE_END. However, TraceLog expects all TraceEvents to have
@@ -90,7 +90,7 @@ inline constexpr char kTraceEventEndName[] = "";
 base::trace_event::TrackEventHandle BASE_EXPORT
 CreateTrackEvent(char phase,
                  const unsigned char* category_group_enabled,
-                 perfetto_libchrome::StaticString name,
+                 perfetto::StaticString name,
                  base::TimeTicks timestamp,
                  uint64_t track_uuid,
                  bool explicit_track);
@@ -108,15 +108,15 @@ void WriteTrackDescriptor(const TrackType& track) {
   base::trace_event::TracePacketHandle packet = CreateTracePacket();
   if (!packet)
     return;
-  perfetto_libchrome::internal::TrackRegistry::Get()->SerializeTrack(
+  perfetto::internal::TrackRegistry::Get()->SerializeTrack(
       track, packet.TakePerfettoHandle());
 }
 
 template <typename... Args>
 inline void AddTypedTraceEventImpl(char phase,
                                    const unsigned char* category_group_enabled,
-                                   perfetto_libchrome::StaticString name,
-                                   const perfetto_libchrome::Track& track,
+                                   perfetto::StaticString name,
+                                   const perfetto::Track& track,
                                    base::TimeTicks timestamp,
                                    Args&&... args) {
   bool emit_track_descriptor = false;
@@ -134,8 +134,8 @@ inline void AddTypedTraceEventImpl(char phase,
           track.uuid, track_event.incremental_state());
     }
 
-    perfetto_libchrome::internal::WriteTrackEventArgs(
-        perfetto_libchrome::EventContext(track_event.get(),
+    perfetto::internal::WriteTrackEventArgs(
+        perfetto::EventContext(track_event.get(),
                                track_event.incremental_state(),
                                track_event.ShouldFilterDebugAnnotations()),
         std::forward<Args>(args)...);
@@ -148,10 +148,10 @@ inline void AddTypedTraceEventImpl(char phase,
 template <typename TrackType,
           typename... Args,
           typename TrackTypeCheck = typename std::enable_if<
-              std::is_convertible<TrackType, perfetto_libchrome::Track>::value>::type>
+              std::is_convertible<TrackType, perfetto::Track>::value>::type>
 inline void AddTypedTraceEvent(char phase,
                                const unsigned char* category_group_enabled,
-                               perfetto_libchrome::StaticString name,
+                               perfetto::StaticString name,
                                TrackType&& track,
                                base::TimeTicks timestamp,
                                Args&&... args) {
@@ -163,10 +163,10 @@ inline void AddTypedTraceEvent(char phase,
 template <typename TrackType,
           typename... Args,
           typename TrackTypeCheck = typename std::enable_if<
-              std::is_convertible<TrackType, perfetto_libchrome::Track>::value>::type>
+              std::is_convertible<TrackType, perfetto::Track>::value>::type>
 inline void AddTypedTraceEvent(char phase,
                                const unsigned char* category_group_enabled,
-                               perfetto_libchrome::StaticString name,
+                               perfetto::StaticString name,
                                TrackType&& track,
                                Args&&... args) {
   AddTypedTraceEventImpl(phase, category_group_enabled, name,
@@ -177,7 +177,7 @@ inline void AddTypedTraceEvent(char phase,
 template <typename... Args>
 inline void AddTypedTraceEvent(char phase,
                                const unsigned char* category_group_enabled,
-                               perfetto_libchrome::StaticString name,
+                               perfetto::StaticString name,
                                base::TimeTicks timestamp,
                                Args&&... args) {
   AddTypedTraceEventImpl(phase, category_group_enabled, name, kDefaultTrack,
@@ -187,7 +187,7 @@ inline void AddTypedTraceEvent(char phase,
 template <typename... Args>
 inline void AddTypedTraceEvent(char phase,
                                const unsigned char* category_group_enabled,
-                               perfetto_libchrome::StaticString name,
+                               perfetto::StaticString name,
                                Args&&... args) {
   AddTypedTraceEventImpl(phase, category_group_enabled, name, kDefaultTrack,
                          base::TimeTicks(), std::forward<Args>(args)...);

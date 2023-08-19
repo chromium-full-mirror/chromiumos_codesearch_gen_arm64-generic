@@ -99,8 +99,8 @@ MemoryPressureListener::~MemoryPressureListener() {
 void MemoryPressureListener::Notify(MemoryPressureLevel memory_pressure_level) {
   TRACE_EVENT(
       "base", "MemoryPressureListener::Notify",
-      [&](perfetto_libchrome::EventContext ctx) {
-        auto* event = ctx.event<perfetto_libchrome::protos::pbzero::ChromeTrackEvent>();
+      [&](perfetto::EventContext ctx) {
+        auto* event = ctx.event<perfetto::protos::pbzero::ChromeTrackEvent>();
         auto* data = event->set_chrome_memory_pressure_notification();
         data->set_level(
             trace_event::MemoryPressureLevelToTraceEnum(memory_pressure_level));
@@ -125,8 +125,8 @@ void MemoryPressureListener::NotifyMemoryPressure(
   TRACE_EVENT_INSTANT(
       trace_event::MemoryDumpManager::kTraceCategory,
       "MemoryPressureListener::NotifyMemoryPressure",
-      [&](perfetto_libchrome::EventContext ctx) {
-        auto* event = ctx.event<perfetto_libchrome::protos::pbzero::ChromeTrackEvent>();
+      [&](perfetto::EventContext ctx) {
+        auto* event = ctx.event<perfetto::protos::pbzero::ChromeTrackEvent>();
         auto* data = event->set_chrome_memory_pressure_notification();
         data->set_level(
             trace_event::MemoryPressureLevelToTraceEnum(memory_pressure_level));

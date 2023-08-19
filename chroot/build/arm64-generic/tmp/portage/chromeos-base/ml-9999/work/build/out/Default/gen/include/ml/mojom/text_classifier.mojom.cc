@@ -69,9 +69,9 @@ size_t TextEntity::Hash(size_t seed) const {
 }
 
 void TextEntity::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -80,7 +80,7 @@ void TextEntity::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "confidence_score"), this->confidence_score,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -89,7 +89,7 @@ void TextEntity::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -121,9 +121,9 @@ TextAnnotation::TextAnnotation(
 TextAnnotation::~TextAnnotation() = default;
 
 void TextAnnotation::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "start_offset"), this->start_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,7 +132,7 @@ void TextAnnotation::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "end_offset"), this->end_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -141,7 +141,7 @@ void TextAnnotation::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "entities"), this->entities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -205,9 +205,9 @@ TextAnnotationRequest::TextAnnotationRequest(
 TextAnnotationRequest::~TextAnnotationRequest() = default;
 
 void TextAnnotationRequest::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -216,7 +216,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "default_locales"), this->default_locales,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -225,7 +225,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "detected_text_language_tags"), this->detected_text_language_tags,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -234,7 +234,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "annotation_usecase"), this->annotation_usecase,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -243,7 +243,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "reference_time"), this->reference_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -252,7 +252,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "reference_timezone"), this->reference_timezone,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -261,7 +261,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "enabled_entities"), this->enabled_entities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -270,7 +270,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "trigger_dictionary_on_beginner_words"), this->trigger_dictionary_on_beginner_words,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -304,9 +304,9 @@ size_t CodepointSpan::Hash(size_t seed) const {
 }
 
 void CodepointSpan::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "start_offset"), this->start_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -315,7 +315,7 @@ void CodepointSpan::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "end_offset"), this->end_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -349,9 +349,9 @@ size_t TextLanguage::Hash(size_t seed) const {
 }
 
 void TextLanguage::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "locale"), this->locale,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -360,7 +360,7 @@ void TextLanguage::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "confidence"), this->confidence,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -398,9 +398,9 @@ REMOVED_TextSuggestSelectionRequest::REMOVED_TextSuggestSelectionRequest(
 REMOVED_TextSuggestSelectionRequest::~REMOVED_TextSuggestSelectionRequest() = default;
 
 void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -409,7 +409,7 @@ void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "user_selection"), this->user_selection,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -418,7 +418,7 @@ void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "default_locales"), this->default_locales,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -427,7 +427,7 @@ void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "detected_text_language_tags"), this->detected_text_language_tags,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -436,7 +436,7 @@ void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "annotation_usecase"), this->annotation_usecase,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -664,9 +664,9 @@ void TextClassifierProxy::Annotate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::TextClassifier::Annotate", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request"), in_request,
                         "<value of type TextAnnotationRequestPtr>");
    });
@@ -713,9 +713,9 @@ void TextClassifierProxy::FindLanguages(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::TextClassifier::FindLanguages", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("text"), in_text,
                         "<value of type const std::string&>");
    });
@@ -762,9 +762,9 @@ void TextClassifierProxy::REMOVED_1(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::TextClassifier::REMOVED_1", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("request"), in_request,
                         "<value of type REMOVED_TextSuggestSelectionRequestPtr>");
    });
@@ -887,9 +887,9 @@ void TextClassifier_Annotate_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::TextClassifier::Annotate", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("outputs"), in_outputs,
                         "<value of type std::vector<TextAnnotationPtr>>");
    });
@@ -1017,9 +1017,9 @@ void TextClassifier_FindLanguages_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::TextClassifier::FindLanguages", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("outputs"), in_outputs,
                         "<value of type std::vector<TextLanguagePtr>>");
    });
@@ -1147,9 +1147,9 @@ void TextClassifier_REMOVED_1_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::TextClassifier::REMOVED_1", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("outputs"), in_outputs,
                         "<value of type CodepointSpanPtr>");
    });

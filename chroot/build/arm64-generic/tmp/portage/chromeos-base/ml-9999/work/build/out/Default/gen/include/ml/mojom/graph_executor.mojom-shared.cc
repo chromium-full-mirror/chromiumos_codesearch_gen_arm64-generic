@@ -149,11 +149,11 @@ GraphExecutor_Execute_ResponseParams_Data::GraphExecutor_Execute_ResponseParams_
 }  // namespace machine_learning
 }  // namespace chromeos
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::ExecuteResult>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::ExecuteResult value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::ExecuteResult value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::ExecuteResultToString(value));
 }
 

@@ -73,9 +73,9 @@ size_t ProcessIdentity::Hash(size_t seed) const {
 }
 
 void ProcessIdentity::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "security_context"), this->security_context,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -84,7 +84,7 @@ void ProcessIdentity::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "pid"), this->pid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -93,7 +93,7 @@ void ProcessIdentity::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "uid"), this->uid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -102,7 +102,7 @@ void ProcessIdentity::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "gid"), this->gid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,9 +132,9 @@ size_t RegisteredServiceState::Hash(size_t seed) const {
 }
 
 void RegisteredServiceState::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "owner"), this->owner,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -158,7 +158,7 @@ size_t UnregisteredServiceState::Hash(size_t seed) const {
 }
 
 void UnregisteredServiceState::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -189,9 +189,9 @@ size_t ServiceEvent::Hash(size_t seed) const {
 }
 
 void ServiceEvent::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -200,7 +200,7 @@ void ServiceEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "service_name"), this->service_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -209,7 +209,7 @@ void ServiceEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "dispatcher"), this->dispatcher,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -243,9 +243,9 @@ size_t Error::Hash(size_t seed) const {
 }
 
 void Error::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "code"), this->code,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -254,7 +254,7 @@ void Error::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "message"), this->message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -564,12 +564,12 @@ void ServiceManagerProxy::Register(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::mojo_service_manager::mojom::ServiceManager::Register", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service_name"), in_service_name,
                         "<value of type const std::string&>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service_provider"), in_service_provider,
                         "<value of type ::mojo::PendingRemote<ServiceProvider>>");
    });
@@ -621,15 +621,15 @@ void ServiceManagerProxy::Request(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::mojo_service_manager::mojom::ServiceManager::Request", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service_name"), in_service_name,
                         "<value of type const std::string&>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("timeout"), in_timeout,
                         "<value of type absl::optional<base::TimeDelta>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
                         "<value of type ::mojo::ScopedMessagePipeHandle>");
    });
@@ -688,9 +688,9 @@ void ServiceManagerProxy::Query(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::mojo_service_manager::mojom::ServiceManager::Query", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service_name"), in_service_name,
                         "<value of type const std::string&>");
    });
@@ -737,9 +737,9 @@ void ServiceManagerProxy::AddServiceObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::mojo_service_manager::mojom::ServiceManager::AddServiceObserver", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<ServiceObserver>>");
    });
@@ -856,9 +856,9 @@ void ServiceManager_Query_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::mojo_service_manager::mojom::ServiceManager::Query", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type ErrorOrServiceStatePtr>");
    });
@@ -1143,12 +1143,12 @@ void ServiceProviderProxy::Request(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::mojo_service_manager::mojom::ServiceProvider::Request", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client_identity"), in_client_identity,
                         "<value of type ProcessIdentityPtr>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
                         "<value of type ::mojo::ScopedMessagePipeHandle>");
    });
@@ -1325,9 +1325,9 @@ void ServiceObserverProxy::OnServiceEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::mojo_service_manager::mojom::ServiceObserver::OnServiceEvent", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("event"), in_event,
                         "<value of type ServiceEventPtr>");
    });

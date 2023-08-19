@@ -4908,830 +4908,830 @@ namespace mojom {
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraMetadataSection> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::CameraMetadataSection value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::CameraMetadataSection value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraMetadataSectionStart> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::CameraMetadataSectionStart value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::CameraMetadataSectionStart value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraMetadataTag> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::CameraMetadataTag value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::CameraMetadataTag value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidColorCorrectionMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidColorCorrectionMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidColorCorrectionMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidColorCorrectionAberrationMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidColorCorrectionAberrationMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidColorCorrectionAberrationMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAeAntibandingMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAeAntibandingMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAeAntibandingMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAeLock> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAeLock value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAeLock value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAeMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAeMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAeMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAePrecaptureTrigger> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAePrecaptureTrigger value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAePrecaptureTrigger value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAfMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAfMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAfMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAfTrigger> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAfTrigger value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAfTrigger value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAwbLock> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAwbLock value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAwbLock value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAwbMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAwbMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAwbMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlCaptureIntent> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlCaptureIntent value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlCaptureIntent value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlEffectMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlEffectMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlEffectMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlSceneMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlSceneMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlSceneMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlVideoStabilizationMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlVideoStabilizationMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlVideoStabilizationMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAeState> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAeState value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAeState value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAfState> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAfState value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAfState value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAwbState> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAwbState value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAwbState value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAeLockAvailable> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAeLockAvailable value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAeLockAvailable value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAwbLockAvailable> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAwbLockAvailable value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAwbLockAvailable value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlEnableZsl> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlEnableZsl value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlEnableZsl value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAfSceneChange> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAfSceneChange value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAfSceneChange value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlExtendedSceneMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlExtendedSceneMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlExtendedSceneMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAfRegionsSet> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAfRegionsSet value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAfRegionsSet value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAeRegionsSet> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAeRegionsSet value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAeRegionsSet value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidControlAwbRegionsSet> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAwbRegionsSet value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidControlAwbRegionsSet value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidDemosaicMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidDemosaicMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidDemosaicMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidEdgeMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidEdgeMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidEdgeMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidFlashMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidFlashMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidFlashMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidFlashState> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidFlashState value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidFlashState value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidFlashInfoAvailable> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidFlashInfoAvailable value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidFlashInfoAvailable value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidHotPixelMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidHotPixelMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidHotPixelMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidLensOpticalStabilizationMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidLensOpticalStabilizationMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidLensOpticalStabilizationMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidLensFacing> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidLensFacing value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidLensFacing value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidLensState> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidLensState value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidLensState value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidLensPoseReference> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidLensPoseReference value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidLensPoseReference value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidLensInfoFocusDistanceCalibration> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidLensInfoFocusDistanceCalibration value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidLensInfoFocusDistanceCalibration value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidNoiseReductionMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidNoiseReductionMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidNoiseReductionMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidQuirksPartialResult> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidQuirksPartialResult value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidQuirksPartialResult value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidRequestMetadataMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidRequestMetadataMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidRequestMetadataMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidRequestType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidRequestType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidRequestType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidRequestAvailableCapabilities> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidRequestAvailableCapabilities value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidRequestAvailableCapabilities value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerAvailableFormats> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerAvailableFormats value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidScalerAvailableFormats value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerAvailableStreamConfigurations> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerAvailableStreamConfigurations value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidScalerAvailableStreamConfigurations value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerCroppingType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerCroppingType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidScalerCroppingType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerAvailableRecommendedStreamConfigurations> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerAvailableRecommendedStreamConfigurations value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidScalerAvailableRecommendedStreamConfigurations value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerRotateAndCrop> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerRotateAndCrop value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidScalerRotateAndCrop value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerMultiResolutionStreamSupported> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerMultiResolutionStreamSupported value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidScalerMultiResolutionStreamSupported value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerCropRegionSet> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerCropRegionSet value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidScalerCropRegionSet value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerAvailableStreamUseCases> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerAvailableStreamUseCases value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidScalerAvailableStreamUseCases value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSensorReferenceIlluminant1> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorReferenceIlluminant1 value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidSensorReferenceIlluminant1 value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSensorTestPatternMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorTestPatternMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidSensorTestPatternMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSensorPixelMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorPixelMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidSensorPixelMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSensorRawBinningFactorUsed> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorRawBinningFactorUsed value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidSensorRawBinningFactorUsed value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSensorInfoColorFilterArrangement> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorInfoColorFilterArrangement value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidSensorInfoColorFilterArrangement value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSensorInfoTimestampSource> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorInfoTimestampSource value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidSensorInfoTimestampSource value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSensorInfoLensShadingApplied> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorInfoLensShadingApplied value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidSensorInfoLensShadingApplied value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidShadingMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidShadingMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidShadingMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidStatisticsFaceDetectMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidStatisticsFaceDetectMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidStatisticsFaceDetectMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidStatisticsHistogramMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidStatisticsHistogramMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidStatisticsHistogramMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidStatisticsSharpnessMapMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidStatisticsSharpnessMapMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidStatisticsSharpnessMapMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidStatisticsHotPixelMapMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidStatisticsHotPixelMapMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidStatisticsHotPixelMapMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidStatisticsSceneFlicker> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidStatisticsSceneFlicker value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidStatisticsSceneFlicker value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidStatisticsLensShadingMapMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidStatisticsLensShadingMapMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidStatisticsLensShadingMapMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidStatisticsOisDataMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidStatisticsOisDataMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidStatisticsOisDataMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidTonemapMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidTonemapMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidTonemapMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidTonemapPresetCurve> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidTonemapPresetCurve value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidTonemapPresetCurve value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidLedTransmit> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidLedTransmit value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidLedTransmit value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidLedAvailableLeds> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidLedAvailableLeds value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidLedAvailableLeds value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidInfoSupportedHardwareLevel> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidInfoSupportedHardwareLevel value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidInfoSupportedHardwareLevel value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidInfoSupportedBufferManagementVersion> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidInfoSupportedBufferManagementVersion value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidInfoSupportedBufferManagementVersion value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidBlackLevelLock> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidBlackLevelLock value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidBlackLevelLock value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSyncFrameNumber> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSyncFrameNumber value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidSyncFrameNumber value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSyncMaxLatency> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSyncMaxLatency value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidSyncMaxLatency value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidDepthAvailableDepthStreamConfigurations> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidDepthAvailableDepthStreamConfigurations value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidDepthAvailableDepthStreamConfigurations value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidDepthDepthIsExclusive> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidDepthDepthIsExclusive value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidDepthDepthIsExclusive value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurations> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurations value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurations value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidLogicalMultiCameraSensorSyncType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidLogicalMultiCameraSensorSyncType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidLogicalMultiCameraSensorSyncType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidDistortionCorrectionMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidDistortionCorrectionMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidDistortionCorrectionMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurations> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidHeicAvailableHeicStreamConfigurations value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidHeicAvailableHeicStreamConfigurations value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidHeicInfoSupported> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidHeicInfoSupported value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidHeicInfoSupported value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidAutomotiveLocation> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidAutomotiveLocation value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidAutomotiveLocation value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidAutomotiveLensFacing> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidAutomotiveLensFacing value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::AndroidAutomotiveLensFacing value);
 };
 
 } // namespace perfetto

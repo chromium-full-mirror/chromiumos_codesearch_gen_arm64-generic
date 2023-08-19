@@ -63,9 +63,9 @@ size_t UnguessableToken::Hash(size_t seed) const {
 }
 
 void UnguessableToken::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "high"), this->high,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -74,7 +74,7 @@ void UnguessableToken::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "low"), this->low,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

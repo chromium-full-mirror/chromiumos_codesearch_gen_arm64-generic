@@ -17,7 +17,7 @@
 namespace base {
 namespace trace_event {
 
-BASE_EXPORT perfetto_libchrome::protos::pbzero::MemoryPressureLevel
+BASE_EXPORT perfetto::protos::pbzero::MemoryPressureLevel
 MemoryPressureLevelToTraceEnum(
     MemoryPressureListener::MemoryPressureLevel memory_pressure_level);
 

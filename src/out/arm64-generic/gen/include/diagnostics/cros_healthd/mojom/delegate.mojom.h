@@ -94,6 +94,7 @@ class Delegate
     kRunPrimeSearchMinVersion = 0,
     kMonitorVolumeButtonMinVersion = 0,
     kRunFloatingPointMinVersion = 0,
+    kGetAllFanSpeedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -154,6 +155,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunFloatingPoint_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetAllFanSpeed_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -239,6 +243,11 @@ class Delegate
   using RunFloatingPointCallback = base::OnceCallback<void(bool)>;
   
   virtual void RunFloatingPoint(base::TimeDelta exec_duration, RunFloatingPointCallback callback) = 0;
+
+
+  using GetAllFanSpeedCallback = base::OnceCallback<void(const std::vector<uint32_t>&, const absl::optional<std::string>&)>;
+  
+  virtual void GetAllFanSpeed(GetAllFanSpeedCallback callback) = 0;
 };
 
 
@@ -287,6 +296,8 @@ class  DelegateProxy
   void MonitorVolumeButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver> observer) final;
   
   void RunFloatingPoint(base::TimeDelta exec_duration, RunFloatingPointCallback callback) final;
+  
+  void GetAllFanSpeed(GetAllFanSpeedCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

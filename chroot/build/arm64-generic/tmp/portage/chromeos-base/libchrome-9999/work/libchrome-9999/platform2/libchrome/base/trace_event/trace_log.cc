@@ -170,7 +170,7 @@ class PerfettoProtoAppender
     : public base::trace_event::ConvertableToTraceFormat::ProtoAppender {
  public:
   explicit PerfettoProtoAppender(
-      perfetto_libchrome::protos::pbzero::DebugAnnotation* proto)
+      perfetto::protos::pbzero::DebugAnnotation* proto)
       : annotation_proto_(proto) {}
   ~PerfettoProtoAppender() override = default;
 
@@ -187,13 +187,13 @@ class PerfettoProtoAppender
   }
 
  private:
-  std::vector<protozero_libchrome::ContiguousMemoryRange> ranges_;
-  raw_ptr<perfetto_libchrome::protos::pbzero::DebugAnnotation> annotation_proto_;
+  std::vector<protozero::ContiguousMemoryRange> ranges_;
+  raw_ptr<perfetto::protos::pbzero::DebugAnnotation> annotation_proto_;
 };
 
 void AddConvertableToTraceFormat(
     base::trace_event::ConvertableToTraceFormat* value,
-    perfetto_libchrome::protos::pbzero::DebugAnnotation* annotation) {
+    perfetto::protos::pbzero::DebugAnnotation* annotation) {
   PerfettoProtoAppender proto_appender(annotation);
   if (value->AppendToProto(&proto_appender)) {
     return;
@@ -205,7 +205,7 @@ void AddConvertableToTraceFormat(
 }
 
 void WriteDebugAnnotations(base::trace_event::TraceEvent* trace_event,
-                           perfetto_libchrome::protos::pbzero::TrackEvent* track_event) {
+                           perfetto::protos::pbzero::TrackEvent* track_event) {
   for (size_t i = 0; i < trace_event->arg_size() && trace_event->arg_name(i);
        ++i) {
     auto type = trace_event->arg_type(i);
@@ -257,18 +257,18 @@ void WriteDebugAnnotations(base::trace_event::TraceEvent* trace_event,
 void OnAddLegacyTraceEvent(TraceEvent* trace_event,
                            bool thread_will_flush,
                            base::trace_event::TraceEventHandle* handle) {
-  perfetto_libchrome::DynamicCategory category(
+  perfetto::DynamicCategory category(
       TraceLog::GetInstance()->GetCategoryGroupName(
           trace_event->category_group_enabled()));
-  auto write_args = [trace_event](perfetto_libchrome::EventContext ctx) {
+  auto write_args = [trace_event](perfetto::EventContext ctx) {
     WriteDebugAnnotations(trace_event, ctx.event());
     uint32_t id_flags = trace_event->flags() & (TRACE_EVENT_FLAG_HAS_ID |
                                                 TRACE_EVENT_FLAG_HAS_LOCAL_ID |
                                                 TRACE_EVENT_FLAG_HAS_GLOBAL_ID);
     if (!id_flags &&
-        perfetto_libchrome::internal::TrackEventLegacy::PhaseToType(
+        perfetto::internal::TrackEventLegacy::PhaseToType(
             trace_event->phase()) !=
-            perfetto_libchrome::protos::pbzero::TrackEvent::TYPE_UNSPECIFIED) {
+            perfetto::protos::pbzero::TrackEvent::TYPE_UNSPECIFIED) {
       return;
     }
     auto* legacy_event = ctx.event()->set_legacy_event();
@@ -300,13 +300,13 @@ void OnAddLegacyTraceEvent(TraceEvent* trace_event,
     switch (scope) {
       case TRACE_EVENT_SCOPE_GLOBAL:
         PERFETTO_INTERNAL_LEGACY_EVENT_ON_TRACK(
-            phase, category, trace_event->name(), ::perfetto_libchrome::Track::Global(0),
+            phase, category, trace_event->name(), ::perfetto::Track::Global(0),
             timestamp, write_args);
         return;
       case TRACE_EVENT_SCOPE_PROCESS:
         PERFETTO_INTERNAL_LEGACY_EVENT_ON_TRACK(
             phase, category, trace_event->name(),
-            ::perfetto_libchrome::ProcessTrack::Current(), timestamp, write_args);
+            ::perfetto::ProcessTrack::Current(), timestamp, write_args);
         return;
       default:
       case TRACE_EVENT_SCOPE_THREAD: /* Fallthrough. */
@@ -317,13 +317,13 @@ void OnAddLegacyTraceEvent(TraceEvent* trace_event,
       trace_event->thread_id() != base::PlatformThread::CurrentId()) {
     PERFETTO_INTERNAL_LEGACY_EVENT_ON_TRACK(
         phase, category, trace_event->name(),
-        perfetto_libchrome::ThreadTrack::ForThread(trace_event->thread_id()), timestamp,
+        perfetto::ThreadTrack::ForThread(trace_event->thread_id()), timestamp,
         write_args);
     return;
   }
   PERFETTO_INTERNAL_LEGACY_EVENT_ON_TRACK(
       phase, category, trace_event->name(),
-      perfetto_libchrome::internal::TrackEventInternal::kDefaultTrack, timestamp,
+      perfetto::internal::TrackEventInternal::kDefaultTrack, timestamp,
       write_args);
 }
 
@@ -335,20 +335,20 @@ void OnUpdateLegacyTraceEventDuration(
     bool explicit_timestamps,
     const TimeTicks& now,
     const ThreadTicks& thread_now) {
-  perfetto_libchrome::DynamicCategory category(
+  perfetto::DynamicCategory category(
       TraceLog::GetInstance()->GetCategoryGroupName(category_group_enabled));
   auto phase = TRACE_EVENT_PHASE_END;
   base::TimeTicks timestamp =
       explicit_timestamps ? now : TRACE_TIME_TICKS_NOW();
   if (thread_id && thread_id != base::PlatformThread::CurrentId()) {
     PERFETTO_INTERNAL_LEGACY_EVENT_ON_TRACK(
-        phase, category, name, perfetto_libchrome::ThreadTrack::ForThread(thread_id),
+        phase, category, name, perfetto::ThreadTrack::ForThread(thread_id),
         timestamp);
     return;
   }
   PERFETTO_INTERNAL_LEGACY_EVENT_ON_TRACK(
       phase, category, name,
-      perfetto_libchrome::internal::TrackEventInternal::kDefaultTrack, timestamp);
+      perfetto::internal::TrackEventInternal::kDefaultTrack, timestamp);
 }
 #endif  // BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
 
@@ -366,7 +366,7 @@ static constexpr char kJsonSuffix[] = "],\"metadata\":";
 }  // namespace
 
 class JsonStringOutputWriter
-    : public perfetto_libchrome::trace_processor::json::OutputWriter {
+    : public perfetto::trace_processor::json::OutputWriter {
  public:
   JsonStringOutputWriter(scoped_refptr<SequencedTaskRunner> flush_task_runner,
                          TraceLog::OutputCallback flush_callback)
@@ -377,12 +377,12 @@ class JsonStringOutputWriter
 
   ~JsonStringOutputWriter() override { Flush(/*has_more=*/false); }
 
-  perfetto_libchrome::trace_processor::util::Status AppendString(
+  perfetto::trace_processor::util::Status AppendString(
       const std::string& string) override {
     if (!did_strip_prefix_) {
       DCHECK_EQ(string, kJsonPrefix);
       did_strip_prefix_ = true;
-      return perfetto_libchrome::trace_processor::util::OkStatus();
+      return perfetto::trace_processor::util::OkStatus();
     } else if (buffer_->data().empty() &&
                !strncmp(string.c_str(), kJsonJoiner, strlen(kJsonJoiner))) {
       // We only remove the leading joiner comma for the first chunk in a buffer
@@ -390,7 +390,7 @@ class JsonStringOutputWriter
       // provide.
       buffer_->data() += string.substr(strlen(kJsonJoiner));
     } else if (!strncmp(string.c_str(), kJsonSuffix, strlen(kJsonSuffix))) {
-      return perfetto_libchrome::trace_processor::util::OkStatus();
+      return perfetto::trace_processor::util::OkStatus();
     } else {
       buffer_->data() += string;
     }
@@ -400,7 +400,7 @@ class JsonStringOutputWriter
       buffer_ = new RefCountedString();
       buffer_->data().reserve(kBufferReserveCapacity);
     }
-    return perfetto_libchrome::trace_processor::util::OkStatus();
+    return perfetto::trace_processor::util::OkStatus();
   }
 
  private:
@@ -821,7 +821,7 @@ void TraceLog::SetEnabled(const TraceConfig& trace_config,
 
   // TODO(khokhlov): Avoid duplication between this code and
   // services/tracing/public/cpp/perfetto/perfetto_config.cc.
-  perfetto_libchrome::TraceConfig perfetto_config;
+  perfetto::TraceConfig perfetto_config;
   size_t size_limit = trace_config.GetTraceBufferSizeInKb();
   if (size_limit == 0)
     size_limit = 200 * 1024;
@@ -831,11 +831,11 @@ void TraceLog::SetEnabled(const TraceConfig& trace_config,
     case base::trace_event::RECORD_UNTIL_FULL:
     case base::trace_event::RECORD_AS_MUCH_AS_POSSIBLE:
       buffer_config->set_fill_policy(
-          perfetto_libchrome::TraceConfig::BufferConfig::DISCARD);
+          perfetto::TraceConfig::BufferConfig::DISCARD);
       break;
     case base::trace_event::RECORD_CONTINUOUSLY:
       buffer_config->set_fill_policy(
-          perfetto_libchrome::TraceConfig::BufferConfig::RING_BUFFER);
+          perfetto::TraceConfig::BufferConfig::RING_BUFFER);
       break;
     case base::trace_event::ECHO_TO_CONSOLE:
       // Handled below.
@@ -853,7 +853,7 @@ void TraceLog::SetEnabled(const TraceConfig& trace_config,
   source_chrome_config->set_convert_to_legacy_json(true);
 
   if (trace_config.GetTraceRecordMode() == base::trace_event::ECHO_TO_CONSOLE) {
-    perfetto_libchrome::ConsoleInterceptor::Register();
+    perfetto::ConsoleInterceptor::Register();
     source_config->mutable_interceptor_config()->set_name("console");
   }
 
@@ -943,37 +943,40 @@ void TraceLog::SetEnabled(const TraceConfig& trace_config,
 }
 
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
-perfetto_libchrome::DataSourceConfig TraceLog::GetCurrentTrackEventDataSourceConfig()
+perfetto::DataSourceConfig TraceLog::GetCurrentTrackEventDataSourceConfig()
     const {
   AutoLock lock(track_event_lock_);
   if (track_event_sessions_.empty()) {
-    return perfetto_libchrome::DataSourceConfig();
+    return perfetto::DataSourceConfig();
   }
   return track_event_sessions_[0].config;
 }
 
 void TraceLog::InitializePerfettoIfNeeded() {
+  // Disable the code to initialize Perfetto for testing to save binary size.
+#if 0
   // When we're using the Perfetto client library, only tests should be
   // recording traces directly through TraceLog. Production code should instead
-  // use perfetto_libchrome::Tracing::NewTrace(). Let's make sure the tracing service
+  // use perfetto::Tracing::NewTrace(). Let's make sure the tracing service
   // didn't already initialize Perfetto in this process, because it's not safe
   // to consume trace data from arbitrary processes through TraceLog as the JSON
   // conversion here isn't sandboxed like with the real tracing service.
   //
   // Note that initializing Perfetto here requires the thread pool to be ready.
-  CHECK(!perfetto_libchrome::Tracing::IsInitialized() ||
+  CHECK(!perfetto::Tracing::IsInitialized() ||
         g_perfetto_initialized_by_tracelog)
       << "Don't use TraceLog for recording traces from non-test code. Use "
-         "perfetto_libchrome::Tracing::NewTrace() instead.";
+         "perfetto::Tracing::NewTrace() instead.";
 
-  if (perfetto_libchrome::Tracing::IsInitialized())
+  if (perfetto::Tracing::IsInitialized())
     return;
   g_perfetto_initialized_by_tracelog = true;
-  perfetto_libchrome::TracingInitArgs init_args;
-  init_args.backends = perfetto_libchrome::BackendType::kInProcessBackend;
+  perfetto::TracingInitArgs init_args;
+  init_args.backends = perfetto::BackendType::kInProcessBackend;
   init_args.disallow_merging_with_system_tracks = true;
-  perfetto_libchrome::Tracing::Initialize(init_args);
+  perfetto::Tracing::Initialize(init_args);
   TrackEvent::Register();
+#endif
 }
 
 bool TraceLog::IsPerfettoInitializedByTraceLog() const {
@@ -981,19 +984,19 @@ bool TraceLog::IsPerfettoInitializedByTraceLog() const {
 }
 
 void TraceLog::SetEnabled(const TraceConfig& trace_config,
-                          const perfetto_libchrome::TraceConfig& perfetto_config) {
+                          const perfetto::TraceConfig& perfetto_config) {
   AutoLock lock(lock_);
   SetEnabledImpl(trace_config, perfetto_config);
 }
 
 void TraceLog::SetEnabledImpl(const TraceConfig& trace_config,
-                              const perfetto_libchrome::TraceConfig& perfetto_config) {
+                              const perfetto::TraceConfig& perfetto_config) {
   DCHECK(!TrackEvent::IsEnabled());
   lock_.AssertAcquired();
   InitializePerfettoIfNeeded();
   trace_config_ = trace_config;
   perfetto_config_ = perfetto_config;
-  tracing_session_ = perfetto_libchrome::Tracing::NewTrace();
+  tracing_session_ = perfetto::Tracing::NewTrace();
 
   AutoUnlock unlock(lock_);
   tracing_session_->Setup(perfetto_config);
@@ -1297,9 +1300,9 @@ void TraceLog::FlushInternal(const TraceLog::OutputCallback& cb,
   }
 
   if (convert_to_json) {
-    perfetto_libchrome::trace_processor::Config processor_config;
+    perfetto::trace_processor::Config processor_config;
     trace_processor_ =
-        perfetto_libchrome::trace_processor::TraceProcessorStorage::CreateInstance(
+        perfetto::trace_processor::TraceProcessorStorage::CreateInstance(
             processor_config);
     json_output_writer_.reset(new JsonStringOutputWriter(
         use_worker_thread ? SingleThreadTaskRunner::GetCurrentDefault()
@@ -1311,7 +1314,7 @@ void TraceLog::FlushInternal(const TraceLog::OutputCallback& cb,
 
   if (use_worker_thread) {
     tracing_session_->ReadTrace(
-        [this](perfetto_libchrome::TracingSession::ReadTraceCallbackArgs args) {
+        [this](perfetto::TracingSession::ReadTraceCallbackArgs args) {
           OnTraceData(args.data, args.size, args.has_more);
         });
   } else {
@@ -1397,7 +1400,7 @@ void TraceLog::OnTraceData(const char* data, size_t size, bool has_more) {
     return;
   trace_processor_->NotifyEndOfFile();
 
-  auto status = perfetto_libchrome::trace_processor::json::ExportJson(
+  auto status = perfetto::trace_processor::json::ExportJson(
       trace_processor_.get(), json_output_writer_.get());
   DCHECK(status.ok()) << status.message();
   trace_processor_.reset();
@@ -2083,8 +2086,8 @@ void TraceLog::SetProcessSortIndex(int sort_index) {
 
 void TraceLog::OnSetProcessName(const std::string& process_name) {
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
-  if (perfetto_libchrome::Tracing::IsInitialized()) {
-    auto track = perfetto_libchrome::ProcessTrack::Current();
+  if (perfetto::Tracing::IsInitialized()) {
+    auto track = perfetto::ProcessTrack::Current();
     auto desc = track.Serialize();
     desc.mutable_process()->set_process_name(process_name);
     desc.mutable_process()->set_pid(static_cast<int>(process_id_));
@@ -2099,8 +2102,8 @@ void TraceLog::UpdateProcessLabel(int label_id,
     return RemoveProcessLabel(label_id);
 
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
-  if (perfetto_libchrome::Tracing::IsInitialized()) {
-    auto track = perfetto_libchrome::ProcessTrack::Current();
+  if (perfetto::Tracing::IsInitialized()) {
+    auto track = perfetto::ProcessTrack::Current();
     auto desc = track.Serialize();
     desc.mutable_process()->add_process_labels(current_label);
     TrackEvent::SetTrackDescriptor(track, std::move(desc));
@@ -2185,13 +2188,13 @@ void TraceLog::SetTraceBufferForTesting(
 }
 
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
-void TraceLog::OnSetup(const perfetto_libchrome::DataSourceBase::SetupArgs& args) {
+void TraceLog::OnSetup(const perfetto::DataSourceBase::SetupArgs& args) {
   AutoLock lock(track_event_lock_);
   track_event_sessions_.emplace_back(args.internal_instance_index, *args.config,
                                      args.backend_type);
 }
 
-void TraceLog::OnStart(const perfetto_libchrome::DataSourceBase::StartArgs&) {
+void TraceLog::OnStart(const perfetto::DataSourceBase::StartArgs&) {
   ++active_track_event_sessions_;
   // Legacy observers don't support multiple tracing sessions. So we only
   // notify them about the first one.
@@ -2209,7 +2212,7 @@ void TraceLog::OnStart(const perfetto_libchrome::DataSourceBase::StartArgs&) {
   }
 }
 
-void TraceLog::OnStop(const perfetto_libchrome::DataSourceBase::StopArgs& args) {
+void TraceLog::OnStop(const perfetto::DataSourceBase::StopArgs& args) {
   {
     // We can't use |lock_| because OnStop() can be called from within
     // SetDisabled(). We also can't use |observers_lock_|, because observers

@@ -262,7 +262,7 @@ class BASE_EXPORT ThreadController {
       return run_levels_.size();
     }
 
-    // Emits a perfetto_libchrome::Flow (wakeup.flow) event associated with this
+    // Emits a perfetto::Flow (wakeup.flow) event associated with this
     // RunLevelTracker.
     void RecordScheduleWork();
 
@@ -284,7 +284,7 @@ class BASE_EXPORT ThreadController {
    private:
 #if BUILDFLAG(ENABLE_BASE_TRACING)
     using TerminatingFlowLambda =
-        std::invoke_result<decltype(perfetto_libchrome::TerminatingFlow::FromPointer),
+        std::invoke_result<decltype(perfetto::TerminatingFlow::FromPointer),
                            void*>::type;
 #endif
 
@@ -359,7 +359,7 @@ class BASE_EXPORT ThreadController {
       // non-null when recording is enabled.
       raw_ptr<HistogramBase> histogram_ = nullptr;
 #if BUILDFLAG(ENABLE_BASE_TRACING)
-      absl::optional<perfetto_libchrome::Track> perfetto_track_;
+      absl::optional<perfetto::Track> perfetto_track_;
 
       // True if tracing was enabled during the last pass of RecordTimeInPhase.
       bool was_tracing_enabled_ = false;
@@ -433,7 +433,7 @@ class BASE_EXPORT ThreadController {
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
     TerminatingFlowLambda terminating_wakeup_lambda_{
-        perfetto_libchrome::TerminatingFlow::FromPointer(this)};
+        perfetto::TerminatingFlow::FromPointer(this)};
 #endif
 
     std::stack<RunLevel, std::vector<RunLevel>> run_levels_

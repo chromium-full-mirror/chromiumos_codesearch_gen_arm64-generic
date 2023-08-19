@@ -33,7 +33,7 @@
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
 #include "third_party/perfetto/include/perfetto/tracing/core/trace_config.h"
 
-namespace perfetto_libchrome {
+namespace perfetto {
 namespace trace_processor {
 class TraceProcessorStorage;
 }  // namespace trace_processor
@@ -62,7 +62,7 @@ struct BASE_EXPORT TraceLogStatus {
 
 class BASE_EXPORT TraceLog :
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
-    public perfetto_libchrome::TrackEventSessionObserver,
+    public perfetto::TrackEventSessionObserver,
 #endif  // BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
     public MemoryDumpProvider {
  public:
@@ -98,7 +98,7 @@ class BASE_EXPORT TraceLog :
   // example, enabling additional data sources and enabling protobuf output
   // instead of the legacy JSON trace format.
   void SetEnabled(const TraceConfig& trace_config,
-                  const perfetto_libchrome::TraceConfig& perfetto_config);
+                  const perfetto::TraceConfig& perfetto_config);
 #endif
 
   // Disables tracing for all categories. Only RECORDING_MODE is supported.
@@ -420,8 +420,8 @@ class BASE_EXPORT TraceLog :
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
   struct TrackEventSession {
     uint32_t internal_instance_index;
-    perfetto_libchrome::DataSourceConfig config;
-    perfetto_libchrome::BackendType backend_type = perfetto_libchrome::kUnspecifiedBackend;
+    perfetto::DataSourceConfig config;
+    perfetto::BackendType backend_type = perfetto::kUnspecifiedBackend;
   };
   std::vector<TrackEventSession> GetTrackEventSessions() const;
 
@@ -430,16 +430,16 @@ class BASE_EXPORT TraceLog :
   // active, returns an empty config for compatibility with legacy code.
   // TODO(khokhlov): Remove this method and migrate all its uses to
   // GetTrackEventSessions().
-  perfetto_libchrome::DataSourceConfig GetCurrentTrackEventDataSourceConfig() const;
+  perfetto::DataSourceConfig GetCurrentTrackEventDataSourceConfig() const;
   void InitializePerfettoIfNeeded();
   bool IsPerfettoInitializedByTraceLog() const;
   void SetEnabledImpl(const TraceConfig& trace_config,
-                      const perfetto_libchrome::TraceConfig& perfetto_config);
+                      const perfetto::TraceConfig& perfetto_config);
 
-  // perfetto_libchrome::TrackEventSessionObserver implementation.
-  void OnSetup(const perfetto_libchrome::DataSourceBase::SetupArgs&) override;
-  void OnStart(const perfetto_libchrome::DataSourceBase::StartArgs&) override;
-  void OnStop(const perfetto_libchrome::DataSourceBase::StopArgs&) override;
+  // perfetto::TrackEventSessionObserver implementation.
+  void OnSetup(const perfetto::DataSourceBase::SetupArgs&) override;
+  void OnStart(const perfetto::DataSourceBase::StartArgs&) override;
+  void OnStop(const perfetto::DataSourceBase::StopArgs&) override;
 #endif  // BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
 
   // Called by the perfetto backend just after incremental state was cleared.
@@ -625,14 +625,14 @@ class BASE_EXPORT TraceLog :
   std::atomic<UpdateDurationFunction> update_duration_override_{nullptr};
 
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
-  std::unique_ptr<perfetto_libchrome::TracingSession> tracing_session_;
-  perfetto_libchrome::TraceConfig perfetto_config_;
+  std::unique_ptr<perfetto::TracingSession> tracing_session_;
+  perfetto::TraceConfig perfetto_config_;
   std::vector<TrackEventSession> track_event_sessions_
       GUARDED_BY(track_event_lock_);
   int active_track_event_sessions_ = 0;
   mutable Lock track_event_lock_;
 #if BUILDFLAG(USE_PERFETTO_TRACE_PROCESSOR)
-  std::unique_ptr<perfetto_libchrome::trace_processor::TraceProcessorStorage>
+  std::unique_ptr<perfetto::trace_processor::TraceProcessorStorage>
       trace_processor_;
   std::unique_ptr<JsonStringOutputWriter> json_output_writer_;
   OutputCallback proto_output_callback_;

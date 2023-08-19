@@ -287,11 +287,11 @@ ImageContentAnnotator_AnnotateEncodedImage_ResponseParams_Data::ImageContentAnno
 }  // namespace machine_learning
 }  // namespace chromeos
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::ImageAnnotationResult_Status>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::ImageAnnotationResult_Status value) {
+   perfetto::TracedValue context, ::chromeos::machine_learning::mojom::ImageAnnotationResult_Status value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::ImageAnnotationResult_StatusToString(value));
 }
 

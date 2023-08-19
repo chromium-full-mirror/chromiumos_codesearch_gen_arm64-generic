@@ -7,6 +7,7 @@
 #include <stddef.h>
 #include <utility>
 
+#include "base/containers/contains.h"
 #include "base/debug/alias.h"
 #include "base/debug/leak_annotations.h"
 #include "base/functional/bind.h"
@@ -154,33 +155,19 @@ std::unique_ptr<Response> ObjectProxy::CallMethodAndBlockWithErrorDetails(
     MethodCall* method_call,
     int timeout_ms,
     Error* error) {
-  bus_->AssertOnDBusThread();
-
-  if (!bus_->Connect() || !method_call->SetDestination(service_name_) ||
-      !method_call->SetPath(object_path_)) {
-    return nullptr;
-  }
-
-  // Send the message synchronously.
-  auto result =
-      bus_->SendWithReplyAndBlock(method_call->raw_message(), timeout_ms);
-  statistics::AddBlockingSentMethodCall(
-      service_name_, method_call->GetInterface(), method_call->GetMember());
-  if (!result.has_value()) {
-    LogMethodCallFailure(method_call->GetInterface(), method_call->GetMember(),
-                         result.error().name(), result.error().message());
+  auto result = CallMethodAndBlock(method_call, timeout_ms);
+  if (result.has_value()) {
+    return std::move(result.value());
+  } else {
     *error = std::move(result.error());
     return nullptr;
   }
-
-  return std::move(result.value());
 }
 
 std::unique_ptr<Response> ObjectProxy::CallMethodAndBlockDeprecated(
     MethodCall* method_call,
     int timeout_ms) {
-  Error error;
-  return CallMethodAndBlockWithErrorDetails(method_call, timeout_ms, &error);
+  return CallMethodAndBlock(method_call, timeout_ms).value_or(nullptr);
 }
 
 void ObjectProxy::CallMethod(MethodCall* method_call,
@@ -643,7 +630,7 @@ bool ObjectProxy::AddMatchRuleWithCallback(
   DCHECK(!absolute_signal_name.empty());
   bus_->AssertOnDBusThread();
 
-  if (match_rules_.find(match_rule) == match_rules_.end()) {
+  if (!base::Contains(match_rules_, match_rule)) {
     dbus::Error error;
     bus_->AddMatch(match_rule, &error);
     if (error.IsValid()) {
@@ -671,8 +658,9 @@ bool ObjectProxy::AddMatchRuleWithoutCallback(
   DCHECK(!absolute_signal_name.empty());
   bus_->AssertOnDBusThread();
 
-  if (match_rules_.find(match_rule) != match_rules_.end())
+  if (base::Contains(match_rules_, match_rule)) {
     return true;
+  }
 
   Error error;
   bus_->AddMatch(match_rule, &error);

@@ -771,31 +771,31 @@ VideoEncodeClient_NotifyError_Params_Data::VideoEncodeClient_NotifyError_Params_
 }  // namespace mojom
 }  // namespace arc
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::arc::mojom::VideoFrameStorageType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::arc::mojom::VideoFrameStorageType value) {
+   perfetto::TracedValue context, ::arc::mojom::VideoFrameStorageType value) {
   return std::move(context).WriteString(::arc::mojom::VideoFrameStorageTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::arc::mojom::VideoEncodeAccelerator_Error>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::arc::mojom::VideoEncodeAccelerator_Error value) {
+   perfetto::TracedValue context, ::arc::mojom::VideoEncodeAccelerator_Error value) {
   return std::move(context).WriteString(::arc::mojom::VideoEncodeAccelerator_ErrorToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::arc::mojom::VideoEncodeAccelerator_Result>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::arc::mojom::VideoEncodeAccelerator_Result value) {
+   perfetto::TracedValue context, ::arc::mojom::VideoEncodeAccelerator_Result value) {
   return std::move(context).WriteString(::arc::mojom::VideoEncodeAccelerator_ResultToString(value));
 }
 

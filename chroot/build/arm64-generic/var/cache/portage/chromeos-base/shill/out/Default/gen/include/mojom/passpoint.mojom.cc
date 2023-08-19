@@ -71,9 +71,9 @@ PasspointSubscription::PasspointSubscription(
 PasspointSubscription::~PasspointSubscription() = default;
 
 void PasspointSubscription::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -82,7 +82,7 @@ void PasspointSubscription::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "domains"), this->domains,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -91,7 +91,7 @@ void PasspointSubscription::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "friendly_name"), this->friendly_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -100,7 +100,7 @@ void PasspointSubscription::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "provisioning_source"), this->provisioning_source,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -109,7 +109,7 @@ void PasspointSubscription::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "trusted_ca"), this->trusted_ca,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -118,7 +118,7 @@ void PasspointSubscription::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "expiration_epoch_ms"), this->expiration_epoch_ms,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -218,9 +218,9 @@ void PasspointEventsListenerProxy::OnPasspointSubscriptionAdded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::connectivity::mojom::PasspointEventsListener::OnPasspointSubscriptionAdded", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("subscription"), in_subscription,
                         "<value of type PasspointSubscriptionPtr>");
    });
@@ -266,9 +266,9 @@ void PasspointEventsListenerProxy::OnPasspointSubscriptionRemoved(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::connectivity::mojom::PasspointEventsListener::OnPasspointSubscriptionRemoved", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("subscription"), in_subscription,
                         "<value of type PasspointSubscriptionPtr>");
    });
@@ -574,9 +574,9 @@ void PasspointServiceProxy::GetPasspointSubscription(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::connectivity::mojom::PasspointService::GetPasspointSubscription", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("id"), in_id,
                         "<value of type const std::string&>");
    });
@@ -654,9 +654,9 @@ void PasspointServiceProxy::DeletePasspointSubscription(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::connectivity::mojom::PasspointService::DeletePasspointSubscription", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("id"), in_id,
                         "<value of type const std::string&>");
    });
@@ -703,9 +703,9 @@ void PasspointServiceProxy::RegisterPasspointListener(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::connectivity::mojom::PasspointService::RegisterPasspointListener", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("listener"), in_listener,
                         "<value of type ::mojo::PendingRemote<PasspointEventsListener>>");
    });
@@ -822,9 +822,9 @@ void PasspointService_GetPasspointSubscription_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::connectivity::mojom::PasspointService::GetPasspointSubscription", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type PasspointSubscriptionPtr>");
    });
@@ -946,9 +946,9 @@ void PasspointService_ListPasspointSubscriptions_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::connectivity::mojom::PasspointService::ListPasspointSubscriptions", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type std::vector<PasspointSubscriptionPtr>>");
    });
@@ -1076,9 +1076,9 @@ void PasspointService_DeletePasspointSubscription_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::connectivity::mojom::PasspointService::DeletePasspointSubscription", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("success"), in_success,
                         "<value of type bool>");
    });

@@ -263,31 +263,31 @@ VideoFrameLayout_Data::VideoFrameLayout_Data()
 }  // namespace mojom
 }  // namespace arc
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::arc::mojom::VideoCodecProfile>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::arc::mojom::VideoCodecProfile value) {
+   perfetto::TracedValue context, ::arc::mojom::VideoCodecProfile value) {
   return std::move(context).WriteString(::arc::mojom::VideoCodecProfileToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::arc::mojom::HalPixelFormat>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::arc::mojom::HalPixelFormat value) {
+   perfetto::TracedValue context, ::arc::mojom::HalPixelFormat value) {
   return std::move(context).WriteString(::arc::mojom::HalPixelFormatToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::arc::mojom::VideoPixelFormat>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::arc::mojom::VideoPixelFormat value) {
+   perfetto::TracedValue context, ::arc::mojom::VideoPixelFormat value) {
   return std::move(context).WriteString(::arc::mojom::VideoPixelFormatToString(value));
 }
 

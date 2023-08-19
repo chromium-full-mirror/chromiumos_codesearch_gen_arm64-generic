@@ -1201,7 +1201,7 @@ Executor_GetFileInfo_ResponseParams_Data::Executor_GetFileInfo_ResponseParams_Da
 
 
 // static
-bool Executor_GetFanSpeed_Params_Data::Validate(
+bool Executor_GetAllFanSpeed_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1213,43 +1213,54 @@ bool Executor_GetFanSpeed_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetFanSpeed_Params_Data* object =
-      static_cast<const Executor_GetFanSpeed_Params_Data*>(data);
+  [[maybe_unused]] const Executor_GetAllFanSpeed_Params_Data* object =
+      static_cast<const Executor_GetAllFanSpeed_Params_Data*>(data);
 
   return true;
 }
 
-Executor_GetFanSpeed_Params_Data::Executor_GetFanSpeed_Params_Data()
+Executor_GetAllFanSpeed_Params_Data::Executor_GetAllFanSpeed_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool Executor_GetFanSpeed_ResponseParams_Data::Validate(
+bool Executor_GetAllFanSpeed_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetFanSpeed_ResponseParams_Data* object =
-      static_cast<const Executor_GetFanSpeed_ResponseParams_Data*>(data);
+  [[maybe_unused]] const Executor_GetAllFanSpeed_ResponseParams_Data* object =
+      static_cast<const Executor_GetAllFanSpeed_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->result, 1, validation_context)) {
+          object->fan_rpms, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+  constexpr const mojo::internal::ContainerValidateParams& fan_rpms_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->fan_rpms, validation_context,
+                                         &fan_rpms_validate_params)) {
     return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
 
   return true;
 }
 
-Executor_GetFanSpeed_ResponseParams_Data::Executor_GetFanSpeed_ResponseParams_Data()
+Executor_GetAllFanSpeed_ResponseParams_Data::Executor_GetAllFanSpeed_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2772,71 +2783,71 @@ Executor_RunFloatingPoint_ResponseParams_Data::Executor_RunFloatingPoint_Respons
 }  // namespace cros_healthd
 }  // namespace ash
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::FingerprintCaptureType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::FingerprintCaptureType value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::FingerprintCaptureType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::FingerprintCaptureTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::StressAppTestType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::StressAppTestType value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::StressAppTestType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::StressAppTestTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::PowerButtonObserver_ButtonState value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::PowerButtonObserver_ButtonStateToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonObserver_Button>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonObserver_Button value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonObserver_Button value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonState value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::VolumeButtonObserver_ButtonStateToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::Executor_File>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Executor_File value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::Executor_File value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::Executor_FileToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::Executor_IwCommand>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Executor_IwCommand value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::Executor_IwCommand value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::Executor_IwCommandToString(value));
 }
 

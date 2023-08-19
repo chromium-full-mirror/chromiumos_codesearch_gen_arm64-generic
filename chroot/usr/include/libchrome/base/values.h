@@ -587,7 +587,7 @@ class BASE_EXPORT GSL_OWNER Value {
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
     // Write this object into a trace.
-    void WriteIntoTrace(perfetto_libchrome::TracedValue) const;
+    void WriteIntoTrace(perfetto::TracedValue) const;
 #endif  // BUILDFLAG(ENABLE_BASE_TRACING)
 
    private:
@@ -774,7 +774,7 @@ class BASE_EXPORT GSL_OWNER Value {
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
     // Write this object into a trace.
-    void WriteIntoTrace(perfetto_libchrome::TracedValue) const;
+    void WriteIntoTrace(perfetto::TracedValue) const;
 #endif  // BUILDFLAG(ENABLE_BASE_TRACING)
 
    private:
@@ -895,7 +895,7 @@ class BASE_EXPORT GSL_OWNER Value {
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
   // Write this object into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue) const;
+  void WriteIntoTrace(perfetto::TracedValue) const;
 #endif  // BUILDFLAG(ENABLE_BASE_TRACING)
 
   template <typename Visitor>

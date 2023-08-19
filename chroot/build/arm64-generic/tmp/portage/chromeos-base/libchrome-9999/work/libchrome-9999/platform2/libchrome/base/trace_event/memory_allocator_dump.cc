@@ -91,7 +91,7 @@ void MemoryAllocatorDump::AsValueInto(TracedValue* value) const {
 }
 
 void MemoryAllocatorDump::AsProtoInto(
-    perfetto_libchrome::protos::pbzero::MemoryTrackerSnapshot::ProcessSnapshot::
+    perfetto::protos::pbzero::MemoryTrackerSnapshot::ProcessSnapshot::
         MemoryNode* memory_node) const {
   memory_node->set_id(guid_.ToUint64());
   memory_node->set_absolute_name(absolute_name_);
@@ -107,7 +107,7 @@ void MemoryAllocatorDump::AsProtoInto(
       continue;
     }
 
-    perfetto_libchrome::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot::
+    perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot::
         MemoryNode::MemoryNodeEntry* proto_memory_node_entry =
             memory_node->add_entries();
 
@@ -122,15 +122,15 @@ void MemoryAllocatorDump::AsProtoInto(
     }
     if (entry.units == kUnitsBytes) {
       proto_memory_node_entry->set_units(
-          perfetto_libchrome::protos::pbzero::MemoryTrackerSnapshot::ProcessSnapshot::
+          perfetto::protos::pbzero::MemoryTrackerSnapshot::ProcessSnapshot::
               MemoryNode::MemoryNodeEntry::BYTES);
     } else if (entry.units == kUnitsObjects) {
       proto_memory_node_entry->set_units(
-          perfetto_libchrome::protos::pbzero::MemoryTrackerSnapshot::ProcessSnapshot::
+          perfetto::protos::pbzero::MemoryTrackerSnapshot::ProcessSnapshot::
               MemoryNode::MemoryNodeEntry::COUNT);
     } else {
       proto_memory_node_entry->set_units(
-          perfetto_libchrome::protos::pbzero::MemoryTrackerSnapshot::ProcessSnapshot::
+          perfetto::protos::pbzero::MemoryTrackerSnapshot::ProcessSnapshot::
               MemoryNode::MemoryNodeEntry::UNSPECIFIED);
     }
   }

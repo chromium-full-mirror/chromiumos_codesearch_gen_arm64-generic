@@ -322,6 +322,7 @@ PROTOBUF_CONSTEXPR ConnectNamespaceRequest::ConnectNamespaceRequest(
   , /*decltype(_impl_.pid_)*/0
   , /*decltype(_impl_.allow_user_traffic_)*/false
   , /*decltype(_impl_.route_on_vpn_)*/false
+  , /*decltype(_impl_.static_ipv6_)*/false
   , /*decltype(_impl_.traffic_source_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ConnectNamespaceRequestDefaultTypeInternal {
@@ -6250,6 +6251,7 @@ ConnectNamespaceRequest::ConnectNamespaceRequest(const ConnectNamespaceRequest& 
     , decltype(_impl_.pid_){}
     , decltype(_impl_.allow_user_traffic_){}
     , decltype(_impl_.route_on_vpn_){}
+    , decltype(_impl_.static_ipv6_){}
     , decltype(_impl_.traffic_source_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -6277,6 +6279,7 @@ inline void ConnectNamespaceRequest::SharedCtor(
     , decltype(_impl_.pid_){0}
     , decltype(_impl_.allow_user_traffic_){false}
     , decltype(_impl_.route_on_vpn_){false}
+    , decltype(_impl_.static_ipv6_){false}
     , decltype(_impl_.traffic_source_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -6366,6 +6369,14 @@ const char* ConnectNamespaceRequest::_InternalParse(const char* ptr, ::_pbi::Par
         } else
           goto handle_unusual;
         continue;
+      // bool static_ipv6 = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _impl_.static_ipv6_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -6430,6 +6441,12 @@ uint8_t* ConnectNamespaceRequest::_InternalSerialize(
       5, this->_internal_traffic_source(), target);
   }
 
+  // bool static_ipv6 = 6;
+  if (this->_internal_static_ipv6() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_static_ipv6(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -6465,6 +6482,11 @@ size_t ConnectNamespaceRequest::ByteSizeLong() const {
 
   // bool route_on_vpn = 4;
   if (this->_internal_route_on_vpn() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool static_ipv6 = 6;
+  if (this->_internal_static_ipv6() != 0) {
     total_size += 1 + 1;
   }
 
@@ -6506,6 +6528,9 @@ void ConnectNamespaceRequest::MergeFrom(const ConnectNamespaceRequest& from) {
   }
   if (from._internal_route_on_vpn() != 0) {
     _this->_internal_set_route_on_vpn(from._internal_route_on_vpn());
+  }
+  if (from._internal_static_ipv6() != 0) {
+    _this->_internal_set_static_ipv6(from._internal_static_ipv6());
   }
   if (from._internal_traffic_source() != 0) {
     _this->_internal_set_traffic_source(from._internal_traffic_source());

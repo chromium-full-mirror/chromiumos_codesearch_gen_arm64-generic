@@ -22,7 +22,7 @@
 #include "base/trace_event/base_tracing_forward.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 
-namespace perfetto_libchrome {
+namespace perfetto {
 class EventContext;
 }
 
@@ -32,7 +32,7 @@ class TaskObserver;
 
 namespace sequence_manager {
 
-using QueueName = ::perfetto_libchrome::protos::pbzero::SequenceManagerTask::QueueName;
+using QueueName = ::perfetto::protos::pbzero::SequenceManagerTask::QueueName;
 
 namespace internal {
 class AssociatedThreadId;
@@ -300,7 +300,7 @@ class BASE_EXPORT TaskQueue {
   virtual const char* GetName() const;
 
   // Serialise this object into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue context) const;
+  void WriteIntoTrace(perfetto::TracedValue context) const;
 
   // Set the priority of the queue to |priority|. NOTE this must be called on
   // the thread this TaskQueue was created by.
@@ -406,7 +406,7 @@ class BASE_EXPORT TaskQueue {
       RepeatingCallback<void(const Task&, TaskQueue::TaskTiming*, LazyNow*)>;
   using OnTaskPostedHandler = RepeatingCallback<void(const Task&)>;
   using TaskExecutionTraceLogger =
-      RepeatingCallback<void(perfetto_libchrome::EventContext&, const Task&)>;
+      RepeatingCallback<void(perfetto::EventContext&, const Task&)>;
 
   // Sets a handler to subscribe for notifications about started and completed
   // tasks.

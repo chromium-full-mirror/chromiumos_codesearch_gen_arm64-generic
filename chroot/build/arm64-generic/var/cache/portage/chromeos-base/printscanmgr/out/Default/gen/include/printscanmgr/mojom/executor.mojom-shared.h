@@ -121,11 +121,11 @@ namespace mojom {
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::printscanmgr::mojom::UpstartJob> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::printscanmgr::mojom::UpstartJob value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::printscanmgr::mojom::UpstartJob value);
 };
 
 } // namespace perfetto

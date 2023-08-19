@@ -69,7 +69,7 @@ class BASE_EXPORT Location {
   std::string ToString() const;
 
   // Write a representation of this object into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue context) const;
+  void WriteIntoTrace(perfetto::TracedValue context) const;
 
   static Location Current(const char* function_name = __builtin_FUNCTION(),
                           const char* file_name = __builtin_FILE(),

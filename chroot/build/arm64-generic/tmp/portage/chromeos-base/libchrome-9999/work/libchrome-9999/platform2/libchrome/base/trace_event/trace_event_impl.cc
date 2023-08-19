@@ -28,12 +28,12 @@
 // PERFETTO_DEFINE_CATEGORIES).
 PERFETTO_TRACK_EVENT_STATIC_STORAGE_IN_NAMESPACE_WITH_ATTRS(base, BASE_EXPORT);
 
-namespace perfetto_libchrome {
+namespace perfetto {
 namespace legacy {
 
 template <>
-perfetto_libchrome::ThreadTrack ConvertThreadId(const ::base::PlatformThreadId& thread) {
-  return perfetto_libchrome::ThreadTrack::ForThread(thread);
+perfetto::ThreadTrack ConvertThreadId(const ::base::PlatformThreadId& thread) {
+  return perfetto::ThreadTrack::ForThread(thread);
 }
 
 }  // namespace legacy

@@ -195,11 +195,11 @@ MjpegDecodeAccelerator_Uninitialize_Params_Data::MjpegDecodeAccelerator_Uninitia
 }  // namespace mojom
 }  // namespace cros
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::DecodeError>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::DecodeError value) {
+   perfetto::TracedValue context, ::cros::mojom::DecodeError value) {
   return std::move(context).WriteString(::cros::mojom::DecodeErrorToString(value));
 }
 

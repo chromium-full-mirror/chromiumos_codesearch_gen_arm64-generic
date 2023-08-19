@@ -1134,7 +1134,7 @@ class  ThunderboltEventInfo {
   ThunderboltEventInfo::State state;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1276,7 +1276,7 @@ class  LidEventInfo {
   LidEventInfo::State state;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1418,7 +1418,7 @@ class  BluetoothEventInfo {
   BluetoothEventInfo::State state;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1560,7 +1560,7 @@ class  PowerEventInfo {
   PowerEventInfo::State state;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1702,7 +1702,7 @@ class  AudioEventInfo {
   AudioEventInfo::State state;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1851,7 +1851,7 @@ class  AudioJackEventInfo {
   AudioJackEventInfo::DeviceType device_type;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1993,7 +1993,7 @@ class  SdCardEventInfo {
   SdCardEventInfo::State state;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -2137,7 +2137,7 @@ class  TouchpadButtonEvent {
   bool pressed;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -2289,7 +2289,7 @@ class  TouchscreenConnectedEvent {
   uint32_t max_pressure;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -2431,7 +2431,7 @@ class  StylusGarageEventInfo {
   StylusGarageEventInfo::State state;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -2580,7 +2580,7 @@ class  StylusConnectedEvent {
   uint32_t max_pressure;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -3645,7 +3645,7 @@ class  UsbEventInfo {
   UsbEventInfo::State state;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -3810,7 +3810,7 @@ TouchPointInfo& operator=(const TouchPointInfo&) = delete;
   ::ash::cros_healthd::mojom::NullableUint32Ptr touch_minor;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -3952,7 +3952,7 @@ TouchpadTouchEvent& operator=(const TouchpadTouchEvent&) = delete;
   std::vector<TouchPointInfoPtr> touch_points;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -4101,7 +4101,7 @@ class  TouchpadConnectedEvent {
   std::vector<InputTouchButton> buttons;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -4250,7 +4250,7 @@ ExternalDisplayEventInfo& operator=(const ExternalDisplayEventInfo&) = delete;
   ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr display_info;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -4392,7 +4392,7 @@ TouchscreenTouchEvent& operator=(const TouchscreenTouchEvent&) = delete;
   std::vector<TouchPointInfoPtr> touch_points;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -4542,7 +4542,7 @@ StylusTouchPointInfo& operator=(const StylusTouchPointInfo&) = delete;
   ::ash::cros_healthd::mojom::NullableUint32Ptr pressure;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -4684,7 +4684,7 @@ StylusTouchEvent& operator=(const StylusTouchEvent&) = delete;
   StylusTouchPointInfoPtr touch_point;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -4831,7 +4831,7 @@ class  CrashUploadInfo {
   uint64_t offset;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -4983,7 +4983,7 @@ CrashEventInfo& operator=(const CrashEventInfo&) = delete;
   CrashUploadInfoPtr upload_info;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

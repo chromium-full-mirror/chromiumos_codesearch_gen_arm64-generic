@@ -114,11 +114,11 @@ namespace mojom {
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::Rotation> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::Rotation value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::machine_learning::mojom::Rotation value);
 };
 
 } // namespace perfetto

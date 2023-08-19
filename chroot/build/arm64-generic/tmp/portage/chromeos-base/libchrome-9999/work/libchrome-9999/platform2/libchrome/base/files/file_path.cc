@@ -1381,8 +1381,8 @@ FilePath FilePath::NormalizePathSeparators() const {
   return NormalizePathSeparatorsTo(kSeparators[0]);
 }
 
-void FilePath::WriteIntoTrace(perfetto_libchrome::TracedValue context) const {
-  perfetto_libchrome::WriteIntoTracedValue(std::move(context), value());
+void FilePath::WriteIntoTrace(perfetto::TracedValue context) const {
+  perfetto::WriteIntoTracedValue(std::move(context), value());
 }
 
 FilePath FilePath::NormalizePathSeparatorsTo(CharType separator) const {

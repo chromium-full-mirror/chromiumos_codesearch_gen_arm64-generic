@@ -626,91 +626,91 @@ DEPRECATED_LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::DEPRECATE
 }  // namespace cros_healthd
 }  // namespace ash
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DiagnosticRoutineEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DiskReadRoutineTypeEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::AcPowerStatusEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::AcPowerStatusEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::AcPowerStatusEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::AcPowerStatusEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::NvmeSelfTestTypeEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::DEPRECATED_LedName>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedName value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedName value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DEPRECATED_LedNameToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::DEPRECATED_LedColor>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedColor value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DEPRECATED_LedColor value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DEPRECATED_LedColorToString(value));
 }
 

@@ -135,11 +135,11 @@ NativeStruct_Data::NativeStruct_Data()
 }  // namespace native
 }  // namespace mojo
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::mojo::native::SerializedHandleType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::mojo::native::SerializedHandleType value) {
+   perfetto::TracedValue context, ::mojo::native::SerializedHandleType value) {
   return std::move(context).WriteString(::mojo::native::SerializedHandleTypeToString(value));
 }
 

@@ -14,7 +14,7 @@ void WaitableEvent::Signal() {
   // matching TerminatingFlow in TimedWait().
   if (!only_used_while_idle_) {
     TRACE_EVENT_INSTANT("wakeup.flow", "WaitableEvent::Signal",
-                        perfetto_libchrome::Flow::FromPointer(this));
+                        perfetto::Flow::FromPointer(this));
   }
   SignalImpl();
 }
@@ -40,7 +40,7 @@ bool WaitableEvent::TimedWait(TimeDelta wait_delta) {
 
   if (result && !only_used_while_idle_) {
     TRACE_EVENT_INSTANT("wakeup.flow", "WaitableEvent::Wait Complete",
-                        perfetto_libchrome::TerminatingFlow::FromPointer(this));
+                        perfetto::TerminatingFlow::FromPointer(this));
   }
 
   return result;

@@ -158,9 +158,9 @@ EffectsConfig::EffectsConfig(
 EffectsConfig::~EffectsConfig() = default;
 
 void EffectsConfig::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "effect"), this->effect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -169,7 +169,7 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "blur_level"), this->blur_level,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -178,7 +178,7 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "segmentation_gpu_api"), this->segmentation_gpu_api,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -187,7 +187,7 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "graph_max_frames_in_flight"), this->graph_max_frames_in_flight,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -196,7 +196,7 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "blur_enabled"), this->blur_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -205,7 +205,7 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "replace_enabled"), this->replace_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -214,7 +214,7 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "relight_enabled"), this->relight_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -223,7 +223,7 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "segmentation_model"), this->segmentation_model,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -232,7 +232,7 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "background_filepath"), this->background_filepath,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -241,7 +241,7 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "light_intensity"), this->light_intensity,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

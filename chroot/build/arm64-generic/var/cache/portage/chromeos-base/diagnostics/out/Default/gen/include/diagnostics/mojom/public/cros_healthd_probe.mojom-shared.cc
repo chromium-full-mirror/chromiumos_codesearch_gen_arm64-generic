@@ -5856,251 +5856,251 @@ TelemetryInfo_Data::TelemetryInfo_Data()
 }  // namespace cros_healthd
 }  // namespace ash
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::CpuArchitectureEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::CpuArchitectureEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::CpuArchitectureEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::CpuArchitectureEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::ProbeCategoryEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::ProbeCategoryEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::ProbeCategoryEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::ProbeCategoryEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::ErrorType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::ErrorType value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::ErrorType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::ErrorTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::ProcessState>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::ProcessState value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::ProcessState value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::ProcessStateToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::StorageDevicePurpose>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::StorageDevicePurpose value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::StorageDevicePurpose value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::StorageDevicePurposeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::EncryptionState>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::EncryptionState value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::EncryptionState value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::EncryptionStateToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::CryptoAlgorithm>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::CryptoAlgorithm value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::CryptoAlgorithm value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::CryptoAlgorithmToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothDeviceType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::BluetoothDeviceType value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothDeviceType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::BluetoothDeviceTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::BootMode>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::BootMode value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::BootMode value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::BootModeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::BusDeviceClass>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::BusDeviceClass value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::BusDeviceClass value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::BusDeviceClassToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::FwupdVersionFormat>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::FwupdVersionFormat value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::FwupdVersionFormat value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::FwupdVersionFormatToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::UsbVersion>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::UsbVersion value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::UsbVersion value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::UsbVersionToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::UsbSpecSpeed>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::UsbSpecSpeed value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::UsbSpecSpeed value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::UsbSpecSpeedToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::TpmGSCVersion>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::TpmGSCVersion value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::TpmGSCVersion value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::TpmGSCVersionToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::DisplayInputType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DisplayInputType value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DisplayInputType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DisplayInputTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::ThunderboltSecurityLevel>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::ThunderboltSecurityLevel value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::ThunderboltSecurityLevel value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::ThunderboltSecurityLevelToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::VirtualizationInfo_SMTControlToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::VulnerabilityInfo_Status>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VulnerabilityInfo_Status value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::VulnerabilityInfo_Status value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::VulnerabilityInfo_StatusToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::CpuVirtualizationInfo_TypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::OsInfo_EfiPlatformSizeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::PsrEvent_EventType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::PsrEvent_EventType value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::PsrEvent_EventType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::PsrEvent_EventTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::PsrInfo_LogState>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::PsrInfo_LogState value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::PsrInfo_LogState value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::PsrInfo_LogStateToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::InputDevice_ConnectionType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::InputDevice_ConnectionType value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::InputDevice_ConnectionType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::InputDevice_ConnectionTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::Sensor_Type>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Type value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Type value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::Sensor_TypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::Sensor_Location>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Location value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Location value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::Sensor_LocationToString(value));
 }
 

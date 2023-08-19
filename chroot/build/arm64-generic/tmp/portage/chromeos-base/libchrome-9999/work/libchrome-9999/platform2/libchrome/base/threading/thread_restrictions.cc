@@ -272,7 +272,7 @@ ScopedAllowBlocking::ScopedAllowBlocking(const Location& from_here)
 #endif
 {
   TRACE_EVENT_BEGIN(
-      "base", "ScopedAllowBlocking", [&](perfetto_libchrome::EventContext ctx) {
+      "base", "ScopedAllowBlocking", [&](perfetto::EventContext ctx) {
         ctx.event()->set_source_location_iid(
             base::trace_event::InternedSourceLocation::Get(&ctx, from_here));
       });
@@ -297,7 +297,7 @@ ScopedAllowBaseSyncPrimitivesOutsideBlockingScope::
 {
   TRACE_EVENT_BEGIN(
       "base", "ScopedAllowBaseSyncPrimitivesOutsideBlockingScope",
-      [&](perfetto_libchrome::EventContext ctx) {
+      [&](perfetto::EventContext ctx) {
         ctx.event()->set_source_location_iid(
             base::trace_event::InternedSourceLocation::Get(&ctx, from_here));
       });

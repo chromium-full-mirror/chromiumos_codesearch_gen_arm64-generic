@@ -18,7 +18,7 @@ void SendMojoMessage(MessageReceiver& receiver, Message& message) {
   bool is_sync_non_response = message.has_flag(Message::kFlagIsSync) &&
                               !message.has_flag(Message::kFlagIsResponse);
   TRACE_EVENT_INSTANT("toplevel.flow", "Send mojo message",
-                      perfetto_libchrome::Flow::Global(flow_id));
+                      perfetto::Flow::Global(flow_id));
 
   std::ignore = receiver.Accept(&message);
 
@@ -26,7 +26,7 @@ void SendMojoMessage(MessageReceiver& receiver, Message& message) {
   // the point which received the sync reply (us) to the flow.
   if (is_sync_non_response) {
     TRACE_EVENT_INSTANT("toplevel.flow", "Receive mojo sync reply",
-                        perfetto_libchrome::Flow::Global(flow_id));
+                        perfetto::Flow::Global(flow_id));
   }
 }
 
@@ -37,7 +37,7 @@ void SendMojoMessage(MessageReceiverWithResponder& receiver,
   bool is_sync_non_response = message.has_flag(Message::kFlagIsSync) &&
                               !message.has_flag(Message::kFlagIsResponse);
   TRACE_EVENT_INSTANT("toplevel.flow", "Send mojo message",
-                      perfetto_libchrome::Flow::Global(flow_id));
+                      perfetto::Flow::Global(flow_id));
 
   std::ignore = receiver.AcceptWithResponder(&message, std::move(responder));
 
@@ -45,7 +45,7 @@ void SendMojoMessage(MessageReceiverWithResponder& receiver,
   // the point which received the sync reply (us) to the flow.
   if (is_sync_non_response) {
     TRACE_EVENT_INSTANT("toplevel.flow", "Receive mojo sync reply",
-                        perfetto_libchrome::Flow::Global(flow_id));
+                        perfetto::Flow::Global(flow_id));
   }
 }
 

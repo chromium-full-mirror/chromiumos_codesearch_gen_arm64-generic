@@ -56,9 +56,9 @@ TimeDelta::TimeDelta(
 TimeDelta::~TimeDelta() = default;
 
 void TimeDelta::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "microseconds"), this->microseconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

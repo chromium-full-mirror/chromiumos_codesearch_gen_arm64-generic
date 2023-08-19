@@ -277,7 +277,7 @@ class  ImageAnnotatorConfig {
   std::string locale;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -426,7 +426,7 @@ class  ImageAnnotationScore {
   absl::optional<std::string> name;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -577,7 +577,7 @@ ImageAnnotationResult& operator=(const ImageAnnotationResult&) = delete;
   std::vector<ImageAnnotationScorePtr> annotations;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

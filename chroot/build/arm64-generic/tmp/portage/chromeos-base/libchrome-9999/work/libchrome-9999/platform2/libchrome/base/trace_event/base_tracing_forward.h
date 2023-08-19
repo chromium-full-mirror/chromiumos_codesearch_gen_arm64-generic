@@ -14,7 +14,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"  // nogncheck
 #else
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 class TracedValue;
 

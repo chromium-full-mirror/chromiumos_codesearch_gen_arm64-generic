@@ -47,7 +47,7 @@ GetPhaseAndIdForTraceLog(bool explicit_track, uint64_t track_uuid, char phase) {
 }  // namespace
 
 namespace trace_event_internal {
-const perfetto_libchrome::Track kDefaultTrack{};
+const perfetto::Track kDefaultTrack{};
 }  // namespace trace_event_internal
 
 namespace base {
@@ -119,7 +119,7 @@ namespace trace_event_internal {
 base::trace_event::TrackEventHandle CreateTrackEvent(
     char phase,
     const unsigned char* category_group_enabled,
-    perfetto_libchrome::StaticString name,
+    perfetto::StaticString name,
     base::TimeTicks ts,
     uint64_t track_uuid,
     bool explicit_track) {

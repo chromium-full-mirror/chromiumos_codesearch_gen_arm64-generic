@@ -269,7 +269,7 @@ class COMPONENT_EXPORT(MOJO_CPP_BINDINGS_BASE) Message {
   uint64_t GetTraceId() const;
 
   // Write a representation of this object into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue ctx) const;
+  void WriteIntoTrace(perfetto::TracedValue ctx) const;
 
 #if defined(ENABLE_IPC_FUZZER)
   const char* interface_name() const { return interface_name_; }

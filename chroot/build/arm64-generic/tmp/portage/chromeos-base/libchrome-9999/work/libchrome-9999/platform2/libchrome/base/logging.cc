@@ -507,8 +507,8 @@ std::string BuildCrashString(const char* file,
 
 // Invokes macro to record trace event when a log message is emitted.
 void TraceLogMessage(const char* file, int line, const std::string& message) {
-  TRACE_EVENT_INSTANT("log", "LogMessage", [&](perfetto_libchrome::EventContext ctx) {
-    perfetto_libchrome::protos::pbzero::LogMessage* log = ctx.event()->set_log_message();
+  TRACE_EVENT_INSTANT("log", "LogMessage", [&](perfetto::EventContext ctx) {
+    perfetto::protos::pbzero::LogMessage* log = ctx.event()->set_log_message();
     log->set_source_location_iid(base::trace_event::InternedSourceLocation::Get(
         &ctx, base::trace_event::TraceSourceLocation(/*function_name=*/nullptr,
                                                      file, line)));

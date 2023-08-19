@@ -119,7 +119,7 @@ void AppendValueDebugString(const TraceArguments& args,
 class PerfettoProtoAppender : public ConvertableToTraceFormat::ProtoAppender {
  public:
   explicit PerfettoProtoAppender(
-      perfetto_libchrome::protos::pbzero::DebugAnnotation* proto)
+      perfetto::protos::pbzero::DebugAnnotation* proto)
       : annotation_proto_(proto) {}
   ~PerfettoProtoAppender() override = default;
 
@@ -135,8 +135,8 @@ class PerfettoProtoAppender : public ConvertableToTraceFormat::ProtoAppender {
   }
 
  private:
-  std::vector<protozero_libchrome::ContiguousMemoryRange> ranges_;
-  raw_ptr<perfetto_libchrome::protos::pbzero::DebugAnnotation> annotation_proto_;
+  std::vector<protozero::ContiguousMemoryRange> ranges_;
+  raw_ptr<perfetto::protos::pbzero::DebugAnnotation> annotation_proto_;
 };
 #endif  // BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
 
@@ -319,7 +319,7 @@ void TraceArguments::AppendDebugString(std::string* out) {
 
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
 void ConvertableToTraceFormat::Add(
-    perfetto_libchrome::protos::pbzero::DebugAnnotation* annotation) const {
+    perfetto::protos::pbzero::DebugAnnotation* annotation) const {
   PerfettoProtoAppender proto_appender(annotation);
   if (AppendToProto(&proto_appender)) {
     return;

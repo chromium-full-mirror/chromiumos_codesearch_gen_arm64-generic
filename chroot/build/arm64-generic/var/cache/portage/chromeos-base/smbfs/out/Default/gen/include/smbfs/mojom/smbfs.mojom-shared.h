@@ -949,29 +949,29 @@ inline void CredentialsDataView::GetPasswordDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::smbfs::mojom::MountError> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::smbfs::mojom::MountError value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::smbfs::mojom::MountError value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::smbfs::mojom::DeleteRecursivelyError> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::smbfs::mojom::DeleteRecursivelyError value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::smbfs::mojom::DeleteRecursivelyError value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::smbfs::mojom::KerberosConfig_Source> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::smbfs::mojom::KerberosConfig_Source value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::smbfs::mojom::KerberosConfig_Source value);
 };
 
 } // namespace perfetto

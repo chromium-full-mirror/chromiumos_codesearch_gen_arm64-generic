@@ -260,11 +260,11 @@ Unsupported_Data::Unsupported_Data()
 }  // namespace cros_healthd
 }  // namespace ash
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::Exception_Reason>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Exception_Reason value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::Exception_Reason value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::Exception_ReasonToString(value));
 }
 

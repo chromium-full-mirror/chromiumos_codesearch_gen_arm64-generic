@@ -55,9 +55,9 @@ ReadOnlySharedMemoryRegion::ReadOnlySharedMemoryRegion(
 ReadOnlySharedMemoryRegion::~ReadOnlySharedMemoryRegion() = default;
 
 void ReadOnlySharedMemoryRegion::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "buffer"), this->buffer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -83,9 +83,9 @@ WritableSharedMemoryRegion::WritableSharedMemoryRegion(
 WritableSharedMemoryRegion::~WritableSharedMemoryRegion() = default;
 
 void WritableSharedMemoryRegion::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "buffer"), this->buffer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -111,9 +111,9 @@ UnsafeSharedMemoryRegion::UnsafeSharedMemoryRegion(
 UnsafeSharedMemoryRegion::~UnsafeSharedMemoryRegion() = default;
 
 void UnsafeSharedMemoryRegion::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "buffer"), this->buffer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

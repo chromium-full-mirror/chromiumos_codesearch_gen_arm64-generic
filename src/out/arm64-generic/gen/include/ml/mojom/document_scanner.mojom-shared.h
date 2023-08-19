@@ -445,11 +445,11 @@ inline void DoPostProcessingResultDataView::GetProcessedJpegImageDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::DocumentScannerResultStatus> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::DocumentScannerResultStatus value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::machine_learning::mojom::DocumentScannerResultStatus value);
 };
 
 } // namespace perfetto

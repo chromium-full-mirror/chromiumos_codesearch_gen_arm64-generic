@@ -104,12 +104,12 @@ class BASE_EXPORT SequenceManager {
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
     void SetProtoPriorityConverter(
-        perfetto_libchrome::protos::pbzero::SequenceManagerTask::Priority (
+        perfetto::protos::pbzero::SequenceManagerTask::Priority (
             *proto_priority_converter)(TaskQueue::QueuePriority)) {
       proto_priority_converter_ = proto_priority_converter;
     }
 
-    perfetto_libchrome::protos::pbzero::SequenceManagerTask::Priority TaskPriorityToProto(
+    perfetto::protos::pbzero::SequenceManagerTask::Priority TaskPriorityToProto(
         TaskQueue::QueuePriority priority) const;
 #endif
 
@@ -118,7 +118,7 @@ class BASE_EXPORT SequenceManager {
     TaskQueue::QueuePriority default_priority_;
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
-    perfetto_libchrome::protos::pbzero::SequenceManagerTask::Priority (
+    perfetto::protos::pbzero::SequenceManagerTask::Priority (
         *proto_priority_converter_)(TaskQueue::QueuePriority) = nullptr;
 #endif
 

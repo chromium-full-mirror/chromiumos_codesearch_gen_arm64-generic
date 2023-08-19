@@ -57,9 +57,9 @@ MemoryRoutineArgument::MemoryRoutineArgument(
 MemoryRoutineArgument::~MemoryRoutineArgument() = default;
 
 void MemoryRoutineArgument::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_testing_mem_kib"), this->max_testing_mem_kib,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -83,7 +83,7 @@ size_t AudioDriverRoutineArgument::Hash(size_t seed) const {
 }
 
 void AudioDriverRoutineArgument::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -102,9 +102,9 @@ CpuStressRoutineArgument::CpuStressRoutineArgument(
 CpuStressRoutineArgument::~CpuStressRoutineArgument() = default;
 
 void CpuStressRoutineArgument::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "exec_duration"), this->exec_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -128,7 +128,7 @@ size_t UfsLifetimeRoutineArgument::Hash(size_t seed) const {
 }
 
 void UfsLifetimeRoutineArgument::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -153,9 +153,9 @@ DiskReadRoutineArgument::DiskReadRoutineArgument(
 DiskReadRoutineArgument::~DiskReadRoutineArgument() = default;
 
 void DiskReadRoutineArgument::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -164,7 +164,7 @@ void DiskReadRoutineArgument::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "disk_read_duration"), this->disk_read_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -173,7 +173,7 @@ void DiskReadRoutineArgument::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "file_size_mib"), this->file_size_mib,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -199,9 +199,9 @@ CpuCacheRoutineArgument::CpuCacheRoutineArgument(
 CpuCacheRoutineArgument::~CpuCacheRoutineArgument() = default;
 
 void CpuCacheRoutineArgument::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "exec_duration"), this->exec_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -227,9 +227,9 @@ PrimeSearchRoutineArgument::PrimeSearchRoutineArgument(
 PrimeSearchRoutineArgument::~PrimeSearchRoutineArgument() = default;
 
 void PrimeSearchRoutineArgument::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "exec_duration"), this->exec_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -258,9 +258,9 @@ VolumeButtonRoutineArgument::VolumeButtonRoutineArgument(
 VolumeButtonRoutineArgument::~VolumeButtonRoutineArgument() = default;
 
 void VolumeButtonRoutineArgument::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -269,7 +269,7 @@ void VolumeButtonRoutineArgument::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "timeout"), this->timeout,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -301,9 +301,9 @@ LedLitUpRoutineArgument::LedLitUpRoutineArgument(
 LedLitUpRoutineArgument::~LedLitUpRoutineArgument() = default;
 
 void LedLitUpRoutineArgument::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -312,7 +312,7 @@ void LedLitUpRoutineArgument::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "color"), this->color,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -321,7 +321,7 @@ void LedLitUpRoutineArgument::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "replier"), this->replier,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -347,9 +347,9 @@ FloatingPointRoutineArgument::FloatingPointRoutineArgument(
 FloatingPointRoutineArgument::~FloatingPointRoutineArgument() = default;
 
 void FloatingPointRoutineArgument::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "exec_duration"), this->exec_duration,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -378,9 +378,9 @@ RoutineState::RoutineState(
 RoutineState::~RoutineState() = default;
 
 void RoutineState::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "percentage"), this->percentage,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -389,7 +389,7 @@ void RoutineState::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state_union"), this->state_union,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -413,7 +413,7 @@ size_t RoutineStateInitialized::Hash(size_t seed) const {
 }
 
 void RoutineStateInitialized::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -430,7 +430,7 @@ size_t RoutineStateRunning::Hash(size_t seed) const {
 }
 
 void RoutineStateRunning::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -457,9 +457,9 @@ size_t RoutineStateWaiting::Hash(size_t seed) const {
 }
 
 void RoutineStateWaiting::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "reason"), this->reason,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -468,7 +468,7 @@ void RoutineStateWaiting::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "message"), this->message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -497,9 +497,9 @@ RoutineStateFinished::RoutineStateFinished(
 RoutineStateFinished::~RoutineStateFinished() = default;
 
 void RoutineStateFinished::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "has_passed"), this->has_passed,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -508,7 +508,7 @@ void RoutineStateFinished::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "detail"), this->detail,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -537,9 +537,9 @@ MemoryRoutineDetail::MemoryRoutineDetail(
 MemoryRoutineDetail::~MemoryRoutineDetail() = default;
 
 void MemoryRoutineDetail::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bytes_tested"), this->bytes_tested,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -548,7 +548,7 @@ void MemoryRoutineDetail::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "result"), this->result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -582,9 +582,9 @@ size_t AudioDriverRoutineDetail::Hash(size_t seed) const {
 }
 
 void AudioDriverRoutineDetail::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "internal_card_detected"), this->internal_card_detected,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -593,7 +593,7 @@ void AudioDriverRoutineDetail::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "audio_devices_succeed_to_open"), this->audio_devices_succeed_to_open,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -617,7 +617,7 @@ size_t CpuStressRoutineDetail::Hash(size_t seed) const {
 }
 
 void CpuStressRoutineDetail::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -648,9 +648,9 @@ size_t UfsLifetimeRoutineDetail::Hash(size_t seed) const {
 }
 
 void UfsLifetimeRoutineDetail::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "pre_eol_info"), this->pre_eol_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -659,7 +659,7 @@ void UfsLifetimeRoutineDetail::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_life_time_est_a"), this->device_life_time_est_a,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -668,7 +668,7 @@ void UfsLifetimeRoutineDetail::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_life_time_est_b"), this->device_life_time_est_b,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -692,7 +692,7 @@ size_t DiskReadRoutineDetail::Hash(size_t seed) const {
 }
 
 void DiskReadRoutineDetail::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -709,7 +709,7 @@ size_t CpuCacheRoutineDetail::Hash(size_t seed) const {
 }
 
 void CpuCacheRoutineDetail::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -726,7 +726,7 @@ size_t PrimeSearchRoutineDetail::Hash(size_t seed) const {
 }
 
 void PrimeSearchRoutineDetail::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -743,7 +743,7 @@ size_t FloatingPointRoutineDetail::Hash(size_t seed) const {
 }
 
 void FloatingPointRoutineDetail::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -765,9 +765,9 @@ MemtesterResult::MemtesterResult(
 MemtesterResult::~MemtesterResult() = default;
 
 void MemtesterResult::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "passed_items"), this->passed_items,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -776,7 +776,7 @@ void MemtesterResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "failed_items"), this->failed_items,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -800,7 +800,7 @@ size_t VolumeButtonRoutineDetail::Hash(size_t seed) const {
 }
 
 void VolumeButtonRoutineDetail::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -817,7 +817,7 @@ size_t LedLitUpRoutineDetail::Hash(size_t seed) const {
 }
 
 void LedLitUpRoutineDetail::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -1382,15 +1382,15 @@ void CrosHealthdRoutinesServiceProxy::CreateRoutine(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdRoutinesService::CreateRoutine", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("routine_argument"), in_routine_argument,
                         "<value of type RoutineArgumentPtr>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("routine_receiver"), in_routine_receiver,
                         "<value of type ::mojo::PendingReceiver<RoutineControl>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("routine_observer"), in_routine_observer,
                         "<value of type ::mojo::PendingRemote<RoutineObserver>>");
    });
@@ -1442,9 +1442,9 @@ void CrosHealthdRoutinesServiceProxy::IsRoutineArgumentSupported(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineArgumentSupported", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("routine_argument"), in_routine_argument,
                         "<value of type RoutineArgumentPtr>");
    });
@@ -1565,9 +1565,9 @@ void CrosHealthdRoutinesService_IsRoutineArgumentSupported_ProxyToResponder::Run
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdRoutinesService::IsRoutineArgumentSupported", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("status"), in_status,
                         "<value of type ::ash::cros_healthd::mojom::SupportStatusPtr>");
    });
@@ -1909,9 +1909,9 @@ void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("matched"), in_matched,
                         "<value of type bool>");
    });
@@ -2248,9 +2248,9 @@ void RoutineControl_GetState_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::RoutineControl::GetState", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type RoutineStatePtr>");
    });
@@ -2451,9 +2451,9 @@ void RoutineObserverProxy::OnRoutineStateChange(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::RoutineObserver::OnRoutineStateChange", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
                         "<value of type RoutineStatePtr>");
    });

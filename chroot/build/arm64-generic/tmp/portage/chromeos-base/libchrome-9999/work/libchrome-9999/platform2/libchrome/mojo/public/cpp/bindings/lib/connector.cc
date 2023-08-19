@@ -543,7 +543,7 @@ bool Connector::DispatchMessage(ScopedMessageHandle handle) {
   // it once the new implementation proves to be stable.
   TRACE_EVENT(
       TRACE_DISABLED_BY_DEFAULT("mojom"), "Connector::DispatchMessage",
-      [&](perfetto_libchrome::EventContext& ctx) {
+      [&](perfetto::EventContext& ctx) {
         ctx.event()->set_chrome_mojo_event_info()->set_mojo_interface_tag(
             interface_name_);
 
@@ -552,7 +552,7 @@ bool Connector::DispatchMessage(ScopedMessageHandle handle) {
         if (!*flow_enabled)
           return;
 
-        perfetto_libchrome::Flow::Global(message.GetTraceId())(ctx);
+        perfetto::Flow::Global(message.GetTraceId())(ctx);
       });
 
   if (connection_group_)

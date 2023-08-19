@@ -1804,171 +1804,171 @@ NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams_Data::NetworkDiagn
 }  // namespace network_diagnostics
 }  // namespace chromeos
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::RoutineType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::RoutineType value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::RoutineType value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::RoutineTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::RoutineVerdict>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::RoutineVerdict value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::RoutineVerdict value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::RoutineVerdictToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::LanConnectivityProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::LanConnectivityProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::LanConnectivityProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::LanConnectivityProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::SignalStrengthProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::SignalStrengthProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::SignalStrengthProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::SignalStrengthProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::GatewayCanBePingedProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::GatewayCanBePingedProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::GatewayCanBePingedProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::GatewayCanBePingedProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::HasSecureWiFiConnectionProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::HasSecureWiFiConnectionProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::HasSecureWiFiConnectionProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::HasSecureWiFiConnectionProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::DnsResolverPresentProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::DnsResolverPresentProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::DnsResolverPresentProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::DnsResolverPresentProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::DnsLatencyProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::DnsLatencyProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::DnsLatencyProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::DnsLatencyProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::DnsResolutionProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::DnsResolutionProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::DnsResolutionProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::DnsResolutionProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::CaptivePortalProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::CaptivePortalProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::CaptivePortalProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::CaptivePortalProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::HttpFirewallProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::HttpFirewallProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::HttpFirewallProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::HttpFirewallProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::HttpsFirewallProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::HttpsFirewallProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::HttpsFirewallProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::HttpsFirewallProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::HttpsLatencyProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::HttpsLatencyProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::HttpsLatencyProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::HttpsLatencyProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::VideoConferencingProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::VideoConferencingProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::VideoConferencingProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::VideoConferencingProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::ArcHttpProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::ArcHttpProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::ArcHttpProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::ArcHttpProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::ArcDnsResolutionProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::ArcDnsResolutionProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::ArcDnsResolutionProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::ArcDnsResolutionProblemToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::ArcPingProblem>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::chromeos::network_diagnostics::mojom::ArcPingProblem value) {
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::ArcPingProblem value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::ArcPingProblemToString(value));
 }
 

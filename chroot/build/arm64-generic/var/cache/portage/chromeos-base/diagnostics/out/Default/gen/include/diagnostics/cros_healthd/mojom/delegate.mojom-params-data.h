@@ -527,6 +527,38 @@ class  Delegate_RunFloatingPoint_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_RunFloatingPoint_ResponseParams_Data) == 16,
               "Bad sizeof(Delegate_RunFloatingPoint_ResponseParams_Data)");
+class  Delegate_GetAllFanSpeed_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetAllFanSpeed_Params_Data>;
+
+  Delegate_GetAllFanSpeed_Params_Data();
+  ~Delegate_GetAllFanSpeed_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetAllFanSpeed_Params_Data) == 8,
+              "Bad sizeof(Delegate_GetAllFanSpeed_Params_Data)");
+class  Delegate_GetAllFanSpeed_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> fan_rpms;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetAllFanSpeed_ResponseParams_Data>;
+
+  Delegate_GetAllFanSpeed_ResponseParams_Data();
+  ~Delegate_GetAllFanSpeed_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetAllFanSpeed_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_GetAllFanSpeed_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1358,6 +1390,67 @@ class Delegate_RunFloatingPoint_ResponseParamsDataView {
 };
 
 
+class Delegate_GetAllFanSpeed_ParamsDataView {
+ public:
+  Delegate_GetAllFanSpeed_ParamsDataView() = default;
+
+  Delegate_GetAllFanSpeed_ParamsDataView(
+      internal::Delegate_GetAllFanSpeed_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_GetAllFanSpeed_Params_Data* data_ = nullptr;
+};
+
+
+class Delegate_GetAllFanSpeed_ResponseParamsDataView {
+ public:
+  Delegate_GetAllFanSpeed_ResponseParamsDataView() = default;
+
+  Delegate_GetAllFanSpeed_ResponseParamsDataView(
+      internal::Delegate_GetAllFanSpeed_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetFanRpmsDataView(
+      mojo::ArrayDataView<uint32_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFanRpms(UserType* output) {
+    
+    auto* pointer = data_->fan_rpms.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
+        pointer, output, message_);
+  }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_GetAllFanSpeed_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -1492,6 +1585,20 @@ inline void Delegate_RunFloatingPoint_ParamsDataView::GetExecDurationDataView(
 }
 
 
+
+
+
+
+inline void Delegate_GetAllFanSpeed_ResponseParamsDataView::GetFanRpmsDataView(
+    mojo::ArrayDataView<uint32_t>* output) {
+  auto pointer = data_->fan_rpms.Get();
+  *output = mojo::ArrayDataView<uint32_t>(pointer, message_);
+}
+inline void Delegate_GetAllFanSpeed_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 }  // namespace mojom
 }  // namespace cros_healthd

@@ -1557,61 +1557,61 @@ RoutineObserver_OnRoutineStateChange_Params_Data::RoutineObserver_OnRoutineState
 }  // namespace cros_healthd
 }  // namespace ash
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::MemtesterTestItemEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::MemtesterTestItemEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::MemtesterTestItemEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::MemtesterTestItemEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadTypeEnum>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiskReadTypeEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::DiskReadTypeEnumToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::LedName>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::LedName value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedName value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::LedNameToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::LedColor>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::LedColor value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedColor value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::LedColorToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::VolumeButtonRoutineArgument_ButtonTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::mojom::RoutineStateWaiting_Reason>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::RoutineStateWaiting_Reason value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::RoutineStateWaiting_Reason value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::RoutineStateWaiting_ReasonToString(value));
 }
 

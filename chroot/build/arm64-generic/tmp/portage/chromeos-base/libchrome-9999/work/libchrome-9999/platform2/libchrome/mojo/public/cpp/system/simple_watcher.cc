@@ -268,7 +268,7 @@ void SimpleWatcher::OnHandleReady(int watch_id,
     // helps identify the cause of janks. It is ok to pass |handler_tag_|
     // here since it is a string literal.
     TRACE_EVENT("toplevel", "SimpleWatcher::OnHandleReady",
-                [this](perfetto_libchrome::EventContext ctx) {
+                [this](perfetto::EventContext ctx) {
                   ctx.event()
                       ->set_chrome_mojo_event_info()
                       ->set_watcher_notify_interface_tag(handler_tag_);

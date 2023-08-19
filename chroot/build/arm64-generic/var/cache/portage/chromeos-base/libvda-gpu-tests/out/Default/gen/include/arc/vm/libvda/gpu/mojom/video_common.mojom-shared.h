@@ -558,29 +558,29 @@ inline void VideoFrameLayoutDataView::GetPlanesDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::arc::mojom::VideoCodecProfile> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::arc::mojom::VideoCodecProfile value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::VideoCodecProfile value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::arc::mojom::HalPixelFormat> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::arc::mojom::HalPixelFormat value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::HalPixelFormat value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::arc::mojom::VideoPixelFormat> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::arc::mojom::VideoPixelFormat value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::arc::mojom::VideoPixelFormat value);
 };
 
 } // namespace perfetto

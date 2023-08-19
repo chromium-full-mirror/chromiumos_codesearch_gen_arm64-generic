@@ -60,9 +60,9 @@ size_t ImageAnnotatorConfig::Hash(size_t seed) const {
 }
 
 void ImageAnnotatorConfig::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "locale"), this->locale,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -97,9 +97,9 @@ ImageAnnotationScore::ImageAnnotationScore(
 ImageAnnotationScore::~ImageAnnotationScore() = default;
 
 void ImageAnnotationScore::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -108,7 +108,7 @@ void ImageAnnotationScore::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "confidence"), this->confidence,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -117,7 +117,7 @@ void ImageAnnotationScore::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "mid"), this->mid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -126,7 +126,7 @@ void ImageAnnotationScore::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -155,9 +155,9 @@ ImageAnnotationResult::ImageAnnotationResult(
 ImageAnnotationResult::~ImageAnnotationResult() = default;
 
 void ImageAnnotationResult::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -166,7 +166,7 @@ void ImageAnnotationResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "annotations"), this->annotations,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -298,18 +298,18 @@ void ImageContentAnnotatorProxy::AnnotateRawImage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::ImageContentAnnotator::AnnotateRawImage", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("rgb_bytes"), in_rgb_bytes,
                         "<value of type ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("width"), in_width,
                         "<value of type uint32_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("height"), in_height,
                         "<value of type uint32_t>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("line_stride"), in_line_stride,
                         "<value of type uint32_t>");
    });
@@ -359,9 +359,9 @@ void ImageContentAnnotatorProxy::AnnotateEncodedImage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::ImageContentAnnotator::AnnotateEncodedImage", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("encoded_image"), in_encoded_image,
                         "<value of type ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr>");
    });
@@ -484,9 +484,9 @@ void ImageContentAnnotator_AnnotateRawImage_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::ImageContentAnnotator::AnnotateRawImage", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type ImageAnnotationResultPtr>");
    });
@@ -612,9 +612,9 @@ void ImageContentAnnotator_AnnotateEncodedImage_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::ImageContentAnnotator::AnnotateEncodedImage", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type ImageAnnotationResultPtr>");
    });

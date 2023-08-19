@@ -207,7 +207,7 @@ Message::Message(uint32_t name,
   uint32_t trace_nonce =
       static_cast<uint32_t>(base::trace_event::GetNextGlobalTraceId());
   TRACE_EVENT(TRACE_DISABLED_BY_DEFAULT("mojom"), "mojo::Message::Message",
-              perfetto_libchrome::Flow::Global(::mojo::GetTraceId(name, trace_nonce)),
+              perfetto::Flow::Global(::mojo::GetTraceId(name, trace_nonce)),
               "name", name, "flags", flags, "trace_nonce", trace_nonce);
 
   CreateSerializedMessageObject(
@@ -236,7 +236,7 @@ Message::Message(ScopedMessageHandle handle,
       static_cast<uint32_t>(base::trace_event::GetNextGlobalTraceId());
   TRACE_EVENT(
       "mojom", "mojo::Message::Message_FromHandle",
-      perfetto_libchrome::Flow::Global(::mojo::GetTraceId(header.name, trace_nonce)),
+      perfetto::Flow::Global(::mojo::GetTraceId(header.name, trace_nonce)),
       "this", this);
 
   void* buffer;
@@ -566,8 +566,8 @@ uint64_t Message::GetTraceId() const {
   return ::mojo::GetTraceId(header()->name, header()->trace_nonce);
 }
 
-void Message::WriteIntoTrace(perfetto_libchrome::TracedValue ctx) const {
-  perfetto_libchrome::TracedDictionary dict = std::move(ctx).WriteDictionary();
+void Message::WriteIntoTrace(perfetto::TracedValue ctx) const {
+  perfetto::TracedDictionary dict = std::move(ctx).WriteDictionary();
 
   if (header()) {
     dict.Add("name", header()->name);

@@ -268,7 +268,7 @@ class  RunRoutineResponse {
   DiagnosticRoutineStatusEnum status;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -409,7 +409,7 @@ class  InteractiveRoutineUpdate {
   DiagnosticRoutineUserMessageEnum user_message;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -553,7 +553,7 @@ class  NonInteractiveRoutineUpdate {
   std::string status_message;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -833,7 +833,7 @@ RoutineUpdate& operator=(const RoutineUpdate&) = delete;
   RoutineUpdateUnionPtr routine_update_union;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

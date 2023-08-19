@@ -1460,38 +1460,38 @@ inline void SpeechRecognizerEventDataView::GetFinalResultDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::OptionalBool> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::OptionalBool value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::machine_learning::mojom::OptionalBool value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::SodaRecognitionMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::SodaRecognitionMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::machine_learning::mojom::SodaRecognitionMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::EndpointerType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointerType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::machine_learning::mojom::EndpointerType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::EndpointReason> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointReason value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::machine_learning::mojom::EndpointReason value);
 };
 
 } // namespace perfetto

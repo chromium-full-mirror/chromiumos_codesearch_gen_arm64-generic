@@ -471,29 +471,29 @@ inline void CameraInfoDataView::GetConflictingDevicesDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraFacing> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::CameraFacing value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::CameraFacing value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraDeviceStatus> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::CameraDeviceStatus value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::CameraDeviceStatus value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::TorchModeStatus> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::TorchModeStatus value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::TorchModeStatus value);
 };
 
 } // namespace perfetto

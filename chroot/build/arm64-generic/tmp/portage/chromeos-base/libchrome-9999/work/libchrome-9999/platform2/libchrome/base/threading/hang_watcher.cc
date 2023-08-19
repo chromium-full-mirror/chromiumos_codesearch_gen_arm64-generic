@@ -747,8 +747,8 @@ void HangWatcher::WatchStateSnapShot::Init(
       if (ThreadTypeLoggingLevelGreaterOrEqual(watch_state.get()->thread_type(),
                                                LoggingLevel::kUmaOnly)) {
         const PlatformThreadId thread_id = watch_state.get()->GetThreadID();
-        const auto track = perfetto_libchrome::Track::FromPointer(
-            this, perfetto_libchrome::ThreadTrack::ForThread(thread_id));
+        const auto track = perfetto::Track::FromPointer(
+            this, perfetto::ThreadTrack::ForThread(thread_id));
         TRACE_EVENT_BEGIN("base", "HangWatcher::ThreadHung", track, deadline);
         TRACE_EVENT_END("base", track, now);
         // TODO(crbug.com/1021571): Remove this once fixed.

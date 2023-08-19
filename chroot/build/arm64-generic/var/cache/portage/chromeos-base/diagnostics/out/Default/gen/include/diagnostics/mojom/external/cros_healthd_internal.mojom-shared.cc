@@ -358,11 +358,11 @@ ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data::ChromiumDataCollec
 }  // namespace cros_healthd
 }  // namespace ash
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType value) {
+   perfetto::TracedValue context, ::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType value) {
   return std::move(context).WriteString(::ash::cros_healthd::internal::mojom::InputDevice_ConnectionTypeToString(value));
 }
 

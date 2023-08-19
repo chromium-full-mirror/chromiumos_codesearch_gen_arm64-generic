@@ -2734,6 +2734,169 @@ class ChromeUnguessableToken : public ::protozero::Message {
   }
 };
 
+class CrasUnified_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  CrasUnified_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit CrasUnified_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit CrasUnified_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_underrun_duration_us() const { return at<1>().valid(); }
+  int64_t underrun_duration_us() const { return at<1>().as_int64(); }
+  bool has_last_underrun_duration_us() const { return at<2>().valid(); }
+  int64_t last_underrun_duration_us() const { return at<2>().as_int64(); }
+  bool has_underrun_glitch_duration_us() const { return at<3>().valid(); }
+  int64_t underrun_glitch_duration_us() const { return at<3>().as_int64(); }
+  bool has_latency_us() const { return at<4>().valid(); }
+  int64_t latency_us() const { return at<4>().as_int64(); }
+  bool has_requested_frames() const { return at<5>().valid(); }
+  int32_t requested_frames() const { return at<5>().as_int32(); }
+  bool has_filled_frames() const { return at<6>().valid(); }
+  uint32_t filled_frames() const { return at<6>().as_uint32(); }
+  bool has_sample_rate() const { return at<7>().valid(); }
+  int32_t sample_rate() const { return at<7>().as_int32(); }
+};
+
+class CrasUnified : public ::protozero::Message {
+ public:
+  using Decoder = CrasUnified_Decoder;
+  enum : int32_t {
+    kUnderrunDurationUsFieldNumber = 1,
+    kLastUnderrunDurationUsFieldNumber = 2,
+    kUnderrunGlitchDurationUsFieldNumber = 3,
+    kLatencyUsFieldNumber = 4,
+    kRequestedFramesFieldNumber = 5,
+    kFilledFramesFieldNumber = 6,
+    kSampleRateFieldNumber = 7,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.CrasUnified"; }
+
+
+  using FieldMetadata_UnderrunDurationUs =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CrasUnified>;
+
+  static constexpr FieldMetadata_UnderrunDurationUs kUnderrunDurationUs{};
+  void set_underrun_duration_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_UnderrunDurationUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LastUnderrunDurationUs =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CrasUnified>;
+
+  static constexpr FieldMetadata_LastUnderrunDurationUs kLastUnderrunDurationUs{};
+  void set_last_underrun_duration_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LastUnderrunDurationUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_UnderrunGlitchDurationUs =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CrasUnified>;
+
+  static constexpr FieldMetadata_UnderrunGlitchDurationUs kUnderrunGlitchDurationUs{};
+  void set_underrun_glitch_duration_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_UnderrunGlitchDurationUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LatencyUs =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      CrasUnified>;
+
+  static constexpr FieldMetadata_LatencyUs kLatencyUs{};
+  void set_latency_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LatencyUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_RequestedFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      CrasUnified>;
+
+  static constexpr FieldMetadata_RequestedFrames kRequestedFrames{};
+  void set_requested_frames(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_RequestedFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FilledFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      CrasUnified>;
+
+  static constexpr FieldMetadata_FilledFrames kFilledFrames{};
+  void set_filled_frames(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FilledFrames::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SampleRate =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      CrasUnified>;
+
+  static constexpr FieldMetadata_SampleRate kSampleRate{};
+  void set_sample_rate(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SampleRate::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+};
+
 class LinuxPulseOutput_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   LinuxPulseOutput_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
@@ -10568,6 +10731,20 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_ChromeGraphicsPipeline kChromeGraphicsPipeline{};
   template <typename T = ChromeGraphicsPipeline> T* set_chrome_graphics_pipeline() {
     return BeginNestedMessage<T>(1052);
+  }
+
+
+  using FieldMetadata_ChromeosCrasUnified =
+    ::protozero::proto_utils::FieldMetadata<
+      1053,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      CrasUnified,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_ChromeosCrasUnified kChromeosCrasUnified{};
+  template <typename T = CrasUnified> T* set_chromeos_cras_unified() {
+    return BeginNestedMessage<T>(1053);
   }
 
 };

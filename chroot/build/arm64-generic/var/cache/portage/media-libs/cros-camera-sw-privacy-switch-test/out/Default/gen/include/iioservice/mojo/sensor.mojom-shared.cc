@@ -1257,71 +1257,71 @@ SensorDeviceEventsObserver_OnErrorOccurred_Params_Data::SensorDeviceEventsObserv
 }  // namespace mojom
 }  // namespace cros
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::DeviceType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::DeviceType value) {
+   perfetto::TracedValue context, ::cros::mojom::DeviceType value) {
   return std::move(context).WriteString(::cros::mojom::DeviceTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::ObserverErrorType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::ObserverErrorType value) {
+   perfetto::TracedValue context, ::cros::mojom::ObserverErrorType value) {
   return std::move(context).WriteString(::cros::mojom::ObserverErrorTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::SensorServiceDisconnectReason>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::SensorServiceDisconnectReason value) {
+   perfetto::TracedValue context, ::cros::mojom::SensorServiceDisconnectReason value) {
   return std::move(context).WriteString(::cros::mojom::SensorServiceDisconnectReasonToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::SensorDeviceDisconnectReason>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::SensorDeviceDisconnectReason value) {
+   perfetto::TracedValue context, ::cros::mojom::SensorDeviceDisconnectReason value) {
   return std::move(context).WriteString(::cros::mojom::SensorDeviceDisconnectReasonToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::IioChanType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::IioChanType value) {
+   perfetto::TracedValue context, ::cros::mojom::IioChanType value) {
   return std::move(context).WriteString(::cros::mojom::IioChanTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::IioEventType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::IioEventType value) {
+   perfetto::TracedValue context, ::cros::mojom::IioEventType value) {
   return std::move(context).WriteString(::cros::mojom::IioEventTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::IioEventDirection>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::IioEventDirection value) {
+   perfetto::TracedValue context, ::cros::mojom::IioEventDirection value) {
   return std::move(context).WriteString(::cros::mojom::IioEventDirectionToString(value));
 }
 

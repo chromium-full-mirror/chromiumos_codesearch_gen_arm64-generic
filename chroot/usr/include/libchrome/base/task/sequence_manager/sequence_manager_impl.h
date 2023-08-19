@@ -153,7 +153,7 @@ class BASE_EXPORT SequenceManagerImpl
   bool HasPendingHighResolutionTasks() override;
   bool OnSystemIdle() override;
   void MaybeEmitTaskDetails(
-      perfetto_libchrome::EventContext& ctx,
+      perfetto::EventContext& ctx,
       const SequencedTaskSource::SelectedTask& selected_task) const override;
 
   void AddDestructionObserver(

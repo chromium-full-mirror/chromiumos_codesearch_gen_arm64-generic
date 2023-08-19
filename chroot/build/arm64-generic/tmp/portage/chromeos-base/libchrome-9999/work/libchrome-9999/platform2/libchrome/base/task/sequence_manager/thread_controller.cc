@@ -97,11 +97,11 @@ void ThreadController::RunLevelTracker::TimeKeeper::EnableRecording(
       // In the non-SDK version, ThreadTrack::Current() returns a different
       // track id on some platforms (for example Mac OS), which results in
       // async tracks not being associated with their thread.
-      perfetto_libchrome::ThreadTrack::ForThread(base::PlatformThread::CurrentId()));
+      perfetto::ThreadTrack::ForThread(base::PlatformThread::CurrentId()));
   // TODO(1006541): Use Perfetto library to name this Track.
   // auto desc = perfetto_track_->Serialize();
   // desc.set_name(JoinString({"MessagePumpPhases", thread_name}, " "));
-  // perfetto_libchrome::internal::TrackEventDataSource::SetTrackDescriptor(
+  // perfetto::internal::TrackEventDataSource::SetTrackDescriptor(
   //     *perfetto_track_, desc);
 #endif  // BUILDFLAG(ENABLE_BASE_TRACING)
 }
@@ -224,7 +224,7 @@ void ThreadController::RunLevelTracker::RecordScheduleWork() {
     TRACE_EVENT_INSTANT("wakeup.flow", "ScheduleWorkToSelf");
   } else {
     TRACE_EVENT_INSTANT("wakeup.flow", "ScheduleWork",
-                        perfetto_libchrome::Flow::FromPointer(this));
+                        perfetto::Flow::FromPointer(this));
   }
 }
 
@@ -384,7 +384,7 @@ void ThreadController::RunLevelTracker::TimeKeeper::OnApplicationTaskSelected(
 #if BUILDFLAG(ENABLE_BASE_TRACING)
       // Match the END event which was already emitted by RecordWakeUp().
       TRACE_EVENT_BEGIN(TRACE_DISABLED_BY_DEFAULT("base"),
-                        perfetto_libchrome::StaticString(PhaseToEventName(kScheduled)),
+                        perfetto::StaticString(PhaseToEventName(kScheduled)),
                         *perfetto_track_, queue_time);
 #endif  // BUILDFLAG(ENABLE_BASE_TRACING)
     }
@@ -435,7 +435,7 @@ void ThreadController::RunLevelTracker::TimeKeeper::RecordEndOfPhase(
 
     const char* event_name = PhaseToEventName(phase);
     TRACE_EVENT_BEGIN(TRACE_DISABLED_BY_DEFAULT("base"),
-                      perfetto_libchrome::StaticString(event_name), *perfetto_track_,
+                      perfetto::StaticString(event_name), *perfetto_track_,
                       last_phase_end_);
     TRACE_EVENT_END(TRACE_DISABLED_BY_DEFAULT("base"), *perfetto_track_,
                     phase_end);

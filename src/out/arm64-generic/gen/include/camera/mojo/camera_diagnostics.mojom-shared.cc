@@ -288,21 +288,21 @@ CameraDiagnostics_GetDiagnosticsResult_ResponseParams_Data::CameraDiagnostics_Ge
 }  // namespace mojom
 }  // namespace cros
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::DiagnosticsResult>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::DiagnosticsResult value) {
+   perfetto::TracedValue context, ::cros::mojom::DiagnosticsResult value) {
   return std::move(context).WriteString(::cros::mojom::DiagnosticsResultToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Response>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Response value) {
+   perfetto::TracedValue context, ::cros::mojom::Response value) {
   return std::move(context).WriteString(::cros::mojom::ResponseToString(value));
 }
 

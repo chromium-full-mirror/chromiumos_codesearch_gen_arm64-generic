@@ -206,7 +206,7 @@ void ThreadControllerImpl::DoWork(WorkType work_type) {
       SequencedTaskSource* source = sequence_;
       task_annotator_.RunTask(
           "ThreadControllerImpl::RunTask", selected_task->task,
-          [&selected_task, &source](perfetto_libchrome::EventContext& ctx) {
+          [&selected_task, &source](perfetto::EventContext& ctx) {
             if (selected_task->task_execution_trace_logger)
               selected_task->task_execution_trace_logger.Run(
                   ctx, selected_task->task);

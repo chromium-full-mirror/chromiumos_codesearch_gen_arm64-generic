@@ -4525,6 +4525,7 @@ bool BootPerformanceInfo_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 48 },
     { 1, 56 },
+    { 2, 104 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -4556,7 +4557,7 @@ bool BootPerformanceInfo_Data::Validate(
 }
 
 BootPerformanceInfo_Data::BootPerformanceInfo_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static

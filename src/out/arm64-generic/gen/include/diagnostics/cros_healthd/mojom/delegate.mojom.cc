@@ -109,6 +109,9 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_RunFloatingPoint_Name: {
       return &Delegate::RunFloatingPoint_Sym::IPCStableHash;
     }
+    case internal::kDelegate_GetAllFanSpeed_Name: {
+      return &Delegate::GetAllFanSpeed_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -158,6 +161,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorVolumeButton";
       case internal::kDelegate_RunFloatingPoint_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::RunFloatingPoint";
+      case internal::kDelegate_GetAllFanSpeed_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::GetAllFanSpeed";
     }
   } else {
     switch (message.name()) {
@@ -199,6 +204,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorVolumeButton";
       case internal::kDelegate_RunFloatingPoint_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::RunFloatingPoint";
+      case internal::kDelegate_GetAllFanSpeed_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::GetAllFanSpeed";
     }
   }
   return "Receive unknown mojo message";
@@ -460,6 +467,19 @@ uint32_t Delegate::RunFloatingPoint_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Delegate::GetAllFanSpeed_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::GetAllFanSpeed");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Delegate_GetFingerprintFrame_ForwardToCallback
@@ -654,6 +674,22 @@ class Delegate_RunFloatingPoint_ForwardToCallback
   Delegate::RunFloatingPointCallback callback_;
 };
 
+class Delegate_GetAllFanSpeed_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_GetAllFanSpeed_ForwardToCallback(
+      Delegate::GetAllFanSpeedCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_GetAllFanSpeed_ForwardToCallback(const Delegate_GetAllFanSpeed_ForwardToCallback&) = delete;
+  Delegate_GetAllFanSpeed_ForwardToCallback& operator=(const Delegate_GetAllFanSpeed_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::GetAllFanSpeedCallback callback_;
+};
+
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -663,9 +699,9 @@ void DelegateProxy::GetFingerprintFrame(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::GetFingerprintFrame", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type ::ash::cros_healthd::mojom::FingerprintCaptureType>");
    });
@@ -734,12 +770,12 @@ void DelegateProxy::SetLedColor(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::SetLedColor", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("name"), in_name,
                         "<value of type ::ash::cros_healthd::mojom::LedName>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("color"), in_color,
                         "<value of type ::ash::cros_healthd::mojom::LedColor>");
    });
@@ -779,9 +815,9 @@ void DelegateProxy::ResetLedColor(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::ResetLedColor", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("name"), in_name,
                         "<value of type ::ash::cros_healthd::mojom::LedName>");
    });
@@ -819,9 +855,9 @@ void DelegateProxy::MonitorAudioJack(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::MonitorAudioJack", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver>>");
    });
@@ -862,9 +898,9 @@ void DelegateProxy::MonitorTouchpad(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::MonitorTouchpad", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver>>");
    });
@@ -936,9 +972,9 @@ void DelegateProxy::MonitorTouchscreen(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::MonitorTouchscreen", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver>>");
    });
@@ -979,9 +1015,9 @@ void DelegateProxy::MonitorStylusGarage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::MonitorStylusGarage", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver>>");
    });
@@ -1022,9 +1058,9 @@ void DelegateProxy::MonitorStylus(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::MonitorStylus", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver>>");
    });
@@ -1220,9 +1256,9 @@ void DelegateProxy::MonitorPowerButton(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::MonitorPowerButton", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver>>");
    });
@@ -1263,12 +1299,12 @@ void DelegateProxy::RunPrimeSearch(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::RunPrimeSearch", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("exec_duration"), in_exec_duration,
                         "<value of type base::TimeDelta>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("max_num"), in_max_num,
                         "<value of type uint64_t>");
    });
@@ -1316,9 +1352,9 @@ void DelegateProxy::MonitorVolumeButton(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::MonitorVolumeButton", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver>>");
    });
@@ -1359,9 +1395,9 @@ void DelegateProxy::RunFloatingPoint(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::Delegate::RunFloatingPoint", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("exec_duration"), in_exec_duration,
                         "<value of type base::TimeDelta>");
    });
@@ -1399,6 +1435,37 @@ void DelegateProxy::RunFloatingPoint(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Delegate_RunFloatingPoint_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::GetAllFanSpeed(
+    GetAllFanSpeedCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::GetAllFanSpeed");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetAllFanSpeed_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetAllFanSpeed");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_GetAllFanSpeed_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -1488,12 +1555,12 @@ void Delegate_GetFingerprintFrame_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetFingerprintFrame", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type ::ash::cros_healthd::mojom::FingerprintFrameResultPtr>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
                         "<value of type const absl::optional<std::string>&>");
    });
@@ -1630,12 +1697,12 @@ void Delegate_GetFingerprintInfo_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetFingerprintInfo", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type ::ash::cros_healthd::mojom::FingerprintInfoResultPtr>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
                         "<value of type const absl::optional<std::string>&>");
    });
@@ -1768,9 +1835,9 @@ void Delegate_SetLedColor_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::SetLedColor", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
                         "<value of type const absl::optional<std::string>&>");
    });
@@ -1892,9 +1959,9 @@ void Delegate_ResetLedColor_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::ResetLedColor", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
                         "<value of type const absl::optional<std::string>&>");
    });
@@ -2016,9 +2083,9 @@ void Delegate_FetchBootPerformance_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::FetchBootPerformance", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type ::ash::cros_healthd::mojom::BootPerformanceResultPtr>");
    });
@@ -2143,9 +2210,9 @@ void Delegate_GetLidAngle_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetLidAngle", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("lid_angle"), in_lid_angle,
                         "<value of type absl::optional<uint16_t>>");
    });
@@ -2268,12 +2335,12 @@ void Delegate_GetPsr_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetPsr", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type ::ash::cros_healthd::mojom::PsrInfoPtr>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
                         "<value of type const absl::optional<std::string>&>");
    });
@@ -2410,12 +2477,12 @@ void Delegate_GetConnectedHdmiConnectors_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetConnectedHdmiConnectors", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("connectors"), in_connectors,
                         "<value of type base::flat_map<uint32_t, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
                         "<value of type const absl::optional<std::string>&>");
    });
@@ -2558,15 +2625,15 @@ void Delegate_GetPrivacyScreenInfo_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetPrivacyScreenInfo", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("privacy_screen_supported"), in_privacy_screen_supported,
                         "<value of type bool>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("privacy_screen_enabled"), in_privacy_screen_enabled,
                         "<value of type bool>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("err"), in_err,
                         "<value of type const absl::optional<std::string>&>");
    });
@@ -2690,9 +2757,9 @@ void Delegate_FetchDisplayInfo_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::FetchDisplayInfo", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type ::ash::cros_healthd::mojom::DisplayResultPtr>");
    });
@@ -2816,9 +2883,9 @@ void Delegate_RunPrimeSearch_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::RunPrimeSearch", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("passed"), in_passed,
                         "<value of type bool>");
    });
@@ -2934,9 +3001,9 @@ void Delegate_RunFloatingPoint_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ash::cros_healthd::mojom::Delegate::RunFloatingPoint", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("passed"), in_passed,
                         "<value of type bool>");
    });
@@ -2957,6 +3024,150 @@ void Delegate_RunFloatingPoint_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Delegate::Name_);
   message.set_method_name("RunFloatingPoint");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Delegate_GetAllFanSpeed_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::GetAllFanSpeedCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_GetAllFanSpeed_ProxyToResponder> proxy(
+        new Delegate_GetAllFanSpeed_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_GetAllFanSpeed_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_GetAllFanSpeed_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_GetAllFanSpeed_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::GetAllFanSpeedCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::vector<uint32_t>& in_fan_rpms, const absl::optional<std::string>& in_err);
+};
+
+bool Delegate_GetAllFanSpeed_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_GetAllFanSpeed_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_GetAllFanSpeed_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::vector<uint32_t> p_fan_rpms{};
+  absl::optional<std::string> p_err{};
+  Delegate_GetAllFanSpeed_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadFanRpms(&p_fan_rpms))
+    success = false;
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 19, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_fan_rpms), 
+std::move(p_err));
+  return true;
+}
+
+void Delegate_GetAllFanSpeed_ProxyToResponder::Run(
+    const std::vector<uint32_t>& in_fan_rpms, const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::GetAllFanSpeed", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("fan_rpms"), in_fan_rpms,
+                        "<value of type const std::vector<uint32_t>&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_GetAllFanSpeed_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_GetAllFanSpeed_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->fan_rpms)::BaseType>
+      fan_rpms_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& fan_rpms_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
+      in_fan_rpms, fan_rpms_fragment, &fan_rpms_validate_params);
+  params->fan_rpms.Set(
+      fan_rpms_fragment.is_null() ? nullptr : fan_rpms_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->fan_rpms.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null fan_rpms in ");
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("GetAllFanSpeed");
 #endif
 
   message.set_request_id(request_id_);
@@ -3206,6 +3417,9 @@ std::move(p_observer));
       return true;
     }
     case internal::kDelegate_RunFloatingPoint_Name: {
+      break;
+    }
+    case internal::kDelegate_GetAllFanSpeed_Name: {
       break;
     }
   }
@@ -3570,6 +3784,31 @@ std::move(p_max_num), std::move(callback));
 std::move(p_exec_duration), std::move(callback));
       return true;
     }
+    case internal::kDelegate_GetAllFanSpeed_Name: {
+
+      internal::Delegate_GetAllFanSpeed_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_GetAllFanSpeed_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Delegate_GetAllFanSpeed_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 19, false);
+        return false;
+      }
+      Delegate::GetAllFanSpeedCallback callback =
+          Delegate_GetAllFanSpeed_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetAllFanSpeed(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -3614,6 +3853,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      nullptr /* no response */},
     {&internal::Delegate_RunFloatingPoint_Params_Data::Validate,
      &internal::Delegate_RunFloatingPoint_ResponseParams_Data::Validate},
+    {&internal::Delegate_GetAllFanSpeed_Params_Data::Validate,
+     &internal::Delegate_GetAllFanSpeed_ResponseParams_Data::Validate},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -3702,6 +3943,9 @@ void DelegateInterceptorForTesting::MonitorVolumeButton(::mojo::PendingRemote<::
 }
 void DelegateInterceptorForTesting::RunFloatingPoint(base::TimeDelta exec_duration, RunFloatingPointCallback callback) {
   GetForwardingInterface()->RunFloatingPoint(std::move(exec_duration), std::move(callback));
+}
+void DelegateInterceptorForTesting::GetAllFanSpeed(GetAllFanSpeedCallback callback) {
+  GetForwardingInterface()->GetAllFanSpeed(std::move(callback));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
@@ -3982,6 +4226,28 @@ bool DelegateAsyncWaiter::RunFloatingPoint(
   RunFloatingPoint(std::move(exec_duration),&async_wait_result);
   return async_wait_result;
 }
+
+void DelegateAsyncWaiter::GetAllFanSpeed(
+    std::vector<uint32_t>* out_fan_rpms, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->GetAllFanSpeed(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::vector<uint32_t>* out_fan_rpms
+,
+             absl::optional<std::string>* out_err
+,
+             const std::vector<uint32_t>& fan_rpms,
+             const absl::optional<std::string>& err) {*out_fan_rpms = std::move(fan_rpms);*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_fan_rpms,
+          out_err));
+  loop.Run();
+}
+
+
 
 
 

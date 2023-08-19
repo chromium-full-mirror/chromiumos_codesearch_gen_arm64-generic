@@ -68,9 +68,9 @@ size_t CreateModelLoaderOptions::Hash(size_t seed) const {
 }
 
 void CreateModelLoaderOptions::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "num_threads"), this->num_threads,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -79,7 +79,7 @@ void CreateModelLoaderOptions::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "model_format"), this->model_format,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -88,7 +88,7 @@ void CreateModelLoaderOptions::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_preference"), this->device_preference,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -120,9 +120,9 @@ TensorInfo::TensorInfo(
 TensorInfo::~TensorInfo() = default;
 
 void TensorInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "byte_size"), this->byte_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -131,7 +131,7 @@ void TensorInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "data_type"), this->data_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -140,7 +140,7 @@ void TensorInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "dimensions"), this->dimensions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -169,9 +169,9 @@ ModelInfo::ModelInfo(
 ModelInfo::~ModelInfo() = default;
 
 void ModelInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_tensor_info"), this->input_tensor_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -180,7 +180,7 @@ void ModelInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "output_tensor_info"), this->output_tensor_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -276,9 +276,9 @@ void ModelLoaderProxy::Load(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ml::model_loader::mojom::ModelLoader::Load", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("model_content"), in_model_content,
                         "<value of type ::mojo_base::mojom::BigBufferPtr>");
    });
@@ -409,15 +409,15 @@ void ModelLoader_Load_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ml::model_loader::mojom::ModelLoader::Load", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type LoadModelResult>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("remote"), in_remote,
                         "<value of type ::mojo::PendingRemote<Model>>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("model_info"), in_model_info,
                         "<value of type ModelInfoPtr>");
    });
@@ -611,9 +611,9 @@ void ModelProxy::Compute(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ml::model_loader::mojom::Model::Compute", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("input_tensors"), in_input_tensors,
                         "<value of type const base::flat_map<std::string, std::vector<uint8_t>>&>");
    });
@@ -742,12 +742,12 @@ void Model_Compute_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ml::model_loader::mojom::Model::Compute", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
+    [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type ComputeResult>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+      perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("output_tensors"), in_output_tensors,
                         "<value of type const absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>&>");
    });

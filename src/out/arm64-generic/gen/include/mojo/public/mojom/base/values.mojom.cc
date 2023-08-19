@@ -55,9 +55,9 @@ DictionaryValue::DictionaryValue(
 DictionaryValue::~DictionaryValue() = default;
 
 void DictionaryValue::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "storage"), this->storage,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -83,9 +83,9 @@ ListValue::ListValue(
 ListValue::~ListValue() = default;
 
 void ListValue::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "storage"), this->storage,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

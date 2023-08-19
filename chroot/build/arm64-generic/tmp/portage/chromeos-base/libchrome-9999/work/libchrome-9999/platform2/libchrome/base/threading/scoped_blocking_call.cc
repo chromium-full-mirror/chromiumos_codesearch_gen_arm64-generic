@@ -45,7 +45,7 @@ ScopedBlockingCall::ScopedBlockingCall(const Location& from_here,
 
   internal::AssertBlockingAllowed();
   TRACE_EVENT_BEGIN(
-      "base", "ScopedBlockingCall", [&](perfetto_libchrome::EventContext ctx) {
+      "base", "ScopedBlockingCall", [&](perfetto::EventContext ctx) {
         ctx.event()->set_source_location_iid(
             base::trace_event::InternedSourceLocation::Get(&ctx, from_here));
       });
@@ -70,8 +70,8 @@ ScopedBlockingCallWithBaseSyncPrimitives::
   internal::AssertBaseSyncPrimitivesAllowed();
   TRACE_EVENT_BEGIN(
       "base", "ScopedBlockingCallWithBaseSyncPrimitives",
-      [&](perfetto_libchrome::EventContext ctx) {
-        perfetto_libchrome::protos::pbzero::SourceLocation* source_location_data =
+      [&](perfetto::EventContext ctx) {
+        perfetto::protos::pbzero::SourceLocation* source_location_data =
             ctx.event()->set_source_location();
         source_location_data->set_file_name(from_here.file_name());
         source_location_data->set_function_name(from_here.function_name());

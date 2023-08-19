@@ -59,9 +59,9 @@ size_t RunMessageParams::Hash(size_t seed) const {
 }
 
 void RunMessageParams::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input"), this->input,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -87,9 +87,9 @@ RunResponseMessageParams::RunResponseMessageParams(
 RunResponseMessageParams::~RunResponseMessageParams() = default;
 
 void RunResponseMessageParams::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "output"), this->output,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -113,7 +113,7 @@ size_t QueryVersion::Hash(size_t seed) const {
 }
 
 void QueryVersion::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -136,9 +136,9 @@ size_t QueryVersionResult::Hash(size_t seed) const {
 }
 
 void QueryVersionResult::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -162,7 +162,7 @@ size_t FlushForTesting::Hash(size_t seed) const {
 }
 
 void FlushForTesting::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -185,9 +185,9 @@ size_t RunOrClosePipeMessageParams::Hash(size_t seed) const {
 }
 
 void RunOrClosePipeMessageParams::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input"), this->input,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -217,9 +217,9 @@ size_t RequireVersion::Hash(size_t seed) const {
 }
 
 void RequireVersion::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -249,9 +249,9 @@ size_t EnableIdleTracking::Hash(size_t seed) const {
 }
 
 void EnableIdleTracking::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "timeout_in_microseconds"), this->timeout_in_microseconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -275,7 +275,7 @@ size_t MessageAck::Hash(size_t seed) const {
 }
 
 void MessageAck::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 
@@ -292,7 +292,7 @@ size_t NotifyIdle::Hash(size_t seed) const {
 }
 
 void NotifyIdle::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
 }
 

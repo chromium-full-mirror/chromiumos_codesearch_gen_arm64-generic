@@ -460,7 +460,7 @@ class  Executor_GetFileInfo_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_GetFileInfo_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_GetFileInfo_ResponseParams_Data)");
-class  Executor_GetFanSpeed_Params_Data {
+class  Executor_GetAllFanSpeed_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -468,29 +468,30 @@ class  Executor_GetFanSpeed_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<Executor_GetFanSpeed_Params_Data>;
+  friend class mojo::internal::MessageFragment<Executor_GetAllFanSpeed_Params_Data>;
 
-  Executor_GetFanSpeed_Params_Data();
-  ~Executor_GetFanSpeed_Params_Data() = delete;
+  Executor_GetAllFanSpeed_Params_Data();
+  ~Executor_GetAllFanSpeed_Params_Data() = delete;
 };
-static_assert(sizeof(Executor_GetFanSpeed_Params_Data) == 8,
-              "Bad sizeof(Executor_GetFanSpeed_Params_Data)");
-class  Executor_GetFanSpeed_ResponseParams_Data {
+static_assert(sizeof(Executor_GetAllFanSpeed_Params_Data) == 8,
+              "Bad sizeof(Executor_GetAllFanSpeed_Params_Data)");
+class  Executor_GetAllFanSpeed_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> fan_rpms;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
 
  private:
-  friend class mojo::internal::MessageFragment<Executor_GetFanSpeed_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<Executor_GetAllFanSpeed_ResponseParams_Data>;
 
-  Executor_GetFanSpeed_ResponseParams_Data();
-  ~Executor_GetFanSpeed_ResponseParams_Data() = delete;
+  Executor_GetAllFanSpeed_ResponseParams_Data();
+  ~Executor_GetAllFanSpeed_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(Executor_GetFanSpeed_ResponseParams_Data) == 16,
-              "Bad sizeof(Executor_GetFanSpeed_ResponseParams_Data)");
+static_assert(sizeof(Executor_GetAllFanSpeed_ResponseParams_Data) == 24,
+              "Bad sizeof(Executor_GetAllFanSpeed_ResponseParams_Data)");
 class  Executor_RunIw_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1967,43 +1968,63 @@ static_assert(
 };
 
 
-class Executor_GetFanSpeed_ParamsDataView {
+class Executor_GetAllFanSpeed_ParamsDataView {
  public:
-  Executor_GetFanSpeed_ParamsDataView() = default;
+  Executor_GetAllFanSpeed_ParamsDataView() = default;
 
-  Executor_GetFanSpeed_ParamsDataView(
-      internal::Executor_GetFanSpeed_Params_Data* data,
+  Executor_GetAllFanSpeed_ParamsDataView(
+      internal::Executor_GetAllFanSpeed_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::Executor_GetFanSpeed_Params_Data* data_ = nullptr;
+  internal::Executor_GetAllFanSpeed_Params_Data* data_ = nullptr;
 };
 
 
-class Executor_GetFanSpeed_ResponseParamsDataView {
+class Executor_GetAllFanSpeed_ResponseParamsDataView {
  public:
-  Executor_GetFanSpeed_ResponseParamsDataView() = default;
+  Executor_GetAllFanSpeed_ResponseParamsDataView() = default;
 
-  Executor_GetFanSpeed_ResponseParamsDataView(
-      internal::Executor_GetFanSpeed_ResponseParams_Data* data,
+  Executor_GetAllFanSpeed_ResponseParamsDataView(
+      internal::Executor_GetAllFanSpeed_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetResultDataView(
-      ExecutedProcessResultDataView* output);
+  inline void GetFanRpmsDataView(
+      mojo::ArrayDataView<uint32_t>* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) {
+  [[nodiscard]] bool ReadFanRpms(UserType* output) {
     
-    auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
+    auto* pointer = data_->fan_rpms.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
+        pointer, output, message_);
+  }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
  private:
-  internal::Executor_GetFanSpeed_ResponseParams_Data* data_ = nullptr;
+  internal::Executor_GetAllFanSpeed_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -3478,10 +3499,15 @@ inline void Executor_GetFileInfo_ResponseParamsDataView::GetInfoDataView(
 
 
 
-inline void Executor_GetFanSpeed_ResponseParamsDataView::GetResultDataView(
-    ExecutedProcessResultDataView* output) {
-  auto pointer = data_->result.Get();
-  *output = ExecutedProcessResultDataView(pointer, message_);
+inline void Executor_GetAllFanSpeed_ResponseParamsDataView::GetFanRpmsDataView(
+    mojo::ArrayDataView<uint32_t>* output) {
+  auto pointer = data_->fan_rpms.Get();
+  *output = mojo::ArrayDataView<uint32_t>(pointer, message_);
+}
+inline void Executor_GetAllFanSpeed_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 

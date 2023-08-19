@@ -524,7 +524,7 @@ void SequenceManagerImpl::SetNextWakeUp(LazyNow* lazy_now,
 }
 
 void SequenceManagerImpl::MaybeEmitTaskDetails(
-    perfetto_libchrome::EventContext& ctx,
+    perfetto::EventContext& ctx,
     const SequencedTaskSource::SelectedTask& selected_task) const {
 #if BUILDFLAG(ENABLE_BASE_TRACING)
   // Other parameters are included only when "scheduler" category is enabled.
@@ -533,7 +533,7 @@ void SequenceManagerImpl::MaybeEmitTaskDetails(
 
   if (!*scheduler_category_enabled)
     return;
-  auto* event = ctx.event<perfetto_libchrome::protos::pbzero::ChromeTrackEvent>();
+  auto* event = ctx.event<perfetto::protos::pbzero::ChromeTrackEvent>();
   auto* sequence_manager_task = event->set_sequence_manager_task();
   sequence_manager_task->set_priority(
       settings().priority_settings.TaskPriorityToProto(selected_task.priority));

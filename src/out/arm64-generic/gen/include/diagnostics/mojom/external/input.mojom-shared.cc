@@ -374,61 +374,61 @@ KeyboardDiagnosticEventInfo_Data::KeyboardDiagnosticEventInfo_Data()
 }  // namespace diagnostics
 }  // namespace ash
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::diagnostics::mojom::ConnectionType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::ConnectionType value) {
+   perfetto::TracedValue context, ::ash::diagnostics::mojom::ConnectionType value) {
   return std::move(context).WriteString(::ash::diagnostics::mojom::ConnectionTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::diagnostics::mojom::PhysicalLayout>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::PhysicalLayout value) {
+   perfetto::TracedValue context, ::ash::diagnostics::mojom::PhysicalLayout value) {
   return std::move(context).WriteString(::ash::diagnostics::mojom::PhysicalLayoutToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::diagnostics::mojom::MechanicalLayout>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::MechanicalLayout value) {
+   perfetto::TracedValue context, ::ash::diagnostics::mojom::MechanicalLayout value) {
   return std::move(context).WriteString(::ash::diagnostics::mojom::MechanicalLayoutToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::diagnostics::mojom::NumberPadPresence>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::NumberPadPresence value) {
+   perfetto::TracedValue context, ::ash::diagnostics::mojom::NumberPadPresence value) {
   return std::move(context).WriteString(::ash::diagnostics::mojom::NumberPadPresenceToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::diagnostics::mojom::TopRowKey>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::TopRowKey value) {
+   perfetto::TracedValue context, ::ash::diagnostics::mojom::TopRowKey value) {
   return std::move(context).WriteString(::ash::diagnostics::mojom::TopRowKeyToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::ash::diagnostics::mojom::TopRightKey>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::ash::diagnostics::mojom::TopRightKey value) {
+   perfetto::TracedValue context, ::ash::diagnostics::mojom::TopRightKey value) {
   return std::move(context).WriteString(::ash::diagnostics::mojom::TopRightKeyToString(value));
 }
 

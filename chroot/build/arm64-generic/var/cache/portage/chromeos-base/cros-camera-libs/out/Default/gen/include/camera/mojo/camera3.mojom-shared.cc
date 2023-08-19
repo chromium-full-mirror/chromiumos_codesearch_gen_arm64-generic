@@ -1656,111 +1656,111 @@ Camera3DeviceOps_SignalStreamFlush_Params_Data::Camera3DeviceOps_SignalStreamFlu
 }  // namespace mojom
 }  // namespace cros
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::HalPixelFormat>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::HalPixelFormat value) {
+   perfetto::TracedValue context, ::cros::mojom::HalPixelFormat value) {
   return std::move(context).WriteString(::cros::mojom::HalPixelFormatToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Camera3StreamType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3StreamType value) {
+   perfetto::TracedValue context, ::cros::mojom::Camera3StreamType value) {
   return std::move(context).WriteString(::cros::mojom::Camera3StreamTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Camera3StreamRotation>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3StreamRotation value) {
+   perfetto::TracedValue context, ::cros::mojom::Camera3StreamRotation value) {
   return std::move(context).WriteString(::cros::mojom::Camera3StreamRotationToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Camera3StreamConfigurationMode>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3StreamConfigurationMode value) {
+   perfetto::TracedValue context, ::cros::mojom::Camera3StreamConfigurationMode value) {
   return std::move(context).WriteString(::cros::mojom::Camera3StreamConfigurationModeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Camera3BufferStatus>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3BufferStatus value) {
+   perfetto::TracedValue context, ::cros::mojom::Camera3BufferStatus value) {
   return std::move(context).WriteString(::cros::mojom::Camera3BufferStatusToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Camera3MsgType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3MsgType value) {
+   perfetto::TracedValue context, ::cros::mojom::Camera3MsgType value) {
   return std::move(context).WriteString(::cros::mojom::Camera3MsgTypeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Camera3ErrorMsgCode>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3ErrorMsgCode value) {
+   perfetto::TracedValue context, ::cros::mojom::Camera3ErrorMsgCode value) {
   return std::move(context).WriteString(::cros::mojom::Camera3ErrorMsgCodeToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Camera3BufferRequestStatus>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3BufferRequestStatus value) {
+   perfetto::TracedValue context, ::cros::mojom::Camera3BufferRequestStatus value) {
   return std::move(context).WriteString(::cros::mojom::Camera3BufferRequestStatusToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Camera3StreamBufferReqStatus>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3StreamBufferReqStatus value) {
+   perfetto::TracedValue context, ::cros::mojom::Camera3StreamBufferReqStatus value) {
   return std::move(context).WriteString(::cros::mojom::Camera3StreamBufferReqStatusToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Camera3RequestTemplate>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3RequestTemplate value) {
+   perfetto::TracedValue context, ::cros::mojom::Camera3RequestTemplate value) {
   return std::move(context).WriteString(::cros::mojom::Camera3RequestTemplateToString(value));
 }
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 // static
 void TraceFormatTraits<::cros::mojom::Camera3DeviceOps_BufferType>::WriteIntoTrace(
-   perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3DeviceOps_BufferType value) {
+   perfetto::TracedValue context, ::cros::mojom::Camera3DeviceOps_BufferType value) {
   return std::move(context).WriteString(::cros::mojom::Camera3DeviceOps_BufferTypeToString(value));
 }
 

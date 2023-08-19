@@ -2400,101 +2400,101 @@ inline void Camera3NotifyMsgMessageDataView::GetGenericDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::HalPixelFormat> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::HalPixelFormat value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::HalPixelFormat value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3StreamType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3StreamType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3StreamType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3StreamRotation> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3StreamRotation value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3StreamRotation value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3StreamConfigurationMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3StreamConfigurationMode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3StreamConfigurationMode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3BufferStatus> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3BufferStatus value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3BufferStatus value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3MsgType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3MsgType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3MsgType value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3ErrorMsgCode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3ErrorMsgCode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3ErrorMsgCode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3BufferRequestStatus> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3BufferRequestStatus value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3BufferRequestStatus value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3StreamBufferReqStatus> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3StreamBufferReqStatus value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3StreamBufferReqStatus value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3RequestTemplate> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3RequestTemplate value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3RequestTemplate value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::cros::mojom::Camera3DeviceOps_BufferType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::Camera3DeviceOps_BufferType value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::cros::mojom::Camera3DeviceOps_BufferType value);
 };
 
 } // namespace perfetto

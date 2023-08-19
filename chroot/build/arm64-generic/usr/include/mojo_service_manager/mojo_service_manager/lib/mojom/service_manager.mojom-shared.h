@@ -966,20 +966,20 @@ inline void ServiceStateDataView::GetUnregisteredStateDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::mojo_service_manager::mojom::ErrorCode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::mojo_service_manager::mojom::ErrorCode value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::mojo_service_manager::mojom::ErrorCode value);
 };
 
 } // namespace perfetto
 
-namespace perfetto_libchrome {
+namespace perfetto {
 
 template <>
 struct  TraceFormatTraits<::chromeos::mojo_service_manager::mojom::ServiceEvent_Type> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::mojo_service_manager::mojom::ServiceEvent_Type value);
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::mojo_service_manager::mojom::ServiceEvent_Type value);
 };
 
 } // namespace perfetto

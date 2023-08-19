@@ -36,6 +36,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, RunPrimeSearchCallback callback) override;
   void MonitorVolumeButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver> observer) override;
   void RunFloatingPoint(base::TimeDelta exec_duration, RunFloatingPointCallback callback) override;
+  void GetAllFanSpeed(GetAllFanSpeedCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -81,6 +82,9 @@ class  DelegateAsyncWaiter {
   void RunFloatingPoint(
       base::TimeDelta exec_duration, bool* out_passed);
   bool RunFloatingPoint(base::TimeDelta exec_duration);
+  void GetAllFanSpeed(
+      std::vector<uint32_t>* out_fan_rpms, absl::optional<std::string>* out_err);
+  
 
  private:
   Delegate* const proxy_;

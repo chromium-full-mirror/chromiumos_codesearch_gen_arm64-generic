@@ -14,7 +14,7 @@
 #include "base/task/sequence_manager/tasks.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 
-namespace perfetto_libchrome {
+namespace perfetto {
 class EventContext;
 }
 
@@ -28,7 +28,7 @@ class SequencedTaskSource {
   enum class SelectTaskOption { kDefault, kSkipDelayedTask };
 
   using TaskExecutionTraceLogger =
-      RepeatingCallback<void(perfetto_libchrome::EventContext&, const Task&)>;
+      RepeatingCallback<void(perfetto::EventContext&, const Task&)>;
 
   struct BASE_EXPORT SelectedTask {
     SelectedTask(const SelectedTask&);
@@ -87,7 +87,7 @@ class SequencedTaskSource {
 
   // Called prior to running `selected_task` to emit trace event data for it.
   virtual void MaybeEmitTaskDetails(
-      perfetto_libchrome::EventContext& ctx,
+      perfetto::EventContext& ctx,
       const SelectedTask& selected_task) const = 0;
 };
 

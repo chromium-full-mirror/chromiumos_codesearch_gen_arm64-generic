@@ -64,9 +64,9 @@ size_t ProbeError::Hash(size_t seed) const {
 }
 
 void ProbeError::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -75,7 +75,7 @@ void ProbeError::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "msg"), this->msg,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -104,9 +104,9 @@ MultipleProcessResult::MultipleProcessResult(
 MultipleProcessResult::~MultipleProcessResult() = default;
 
 void MultipleProcessResult::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "process_infos"), this->process_infos,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -115,7 +115,7 @@ void MultipleProcessResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "errors"), this->errors,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -283,9 +283,9 @@ ProcessInfo::ProcessInfo(
 ProcessInfo::~ProcessInfo() = default;
 
 void ProcessInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "command"), this->command,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -294,7 +294,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "user_id"), this->user_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -303,7 +303,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "priority"), this->priority,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -312,7 +312,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "nice"), this->nice,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -321,7 +321,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "uptime_ticks"), this->uptime_ticks,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -330,7 +330,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "state"), this->state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -339,7 +339,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "total_memory_kib"), this->total_memory_kib,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -348,7 +348,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "resident_memory_kib"), this->resident_memory_kib,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -357,7 +357,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "free_memory_kib"), this->free_memory_kib,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -366,7 +366,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bytes_read"), this->bytes_read,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -375,7 +375,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bytes_written"), this->bytes_written,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -384,7 +384,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "read_system_calls"), this->read_system_calls,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -393,7 +393,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "write_system_calls"), this->write_system_calls,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -402,7 +402,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "physical_bytes_read"), this->physical_bytes_read,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -411,7 +411,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "physical_bytes_written"), this->physical_bytes_written,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -420,7 +420,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "cancelled_bytes_written"), this->cancelled_bytes_written,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -429,7 +429,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -438,7 +438,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "parent_process_id"), this->parent_process_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -447,7 +447,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "process_group_id"), this->process_group_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -456,7 +456,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "threads"), this->threads,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -465,7 +465,7 @@ void ProcessInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "process_id"), this->process_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -530,9 +530,9 @@ BatteryInfo::BatteryInfo(
 BatteryInfo::~BatteryInfo() = default;
 
 void BatteryInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "cycle_count"), this->cycle_count,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -541,7 +541,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "voltage_now"), this->voltage_now,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -550,7 +550,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vendor"), this->vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -559,7 +559,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "serial_number"), this->serial_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -568,7 +568,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "charge_full_design"), this->charge_full_design,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -577,7 +577,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "charge_full"), this->charge_full,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -586,7 +586,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "voltage_min_design"), this->voltage_min_design,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -595,7 +595,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "model_name"), this->model_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -604,7 +604,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "charge_now"), this->charge_now,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -613,7 +613,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "current_now"), this->current_now,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -622,7 +622,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "technology"), this->technology,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -631,7 +631,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -640,7 +640,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manufacture_date"), this->manufacture_date,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -649,7 +649,7 @@ void BatteryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "temperature"), this->temperature,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -691,9 +691,9 @@ size_t NvmeDeviceInfo::Hash(size_t seed) const {
 }
 
 void NvmeDeviceInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "subsystem_vendor"), this->subsystem_vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -702,7 +702,7 @@ void NvmeDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "subsystem_device"), this->subsystem_device,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -711,7 +711,7 @@ void NvmeDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "pcie_rev"), this->pcie_rev,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -720,7 +720,7 @@ void NvmeDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "firmware_rev"), this->firmware_rev,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -762,9 +762,9 @@ size_t EmmcDeviceInfo::Hash(size_t seed) const {
 }
 
 void EmmcDeviceInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manfid"), this->manfid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -773,7 +773,7 @@ void EmmcDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "pnm"), this->pnm,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -782,7 +782,7 @@ void EmmcDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "prv"), this->prv,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -791,7 +791,7 @@ void EmmcDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "fwrev"), this->fwrev,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -825,9 +825,9 @@ size_t UfsDeviceInfo::Hash(size_t seed) const {
 }
 
 void UfsDeviceInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "jedec_manfid"), this->jedec_manfid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -836,7 +836,7 @@ void UfsDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "fwrev"), this->fwrev,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -993,9 +993,9 @@ NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(
 NonRemovableBlockDeviceInfo::~NonRemovableBlockDeviceInfo() = default;
 
 void NonRemovableBlockDeviceInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bytes_read_since_last_boot"), this->bytes_read_since_last_boot,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1004,7 +1004,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bytes_written_since_last_boot"), this->bytes_written_since_last_boot,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1013,7 +1013,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "read_time_seconds_since_last_boot"), this->read_time_seconds_since_last_boot,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1022,7 +1022,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "write_time_seconds_since_last_boot"), this->write_time_seconds_since_last_boot,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1031,7 +1031,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "io_time_seconds_since_last_boot"), this->io_time_seconds_since_last_boot,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1040,7 +1040,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "discard_time_seconds_since_last_boot"), this->discard_time_seconds_since_last_boot,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1049,7 +1049,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_info"), this->device_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1058,7 +1058,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vendor_id"), this->vendor_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1067,7 +1067,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "product_id"), this->product_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1076,7 +1076,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "revision"), this->revision,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1085,7 +1085,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1094,7 +1094,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "size"), this->size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1103,7 +1103,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "firmware_version"), this->firmware_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1112,7 +1112,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1121,7 +1121,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "purpose"), this->purpose,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1130,7 +1130,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "path"), this->path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1139,7 +1139,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manufacturer_id"), this->manufacturer_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1148,7 +1148,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "serial"), this->serial,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1157,7 +1157,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "firmware_string"), this->firmware_string,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1215,9 +1215,9 @@ CpuInfo::CpuInfo(
 CpuInfo::~CpuInfo() = default;
 
 void CpuInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "num_total_threads"), this->num_total_threads,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1226,7 +1226,7 @@ void CpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "architecture"), this->architecture,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1235,7 +1235,7 @@ void CpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "physical_cpus"), this->physical_cpus,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1244,7 +1244,7 @@ void CpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "temperature_channels"), this->temperature_channels,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1253,7 +1253,7 @@ void CpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "keylocker_info"), this->keylocker_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1262,7 +1262,7 @@ void CpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "virtualization"), this->virtualization,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1271,7 +1271,7 @@ void CpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vulnerabilities"), this->vulnerabilities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1309,9 +1309,9 @@ size_t VirtualizationInfo::Hash(size_t seed) const {
 }
 
 void VirtualizationInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "has_kvm_device"), this->has_kvm_device,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1320,7 +1320,7 @@ void VirtualizationInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_smt_active"), this->is_smt_active,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1329,7 +1329,7 @@ void VirtualizationInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "smt_control"), this->smt_control,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1363,9 +1363,9 @@ size_t VulnerabilityInfo::Hash(size_t seed) const {
 }
 
 void VulnerabilityInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1374,7 +1374,7 @@ void VulnerabilityInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "message"), this->message,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1404,9 +1404,9 @@ size_t KeylockerInfo::Hash(size_t seed) const {
 }
 
 void KeylockerInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "keylocker_configured"), this->keylocker_configured,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1449,9 +1449,9 @@ PhysicalCpuInfo::PhysicalCpuInfo(
 PhysicalCpuInfo::~PhysicalCpuInfo() = default;
 
 void PhysicalCpuInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "model_name"), this->model_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1460,7 +1460,7 @@ void PhysicalCpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "logical_cpus"), this->logical_cpus,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1469,7 +1469,7 @@ void PhysicalCpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "flags"), this->flags,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1478,7 +1478,7 @@ void PhysicalCpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "virtualization"), this->virtualization,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1516,9 +1516,9 @@ size_t CpuVirtualizationInfo::Hash(size_t seed) const {
 }
 
 void CpuVirtualizationInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1527,7 +1527,7 @@ void CpuVirtualizationInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_enabled"), this->is_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1536,7 +1536,7 @@ void CpuVirtualizationInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_locked"), this->is_locked,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1600,9 +1600,9 @@ LogicalCpuInfo::LogicalCpuInfo(
 LogicalCpuInfo::~LogicalCpuInfo() = default;
 
 void LogicalCpuInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_clock_speed_khz"), this->max_clock_speed_khz,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1611,7 +1611,7 @@ void LogicalCpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "scaling_max_frequency_khz"), this->scaling_max_frequency_khz,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1620,7 +1620,7 @@ void LogicalCpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "scaling_current_frequency_khz"), this->scaling_current_frequency_khz,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1629,7 +1629,7 @@ void LogicalCpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "user_time_user_hz"), this->user_time_user_hz,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1638,7 +1638,7 @@ void LogicalCpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "system_time_user_hz"), this->system_time_user_hz,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1647,7 +1647,7 @@ void LogicalCpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "idle_time_user_hz"), this->idle_time_user_hz,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1656,7 +1656,7 @@ void LogicalCpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "c_states"), this->c_states,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1665,7 +1665,7 @@ void LogicalCpuInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "core_id"), this->core_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1699,9 +1699,9 @@ size_t CpuCStateInfo::Hash(size_t seed) const {
 }
 
 void CpuCStateInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1710,7 +1710,7 @@ void CpuCStateInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "time_in_state_since_last_boot_us"), this->time_in_state_since_last_boot_us,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1739,9 +1739,9 @@ CpuTemperatureChannel::CpuTemperatureChannel(
 CpuTemperatureChannel::~CpuTemperatureChannel() = default;
 
 void CpuTemperatureChannel::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "label"), this->label,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1750,7 +1750,7 @@ void CpuTemperatureChannel::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "temperature_celsius"), this->temperature_celsius,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1784,9 +1784,9 @@ size_t TimezoneInfo::Hash(size_t seed) const {
 }
 
 void TimezoneInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "posix"), this->posix,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1795,7 +1795,7 @@ void TimezoneInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "region"), this->region,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1844,9 +1844,9 @@ MemoryInfo::MemoryInfo(
 MemoryInfo::~MemoryInfo() = default;
 
 void MemoryInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "total_memory_kib"), this->total_memory_kib,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1855,7 +1855,7 @@ void MemoryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "free_memory_kib"), this->free_memory_kib,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1864,7 +1864,7 @@ void MemoryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "available_memory_kib"), this->available_memory_kib,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1873,7 +1873,7 @@ void MemoryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "page_faults_since_last_boot"), this->page_faults_since_last_boot,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1882,7 +1882,7 @@ void MemoryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "memory_encryption_info"), this->memory_encryption_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1924,9 +1924,9 @@ size_t MemoryEncryptionInfo::Hash(size_t seed) const {
 }
 
 void MemoryEncryptionInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "encryption_state"), this->encryption_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1935,7 +1935,7 @@ void MemoryEncryptionInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_key_number"), this->max_key_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1944,7 +1944,7 @@ void MemoryEncryptionInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "key_length"), this->key_length,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1953,7 +1953,7 @@ void MemoryEncryptionInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "active_algorithm"), this->active_algorithm,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1991,9 +1991,9 @@ size_t BacklightInfo::Hash(size_t seed) const {
 }
 
 void BacklightInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "path"), this->path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2002,7 +2002,7 @@ void BacklightInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_brightness"), this->max_brightness,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2011,7 +2011,7 @@ void BacklightInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "brightness"), this->brightness,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2041,9 +2041,9 @@ size_t FanInfo::Hash(size_t seed) const {
 }
 
 void FanInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "speed_rpm"), this->speed_rpm,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2085,9 +2085,9 @@ size_t StatefulPartitionInfo::Hash(size_t seed) const {
 }
 
 void StatefulPartitionInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "available_space"), this->available_space,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2096,7 +2096,7 @@ void StatefulPartitionInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "total_space"), this->total_space,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2105,7 +2105,7 @@ void StatefulPartitionInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "filesystem"), this->filesystem,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2114,7 +2114,7 @@ void StatefulPartitionInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "mount_source"), this->mount_source,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2209,9 +2209,9 @@ BluetoothAdapterInfo::BluetoothAdapterInfo(
 BluetoothAdapterInfo::~BluetoothAdapterInfo() = default;
 
 void BluetoothAdapterInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2220,7 +2220,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "address"), this->address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2229,7 +2229,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "powered"), this->powered,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2238,7 +2238,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "num_connected_devices"), this->num_connected_devices,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2247,7 +2247,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "connected_devices"), this->connected_devices,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2256,7 +2256,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "discoverable"), this->discoverable,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2265,7 +2265,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "discovering"), this->discovering,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2274,7 +2274,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "uuids"), this->uuids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2283,7 +2283,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "modalias"), this->modalias,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2292,7 +2292,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "service_allow_list"), this->service_allow_list,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2301,7 +2301,7 @@ void BluetoothAdapterInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "supported_capabilities"), this->supported_capabilities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2395,9 +2395,9 @@ BluetoothDeviceInfo::BluetoothDeviceInfo(
 BluetoothDeviceInfo::~BluetoothDeviceInfo() = default;
 
 void BluetoothDeviceInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "address"), this->address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2406,7 +2406,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2415,7 +2415,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2424,7 +2424,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "appearance"), this->appearance,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2433,7 +2433,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "modalias"), this->modalias,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2442,7 +2442,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "rssi"), this->rssi,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2451,7 +2451,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "mtu"), this->mtu,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2460,7 +2460,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "uuids"), this->uuids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2469,7 +2469,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "battery_percentage"), this->battery_percentage,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2478,7 +2478,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bluetooth_class"), this->bluetooth_class,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2520,9 +2520,9 @@ size_t SupportedCapabilities::Hash(size_t seed) const {
 }
 
 void SupportedCapabilities::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_adv_len"), this->max_adv_len,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2531,7 +2531,7 @@ void SupportedCapabilities::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_scn_rsp_len"), this->max_scn_rsp_len,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2540,7 +2540,7 @@ void SupportedCapabilities::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "min_tx_power"), this->min_tx_power,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2549,7 +2549,7 @@ void SupportedCapabilities::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "max_tx_power"), this->max_tx_power,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2593,9 +2593,9 @@ SystemInfo::SystemInfo(
 SystemInfo::~SystemInfo() = default;
 
 void SystemInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "os_info"), this->os_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2604,7 +2604,7 @@ void SystemInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vpd_info"), this->vpd_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2613,7 +2613,7 @@ void SystemInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "dmi_info"), this->dmi_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2622,7 +2622,7 @@ void SystemInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "psr_info"), this->psr_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2688,9 +2688,9 @@ OsInfo::OsInfo(
 OsInfo::~OsInfo() = default;
 
 void OsInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "code_name"), this->code_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2699,7 +2699,7 @@ void OsInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "marketing_name"), this->marketing_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2708,7 +2708,7 @@ void OsInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "os_version"), this->os_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2717,7 +2717,7 @@ void OsInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "boot_mode"), this->boot_mode,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2726,7 +2726,7 @@ void OsInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "oem_name"), this->oem_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2735,7 +2735,7 @@ void OsInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "efi_platform_size"), this->efi_platform_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2784,9 +2784,9 @@ OsVersion::OsVersion(
 OsVersion::~OsVersion() = default;
 
 void OsVersion::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "release_milestone"), this->release_milestone,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2795,7 +2795,7 @@ void OsVersion::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "build_number"), this->build_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2804,7 +2804,7 @@ void OsVersion::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "branch_number"), this->branch_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2813,7 +2813,7 @@ void OsVersion::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "patch_number"), this->patch_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2822,7 +2822,7 @@ void OsVersion::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "release_channel"), this->release_channel,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2881,9 +2881,9 @@ VpdInfo::VpdInfo(
 VpdInfo::~VpdInfo() = default;
 
 void VpdInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "serial_number"), this->serial_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2892,7 +2892,7 @@ void VpdInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "region"), this->region,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2901,7 +2901,7 @@ void VpdInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "mfg_date"), this->mfg_date,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2910,7 +2910,7 @@ void VpdInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "activate_date"), this->activate_date,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2919,7 +2919,7 @@ void VpdInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "sku_number"), this->sku_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2928,7 +2928,7 @@ void VpdInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "model_name"), this->model_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2937,7 +2937,7 @@ void VpdInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "oem_name"), this->oem_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2993,9 +2993,9 @@ DmiInfo::DmiInfo(
 DmiInfo::~DmiInfo() = default;
 
 void DmiInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bios_vendor"), this->bios_vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3004,7 +3004,7 @@ void DmiInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bios_version"), this->bios_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3013,7 +3013,7 @@ void DmiInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "board_name"), this->board_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3022,7 +3022,7 @@ void DmiInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "board_vendor"), this->board_vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3031,7 +3031,7 @@ void DmiInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "board_version"), this->board_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3040,7 +3040,7 @@ void DmiInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "chassis_vendor"), this->chassis_vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3049,7 +3049,7 @@ void DmiInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "chassis_type"), this->chassis_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3058,7 +3058,7 @@ void DmiInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "product_family"), this->product_family,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3067,7 +3067,7 @@ void DmiInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "product_name"), this->product_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3076,7 +3076,7 @@ void DmiInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "product_version"), this->product_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3085,7 +3085,7 @@ void DmiInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "sys_vendor"), this->sys_vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3123,9 +3123,9 @@ size_t PsrEvent::Hash(size_t seed) const {
 }
 
 void PsrEvent::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3134,7 +3134,7 @@ void PsrEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "time"), this->time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3143,7 +3143,7 @@ void PsrEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3247,9 +3247,9 @@ PsrInfo::PsrInfo(
 PsrInfo::~PsrInfo() = default;
 
 void PsrInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "log_state"), this->log_state,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3258,7 +3258,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "uuid"), this->uuid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3267,7 +3267,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "upid"), this->upid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3276,7 +3276,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "log_start_date"), this->log_start_date,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3285,7 +3285,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "oem_name"), this->oem_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3294,7 +3294,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "oem_make"), this->oem_make,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3303,7 +3303,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "oem_model"), this->oem_model,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3312,7 +3312,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manufacture_country"), this->manufacture_country,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3321,7 +3321,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "oem_data"), this->oem_data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3330,7 +3330,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "uptime_seconds"), this->uptime_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3339,7 +3339,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "s5_counter"), this->s5_counter,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3348,7 +3348,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "s4_counter"), this->s4_counter,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3357,7 +3357,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "s3_counter"), this->s3_counter,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3366,7 +3366,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "warm_reset_counter"), this->warm_reset_counter,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3375,7 +3375,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "events"), this->events,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3384,7 +3384,7 @@ void PsrInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_supported"), this->is_supported,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3416,9 +3416,9 @@ WirelessInterfaceInfo::WirelessInterfaceInfo(
 WirelessInterfaceInfo::~WirelessInterfaceInfo() = default;
 
 void WirelessInterfaceInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "interface_name"), this->interface_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3427,7 +3427,7 @@ void WirelessInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "power_management_on"), this->power_management_on,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3436,7 +3436,7 @@ void WirelessInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "wireless_link_info"), this->wireless_link_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3490,9 +3490,9 @@ size_t WirelessLinkInfo::Hash(size_t seed) const {
 }
 
 void WirelessLinkInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "access_point_address_str"), this->access_point_address_str,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3501,7 +3501,7 @@ void WirelessLinkInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "tx_bit_rate_mbps"), this->tx_bit_rate_mbps,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3510,7 +3510,7 @@ void WirelessLinkInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "rx_bit_rate_mbps"), this->rx_bit_rate_mbps,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3519,7 +3519,7 @@ void WirelessLinkInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "tx_power_dBm"), this->tx_power_dBm,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3528,7 +3528,7 @@ void WirelessLinkInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "encyption_on"), this->encyption_on,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3537,7 +3537,7 @@ void WirelessLinkInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "link_quality"), this->link_quality,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3546,7 +3546,7 @@ void WirelessLinkInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "signal_level_dBm"), this->signal_level_dBm,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3619,9 +3619,9 @@ AudioInfo::AudioInfo(
 AudioInfo::~AudioInfo() = default;
 
 void AudioInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "output_mute"), this->output_mute,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3630,7 +3630,7 @@ void AudioInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_mute"), this->input_mute,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3639,7 +3639,7 @@ void AudioInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "output_volume"), this->output_volume,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3648,7 +3648,7 @@ void AudioInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "output_device_name"), this->output_device_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3657,7 +3657,7 @@ void AudioInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_gain"), this->input_gain,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3666,7 +3666,7 @@ void AudioInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_device_name"), this->input_device_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3675,7 +3675,7 @@ void AudioInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "underruns"), this->underruns,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3684,7 +3684,7 @@ void AudioInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "severe_underruns"), this->severe_underruns,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3693,7 +3693,7 @@ void AudioInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "output_nodes"), this->output_nodes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3702,7 +3702,7 @@ void AudioInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_nodes"), this->input_nodes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3752,9 +3752,9 @@ size_t AudioNodeInfo::Hash(size_t seed) const {
 }
 
 void AudioNodeInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3763,7 +3763,7 @@ void AudioNodeInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3772,7 +3772,7 @@ void AudioNodeInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_name"), this->device_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3781,7 +3781,7 @@ void AudioNodeInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "active"), this->active,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3790,7 +3790,7 @@ void AudioNodeInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "node_volume"), this->node_volume,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3799,7 +3799,7 @@ void AudioNodeInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_node_gain"), this->input_node_gain,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3825,9 +3825,9 @@ AudioHardwareInfo::AudioHardwareInfo(
 AudioHardwareInfo::~AudioHardwareInfo() = default;
 
 void AudioHardwareInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "audio_cards"), this->audio_cards,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3859,9 +3859,9 @@ AudioCard::AudioCard(
 AudioCard::~AudioCard() = default;
 
 void AudioCard::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "alsa_id"), this->alsa_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3870,7 +3870,7 @@ void AudioCard::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bus_device"), this->bus_device,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3879,7 +3879,7 @@ void AudioCard::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "hd_audio_codecs"), this->hd_audio_codecs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3913,9 +3913,9 @@ size_t HDAudioCodec::Hash(size_t seed) const {
 }
 
 void HDAudioCodec::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3924,7 +3924,7 @@ void HDAudioCodec::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "address"), this->address,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4017,9 +4017,9 @@ BootPerformanceInfo::BootPerformanceInfo(
 BootPerformanceInfo::~BootPerformanceInfo() = default;
 
 void BootPerformanceInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "boot_up_seconds"), this->boot_up_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4028,7 +4028,7 @@ void BootPerformanceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "boot_up_timestamp"), this->boot_up_timestamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4037,7 +4037,7 @@ void BootPerformanceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "shutdown_seconds"), this->shutdown_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4046,7 +4046,7 @@ void BootPerformanceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "shutdown_timestamp"), this->shutdown_timestamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4055,7 +4055,7 @@ void BootPerformanceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "shutdown_reason"), this->shutdown_reason,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4064,7 +4064,7 @@ void BootPerformanceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "tpm_initialization_seconds"), this->tpm_initialization_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4073,7 +4073,7 @@ void BootPerformanceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "power_on_to_kernel_seconds"), this->power_on_to_kernel_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4082,7 +4082,7 @@ void BootPerformanceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "kernel_to_pre_startup_seconds"), this->kernel_to_pre_startup_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4091,7 +4091,7 @@ void BootPerformanceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "kernel_to_post_startup_seconds"), this->kernel_to_post_startup_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4100,7 +4100,7 @@ void BootPerformanceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "startup_to_chrome_exec_seconds"), this->startup_to_chrome_exec_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4109,7 +4109,7 @@ void BootPerformanceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "chrome_exec_to_login_seconds"), this->chrome_exec_to_login_seconds,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4144,9 +4144,9 @@ BusDevice::BusDevice(
 BusDevice::~BusDevice() = default;
 
 void BusDevice::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vendor_name"), this->vendor_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4155,7 +4155,7 @@ void BusDevice::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "product_name"), this->product_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4164,7 +4164,7 @@ void BusDevice::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_class"), this->device_class,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4173,7 +4173,7 @@ void BusDevice::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bus_info"), this->bus_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4236,9 +4236,9 @@ PciBusInfo::PciBusInfo(
 PciBusInfo::~PciBusInfo() = default;
 
 void PciBusInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "class_id"), this->class_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4247,7 +4247,7 @@ void PciBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "subclass_id"), this->subclass_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4256,7 +4256,7 @@ void PciBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "prog_if_id"), this->prog_if_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4265,7 +4265,7 @@ void PciBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vendor_id"), this->vendor_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4274,7 +4274,7 @@ void PciBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_id"), this->device_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4283,7 +4283,7 @@ void PciBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "driver"), this->driver,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4292,7 +4292,7 @@ void PciBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "sub_vendor_id"), this->sub_vendor_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4301,7 +4301,7 @@ void PciBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "sub_device_id"), this->sub_device_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4386,9 +4386,9 @@ UsbBusInfo::UsbBusInfo(
 UsbBusInfo::~UsbBusInfo() = default;
 
 void UsbBusInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "class_id"), this->class_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4397,7 +4397,7 @@ void UsbBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "subclass_id"), this->subclass_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4406,7 +4406,7 @@ void UsbBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "protocol_id"), this->protocol_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4415,7 +4415,7 @@ void UsbBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vendor_id"), this->vendor_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4424,7 +4424,7 @@ void UsbBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "product_id"), this->product_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4433,7 +4433,7 @@ void UsbBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "interfaces"), this->interfaces,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4442,7 +4442,7 @@ void UsbBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "fwupd_firmware_version_info"), this->fwupd_firmware_version_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4451,7 +4451,7 @@ void UsbBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4460,7 +4460,7 @@ void UsbBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "spec_speed"), this->spec_speed,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4494,9 +4494,9 @@ size_t FwupdFirmwareVersionInfo::Hash(size_t seed) const {
 }
 
 void FwupdFirmwareVersionInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4505,7 +4505,7 @@ void FwupdFirmwareVersionInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "version_format"), this->version_format,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4543,9 +4543,9 @@ UsbBusInterfaceInfo::UsbBusInterfaceInfo(
 UsbBusInterfaceInfo::~UsbBusInterfaceInfo() = default;
 
 void UsbBusInterfaceInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "interface_number"), this->interface_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4554,7 +4554,7 @@ void UsbBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "class_id"), this->class_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4563,7 +4563,7 @@ void UsbBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "subclass_id"), this->subclass_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4572,7 +4572,7 @@ void UsbBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "protocol_id"), this->protocol_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4581,7 +4581,7 @@ void UsbBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "driver"), this->driver,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4622,9 +4622,9 @@ TpmInfo::TpmInfo(
 TpmInfo::~TpmInfo() = default;
 
 void TpmInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4633,7 +4633,7 @@ void TpmInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4642,7 +4642,7 @@ void TpmInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "dictionary_attack"), this->dictionary_attack,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4651,7 +4651,7 @@ void TpmInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "attestation"), this->attestation,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4660,7 +4660,7 @@ void TpmInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "supported_features"), this->supported_features,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4669,7 +4669,7 @@ void TpmInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "did_vid"), this->did_vid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4713,9 +4713,9 @@ TpmVersion::TpmVersion(
 TpmVersion::~TpmVersion() = default;
 
 void TpmVersion::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "gsc_version"), this->gsc_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4724,7 +4724,7 @@ void TpmVersion::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "family"), this->family,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4733,7 +4733,7 @@ void TpmVersion::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "spec_level"), this->spec_level,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4742,7 +4742,7 @@ void TpmVersion::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manufacturer"), this->manufacturer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4751,7 +4751,7 @@ void TpmVersion::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "tpm_model"), this->tpm_model,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4760,7 +4760,7 @@ void TpmVersion::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "firmware_version"), this->firmware_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4769,7 +4769,7 @@ void TpmVersion::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vendor_specific"), this->vendor_specific,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4807,9 +4807,9 @@ size_t TpmStatus::Hash(size_t seed) const {
 }
 
 void TpmStatus::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "enabled"), this->enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4818,7 +4818,7 @@ void TpmStatus::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "owned"), this->owned,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4827,7 +4827,7 @@ void TpmStatus::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "owner_password_is_present"), this->owner_password_is_present,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4869,9 +4869,9 @@ size_t TpmDictionaryAttack::Hash(size_t seed) const {
 }
 
 void TpmDictionaryAttack::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "counter"), this->counter,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4880,7 +4880,7 @@ void TpmDictionaryAttack::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "threshold"), this->threshold,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4889,7 +4889,7 @@ void TpmDictionaryAttack::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "lockout_in_effect"), this->lockout_in_effect,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4898,7 +4898,7 @@ void TpmDictionaryAttack::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "lockout_seconds_remaining"), this->lockout_seconds_remaining,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4932,9 +4932,9 @@ size_t TpmAttestation::Hash(size_t seed) const {
 }
 
 void TpmAttestation::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "prepared_for_enrollment"), this->prepared_for_enrollment,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4943,7 +4943,7 @@ void TpmAttestation::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "enrolled"), this->enrolled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4985,9 +4985,9 @@ size_t TpmSupportedFeatures::Hash(size_t seed) const {
 }
 
 void TpmSupportedFeatures::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "support_u2f"), this->support_u2f,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4996,7 +4996,7 @@ void TpmSupportedFeatures::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "support_pinweaver"), this->support_pinweaver,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5005,7 +5005,7 @@ void TpmSupportedFeatures::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "support_runtime_selection"), this->support_runtime_selection,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5014,7 +5014,7 @@ void TpmSupportedFeatures::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_allowed"), this->is_allowed,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5043,9 +5043,9 @@ GraphicsInfo::GraphicsInfo(
 GraphicsInfo::~GraphicsInfo() = default;
 
 void GraphicsInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "gles_info"), this->gles_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5054,7 +5054,7 @@ void GraphicsInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "egl_info"), this->egl_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5092,9 +5092,9 @@ GLESInfo::GLESInfo(
 GLESInfo::~GLESInfo() = default;
 
 void GLESInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5103,7 +5103,7 @@ void GLESInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "shading_version"), this->shading_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5112,7 +5112,7 @@ void GLESInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vendor"), this->vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5121,7 +5121,7 @@ void GLESInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "renderer"), this->renderer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5130,7 +5130,7 @@ void GLESInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "extensions"), this->extensions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5165,9 +5165,9 @@ EGLInfo::EGLInfo(
 EGLInfo::~EGLInfo() = default;
 
 void EGLInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "version"), this->version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5176,7 +5176,7 @@ void EGLInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vendor"), this->vendor,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5185,7 +5185,7 @@ void EGLInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "client_api"), this->client_api,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5194,7 +5194,7 @@ void EGLInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "extensions"), this->extensions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5228,9 +5228,9 @@ DisplayInfo::DisplayInfo(
 DisplayInfo::~DisplayInfo() = default;
 
 void DisplayInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "embedded_display"), this->embedded_display,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5239,7 +5239,7 @@ void DisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "external_displays"), this->external_displays,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5350,9 +5350,9 @@ EmbeddedDisplayInfo::EmbeddedDisplayInfo(
 EmbeddedDisplayInfo::~EmbeddedDisplayInfo() = default;
 
 void EmbeddedDisplayInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "privacy_screen_supported"), this->privacy_screen_supported,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5361,7 +5361,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "privacy_screen_enabled"), this->privacy_screen_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5370,7 +5370,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "display_width"), this->display_width,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5379,7 +5379,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "display_height"), this->display_height,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5388,7 +5388,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "resolution_horizontal"), this->resolution_horizontal,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5397,7 +5397,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "resolution_vertical"), this->resolution_vertical,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5406,7 +5406,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "refresh_rate"), this->refresh_rate,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5415,7 +5415,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manufacturer"), this->manufacturer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5424,7 +5424,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "model_id"), this->model_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5433,7 +5433,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "serial_number"), this->serial_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5442,7 +5442,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manufacture_week"), this->manufacture_week,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5451,7 +5451,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manufacture_year"), this->manufacture_year,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5460,7 +5460,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "edid_version"), this->edid_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5469,7 +5469,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_type"), this->input_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5478,7 +5478,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "display_name"), this->display_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5560,9 +5560,9 @@ ExternalDisplayInfo::ExternalDisplayInfo(
 ExternalDisplayInfo::~ExternalDisplayInfo() = default;
 
 void ExternalDisplayInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "display_width"), this->display_width,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5571,7 +5571,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "display_height"), this->display_height,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5580,7 +5580,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "resolution_horizontal"), this->resolution_horizontal,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5589,7 +5589,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "resolution_vertical"), this->resolution_vertical,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5598,7 +5598,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "refresh_rate"), this->refresh_rate,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5607,7 +5607,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manufacturer"), this->manufacturer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5616,7 +5616,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "model_id"), this->model_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5625,7 +5625,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "serial_number"), this->serial_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5634,7 +5634,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manufacture_week"), this->manufacture_week,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5643,7 +5643,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "manufacture_year"), this->manufacture_year,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5652,7 +5652,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "edid_version"), this->edid_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5661,7 +5661,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_type"), this->input_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5670,7 +5670,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "display_name"), this->display_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5728,9 +5728,9 @@ size_t ThunderboltBusInterfaceInfo::Hash(size_t seed) const {
 }
 
 void ThunderboltBusInterfaceInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "vendor_name"), this->vendor_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5739,7 +5739,7 @@ void ThunderboltBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_name"), this->device_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5748,7 +5748,7 @@ void ThunderboltBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_type"), this->device_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5757,7 +5757,7 @@ void ThunderboltBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_uuid"), this->device_uuid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5766,7 +5766,7 @@ void ThunderboltBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "tx_speed_gbs"), this->tx_speed_gbs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5775,7 +5775,7 @@ void ThunderboltBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "rx_speed_gbs"), this->rx_speed_gbs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5784,7 +5784,7 @@ void ThunderboltBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "authorized"), this->authorized,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5793,7 +5793,7 @@ void ThunderboltBusInterfaceInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_fw_version"), this->device_fw_version,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5822,9 +5822,9 @@ ThunderboltBusInfo::ThunderboltBusInfo(
 ThunderboltBusInfo::~ThunderboltBusInfo() = default;
 
 void ThunderboltBusInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "security_level"), this->security_level,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5833,7 +5833,7 @@ void ThunderboltBusInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "thunderbolt_interfaces"), this->thunderbolt_interfaces,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5862,9 +5862,9 @@ InputInfo::InputInfo(
 InputInfo::~InputInfo() = default;
 
 void InputInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "touchpad_library_name"), this->touchpad_library_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5873,7 +5873,7 @@ void InputInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "touchscreen_devices"), this->touchscreen_devices,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5915,9 +5915,9 @@ size_t TouchscreenDevice::Hash(size_t seed) const {
 }
 
 void TouchscreenDevice::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_device"), this->input_device,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5926,7 +5926,7 @@ void TouchscreenDevice::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "touch_points"), this->touch_points,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5935,7 +5935,7 @@ void TouchscreenDevice::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "has_stylus"), this->has_stylus,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5944,7 +5944,7 @@ void TouchscreenDevice::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "has_stylus_garage_switch"), this->has_stylus_garage_switch,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5986,9 +5986,9 @@ size_t InputDevice::Hash(size_t seed) const {
 }
 
 void InputDevice::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5997,7 +5997,7 @@ void InputDevice::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "connection_type"), this->connection_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6006,7 +6006,7 @@ void InputDevice::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "physical_location"), this->physical_location,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6015,7 +6015,7 @@ void InputDevice::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "is_enabled"), this->is_enabled,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6049,9 +6049,9 @@ SensorInfo::SensorInfo(
 SensorInfo::~SensorInfo() = default;
 
 void SensorInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "lid_angle"), this->lid_angle,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6060,7 +6060,7 @@ void SensorInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "sensors"), this->sensors,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6095,9 +6095,9 @@ Sensor::Sensor(
 Sensor::~Sensor() = default;
 
 void Sensor::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6106,7 +6106,7 @@ void Sensor::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_id"), this->device_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6115,7 +6115,7 @@ void Sensor::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "type"), this->type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6124,7 +6124,7 @@ void Sensor::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "location"), this->location,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6428,9 +6428,9 @@ TelemetryInfo::TelemetryInfo(
 TelemetryInfo::~TelemetryInfo() = default;
 
 void TelemetryInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
+    perfetto::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "battery_result"), this->battery_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6439,7 +6439,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "block_device_result"), this->block_device_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6448,7 +6448,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "cpu_result"), this->cpu_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6457,7 +6457,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "timezone_result"), this->timezone_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6466,7 +6466,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "memory_result"), this->memory_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6475,7 +6475,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "backlight_result"), this->backlight_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6484,7 +6484,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "fan_result"), this->fan_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6493,7 +6493,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "stateful_partition_result"), this->stateful_partition_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6502,7 +6502,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bluetooth_result"), this->bluetooth_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6511,7 +6511,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "deprecate_system_result"), this->deprecate_system_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6520,7 +6520,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "network_result"), this->network_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6529,7 +6529,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "audio_result"), this->audio_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6538,7 +6538,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "boot_performance_result"), this->boot_performance_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6547,7 +6547,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "bus_result"), this->bus_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6556,7 +6556,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "system_result"), this->system_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6565,7 +6565,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "tpm_result"), this->tpm_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6574,7 +6574,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "graphics_result"), this->graphics_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6583,7 +6583,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "display_result"), this->display_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6592,7 +6592,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "network_interface_result"), this->network_interface_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6601,7 +6601,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_result"), this->input_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6610,7 +6610,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "audio_hardware_result"), this->audio_hardware_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6619,7 +6619,7 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+  perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "sensor_result"), this->sensor_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

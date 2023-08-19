@@ -271,7 +271,7 @@ class  WritingGuide {
   float height;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -423,7 +423,7 @@ class  HandwritingRecognizerInkRange {
   uint32_t end_point;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -580,7 +580,7 @@ class  HandwritingRecognizerSpec {
   absl::optional<std::string> library_dlc_path;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -728,7 +728,7 @@ class  InkPoint {
   absl::optional<base::TimeDelta> t;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -870,7 +870,7 @@ InkStroke& operator=(const InkStroke&) = delete;
   std::vector<InkPointPtr> points;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1016,7 +1016,7 @@ RecognitionContext& operator=(const RecognitionContext&) = delete;
   absl::optional<std::string> pre_context;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1167,7 +1167,7 @@ HandwritingRecognitionQuery& operator=(const HandwritingRecognitionQuery&) = del
   bool return_segmentation;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1313,7 +1313,7 @@ HandwritingRecognizerSegment& operator=(const HandwritingRecognizerSegment&) = d
   std::vector<HandwritingRecognizerInkRangePtr> ink_ranges;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1455,7 +1455,7 @@ HandwritingRecognizerSegmentation& operator=(const HandwritingRecognizerSegmenta
   std::vector<HandwritingRecognizerSegmentPtr> segments;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1603,7 +1603,7 @@ HandwritingRecognizerCandidate& operator=(const HandwritingRecognizerCandidate&)
   HandwritingRecognizerSegmentationPtr segmentation;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1749,7 +1749,7 @@ HandwritingRecognizerResult& operator=(const HandwritingRecognizerResult&) = del
   std::vector<HandwritingRecognizerCandidatePtr> candidates;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

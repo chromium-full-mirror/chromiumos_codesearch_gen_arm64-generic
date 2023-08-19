@@ -268,7 +268,7 @@ class  GrammarCheckerQuery {
   std::string language;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -415,7 +415,7 @@ class  GrammarCorrectionFragment {
   std::string replacement;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -569,7 +569,7 @@ GrammarCheckerCandidate& operator=(const GrammarCheckerCandidate&) = delete;
   std::vector<GrammarCorrectionFragmentPtr> fragments;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -715,7 +715,7 @@ GrammarCheckerResult& operator=(const GrammarCheckerResult&) = delete;
   std::vector<GrammarCheckerCandidatePtr> candidates;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
